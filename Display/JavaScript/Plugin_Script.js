@@ -56,7 +56,8 @@ async function loadData() {
                         if (!shipsUrl) {
                             console.warn('ships.json not found');
                         } else {
-                            pluginData.ships = await fetch(shipsUrl);
+                            fetchedShipsData = await fetch(shipsUrl);
+                            pluginData.ships = fetchedShipsData.json();
                             loadedSomething = true;
                         }
 
@@ -69,7 +70,7 @@ async function loadData() {
                     console.warn(`${plugin.name}: ships.json not found (${shipsResponse.status})`);
                 }
             
-                const variantsResponse = await fetch(`${baseUrl}/${plugin.name}/ships.json`);
+                const variantsResponse = await fetch(`${baseUrl}/${plugin.name}/variants.json`);
                 if (variantsResponse.ok) {
                     const rawText = await variantsResponse.text();
                     if (rawText.includes("version")) {
@@ -81,12 +82,13 @@ async function loadData() {
                         if (!variantsUrl) {
                             console.warn('variants.json not found');
                         } else {
-                            pluginData.variants = await fetch(variantsUrl);
+                            fetchedVariantsData = await fetch(variantsUrl);
+                            pluginData.variants = fetchedVariantsData.json();
                             loadedSomething = true;
                         }
 
                     } else {
-                        pluginData.ships = await variantsResponse.json();
+                        pluginData.variants = await variantsResponse.json();
                         loadedSomething = true;
                     }
                 } else {
@@ -105,7 +107,8 @@ async function loadData() {
                         if (!outfitsUrl) {
                             console.warn('outfits.json not found');
                         } else {
-                            pluginData.outfits = await fetch(outfitsUrl);
+                            fetchedOutfitData = await fetch(outfitsUrl);
+                            pluginData.outfits = fetchedOutfitData.json();
                             loadedSomething = true;
                         }
 
