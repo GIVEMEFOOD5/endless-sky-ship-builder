@@ -48,10 +48,12 @@ async function loadData() {
                 if (shipsResponse.ok) {
                     const rawText = await shipsResponse.text();
                     if (rawText.includes("version")) {
-                        extractHash = rawText.match(/oid\s+(sha256:[a-f0-9]{64})/i);
+                        hardFindPluginFolder = await fetch(`${apiServerUrl}/repos/${repoUrl}/contents/data/${plugin.name}?ref=main`)
+
+                        extractHash = rawText.match(/oid\s+sha256:([a-f0-9]{64})/i);
                         hash = match[1];
-                        lfsUrl = await fetch(`${apiServerUrl}/repos/${repoUrl}/contents`);
-                        
+                        if (hardFindPluginFolder.name == ships.json)
+                            lfsUrl = await fetch(`${baseUrl}/${plugin.name}/ships.json`);
                     }
                     pluginData.ships = await shipsResponse.json();
                     loadedSomething = true;
