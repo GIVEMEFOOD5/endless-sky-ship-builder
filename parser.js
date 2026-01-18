@@ -6,6 +6,7 @@ const path = require('path');
 class EndlessSkyParser {
   constructor() {
     this.ships = [];
+    this.variants = [];
     this.outfits = [];
     this.pendingVariants = []; // Store variants to process later
   }
@@ -228,7 +229,7 @@ class EndlessSkyParser {
     
     const shipData = { 
       name: baseName
-    };
+    }
     
     shipData.engines = [];
     shipData.reverseEngines = [];
@@ -570,40 +571,46 @@ class EndlessSkyParser {
   }
 
   parseShipVariant(variantInfo) {
-    const { baseName, variantName, startIdx, lines } = variantInfo;
-    
+    const baseName = variantInfo.baseName;
+    const variantName = variantInfo.variantName;
+    const startIdx = variantInfo.startIdx;
+    const lines = variantInfo.lines;
+
     // Find the base ship to clone
-    const baseShip = this.ships.find(s => s.name === baseName);
+    const baseShip = this.ships.find(function(s) { 
+      return s.name === baseName; 
+    });
+
     if (!baseShip) {
-      console.warn(`Warning: Base ship "${baseName}" not found for variant "${variantName}"`);
+      console.warn('Warning: Base ship "' + baseName + '" not found for variant "' + variantName + '"');
       return null;
     }
-    
+
     // Deep clone the base ship
     const variantShip = JSON.parse(JSON.stringify(baseShip));
-    variantShip.name = `${baseName} (${variantName})`;
+    variantShip.name = baseName + ' (' + variantName + ')';
     variantShip.variant = variantName;
     variantShip.baseShip = baseName;
-    
+
     // Parse the variant's modifications
     let i = startIdx + 1;
     let hasSignificantChanges = false;
-    
+
     while (i < lines.length) {
       const currentLine = lines[i];
       if (!currentLine.trim()) {
         i++;
         continue;
       }
-      
+
       const indent = currentLine.length - currentLine.replace(/^\t+/, '').length;
-      
+
       if (indent === 0) {
         break;
       }
-      
+
       const stripped = currentLine.trim();
-      
+
       if (indent === 1) {
         // Skip outfits section - variants that only change outfits are not significant
         if (stripped === 'outfits') {
@@ -852,25 +859,25 @@ class EndlessSkyParser {
     for (const variantInfo of this.pendingVariants) {
       const variantShip = this.parseShipVariant(variantInfo);
       if (variantShip) {
-        this.ships.push(variantShip);
+        this.variants.push(variantShip);
         console.log(`  Added variant: ${variantShip.name}`);
       } else {
         console.log(`  Skipped variant (outfit-only): ${variantInfo.baseName} (${variantInfo.variantName})`);
       }
     }
-  }
+  } 
 
   parseOutfit(lines, startIdx) {
-    const line = lines[startIdx].trim();
-    const match = line.match(/^outfit\s+"([^"]+)"/);
+    var line = lines[startIdx].trim();
+    var match = line.match(/^outfit\s+"([^"]+)"/);
     
     if (!match) {
       return [null, startIdx + 1];
     }
     
-    const outfitName = match[1];
-    const outfitData = { name: outfitName };
-    let descriptionLines = [];
+    var outfitName = match[1];
+    var outfitData = { name: outfitName };
+    var descriptionLines = [];
     
     let i = startIdx + 1;
     while (i < lines.length) {
@@ -900,7 +907,7 @@ class EndlessSkyParser {
           i++;
           continue;
         }
-    
+        
         // Handle unquoted single-word attributes like: category "Systems"
         const unquotedMatch = stripped.match(/^(\S+)\s+"([^"]+)"$/);
         if (unquotedMatch) {
@@ -909,7 +916,7 @@ class EndlessSkyParser {
           i++;
           continue;
         }
-      
+        
         // Handle unquoted key-value pairs like: mass 40
         const simpleMatch = stripped.match(/^(\S+)\s+(.+)$/);
         if (simpleMatch && !stripped.startsWith('description')) {
@@ -920,7 +927,7 @@ class EndlessSkyParser {
           i++;
           continue;
         }
-      
+        
         // Handle description keyword (can use backticks or quotes)
         if (stripped === 'description' || stripped.startsWith('description ')) {
           // Check if description is on the same line (single line)
@@ -930,7 +937,7 @@ class EndlessSkyParser {
             i++;
             continue;
           }
-        
+          
           // Multi-line description starting with backtick or quote on same line
           const startMatch = stripped.match(/description\s+[`"](.*)$/);
           if (startMatch) {
@@ -946,12 +953,12 @@ class EndlessSkyParser {
               descriptionLines.push(startText);
             }
             i++;
-          
+            
             // Continue reading until we find the closing backtick/quote
             while (i < lines.length) {
               const descLine = lines[i];
               const descStripped = descLine.trim();
-            
+              
               // Check if this line ends the description
               if (descStripped.endsWith('`') || descStripped.endsWith('"')) {
                 const finalText = descStripped.slice(0, -1);
@@ -961,13 +968,13 @@ class EndlessSkyParser {
                 i++;
                 break;
               }
-            
+              
               // Check if we've outdented (shouldn't happen in proper format)
               const descIndent = descLine.length - descLine.replace(/^\t+/, '').length;
               if (descIndent <= indent && descLine.trim()) {
                 break;
               }
-            
+              
               if (descStripped) {
                 descriptionLines.push(descStripped);
               }
@@ -975,7 +982,7 @@ class EndlessSkyParser {
             }
             continue;
           }
-        
+          
           // Old format: indented description lines
           i++;
           while (i < lines.length) {
@@ -992,7 +999,7 @@ class EndlessSkyParser {
           }
           continue;
         }
-      
+        
         // Handle nested blocks (like weapon stats)
         if (i + 1 < lines.length) {
           const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
@@ -1006,28 +1013,29 @@ class EndlessSkyParser {
             continue;
           }
         }
-      
+        
         // Single-word attributes (like series name)
         if (!stripped.includes(' ') && !stripped.includes('"')) {
           // This might be description text, collect it
           descriptionLines.push(stripped);
         }
       }
-    
+      
       i++;
     }
-
+    
     // Combine description lines
     if (descriptionLines.length > 0) {
       outfitData.description = descriptionLines.join(' ');
     }
-
+    
     return [outfitData, i];
   }
 
   parseFileContent(content) {
     const lines = content.split('\n');
     let i = 0;
+    
     while (i < lines.length) {
       const line = lines[i].trim();
       
@@ -1059,41 +1067,44 @@ class EndlessSkyParser {
         i++;
       }
     }
-  
+    
     // Process variants after all base ships are parsed
     this.processVariants();
   }
 
   async parseRepository(repoUrl) {
     this.ships = [];
+    this.variants = [];
     this.outfits = [];
+    
     const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
     if (!match) {
       throw new Error(`Invalid GitHub URL: ${repoUrl}`);
     }
-
+    
     const owner = match[1];
     let repo = match[2].replace('.git', '');
-
+    
     let branch = 'master';
     const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
     if (branchMatch) {
       branch = branchMatch[1];
     }
-
+    
     console.log(`Parsing repository: ${owner}/${repo} (branch: ${branch})`);
-
+    
     const files = await this.fetchGitHubRepo(owner, repo, branch);
-
+    
     console.log(`Parsing ${files.length} files...`);
     for (const file of files) {
       this.parseFileContent(file.content);
     }
-
-    console.log(`Found ${this.ships.length} ships and ${this.outfits.length} outfits`);
-
+    
+    console.log(`Found ${this.ships.length} ships, ${this.variants.length} variants, and ${this.outfits.length} outfits`);
+    
     return {
       ships: this.ships,
+      variants: this.variants,
       outfits: this.outfits
     };
   }
@@ -1104,41 +1115,48 @@ async function main() {
     const configPath = path.join(process.cwd(), 'plugins.json');
     const configData = await fs.readFile(configPath, 'utf8');
     const config = JSON.parse(configData);
+    
     console.log(`Found ${config.plugins.length} plugins to process\n`);
-
+    
     for (const plugin of config.plugins) {
       console.log(`\n${'='.repeat(60)}`);
       console.log(`Processing plugin: ${plugin.name}`);
       console.log(`${'='.repeat(60)}`);
-
+      
       const parser = new EndlessSkyParser();
       const data = await parser.parseRepository(plugin.repository);
-
+      
       const pluginDir = path.join(process.cwd(), 'data', plugin.name);
       await fs.mkdir(pluginDir, { recursive: true });
-
+      
       const shipsPath = path.join(pluginDir, 'ships.json');
       await fs.writeFile(shipsPath, JSON.stringify(data.ships, null, 2));
       console.log(`✓ Saved ${data.ships.length} ships to ${shipsPath}`);
-
+      
+      const variantsPath = path.join(pluginDir, 'variants.json');
+      await fs.writeFile(variantsPath, JSON.stringify(data.variants, null, 2));
+      console.log(`✓ Saved ${data.variants.length} variants to ${variantsPath}`);
+      
       const outfitsPath = path.join(pluginDir, 'outfits.json');
       await fs.writeFile(outfitsPath, JSON.stringify(data.outfits, null, 2));
       console.log(`✓ Saved ${data.outfits.length} outfits to ${outfitsPath}`);
-
+      
       const combinedPath = path.join(pluginDir, 'complete.json');
       await fs.writeFile(combinedPath, JSON.stringify({
         plugin: plugin.name,
         repository: plugin.repository,
         ships: data.ships,
+        variants: data.variants,
         outfits: data.outfits,
         parsedAt: new Date().toISOString()
       }, null, 2));
       console.log(`✓ Saved complete data to ${combinedPath}`);
     }
-
+    
     console.log(`\n${'='.repeat(60)}`);
     console.log('✓ All plugins processed successfully!');
     console.log(`${'='.repeat(60)}\n`);
+    
   } catch (error) {
     console.error('Error:', error.message);
     console.error(error.stack);
@@ -1149,5 +1167,5 @@ async function main() {
 if (require.main === module) {
   main();
 }
-module.exports = EndlessSkyParser;
 
+module.exports = EndlessSkyParser;
