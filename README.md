@@ -1,6 +1,6 @@
 # Endless Sky Data Parser
 
-https://givemefood5.github.io/endless-Sky-ship-builder/
+https://givemefood5.github.io/endless-sky-ship-builder/
 
 Automatically parses ship and outfit data from Endless Sky GitHub repositories.
 
