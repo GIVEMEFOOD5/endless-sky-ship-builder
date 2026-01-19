@@ -1,3 +1,5 @@
+import { getSelectedCategories, populateFilters } from 'CheckBoxFilter.js'
+
 let allData = {};
 let currentPlugin = null;
 let currentTab = 'ships';
@@ -232,10 +234,13 @@ function renderCards() {
     let items = [];
     if (currentTab === 'ships') {
         items = data.ships || [];
+        populateFilters(data.ships)
     } else if (currentTab === 'variants') {
         items = data.variants || [];
+        populateFilters(data.variants)
     } else {
         items = data.outfits || [];
+        populateFilters(data.outfits)
     }
 
     filteredData = items;
@@ -244,11 +249,21 @@ function renderCards() {
 
 function filterItems() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const selectedCategories = getSelectedCategories();
     const container = document.getElementById('cardsContainer');
 
-    const filtered = filteredData.filter(item => 
-        item.name && item.name.toLowerCase().includes(searchTerm)
-    );
+    const filtered = filteredData.filter(item => {
+        // Check if item matches search term
+        const matchesSearch = item.name && item.name.toLowerCase().includes(searchTerm);
+        
+        // Check if item matches selected categories
+        const matchesCategory = selectedCategories.length === 0 || 
+                                !item.category || 
+                                selectedCategories.includes(item.category);
+        
+        // Item must match both search and category
+        return matchesSearch && matchesCategory;
+    });
 
     container.innerHTML = '';
 
