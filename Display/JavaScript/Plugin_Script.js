@@ -1,4 +1,4 @@
-import { getSelectedCategories, populateFilters } from '../Display/JavaScript/CheckBoxFilter.js'
+import { getSelectedCategories, populateFilters } from '../JavaScript/CheckBoxFilter.js'
 
 let allData = {};
 let currentPlugin = null;
