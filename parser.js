@@ -109,7 +109,7 @@ class EndlessSkyParser {
           continue;
         }
         
-        // Handle quoted key-value: "cost" 27690000
+        // Handle quoted key-value with double quotes: "cost" 27690000
         if (stripped.includes('"')) {
           const match = stripped.match(/"([^"]+)"(?:\s+(.*))?/);
           if (match) {
@@ -137,9 +137,37 @@ class EndlessSkyParser {
           }
         }
         
+        // Handle backtick key-value: `cost` 27690000
+        if (stripped.includes('`')) {
+          const match = stripped.match(/`([^`]+)`(?:\s+(.*))?/);
+          if (match) {
+            const key = match[1];
+            const valueStr = (match[2] || '').trim();
+            
+            let value;
+            if (!valueStr) {
+              value = true;
+            } else {
+              const num = parseFloat(valueStr);
+              value = !isNaN(num) ? num : valueStr;
+            }
+            
+            if (key in data) {
+              if (!Array.isArray(data[key])) {
+                data[key] = [data[key]];
+              }
+              data[key].push(value);
+            } else {
+              data[key] = value;
+            }
+            i++;
+            continue;
+          }
+        }
+        
         // Check for unquoted key-value pairs (like: cost 27690000)
         const simpleMatch = stripped.match(/^(\S+)\s+(.+)$/);
-        if (simpleMatch && !stripped.includes('"')) {
+        if (simpleMatch && !stripped.includes('"') && !stripped.includes('`')) {
           const key = simpleMatch[1];
           const valueStr = simpleMatch[2].trim();
           const num = parseFloat(valueStr);
@@ -152,7 +180,7 @@ class EndlessSkyParser {
         if (i + 1 < lines.length) {
           const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
           if (nextIndent > currentIndent) {
-            const key = stripped.replace(/"/g, '');
+            const key = stripped.replace(/"/g, '').replace(/`/g, '');
             const result = this.parseIndentedBlock(lines, i + 1);
             const nestedData = result[0];
             const nextI = result[1];
@@ -191,7 +219,11 @@ class EndlessSkyParser {
 
   parseShip(lines, startIdx) {
     const line = lines[startIdx].trim();
-    const match = line.match(/^ship\s+"([^"]+)"(?:\s+"([^"]+)")?/);
+    // Match ship names with either double quotes or backticks as delimiters
+    // Backticks allow literal quotes inside: ship `Kestrel "Dagger"`
+    const matchQuotes = line.match(/^ship\s+"([^"]+)"(?:\s+"([^"]+)")?/);
+    const matchBackticks = line.match(/^ship\s+`([^`]+)`(?:\s+`([^`]+)`)?/);
+    const match = matchBackticks || matchQuotes;
     
     if (!match) {
       return [null, startIdx + 1];
@@ -272,8 +304,8 @@ class EndlessSkyParser {
         }
         
         // Handle reverse engine entries
-        if (stripped.startsWith('"reverse engine"') || stripped.startsWith('reverse engine')) {
-          const parts = stripped.replace(/"/g, '').substring(14).trim().split(/\s+/);
+        if (stripped.startsWith('"reverse engine"') || stripped.startsWith('reverse engine') || stripped.startsWith('`reverse engine`')) {
+          const parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(14).trim().split(/\s+/);
           const reverseEngineData = {
             x: parseFloat(parts[0]),
             y: parseFloat(parts[1])
@@ -310,8 +342,8 @@ class EndlessSkyParser {
         }
         
         // Handle steering engine entries
-        if (stripped.startsWith('"steering engine"') || stripped.startsWith('steering engine')) {
-          const parts = stripped.replace(/"/g, '').substring(15).trim().split(/\s+/);
+        if (stripped.startsWith('"steering engine"') || stripped.startsWith('steering engine') || stripped.startsWith('`steering engine`')) {
+          const parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(15).trim().split(/\s+/);
           const steeringEngineData = {
             x: parseFloat(parts[0]),
             y: parseFloat(parts[1])
@@ -375,9 +407,11 @@ class EndlessSkyParser {
           continue;
         }
         
-        // Handle bay entries
+        // Handle bay entries (with backticks or quotes)
         if (stripped.startsWith('bay ')) {
-          const bayMatch = stripped.match(/bay\s+"([^"]+)"\s+([^\s]+)\s+([^\s]+)(?:\s+(.+))?/);
+          const bayMatchQuotes = stripped.match(/bay\s+"([^"]+)"\s+([^\s]+)\s+([^\s]+)(?:\s+(.+))?/);
+          const bayMatchBackticks = stripped.match(/bay\s+`([^`]+)`\s+([^\s]+)\s+([^\s]+)(?:\s+(.+))?/);
+          const bayMatch = bayMatchBackticks || bayMatchQuotes;
           if (bayMatch) {
             const bayData = {
               type: bayMatch[1],
@@ -400,7 +434,9 @@ class EndlessSkyParser {
                     break;
                   }
                   const bayLineStripped = bayLine.trim();
-                  const effectMatch = bayLineStripped.match(/"([^"]+)"\s+"([^"]+)"/);
+                  const effectMatchQuotes = bayLineStripped.match(/"([^"]+)"\s+"([^"]+)"/);
+                  const effectMatchBackticks = bayLineStripped.match(/`([^`]+)`\s+`([^`]+)`/);
+                  const effectMatch = effectMatchBackticks || effectMatchQuotes;
                   if (effectMatch) {
                     bayData[effectMatch[1]] = effectMatch[2];
                   }
@@ -533,10 +569,24 @@ class EndlessSkyParser {
             
             shipData[key] = value || true;
           }
+        } else if (stripped.includes('`')) {
+          const matchResult = stripped.match(/`([^`]+)`(?:\s+(.*))?/);
+          if (matchResult) {
+            const key = matchResult[1];
+            const value = (matchResult[2] || '').trim();
+            
+            // Skip sprite and thumbnail entries
+            if (key.startsWith('ship/') || key.startsWith('thumbnail/')) {
+              i++;
+              continue;
+            }
+            
+            shipData[key] = value || true;
+          }
         } else if (i + 1 < lines.length) {
           const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
           if (nextIndent > indent) {
-            const key = stripped.replace(/"/g, '');
+            const key = stripped.replace(/"/g, '').replace(/`/g, '');
             
             // Skip certain known blocks we don't want
             if (key === 'leak' || key === 'explode' || key === 'final explode') {
@@ -576,7 +626,7 @@ class EndlessSkyParser {
     var startIdx = variantInfo.startIdx;
     var lines = variantInfo.lines;
     
-    // Find the base ship to clone
+    // Find the base ship to clone (handle both quote styles)
     var baseShip = this.ships.find(function(s) { 
       return s.name === baseName; 
     });
@@ -642,9 +692,11 @@ class EndlessSkyParser {
           continue;
         }
         
-        // Handle sprite changes
+        // Handle sprite changes (with backticks or quotes)
         if (stripped.startsWith('sprite ')) {
-          const spriteMatch = stripped.match(/sprite\s+"([^"]+)"/);
+          const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
+          const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
+          const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
           if (spriteMatch) {
             variantShip.sprite = spriteMatch[1];
             hasSignificantChanges = true;
@@ -653,9 +705,11 @@ class EndlessSkyParser {
           continue;
         }
         
-        // Handle thumbnail changes
+        // Handle thumbnail changes (with backticks or quotes)
         if (stripped.startsWith('thumbnail ')) {
-          const thumbMatch = stripped.match(/thumbnail\s+"([^"]+)"/);
+          const thumbMatchQuotes = stripped.match(/thumbnail\s+"([^"]+)"/);
+          const thumbMatchBackticks = stripped.match(/thumbnail\s+`([^`]+)`/);
+          const thumbMatch = thumbMatchBackticks || thumbMatchQuotes;
           if (thumbMatch) {
             variantShip.thumbnail = thumbMatch[1];
             hasSignificantChanges = true;
@@ -679,8 +733,10 @@ class EndlessSkyParser {
             }
             const attrStripped = attrLine.trim();
             
-            // Parse attribute modifications
-            const quotedMatch = attrStripped.match(/"([^"]+)"\s+(.+)/);
+            // Parse attribute modifications (with backticks or quotes)
+            const quotedMatchQuotes = attrStripped.match(/"([^"]+)"\s+(.+)/);
+            const quotedMatchBackticks = attrStripped.match(/`([^`]+)`\s+(.+)/);
+            const quotedMatch = quotedMatchBackticks || quotedMatchQuotes;
             if (quotedMatch) {
               const key = quotedMatch[1];
               const valueStr = quotedMatch[2].trim();
@@ -717,10 +773,10 @@ class EndlessSkyParser {
         }
         
         // Handle reverse engine additions
-        if (stripped.startsWith('"reverse engine"') || stripped.startsWith('reverse engine')) {
+        if (stripped.startsWith('"reverse engine"') || stripped.startsWith('reverse engine') || stripped.startsWith('`reverse engine`')) {
           hasSignificantChanges = true;
           replaceReverseEngines = true;
-          var parts = stripped.replace(/"/g, '').substring(14).trim().split(/\s+/);
+          var parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(14).trim().split(/\s+/);
           var reverseEngineData = {
             x: parseFloat(parts[0]),
             y: parseFloat(parts[1])
@@ -756,10 +812,10 @@ class EndlessSkyParser {
         }
         
         // Handle steering engine additions
-        if (stripped.startsWith('"steering engine"') || stripped.startsWith('steering engine')) {
+        if (stripped.startsWith('"steering engine"') || stripped.startsWith('steering engine') || stripped.startsWith('`steering engine`')) {
           hasSignificantChanges = true;
           replaceSteeringEngines = true;
-          var parts = stripped.replace(/"/g, '').substring(15).trim().split(/\s+/);
+          var parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(15).trim().split(/\s+/);
           var steeringEngineData = {
             x: parseFloat(parts[0]),
             y: parseFloat(parts[1])
@@ -909,13 +965,16 @@ class EndlessSkyParser {
     }
   }
 
-  parseOutfit(lines, startIdx) {
-    var line = lines[startIdx].trim();
-    var match = line.match(/^outfit\s+"([^"]+)"/);
-  
-    if (!match) {
-      return [null, startIdx + 1];
-    }
+parseOutfit(lines, startIdx) {
+  var line = lines[startIdx].trim();
+  // Match outfit names with either double quotes or backticks as delimiters
+  var matchQuotes = line.match(/^outfit\s+"([^"]+)"/);
+  var matchBackticks = line.match(/^outfit\s+`([^`]+)`/);
+  var match = matchBackticks || matchQuotes;
+
+  if (!match) {
+    return [null, startIdx + 1];
+  } 
     
     const outfitName = match[1];
     const outfitData = { name: outfitName };
