@@ -1,5 +1,3 @@
-import { getSelectedCategories, populateFilters } from './CheckBoxFilter.js'
-
 let allData = {};
 let currentPlugin = null;
 let currentTab = 'ships';
