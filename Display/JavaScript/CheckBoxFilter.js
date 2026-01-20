@@ -48,7 +48,7 @@ function populateFilters(data) {
         checkbox.type = 'checkbox';
         checkbox.id = `filter-${category}`;
         checkbox.value = category;
-        checkbox.checked = true;
+        checkbox.checked = false;
         checkbox.onchange = filterItems;
                 
         const label = document.createElement('label');
@@ -79,7 +79,7 @@ function getSelectedCategories() {
 function clearFilters() {
     const checkboxes = document.querySelectorAll('#filterOptions input[type="checkbox"]');
     checkboxes.forEach(cb => {
-        cb.checked = true;
+        cb.checked = false;
     });
     filterItems();
 }
