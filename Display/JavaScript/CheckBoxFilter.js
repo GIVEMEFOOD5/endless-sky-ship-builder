@@ -5,15 +5,20 @@ function extractCategories(data) {
     // Assuming data is an array of objects
     if (Array.isArray(data)) {
         data.forEach(item => {
-            if (item.category) {
-                categories.add(item.category);
+            // Check both item.category and item.attributes.category
+            const category = item.category || item.attributes?.category;
+            if (category) {
+                categories.add(category);
             }
         });
     } else if (typeof data === 'object') {
         // If data is an object, check all values
         Object.values(data).forEach(item => {
-            if (item && item.category) {
-                categories.add(item.category);
+            if (item) {
+                const category = item.category || item.attributes?.category;
+                if (category) {
+                    categories.add(category);
+                }
             }
         });
     }
@@ -38,7 +43,7 @@ function populateFilters(data) {
     categories.forEach(category => {
         const optionDiv = document.createElement('div');
         optionDiv.className = 'filter-option';
-
+        
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = `filter-${category}`;
@@ -78,3 +83,8 @@ function clearFilters() {
     });
     filterItems();
 }
+
+// Make functions globally accessible for HTML onclick attributes
+window.clearFilters = clearFilters;
+window.populateFilters = populateFilters;
+window.getSelectedCategories = getSelectedCategories;
