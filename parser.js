@@ -159,6 +159,10 @@ class EndlessSkyParser {
     if (descriptionLines.length > 0) {
       data.description = descriptionLines.join(' ');
     }
+
+    if (outfitData.description.length <= 0) {
+      return [null, i]
+    }
     
     return [data, i];
   }
@@ -435,6 +439,10 @@ class EndlessSkyParser {
     
     if (descriptionLines.length > 0) {
       shipData.description = descriptionLines.join(' ');
+    }
+
+    if (shipData.description.length <= 0) {
+      return [null, i]
     }
     
     return [shipData, i];
@@ -890,6 +898,10 @@ class EndlessSkyParser {
     // Combine description lines
     if (descriptionLines.length > 0) {
       outfitData.description = descriptionLines.join(' ');
+    }
+
+    if (outfitData.description.length <= 0) {
+      return [null, i]
     }
     
     return [outfitData, i];
