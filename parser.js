@@ -560,7 +560,7 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith(/engine\s+(-?\d+)/)) {
+        if (stripped.match(/engine\s+(-?\d+)/)) {
           hasSignificantChanges = true;
           replaceEngines = true;
           const parts = stripped.substring(7).trim().split(/\s+/);
@@ -571,7 +571,7 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith(/reverse engine\s+(-?\d+)/)) {
+        if (stripped.match(/reverse engine\s+(-?\d+)/)) {
           hasSignificantChanges = true;
           replaceReverseEngines = true;
           const parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(14).trim().split(/\s+/);
@@ -600,7 +600,7 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith(/steering engine\s+(-?\d+)/)) {
+        if (stripped.match(/steering engine\s+(-?\d+)/)) {
           hasSignificantChanges = true;
           replaceSteeringEngines = true;
           const parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(15).trim().split(/\s+/);
@@ -629,7 +629,7 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith(/gun\s+(-?\d+)/)) {
+        if (stripped.match(/gun\s+(-?\d+)/)) {
           hasSignificantChanges = true;
           replaceGuns = true;
           const parts = stripped.substring(4).trim().split(/\s+/);
@@ -638,7 +638,7 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith(/turret\s+(-?\d+)/)) {
+        if (stripped.match(/turret\s+(-?\d+)/)) {
           hasSignificantChanges = true;
           replaceTurrets = true;
           const parts = stripped.substring(7).trim().split(/\s+/);
@@ -647,7 +647,7 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith(/bay\s+(-?\d+)/)) {
+        if (stripped.match(/bay\s+(-?\d+)/)) {
           hasSignificantChanges = true;
           replaceBays = true;
           const bayMatchQuotes = stripped.match(/bay\s+"([^"]+)"\s+([^\s]+)\s+([^\s]+)(?:\s+(.+))?/);
