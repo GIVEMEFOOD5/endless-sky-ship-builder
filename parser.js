@@ -405,7 +405,6 @@ class EndlessSkyParser {
           if (matchResult) {
             const key = matchResult[1];
             const value = (matchResult[2] || '').trim();
-            if (key.startsWith('ship/') || key.startsWith('thumbnail/')) { i++; continue; }
             shipData[key] = value || true;
           }
         } else if (stripped.includes('`')) {
@@ -413,7 +412,6 @@ class EndlessSkyParser {
           if (matchResult) {
             const key = matchResult[1];
             const value = (matchResult[2] || '').trim();
-            if (key.startsWith('ship/') || key.startsWith('thumbnail/')) { i++; continue; }
             shipData[key] = value || true;
           }
         } else if (i + 1 < lines.length) {
