@@ -88,7 +88,7 @@ class EndlessSkyParser {
           const match = stripped.match(/"([^"]+)"(?:\s+(.*))?/);
           if (match) {
             const key = match[1];
-            const valueStr = (match[2] || '').trim();
+            const valueStr = (match[2] || '').trim().replace(/^["'`]|["'`]$/g, '');
             let value = !valueStr ? true : (isNaN(parseFloat(valueStr)) ? valueStr : parseFloat(valueStr));
             
             if (key in data) {
@@ -106,7 +106,7 @@ class EndlessSkyParser {
           const match = stripped.match(/`([^`]+)`(?:\s+(.*))?/);
           if (match) {
             const key = match[1];
-            const valueStr = (match[2] || '').trim();
+            const valueStr = (match[2] || '').trim().replace(/^["'`]|["'`]$/g, '');
             let value = !valueStr ? true : (isNaN(parseFloat(valueStr)) ? valueStr : parseFloat(valueStr));
             
             if (key in data) {
@@ -435,10 +435,6 @@ class EndlessSkyParser {
     
     if (descriptionLines.length > 0) {
       shipData.description = descriptionLines.join(' ');
-    }
-
-    if (shipData.attributes.category.match(/"([^"]*)"/)) {
-      shipData.attributes.category = match;
     }
 
     if (shipData.description == null || shipData.description == "") {
