@@ -399,6 +399,30 @@ class EndlessSkyParser {
           }
           continue;
         }
+
+        // Handle sprite
+        if (stripped.startsWith('sprite ')) {
+          const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
+          const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
+          const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
+          if (spriteMatch) {
+            shipData.sprite = spriteMatch[1];
+          }
+          i++;
+          continue;
+        }
+        
+        // Handle thumbnail
+        if (stripped.startsWith('thumbnail ')) {
+          const thumbMatchQuotes = stripped.match(/thumbnail\s+"([^"]+)"/);
+          const thumbMatchBackticks = stripped.match(/thumbnail\s+`([^`]+)`/);
+          const thumbMatch = thumbMatchBackticks || thumbMatchQuotes;
+          if (thumbMatch) {
+            shipData.thumbnail = thumbMatch[1];
+          }
+          i++;
+          continue;
+        }
         
         if (stripped.includes('"')) {
           const matchResult = stripped.match(/"([^"]+)"(?:\s+(.*))?/);
@@ -522,7 +546,7 @@ class EndlessSkyParser {
           const thumbMatchQuotes = stripped.match(/thumbnail\s+"([^"]+)"/);
           const thumbMatchBackticks = stripped.match(/thumbnail\s+`([^`]+)`/);
           const thumbMatch = thumbMatchBackticks || thumbMatchQuotes;
-          if (thumbMatch && thumbMatch[1] !== baseShip.thumbMatch) {
+          if (thumbMatch && thumbMatch[1] !== baseShip.thumbnail) {
             variantShip.thumbnail = thumbMatch[1];
             hasSignificantChanges = true;
           }
