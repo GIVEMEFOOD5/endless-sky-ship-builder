@@ -437,6 +437,10 @@ class EndlessSkyParser {
       shipData.description = descriptionLines.join(' ');
     }
 
+    if (shipData.attributes.category.match(/"([^"]*)"/)) {
+      shipData.attributes.category = match;
+    }
+
     if (shipData.description == null || shipData.description == "") {
       return [null, i];
     }
