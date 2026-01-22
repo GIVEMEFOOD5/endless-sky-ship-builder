@@ -472,13 +472,16 @@ class EndlessSkyParser {
       const firstIndent = firstLine.length - firstLine.replace(/^\t+/, '').length;
       if (firstIndent === 1) {
         const firstStripped = firstLine.trim();
+
+        const matchShipDisplayName = baseShip.sprite.match(/sprite\s+(?:"([^"]+)"|`([^`]+)`|([^\s]+))/);
+
         // "display name" can use quotes or backticks, value can also use quotes or backticks
         const displayMatch1 = firstStripped.match(/^"display name"\s+"([^"]+)"$/);
         const displayMatch2 = firstStripped.match(/^"display name"\s+`(.+)`$/);
         const displayMatch3 = firstStripped.match(/^`display name`\s+"([^"]+)"$/);
         const displayMatch4 = firstStripped.match(/^`display name`\s+`(.+)`$/);
         const displayMatch = displayMatch1 || displayMatch2 || displayMatch3 || displayMatch4;
-        if (displayMatch) {
+        if (displayMatch && displayMatch != matchShipDisplayName) {
           variantShip.displayName = displayMatch[1];
           hasSignificantChanges = true;
           i++; // Move past the display name line
@@ -507,11 +510,13 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith('sprite ') && baseShip.sprite.trim() != stripped) {
+        const matchShipSprite = baseShip.sprite.match(/sprite\s+(?:"([^"]+)"|`([^`]+)`|([^\s]+))/);
+
+        if (stripped.startsWith('sprite ')) {
           const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
           const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
           const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
-          if (spriteMatch) {
+          if (spriteMatch && spriteMatch != matchShipSprite) {
             variantShip.sprite = spriteMatch[1];
             hasSignificantChanges = true;
           }
@@ -519,11 +524,13 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith('thumbnail ') && baseShip.thumbnail.trim() != stripped) {
+        const matchShipThumbnail = baseShip.sprite.match(/thumbnail\s+(?:"([^"]+)"|`([^`]+)`|([^\s]+))/);
+        
+        if (stripped.startsWith('thumbnail ')) {
           const thumbMatchQuotes = stripped.match(/thumbnail\s+"([^"]+)"/);
           const thumbMatchBackticks = stripped.match(/thumbnail\s+`([^`]+)`/);
           const thumbMatch = thumbMatchBackticks || thumbMatchQuotes;
-          if (thumbMatch) {
+          if (thumbMatch && thumbMatch != matchShipThumbnail) {
             variantShip.thumbnail = thumbMatch[1];
             hasSignificantChanges = true;
           }
