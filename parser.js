@@ -507,7 +507,7 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith('sprite ')) {
+        if (stripped.startsWith('sprite ') && baseShip.sprite.trim() != stripped) {
           const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
           const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
           const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
@@ -519,7 +519,7 @@ class EndlessSkyParser {
           continue;
         }
         
-        if (stripped.startsWith('thumbnail ')) {
+        if (stripped.startsWith('thumbnail ') && baseShip.thumbnail.trim() != stripped) {
           const thumbMatchQuotes = stripped.match(/thumbnail\s+"([^"]+)"/);
           const thumbMatchBackticks = stripped.match(/thumbnail\s+`([^`]+)`/);
           const thumbMatch = thumbMatchBackticks || thumbMatchQuotes;
