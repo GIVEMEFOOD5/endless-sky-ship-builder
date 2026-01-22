@@ -473,15 +473,13 @@ class EndlessSkyParser {
       if (firstIndent === 1) {
         const firstStripped = firstLine.trim();
 
-        const matchShipDisplayName = baseShip.sprite.match(/sprite\s+(?:"([^"]+)"|`([^`]+)`|([^\s]+))/);
-
         // "display name" can use quotes or backticks, value can also use quotes or backticks
         const displayMatch1 = firstStripped.match(/^"display name"\s+"([^"]+)"$/);
         const displayMatch2 = firstStripped.match(/^"display name"\s+`(.+)`$/);
         const displayMatch3 = firstStripped.match(/^`display name`\s+"([^"]+)"$/);
         const displayMatch4 = firstStripped.match(/^`display name`\s+`(.+)`$/);
         const displayMatch = displayMatch1 || displayMatch2 || displayMatch3 || displayMatch4;
-        if (displayMatch && displayMatch != matchShipDisplayName) {
+        if (displayMatch) {
           variantShip.displayName = displayMatch[1];
           hasSignificantChanges = true;
           i++; // Move past the display name line
@@ -516,7 +514,7 @@ class EndlessSkyParser {
           const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
           const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
           const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
-          if (spriteMatch && spriteMatch != matchShipSprite) {
+          if (spriteMatch && spriteMatch[1] !== baseShip.sprite) {
             variantShip.sprite = spriteMatch[1];
             hasSignificantChanges = true;
           }
@@ -530,7 +528,7 @@ class EndlessSkyParser {
           const thumbMatchQuotes = stripped.match(/thumbnail\s+"([^"]+)"/);
           const thumbMatchBackticks = stripped.match(/thumbnail\s+`([^`]+)`/);
           const thumbMatch = thumbMatchBackticks || thumbMatchQuotes;
-          if (thumbMatch && thumbMatch != matchShipThumbnail) {
+          if (thumbMatch && thumbMatch[1] !== baseShip.thumbMatch) {
             variantShip.thumbnail = thumbMatch[1];
             hasSignificantChanges = true;
           }
