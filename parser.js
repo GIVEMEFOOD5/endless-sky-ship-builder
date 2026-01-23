@@ -1182,7 +1182,7 @@ class EndlessSkyParser {
       if (outfit.sprite) imagePaths.add(outfit.sprite);
       if (outfit.thumbnail) imagePaths.add(outfit.thumbnail);
       if (outfit.hardpointSprite) imagePaths.add(outfit.hardpointSprite);
-      if (outfit.['hardpoint sprite']) imagePaths.add(outfit.['hardpoint sprite']);
+      if (outfit['hardpoint sprite']) imagePaths.add(outfit['hardpoint sprite']);
   
       // Check weapon block for hardpoint sprite
       if   (outfit.weapon && outfit.weapon['hardpoint sprite']) {
