@@ -44,7 +44,7 @@ async function loadData() {
             let loadedSomething = false;
         
             try {
-                const shipsResponse = await fetch(`${baseUrl}/${plugin.name}/ships.json`);
+                const shipsResponse = await fetch(`${baseUrl}/${plugin.name}/dataFiles/ships.json`);
                 if (shipsResponse.ok) {
                         pluginData.ships = await shipsResponse.json();
                         loadedSomething = true;
@@ -52,7 +52,7 @@ async function loadData() {
                     console.warn(`${plugin.name}: ships.json not found (${shipsResponse.status})`);
                 }
             
-                const variantsResponse = await fetch(`${baseUrl}/${plugin.name}/variants.json`);
+                const variantsResponse = await fetch(`${baseUrl}/${plugin.name}/dataFiles/variants.json`);
                 if (variantsResponse.ok) {
                     pluginData.variants = await variantsResponse.json();
                     loadedSomething = true;
@@ -60,7 +60,7 @@ async function loadData() {
                     console.warn(`${plugin.name}: variants.json not found (${variantsResponse.status})`);
                 }
             
-                const outfitsResponse = await fetch(`${baseUrl}/${plugin.name}/outfits.json`);
+                const outfitsResponse = await fetch(`${baseUrl}/${plugin.name}/dataFiles/outfits.json`);
                 if (outfitsResponse.ok) {
                         pluginData.outfits = await outfitsResponse.json();
                         loadedSomething = true;

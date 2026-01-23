@@ -1159,61 +1159,61 @@ class EndlessSkyParser {
 
   async downloadImages(owner, repo, branch, pluginDir) {
     console.log('\nDownloading images...');
-    
+
     const imageDir = path.join(pluginDir, 'images');
     await fs.mkdir(imageDir, { recursive: true });
-    
+
     const imagePaths = new Set();
-    
+
     // Collect all sprite/thumbnail paths from ships
     for (const ship of this.ships) {
       if (ship.sprite) imagePaths.add(ship.sprite);
       if (ship.thumbnail) imagePaths.add(ship.thumbnail);
     }
-    
+
     // Collect from variants
     for (const variant of this.variants) {
       if (variant.sprite) imagePaths.add(variant.sprite);
       if (variant.thumbnail) imagePaths.add(variant.thumbnail);
     }
-    
+
     // Collect from outfits (if they have sprites)
     for (const outfit of this.outfits) {
       if (outfit.sprite) imagePaths.add(outfit.sprite);
       if (outfit.thumbnail) imagePaths.add(outfit.thumbnail);
-      if (outfit['hardpoint sprite']) imagePaths.add(outfit['hardpoint sprite']);
-  
-      // Check weapon block for hardpoint sprite
-      if   (outfit.weapon && outfit.weapon['hardpoint sprite']) {
-        imagePaths.add(outfit.weapon['hardpoint sprite']);
-      }
 
-      if (outfit.weapon && outfit.weapon.sprite) {
-        imagePaths.add(outfit.weapon.sprite);
+      // Check weapon block for hardpoint sprite and sprite
+      if (outfit.weapon) {
+        if (outfit.weapon['hardpoint sprite']) {
+          imagePaths.add(outfit.weapon['hardpoint sprite']);
+        }
+        if (outfit.weapon.sprite) {
+          imagePaths.add(outfit.weapon.sprite);
+        }
       }
     }
-    
-    console.log(`Found ${imagePaths.size} unique images to download`);
-    
+
+    console.log(`Found ${imagePaths.size} unique image paths to process`);
+
     let downloaded = 0;
     let failed = 0;
-    
+
     // Download each image
     for (const imagePath of imagePaths) {
-      // Try common image extensions
+      // First, try to download as a single image file
       let imageFound = false;
-      for (const ext of ['.png', '.jpeg', '.avif']) {
+      for (const ext of ['.png', '.jpeg', '.avif', '.jpg', '.gif']) {
         const fullPath = `${imagePath}${ext}`;
         const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${fullPath}`;
-        
+
         try {
           const imageData = await this.fetchUrl(rawUrl);
-          
+
           // Save to local directory maintaining structure
           const localPath = path.join(imageDir, fullPath);
           await fs.mkdir(path.dirname(localPath), { recursive: true });
           await fs.writeFile(localPath, imageData);
-          
+
           console.log(`  ✓ Downloaded ${fullPath}`);
           downloaded++;
           imageFound = true;
@@ -1223,13 +1223,56 @@ class EndlessSkyParser {
           continue;
         }
       }
-      
+
+      // If not found as a single file, check if it's a directory
       if (!imageFound) {
-        console.log(`  ✗ Image not found: ${imagePath}`);
-        failed++;
+        try {
+          // Try to fetch the directory tree
+          const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${imagePath}?ref=${branch}`;
+          const dirData = await this.fetchUrl(dirUrl);
+          const dirContents = JSON.parse(dirData);
+
+          // Check if it's an array (directory listing)
+          if (Array.isArray(dirContents)) {
+            console.log(`  📁 Found directory: ${imagePath} with ${dirContents.length} files`);
+
+            // Download all image files from the directory
+            for (const file of dirContents) {
+              if (file.type === 'file') {
+                const fileName = file.name;
+                const fileExt = path.extname(fileName).toLowerCase();
+
+                // Only download image files
+                if (['.png', '.jpg', '.jpeg', '.gif', '.avif'].includes(fileExt)) {
+                  try {
+                    const fileRawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${imagePath}/${fileName}`;
+                    const fileData = await this.fetchUrl(fileRawUrl);
+
+                    const localPath = path.join(imageDir, imagePath, fileName);
+                    await fs.mkdir(path.dirname(localPath), { recursive: true });
+                    await fs.writeFile(localPath, fileData);
+
+                    console.log(`    ✓ Downloaded ${imagePath}/${fileName}`);
+                    downloaded++;
+                  } catch (error) {
+                    console.log(`    ✗ Failed to download ${imagePath}/${fileName}`);
+                    failed++;
+                  }
+                }
+              }
+            }
+          } else {
+            console.log(`  ✗ Image not found: ${imagePath}`);
+            failed++;
+          }
+        } catch (error) {
+          // Not a directory either
+          console.log(`  ✗ Image/directory not found: ${imagePath}`);
+          failed++;
+        }
       }
     }
-    
+
     console.log(`\nImage download complete: ${downloaded} downloaded, ${failed} not found`);
   }
 }
