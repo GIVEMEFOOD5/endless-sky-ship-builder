@@ -28,6 +28,28 @@ class EndlessSkyParser {
     });
   }
 
+  fetchBinaryUrl(url) {
+    return new Promise((resolve, reject) => {
+      const options = { headers: {} };
+
+      if (process.env.GITHUB_TOKEN && url.includes('api.github.com')) {
+        options.headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`;
+        options.headers['User-Agent'] = 'endless-sky-parser';
+      }
+
+      https.get(url, options, (res) => {
+        if (res.statusCode !== 200) {
+          reject(new Error(`HTTP ${res.statusCode}`));
+          return;
+        }
+
+        const chunks = [];
+        res.on('data', (chunk) => { chunks.push(chunk); });
+        res.on('end', () => { resolve(Buffer.concat(chunks)); });
+      }).on('error', reject);
+    });
+  }
+
   async fetchGitHubRepo(owner, repo, branch) {
     if (!branch) branch = 'master';
     const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
@@ -1159,29 +1181,29 @@ class EndlessSkyParser {
 
   async downloadImages(owner, repo, branch, pluginDir) {
     console.log('\nDownloading images...');
-
+    
     const imageDir = path.join(pluginDir, 'images');
     await fs.mkdir(imageDir, { recursive: true });
-
+    
     const imagePaths = new Set();
-
+    
     // Collect all sprite/thumbnail paths from ships
     for (const ship of this.ships) {
       if (ship.sprite) imagePaths.add(ship.sprite);
       if (ship.thumbnail) imagePaths.add(ship.thumbnail);
     }
-
+    
     // Collect from variants
     for (const variant of this.variants) {
       if (variant.sprite) imagePaths.add(variant.sprite);
       if (variant.thumbnail) imagePaths.add(variant.thumbnail);
     }
-
+    
     // Collect from outfits (if they have sprites)
     for (const outfit of this.outfits) {
       if (outfit.sprite) imagePaths.add(outfit.sprite);
       if (outfit.thumbnail) imagePaths.add(outfit.thumbnail);
-
+    
       // Check weapon block for hardpoint sprite and sprite
       if (outfit.weapon) {
         if (outfit.weapon['hardpoint sprite']) {
@@ -1192,76 +1214,89 @@ class EndlessSkyParser {
         }
       }
     }
-
+    
     console.log(`Found ${imagePaths.size} unique image paths to process`);
-
+    
     let downloaded = 0;
     let failed = 0;
-
+    
     // Helper function to recursively download images from a directory
     const downloadFromDirectory = async (dirPath) => {
       try {
-        const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${dirPath}?ref=${branch}`;
+        // Use forward slashes for URL paths
+        const normalizedPath = dirPath.replace(/\\/g, '/');
+        const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${normalizedPath}?ref=${branch}`;
+        
+        console.log(`    Fetching directory contents: ${dirUrl}`);
         const dirData = await this.fetchUrl(dirUrl);
         const dirContents = JSON.parse(dirData);
-
+        
         if (!Array.isArray(dirContents)) {
+          console.log(`    Not a directory or empty: ${normalizedPath}`);
           return 0;
         }
-
+        
+        console.log(`    Found ${dirContents.length} items in ${normalizedPath}`);
         let dirDownloaded = 0;
-
+        
         for (const item of dirContents) {
           if (item.type === 'file') {
             const fileName = item.name;
             const fileExt = path.extname(fileName).toLowerCase();
-
+            
             // Only download image files
             if (['.png', '.jpg', '.jpeg', '.gif', '.avif'].includes(fileExt)) {
               try {
-                const fileRawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${dirPath}/${fileName}`;
-                const fileData = await this.fetchUrl(fileRawUrl);
-
-                const localPath = path.join(imageDir, dirPath, fileName);
+                // Use forward slashes for URL
+                const fileRawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${normalizedPath}/${fileName}`;
+                console.log(`      Downloading: ${fileRawUrl}`);
+                const fileData = await this.fetchBinaryUrl(fileRawUrl);
+                
+                // Use path.join for local file system
+                const localPath = path.join(imageDir, normalizedPath, fileName);
                 await fs.mkdir(path.dirname(localPath), { recursive: true });
                 await fs.writeFile(localPath, fileData);
-
-                console.log(`    ✓ Downloaded ${dirPath}/${fileName}`);
+                
+                console.log(`      ✓ Downloaded ${normalizedPath}/${fileName}`);
                 dirDownloaded++;
               } catch (error) {
-                console.log(`    ✗ Failed to download ${dirPath}/${fileName}`);
+                console.log(`      ✗ Failed to download ${normalizedPath}/${fileName}: ${error.message}`);
               }
             }
           } else if (item.type === 'dir') {
             // Recursively download from subdirectory
-            const subDirPath = `${dirPath}/${item.name}`;
+            const subDirPath = `${normalizedPath}/${item.name}`;
+            console.log(`    📁 Entering subdirectory: ${subDirPath}`);
             const subDirDownloaded = await downloadFromDirectory(subDirPath);
             dirDownloaded += subDirDownloaded;
           }
         }
-
+        
         return dirDownloaded;
       } catch (error) {
+        console.log(`    Error processing directory ${dirPath}: ${error.message}`);
         return 0;
       }
     };
-
+    
     // Download each image
     for (const imagePath of imagePaths) {
+      console.log(`\nProcessing: ${imagePath}`);
+      
       // First, try to download as a single image file
       let imageFound = false;
-      for (const ext of ['.png', '.jpeg', '.avif']) {
+      for (const ext of ['.png', '.jpg', '.jpeg', '.gif', '.avif']) {
         const fullPath = `${imagePath}${ext}`;
         const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${fullPath}`;
-
+        
         try {
-          const imageData = await this.fetchUrl(rawUrl);
-
+          const imageData = await this.fetchBinaryUrl(rawUrl);
+          
           // Save to local directory maintaining structure
           const localPath = path.join(imageDir, fullPath);
           await fs.mkdir(path.dirname(localPath), { recursive: true });
           await fs.writeFile(localPath, imageData);
-
+          
           console.log(`  ✓ Downloaded ${fullPath}`);
           downloaded++;
           imageFound = true;
@@ -1271,12 +1306,12 @@ class EndlessSkyParser {
           continue;
         }
       }
-
+      
       // If not found as a single file, check if it's a directory
       if (!imageFound) {
         console.log(`  📁 Checking if ${imagePath} is a directory...`);
         const dirDownloaded = await downloadFromDirectory(imagePath);
-
+        
         if (dirDownloaded > 0) {
           console.log(`  📁 Downloaded ${dirDownloaded} images from directory: ${imagePath}`);
           downloaded += dirDownloaded;
@@ -1286,7 +1321,7 @@ class EndlessSkyParser {
         }
       }
     }
-
+    
     console.log(`\nImage download complete: ${downloaded} downloaded, ${failed} not found`);
   }
 }
