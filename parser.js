@@ -1314,66 +1314,72 @@ class EndlessSkyParser {
         const basenamePattern = pathParts[pathParts.length - 1];
         const parentDir = pathParts.slice(0, -1).join('/');
 
-        const sourceParentDir = path.join(sourceImagesDir, parentDir);
-        const destParentDir = path.join(imageDir, parentDir);
+        // Try both the parent directory AND a subdirectory with the basename
+        const searchPaths = [
+          { dir: path.join(sourceImagesDir, parentDir), relative: parentDir },
+          { dir: path.join(sourceImagesDir, normalizedPath), relative: normalizedPath }
+        ];
       
-        try {
-          // Check if parent directory exists
-          await fs.access(sourceParentDir);
+        let foundFiles = false;
+      
+        for (const searchPath of searchPaths) {
+          try {
+            // Check if directory exists
+            const stats = await fs.stat(searchPath.dir);
+            if (!stats.isDirectory()) continue;
 
-          // Read all files in the parent directory
-          const files = await fs.readdir(sourceParentDir);
+            // Read all files in the directory
+            const files = await fs.readdir(searchPath.dir);
 
-          // Filter files that match the basename pattern
-          const matchingFiles = files.filter(fileName => {
-            const fileExt = path.extname(fileName).toLowerCase();
-            const fileBase = path.basename(fileName, fileExt);
+            // Filter files that match the basename pattern
+            const matchingFiles = files.filter(fileName => {
+              const fileExt = path.extname(fileName).toLowerCase();
+              const fileBase = path.basename(fileName, fileExt);
 
-            // Escape regex special characters in the pattern
-            const escapedPattern = basenamePattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              // Escape regex special characters in the pattern
+              const escapedPattern = basenamePattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-            // Check if filename matches various patterns:
-            // 1. Exactly "basename"
-            // 2. "basename-##" (dash followed by numbers)
-            // 3. "basename*##" or "basename^##" (any single char + numbers)
-            // 4. "basename-anything##" (dash + any chars + numbers, like shipname-variant0)
-            // 5. "basenameAnything##" (any chars + numbers, like shipnamevariant0)
-            // 6. "basename+" or "basename*" (single special character, no numbers)
-            // 7. "basename-variant" (dash + any chars, no numbers required)
-            // 8. "basenamevariant" (any chars, no numbers required)
+              // Check if filename matches various patterns
+              const matchesExact = fileBase === basenamePattern;
+              const matchesDashNumber = fileBase.match(new RegExp(`^${escapedPattern}-\\d+$`));
+              const matchesSingleCharNumber = fileBase.match(new RegExp(`^${escapedPattern}.\\d+$`));
+              const matchesDashAnythingNumber = fileBase.match(new RegExp(`^${escapedPattern}-.+\\d+$`));
+              const matchesAnythingNumber = fileBase.match(new RegExp(`^${escapedPattern}.+\\d+$`));
+              const matchesAnySpecialCharacter = fileBase.match(new RegExp(`^${escapedPattern}.$`));
+              const matchesDashAnything = fileBase.match(new RegExp(`^${escapedPattern}-.+$`));
+              const matchesAnything = fileBase.match(new RegExp(`^${escapedPattern}.+$`));
 
-            const matchesExact = fileBase === basenamePattern;
-            const matchesDashNumber = fileBase.match(new RegExp(`^${escapedPattern}-\\d+$`));
-            const matchesSingleCharNumber = fileBase.match(new RegExp(`^${escapedPattern}.\\d+$`));
-            const matchesDashAnythingNumber = fileBase.match(new RegExp(`^${escapedPattern}-.+\\d+$`));
-            const matchesAnythingNumber = fileBase.match(new RegExp(`^${escapedPattern}.+\\d+$`));
-            const matchesAnySpecialCharacter = fileBase.match(new RegExp(`^${escapedPattern}.$`));
-            const matchesDashAnything = fileBase.match(new RegExp(`^${escapedPattern}-.+$`));
-            const matchesAnything = fileBase.match(new RegExp(`^${escapedPattern}.+$`));
+              const matchesPattern = matchesExact || matchesDashNumber || matchesSingleCharNumber || 
+                                    matchesDashAnythingNumber || matchesAnythingNumber || matchesAnySpecialCharacter ||
+                                    matchesDashAnything || matchesAnything;
 
-            const matchesPattern = matchesExact || matchesDashNumber || matchesSingleCharNumber || 
-                                  matchesDashAnythingNumber || matchesAnythingNumber || matchesAnySpecialCharacter ||
-                                  matchesDashAnything || matchesAnything;
+              return matchesPattern && ['.png', '.jpg', '.jpeg', '.gif', '.avif', '.webp'].includes(fileExt);
+            });
 
-            return matchesPattern && ['.png', '.jpg', '.jpeg', '.gif', '.avif', '.webp'].includes(fileExt);
-          });
+            if (matchingFiles.length > 0) {
+              const destDir = path.join(imageDir, searchPath.relative);
+              await fs.mkdir(destDir, { recursive: true });
 
-          if (matchingFiles.length > 0) {
-            await fs.mkdir(destParentDir, { recursive: true });
+              for (const fileName of matchingFiles) {
+                const sourceFile = path.join(searchPath.dir, fileName);
+                const destFile = path.join(destDir, fileName);
 
-            for (const fileName of matchingFiles) {
-              const sourceFile = path.join(sourceParentDir, fileName);
-              const destFile = path.join(destParentDir, fileName);
+                await fs.copyFile(sourceFile, destFile);
+                console.log(`  ✓ Copied: ${searchPath.relative}/${fileName}`);
+              }
 
-              await fs.copyFile(sourceFile, destFile);
-              console.log(`  ✓ Copied: ${parentDir}/${fileName}`);
+              foundFiles = true;
+              break; // Found files, no need to check other paths
             }
-          } else {
-            console.log(`  ✗ No matching files found for: ${normalizedPath}`);
-          }
 
-        } catch (error) {
-          console.log(`  ✗ Error processing ${normalizedPath}: ${error.message}`);
+          } catch (error) {
+            // Directory doesn't exist or can't be read, try next path
+            continue;
+          }
+        }
+
+        if (!foundFiles) {
+          console.log(`  ✗ No matching files found for: ${normalizedPath}`);
         }
       }
 
