@@ -1331,6 +1331,75 @@ class EndlessSkyParser {
       console.log(`    Error: Directory not found at any path for ${dirPath}`);
       return 0;
     };
+
+    // Helper function to download files matching a pattern from a directory
+    const downloadFromDirectoryWithPattern = async (dirPath, basenamePattern) => {
+      let normalizedPath = dirPath.replace(/\\/g, '/');
+
+      const pathsToTry = [
+        `images/${normalizedPath}`,
+        normalizedPath
+      ];
+
+      for (const tryPath of pathsToTry) {
+        try {
+          const encodedPath = tryPath.split('/').map(segment => encodeURIComponent(segment)).join('/');
+          const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodedPath}?ref=${branch}`;
+
+          console.log(`    Checking directory for pattern: ${dirUrl}`);
+          const dirData = await this.fetchUrl(dirUrl);
+          const dirContents = JSON.parse(dirData);
+
+          if (!Array.isArray(dirContents)) {
+            continue;
+          }
+
+          let dirDownloaded = 0;
+
+          // Filter files that match the pattern (basename or basename-number)
+          for (const item of dirContents) {
+            await delay(50);
+
+            if (item.type === 'file') {
+              const fileName = item.name;
+              const fileExt = path.extname(fileName).toLowerCase();
+              const fileBase = path.basename(fileName, fileExt);
+
+              // Check if filename matches: exactly "basename" or "basename-##"
+              const matchesPattern = fileBase === basenamePattern || 
+                                    fileBase.match(new RegExp(`^${basenamePattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}-\\d+$`));
+
+              if (matchesPattern && ['.png', '.jpg', '.jpeg', '.gif', '.avif', '.webp'].includes(fileExt)) {
+                try {
+                  const fileRawUrl = item.download_url || `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${item.path}`;
+                  console.log(`      Downloading: ${fileName}`);
+                  const fileData = await this.fetchBinaryUrl(fileRawUrl);
+
+                  const localPath = path.join(imageDir, normalizedPath, fileName);
+                  await fs.mkdir(path.dirname(localPath), { recursive: true });
+                  await fs.writeFile(localPath, fileData);
+
+                  console.log(`      ✓ Downloaded ${normalizedPath}/${fileName}`);
+                  dirDownloaded++;
+                } catch (error) {
+                  console.log(`      ✗ Failed to download ${fileName}: ${error.message}`);
+                }
+              }
+            }
+          }
+
+          if (dirDownloaded > 0) {
+            return dirDownloaded;
+          }
+
+        } catch (error) {
+          continue;
+        }
+      }
+
+      return 0;
+    };
+
     // Download each image
     for (const imagePath of imagePaths) {
       console.log(`\nProcessing: ${imagePath}`);
@@ -1371,11 +1440,27 @@ class EndlessSkyParser {
 
       // If not found as a single file, check if it's a directory
       if (!imageFound) {
-        console.log(`  📁 Checking if ${imagePath} is a directory...`);
-        const dirDownloaded = await downloadFromDirectory(imagePath);
+        // Check if this might be a pattern like "ship/name/basename"
+        // where the actual files are "ship/name/basename-0.png", "basename-1.png", etc.
+        const pathParts = imagePath.split('/');
+        const potentialBasename = pathParts[pathParts.length - 1];
+        const parentDir = pathParts.slice(0, -1).join('/');
+
+        console.log(`  📁 Checking if ${imagePath} is a directory or has numbered variants...`);
+
+        let dirDownloaded = 0;
+
+        // First, try as a direct directory
+        dirDownloaded = await downloadFromDirectory(imagePath);
+
+        // If that didn't work, try looking in the parent directory for files matching the basename
+        if (dirDownloaded === 0 && parentDir) {
+          console.log(`  📁 Trying parent directory with basename pattern: ${parentDir}/${potentialBasename}-*`);
+          dirDownloaded = await downloadFromDirectoryWithPattern(parentDir, potentialBasename);
+        }
 
         if (dirDownloaded > 0) {
-          console.log(`  📁 Downloaded ${dirDownloaded} images from directory: ${imagePath}`);
+          console.log(`  📁 Downloaded ${dirDownloaded} images for: ${imagePath}`);
           downloaded += dirDownloaded;
         } else {
           console.log(`  ✗ Image/directory not found: ${imagePath}`);
@@ -1383,8 +1468,6 @@ class EndlessSkyParser {
         }
       }
     }
-
-    console.log(`\nImage download complete: ${downloaded} downloaded, ${failed} not found`);
   }
 }
 
