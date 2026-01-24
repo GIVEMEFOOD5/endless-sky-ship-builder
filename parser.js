@@ -567,6 +567,19 @@ class EndlessSkyParser {
           const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
           if (spriteMatch) {
             shipData.sprite = spriteMatch[1];
+
+            // Check if there's nested data below sprite
+            if (i + 1 < lines.length) {
+              const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+
+              if (nextIndent > indent) {
+                // Collect nested sprite data
+                const result = this.parseIndentedBlock(lines, i + 1);
+                shipData.spriteData = result[0];
+                i = result[1];
+                continue;
+              }
+            }
           }
           i++;
           continue;
@@ -689,7 +702,7 @@ class EndlessSkyParser {
           }
           continue;
         }
-        
+                      
         if (stripped.startsWith('sprite ')) {
           const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
           const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
@@ -697,6 +710,19 @@ class EndlessSkyParser {
           if (spriteMatch && spriteMatch[1] !== baseShip.sprite) {
             variantShip.sprite = spriteMatch[1];
             hasSignificantChanges = true;
+
+            // Check if there's nested data below sprite
+            if (i + 1 < lines.length) {
+              const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+
+              if (nextIndent > indent) {
+                // Collect nested sprite data
+                const result = this.parseIndentedBlock(lines, i + 1);
+                variantShip.spriteData = result[0];
+                i = result[1];
+                continue;
+              }
+            }
           }
           i++;
           continue;
@@ -723,6 +749,31 @@ class EndlessSkyParser {
             const attrIndent = attrLine.length - attrLine.replace(/^\t+/, '').length;
             if (attrIndent <= indent) break;
             const attrStripped = attrLine.trim();
+
+            // Handle sprite
+            if (stripped.startsWith('sprite ')) {
+              const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
+              const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
+              const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
+              if (spriteMatch) {
+                outfitData.sprite = spriteMatch[1];
+
+                // Check if there's nested data below sprite
+                if (i + 1 < lines.length) {
+                  const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+
+                  if (nextIndent > indent) {
+                    // Collect nested sprite data
+                    const result = this.parseIndentedBlock(lines, i + 1);
+                    outfitData.spriteData = result[0];
+                    i = result[1];
+                    continue;
+                  }
+                }
+              }
+              i++;
+              continue;
+            }
             
             const quotedMatchQuotes = attrStripped.match(/"([^"]+)"\s+(.+)/);
             const quotedMatchBackticks = attrStripped.match(/`([^`]+)`\s+(.+)/);
