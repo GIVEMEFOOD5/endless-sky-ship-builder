@@ -1225,79 +1225,81 @@ class EndlessSkyParser {
 
     // Helper function to recursively download images from a directory
     const downloadFromDirectory = async (dirPath) => {
-      try {
-        // Use forward slashes for URL paths and add 'images/' prefix if not present
-        let normalizedPath = dirPath.replace(/\\/g, '/');
+      // Use forward slashes for URL paths
+      let normalizedPath = dirPath.replace(/\\/g, '/');
 
-        // Try with 'images/' prefix first
-        let dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/images/${normalizedPath}?ref=${branch}`;
+      // Try both with and without 'images/' prefix
+      const pathsToTry = [
+        `images/${normalizedPath}`,
+        normalizedPath
+      ];
 
-        console.log(`    Fetching directory contents: ${dirUrl}`);
-        let dirData;
-        let dirContents;
-
+      for (const tryPath of pathsToTry) {
         try {
-          dirData = await this.fetchUrl(dirUrl);
-          dirContents = JSON.parse(dirData);
-        } catch (error) {
-          // Try without 'images/' prefix
-          console.log(`    Trying without images/ prefix...`);
-          dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${normalizedPath}?ref=${branch}`;
-          dirData = await this.fetchUrl(dirUrl);
-          dirContents = JSON.parse(dirData);
-        }
+          // URL encode the path properly (encode each segment separately to preserve slashes)
+          const encodedPath = tryPath.split('/').map(segment => encodeURIComponent(segment)).join('/');
+          const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodedPath}?ref=${branch}`;
 
-        if (!Array.isArray(dirContents)) {
-          console.log(`    Not a directory or empty: ${normalizedPath}`);
-          return 0;
-        }
+          console.log(`    Fetching directory contents: ${dirUrl}`);
+          const dirData = await this.fetchUrl(dirUrl);
+          const dirContents = JSON.parse(dirData);
 
-        console.log(`    Found ${dirContents.length} items in ${normalizedPath}`);
-        let dirDownloaded = 0;
-
-        for (const item of dirContents) {
-          // Add small delay to avoid rate limiting
-          await delay(50);
-
-          if (item.type === 'file') {
-            const fileName = item.name;
-            const fileExt = path.extname(fileName).toLowerCase();
-
-            // Only download image files
-            if (['.png', '.jpg', '.jpeg', '.gif', '.avif', '.webp'].includes(fileExt)) {
-              try {
-                // Use the download_url from the API response if available
-                const fileRawUrl = item.download_url || `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${item.path}`;
-                console.log(`      Downloading: ${fileName}`);
-                const fileData = await this.fetchBinaryUrl(fileRawUrl);
-
-                // Use path.join for local file system
-                const localPath = path.join(imageDir, normalizedPath, fileName);
-                await fs.mkdir(path.dirname(localPath), { recursive: true });
-                await fs.writeFile(localPath, fileData);
-
-                console.log(`      ✓ Downloaded ${normalizedPath}/${fileName}`);
-                dirDownloaded++;
-              } catch (error) {
-                console.log(`      ✗ Failed to download ${normalizedPath}/${fileName}: ${error.message}`);
-              }
-            }
-          } else if (item.type === 'dir') {
-            // Recursively download from subdirectory
-            const subDirPath = `${normalizedPath}/${item.name}`;
-            console.log(`    📁 Entering subdirectory: ${subDirPath}`);
-            const subDirDownloaded = await downloadFromDirectory(subDirPath);
-            dirDownloaded += subDirDownloaded;
+          if (!Array.isArray(dirContents)) {
+            console.log(`    Not a directory at: ${tryPath}`);
+            continue; // Try next path
           }
+
+          console.log(`    ✓ Found ${dirContents.length} items in ${tryPath}`);
+          let dirDownloaded = 0;
+
+          for (const item of dirContents) {
+            // Add small delay to avoid rate limiting
+            await delay(50);
+
+            if (item.type === 'file') {
+              const fileName = item.name;
+              const fileExt = path.extname(fileName).toLowerCase();
+
+              // Only download image files
+              if (['.png', '.jpg', '.jpeg', '.gif', '.avif', '.webp'].includes(fileExt)) {
+                try {
+                  // Use the download_url from the API response (it's already properly encoded)
+                  const fileRawUrl = item.download_url || `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${item.path}`;
+                  console.log(`      Downloading: ${fileName}`);
+                  const fileData = await this.fetchBinaryUrl(fileRawUrl);
+
+                  // Use path.join for local file system
+                  const localPath = path.join(imageDir, normalizedPath, fileName);
+                  await fs.mkdir(path.dirname(localPath), { recursive: true });
+                  await fs.writeFile(localPath, fileData);
+
+                  console.log(`      ✓ Downloaded ${normalizedPath}/${fileName}`);
+                  dirDownloaded++;
+                } catch (error) {
+                  console.log(`      ✗ Failed to download ${fileName}: ${error.message}`);
+                }
+              }
+            } else if (item.type === 'dir') {
+              // Recursively download from subdirectory
+              const subDirPath = `${normalizedPath}/${item.name}`;
+              console.log(`    📁 Entering subdirectory: ${subDirPath}`);
+              const subDirDownloaded = await downloadFromDirectory(subDirPath);
+              dirDownloaded += subDirDownloaded;
+            }
+          }
+
+          return dirDownloaded; // Successfully found and processed, return count
+
+        } catch (error) {
+          console.log(`    Path not found: ${tryPath} - ${error.message}`);
+          continue; // Try next path
         }
-
-        return dirDownloaded;
-      } catch (error) {
-        console.log(`    Error processing directory ${dirPath}: ${error.message}`);
-        return 0;
       }
-    };
 
+      // If we get here, none of the paths worked
+      console.log(`    Error: Directory not found at any path for ${dirPath}`);
+      return 0;
+    };
     // Download each image
     for (const imagePath of imagePaths) {
       console.log(`\nProcessing: ${imagePath}`);
