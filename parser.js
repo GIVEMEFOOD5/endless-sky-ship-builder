@@ -1189,28 +1189,59 @@ class EndlessSkyParser {
 
     // Collect all sprite/thumbnail paths from ships
     for (const ship of this.ships) {
-      if (ship.sprite) imagePaths.add(ship.sprite);
-      if (ship.thumbnail) imagePaths.add(ship.thumbnail);
+      if (ship.sprite) {
+        const path = ship.sprite;
+        const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '')
+        imagePaths.add(removeLast);
+      }
+
+      if (ship.thumbnail) {
+        const path = ship.thumbnail;
+        const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '')
+        imagePaths.add(removeLast);
+      }
     }
 
     // Collect from variants
     for (const variant of this.variants) {
-      if (variant.sprite) imagePaths.add(variant.sprite);
-      if (variant.thumbnail) imagePaths.add(variant.thumbnail);
+      if (variant.sprite) {
+        const path = variant.sprite;
+        const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '')
+        imagePaths.add(removeLast);
+      }
+
+      if (variant.thumbnail) {
+        const path = variant.thumbnail;
+        const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '')
+        imagePaths.add(removeLast);
+      }
     }
 
     // Collect from outfits (if they have sprites)
     for (const outfit of this.outfits) {
-      if (outfit.sprite) imagePaths.add(outfit.sprite);
-      if (outfit.thumbnail) imagePaths.add(outfit.thumbnail);
+      if (outfit.sprite) {
+        const path = outfit.sprite;
+        const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '')
+        imagePaths.add(removeLast);
+      }
+
+      if (outfit.thumbnail) {
+        const path = outfit.thumbnail;
+        const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '')
+        imagePaths.add(removeLast);
+      }
     
       // Check weapon block for hardpoint sprite and sprite
       if (outfit.weapon) {
         if (outfit.weapon['hardpoint sprite']) {
-          imagePaths.add(outfit.weapon['hardpoint sprite']);
+          const path = outfit.weapon['hardpoint sprite'];
+          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '')
+          imagePaths.add(removeLast);
         }
         if (outfit.weapon.sprite) {
-          imagePaths.add(outfit.weapon.sprite);
+          const path = outfit.weapon.sprite;
+          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '')
+          imagePaths.add(removeLast);
         }
       }
     }
