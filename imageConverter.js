@@ -127,12 +127,34 @@ class ImageConverter {
   }
 
   // Build interpolation filter chain
-  buildInterpolationFilter(mode, spriteFps, needsPadding = false, frameCount = 0) {
+  buildInterpolationFilter(mode, spriteFps, imageDimensions = null, frameCount = 0) {
     const filters = [];
     
     // Add padding if needed for minterpolate (requires 32x32 minimum)
-    if (needsPadding && mode === 'minterpolate') {
-      filters.push('pad=iw+if(lt(iw\\,32)\\,32-iw\\,0):ih+if(lt(ih\\,32)\\,32-ih\\,0):(ow-iw)/2:(oh-ih)/2:color=0x00000000');
+    let needsPadding = false;
+    let padWidth = 0;
+    let padHeight = 0;
+    
+    if (imageDimensions && mode === 'minterpolate') {
+      const { width, height } = imageDimensions;
+      if (width < 32) {
+        needsPadding = true;
+        padWidth = 32 - width;
+      }
+      if (height < 32) {
+        needsPadding = true;
+        padHeight = 32 - height;
+      }
+      
+      if (needsPadding) {
+        // Calculate exact padding needed
+        const newWidth = width + padWidth;
+        const newHeight = height + padHeight;
+        const padLeft = Math.floor(padWidth / 2);
+        const padTop = Math.floor(padHeight / 2);
+        
+        filters.push(`pad=${newWidth}:${newHeight}:${padLeft}:${padTop}:color=0x00000000`);
+      }
     }
     
     switch (mode) {
@@ -152,8 +174,8 @@ class ImageConverter {
         filters.push('setpts=PTS-STARTPTS');
         
         // Remove padding after interpolation if it was added
-        if (needsPadding) {
-          filters.push('crop=iw-if(lt(iw-mod(iw\\,2)\\,32)\\,32-(iw-mod(iw\\,2))\\,0):ih-if(lt(ih-mod(ih\\,2)\\,32)\\,32-(ih-mod(ih\\,2))\\,0)');
+        if (needsPadding && imageDimensions) {
+          filters.push(`crop=${imageDimensions.width}:${imageDimensions.height}`);
         }
         break;
         
@@ -236,9 +258,9 @@ class ImageConverter {
         const outputPath = path.join(dir, `${outName}.avif`);
 
         let interpolationMode = options.interpolation || INTERPOLATION_MODE;
-        let needsPadding = false;
+        let imageDimensions = null;
         
-        // Check if we need to fall back from minterpolate due to size constraints
+        // Check if we need to pad for minterpolate due to size constraints
         if (interpolationMode === 'minterpolate') {
           try {
             // Probe the first image to get dimensions
@@ -250,11 +272,11 @@ class ImageConverter {
               path.join(dir, seqFiles[0])
             ]);
             const [width, height] = stdout.trim().split(',').map(Number);
+            imageDimensions = { width, height };
             
             if (width < 32 || height < 32) {
-              needsPadding = true;
               console.log(
-                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode} (with padding ${width}x${height} → 32x32)`
+                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode} (padding ${width}x${height} → ${Math.max(width, 32)}x${Math.max(height, 32)})`
               );
             } else {
               console.log(
@@ -281,7 +303,7 @@ class ImageConverter {
           '-i', listFile,
           '-fps_mode', 'cfr',
           '-r', String(GAME_FPS),
-          '-vf', this.buildInterpolationFilter(interpolationMode, spriteFps, needsPadding, seqFiles.length),
+          '-vf', this.buildInterpolationFilter(interpolationMode, spriteFps, imageDimensions, seqFiles.length),
           '-c:v', 'libaom-av1',
           '-crf', String(options.crf ?? 40),
           '-cpu-used', String(options.speed ?? 6),
