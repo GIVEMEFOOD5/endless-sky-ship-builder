@@ -39,8 +39,16 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+              
+          # Remove all previously tracked files in data/
+          git rm -r --ignore-unmatch data/
+              
+          # Re-add data/ exactly as it exists now
           git add data/
-          git diff --quiet && git diff --staged --quiet || (
+              
+          # Commit only if there are changes
+          git diff --staged --quiet || (
             git commit -m "Update Endless Sky data - $(date +'%Y-%m-%d')" &&
             git push
           )
+              

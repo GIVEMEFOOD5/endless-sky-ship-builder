@@ -111,7 +111,7 @@ class ImageConverter {
     }));
 
     // Use rewind flag from spriteData if available, otherwise use pingpong logic
-    const usePingpong = shouldRewind || (fps >= DISABLE_PINGPONG_BELOW && sorted.length > 2);
+    const usePingpong = shouldRewind || (fps >= DISABLE_PINGPONG_BELOW && sorted.length >= 2);
     
     if (usePingpong) {
       // Don't duplicate first and last frames to avoid stuttering
@@ -182,7 +182,7 @@ class ImageConverter {
         if (isLowFrameCount) {
           // For low frame counts: aggressive weighted blending
           const overlap = frameCount === 2 ? 0.9 : WEIGHTED_BLEND_OVERLAP_LOW_FRAMES;
-          const overlapFrames = Math.min(128, Math.max(4, Math.floor(GAME_FPS / spriteFps * overlap)));
+          const overlapFrames = Math.min(256, Math.max(4, Math.floor(GAME_FPS / spriteFps * overlap)));
           filters.push(`tmix=frames=${overlapFrames}:weights='${this.generateWeightedBlendWeights(overlapFrames)}'`);
           filters.push('setpts=PTS-STARTPTS');
         } else {
@@ -194,7 +194,7 @@ class ImageConverter {
         
       case 'blend':
         // Simple temporal blending - scales with frame count
-        const blendFrames = Math.min(128, isLowFrameCount ? BLEND_FRAMES + 2 : BLEND_FRAMES);
+        const blendFrames = Math.min(256, isLowFrameCount ? BLEND_FRAMES + 2 : BLEND_FRAMES);
         filters.push(`tmix=frames=${blendFrames}:weights='${Array(blendFrames).fill('1').join(' ')}'`);
         filters.push('setpts=PTS-STARTPTS');
         break;
@@ -219,7 +219,7 @@ class ImageConverter {
       case 'weighted':
         // Weighted crossfade - adaptive overlap based on frame count
         const overlap = isLowFrameCount ? WEIGHTED_BLEND_OVERLAP_LOW_FRAMES : WEIGHTED_BLEND_OVERLAP_BASE;
-        const overlapFrames = Math.min(128, Math.max(3, Math.floor(GAME_FPS / spriteFps * overlap)));
+        const overlapFrames = Math.min(256, Math.max(3, Math.floor(GAME_FPS / spriteFps * overlap)));
         filters.push(`tmix=frames=${overlapFrames}:weights='${this.generateWeightedBlendWeights(overlapFrames)}'`);
         filters.push('setpts=PTS-STARTPTS');
         break;
