@@ -14,12 +14,16 @@ const MAX_HOLD_FRAMES = 600;
 const DISABLE_PINGPONG_BELOW = 1;
 
 // Interpolation modes for smooth transitions
-const INTERPOLATION_MODE = 'minterpolate'; // Options: 'none', 'blend', 'minterpolate', 'weighted'
+const INTERPOLATION_MODE = 'framerate'; // Options: 'none', 'blend', 'minterpolate', 'weighted', 'framerate'
 const BLEND_FRAMES = 3; // Number of frames to blend together (for 'blend' mode)
 const MINTERPOLATE_MODE = 'mci'; // 'mci' (motion compensated) or 'blend'
 const MINTERPOLATE_MC_MODE = 'aobmc'; // 'obmc' or 'aobmc' (adaptive) - better quality
 const MINTERPOLATE_ME_MODE = 'bidir'; // 'bidir' (bidirectional) - smoother
 const MINTERPOLATE_VFE = 'pde'; // 'pde' (partial differential equation) - better for smooth gradients
+
+// Framerate filter configuration (best for smooth interpolation)
+const FRAMERATE_INTERP_START = 240; // Start frame interpolation threshold (higher = more smoothing)
+const FRAMERATE_INTERP_END = 240;   // End frame interpolation threshold
 
 // Weighted blending configuration
 const WEIGHTED_BLEND_OVERLAP = 0.5; // 50% overlap between frames for smoother transitions (0.0 to 1.0)
@@ -165,6 +169,14 @@ class ImageConverter {
         filters.push('setpts=PTS-STARTPTS');
         break;
         
+      case 'framerate':
+        // Framerate filter with scene change detection disabled
+        // Creates the smoothest interpolation by blending frames
+        // This is the best option for eliminating jitter
+        filters.push(`framerate=fps=${GAME_FPS}:interp_start=${FRAMERATE_INTERP_START}:interp_end=${FRAMERATE_INTERP_END}:scene=100000`);
+        filters.push('setpts=PTS-STARTPTS');
+        break;
+        
       case 'minterpolate':
         // Motion-interpolated frames - generates intermediate frames using motion estimation
         // Best for smooth, fluid motion with minimal blur
@@ -284,8 +296,8 @@ class ImageConverter {
               );
             }
           } catch (probeError) {
-            // If probe fails, fall back to weighted blend
-            interpolationMode = 'weighted';
+            // If probe fails, fall back to framerate
+            interpolationMode = 'framerate';
             console.log(
               `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode} (fallback from minterpolate)`
             );
