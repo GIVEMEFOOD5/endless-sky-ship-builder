@@ -22,7 +22,7 @@ const MINTERPOLATE_ME_MODE = 'bidir'; // 'bidir' (bidirectional) - smoother
 const MINTERPOLATE_VFE = 'pde'; // 'pde' (partial differential equation) - better for smooth gradients
 
 // Weighted blending configuration
-const WEIGHTED_BLEND_OVERLAP = 0.3; // 30% overlap between frames (0.0 to 1.0)
+const WEIGHTED_BLEND_OVERLAP = 0.5; // 50% overlap between frames for smoother transitions (0.0 to 1.0)
 // ----------------------------------------
 
 class ImageConverter {
@@ -127,8 +127,13 @@ class ImageConverter {
   }
 
   // Build interpolation filter chain
-  buildInterpolationFilter(mode, spriteFps) {
+  buildInterpolationFilter(mode, spriteFps, needsPadding = false, frameCount = 0) {
     const filters = [];
+    
+    // Add padding if needed for minterpolate (requires 32x32 minimum)
+    if (needsPadding && mode === 'minterpolate') {
+      filters.push('pad=iw+if(lt(iw\\,32)\\,32-iw\\,0):ih+if(lt(ih\\,32)\\,32-ih\\,0):(ow-iw)/2:(oh-ih)/2:color=0x00000000');
+    }
     
     switch (mode) {
       case 'blend':
@@ -141,8 +146,15 @@ class ImageConverter {
       case 'minterpolate':
         // Motion-interpolated frames - generates intermediate frames using motion estimation
         // Best for smooth, fluid motion with minimal blur
-        filters.push(`minterpolate=fps=${GAME_FPS}:mi_mode=${MINTERPOLATE_MODE}:mc_mode=${MINTERPOLATE_MC_MODE}:me_mode=${MINTERPOLATE_ME_MODE}:vsbmc=1`);
+        // For 2-frame sequences, use blend mode for better results
+        const miMode = frameCount === 2 ? 'blend' : MINTERPOLATE_MODE;
+        filters.push(`minterpolate=fps=${GAME_FPS}:mi_mode=${miMode}:mc_mode=${MINTERPOLATE_MC_MODE}:me_mode=${MINTERPOLATE_ME_MODE}:vsbmc=1`);
         filters.push('setpts=PTS-STARTPTS');
+        
+        // Remove padding after interpolation if it was added
+        if (needsPadding) {
+          filters.push('crop=iw-if(lt(iw-mod(iw\\,2)\\,32)\\,32-(iw-mod(iw\\,2))\\,0):ih-if(lt(ih-mod(ih\\,2)\\,32)\\,32-(ih-mod(ih\\,2))\\,0)');
+        }
         break;
         
       case 'weighted':
@@ -223,20 +235,53 @@ class ImageConverter {
         const outName = this.sanitizeFilename(baseName);
         const outputPath = path.join(dir, `${outName}.avif`);
 
-        const interpolationMode = options.interpolation || INTERPOLATION_MODE;
-
-        console.log(
-          `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode}`
-        );
+        let interpolationMode = options.interpolation || INTERPOLATION_MODE;
+        let needsPadding = false;
+        
+        // Check if we need to fall back from minterpolate due to size constraints
+        if (interpolationMode === 'minterpolate') {
+          try {
+            // Probe the first image to get dimensions
+            const { stdout } = await execFileAsync('ffprobe', [
+              '-v', 'error',
+              '-select_streams', 'v:0',
+              '-show_entries', 'stream=width,height',
+              '-of', 'csv=p=0',
+              path.join(dir, seqFiles[0])
+            ]);
+            const [width, height] = stdout.trim().split(',').map(Number);
+            
+            if (width < 32 || height < 32) {
+              needsPadding = true;
+              console.log(
+                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode} (with padding ${width}x${height} → 32x32)`
+              );
+            } else {
+              console.log(
+                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode}`
+              );
+            }
+          } catch (probeError) {
+            // If probe fails, fall back to weighted blend
+            interpolationMode = 'weighted';
+            console.log(
+              `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode} (fallback from minterpolate)`
+            );
+          }
+        } else {
+          console.log(
+            `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode}`
+          );
+        }
 
         const ffmpegArgs = [
           '-y',
           '-f', 'concat',
           '-safe', '0',
           '-i', listFile,
-          '-vsync', 'cfr',
+          '-fps_mode', 'cfr',
           '-r', String(GAME_FPS),
-          '-vf', this.buildInterpolationFilter(interpolationMode, spriteFps),
+          '-vf', this.buildInterpolationFilter(interpolationMode, spriteFps, needsPadding, seqFiles.length),
           '-c:v', 'libaom-av1',
           '-crf', String(options.crf ?? 40),
           '-cpu-used', String(options.speed ?? 6),
