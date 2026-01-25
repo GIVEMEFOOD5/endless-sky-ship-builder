@@ -14,19 +14,23 @@ const MAX_HOLD_FRAMES = 600;
 const DISABLE_PINGPONG_BELOW = 1;
 
 // Interpolation modes for smooth transitions
-const INTERPOLATION_MODE = 'framerate'; // Options: 'none', 'blend', 'minterpolate', 'weighted', 'framerate'
-const BLEND_FRAMES = 3; // Number of frames to blend together (for 'blend' mode)
+const INTERPOLATION_MODE = 'adaptive'; // Options: 'none', 'blend', 'minterpolate', 'weighted', 'framerate', 'adaptive'
+
+// Adaptive mode: automatically chooses best smoothing based on frame count
+const ADAPTIVE_LOW_FRAME_THRESHOLD = 4; // Sequences with <= this many frames get extra smoothing
+
+const BLEND_FRAMES = 5; // Number of frames to blend together (for 'blend' mode)
 const MINTERPOLATE_MODE = 'mci'; // 'mci' (motion compensated) or 'blend'
 const MINTERPOLATE_MC_MODE = 'aobmc'; // 'obmc' or 'aobmc' (adaptive) - better quality
 const MINTERPOLATE_ME_MODE = 'bidir'; // 'bidir' (bidirectional) - smoother
-const MINTERPOLATE_VFE = 'pde'; // 'pde' (partial differential equation) - better for smooth gradients
 
-// Framerate filter configuration (best for smooth interpolation)
-const FRAMERATE_INTERP_START = 240; // Start frame interpolation threshold (higher = more smoothing)
-const FRAMERATE_INTERP_END = 240;   // End frame interpolation threshold
+// Framerate filter configuration
+const FRAMERATE_INTERP_START = 255; // Maximum smoothing (255 is max)
+const FRAMERATE_INTERP_END = 255;   // Maximum smoothing
 
-// Weighted blending configuration
-const WEIGHTED_BLEND_OVERLAP = 0.5; // 50% overlap between frames for smoother transitions (0.0 to 1.0)
+// Weighted blending configuration - scales with frame count
+const WEIGHTED_BLEND_OVERLAP_BASE = 0.6; // Base overlap
+const WEIGHTED_BLEND_OVERLAP_LOW_FRAMES = 0.85; // High overlap for low frame counts
 // ----------------------------------------
 
 class ImageConverter {
@@ -62,29 +66,36 @@ class ImageConverter {
     return null;
   }
 
+  shouldRewind(spriteData) {
+    if (!spriteData) return false;
+    const desc = spriteData.description || '';
+    return desc.includes('rewind');
+  }
+
   buildSpriteDataMap(sprites) {
     const map = new Map();
     for (const s of sprites) {
       const key = s.path.replace(/\\/g, '/').replace(/\.(png|jpg|jpeg)$/i, '');
       const fps = this.getFrameRate(s.spriteData);
-      if (fps) map.set(key, fps);
+      const rewind = this.shouldRewind(s.spriteData);
+      if (fps || rewind) map.set(key, { fps, rewind });
     }
     return map;
   }
 
-  findFrameRateForImage(imagePath, imagesRoot, spriteDataMap) {
+  findSpriteDataForImage(imagePath, imagesRoot, spriteDataMap) {
     const rel = path
       .relative(imagesRoot, imagePath)
       .replace(/\\/g, '/')
       .replace(/\.(png|jpg|jpeg)$/i, '')
       .replace(/[-+]\d+$/, '');
 
-    return spriteDataMap.get(rel) || null;
+    return spriteDataMap.get(rel) || { fps: null, rewind: false };
   }
 
   // ---------------- SEQUENCE ----------------
 
-  generateSequence(seqFiles, logicalFps) {
+  generateSequence(seqFiles, logicalFps, shouldRewind = false) {
     const sorted = [...seqFiles].sort((a, b) => {
       const na = parseInt(a.match(SEQ_REGEX)[2], 10);
       const nb = parseInt(b.match(SEQ_REGEX)[2], 10);
@@ -99,8 +110,10 @@ class ImageConverter {
       repeat: holdFrames
     }));
 
-    // Create pingpong/bounce effect for smoother looping
-    if (fps >= DISABLE_PINGPONG_BELOW && sorted.length > 2) {
+    // Use rewind flag from spriteData if available, otherwise use pingpong logic
+    const usePingpong = shouldRewind || (fps >= DISABLE_PINGPONG_BELOW && sorted.length > 2);
+    
+    if (usePingpong) {
       // Don't duplicate first and last frames to avoid stuttering
       const reverse = sequence.slice(1, -1).reverse();
       return [...sequence, ...reverse];
@@ -134,6 +147,9 @@ class ImageConverter {
   buildInterpolationFilter(mode, spriteFps, imageDimensions = null, frameCount = 0) {
     const filters = [];
     
+    // Determine if this is a low-frame-count sequence
+    const isLowFrameCount = frameCount <= ADAPTIVE_LOW_FRAME_THRESHOLD;
+    
     // Add padding if needed for minterpolate (requires 32x32 minimum)
     let needsPadding = false;
     let padWidth = 0;
@@ -151,7 +167,6 @@ class ImageConverter {
       }
       
       if (needsPadding) {
-        // Calculate exact padding needed
         const newWidth = width + padWidth;
         const newHeight = height + padHeight;
         const padLeft = Math.floor(padWidth / 2);
@@ -162,46 +177,55 @@ class ImageConverter {
     }
     
     switch (mode) {
+      case 'adaptive':
+        // Adaptive mode: choose best filter based on frame count
+        if (isLowFrameCount) {
+          // For low frame counts: aggressive weighted blending
+          const overlap = frameCount === 2 ? 0.9 : WEIGHTED_BLEND_OVERLAP_LOW_FRAMES;
+          const overlapFrames = Math.max(4, Math.floor(GAME_FPS / spriteFps * overlap));
+          filters.push(`tmix=frames=${overlapFrames}:weights='${this.generateWeightedBlendWeights(overlapFrames)}'`);
+          filters.push('setpts=PTS-STARTPTS');
+        } else {
+          // For higher frame counts: framerate interpolation
+          filters.push(`framerate=fps=${GAME_FPS}:interp_start=${FRAMERATE_INTERP_START}:interp_end=${FRAMERATE_INTERP_END}:scene=100`);
+          filters.push('setpts=PTS-STARTPTS');
+        }
+        break;
+        
       case 'blend':
-        // Simple temporal blending - blends multiple consecutive frames together
-        // Creates smooth transitions but can look slightly blurry
-        filters.push(`tmix=frames=${BLEND_FRAMES}:weights='1 1 1'`);
+        // Simple temporal blending - scales with frame count
+        const blendFrames = isLowFrameCount ? BLEND_FRAMES + 2 : BLEND_FRAMES;
+        filters.push(`tmix=frames=${blendFrames}:weights='${Array(blendFrames).fill('1').join(' ')}'`);
         filters.push('setpts=PTS-STARTPTS');
         break;
         
       case 'framerate':
-        // Framerate filter with scene change detection disabled
-        // Creates the smoothest interpolation by blending frames
-        // This is the best option for eliminating jitter
+        // Framerate filter with maximum smoothing
         filters.push(`framerate=fps=${GAME_FPS}:interp_start=${FRAMERATE_INTERP_START}:interp_end=${FRAMERATE_INTERP_END}:scene=100`);
         filters.push('setpts=PTS-STARTPTS');
         break;
         
       case 'minterpolate':
-        // Motion-interpolated frames - generates intermediate frames using motion estimation
-        // Best for smooth, fluid motion with minimal blur
-        // For 2-frame sequences, use blend mode for better results
-        const miMode = frameCount === 2 ? 'blend' : MINTERPOLATE_MODE;
+        // Motion-interpolated frames
+        const miMode = isLowFrameCount ? 'blend' : MINTERPOLATE_MODE;
         filters.push(`minterpolate=fps=${GAME_FPS}:mi_mode=${miMode}:mc_mode=${MINTERPOLATE_MC_MODE}:me_mode=${MINTERPOLATE_ME_MODE}:vsbmc=1`);
         filters.push('setpts=PTS-STARTPTS');
         
-        // Remove padding after interpolation if it was added
         if (needsPadding && imageDimensions) {
           filters.push(`crop=${imageDimensions.width}:${imageDimensions.height}`);
         }
         break;
         
       case 'weighted':
-        // Weighted crossfade between frames - smooth transitions with controlled overlap
-        // Good balance between smoothness and clarity
-        const overlapFrames = Math.max(2, Math.floor(GAME_FPS / spriteFps * WEIGHTED_BLEND_OVERLAP));
+        // Weighted crossfade - adaptive overlap based on frame count
+        const overlap = isLowFrameCount ? WEIGHTED_BLEND_OVERLAP_LOW_FRAMES : WEIGHTED_BLEND_OVERLAP_BASE;
+        const overlapFrames = Math.max(3, Math.floor(GAME_FPS / spriteFps * overlap));
         filters.push(`tmix=frames=${overlapFrames}:weights='${this.generateWeightedBlendWeights(overlapFrames)}'`);
         filters.push('setpts=PTS-STARTPTS');
         break;
         
       case 'none':
       default:
-        // No interpolation, just timestamp normalization
         filters.push('setpts=PTS-STARTPTS');
         break;
     }
@@ -254,23 +278,26 @@ class ImageConverter {
         }
 
         const firstImagePath = path.join(dir, seqFiles[0]);
-        const spriteFps =
-          this.findFrameRateForImage(firstImagePath, imagesRoot, spriteDataMap)
-          || options.fps
-          || 10;
+        const spriteData = this.findSpriteDataForImage(firstImagePath, imagesRoot, spriteDataMap);
+        const spriteFps = spriteData.fps || options.fps || 10;
+        const shouldRewind = spriteData.rewind;
 
-        const sequence = this.generateSequence(seqFiles, spriteFps);
+        const sequence = this.generateSequence(seqFiles, spriteFps, shouldRewind);
         const totalFrames = sequence.reduce((s, f) => s + f.repeat, 0);
         if (totalFrames <= 0) continue;
-
-        const listFile = path.join(dir, `._${baseName}_frames.txt`);
-        await fs.writeFile(listFile, this.createConcatFile(sequence, dir));
 
         const outName = this.sanitizeFilename(baseName);
         const outputPath = path.join(dir, `${outName}.avif`);
 
+        // Build concat file for regular processing
+        const listFile = path.join(dir, `._${baseName}_frames.txt`);
+        await fs.writeFile(listFile, this.createConcatFile(sequence, dir));
+
         let interpolationMode = options.interpolation || INTERPOLATION_MODE;
         let imageDimensions = null;
+        
+        // Tag for console output
+        const frameTag = seqFiles.length <= ADAPTIVE_LOW_FRAME_THRESHOLD ? ' (low-frame enhanced)' : '';
         
         // Check if we need to pad for minterpolate due to size constraints
         if (interpolationMode === 'minterpolate') {
@@ -288,23 +315,22 @@ class ImageConverter {
             
             if (width < 32 || height < 32) {
               console.log(
-                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode} (padding ${width}x${height} → ${Math.max(width, 32)}x${Math.max(height, 32)})`
+                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | frames=${seqFiles.length} | mode=${interpolationMode}${frameTag} (padding ${width}x${height})`
               );
             } else {
               console.log(
-                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode}`
+                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | frames=${seqFiles.length} | mode=${interpolationMode}${frameTag}`
               );
             }
           } catch (probeError) {
-            // If probe fails, fall back to framerate
             interpolationMode = 'framerate';
             console.log(
-              `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode} (fallback from minterpolate)`
+              `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | frames=${seqFiles.length} | mode=${interpolationMode}${frameTag} (fallback)`
             );
           }
         } else {
           console.log(
-            `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | mode=${interpolationMode}`
+            `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | frames=${seqFiles.length} | mode=${interpolationMode}${frameTag}`
           );
         }
 
