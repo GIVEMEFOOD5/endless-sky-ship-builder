@@ -1513,7 +1513,13 @@ async function main() {
 
         // Convert image sequences to AVIF
         const converter = new ImageConverter();
-        await converter.processAllImages(pluginDir, data);
+        await converter.processAllImages(pluginDir, data, {
+          fps: 10,           // Default FPS if not in spriteData
+          crf: 40,           // Quality (lower = better, 0-63)
+          speed: 6,          // Encoding speed (0-8, higher = faster)
+          transition: 'ease-in-out',  // Transition type
+          transitionFrames: 0         // Interpolated frames (future feature)
+        });
       }
       
       // Save JSON files to pluginDir/dataFiles/

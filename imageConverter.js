@@ -154,14 +154,106 @@ class ImageConverter {
     return spriteDataMap.get(basePath) || null;
   }
 
+  /**
+   * Generate frame sequence with transition modifiers
+   * @param {string[]} seqFiles - Array of frame filenames
+   * @param {string} transition - Transition type: 'linear', 'ease-in', 'ease-out', 'ease-in-out', 'smooth', 'bounce'
+   * @param {number} transitionFrames - Number of interpolated frames to add between original frames (0 = no interpolation)
+   * @returns {Array} Array of {file, duration} objects
+   */
+  generateTransitionSequence(seqFiles, transition = 'linear', transitionFrames = 0) {
+    // Sort numerically (lowest to highest)
+    const sorted = [...seqFiles].sort((a, b) => {
+      const na = parseInt(a.match(SEQ_REGEX)[2], 10);
+      const nb = parseInt(b.match(SEQ_REGEX)[2], 10);
+      return na - nb;
+    });
+
+    // Easing functions (t ranges from 0 to 1)
+    const easingFunctions = {
+      linear: (t) => t,
+      'ease-in': (t) => t * t,
+      'ease-out': (t) => t * (2 - t),
+      'ease-in-out': (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+      smooth: (t) => t * t * (3 - 2 * t), // Smoothstep
+      bounce: (t) => {
+        // Simple bounce effect
+        if (t < 0.5) return 2 * t * t;
+        return 1 - 2 * (1 - t) * (1 - t);
+      }
+    };
+
+    const easingFn = easingFunctions[transition] || easingFunctions.linear;
+
+    // Calculate frame durations based on easing
+    const sequence = [];
+    const totalFrames = sorted.length;
+
+    for (let i = 0; i < totalFrames; i++) {
+      // Calculate normalized position (0 to 1)
+      const t = i / (totalFrames - 1);
+      
+      // Apply easing function to get duration multiplier
+      const easedValue = easingFn(t);
+      
+      // Map easing value to duration (0.5 to 2.0 range for variety)
+      // Lower easing value = shorter duration (faster)
+      // Higher easing value = longer duration (slower)
+      const durationMultiplier = 0.5 + easedValue * 1.5;
+      
+      sequence.push({
+        file: sorted[i],
+        duration: durationMultiplier
+      });
+    }
+
+    // Create ping-pong: forward + reverse (excluding last frame to avoid duplicate)
+    const reverseSequence = sequence.slice(0, -1).reverse();
+    const pingPongSequence = [...sequence, ...reverseSequence];
+
+    return pingPongSequence;
+  }
+
+  /**
+   * Create ffmpeg concat file with frame durations
+   * @param {Array} sequence - Array of {file, duration} objects
+   * @param {string} dir - Directory containing the files
+   * @param {number} baseFps - Base frames per second
+   * @returns {string} Content for concat file
+   */
+  createConcatFileWithDurations(sequence, dir, baseFps) {
+    const lines = [];
+    
+    for (const item of sequence) {
+      const filePath = path.join(dir, item.file).replace(/\\/g, '/');
+      // Calculate actual duration in seconds
+      const duration = item.duration / baseFps;
+      
+      lines.push(`file '${filePath}'`);
+      lines.push(`duration ${duration.toFixed(6)}`);
+    }
+    
+    // Add the last file again without duration (required by ffmpeg concat)
+    const lastItem = sequence[sequence.length - 1];
+    const lastFilePath = path.join(dir, lastItem.file).replace(/\\/g, '/');
+    lines.push(`file '${lastFilePath}'`);
+    
+    return lines.join('\n');
+  }
+
   async processAllImages(pluginDir, parsedData, options = {}) {
     const imagesRoot = path.join(pluginDir, 'images');
+
+    // Extract transition options
+    const transition = options.transition || 'linear'; // 'linear', 'ease-in', 'ease-out', 'ease-in-out', 'smooth', 'bounce'
+    const transitionFrames = options.transitionFrames || 0; // Number of interpolated frames (0 = disabled)
 
     // First, collect all sprite data and build a lookup map
     const spritesWithData = await this.collectSpritesWithData(pluginDir, parsedData);
     const spriteDataMap = this.buildSpriteDataMap(spritesWithData);
     
     console.log(`Built sprite data map with ${spriteDataMap.size} entries`);
+    console.log(`Using transition: ${transition}`);
 
     let converted = 0;
     let skipped = 0;
@@ -196,29 +288,11 @@ class ImageConverter {
           continue;
         }
 
-        // Sort numerically (lowest to highest)
-        seqFiles.sort((a, b) => {
-          const na = parseInt(a.match(SEQ_REGEX)[2], 10);
-          const nb = parseInt(b.match(SEQ_REGEX)[2], 10);
-          return na - nb;
-        });
-
-        // Create ping-pong effect: lowest to highest, then highest to lowest
-        // Exclude the last frame to avoid duplicate when reversing
-        const reversedSeq = seqFiles.slice(0, -1).reverse();
-        const pingPongSeq = [...seqFiles, ...reversedSeq];
+        // Generate transition sequence with dynamic timing
+        const transitionSequence = this.generateTransitionSequence(seqFiles, transition, transitionFrames);
 
         const listFile = path.join(dir, `._${baseName}_frames.txt`);
-        const listContent = pingPongSeq
-          .map(f => `file '${path.join(dir, f).replace(/\\/g, '/')}'`)
-          .join('\n');
-
-        await fs.writeFile(listFile, listContent);
-
-        // Sanitize the output filename - removes ALL special characters from end
-        const sanitizedName = this.sanitizeFilename(baseName);
-        const outputPath = path.join(dir, `${sanitizedName}.avif`);
-
+        
         // Find the frame rate for this specific image sequence
         const firstImagePath = path.join(dir, seqFiles[0]);
         const spriteFrameRate = this.findFrameRateForImage(firstImagePath, imagesRoot, spriteDataMap);
@@ -226,12 +300,19 @@ class ImageConverter {
         // Use sprite's frame rate if available, otherwise use options.fps or default to 10
         const fps = spriteFrameRate || options.fps || 10;
         
-        console.log(`Processing ${path.relative(imagesRoot, dir)}/${baseName} at ${fps} fps`);
+        // Create concat file with durations based on transition
+        const listContent = this.createConcatFileWithDurations(transitionSequence, dir, fps);
+        await fs.writeFile(listFile, listContent);
+
+        // Sanitize the output filename - removes ALL special characters from end
+        const sanitizedName = this.sanitizeFilename(baseName);
+        const outputPath = path.join(dir, `${sanitizedName}.avif`);
+        
+        console.log(`Processing ${path.relative(imagesRoot, dir)}/${baseName} at ${fps} fps with ${transition} transition`);
 
         try {
           await execFileAsync('ffmpeg', [
             '-y',
-            '-r', String(fps),
             '-f', 'concat',
             '-safe', '0',
             '-i', listFile,
@@ -242,7 +323,7 @@ class ImageConverter {
             outputPath
           ]);
 
-          console.log(`✔ ${path.relative(imagesRoot, outputPath)} (${fps} fps)`);
+          console.log(`✔ ${path.relative(imagesRoot, outputPath)} (${fps} fps, ${transition})`);
           converted++;
         } catch (err) {
           console.error(`✖ Failed: ${outputPath}`, err.message);
