@@ -87,7 +87,7 @@ class OpenGLSpriteRenderer {
         for (int i = 0; i < 8; i++) {
           if (i >= u_numTextures) break;
           
-          vec4 texSample;
+          vec4 texSample = vec4(0.0);
           if (i == 0) texSample = texture2D(u_texture0, v_texCoord);
           else if (i == 1) texSample = texture2D(u_texture1, v_texCoord);
           else if (i == 2) texSample = texture2D(u_texture2, v_texCoord);
@@ -260,10 +260,14 @@ class OpenGLSpriteRenderer {
       }
     }
     
-    // Set weights
+    // Set weights - pad to 8 elements
+    const paddedWeights = new Float32Array(8);
+    for (let i = 0; i < 8; i++) {
+      paddedWeights[i] = i < weights.length ? weights[i] : 0.0;
+    }
     const weightLoc = gl.getUniformLocation(program, 'u_weights');
     if (weightLoc !== null) {
-      gl.uniform1fv(weightLoc, new Float32Array(weights));
+      gl.uniform1fv(weightLoc, paddedWeights);
     }
     
     const numLoc = gl.getUniformLocation(program, 'u_numTextures');
