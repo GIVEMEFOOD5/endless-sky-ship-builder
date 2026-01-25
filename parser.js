@@ -561,7 +561,7 @@ class EndlessSkyParser {
         }
 
         // Handle sprite
-        if (stripped.startsWith('sprite ')) {
+        if (stripped.includes('sprite')) {
           const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
           const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
           const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
@@ -703,7 +703,7 @@ class EndlessSkyParser {
           continue;
         }
                       
-        if (stripped.startsWith('sprite ')) {
+        if (stripped.includes('sprite')) {
           const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
           const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
           const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
@@ -751,7 +751,7 @@ class EndlessSkyParser {
             const attrStripped = attrLine.trim();
 
             // Handle sprite
-            if (stripped.startsWith('sprite ')) {
+            if (stripped.includes('sprite')) {
               const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
               const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
               const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
