@@ -1,5 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
+const { createCanvas, loadImage } = require('canvas');
+const gl = require('gl');
 const { execFile } = require('child_process');
 const util = require('util');
 
@@ -13,25 +15,255 @@ const MIN_LOGICAL_FPS = 0.1;
 const MAX_HOLD_FRAMES = 600;
 const DISABLE_PINGPONG_BELOW = 0.09;
 
-// Interpolation modes for smooth transitions
-const INTERPOLATION_MODE = 'adaptive'; // Options: 'none', 'blend', 'minterpolate', 'weighted', 'framerate', 'adaptive'
+// OpenGL rendering settings
+const BLEND_MODE = 'gaussian'; // 'linear', 'gaussian', 'cubic', 'lanczos'
+const MOTION_BLUR_SAMPLES = 8; // Number of sub-frame samples for motion blur
+const ENABLE_MOTION_BLUR = true;
+const ADAPTIVE_BLUR_STRENGTH = true; // Stronger blur for low frame counts
 
-// Adaptive mode: automatically chooses best smoothing based on frame count
-const ADAPTIVE_LOW_FRAME_THRESHOLD = 15; // Sequences with <= this many frames get extra smoothing
-
-const BLEND_FRAMES = 5; // Number of frames to blend together (for 'blend' mode)
-const MINTERPOLATE_MODE = 'mci'; // 'mci' (motion compensated) or 'blend'
-const MINTERPOLATE_MC_MODE = 'aobmc'; // 'obmc' or 'aobmc' (adaptive) - better quality
-const MINTERPOLATE_ME_MODE = 'bidir'; // 'bidir' (bidirectional) - smoother
-
-// Framerate filter configuration
-const FRAMERATE_INTERP_START = 255; // Maximum smoothing (255 is max)
-const FRAMERATE_INTERP_END = 255;   // Maximum smoothing
-
-// Weighted blending configuration - scales with frame count
-const WEIGHTED_BLEND_OVERLAP_BASE = 0.6; // Base overlap
-const WEIGHTED_BLEND_OVERLAP_LOW_FRAMES = 0.85; // High overlap for low frame counts
+// Frame interpolation settings
+const ADAPTIVE_LOW_FRAME_THRESHOLD = 15;
+const LOW_FRAME_BLUR_MULTIPLIER = 2.0; // Extra blur for choppy animations
 // ----------------------------------------
+
+class OpenGLSpriteRenderer {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+    this.glContext = gl(width, height, { preserveDrawingBuffer: true });
+    this.textures = [];
+    this.framebuffers = [];
+    this.shaders = {};
+    
+    this.initShaders();
+  }
+
+  initShaders() {
+    const gl = this.glContext;
+
+    // Vertex shader (standard quad)
+    const vertexShaderSource = `
+      attribute vec2 a_position;
+      attribute vec2 a_texCoord;
+      varying vec2 v_texCoord;
+      
+      void main() {
+        gl_Position = vec4(a_position, 0.0, 1.0);
+        v_texCoord = a_texCoord;
+      }
+    `;
+
+    // Fragment shader for Gaussian blur blending
+    const gaussianFragmentSource = `
+      precision mediump float;
+      uniform sampler2D u_textures[8];
+      uniform float u_weights[8];
+      uniform int u_numTextures;
+      varying vec2 v_texCoord;
+      
+      void main() {
+        vec4 color = vec4(0.0);
+        float totalWeight = 0.0;
+        
+        for (int i = 0; i < 8; i++) {
+          if (i >= u_numTextures) break;
+          
+          vec4 sample;
+          if (i == 0) sample = texture2D(u_textures[0], v_texCoord);
+          else if (i == 1) sample = texture2D(u_textures[1], v_texCoord);
+          else if (i == 2) sample = texture2D(u_textures[2], v_texCoord);
+          else if (i == 3) sample = texture2D(u_textures[3], v_texCoord);
+          else if (i == 4) sample = texture2D(u_textures[4], v_texCoord);
+          else if (i == 5) sample = texture2D(u_textures[5], v_texCoord);
+          else if (i == 6) sample = texture2D(u_textures[6], v_texCoord);
+          else if (i == 7) sample = texture2D(u_textures[7], v_texCoord);
+          
+          float weight = u_weights[i];
+          color += sample * weight;
+          totalWeight += weight;
+        }
+        
+        if (totalWeight > 0.0) {
+          color /= totalWeight;
+        }
+        
+        gl_FragColor = color;
+      }
+    `;
+
+    // Cubic interpolation shader
+    const cubicFragmentSource = `
+      precision mediump float;
+      uniform sampler2D u_texture1;
+      uniform sampler2D u_texture2;
+      uniform float u_blend;
+      varying vec2 v_texCoord;
+      
+      // Cubic interpolation
+      float cubic(float t) {
+        return t * t * (3.0 - 2.0 * t);
+      }
+      
+      void main() {
+        float t = cubic(u_blend);
+        vec4 color1 = texture2D(u_texture1, v_texCoord);
+        vec4 color2 = texture2D(u_texture2, v_texCoord);
+        gl_FragColor = mix(color1, color2, t);
+      }
+    `;
+
+    this.shaders.gaussian = this.createProgram(vertexShaderSource, gaussianFragmentSource);
+    this.shaders.cubic = this.createProgram(vertexShaderSource, cubicFragmentSource);
+    
+    this.setupQuad();
+  }
+
+  createProgram(vertSource, fragSource) {
+    const gl = this.glContext;
+    
+    const vertShader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vertShader, vertSource);
+    gl.compileShader(vertShader);
+    
+    const fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fragShader, fragSource);
+    gl.compileShader(fragShader);
+    
+    const program = gl.createProgram();
+    gl.attachShader(program, vertShader);
+    gl.attachShader(program, fragShader);
+    gl.linkProgram(program);
+    
+    return program;
+  }
+
+  setupQuad() {
+    const gl = this.glContext;
+    
+    // Full-screen quad
+    const vertices = new Float32Array([
+      -1, -1,  0, 1,
+       1, -1,  1, 1,
+      -1,  1,  0, 0,
+       1,  1,  1, 0
+    ]);
+    
+    this.quadBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.quadBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+  }
+
+  async loadTexture(imagePath) {
+    const gl = this.glContext;
+    const image = await loadImage(imagePath);
+    
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    
+    // Create canvas and draw image
+    const canvas = createCanvas(image.width, image.height);
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0);
+    
+    const imageData = ctx.getImageData(0, 0, image.width, image.height);
+    
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.RGBA,
+      image.width,
+      image.height,
+      0,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      new Uint8Array(imageData.data.buffer)
+    );
+    
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    
+    return { texture, width: image.width, height: image.height };
+  }
+
+  calculateGaussianWeights(numSamples, sigma = 1.0) {
+    const weights = [];
+    const center = (numSamples - 1) / 2;
+    let sum = 0;
+    
+    for (let i = 0; i < numSamples; i++) {
+      const x = i - center;
+      const weight = Math.exp(-(x * x) / (2 * sigma * sigma));
+      weights.push(weight);
+      sum += weight;
+    }
+    
+    // Normalize
+    return weights.map(w => w / sum);
+  }
+
+  renderBlendedFrame(textures, weights) {
+    const gl = this.glContext;
+    const program = this.shaders.gaussian;
+    
+    gl.useProgram(program);
+    gl.viewport(0, 0, this.width, this.height);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    
+    // Enable blending
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    
+    // Bind textures
+    for (let i = 0; i < Math.min(textures.length, 8); i++) {
+      gl.activeTexture(gl.TEXTURE0 + i);
+      gl.bindTexture(gl.TEXTURE_2D, textures[i]);
+      const loc = gl.getUniformLocation(program, `u_textures[${i}]`);
+      gl.uniform1i(loc, i);
+    }
+    
+    // Set weights
+    const weightLoc = gl.getUniformLocation(program, 'u_weights');
+    gl.uniform1fv(weightLoc, new Float32Array(weights));
+    
+    const numLoc = gl.getUniformLocation(program, 'u_numTextures');
+    gl.uniform1i(numLoc, textures.length);
+    
+    // Setup attributes
+    const posLoc = gl.getAttribLocation(program, 'a_position');
+    const texLoc = gl.getAttribLocation(program, 'a_texCoord');
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.quadBuffer);
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 16, 0);
+    gl.enableVertexAttribArray(texLoc);
+    gl.vertexAttribPointer(texLoc, 2, gl.FLOAT, false, 16, 8);
+    
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    
+    // Read pixels
+    const pixels = new Uint8Array(this.width * this.height * 4);
+    gl.readPixels(0, 0, this.width, this.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    
+    return pixels;
+  }
+
+  getFrameAsCanvas(pixels) {
+    const canvas = createCanvas(this.width, this.height);
+    const ctx = canvas.getContext('2d');
+    const imageData = ctx.createImageData(this.width, this.height);
+    imageData.data.set(pixels);
+    ctx.putImageData(imageData, 0, 0);
+    return canvas;
+  }
+
+  cleanup() {
+    const gl = this.glContext;
+    this.textures.forEach(t => gl.deleteTexture(t));
+    this.framebuffers.forEach(f => gl.deleteFramebuffer(f));
+  }
+}
 
 class ImageConverter {
   sanitizeFilename(name) {
@@ -93,8 +325,6 @@ class ImageConverter {
     return spriteDataMap.get(rel) || { fps: null, rewind: false };
   }
 
-  // ---------------- SEQUENCE ----------------
-
   generateSequence(seqFiles, logicalFps, shouldRewind = false) {
     const sorted = [...seqFiles].sort((a, b) => {
       const na = parseInt(a.match(SEQ_REGEX)[2], 10);
@@ -110,11 +340,9 @@ class ImageConverter {
       repeat: holdFrames
     }));
 
-    // Use rewind flag from spriteData if available, otherwise use pingpong logic
     const usePingpong = shouldRewind || (fps >= DISABLE_PINGPONG_BELOW && sorted.length >= 2);
     
     if (usePingpong) {
-      // Don't duplicate first and last frames to avoid stuttering
       const reverse = sequence.slice(1, -1).reverse();
       return [...sequence, ...reverse];
     }
@@ -122,133 +350,115 @@ class ImageConverter {
     return sequence;
   }
 
-  createConcatFile(sequence, dir) {
-    const lines = [];
-    const frameDuration = 1 / GAME_FPS;
+  async renderSequenceWithOpenGL(dir, sequence, spriteFps, isLowFrameCount) {
+    // Load all unique frames
+    const uniqueFiles = [...new Set(sequence.map(s => s.file))];
+    const firstImagePath = path.join(dir, uniqueFiles[0]);
+    const firstImage = await loadImage(firstImagePath);
     
+    const renderer = new OpenGLSpriteRenderer(firstImage.width, firstImage.height);
+    
+    // Load all textures
+    const textureMap = new Map();
+    for (const file of uniqueFiles) {
+      const texData = await renderer.loadTexture(path.join(dir, file));
+      textureMap.set(file, texData.texture);
+    }
+
+    const frames = [];
+    const blurSamples = ENABLE_MOTION_BLUR ? MOTION_BLUR_SAMPLES : 1;
+    const blurMultiplier = (ADAPTIVE_BLUR_STRENGTH && isLowFrameCount) ? LOW_FRAME_BLUR_MULTIPLIER : 1.0;
+    
+    let frameIndex = 0;
     for (const item of sequence) {
-      const filePath = path.join(dir, item.file).replace(/\\/g, '/');
-      for (let i = 0; i < item.repeat; i++) {
-        lines.push(`file '${filePath}'`);
-        lines.push(`duration ${frameDuration.toFixed(6)}`);
-      }
-    }
-    
-    // FFmpeg concat requires the last file to be listed again without duration
-    if (sequence.length > 0) {
-      const lastFile = path.join(dir, sequence[sequence.length - 1].file).replace(/\\/g, '/');
-      lines.push(`file '${lastFile}'`);
-    }
-    
-    return lines.join('\n') + '\n';
-  }
-
-  // Build interpolation filter chain
-  buildInterpolationFilter(mode, spriteFps, imageDimensions = null, frameCount = 0) {
-    const filters = [];
-    
-    // Determine if this is a low-frame-count sequence
-    const isLowFrameCount = frameCount <= ADAPTIVE_LOW_FRAME_THRESHOLD;
-    
-    // Add padding if needed for minterpolate (requires 32x32 minimum)
-    let needsPadding = false;
-    let padWidth = 0;
-    let padHeight = 0;
-    
-    if (imageDimensions && mode === 'minterpolate') {
-      const { width, height } = imageDimensions;
-      if (width < 32) {
-        needsPadding = true;
-        padWidth = 32 - width;
-      }
-      if (height < 32) {
-        needsPadding = true;
-        padHeight = 32 - height;
-      }
+      const texture = textureMap.get(item.file);
       
-      if (needsPadding) {
-        const newWidth = width + padWidth;
-        const newHeight = height + padHeight;
-        const padLeft = Math.floor(padWidth / 2);
-        const padTop = Math.floor(padHeight / 2);
+      for (let rep = 0; rep < item.repeat; rep++) {
+        if (ENABLE_MOTION_BLUR && blurSamples > 1) {
+          // Multi-sample motion blur
+          const samples = [];
+          const weights = renderer.calculateGaussianWeights(blurSamples, 1.0 * blurMultiplier);
+          
+          // Collect nearby frames for blending
+          const sampleRange = Math.floor(blurSamples / 2);
+          for (let s = -sampleRange; s <= sampleRange; s++) {
+            const sampleIdx = frameIndex + s;
+            if (sampleIdx >= 0 && sampleIdx < sequence.length * MAX_HOLD_FRAMES) {
+              // Find which sequence item this sample belongs to
+              let accumFrames = 0;
+              let sampleTexture = texture;
+              for (const seqItem of sequence) {
+                if (sampleIdx < accumFrames + seqItem.repeat) {
+                  sampleTexture = textureMap.get(seqItem.file);
+                  break;
+                }
+                accumFrames += seqItem.repeat;
+              }
+              samples.push(sampleTexture);
+            } else {
+              samples.push(texture); // Clamp to current frame
+            }
+          }
+          
+          const pixels = renderer.renderBlendedFrame(samples, weights);
+          frames.push(renderer.getFrameAsCanvas(pixels));
+        } else {
+          // No motion blur - direct render
+          const pixels = renderer.renderBlendedFrame([texture], [1.0]);
+          frames.push(renderer.getFrameAsCanvas(pixels));
+        }
         
-        filters.push(`pad=${newWidth}:${newHeight}:${padLeft}:${padTop}:color=0x00000000`);
+        frameIndex++;
       }
     }
-    
-    switch (mode) {
-      case 'adaptive':
-        // Adaptive mode: choose best filter based on frame count
-        if (isLowFrameCount) {
-          // For low frame counts: aggressive weighted blending
-          const overlap = frameCount === 2 ? 0.9 : WEIGHTED_BLEND_OVERLAP_LOW_FRAMES;
-          const overlapFrames = Math.min(256, Math.max(4, Math.floor(GAME_FPS / spriteFps * overlap)));
-          filters.push(`tmix=frames=${overlapFrames}:weights='${this.generateWeightedBlendWeights(overlapFrames)}'`);
-          filters.push('setpts=PTS-STARTPTS');
-        } else {
-          // For higher frame counts: framerate interpolation
-          filters.push(`framerate=fps=${GAME_FPS}:interp_start=${FRAMERATE_INTERP_START}:interp_end=${FRAMERATE_INTERP_END}:scene=100`);
-          filters.push('setpts=PTS-STARTPTS');
-        }
-        break;
-        
-      case 'blend':
-        // Simple temporal blending - scales with frame count
-        const blendFrames = Math.min(256, isLowFrameCount ? BLEND_FRAMES + 2 : BLEND_FRAMES);
-        filters.push(`tmix=frames=${blendFrames}:weights='${Array(blendFrames).fill('1').join(' ')}'`);
-        filters.push('setpts=PTS-STARTPTS');
-        break;
-        
-      case 'framerate':
-        // Framerate filter with maximum smoothing
-        filters.push(`framerate=fps=${GAME_FPS}:interp_start=${FRAMERATE_INTERP_START}:interp_end=${FRAMERATE_INTERP_END}:scene=100`);
-        filters.push('setpts=PTS-STARTPTS');
-        break;
-        
-      case 'minterpolate':
-        // Motion-interpolated frames
-        const miMode = isLowFrameCount ? 'blend' : MINTERPOLATE_MODE;
-        filters.push(`minterpolate=fps=${GAME_FPS}:mi_mode=${miMode}:mc_mode=${MINTERPOLATE_MC_MODE}:me_mode=${MINTERPOLATE_ME_MODE}:vsbmc=1`);
-        filters.push('setpts=PTS-STARTPTS');
-        
-        if (needsPadding && imageDimensions) {
-          filters.push(`crop=${imageDimensions.width}:${imageDimensions.height}`);
-        }
-        break;
-        
-      case 'weighted':
-        // Weighted crossfade - adaptive overlap based on frame count
-        const overlap = isLowFrameCount ? WEIGHTED_BLEND_OVERLAP_LOW_FRAMES : WEIGHTED_BLEND_OVERLAP_BASE;
-        const overlapFrames = Math.min(256, Math.max(3, Math.floor(GAME_FPS / spriteFps * overlap)));
-        filters.push(`tmix=frames=${overlapFrames}:weights='${this.generateWeightedBlendWeights(overlapFrames)}'`);
-        filters.push('setpts=PTS-STARTPTS');
-        break;
-        
-      case 'none':
-      default:
-        filters.push('setpts=PTS-STARTPTS');
-        break;
-    }
-    
-    return filters.join(',');
+
+    renderer.cleanup();
+    return frames;
   }
 
-  // Generate gaussian-like weights for smoother blending
-  generateWeightedBlendWeights(numFrames) {
-    const weights = [];
-    const center = (numFrames - 1) / 2;
-    
-    for (let i = 0; i < numFrames; i++) {
-      // Gaussian-like weighting (bell curve)
-      const distance = Math.abs(i - center);
-      const weight = Math.exp(-(distance * distance) / (numFrames / 2));
-      weights.push(weight.toFixed(3));
-    }
-    
-    return weights.join(' ');
-  }
+  async writeFramesToAVIF(frames, outputPath, options) {
+    const tempDir = path.join(path.dirname(outputPath), '._temp_frames');
+    await fs.mkdir(tempDir, { recursive: true });
 
-  // ---------------- MAIN ----------------
+    try {
+      // Write frames as PNGs
+      const framePaths = [];
+      for (let i = 0; i < frames.length; i++) {
+        const framePath = path.join(tempDir, `frame_${String(i).padStart(6, '0')}.png`);
+        const buffer = frames[i].toBuffer('image/png');
+        await fs.writeFile(framePath, buffer);
+        framePaths.push(framePath);
+      }
+
+      // Create concat file
+      const listFile = path.join(tempDir, 'frames.txt');
+      const frameDuration = 1 / GAME_FPS;
+      const lines = framePaths.map(p => `file '${p}'\nduration ${frameDuration.toFixed(6)}`).join('\n');
+      await fs.writeFile(listFile, lines + `\nfile '${framePaths[framePaths.length - 1]}'`);
+
+      // Encode to AVIF
+      const ffmpegArgs = [
+        '-y',
+        '-f', 'concat',
+        '-safe', '0',
+        '-i', listFile,
+        '-fps_mode', 'cfr',
+        '-r', String(GAME_FPS),
+        '-c:v', 'libaom-av1',
+        '-crf', String(options.crf ?? 40),
+        '-cpu-used', String(options.speed ?? 6),
+        '-pix_fmt', 'yuv420p',
+        '-still-picture', '0',
+        '-movflags', '+faststart',
+        outputPath
+      ];
+
+      await execFileAsync('ffmpeg', ffmpegArgs);
+    } finally {
+      // Cleanup temp files
+      await fs.rm(tempDir, { recursive: true, force: true });
+    }
+  }
 
   async processAllImages(pluginDir, parsedData, options = {}) {
     const imagesRoot = path.join(pluginDir, 'images');
@@ -283,81 +493,25 @@ class ImageConverter {
         const shouldRewind = spriteData.rewind;
 
         const sequence = this.generateSequence(seqFiles, spriteFps, shouldRewind);
-        const totalFrames = sequence.reduce((s, f) => s + f.repeat, 0);
-        if (totalFrames <= 0) continue;
+        const isLowFrameCount = seqFiles.length <= ADAPTIVE_LOW_FRAME_THRESHOLD;
 
         const outName = this.sanitizeFilename(baseName);
         const outputPath = path.join(dir, `${outName}.avif`);
 
-        // Build concat file for regular processing
-        const listFile = path.join(dir, `._${baseName}_frames.txt`);
-        await fs.writeFile(listFile, this.createConcatFile(sequence, dir));
-
-        let interpolationMode = options.interpolation || INTERPOLATION_MODE;
-        let imageDimensions = null;
+        const blurTag = ENABLE_MOTION_BLUR 
+          ? ` | blur=${MOTION_BLUR_SAMPLES}x${isLowFrameCount ? ' (enhanced)' : ''}`
+          : '';
         
-        // Tag for console output
-        const frameTag = seqFiles.length <= ADAPTIVE_LOW_FRAME_THRESHOLD ? ' (low-frame enhanced)' : '';
-        
-        // Check if we need to pad for minterpolate due to size constraints
-        if (interpolationMode === 'minterpolate') {
-          try {
-            // Probe the first image to get dimensions
-            const { stdout } = await execFileAsync('ffprobe', [
-              '-v', 'error',
-              '-select_streams', 'v:0',
-              '-show_entries', 'stream=width,height',
-              '-of', 'csv=p=0',
-              path.join(dir, seqFiles[0])
-            ]);
-            const [width, height] = stdout.trim().split(',').map(Number);
-            imageDimensions = { width, height };
-            
-            if (width < 32 || height < 32) {
-              console.log(
-                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | frames=${seqFiles.length} | mode=${interpolationMode}${frameTag} (padding ${width}x${height})`
-              );
-            } else {
-              console.log(
-                `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | frames=${seqFiles.length} | mode=${interpolationMode}${frameTag}`
-              );
-            }
-          } catch (probeError) {
-            interpolationMode = 'framerate';
-            console.log(
-              `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | frames=${seqFiles.length} | mode=${interpolationMode}${frameTag} (fallback)`
-            );
-          }
-        } else {
-          console.log(
-            `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | frames=${seqFiles.length} | mode=${interpolationMode}${frameTag}`
-          );
-        }
-
-        const ffmpegArgs = [
-          '-y',
-          '-f', 'concat',
-          '-safe', '0',
-          '-i', listFile,
-          '-fps_mode', 'cfr',
-          '-r', String(GAME_FPS),
-          '-vf', this.buildInterpolationFilter(interpolationMode, spriteFps, imageDimensions, seqFiles.length),
-          '-c:v', 'libaom-av1',
-          '-crf', String(options.crf ?? 40),
-          '-cpu-used', String(options.speed ?? 6),
-          '-pix_fmt', 'yuv420p',
-          '-still-picture', '0',
-          '-movflags', '+faststart',
-          outputPath
-        ];
+        console.log(
+          `▶ ${path.relative(imagesRoot, dir)}/${baseName} | fps=${spriteFps} | frames=${seqFiles.length}${blurTag}`
+        );
 
         try {
-          await execFileAsync('ffmpeg', ffmpegArgs);
+          const renderedFrames = await this.renderSequenceWithOpenGL(dir, sequence, spriteFps, isLowFrameCount);
+          await this.writeFramesToAVIF(renderedFrames, outputPath, options);
           converted++;
         } catch (e) {
           console.error(`✖ Failed: ${outputPath}`, e.message);
-        } finally {
-          await fs.unlink(listFile);
         }
       }
 

@@ -28,7 +28,10 @@ jobs:
           ffmpeg-version: release
       
       - name: Install dependencies
-        run: npm install sharp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxi-dev libglu1-mesa-dev libglew-dev pkg-config build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+          npm install
       
       - name: Run parser
         env:
@@ -39,16 +42,15 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-              
+
           # Remove all previously tracked files in data/
           git rm -r --ignore-unmatch data/
-              
+
           # Re-add data/ exactly as it exists now
           git add data/
-              
+
           # Commit only if there are changes
           git diff --staged --quiet || (
             git commit -m "Update Endless Sky data - $(date +'%Y-%m-%d')" &&
             git push
           )
-              
