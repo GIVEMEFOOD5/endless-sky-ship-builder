@@ -1515,9 +1515,9 @@ async function main() {
         const converter = new ImageConverter();
         await converter.processAllImages(pluginDir, data, {
           fps: 10,           // Default FPS if not in spriteData
-          crf: 40,           // Quality (lower = better, 0-63)
-          speed: 6,          // Encoding speed (0-8, higher = faster)
-          transition: 'ease-in-out',  // Transition type
+          crf: 15,           // Quality (lower = better, 0-63)
+          speed: 0,          // Encoding speed (0-8, higher = faster)
+          transition: 'smooth',  // Transition type
           transitionFrames: 0         // Interpolated frames (future feature)
         });
       }
