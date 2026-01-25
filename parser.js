@@ -1516,7 +1516,7 @@ async function main() {
         await converter.processAllImages(pluginDir, data, {
           fps: 10,           // Default FPS if not in spriteData
           crf: 15,           // Quality (lower = better, 0-63)
-          speed: 0,          // Encoding speed (0-8, higher = faster)
+          speed: 4,          // Encoding speed (0-8, higher = faster)
           transition: 'smooth',  // Transition type
           transitionFrames: 0         // Interpolated frames (future feature)
         });
