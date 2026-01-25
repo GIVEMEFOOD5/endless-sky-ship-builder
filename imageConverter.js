@@ -101,7 +101,13 @@ class ImageConverter {
       const filePath = path.join(dir, item.file).replace(/\\/g, '/');
       for (let i = 0; i < item.repeat; i++) {
         lines.push(`file '${filePath}'`);
+        lines.push('duration 0.016667'); // 1/60 second per frame
       }
+    }
+    // Add the last file reference without duration
+    if (sequence.length > 0) {
+      const lastFile = path.join(dir, sequence[sequence.length - 1].file).replace(/\\/g, '/');
+      lines.push(`file '${lastFile}'`);
     }
     return lines.join('\n') + '\n';
   }
@@ -164,8 +170,6 @@ class ImageConverter {
           '-f', 'concat',
           '-safe', '0',
           '-i', listFile,
-          '-frames:v', String(totalFrames),
-          '-fps_mode', 'cfr',
           '-r', String(GAME_FPS)
         ];
 
@@ -180,8 +184,8 @@ class ImageConverter {
           '-c:v', 'libaom-av1',
           '-crf', String(options.crf ?? 40),
           '-cpu-used', String(options.speed ?? 6),
-          '-pix_fmt', 'yuv444p',
-          '-aom-params', 'enable-fwd-kf=0',
+          '-pix_fmt', 'yuv420p',
+          '-still-picture', '0',
           outputPath
         );
 
