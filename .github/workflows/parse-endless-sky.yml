@@ -52,10 +52,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          # Remove all previously tracked files in data/
-          git rm -r --ignore-unmatch data/
-
-          # Re-add data/ exactly as it exists now
+          # add data/ exactly as it exists now
           git add data/
 
           # Commit only if there are changes

@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const { createCanvas, loadImage } = require('canvas');
-const { createContext } = require('gl');
+const gl = require('gl');
 const { execFile } = require('child_process');
 const util = require('util');
 
@@ -32,7 +32,7 @@ class OpenGLSpriteRenderer {
     this.height = height;
     
     try {
-      this.glContext = createContext(width, height, { preserveDrawingBuffer: true });
+      this.glContext = gl(width, height, { preserveDrawingBuffer: true });
       
       if (!this.glContext) {
         throw new Error('Failed to create OpenGL context');
