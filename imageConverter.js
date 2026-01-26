@@ -343,8 +343,8 @@ class ImageConverter {
     await this.init();
     
     const imagesDir = path.join(pluginDir, 'images');
-    const outputDir = path.join(pluginDir, 'animations');
-    await fs.mkdir(outputDir, { recursive: true });
+    // Output animations in the same directory structure as the sprite paths
+    const outputBaseDir = path.join(pluginDir, 'images');
     
     console.log('\n' + '='.repeat(60));
     console.log('Processing sprite animations...');
@@ -447,12 +447,14 @@ class ImageConverter {
         const result = await this.generateInterpolatedFrames(frames, animParams, fps);
         console.log(`  Generated ${result.frames.length} interpolated frames`);
         
-        // Create AVIF animation
-        const safeName = spritePath.replace(/[\/\\]/g, '_');
-        const avifPath = path.join(outputDir, `${safeName}.avif`);
+        // Create AVIF animation in the same directory structure as the sprite
+        // For example: sprite "ship/my_ship" -> images/ship/my_ship.avif
+        const outputPath = path.join(outputBaseDir, `${spritePath}.avif`);
+        const outputDir = path.dirname(outputPath);
+        await fs.mkdir(outputDir, { recursive: true });
         
         console.log(`  Creating AVIF animation...`);
-        await this.createAVIF(result.outputDir, avifPath, fps, { crf, speed });
+        await this.createAVIF(result.outputDir, outputPath, fps, { crf, speed });
         
         // Cleanup temp frames
         await fs.rm(result.outputDir, { recursive: true, force: true });
