@@ -1,17 +1,19 @@
 {
-  "name": "endless-sky-parser",
+  "name": "endless-sky-animation-parser",
   "version": "1.0.0",
-  "description": "Parse Endless Sky data from GitHub repositories",
+  "description": "Parser for Endless Sky sprite animations with frame tweening support",
   "main": "parser.js",
   "scripts": {
-    "parse": "node parser.js"
+    "parse": "node parser.js",
+    "test": "node parser.js"
   },
-  "keywords": ["endless-sky", "parser"],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "canvas": "^2.11.2",
-    "gl": "^6.0.2",
-    "sharp": "^0.33.0"
-  }
+    "fluent-ffmpeg": "^2.1.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "GitHub Actions",
+  "license": "MIT"
 }
