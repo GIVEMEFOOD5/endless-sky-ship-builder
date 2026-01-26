@@ -284,7 +284,7 @@ class ImageConverter {
               const sprite = sprites.get(spriteKey);
               
               if (specialChar === '+') sprite.blendMode = 'additive';
-              else if (specialChar === '~') sprite.blendMode = 'half-additive';
+              else if (specialChar === '~' || specialChar === '^') sprite.blendMode = 'half-additive';
               
               sprite.frames.push({
                 num: frameNum,
