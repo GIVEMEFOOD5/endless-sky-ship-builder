@@ -309,7 +309,7 @@ class ImageConverter {
   }
 
   // Generate interpolated frames using OpenGL
-  async generateInterpolatedFrames(sprite, fps = 60, animationFps = 10) {
+  async generateInterpolatedFrames(sprite, fps, animationFps) {
     const frames = sprite.frames;
     if (frames.length === 0) return [];
     
@@ -374,8 +374,29 @@ class ImageConverter {
 
   // Process all images
   async processAllImages(pluginDir, data, options = {}) {
-    const { fps = 60, animationFps = 10 } = options;
+
+    var { fps = 60, animationFps = 10 } = options;
+
+    if (data.ships.spriteData['frame rate']) {
+      options.animationFps = data.ships.spriteData['frame rate'];
+    }
+
+    else if (data.variants.spriteData['frame rate']) {
+      options.animationFps = data.variants.spriteData['frame rate'];
+    }
     
+    else if (data.outfits.spriteData['frame rate']) {
+      options.animationFps = data.outfits.spriteData['frame rate'];
+    }
+
+    else if (data.outfits.weapon.spriteData['frame rate']) {
+      options.animationFps = data.outfits.weapon.spriteData['frame rate'];
+    }
+
+    else {
+      options.animationFps = 60;
+    }
+
     await this.init();
     
     const imagesDir = path.join(pluginDir, 'images');
