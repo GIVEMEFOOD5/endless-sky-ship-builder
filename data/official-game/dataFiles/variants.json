@@ -81,12 +81,7 @@
       "outfit space": 839,
       "weapon capacity": 314,
       "engine capacity": 165,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -180,12 +175,7 @@
       "outfit space": 839,
       "weapon capacity": 314,
       "engine capacity": 165,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -315,12 +305,7 @@
       "outfit space": 763,
       "weapon capacity": 276,
       "engine capacity": 206,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 4600,
-        "hull damage": 2300,
-        "hit force": 5900
-      },
+      "weapon": true,
       "atmosphere scan": 1
     },
     "tiny explosion": "120",
@@ -371,12 +356,7 @@
       "outfit space": 92,
       "weapon capacity": 25,
       "engine capacity": 30,
-      "weapon": {
-        "blast radius": 48,
-        "shield damage": 320,
-        "hull damage": 160,
-        "hit force": 480
-      },
+      "weapon": true,
       "atmosphere scan": 1
     },
     "tiny explosion": "20",
@@ -466,12 +446,7 @@
       "outfit space": 839,
       "weapon capacity": 314,
       "engine capacity": 165,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -565,12 +540,7 @@
       "outfit space": 839,
       "weapon capacity": 314,
       "engine capacity": 165,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -664,12 +634,7 @@
       "outfit space": 839,
       "weapon capacity": 314,
       "engine capacity": 165,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -763,12 +728,7 @@
       "outfit space": 839,
       "weapon capacity": 314,
       "engine capacity": 165,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -862,12 +822,7 @@
       "outfit space": 839,
       "weapon capacity": 314,
       "engine capacity": 165,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -1018,12 +973,7 @@
       "turn": 2400,
       "turning energy": 10,
       "turning heat": 5,
-      "weapon": {
-        "blast radius": 500,
-        "shield damage": 10000,
-        "hull damage": 5000,
-        "hit force": -10000
-      }
+      "weapon": true
     },
     "final explode": "\"archon a teleport\"",
     "description": "The Archon's presence is chilling. The \"ship\" has an almost organic appearance, but your ship's scanners give you no discernible information on its construction. What exactly it is you do not know, but you can feel that it is powerful.",
@@ -1169,12 +1119,7 @@
       "turn": 2400,
       "turning energy": 10,
       "turning heat": 5,
-      "weapon": {
-        "blast radius": 500,
-        "shield damage": 10000,
-        "hull damage": 5000,
-        "hit force": -10000
-      }
+      "weapon": true
     },
     "final explode": "\"archon a teleport\"",
     "description": "The Archon's presence is chilling. The \"ship\" has an almost organic appearance, but your ship's scanners give you no discernible information on its construction. What exactly it is you do not know, but you can feel that it is powerful.",
@@ -1320,12 +1265,7 @@
       "turn": 2400,
       "turning energy": 10,
       "turning heat": 5,
-      "weapon": {
-        "blast radius": 500,
-        "shield damage": 10000,
-        "hull damage": 5000,
-        "hit force": -10000
-      },
+      "weapon": true,
       "cloak": 0.04,
       "cloaked communication": 1,
       "cloak phasing": 1,
@@ -1475,12 +1415,7 @@
       "turn": 2400,
       "turning energy": 10,
       "turning heat": 5,
-      "weapon": {
-        "blast radius": 500,
-        "shield damage": 10000,
-        "hull damage": 5000,
-        "hit force": -10000
-      },
+      "weapon": true,
       "cloak": 0.04,
       "cloaked communication": 1,
       "cloak phasing": 1,
@@ -1512,7 +1447,8 @@
     "sprite": "ship/void sprite/void sprite infant",
     "spriteData": {
       "frame rate": 24.7,
-      "description": "\"random start frame\" rewind"
+      "rewind": true,
+      "description": "\"random start frame\""
     },
     "never disabled": true,
     "attributes": {
@@ -1596,9 +1532,7 @@
     "thumbnail": "thumbnail/gegno schist b",
     "attributes": {
       "category": "Heavy Freighter",
-      "licenses": {
-        "description": "\"Vi Evocati\""
-      },
+      "licenses": true,
       "cost": 3737000,
       "shields": 0,
       "hull": 10700,
@@ -1612,12 +1546,7 @@
       "outfit space": 298,
       "weapon capacity": 100,
       "engine capacity": 96,
-      "weapon": {
-        "blast radius": 71,
-        "shield damage": 310,
-        "hull damage": 660,
-        "hit force": 700
-      }
+      "weapon": true
     },
     "leak": "60 50",
     "flame": "60 80",
@@ -1684,9 +1613,7 @@
     "thumbnail": "thumbnail/gegno schist c",
     "attributes": {
       "category": "Heavy Freighter",
-      "licenses": {
-        "description": "\"Vi Evocati\""
-      },
+      "licenses": true,
       "cost": 3737000,
       "shields": 0,
       "hull": 10700,
@@ -1700,12 +1627,7 @@
       "outfit space": 298,
       "weapon capacity": 100,
       "engine capacity": 96,
-      "weapon": {
-        "blast radius": 71,
-        "shield damage": 310,
-        "hull damage": 660,
-        "hit force": 700
-      }
+      "weapon": true
     },
     "leak": "60 50",
     "flame": "60 80",
@@ -1801,9 +1723,7 @@
     "thumbnail": "thumbnail/gegno hornfel b",
     "attributes": {
       "category": "Medium Warship",
-      "licenses": {
-        "description": "\"Vi Centurion\""
-      },
+      "licenses": true,
       "cost": 5052000,
       "shields": 0,
       "hull": 14600,
@@ -1817,12 +1737,7 @@
       "outfit space": 508,
       "weapon capacity": 240,
       "engine capacity": 94,
-      "weapon": {
-        "blast radius": 90,
-        "shield damage": 600,
-        "hull damage": 840,
-        "hit force": 900
-      }
+      "weapon": true
     },
     "leak": "60 50",
     "flame": "60 80",
@@ -1918,9 +1833,7 @@
     "thumbnail": "thumbnail/gegno hornfel c",
     "attributes": {
       "category": "Medium Warship",
-      "licenses": {
-        "description": "\"Vi Centurion\""
-      },
+      "licenses": true,
       "cost": 5052000,
       "shields": 0,
       "hull": 14600,
@@ -1934,12 +1847,7 @@
       "outfit space": 508,
       "weapon capacity": 240,
       "engine capacity": 94,
-      "weapon": {
-        "blast radius": 90,
-        "shield damage": 600,
-        "hull damage": 840,
-        "hit force": 900
-      }
+      "weapon": true
     },
     "leak": "60 50",
     "flame": "60 80",
@@ -2040,9 +1948,7 @@
     "thumbnail": "thumbnail/gegno hornfel d",
     "attributes": {
       "category": "Medium Warship",
-      "licenses": {
-        "description": "\"Vi Centurion\""
-      },
+      "licenses": true,
       "cost": 5052000,
       "shields": 0,
       "hull": 14600,
@@ -2056,12 +1962,7 @@
       "outfit space": 528,
       "weapon capacity": 310,
       "engine capacity": 94,
-      "weapon": {
-        "blast radius": 90,
-        "shield damage": 600,
-        "hull damage": 840,
-        "hit force": 900
-      }
+      "weapon": true
     },
     "leak": "60 50",
     "flame": "60 80",
@@ -2135,12 +2036,7 @@
       "outfit space": 375,
       "weapon capacity": 78,
       "engine capacity": 88,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      }
+      "weapon": true
     },
     "leak": "60 50",
     "flame": "40 40",
@@ -2215,12 +2111,7 @@
       "outfit space": 375,
       "weapon capacity": 78,
       "engine capacity": 88,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      }
+      "weapon": true
     },
     "leak": "60 50",
     "flame": "40 40",
@@ -2312,12 +2203,7 @@
       "outfit space": 533,
       "weapon capacity": 192,
       "engine capacity": 98,
-      "weapon": {
-        "blast radius": 210,
-        "shield damage": 2100,
-        "hull damage": 1050,
-        "hit force": 3150
-      },
+      "weapon": true,
       "threshold percentage": 0.4
     },
     "leak": "40 50",
@@ -2392,12 +2278,7 @@
       "outfit space": 375,
       "weapon capacity": 78,
       "engine capacity": 88,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      }
+      "weapon": true
     },
     "leak": "60 50",
     "flame": "40 40",
@@ -2497,12 +2378,7 @@
       "outfit space": 390,
       "weapon capacity": 150,
       "engine capacity": 95,
-      "weapon": {
-        "blast radius": 80,
-        "shield damage": 800,
-        "hull damage": 400,
-        "hit force": 1200
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "50 50",
@@ -2596,12 +2472,7 @@
       "outfit space": 270,
       "weapon capacity": 90,
       "engine capacity": 80,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -2686,12 +2557,7 @@
       "outfit space": 470,
       "weapon capacity": 190,
       "engine capacity": 120,
-      "weapon": {
-        "blast radius": 120,
-        "shield damage": 1200,
-        "hull damage": 600,
-        "hit force": 1800
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "40 50",
@@ -2761,12 +2627,7 @@
       "outfit space": 200,
       "weapon capacity": 35,
       "engine capacity": 65,
-      "weapon": {
-        "blast radius": 30,
-        "shield damage": 300,
-        "hull damage": 150,
-        "hit force": 450
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -2823,12 +2684,7 @@
       "outfit space": 220,
       "weapon capacity": 50,
       "engine capacity": 110,
-      "weapon": {
-        "blast radius": 30,
-        "shield damage": 300,
-        "hull damage": 150,
-        "hit force": 450
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -2911,12 +2767,7 @@
       "outfit space": 410,
       "weapon capacity": 180,
       "engine capacity": 85,
-      "weapon": {
-        "blast radius": 120,
-        "shield damage": 1200,
-        "hull damage": 600,
-        "hit force": 1800
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "40 50",
@@ -2986,12 +2837,7 @@
       "outfit space": 260,
       "weapon capacity": 60,
       "engine capacity": 80,
-      "weapon": {
-        "blast radius": 36,
-        "shield damage": 360,
-        "hull damage": 180,
-        "hit force": 540
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -3080,12 +2926,7 @@
       "outfit space": 560,
       "weapon capacity": 250,
       "engine capacity": 150,
-      "weapon": {
-        "blast radius": 160,
-        "shield damage": 1600,
-        "hull damage": 800,
-        "hit force": 2400
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "30 50",
@@ -3166,12 +3007,7 @@
       "outfit space": 400,
       "weapon capacity": 160,
       "engine capacity": 100,
-      "weapon": {
-        "blast radius": 100,
-        "shield damage": 1000,
-        "hull damage": 500,
-        "hit force": 1500
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "50 50",
@@ -3235,12 +3071,7 @@
       "outfit space": 250,
       "weapon capacity": 80,
       "engine capacity": 70,
-      "weapon": {
-        "blast radius": 40,
-        "shield damage": 400,
-        "hull damage": 200,
-        "hit force": 600
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -3331,12 +3162,7 @@
       "outfit space": 160,
       "weapon capacity": 40,
       "engine capacity": 60,
-      "weapon": {
-        "blast radius": 24,
-        "shield damage": 240,
-        "hull damage": 120,
-        "hit force": 360
-      },
+      "weapon": true,
       "automaton": 1
     },
     "flame": "50 80",
@@ -3412,12 +3238,7 @@
       "outfit space": 350,
       "weapon capacity": 140,
       "engine capacity": 80,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -3498,12 +3319,7 @@
       "outfit space": 350,
       "weapon capacity": 140,
       "engine capacity": 80,
-      "weapon": {
-        "blast radius": 80,
-        "shield damage": 800,
-        "hull damage": 400,
-        "hit force": 1200
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -3563,12 +3379,7 @@
       "outfit space": 200,
       "weapon capacity": 50,
       "engine capacity": 70,
-      "weapon": {
-        "blast radius": 30,
-        "shield damage": 300,
-        "hull damage": 150,
-        "hit force": 450
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -3635,12 +3446,7 @@
       "outfit space": 320,
       "weapon capacity": 80,
       "engine capacity": 90,
-      "weapon": {
-        "blast radius": 51,
-        "shield damage": 510,
-        "hull damage": 255,
-        "hit force": 765
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "50 40",
@@ -3730,12 +3536,7 @@
       "outfit space": 620,
       "weapon capacity": 240,
       "engine capacity": 120,
-      "weapon": {
-        "blast radius": 80,
-        "shield damage": 800,
-        "hull damage": 400,
-        "hit force": 1200
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "50 50",
@@ -3828,12 +3629,7 @@
       "outfit space": 450,
       "weapon capacity": 180,
       "engine capacity": 130,
-      "weapon": {
-        "blast radius": 80,
-        "shield damage": 800,
-        "hull damage": 400,
-        "hit force": 1200
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "40 50",
@@ -3934,12 +3730,7 @@
       "outfit space": 590,
       "weapon capacity": 230,
       "engine capacity": 100,
-      "weapon": {
-        "blast radius": 160,
-        "shield damage": 1600,
-        "hull damage": 800,
-        "hit force": 2400
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -3998,12 +3789,7 @@
       "outfit space": 240,
       "weapon capacity": 80,
       "engine capacity": 70,
-      "weapon": {
-        "blast radius": 40,
-        "shield damage": 400,
-        "hull damage": 200,
-        "hit force": 600
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "50 50",
@@ -4065,12 +3851,7 @@
       "outfit space": 220,
       "weapon capacity": 40,
       "engine capacity": 100,
-      "weapon": {
-        "blast radius": 16,
-        "shield damage": 160,
-        "hull damage": 80,
-        "hit force": 240
-      },
+      "weapon": true,
       "automaton": 1
     },
     "tiny explosion": "10",
@@ -4123,12 +3904,7 @@
       "outfit space": 125,
       "weapon capacity": 12,
       "engine capacity": 58,
-      "weapon": {
-        "blast radius": 10,
-        "shield damage": 80,
-        "hull damage": 50,
-        "hit force": 140
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -4199,12 +3975,7 @@
       "outfit space": 400,
       "weapon capacity": 150,
       "engine capacity": 100,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -4291,12 +4062,7 @@
       "outfit space": 360,
       "weapon capacity": 120,
       "engine capacity": 100,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "50 50",
@@ -4374,12 +4140,7 @@
       "outfit space": 230,
       "weapon capacity": 50,
       "engine capacity": 90,
-      "weapon": {
-        "blast radius": 28,
-        "shield damage": 280,
-        "hull damage": 140,
-        "hit force": 420
-      },
+      "weapon": true,
       "automaton": 1
     },
     "leak": "60 50",
@@ -4470,12 +4231,7 @@
       "outfit space": 160,
       "weapon capacity": 40,
       "engine capacity": 60,
-      "weapon": {
-        "blast radius": 24,
-        "shield damage": 240,
-        "hull damage": 120,
-        "hit force": 360
-      },
+      "weapon": true,
       "self destruct": 1
     },
     "flame": "50 80",
@@ -4596,12 +4352,7 @@
       "outfit space": 810,
       "weapon capacity": 390,
       "engine capacity": 240,
-      "weapon": {
-        "blast radius": 260,
-        "shield damage": 2600,
-        "hull damage": 1300,
-        "hit force": 3900
-      }
+      "weapon": true
     },
     "small explosion": "25",
     "medium explosion": "35",
@@ -4713,12 +4464,7 @@
       "outfit space": 810,
       "weapon capacity": 390,
       "engine capacity": 210,
-      "weapon": {
-        "blast radius": 260,
-        "shield damage": 2600,
-        "hull damage": 1300,
-        "hit force": 3900
-      }
+      "weapon": true
     },
     "small explosion": "25",
     "medium explosion": "35",
@@ -4860,12 +4606,7 @@
       "outfit space": 810,
       "weapon capacity": 430,
       "engine capacity": 210,
-      "weapon": {
-        "blast radius": 260,
-        "shield damage": 2600,
-        "hull damage": 1300,
-        "hit force": 3900
-      }
+      "weapon": true
     },
     "small explosion": "25",
     "medium explosion": "35",
@@ -4989,12 +4730,7 @@
       "outfit space": 810,
       "weapon capacity": 370,
       "engine capacity": 210,
-      "weapon": {
-        "blast radius": 260,
-        "shield damage": 2600,
-        "hull damage": 1300,
-        "hit force": 3900
-      }
+      "weapon": true
     },
     "small explosion": "25",
     "medium explosion": "35",
@@ -5057,12 +4793,7 @@
       "weapon capacity": 55,
       "engine capacity": 115,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 27,
-        "shield damage": 265,
-        "hull damage": 135,
-        "hit force": 400
-      }
+      "weapon": true
     },
     "tiny explosion": "12",
     "small explosion": "18",
@@ -5134,12 +4865,7 @@
       "weapon capacity": 60,
       "engine capacity": 95,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 27,
-        "shield damage": 265,
-        "hull damage": 135,
-        "hit force": 400
-      }
+      "weapon": true
     },
     "tiny explosion": "12",
     "small explosion": "18",
@@ -5207,12 +4933,7 @@
       "weapon capacity": 80,
       "engine capacity": 130,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 35,
-        "shield damage": 350,
-        "hull damage": 175,
-        "hit force": 500
-      }
+      "weapon": true
     },
     "tiny explosion": "10",
     "small explosion": "20",
@@ -5279,12 +5000,7 @@
       "weapon capacity": 100,
       "engine capacity": 115,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 35,
-        "shield damage": 350,
-        "hull damage": 175,
-        "hit force": 500
-      }
+      "weapon": true
     },
     "tiny explosion": "10",
     "small explosion": "20",
@@ -5377,12 +5093,7 @@
       "weapon capacity": 275,
       "engine capacity": 190,
       "self destruct": 0.15,
-      "weapon": {
-        "blast radius": 170,
-        "shield damage": 1750,
-        "hull damage": 900,
-        "hit force": 2750
-      }
+      "weapon": true
     },
     "tiny explosion": "40",
     "small explosion": "55",
@@ -5480,12 +5191,7 @@
       "weapon capacity": 310,
       "engine capacity": 165,
       "self destruct": 0.15,
-      "weapon": {
-        "blast radius": 170,
-        "shield damage": 1750,
-        "hull damage": 900,
-        "hit force": 2750
-      }
+      "weapon": true
     },
     "tiny explosion": "40",
     "small explosion": "55",
@@ -5567,12 +5273,7 @@
       "weapon capacity": 175,
       "engine capacity": 130,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 110,
-        "shield damage": 1100,
-        "hull damage": 550,
-        "hit force": 1650
-      }
+      "weapon": true
     },
     "tiny explosion": "18",
     "small explosion": "36",
@@ -5650,12 +5351,7 @@
       "weapon capacity": 210,
       "engine capacity": 110,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 110,
-        "shield damage": 1100,
-        "hull damage": 550,
-        "hit force": 1650
-      }
+      "weapon": true
     },
     "tiny explosion": "18",
     "small explosion": "36",
@@ -5755,12 +5451,7 @@
       "weapon capacity": 265,
       "engine capacity": 180,
       "self destruct": 0.15,
-      "weapon": {
-        "blast radius": 90,
-        "shield damage": 900,
-        "hull damage": 450,
-        "hit force": 1500
-      }
+      "weapon": true
     },
     "tiny explosion": "18",
     "small explosion": "36",
@@ -5848,12 +5539,7 @@
       "weapon capacity": 300,
       "engine capacity": 140,
       "self destruct": 0.15,
-      "weapon": {
-        "blast radius": 90,
-        "shield damage": 900,
-        "hull damage": 450,
-        "hit force": 1500
-      }
+      "weapon": true
     },
     "tiny explosion": "18",
     "small explosion": "36",
@@ -5941,12 +5627,7 @@
       "weapon capacity": 155,
       "engine capacity": 130,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 90,
-        "shield damage": 900,
-        "hull damage": 450,
-        "hit force": 1350
-      }
+      "weapon": true
     },
     "tiny explosion": "10",
     "small explosion": "20",
@@ -6028,12 +5709,7 @@
       "weapon capacity": 175,
       "engine capacity": 110,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 90,
-        "shield damage": 900,
-        "hull damage": 450,
-        "hit force": 1350
-      }
+      "weapon": true
     },
     "tiny explosion": "10",
     "small explosion": "20",
@@ -6095,12 +5771,7 @@
       "weapon capacity": 85,
       "engine capacity": 75,
       "self destruct": 0,
-      "weapon": {
-        "blast radius": 45,
-        "shield damage": 450,
-        "hull damage": 225,
-        "hit force": 650
-      }
+      "weapon": true
     },
     "tiny explosion": "12",
     "small explosion": "16",
@@ -6165,12 +5836,7 @@
       "weapon capacity": 85,
       "engine capacity": 115,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 45,
-        "shield damage": 450,
-        "hull damage": 225,
-        "hit force": 650
-      }
+      "weapon": true
     },
     "tiny explosion": "12",
     "small explosion": "16",
@@ -6235,12 +5901,7 @@
       "weapon capacity": 85,
       "engine capacity": 115,
       "self destruct": 0,
-      "weapon": {
-        "blast radius": 45,
-        "shield damage": 450,
-        "hull damage": 225,
-        "hit force": 650
-      }
+      "weapon": true
     },
     "tiny explosion": "12",
     "small explosion": "16",
@@ -6301,12 +5962,7 @@
       "weapon capacity": 100,
       "engine capacity": 75,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 45,
-        "shield damage": 450,
-        "hull damage": 225,
-        "hit force": 650
-      }
+      "weapon": true
     },
     "tiny explosion": "12",
     "small explosion": "16",
@@ -6367,12 +6023,7 @@
       "weapon capacity": 100,
       "engine capacity": 75,
       "self destruct": 0,
-      "weapon": {
-        "blast radius": 45,
-        "shield damage": 450,
-        "hull damage": 225,
-        "hit force": 650
-      }
+      "weapon": true
     },
     "tiny explosion": "12",
     "small explosion": "16",
@@ -6453,12 +6104,7 @@
       "weapon capacity": 115,
       "engine capacity": 130,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 65,
-        "shield damage": 650,
-        "hull damage": 350,
-        "hit force": 1000
-      }
+      "weapon": true
     },
     "medium explosion": "24",
     "large explosion": "16",
@@ -6531,12 +6177,7 @@
       "weapon capacity": 145,
       "engine capacity": 110,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 65,
-        "shield damage": 650,
-        "hull damage": 350,
-        "hit force": 1000
-      }
+      "weapon": true
     },
     "medium explosion": "24",
     "large explosion": "16",
@@ -6615,12 +6256,7 @@
       "weapon capacity": 165,
       "engine capacity": 130,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      }
+      "weapon": true
     },
     "tiny explosion": "18",
     "small explosion": "36",
@@ -6703,12 +6339,7 @@
       "weapon capacity": 180,
       "engine capacity": 110,
       "self destruct": 0.25,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      }
+      "weapon": true
     },
     "tiny explosion": "18",
     "small explosion": "36",
@@ -6800,9 +6431,7 @@
     "thumbnail": "thumbnail/auxiliaryc",
     "attributes": {
       "category": "Utility",
-      "licenses": {
-        "description": "\"Navy Auxiliary\""
-      },
+      "licenses": true,
       "cost": 13720000,
       "shields": 17100,
       "hull": 5900,
@@ -6816,12 +6445,7 @@
       "outfit space": 720,
       "weapon capacity": 160,
       "engine capacity": 200,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "leak": "30 50",
     "flame": "30 80",
@@ -6917,9 +6541,7 @@
     "thumbnail": "thumbnail/auxiliaryt",
     "attributes": {
       "category": "Utility",
-      "licenses": {
-        "description": "\"Navy Auxiliary\""
-      },
+      "licenses": true,
       "cost": 13720000,
       "shields": 17100,
       "hull": 5900,
@@ -6933,12 +6555,7 @@
       "outfit space": 720,
       "weapon capacity": 160,
       "engine capacity": 200,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "leak": "30 50",
     "flame": "30 80",
@@ -7008,12 +6625,7 @@
       "outfit space": 200,
       "weapon capacity": 35,
       "engine capacity": 65,
-      "weapon": {
-        "blast radius": 30,
-        "shield damage": 300,
-        "hull damage": 150,
-        "hit force": 450
-      },
+      "weapon": true,
       "automaton": 1,
       "self destruct": 1
     },
@@ -7071,12 +6683,7 @@
       "outfit space": 240,
       "weapon capacity": 80,
       "engine capacity": 70,
-      "weapon": {
-        "blast radius": 40,
-        "shield damage": 400,
-        "hull damage": 200,
-        "hit force": 600
-      },
+      "weapon": true,
       "automaton": 1,
       "self destruct": 1
     },
@@ -7149,12 +6756,7 @@
       "outfit space": 400,
       "weapon capacity": 150,
       "engine capacity": 100,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      },
+      "weapon": true,
       "automaton": 1,
       "self destruct": 1
     },
@@ -7246,12 +6848,7 @@
       "outfit space": 560,
       "weapon capacity": 220,
       "engine capacity": 120,
-      "weapon": {
-        "blast radius": 160,
-        "shield damage": 1600,
-        "hull damage": 800,
-        "hit force": 2400
-      },
+      "weapon": true,
       "automaton": 1,
       "self destruct": 1
     },
@@ -7347,9 +6944,7 @@
     "thumbnail": "thumbnail/auxiliaryc",
     "attributes": {
       "category": "Utility",
-      "licenses": {
-        "description": "\"Navy Auxiliary\""
-      },
+      "licenses": true,
       "cost": 13720000,
       "shields": 17100,
       "hull": 5900,
@@ -7363,12 +6958,7 @@
       "outfit space": 720,
       "weapon capacity": 160,
       "engine capacity": 200,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "leak": "30 50",
     "flame": "30 80",
@@ -7464,9 +7054,7 @@
     "thumbnail": "thumbnail/auxiliaryt",
     "attributes": {
       "category": "Utility",
-      "licenses": {
-        "description": "\"Navy Auxiliary\""
-      },
+      "licenses": true,
       "cost": 13720000,
       "shields": 17100,
       "hull": 5900,
@@ -7480,12 +7068,7 @@
       "outfit space": 720,
       "weapon capacity": 160,
       "engine capacity": 200,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "leak": "30 50",
     "flame": "30 80",
@@ -7577,9 +7160,7 @@
     "thumbnail": "thumbnail/auxiliaryt",
     "attributes": {
       "category": "Utility",
-      "licenses": {
-        "description": "\"Navy Auxiliary\""
-      },
+      "licenses": true,
       "cost": 13720000,
       "shields": 17100,
       "hull": 5900,
@@ -7593,12 +7174,7 @@
       "outfit space": 720,
       "weapon capacity": 160,
       "engine capacity": 200,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "leak": "30 50",
     "flame": "30 80",
@@ -7658,12 +7234,7 @@
       "outfit space": 299,
       "weapon capacity": 90,
       "engine capacity": 110,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      },
+      "weapon": true,
       "energy capacity": 5200,
       "shield generation": 3.1,
       "shield energy": 4.6,
@@ -7737,12 +7308,7 @@
       "outfit space": 235,
       "weapon capacity": 60,
       "engine capacity": 80,
-      "weapon": {
-        "blast radius": 36,
-        "shield damage": 360,
-        "hull damage": 180,
-        "hit force": 540
-      },
+      "weapon": true,
       "energy capacity": 2600,
       "shield generation": 1.6,
       "shield energy": 2.4,
@@ -7826,12 +7392,7 @@
       "outfit space": 369,
       "weapon capacity": 150,
       "engine capacity": 100,
-      "weapon": {
-        "blast radius": 80,
-        "shield damage": 800,
-        "hull damage": 400,
-        "hit force": 1200
-      },
+      "weapon": true,
       "energy capacity": 5200,
       "shield generation": 3.1,
       "shield energy": 4.6,
@@ -7901,12 +7462,7 @@
       "outfit space": 225,
       "weapon capacity": 80,
       "engine capacity": 70,
-      "weapon": {
-        "blast radius": 40,
-        "shield damage": 400,
-        "hull damage": 200,
-        "hit force": 600
-      },
+      "weapon": true,
       "energy capacity": 2600,
       "shield generation": 1.6,
       "shield energy": 2.4,
@@ -7981,9 +7537,7 @@
     "swizzle": "0",
     "attributes": {
       "category": "Medium Warship",
-      "licenses": {
-        "description": "\"Hicemus Conflict\""
-      },
+      "licenses": true,
       "cost": 3250000,
       "hull": 4000,
       "shields": 6000,
@@ -7998,12 +7552,7 @@
       "engine capacity": 85,
       "gaslining": 1,
       "fuel capacity": 200,
-      "weapon": {
-        "blast radius": 100,
-        "shield damage": 1000,
-        "hull damage": 500,
-        "hit force": 1500
-      }
+      "weapon": true
     },
     "medium explosion": "50",
     "large explosion": "40",
@@ -8073,12 +7622,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8175,12 +7719,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8252,12 +7791,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8339,12 +7873,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8435,12 +7964,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8538,12 +8062,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 500,
-        "shield damage": 11400,
-        "hull damage": 8800,
-        "hit force": 3400
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8625,12 +8144,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8712,12 +8226,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8799,12 +8308,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8896,12 +8400,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -8973,12 +8472,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 6400,
-        "hull damage": 4800,
-        "hit force": 2800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -9084,12 +8578,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 600,
-        "shield damage": 12400,
-        "hull damage": 9600,
-        "hit force": 3800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -9215,12 +8704,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.7,
       "overheat damage rate": 0.7,
-      "weapon": {
-        "blast radius": 600,
-        "shield damage": 12400,
-        "hull damage": 9600,
-        "hit force": 3800
-      }
+      "weapon": true
     },
     "tiny explosion": "8",
     "small explosion": "14",
@@ -9294,12 +8778,7 @@
       "ka'sei": 1,
       "overheat damage threshold": 0.2,
       "overheat damage rate": 1,
-      "weapon": {
-        "blast radius": 120,
-        "shield damage": 540,
-        "hull damage": 280,
-        "hit force": 780
-      }
+      "weapon": true
     },
     "tiny explosion": "6",
     "small explosion": "10",
@@ -9374,12 +8853,7 @@
       "disruption resistance": 0.2,
       "disruption resistance energy": 2,
       "disruption resistance heat": 2,
-      "weapon": {
-        "blast radius": 250,
-        "shield damage": 3600,
-        "hull damage": 1800,
-        "hit force": 5400
-      }
+      "weapon": true
     },
     "tiny explosion": "20",
     "small explosion": "45",
@@ -9513,12 +8987,7 @@
       "outfit space": 763,
       "weapon capacity": 276,
       "engine capacity": 206,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 4600,
-        "hull damage": 2300,
-        "hit force": 5900
-      },
+      "weapon": true,
       "atmosphere scan": 1
     },
     "tiny explosion": "120",
@@ -9653,12 +9122,7 @@
       "outfit space": 515,
       "weapon capacity": 276,
       "engine capacity": 206,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 4600,
-        "hull damage": 2300,
-        "hit force": 5900
-      }
+      "weapon": true
     },
     "tiny explosion": "120",
     "small explosion": "60",
@@ -9831,12 +9295,7 @@
       "outfit space": 941,
       "weapon capacity": 377,
       "engine capacity": 212,
-      "weapon": {
-        "blast radius": 250,
-        "shield damage": 3700,
-        "hull damage": 1900,
-        "hit force": 5500
-      }
+      "weapon": true
     },
     "tiny explosion": "20",
     "small explosion": "45",
@@ -9887,12 +9346,7 @@
       "outfit space": 92,
       "weapon capacity": 25,
       "engine capacity": 30,
-      "weapon": {
-        "blast radius": 48,
-        "shield damage": 320,
-        "hull damage": 160,
-        "hit force": 480
-      },
+      "weapon": true,
       "atmosphere scan": 1
     },
     "tiny explosion": "20",
@@ -10026,12 +9480,7 @@
       "outfit space": 856,
       "weapon capacity": 321,
       "engine capacity": 241,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -10169,12 +9618,7 @@
       "outfit space": 856,
       "weapon capacity": 321,
       "engine capacity": 241,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -10407,12 +9851,7 @@
       "outfit space": 999,
       "weapon capacity": 407,
       "engine capacity": 277,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -10605,12 +10044,7 @@
       "outfit space": 999,
       "weapon capacity": 407,
       "engine capacity": 277,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 8000,
-        "hull damage": 4000,
-        "hit force": 12000
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "45",
@@ -10671,12 +10105,7 @@
       "outfit space": 250,
       "weapon capacity": 42,
       "engine capacity": 62,
-      "weapon": {
-        "blast radius": 12,
-        "shield damage": 120,
-        "hull damage": 60,
-        "hit force": 180
-      }
+      "weapon": true
     },
     "flame": "60 80",
     "tiny explosion": "15",
@@ -10772,9 +10201,7 @@
     "sprite": "ship/modified dromedary ghost",
     "thumbnail": "thumbnail/modified dromedary wreck",
     "attributes": {
-      "licenses": {
-        "description": "\"Remnant Capital\""
-      },
+      "licenses": true,
       "category": "Utility",
       "cost": 57600000,
       "shields": 5100,
@@ -10795,12 +10222,7 @@
       "tactical scan power": 39,
       "asteroid scan power": 42,
       "atmosphere scan": 100,
-      "weapon": {
-        "blast radius": 260,
-        "shield damage": 2600,
-        "hull damage": 1300,
-        "hit force": 3900
-      },
+      "weapon": true,
       "automaton": 1,
       "quantum keystone": 1,
       "burn protection": 100,
@@ -10918,9 +10340,7 @@
     "sprite": "ship/modified dromedary specter",
     "thumbnail": "thumbnail/modified dromedary wreck",
     "attributes": {
-      "licenses": {
-        "description": "\"Remnant Capital\""
-      },
+      "licenses": true,
       "category": "Utility",
       "cost": 57600000,
       "shields": 5100,
@@ -10941,12 +10361,7 @@
       "tactical scan power": 39,
       "asteroid scan power": 42,
       "atmosphere scan": 100,
-      "weapon": {
-        "blast radius": 260,
-        "shield damage": 2600,
-        "hull damage": 1300,
-        "hit force": 3900
-      },
+      "weapon": true,
       "automaton": 1,
       "quantum keystone": 1,
       "burn protection": 100,
@@ -11064,9 +10479,7 @@
     "sprite": "ship/modified dromedary wreck",
     "thumbnail": "thumbnail/modified dromedary wreck",
     "attributes": {
-      "licenses": {
-        "description": "\"Remnant Capital\""
-      },
+      "licenses": true,
       "category": "Utility",
       "cost": 57600000,
       "shields": 5100,
@@ -11087,12 +10500,7 @@
       "tactical scan power": 39,
       "asteroid scan power": 42,
       "atmosphere scan": 100,
-      "weapon": {
-        "blast radius": 260,
-        "shield damage": 2600,
-        "hull damage": 1300,
-        "hit force": 3900
-      },
+      "weapon": true,
       "quantum keystone": 1,
       "burn protection": 100,
       "heat protection": 1,
@@ -11162,9 +10570,7 @@
     "thumbnail": "thumbnail/merganser",
     "attributes": {
       "category": "Interceptor",
-      "licenses": {
-        "description": "Remnant"
-      },
+      "licenses": true,
       "cost": 4830000,
       "shields": 3500,
       "hull": 3000,
@@ -11210,12 +10616,7 @@
       "steering flare sound": "plasma tiny",
       "reverse flare sprite": "effect/remnant flare/small",
       "reverse flare sound": "plasma tiny",
-      "weapon": {
-        "blast radius": 10,
-        "shield damage": 100,
-        "hull damage": 150,
-        "hit force": 250
-      }
+      "weapon": true
     },
     "tiny explosion": "30",
     "small explosion": "20",
@@ -11292,9 +10693,7 @@
     "thumbnail": "thumbnail/peregrine",
     "attributes": {
       "category": "Medium Warship",
-      "licenses": {
-        "description": "\"Remnant Capital\""
-      },
+      "licenses": true,
       "cost": 41627000,
       "shields": 15400,
       "hull": 8600,
@@ -11325,12 +10724,7 @@
       "ion resistance": 0.15,
       "scrambling resistance": 0.15,
       "remnant node": 5,
-      "weapon": {
-        "blast radius": 240,
-        "shield damage": 2400,
-        "hull damage": 1200,
-        "hit force": 3000
-      }
+      "weapon": true
     },
     "leak": "50 50",
     "flame": "50 80",
@@ -11508,9 +10902,7 @@
     "thumbnail": "thumbnail/winter gale",
     "attributes": {
       "category": "Light Warship",
-      "licenses": {
-        "description": "\"Wanderer Military\""
-      },
+      "licenses": true,
       "cost": 14100000,
       "shields": 22400,
       "hull": 14800,
@@ -11524,12 +10916,7 @@
       "outfit space": 478,
       "weapon capacity": 171,
       "engine capacity": 120,
-      "weapon": {
-        "blast radius": 120,
-        "shield damage": 1200,
-        "hull damage": 600,
-        "hit force": 1800
-      }
+      "weapon": true
     },
     "tiny explosion": "20",
     "small explosion": "40",
@@ -11597,9 +10984,7 @@
     "thumbnail": "thumbnail/winter gale",
     "attributes": {
       "category": "Light Warship",
-      "licenses": {
-        "description": "\"Wanderer Military\""
-      },
+      "licenses": true,
       "cost": 14100000,
       "shields": 22400,
       "hull": 14800,
@@ -11613,12 +10998,7 @@
       "outfit space": 478,
       "weapon capacity": 171,
       "engine capacity": 120,
-      "weapon": {
-        "blast radius": 120,
-        "shield damage": 1200,
-        "hull damage": 600,
-        "hit force": 1800
-      }
+      "weapon": true
     },
     "tiny explosion": "20",
     "small explosion": "40",
@@ -11686,9 +11066,7 @@
     "thumbnail": "thumbnail/deep river",
     "attributes": {
       "category": "Heavy Freighter",
-      "licenses": {
-        "description": "Wanderer"
-      },
+      "licenses": true,
       "cost": 18300000,
       "shields": 17600,
       "hull": 47500,
@@ -11702,12 +11080,7 @@
       "outfit space": 363,
       "weapon capacity": 177,
       "engine capacity": 83,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "small explosion": "80",
     "medium explosion": "60",
@@ -11776,9 +11149,7 @@
     "thumbnail": "thumbnail/deep river",
     "attributes": {
       "category": "Heavy Freighter",
-      "licenses": {
-        "description": "Wanderer"
-      },
+      "licenses": true,
       "cost": 18300000,
       "shields": 17600,
       "hull": 47500,
@@ -11792,12 +11163,7 @@
       "outfit space": 363,
       "weapon capacity": 177,
       "engine capacity": 83,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "small explosion": "80",
     "medium explosion": "60",
@@ -11866,9 +11232,7 @@
     "thumbnail": "thumbnail/deep river",
     "attributes": {
       "category": "Heavy Freighter",
-      "licenses": {
-        "description": "Wanderer"
-      },
+      "licenses": true,
       "cost": 18300000,
       "shields": 17600,
       "hull": 47500,
@@ -11882,12 +11246,7 @@
       "outfit space": 363,
       "weapon capacity": 177,
       "engine capacity": 83,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "small explosion": "80",
     "medium explosion": "60",
@@ -11956,9 +11315,7 @@
     "thumbnail": "thumbnail/deep river",
     "attributes": {
       "category": "Heavy Freighter",
-      "licenses": {
-        "description": "Wanderer"
-      },
+      "licenses": true,
       "cost": 18300000,
       "shields": 17600,
       "hull": 47500,
@@ -11972,12 +11329,7 @@
       "outfit space": 363,
       "weapon capacity": 177,
       "engine capacity": 83,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "small explosion": "80",
     "medium explosion": "60",
@@ -12046,9 +11398,7 @@
     "thumbnail": "thumbnail/deep river",
     "attributes": {
       "category": "Heavy Freighter",
-      "licenses": {
-        "description": "Wanderer"
-      },
+      "licenses": true,
       "cost": 18300000,
       "shields": 17600,
       "hull": 47500,
@@ -12062,12 +11412,7 @@
       "outfit space": 363,
       "weapon capacity": 177,
       "engine capacity": 83,
-      "weapon": {
-        "blast radius": 280,
-        "shield damage": 2800,
-        "hull damage": 1400,
-        "hit force": 4200
-      }
+      "weapon": true
     },
     "small explosion": "80",
     "medium explosion": "60",
@@ -12214,9 +11559,7 @@
     "thumbnail": "thumbnail/modified carrier",
     "attributes": {
       "category": "Heavy Warship",
-      "licenses": {
-        "description": "\"Navy Carrier\""
-      },
+      "licenses": true,
       "cost": 15200000,
       "shields": 21400,
       "hull": 8300,
@@ -12230,12 +11573,7 @@
       "outfit space": 820,
       "weapon capacity": 360,
       "engine capacity": 210,
-      "weapon": {
-        "blast radius": 300,
-        "shield damage": 3000,
-        "hull damage": 1500,
-        "hit force": 4500
-      }
+      "weapon": true
     },
     "leak": "30 50",
     "flame": "30 80",
