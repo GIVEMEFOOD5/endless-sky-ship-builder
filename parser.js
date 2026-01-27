@@ -153,7 +153,7 @@ class EndlessSkyParser {
 	        const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
 	        const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
 
-			const rawSpriteMatch = spritematch.replace(^['`"]|['`"]$, '')
+			const rawSpriteMatch = spritematch.replace(/^['`"]|['`"]$/, '')
 			  
 	        if (rawSpriteMatch) {
 	          data.sprite = rawSpriteMatch[1];
