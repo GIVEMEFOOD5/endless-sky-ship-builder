@@ -1374,7 +1374,11 @@ class EndlessSkyParser {
           const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
           imagePaths.add(removeLast);
         }
-
+        if (outfit['flare sprite']) {
+          const path = outfit['flare sprite'];
+          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
+          imagePaths.add(removeLast);
+        }
         if (outfit.weapon) {
           if (outfit.weapon['hardpoint sprite']) {
             const path = outfit.weapon['hardpoint sprite'];
