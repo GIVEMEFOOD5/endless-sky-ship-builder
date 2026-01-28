@@ -78,9 +78,11 @@ function getSelectedCategories() {
 // Function to clear all filters
 function clearFilters() {
     const checkboxes = document.querySelectorAll('#filterOptions input[type="checkbox"]');
+    const searchBar = document.getElementById('searchInput')
     checkboxes.forEach(cb => {
         cb.checked = false;
     });
+    searchBar.value = "";
     filterItems();
 }
 
