@@ -193,15 +193,19 @@ class EndlessSkyParser {
   }
 
   /**
-   * Parses an indented block of text (nested data structure)
+   * UNIFIED PARSER - Parses an indented block of text (nested data structure)
+   * This single method handles all parsing for ships, variants, and outfits
    * Endless Sky uses tab indentation to represent nested data
+   * 
    * @param {Array<string>} lines - Array of text lines
    * @param {number} startIdx - Starting line index
+   * @param {Object} options - Parsing options for special handling
    * @returns {Array} - [parsed data object, next line index]
    */
-  parseIndentedBlock(lines, startIdx) {
+  parseBlock(lines, startIdx, options = {}) {
     const data = {};
     let i = startIdx;
+    
     // Calculate base indentation level
     const baseIndent = lines[i].length - lines[i].replace(/^\t+/, '').length;
     let descriptionLines = [];
@@ -225,39 +229,46 @@ class EndlessSkyParser {
       if (currentIndent === baseIndent) {
         const stripped = line.trim();
 
-        // Handle sprite with nested data (e.g., frame rate, no repeat)
+        // === SPECIAL HANDLING FOR HARDPOINTS (ships only) ===
+        if (options.parseHardpoints) {
+          const hardpointResult = this.parseHardpoint(stripped, lines, i, currentIndent);
+          if (hardpointResult) {
+            const [hardpointType, hardpointData, nextIdx] = hardpointResult;
+            if (!data[hardpointType]) data[hardpointType] = [];
+            data[hardpointType].push(hardpointData);
+            i = nextIdx;
+            continue;
+          }
+        }
+
+        // === SPECIAL HANDLING FOR SKIP BLOCKS ===
+        if (options.skipBlocks && options.skipBlocks.includes(stripped)) {
+          i = this.skipIndentedBlock(lines, i, currentIndent);
+          continue;
+        }
+
+        // === DESCRIPTION HANDLING ===
+        if (stripped === 'description' || stripped.startsWith('description ')) {
+          const [desc, nextIdx] = this.parseDescription(lines, i, currentIndent);
+          if (desc) descriptionLines.push(...desc);
+          i = nextIdx;
+          continue;
+        }
+
+        // === SPRITE HANDLING (with optional nested data) ===
         if (stripped.startsWith('sprite ')) {
-          // Match sprite path in quotes or backticks
-          const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
-          const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
-          const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
+          const [spriteData, nextIdx] = this.parseSpriteWithData(lines, i, currentIndent);
+          Object.assign(data, spriteData);
+          i = nextIdx;
+          continue;
+        }
+
+        // === KEY-VALUE PAIR PARSING ===
+        const kvResult = this.parseKeyValue(stripped);
+        if (kvResult) {
+          const [key, value] = kvResult;
           
-          if (spriteMatch) {
-            data.sprite = spriteMatch[1];
-
-            // Check if sprite has nested properties on following lines
-            if (i + 1 < lines.length) {
-              const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-
-              if (nextIndent > currentIndent) {
-                // Recursively parse nested sprite properties
-                const result = this.parseIndentedBlock(lines, i + 1);
-                data.spriteData = result[0];
-                i = result[1];
-                continue;
-              }
-            }
-          }
-          i++;
-          continue;
-        }
-        
-        // Handle "key" "value" format (both quoted)
-        const quotedBothMatch = stripped.match(/"([^"]+)"\s+"([^"]+)"/);
-        if (quotedBothMatch) {
-          const key = quotedBothMatch[1];
-          const value = quotedBothMatch[2];
-          // Allow multiple values for same key (convert to array)
+          // Handle multiple values for same key (convert to array)
           if (key in data) {
             if (!Array.isArray(data[key])) data[key] = [data[key]];
             data[key].push(value);
@@ -268,149 +279,14 @@ class EndlessSkyParser {
           continue;
         }
 
-        // Handle "key" `value` format (quoted key, backtick value)
-        const quotedKeyBacktickValueMatch = stripped.match(/"([^"]+)"\s+`([^`]+)`/);
-        if (quotedKeyBacktickValueMatch) {
-          const key = quotedKeyBacktickValueMatch[1];
-          const value = quotedKeyBacktickValueMatch[2];
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
-        }
-
-        // Handle `key` "value" format (backtick key, quoted value)
-        const backtickKeyQuotedValueMatch = stripped.match(/`([^`]+)`\s+"([^"]+)"/);
-        if (backtickKeyQuotedValueMatch) {
-          const key = backtickKeyQuotedValueMatch[1];
-          const value = backtickKeyQuotedValueMatch[2];
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
-        }
-
-        // Handle `key` `value` format (both backticks)
-        const backtickBothMatch = stripped.match(/`([^`]+)`\s+`([^`]+)`/);
-        if (backtickBothMatch) {
-          const key = backtickBothMatch[1];
-          const value = backtickBothMatch[2];
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
-        }
-
-        // Handle "key" value format (quoted key with unquoted value)
-        const quotedKeyMatch = stripped.match(/"([^"]+)"\s+([^"`\s][^"`]*)/);
-        if (quotedKeyMatch) {
-          const key = quotedKeyMatch[1];
-          const valueStr = quotedKeyMatch[2].trim();
-          // Try to parse as number, otherwise keep as string
-          const num = parseFloat(valueStr);
-          const value = isNaN(num) ? valueStr : num;
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
-        }
-
-        // Handle `key` value format (backtick key with unquoted value)
-        const backtickKeyMatch = stripped.match(/`([^`]+)`\s+([^"`\s][^"`]*)/);
-        if (backtickKeyMatch) {
-          const key = backtickKeyMatch[1];
-          const valueStr = backtickKeyMatch[2].trim();
-          const num = parseFloat(valueStr);
-          const value = isNaN(num) ? valueStr : num;
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
-        }
-
-        // Handle key "value" format (unquoted key with quoted value)
-        const unquotedKeyQuotedValueMatch = stripped.match(/^(\S+)\s+"([^"]+)"$/);
-        if (unquotedKeyQuotedValueMatch) {
-          const key = unquotedKeyQuotedValueMatch[1];
-          const value = unquotedKeyQuotedValueMatch[2];
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
-        }
-
-        // Handle key `value` format (unquoted key with backtick value)
-        const unquotedKeyBacktickValueMatch = stripped.match(/^(\S+)\s+`([^`]+)`$/);
-        if (unquotedKeyBacktickValueMatch) {
-          const key = unquotedKeyBacktickValueMatch[1];
-          const value = unquotedKeyBacktickValueMatch[2];
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
-        }
-        
-        // Handle key value format (both unquoted) - must come before nested block check
-        const simpleMatch = stripped.match(/^(\S+)\s+(.+)$/);
-        if (simpleMatch && !stripped.includes('"') && !stripped.includes('`')) {
-          const key = simpleMatch[1];
-          const valueStr = simpleMatch[2].trim();
-          const num = parseFloat(valueStr);
-          const value = isNaN(num) ? valueStr : num;
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
-        }
-        
-        // Handle single-word keys (like "no repeat") - set to boolean true
-        if (!stripped.includes(' ') && !stripped.includes('"') && !stripped.includes('`')) {
-          const key = stripped;
-          data[key] = true;
-          i++;
-          continue;
-        }
-        
-        // Check if next line is indented (indicates nested block)
+        // === NESTED BLOCK HANDLING ===
         if (i + 1 < lines.length) {
           const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
           if (nextIndent > currentIndent) {
-            // Remove quotes/backticks to get key name
-            const key = stripped.replace(/"/g, '').replace(/`/g, '');
+            const key = stripped.replace(/["`]/g, ''); // Remove quotes/backticks
+            
             // Recursively parse nested block
-            const result = this.parseIndentedBlock(lines, i + 1);
+            const result = this.parseBlock(lines, i + 1, options);
             const nestedData = result[0];
             const nextI = result[1];
             
@@ -424,14 +300,11 @@ class EndlessSkyParser {
             
             i = nextI;
             continue;
-          } else {
-            // No nested data, treat as description text
-            descriptionLines.push(stripped);
           }
-        } else {
-          // Last line, treat as description text
-          descriptionLines.push(stripped);
         }
+
+        // === FALLBACK: Treat as description text ===
+        descriptionLines.push(stripped);
       }
       
       i++;
@@ -446,8 +319,301 @@ class EndlessSkyParser {
   }
 
   /**
+   * Parses a key-value pair in any format
+   * Handles: "key" "value", `key` `value`, key value, and all combinations
+   * @param {string} stripped - Trimmed line text
+   * @returns {Array|null} - [key, value] or null if no match
+   */
+  parseKeyValue(stripped) {
+    // Try all quote/backtick combinations
+    const patterns = [
+      // "key" "value"
+      { regex: /"([^"]+)"\s+"([^"]+)"/, keyIdx: 1, valueIdx: 2, isString: true },
+      // "key" `value`
+      { regex: /"([^"]+)"\s+`([^`]+)`/, keyIdx: 1, valueIdx: 2, isString: true },
+      // `key` "value"
+      { regex: /`([^`]+)`\s+"([^"]+)"/, keyIdx: 1, valueIdx: 2, isString: true },
+      // `key` `value`
+      { regex: /`([^`]+)`\s+`([^`]+)`/, keyIdx: 1, valueIdx: 2, isString: true },
+      // "key" value (no quotes on value)
+      { regex: /"([^"]+)"\s+([^"`\s][^"`]*)/, keyIdx: 1, valueIdx: 2, isString: false },
+      // `key` value (no quotes on value)
+      { regex: /`([^`]+)`\s+([^"`\s][^"`]*)/, keyIdx: 1, valueIdx: 2, isString: false },
+      // key "value" (no quotes on key)
+      { regex: /^(\S+)\s+"([^"]+)"$/, keyIdx: 1, valueIdx: 2, isString: true },
+      // key `value` (no quotes on key)
+      { regex: /^(\S+)\s+`([^`]+)`$/, keyIdx: 1, valueIdx: 2, isString: true },
+      // key value (no quotes at all) - must not contain quotes/backticks
+      { regex: /^(\S+)\s+(.+)$/, keyIdx: 1, valueIdx: 2, isString: false, noQuotes: true }
+    ];
+
+    for (const pattern of patterns) {
+      // Skip patterns that require no quotes if quotes are present
+      if (pattern.noQuotes && (stripped.includes('"') || stripped.includes('`'))) {
+        continue;
+      }
+
+      const match = stripped.match(pattern.regex);
+      if (match) {
+        const key = match[pattern.keyIdx];
+        const valueStr = match[pattern.valueIdx].trim();
+        
+        // Try to parse as number if not explicitly a string
+        let value = valueStr;
+        if (!pattern.isString) {
+          const num = parseFloat(valueStr);
+          value = isNaN(num) ? valueStr : num;
+        }
+        
+        return [key, value];
+      }
+    }
+
+    // Single-word keys (like "no repeat") - set to boolean true
+    if (!stripped.includes(' ') && !stripped.includes('"') && !stripped.includes('`')) {
+      return [stripped, true];
+    }
+
+    return null;
+  }
+
+  /**
+   * Parses description field (can be single or multi-line)
+   * @param {Array<string>} lines - Array of text lines
+   * @param {number} i - Current line index
+   * @param {number} baseIndent - Base indentation level
+   * @returns {Array} - [description lines array, next line index]
+   */
+  parseDescription(lines, i, baseIndent) {
+    const stripped = lines[i].trim();
+    const descLines = [];
+
+    // Single line: description "text" or description `text`
+    const singleLineMatch = stripped.match(/description\s+[`"](.+)[`"]$/);
+    if (singleLineMatch) {
+      return [[singleLineMatch[1]], i + 1];
+    }
+
+    // Multi-line starting on same line: description "text...
+    const startMatch = stripped.match(/description\s+[`"](.*)$/);
+    if (startMatch) {
+      const startText = startMatch[1];
+      
+      // Check if it ends on same line
+      if (startText.endsWith('`') || startText.endsWith('"')) {
+        return [[startText.slice(0, -1)], i + 1];
+      }
+      
+      // Multi-line - collect until closing quote/backtick
+      if (startText) descLines.push(startText);
+      i++;
+      
+      while (i < lines.length) {
+        const descLine = lines[i];
+        const descStripped = descLine.trim();
+        
+        // Check if this line ends the description
+        if (descStripped.endsWith('`') || descStripped.endsWith('"')) {
+          const finalText = descStripped.slice(0, -1);
+          if (finalText) descLines.push(finalText);
+          return [descLines, i + 1];
+        }
+        
+        // Check if we've outdented
+        const descIndent = descLine.length - descLine.replace(/^\t+/, '').length;
+        if (descIndent <= baseIndent && descLine.trim()) break;
+        
+        if (descStripped) descLines.push(descStripped);
+        i++;
+      }
+      return [descLines, i];
+    }
+
+    // Old format: indented description lines (no quotes)
+    i++;
+    while (i < lines.length) {
+      const descLine = lines[i];
+      const descIndent = descLine.length - descLine.replace(/^\t+/, '').length;
+      if (descIndent <= baseIndent) break;
+      const descStripped = descLine.trim();
+      if (descStripped) descLines.push(descStripped);
+      i++;
+    }
+    
+    return [descLines, i];
+  }
+
+  /**
+   * Parses sprite with optional nested data (frame rate, etc.)
+   * @param {Array<string>} lines - Array of text lines
+   * @param {number} i - Current line index
+   * @param {number} baseIndent - Base indentation level
+   * @returns {Array} - [sprite data object, next line index]
+   */
+  parseSpriteWithData(lines, i, baseIndent) {
+    const stripped = lines[i].trim();
+    const result = {};
+
+    // Extract sprite path
+    const spriteMatch = stripped.match(/sprite\s+["'`]([^"'`]+)["'`]/) || 
+                       stripped.match(/sprite\s+(\S+)/);
+    
+    if (spriteMatch) {
+      result.sprite = spriteMatch[1];
+
+      // Check for nested sprite data
+      if (i + 1 < lines.length) {
+        const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+        if (nextIndent > baseIndent) {
+          const [spriteData, nextIdx] = this.parseBlock(lines, i + 1);
+          result.spriteData = spriteData;
+          return [result, nextIdx];
+        }
+      }
+    }
+
+    return [result, i + 1];
+  }
+
+  /**
+   * Parses hardpoint definitions (engines, guns, turrets, bays)
+   * @param {string} stripped - Trimmed line text
+   * @param {Array<string>} lines - Array of text lines
+   * @param {number} i - Current line index
+   * @param {number} baseIndent - Base indentation level
+   * @returns {Array|null} - [hardpoint type, data, next index] or null
+   */
+  parseHardpoint(stripped, lines, i, baseIndent) {
+    // Engine: "engine" x y [zoom]
+    if (stripped.match(/^["'`]?engine["'`]?\s+(-?\d+)/)) {
+      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
+      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
+      if (parts[2]) data.zoom = parseFloat(parts[2]);
+      return ['engines', data, i + 1];
+    }
+
+    // Reverse Engine: "reverse engine" x y [zoom] [position]
+    if (stripped.match(/^["'`]?reverse engine["'`]?\s+(-?\d+)/)) {
+      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(2);
+      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
+      if (parts[2]) data.zoom = parseFloat(parts[2]);
+      
+      // Check for nested position property
+      const nextIdx = this.parseOptionalNestedProperty(lines, i, baseIndent, data, 'position');
+      return ['reverseEngines', data, nextIdx];
+    }
+
+    // Steering Engine: "steering engine" x y [zoom] [position]
+    if (stripped.match(/^["'`]?steering engine["'`]?\s+(-?\d+)/)) {
+      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(2);
+      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
+      if (parts[2]) data.zoom = parseFloat(parts[2]);
+      
+      // Check for nested position property
+      const nextIdx = this.parseOptionalNestedProperty(lines, i, baseIndent, data, 'position');
+      return ['steeringEngines', data, nextIdx];
+    }
+
+    // Gun: "gun" x y
+    if (stripped.match(/^["'`]?gun["'`]?\s+(-?\d+)/)) {
+      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
+      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]), gun: "" };
+      return ['guns', data, i + 1];
+    }
+
+    // Turret: "turret" x y
+    if (stripped.match(/^["'`]?turret["'`]?\s+(-?\d+)/)) {
+      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
+      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]), turret: "" };
+      return ['turrets', data, i + 1];
+    }
+
+    // Bay: bay "type" x y [position]
+    const bayMatch = stripped.match(/^["'`]?bay["'`]?\s+["'`]?([^"'`\s]+)["'`]?\s+(-?\d+\.?\d*)\s+(-?\d+\.?\d*)(?:\s+(.+))?/);
+    if (bayMatch) {
+      const data = { 
+        type: bayMatch[1], 
+        x: parseFloat(bayMatch[2]), 
+        y: parseFloat(bayMatch[3]) 
+      };
+      if (bayMatch[4]) data.position = bayMatch[4];
+      
+      // Check for nested bay properties
+      if (i + 1 < lines.length) {
+        const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+        if (nextIndent > baseIndent) {
+          i++;
+          while (i < lines.length) {
+            const bayLine = lines[i];
+            const bayLineIndent = bayLine.length - bayLine.replace(/^\t+/, '').length;
+            if (bayLineIndent <= baseIndent) break;
+            
+            const bayLineStripped = bayLine.trim();
+            const kvResult = this.parseKeyValue(bayLineStripped);
+            if (kvResult) {
+              data[kvResult[0]] = kvResult[1];
+            }
+            i++;
+          }
+          return ['bays', data, i];
+        }
+      }
+      
+      return ['bays', data, i + 1];
+    }
+
+    return null;
+  }
+
+  /**
+   * Parses optional nested property (like position for engines)
+   * @param {Array<string>} lines - Array of text lines
+   * @param {number} i - Current line index
+   * @param {number} baseIndent - Base indentation level
+   * @param {Object} data - Data object to add property to
+   * @param {string} propertyName - Name of the property to add
+   * @returns {number} - Next line index
+   */
+  parseOptionalNestedProperty(lines, i, baseIndent, data, propertyName) {
+    if (i + 1 < lines.length) {
+      const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+      if (nextIndent > baseIndent) {
+        i++;
+        while (i < lines.length) {
+          const propLine = lines[i];
+          const propIndent = propLine.length - propLine.replace(/^\t+/, '').length;
+          if (propIndent <= baseIndent) break;
+          const propStripped = propLine.trim();
+          if (propStripped) data[propertyName] = propStripped;
+          i++;
+        }
+        return i;
+      }
+    }
+    return i + 1;
+  }
+
+  /**
+   * Skips an indented block (used for blocks we don't need to parse)
+   * @param {Array<string>} lines - Array of text lines
+   * @param {number} i - Current line index
+   * @param {number} baseIndent - Base indentation level
+   * @returns {number} - Next line index after block
+   */
+  skipIndentedBlock(lines, i, baseIndent) {
+    i++;
+    while (i < lines.length) {
+      const line = lines[i];
+      if (!line.trim()) { i++; continue; }
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent <= baseIndent) break;
+      i++;
+    }
+    return i;
+  }
+
+  /**
    * Parses a ship definition from game data
-   * Ships can be base ships or variants (which reference a base ship)
    * @param {Array<string>} lines - Array of text lines
    * @param {number} startIdx - Starting line index
    * @returns {Array} - [parsed ship object, next line index]
@@ -455,18 +621,14 @@ class EndlessSkyParser {
   parseShip(lines, startIdx) {
     const line = lines[startIdx].trim();
     
-    // Match ship definition with optional variant name
-    // Format: ship "base name" or ship "base name" "variant name"
-    const matchQuotes = line.match(/^ship\s+"([^"]+)"(?:\s+"([^"]+)")?/);
-    const matchBackticks = line.match(/^ship\s+`([^`]+)`(?:\s+`([^`]+)`)?/);
-    const match = matchBackticks || matchQuotes;
-    
+    // Match ship definition: ship "base name" or ship "base name" "variant name"
+    const match = line.match(/^ship\s+["'`]([^"'`]+)["'`](?:\s+["'`]([^"'`]+)["'`])?/);
     if (!match) return [null, startIdx + 1];
     
     const baseName = match[1];
     const variantName = match[2];
     
-    // If this is a variant, store it for later processing
+    // If variant, store for later processing
     if (variantName) {
       this.pendingVariants.push({
         baseName: baseName,
@@ -475,19 +637,11 @@ class EndlessSkyParser {
         lines: lines
       });
       
-      // Skip over variant definition lines
-      let i = startIdx + 1;
-      while (i < lines.length) {
-        const currentLine = lines[i];
-        if (!currentLine.trim()) { i++; continue; }
-        const indent = currentLine.length - currentLine.replace(/^\t+/, '').length;
-        if (indent === 0) break; // Outdented, end of variant
-        i++;
-      }
-      return [null, i];
+      // Skip variant block
+      return [null, this.skipIndentedBlock(lines, startIdx, 0)];
     }
     
-    // Initialize ship data object with arrays for hardpoints
+    // Initialize ship with hardpoint arrays
     const shipData = { 
       name: baseName,
       engines: [],
@@ -498,320 +652,25 @@ class EndlessSkyParser {
       bays: []
     };
     
-    let descriptionLines = [];
-    let i = startIdx + 1;
+    // Parse ship block with hardpoint and skip options
+    const [parsedData, nextIdx] = this.parseBlock(lines, startIdx + 1, {
+      parseHardpoints: true,
+      skipBlocks: ['add attributes', 'outfits']
+    });
     
-    // Parse ship properties
-    while (i < lines.length) {
-      const currentLine = lines[i];
-      
-      // Skip empty lines
-      if (!currentLine.trim()) { 
-        i++; 
-        continue; 
-      }
-      
-      // Calculate indentation
-      const indent = currentLine.length - currentLine.replace(/^\t+/, '').length;
-      
-      // If outdented, we're done with this ship
-      if (indent === 0 && currentLine.trim()) break;
-      
-      const stripped = currentLine.trim();
-      
-      // Process first-level indented properties
-      if (indent === 1) {
-        // Parse engine hardpoint: "engine" x y [zoom]
-        if (stripped.startsWith('"engine"') || stripped.startsWith('engine') || stripped.startsWith('`engine`')) {
-          const parts = stripped.substring(7).trim().split(/\s+/);
-          const engineData = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
-          if (parts[2]) engineData.zoom = parseFloat(parts[2]); // Optional zoom level
-          shipData.engines.push(engineData);
-          i++;
-          continue;
-        }
-        
-        // Parse reverse engine hardpoint with optional position property
-        if (stripped.startsWith('"reverse engine"') || stripped.startsWith('reverse engine') || stripped.startsWith('`reverse engine`')) {
-          const parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(14).trim().split(/\s+/);
-          const reverseEngineData = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
-          if (parts[2]) reverseEngineData.zoom = parseFloat(parts[2]);
-          
-          // Check for nested position property
-          if (i + 1 < lines.length) {
-            const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-            if (nextIndent > indent) {
-              i++;
-              while (i < lines.length) {
-                const propLine = lines[i];
-                const propIndent = propLine.length - propLine.replace(/^\t+/, '').length;
-                if (propIndent <= indent) break;
-                const propStripped = propLine.trim();
-                if (propStripped) reverseEngineData.position = propStripped;
-                i++;
-              }
-              shipData.reverseEngines.push(reverseEngineData);
-              continue;
-            }
-          }
-          
-          shipData.reverseEngines.push(reverseEngineData);
-          i++;
-          continue;
-        }
-        
-        // Parse steering engine hardpoint with optional position property
-        if (stripped.startsWith('"steering engine"') || stripped.startsWith('steering engine') || stripped.startsWith('`steering engine`')) {
-          const parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(15).trim().split(/\s+/);
-          const steeringEngineData = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
-          if (parts[2]) steeringEngineData.zoom = parseFloat(parts[2]);
-          
-          // Check for nested position property
-          if (i + 1 < lines.length) {
-            const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-            if (nextIndent > indent) {
-              i++;
-              while (i < lines.length) {
-                const propLine = lines[i];
-                const propIndent = propLine.length - propLine.replace(/^\t+/, '').length;
-                if (propIndent <= indent) break;
-                const propStripped = propLine.trim();
-                if (propStripped) steeringEngineData.position = propStripped;
-                i++;
-              }
-              shipData.steeringEngines.push(steeringEngineData);
-              continue;
-            }
-          }
-          
-          shipData.steeringEngines.push(steeringEngineData);
-          i++;
-          continue;
-        }
-        
-        // Parse gun hardpoint: "gun" x y
-        if (stripped.startsWith('"gun"') || stripped.startsWith('gun') || stripped.startsWith('`gun`')) {
-          const parts = stripped.substring(4).trim().split(/\s+/);
-          shipData.guns.push({ x: parseFloat(parts[0]), y: parseFloat(parts[1]), gun: "" });
-          i++;
-          continue;
-        }
-        
-        // Parse turret hardpoint: "turret" x y
-        if (stripped.startsWith('"turret"') || stripped.startsWith('turret') || stripped.startsWith('`turret`')) {
-          const parts = stripped.substring(7).trim().split(/\s+/);
-          shipData.turrets.push({ x: parseFloat(parts[0]), y: parseFloat(parts[1]), turret: "" });
-          i++;
-          continue;
-        }
-        
-        // Parse bay hardpoint: bay "type" x y [position]
-        if (stripped.startsWith('"bay"') || stripped.startsWith('bay') || stripped.startsWith('`bay`')) {
-          const bayMatchQuotes = stripped.match(/bay\s+"([^"]+)"\s+([^\s]+)\s+([^\s]+)(?:\s+(.+))?/);
-          const bayMatchBackticks = stripped.match(/bay\s+`([^`]+)`\s+([^\s]+)\s+([^\s]+)(?:\s+(.+))?/);
-          const bayMatch = bayMatchBackticks || bayMatchQuotes;
-          if (bayMatch) {
-            const bayData = { type: bayMatch[1], x: parseFloat(bayMatch[2]), y: parseFloat(bayMatch[3]) };
-            if (bayMatch[4]) bayData.position = bayMatch[4];
-            
-            // Check for nested bay properties (like launch effects)
-            if (i + 1 < lines.length) {
-              const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-              if (nextIndent > indent) {
-                i++;
-                while (i < lines.length) {
-                  const bayLine = lines[i];
-                  const bayLineIndent = bayLine.length - bayLine.replace(/^\t+/, '').length;
-                  if (bayLineIndent <= indent) break;
-                  const bayLineStripped = bayLine.trim();
-                  const effectMatchQuotes = bayLineStripped.match(/"([^"]+)"\s+"([^"]+)"/);
-                  const effectMatchBackticks = bayLineStripped.match(/`([^`]+)`\s+`([^`]+)`/);
-                  const effectMatch = effectMatchBackticks || effectMatchQuotes;
-                  if (effectMatch) bayData[effectMatch[1]] = effectMatch[2];
-                  i++;
-                }
-                shipData.bays.push(bayData);
-                continue;
-              }
-            }
-            
-            shipData.bays.push(bayData);
-            i++;
-            continue;
-          }
-        }
-        
-        // Skip "add attributes" block (not needed for our purposes)
-        if (stripped === 'add attributes') {
-          i++;
-          while (i < lines.length) {
-            const attrLine = lines[i];
-            const attrIndent = attrLine.length - attrLine.replace(/^\t+/, '').length;
-            if (attrIndent <= indent) break;
-            i++;
-          }
-          continue;
-        }
-        
-        // Skip "outfits" block (not needed for our purposes)
-        if (stripped === 'outfits') {
-          i++;
-          while (i < lines.length) {
-            const nextLine = lines[i];
-            const nextIndent = nextLine.length - nextLine.replace(/^\t+/, '').length;
-            if (nextIndent <= indent && nextLine.trim()) break;
-            i++;
-          }
-          continue;
-        }
-        
-        // Parse description field - can be single line or multi-line
-        if (stripped === 'description' || stripped.startsWith('description ')) {
-          // Single line description with quotes/backticks
-          const descMatch = stripped.match(/description\s+[`"](.+)[`"]$/);
-          if (descMatch) {
-            descriptionLines.push(descMatch[1]);
-            i++;
-            continue;
-          }
-          
-          // Multi-line description starting on same line
-          const startMatch = stripped.match(/description\s+[`"](.*)$/);
-          if (startMatch) {
-            const startText = startMatch[1];
-            // Check if it ends on same line
-            if (startText.endsWith('`') || startText.endsWith('"')) {
-              descriptionLines.push(startText.slice(0, -1));
-              i++;
-              continue;
-            }
-            // Multi-line - add first part and continue reading
-            if (startText) descriptionLines.push(startText);
-            i++;
-            
-            // Read until closing quote/backtick
-            while (i < lines.length) {
-              const descLine = lines[i];
-              const descStripped = descLine.trim();
-              
-              // Check if this line ends the description
-              if (descStripped.endsWith('`') || descStripped.endsWith('"')) {
-                const finalText = descStripped.slice(0, -1);
-                if (finalText) descriptionLines.push(finalText);
-                i++;
-                break;
-              }
-              
-              // Check if we've outdented (shouldn't happen in proper format)
-              const descIndent = descLine.length - descLine.replace(/^\t+/, '').length;
-              if (descIndent <= indent && descLine.trim()) break;
-              
-              if (descStripped) descriptionLines.push(descStripped);
-              i++;
-            }
-            continue;
-          }
-          
-          // Old format: indented description lines (no quotes)
-          i++;
-          while (i < lines.length) {
-            const descLine = lines[i];
-            const descIndent = descLine.length - descLine.replace(/^\t+/, '').length;
-            if (descIndent <= indent) break;
-            const descStripped = descLine.trim();
-            if (descStripped) descriptionLines.push(descStripped);
-            i++;
-          }
-          continue;
-        }
-
-        // Handle sprite path and nested sprite data
-        if (stripped.includes('sprite')) {
-          const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
-          const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
-          const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
-          if (spriteMatch) {
-            shipData.sprite = spriteMatch[1];
-
-            // Check if there's nested sprite data (frame rate, etc.)
-            if (i + 1 < lines.length) {
-              const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-
-              if (nextIndent > indent) {
-                // Recursively parse nested sprite properties
-                const result = this.parseIndentedBlock(lines, i + 1);
-                shipData.spriteData = result[0];
-                i = result[1];
-                continue;
-              }
-            }
-          }
-          i++;
-          continue;
-        }
-        
-        // Handle thumbnail sprite path
-        if (stripped.startsWith('thumbnail ')) {
-          const thumbMatchQuotes = stripped.match(/thumbnail\s+"([^"]+)"/);
-          const thumbMatchBackticks = stripped.match(/thumbnail\s+`([^`]+)`/);
-          const thumbMatch = thumbMatchBackticks || thumbMatchQuotes;
-          if (thumbMatch) {
-            shipData.thumbnail = thumbMatch[1];
-          }
-          i++;
-          continue;
-        }
-        
-        // Handle quoted property keys
-        if (stripped.includes('"')) {
-          const matchResult = stripped.match(/"([^"]+)"(?:\s+(.*))?/);
-          if (matchResult) {
-            const key = matchResult[1];
-            const value = (matchResult[2] || '').trim();
-            shipData[key] = value || true;
-          }
-        } else if (stripped.includes('`')) {
-          // Handle backtick property keys
-          const matchResult = stripped.match(/`([^`]+)`(?:\s+(.*))?/);
-          if (matchResult) {
-            const key = matchResult[1];
-            const value = (matchResult[2] || '').trim();
-            shipData[key] = value || true;
-          }
-        } else if (i + 1 < lines.length) {
-          // Check for nested blocks
-          const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-          if (nextIndent > indent) {
-            const key = stripped.replace(/"/g, '').replace(/`/g, '');
-            // Skip explosion effects (not needed)
-            if (key === 'leak' || key === 'explode' || key === 'final explode') { 
-              i++; 
-              continue; 
-            }
-            
-            // Recursively parse nested block
-            const result = this.parseIndentedBlock(lines, i + 1);
-            shipData[key] = result[0];
-            i = result[1];
-            continue;
-          }
-        }
-      }
-      
-      i++;
-    }
+    // Merge parsed data into ship data
+    Object.assign(shipData, parsedData);
     
-    // Combine all description lines
-    if (descriptionLines.length > 0) {
-      shipData.description = descriptionLines.join(' ');
-    }
-
-    // Only return ships with descriptions (filter out incomplete/test ships)
-    if (shipData.description == null || shipData.description == "") {
-      return [null, i];
-    }
+    // Only return ships with descriptions and some data
+    const hasData = shipData.description && (
+      shipData.attributes || 
+      shipData.engines.length > 0 || 
+      shipData.guns.length > 0 || 
+      shipData.turrets.length > 0 || 
+      shipData.bays.length > 0
+    );
     
-    return [shipData, i];
+    return [hasData ? shipData : null, nextIdx];
   }
 
   /**
@@ -821,303 +680,74 @@ class EndlessSkyParser {
    * @returns {Object|null} - Parsed variant ship or null if no significant changes
    */
   parseShipVariant(variantInfo) {
-    // Find the base ship this variant is based on
+    // Find the base ship
     const baseShip = this.ships.find(s => s.name === variantInfo.baseName);
-    
     if (!baseShip) {
-      console.warn(`Warning: Base ship "${variantInfo.baseName}" not found for variant "${variantInfo.variantName}"`);
+      console.warn(`Warning: Base ship "${variantInfo.baseName}" not found`);
       return null;
     }
     
-    // Deep copy the base ship
+    // Deep copy base ship
     const variantShip = JSON.parse(JSON.stringify(baseShip));
     variantShip.name = `${variantInfo.baseName} (${variantInfo.variantName})`;
     variantShip.variant = variantInfo.variantName;
     variantShip.baseShip = variantInfo.baseName;
     
-    // Flags to track if hardpoints should be replaced
-    let replaceGuns = false, replaceTurrets = false, replaceBays = false;
-    let replaceEngines = false, replaceReverseEngines = false, replaceSteeringEngines = false;
+    // Parse variant modifications
+    const [parsedData, nextIdx] = this.parseBlock(variantInfo.lines, variantInfo.startIdx + 1, {
+      parseHardpoints: true,
+      skipBlocks: ['outfits']
+    });
     
-    // New hardpoint arrays if replacement is needed
-    let newGuns = [], newTurrets = [], newBays = [];
-    let newEngines = [], newReverseEngines = [], newSteeringEngines = [];
-    
-    // Track if variant has significant visual changes
+    // Track significant changes
     let hasSignificantChanges = false;
     
-    let i = variantInfo.startIdx + 1;
-    const lines = variantInfo.lines;
+    // Check for display name
+    if (parsedData.displayName) {
+      variantShip.displayName = parsedData.displayName;
+      hasSignificantChanges = true;
+    }
     
-    // Check if first line is a display name override
-    if (i < lines.length) {
-      const firstLine = lines[i];
-      const firstIndent = firstLine.length - firstLine.replace(/^\t+/, '').length;
-      if (firstIndent === 1) {
-        const firstStripped = firstLine.trim();
-
-        // Match display name in various quote styles
-        const displayMatch1 = firstStripped.match(/^"display name"\s+"([^"]+)"$/);
-        const displayMatch2 = firstStripped.match(/^"display name"\s+`(.+)`$/);
-        const displayMatch3 = firstStripped.match(/^`display name`\s+"([^"]+)"$/);
-        const displayMatch4 = firstStripped.match(/^`display name`\s+`(.+)`$/);
-        const displayMatch = displayMatch1 || displayMatch2 || displayMatch3 || displayMatch4;
-        if (displayMatch) {
-          variantShip.displayName = displayMatch[1];
-          hasSignificantChanges = true;
-          i++; // Move past the display name line
+    // Check for sprite/thumbnail changes
+    if (parsedData.sprite && parsedData.sprite !== baseShip.sprite) {
+      variantShip.sprite = parsedData.sprite;
+      if (parsedData.spriteData) variantShip.spriteData = parsedData.spriteData;
+      hasSignificantChanges = true;
+    }
+    
+    if (parsedData.thumbnail && parsedData.thumbnail !== baseShip.thumbnail) {
+      variantShip.thumbnail = parsedData.thumbnail;
+      hasSignificantChanges = true;
+    }
+    
+    // Replace hardpoints if any were specified
+    const hardpointTypes = ['engines', 'reverseEngines', 'steeringEngines', 'guns', 'turrets', 'bays'];
+    for (const type of hardpointTypes) {
+      if (parsedData[type] && parsedData[type].length > 0) {
+        variantShip[type] = parsedData[type];
+        hasSignificantChanges = true;
+      }
+    }
+    
+    // Handle "add attributes"
+    if (parsedData['add attributes']) {
+      hasSignificantChanges = true;
+      if (!variantShip.attributes) variantShip.attributes = {};
+      
+      for (const [key, value] of Object.entries(parsedData['add attributes'])) {
+        // Add to existing numeric values, otherwise replace
+        if (key in variantShip.attributes && 
+            typeof variantShip.attributes[key] === 'number' && 
+            typeof value === 'number') {
+          variantShip.attributes[key] += value;
+        } else {
+          variantShip.attributes[key] = value;
         }
       }
     }
     
-    // Parse variant modifications
-    while (i < lines.length) {
-      const currentLine = lines[i];
-      if (!currentLine.trim()) { i++; continue; }
-      
-      const indent = currentLine.length - currentLine.replace(/^\t+/, '').length;
-      if (indent === 0) break; // Outdented, done with variant
-      
-      const stripped = currentLine.trim();
-      
-      if (indent === 1) {
-        // Skip outfits block (not needed)
-        if (stripped === 'outfits') {
-          i++;
-          while (i < lines.length) {
-            const nextLine = lines[i];
-            const nextIndent = nextLine.length - nextLine.replace(/^\t+/, '').length;
-            if (nextIndent <= indent && nextLine.trim()) break;
-            i++;
-          }
-          continue;
-        }
-                      
-        // Check for sprite override
-        if (stripped.includes('sprite')) {
-          const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
-          const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
-          const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
-          if (spriteMatch && spriteMatch[1] !== baseShip.sprite) {
-            variantShip.sprite = spriteMatch[1];
-            hasSignificantChanges = true;
-
-            // Check for nested sprite data
-            if (i + 1 < lines.length) {
-              const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-
-              if (nextIndent > indent) {
-                const result = this.parseIndentedBlock(lines, i + 1);
-                variantShip.spriteData = result[0];
-                i = result[1];
-                continue;
-              }
-            }
-          }
-          i++;
-          continue;
-        }
-                
-        // Check for thumbnail override
-        if (stripped.startsWith('thumbnail ')) {
-          const thumbMatchQuotes = stripped.match(/thumbnail\s+"([^"]+)"/);
-          const thumbMatchBackticks = stripped.match(/thumbnail\s+`([^`]+)`/);
-          const thumbMatch = thumbMatchBackticks || thumbMatchQuotes;
-          if (thumbMatch && thumbMatch[1] !== baseShip.thumbnail) {
-            variantShip.thumbnail = thumbMatch[1];
-            hasSignificantChanges = true;
-          }
-          i++;
-          continue;
-        }
-        
-        // Parse "add attributes" block (attribute modifications)
-        if (stripped === 'add attributes') {
-          hasSignificantChanges = true;
-          i++;
-          if (!variantShip.attributes) variantShip.attributes = {};
-          while (i < lines.length) {
-            const attrLine = lines[i];
-            const attrIndent = attrLine.length - attrLine.replace(/^\t+/, '').length;
-            if (attrIndent <= indent) break;
-            const attrStripped = attrLine.trim();
-            
-            // Parse attribute modifications
-            const quotedMatchQuotes = attrStripped.match(/"([^"]+)"\s+(.+)/);
-            const quotedMatchBackticks = attrStripped.match(/`([^`]+)`\s+(.+)/);
-            const quotedMatch = quotedMatchBackticks || quotedMatchQuotes;
-            if (quotedMatch) {
-              const key = quotedMatch[1];
-              const num = parseFloat(quotedMatch[2].trim());
-              const value = isNaN(num) ? quotedMatch[2].trim() : num;
-              
-              // Add to existing numeric values, otherwise replace
-              if (key in variantShip.attributes && typeof variantShip.attributes[key] === 'number' && typeof value === 'number') {
-                variantShip.attributes[key] += value;
-              } else {
-                variantShip.attributes[key] = value;
-              }
-            }
-            i++;
-          }
-          continue;
-        }
-        
-        // Parse engine hardpoint overrides
-        if (stripped.match(/^["'`]?engine["'`]?\s+(-?\d+)/)) {
-          hasSignificantChanges = true;
-          replaceEngines = true;
-          const parts = stripped.substring(7).trim().split(/\s+/);
-          const engineData = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
-          if (parts[2]) engineData.zoom = parseFloat(parts[2]);
-          newEngines.push(engineData);
-          i++;
-          continue;
-        }
-        
-        // Parse reverse engine hardpoint overrides
-        if (stripped.match(/^["'`]?reverse engine["'`]?\s+(-?\d+)/)) {
-          hasSignificantChanges = true;
-          replaceReverseEngines = true;
-          const parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(14).trim().split(/\s+/);
-          const reverseEngineData = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
-          if (parts[2]) reverseEngineData.zoom = parseFloat(parts[2]);
-          
-          // Check for nested position property
-          if (i + 1 < lines.length) {
-            const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-            if (nextIndent > indent) {
-              i++;
-              while (i < lines.length) {
-                const propLine = lines[i];
-                const propIndent = propLine.length - propLine.replace(/^\t+/, '').length;
-                if (propIndent <= indent) break;
-                const propStripped = propLine.trim();
-                if (propStripped) reverseEngineData.position = propStripped;
-                i++;
-              }
-              newReverseEngines.push(reverseEngineData);
-              continue;
-            }
-          }
-          
-          newReverseEngines.push(reverseEngineData);
-          i++;
-          continue;
-        }
-        
-        // Parse steering engine hardpoint overrides
-        if (stripped.match(/^["'`]?steering engine["'`]?\s+(-?\d+)/)) {
-          hasSignificantChanges = true;
-          replaceSteeringEngines = true;
-          const parts = stripped.replace(/"/g, '').replace(/`/g, '').substring(15).trim().split(/\s+/);
-          const steeringEngineData = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
-          if (parts[2]) steeringEngineData.zoom = parseFloat(parts[2]);
-          
-          // Check for nested position property
-          if (i + 1 < lines.length) {
-            const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-            if (nextIndent > indent) {
-              i++;
-              while (i < lines.length) {
-                const propLine = lines[i];
-                const propIndent = propLine.length - propLine.replace(/^\t+/, '').length;
-                if (propIndent <= indent) break;
-                const propStripped = propLine.trim();
-                if (propStripped) steeringEngineData.position = propStripped;
-                i++;
-              }
-              newSteeringEngines.push(steeringEngineData);
-              continue;
-            }
-          }
-          
-          newSteeringEngines.push(steeringEngineData);
-          i++;
-          continue;
-        }
-        
-        // Parse gun hardpoint overrides
-        if (stripped.match(/^["'`]?gun["'`]?\s+(-?\d+)/)) {
-          hasSignificantChanges = true;
-          replaceGuns = true;
-          const parts = stripped.substring(4).trim().split(/\s+/);
-          newGuns.push({ x: parseFloat(parts[0]), y: parseFloat(parts[1]), gun: "" });
-          i++;
-          continue;
-        }
-        
-        // Parse turret hardpoint overrides
-        if (stripped.match(/^["'`]?turret["'`]?\s+(-?\d+)/)) {
-          hasSignificantChanges = true;
-          replaceTurrets = true;
-          const parts = stripped.substring(7).trim().split(/\s+/);
-          newTurrets.push({ x: parseFloat(parts[0]), y: parseFloat(parts[1]), turret: "" });
-          i++;
-          continue;
-        }
-
-        // Parse bay hardpoint overrides
-        const matchQuotes = stripped.match(/^["'`]?bay["'`]?\s+"([^"]+)"\s+(-?\d+\.?\d*)/);
-        const matchBackticks = stripped.match(/^["'`]?bay["'`]?\s+`(.+?)`\s+(-?\d+\.?\d*)/);
-        const matchUnquoted = stripped.match(/^["'`]?bay["'`]?\s+(\w+)\s+(-?\d+\.?\d*)/);
-        const match = matchBackticks || matchQuotes || matchUnquoted;
-        
-        if (match) {
-          hasSignificantChanges = true;
-          replaceBays = true;
-          const bayMatchQuotes = stripped.match(/bay\s+"([^"]+)"\s+([^\s]+)\s+([^\s]+)(?:\s+(.+))?/);
-          const bayMatchBackticks = stripped.match(/bay\s+`([^`]+)`\s+([^\s]+)\s+([^\s]+)(?:\s+(.+))?/);
-          const bayMatch = bayMatchBackticks || bayMatchQuotes;
-          if (bayMatch) {
-            const bayData = { type: bayMatch[1], x: parseFloat(bayMatch[2]), y: parseFloat(bayMatch[3]) };
-            if (bayMatch[4]) bayData.position = bayMatch[4];
-            
-            // Check for nested bay properties
-            if (i + 1 < lines.length) {
-              const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-              if (nextIndent > indent) {
-                i++;
-                while (i < lines.length) {
-                  const bayLine = lines[i];
-                  const bayLineIndent = bayLine.length - bayLine.replace(/^\t+/, '').length;
-                  if (bayLineIndent <= indent) break;
-                  const bayLineStripped = bayLine.trim();
-                  const effectMatchQuotes = bayLineStripped.match(/"([^"]+)"\s+"([^"]+)"/);
-                  const effectMatchBackticks = bayLineStripped.match(/`([^`]+)`\s+`([^`]+)`/);
-                  const effectMatch = effectMatchBackticks || effectMatchQuotes;
-                  if (effectMatch) bayData[effectMatch[1]] = effectMatch[2];
-                  i++;
-                }
-                newBays.push(bayData);
-                continue;
-              }
-            }
-            
-            newBays.push(bayData);
-            i++;
-            continue;
-          }
-        }
-      }
-      
-      i++;
-    }
-    
-    // Apply hardpoint replacements if any were specified
-    if (replaceGuns) variantShip.guns = newGuns;
-    if (replaceTurrets) variantShip.turrets = newTurrets;
-    if (replaceBays) variantShip.bays = newBays;
-    if (replaceEngines) variantShip.engines = newEngines;
-    if (replaceReverseEngines) variantShip.reverseEngines = newReverseEngines;
-    if (replaceSteeringEngines) variantShip.steeringEngines = newSteeringEngines;
-    
-    // Only return variants with descriptions (filter out incomplete)
-    if (variantShip.description == null || variantShip.description == "") {
-      return null;
-    }
-
-    // Only return variants with significant changes (not just outfit swaps)
+    // Only return if has description and significant changes
+    if (!variantShip.description) return null;
     return hasSignificantChanges ? variantShip : null;
   }
 
@@ -1134,7 +764,7 @@ class EndlessSkyParser {
         this.variants.push(variantShip);
         console.log(`  Added variant: ${variantShip.name}`);
       } else {
-        console.log(`  Skipped variant (outfit-only): ${variantInfo.baseName} (${variantInfo.variantName})`);
+        console.log(`  Skipped variant: ${variantInfo.baseName} (${variantInfo.variantName})`);
       }
     }
   }
@@ -1148,268 +778,24 @@ class EndlessSkyParser {
   parseOutfit(lines, startIdx) {
     const line = lines[startIdx].trim();
     
-    // Debug logging for outfit parsing
-    if (line.startsWith('outfit')) {
-      console.log('Parsing outfit line:', JSON.stringify(line));
-    }
-    
-    // Match outfit name in backticks (can contain any character)
-    const matchBackticks = line.match(/^outfit\s+`(.+)`\s*$/);
-    // Match outfit name in quotes (cannot contain quotes)
-    const matchQuotes = line.match(/^outfit\s+"([^"]+)"\s*$/);
-    const match = matchBackticks || matchQuotes;
-  
-    if (!match) {
-      if (line.startsWith('outfit')) {
-        console.log('Failed to match outfit line:', JSON.stringify(line));
-      }
-      return [null, startIdx + 1];
-    }
+    // Match outfit name (backticks can contain any character, quotes cannot contain quotes)
+    const match = line.match(/^outfit\s+["'`]([^"'`]+)["'`]\s*$/);
+    if (!match) return [null, startIdx + 1];
     
     console.log('Matched outfit:', match[1]);
+    
     const outfitData = { name: match[1] };
-    let descriptionLines = [];
-    let i = startIdx + 1;
     
-    // Check if first line is a display name override
-    if (i < lines.length) {
-      const firstLine = lines[i];
-      const firstIndent = firstLine.length - firstLine.replace(/^\t+/, '').length;
-      if (firstIndent === 1) {
-        const firstStripped = firstLine.trim();
-        // Match display name in various quote styles
-        const displayMatch1 = firstStripped.match(/^"display name"\s+"([^"]+)"$/);
-        const displayMatch2 = firstStripped.match(/^"display name"\s+`(.+)`$/);
-        const displayMatch3 = firstStripped.match(/^`display name`\s+"([^"]+)"$/);
-        const displayMatch4 = firstStripped.match(/^`display name`\s+`(.+)`$/);
-        const displayMatch = displayMatch1 || displayMatch2 || displayMatch3 || displayMatch4;
-        if (displayMatch) {
-          outfitData.displayName = displayMatch[1];
-          i++; // Move past the display name line
-        }
-      }
-    }
+    // Parse outfit block (no hardpoints, no skip blocks)
+    const [parsedData, nextIdx] = this.parseBlock(lines, startIdx + 1, {
+      parseHardpoints: false
+    });
     
-    // Parse outfit properties
-    while (i < lines.length) {
-      const currentLine = lines[i];
-      if (!currentLine.trim()) { i++; continue; }
-      
-      const indent = currentLine.length - currentLine.replace(/^\t+/, '').length;
-      if (indent === 0 && currentLine.trim()) break; // Outdented, done with outfit
-      
-      if (indent === 1) {
-        const stripped = currentLine.trim();
-        
-        // Handle sprite path and nested sprite data
-        if (stripped.startsWith('sprite ')) {
-          const spriteMatchQuotes = stripped.match(/sprite\s+"([^"]+)"/);
-          const spriteMatchBackticks = stripped.match(/sprite\s+`([^`]+)`/);
-          const spriteMatch = spriteMatchBackticks || spriteMatchQuotes;
-          if (spriteMatch) {
-            outfitData.sprite = spriteMatch[1];
-            
-            // Check for nested sprite data
-            if (i + 1 < lines.length) {
-              const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-              
-              if (nextIndent > indent) {
-                const result = this.parseIndentedBlock(lines, i + 1);
-                outfitData.spriteData = result[0];
-                i = result[1];
-                continue;
-              }
-            }
-          }
-          i++;
-          continue;
-        }
-
-        // Handle "key" "value" format (both quoted)
-        const quotedBothMatch = stripped.match(/"([^"]+)"\s+"([^"]+)"/);
-        if (quotedBothMatch) {
-          outfitData[quotedBothMatch[1]] = quotedBothMatch[2];
-          i++;
-          continue;
-        }
-
-        // Handle "key" `value` format (quoted key, backtick value)
-        const quotedKeyBacktickValueMatch = stripped.match(/"([^"]+)"\s+`([^`]+)`/);
-        if (quotedKeyBacktickValueMatch) {
-          outfitData[quotedKeyBacktickValueMatch[1]] = quotedKeyBacktickValueMatch[2];
-          i++;
-          continue;
-        }
-
-        // Handle `key` "value" format (backtick key, quoted value)
-        const backtickKeyQuotedValueMatch = stripped.match(/`([^`]+)`\s+"([^"]+)"/);
-        if (backtickKeyQuotedValueMatch) {
-          outfitData[backtickKeyQuotedValueMatch[1]] = backtickKeyQuotedValueMatch[2];
-          i++;
-          continue;
-        }
-
-        // Handle `key` `value` format (both backticks)
-        const backtickBothMatch = stripped.match(/`([^`]+)`\s+`([^`]+)`/);
-        if (backtickBothMatch) {
-          outfitData[backtickBothMatch[1]] = backtickBothMatch[2];
-          i++;
-          continue;
-        }
-
-        // Handle "key" value format (quoted key with unquoted value)
-        const quotedKeyMatch = stripped.match(/"([^"]+)"\s+([^"`\s][^"`]*)/);
-        if (quotedKeyMatch) {
-          const valueStr = quotedKeyMatch[2].trim();
-          const num = parseFloat(valueStr);
-          outfitData[quotedKeyMatch[1]] = isNaN(num) ? valueStr : num;
-          i++;
-          continue;
-        }
-
-        // Handle `key` value format (backtick key with unquoted value)
-        const backtickKeyMatch = stripped.match(/`([^`]+)`\s+([^"`\s][^"`]*)/);
-        if (backtickKeyMatch) {
-          const valueStr = backtickKeyMatch[2].trim();
-          const num = parseFloat(valueStr);
-          outfitData[backtickKeyMatch[1]] = isNaN(num) ? valueStr : num;
-          i++;
-          continue;
-        }
-
-        // Handle key "value" format (unquoted key with quoted value)
-        const unquotedKeyQuotedValueMatch = stripped.match(/^(\S+)\s+"([^"]+)"$/);
-        if (unquotedKeyQuotedValueMatch) {
-          outfitData[unquotedKeyQuotedValueMatch[1]] = unquotedKeyQuotedValueMatch[2];
-          i++;
-          continue;
-        }
-
-        // Handle key `value` format (unquoted key with backtick value)
-        const unquotedKeyBacktickValueMatch = stripped.match(/^(\S+)\s+`([^`]+)`$/);
-        if (unquotedKeyBacktickValueMatch) {
-          outfitData[unquotedKeyBacktickValueMatch[1]] = unquotedKeyBacktickValueMatch[2];
-          i++;
-          continue;
-        }
-
-        // Handle key value format (both unquoted) - must come last
-        const simpleMatch = stripped.match(/^(\S+)\s+(.+)$/);
-        if (simpleMatch && !stripped.startsWith('description')) {
-          const key = simpleMatch[1];
-          const valueStr = simpleMatch[2].trim();
-          const num = parseFloat(valueStr);
-          outfitData[key] = isNaN(num) ? valueStr : num;
-          i++;
-          continue;
-        }
-
-        // Handle description field - can be single line or multi-line
-        if (stripped === 'description' || stripped.startsWith('description ')) {
-          // Single line description with quotes/backticks
-          const descMatch = stripped.match(/description\s+[`"](.+)[`"]$/);
-          if (descMatch) {
-            descriptionLines.push(descMatch[1]);
-            i++;
-            continue;
-          }
-          
-          // Multi-line description starting on same line
-          const startMatch = stripped.match(/description\s+[`"](.*)$/);
-          if (startMatch) {
-            const startText = startMatch[1];
-            // Check if it ends on same line
-            if (startText.endsWith('`') || startText.endsWith('"')) {
-              descriptionLines.push(startText.slice(0, -1));
-              i++;
-              continue;
-            }
-            // Multi-line - add first part and continue reading
-            if (startText) {
-              descriptionLines.push(startText);
-            }
-            i++;
-            
-            // Read until closing quote/backtick
-            while (i < lines.length) {
-              const descLine = lines[i];
-              const descStripped = descLine.trim();
-              
-              // Check if this line ends the description
-              if (descStripped.endsWith('`') || descStripped.endsWith('"')) {
-                const finalText = descStripped.slice(0, -1);
-                if (finalText) {
-                  descriptionLines.push(finalText);
-                }
-                i++;
-                break;
-              }
-              
-              // Check if we've outdented
-              const descIndent = descLine.length - descLine.replace(/^\t+/, '').length;
-              if (descIndent <= indent && descLine.trim()) {
-                break;
-              }
-              
-              if (descStripped) {
-                descriptionLines.push(descStripped);
-              }
-              i++;
-            }
-            continue;
-          }
-          
-          // Old format: indented description lines (no quotes)
-          i++;
-          while (i < lines.length) {
-            const descLine = lines[i];
-            const descIndent = descLine.length - descLine.replace(/^\t+/, '').length;
-            if (descIndent <= indent) {
-              break;
-            }
-            const descStripped = descLine.trim();
-            if (descStripped) {
-              descriptionLines.push(descStripped);
-            }
-            i++;
-          }
-          continue;
-        }
-        
-        // Handle nested blocks (like weapon stats)
-        if (i + 1 < lines.length) {
-          const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-          if (nextIndent > indent) {
-            const key = stripped.replace(/"/g, '');
-            const result = this.parseIndentedBlock(lines, i + 1);
-            const nestedData = result[0];
-            const nextI = result[1];
-            outfitData[key] = nestedData;
-            i = nextI;
-            continue;
-          }
-        }
-        
-        // Single-word attributes (possibly description text)
-        if (!stripped.includes(' ') && !stripped.includes('"')) {
-          descriptionLines.push(stripped);
-        }
-      }
-      
-      i++;
-    }
+    // Merge parsed data
+    Object.assign(outfitData, parsedData);
     
-    // Combine all description lines
-    if (descriptionLines.length > 0) {
-      outfitData.description = descriptionLines.join(' ');
-    }
-
-    // Only return outfits with descriptions (filter out incomplete)
-    if (outfitData.description == null || outfitData.description == "") {
-      return [null, i];
-    }
-    
-    return [outfitData, i];
+    // Only return outfits with descriptions
+    return [outfitData.description ? outfitData : null, nextIdx];
   }
 
   /**
@@ -1418,44 +804,28 @@ class EndlessSkyParser {
    * @param {string} content - File content as text
    */
   parseFileContent(content) {
-    var lines = content.split('\n');
-    var i = 0;
+    const lines = content.split('\n');
+    let i = 0;
   
     while (i < lines.length) {
-      var line = lines[i].trim();
+      const line = lines[i].trim();
     
       // Check for ship definition
       if (line.startsWith('ship "') || line.startsWith('ship `')) {
-        var result = this.parseShip(lines, i);
-        var shipData = result[0];
-        var nextI = result[1];
-        if (shipData) {
-          // Only add ships that have meaningful data
-          var hasData = shipData.attributes || 
-                       shipData.engines.length > 0 || 
-                       shipData.guns.length > 0 || 
-                       shipData.turrets.length > 0 || 
-                       shipData.bays.length > 0;
-          if (hasData) {
-            this.ships.push(shipData);
-          }
-        }
+        const [shipData, nextI] = this.parseShip(lines, i);
+        if (shipData) this.ships.push(shipData);
         i = nextI;
-      } else if (line.startsWith('outfit "') || line.startsWith('outfit `')) {
-        // Check for outfit definition
-        var result = this.parseOutfit(lines, i);
-        var outfitData = result[0];
-        var nextI = result[1];
-        if (outfitData) {
-          this.outfits.push(outfitData);
-        }
+      } 
+      // Check for outfit definition
+      else if (line.startsWith('outfit "') || line.startsWith('outfit `')) {
+        const [outfitData, nextI] = this.parseOutfit(lines, i);
+        if (outfitData) this.outfits.push(outfitData);
         i = nextI;
-      } else {
+      } 
+      else {
         i++;
       }
     }
-  
-    // Note: Variants are processed separately after all files are parsed
   }
   
   /**
@@ -1471,37 +841,32 @@ class EndlessSkyParser {
     this.outfits = [];
     this.pendingVariants = [];
     
-    // Extract owner and repo name from URL
-    var match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-    if (!match) {
-      throw new Error('Invalid GitHub URL: ' + repoUrl);
+    // Extract owner and repo from URL
+    const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+    if (!match) throw new Error('Invalid GitHub URL: ' + repoUrl);
+    
+    const owner = match[1];
+    const repo = match[2].replace('.git', '');
+    
+    // Extract branch if specified
+    let branch = 'master';
+    const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
+    if (branchMatch) branch = branchMatch[1];
+    
+    console.log(`Parsing repository: ${owner}/${repo} (branch: ${branch})`);
+    
+    // Fetch and parse all data files
+    const files = await this.fetchGitHubRepo(owner, repo, branch);
+    console.log(`Parsing ${files.length} files...`);
+    
+    for (const file of files) {
+      this.parseFileContent(file.content);
     }
     
-    var owner = match[1];
-    var repo = match[2].replace('.git', '');
-    
-    // Extract branch if specified in URL
-    var branch = 'master';
-    var branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
-    if (branchMatch) {
-      branch = branchMatch[1];
-    }
-    
-    console.log('Parsing repository: ' + owner + '/' + repo + ' (branch: ' + branch + ')');
-    
-    // Fetch all data files from the repository
-    var files = await this.fetchGitHubRepo(owner, repo, branch);
-    
-    // Parse each data file
-    console.log('Parsing ' + files.length + ' files...');
-    for (var i = 0; i < files.length; i++) {
-      this.parseFileContent(files[i].content);
-    }
-    
-    // Process all variants ONCE after all base ships are parsed
+    // Process variants after all base ships are parsed
     this.processVariants();
     
-    console.log('Found ' + this.ships.length + ' ships, ' + this.variants.length + ' variants, and ' + this.outfits.length + ' outfits');
+    console.log(`Found ${this.ships.length} ships, ${this.variants.length} variants, and ${this.outfits.length} outfits`);
     
     return {
       ships: this.ships,
@@ -1521,18 +886,16 @@ class EndlessSkyParser {
   async downloadImages(owner, repo, branch, pluginDir) {
     console.log('\nDownloading images (via sparse checkout)...');
 
-    // Set up temporary and output directories
     const tempRepoDir = path.join(pluginDir, '.tmp-images-repo');
     const imageDir = path.join(pluginDir, 'images');
     await fs.mkdir(imageDir, { recursive: true });
 
     try {
-      // Use sparse clone to get just the images directory
+      // Sparse clone images directory
       await sparseCloneImages(owner, repo, branch, tempRepoDir);
-
       const sourceImagesDir = path.join(tempRepoDir, 'images');
 
-      // Check if images directory exists in repository
+      // Check if images directory exists
       try {
         await fs.access(sourceImagesDir);
       } catch (error) {
@@ -1540,184 +903,56 @@ class EndlessSkyParser {
         return;
       }
 
-      // Collect all sprite/thumbnail paths from parsed game objects
+      // Collect all image paths from parsed objects
       const imagePaths = new Set();
+      const addImagePath = (pathStr) => {
+        if (pathStr) {
+          // Remove last component (frame number) to get base path
+          const basePath = pathStr.replace(/\/[^/]*$(?=.*\/)/, '');
+          imagePaths.add(basePath);
+        }
+      };
 
-      // Extract image paths from ships
+      // Extract paths from ships, variants, and outfits
       for (const ship of this.ships) {
-        if (ship.sprite) {
-          const path = ship.sprite;
-          // Remove the last component (frame number) to get base path
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
-        if (ship.thumbnail) {
-          const path = ship.thumbnail;
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
+        addImagePath(ship.sprite);
+        addImagePath(ship.thumbnail);
       }
 
-      // Extract image paths from variants
       for (const variant of this.variants) {
-        if (variant.sprite) {
-          const path = variant.sprite;
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
-        if (variant.thumbnail) {
-          const path = variant.thumbnail;
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
+        addImagePath(variant.sprite);
+        addImagePath(variant.thumbnail);
       }
 
-      // Extract image paths from outfits (including weapon sprites and effects)
       for (const outfit of this.outfits) {
-        if (outfit.sprite) {
-          const path = outfit.sprite;
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
-        if (outfit.thumbnail) {
-          const path = outfit.thumbnail;
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
-        // Extract flare sprite paths (engine effects)
-        if (outfit['flare sprite']) {
-          const path = outfit['flare sprite'];
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
-        if (outfit['steering flare sprite']) {
-          const path = outfit['flare sprite'];
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
-        if (outfit['reverse flare sprite']) {
-          const path = outfit['flare sprite'];
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
-        if (outfit['afterburner effect']) {
-          const path = outfit['flare sprite'];
-          const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(removeLast);
-        }
-        // Extract weapon sprite paths
+        addImagePath(outfit.sprite);
+        addImagePath(outfit.thumbnail);
+        addImagePath(outfit['flare sprite']);
+        addImagePath(outfit['steering flare sprite']);
+        addImagePath(outfit['reverse flare sprite']);
+        addImagePath(outfit['afterburner effect']);
+        
         if (outfit.weapon) {
-          if (outfit.weapon['hardpoint sprite']) {
-            const path = outfit.weapon['hardpoint sprite'];
-            const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-            imagePaths.add(removeLast);
-          }
-          if (outfit.weapon.sprite) {
-            const path = outfit.weapon.sprite;
-            const removeLast = path.replace(/\/[^/]*$(?=.*\/)/, '');
-            imagePaths.add(removeLast);
-          }
+          addImagePath(outfit.weapon['hardpoint sprite']);
+          addImagePath(outfit.weapon.sprite);
         }
       }
 
       console.log(`Found ${imagePaths.size} unique image paths to process`);
 
-      // Copy only the needed image paths and their variants (numbered frames)
+      // Copy matching images
       for (const imagePath of imagePaths) {
-        const normalizedPath = imagePath.replace(/\\/g, '/');
-
-        // Split path to get directory and base filename
-        const pathParts = normalizedPath.split('/');
-        const basenamePattern = pathParts[pathParts.length - 1];
-        const parentDir = pathParts.slice(0, -1).join('/');
-
-        // Try both the parent directory AND a subdirectory with the basename
-        // (Some sprites are in parent dir, others in subdirs)
-        const searchPaths = [
-          { dir: path.join(sourceImagesDir, parentDir), relative: parentDir },
-          { dir: path.join(sourceImagesDir, normalizedPath), relative: normalizedPath }
-        ];
-      
-        let foundFiles = false;
-      
-        for (const searchPath of searchPaths) {
-          try {
-            // Check if directory exists
-            const stats = await fs.stat(searchPath.dir);
-            if (!stats.isDirectory()) continue;
-
-            // Read all files in the directory
-            const files = await fs.readdir(searchPath.dir);
-
-            // Filter files that match the basename pattern
-            const matchingFiles = files.filter(fileName => {
-              const fileExt = path.extname(fileName).toLowerCase();
-              const fileBase = path.basename(fileName, fileExt);
-
-              // Escape regex special characters in the pattern
-              const escapedPattern = basenamePattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-              // Check if filename matches various naming patterns:
-              // - Exact match
-              // - base-0, base-1, etc. (frame numbers)
-              // - base.0, base.1, etc.
-              // - base-anything0, base-anything1, etc.
-              // - base+0, base~0, etc. (any special character)
-              const matchesExact = fileBase === basenamePattern;
-              const matchesDashNumber = fileBase.match(new RegExp(`^${escapedPattern}-\\d+$`));
-              const matchesSingleCharNumber = fileBase.match(new RegExp(`^${escapedPattern}.\\d+$`));
-              const matchesDashAnythingNumber = fileBase.match(new RegExp(`^${escapedPattern}-.+\\d+$`));
-              const matchesAnythingNumber = fileBase.match(new RegExp(`^${escapedPattern}.+\\d+$`));
-              const matchesAnySpecialCharacter = fileBase.match(new RegExp(`^${escapedPattern}.$`));
-              const matchesDashAnything = fileBase.match(new RegExp(`^${escapedPattern}-.+$`));
-              const matchesAnything = fileBase.match(new RegExp(`^${escapedPattern}.+$`));
-
-              const matchesPattern = matchesExact || matchesDashNumber || matchesSingleCharNumber || 
-                                    matchesDashAnythingNumber || matchesAnythingNumber || matchesAnySpecialCharacter ||
-                                    matchesDashAnything || matchesAnything;
-
-              // Only include image file extensions
-              return matchesPattern && ['.png', '.jpg', '.jpeg', '.gif', '.avif', '.webp'].includes(fileExt);
-            });
-
-            if (matchingFiles.length > 0) {
-              // Create destination directory
-              const destDir = path.join(imageDir, searchPath.relative);
-              await fs.mkdir(destDir, { recursive: true });
-
-              // Copy all matching files
-              for (const fileName of matchingFiles) {
-                const sourceFile = path.join(searchPath.dir, fileName);
-                const destFile = path.join(destDir, fileName);
-
-                await fs.copyFile(sourceFile, destFile);
-                console.log(`  ✓ Copied: ${searchPath.relative}/${fileName}`);
-              }
-
-              foundFiles = true;
-              break; // Found files, no need to check other paths
-            }
-
-          } catch (error) {
-            // Directory doesn't exist or can't be read, try next path
-            continue;
-          }
-        }
-
-        if (!foundFiles) {
-          console.log(`  ✗ No matching files found for: ${normalizedPath}`);
-        }
+        await this.copyMatchingImages(sourceImagesDir, imageDir, imagePath);
       }
 
-      console.log(`✓ Successfully copied filtered images to ${imageDir}`);
+      console.log(`✓ Successfully copied images to ${imageDir}`);
 
-      // Clean up the temporary repository
+      // Clean up temporary repo
       await fs.rm(tempRepoDir, { recursive: true, force: true });
       console.log(`✓ Cleaned up temporary repository`);
 
     } catch (error) {
       console.error(`Error downloading images: ${error.message}`);
-      // Try to clean up on error
       try {
         await fs.rm(tempRepoDir, { recursive: true, force: true });
       } catch (cleanupError) {
@@ -1725,6 +960,74 @@ class EndlessSkyParser {
       }
       throw error;
     }
+  }
+
+  /**
+   * Copies all matching image files for a given base path
+   * @param {string} sourceDir - Source images directory
+   * @param {string} destDir - Destination directory
+   * @param {string} imagePath - Base image path to match
+   */
+  async copyMatchingImages(sourceDir, destDir, imagePath) {
+    const normalizedPath = imagePath.replace(/\\/g, '/');
+    const pathParts = normalizedPath.split('/');
+    const basenamePattern = pathParts[pathParts.length - 1];
+    const parentDir = pathParts.slice(0, -1).join('/');
+
+    // Try both parent directory and subdirectory with basename
+    const searchPaths = [
+      { dir: path.join(sourceDir, parentDir), relative: parentDir },
+      { dir: path.join(sourceDir, normalizedPath), relative: normalizedPath }
+    ];
+  
+    for (const searchPath of searchPaths) {
+      try {
+        const stats = await fs.stat(searchPath.dir);
+        if (!stats.isDirectory()) continue;
+
+        const files = await fs.readdir(searchPath.dir);
+        const escapedPattern = basenamePattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        // Match various filename patterns (base, base-0, base.0, etc.)
+        const matchingFiles = files.filter(fileName => {
+          const fileExt = path.extname(fileName).toLowerCase();
+          const fileBase = path.basename(fileName, fileExt);
+
+          const patterns = [
+            new RegExp(`^${escapedPattern}$`),              // exact match
+            new RegExp(`^${escapedPattern}-\\d+$`),         // base-0
+            new RegExp(`^${escapedPattern}\\.\\d+$`),       // base.0
+            new RegExp(`^${escapedPattern}-.+\\d+$`),       // base-text0
+            new RegExp(`^${escapedPattern}.+\\d+$`),        // base+0
+            new RegExp(`^${escapedPattern}.$`),             // base+
+            new RegExp(`^${escapedPattern}-.+$`),           // base-text
+            new RegExp(`^${escapedPattern}.+$`)             // base+text
+          ];
+
+          const matches = patterns.some(p => fileBase.match(p));
+          const validExt = ['.png', '.jpg', '.jpeg', '.gif', '.avif', '.webp'].includes(fileExt);
+          
+          return matches && validExt;
+        });
+
+        if (matchingFiles.length > 0) {
+          const outputDir = path.join(destDir, searchPath.relative);
+          await fs.mkdir(outputDir, { recursive: true });
+
+          for (const fileName of matchingFiles) {
+            const sourceFile = path.join(searchPath.dir, fileName);
+            const destFile = path.join(outputDir, fileName);
+            await fs.copyFile(sourceFile, destFile);
+            console.log(`  ✓ Copied: ${searchPath.relative}/${fileName}`);
+          }
+          return; // Found files, done
+        }
+      } catch (error) {
+        continue; // Try next path
+      }
+    }
+
+    console.log(`  ✗ No files found for: ${normalizedPath}`);
   }
 }
 
@@ -1734,7 +1037,7 @@ class EndlessSkyParser {
  */
 async function main() {
   try {
-    // Read plugin configuration file
+    // Read plugin configuration
     const configPath = path.join(process.cwd(), 'plugins.json');
     const configData = await fs.readFile(configPath, 'utf8');
     const config = JSON.parse(configData);
@@ -1747,16 +1050,15 @@ async function main() {
       console.log(`Processing plugin: ${plugin.name}`);
       console.log(`${'='.repeat(60)}`);
       
-      // Create parser and parse repository
       const parser = new EndlessSkyParser();
       const data = await parser.parseRepository(plugin.repository); 
       
-      // Create plugin directories
+      // Create output directories
       const pluginDir = path.join(process.cwd(), 'data', plugin.name);
       const dataFilesDir = path.join(pluginDir, 'dataFiles');
       await fs.mkdir(dataFilesDir, { recursive: true });
       
-      // Extract repository info for image downloading
+      // Download images
       const repoMatch = plugin.repository.match(/github\.com\/([^\/]+)\/([^\/]+)/);
       if (repoMatch) {
         const owner = repoMatch[1];
@@ -1764,40 +1066,44 @@ async function main() {
         const branchMatch = plugin.repository.match(/\/tree\/([^\/]+)/);
         const branch = branchMatch ? branchMatch[1] : 'master';
         
-        // Download images to pluginDir/images/
         await parser.downloadImages(owner, repo, branch, pluginDir);
 
-        // Convert image sequences to APNG (animated PNG)
+        // Convert image sequences to APNG
         const converter = new ImageConverter();
-        await converter.processAllImages(pluginDir, data, {
-          fps: null // Default FPS to compare with animation FPS
-        });
+        await converter.processAllImages(pluginDir, data, { fps: null });
       }
       
-      // Save parsed data to JSON files in pluginDir/dataFiles/
-      const shipsPath = path.join(dataFilesDir, 'ships.json');
-      await fs.writeFile(shipsPath, JSON.stringify(data.ships, null, 2));
-      console.log(`✓ Saved ${data.ships.length} ships to ${shipsPath}`);
+      // Save JSON files
+      await fs.writeFile(
+        path.join(dataFilesDir, 'ships.json'), 
+        JSON.stringify(data.ships, null, 2)
+      );
+      console.log(`✓ Saved ${data.ships.length} ships`);
       
-      const variantsPath = path.join(dataFilesDir, 'variants.json');
-      await fs.writeFile(variantsPath, JSON.stringify(data.variants, null, 2));
-      console.log(`✓ Saved ${data.variants.length} variants to ${variantsPath}`);
+      await fs.writeFile(
+        path.join(dataFilesDir, 'variants.json'), 
+        JSON.stringify(data.variants, null, 2)
+      );
+      console.log(`✓ Saved ${data.variants.length} variants`);
       
-      const outfitsPath = path.join(dataFilesDir, 'outfits.json');
-      await fs.writeFile(outfitsPath, JSON.stringify(data.outfits, null, 2));
-      console.log(`✓ Saved ${data.outfits.length} outfits to ${outfitsPath}`);
+      await fs.writeFile(
+        path.join(dataFilesDir, 'outfits.json'), 
+        JSON.stringify(data.outfits, null, 2)
+      );
+      console.log(`✓ Saved ${data.outfits.length} outfits`);
       
-      // Save combined data file with metadata
-      const combinedPath = path.join(dataFilesDir, 'complete.json');
-      await fs.writeFile(combinedPath, JSON.stringify({
-        plugin: plugin.name,
-        repository: plugin.repository,
-        ships: data.ships,
-        variants: data.variants,
-        outfits: data.outfits,
-        parsedAt: new Date().toISOString()
-      }, null, 2));
-      console.log(`✓ Saved complete data to ${combinedPath}`);
+      await fs.writeFile(
+        path.join(dataFilesDir, 'complete.json'),
+        JSON.stringify({
+          plugin: plugin.name,
+          repository: plugin.repository,
+          ships: data.ships,
+          variants: data.variants,
+          outfits: data.outfits,
+          parsedAt: new Date().toISOString()
+        }, null, 2)
+      );
+      console.log(`✓ Saved complete data`);
     }
     
     console.log(`\n${'='.repeat(60)}`);
@@ -1811,10 +1117,9 @@ async function main() {
   }
 }
 
-// Run main function if this script is executed directly
+// Run main if executed directly
 if (require.main === module) {
   main();
 }
 
-// Export parser class for use in other modules
 module.exports = EndlessSkyParser;
