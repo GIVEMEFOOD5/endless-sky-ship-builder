@@ -264,6 +264,22 @@ class EndlessSkyParser {
           continue;
         }
 
+        // === KEY-VALUE PAIR PARSING ===
+        const kvResult = this.parseKeyValue(stripped);
+        if (kvResult) {
+          const [key, value] = kvResult;
+          
+          // Handle multiple values for same key (convert to array)
+          if (key in data) {
+            if (!Array.isArray(data[key])) data[key] = [data[key]];
+            data[key].push(value);
+          } else {
+            data[key] = value;
+          }
+          i++;
+          continue;
+        }
+
         // === NESTED BLOCK HANDLING ===
         if (i + 1 < lines.length) {
           const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
@@ -290,22 +306,6 @@ class EndlessSkyParser {
             i = nextI;
             continue;
           }
-        }
-
-        // === KEY-VALUE PAIR PARSING ===
-        const kvResult = this.parseKeyValue(stripped);
-        if (kvResult) {
-          const [key, value] = kvResult;
-          
-          // Handle multiple values for same key (convert to array)
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
         }
 
         // === FALLBACK: Treat as description text ===
@@ -374,7 +374,13 @@ class EndlessSkyParser {
       }
     }
 
-    // Single-word keys (like "no repeat") - set to boolean true
+    // Quoted or backticked single-word keys (like "repeat" or `no repeat`) - set to true
+    const quotedKeyMatch = stripped.match(/^["'`]([^"'`]+)["'`]$/);
+    if (quotedKeyMatch) {
+      return [quotedKeyMatch[1], true];
+    }
+
+    // Unquoted single-word keys (like "repeat") - set to boolean true
     if (!stripped.includes(' ') && !stripped.includes('"') && !stripped.includes('`')) {
       return [stripped, true];
     }
@@ -635,7 +641,6 @@ class EndlessSkyParser {
     
     // If variant, store for later processing
     if (variantName) {
-      console.log (`$(baseName) has the variant $(variantName)`)
       this.pendingVariants.push({
         baseName: baseName,
         variantName: variantName,
