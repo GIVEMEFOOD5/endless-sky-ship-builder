@@ -282,7 +282,7 @@ class EndlessSkyParser {
               data[key] = nestedData;
             }
             
-            i = nextI;
+            //i = nextI;
             continue;
           }
         }
