@@ -1239,7 +1239,7 @@ async function main() {
           ships: data.ships,
           variants: data.variants,
           outfits: data.outfits,
-          effects: data.effects
+          effects: data.effects,
           parsedAt: new Date().toISOString()
         }, null, 2)
       );
