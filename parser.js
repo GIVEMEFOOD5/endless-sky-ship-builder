@@ -58,6 +58,7 @@ class EndlessSkyParser {
     this.ships = [];
     this.variants = [];
     this.outfits = [];
+    this.effects = [];
     this.pendingVariants = []; // Temporary storage for variants until base ships are parsed
   }
 
@@ -260,9 +261,17 @@ class EndlessSkyParser {
           i = nextIdx;
           continue;
         }
-
+        
         // === SPRITE HANDLING (with optional nested data) ===
-        if (stripped.startsWith('sprite ')) {
+        if (stripped.startsWith('sprite ') || stripped.startsWith('flare sprite') || stripped.startsWith('steering flare sprite') || stripped.startsWith('reverse flare sprite')) {
+          const [spriteData, nextIdx] = this.parseSpriteWithData(lines, i, currentIndent);
+          Object.assign(data, spriteData);
+          i = nextIdx;
+          continue;
+        }
+
+        // === AFTERBURNER SPRITE HANDLING (with optional nested data) ===
+        if (stripped.startsWith('afterburner effect')) {
           const [spriteData, nextIdx] = this.parseSpriteWithData(lines, i, currentIndent);
           Object.assign(data, spriteData);
           i = nextIdx;
@@ -863,6 +872,46 @@ class EndlessSkyParser {
     return [outfitData.description ? outfitData : null, nextIdx];
   }
 
+  parseExtraEffect(lines, startIdx) {
+    const line = lines[startIdx].trim();
+    
+    // Match effect name (backticks can contain any character, quotes cannot contain quotes)
+    const match = line.match(/^effect\s+["'`]([^"'`]+)["'`]\s*$/);
+    if (!match) return [null, startIdx + 1];
+    
+    const effectName = match[1];
+    
+    // Check if next line is indented - if not, this is an incomplete effect definition
+    if (startIdx + 1 >= lines.length) {
+      return [null, startIdx + 1]; // No next line, skip
+    }
+    
+    const nextLine = lines[startIdx + 1];
+    if (nextLine.trim()) { // If next line has content
+      const nextIndent = nextLine.length - nextLine.replace(/^\t+/, '').length;
+      if (nextIndent === 0) {
+        // Next line is not indented, this effect has no data
+        console.log(`  Skipping effect "${effectName}" - no indented content`);
+        return [null, startIdx + 1];
+      }
+    }
+    
+    console.log('Matched effect:', effectName);
+    
+    const effectData = { name: effectName };
+    
+    // Parse effect block (no hardpoints, no skip blocks)
+    const [parsedData, nextIdx] = this.parseBlock(lines, startIdx + 1, {
+      parseHardpoints: false
+    });
+    
+    // Merge parsed data
+    Object.assign(effectData, parsedData);
+    
+    // Only return effect with descriptions
+    return [effectData, nextIdx];
+  }
+
   /**
    * Parses a single data file's content
    * Extracts all ships and outfits from the file
@@ -892,6 +941,13 @@ class EndlessSkyParser {
         else if (trimmed.startsWith('outfit "') || trimmed.startsWith('outfit `')) {
           const [outfitData, nextI] = this.parseOutfit(lines, i);
           if (outfitData) this.outfits.push(outfitData);
+          i = nextI;
+          continue;
+        }
+        // Check for effects
+        else if (trimmed.startsWith('effect "') || trimmed.startsWith('effect `')) {
+          const [effectData, nextI] = this.parseExtraEffect(lines, i);
+          if (effectData) this.effect.push(effectData);
           i = nextI;
           continue;
         }
@@ -1003,12 +1059,15 @@ class EndlessSkyParser {
         addImagePath(outfit['flare sprite']);
         addImagePath(outfit['steering flare sprite']);
         addImagePath(outfit['reverse flare sprite']);
-        addImagePath(outfit['afterburner effect']);
         
         if (outfit.weapon) {
           addImagePath(outfit.weapon['hardpoint sprite']);
           addImagePath(outfit.weapon.sprite);
         }
+      }
+
+      for (const effect of this.effects) {
+        addImagePath(effect.sprite);
       }
 
       console.log(`Found ${imagePaths.size} unique image paths to process`);
@@ -1164,6 +1223,12 @@ async function main() {
         JSON.stringify(data.outfits, null, 2)
       );
       console.log(`✓ Saved ${data.outfits.length} outfits`);
+
+      await fs.writeFile(
+        path.join(dataFilesDir, 'effects.json'), 
+        JSON.stringify(data.effects, null, 2)
+      );
+      console.log(`✓ Saved ${data.effects.length} effects`);
       
       await fs.writeFile(
         path.join(dataFilesDir, 'complete.json'),
