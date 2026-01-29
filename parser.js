@@ -947,7 +947,7 @@ class EndlessSkyParser {
         // Check for effects
         else if (trimmed.startsWith('effect "') || trimmed.startsWith('effect `')) {
           const [effectData, nextI] = this.parseExtraEffect(lines, i);
-          if (effectData) this.effect.push(effectData);
+          if (effectData) this.effects.push(effectData);
           i = nextI;
           continue;
         }
@@ -1000,7 +1000,8 @@ class EndlessSkyParser {
     return {
       ships: this.ships,
       variants: this.variants,
-      outfits: this.outfits
+      outfits: this.outfits,
+      effects: this.effects
     };
   }
 
@@ -1238,6 +1239,7 @@ async function main() {
           ships: data.ships,
           variants: data.variants,
           outfits: data.outfits,
+          effects: data.effects
           parsedAt: new Date().toISOString()
         }, null, 2)
       );
