@@ -479,9 +479,31 @@ class EndlessSkyParser {
     const stripped = lines[i].trim();
     const result = {};
 
-    // Extract sprite path
-    const spriteMatch = stripped.match(/sprite\s+["'`]([^"'`]+)["'`]/) || 
-                       stripped.match(/sprite\s+(\S+)/);
+    if (stripped.startsWith('sprite ')) {
+      // Extract sprite path
+      const spriteMatch = stripped.match(/sprite\s+["'`]([^"'`]+)["'`]/) || 
+                         stripped.match(/sprite\s+(\S+)/);
+    }
+    // /["'`]flare sprite["'`]\s+["'`]([^"'`]+)["'`]/
+    if (stripped.startsWith('flare sprite')) {
+      const spriteMatch = stripped.match(/["'`]flare sprite["'`]\s+["'`]([^"'`]+)["'`]/) || 
+                         stripped.match(/["'`]flare sprite["'`]\s+(\S+)/);
+    }
+      
+    if (stripped.startsWith('steering flare sprite')) {
+      const spriteMatch = stripped.match(/["'`]steering flare sprite["'`]\s+["'`]([^"'`]+)["'`]/) || 
+                         stripped.match(/["'`]steering flare sprite["'`]\s+(\S+)/);
+    }
+      
+    if (stripped.startsWith('reverse flare sprite')) {
+      const spriteMatch = stripped.match(/["'`]reverse flare sprite["'`]\s+["'`]([^"'`]+)["'`]/) || 
+                         stripped.match(/["'`]reverse flare sprite["'`]\s+(\S+)/);
+    }
+      
+    if (stripped.startsWith('afterburner effect')) {
+      const spriteMatch = stripped.match(/["'`]afterburner effect["'`]\s+["'`]([^"'`]+)["'`]/) || 
+                         stripped.match(/["'`]afterburner effect["'`]\s+(\S+)/);
+    }
     
     if (spriteMatch) {
       result.sprite = spriteMatch[1];
