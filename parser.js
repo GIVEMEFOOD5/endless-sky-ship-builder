@@ -486,22 +486,22 @@ class EndlessSkyParser {
                          stripped.match(/sprite\s+(\S+)/);
     }
 
-    if (stripped.startsWith('flare sprite')) {
+    if (stripped.startsWith('"flare sprite"')) {
       spriteMatch = stripped.match(/["'`]flare sprite["'`]\s+["'`]([^"'`]+)["'`]/) || 
                          stripped.match(/["'`]flare sprite["'`]\s+(\S+)/);
     }
       
-    if (stripped.startsWith('steering flare sprite')) {
+    if (stripped.startsWith('"steering flare sprite"')) {
       spriteMatch = stripped.match(/["'`]steering flare sprite["'`]\s+["'`]([^"'`]+)["'`]/) || 
                          stripped.match(/["'`]steering flare sprite["'`]\s+(\S+)/);
     }
       
-    if (stripped.startsWith('reverse flare sprite')) {
+    if (stripped.startsWith('"reverse flare sprite"')) {
       spriteMatch = stripped.match(/["'`]reverse flare sprite["'`]\s+["'`]([^"'`]+)["'`]/) || 
                          stripped.match(/["'`]reverse flare sprite["'`]\s+(\S+)/);
     }
       
-    if (stripped.startsWith('afterburner effect')) {
+    if (stripped.startsWith('"afterburner effect"')) {
       spriteMatch = stripped.match(/["'`]afterburner effect["'`]\s+["'`]([^"'`]+)["'`]/) || 
                          stripped.match(/["'`]afterburner effect["'`]\s+(\S+)/);
     }
