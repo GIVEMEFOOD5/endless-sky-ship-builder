@@ -512,7 +512,7 @@ class EndlessSkyParser {
     }
     
     if (spriteMatch) {
-      result.[spriteKey] = spriteMatch[1];
+      result[spriteKey] = spriteMatch[1];
 
       // Check for nested sprite data
       if (i + 1 < lines.length) {
