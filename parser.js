@@ -479,34 +479,40 @@ class EndlessSkyParser {
     const stripped = lines[i].trim();
     const result = {};
     let spriteMatch;
+    let spriteKey;
 
     if (stripped.startsWith('sprite ')) {
       // Extract sprite path
+      spriteKey = 'sprite';
       spriteMatch = stripped.match(/sprite\s+["`]([^"'`]+)["'`]/) || 
                      stripped.match(/sprite\s+(\S+)/);
     }
     if (stripped.startsWith('"flare sprite"')) {
+      spriteKey = 'flare sprite';
       spriteMatch = stripped.match(/"flare sprite"\s+["`]([^"'`]+)["'`]/) || 
                      stripped.match(/"flare sprite"\s+(\S+)/);
     }
   
     if (stripped.startsWith('"steering flare sprite"')) {
+      spriteKey = 'steering flare sprite';
       spriteMatch = stripped.match(/"steering flare sprite"\s+["`]([^"'`]+)["'`]/) || 
                      stripped.match(/"steering flare sprite"\s+(\S+)/);
     }
   
     if (stripped.startsWith('"reverse flare sprite"')) {
+      spriteKey = 'reverse flare sprite';
       spriteMatch = stripped.match(/"reverse flare sprite"\s+["`]([^"'`]+)["'`]/) || 
                       stripped.match(/"reverse flare sprite"\s+(\S+)/);
     }
   
     if (stripped.startsWith('"afterburner effect"')) {
+      spriteKey = 'afterburner effect';
       spriteMatch = stripped.match(/"afterburner effect"\s+["`]([^"'`]+)["'`]/) || 
                      stripped.match(/"afterburner effect"\s+(\S+)/);
     }
     
     if (spriteMatch) {
-      result.sprite = spriteMatch[1];
+      result.[spriteKey] = spriteMatch[1];
 
       // Check for nested sprite data
       if (i + 1 < lines.length) {
