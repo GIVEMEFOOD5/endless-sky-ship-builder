@@ -477,56 +477,60 @@ class EndlessSkyParser {
    */
   parseSpriteWithData(lines, i, baseIndent) {
     const stripped = lines[i].trim();
-    const result = {};
-    let spriteMatch;
-    let spriteKey;
+    let spriteKey = null;
+    let spriteMatch = null;
 
     if (stripped.startsWith('sprite ')) {
-      // Extract sprite path
       spriteKey = 'sprite';
       spriteMatch = stripped.match(/sprite\s+["`]([^"'`]+)["'`]/) || 
                      stripped.match(/sprite\s+(\S+)/);
     }
-    if (stripped.startsWith('"flare sprite"')) {
+    else if (stripped.startsWith('"flare sprite"')) {
       spriteKey = 'flare sprite';
       spriteMatch = stripped.match(/"flare sprite"\s+["`]([^"'`]+)["'`]/) || 
                      stripped.match(/"flare sprite"\s+(\S+)/);
     }
-  
-    if (stripped.startsWith('"steering flare sprite"')) {
+    else if (stripped.startsWith('"steering flare sprite"')) {
       spriteKey = 'steering flare sprite';
       spriteMatch = stripped.match(/"steering flare sprite"\s+["`]([^"'`]+)["'`]/) || 
                      stripped.match(/"steering flare sprite"\s+(\S+)/);
     }
-  
-    if (stripped.startsWith('"reverse flare sprite"')) {
+    else if (stripped.startsWith('"reverse flare sprite"')) {
       spriteKey = 'reverse flare sprite';
       spriteMatch = stripped.match(/"reverse flare sprite"\s+["`]([^"'`]+)["'`]/) || 
                       stripped.match(/"reverse flare sprite"\s+(\S+)/);
     }
-  
-    if (stripped.startsWith('"afterburner effect"')) {
+    else if (stripped.startsWith('"afterburner effect"')) {
       spriteKey = 'afterburner effect';
       spriteMatch = stripped.match(/"afterburner effect"\s+["`]([^"'`]+)["'`]/) || 
                      stripped.match(/"afterburner effect"\s+(\S+)/);
     }
     
-    if (spriteMatch) {
-      result[spriteKey] = spriteMatch[1];
+    if (spriteMatch && spriteKey) {
+      const spritePath = spriteMatch[1];
+      const result = {};
+      
+      // Store the sprite path
+      result[spriteKey] = spritePath;
 
       // Check for nested sprite data
       if (i + 1 < lines.length) {
         const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
         if (nextIndent > baseIndent) {
+          // Has nested data - store separately
           const [spriteData, nextIdx] = this.parseBlock(lines, i + 1);
-          result.spriteData = spriteData;
+          result['spriteData'] = spriteData;
           return [result, nextIdx];
         }
       }
+      
+      // No nested data
+      return [result, i + 1];
     }
 
-    return [result, i + 1];
+    return [{}, i + 1];
   }
+
 
   /**
    * Parses hardpoint definitions (engines, guns, turrets, bays)
