@@ -263,15 +263,7 @@ class EndlessSkyParser {
         }
         
         // === SPRITE HANDLING (with optional nested data) ===
-        if (stripped.startsWith('sprite ') || stripped.startsWith('flare sprite') || stripped.startsWith('steering flare sprite') || stripped.startsWith('reverse flare sprite')) {
-          const [spriteData, nextIdx] = this.parseSpriteWithData(lines, i, currentIndent);
-          Object.assign(data, spriteData);
-          i = nextIdx;
-          continue;
-        }
-
-        // === AFTERBURNER SPRITE HANDLING (with optional nested data) ===
-        if (stripped.startsWith('afterburner effect')) {
+        if (stripped.startsWith('sprite ') || stripped.startsWith('"flare sprite"') || stripped.startsWith('"steering flare sprite"') || stripped.startsWith('"reverse flare sprite"') || stripped.startsWith('"afterburner effect"')) {
           const [spriteData, nextIdx] = this.parseSpriteWithData(lines, i, currentIndent);
           Object.assign(data, spriteData);
           i = nextIdx;
