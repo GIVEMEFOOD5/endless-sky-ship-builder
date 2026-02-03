@@ -443,6 +443,28 @@ class ImageConverter {
     return sprites;
   }
 
+  // Calculate optimal output FPS to prevent judder
+  // Ensures framesPerAnimFrame is always a whole number
+  calculateJudderFreeFPS(animationFps, targetFps = 60, minFramesPerAnimFrame = 2) {
+    // Round animation FPS to avoid floating point issues
+    const roundedAnimFps = Math.round(animationFps * 1000) / 1000;
+    
+    // Calculate how many interpolated frames we'd get at target FPS
+    const idealFramesPerAnimFrame = targetFps / roundedAnimFps;
+    
+    // Round to nearest integer, but ensure minimum
+    let framesPerAnimFrame = Math.max(minFramesPerAnimFrame, Math.round(idealFramesPerAnimFrame));
+    
+    // Calculate the actual judder-free output FPS
+    const judderFreeFps = roundedAnimFps * framesPerAnimFrame;
+    
+    return {
+      outputFps: judderFreeFps,
+      framesPerAnimFrame: framesPerAnimFrame,
+      animationFps: roundedAnimFps
+    };
+  }
+
   // Helper method to get sprite metadata from data
   getSpriteMetadata(data, spriteKey, defaultFps = 10) {
     const metadata = {
@@ -515,7 +537,7 @@ class ImageConverter {
   }
 
   // Generate interpolated frames using OpenGL
-  async generateInterpolatedFrames(sprite, fps, metadata) {
+  async generateInterpolatedFrames(sprite, judderFreeConfig, metadata) {
     const frames = sprite.frames;
     if (frames.length === 0) return [];
     
@@ -523,7 +545,7 @@ class ImageConverter {
     await fs.mkdir(frameOutputDir, { recursive: true });
     
     const interpolatedFrames = [];
-    const framesPerAnimFrame = Math.max(1, Math.round(fps / metadata.frameRate));
+    const framesPerAnimFrame = judderFreeConfig.framesPerAnimFrame;
     
     let outputFrameNum = 0;
     let detectedBackgroundInfo = null;
@@ -668,8 +690,8 @@ class ImageConverter {
   async processAllImages(pluginDir, data, options = {}) {
 
     var { 
-      fps = null,  // null means auto-calculate based on frame rate
-      fpsMultiplier = 6,  // Multiplier for auto-calculation (frame_rate * multiplier = output fps)
+      targetFps = 60,  // Target FPS for output (will be adjusted to prevent judder)
+      minFramesPerAnimFrame = 2,  // Minimum interpolation frames per animation frame
       defaultAnimationFps = 10 
     } = options;
 
@@ -698,26 +720,28 @@ class ImageConverter {
         const metadata = this.getSpriteMetadata(data, spriteKey, defaultAnimationFps);
         console.log(`  Animation FPS: ${metadata.frameRate}`);
 
-        // Calculate output FPS for this sprite
-        let outputFps;
-        if (fps !== null) {
-          // User specified a fixed FPS for all sprites
-          outputFps = fps;
-        } else {
-          // Auto-calculate based on the sprite's frame rate
-          outputFps = metadata.frameRate * fpsMultiplier;
-        }
+        // Calculate judder-free output FPS for this sprite
+        const judderFreeConfig = this.calculateJudderFreeFPS(
+          metadata.frameRate,
+          targetFps,
+          minFramesPerAnimFrame
+        );
         
-        console.log(`  Output FPS: ${outputFps} ${fps === null ? '(auto-calculated: ' + metadata.frameRate + ' × ' + fpsMultiplier + ')' : '(fixed)'}`);
+        console.log(`  Output FPS: ${judderFreeConfig.outputFps.toFixed(3)} (judder-free)`);
+        console.log(`  Interpolated frames per animation frame: ${judderFreeConfig.framesPerAnimFrame}`);
+        
+        if (Math.abs(judderFreeConfig.outputFps - targetFps) > 0.1) {
+          console.log(`  ℹ Adjusted from target ${targetFps} FPS to prevent judder`);
+        }
 
         console.log(`  Generating interpolated animation with OpenGL shaders...`);
-        const result = await this.generateInterpolatedFrames(sprite, outputFps, metadata);
+        const result = await this.generateInterpolatedFrames(sprite, judderFreeConfig, metadata);
         console.log(`  Generated ${result.frames.length} total frames`);
         
         const outputPath = path.join(sprite.directory, `${sprite.baseName}.png`);
         
         console.log(`  Creating APNG...`);
-        await this.createAPNG(result.outputDir, outputPath, outputFps);
+        await this.createAPNG(result.outputDir, outputPath, judderFreeConfig.outputFps);
         
         await fs.rm(result.outputDir, { recursive: true, force: true });
         
