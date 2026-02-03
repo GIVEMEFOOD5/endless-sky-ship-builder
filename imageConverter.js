@@ -1,4 +1,19 @@
-// imageConverter.js - OpenGL-based sprite animation converter (like Endless Sky)
+// imageConverter.js - Endless Sky sprite animation converter
+// Converts Endless Sky's runtime animation system to pre-rendered APNG files
+// 
+// HOW ENDLESS SKY WORKS:
+// - Game runs at 60 FPS (game loop)
+// - Sprites have a "frame rate" (default: 2 FPS) that controls animation speed
+// - Each game frame, animation advances by (frame_rate / 60)
+// - Uses floating-point frame numbers (e.g., frame 4.28 = 28% of frame 5, 72% of frame 4)
+// - Blends frames in real-time using OpenGL shaders
+//
+// WHAT THIS CONVERTER DOES:
+// - Pre-generates all interpolated frames that Endless Sky would create at runtime
+// - Outputs as APNG files at 60 FPS (matching the game loop)
+// - Uses the exact same OpenGL shader blending as Endless Sky
+// - Respects all Endless Sky sprite parameters (frame rate, rewind, blend modes, etc.)
+//
 const fs = require('fs').promises;
 const path = require('path');
 const { createCanvas, loadImage, Image } = require('canvas');
@@ -44,9 +59,9 @@ class ImageConverter {
     return shader;
   }
 
-  // Create shader program for frame blending (Endless Sky's method)
+  // Create shader program for frame blending (Endless Sky's exact method)
   createBlendShaderProgram(glContext) {
-    // Vertex shader - same as Endless Sky
+    // Vertex shader - standard quad rendering
     const vertexShaderSource = `
       attribute vec2 aPosition;
       attribute vec2 aTexCoord;
@@ -58,13 +73,14 @@ class ImageConverter {
       }
     `;
     
-    // Fragment shader - Endless Sky's frame blending shader
+    // Fragment shader - Endless Sky's exact frame blending formula
+    // This is how Endless Sky blends between animation frames at runtime
     const fragmentShaderSource = `
       precision mediump float;
       
-      uniform sampler2D tex0;      // First frame
-      uniform sampler2D tex1;      // Second frame
-      uniform float fade;          // Blend amount (0.0 to 1.0)
+      uniform sampler2D tex0;      // First frame (e.g., frame 4)
+      uniform sampler2D tex1;      // Second frame (e.g., frame 5)
+      uniform float fade;          // Blend amount 0.0-1.0 (e.g., 0.28 = 28% of frame 5)
       uniform int blendMode;       // 0=normal, 1=additive, 2=half-additive
       
       varying vec2 vTexCoord;
@@ -76,15 +92,19 @@ class ImageConverter {
         vec4 finalColor;
         
         if (blendMode == 1) {
-          // Additive blending (for glowing effects)
+          // Additive blending (for glowing effects like lasers)
+          // Used with + in filename (e.g., laser+0.png)
           finalColor.rgb = color0.rgb * (1.0 - fade) + color1.rgb * fade;
           finalColor.a = max(color0.a, color1.a);
         } else if (blendMode == 2) {
-          // Half-additive blending
+          // Half-additive blending (softer glow)
+          // Used with ~ or ^ in filename (e.g., thrust~0.png)
           finalColor.rgb = color0.rgb * (1.0 - fade) + color1.rgb * (fade * 0.5);
           finalColor.a = max(color0.a, color1.a);
         } else {
-          // Normal blending (Endless Sky's default mix)
+          // Normal blending (default for most sprites)
+          // Endless Sky uses GLSL mix() function: mix(a, b, t) = a*(1-t) + b*t
+          // Used with - in filename (e.g., asteroid-0.png)
           finalColor = mix(color0, color1, fade);
         }
         
@@ -443,35 +463,14 @@ class ImageConverter {
     return sprites;
   }
 
-  // Calculate optimal output FPS to prevent judder
-  // Ensures framesPerAnimFrame is always a whole number
-  calculateJudderFreeFPS(animationFps, targetFps = 60, minFramesPerAnimFrame = 2) {
-    // Round animation FPS to avoid floating point issues
-    const roundedAnimFps = Math.round(animationFps * 1000) / 1000;
-    
-    // Calculate how many interpolated frames we'd get at target FPS
-    const idealFramesPerAnimFrame = targetFps / roundedAnimFps;
-    
-    // Round to nearest integer, but ensure minimum
-    let framesPerAnimFrame = Math.max(minFramesPerAnimFrame, Math.round(idealFramesPerAnimFrame));
-    
-    // Calculate the actual judder-free output FPS
-    const judderFreeFps = roundedAnimFps * framesPerAnimFrame;
-    
-    return {
-      outputFps: judderFreeFps,
-      framesPerAnimFrame: framesPerAnimFrame,
-      animationFps: roundedAnimFps
-    };
-  }
-
   // Helper method to get sprite metadata from data
-  getSpriteMetadata(data, spriteKey, defaultFps = 10) {
+  // Extracts Endless Sky sprite animation parameters
+  getSpriteMetadata(data, spriteKey, defaultFps = 2) {
     const metadata = {
-      frameRate: defaultFps,
-      rewind: false,
-      removeBackground: 'auto',  // Changed from false to 'auto' - will auto-detect
-      backgroundColor: null      // null means auto-detect
+      frameRate: defaultFps,  // Endless Sky default: 2 FPS (slow animations)
+      rewind: false,          // Play forward then backward
+      removeBackground: 'auto',  // Auto-detect solid backgrounds
+      backgroundColor: null      // null = auto-detect
     };
 
     // Search through data to find matching sprite
@@ -536,8 +535,8 @@ class ImageConverter {
     return metadata;
   }
 
-  // Generate interpolated frames using OpenGL
-  async generateInterpolatedFrames(sprite, judderFreeConfig, metadata) {
+  // Generate interpolated frames using OpenGL (Endless Sky's method)
+  async generateInterpolatedFrames(sprite, gameFramesPerAnimFrame, metadata) {
     const frames = sprite.frames;
     if (frames.length === 0) return [];
     
@@ -545,12 +544,16 @@ class ImageConverter {
     await fs.mkdir(frameOutputDir, { recursive: true });
     
     const interpolatedFrames = [];
-    const framesPerAnimFrame = judderFreeConfig.framesPerAnimFrame;
+    
+    // Round to whole number for output generation
+    // Endless Sky uses floating point at runtime, but we need discrete frames for APNG
+    const framesPerAnimFrame = Math.max(1, Math.round(gameFramesPerAnimFrame));
     
     let outputFrameNum = 0;
     let detectedBackgroundInfo = null;
     
     console.log(`    Using OpenGL shader-based blending (${sprite.blendMode} mode)`);
+    console.log(`    Generating ${framesPerAnimFrame} interpolated frames per animation frame`);
     
     if (metadata.removeBackground === 'auto') {
       console.log(`    Auto-detecting background color...`);
@@ -687,12 +690,38 @@ class ImageConverter {
   }
 
   // Process all images
+  // 
+  // ENDLESS SKY ANIMATION SYSTEM EXPLAINED:
+  // ========================================
+  // 
+  // Game Loop: 60 FPS (frames per second)
+  // - Every 1/60th of a second, the game updates and renders
+  // - This is the "game FPS" - the speed the game runs at
+  //
+  // Frame Rate: Variable (sprite-specific, default 2 FPS)
+  // - This controls how FAST the animation plays
+  // - NOT how smooth it is (that's the game loop's job)
+  // - Examples:
+  //   * frame_rate = 2  → slow animation (takes 30 game frames to advance 1 animation frame)
+  //   * frame_rate = 10 → faster (takes 6 game frames to advance 1 animation frame)
+  //   * frame_rate = 60 → very fast (advances 1 animation frame every game frame)
+  //
+  // Interpolation:
+  // - Endless Sky uses floating-point frame numbers
+  // - frame 4.28 = blend 28% of frame 5 with 72% of frame 4
+  // - This creates smooth transitions between key frames
+  // - Uses OpenGL shaders to blend in real-time
+  //
+  // For APNG output:
+  // - We generate 60 FPS output (matching game loop)
+  // - Each animation frame gets (60 / frame_rate) interpolated frames
+  // - This pre-renders what Endless Sky would do at runtime
+  //
   async processAllImages(pluginDir, data, options = {}) {
 
     var { 
-      targetFps = 60,  // Target FPS for output (will be adjusted to prevent judder)
-      minFramesPerAnimFrame = 2,  // Minimum interpolation frames per animation frame
-      defaultAnimationFps = 10 
+      gameFps = 60,  // Game loop FPS (like Endless Sky's 60 FPS game loop)
+      defaultFrameRate = 2  // Default Endless Sky frame rate (2 FPS by default)
     } = options;
 
     await this.init();
@@ -700,7 +729,8 @@ class ImageConverter {
     const imagesDir = path.join(pluginDir, 'images');
     
     console.log('\n' + '='.repeat(60));
-    console.log('Scanning for animated sprites (OpenGL mode)...');
+    console.log('Endless Sky Animation Converter (OpenGL)');
+    console.log('Game Loop: ' + gameFps + ' FPS | Default Frame Rate: ' + defaultFrameRate + ' FPS');
     console.log('='.repeat(60));
     
     const sprites = await this.findAnimatedSprites(imagesDir);
@@ -717,31 +747,38 @@ class ImageConverter {
         console.log(`  Blend mode: ${sprite.blendMode}`);
         
         // Extract metadata for THIS specific sprite from data
-        const metadata = this.getSpriteMetadata(data, spriteKey, defaultAnimationFps);
-        console.log(`  Animation FPS: ${metadata.frameRate}`);
+        const metadata = this.getSpriteMetadata(data, spriteKey, defaultFrameRate);
+        console.log(`  Frame rate: ${metadata.frameRate} FPS (animation speed)`);
 
-        // Calculate judder-free output FPS for this sprite
-        const judderFreeConfig = this.calculateJudderFreeFPS(
-          metadata.frameRate,
-          targetFps,
-          minFramesPerAnimFrame
-        );
+        // ENDLESS SKY'S METHOD:
+        // - Game runs at 60 FPS
+        // - Frame rate determines how fast animation progresses
+        // - Lower frame rate = slower animation progression
+        // - Each game frame, the animation frame advances by (frame_rate / 60)
+        // - For smooth output APNG, we generate one image per game frame
         
-        console.log(`  Output FPS: ${judderFreeConfig.outputFps.toFixed(3)} (judder-free)`);
-        console.log(`  Interpolated frames per animation frame: ${judderFreeConfig.framesPerAnimFrame}`);
+        const outputFps = gameFps;  // Output matches game loop (60 FPS)
         
-        if (Math.abs(judderFreeConfig.outputFps - targetFps) > 0.1) {
-          console.log(`  ℹ Adjusted from target ${targetFps} FPS to prevent judder`);
+        // Calculate how many game frames per animation frame
+        // e.g., frame_rate=2 → 60/2 = 30 game frames per animation frame
+        // e.g., frame_rate=10 → 60/10 = 6 game frames per animation frame
+        const gameFramesPerAnimFrame = gameFps / metadata.frameRate;
+        
+        console.log(`  Output FPS: ${outputFps} (game loop speed)`);
+        console.log(`  Game frames per animation frame: ${gameFramesPerAnimFrame.toFixed(2)}`);
+        
+        if (!Number.isInteger(gameFramesPerAnimFrame)) {
+          console.log(`  ⚠ Non-integer ratio will cause slight judder (Endless Sky uses floating-point animation)`);
         }
 
         console.log(`  Generating interpolated animation with OpenGL shaders...`);
-        const result = await this.generateInterpolatedFrames(sprite, judderFreeConfig, metadata);
+        const result = await this.generateInterpolatedFrames(sprite, gameFramesPerAnimFrame, metadata);
         console.log(`  Generated ${result.frames.length} total frames`);
         
         const outputPath = path.join(sprite.directory, `${sprite.baseName}.png`);
         
         console.log(`  Creating APNG...`);
-        await this.createAPNG(result.outputDir, outputPath, judderFreeConfig.outputFps);
+        await this.createAPNG(result.outputDir, outputPath, outputFps);
         
         await fs.rm(result.outputDir, { recursive: true, force: true });
         
@@ -751,7 +788,8 @@ class ImageConverter {
     }
     
     console.log('\n' + '='.repeat(60));
-    console.log(`OpenGL animation processing complete! Processed ${processed} sprites.`);
+    console.log(`Endless Sky animation processing complete!`);
+    console.log(`Processed ${processed} sprites at ${gameFps} FPS`);
     console.log('='.repeat(60) + '\n');
     
     await this.cleanup();
