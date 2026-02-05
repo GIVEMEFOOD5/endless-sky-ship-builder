@@ -1,0 +1,200 @@
+/**
+ * GitHub Pages Image Fetcher
+ * Extracts and fetches all image paths from game data objects
+ */
+
+// Base URL configuration - update this to your GitHub Pages URL
+const GITHUB_PAGES_BASE_URL = 'https://yourusername.github.io/yourrepo';
+
+const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
+
+/**
+ * Extract all image paths from a data object
+ * @param {Object} data - Game data object (outfit, ship, etc.)
+ * @returns {string[]} Array of image paths
+ */
+function extractImagePaths(data) {
+  const paths = new Set();
+
+  // Known image path properties to check
+  const imageProperties = [
+    'sprite',
+    'thumbnail',
+    'flare sprite',
+    'steering flare sprite',
+    'reverse flare sprite',
+    'hit effect',
+    'fire effect',
+    'die effect'
+  ];
+
+  // Recursive function to search through nested objects
+  const searchObject = (obj, parentKey = '') => {
+    if (!obj || typeof obj !== 'object') return;
+
+    for (const [key, value] of Object.entries(obj)) {
+      // Check if this is a known image property
+      if (imageProperties.includes(key)) {
+        if (typeof value === 'string') {
+          paths.add(value);
+        } else if (Array.isArray(value)) {
+          value.forEach(v => {
+            if (typeof v === 'string') paths.add(v);
+          });
+        }
+      }
+
+      // Special handling for weapon.sprite and other nested sprites
+      if (key === 'weapon' && typeof value === 'object') {
+        searchObject(value, 'weapon');
+      }
+
+      // Check for spriteData (though not an image itself, it's metadata)
+      if (key !== 'spriteData' && typeof value === 'object' && !Array.isArray(value)) {
+        searchObject(value, key);
+      }
+    }
+  };
+
+  searchObject(data);
+  return Array.from(paths);
+}
+
+/**
+ * Convert a sprite path to full URLs with all possible extensions
+ * @param {string} spritePath - Relative sprite path (e.g., 'ship/penguin/penguin')
+ * @param {string} baseUrl - Base URL for GitHub Pages
+ * @returns {string[]} Array of full URLs to try
+ */
+function pathToUrls(spritePath, baseUrl = GITHUB_PAGES_BASE_URL) {
+  const cleanBaseUrl = baseUrl.replace(/\/$/, ''); // Remove trailing slash
+  const cleanPath = spritePath.replace(/^\/+/, '');
+  
+  // If it already has an extension, return just that URL
+  if (IMAGE_EXTENSIONS.some(ext => cleanPath.toLowerCase().endsWith(ext))) {
+    return [`${cleanBaseUrl}/${cleanPath}`];
+  }
+
+  // Otherwise, try all common image extensions
+  return IMAGE_EXTENSIONS.map(ext => `${cleanBaseUrl}/${cleanPath}${ext}`);
+}
+
+/**
+ * Fetch a single image with fallback to different extensions
+ * @param {string} spritePath - Relative sprite path
+ * @param {string} baseUrl - Base URL for GitHub Pages
+ * @returns {Promise<{path: string, url: string, blob: Blob}|null>}
+ */
+async function fetchImage(spritePath, baseUrl = GITHUB_PAGES_BASE_URL) {
+  const urls = pathToUrls(spritePath, baseUrl);
+
+  for (const url of urls) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        const blob = await response.blob();
+        return {
+          path: spritePath,
+          url: url,
+          blob: blob
+        };
+      }
+    } catch (error) {
+      // Continue to next URL
+      continue;
+    }
+  }
+
+  console.warn(`Failed to fetch image: ${spritePath}`);
+  return null;
+}
+
+/**
+ * Load JSON data from a file path
+ * @param {string} filePath - Path to JSON file
+ * @returns {Promise<Object>} Parsed JSON data
+ */
+async function loadJsonFile(filePath) {
+  const response = await fetch(filePath);
+  if (!response.ok) {
+    throw new Error(`Failed to load file: ${filePath}`);
+  }
+  return await response.json();
+}
+
+/**
+ * Fetch all images from a JSON file and return a map of paths to object URLs
+ * @param {string} filePath - Path to JSON file containing item data
+ * @param {Object} options - Options
+ * @param {string} options.baseUrl - Base URL for GitHub Pages (optional)
+ * @param {number} options.maxConcurrent - Max concurrent requests (default: 5)
+ * @returns {Promise<Object>} Map of sprite path to object URL for use in img src
+ */
+async function fetchItemImages(filePath, options = {}) {
+  const { baseUrl = GITHUB_PAGES_BASE_URL, maxConcurrent = 5 } = options;
+  
+  // Load the JSON file
+  const data = await loadJsonFile(filePath);
+  
+  const paths = extractImagePaths(data);
+  
+  if (paths.length === 0) {
+    console.log('No image paths found in data');
+    return {};
+  }
+
+  console.log(`Found ${paths.length} image path(s):`, paths);
+
+  // Parallel fetching with concurrency limit
+  const results = [];
+  for (let i = 0; i < paths.length; i += maxConcurrent) {
+    const batch = paths.slice(i, i + maxConcurrent);
+    const batchResults = await Promise.all(
+      batch.map(path => fetchImage(path, baseUrl))
+    );
+    results.push(...batchResults.filter(r => r !== null));
+  }
+
+  // Create object URLs map
+  const urlMap = {};
+  results.forEach(img => {
+    if (img && img.blob) {
+      urlMap[img.path] = URL.createObjectURL(img.blob);
+    }
+  });
+
+  return urlMap;
+}
+
+/**
+ * Revoke object URLs to free memory when images are no longer needed
+ * @param {Object} urlMap - Map returned from fetchItemImages
+ */
+function cleanupImageUrls(urlMap) {
+  Object.values(urlMap).forEach(url => URL.revokeObjectURL(url));
+}
+
+// Example usage:
+/*
+// In your other JS file:
+import { fetchItemImages, cleanupImageUrls } from './github-image-fetcher.js';
+
+// Pass in the file path to your JSON file
+const imageUrls = await fetchItemImages('./data/ships/penguin.json');
+
+// Or with custom options:
+const imageUrls = await fetchItemImages('./data/outfits/ember-tear.json', {
+  baseUrl: 'https://mycustomurl.github.io/repo',
+  maxConcurrent: 10
+});
+
+// Use in your app:
+// imageUrls will be like: { 'ship/penguin/penguin': 'blob:...', 'thumbnail/penguin': 'blob:...' }
+// <img src={imageUrls['ship/penguin/penguin']} alt="Penguin" />
+// <img src={imageUrls['thumbnail/penguin']} alt="Thumbnail" />
+
+// Clean up when component unmounts or item changes
+cleanupImageUrls(imageUrls);
+*/
+
+export { fetchItemImages, cleanupImageUrls, extractImagePaths };
