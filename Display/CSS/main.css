@@ -453,3 +453,98 @@ button {
     border-color: #3b82f6;
     transform: translateY(-1px);
 }
+
+/* Modal Tabs Styling */
+.modal-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+    padding-bottom: 0;
+    overflow-x: auto;
+    flex-wrap: wrap;
+}
+
+.modal-tab {
+    padding: 12px 20px;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 8px 8px 0 0;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    position: relative;
+    bottom: -2px;
+}
+
+.modal-tab:hover {
+    background: rgba(59, 130, 246, 0.2);
+    color: #cbd5e1;
+}
+
+.modal-tab.active {
+    background: rgba(59, 130, 246, 0.4);
+    border-color: #3b82f6;
+    color: #93c5fd;
+    border-bottom-color: #3b82f6;
+}
+
+.modal-tab-contents {
+    position: relative;
+    min-height: 200px;
+}
+
+.modal-tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Image container for sprites */
+.modal-tab-content img {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure attribute grid works well in tabs */
+.modal-tab-content .attribute-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Responsive adjustments for modal tabs */
+@media (max-width: 768px) {
+    .modal-tabs {
+        gap: 4px;
+    }
+    
+    .modal-tab {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .modal-tab-content .attribute-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+    }
+}
