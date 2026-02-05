@@ -411,11 +411,16 @@ function renderAttributesTab(item) {
 }
 
 // Render sprite/image tab content
-function renderImageTab(imageUrl, altText = 'Image') {
+async function renderImageTab(spritePath, altText = 'Image') {
+    const imageUrl = await fetchSpriteImage(spritePath);
+    
+    if (!imageUrl) {
+        return `<p style="color:#ef4444;">Failed to load image</p>`;
+    }
+    
     return `
         <div style="display: flex; justify-content: center; align-items: center; padding: 20px; background: rgba(15, 23, 42, 0.5); border-radius: 8px;">
-            <img src="${imageUrl}" alt="${altText}" style="max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);" 
-                 onerror="this.parentElement.innerHTML='<p style=color:#ef4444;>Failed to load image</p>'">
+            <img src="${imageUrl}" alt="${altText}" style="max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);">
         </div>
     `;
 }
@@ -529,6 +534,7 @@ function showDetails(item) {
 }
 
 function closeModal() {
+    clearCurrentImages(); // Clean up when closing
     document.getElementById('detailModal').classList.remove('active');
 }
 
