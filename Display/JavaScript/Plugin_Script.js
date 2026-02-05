@@ -324,6 +324,18 @@ function renderAttributesTab(item) {
                 }
             });
         }
+        if (item.weapon) {
+            Object.entries(item.attributes).forEach(([key, value]) => {
+                if (typeof value !== 'object') {
+                    html += `
+                        <div class="attribute">
+                            <div class="attribute-name">${key}</div>
+                            <div class="attribute-value">${formatValue(value)}</div>
+                        </div>
+                    `;
+                }
+            });
+        }
         html += '</div>';
         
         // Add hardpoints section within attributes
@@ -434,19 +446,19 @@ function showDetails(item) {
                     content = renderImageTab(item.sprite, 'Sprite');
                     break;
                 case 'hardpointSprite':
-                    content = renderImageTab(item.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite');
+                    content = renderImageTab(item['hardpoint sprite'], 'Hardpoint Sprite');
                     break;
                 case 'steeringFlare':
-                    content = renderImageTab(item.steeringFlare || item['steering flare'], 'Steering Flare');
+                    content = renderImageTab(item['steering flare sprite'], 'Steering Flare');
                     break;
                 case 'flare':
-                    content = renderImageTab(item.flare, 'Flare');
+                    content = renderImageTab(item['flare sprite'], 'Flare');
                     break;
                 case 'reverseFlare':
-                    content = renderImageTab(item.reverseFlare || item['reverse flare'], 'Reverse Flare');
+                    content = renderImageTab(item['reverse flare sprite'], 'Reverse Flare');
                     break;
                 case 'projectile':
-                    content = renderImageTab(item.projectile, 'Projectile');
+                    content = renderImageTab(item.weapon.sprite, 'Fireing Sprite');
                     break;
             }
             
