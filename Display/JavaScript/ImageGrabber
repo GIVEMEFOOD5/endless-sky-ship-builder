@@ -8,6 +8,9 @@ const GITHUB_PAGES_BASE_URL = 'https://yourusername.github.io/yourrepo';
 
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
 
+// Cache to store currently loaded images
+let currentImageCache = null;
+
 /**
  * Extract all image paths from a data object
  * @param {Object} data - Game data object (outfit, ship, etc.)
@@ -110,91 +113,86 @@ async function fetchImage(spritePath, baseUrl = GITHUB_PAGES_BASE_URL) {
 }
 
 /**
- * Load JSON data from a file path
- * @param {string} filePath - Path to JSON file
- * @returns {Promise<Object>} Parsed JSON data
- */
-async function loadJsonFile(filePath) {
-  const response = await fetch(filePath);
-  if (!response.ok) {
-    throw new Error(`Failed to load file: ${filePath}`);
-  }
-  return await response.json();
-}
-
-/**
- * Fetch all images from a JSON file and return a map of paths to object URLs
- * @param {string} filePath - Path to JSON file containing item data
+ * Fetch a single image from a sprite path and return an object URL
+ * This automatically cleans up previously loaded image when called
+ * @param {string} spritePath - Relative sprite path (e.g., 'ship/penguin/penguin')
  * @param {Object} options - Options
  * @param {string} options.baseUrl - Base URL for GitHub Pages (optional)
- * @param {number} options.maxConcurrent - Max concurrent requests (default: 5)
- * @returns {Promise<Object>} Map of sprite path to object URL for use in img src
+ * @returns {Promise<string|null>} Object URL for the image, or null if failed
  */
-async function fetchItemImages(filePath, options = {}) {
-  const { baseUrl = GITHUB_PAGES_BASE_URL, maxConcurrent = 5 } = options;
+async function fetchSpriteImage(spritePath, options = {}) {
+  const { baseUrl = GITHUB_PAGES_BASE_URL } = options;
   
-  // Load the JSON file
-  const data = await loadJsonFile(filePath);
+  // Clean up previous image before loading new one
+  clearCurrentImages();
   
-  const paths = extractImagePaths(data);
-  
-  if (paths.length === 0) {
-    console.log('No image paths found in data');
-    return {};
+  if (!spritePath) {
+    console.warn('No sprite path provided');
+    return null;
   }
 
-  console.log(`Found ${paths.length} image path(s):`, paths);
+  console.log(`Fetching image: ${spritePath}`);
 
-  // Parallel fetching with concurrency limit
-  const results = [];
-  for (let i = 0; i < paths.length; i += maxConcurrent) {
-    const batch = paths.slice(i, i + maxConcurrent);
-    const batchResults = await Promise.all(
-      batch.map(path => fetchImage(path, baseUrl))
-    );
-    results.push(...batchResults.filter(r => r !== null));
+  const result = await fetchImage(spritePath, baseUrl);
+  
+  if (result && result.blob) {
+    const objectUrl = URL.createObjectURL(result.blob);
+    
+    // Store in cache for automatic cleanup
+    currentImageCache = { [spritePath]: objectUrl };
+    
+    return objectUrl;
   }
 
-  // Create object URLs map
-  const urlMap = {};
-  results.forEach(img => {
-    if (img && img.blob) {
-      urlMap[img.path] = URL.createObjectURL(img.blob);
-    }
-  });
-
-  return urlMap;
+  return null;
 }
 
 /**
- * Revoke object URLs to free memory when images are no longer needed
- * @param {Object} urlMap - Map returned from fetchItemImages
+ * Clear currently loaded images (call this when switching tabs)
+ * This is automatically called when fetchSpriteImage is called again
  */
-function cleanupImageUrls(urlMap) {
-  Object.values(urlMap).forEach(url => URL.revokeObjectURL(url));
+function clearCurrentImages() {
+  if (currentImageCache) {
+    Object.values(currentImageCache).forEach(url => URL.revokeObjectURL(url));
+    currentImageCache = null;
+    console.log('Cleared previous image from memory');
+  }
 }
 
-// Example usage:
+// Example usage with your modal tab system:
 /*
-// In your other JS file:
-import { fetchItemImages, cleanupImageUrls } from './github-image-fetcher.js';
+// In your main JS file:
+import { fetchSpriteImage, clearCurrentImages } from './github-image-fetcher.js';
 
-// Pass in the file path to your JSON file
-const imageUrls = await fetchItemImages('./data/ships/penguin.json');
+// Update your renderImageTab function:
+async function renderImageTab(spritePath, altText = 'Image') {
+    // Fetch the image
+    const imageUrl = await fetchSpriteImage(spritePath);
+    
+    if (!imageUrl) {
+        return `<p style="color:#ef4444;">Failed to load image</p>`;
+    }
+    
+    return `
+        <div style="display: flex; justify-content: center; align-items: center; padding: 20px; background: rgba(15, 23, 42, 0.5); border-radius: 8px;">
+            <img src="${imageUrl}" alt="${altText}" style="max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);">
+        </div>
+    `;
+}
 
-// Or with custom options:
-const imageUrls = await fetchItemImages('./data/outfits/ember-tear.json', {
-  baseUrl: 'https://mycustomurl.github.io/repo',
-  maxConcurrent: 10
-});
+// When switching modal tabs, the cleanup happens automatically:
+// 1. User clicks on "Sprite" tab → fetchSpriteImage('ship/penguin/penguin') loads the image
+// 2. User clicks on "Thumbnail" tab → fetchSpriteImage('thumbnail/penguin') automatically cleans up the sprite and loads thumbnail
+// 3. User closes modal → call clearCurrentImages() to clean up
 
-// Use in your app:
-// imageUrls will be like: { 'ship/penguin/penguin': 'blob:...', 'thumbnail/penguin': 'blob:...' }
-// <img src={imageUrls['ship/penguin/penguin']} alt="Penguin" />
-// <img src={imageUrls['thumbnail/penguin']} alt="Thumbnail" />
+// Update your closeModal function:
+function closeModal() {
+    clearCurrentImages(); // Clean up images when closing modal
+    document.getElementById('detailModal').classList.remove('active');
+}
 
-// Clean up when component unmounts or item changes
-cleanupImageUrls(imageUrls);
+// Or if you want to manually clear when switching between items:
+// clearCurrentImages();
 */
 
-export { fetchItemImages, cleanupImageUrls, extractImagePaths };
+export { fetchSpriteImage, clearCurrentImages, extractImagePaths };
