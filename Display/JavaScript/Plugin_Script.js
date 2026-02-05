@@ -5,7 +5,7 @@ let filteredData = [];
 let currentModalTab = 'attributes'; // Track active modal tab
 
 async function loadData() {
-    const repoUrl = document.getElementById('repoUrl').value.trim();
+    const repoUrl = "GIVEMEFOOD5/endless-sky-ship-builder"; //document.getElementById('repoUrl').value.trim();
     if (!repoUrl) {
         showError('Please enter a GitHub repository URL');
         return;
@@ -255,7 +255,7 @@ function getAvailableTabs(item) {
     }
     
     // Check for sprite (ship/outfit sprite)
-    if (item.sprite) {
+    if (item.sprite || item.weapon?.sprite) {
         tabs.push({ id: 'sprite', label: 'Sprite' });
     }
     
@@ -282,6 +282,21 @@ function getAvailableTabs(item) {
     // Check for projectile
     if (item.projectile) {
         tabs.push({ id: 'projectile', label: 'Projectile' });
+    }
+    
+    // Check for weapon fire effect
+    if (item.weapon?.['fire effect']  && Array.isArray(item.weapon['fire effect']) && item.weapon['fire effect'].length > 0) {
+        tabs.push({ id: 'fireEffect', label: 'Fire Effect' });
+    }
+    
+    // Check for weapon hit effect (usually first effect in array)
+    if (item.weapon?.['hit effect'] && Array.isArray(item.weapon['hit effect']) && item.weapon['hit effect'].length > 0) {
+        tabs.push({ id: 'hitEffect', label: 'Hit Effect' });
+    }
+    
+    // Check for weapon die effect
+    if (item.weapon?.['die effect']) {
+        tabs.push({ id: 'dieEffect', label: 'Die Effect' });
     }
     
     return tabs;
@@ -324,18 +339,6 @@ function renderAttributesTab(item) {
                 }
             });
         }
-        if (item.weapon) {
-            Object.entries(item.attributes).forEach(([key, value]) => {
-                if (typeof value !== 'object') {
-                    html += `
-                        <div class="attribute">
-                            <div class="attribute-name">${key}</div>
-                            <div class="attribute-value">${formatValue(value)}</div>
-                        </div>
-                    `;
-                }
-            });
-        }
         html += '</div>';
         
         // Add hardpoints section within attributes
@@ -363,10 +366,11 @@ function renderAttributesTab(item) {
             html += '</div>';
         }
     } else {
+        // Outfit attributes
         html += '<div class="attribute-grid">';
         const excludeKeys = ['name', 'description', 'thumbnail', 'sprite', 'hardpointSprite', 
                             'hardpoint sprite', 'steeringFlare', 'steering flare', 'flare', 
-                            'reverseFlare', 'reverse flare', 'projectile'];
+                            'reverseFlare', 'reverse flare', 'projectile', 'weapon', 'spriteData'];
         
         Object.entries(item).forEach(([key, value]) => {
             if (!excludeKeys.includes(key) && typeof value !== 'object') {
@@ -379,6 +383,28 @@ function renderAttributesTab(item) {
             }
         });
         html += '</div>';
+        
+        // Add weapon stats if they exist
+        if (item.weapon) {
+            html += '<h3 style="color: #93c5fd; margin-top: 20px;">Weapon Stats</h3>';
+            html += '<div class="attribute-grid">';
+            
+            const weaponExcludeKeys = ['sprite', 'spriteData', 'sound', 'hit effect', 'fire effect', 
+                                       'die effect', 'submunition', 'stream', 'cluster'];
+            
+            Object.entries(item.weapon).forEach(([key, value]) => {
+                if (!weaponExcludeKeys.includes(key) && typeof value !== 'object' && !Array.isArray(value)) {
+                    html += `
+                        <div class="attribute">
+                            <div class="attribute-name">${key}</div>
+                            <div class="attribute-value">${formatValue(value)}</div>
+                        </div>
+                    `;
+                }
+            });
+            
+            html += '</div>';
+        }
     }
     
     return html;
@@ -443,22 +469,35 @@ function showDetails(item) {
                     content = renderImageTab(item.thumbnail, 'Thumbnail');
                     break;
                 case 'sprite':
-                    content = renderImageTab(item.sprite, 'Sprite');
+                    content = renderImageTab(item.sprite || item.weapon?.sprite, 'Sprite');
                     break;
                 case 'hardpointSprite':
-                    content = renderImageTab(item['hardpoint sprite'], 'Hardpoint Sprite');
+                    content = renderImageTab(item.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite');
                     break;
                 case 'steeringFlare':
-                    content = renderImageTab(item['steering flare sprite'], 'Steering Flare');
+                    content = renderImageTab(item.steeringFlare || item['steering flare'], 'Steering Flare');
                     break;
                 case 'flare':
-                    content = renderImageTab(item['flare sprite'], 'Flare');
+                    content = renderImageTab(item.flare, 'Flare');
                     break;
                 case 'reverseFlare':
-                    content = renderImageTab(item['reverse flare sprite'], 'Reverse Flare');
+                    content = renderImageTab(item.reverseFlare || item['reverse flare'], 'Reverse Flare');
                     break;
                 case 'projectile':
-                    content = renderImageTab(item.weapon.sprite, 'Fireing Sprite');
+                    content = renderImageTab(item.projectile, 'Projectile');
+                    break;
+                case 'fireEffect':
+                    content = renderImageTab(item.weapon['fire effect'], 'Fire Effect');
+                    break;
+                case 'hitEffect':
+                    // Use the first hit effect if it's an array
+                    const hitEffect = Array.isArray(item.weapon['hit effect']) 
+                        ? item.weapon['hit effect'][0] 
+                        : item.weapon['hit effect'];
+                    content = renderImageTab(hitEffect, 'Hit Effect');
+                    break;
+                case 'dieEffect':
+                    content = renderImageTab(item.weapon['die effect'], 'Die Effect');
                     break;
             }
             
