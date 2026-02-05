@@ -992,6 +992,7 @@ class EndlessSkyParser {
     this.ships = [];
     this.variants = [];
     this.outfits = [];
+    this.effects = [];
     this.pendingVariants = [];
     
     // Extract owner and repo from URL
