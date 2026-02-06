@@ -284,21 +284,6 @@ function getAvailableTabs(item) {
         tabs.push({ id: 'projectile', label: 'Projectile' });
     }
     
-    // Check for weapon fire effect
-    if (item.weapon?.['fire effect']  && Array.isArray(item.weapon['fire effect']) && item.weapon['fire effect'].length > 0) {
-        tabs.push({ id: 'fireEffect', label: 'Fire Effect' });
-    }
-    
-    // Check for weapon hit effect (usually first effect in array)
-    if (item.weapon?.['hit effect'] && Array.isArray(item.weapon['hit effect']) && item.weapon['hit effect'].length > 0) {
-        tabs.push({ id: 'hitEffect', label: 'Hit Effect' });
-    }
-    
-    // Check for weapon die effect
-    if (item.weapon?.['die effect']) {
-        tabs.push({ id: 'dieEffect', label: 'Die Effect' });
-    }
-    
     return tabs;
 }
 
@@ -308,12 +293,24 @@ async function switchModalTab(tabId) {
     
     // Update tab buttons
     document.querySelectorAll('.modal-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.tab === tabId);
+        tab.classList.remove('active');
+        if (tab.dataset.tab === tabId) {
+            tab.classList.add('active');
+        }
     });
     
     // Get the current item from stored data
     const modalBody = document.getElementById('modalBody');
     const item = JSON.parse(modalBody.dataset.itemJson);
+    
+    // Show/hide tab contents
+    document.querySelectorAll('.modal-tab-content').forEach(content => {
+        if (content.dataset.tab === tabId) {
+            content.style.display = 'block';
+        } else {
+            content.style.display = 'none';
+        }
+    });
     
     // Find the tab content div
     const tabContent = document.querySelector(`.modal-tab-content[data-tab="${tabId}"]`);
@@ -324,7 +321,7 @@ async function switchModalTab(tabId) {
     const imageTabIds = ['thumbnail', 'sprite', 'hardpointSprite', 'steeringFlare', 
                          'flare', 'reverseFlare', 'projectile', 'fireEffect', 'hitEffect', 'dieEffect'];
     
-    if (imageTabIds.includes(tabId)) {
+    if (imageTabIds.includes(tabId) && tabContent.innerHTML.trim() === '') {
         // Show loading state
         tabContent.innerHTML = '<p style="color: #94a3b8; text-align: center;">Loading image...</p>';
         
@@ -339,7 +336,7 @@ async function switchModalTab(tabId) {
                 spritePath = item.sprite || item.weapon?.sprite;
                 break;
             case 'hardpointSprite':
-                spritePath = item.hardpointSprite || item['hardpoint sprite'];
+                spritePath = item.weapon?.hardpointSprite || item['hardpoint sprite'];
                 break;
             case 'steeringFlare':
                 spritePath = item.steeringFlare || item['steering flare'];
@@ -353,29 +350,12 @@ async function switchModalTab(tabId) {
             case 'projectile':
                 spritePath = item.projectile;
                 break;
-            case 'fireEffect':
-                spritePath = item.weapon?.['fire effect'];
-                break;
-            case 'hitEffect':
-                const hitEffect = Array.isArray(item.weapon?.['hit effect']) 
-                    ? item.weapon['hit effect'][0] 
-                    : item.weapon?.['hit effect'];
-                spritePath = hitEffect;
-                break;
-            case 'dieEffect':
-                spritePath = item.weapon?.['die effect'];
-                break;
         }
         
         // Load and display the image
         const content = await renderImageTab(spritePath, tabId);
         tabContent.innerHTML = content;
     }
-    
-    // Show/hide tab contents
-    document.querySelectorAll('.modal-tab-content').forEach(content => {
-        content.style.display = content.dataset.tab === tabId ? 'block' : 'none';
-    });
 }
 
 // Render attributes tab content
@@ -504,17 +484,12 @@ async function showDetails(item) {
     // Only show tabs if there are multiple sections to display
     if (availableTabs.length > 0) {
         // Build tabs HTML
-        html += '<div class="modal-tabs" style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 2px solid rgba(59, 130, 246, 0.3); padding-bottom: 0; overflow-x: auto; flex-wrap: wrap;">';
+        html += '<div class="modal-tabs">';
         availableTabs.forEach(tab => {
             html += `
                 <button class="modal-tab ${tab.id === currentModalTab ? 'active' : ''}" 
                         data-tab="${tab.id}" 
-                        onclick="switchModalTab('${tab.id}', this.closest('.modal-body').dataset.item)"
-                        style="padding: 12px 20px; background: ${tab.id === currentModalTab ? 'rgba(59, 130, 246, 0.4)' : 'rgba(30, 41, 59, 0.8)'}; 
-                               border: 1px solid rgba(59, 130, 246, 0.3); color: ${tab.id === currentModalTab ? '#93c5fd' : '#94a3b8'}; 
-                               cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.2s ease; 
-                               border-bottom: 3px solid ${tab.id === currentModalTab ? '#3b82f6' : 'transparent'}; 
-                               white-space: nowrap; position: relative; bottom: -2px; border-radius: 8px 8px 0 0;">
+                        onclick="switchModalTab('${tab.id}')">
                     ${tab.label}
                 </button>
             `;
@@ -539,7 +514,7 @@ async function showDetails(item) {
                     content = await renderImageTab(item.sprite || item.weapon?.sprite, 'Sprite');
                     break;
                 case 'hardpointSprite':
-                    content = await renderImageTab(item.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite');
+                    content = await renderImageTab(item.weapon?.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite');
                     break;
                 case 'steeringFlare':
                     content = await renderImageTab(item.steeringFlare || item['steering flare'], 'Steering Flare');
@@ -553,25 +528,12 @@ async function showDetails(item) {
                 case 'projectile':
                     content = await renderImageTab(item.projectile, 'Projectile');
                     break;
-                case 'fireEffect':
-                    content = await renderImageTab(item.weapon['fire effect'], 'Fire Effect');
-                    break;
-                case 'hitEffect':
-                    // Use the first hit effect if it's an array
-                    const hitEffect = Array.isArray(item.weapon['hit effect']) 
-                        ? item.weapon['hit effect'][0] 
-                        : item.weapon['hit effect'];
-                    content = await renderImageTab(hitEffect, 'Hit Effect');
-                    break;
-                case 'dieEffect':
-                    content = await renderImageTab(item.weapon['die effect'], 'Die Effect');
-                    break;
             }
             
             html += `
                 <div class="modal-tab-content" 
                      data-tab="${tab.id}"
-                     style="display: ${tab.id === currentModalTab ? 'block' : 'none'}; animation: fadeIn 0.3s ease;">
+                     style="display: ${tab.id === currentModalTab ? 'block' : 'none'};">
                     ${content}
                 </div>
             `;
