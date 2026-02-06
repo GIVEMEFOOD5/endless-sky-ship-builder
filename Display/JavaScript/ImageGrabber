@@ -4,7 +4,7 @@
  */
 
 // Base URL configuration - update this to your GitHub Pages URL
-const GITHUB_PAGES_BASE_URL = 'https://yourusername.github.io/yourrepo';
+const GITHUB_PAGES_BASE_URL = 'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder';
 
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
 
@@ -159,40 +159,19 @@ function clearCurrentImages() {
   }
 }
 
-// Example usage with your modal tab system:
-/*
-// In your main JS file:
-import { fetchSpriteImage, clearCurrentImages } from './github-image-fetcher.js';
-
-// Update your renderImageTab function:
-async function renderImageTab(spritePath, altText = 'Image') {
-    // Fetch the image
-    const imageUrl = await fetchSpriteImage(spritePath);
-    
-    if (!imageUrl) {
-        return `<p style="color:#ef4444;">Failed to load image</p>`;
-    }
-    
-    return `
-        <div style="display: flex; justify-content: center; align-items: center; padding: 20px; background: rgba(15, 23, 42, 0.5); border-radius: 8px;">
-            <img src="${imageUrl}" alt="${altText}" style="max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);">
-        </div>
-    `;
-}
-
 // When switching modal tabs, the cleanup happens automatically:
 // 1. User clicks on "Sprite" tab → fetchSpriteImage('ship/penguin/penguin') loads the image
 // 2. User clicks on "Thumbnail" tab → fetchSpriteImage('thumbnail/penguin') automatically cleans up the sprite and loads thumbnail
 // 3. User closes modal → call clearCurrentImages() to clean up
 
-// Update your closeModal function:
+// Update My closeModal function:
 function closeModal() {
     clearCurrentImages(); // Clean up images when closing modal
     document.getElementById('detailModal').classList.remove('active');
 }
 
-// Or if you want to manually clear when switching between items:
+// Or if I want to manually clear when switching between items:
 // clearCurrentImages();
-*/
+
 
 export { fetchSpriteImage, clearCurrentImages, extractImagePaths };
