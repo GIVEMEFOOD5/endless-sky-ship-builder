@@ -303,7 +303,7 @@ function getAvailableTabs(item) {
 }
 
 // Switch modal tab
-function switchModalTab(tabId) {
+async function switchModalTab(tabId) {
     currentModalTab = tabId;
     
     // Update tab buttons
@@ -311,9 +311,70 @@ function switchModalTab(tabId) {
         tab.classList.toggle('active', tab.dataset.tab === tabId);
     });
     
-    // Update tab content
+    // Get the current item from stored data
+    const modalBody = document.getElementById('modalBody');
+    const item = JSON.parse(modalBody.dataset.itemJson);
+    
+    // Find the tab content div
+    const tabContent = document.querySelector(`.modal-tab-content[data-tab="${tabId}"]`);
+    
+    if (!tabContent) return;
+    
+    // If this is an image tab and it's not already loaded, load it now
+    const imageTabIds = ['thumbnail', 'sprite', 'hardpointSprite', 'steeringFlare', 
+                         'flare', 'reverseFlare', 'projectile', 'fireEffect', 'hitEffect', 'dieEffect'];
+    
+    if (imageTabIds.includes(tabId)) {
+        // Show loading state
+        tabContent.innerHTML = '<p style="color: #94a3b8; text-align: center;">Loading image...</p>';
+        
+        let spritePath = null;
+        
+        // Get the sprite path for this tab
+        switch(tabId) {
+            case 'thumbnail':
+                spritePath = item.thumbnail;
+                break;
+            case 'sprite':
+                spritePath = item.sprite || item.weapon?.sprite;
+                break;
+            case 'hardpointSprite':
+                spritePath = item.hardpointSprite || item['hardpoint sprite'];
+                break;
+            case 'steeringFlare':
+                spritePath = item.steeringFlare || item['steering flare'];
+                break;
+            case 'flare':
+                spritePath = item.flare;
+                break;
+            case 'reverseFlare':
+                spritePath = item.reverseFlare || item['reverse flare'];
+                break;
+            case 'projectile':
+                spritePath = item.projectile;
+                break;
+            case 'fireEffect':
+                spritePath = item.weapon?.['fire effect'];
+                break;
+            case 'hitEffect':
+                const hitEffect = Array.isArray(item.weapon?.['hit effect']) 
+                    ? item.weapon['hit effect'][0] 
+                    : item.weapon?.['hit effect'];
+                spritePath = hitEffect;
+                break;
+            case 'dieEffect':
+                spritePath = item.weapon?.['die effect'];
+                break;
+        }
+        
+        // Load and display the image
+        const content = await renderImageTab(spritePath, tabId);
+        tabContent.innerHTML = content;
+    }
+    
+    // Show/hide tab contents
     document.querySelectorAll('.modal-tab-content').forEach(content => {
-        content.classList.toggle('active', content.dataset.tab === tabId);
+        content.style.display = content.dataset.tab === tabId ? 'block' : 'none';
     });
 }
 
@@ -425,7 +486,7 @@ async function renderImageTab(spritePath, altText = 'Image') {
     `;
 }
 
-function showDetails(item) {
+async function showDetails(item) {
     const modal = document.getElementById('detailModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
@@ -448,7 +509,7 @@ function showDetails(item) {
             html += `
                 <button class="modal-tab ${tab.id === currentModalTab ? 'active' : ''}" 
                         data-tab="${tab.id}" 
-                        onclick="switchModalTab('${tab.id}')"
+                        onclick="switchModalTab('${tab.id}', this.closest('.modal-body').dataset.item)"
                         style="padding: 12px 20px; background: ${tab.id === currentModalTab ? 'rgba(59, 130, 246, 0.4)' : 'rgba(30, 41, 59, 0.8)'}; 
                                border: 1px solid rgba(59, 130, 246, 0.3); color: ${tab.id === currentModalTab ? '#93c5fd' : '#94a3b8'}; 
                                cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.2s ease; 
@@ -463,7 +524,8 @@ function showDetails(item) {
         // Build tab contents HTML
         html += '<div class="modal-tab-contents">';
         
-        availableTabs.forEach(tab => {
+        // Render all tab contents (await async ones)
+        for (const tab of availableTabs) {
             let content = '';
             
             switch(tab.id) {
@@ -471,38 +533,38 @@ function showDetails(item) {
                     content = renderAttributesTab(item);
                     break;
                 case 'thumbnail':
-                    content = renderImageTab(item.thumbnail, 'Thumbnail');
+                    content = await renderImageTab(item.thumbnail, 'Thumbnail');
                     break;
                 case 'sprite':
-                    content = renderImageTab(item.sprite || item.weapon?.sprite, 'Sprite');
+                    content = await renderImageTab(item.sprite || item.weapon?.sprite, 'Sprite');
                     break;
                 case 'hardpointSprite':
-                    content = renderImageTab(item.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite');
+                    content = await renderImageTab(item.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite');
                     break;
                 case 'steeringFlare':
-                    content = renderImageTab(item.steeringFlare || item['steering flare'], 'Steering Flare');
+                    content = await renderImageTab(item.steeringFlare || item['steering flare'], 'Steering Flare');
                     break;
                 case 'flare':
-                    content = renderImageTab(item.flare, 'Flare');
+                    content = await renderImageTab(item.flare, 'Flare');
                     break;
                 case 'reverseFlare':
-                    content = renderImageTab(item.reverseFlare || item['reverse flare'], 'Reverse Flare');
+                    content = await renderImageTab(item.reverseFlare || item['reverse flare'], 'Reverse Flare');
                     break;
                 case 'projectile':
-                    content = renderImageTab(item.projectile, 'Projectile');
+                    content = await renderImageTab(item.projectile, 'Projectile');
                     break;
                 case 'fireEffect':
-                    content = renderImageTab(item.weapon['fire effect'], 'Fire Effect');
+                    content = await renderImageTab(item.weapon['fire effect'], 'Fire Effect');
                     break;
                 case 'hitEffect':
                     // Use the first hit effect if it's an array
                     const hitEffect = Array.isArray(item.weapon['hit effect']) 
                         ? item.weapon['hit effect'][0] 
                         : item.weapon['hit effect'];
-                    content = renderImageTab(hitEffect, 'Hit Effect');
+                    content = await renderImageTab(hitEffect, 'Hit Effect');
                     break;
                 case 'dieEffect':
-                    content = renderImageTab(item.weapon['die effect'], 'Die Effect');
+                    content = await renderImageTab(item.weapon['die effect'], 'Die Effect');
                     break;
             }
             
@@ -513,7 +575,7 @@ function showDetails(item) {
                     ${content}
                 </div>
             `;
-        });
+        }
         
         html += '</div>';
     } else {
@@ -530,8 +592,13 @@ function showDetails(item) {
     }
     
     modalBody.innerHTML = html;
+    
+    // Store the item data for switchModalTab to use
+    modalBody.dataset.itemJson = JSON.stringify(item);
+    
     modal.classList.add('active');
 }
+
 
 function closeModal() {
     clearCurrentImages(); // Clean up when closing
