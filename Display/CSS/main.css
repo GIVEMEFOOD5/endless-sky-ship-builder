@@ -454,43 +454,38 @@ button {
     transform: translateY(-1px);
 }
 
-/* Modal Tabs Styling */
+/* Modal Tabs Styling - matches normal tabs */
 .modal-tabs {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 20px;
     border-bottom: 2px solid rgba(59, 130, 246, 0.3);
-    padding-bottom: 0;
+    padding-bottom: 10px;
     overflow-x: auto;
     flex-wrap: wrap;
 }
 
 .modal-tab {
-    padding: 12px 20px;
-    background: rgba(30, 41, 59, 0.8);
+    padding: 10px 20px;
+    background: rgba(30, 41, 59, 0.6);
     border: 1px solid rgba(59, 130, 246, 0.3);
     border-radius: 8px 8px 0 0;
-    color: #94a3b8;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+    color: #94a3b8;
+    font-size: 1rem;
+    font-weight: normal;
     white-space: nowrap;
-    position: relative;
-    bottom: -2px;
 }
 
 .modal-tab:hover {
     background: rgba(59, 130, 246, 0.2);
-    color: #cbd5e1;
 }
 
 .modal-tab.active {
-    background: rgba(59, 130, 246, 0.4);
-    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.3);
     color: #93c5fd;
-    border-bottom-color: #3b82f6;
+    border-bottom-color: transparent;
 }
 
 .modal-tab-contents {
