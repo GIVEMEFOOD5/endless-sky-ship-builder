@@ -203,7 +203,7 @@ function createCard(item) {
             </div>
             <div class="detail-item">
                 <div class="detail-label">Cost</div>
-                <div class="detail-value">${formatNumber(item.attributes?.cost) || 'N/A'}</div>
+                <div class="detail-value">${formatNumber(item.attributes?.cost) || '0'}</div>
             </div>
             <div class="detail-item">
                 <div class="detail-label">Hull</div>
@@ -222,7 +222,7 @@ function createCard(item) {
             </div>
             <div class="detail-item">
                 <div class="detail-label">Cost</div>
-                <div class="detail-value">${formatNumber(item.cost) || 'N/A'}</div>
+                <div class="detail-value">${formatNumber(item.cost) || '0'}</div>
             </div>
             <div class="detail-item">
                 <div class="detail-label">Mass</div>
