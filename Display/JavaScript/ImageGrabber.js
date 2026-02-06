@@ -173,7 +173,7 @@ function closeModal() {
 // Or if I want to manually clear when switching between items:
 // clearCurrentImages();
 
-export { fetchSpriteImage, clearCurrentImages, extractImagePaths };
+//export { fetchSpriteImage, clearCurrentImages, extractImagePaths };
 
 // Make functions globally accessible for HTML onclick attributes
 window.clearCurrentImages = clearCurrentImages;
