@@ -317,43 +317,54 @@ async function switchModalTab(tabId) {
     
     if (!tabContent) return;
     
-    // If this is an image tab and it's not already loaded, load it now
+    // If this tab's content is empty, load it now (lazy loading)
     const imageTabIds = ['thumbnail', 'sprite', 'hardpointSprite', 'steeringFlare', 
                          'flare', 'reverseFlare', 'projectile', 'fireEffect', 'hitEffect', 'dieEffect'];
     
-    if (imageTabIds.includes(tabId) && tabContent.innerHTML.trim() === '') {
+    // Check if content is empty (not just whitespace)
+    if (tabContent.innerHTML.trim() === '') {
         // Show loading state
         tabContent.innerHTML = '<p style="color: #94a3b8; text-align: center;">Loading image...</p>';
         
         let spritePath = null;
+        let content = '';
         
-        // Get the sprite path for this tab
+        // Get the sprite path or render content for this tab
         switch(tabId) {
+            case 'attributes':
+                content = renderAttributesTab(item);
+                break;
             case 'thumbnail':
                 spritePath = item.thumbnail;
+                content = await renderImageTab(spritePath, 'Thumbnail');
                 break;
             case 'sprite':
                 spritePath = item.sprite || item.weapon?.sprite;
+                content = await renderImageTab(spritePath, 'Sprite');
                 break;
             case 'hardpointSprite':
                 spritePath = item.weapon?.hardpointSprite || item['hardpoint sprite'];
+                content = await renderImageTab(spritePath, 'Hardpoint Sprite');
                 break;
             case 'steeringFlare':
                 spritePath = item.steeringFlare || item['steering flare'];
+                content = await renderImageTab(spritePath, 'Steering Flare');
                 break;
             case 'flare':
                 spritePath = item.flare;
+                content = await renderImageTab(spritePath, 'Flare');
                 break;
             case 'reverseFlare':
                 spritePath = item.reverseFlare || item['reverse flare'];
+                content = await renderImageTab(spritePath, 'Reverse Flare');
                 break;
             case 'projectile':
                 spritePath = item.projectile;
+                content = await renderImageTab(spritePath, 'Projectile');
                 break;
         }
         
-        // Load and display the image
-        const content = await renderImageTab(spritePath, tabId);
+        // Update the tab content with loaded data
         tabContent.innerHTML = content;
     }
 }
@@ -499,36 +510,40 @@ async function showDetails(item) {
         // Build tab contents HTML
         html += '<div class="modal-tab-contents">';
         
-        // Render all tab contents (await async ones)
+        // Only render content for the active tab initially, leave others empty for lazy loading
         for (const tab of availableTabs) {
             let content = '';
             
-            switch(tab.id) {
-                case 'attributes':
-                    content = renderAttributesTab(item);
-                    break;
-                case 'thumbnail':
-                    content = await renderImageTab(item.thumbnail, 'Thumbnail');
-                    break;
-                case 'sprite':
-                    content = await renderImageTab(item.sprite || item.weapon?.sprite, 'Sprite');
-                    break;
-                case 'hardpointSprite':
-                    content = await renderImageTab(item.weapon?.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite');
-                    break;
-                case 'steeringFlare':
-                    content = await renderImageTab(item.steeringFlare || item['steering flare'], 'Steering Flare');
-                    break;
-                case 'flare':
-                    content = await renderImageTab(item.flare, 'Flare');
-                    break;
-                case 'reverseFlare':
-                    content = await renderImageTab(item.reverseFlare || item['reverse flare'], 'Reverse Flare');
-                    break;
-                case 'projectile':
-                    content = await renderImageTab(item.projectile, 'Projectile');
-                    break;
+            // Only load content for the currently active tab
+            if (tab.id === currentModalTab) {
+                switch(tab.id) {
+                    case 'attributes':
+                        content = renderAttributesTab(item);
+                        break;
+                    case 'thumbnail':
+                        content = await renderImageTab(item.thumbnail, 'Thumbnail');
+                        break;
+                    case 'sprite':
+                        content = await renderImageTab(item.sprite || item.weapon?.sprite, 'Sprite');
+                        break;
+                    case 'hardpointSprite':
+                        content = await renderImageTab(item.weapon?.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite');
+                        break;
+                    case 'steeringFlare':
+                        content = await renderImageTab(item.steeringFlare || item['steering flare'], 'Steering Flare');
+                        break;
+                    case 'flare':
+                        content = await renderImageTab(item.flare, 'Flare');
+                        break;
+                    case 'reverseFlare':
+                        content = await renderImageTab(item.reverseFlare || item['reverse flare'], 'Reverse Flare');
+                        break;
+                    case 'projectile':
+                        content = await renderImageTab(item.projectile, 'Projectile');
+                        break;
+                }
             }
+            // For inactive tabs, leave content empty - it will be lazy-loaded when clicked
             
             html += `
                 <div class="modal-tab-content" 
