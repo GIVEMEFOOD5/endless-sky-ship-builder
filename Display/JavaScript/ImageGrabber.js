@@ -126,63 +126,68 @@ async function fetchImage(spritePath, baseUrl = GITHUB_PAGES_BASE_URL) {
  * @param {string[]} options.separators - Array of separator characters (default: ['+', '~', '-', '^', '=', '@'])
  * @returns {Promise<Array<{path: string, url: string, blob: Blob, variation: string}>>}
  */
-async function findImageVariations(basePath, baseUrl = GITHUB_PAGES_BASE_URL, options = {}) {
-  const {
-    maxVariations = 20,
-    separators = ['+', '~', '-', '^', '=', '@']
-  } = options;
+async function findImageVariations(basePath, baseUrl = GITHUB_PAGES_BASE_URL) {
+  const cleanPath = basePath.replace(/^\/+/, '');
+  const lastSlash = cleanPath.lastIndexOf('/');
+  const dir = lastSlash !== -1 ? cleanPath.slice(0, lastSlash) : '';
+  const baseName = lastSlash !== -1 ? cleanPath.slice(lastSlash + 1) : cleanPath;
+
+  const directoryUrl = `${baseUrl}/${dir}`.replace(/\/$/, '');
 
   const foundImages = [];
-  const cleanPath = basePath.replace(/^\/+/, '');
+  const VARIANT_REGEX = new RegExp(
+    `^(${baseName})([+\\-~^=@])(\\d{1,3})\\.(png|jpe?g)$`,
+    'i'
+  );
 
-  console.log(`Searching for variations of: ${cleanPath}`);
+  // 1️⃣ Fetch directory listing (GitHub Pages returns HTML)
+  const response = await fetch(directoryUrl);
+  if (!response.ok) {
+    console.warn(`Failed to fetch directory: ${directoryUrl}`);
+    return [];
+  }
 
-  // Try base path first
-  const baseImage = await fetchImage(cleanPath, baseUrl);
-  if (baseImage) {
+  const html = await response.text();
+
+  // 2️⃣ Extract filenames from <a href="">
+  const hrefRegex = /href="([^"]+\.(?:png|jpe?g))"/gi;
+  let match;
+
+  while ((match = hrefRegex.exec(html)) !== null) {
+    const filename = decodeURIComponent(match[1]).split('/').pop();
+    const variantMatch = filename.match(VARIANT_REGEX);
+
+    if (!variantMatch) continue;
+
+    const [, , separator, number] = variantMatch;
+
     foundImages.push({
-      ...baseImage,
-      variation: 'base'
+      path: `${dir}/${filename}`.replace(/^\//, ''),
+      url: `${directoryUrl}/${filename}`,
+      variation: `${separator}${number}`
     });
   }
 
-  // Try each separator with numbers
-  for (const separator of separators) {
-    for (let i = 0; i < maxVariations; i++) {
-      const variationPath = `${cleanPath}${separator}${i}`;
-      const urls = pathToUrls(variationPath, baseUrl);
-
-      let foundVariation = false;
-      for (const url of urls) {
-        try {
-          const response = await fetch(url);
-          if (response.ok) {
-            const blob = await response.blob();
-            foundImages.push({
-              path: variationPath,
-              url: url,
-              blob: blob,
-              variation: `${separator}${i}`
-            });
-            foundVariation = true;
-            console.log(`Found variation: ${variationPath}`);
-            break;
-          }
-        } catch (error) {
-          continue;
-        }
-      }
-
-      // Stop if we hit a gap (assumes sequential numbering)
-      if (!foundVariation && i > 0) {
+  // 3️⃣ Also check base image (no suffix)
+  for (const ext of IMAGE_EXTENSIONS) {
+    const baseUrlTry = `${directoryUrl}/${baseName}${ext}`;
+    try {
+      const res = await fetch(baseUrlTry, { method: 'HEAD' });
+      if (res.ok) {
+        foundImages.unshift({
+          path: `${dir}/${baseName}${ext}`.replace(/^\//, ''),
+          url: baseUrlTry,
+          variation: 'base'
+        });
         break;
       }
-    }
+    } catch {}
   }
 
-  console.log(`Found ${foundImages.length} total images for ${cleanPath}`);
+  console.log(`Regex found ${foundImages.length} images for ${cleanPath}`);
   return foundImages;
 }
+
 
 /**
  * Get just the list of variation paths that exist (no downloading)
