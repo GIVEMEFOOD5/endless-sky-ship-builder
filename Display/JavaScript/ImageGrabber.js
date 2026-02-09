@@ -1,6 +1,7 @@
 /**
  * GitHub Pages Image Fetcher
  * Extracts and fetches all image paths from game data objects
+ * Includes support for image variations (+, ~, -, ^, =, @ patterns)
  */
 
 // Base URL configuration - update this to your GitHub Pages URL
@@ -113,8 +114,116 @@ async function fetchImage(spritePath, baseUrl = GITHUB_PAGES_BASE_URL) {
 }
 
 /**
+ * Find all similar images with variation patterns (+, ~, -, ^, =, @ followed by numbers)
+ * For example: 'ship/penguin' might have variations like:
+ * - ship/penguin+0, ship/penguin+1, ship/penguin+2
+ * - ship/penguin~0, ship/penguin~1
+ * - ship/penguin-0, ship/penguin-1
+ * @param {string} basePath - Base sprite path (e.g., 'ship/penguin')
+ * @param {string} baseUrl - Base URL for GitHub Pages
+ * @param {Object} options - Options
+ * @param {number} options.maxVariations - Maximum number of variations to check (default: 20)
+ * @param {string[]} options.separators - Array of separator characters (default: ['+', '~', '-', '^', '=', '@'])
+ * @returns {Promise<Array<{path: string, url: string, blob: Blob, variation: string}>>}
+ */
+async function findImageVariations(basePath, baseUrl = GITHUB_PAGES_BASE_URL, options = {}) {
+  const {
+    maxVariations = 20,
+    separators = ['+', '~', '-', '^', '=', '@']
+  } = options;
+
+  const foundImages = [];
+  const cleanPath = basePath.replace(/^\/+/, '');
+
+  console.log(`Searching for variations of: ${cleanPath}`);
+
+  // Try base path first
+  const baseImage = await fetchImage(cleanPath, baseUrl);
+  if (baseImage) {
+    foundImages.push({
+      ...baseImage,
+      variation: 'base'
+    });
+  }
+
+  // Try each separator with numbers
+  for (const separator of separators) {
+    for (let i = 0; i < maxVariations; i++) {
+      const variationPath = `${cleanPath}${separator}${i}`;
+      const urls = pathToUrls(variationPath, baseUrl);
+
+      let foundVariation = false;
+      for (const url of urls) {
+        try {
+          const response = await fetch(url);
+          if (response.ok) {
+            const blob = await response.blob();
+            foundImages.push({
+              path: variationPath,
+              url: url,
+              blob: blob,
+              variation: `${separator}${i}`
+            });
+            foundVariation = true;
+            console.log(`Found variation: ${variationPath}`);
+            break;
+          }
+        } catch (error) {
+          continue;
+        }
+      }
+
+      // Stop if we hit a gap (assumes sequential numbering)
+      if (!foundVariation && i > 0) {
+        break;
+      }
+    }
+  }
+
+  console.log(`Found ${foundImages.length} total images for ${cleanPath}`);
+  return foundImages;
+}
+
+/**
+ * Get just the list of variation paths that exist (no downloading)
+ * @param {string} basePath - Base sprite path
+ * @param {string} baseUrl - Base URL for GitHub Pages
+ * @param {Object} options - Same options as findImageVariations
+ * @returns {Promise<string[]>} Array of paths that exist
+ */
+async function listVariationPaths(basePath, baseUrl = GITHUB_PAGES_BASE_URL, options = {}) {
+  const images = await findImageVariations(basePath, baseUrl, options);
+  return images.map(img => img.path);
+}
+
+/**
+ * Check if variations exist for a given path
+ * @param {string} basePath - Base sprite path
+ * @param {string} baseUrl - Base URL for GitHub Pages
+ * @param {Object} options - Same options as findImageVariations
+ * @returns {Promise<boolean>} True if variations exist (more than just base)
+ */
+async function hasVariations(basePath, baseUrl = GITHUB_PAGES_BASE_URL, options = {}) {
+  const paths = await listVariationPaths(basePath, baseUrl, options);
+  return paths.length > 1;
+}
+
+/**
+ * Get count of variations
+ * @param {string} basePath - Base sprite path
+ * @param {string} baseUrl - Base URL for GitHub Pages
+ * @param {Object} options - Same options as findImageVariations
+ * @returns {Promise<number>} Number of variations found
+ */
+async function getVariationCount(basePath, baseUrl = GITHUB_PAGES_BASE_URL, options = {}) {
+  const paths = await listVariationPaths(basePath, baseUrl, options);
+  return paths.length;
+}
+
+/**
  * Fetch a single image from a sprite path and return an object URL
  * This automatically cleans up previously loaded image when called
+ * If variations exist, returns the first one in the sequence
  * @param {string} spritePath - Relative sprite path (e.g., 'ship/penguin/penguin')
  * @param {Object} options - Options
  * @param {string} options.baseUrl - Base URL for GitHub Pages (optional)
@@ -133,13 +242,23 @@ async function fetchSpriteImage(spritePath, options = {}) {
 
   console.log(`Fetching image: ${spritePath}`);
 
-  const result = await fetchImage(spritePath, baseUrl);
+  // Try to find variations - this will return base image and any variations
+  const variations = await findImageVariations(spritePath, baseUrl, {
+    maxVariations: 20,
+    separators: ['+', '~', '-', '^', '=', '@']
+  });
   
-  if (result && result.blob) {
-    const objectUrl = URL.createObjectURL(result.blob);
+  // If we found any images, use the first one (base or first variation)
+  if (variations.length > 0 && variations[0].blob) {
+    const objectUrl = URL.createObjectURL(variations[0].blob);
     
     // Store in cache for automatic cleanup
     currentImageCache = { [spritePath]: objectUrl };
+    
+    console.log(`Loaded: ${variations[0].path} (${variations[0].variation})`);
+    if (variations.length > 1) {
+      console.log(`Note: ${variations.length - 1} more variation(s) available`);
+    }
     
     return objectUrl;
   }
@@ -173,9 +292,13 @@ function closeModal() {
 // Or if I want to manually clear when switching between items:
 // clearCurrentImages();
 
-//export { fetchSpriteImage, clearCurrentImages, extractImagePaths };
+//export { fetchSpriteImage, clearCurrentImages, extractImagePaths, findImageVariations, listVariationPaths, hasVariations, getVariationCount };
 
 // Make functions globally accessible for HTML onclick attributes
 window.clearCurrentImages = clearCurrentImages;
 window.fetchSpriteImage = fetchSpriteImage;
 window.extractImagePaths = extractImagePaths;
+window.findImageVariations = findImageVariations;
+window.listVariationPaths = listVariationPaths;
+window.hasVariations = hasVariations;
+window.getVariationCount = getVariationCount;
