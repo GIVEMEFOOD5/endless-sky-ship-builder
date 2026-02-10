@@ -1216,7 +1216,7 @@ async function main() {
       const dataFilesDir = path.join(pluginDir, 'dataFiles');
       await fs.mkdir(dataFilesDir, { recursive: true });
       
-      // Download images
+      /*// Download images
       const repoMatch = plugin.repository.match(/github\.com\/([^\/]+)\/([^\/]+)/);
       if (repoMatch) {
         const owner = repoMatch[1];
@@ -1229,7 +1229,7 @@ async function main() {
         // Convert image sequences to APNG
         const converter = new ImageConverter();
         await converter.processAllImages(pluginDir, data, { fps: null });
-      }
+      }*/
       
       // Save JSON files
       await fs.writeFile(
