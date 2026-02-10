@@ -85,26 +85,51 @@ async function findImageVariations(basePath, baseUrl, options) {
   baseUrl = baseUrl || GITHUB_PAGES_BASE_URL;
   options = options || {};
 
-  const max        = options.maxVariations != null ? options.maxVariations : 999;
-  const seps       = options.separators || SEPARATORS;
-  const cleanPath  = basePath.replace(/^\/+/, '');
-  const found      = [];
+  const max  = options.maxVariations != null ? options.maxVariations : 999;
+  const seps = options.separators || SEPARATORS;
 
-  // Base image (no separator)
+  // Strip leading slashes
+  let cleanPath = basePath.replace(/^\/+/, '');
+
+  // Strip any trailing extension so callers can pass 'sprite/foo.png' safely
+  cleanPath = cleanPath.replace(/\.(png|jpg|jpeg)$/i, '');
+
+  // Strip any trailing separator+number the caller may have included
+  // e.g. 'ship/penguin+0' → 'ship/penguin'
+  //      'effects/fire~3'  → 'effects/fire'
+  cleanPath = cleanPath.replace(/[+~\-\^=@]\d+$/, '');
+
+  const found = [];
+
+  // 1. Try bare base path (static sprites / single-frame)
   const base = await _fetchOne(cleanPath, baseUrl);
   if (base) found.push(Object.assign({}, base, { variation: 'base' }));
 
-  // Numbered variations
+  // 2. Try every separator, always starting from 0.
+  //    Only stop a separator when a numbered frame is missing AFTER we found
+  //    at least one for that separator (i > 0).
+  //    If separator+0 is missing, simply move to the next separator — do NOT
+  //    break immediately, because a different separator may be the right one.
   for (let s = 0; s < seps.length; s++) {
     const sep = seps[s];
+    let hitCount = 0;
+
     for (let i = 0; i < max; i++) {
       const result = await _fetchOne(cleanPath + sep + i, baseUrl);
       if (result) {
         found.push(Object.assign({}, result, { variation: sep + i }));
+        hitCount++;
       } else {
-        break; // gap — stop this separator
+        // Only stop looping if we already found frames for this separator.
+        // A miss at i=0 just means this separator isn't used — skip it.
+        if (hitCount > 0) break;
+        else break; // no frames for this separator at all — move on
       }
     }
+
+    // Once we found frames with one separator, don't try others —
+    // a sprite uses exactly one separator type.
+    if (hitCount > 0) break;
   }
 
   return found;
