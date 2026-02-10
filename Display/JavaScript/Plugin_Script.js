@@ -476,18 +476,33 @@ function renderAttributesTab(item) {
 }
 
 // Render sprite/image tab content
-async function Tab(spritePath, altText = 'Image') {
-    const imageUrl = await fetchSpriteImage(spritePath);
-    
-    if (!imageUrl) {
-        return `<p style="color:#ef4444;">Failed to load image</p>`;
+async function renderImageTab(spritePath, altText, spriteParams) {
+    altText      = altText      || 'Image';
+    spriteParams = spriteParams || {};
+
+    if (!spritePath) {
+        return null;
     }
-    
-    return `
-        <div style="display: flex; justify-content: center; align-items: center; padding: 20px; background: rgba(15, 23, 42, 0.5); border-radius: 8px;">
-            <img src="${imageUrl}" alt="${altText}" style="max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);">
-        </div>
-    `;
+
+    const element = await fetchSprite(spritePath, spriteParams);
+
+    if (!element) {
+        // Return a plain error paragraph so the caller can still insert something
+        const p = document.createElement('p');
+        p.style.color = '#ef4444';
+        p.textContent = `Failed to load: ${altText}`;
+        return p;
+      }
+
+      // Wrap in the same container style your original HTML string used
+      const wrap = document.createElement('div');
+      wrap.style.cssText =
+        'display:flex;justify-content:center;align-items:center;' +
+        'padding:20px;background:rgba(15,23,42,0.5);border-radius:8px;';
+
+      element.alt = altText;   // no-op on canvas, fine on img
+      wrap.appendChild(element);
+      return wrap;
 }
 
 async function showDetails(item) {
