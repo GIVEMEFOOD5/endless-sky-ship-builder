@@ -2,39 +2,25 @@
  * image-fetcher.js
  *
  * Fetches all sprite frames from GitHub Pages, passes them into
- * EndlessSkyAnimator, and returns a ready <canvas> element to the caller.
+ * EndlessSkyAnimator, and returns a ready element to the caller.
  *
  * Requires endless-sky-animator.js to be loaded first.
  *
- * Public API 
- *
+ * Public API
+ * ──────────
  *   fetchSprite(spritePath, spriteParams?)
- *     Fetches every frame for spritePath, loads them into a new animator,
- *     auto-plays, and returns the <canvas> element.
- *     → Promise<HTMLCanvasElement | null>
+ *     → Promise<HTMLCanvasElement | HTMLImageElement | null>
+ *     Fetches all frames, loads into animator, plays, returns the element.
+ *     Single-frame sprites return a plain <img>; animated sprites return <canvas>.
  *
  *   clearSpriteCache()
- *     Disposes the currently active animator and revokes all its object URLs.
- *     Call this on tab change and on modal close.
+ *     Stops and fully disposes the active animator, revoking all object URLs.
+ *     Call on every tab change and on modal close.
  *     → void
  *
  *   findImageVariations(basePath, baseUrl?, options?)
- *     Low-level fetch — returns all frame blobs for a sprite path.
- *     Exposed so other code can call it directly if needed.
+ *     Low-level: returns all frame blobs for a sprite path.
  *     → Promise<Array<{path, url, blob, variation}>>
- *
- * spriteParams
- *   Extract from item.spriteData and pass straight through:
- *   {
- *     frameRate,    // fps  (ES default: 2)
- *     frameTime,    // game ticks (1/60 s); overrides frameRate
- *     delay,        // ticks to pause between loops
- *     startFrame,   // integer start frame
- *     randomStart,  // bool
- *     noRepeat,     // bool — stop at last frame
- *     rewind,       // bool — ping-pong
- *     scale,        // uniform scale factor
- *   }
  */
 
 'use strict';
@@ -43,32 +29,35 @@ const GITHUB_PAGES_BASE_URL =
   'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/official-game/images';
 
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg'];
+const SEPARATORS       = ['+', '~', '-', '^', '=', '@'];
 
-// Separator chars that ES uses to denote animation frames
-// Order matters: try + first (most common for animations), then others
-const SEPARATORS = ['+', '~', '-', '^', '=', '@'];
+// The single active disposable — either an EndlessSkyAnimator or a
+// plain { dispose() } stub for static images.
+let _active = null;
 
-// The one currently-active animator — disposed on tab change / modal close
-let _activeAnimator = null;
+// Fetch-generation counter: if a newer fetch starts while an older one
+// is still awaiting network, the older result is silently discarded.
+let _fetchGen = 0;
 
 
-// Internal helpers
+// ─── Internal fetch helpers ───────────────────────────────────────────────────
 
 function _pathToUrls(spritePath, baseUrl) {
   const base  = baseUrl.replace(/\/$/, '');
   const clean = spritePath.replace(/^\/+/, '');
-  if (IMAGE_EXTENSIONS.some(ext => clean.toLowerCase().endsWith(ext))) {
-    return [`${base}/${clean}`];
+  if (IMAGE_EXTENSIONS.some(function(ext) { return clean.toLowerCase().endsWith(ext); })) {
+    return [base + '/' + clean];
   }
-  return IMAGE_EXTENSIONS.map(ext => `${base}/${clean}${ext}`);
+  return IMAGE_EXTENSIONS.map(function(ext) { return base + '/' + clean + ext; });
 }
 
 async function _fetchOne(spritePath, baseUrl) {
-  for (const url of _pathToUrls(spritePath, baseUrl)) {
+  const urls = _pathToUrls(spritePath, baseUrl);
+  for (let i = 0; i < urls.length; i++) {
     try {
-      const res = await fetch(url);
+      const res = await fetch(urls[i]);
       if (res.ok) {
-        return { path: spritePath, url, blob: await res.blob() };
+        return { path: spritePath, url: urls[i], blob: await res.blob() };
       }
     } catch (_) { /* try next extension */ }
   }
@@ -76,48 +65,44 @@ async function _fetchOne(spritePath, baseUrl) {
 }
 
 
-//  findImageVariations 
+// ─── findImageVariations ──────────────────────────────────────────────────────
 
 /**
- * Fetch every animation frame for a sprite base path.
+ * Download every animation frame for basePath.
  *
- * 1. Tries the bare path first  (the "base" / only frame for static sprites).
- * 2. Then tries <path><sep>0, <path><sep>1, … for each separator in SEPARATORS,
- *    stopping at the first gap after a successful hit.
+ * 1. Tries the bare path (static sprites have no separator).
+ * 2. For each separator tries <path><sep>0, <path><sep>1, …
+ *    Stops a separator as soon as a frame is missing (sequential numbering).
  *
  * @param {string}   basePath
  * @param {string}   [baseUrl]
  * @param {Object}   [options]
  * @param {number}   [options.maxVariations=999]
  * @param {string[]} [options.separators]
- * @returns {Promise<Array<{path, url, blob, variation}>>}
+ * @returns {Promise<Array<{path,url,blob,variation}>>}
  */
 async function findImageVariations(basePath, baseUrl, options) {
   baseUrl = baseUrl || GITHUB_PAGES_BASE_URL;
   options = options || {};
 
-  const maxVariations = options.maxVariations != null ? options.maxVariations : 999;
-  const separators    = options.separators || SEPARATORS;
-  const cleanPath     = basePath.replace(/^\/+/, '');
-  const found         = [];
+  const max        = options.maxVariations != null ? options.maxVariations : 999;
+  const seps       = options.separators || SEPARATORS;
+  const cleanPath  = basePath.replace(/^\/+/, '');
+  const found      = [];
 
-  // Step 1: bare base path
+  // Base image (no separator)
   const base = await _fetchOne(cleanPath, baseUrl);
-  if (base) {
-    found.push({ ...base, variation: 'base' });
-  }
+  if (base) found.push(Object.assign({}, base, { variation: 'base' }));
 
-  // Step 2: numbered variations per separator
-  for (const sep of separators) {
-    for (let i = 0; i < maxVariations; i++) {
-      const result = await _fetchOne(`${cleanPath}${sep}${i}`, baseUrl);
-
+  // Numbered variations
+  for (let s = 0; s < seps.length; s++) {
+    const sep = seps[s];
+    for (let i = 0; i < max; i++) {
+      const result = await _fetchOne(cleanPath + sep + i, baseUrl);
       if (result) {
-        found.push({ ...result, variation: `${sep}${i}` });
+        found.push(Object.assign({}, result, { variation: sep + i }));
       } else {
-        // No frame found: if we already found some for this separator, stop.
-        // If i===0 we haven't found any yet — move to next separator.
-        break;
+        break; // gap — stop this separator
       }
     }
   }
@@ -126,31 +111,31 @@ async function findImageVariations(basePath, baseUrl, options) {
 }
 
 
-// clearSpriteCache
+// ─── clearSpriteCache ─────────────────────────────────────────────────────────
 
 /**
- * Dispose the active animator (stops RAF, revokes all object URLs).
- * Call on every tab change and on modal close.
+ * Fully dispose the active animator / static image handle.
+ * Stops RAF loop, closes ImageBitmaps, revokes every object URL.
+ * Safe to call when nothing is loaded.
  */
 function clearSpriteCache() {
-  if (_activeAnimator) {
-    _activeAnimator.dispose();
-    _activeAnimator = null;
+  if (_active) {
+    _active.dispose();
+    _active = null;
   }
+  // Bump generation so any in-flight fetch knows it has been superseded
+  _fetchGen++;
 }
 
 
-// fetchSprite 
+// ─── fetchSprite ──────────────────────────────────────────────────────────────
 
 /**
- * Main entry point for the UI.
+ * Fetch all frames for spritePath, load into animator, play, return element.
  *
- * 1. Clears any existing animator.
- * 2. Fetches all frames for spritePath.
- * 3. If only one frame: returns a plain <img> element (no animation overhead).
- * 4. If multiple frames: creates an EndlessSkyAnimator on a <canvas>,
- *    loads all frames, auto-plays, stores the animator in _activeAnimator,
- *    and returns the <canvas>.
+ * Race-condition safe: if clearSpriteCache() (or another fetchSprite()) is
+ * called while this is still awaiting network, the stale result is dropped
+ * and null is returned — the caller should discard it.
  *
  * @param {string} spritePath   e.g. 'ship/penguin/penguin'
  * @param {Object} [spriteParams]
@@ -159,65 +144,79 @@ function clearSpriteCache() {
 async function fetchSprite(spritePath, spriteParams) {
   spriteParams = spriteParams || {};
 
+  // Dispose whatever was active and mark this as the current generation
   clearSpriteCache();
+  const myGen = _fetchGen;
 
   if (!spritePath) {
     console.warn('fetchSprite: no spritePath provided');
     return null;
   }
 
+  // ── Fetch all frames ───────────────────────────────────────────────────────
   const variations = await findImageVariations(spritePath);
 
-  if (!variations.length) {
-    console.warn(`fetchSprite: no images found for "${spritePath}"`);
+  // If the user switched tabs mid-fetch, bail out without leaking anything
+  if (_fetchGen !== myGen) {
+    variations.forEach(function(v) { URL.revokeObjectURL(URL.createObjectURL(v.blob)); });
     return null;
   }
 
-  //  Single frame: just return an <img> 
+  if (!variations.length) {
+    console.warn('fetchSprite: no images found for "' + spritePath + '"');
+    return null;
+  }
+
+  // ── Single frame → plain <img> ─────────────────────────────────────────────
   if (variations.length === 1) {
     const objectUrl = URL.createObjectURL(variations[0].blob);
 
-    // Wrap the single object URL so clearSpriteCache still revokes it
-    _activeAnimator = {
-      dispose() { URL.revokeObjectURL(objectUrl); }
+    // Register a disposable so clearSpriteCache revokes this URL
+    _active = {
+      dispose: function() { URL.revokeObjectURL(objectUrl); }
     };
 
-    const img = new Image();
-    img.src = objectUrl;
-    img.style.cssText = 'max-width:100%;max-height:500px;object-fit:contain;image-rendering:pixelated;';
+    const img = document.createElement('img');
+    img.src       = objectUrl;
+    img.style.cssText =
+      'max-width:100%;max-height:500px;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
     return img;
   }
 
-  // Multiple frames: create animator on a canvas
+  // ── Multiple frames → EndlessSkyAnimator on <canvas> ──────────────────────
   if (typeof window.EndlessSkyAnimator !== 'function') {
-    console.error('fetchSprite: EndlessSkyAnimator not loaded — include endless-sky-animator.js first');
+    console.error('fetchSprite: EndlessSkyAnimator not loaded');
     return null;
   }
 
   const canvas = document.createElement('canvas');
-  canvas.style.cssText = 'max-width:100%;image-rendering:pixelated;';
+  canvas.style.cssText = 'max-width:100%;image-rendering:pixelated;display:block;margin:auto;';
 
   const anim = new window.EndlessSkyAnimator(canvas);
-  _activeAnimator = anim;
 
-  // Forward spriteData fields to the animator
+  // Register as active BEFORE the await so clearSpriteCache can dispose it
+  // if the user switches tabs while loadVariations is running
+  _active = anim;
+
+  // loadVariations: fetches blobs → bakes bitmaps → fires es:ready internally
+  // We do NOT use the es:ready event — we call play() directly after the
+  // await returns, because the event fires before this line is reached.
   await anim.loadVariations(variations, spriteParams);
 
-  // Auto-play once frames are ready
-  canvas.addEventListener('es:ready', function() {
-    anim.play();
-  }, { once: true });
+  // Check again: user may have switched tabs during loadVariations (bitmap baking)
+  if (_fetchGen !== myGen) {
+    // anim was already disposed by clearSpriteCache — nothing to do
+    return null;
+  }
 
-  // Surface load errors
-  canvas.addEventListener('es:error', function(e) {
-    console.warn('fetchSprite animator error:', e.detail);
-  });
+  // Start playback
+  anim.play();
 
   return canvas;
 }
 
 
-//global
+// ─── Globals ──────────────────────────────────────────────────────────────────
 window.findImageVariations = findImageVariations;
 window.fetchSprite         = fetchSprite;
 window.clearSpriteCache    = clearSpriteCache;
