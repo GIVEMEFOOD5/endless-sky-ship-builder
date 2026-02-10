@@ -289,84 +289,97 @@ function getAvailableTabs(item) {
 
 // Switch modal tab
 async function switchModalTab(tabId) {
-    currentModalTab = tabId;
-    
-    // Update tab buttons
-    document.querySelectorAll('.modal-tab').forEach(tab => {
-        tab.classList.remove('active');
-        if (tab.dataset.tab === tabId) {
-            tab.classList.add('active');
-        }
-    });
-    
-    // Get the current item from stored data
-    const modalBody = document.getElementById('modalBody');
-    const item = JSON.parse(modalBody.dataset.itemJson);
-    
-    // Show/hide tab contents
-    document.querySelectorAll('.modal-tab-content').forEach(content => {
-        if (content.dataset.tab === tabId) {
-            content.style.display = 'block';
-        } else {
-            content.style.display = 'none';
-        }
-    });
-    
-    // Find the tab content div
-    const tabContent = document.querySelector(`.modal-tab-content[data-tab="${tabId}"]`);
-    
-    if (!tabContent) return;
-    
-    // If this tab's content is empty, load it now (lazy loading)
-    const imageTabIds = ['thumbnail', 'sprite', 'hardpointSprite', 'steeringFlare', 
-                         'flare', 'reverseFlare', 'projectile', 'fireEffect', 'hitEffect', 'dieEffect'];
-    
-    // Check if content is empty (not just whitespace)
-    if (tabContent.innerHTML.trim() === '') {
-        // Show loading state
-        tabContent.innerHTML = '<p style="color: #94a3b8; text-align: center;">Loading image...</p>';
-        
-        let spritePath = null;
-        let content = '';
-        
-        // Get the sprite path or render content for this tab
-        switch(tabId) {
-            case 'attributes':
-                content = renderAttributesTab(item);
-                break;
-            case 'thumbnail':
-                spritePath = item.thumbnail;
-                content = await renderImageTab(spritePath, 'Thumbnail');
-                break;
-            case 'sprite':
-                spritePath = item.sprite || item.weapon?.sprite;
-                content = await renderImageTab(spritePath, 'Sprite');
-                break;
-            case 'hardpointSprite':
-                spritePath = item.weapon?.hardpointSprite || item['hardpoint sprite'];
-                content = await renderImageTab(spritePath, 'Hardpoint Sprite');
-                break;
-            case 'steeringFlare':
-                spritePath = item.steeringFlare || item['steering flare'];
-                content = await renderImageTab(spritePath, 'Steering Flare');
-                break;
-            case 'flare':
-                spritePath = item.flare;
-                content = await renderImageTab(spritePath, 'Flare');
-                break;
-            case 'reverseFlare':
-                spritePath = item.reverseFlare || item['reverse flare'];
-                content = await renderImageTab(spritePath, 'Reverse Flare');
-                break;
-            case 'projectile':
-                spritePath = item.projectile;
-                content = await renderImageTab(spritePath, 'Projectile');
-                break;
-        }
-        
-        // Update the tab content with loaded data
-        tabContent.innerHTML = content;
-    }
+  currentModalTab = tabId;
+
+  // Update tab button states
+  document.querySelectorAll('.modal-tab').forEach(function(tab) {
+    tab.classList.toggle('active', tab.dataset.tab === tabId);
+  });
+
+  const modalBody = document.getElementById('modalBody');
+  const item      = JSON.parse(modalBody.dataset.itemJson);
+
+  // Show / hide tab content panes
+  document.querySelectorAll('.modal-tab-content').forEach(function(content) {
+    content.style.display = content.dataset.tab === tabId ? 'block' : 'none';
+  });
+
+  const tabContent = document.querySelector(`.modal-tab-content[data-tab="${tabId}"]`);
+  if (!tabContent) return;
+
+  // Only load if this pane hasn't been populated yet
+  if (tabContent.innerHTML.trim() !== '') return;
+
+  // ── Clear the previous sprite / image before loading a new one ────────────
+  clearSpriteCache();
+
+  // ── Resolve sprite path and spriteParams for this tab ────────────────────
+  // spriteData holds the animation parameters parsed from the data file
+  const sd = item.spriteData || {};
+
+  const spriteParams = {
+    frameRate:   sd.frameRate   || null,
+    frameTime:   sd.frameTime   || null,
+    delay:       sd.delay       || 0,
+    startFrame:  sd.startFrame  || 0,
+    randomStart: sd.randomStart || false,
+    noRepeat:    sd.noRepeat    || false,
+    rewind:      sd.rewind      || false,
+    scale:       sd.scale       || 1.0,
+  };
+
+  // Show a loading placeholder while we fetch
+  tabContent.innerHTML = '<p style="color:#94a3b8;text-align:center;">Loading…</p>';
+
+  let element = null;
+
+  switch (tabId) {
+    case 'attributes':
+      // Attributes tab uses the original HTML string renderer — no change
+      tabContent.innerHTML = renderAttributesTab(item);
+      return;
+
+    case 'thumbnail':
+      element = await renderImageTab(item.thumbnail, 'Thumbnail', spriteParams);
+      break;
+
+    case 'sprite':
+      element = await renderImageTab(item.sprite || item.weapon?.sprite, 'Sprite', spriteParams);
+      break;
+
+    case 'hardpointSprite':
+      element = await renderImageTab(
+        item.weapon?.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite', spriteParams);
+      break;
+
+    case 'steeringFlare':
+      element = await renderImageTab(
+        item.steeringFlare || item['steering flare'], 'Steering Flare', spriteParams);
+      break;
+
+    case 'flare':
+      element = await renderImageTab(item.flare, 'Flare', spriteParams);
+      break;
+
+    case 'reverseFlare':
+      element = await renderImageTab(
+        item.reverseFlare || item['reverse flare'], 'Reverse Flare', spriteParams);
+      break;
+
+    case 'projectile':
+      element = await renderImageTab(item.projectile, 'Projectile', spriteParams);
+      break;
+
+    default:
+      tabContent.innerHTML = '';
+      return;
+  }
+
+  // Clear the loading placeholder and insert the real element
+  tabContent.innerHTML = '';
+  if (element) {
+    tabContent.appendChild(element);
+  }
 }
 
 // Render attributes tab content
@@ -463,7 +476,7 @@ function renderAttributesTab(item) {
 }
 
 // Render sprite/image tab content
-async function renderImageTab(spritePath, altText = 'Image') {
+async function Tab(spritePath, altText = 'Image') {
     const imageUrl = await fetchSpriteImage(spritePath);
     
     if (!imageUrl) {
@@ -578,7 +591,7 @@ async function showDetails(item) {
 
 
 function closeModal() {
-    clearCurrentImages(); // Clean up when closing
+    clearSpriteCache();
     document.getElementById('detailModal').classList.remove('active');
 }
 
