@@ -28,8 +28,8 @@
 const GITHUB_PAGES_BASE_URL =
   'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/official-game/images';
 
-const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg'];
-const SEPARATORS       = ['+', '~', '-', '^', '=', '@'];
+const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.avif'];
+const SEPARATORS       = ['+', '~', '-', '^'];
 
 // The single active disposable — either an EndlessSkyAnimator or a
 // plain { dispose() } stub for static images.
