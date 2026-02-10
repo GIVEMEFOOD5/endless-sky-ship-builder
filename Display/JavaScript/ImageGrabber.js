@@ -1,304 +1,223 @@
 /**
- * GitHub Pages Image Fetcher
- * Extracts and fetches all image paths from game data objects
- * Includes support for image variations (+, ~, -, ^, =, @ patterns)
+ * image-fetcher.js
+ *
+ * Fetches all sprite frames from GitHub Pages, passes them into
+ * EndlessSkyAnimator, and returns a ready <canvas> element to the caller.
+ *
+ * Requires endless-sky-animator.js to be loaded first.
+ *
+ * Public API 
+ *
+ *   fetchSprite(spritePath, spriteParams?)
+ *     Fetches every frame for spritePath, loads them into a new animator,
+ *     auto-plays, and returns the <canvas> element.
+ *     → Promise<HTMLCanvasElement | null>
+ *
+ *   clearSpriteCache()
+ *     Disposes the currently active animator and revokes all its object URLs.
+ *     Call this on tab change and on modal close.
+ *     → void
+ *
+ *   findImageVariations(basePath, baseUrl?, options?)
+ *     Low-level fetch — returns all frame blobs for a sprite path.
+ *     Exposed so other code can call it directly if needed.
+ *     → Promise<Array<{path, url, blob, variation}>>
+ *
+ * spriteParams
+ *   Extract from item.spriteData and pass straight through:
+ *   {
+ *     frameRate,    // fps  (ES default: 2)
+ *     frameTime,    // game ticks (1/60 s); overrides frameRate
+ *     delay,        // ticks to pause between loops
+ *     startFrame,   // integer start frame
+ *     randomStart,  // bool
+ *     noRepeat,     // bool — stop at last frame
+ *     rewind,       // bool — ping-pong
+ *     scale,        // uniform scale factor
+ *   }
  */
 
-// Base URL configuration - update this to your GitHub Pages URL
-const GITHUB_PAGES_BASE_URL = 'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/official-game/images';
+'use strict';
+
+const GITHUB_PAGES_BASE_URL =
+  'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/official-game/images';
 
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg'];
 
-// Cache to store currently loaded images
-let currentImageCache = null;
+// Separator chars that ES uses to denote animation frames
+// Order matters: try + first (most common for animations), then others
+const SEPARATORS = ['+', '~', '-', '^', '=', '@'];
 
-/**
- * Extract all image paths from a data object
- * @param {Object} data - Game data object (outfit, ship, etc.)
- * @returns {string[]} Array of image paths
- */
-function extractImagePaths(data) {
-  const paths = new Set();
+// The one currently-active animator — disposed on tab change / modal close
+let _activeAnimator = null;
 
-  // Known image path properties to check
-  const imageProperties = [
-    'sprite',
-    'thumbnail',
-    'flare sprite',
-    'steering flare sprite',
-    'reverse flare sprite',
-    'hit effect',
-    'fire effect',
-    'die effect'
-  ];
 
-  // Recursive function to search through nested objects
-  const searchObject = (obj, parentKey = '') => {
-    if (!obj || typeof obj !== 'object') return;
+// Internal helpers
 
-    for (const [key, value] of Object.entries(obj)) {
-      // Check if this is a known image property
-      if (imageProperties.includes(key)) {
-        if (typeof value === 'string') {
-          paths.add(value);
-        } else if (Array.isArray(value)) {
-          value.forEach(v => {
-            if (typeof v === 'string') paths.add(v);
-          });
-        }
-      }
-
-      // Special handling for weapon.sprite and other nested sprites
-      if (key === 'weapon' && typeof value === 'object') {
-        searchObject(value, 'weapon');
-      }
-
-      // Check for spriteData (though not an image itself, it's metadata)
-      if (key !== 'spriteData' && typeof value === 'object' && !Array.isArray(value)) {
-        searchObject(value, key);
-      }
-    }
-  };
-
-  searchObject(data);
-  return Array.from(paths);
-}
-
-/**
- * Convert a sprite path to full URLs with all possible extensions
- * @param {string} spritePath - Relative sprite path (e.g., 'ship/penguin/penguin')
- * @param {string} baseUrl - Base URL for GitHub Pages
- * @returns {string[]} Array of full URLs to try
- */
-function pathToUrls(spritePath, baseUrl = GITHUB_PAGES_BASE_URL) {
-  const cleanBaseUrl = baseUrl.replace(/\/$/, ''); // Remove trailing slash
-  const cleanPath = spritePath.replace(/^\/+/, '');
-  
-  // If it already has an extension, return just that URL
-  if (IMAGE_EXTENSIONS.some(ext => cleanPath.toLowerCase().endsWith(ext))) {
-    return [`${cleanBaseUrl}/${cleanPath}`];
+function _pathToUrls(spritePath, baseUrl) {
+  const base  = baseUrl.replace(/\/$/, '');
+  const clean = spritePath.replace(/^\/+/, '');
+  if (IMAGE_EXTENSIONS.some(ext => clean.toLowerCase().endsWith(ext))) {
+    return [`${base}/${clean}`];
   }
-
-  // Otherwise, try all common image extensions
-  return IMAGE_EXTENSIONS.map(ext => `${cleanBaseUrl}/${cleanPath}${ext}`);
+  return IMAGE_EXTENSIONS.map(ext => `${base}/${clean}${ext}`);
 }
 
-/**
- * Fetch a single image with fallback to different extensions
- * @param {string} spritePath - Relative sprite path
- * @param {string} baseUrl - Base URL for GitHub Pages
- * @returns {Promise<{path: string, url: string, blob: Blob}|null>}
- */
-async function fetchImage(spritePath, baseUrl = GITHUB_PAGES_BASE_URL) {
-  const urls = pathToUrls(spritePath, baseUrl);
-
-  for (const url of urls) {
+async function _fetchOne(spritePath, baseUrl) {
+  for (const url of _pathToUrls(spritePath, baseUrl)) {
     try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const blob = await response.blob();
-        return {
-          path: spritePath,
-          url: url,
-          blob: blob
-        };
+      const res = await fetch(url);
+      if (res.ok) {
+        return { path: spritePath, url, blob: await res.blob() };
       }
-    } catch (error) {
-      // Continue to next URL
-      continue;
-    }
+    } catch (_) { /* try next extension */ }
   }
-
-  console.warn(`Failed to fetch image: ${spritePath}`);
   return null;
 }
 
+
+//  findImageVariations 
+
 /**
- * Find all similar images with variation patterns (+, ~, -, ^ followed by numbers)
- * For example: 'ship/penguin' might have variations like:
- * - ship/penguin+0, ship/penguin+1, ship/penguin+2
- * - ship/penguin~0, ship/penguin~1
- * - ship/penguin-0, ship/penguin-1
- * @param {string} basePath - Base sprite path (e.g., 'ship/penguin')
- * @param {string} baseUrl - Base URL for GitHub Pages
- * @param {Object} options - Options
- * @param {number} options.maxVariations - Maximum number of variations to check (default: 20)
- * @param {string[]} options.separators - Array of separator characters (default: ['+', '~', '-', '^'])
- * @returns {Promise<Array<{path: string, url: string, blob: Blob, variation: string}>>}
+ * Fetch every animation frame for a sprite base path.
+ *
+ * 1. Tries the bare path first  (the "base" / only frame for static sprites).
+ * 2. Then tries <path><sep>0, <path><sep>1, … for each separator in SEPARATORS,
+ *    stopping at the first gap after a successful hit.
+ *
+ * @param {string}   basePath
+ * @param {string}   [baseUrl]
+ * @param {Object}   [options]
+ * @param {number}   [options.maxVariations=999]
+ * @param {string[]} [options.separators]
+ * @returns {Promise<Array<{path, url, blob, variation}>>}
  */
-async function findImageVariations(basePath, baseUrl = GITHUB_PAGES_BASE_URL, options = {}) {
-  const {
-    maxVariations = 999,
-    separators = ['+', '~', '-', '^']
-  } = options;
+async function findImageVariations(basePath, baseUrl, options) {
+  baseUrl = baseUrl || GITHUB_PAGES_BASE_URL;
+  options = options || {};
 
-  const foundImages = [];
-  const cleanPath = basePath.replace(/^\/+/, '');
+  const maxVariations = options.maxVariations != null ? options.maxVariations : 999;
+  const separators    = options.separators || SEPARATORS;
+  const cleanPath     = basePath.replace(/^\/+/, '');
+  const found         = [];
 
-  console.log(`Searching for variations of: ${cleanPath}`);
-
-  // Try base path first
-  const baseImage = await fetchImage(cleanPath, baseUrl);
-  if (baseImage) {
-    foundImages.push({
-      ...baseImage,
-      variation: 'base'
-    });
+  // Step 1: bare base path
+  const base = await _fetchOne(cleanPath, baseUrl);
+  if (base) {
+    found.push({ ...base, variation: 'base' });
   }
 
-  // Try each separator with numbers
-  for (const separator of separators) {
+  // Step 2: numbered variations per separator
+  for (const sep of separators) {
     for (let i = 0; i < maxVariations; i++) {
-      const variationPath = `${cleanPath}${separator}${i}`;
-      const urls = pathToUrls(variationPath, baseUrl);
+      const result = await _fetchOne(`${cleanPath}${sep}${i}`, baseUrl);
 
-      let foundVariation = false;
-      for (const url of urls) {
-        try {
-          const response = await fetch(url);
-          if (response.ok) {
-            const blob = await response.blob();
-            foundImages.push({
-              path: variationPath,
-              url: url,
-              blob: blob,
-              variation: `${separator}${i}`
-            });
-            foundVariation = true;
-            console.log(`Found variation: ${variationPath}`);
-            break;
-          }
-        } catch (error) {
-          continue;
-        }
-      }
-
-      // Stop if we hit a gap (assumes sequential numbering)
-      if (!foundVariation && i > 0) {
+      if (result) {
+        found.push({ ...result, variation: `${sep}${i}` });
+      } else {
+        // No frame found: if we already found some for this separator, stop.
+        // If i===0 we haven't found any yet — move to next separator.
         break;
       }
     }
   }
 
-  console.log(`Found ${foundImages.length} total images for ${cleanPath}`);
-  return foundImages;
+  return found;
 }
 
-/**
- * Get just the list of variation paths that exist (no downloading)
- * @param {string} basePath - Base sprite path
- * @param {string} baseUrl - Base URL for GitHub Pages
- * @param {Object} options - Same options as findImageVariations
- * @returns {Promise<string[]>} Array of paths that exist
- */
-async function listVariationPaths(basePath, baseUrl = GITHUB_PAGES_BASE_URL, options = {}) {
-  const images = await findImageVariations(basePath, baseUrl, options);
-  return images.map(img => img.path);
-}
+
+// clearSpriteCache
 
 /**
- * Check if variations exist for a given path
- * @param {string} basePath - Base sprite path
- * @param {string} baseUrl - Base URL for GitHub Pages
- * @param {Object} options - Same options as findImageVariations
- * @returns {Promise<boolean>} True if variations exist (more than just base)
+ * Dispose the active animator (stops RAF, revokes all object URLs).
+ * Call on every tab change and on modal close.
  */
-async function hasVariations(basePath, baseUrl = GITHUB_PAGES_BASE_URL, options = {}) {
-  const paths = await listVariationPaths(basePath, baseUrl, options);
-  return paths.length > 1;
+function clearSpriteCache() {
+  if (_activeAnimator) {
+    _activeAnimator.dispose();
+    _activeAnimator = null;
+  }
 }
 
-/**
- * Get count of variations
- * @param {string} basePath - Base sprite path
- * @param {string} baseUrl - Base URL for GitHub Pages
- * @param {Object} options - Same options as findImageVariations
- * @returns {Promise<number>} Number of variations found
- */
-async function getVariationCount(basePath, baseUrl = GITHUB_PAGES_BASE_URL, options = {}) {
-  const paths = await listVariationPaths(basePath, baseUrl, options);
-  return paths.length;
-}
+
+// fetchSprite 
 
 /**
- * Fetch a single image from a sprite path and return an object URL
- * This automatically cleans up previously loaded image when called
- * If variations exist, returns the first one in the sequence
- * @param {string} spritePath - Relative sprite path (e.g., 'ship/penguin/penguin')
- * @param {Object} options - Options
- * @param {string} options.baseUrl - Base URL for GitHub Pages (optional)
- * @returns {Promise<string|null>} Object URL for the image, or null if failed
+ * Main entry point for the UI.
+ *
+ * 1. Clears any existing animator.
+ * 2. Fetches all frames for spritePath.
+ * 3. If only one frame: returns a plain <img> element (no animation overhead).
+ * 4. If multiple frames: creates an EndlessSkyAnimator on a <canvas>,
+ *    loads all frames, auto-plays, stores the animator in _activeAnimator,
+ *    and returns the <canvas>.
+ *
+ * @param {string} spritePath   e.g. 'ship/penguin/penguin'
+ * @param {Object} [spriteParams]
+ * @returns {Promise<HTMLCanvasElement | HTMLImageElement | null>}
  */
-async function fetchSpriteImage(spritePath, options = {}) {
-  const { baseUrl = GITHUB_PAGES_BASE_URL } = options;
-  
-  // Clean up previous image before loading new one
-  clearCurrentImages();
-  
+async function fetchSprite(spritePath, spriteParams) {
+  spriteParams = spriteParams || {};
+
+  clearSpriteCache();
+
   if (!spritePath) {
-    console.warn('No sprite path provided');
+    console.warn('fetchSprite: no spritePath provided');
     return null;
   }
 
-  console.log(`Fetching image: ${spritePath}`);
+  const variations = await findImageVariations(spritePath);
 
-  // Try to find variations - this will return base image and any variations
-  const variations = await findImageVariations(spritePath, baseUrl, {
-    maxVariations: 20,
-    separators: ['+', '~', '-', '^', '=', '@']
-  });
-  
-  // If we found any images, use the first one (base or first variation)
-  if (variations.length > 0 && variations[0].blob) {
+  if (!variations.length) {
+    console.warn(`fetchSprite: no images found for "${spritePath}"`);
+    return null;
+  }
+
+  //  Single frame: just return an <img> 
+  if (variations.length === 1) {
     const objectUrl = URL.createObjectURL(variations[0].blob);
-    
-    // Store in cache for automatic cleanup
-    currentImageCache = { [spritePath]: objectUrl };
-    
-    console.log(`Loaded: ${variations[0].path} (${variations[0].variation})`);
-    if (variations.length > 1) {
-      console.log(`Note: ${variations.length - 1} more variation(s) available`);
-    }
-    
-    return objectUrl;
+
+    // Wrap the single object URL so clearSpriteCache still revokes it
+    _activeAnimator = {
+      dispose() { URL.revokeObjectURL(objectUrl); }
+    };
+
+    const img = new Image();
+    img.src = objectUrl;
+    img.style.cssText = 'max-width:100%;max-height:500px;object-fit:contain;image-rendering:pixelated;';
+    return img;
   }
 
-  return null;
-}
-
-/**
- * Clear currently loaded images (call this when switching tabs)
- * This is automatically called when fetchSpriteImage is called again
- */
-function clearCurrentImages() {
-  if (currentImageCache) {
-    Object.values(currentImageCache).forEach(url => URL.revokeObjectURL(url));
-    currentImageCache = null;
-    console.log('Cleared previous image from memory');
+  // Multiple frames: create animator on a canvas
+  if (typeof window.EndlessSkyAnimator !== 'function') {
+    console.error('fetchSprite: EndlessSkyAnimator not loaded — include endless-sky-animator.js first');
+    return null;
   }
+
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'max-width:100%;image-rendering:pixelated;';
+
+  const anim = new window.EndlessSkyAnimator(canvas);
+  _activeAnimator = anim;
+
+  // Forward spriteData fields to the animator
+  await anim.loadVariations(variations, spriteParams);
+
+  // Auto-play once frames are ready
+  canvas.addEventListener('es:ready', function() {
+    anim.play();
+  }, { once: true });
+
+  // Surface load errors
+  canvas.addEventListener('es:error', function(e) {
+    console.warn('fetchSprite animator error:', e.detail);
+  });
+
+  return canvas;
 }
 
-// When switching modal tabs, the cleanup happens automatically:
-// 1. User clicks on "Sprite" tab → fetchSpriteImage('ship/penguin/penguin') loads the image
-// 2. User clicks on "Thumbnail" tab → fetchSpriteImage('thumbnail/penguin') automatically cleans up the sprite and loads thumbnail
-// 3. User closes modal → call clearCurrentImages() to clean up
 
-// Update My closeModal function:
-function closeModal() {
-    clearCurrentImages(); // Clean up images when closing modal
-    document.getElementById('detailModal').classList.remove('active');
-}
-
-// Or if I want to manually clear when switching between items:
-// clearCurrentImages();
-
-//export { fetchSpriteImage, clearCurrentImages, extractImagePaths, findImageVariations, listVariationPaths, hasVariations, getVariationCount };
-
-// Make functions globally accessible for HTML onclick attributes
-window.clearCurrentImages = clearCurrentImages;
-window.fetchSpriteImage = fetchSpriteImage;
-window.extractImagePaths = extractImagePaths;
+//global
 window.findImageVariations = findImageVariations;
-window.listVariationPaths = listVariationPaths;
-window.hasVariations = hasVariations;
-window.getVariationCount = getVariationCount;
+window.fetchSprite         = fetchSprite;
+window.clearSpriteCache    = clearSpriteCache;
