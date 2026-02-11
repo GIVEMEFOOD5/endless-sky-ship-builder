@@ -532,19 +532,19 @@ async function showDetails(item) {
                         content = await renderImageTab(item.thumbnail, 'Thumbnail');
                         break;
                     case 'sprite':
-                        content = await renderImageTab(item.sprite || item.weapon?.sprite, 'Sprite');
+                        content = await renderImageTab(item.sprite || item.weapon?.sprite || item.weapon?.hardpointsprite || item.weapon?['hardpoint sprite'], 'Sprite');
                         break;
-                    case 'hardpointSprite':
-                        content = await renderImageTab(item.weapon?.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite');
-                        break;
+                    //case 'hardpointSprite':
+                        //content = await renderImageTab(item.weapon?.hardpointsprite || item.weapon?['hardpoint sprite'], 'Hardpoint Sprite');
+                        //break;
                     case 'steeringFlare':
-                        content = await renderImageTab(item.steeringFlare || item['steering flare'], 'Steering Flare');
+                        content = await renderImageTab(item.steeringFlare || item['steering flare sprite'], 'Steering Flare');
                         break;
                     case 'flare':
-                        content = await renderImageTab(item.flare, 'Flare');
+                        content = await renderImageTab(item.flare || item['flare sprite'], 'Flare');
                         break;
                     case 'reverseFlare':
-                        content = await renderImageTab(item.reverseFlare || item['reverse flare'], 'Reverse Flare');
+                        content = await renderImageTab(item.reverseFlare || item['reverse flare sprite'], 'Reverse Flare');
                         break;
                     case 'projectile':
                         content = await renderImageTab(item.projectile, 'Projectile');
