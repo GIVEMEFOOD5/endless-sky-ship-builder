@@ -477,32 +477,32 @@ function renderAttributesTab(item) {
 
 // Render sprite/image tab content
 async function renderImageTab(spritePath, altText, spriteParams) {
-    altText      = altText      || 'Image';
-    spriteParams = spriteParams || {};
+  altText      = altText      || 'Image';
+  spriteParams = spriteParams || {};
 
-    if (!spritePath) {
-        return null;
-    }
+  if (!spritePath) {
+    return null;
+  }
 
-    const element = await fetchSprite(spritePath, spriteParams);
+  const element = await fetchSprite(spritePath, spriteParams);
 
-    if (!element) {
-        // Return a plain error paragraph so the caller can still insert something
-        const p = document.createElement('p');
-        p.style.color = '#ef4444';
-        p.textContent = `Failed to load: ${altText}`;
-        return p;
-      }
+  if (!element) {
+    // Return a plain error paragraph so the caller can still insert something
+    const p = document.createElement('p');
+    p.style.color = '#ef4444';
+    p.textContent = `Failed to load: ${altText}`;
+    return p;
+  }
 
-      // Wrap in the same container style your original HTML string used
-      const wrap = document.createElement('div');
-      wrap.style.cssText =
-        'display:flex;justify-content:center;align-items:center;' +
-        'padding:20px;background:rgba(15,23,42,0.5);border-radius:8px;';
+  // Wrap in the same container style your original HTML string used
+  const wrap = document.createElement('div');
+  wrap.style.cssText =
+    'display:flex;justify-content:center;align-items:center;' +
+    'padding:20px;background:rgba(15,23,42,0.5);border-radius:8px;';
 
-      element.alt = altText;   // no-op on canvas, fine on img
-      wrap.appendChild(element);
-      return wrap;
+  element.alt = altText;   // no-op on canvas, fine on img
+  wrap.appendChild(element);
+  return wrap;
 }
 
 async function showDetails(item) {
@@ -606,8 +606,8 @@ async function showDetails(item) {
 
 
 function closeModal() {
-    clearSpriteCache();
-    document.getElementById('detailModal').classList.remove('active');
+  clearSpriteCache();
+  document.getElementById('detailModal').classList.remove('active');
 }
 
 function formatNumber(num) {
