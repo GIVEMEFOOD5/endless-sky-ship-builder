@@ -291,6 +291,10 @@ function getAvailableTabs(item) {
 async function switchModalTab(tabId) {
   currentModalTab = tabId;
 
+  // ── MUST be first — stops the running animator and bumps _fetchGen ────────
+  // This cancels any in-flight fetch from the previous tab too.
+  clearSpriteCache();
+
   // Update tab button states
   document.querySelectorAll('.modal-tab').forEach(function(tab) {
     tab.classList.toggle('active', tab.dataset.tab === tabId);
@@ -299,24 +303,29 @@ async function switchModalTab(tabId) {
   const modalBody = document.getElementById('modalBody');
   const item      = JSON.parse(modalBody.dataset.itemJson);
 
-  // Show / hide tab content panes
+  // Wipe ALL tab panes — removes old canvas/img elements from the DOM so
+  // they aren't kept alive, and ensures every tab reloads fresh when visited.
   document.querySelectorAll('.modal-tab-content').forEach(function(content) {
-    content.style.display = content.dataset.tab === tabId ? 'block' : 'none';
+    content.style.display = 'none';
+    content.innerHTML     = '';
   });
 
-  const tabContent = document.querySelector(`.modal-tab-content[data-tab="${tabId}"]`);
+  const tabContent = document.querySelector('.modal-tab-content[data-tab="' + tabId + '"]');
   if (!tabContent) return;
 
-  // Only load if this pane hasn't been populated yet
-  if (tabContent.innerHTML.trim() !== '') return;
+  tabContent.style.display = 'block';
 
-  // ── Clear the previous sprite / image before loading a new one ────────────
-  clearSpriteCache();
+  // ── Attributes tab: no image loading needed ───────────────────────────────
+  if (tabId === 'attributes') {
+    tabContent.innerHTML = renderAttributesTab(item);
+    return;
+  }
 
-  // ── Resolve sprite path and spriteParams for this tab ────────────────────
-  // spriteData holds the animation parameters parsed from the data file
+  // ── Image tabs ────────────────────────────────────────────────────────────
+  // Show placeholder while fetching
+  tabContent.innerHTML = '<p style="color:#94a3b8;text-align:center;">Loading\u2026</p>';
+
   const sd = item.spriteData || {};
-
   const spriteParams = {
     frameRate:   sd.frameRate   || null,
     frameTime:   sd.frameTime   || null,
@@ -328,58 +337,33 @@ async function switchModalTab(tabId) {
     scale:       sd.scale       || 1.0,
   };
 
-  // Show a loading placeholder while we fetch
-  tabContent.innerHTML = '<p style="color:#94a3b8;text-align:center;">Loading…</p>';
+  const pathMap = {
+    thumbnail:      item.thumbnail,
+    sprite:         item.sprite || (item.weapon && item.weapon.sprite),
+    hardpointSprite: (item.weapon && (item.weapon.hardpointSprite || item.weapon['hardpoint sprite']))
+                      || item['hardpoint sprite'],
+    steeringFlare:  item.steeringFlare || item['steering flare'],
+    flare:          item.flare,
+    reverseFlare:   item.reverseFlare  || item['reverse flare'],
+    projectile:     item.projectile,
+  };
 
-  let element = null;
+  const spritePath = pathMap[tabId];
+  const element    = await renderImageTab(spritePath, tabId, spriteParams);
 
-  switch (tabId) {
-    case 'attributes':
-      // Attributes tab uses the original HTML string renderer — no change
-      tabContent.innerHTML = renderAttributesTab(item);
-      return;
-
-    case 'thumbnail':
-      element = await renderImageTab(item.thumbnail, 'Thumbnail', spriteParams);
-      break;
-
-    case 'sprite':
-      element = await renderImageTab(item.sprite || item.weapon?.sprite, 'Sprite', spriteParams);
-      break;
-
-    case 'hardpointSprite':
-      element = await renderImageTab(
-        item.weapon?.hardpointSprite || item['hardpoint sprite'], 'Hardpoint Sprite', spriteParams);
-      break;
-
-    case 'steeringFlare':
-      element = await renderImageTab(
-        item.steeringFlare || item['steering flare'], 'Steering Flare', spriteParams);
-      break;
-
-    case 'flare':
-      element = await renderImageTab(item.flare, 'Flare', spriteParams);
-      break;
-
-    case 'reverseFlare':
-      element = await renderImageTab(
-        item.reverseFlare || item['reverse flare'], 'Reverse Flare', spriteParams);
-      break;
-
-    case 'projectile':
-      element = await renderImageTab(item.projectile, 'Projectile', spriteParams);
-      break;
-
-    default:
+  // By the time we get here the user may have switched tabs again — if so
+  // clearSpriteCache() will have bumped _fetchGen and fetchSprite returns null,
+  // so element will be null. Don't touch the DOM in that case.
+  if (!element) {
+    // Only clear placeholder if this tab is still the active one
+    if (currentModalTab === tabId) {
       tabContent.innerHTML = '';
-      return;
+    }
+    return;
   }
 
-  // Clear the loading placeholder and insert the real element
   tabContent.innerHTML = '';
-  if (element) {
-    tabContent.appendChild(element);
-  }
+  tabContent.appendChild(element);
 }
 
 // Render attributes tab content
@@ -480,27 +464,23 @@ async function renderImageTab(spritePath, altText, spriteParams) {
   altText      = altText      || 'Image';
   spriteParams = spriteParams || {};
 
-  if (!spritePath) {
-    return null;
-  }
+  if (!spritePath) return null;
 
   const element = await fetchSprite(spritePath, spriteParams);
 
   if (!element) {
-    // Return a plain error paragraph so the caller can still insert something
     const p = document.createElement('p');
     p.style.color = '#ef4444';
-    p.textContent = `Failed to load: ${altText}`;
+    p.textContent = 'Failed to load: ' + altText;
     return p;
   }
 
-  // Wrap in the same container style your original HTML string used
   const wrap = document.createElement('div');
   wrap.style.cssText =
     'display:flex;justify-content:center;align-items:center;' +
     'padding:20px;background:rgba(15,23,42,0.5);border-radius:8px;';
 
-  element.alt = altText;   // no-op on canvas, fine on img
+  element.alt = altText;
   wrap.appendChild(element);
   return wrap;
 }
@@ -607,6 +587,12 @@ async function showDetails(item) {
 
 function closeModal() {
   clearSpriteCache();
+
+  // Wipe all tab content so nothing lingers for the next item opened
+  document.querySelectorAll('.modal-tab-content').forEach(function(content) {
+    content.innerHTML = '';
+  });
+
   document.getElementById('detailModal').classList.remove('active');
 }
 
