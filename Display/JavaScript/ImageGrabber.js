@@ -103,15 +103,20 @@ async function initImageIndex() {
       const noExt    = rel.replace(imgExts, '');
       const pageUrl  = GITHUB_PAGES_BASE + rel;
 
-      // Split off any trailing separator+number to find the base key
+      // Split off any trailing separator+number OR separator-only to find the base key
       // "ship/penguin/penguin+0"  → base = "ship/penguin/penguin", variation = "+0"
-      // "ship/penguin/penguin"    → base = "ship/penguin/penguin",  variation = "base"
-      const sepMatch = noExt.match(/^(.*?)([+~\-\^=@])(\d+)$/);
+      // "ship/penguin/penguin+"   → base = "ship/penguin/penguin", variation = "+"
+      // "ship/penguin/penguin"    → base = "ship/penguin/penguin", variation = "base"
+      const sepNumMatch = noExt.match(/^(.*?)([+~\-\^=@])(\d+)$/);
+      const sepOnlyMatch = noExt.match(/^(.*?)([+~\-\^=@])$/);
       let baseKey, variation;
 
-      if (sepMatch) {
-        baseKey   = sepMatch[1];
-        variation = sepMatch[2] + sepMatch[3];   // e.g. "+0"
+      if (sepNumMatch) {
+        baseKey   = sepNumMatch[1];
+        variation = sepNumMatch[2] + sepNumMatch[3];   // e.g. "+0"
+      } else if (sepOnlyMatch) {
+        baseKey   = sepOnlyMatch[1];
+        variation = sepOnlyMatch[2];                    // e.g. "+"
       } else {
         baseKey   = noExt;
         variation = 'base';
@@ -122,10 +127,20 @@ async function initImageIndex() {
     });
 
     // Sort each entry's frames into numeric order
+    // Order: 'base' first, then single-char separators (e.g. '+'), then numbered ('+0', '+1', ...)
     Object.keys(_index).forEach(function(key) {
       _index[key].sort(function(a, b) {
         if (a.variation === 'base') return -1;
         if (b.variation === 'base') return  1;
+        
+        // Single-char separator (e.g. '+') comes before numbered variants
+        const aIsNum = /\d/.test(a.variation);
+        const bIsNum = /\d/.test(b.variation);
+        if (!aIsNum && bIsNum) return -1;
+        if (aIsNum && !bIsNum) return  1;
+        if (!aIsNum && !bIsNum) return a.variation.localeCompare(b.variation);
+        
+        // Both are numbered — sort numerically
         const na = parseInt(a.variation.replace(/\D/g, ''), 10);
         const nb = parseInt(b.variation.replace(/\D/g, ''), 10);
         return na - nb;
@@ -159,10 +174,11 @@ function findImageVariations(basePath) {
     return [];
   }
 
-  // Normalise: strip leading slash, extension, trailing sep+num
+  // Normalise: strip leading slash, extension, trailing sep+num or sep-only
   let key = basePath.replace(/^\/+/, '');
   key = key.replace(/\.(png|jpg|jpeg)$/i, '');
-  key = key.replace(/[+~\-\^=@]\d+$/, '');
+  key = key.replace(/[+~\-\^=@]\d+$/, '');   // strip "+0", "~5", etc.
+  key = key.replace(/[+~\-\^=@]$/, '');      // strip trailing "+" with no number
 
   const frames = _index[key];
   if (frames && frames.length) return frames;
