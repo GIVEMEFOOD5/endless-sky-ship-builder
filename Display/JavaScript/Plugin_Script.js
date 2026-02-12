@@ -182,6 +182,7 @@ function getAvailableTabs(item) {
     if (item.flare || item['flare sprite'])                                                                        tabs.push({ id: 'flare',            label: 'Flare'          });
     if (item.reverseFlare    || item['reverse flare sprite'])                                                      tabs.push({ id: 'reverseFlare',     label: 'Reverse Flare'  });
     if (item.projectile)                                                                                           tabs.push({ id: 'projectile',       label: 'Projectile'     });
+    if (item['afterburner effect'])                                                                                tabs.push({ id: 'afterburnerEffect',       label: 'Afterburner Effect'     });
     return tabs;
 }
 
@@ -298,13 +299,14 @@ async function switchModalTab(tabId) {
     };
 
     const pathMap = {
-        thumbnail:       item.thumbnail,
-        sprite:          item.sprite || item.weapon?.sprite,
-        hardpointSprite: item.weapon?.hardpointSprite || item.weapon?.['hardpoint sprite'] || item['hardpoint sprite'],
-        steeringFlare:   item.steeringFlare || item['steering flare'] || item['steering flare sprite'],
-        flare:           item.flare || item['flare sprite'],
-        reverseFlare:    item.reverseFlare  || item['reverse flare']  || item['reverse flare sprite'],
-        projectile:      item.projectile,
+        thumbnail:        item.thumbnail,
+        sprite:           item.sprite || item.weapon?.sprite,
+        hardpointSprite:  item.weapon?.hardpointSprite || item.weapon?.['hardpoint sprite'] || item['hardpoint sprite'],
+        steeringFlare:    item.steeringFlare || item['steering flare'] || item['steering flare sprite'],
+        flare:            item.flare || item['flare sprite'],
+        reverseFlare:     item.reverseFlare  || item['reverse flare']  || item['reverse flare sprite'],
+        projectile:       item.projectile,
+        afterburnerEffect item['afterburner effect']
     };
 
     const element = await renderImageTab(pathMap[tabId], tabId, spriteParams);
@@ -374,8 +376,8 @@ function renderAttributesTab(item) {
     } else {
         html += '<div class="attribute-grid">';
         const excludeKeys = ['name','description','thumbnail','sprite','hardpointSprite',
-            'hardpoint sprite','steeringFlare','steering flare','flare','reverseFlare',
-            'reverse flare','projectile','weapon','spriteData'];
+            'hardpoint sprite','steeringFlare','steering flare sprite','flare sprite','reverseFlare',
+            'reverse flare sprite','projectile','weapon','spriteData'];
         Object.entries(item).forEach(([key, value]) => {
             if (!excludeKeys.includes(key) && typeof value !== 'object') {
                 html += `<div class="attribute"><div class="attribute-name">${key}</div><div class="attribute-value">${formatValue(value)}</div></div>`;
