@@ -671,7 +671,10 @@ class EndlessSkyParser {
     const line = lines[startIdx].trim();
     
     // Match ship definition: ship "base name" or ship "base name" "variant name"
-    const match = line.match(/^ship\s+["'`]([^"'`]+)["'`](?:\s+["'`]([^"'`]+)["'`])?/);
+    // Handle all quote types - match opening and closing delimiters
+    let match = line.match(/^ship\s+"([^"]+)"(?:\s+"([^"]+)")?/) ||
+                line.match(/^ship\s+`([^`]+)`(?:\s+`([^`]+)`)?/) ||
+                line.match(/^ship\s+'([^']+)'(?:\s+'([^']+)')?/);
     if (!match) return [null, startIdx + 1];
     
     const baseName = match[1];
@@ -859,8 +862,10 @@ class EndlessSkyParser {
   parseOutfit(lines, startIdx) {
     const line = lines[startIdx].trim();
     
-    // Match outfit name (backticks can contain any character, quotes cannot contain quotes)
-    const match = line.match(/^outfit\s+["'`]([^"'`]+)["'`]\s*$/);
+    // Match outfit name - handle all quote types by matching opening and closing delimiters
+    let match = line.match(/^outfit\s+"([^"]+)"\s*$/) ||
+                line.match(/^outfit\s+`([^`]+)`\s*$/) ||
+                line.match(/^outfit\s+'([^']+)'\s*$/);
     if (!match) return [null, startIdx + 1];
     
     const outfitName = match[1];
@@ -899,8 +904,10 @@ class EndlessSkyParser {
   parseExtraEffect(lines, startIdx) {
     const line = lines[startIdx].trim();
     
-    // Match effect name (backticks can contain any character, quotes cannot contain quotes)
-    const match = line.match(/^effect\s+["'`]([^"'`]+)["'`]\s*$/);
+    // Match effect name - handle all quote types by matching opening and closing delimiters
+    let match = line.match(/^effect\s+"([^"]+)"\s*$/) ||
+                line.match(/^effect\s+`([^`]+)`\s*$/) ||
+                line.match(/^effect\s+'([^']+)'\s*$/);
     if (!match) return [null, startIdx + 1];
     
     const effectName = match[1];
@@ -954,22 +961,22 @@ class EndlessSkyParser {
       
       // Only parse ship/outfit definitions at root level (indent 0)
       if (indent === 0) {
-        // Check for ship definition
-        if (trimmed.startsWith('ship "') || trimmed.startsWith('ship `')) {
+        // Check for ship definition (handle all quote types)
+        if (trimmed.startsWith('ship ')) {
           const [shipData, nextI] = this.parseShip(lines, i);
           if (shipData) this.ships.push(shipData);
           i = nextI;
           continue;
         } 
-        // Check for outfit definition
-        else if (trimmed.startsWith('outfit "') || trimmed.startsWith('outfit `')) {
+        // Check for outfit definition (handle all quote types)
+        else if (trimmed.startsWith('outfit ')) {
           const [outfitData, nextI] = this.parseOutfit(lines, i);
           if (outfitData) this.outfits.push(outfitData);
           i = nextI;
           continue;
         }
-        // Check for effects
-        else if (trimmed.startsWith('effect "') || trimmed.startsWith('effect `')) {
+        // Check for effects (handle all quote types)
+        else if (trimmed.startsWith('effect ')) {
           const [effectData, nextI] = this.parseExtraEffect(lines, i);
           if (effectData) this.effects.push(effectData);
           i = nextI;
