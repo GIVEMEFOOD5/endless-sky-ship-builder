@@ -176,7 +176,7 @@ function getAvailableTabs(item) {
     const tabs = [];
     if (item.attributes || Object.keys(item).length > 0)                                                           tabs.push({ id: 'attributes',      label: 'Attributes'      });
     if (item.thumbnail)                                                                                            tabs.push({ id: 'thumbnail',        label: 'Thumbnail'      });
-    if (item.sprite || item.weapon?.sprite || item.weapon?.hardpointsprite || item.weapon?['hardpoint sprite'])    tabs.push({ id: 'sprite',           label: 'Sprite'         });
+    if (item.sprite || item.weapon?.sprite || item.weapon?.hardpointsprite || item.weapon?.['hardpoint sprite'])    tabs.push({ id: 'sprite',           label: 'Sprite'         });
     //if (item.hardpointSprite || item['hardpoint sprite']) tabs.push({ id: 'hardpointSprite',  label: 'Hardpoint' });
     if (item.steeringFlare   || item['steering flare sprite'])                                                     tabs.push({ id: 'steeringFlare',    label: 'Steering Flare' });
     if (item.flare || item['flare sprite'])                                                                        tabs.push({ id: 'flare',            label: 'Flare'          });
