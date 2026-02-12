@@ -174,7 +174,7 @@ function createCard(item) {
 
 function getAvailableTabs(item) {
     const tabs = [];
-    if (item.attributes || Object.keys(item).length > 0)                                                           tabs.push({ id: 'attributes',      label: 'Attributes'      });
+    if (item.attributes || Object.keys(item).length > 0)                                                           tabs.push({ id: 'attributes',       label: 'Attributes'      });
     if (item.thumbnail)                                                                                            tabs.push({ id: 'thumbnail',        label: 'Thumbnail'      });
     if (item.hardpointSprite || item.weapon?.['hardpoint sprite'])                                                 tabs.push({ id: 'hardpointSprite',  label: 'Hardpoint'      });
     if (item.sprite || item.weapon?.sprite)                                                                        tabs.push({ id: 'sprite',           label: 'Sprite'         });
@@ -182,7 +182,7 @@ function getAvailableTabs(item) {
     if (item.flare || item['flare sprite'])                                                                        tabs.push({ id: 'flare',            label: 'Flare'          });
     if (item.reverseFlare    || item['reverse flare sprite'])                                                      tabs.push({ id: 'reverseFlare',     label: 'Reverse Flare'  });
     if (item.projectile)                                                                                           tabs.push({ id: 'projectile',       label: 'Projectile'     });
-    if (item['afterburner effect'])                                                                                tabs.push({ id: 'afterburnerEffect',       label: 'Afterburner Effect'     });
+    if (item['afterburner effect'])                                                                                tabs.push({ id: 'afterburnerEffect',label: 'Afterburner Effect'     });
     return tabs;
 }
 
@@ -299,14 +299,14 @@ async function switchModalTab(tabId) {
     };
 
     const pathMap = {
-        thumbnail:        item.thumbnail,
-        sprite:           item.sprite || item.weapon?.sprite,
-        hardpointSprite:  item.weapon?.hardpointSprite || item.weapon?.['hardpoint sprite'] || item['hardpoint sprite'],
-        steeringFlare:    item.steeringFlare || item['steering flare'] || item['steering flare sprite'],
-        flare:            item.flare || item['flare sprite'],
-        reverseFlare:     item.reverseFlare  || item['reverse flare']  || item['reverse flare sprite'],
-        projectile:       item.projectile,
-        afterburnerEffect item['afterburner effect']
+        thumbnail:         item.thumbnail,
+        sprite:            item.sprite || item.weapon?.sprite,
+        hardpointSprite:   item.weapon?.hardpointSprite || item.weapon?.['hardpoint sprite'] || item['hardpoint sprite'],
+        steeringFlare:     item.steeringFlare || item['steering flare'] || item['steering flare sprite'],
+        flare:             item.flare || item['flare sprite'],
+        reverseFlare:      item.reverseFlare  || item['reverse flare']  || item['reverse flare sprite'],
+        projectile:        item.projectile,
+        afterburnerEffect: item['afterburner effect'],
     };
 
     const element = await renderImageTab(pathMap[tabId], tabId, spriteParams);
