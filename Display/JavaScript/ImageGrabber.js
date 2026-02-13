@@ -294,23 +294,37 @@ async function fetchSprite(spritePath, spriteParams) {
     
     const effect = getEffect(spritePath);
     if (effect && effect.sprite) {
-      console.log('fetchSprite: found effect "' + spritePath + '", using sprite: ' + effect.sprite);
+      console.log('fetchSprite: found effect "' + spritePath + '"');
+      console.log('  → effect.sprite:', effect.sprite);
+      console.log('  → effect.spriteData:', effect.spriteData);
       
       // Try to fetch the effect's sprite instead
       frames = findImageVariations(effect.sprite);
       
       if (frames.length) {
+        console.log('  → found', frames.length, 'frame(s) for effect sprite');
         // Use effect's spriteData if no custom params provided
         if (!spriteParams || Object.keys(spriteParams).length === 0) {
           spriteParams = effect.spriteData || {};
         }
       } else {
-        console.warn('fetchSprite: effect sprite "' + effect.sprite + '" not found in index');
+        console.warn('fetchSprite: effect found but sprite "' + effect.sprite + '" not found in image index');
+        console.warn('  → This usually means the image files are missing or the path is wrong');
         return null;
       }
     } else {
-      console.warn('fetchSprite: "' + spritePath + '" not found in image index or effects.json');
-      return null;
+      // Not in effects.json either - try adding "effect/" prefix as a last resort
+      console.log('fetchSprite: not in effects.json, trying with "effect/" prefix...');
+      const withPrefix = 'effect/' + spritePath;
+      frames = findImageVariations(withPrefix);
+      
+      if (!frames.length) {
+        console.warn('fetchSprite: "' + spritePath + '" not found anywhere');
+        console.warn('  → Tried: image index, effects.json, and "' + withPrefix + '"');
+        return null;
+      } else {
+        console.log('fetchSprite: found as "' + withPrefix + '"');
+      }
     }
   }
 
