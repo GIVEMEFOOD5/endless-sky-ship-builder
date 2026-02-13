@@ -1,20 +1,17 @@
 /**
- * image-fetcher.js
+ * ImageGrabber.js (integrated with effects support)
  *
  * Uses the GitHub API to fetch the full repo file tree once, builds a
- * searchable filename index, then fetches exact URLs — no more guessing
- * extensions or probing 404s.
+ * searchable filename index, then fetches exact URLs.
+ * Now includes built-in effects.json support!
  *
- * NOW WITH BUILT-IN EFFECTS SUPPORT!
- *
- * Requires endless-sky-animator.js to be loaded first.
+ * Requires Animator.js (EndlessSkyAnimator) to be loaded first.
  *
  * Public API
  * ──────────
  *   initImageIndex()
  *     Fetches the repo tree and builds the index. Call once at startup.
  *     Also loads effects.json automatically.
- *     Safe to call multiple times — only fetches once.
  *     → Promise<void>
  *
  *   fetchSprite(spritePath, spriteParams?)
@@ -38,12 +35,11 @@
  *
  *   clearSpriteCache()
  *     Stops the active animator and revokes all object URLs.
- *     Call on every tab change and modal close.
  *     → void
  *
  *   findImageVariations(basePath)
  *     Low-level: returns all matching frame entries from the index.
- *     → Array<{path, url, variation}>  (sync after index is ready)
+ *     → Array<{path, url, variation}>
  */
 
 'use strict';
@@ -55,7 +51,7 @@ const GITHUB_BRANCH      = 'main';
 const IMAGES_REPO_PREFIX = 'data/official-game/images/';  // path inside repo
 const GITHUB_PAGES_BASE  =
   'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/' + IMAGES_REPO_PREFIX;
-const EFFECTS_JSON_URL   = 'data/official-game/dataFiles/effects.json';
+const EFFECTS_JSON_URL   = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/official-game/dataFiles/effects.json';
 
 // Separator chars used in ES animation filenames
 const SEPARATORS = ['+', '~', '-', '^', '=', '@'];
@@ -84,8 +80,6 @@ let _fetchGen  = 0;
 /**
  * Fetch the full repo file tree from the GitHub API and build _index.
  * Also loads effects.json automatically.
- * The GitHub Trees API returns every file path in one request (no auth needed
- * for public repos).
  */
 async function initImageIndex() {
   if (_index)    return;          // already built
@@ -96,6 +90,7 @@ async function initImageIndex() {
     const apiUrl =
       'https://api.github.com/repos/' + GITHUB_REPO +
       '/git/trees/' + GITHUB_BRANCH + '?recursive=1';
+
     let tree;
     try {
       const res = await fetch(apiUrl, {
@@ -105,7 +100,7 @@ async function initImageIndex() {
       const data = await res.json();
       tree = data.tree;
     } catch (err) {
-      console.error('image-fetcher: failed to build index:', err);
+      console.error('ImageGrabber: failed to build index:', err);
       _index    = {};   // empty — fall back to blind-probe mode
       _indexing = null;
       return;
@@ -120,26 +115,20 @@ async function initImageIndex() {
       if (!node.path.startsWith(IMAGES_REPO_PREFIX)) return;
       if (!imgExts.test(node.path)) return;
 
-      // Relative path inside the images folder, without extension
-      // e.g. "ship/penguin/penguin+0"
       const rel      = node.path.slice(IMAGES_REPO_PREFIX.length);
       const noExt    = rel.replace(imgExts, '');
       const pageUrl  = GITHUB_PAGES_BASE + rel;
 
-      // Split off any trailing separator+number OR separator-only to find the base key
-      // "ship/penguin/penguin+0"  → base = "ship/penguin/penguin", variation = "+0"
-      // "ship/penguin/penguin+"   → base = "ship/penguin/penguin", variation = "+"
-      // "ship/penguin/penguin"    → base = "ship/penguin/penguin", variation = "base"
       const sepNumMatch = noExt.match(/^(.*?)([+~\-\^=@])(\d+)$/);
       const sepOnlyMatch = noExt.match(/^(.*?)([+~\-\^=@])$/);
       let baseKey, variation;
 
       if (sepNumMatch) {
         baseKey   = sepNumMatch[1];
-        variation = sepNumMatch[2] + sepNumMatch[3];   // e.g. "+0"
+        variation = sepNumMatch[2] + sepNumMatch[3];
       } else if (sepOnlyMatch) {
         baseKey   = sepOnlyMatch[1];
-        variation = sepOnlyMatch[2];                    // e.g. "+"
+        variation = sepOnlyMatch[2];
       } else {
         baseKey   = noExt;
         variation = 'base';
@@ -149,28 +138,25 @@ async function initImageIndex() {
       _index[baseKey].push({ fullPath: rel, url: pageUrl, variation: variation });
     });
 
-    // Sort each entry's frames into numeric order
-    // Order: 'base' first, then single-char separators (e.g. '+'), then numbered ('+0', '+1', ...)
+    // Sort frames
     Object.keys(_index).forEach(function(key) {
       _index[key].sort(function(a, b) {
         if (a.variation === 'base') return -1;
         if (b.variation === 'base') return  1;
         
-        // Single-char separator (e.g. '+') comes before numbered variants
         const aIsNum = /\d/.test(a.variation);
         const bIsNum = /\d/.test(b.variation);
         if (!aIsNum && bIsNum) return -1;
         if (aIsNum && !bIsNum) return  1;
         if (!aIsNum && !bIsNum) return a.variation.localeCompare(b.variation);
         
-        // Both are numbered — sort numerically
         const na = parseInt(a.variation.replace(/\D/g, ''), 10);
         const nb = parseInt(b.variation.replace(/\D/g, ''), 10);
         return na - nb;
       });
     });
 
-    console.log('image-fetcher: index built —', Object.keys(_index).length, 'sprites');
+    console.log('ImageGrabber: index built —', Object.keys(_index).length, 'sprites');
     _indexing = null;
 
     // Also load effects.json
@@ -188,8 +174,8 @@ async function initImageIndex() {
  * Called automatically by initImageIndex().
  */
 async function loadEffectsData() {
-  if (_effectsData) return;           // already loaded
-  if (_effectsLoading) return _effectsLoading;  // already in progress
+  if (_effectsData) return;
+  if (_effectsLoading) return _effectsLoading;
 
   _effectsLoading = (async function() {
     try {
@@ -206,9 +192,9 @@ async function loadEffectsData() {
         }
       });
       
-      console.log('image-fetcher: loaded', _effectsData.length, 'effects');
+      console.log('ImageGrabber: loaded', _effectsData.length, 'effects');
     } catch (err) {
-      console.warn('image-fetcher: failed to load effects.json:', err);
+      console.warn('ImageGrabber: failed to load effects.json:', err);
       _effectsData = [];
       _effectsMap = {};
     }
@@ -223,13 +209,10 @@ async function loadEffectsData() {
 
 /**
  * Look up an effect by name.
- *
- * @param {string} effectName
- * @returns {Object | null}
  */
 function getEffect(effectName) {
   if (!_effectsMap) {
-    console.warn('image-fetcher: effects not loaded — call initImageIndex() first');
+    console.warn('ImageGrabber: effects not loaded — call initImageIndex() first');
     return null;
   }
   return _effectsMap[effectName] || null;
@@ -240,33 +223,22 @@ function getEffect(effectName) {
 
 /**
  * Look up all frames for basePath in the index.
- * Strips any trailing extension or separator+number from the input so
- * callers can safely pass raw sprite paths from item data.
- *
- * Returns an array of { fullPath, url, variation } — no blobs yet.
- * Returns [] if nothing found.
- *
- * @param {string} basePath  e.g. 'ship/penguin/penguin' or 'effects/fire+0'
- * @returns {Array<{fullPath, url, variation}>}
  */
 function findImageVariations(basePath) {
   if (!_index) {
-    console.warn('image-fetcher: index not ready — call initImageIndex() first');
+    console.warn('ImageGrabber: index not ready — call initImageIndex() first');
     return [];
   }
 
-  // Normalise: strip leading slash, extension, trailing sep+num or sep-only
   let key = basePath.replace(/^\/+/, '');
   key = key.replace(/\.(png|jpg|jpeg)$/i, '');
-  key = key.replace(/[+~\-\^=@]\d+$/, '');   // strip "+0", "~5", etc.
-  key = key.replace(/[+~\-\^=@]$/, '');      // strip trailing "+" with no number
+  key = key.replace(/[+~\-\^=@]\d+$/, '');
+  key = key.replace(/[+~\-\^=@]$/, '');
 
   const frames = _index[key];
   if (frames && frames.length) return frames;
 
-  // Nothing found under the exact key — do a suffix search.
-  // Some paths in the data files omit leading folders.
-  // e.g. item.sprite = "penguin/penguin"  but index key = "ship/penguin/penguin"
+  // Suffix search
   const suffix = '/' + key;
   const matches = Object.keys(_index).filter(function(k) {
     return k === key || k.endsWith(suffix);
@@ -274,7 +246,6 @@ function findImageVariations(basePath) {
 
   if (matches.length === 1) return _index[matches[0]];
   if (matches.length  > 1) {
-    // Prefer the shortest match (least deeply nested)
     matches.sort(function(a, b) { return a.length - b.length; });
     return _index[matches[0]];
   }
@@ -298,10 +269,6 @@ function clearSpriteCache() {
 
 /**
  * Find all frames for spritePath, fetch their blobs, hand to animator.
- *
- * @param {string} spritePath
- * @param {Object} [spriteParams]
- * @returns {Promise<HTMLCanvasElement | HTMLImageElement | null>}
  */
 async function fetchSprite(spritePath, spriteParams) {
   spriteParams = spriteParams || {};
@@ -344,7 +311,7 @@ async function fetchSprite(spritePath, spriteParams) {
     return null;
   }
 
-  // ── Single frame → plain <img> ─────────────────────────────────────────────
+  // Single frame → plain <img>
   if (variations.length === 1) {
     const objectUrl = URL.createObjectURL(variations[0].blob);
     _active = { dispose: function() { URL.revokeObjectURL(objectUrl); } };
@@ -357,7 +324,7 @@ async function fetchSprite(spritePath, spriteParams) {
     return img;
   }
 
-  // ── Multiple frames → EndlessSkyAnimator ──────────────────────────────────
+  // Multiple frames → EndlessSkyAnimator
   if (typeof window.EndlessSkyAnimator !== 'function') {
     console.error('fetchSprite: EndlessSkyAnimator not loaded');
     return null;
@@ -383,14 +350,9 @@ async function fetchSprite(spritePath, spriteParams) {
 
 /**
  * Fetch the sprite for an effect.
- * 
  * First tries to look up the effect by name in effects.json.
  * If found, uses its sprite path and spriteData.
  * If not found, treats the input as a direct sprite path.
- *
- * @param {string} effectNameOrPath - Effect name or direct sprite path
- * @param {Object} [spriteParams] - Optional sprite parameters (overrides effect's spriteData)
- * @returns {Promise<HTMLCanvasElement | HTMLImageElement | null>}
  */
 async function fetchEffectSprite(effectNameOrPath, spriteParams) {
   if (!effectNameOrPath) {
@@ -428,17 +390,7 @@ async function fetchEffectSprite(effectNameOrPath, spriteParams) {
 
 /**
  * Fetch all effect sprites for an outfit.
- * 
- * Checks for:
- * - flare sprite
- * - steering flare sprite
- * - reverse flare sprite
- * - afterburner effect
- *
- * Returns an object with keys for each found effect type.
- *
- * @param {Object} outfit
- * @returns {Promise<Object>}
+ * Checks for: flare sprite, steering flare sprite, reverse flare sprite, afterburner effect
  */
 async function fetchOutfitEffects(outfit) {
   if (!outfit) return {};
