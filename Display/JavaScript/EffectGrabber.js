@@ -32,7 +32,7 @@
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-const EFFECTS_JSON_URL = 'data/official-game/dataFiles/effects.json';
+const EFFECTS_JSON_URL = 'data/official-game/data/official-game/dataFiles/effects.json';
 
 // ─── Module state ─────────────────────────────────────────────────────────────
 
