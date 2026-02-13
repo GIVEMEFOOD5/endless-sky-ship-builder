@@ -5,12 +5,15 @@
  * searchable filename index, then fetches exact URLs — no more guessing
  * extensions or probing 404s.
  *
+ * NOW WITH BUILT-IN EFFECTS SUPPORT!
+ *
  * Requires endless-sky-animator.js to be loaded first.
  *
  * Public API
  * ──────────
  *   initImageIndex()
  *     Fetches the repo tree and builds the index. Call once at startup.
+ *     Also loads effects.json automatically.
  *     Safe to call multiple times — only fetches once.
  *     → Promise<void>
  *
@@ -18,6 +21,20 @@
  *     Looks up all frames for spritePath in the index, fetches their blobs,
  *     passes to EndlessSkyAnimator (or returns a plain <img> for statics).
  *     → Promise<HTMLCanvasElement | HTMLImageElement | null>
+ *
+ *   fetchEffectSprite(effectNameOrPath, spriteParams?)
+ *     Tries to find the effect by name in effects.json, then fetches its sprite.
+ *     If not found, treats the input as a direct sprite path.
+ *     → Promise<HTMLCanvasElement | HTMLImageElement | null>
+ *
+ *   fetchOutfitEffects(outfit)
+ *     Fetches all effect sprites for an outfit (flare sprite, afterburner, etc.)
+ *     Returns an object with keys for each effect type.
+ *     → Promise<Object>
+ *
+ *   getEffect(effectName)
+ *     Looks up an effect by name in the loaded effects data.
+ *     → Object | null
  *
  *   clearSpriteCache()
  *     Stops the active animator and revokes all object URLs.
@@ -38,6 +55,7 @@ const GITHUB_BRANCH      = 'main';
 const IMAGES_REPO_PREFIX = 'data/official-game/images/';  // path inside repo
 const GITHUB_PAGES_BASE  =
   'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/' + IMAGES_REPO_PREFIX;
+const EFFECTS_JSON_URL   = 'data/official-game/dataFiles/effects.json';
 
 // Separator chars used in ES animation filenames
 const SEPARATORS = ['+', '~', '-', '^', '=', '@'];
@@ -47,10 +65,14 @@ const SEP_RE     = new RegExp('[' + SEPARATORS.map(function(s) {
 
 // ─── Module state ─────────────────────────────────────────────────────────────
 
-// Map of  normalised-base-path  →  Array<{fullPath, url, variation}>
-// Built once by initImageIndex().
+// Image index: Map of normalised-base-path → Array<{fullPath, url, variation}>
 let _index     = null;   // null = not yet built
 let _indexing  = null;   // Promise while building, to avoid duplicate fetches
+
+// Effects data
+let _effectsData = null;  // Array of effect objects
+let _effectsMap  = null;  // Map of effect name → effect object
+let _effectsLoading = null;  // Promise while loading
 
 // Active animator / static-image disposable
 let _active    = null;
@@ -61,6 +83,7 @@ let _fetchGen  = 0;
 
 /**
  * Fetch the full repo file tree from the GitHub API and build _index.
+ * Also loads effects.json automatically.
  * The GitHub Trees API returns every file path in one request (no auth needed
  * for public repos).
  */
@@ -69,10 +92,10 @@ async function initImageIndex() {
   if (_indexing) return _indexing; // already in progress
 
   _indexing = (async function() {
+    // Build image index
     const apiUrl =
       'https://api.github.com/repos/' + GITHUB_REPO +
       '/git/trees/' + GITHUB_BRANCH + '?recursive=1';
-
     let tree;
     try {
       const res = await fetch(apiUrl, {
@@ -149,9 +172,67 @@ async function initImageIndex() {
 
     console.log('image-fetcher: index built —', Object.keys(_index).length, 'sprites');
     _indexing = null;
+
+    // Also load effects.json
+    await loadEffectsData();
   })();
 
   return _indexing;
+}
+
+
+// ─── Effects data loader ──────────────────────────────────────────────────────
+
+/**
+ * Load effects.json and build the lookup map.
+ * Called automatically by initImageIndex().
+ */
+async function loadEffectsData() {
+  if (_effectsData) return;           // already loaded
+  if (_effectsLoading) return _effectsLoading;  // already in progress
+
+  _effectsLoading = (async function() {
+    try {
+      const res = await fetch(EFFECTS_JSON_URL);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      
+      _effectsData = await res.json();
+      
+      // Build name → effect map for fast lookup
+      _effectsMap = {};
+      _effectsData.forEach(function(effect) {
+        if (effect.name) {
+          _effectsMap[effect.name] = effect;
+        }
+      });
+      
+      console.log('image-fetcher: loaded', _effectsData.length, 'effects');
+    } catch (err) {
+      console.warn('image-fetcher: failed to load effects.json:', err);
+      _effectsData = [];
+      _effectsMap = {};
+    }
+    _effectsLoading = null;
+  })();
+
+  return _effectsLoading;
+}
+
+
+// ─── getEffect ────────────────────────────────────────────────────────────────
+
+/**
+ * Look up an effect by name.
+ *
+ * @param {string} effectName
+ * @returns {Object | null}
+ */
+function getEffect(effectName) {
+  if (!_effectsMap) {
+    console.warn('image-fetcher: effects not loaded — call initImageIndex() first');
+    return null;
+  }
+  return _effectsMap[effectName] || null;
 }
 
 
@@ -298,8 +379,133 @@ async function fetchSprite(spritePath, spriteParams) {
 }
 
 
+// ─── fetchEffectSprite ────────────────────────────────────────────────────────
+
+/**
+ * Fetch the sprite for an effect.
+ * 
+ * First tries to look up the effect by name in effects.json.
+ * If found, uses its sprite path and spriteData.
+ * If not found, treats the input as a direct sprite path.
+ *
+ * @param {string} effectNameOrPath - Effect name or direct sprite path
+ * @param {Object} [spriteParams] - Optional sprite parameters (overrides effect's spriteData)
+ * @returns {Promise<HTMLCanvasElement | HTMLImageElement | null>}
+ */
+async function fetchEffectSprite(effectNameOrPath, spriteParams) {
+  if (!effectNameOrPath) {
+    console.warn('fetchEffectSprite: no effectNameOrPath provided');
+    return null;
+  }
+
+  // Ensure data is loaded
+  await initImageIndex();
+
+  // Try to find effect by name
+  const effect = getEffect(effectNameOrPath);
+  
+  if (effect) {
+    // Found effect definition - use its sprite and spriteData
+    if (!effect.sprite) {
+      console.warn('fetchEffectSprite: effect "' + effectNameOrPath + '" has no sprite');
+      return null;
+    }
+    
+    // Use provided spriteParams, or fall back to effect's spriteData
+    const params = spriteParams || effect.spriteData || {};
+    
+    console.log('fetchEffectSprite: fetching sprite for effect "' + effect.name + '"');
+    return await fetchSprite(effect.sprite, params);
+  } else {
+    // Not found in effects.json - treat as direct sprite path
+    console.log('fetchEffectSprite: "' + effectNameOrPath + '" not in effects.json, trying as sprite path');
+    return await fetchSprite(effectNameOrPath, spriteParams);
+  }
+}
+
+
+// ─── fetchOutfitEffects ───────────────────────────────────────────────────────
+
+/**
+ * Fetch all effect sprites for an outfit.
+ * 
+ * Checks for:
+ * - flare sprite
+ * - steering flare sprite
+ * - reverse flare sprite
+ * - afterburner effect
+ *
+ * Returns an object with keys for each found effect type.
+ *
+ * @param {Object} outfit
+ * @returns {Promise<Object>}
+ */
+async function fetchOutfitEffects(outfit) {
+  if (!outfit) return {};
+
+  const results = {};
+
+  // Flare sprite
+  if (outfit['flare sprite']) {
+    try {
+      const sprite = await fetchEffectSprite(
+        outfit['flare sprite'],
+        outfit.spriteData
+      );
+      if (sprite) results.flareSprite = sprite;
+    } catch (err) {
+      console.error('fetchOutfitEffects: failed to fetch flare sprite:', err);
+    }
+  }
+
+  // Steering flare sprite
+  if (outfit['steering flare sprite']) {
+    try {
+      const sprite = await fetchEffectSprite(
+        outfit['steering flare sprite'],
+        outfit.spriteData
+      );
+      if (sprite) results.steeringFlareSprite = sprite;
+    } catch (err) {
+      console.error('fetchOutfitEffects: failed to fetch steering flare sprite:', err);
+    }
+  }
+
+  // Reverse flare sprite
+  if (outfit['reverse flare sprite']) {
+    try {
+      const sprite = await fetchEffectSprite(
+        outfit['reverse flare sprite'],
+        outfit.spriteData
+      );
+      if (sprite) results.reverseFlareSprite = sprite;
+    } catch (err) {
+      console.error('fetchOutfitEffects: failed to fetch reverse flare sprite:', err);
+    }
+  }
+
+  // Afterburner effect
+  if (outfit['afterburner effect']) {
+    try {
+      const sprite = await fetchEffectSprite(
+        outfit['afterburner effect']
+      );
+      if (sprite) results.afterburnerEffect = sprite;
+    } catch (err) {
+      console.error('fetchOutfitEffects: failed to fetch afterburner effect:', err);
+    }
+  }
+
+  return results;
+}
+
+
 // ─── Globals ──────────────────────────────────────────────────────────────────
+
 window.initImageIndex      = initImageIndex;
 window.findImageVariations = findImageVariations;
 window.fetchSprite         = fetchSprite;
+window.fetchEffectSprite   = fetchEffectSprite;
+window.fetchOutfitEffects  = fetchOutfitEffects;
+window.getEffect           = getEffect;
 window.clearSpriteCache    = clearSpriteCache;
