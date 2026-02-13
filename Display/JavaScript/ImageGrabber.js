@@ -230,6 +230,12 @@ function findImageVariations(basePath) {
     return [];
   }
 
+  console.log(`finding ${basePath}`)
+
+  if (!basePath.Includes('/')){
+    return [];
+  }
+  
   let key = basePath.replace(/^\/+/, '');
   key = key.replace(/\.(png|jpg|jpeg)$/i, '');
   key = key.replace(/[+~\-\^=@]\d+$/, '');
