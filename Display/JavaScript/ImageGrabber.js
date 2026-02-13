@@ -286,11 +286,32 @@ async function fetchSprite(spritePath, spriteParams) {
   if (_fetchGen !== myGen) return null;
 
   // Look up frames in index
-  const frames = findImageVariations(spritePath);
+  let frames = findImageVariations(spritePath);
 
   if (!frames.length) {
-    console.warn('fetchSprite: "' + spritePath + '" not found in index');
-    return null;
+    // Not found in image index - try effects.json
+    console.log('fetchSprite: "' + spritePath + '" not found in image index, checking effects.json...');
+    
+    const effect = getEffect(spritePath);
+    if (effect && effect.sprite) {
+      console.log('fetchSprite: found effect "' + spritePath + '", using sprite: ' + effect.sprite);
+      
+      // Try to fetch the effect's sprite instead
+      frames = findImageVariations(effect.sprite);
+      
+      if (frames.length) {
+        // Use effect's spriteData if no custom params provided
+        if (!spriteParams || Object.keys(spriteParams).length === 0) {
+          spriteParams = effect.spriteData || {};
+        }
+      } else {
+        console.warn('fetchSprite: effect sprite "' + effect.sprite + '" not found in index');
+        return null;
+      }
+    } else {
+      console.warn('fetchSprite: "' + spritePath + '" not found in image index or effects.json');
+      return null;
+    }
   }
 
   // Fetch all blobs in parallel
@@ -350,9 +371,8 @@ async function fetchSprite(spritePath, spriteParams) {
 
 /**
  * Fetch the sprite for an effect.
- * First tries to look up the effect by name in effects.json.
- * If found, uses its sprite path and spriteData.
- * If not found, treats the input as a direct sprite path.
+ * This is now just a wrapper around fetchSprite since it auto-checks effects.json.
+ * Kept for backward compatibility and explicit effect fetching.
  */
 async function fetchEffectSprite(effectNameOrPath, spriteParams) {
   if (!effectNameOrPath) {
@@ -363,26 +383,8 @@ async function fetchEffectSprite(effectNameOrPath, spriteParams) {
   // Ensure data is loaded
   await initImageIndex();
 
-  // Try to find effect by name
-  const effect = getEffect(effectNameOrPath);
-  
-  if (effect) {
-    // Found effect definition - use its sprite and spriteData
-    if (!effect.sprite) {
-      console.warn('fetchEffectSprite: effect "' + effectNameOrPath + '" has no sprite');
-      return null;
-    }
-    
-    // Use provided spriteParams, or fall back to effect's spriteData
-    const params = spriteParams || effect.spriteData || {};
-    
-    console.log('fetchEffectSprite: fetching sprite for effect "' + effect.name + '"');
-    return await fetchSprite(effect.sprite, params);
-  } else {
-    // Not found in effects.json - treat as direct sprite path
-    console.log('fetchEffectSprite: "' + effectNameOrPath + '" not in effects.json, trying as sprite path');
-    return await fetchSprite(effectNameOrPath, spriteParams);
-  }
+  // fetchSprite now automatically checks effects.json if not found in image index
+  return await fetchSprite(effectNameOrPath, spriteParams);
 }
 
 
