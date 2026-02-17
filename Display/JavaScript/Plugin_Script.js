@@ -17,7 +17,6 @@ async function loadData() {
     errorContainer.innerHTML = '';
     mainContent.style.display = 'none';
 
-    // Kick off the image index build in the background immediately
     if (typeof initImageIndex === 'function') initImageIndex();
 
     try {
@@ -174,15 +173,15 @@ function createCard(item) {
 
 function getAvailableTabs(item) {
     const tabs = [];
-    if (item.attributes || Object.keys(item).length > 0)                                                           tabs.push({ id: 'attributes',       label: 'Attributes'      });
-    if (item.thumbnail)                                                                                            tabs.push({ id: 'thumbnail',        label: 'Thumbnail'      });
-    if (item.hardpointSprite || item.weapon?.['hardpoint sprite'])                                                 tabs.push({ id: 'hardpointSprite',  label: 'Hardpoint'      });
-    if (item.sprite || item.weapon?.sprite)                                                                        tabs.push({ id: 'sprite',           label: 'Sprite'         });
-    if (item.steeringFlare   || item['steering flare sprite'])                                                     tabs.push({ id: 'steeringFlare',    label: 'Steering Flare' });
-    if (item.flare || item['flare sprite'])                                                                        tabs.push({ id: 'flare',            label: 'Flare'          });
-    if (item.reverseFlare    || item['reverse flare sprite'])                                                      tabs.push({ id: 'reverseFlare',     label: 'Reverse Flare'  });
-    if (item.projectile)                                                                                           tabs.push({ id: 'projectile',       label: 'Projectile'     });
-    if (item['afterburner effect'])                                                                                tabs.push({ id: 'afterburnerEffect',label: 'Afterburner Effect'     });
+    if (item.attributes || Object.keys(item).length > 0)      tabs.push({ id: 'attributes',       label: 'Attributes'         });
+    if (item.thumbnail)                                        tabs.push({ id: 'thumbnail',        label: 'Thumbnail'          });
+    if (item.weapon?.['hardpoint sprite'])                     tabs.push({ id: 'hardpointSprite',  label: 'Hardpoint'          });
+    if (item.sprite || item.weapon?.sprite)                    tabs.push({ id: 'sprite',           label: 'Sprite'             });
+    if (item['steering flare sprite'])                         tabs.push({ id: 'steeringFlare',    label: 'Steering Flare'     });
+    if (item['flare sprite'])                                  tabs.push({ id: 'flare',            label: 'Flare'              });
+    if (item['reverse flare sprite'])                          tabs.push({ id: 'reverseFlare',     label: 'Reverse Flare'      });
+    if (item.projectile)                                       tabs.push({ id: 'projectile',       label: 'Projectile'         });
+    if (item['afterburner effect'])                            tabs.push({ id: 'afterburnerEffect',label: 'Afterburner Effect'  });
     return tabs;
 }
 
@@ -191,7 +190,6 @@ async function showDetails(item) {
     const modalTitle = document.getElementById('modalTitle');
     const modalBody  = document.getElementById('modalBody');
 
-    // Clear any previous animator first
     if (typeof clearSpriteCache === 'function') clearSpriteCache();
 
     modalTitle.textContent = item.name || 'Unknown';
@@ -199,13 +197,9 @@ async function showDetails(item) {
     const availableTabs = getAvailableTabs(item);
     currentModalTab = availableTabs.length > 0 ? availableTabs[0].id : 'attributes';
 
-    // ── Build modal shell with empty tab panes (no content yet) ──────────────
-    // Content is loaded by switchModalTab — never by innerHTML string injection,
-    // because renderImageTab returns DOM elements not strings.
     modalBody.innerHTML = '';
 
     if (availableTabs.length > 0) {
-        // Tab buttons
         const tabBar = document.createElement('div');
         tabBar.className = 'modal-tabs';
         availableTabs.forEach(tab => {
@@ -218,7 +212,6 @@ async function showDetails(item) {
         });
         modalBody.appendChild(tabBar);
 
-        // Empty tab panes
         const tabContents = document.createElement('div');
         tabContents.className = 'modal-tab-contents';
         availableTabs.forEach(tab => {
@@ -231,7 +224,6 @@ async function showDetails(item) {
         modalBody.appendChild(tabContents);
     }
 
-    // Description at the bottom
     if (item.description) {
         const desc = document.createElement('div');
         desc.innerHTML = `
@@ -241,12 +233,9 @@ async function showDetails(item) {
         modalBody.appendChild(desc);
     }
 
-    // Store item for switchModalTab
     modalBody.dataset.itemJson = JSON.stringify(item);
-
     modal.classList.add('active');
 
-    // Load the first tab's content
     await switchModalTab(currentModalTab);
 }
 
@@ -255,10 +244,8 @@ async function showDetails(item) {
 async function switchModalTab(tabId) {
     currentModalTab = tabId;
 
-    // MUST be first — stops running animator, cancels any in-flight fetch
     if (typeof clearSpriteCache === 'function') clearSpriteCache();
 
-    // Update tab button states
     document.querySelectorAll('.modal-tab').forEach(tab => {
         tab.classList.toggle('active', tab.dataset.tab === tabId);
     });
@@ -266,7 +253,6 @@ async function switchModalTab(tabId) {
     const modalBody = document.getElementById('modalBody');
     const item      = JSON.parse(modalBody.dataset.itemJson);
 
-    // Wipe ALL panes — drops old canvas/img from DOM, forces fresh reload
     document.querySelectorAll('.modal-tab-content').forEach(content => {
         content.style.display = 'none';
         content.innerHTML     = '';
@@ -277,41 +263,34 @@ async function switchModalTab(tabId) {
 
     tabContent.style.display = 'block';
 
-    // Attributes: plain HTML, no image loading
     if (tabId === 'attributes') {
         tabContent.innerHTML = renderAttributesTab(item);
         return;
     }
 
-    // Image tabs: show placeholder while fetching
     tabContent.innerHTML = '<p style="color:#94a3b8;text-align:center;">Loading…</p>';
 
-    const sd = item.spriteData || {};
-    const spriteParams = {
-        frameRate:   sd.frameRate   || null,
-        frameTime:   sd.frameTime   || null,
-        delay:       sd.delay       || 0,
-        startFrame:  sd.startFrame  || 0,
-        randomStart: sd.randomStart || false,
-        noRepeat:    sd.noRepeat    || false,
-        rewind:      sd.rewind      || false,
-        scale:       sd.scale       || 1.0,
-    };
+    // ── spriteParams ───────────────────────────────────────────────────────────
+    // Pass spriteData as-is from the JSON — keys use "frame rate" (with spaces),
+    // NOT camelCase. afterburnerEffect gets its params from effects.json via
+    // ImageGrabber, so we pass an empty object for that tab.
+    const spriteParams = tabId === 'afterburnerEffect' ? {} : (item.spriteData || {});
 
+    // ── pathMap ────────────────────────────────────────────────────────────────
+    // Use the exact property names from the JSON — no aliases needed.
     const pathMap = {
         thumbnail:         item.thumbnail,
-        sprite:            item.sprite || item.weapon?.sprite,
-        hardpointSprite:   item.weapon?.hardpointSprite || item.weapon?.['hardpoint sprite'] || item['hardpoint sprite'],
-        steeringFlare:     item.steeringFlare || item['steering flare'] || item['steering flare sprite'],
-        flare:             item.flare || item['flare sprite'],
-        reverseFlare:      item.reverseFlare  || item['reverse flare']  || item['reverse flare sprite'],
+        sprite:            item.sprite       || item.weapon?.sprite,
+        hardpointSprite:   item.weapon?.['hardpoint sprite'],
+        steeringFlare:     item['steering flare sprite'],
+        flare:             item['flare sprite'],
+        reverseFlare:      item['reverse flare sprite'],
         projectile:        item.projectile,
         afterburnerEffect: item['afterburner effect'],
     };
 
     const element = await renderImageTab(pathMap[tabId], tabId, spriteParams);
 
-    // User may have switched tabs while we were awaiting — don't touch DOM
     if (currentModalTab !== tabId) return;
 
     tabContent.innerHTML = '';
@@ -376,8 +355,8 @@ function renderAttributesTab(item) {
     } else {
         html += '<div class="attribute-grid">';
         const excludeKeys = ['name','description','thumbnail','sprite','hardpointSprite',
-            'hardpoint sprite','steeringFlare','steering flare sprite','flare sprite','reverseFlare',
-            'reverse flare sprite','projectile','weapon','spriteData'];
+            'hardpoint sprite','steering flare sprite','flare sprite','reverse flare sprite',
+            'afterburner effect','projectile','weapon','spriteData'];
         Object.entries(item).forEach(([key, value]) => {
             if (!excludeKeys.includes(key) && typeof value !== 'object') {
                 html += `<div class="attribute"><div class="attribute-name">${key}</div><div class="attribute-value">${formatValue(value)}</div></div>`;
@@ -431,20 +410,17 @@ function clearData() {
     currentPlugin = null;
 }
 
-// ─── DOM-dependent setup — runs AFTER the page is fully parsed ────────────────
+// ─── DOM-dependent setup ──────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Close modal on backdrop click
     document.getElementById('detailModal').addEventListener('click', function (e) {
         if (e.target.id === 'detailModal') closeModal();
     });
 
-    // Close modal on Escape key
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeModal();
     });
 
-    // Auto-load data on page ready
     loadData();
 });
 
