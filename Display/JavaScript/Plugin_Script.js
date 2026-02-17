@@ -289,7 +289,7 @@ async function switchModalTab(tabId) {
         afterburnerEffect: item['afterburner effect'],
     };
 
-    console.log("afterburner effect " + pathMap);
+    console.log("afterburner effect " + item);
 
     const element = await renderImageTab(pathMap[tabId], tabId, spriteParams);
 
