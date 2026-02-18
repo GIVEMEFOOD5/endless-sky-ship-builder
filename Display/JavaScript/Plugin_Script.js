@@ -171,17 +171,28 @@ function createCard(item) {
 
 // ─── Modal ────────────────────────────────────────────────────────────────────
 
+// Helper: returns true only if value is a non-empty string
+function hasString(val) {
+    return typeof val === 'string' && val.trim().length > 0;
+}
+
 function getAvailableTabs(item) {
     const tabs = [];
-    if (item.attributes || Object.keys(item).length > 0)      tabs.push({ id: 'attributes',       label: 'Attributes'         });
-    if (item.thumbnail)                                        tabs.push({ id: 'thumbnail',        label: 'Thumbnail'          });
-    if (item.weapon?.['hardpoint sprite'])                     tabs.push({ id: 'hardpointSprite',  label: 'Hardpoint'          });
-    if (item.sprite || item.weapon?.sprite)                    tabs.push({ id: 'sprite',           label: 'Sprite'             });
-    if (item['steering flare sprite'])                         tabs.push({ id: 'steeringFlare',    label: 'Steering Flare'     });
-    if (item['flare sprite'])                                  tabs.push({ id: 'flare',            label: 'Flare'              });
-    if (item['reverse flare sprite'])                          tabs.push({ id: 'reverseFlare',     label: 'Reverse Flare'      });
-    if (item.projectile)                                       tabs.push({ id: 'projectile',       label: 'Projectile'         });
-    if (item['afterburner effect'])                            tabs.push({ id: 'afterburnerEffect',label: 'Afterburner Effect'  });
+
+    // Attributes always shown
+    tabs.push({ id: 'attributes', label: 'Attributes' });
+
+    // Image tabs — only added when the property is a non-empty string
+    if (hasString(item.thumbnail))                          tabs.push({ id: 'thumbnail',         label: 'Thumbnail'          });
+    if (hasString(item.weapon?.['hardpoint sprite']))       tabs.push({ id: 'hardpointSprite',   label: 'Hardpoint'          });
+    if (hasString(item.sprite) || 
+        hasString(item.weapon?.sprite))                     tabs.push({ id: 'sprite',            label: 'Sprite'             });
+    if (hasString(item['steering flare sprite']))           tabs.push({ id: 'steeringFlare',     label: 'Steering Flare'     });
+    if (hasString(item['flare sprite']))                    tabs.push({ id: 'flare',             label: 'Flare'              });
+    if (hasString(item['reverse flare sprite']))            tabs.push({ id: 'reverseFlare',      label: 'Reverse Flare'      });
+    if (hasString(item.projectile))                         tabs.push({ id: 'projectile',        label: 'Projectile'         });
+    if (hasString(item['afterburner effect']))              tabs.push({ id: 'afterburnerEffect', label: 'Afterburner Effect'  });
+
     return tabs;
 }
 
@@ -244,8 +255,6 @@ async function showDetails(item) {
 async function switchModalTab(tabId) {
     currentModalTab = tabId;
 
-    if (typeof clearSpriteCache === 'function') clearSpriteCache();
-
     document.querySelectorAll('.modal-tab').forEach(tab => {
         tab.classList.toggle('active', tab.dataset.tab === tabId);
     });
@@ -253,10 +262,12 @@ async function switchModalTab(tabId) {
     const modalBody = document.getElementById('modalBody');
     const item      = JSON.parse(modalBody.dataset.itemJson);
 
+    // Clear DOM first, then stop animator — order matters
     document.querySelectorAll('.modal-tab-content').forEach(content => {
         content.style.display = 'none';
         content.innerHTML     = '';
     });
+    if (typeof clearSpriteCache === 'function') clearSpriteCache();
 
     const tabContent = document.querySelector(`.modal-tab-content[data-tab="${tabId}"]`);
     if (!tabContent) return;
@@ -270,17 +281,11 @@ async function switchModalTab(tabId) {
 
     tabContent.innerHTML = '<p style="color:#94a3b8;text-align:center;">Loading…</p>';
 
-    // ── spriteParams ───────────────────────────────────────────────────────────
-    // Pass spriteData as-is from the JSON — keys use "frame rate" (with spaces),
-    // NOT camelCase. afterburnerEffect gets its params from effects.json via
-    // ImageGrabber, so we pass an empty object for that tab.
-    const spriteParams = tabId === 'afterburnerEffect' ? {} : (item.spriteData || {});
+    const spriteParams = item.spriteData || {};
 
-    // ── pathMap ────────────────────────────────────────────────────────────────
-    // Use the exact property names from the JSON — no aliases needed.
     const pathMap = {
         thumbnail:         item.thumbnail,
-        sprite:            item.sprite       || item.weapon?.sprite,
+        sprite:            item.sprite || item.weapon?.sprite,
         hardpointSprite:   item.weapon?.['hardpoint sprite'],
         steeringFlare:     item['steering flare sprite'],
         flare:             item['flare sprite'],
@@ -289,8 +294,8 @@ async function switchModalTab(tabId) {
         afterburnerEffect: item['afterburner effect'],
     };
 
-    console.log("afterburner effect " + item);
-
+    // fetchSprite now automatically checks EffectGrabber for effect names first,
+    // so we can use renderImageTab for everything including afterburner effects.
     const element = await renderImageTab(pathMap[tabId], tabId, spriteParams);
 
     if (currentModalTab !== tabId) return;
