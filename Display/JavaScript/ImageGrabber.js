@@ -51,7 +51,7 @@ const GITHUB_BRANCH      = 'main';
 const IMAGES_REPO_PREFIX = 'data/official-game/images/';  // path inside repo
 const GITHUB_PAGES_BASE  =
   'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/' + IMAGES_REPO_PREFIX;
-const EFFECTS_JSON_URL   = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/official-game/dataFiles/effects.json';
+
 
 // Separator chars used in ES animation filenames
 const SEPARATORS = ['+', '~', '-', '^', '=', '@'];
@@ -65,10 +65,7 @@ const SEP_RE     = new RegExp('[' + SEPARATORS.map(function(s) {
 let _index     = null;   // null = not yet built
 let _indexing  = null;   // Promise while building, to avoid duplicate fetches
 
-// Effects data
-let _effectsData    = null;  // Array of effect objects
-let _effectsMap     = null;  // Map of effect name → effect object
-let _effectsLoading = null;  // Promise while loading
+// Effects are now handled by EffectGrabber.js
 
 // Active animator / static-image disposable
 let _active   = null;
@@ -152,9 +149,6 @@ async function initImageIndex() {
 
     console.log('ImageGrabber: index built —', Object.keys(_index).length, 'sprites');
     _indexing = null;
-
-    // Load effects.json in parallel
-    await loadEffectsData();
   })();
 
   return _indexing;
@@ -436,7 +430,4 @@ async function fetchOutfitEffects(outfit) {
 window.initImageIndex      = initImageIndex;
 window.findImageVariations = findImageVariations;
 window.fetchSprite         = fetchSprite;
-window.fetchEffectSprite   = fetchEffectSprite;
-window.fetchOutfitEffects  = fetchOutfitEffects;
-window.getEffect           = getEffect;
 window.clearSpriteCache    = clearSpriteCache;
