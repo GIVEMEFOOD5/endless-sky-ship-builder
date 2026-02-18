@@ -49,6 +49,53 @@ async function sparseCloneImages(owner, repo, branch, targetDir) {
 }
 
 /**
+ * Detect all valid plugin data folders in a repository tree.
+ * A valid plugin:
+ *   - Contains a directory named "data"
+ *   - That directory contains at least one .txt file
+ *
+ * Works regardless of nesting depth.
+ */
+detectPluginRoots(tree, repoName) {
+  const dataFolders = new Map(); // dataPath -> pluginName
+
+  // First pass: find all directories named "data"
+  const dataDirs = tree.tree.filter(
+    item => item.type === 'tree' && path.basename(item.path) === 'data'
+  );
+
+  for (const dir of dataDirs) {
+    const dataPath = dir.path;
+
+    // Check if it contains at least one .txt file
+    const hasTxt = tree.tree.some(file =>
+      file.type === 'blob' &&
+      file.path.startsWith(dataPath + '/') &&
+      file.path.endsWith('.txt')
+    );
+
+    if (!hasTxt) continue; // Ignore empty or irrelevant data folders
+
+    const parentDir = path.dirname(dataPath);
+
+    let pluginName;
+
+    if (parentDir === '.' || parentDir === '') {
+      pluginName = repoName;
+    } else {
+      pluginName = path.basename(parentDir);
+    }
+
+    dataFolders.set(dataPath, pluginName);
+  }
+
+  return Array.from(dataFolders.entries()).map(([dataPath, name]) => ({
+    name,
+    dataPrefix: dataPath + '/'
+  }));
+}
+
+/**
  * Main parser class for Endless Sky data files
  * Handles parsing of ships, variants, and outfits from game data files
  */
@@ -994,138 +1041,180 @@ class EndlessSkyParser {
    * @param {string} repoUrl - GitHub repository URL
    * @returns {Promise<Object>} - Object containing ships, variants, and outfits
    */
-  async parseRepository(repoUrl) {
-    // Reset all data arrays
+async parseRepository(repoUrl) {
+  const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+  if (!match) throw new Error('Invalid GitHub URL: ' + repoUrl);
+
+  const owner = match[1];
+  const repo = match[2].replace('.git', '');
+
+  let branch = 'master';
+  const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
+  if (branchMatch) branch = branchMatch[1];
+
+  console.log(`Scanning repository: ${owner}/${repo}`);
+
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
+  const treeData = JSON.parse(await this.fetchUrl(apiUrl));
+
+  if (!treeData.tree) {
+    throw new Error('Invalid tree data from GitHub API');
+  }
+
+  const detectedPlugins = this.detectPluginRoots(treeData, repo);
+
+  if (detectedPlugins.length === 0) {
+    console.log('No valid plugin data folders detected.');
+    return [];
+  }
+
+  console.log(`Detected ${detectedPlugins.length} plugin(s)`);
+
+  const results = [];
+
+  for (const plugin of detectedPlugins) {
+    console.log(`\nProcessing plugin: ${plugin.name}`);
+
+    // Reset state per plugin
     this.ships = [];
     this.variants = [];
     this.outfits = [];
     this.effects = [];
     this.pendingVariants = [];
-    
-    // Extract owner and repo from URL
-    const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-    if (!match) throw new Error('Invalid GitHub URL: ' + repoUrl);
-    
-    const owner = match[1];
-    const repo = match[2].replace('.git', '');
-    
-    // Extract branch if specified
-    let branch = 'master';
-    const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
-    if (branchMatch) branch = branchMatch[1];
-    
-    console.log(`Parsing repository: ${owner}/${repo} (branch: ${branch})`);
-    
-    // Fetch and parse all data files
-    const files = await this.fetchGitHubRepo(owner, repo, branch);
-    console.log(`Parsing ${files.length} files...`);
-    
-    for (const file of files) {
-      this.parseFileContent(file.content);
+
+    const pluginFiles = treeData.tree.filter(file =>
+      file.type === 'blob' &&
+      file.path.startsWith(plugin.dataPrefix) &&
+      file.path.endsWith('.txt')
+    );
+
+    for (const file of pluginFiles) {
+      const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${file.path}`;
+      const content = await this.fetchUrl(rawUrl);
+      this.parseFileContent(content);
     }
-    
-    // Process variants after all base ships are parsed
+
     this.processVariants();
-    
-    console.log(`Found ${this.ships.length} ships, ${this.variants.length} variants, and ${this.outfits.length} outfits`);
-    
-    return {
+
+    results.push({
+      name: plugin.name,
+      repository: repoUrl,
       ships: this.ships,
       variants: this.variants,
       outfits: this.outfits,
-      effects: this.effects
-    };
+      effects: this.effects,
+      owner,
+      repo,
+      branch
+    });
   }
 
-  /**
-   * Downloads images from the repository
-   * Uses sparse checkout for efficiency and filters to only needed images
-   * @param {string} owner - GitHub repository owner
-   * @param {string} repo - GitHub repository name
-   * @param {string} branch - Git branch
-   * @param {string} pluginDir - Local plugin directory
-   */
-  async downloadImages(owner, repo, branch, pluginDir) {
-    console.log('\nDownloading images (via sparse checkout)...');
+  return results;
+}
 
-    const tempRepoDir = path.join(pluginDir, '.tmp-images-repo');
-    const imageDir = path.join(pluginDir, 'images');
-    await fs.mkdir(imageDir, { recursive: true });
 
+/**
+ * Downloads images for a specific detected plugin.
+ * Assumes images folder is next to the data folder.
+ *
+ * @param {string} owner
+ * @param {string} repo
+ * @param {string} branch
+ * @param {string} pluginDir - Local output directory
+ * @param {string} pluginDataPrefix - e.g. "myplugins/pluginA/data/"
+ */
+async downloadImages(owner, repo, branch, pluginDir, pluginDataPrefix) {
+  console.log('\nDownloading images (plugin-relative sparse checkout)...');
+
+  const tempRepoDir = path.join(pluginDir, '.tmp-images-repo');
+  const imageOutputDir = path.join(pluginDir, 'images');
+
+  await fs.mkdir(imageOutputDir, { recursive: true });
+
+  try {
+    // Determine plugin root (folder above data/)
+    const pluginRoot = path.dirname(pluginDataPrefix.replace(/\/$/, ''));
+
+    console.log(`Plugin root: ${pluginRoot}`);
+
+    // Clean temp
+    await fs.rm(tempRepoDir, { recursive: true, force: true });
+
+    const repoUrl = `https://github.com/${owner}/${repo}.git`;
+
+    // Sparse clone only plugin root
+    await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoUrl} "${tempRepoDir}"`);
+    await exec(`git -C "${tempRepoDir}" sparse-checkout init --cone`);
+    await exec(`git -C "${tempRepoDir}" sparse-checkout set "${pluginRoot}"`);
+    await exec(`git -C "${tempRepoDir}" checkout ${branch}`);
+
+    const sourceImagesDir = path.join(tempRepoDir, pluginRoot, 'images');
+
+    // Verify images folder exists
     try {
-      // Sparse clone images directory
-      await sparseCloneImages(owner, repo, branch, tempRepoDir);
-      const sourceImagesDir = path.join(tempRepoDir, 'images');
-
-      // Check if images directory exists
-      try {
-        await fs.access(sourceImagesDir);
-      } catch (error) {
-        console.log('No images directory found in repository');
-        return;
-      }
-
-      // Collect all image paths from parsed objects
-      const imagePaths = new Set();
-      const addImagePath = (pathStr) => {
-        if (pathStr) {
-          // Remove last component (frame number) to get base path
-          const basePath = pathStr.replace(/\/[^/]*$(?=.*\/)/, '');
-          imagePaths.add(basePath);
-        }
-      };
-
-      // Extract paths from ships, variants, and outfits
-      for (const ship of this.ships) {
-        addImagePath(ship.sprite);
-        addImagePath(ship.thumbnail);
-      }
-
-      for (const variant of this.variants) {
-        addImagePath(variant.sprite);
-        addImagePath(variant.thumbnail);
-      }
-
-      for (const outfit of this.outfits) {
-        addImagePath(outfit.sprite);
-        addImagePath(outfit.thumbnail);
-        addImagePath(outfit['flare sprite']);
-        addImagePath(outfit['steering flare sprite']);
-        addImagePath(outfit['reverse flare sprite']);
-        
-        if (outfit.weapon) {
-          addImagePath(outfit.weapon['hardpoint sprite']);
-          addImagePath(outfit.weapon.sprite);
-        }
-      }
-
-      for (const effect of this.effects) {
-        addImagePath(effect.sprite);
-      }
-
-      console.log(`Found ${imagePaths.size} unique image paths to process`);
-
-      // Copy matching images
-      for (const imagePath of imagePaths) {
-        await this.copyMatchingImages(sourceImagesDir, imageDir, imagePath);
-      }
-
-      console.log(`✓ Successfully copied images to ${imageDir}`);
-
-      // Clean up temporary repo
-      await fs.rm(tempRepoDir, { recursive: true, force: true });
-      console.log(`✓ Cleaned up temporary repository`);
-
-    } catch (error) {
-      console.error(`Error downloading images: ${error.message}`);
-      try {
-        await fs.rm(tempRepoDir, { recursive: true, force: true });
-      } catch (cleanupError) {
-        // Ignore cleanup errors
-      }
-      throw error;
+      await fs.access(sourceImagesDir);
+    } catch {
+      console.log('No images folder found next to data folder.');
+      return;
     }
+
+    // Collect image paths from parsed data
+    const imagePaths = new Set();
+
+    const addImagePath = (pathStr) => {
+      if (!pathStr) return;
+      const basePath = pathStr.replace(/\/[^/]*$(?=.*\/)/, '');
+      imagePaths.add(basePath);
+    };
+
+    for (const ship of this.ships) {
+      addImagePath(ship.sprite);
+      addImagePath(ship.thumbnail);
+    }
+
+    for (const variant of this.variants) {
+      addImagePath(variant.sprite);
+      addImagePath(variant.thumbnail);
+    }
+
+    for (const outfit of this.outfits) {
+      addImagePath(outfit.sprite);
+      addImagePath(outfit.thumbnail);
+      addImagePath(outfit['flare sprite']);
+      addImagePath(outfit['steering flare sprite']);
+      addImagePath(outfit['reverse flare sprite']);
+
+      if (outfit.weapon) {
+        addImagePath(outfit.weapon['hardpoint sprite']);
+        addImagePath(outfit.weapon.sprite);
+      }
+    }
+
+    for (const effect of this.effects) {
+      addImagePath(effect.sprite);
+    }
+
+    console.log(`Found ${imagePaths.size} unique image paths`);
+
+    // Copy matching files
+    for (const imagePath of imagePaths) {
+      await this.copyMatchingImages(
+        sourceImagesDir,
+        imageOutputDir,
+        imagePath
+      );
+    }
+
+    // Cleanup
+    await fs.rm(tempRepoDir, { recursive: true, force: true });
+    console.log('✓ Images downloaded successfully');
+
+  } catch (error) {
+    console.error(`Image download error: ${error.message}`);
+    await fs.rm(tempRepoDir, { recursive: true, force: true });
+    throw error;
   }
+}
 
   /**
    * Copies all matching image files for a given base path
