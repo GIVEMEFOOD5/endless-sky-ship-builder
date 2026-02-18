@@ -49,53 +49,6 @@ async function sparseCloneImages(owner, repo, branch, targetDir) {
 }
 
 /**
- * Detect all valid plugin data folders in a repository tree.
- * A valid plugin:
- *   - Contains a directory named "data"
- *   - That directory contains at least one .txt file
- *
- * Works regardless of nesting depth.
- */
-detectPluginRoots(tree, repoName) {
-  const dataFolders = new Map(); // dataPath -> pluginName
-
-  // First pass: find all directories named "data"
-  const dataDirs = tree.tree.filter(
-    item => item.type === 'tree' && path.basename(item.path) === 'data'
-  );
-
-  for (const dir of dataDirs) {
-    const dataPath = dir.path;
-
-    // Check if it contains at least one .txt file
-    const hasTxt = tree.tree.some(file =>
-      file.type === 'blob' &&
-      file.path.startsWith(dataPath + '/') &&
-      file.path.endsWith('.txt')
-    );
-
-    if (!hasTxt) continue; // Ignore empty or irrelevant data folders
-
-    const parentDir = path.dirname(dataPath);
-
-    let pluginName;
-
-    if (parentDir === '.' || parentDir === '') {
-      pluginName = repoName;
-    } else {
-      pluginName = path.basename(parentDir);
-    }
-
-    dataFolders.set(dataPath, pluginName);
-  }
-
-  return Array.from(dataFolders.entries()).map(([dataPath, name]) => ({
-    name,
-    dataPrefix: dataPath + '/'
-  }));
-}
-
-/**
  * Main parser class for Endless Sky data files
  * Handles parsing of ships, variants, and outfits from game data files
  */
@@ -191,6 +144,53 @@ class EndlessSkyParser {
     }
   }
 
+/**
+ * Detect all valid plugin data folders in a repository tree.
+ * A valid plugin:
+ *   - Contains a directory named "data"
+ *   - That directory contains at least one .txt file
+ *
+ * Works regardless of nesting depth.
+ */
+detectPluginRoots(tree, repoName) {
+  const dataFolders = new Map(); // dataPath -> pluginName
+
+  // First pass: find all directories named "data"
+  const dataDirs = tree.tree.filter(
+    item => item.type === 'tree' && path.basename(item.path) === 'data'
+  );
+
+  for (const dir of dataDirs) {
+    const dataPath = dir.path;
+
+    // Check if it contains at least one .txt file
+    const hasTxt = tree.tree.some(file =>
+      file.type === 'blob' &&
+      file.path.startsWith(dataPath + '/') &&
+      file.path.endsWith('.txt')
+    );
+
+    if (!hasTxt) continue; // Ignore empty or irrelevant data folders
+
+    const parentDir = path.dirname(dataPath);
+
+    let pluginName;
+
+    if (parentDir === '.' || parentDir === '') {
+      pluginName = repoName;
+    } else {
+      pluginName = path.basename(parentDir);
+    }
+
+    dataFolders.set(dataPath, pluginName);
+  }
+
+  return Array.from(dataFolders.entries()).map(([dataPath, name]) => ({
+    name,
+    dataPrefix: dataPath + '/'
+  }));
+}
+  
   /**
    * Fetches the file tree from a GitHub repository
    * Uses GitHub API to get list of all files in the repository
