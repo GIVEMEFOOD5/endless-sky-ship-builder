@@ -1320,7 +1320,7 @@ async function main() {
         const branchMatch = plugin.repository.match(/\/tree\/([^\/]+)/);
         const branch = branchMatch ? branchMatch[1] : 'master';
         
-        await parser.downloadImages(owner, repo, branch, pluginDir);
+        await parser.downloadImages(detectedPlugin.owner, detectedPlugin.repo, detectedPlugin.branch, pluginDir,detectedPlugin.dataPrefix);
 
         /*// Convert image sequences to APNG
         const converter = new ImageConverter();
