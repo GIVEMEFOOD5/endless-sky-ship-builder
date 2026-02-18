@@ -223,6 +223,9 @@ function findImageVariations(basePath) {
 
   // Suffix search — handles cases where the data path omits leading folders
   // e.g. "penguin/penguin" matches index key "ship/penguin/penguin"
+  //
+  // We require the match to land on a folder boundary (preceded by '/')
+  // so "burner" never accidentally matches "afterburner".
   const suffix  = '/' + key;
   const matches = Object.keys(_index).filter(function(k) {
     return k === key || k.endsWith(suffix);
@@ -230,8 +233,11 @@ function findImageVariations(basePath) {
 
   if (matches.length === 1) return _index[matches[0]];
   if (matches.length  > 1) {
-    // Prefer shortest (least nested) match
-    matches.sort(function(a, b) { return a.length - b.length; });
+    // Prefer the LONGEST (most specific / most deeply nested) match.
+    // e.g. given key "remnant afterburner/remnant afterburner":
+    //   "effect/remnant afterburner/remnant afterburner"  ← correct (longer)
+    //   "outfit/remnant afterburner"                      ← wrong   (shorter)
+    matches.sort(function(a, b) { return b.length - a.length; });
     return _index[matches[0]];
   }
 
@@ -255,7 +261,10 @@ function clearSpriteCache() {
 async function fetchSprite(spritePath, spriteParams) {
   spriteParams = spriteParams || {};
 
-  clearSpriteCache();
+  // NOTE: clearSpriteCache() is intentionally NOT called here.
+  // It is called externally by switchModalTab() in Plugin_Script.js
+  // before fetchSprite() is invoked. Calling it here would cancel
+  // any concurrent fetch and cause stale content to remain visible.
   const myGen = _fetchGen;
 
   if (!spritePath) {
@@ -266,6 +275,18 @@ async function fetchSprite(spritePath, spriteParams) {
   // Ensure index and effects are ready
   await initImageIndex();
   if (_fetchGen !== myGen) return null;
+
+  // ── Step 0: Check if this is an effect name in effects.json ──────────────
+  // This bypasses the suffix search which can match the wrong path when
+  // multiple index keys share the same ending (e.g. thumbnail vs effect).
+  if (typeof window.fetchEffectByName === 'function') {
+    const effectResult = await window.fetchEffectByName(spritePath, spriteParams);
+    if (effectResult !== null) {
+      console.log('fetchSprite: resolved via EffectGrabber');
+      return effectResult;
+    }
+    // Not an effect name or effect not found — continue to normal image lookup
+  }
 
   // ── Step 1: Try direct image index lookup ─────────────────────────────────
   let frames = findImageVariations(spritePath);
