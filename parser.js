@@ -1035,6 +1035,26 @@ class EndlessSkyParser {
   }
   
   /**
+   * Detects the default branch of a GitHub repository (main or master)
+   * @param {string} owner
+   * @param {string} repo
+   * @returns {Promise<string>} - Branch name
+   */
+  async detectDefaultBranch(owner, repo) {
+    try {
+      const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
+      const raw = await this.fetchUrl(apiUrl);
+      const repoData = JSON.parse(raw);
+      if (repoData.default_branch) {
+        return repoData.default_branch;
+      }
+    } catch (e) {
+      console.warn(`Could not detect default branch, falling back to 'master': ${e.message}`);
+    }
+    return 'master';
+  }
+
+  /**
    * Parses an entire GitHub repository
    * Fetches all data files and processes them
    * @param {string} repoUrl - GitHub repository URL
@@ -1047,17 +1067,38 @@ class EndlessSkyParser {
     const owner = match[1];
     const repo = match[2].replace('.git', '');
 
-    let branch = 'master';
-    const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
-    if (branchMatch) branch = branchMatch[1];
-
     console.log(`Scanning repository: ${owner}/${repo}`);
 
+    // Determine branch: use URL-specified branch, or auto-detect main/master
+    let branch;
+    const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
+    if (branchMatch) {
+      branch = branchMatch[1];
+    } else {
+      branch = await this.detectDefaultBranch(owner, repo);
+      console.log(`Using branch: ${branch}`);
+    }
+
     const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
-    const treeData = JSON.parse(await this.fetchUrl(apiUrl));
+    const rawResponse = await this.fetchUrl(apiUrl);
+    let treeData;
+    try {
+      treeData = JSON.parse(rawResponse);
+    } catch (e) {
+      throw new Error(`Failed to parse GitHub API response: ${e.message}`);
+    }
+
+    if (treeData.message) {
+      throw new Error(`GitHub API error: ${treeData.message}`);
+    }
 
     if (!treeData.tree) {
-      throw new Error('Invalid tree data from GitHub API');
+      throw new Error(`GitHub API returned no tree data. Response: ${JSON.stringify(treeData).slice(0, 200)}`);
+    }
+
+    // Large repos get truncated - warn but continue with what we have
+    if (treeData.truncated) {
+      console.warn(`Warning: repository tree is truncated (repo is too large for a single API call). Some files may be missing.`);
     }
 
     const detectedPlugins = this.detectPluginRoots(treeData, repo);
