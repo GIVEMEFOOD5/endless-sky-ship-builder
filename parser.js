@@ -80,6 +80,54 @@ class EndlessSkyParser {
    * Returns: [{ name, dataDir, imagesDir|null, pluginRootInRepo }]
    * pluginRootInRepo is the path relative to cloneDir (e.g. "." or "plugins/foo")
    */
+  /**
+   * Uses git ls-tree to find plugin roots without cloning any files.
+   * Much faster than a full probe clone, works on repos of any size.
+   * Returns same format as detectPlugins: [{ name, pluginRootInRepo, imagesDir: null }]
+   * imagesDir is null here - it gets resolved from the real clone later.
+   */
+  async detectPluginsViaLsTree(repoGitUrl, branch, repoName) {
+    // Clone with no checkout and no blobs - just the git objects
+    const tmpDir = path.join(process.cwd(), `.tmp-lstree-${repoName}-${Date.now()}`);
+    try {
+      await fs.mkdir(tmpDir, { recursive: true });
+      await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoGitUrl} "${tmpDir}"`);
+
+      // Use ls-tree to list all tree (directory) objects recursively
+      const { stdout } = await exec(`git -C "${tmpDir}" ls-tree -r --name-only -t HEAD`);
+      const allPaths = stdout.trim().split('\n').filter(Boolean);
+
+      // Find all paths ending in /data or equal to "data"
+      const plugins = [];
+      for (const p of allPaths) {
+        const basename = path.basename(p);
+        if (basename !== 'data') continue;
+
+        // Check there's at least one .txt file under this data/ path
+        const hasTxt = allPaths.some(f => f.startsWith(p + '/') && f.endsWith('.txt'));
+        if (!hasTxt) continue;
+
+        const parentDir = path.dirname(p);
+        const pluginRootInRepo = (parentDir === '.' || parentDir === '') ? '.' : parentDir;
+        const pluginName = pluginRootInRepo === '.' ? repoName : path.basename(pluginRootInRepo);
+
+        // Check if images/ sibling exists in the tree
+        const imagesPath = pluginRootInRepo === '.' ? 'images' : `${pluginRootInRepo}/images`;
+        const hasImages = allPaths.includes(imagesPath);
+
+        plugins.push({
+          name: pluginName,
+          pluginRootInRepo,
+          hasImages // used later when deciding whether to sparse-clone images/
+        });
+      }
+
+      return plugins;
+    } finally {
+      await fs.rm(tmpDir, { recursive: true, force: true });
+    }
+  }
+
   async detectPlugins(cloneDir, repoName) {
     const plugins = [];
 
@@ -272,22 +320,14 @@ class EndlessSkyParser {
     const repoGitUrl = `https://github.com/${owner}/${repo}.git`;
     console.log(`\nScanning: ${owner}/${repo} @ ${branch}`);
 
-    // ── Step 1: probe clone (no blobs, no checkout) to discover structure ────
-    // We need just the directory tree to know where plugins live.
-    const probeDir = path.join(process.cwd(), `.tmp-probe-${repo}`);
+    // ── Step 1: probe - use git ls-tree to find plugin roots without cloning ────
+    // This avoids checking out any files at all, even for huge repos.
+    let probePlugins;
     try {
-      await fs.rm(probeDir, { recursive: true, force: true });
-      await fs.mkdir(probeDir, { recursive: true });
-      await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoGitUrl} "${probeDir}"`);
-      // Checking out with no sparse-checkout gives us the directory skeleton
-      await exec(`git -C "${probeDir}" checkout ${branch}`);
+      probePlugins = await this.detectPluginsViaLsTree(repoGitUrl, branch, repo);
     } catch (err) {
-      await fs.rm(probeDir, { recursive: true, force: true });
-      throw new Error(`Probe clone failed: ${err.message}`);
+      throw new Error(`Failed to probe repository structure: ${err.message}`);
     }
-
-    const probePlugins = await this.detectPlugins(probeDir, repo);
-    await fs.rm(probeDir, { recursive: true, force: true });
 
     if (probePlugins.length === 0) {
       console.log('No valid plugin data folders detected.');
@@ -316,11 +356,12 @@ class EndlessSkyParser {
       const root       = probe.pluginRootInRepo;
       const dataPath   = root === '.' ? 'data'   : `${root}/data`;
       const imagesPath = root === '.' ? 'images' : `${root}/images`;
+      const foldersToClone = probe.hasImages ? [dataPath, imagesPath] : [dataPath];
       const cloneDir   = path.join(process.cwd(), `.tmp-${repo}-${probe.name}`);
 
       try {
         console.log(`  Sparse cloning data/ and images/...`);
-        await sparseClone(repoGitUrl, branch, cloneDir, [dataPath, imagesPath]);
+        await sparseClone(repoGitUrl, branch, cloneDir, foldersToClone);
 
         const clonedPlugins = await this.detectPlugins(cloneDir, repo);
         const clonedPlugin  = clonedPlugins.find(p => p.name === probe.name) || clonedPlugins[0];
@@ -839,8 +880,16 @@ async function main() {
       console.log(`Source: ${source.name}  |  ${source.repository}`);
       console.log('='.repeat(60));
 
-      const parser  = new EndlessSkyParser();
-      const results = await parser.parseRepository(source.repository, source.name);
+      let results;
+      try {
+        const parser = new EndlessSkyParser();
+        results = await parser.parseRepository(source.repository, source.name);
+      } catch (err) {
+        console.error(`  Error processing "${source.name}": ${err.message}`);
+        console.error(err.stack);
+        console.error(`  Skipping and continuing with next source...`);
+        continue;
+      }
 
       if (results.length === 0) {
         console.log('No plugins found, skipping.');
