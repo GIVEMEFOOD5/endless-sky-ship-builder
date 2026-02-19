@@ -343,9 +343,11 @@ class EndlessSkyParser {
 
         console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length} variants pending)`);
 
+        // Store snapshot so we can slice after variants are processed
         pluginMeta.push({
           name:         clonedPlugin.name,
-          imagesDir:    clonedPlugin.imagesDir, // copy after outputName is known
+          imagesDir:    clonedPlugin.imagesDir,
+          cloneDir,     // keep reference so we can copy images before deleting
           shipsBefore,
           shipsAfter:   this.ships.length,
           outfitsBefore,
@@ -354,8 +356,13 @@ class EndlessSkyParser {
           effectsAfter: this.effects.length
         });
 
-      } finally {
+        // NOTE: do NOT delete cloneDir here - we need it for image copying after
+        // variants are processed. It is deleted below after images are copied.
+
+      } catch (err) {
+        // On error, clean up this clone and rethrow
         await fs.rm(cloneDir, { recursive: true, force: true });
+        throw err;
       }
     }
 
@@ -364,54 +371,54 @@ class EndlessSkyParser {
     this.processVariants();
     console.log(`  → ${this.variants.length} variants kept`);
 
-    // ── Step 4: split results back out per plugin ─────────────────────────────
-    // Ships, outfits and effects were added in plugin order so we can slice by index.
-    // Variants are matched back to their plugin by baseShip name.
+    // ── Step 4: split results per plugin, copy images, then delete clones ─────
     const results = [];
 
     for (const meta of pluginMeta) {
-      const pluginShips   = this.ships.slice(meta.shipsBefore,   meta.shipsAfter);
-      const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
-      const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
+      try {
+        const pluginShips   = this.ships.slice(meta.shipsBefore,   meta.shipsAfter);
+        const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
+        const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
 
-      // Assign variants to the plugin that owns their base ship
-      const pluginShipNames = new Set(pluginShips.map(s => s.name));
-      const pluginVariants  = this.variants.filter(v => pluginShipNames.has(v.baseShip));
+        // Assign variants to the plugin that owns their base ship
+        const pluginShipNames = new Set(pluginShips.map(s => s.name));
+        const pluginVariants  = this.variants.filter(v => pluginShipNames.has(v.baseShip));
 
-      const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
-                      pluginOutfits.length === 0 && pluginEffects.length === 0;
+        const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
+                        pluginOutfits.length === 0 && pluginEffects.length === 0;
 
-      if (isEmpty) {
-        console.log(`  Skipping "${meta.name}" - no parseable content found.`);
-        continue;
+        if (isEmpty) {
+          console.log(`  Skipping "${meta.name}" - no parseable content found.`);
+          continue;
+        }
+
+        console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
+
+        // Output folder: sourceName for single-plugin repos, internal name for multi-plugin
+        const isSinglePlugin = probePlugins.length === 1;
+        const outputName = isSinglePlugin
+          ? (sourceName || meta.name)
+          : meta.name;
+
+        // Copy images NOW while the clone still exists on disk
+        const destImagesDir = path.join(process.cwd(), 'data', outputName, 'images');
+        await this.copyImagesForPlugin(meta.imagesDir, destImagesDir, pluginShips, pluginVariants, pluginOutfits, pluginEffects);
+
+        results.push({
+          name:       meta.name,
+          outputName,
+          repository: repoUrl,
+          ships:      pluginShips,
+          variants:   pluginVariants,
+          outfits:    pluginOutfits,
+          effects:    pluginEffects,
+          owner, repo, branch
+        });
+
+      } finally {
+        // Delete this plugin's clone now that images have been copied
+        await fs.rm(meta.cloneDir, { recursive: true, force: true });
       }
-
-      console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
-
-      // Output folder naming rules:
-      // - Single plugin repo: use sourceName from plugins.json (e.g. "official-game")
-      // - Multi plugin repo:  use the plugin's own folder name from inside the repo
-      //   (each plugin gets its own top-level folder, no nesting)
-      const isSinglePlugin = probePlugins.length === 1;
-      const outputName = isSinglePlugin
-        ? (sourceName || meta.name)
-        : meta.name;
-
-      // Copy images now that we know the correct output folder name.
-      // Pass this plugin's data explicitly so we only copy relevant images.
-      const destImagesDir = path.join(process.cwd(), 'data', outputName, 'images');
-      await this.copyImagesForPlugin(meta.imagesDir, destImagesDir, pluginShips, pluginVariants, pluginOutfits, pluginEffects);
-
-      results.push({
-        name:       meta.name,
-        outputName, // used by main() for the data/ folder
-        repository: repoUrl,
-        ships:      pluginShips,
-        variants:   pluginVariants,
-        outfits:    pluginOutfits,
-        effects:    pluginEffects,
-        owner, repo, branch
-      });
     }
 
     return results;
