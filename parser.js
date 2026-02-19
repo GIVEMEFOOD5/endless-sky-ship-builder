@@ -214,6 +214,36 @@ class EndlessSkyParser {
     console.log('  ✓ Images done');
   }
 
+  /**
+   * Same as copyImages but uses explicitly passed data instead of this.*
+   * Used when copying images after the shared state has moved on to other plugins.
+   */
+  async copyImagesForPlugin(sourceImagesDir, destImagesDir, ships, variants, outfits, effects) {
+    if (!sourceImagesDir) {
+      console.log('  No images folder, skipping.');
+      return;
+    }
+    await fs.mkdir(destImagesDir, { recursive: true });
+
+    const paths = new Set();
+    const add = p => { if (p) paths.add(p); };
+
+    for (const s of ships)   { add(s.sprite); add(s.thumbnail); }
+    for (const v of variants) { add(v.sprite); add(v.thumbnail); }
+    for (const o of outfits) {
+      add(o.sprite); add(o.thumbnail);
+      add(o['flare sprite']); add(o['steering flare sprite']); add(o['reverse flare sprite']);
+      if (o.weapon) { add(o.weapon['hardpoint sprite']); add(o.weapon.sprite); }
+    }
+    for (const e of effects) { add(e.sprite); }
+
+    console.log(`  Copying images (${paths.size} paths referenced)...`);
+    for (const p of paths) {
+      await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
+    }
+    console.log('  ✓ Images done');
+  }
+
   // ── Main repository entry point ────────────────────────────────────────────
 
   /**
@@ -358,15 +388,19 @@ class EndlessSkyParser {
 
       console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
 
-      // Output folder: "sourceName/pluginName" for multi-plugin repos,
-      // or just "sourceName" if this repo only has one plugin
-      const outputName = sourceName
-        ? (probePlugins.length > 1 ? `${sourceName}/${meta.name}` : sourceName)
+      // Output folder naming rules:
+      // - Single plugin repo: use sourceName from plugins.json (e.g. "official-game")
+      // - Multi plugin repo:  use the plugin's own folder name from inside the repo
+      //   (each plugin gets its own top-level folder, no nesting)
+      const isSinglePlugin = probePlugins.length === 1;
+      const outputName = isSinglePlugin
+        ? (sourceName || meta.name)
         : meta.name;
 
-      // Copy images now that we know the correct output folder name
+      // Copy images now that we know the correct output folder name.
+      // Pass this plugin's data explicitly so we only copy relevant images.
       const destImagesDir = path.join(process.cwd(), 'data', outputName, 'images');
-      await this.copyImages(meta.imagesDir, destImagesDir);
+      await this.copyImagesForPlugin(meta.imagesDir, destImagesDir, pluginShips, pluginVariants, pluginOutfits, pluginEffects);
 
       results.push({
         name:       meta.name,
