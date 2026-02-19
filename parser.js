@@ -144,52 +144,52 @@ class EndlessSkyParser {
     }
   }
 
-/**
- * Detect all valid plugin data folders in a repository tree.
- * A valid plugin:
- *   - Contains a directory named "data"
- *   - That directory contains at least one .txt file
- *
- * Works regardless of nesting depth.
- */
-detectPluginRoots(tree, repoName) {
-  const dataFolders = new Map(); // dataPath -> pluginName
+  /**
+   * Detect all valid plugin data folders in a repository tree.
+   * A valid plugin:
+   *   - Contains a directory named "data"
+   *   - That directory contains at least one .txt file
+   *
+   * Works regardless of nesting depth.
+   */
+  detectPluginRoots(tree, repoName) {
+    const dataFolders = new Map(); // dataPath -> pluginName
 
-  // First pass: find all directories named "data"
-  const dataDirs = tree.tree.filter(
-    item => item.type === 'tree' && path.basename(item.path) === 'data'
-  );
-
-  for (const dir of dataDirs) {
-    const dataPath = dir.path;
-
-    // Check if it contains at least one .txt file
-    const hasTxt = tree.tree.some(file =>
-      file.type === 'blob' &&
-      file.path.startsWith(dataPath + '/') &&
-      file.path.endsWith('.txt')
+    // First pass: find all directories named "data"
+    const dataDirs = tree.tree.filter(
+      item => item.type === 'tree' && path.basename(item.path) === 'data'
     );
 
-    if (!hasTxt) continue; // Ignore empty or irrelevant data folders
+    for (const dir of dataDirs) {
+      const dataPath = dir.path;
 
-    const parentDir = path.dirname(dataPath);
+      // Check if it contains at least one .txt file
+      const hasTxt = tree.tree.some(file =>
+        file.type === 'blob' &&
+        file.path.startsWith(dataPath + '/') &&
+        file.path.endsWith('.txt')
+      );
 
-    let pluginName;
+      if (!hasTxt) continue; // Ignore empty or irrelevant data folders
 
-    if (parentDir === '.' || parentDir === '') {
-      pluginName = repoName;
-    } else {
-      pluginName = path.basename(parentDir);
+      const parentDir = path.dirname(dataPath);
+
+      let pluginName;
+
+      if (parentDir === '.' || parentDir === '') {
+        pluginName = repoName;
+      } else {
+        pluginName = path.basename(parentDir);
+      }
+
+      dataFolders.set(dataPath, pluginName);
     }
 
-    dataFolders.set(dataPath, pluginName);
+    return Array.from(dataFolders.entries()).map(([dataPath, name]) => ({
+      name,
+      dataPrefix: dataPath + '/'
+    }));
   }
-
-  return Array.from(dataFolders.entries()).map(([dataPath, name]) => ({
-    name,
-    dataPrefix: dataPath + '/'
-  }));
-}
   
   /**
    * Fetches the file tree from a GitHub repository
@@ -569,7 +569,6 @@ detectPluginRoots(tree, repoName) {
 
     return [{}, i + 1];
   }
-
 
   /**
    * Parses hardpoint definitions (engines, guns, turrets, bays)
@@ -1039,182 +1038,183 @@ detectPluginRoots(tree, repoName) {
    * Parses an entire GitHub repository
    * Fetches all data files and processes them
    * @param {string} repoUrl - GitHub repository URL
-   * @returns {Promise<Object>} - Object containing ships, variants, and outfits
+   * @returns {Promise<Array>} - Array of plugin result objects
    */
-async parseRepository(repoUrl) {
-  const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-  if (!match) throw new Error('Invalid GitHub URL: ' + repoUrl);
+  async parseRepository(repoUrl) {
+    const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+    if (!match) throw new Error('Invalid GitHub URL: ' + repoUrl);
 
-  const owner = match[1];
-  const repo = match[2].replace('.git', '');
+    const owner = match[1];
+    const repo = match[2].replace('.git', '');
 
-  let branch = 'master';
-  const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
-  if (branchMatch) branch = branchMatch[1];
+    let branch = 'master';
+    const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
+    if (branchMatch) branch = branchMatch[1];
 
-  console.log(`Scanning repository: ${owner}/${repo}`);
+    console.log(`Scanning repository: ${owner}/${repo}`);
 
-  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
-  const treeData = JSON.parse(await this.fetchUrl(apiUrl));
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
+    const treeData = JSON.parse(await this.fetchUrl(apiUrl));
 
-  if (!treeData.tree) {
-    throw new Error('Invalid tree data from GitHub API');
-  }
-
-  const detectedPlugins = this.detectPluginRoots(treeData, repo);
-
-  if (detectedPlugins.length === 0) {
-    console.log('No valid plugin data folders detected.');
-    return [];
-  }
-
-  console.log(`Detected ${detectedPlugins.length} plugin(s)`);
-
-  const results = [];
-
-  for (const plugin of detectedPlugins) {
-    console.log(`\nProcessing plugin: ${plugin.name}`);
-
-    // Reset state per plugin
-    this.ships = [];
-    this.variants = [];
-    this.outfits = [];
-    this.effects = [];
-    this.pendingVariants = [];
-
-    const pluginFiles = treeData.tree.filter(file =>
-      file.type === 'blob' &&
-      file.path.startsWith(plugin.dataPrefix) &&
-      file.path.endsWith('.txt')
-    );
-
-    for (const file of pluginFiles) {
-      const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${file.path}`;
-      const content = await this.fetchUrl(rawUrl);
-      this.parseFileContent(content);
+    if (!treeData.tree) {
+      throw new Error('Invalid tree data from GitHub API');
     }
 
-    this.processVariants();
+    const detectedPlugins = this.detectPluginRoots(treeData, repo);
 
-    results.push({
-      name: plugin.name,
-      repository: repoUrl,
-      ships: this.ships,
-      variants: this.variants,
-      outfits: this.outfits,
-      effects: this.effects,
-      owner,
-      repo,
-      branch
-    });
-  }
-
-  return results;
-}
-
-
-/**
- * Downloads images for a specific detected plugin.
- * Assumes images folder is next to the data folder.
- *
- * @param {string} owner
- * @param {string} repo
- * @param {string} branch
- * @param {string} pluginDir - Local output directory
- * @param {string} pluginDataPrefix - e.g. "myplugins/pluginA/data/"
- */
-async downloadImages(owner, repo, branch, pluginDir, pluginDataPrefix) {
-  console.log('\nDownloading images (plugin-relative sparse checkout)...');
-
-  const tempRepoDir = path.join(pluginDir, '.tmp-images-repo');
-  const imageOutputDir = path.join(pluginDir, 'images');
-
-  await fs.mkdir(imageOutputDir, { recursive: true });
-
-  try {
-    // Determine plugin root (folder above data/)
-    const pluginRoot = path.dirname(pluginDataPrefix.replace(/\/$/, ''));
-
-    console.log(`Plugin root: ${pluginRoot}`);
-
-    // Clean temp
-    await fs.rm(tempRepoDir, { recursive: true, force: true });
-
-    const repoUrl = `https://github.com/${owner}/${repo}.git`;
-
-    // Sparse clone only plugin root
-    await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoUrl} "${tempRepoDir}"`);
-    await exec(`git -C "${tempRepoDir}" sparse-checkout init --cone`);
-    await exec(`git -C "${tempRepoDir}" sparse-checkout set "${pluginRoot}"`);
-    await exec(`git -C "${tempRepoDir}" checkout ${branch}`);
-
-    const sourceImagesDir = path.join(tempRepoDir, pluginRoot, 'images');
-
-    // Verify images folder exists
-    try {
-      await fs.access(sourceImagesDir);
-    } catch {
-      console.log('No images folder found next to data folder.');
-      return;
+    if (detectedPlugins.length === 0) {
+      console.log('No valid plugin data folders detected.');
+      return [];
     }
 
-    // Collect image paths from parsed data
-    const imagePaths = new Set();
+    console.log(`Detected ${detectedPlugins.length} plugin(s)`);
 
-    const addImagePath = (pathStr) => {
-      if (!pathStr) return;
-      const basePath = pathStr.replace(/\/[^/]*$(?=.*\/)/, '');
-      imagePaths.add(basePath);
-    };
+    const results = [];
 
-    for (const ship of this.ships) {
-      addImagePath(ship.sprite);
-      addImagePath(ship.thumbnail);
-    }
+    for (const plugin of detectedPlugins) {
+      console.log(`\nProcessing plugin: ${plugin.name}`);
 
-    for (const variant of this.variants) {
-      addImagePath(variant.sprite);
-      addImagePath(variant.thumbnail);
-    }
+      // Reset state per plugin
+      this.ships = [];
+      this.variants = [];
+      this.outfits = [];
+      this.effects = [];
+      this.pendingVariants = [];
 
-    for (const outfit of this.outfits) {
-      addImagePath(outfit.sprite);
-      addImagePath(outfit.thumbnail);
-      addImagePath(outfit['flare sprite']);
-      addImagePath(outfit['steering flare sprite']);
-      addImagePath(outfit['reverse flare sprite']);
-
-      if (outfit.weapon) {
-        addImagePath(outfit.weapon['hardpoint sprite']);
-        addImagePath(outfit.weapon.sprite);
-      }
-    }
-
-    for (const effect of this.effects) {
-      addImagePath(effect.sprite);
-    }
-
-    console.log(`Found ${imagePaths.size} unique image paths`);
-
-    // Copy matching files
-    for (const imagePath of imagePaths) {
-      await this.copyMatchingImages(
-        sourceImagesDir,
-        imageOutputDir,
-        imagePath
+      const pluginFiles = treeData.tree.filter(file =>
+        file.type === 'blob' &&
+        file.path.startsWith(plugin.dataPrefix) &&
+        file.path.endsWith('.txt')
       );
+
+      for (const file of pluginFiles) {
+        const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${file.path}`;
+        const content = await this.fetchUrl(rawUrl);
+        this.parseFileContent(content);
+      }
+
+      this.processVariants();
+
+      // FIX: dataPrefix is now included in the results object
+      results.push({
+        name: plugin.name,
+        repository: repoUrl,
+        dataPrefix: plugin.dataPrefix,
+        ships: this.ships,
+        variants: this.variants,
+        outfits: this.outfits,
+        effects: this.effects,
+        owner,
+        repo,
+        branch
+      });
     }
 
-    // Cleanup
-    await fs.rm(tempRepoDir, { recursive: true, force: true });
-    console.log('✓ Images downloaded successfully');
-
-  } catch (error) {
-    console.error(`Image download error: ${error.message}`);
-    await fs.rm(tempRepoDir, { recursive: true, force: true });
-    throw error;
+    return results;
   }
-}
+
+  /**
+   * Downloads images for a specific detected plugin.
+   * Assumes images folder is next to the data folder.
+   *
+   * @param {string} owner
+   * @param {string} repo
+   * @param {string} branch
+   * @param {string} pluginDir - Local output directory
+   * @param {string} pluginDataPrefix - e.g. "myplugins/pluginA/data/"
+   */
+  async downloadImages(owner, repo, branch, pluginDir, pluginDataPrefix) {
+    console.log('\nDownloading images (plugin-relative sparse checkout)...');
+
+    const tempRepoDir = path.join(pluginDir, '.tmp-images-repo');
+    const imageOutputDir = path.join(pluginDir, 'images');
+
+    await fs.mkdir(imageOutputDir, { recursive: true });
+
+    try {
+      // Determine plugin root (folder above data/)
+      const pluginRoot = path.dirname(pluginDataPrefix.replace(/\/$/, ''));
+
+      console.log(`Plugin root: ${pluginRoot}`);
+
+      // Clean temp
+      await fs.rm(tempRepoDir, { recursive: true, force: true });
+
+      const repoUrl = `https://github.com/${owner}/${repo}.git`;
+
+      // Sparse clone only plugin root
+      await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoUrl} "${tempRepoDir}"`);
+      await exec(`git -C "${tempRepoDir}" sparse-checkout init --cone`);
+      await exec(`git -C "${tempRepoDir}" sparse-checkout set "${pluginRoot}"`);
+      await exec(`git -C "${tempRepoDir}" checkout ${branch}`);
+
+      const sourceImagesDir = path.join(tempRepoDir, pluginRoot, 'images');
+
+      // Verify images folder exists
+      try {
+        await fs.access(sourceImagesDir);
+      } catch {
+        console.log('No images folder found next to data folder.');
+        return;
+      }
+
+      // Collect image paths from parsed data
+      const imagePaths = new Set();
+
+      const addImagePath = (pathStr) => {
+        if (!pathStr) return;
+        const basePath = pathStr.replace(/\/[^/]*$(?=.*\/)/, '');
+        imagePaths.add(basePath);
+      };
+
+      for (const ship of this.ships) {
+        addImagePath(ship.sprite);
+        addImagePath(ship.thumbnail);
+      }
+
+      for (const variant of this.variants) {
+        addImagePath(variant.sprite);
+        addImagePath(variant.thumbnail);
+      }
+
+      for (const outfit of this.outfits) {
+        addImagePath(outfit.sprite);
+        addImagePath(outfit.thumbnail);
+        addImagePath(outfit['flare sprite']);
+        addImagePath(outfit['steering flare sprite']);
+        addImagePath(outfit['reverse flare sprite']);
+
+        if (outfit.weapon) {
+          addImagePath(outfit.weapon['hardpoint sprite']);
+          addImagePath(outfit.weapon.sprite);
+        }
+      }
+
+      for (const effect of this.effects) {
+        addImagePath(effect.sprite);
+      }
+
+      console.log(`Found ${imagePaths.size} unique image paths`);
+
+      // Copy matching files
+      for (const imagePath of imagePaths) {
+        await this.copyMatchingImages(
+          sourceImagesDir,
+          imageOutputDir,
+          imagePath
+        );
+      }
+
+      // Cleanup
+      await fs.rm(tempRepoDir, { recursive: true, force: true });
+      console.log('✓ Images downloaded successfully');
+
+    } catch (error) {
+      console.error(`Image download error: ${error.message}`);
+      await fs.rm(tempRepoDir, { recursive: true, force: true });
+      throw error;
+    }
+  }
 
   /**
    * Copies all matching image files for a given base path
@@ -1305,66 +1305,68 @@ async function main() {
       console.log(`${'='.repeat(60)}`);
       
       const parser = new EndlessSkyParser();
-      const data = await parser.parseRepository(plugin.repository); 
-      
-      // Create output directories
-      const pluginDir = path.join(process.cwd(), 'data', plugin.name);
-      const dataFilesDir = path.join(pluginDir, 'dataFiles');
-      await fs.mkdir(dataFilesDir, { recursive: true });
-      
-      // Download images
-      const repoMatch = plugin.repository.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-      if (repoMatch) {
-        const owner = repoMatch[1];
-        const repo = repoMatch[2].replace('.git', '');
-        const branchMatch = plugin.repository.match(/\/tree\/([^\/]+)/);
-        const branch = branchMatch ? branchMatch[1] : 'master';
+
+      // FIX: parseRepository returns an array of detected plugin results
+      const pluginResults = await parser.parseRepository(plugin.repository);
+
+      for (const detectedPlugin of pluginResults) {
+        // Create output directories
+        const pluginDir = path.join(process.cwd(), 'data', detectedPlugin.name);
+        const dataFilesDir = path.join(pluginDir, 'dataFiles');
+        await fs.mkdir(dataFilesDir, { recursive: true });
         
-        await parser.downloadImages(detectedPlugin.owner, detectedPlugin.repo, detectedPlugin.branch, pluginDir,detectedPlugin.dataPrefix);
+        // Download images using info from the detected plugin result
+        await parser.downloadImages(
+          detectedPlugin.owner,
+          detectedPlugin.repo,
+          detectedPlugin.branch,
+          pluginDir,
+          detectedPlugin.dataPrefix
+        );
 
         /*// Convert image sequences to APNG
         const converter = new ImageConverter();
-        await converter.processAllImages(pluginDir, data, { fps: null });*/
-      }
-      
-      // Save JSON files
-      await fs.writeFile(
-        path.join(dataFilesDir, 'ships.json'), 
-        JSON.stringify(data.ships, null, 2)
-      );
-      console.log(`✓ Saved ${data.ships.length} ships`);
-      
-      await fs.writeFile(
-        path.join(dataFilesDir, 'variants.json'), 
-        JSON.stringify(data.variants, null, 2)
-      );
-      console.log(`✓ Saved ${data.variants.length} variants`);
-      
-      await fs.writeFile(
-        path.join(dataFilesDir, 'outfits.json'), 
-        JSON.stringify(data.outfits, null, 2)
-      );
-      console.log(`✓ Saved ${data.outfits.length} outfits`);
+        await converter.processAllImages(pluginDir, detectedPlugin, { fps: null });*/
 
-      await fs.writeFile(
-        path.join(dataFilesDir, 'effects.json'), 
-        JSON.stringify(data.effects, null, 2)
-      );
-      console.log(`✓ Saved ${data.effects.length} effects`);
-      
-      await fs.writeFile(
-        path.join(dataFilesDir, 'complete.json'),
-        JSON.stringify({
-          plugin: plugin.name,
-          repository: plugin.repository,
-          ships: data.ships,
-          variants: data.variants,
-          outfits: data.outfits,
-          effects: data.effects,
-          parsedAt: new Date().toISOString()
-        }, null, 2)
-      );
-      console.log(`✓ Saved complete data`);
+        // Save JSON files
+        await fs.writeFile(
+          path.join(dataFilesDir, 'ships.json'), 
+          JSON.stringify(detectedPlugin.ships, null, 2)
+        );
+        console.log(`✓ Saved ${detectedPlugin.ships.length} ships`);
+        
+        await fs.writeFile(
+          path.join(dataFilesDir, 'variants.json'), 
+          JSON.stringify(detectedPlugin.variants, null, 2)
+        );
+        console.log(`✓ Saved ${detectedPlugin.variants.length} variants`);
+        
+        await fs.writeFile(
+          path.join(dataFilesDir, 'outfits.json'), 
+          JSON.stringify(detectedPlugin.outfits, null, 2)
+        );
+        console.log(`✓ Saved ${detectedPlugin.outfits.length} outfits`);
+
+        await fs.writeFile(
+          path.join(dataFilesDir, 'effects.json'), 
+          JSON.stringify(detectedPlugin.effects, null, 2)
+        );
+        console.log(`✓ Saved ${detectedPlugin.effects.length} effects`);
+        
+        await fs.writeFile(
+          path.join(dataFilesDir, 'complete.json'),
+          JSON.stringify({
+            plugin: detectedPlugin.name,
+            repository: plugin.repository,
+            ships: detectedPlugin.ships,
+            variants: detectedPlugin.variants,
+            outfits: detectedPlugin.outfits,
+            effects: detectedPlugin.effects,
+            parsedAt: new Date().toISOString()
+          }, null, 2)
+        );
+        console.log(`✓ Saved complete data`);
+      }
     }
     
     console.log(`\n${'='.repeat(60)}`);
