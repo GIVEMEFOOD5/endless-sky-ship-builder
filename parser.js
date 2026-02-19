@@ -223,7 +223,7 @@ class EndlessSkyParser {
    * @param {string} repoUrl
    * @returns {Promise<Array>} - array of result objects ready for main() to save
    */
-  async parseRepository(repoUrl) {
+  async parseRepository(repoUrl, sourceName = null) {
     const urlMatch = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
     if (!urlMatch) throw new Error('Invalid GitHub URL: ' + repoUrl);
 
@@ -313,12 +313,9 @@ class EndlessSkyParser {
 
         console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length} variants pending)`);
 
-        // Copy images while the clone still exists
-        const destImagesDir = path.join(process.cwd(), 'data', clonedPlugin.name, 'images');
-        await this.copyImages(clonedPlugin.imagesDir, destImagesDir);
-
         pluginMeta.push({
           name:         clonedPlugin.name,
+          imagesDir:    clonedPlugin.imagesDir, // copy after outputName is known
           shipsBefore,
           shipsAfter:   this.ships.length,
           outfitsBefore,
@@ -361,13 +358,24 @@ class EndlessSkyParser {
 
       console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
 
+      // Output folder: "sourceName/pluginName" for multi-plugin repos,
+      // or just "sourceName" if this repo only has one plugin
+      const outputName = sourceName
+        ? (probePlugins.length > 1 ? `${sourceName}/${meta.name}` : sourceName)
+        : meta.name;
+
+      // Copy images now that we know the correct output folder name
+      const destImagesDir = path.join(process.cwd(), 'data', outputName, 'images');
+      await this.copyImages(meta.imagesDir, destImagesDir);
+
       results.push({
-        name:      meta.name,
+        name:       meta.name,
+        outputName, // used by main() for the data/ folder
         repository: repoUrl,
-        ships:     pluginShips,
-        variants:  pluginVariants,
-        outfits:   pluginOutfits,
-        effects:   pluginEffects,
+        ships:      pluginShips,
+        variants:   pluginVariants,
+        outfits:    pluginOutfits,
+        effects:    pluginEffects,
         owner, repo, branch
       });
     }
@@ -791,7 +799,7 @@ async function main() {
       console.log('='.repeat(60));
 
       const parser  = new EndlessSkyParser();
-      const results = await parser.parseRepository(source.repository);
+      const results = await parser.parseRepository(source.repository, source.name);
 
       if (results.length === 0) {
         console.log('No plugins found, skipping.');
@@ -799,9 +807,9 @@ async function main() {
       }
 
       for (const plugin of results) {
-        console.log(`\nSaving → data/${plugin.name}/`);
+        console.log(`\nSaving → data/${plugin.outputName}/`);
 
-        const pluginDir   = path.join(process.cwd(), 'data', plugin.name);
+        const pluginDir   = path.join(process.cwd(), 'data', plugin.outputName);
         const dataFilesDir = path.join(pluginDir, 'dataFiles');
         await fs.mkdir(dataFilesDir, { recursive: true });
 
