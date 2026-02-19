@@ -1,685 +1,641 @@
 // parser.js - Endless Sky data parser for GitHub Actions
-// This script parses Endless Sky game data files from GitHub repositories
-// It extracts ship, variant, and outfit information and downloads associated images
+// Parses ship, variant, outfit, and effect data from GitHub repositories.
+// Uses sparse Git clones (data/ + images/ only) instead of the GitHub API,
+// which avoids rate limits and the 100k-file tree truncation limit.
 
-// Import required Node.js modules
-const https = require('https');
-const fs = require('fs').promises;
-const path = require('path');
+const https  = require('https');
+const fs     = require('fs').promises;
+const path   = require('path');
 const ImageConverter = require('./imageConverter');
 const { exec: execCallback } = require('child_process');
 const { promisify } = require('util');
-const exec = promisify(execCallback);
+const exec   = promisify(execCallback);
 
-/**
- * Performs a sparse Git clone to download only the images directory
- * This is more efficient than cloning the entire repository
- * @param {string} owner - GitHub repository owner
- * @param {string} repo - GitHub repository name
- * @param {string} branch - Git branch to clone from
- * @param {string} targetDir - Local directory to clone into
- */
-async function sparseCloneImages(owner, repo, branch, targetDir) {
-  console.log(`Sparse cloning images from ${owner}/${repo}...`);
-  
-  // Clean up any existing directory to start fresh
+// ---------------------------------------------------------------------------
+// Helper: sparse-clone specific folders from a repo
+// ---------------------------------------------------------------------------
+async function sparseClone(repoGitUrl, branch, targetDir, folders) {
   await fs.rm(targetDir, { recursive: true, force: true });
   await fs.mkdir(targetDir, { recursive: true });
-
-  const repoUrl = `https://github.com/${owner}/${repo}.git`;
-
-  try {
-    // Initialize sparse checkout - only downloads file metadata, not content
-    await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoUrl} "${targetDir}"`);
-    
-    // Configure sparse checkout to use cone mode (more efficient)
-    await exec(`git -C "${targetDir}" sparse-checkout init --cone`);
-    
-    // Specify that we only want the images directory
-    await exec(`git -C "${targetDir}" sparse-checkout set images`);
-    
-    // Checkout only the images directory content
-    await exec(`git -C "${targetDir}" checkout ${branch}`);
-    
-    console.log(`✓ Successfully cloned images directory`);
-  } catch (error) {
-    console.error(`Error during sparse clone: ${error.message}`);
-    throw error;
-  }
+  await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoGitUrl} "${targetDir}"`);
+  await exec(`git -C "${targetDir}" sparse-checkout init --cone`);
+  await exec(`git -C "${targetDir}" sparse-checkout set ${folders.map(f => `"${f}"`).join(' ')}`);
+  await exec(`git -C "${targetDir}" checkout ${branch}`);
 }
 
-/**
- * Main parser class for Endless Sky data files
- * Handles parsing of ships, variants, and outfits from game data files
- */
+// ---------------------------------------------------------------------------
 class EndlessSkyParser {
   constructor() {
-    // Arrays to store parsed game objects
-    this.ships = [];
-    this.variants = [];
-    this.outfits = [];
-    this.effects = [];
-    this.pendingVariants = []; // Temporary storage for variants until base ships are parsed
+    this.ships         = [];
+    this.variants      = [];
+    this.outfits       = [];
+    this.effects       = [];
+    this.pendingVariants = [];
   }
 
-  /**
-   * Fetches text content from a URL using HTTPS
-   * Adds GitHub authentication if token is available
-   * @param {string} url - URL to fetch
-   * @returns {Promise<string>} - Response text
-   */
+  // ── Utilities ──────────────────────────────────────────────────────────────
+
   fetchUrl(url) {
     return new Promise((resolve, reject) => {
       const options = { headers: {} };
-      
-      // Add GitHub token authentication if available to avoid rate limiting
       if (process.env.GITHUB_TOKEN && url.includes('api.github.com')) {
         options.headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`;
-        options.headers['User-Agent'] = 'endless-sky-parser';
+        options.headers['User-Agent']    = 'endless-sky-parser';
       }
-      
       https.get(url, options, (res) => {
         let data = '';
-        res.on('data', (chunk) => { data += chunk; });
-        res.on('end', () => { resolve(data); });
+        res.on('data', chunk => { data += chunk; });
+        res.on('end',  ()    => { resolve(data); });
       }).on('error', reject);
     });
   }
 
+  async detectDefaultBranch(owner, repo) {
+    try {
+      const raw  = await this.fetchUrl(`https://api.github.com/repos/${owner}/${repo}`);
+      const data = JSON.parse(raw);
+      if (data.default_branch) return data.default_branch;
+    } catch (e) {
+      console.warn(`Could not detect default branch: ${e.message}`);
+    }
+    return 'master';
+  }
+
+  async findTxtFiles(dir) {
+    const results = [];
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    for (const e of entries) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) results.push(...await this.findTxtFiles(full));
+      else if (e.name.endsWith('.txt')) results.push(full);
+    }
+    return results;
+  }
+
   /**
-   * Fetches binary content from a URL using HTTPS
-   * Used for downloading image files
-   * @param {string} url - URL to fetch
-   * @returns {Promise<Buffer>} - Response as binary buffer
+   * Walk a cloned directory tree and find all plugin roots.
+   * A plugin root is a folder whose direct child is a directory named "data"
+   * containing at least one .txt file.
+   *
+   * Returns: [{ name, dataDir, imagesDir|null, pluginRootInRepo }]
+   * pluginRootInRepo is the path relative to cloneDir (e.g. "." or "plugins/foo")
    */
-  fetchBinaryUrl(url) {
-    return new Promise((resolve, reject) => {
-      const options = { headers: {} };
+  async detectPlugins(cloneDir, repoName) {
+    const plugins = [];
 
-      // Add GitHub token authentication if available
-      if (process.env.GITHUB_TOKEN && url.includes('api.github.com')) {
-        options.headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`;
-        options.headers['User-Agent'] = 'endless-sky-parser';
-      }
+    const walk = async (dir) => {
+      let entries;
+      try { entries = await fs.readdir(dir, { withFileTypes: true }); }
+      catch { return; }
 
-      https.get(url, options, (res) => {
-        // Check for successful response
-        if (res.statusCode !== 200) {
-          reject(new Error(`HTTP ${res.statusCode}`));
-          return;
+      for (const e of entries) {
+        if (!e.isDirectory()) continue;
+        if (e.name.startsWith('.') || e.name === 'node_modules') continue;
+
+        const fullPath = path.join(dir, e.name);
+
+        if (e.name === 'data') {
+          // Does it contain any .txt files?
+          const files  = await fs.readdir(fullPath);
+          const hasTxt = files.some(f => f.endsWith('.txt'));
+          if (!hasTxt) continue;
+
+          // Parent of data/ is the plugin root
+          const pluginRoot = dir;
+          const pluginName = pluginRoot === cloneDir
+            ? repoName
+            : path.basename(pluginRoot);
+
+          // Relative path of the plugin root inside the repo
+          const pluginRootInRepo = path.relative(cloneDir, pluginRoot) || '.';
+
+          // Optional sibling images/
+          const imagesDir = path.join(pluginRoot, 'images');
+          let hasImages = false;
+          try { await fs.access(imagesDir); hasImages = true; } catch {}
+
+          plugins.push({
+            name:            pluginName,
+            dataDir:         fullPath,
+            imagesDir:       hasImages ? imagesDir : null,
+            pluginRootInRepo // e.g. "." or "plugins/my-plugin"
+          });
+
+          // Don't recurse into data/ itself
+          continue;
         }
 
-        // Collect binary data chunks
-        const chunks = [];
-        res.on('data', (chunk) => { chunks.push(chunk); });
-        res.on('end', () => { resolve(Buffer.concat(chunks)); });
-      }).on('error', reject);
-    });
-  }
-
-  /**
-   * Recursively copies a directory and all its contents
-   * @param {string} source - Source directory path
-   * @param {string} destination - Destination directory path
-   */
-  async copyDirectory(source, destination) {
-    // Create destination directory if it doesn't exist
-    await fs.mkdir(destination, { recursive: true });
-    
-    // Read all entries in source directory
-    const entries = await fs.readdir(source, { withFileTypes: true });
-    
-    // Process each entry
-    for (const entry of entries) {
-      const sourcePath = path.join(source, entry.name);
-      const destPath = path.join(destination, entry.name);
-      
-      if (entry.isDirectory()) {
-        // Recursively copy subdirectories
-        await this.copyDirectory(sourcePath, destPath);
-      } else {
-        // Copy files
-        await fs.copyFile(sourcePath, destPath);
+        await walk(fullPath);
       }
-    }
+    };
+
+    await walk(cloneDir);
+    return plugins;
   }
 
-  /**
-   * Detect all valid plugin data folders in a repository tree.
-   * A valid plugin:
-   *   - Contains a directory named "data"
-   *   - That directory contains at least one .txt file
-   *
-   * Works regardless of nesting depth.
-   */
-  detectPluginRoots(tree, repoName) {
-    const dataFolders = new Map(); // dataPath -> pluginName
+  // ── Image helpers ──────────────────────────────────────────────────────────
 
-    // First pass: find all directories named "data"
-    const dataDirs = tree.tree.filter(
-      item => item.type === 'tree' && path.basename(item.path) === 'data'
-    );
+  collectImagePaths() {
+    const paths = new Set();
+    const add = p => { if (p) paths.add(p); };
 
-    for (const dir of dataDirs) {
-      const dataPath = dir.path;
-
-      // Check if it contains at least one .txt file
-      const hasTxt = tree.tree.some(file =>
-        file.type === 'blob' &&
-        file.path.startsWith(dataPath + '/') &&
-        file.path.endsWith('.txt')
-      );
-
-      if (!hasTxt) continue; // Ignore empty or irrelevant data folders
-
-      const parentDir = path.dirname(dataPath);
-
-      let pluginName;
-
-      if (parentDir === '.' || parentDir === '') {
-        pluginName = repoName;
-      } else {
-        pluginName = path.basename(parentDir);
-      }
-
-      dataFolders.set(dataPath, pluginName);
+    for (const s of this.ships)   { add(s.sprite); add(s.thumbnail); }
+    for (const v of this.variants) { add(v.sprite); add(v.thumbnail); }
+    for (const o of this.outfits) {
+      add(o.sprite); add(o.thumbnail);
+      add(o['flare sprite']); add(o['steering flare sprite']); add(o['reverse flare sprite']);
+      if (o.weapon) { add(o.weapon['hardpoint sprite']); add(o.weapon.sprite); }
     }
-
-    return Array.from(dataFolders.entries()).map(([dataPath, name]) => ({
-      name,
-      dataPrefix: dataPath + '/'
-    }));
+    for (const e of this.effects) { add(e.sprite); }
+    return paths;
   }
-  
-  /**
-   * Fetches the file tree from a GitHub repository
-   * Uses GitHub API to get list of all files in the repository
-   * @param {string} owner - GitHub repository owner
-   * @param {string} repo - GitHub repository name
-   * @param {string} branch - Git branch to fetch from
-   * @returns {Promise<Array>} - Array of file objects with path and content
-   */
-  async fetchGitHubRepo(owner, repo, branch) {
-    // Default to master branch if not specified
-    if (!branch) branch = 'master';
-    
-    // Construct API URL to get recursive file tree
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
-    
-    console.log(`Fetching repository tree for ${owner}/${repo}...`);
-    
-    // Fetch the tree data
-    const data = await this.fetchUrl(apiUrl);
-    const tree = JSON.parse(data);
-    
-    // Check for API errors
-    if (tree.message) throw new Error(`GitHub API Error: ${tree.message}`);
-    if (!tree.tree) throw new Error(`No tree data found. API may have rate limited the request.`);
-    
-    // Filter for .txt files in the data/ directory (game data files)
-    const dataFiles = tree.tree.filter((file) => {
-      return file.path.includes('data/') && file.path.endsWith('.txt') && file.type === 'blob';
-    });
-    
-    console.log(`Found ${dataFiles.length} .txt files in data/ directory`);
-    
-    // Fetch content of each data file
-    const fileContents = [];
-    for (const file of dataFiles) {
-      // Construct raw file URL
-      const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${file.path}`;
-      console.log(`  Fetching ${file.path}...`);
+
+  async copyMatchingImages(sourceDir, destDir, imagePath) {
+    const norm       = imagePath.replace(/\\/g, '/');
+    const parts      = norm.split('/');
+    const basename   = parts[parts.length - 1];
+    const parentDir  = parts.slice(0, -1).join('/');
+    const escaped    = basename.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const searchPaths = [
+      { dir: path.join(sourceDir, parentDir), relative: parentDir  },
+      { dir: path.join(sourceDir, norm),      relative: norm       }
+    ];
+
+    for (const sp of searchPaths) {
       try {
-        const content = await this.fetchUrl(rawUrl);
-        fileContents.push({ path: file.path, content: content });
-      } catch (error) {
-        console.error(`  Error fetching ${file.path}:`, error.message);
-      }
+        const stat = await fs.stat(sp.dir);
+        if (!stat.isDirectory()) continue;
+
+        const files   = await fs.readdir(sp.dir);
+        const patterns = [
+          new RegExp(`^${escaped}$`),
+          new RegExp(`^${escaped}-\\d+$`),
+          new RegExp(`^${escaped}\\.\\d+$`),
+          new RegExp(`^${escaped}-.+\\d+$`),
+          new RegExp(`^${escaped}.+\\d+$`),
+          new RegExp(`^${escaped}.$`),
+          new RegExp(`^${escaped}-.+$`),
+          new RegExp(`^${escaped}.+$`)
+        ];
+        const validExts = new Set(['.png','.jpg','.jpeg','.gif','.avif','.webp']);
+
+        const matches = files.filter(f => {
+          const ext  = path.extname(f).toLowerCase();
+          const base = path.basename(f, ext);
+          return validExts.has(ext) && patterns.some(p => p.test(base));
+        });
+
+        if (matches.length > 0) {
+          const outDir = path.join(destDir, sp.relative);
+          await fs.mkdir(outDir, { recursive: true });
+          for (const f of matches) {
+            await fs.copyFile(path.join(sp.dir, f), path.join(outDir, f));
+            console.log(`    ✓ ${sp.relative}/${f}`);
+          }
+          return;
+        }
+      } catch { continue; }
     }
-    
-    return fileContents;
+    console.log(`    ✗ No files found for: ${norm}`);
   }
 
+  async copyImages(sourceImagesDir, destImagesDir) {
+    if (!sourceImagesDir) {
+      console.log('  No images folder, skipping.');
+      return;
+    }
+    await fs.mkdir(destImagesDir, { recursive: true });
+    const paths = this.collectImagePaths();
+    console.log(`  Copying images (${paths.size} paths referenced)...`);
+    for (const p of paths) {
+      await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
+    }
+    console.log('  ✓ Images done');
+  }
+
+  // ── Main repository entry point ────────────────────────────────────────────
+
   /**
-   * UNIFIED PARSER - Parses an indented block of text (nested data structure)
-   * This single method handles all parsing for ships, variants, and outfits
-   * Endless Sky uses tab indentation to represent nested data
-   * 
-   * @param {Array<string>} lines - Array of text lines
-   * @param {number} startIdx - Starting line index
-   * @param {Object} options - Parsing options for special handling
-   * @returns {Array} - [parsed data object, next line index]
+   * Sparse-clones data/ and images/ for every plugin found in the repository.
+   * No GitHub API tree calls — works on repos of any size.
+   *
+   * @param {string} repoUrl
+   * @returns {Promise<Array>} - array of result objects ready for main() to save
    */
+  async parseRepository(repoUrl) {
+    const urlMatch = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+    if (!urlMatch) throw new Error('Invalid GitHub URL: ' + repoUrl);
+
+    const owner = urlMatch[1];
+    const repo  = urlMatch[2].replace('.git', '');
+
+    let branch;
+    const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
+    if (branchMatch) {
+      branch = branchMatch[1];
+    } else {
+      branch = await this.detectDefaultBranch(owner, repo);
+      console.log(`  Detected default branch: ${branch}`);
+    }
+
+    const repoGitUrl = `https://github.com/${owner}/${repo}.git`;
+    console.log(`\nScanning: ${owner}/${repo} @ ${branch}`);
+
+    // ── Step 1: probe clone (no blobs, no checkout) to discover structure ────
+    // We need just the directory tree to know where plugins live.
+    const probeDir = path.join(process.cwd(), `.tmp-probe-${repo}`);
+    try {
+      await fs.rm(probeDir, { recursive: true, force: true });
+      await fs.mkdir(probeDir, { recursive: true });
+      await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoGitUrl} "${probeDir}"`);
+      // Checking out with no sparse-checkout gives us the directory skeleton
+      await exec(`git -C "${probeDir}" checkout ${branch}`);
+    } catch (err) {
+      await fs.rm(probeDir, { recursive: true, force: true });
+      throw new Error(`Probe clone failed: ${err.message}`);
+    }
+
+    const probePlugins = await this.detectPlugins(probeDir, repo);
+    await fs.rm(probeDir, { recursive: true, force: true });
+
+    if (probePlugins.length === 0) {
+      console.log('No valid plugin data folders detected.');
+      return [];
+    }
+
+    console.log(`Found ${probePlugins.length} plugin(s): ${probePlugins.map(p => p.name).join(', ')}`);
+
+    // ── Step 2: sparse clone each plugin's data/ + images/, parse into shared state ──
+    // We accumulate ALL ships and pendingVariants across every plugin first,
+    // so variants can resolve against base ships from any plugin in this repo.
+
+    // Reset shared parser state once for the whole repository
+    this.ships         = [];
+    this.variants      = [];
+    this.outfits       = [];
+    this.effects       = [];
+    this.pendingVariants = [];
+
+    // Track per-plugin metadata so we can split results back out after
+    const pluginMeta = []; // [{ name, shipsBefore, outfitsBefore, effectsBefore, imagesDir }]
+
+    for (const probe of probePlugins) {
+      console.log(`\n  ── Plugin: ${probe.name} ──`);
+
+      const root       = probe.pluginRootInRepo;
+      const dataPath   = root === '.' ? 'data'   : `${root}/data`;
+      const imagesPath = root === '.' ? 'images' : `${root}/images`;
+      const cloneDir   = path.join(process.cwd(), `.tmp-${repo}-${probe.name}`);
+
+      try {
+        console.log(`  Sparse cloning data/ and images/...`);
+        await sparseClone(repoGitUrl, branch, cloneDir, [dataPath, imagesPath]);
+
+        const clonedPlugins = await this.detectPlugins(cloneDir, repo);
+        const clonedPlugin  = clonedPlugins.find(p => p.name === probe.name) || clonedPlugins[0];
+
+        if (!clonedPlugin) {
+          console.warn(`  Could not locate plugin "${probe.name}" in clone, skipping.`);
+          continue;
+        }
+
+        // Snapshot counts BEFORE parsing this plugin so we can slice results later
+        const shipsBefore   = this.ships.length;
+        const outfitsBefore = this.outfits.length;
+        const effectsBefore = this.effects.length;
+
+        const txtFiles = await this.findTxtFiles(clonedPlugin.dataDir);
+        console.log(`  Parsing ${txtFiles.length} data files...`);
+        for (const f of txtFiles) {
+          this.parseFileContent(await fs.readFile(f, 'utf8'));
+        }
+
+        console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length} variants pending)`);
+
+        // Copy images while the clone still exists
+        const destImagesDir = path.join(process.cwd(), 'data', clonedPlugin.name, 'images');
+        await this.copyImages(clonedPlugin.imagesDir, destImagesDir);
+
+        pluginMeta.push({
+          name:         clonedPlugin.name,
+          shipsBefore,
+          shipsAfter:   this.ships.length,
+          outfitsBefore,
+          outfitsAfter: this.outfits.length,
+          effectsBefore,
+          effectsAfter: this.effects.length
+        });
+
+      } finally {
+        await fs.rm(cloneDir, { recursive: true, force: true });
+      }
+    }
+
+    // ── Step 3: process ALL variants now, against the full combined ship pool ──
+    console.log(`\n  Processing ${this.pendingVariants.length} total variants against ${this.ships.length} total ships...`);
+    this.processVariants();
+    console.log(`  → ${this.variants.length} variants kept`);
+
+    // ── Step 4: split results back out per plugin ─────────────────────────────
+    // Ships, outfits and effects were added in plugin order so we can slice by index.
+    // Variants are matched back to their plugin by baseShip name.
+    const results = [];
+
+    for (const meta of pluginMeta) {
+      const pluginShips   = this.ships.slice(meta.shipsBefore,   meta.shipsAfter);
+      const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
+      const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
+
+      // Assign variants to the plugin that owns their base ship
+      const pluginShipNames = new Set(pluginShips.map(s => s.name));
+      const pluginVariants  = this.variants.filter(v => pluginShipNames.has(v.baseShip));
+
+      const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
+                      pluginOutfits.length === 0 && pluginEffects.length === 0;
+
+      if (isEmpty) {
+        console.log(`  Skipping "${meta.name}" - no parseable content found.`);
+        continue;
+      }
+
+      console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
+
+      results.push({
+        name:      meta.name,
+        repository: repoUrl,
+        ships:     pluginShips,
+        variants:  pluginVariants,
+        outfits:   pluginOutfits,
+        effects:   pluginEffects,
+        owner, repo, branch
+      });
+    }
+
+    return results;
+  }
+
+  // ── Parsing methods (unchanged from original) ──────────────────────────────
+
+  parseFileContent(content) {
+    const lines = content.split('\n');
+    let i = 0;
+    while (i < lines.length) {
+      const line    = lines[i];
+      const trimmed = line.trim();
+      const indent  = line.length - line.replace(/^\t+/, '').length;
+      if (indent === 0) {
+        if (trimmed.startsWith('ship ')) {
+          const [d, ni] = this.parseShip(lines, i);
+          if (d) this.ships.push(d);
+          i = ni; continue;
+        } else if (trimmed.startsWith('outfit ')) {
+          const [d, ni] = this.parseOutfit(lines, i);
+          if (d) this.outfits.push(d);
+          i = ni; continue;
+        } else if (trimmed.startsWith('effect ')) {
+          const [d, ni] = this.parseExtraEffect(lines, i);
+          if (d) this.effects.push(d);
+          i = ni; continue;
+        }
+      }
+      i++;
+    }
+  }
+
   parseBlock(lines, startIdx, options = {}) {
     const data = {};
     let i = startIdx;
-    
-    // Calculate base indentation level
     const baseIndent = lines[i].length - lines[i].replace(/^\t+/, '').length;
     let descriptionLines = [];
 
     while (i < lines.length) {
       const line = lines[i];
-      
-      // Skip empty lines
-      if (!line.trim()) { 
-        i++; 
-        continue; 
-      }
+      if (!line.trim()) { i++; continue; }
+      if (line.trim().startsWith('#')) { i++; continue; }
 
-      if (line.trim().startsWith("#")) {
-        i++;
-        continue;
-      }
-
-      // Calculate current line's indentation
       const currentIndent = line.length - line.replace(/^\t+/, '').length;
-      
-      // If we've outdented below base level, we're done with this block
       if (currentIndent < baseIndent) break;
 
-      // Only process lines at our base indentation level
-      // Lines with deeper indentation are handled by nested parseBlock() calls
       if (currentIndent === baseIndent) {
         const stripped = line.trim();
 
-        // === SPECIAL HANDLING FOR HARDPOINTS (ships only) ===
         if (options.parseHardpoints) {
-          const hardpointResult = this.parseHardpoint(stripped, lines, i, currentIndent);
-          if (hardpointResult) {
-            const [hardpointType, hardpointData, nextIdx] = hardpointResult;
-            if (!data[hardpointType]) data[hardpointType] = [];
-            data[hardpointType].push(hardpointData);
-            i = nextIdx;
-            continue;
+          const hr = this.parseHardpoint(stripped, lines, i, currentIndent);
+          if (hr) {
+            const [type, hdata, ni] = hr;
+            if (!data[type]) data[type] = [];
+            data[type].push(hdata);
+            i = ni; continue;
           }
         }
 
-        // === SPECIAL HANDLING FOR SKIP BLOCKS ===
         if (options.skipBlocks && options.skipBlocks.includes(stripped)) {
-          i = this.skipIndentedBlock(lines, i, currentIndent);
-          continue;
+          i = this.skipIndentedBlock(lines, i, currentIndent); continue;
         }
 
-        // === DESCRIPTION HANDLING ===
         if (stripped === 'description' || stripped.startsWith('description ')) {
-          const [desc, nextIdx] = this.parseDescription(lines, i, currentIndent);
+          const [desc, ni] = this.parseDescription(lines, i, currentIndent);
           if (desc) descriptionLines.push(...desc);
-          i = nextIdx;
-          continue;
+          i = ni; continue;
         }
-        
-        // === SPRITE HANDLING (with optional nested data) ===
-        if (stripped.startsWith('sprite ') || stripped.startsWith('"flare sprite"') || stripped.startsWith('"steering flare sprite"') || stripped.startsWith('"reverse flare sprite"') || stripped.startsWith('"afterburner effect"')) {
-          const [spriteData, nextIdx] = this.parseSpriteWithData(lines, i, currentIndent);
-          Object.assign(data, spriteData);
-          i = nextIdx;
-          continue;
+
+        if (stripped.startsWith('sprite ') || stripped.startsWith('"flare sprite"') ||
+            stripped.startsWith('"steering flare sprite"') || stripped.startsWith('"reverse flare sprite"') ||
+            stripped.startsWith('"afterburner effect"')) {
+          const [sd, ni] = this.parseSpriteWithData(lines, i, currentIndent);
+          Object.assign(data, sd);
+          i = ni; continue;
         }
-        
-        // === NESTED BLOCK HANDLING ===
+
         if (i + 1 < lines.length) {
           const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
           if (nextIndent > currentIndent) {
-            const key = stripped.replace(/["`]/g, ''); // Remove quotes/backticks
-            
-            // Recursively parse nested block
-            const result = this.parseBlock(lines, i + 1, options);
-            const nestedData = result[0];
-            const nextI = result[1];
-            
-            // Handle multiple nested blocks with same key
+            const key = stripped.replace(/["`]/g, '');
+            const [nd, ni] = this.parseBlock(lines, i + 1, options);
             if (key in data) {
               if (!Array.isArray(data[key])) data[key] = [data[key]];
-              data[key].push(nestedData);
-            } else {
-              data[key] = nestedData;
-            }
-            
-            // nextI points to the line that outdented from the nested block
-            // This could be:
-            // 1. Another line at our base level (continue processing)
-            // 2. A line that outdented even further (will break on next iteration)
-            i = nextI;
-            continue;
+              data[key].push(nd);
+            } else { data[key] = nd; }
+            i = ni; continue;
           }
         }
 
-        // === KEY-VALUE PAIR PARSING ===
-        const kvResult = this.parseKeyValue(stripped);
-        if (kvResult) {
-          const [key, value] = kvResult;
-          
-          // Handle multiple values for same key (convert to array)
-          if (key in data) {
-            if (!Array.isArray(data[key])) data[key] = [data[key]];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-          i++;
-          continue;
+        const kv = this.parseKeyValue(stripped);
+        if (kv) {
+          const [k, v] = kv;
+          if (k in data) {
+            if (!Array.isArray(data[k])) data[k] = [data[k]];
+            data[k].push(v);
+          } else { data[k] = v; }
+          i++; continue;
         }
 
-        // === FALLBACK: Treat as description text ===
         descriptionLines.push(stripped);
       }
-      
       i++;
     }
-    
-    // Combine description lines if any were collected
-    if (descriptionLines.length > 0) {
-      data.description = descriptionLines.join(' ');
-    }
-    
+
+    if (descriptionLines.length > 0) data.description = descriptionLines.join(' ');
     return [data, i];
   }
 
-  /**
-   * Parses a key-value pair in any format
-   * Handles: "key" "value", `key` `value`, key value, and all combinations
-   * @param {string} stripped - Trimmed line text
-   * @returns {Array|null} - [key, value] or null if no match
-   */
   parseKeyValue(stripped) {
-    // Try all quote/backtick combinations
     const patterns = [
-      // "key" "value"
-      { regex: /"([^"]+)"\s+"([^"]+)"/, keyIdx: 1, valueIdx: 2, isString: true },
-      // "key" `value`
-      { regex: /"([^"]+)"\s+`([^`]+)`/, keyIdx: 1, valueIdx: 2, isString: true },
-      // `key` "value"
-      { regex: /`([^`]+)`\s+"([^"]+)"/, keyIdx: 1, valueIdx: 2, isString: true },
-      // `key` `value`
-      { regex: /`([^`]+)`\s+`([^`]+)`/, keyIdx: 1, valueIdx: 2, isString: true },
-      // "key" value (no quotes on value)
-      { regex: /"([^"]+)"\s+([^"`\s][^"`]*)/, keyIdx: 1, valueIdx: 2, isString: false },
-      // `key` value (no quotes on value)
-      { regex: /`([^`]+)`\s+([^"`\s][^"`]*)/, keyIdx: 1, valueIdx: 2, isString: false },
-      // key "value" (no quotes on key)
-      { regex: /^(\S+)\s+"([^"]+)"$/, keyIdx: 1, valueIdx: 2, isString: true },
-      // key `value` (no quotes on key)
-      { regex: /^(\S+)\s+`([^`]+)`$/, keyIdx: 1, valueIdx: 2, isString: true },
-      // key value (no quotes at all) - must not contain quotes/backticks
-      { regex: /^(\S+)\s+(.+)$/, keyIdx: 1, valueIdx: 2, isString: false, noQuotes: true }
+      { regex: /"([^"]+)"\s+"([^"]+)"/,        ki: 1, vi: 2, str: true  },
+      { regex: /"([^"]+)"\s+`([^`]+)`/,        ki: 1, vi: 2, str: true  },
+      { regex: /`([^`]+)`\s+"([^"]+)"/,        ki: 1, vi: 2, str: true  },
+      { regex: /`([^`]+)`\s+`([^`]+)`/,        ki: 1, vi: 2, str: true  },
+      { regex: /"([^"]+)"\s+([^"`\s][^"`]*)/, ki: 1, vi: 2, str: false },
+      { regex: /`([^`]+)`\s+([^"`\s][^"`]*)/, ki: 1, vi: 2, str: false },
+      { regex: /^(\S+)\s+"([^"]+)"$/,          ki: 1, vi: 2, str: true  },
+      { regex: /^(\S+)\s+`([^`]+)`$/,          ki: 1, vi: 2, str: true  },
+      { regex: /^(\S+)\s+(.+)$/,               ki: 1, vi: 2, str: false, noQ: true }
     ];
 
-    for (const pattern of patterns) {
-      // Skip patterns that require no quotes if quotes are present
-      if (pattern.noQuotes && (stripped.includes('"') || stripped.includes('`'))) {
-        continue;
-      }
-
-      const match = stripped.match(pattern.regex);
-      if (match) {
-        const key = match[pattern.keyIdx];
-        const valueStr = match[pattern.valueIdx].trim();
-        
-        // Try to parse as number if not explicitly a string
-        let value = valueStr;
-        if (!pattern.isString) {
-          const num = parseFloat(valueStr);
-          value = isNaN(num) ? valueStr : num;
-        }
-        
-        return [key, value];
+    for (const p of patterns) {
+      if (p.noQ && (stripped.includes('"') || stripped.includes('`'))) continue;
+      const m = stripped.match(p.regex);
+      if (m) {
+        const k = m[p.ki];
+        const vs = m[p.vi].trim();
+        const v = p.str ? vs : (isNaN(parseFloat(vs)) ? vs : parseFloat(vs));
+        return [k, v];
       }
     }
 
-    // Quoted or backticked single-word keys (like "repeat" or `no repeat`) - set to true
-    const quotedKeyMatch = stripped.match(/^["'`]([^"'`]+)["'`]$/);
-    if (quotedKeyMatch) {
-      return [quotedKeyMatch[1], true];
-    }
-
-    // Unquoted single-word keys (like "repeat") - set to boolean true
-    if (!stripped.includes(' ') && !stripped.includes('"') && !stripped.includes('`')) {
-      return [stripped, true];
-    }
-
+    const qk = stripped.match(/^["'`]([^"'`]+)["'`]$/);
+    if (qk) return [qk[1], true];
+    if (!stripped.includes(' ') && !stripped.includes('"') && !stripped.includes('`')) return [stripped, true];
     return null;
   }
 
-  /**
-   * Parses description field (can be single or multi-line)
-   * @param {Array<string>} lines - Array of text lines
-   * @param {number} i - Current line index
-   * @param {number} baseIndent - Base indentation level
-   * @returns {Array} - [description lines array, next line index]
-   */
   parseDescription(lines, i, baseIndent) {
     const stripped = lines[i].trim();
     const descLines = [];
 
-    // Single line: description "text" or description `text`
-    const singleLineMatch = stripped.match(/description\s+[`"](.+)[`"]$/);
-    if (singleLineMatch) {
-      return [[singleLineMatch[1]], i + 1];
-    }
+    const single = stripped.match(/description\s+[`"](.+)[`"]$/);
+    if (single) return [[single[1]], i + 1];
 
-    // Multi-line starting on same line: description "text...
-    const startMatch = stripped.match(/description\s+[`"](.*)$/);
-    if (startMatch) {
-      const startText = startMatch[1];
-      
-      // Check if it ends on same line
-      if (startText.endsWith('`') || startText.endsWith('"')) {
-        return [[startText.slice(0, -1)], i + 1];
-      }
-      
-      // Multi-line - collect until closing quote/backtick
-      if (startText) descLines.push(startText);
+    const start = stripped.match(/description\s+[`"](.*)$/);
+    if (start) {
+      const st = start[1];
+      if (st.endsWith('`') || st.endsWith('"')) return [[st.slice(0, -1)], i + 1];
+      if (st) descLines.push(st);
       i++;
-      
       while (i < lines.length) {
-        const descLine = lines[i];
-        const descStripped = descLine.trim();
-        
-        // Check if this line ends the description
-        if (descStripped.endsWith('`') || descStripped.endsWith('"')) {
-          const finalText = descStripped.slice(0, -1);
-          if (finalText) descLines.push(finalText);
+        const dl = lines[i], ds = dl.trim();
+        if (ds.endsWith('`') || ds.endsWith('"')) {
+          if (ds.slice(0, -1)) descLines.push(ds.slice(0, -1));
           return [descLines, i + 1];
         }
-        
-        // Check if we've outdented
-        const descIndent = descLine.length - descLine.replace(/^\t+/, '').length;
-        if (descIndent <= baseIndent && descLine.trim()) break;
-        
-        if (descStripped) descLines.push(descStripped);
+        const di = dl.length - dl.replace(/^\t+/, '').length;
+        if (di <= baseIndent && dl.trim()) break;
+        if (ds) descLines.push(ds);
         i++;
       }
       return [descLines, i];
     }
 
-    // Old format: indented description lines (no quotes)
     i++;
     while (i < lines.length) {
-      const descLine = lines[i];
-      const descIndent = descLine.length - descLine.replace(/^\t+/, '').length;
-      if (descIndent <= baseIndent) break;
-      const descStripped = descLine.trim();
-      if (descStripped) descLines.push(descStripped);
+      const dl = lines[i];
+      const di = dl.length - dl.replace(/^\t+/, '').length;
+      if (di <= baseIndent) break;
+      if (dl.trim()) descLines.push(dl.trim());
       i++;
     }
-    
     return [descLines, i];
   }
 
-  /**
-   * Parses sprite with optional nested data (frame rate, etc.)
-   * @param {Array<string>} lines - Array of text lines
-   * @param {number} i - Current line index
-   * @param {number} baseIndent - Base indentation level
-   * @returns {Array} - [sprite data object, next line index]
-   */
   parseSpriteWithData(lines, i, baseIndent) {
     const stripped = lines[i].trim();
-    let spriteKey = null;
-    let spriteMatch = null;
+    const map = {
+      'sprite ':                { key: 'sprite',               re: /sprite\s+["`]([^"'`]+)["'`]/,                alt: /sprite\s+(\S+)/ },
+      '"flare sprite"':         { key: 'flare sprite',          re: /"flare sprite"\s+["`]([^"'`]+)["'`]/,         alt: /"flare sprite"\s+(\S+)/ },
+      '"steering flare sprite"':{ key: 'steering flare sprite', re: /"steering flare sprite"\s+["`]([^"'`]+)["'`]/,alt: /"steering flare sprite"\s+(\S+)/ },
+      '"reverse flare sprite"': { key: 'reverse flare sprite',  re: /"reverse flare sprite"\s+["`]([^"'`]+)["'`]/, alt: /"reverse flare sprite"\s+(\S+)/ },
+      '"afterburner effect"':   { key: 'afterburner effect',    re: /"afterburner effect"\s+["`]([^"'`]+)["'`]/,   alt: /"afterburner effect"\s+(\S+)/ }
+    };
 
-    if (stripped.startsWith('sprite ')) {
-      spriteKey = 'sprite';
-      spriteMatch = stripped.match(/sprite\s+["`]([^"'`]+)["'`]/) || 
-                     stripped.match(/sprite\s+(\S+)/);
-    }
-    else if (stripped.startsWith('"flare sprite"')) {
-      spriteKey = 'flare sprite';
-      spriteMatch = stripped.match(/"flare sprite"\s+["`]([^"'`]+)["'`]/) || 
-                     stripped.match(/"flare sprite"\s+(\S+)/);
-    }
-    else if (stripped.startsWith('"steering flare sprite"')) {
-      spriteKey = 'steering flare sprite';
-      spriteMatch = stripped.match(/"steering flare sprite"\s+["`]([^"'`]+)["'`]/) || 
-                     stripped.match(/"steering flare sprite"\s+(\S+)/);
-    }
-    else if (stripped.startsWith('"reverse flare sprite"')) {
-      spriteKey = 'reverse flare sprite';
-      spriteMatch = stripped.match(/"reverse flare sprite"\s+["`]([^"'`]+)["'`]/) || 
-                      stripped.match(/"reverse flare sprite"\s+(\S+)/);
-    }
-    else if (stripped.startsWith('"afterburner effect"')) {
-      spriteKey = 'afterburner effect';
-      spriteMatch = stripped.match(/"afterburner effect"\s+["`]([^"'`]+)["'`]/) || 
-                     stripped.match(/"afterburner effect"\s+(\S+)/);
-    }
-    
-    if (spriteMatch && spriteKey) {
-      const spritePath = spriteMatch[1];
-      const result = {};
-      
-      // Store the sprite path
-      result[spriteKey] = spritePath;
-
-      // Check for nested sprite data
-      if (i + 1 < lines.length) {
-        const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-        if (nextIndent > baseIndent) {
-          // Has nested data - store separately
-          const [spriteData, nextIdx] = this.parseBlock(lines, i + 1);
-          result['spriteData'] = spriteData;
-          return [result, nextIdx];
+    for (const [prefix, cfg] of Object.entries(map)) {
+      if (stripped.startsWith(prefix)) {
+        const m = stripped.match(cfg.re) || stripped.match(cfg.alt);
+        if (!m) break;
+        const result = { [cfg.key]: m[1] };
+        if (i + 1 < lines.length) {
+          const ni = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+          if (ni > baseIndent) {
+            const [sd, nextIdx] = this.parseBlock(lines, i + 1);
+            result.spriteData = sd;
+            return [result, nextIdx];
+          }
         }
+        return [result, i + 1];
       }
-      
-      // No nested data
-      return [result, i + 1];
     }
-
     return [{}, i + 1];
   }
 
-  /**
-   * Parses hardpoint definitions (engines, guns, turrets, bays)
-   * @param {string} stripped - Trimmed line text
-   * @param {Array<string>} lines - Array of text lines
-   * @param {number} i - Current line index
-   * @param {number} baseIndent - Base indentation level
-   * @returns {Array|null} - [hardpoint type, data, next index] or null
-   */
   parseHardpoint(stripped, lines, i, baseIndent) {
-    // Engine: "engine" x y [zoom]
     if (stripped.match(/^["'`]?engine["'`]?\s+(-?\d+)/)) {
-      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
-      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
-      if (parts[2]) data.zoom = parseFloat(parts[2]);
-      return ['engines', data, i + 1];
+      const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
+      const d = { x: +p[0], y: +p[1] };
+      if (p[2]) d.zoom = +p[2];
+      return ['engines', d, i + 1];
     }
-
-    // Reverse Engine: "reverse engine" x y [zoom] [position]
     if (stripped.match(/^["'`]?reverse engine["'`]?\s+(-?\d+)/)) {
-      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(2);
-      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
-      if (parts[2]) data.zoom = parseFloat(parts[2]);
-      
-      // Check for nested position property
-      const nextIdx = this.parseOptionalNestedProperty(lines, i, baseIndent, data, 'position');
-      return ['reverseEngines', data, nextIdx];
+      const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(2);
+      const d = { x: +p[0], y: +p[1] };
+      if (p[2]) d.zoom = +p[2];
+      return ['reverseEngines', d, this.parseOptionalNestedProperty(lines, i, baseIndent, d, 'position')];
     }
-
-    // Steering Engine: "steering engine" x y [zoom] [position]
     if (stripped.match(/^["'`]?steering engine["'`]?\s+(-?\d+)/)) {
-      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(2);
-      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]) };
-      if (parts[2]) data.zoom = parseFloat(parts[2]);
-      
-      // Check for nested position property
-      const nextIdx = this.parseOptionalNestedProperty(lines, i, baseIndent, data, 'position');
-      return ['steeringEngines', data, nextIdx];
+      const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(2);
+      const d = { x: +p[0], y: +p[1] };
+      if (p[2]) d.zoom = +p[2];
+      return ['steeringEngines', d, this.parseOptionalNestedProperty(lines, i, baseIndent, d, 'position')];
     }
-
-    // Gun: "gun" x y
     if (stripped.match(/^["'`]?gun["'`]?\s+(-?\d+)/)) {
-      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
-      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]), gun: "" };
-      return ['guns', data, i + 1];
+      const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
+      return ['guns', { x: +p[0], y: +p[1], gun: '' }, i + 1];
     }
-
-    // Turret: "turret" x y
     if (stripped.match(/^["'`]?turret["'`]?\s+(-?\d+)/)) {
-      const parts = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
-      const data = { x: parseFloat(parts[0]), y: parseFloat(parts[1]), turret: "" };
-      return ['turrets', data, i + 1];
+      const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
+      return ['turrets', { x: +p[0], y: +p[1], turret: '' }, i + 1];
     }
-
-    // Bay: bay "type" x y [position]
-    const bayMatch = stripped.match(/^["'`]?bay["'`]?\s+["'`]?([^"'`\s]+)["'`]?\s+(-?\d+\.?\d*)\s+(-?\d+\.?\d*)(?:\s+(.+))?/);
-    if (bayMatch) {
-      const data = { 
-        type: bayMatch[1], 
-        x: parseFloat(bayMatch[2]), 
-        y: parseFloat(bayMatch[3]) 
-      };
-      if (bayMatch[4]) data.position = bayMatch[4];
-      
-      // Check for nested bay properties
+    const bm = stripped.match(/^["'`]?bay["'`]?\s+["'`]?([^"'`\s]+)["'`]?\s+(-?\d+\.?\d*)\s+(-?\d+\.?\d*)(?:\s+(.+))?/);
+    if (bm) {
+      const d = { type: bm[1], x: +bm[2], y: +bm[3] };
+      if (bm[4]) d.position = bm[4];
       if (i + 1 < lines.length) {
-        const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-        if (nextIndent > baseIndent) {
+        const ni = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+        if (ni > baseIndent) {
           i++;
           while (i < lines.length) {
-            const bayLine = lines[i];
-            const bayLineIndent = bayLine.length - bayLine.replace(/^\t+/, '').length;
-            if (bayLineIndent <= baseIndent) break;
-            
-            const bayLineStripped = bayLine.trim();
-            const kvResult = this.parseKeyValue(bayLineStripped);
-            if (kvResult) {
-              data[kvResult[0]] = kvResult[1];
-            }
+            const bl = lines[i], bli = bl.length - bl.replace(/^\t+/, '').length;
+            if (bli <= baseIndent) break;
+            const kv = this.parseKeyValue(bl.trim());
+            if (kv) d[kv[0]] = kv[1];
             i++;
           }
-          return ['bays', data, i];
+          return ['bays', d, i];
         }
       }
-      
-      return ['bays', data, i + 1];
+      return ['bays', d, i + 1];
     }
-
     return null;
   }
 
-  /**
-   * Parses optional nested property (like position for engines)
-   * @param {Array<string>} lines - Array of text lines
-   * @param {number} i - Current line index
-   * @param {number} baseIndent - Base indentation level
-   * @param {Object} data - Data object to add property to
-   * @param {string} propertyName - Name of the property to add
-   * @returns {number} - Next line index
-   */
-  parseOptionalNestedProperty(lines, i, baseIndent, data, propertyName) {
+  parseOptionalNestedProperty(lines, i, baseIndent, data, prop) {
     if (i + 1 < lines.length) {
-      const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-      if (nextIndent > baseIndent) {
+      const ni = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+      if (ni > baseIndent) {
         i++;
         while (i < lines.length) {
-          const propLine = lines[i];
-          const propIndent = propLine.length - propLine.replace(/^\t+/, '').length;
-          if (propIndent <= baseIndent) break;
-          const propStripped = propLine.trim();
-          if (propStripped) data[propertyName] = propStripped;
+          const pl = lines[i], pi = pl.length - pl.replace(/^\t+/, '').length;
+          if (pi <= baseIndent) break;
+          if (pl.trim()) data[prop] = pl.trim();
           i++;
         }
         return i;
@@ -688,742 +644,199 @@ class EndlessSkyParser {
     return i + 1;
   }
 
-  /**
-   * Skips an indented block (used for blocks we don't need to parse)
-   * @param {Array<string>} lines - Array of text lines
-   * @param {number} i - Current line index
-   * @param {number} baseIndent - Base indentation level
-   * @returns {number} - Next line index after block
-   */
   skipIndentedBlock(lines, i, baseIndent) {
     i++;
     while (i < lines.length) {
-      const line = lines[i];
-      if (!line.trim()) { i++; continue; }
-      const indent = line.length - line.replace(/^\t+/, '').length;
-      if (indent <= baseIndent) break;
+      const l = lines[i];
+      if (!l.trim()) { i++; continue; }
+      if (l.length - l.replace(/^\t+/, '').length <= baseIndent) break;
       i++;
     }
     return i;
   }
 
-  /**
-   * Parses a ship definition from game data
-   * @param {Array<string>} lines - Array of text lines
-   * @param {number} startIdx - Starting line index
-   * @returns {Array} - [parsed ship object, next line index]
-   */
   parseShip(lines, startIdx) {
     const line = lines[startIdx].trim();
-    
-    // Match ship definition: ship "base name" or ship "base name" "variant name"
-    // Handle all quote types - match opening and closing delimiters
-    let match = line.match(/^ship\s+"([^"]+)"(?:\s+"([^"]+)")?/) ||
-                line.match(/^ship\s+`([^`]+)`(?:\s+`([^`]+)`)?/) ||
-                line.match(/^ship\s+'([^']+)'(?:\s+'([^']+)')?/);
+    const match = line.match(/^ship\s+"([^"]+)"(?:\s+"([^"]+)")?/) ||
+                  line.match(/^ship\s+`([^`]+)`(?:\s+`([^`]+)`)?/) ||
+                  line.match(/^ship\s+'([^']+)'(?:\s+'([^']+)')?/);
     if (!match) return [null, startIdx + 1];
-    
-    const baseName = match[1];
-    const variantName = match[2];
-    
-    // Check if next line is indented - if not, this is an incomplete ship definition
-    if (startIdx + 1 >= lines.length) {
-      return [null, startIdx + 1]; // No next line, skip
-    }
-    
+
+    const [, baseName, variantName] = match;
+    if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
+
     const nextLine = lines[startIdx + 1];
-    if (nextLine.trim()) { // If next line has content
-      const nextIndent = nextLine.length - nextLine.replace(/^\t+/, '').length;
-      if (nextIndent === 0) {
-        // Next line is not indented, this ship has no data
-        console.log(`  Skipping ship "${baseName}" - no indented content`);
-        return [null, startIdx + 1];
-      }
+    if (nextLine.trim() && (nextLine.length - nextLine.replace(/^\t+/, '').length) === 0) {
+      return [null, startIdx + 1];
     }
-    
-    // If variant, store for later processing
+
     if (variantName) {
-      this.pendingVariants.push({
-        baseName: baseName,
-        variantName: variantName,
-        startIdx: startIdx,
-        lines: lines
-      });
-      
-      // Skip variant block
+      this.pendingVariants.push({ baseName, variantName, startIdx, lines });
       return [null, this.skipIndentedBlock(lines, startIdx, 0)];
     }
-    
-    // Initialize ship with hardpoint arrays
-    const shipData = { 
-      name: baseName,
-      engines: [],
-      reverseEngines: [],
-      steeringEngines: [],
-      guns: [],
-      turrets: [],
-      bays: []
-    };
-    
-    // Parse ship block with hardpoint and skip options
-    const [parsedData, nextIdx] = this.parseBlock(lines, startIdx + 1, {
+
+    const shipData = { name: baseName, engines: [], reverseEngines: [], steeringEngines: [], guns: [], turrets: [], bays: [] };
+    const [parsed, nextIdx] = this.parseBlock(lines, startIdx + 1, {
       parseHardpoints: true,
       skipBlocks: ['add attributes', 'outfits']
     });
-    
-    // Merge parsed data into ship data
-    Object.assign(shipData, parsedData);
-    
-    // Only return ships with descriptions and some data
+    Object.assign(shipData, parsed);
+
     const hasData = shipData.description && (
-      shipData.attributes || 
-      shipData.engines.length > 0 || 
-      shipData.guns.length > 0 || 
-      shipData.turrets.length > 0 || 
-      shipData.bays.length > 0
+      shipData.attributes || shipData.engines.length > 0 ||
+      shipData.guns.length > 0 || shipData.turrets.length > 0 || shipData.bays.length > 0
     );
-    
     return [hasData ? shipData : null, nextIdx];
   }
 
-  /**
-   * Parses a ship variant definition
-   * Variants modify a base ship (different sprite, hardpoints, etc.)
-   * @param {Object} variantInfo - Variant information including base ship name
-   * @returns {Object|null} - Parsed variant ship or null if no significant changes
-   */
   parseShipVariant(variantInfo) {
-    // Find the base ship
     const baseShip = this.ships.find(s => s.name === variantInfo.baseName);
-    if (!baseShip) {
-      console.warn(`Warning: Base ship "${variantInfo.baseName}" not found`);
-      return null;
+    if (!baseShip) { console.warn(`Warning: base ship "${variantInfo.baseName}" not found`); return null; }
+
+    const { startIdx, lines } = variantInfo;
+    if (startIdx + 1 >= lines.length) return null;
+    const nl = lines[startIdx + 1];
+    if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return null;
+
+    const v = JSON.parse(JSON.stringify(baseShip));
+    v.name     = `${variantInfo.baseName} (${variantInfo.variantName})`;
+    v.variant  = variantInfo.variantName;
+    v.baseShip = variantInfo.baseName;
+
+    const [parsed] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: true, skipBlocks: ['outfits'] });
+    let changed = false;
+
+    if (parsed.displayName)                           { v.displayName = parsed.displayName; changed = true; }
+    if (parsed.sprite && parsed.sprite !== baseShip.sprite) {
+      v.sprite = parsed.sprite;
+      if (parsed.spriteData) v.spriteData = parsed.spriteData;
+      changed = true;
     }
-    
-    // Check if variant has any indented content
-    const startIdx = variantInfo.startIdx;
-    if (startIdx + 1 >= variantInfo.lines.length) {
-      console.log(`  Skipping variant "${variantInfo.variantName}" - no content`);
-      return null; // No next line
+    if (parsed.thumbnail && parsed.thumbnail !== baseShip.thumbnail) { v.thumbnail = parsed.thumbnail; changed = true; }
+
+    for (const t of ['engines','reverseEngines','steeringEngines','guns','turrets','bays']) {
+      if (parsed[t]?.length > 0) { v[t] = parsed[t]; changed = true; }
     }
-    
-    const nextLine = variantInfo.lines[startIdx + 1];
-    if (nextLine.trim()) { // If next line has content
-      const nextIndent = nextLine.length - nextLine.replace(/^\t+/, '').length;
-      if (nextIndent === 0) {
-        // Next line is not indented, this variant has no modifications
-        console.log(`  Skipping variant "${variantInfo.variantName}" - no indented content`);
-        return null;
+
+    if (parsed['add attributes']) {
+      changed = true;
+      if (!v.attributes) v.attributes = {};
+      for (const [k, val] of Object.entries(parsed['add attributes'])) {
+        if (k in v.attributes && typeof v.attributes[k] === 'number' && typeof val === 'number')
+          v.attributes[k] += val;
+        else v.attributes[k] = val;
       }
     }
-    
-    // Deep copy base ship
-    const variantShip = JSON.parse(JSON.stringify(baseShip));
-    variantShip.name = `${variantInfo.baseName} (${variantInfo.variantName})`;
-    variantShip.variant = variantInfo.variantName;
-    variantShip.baseShip = variantInfo.baseName;
-    
-    // Parse variant modifications
-    const [parsedData, nextIdx] = this.parseBlock(variantInfo.lines, variantInfo.startIdx + 1, {
-      parseHardpoints: true,
-      skipBlocks: ['outfits']
-    });
-    
-    // Track significant changes
-    let hasSignificantChanges = false;
-    
-    // Check for display name
-    if (parsedData.displayName) {
-      variantShip.displayName = parsedData.displayName;
-      hasSignificantChanges = true;
-    }
-    
-    // Check for sprite/thumbnail changes
-    if (parsedData.sprite && parsedData.sprite !== baseShip.sprite) {
-      variantShip.sprite = parsedData.sprite;
-      if (parsedData.spriteData) variantShip.spriteData = parsedData.spriteData;
-      hasSignificantChanges = true;
-    }
-    
-    if (parsedData.thumbnail && parsedData.thumbnail !== baseShip.thumbnail) {
-      variantShip.thumbnail = parsedData.thumbnail;
-      hasSignificantChanges = true;
-    }
-    
-    // Replace hardpoints if any were specified
-    const hardpointTypes = ['engines', 'reverseEngines', 'steeringEngines', 'guns', 'turrets', 'bays'];
-    for (const type of hardpointTypes) {
-      if (parsedData[type] && parsedData[type].length > 0) {
-        variantShip[type] = parsedData[type];
-        hasSignificantChanges = true;
-      }
-    }
-    
-    // Handle "add attributes"
-    if (parsedData['add attributes']) {
-      hasSignificantChanges = true;
-      if (!variantShip.attributes) variantShip.attributes = {};
-      
-      for (const [key, value] of Object.entries(parsedData['add attributes'])) {
-        // Add to existing numeric values, otherwise replace
-        if (key in variantShip.attributes && 
-            typeof variantShip.attributes[key] === 'number' && 
-            typeof value === 'number') {
-          variantShip.attributes[key] += value;
-        } else {
-          variantShip.attributes[key] = value;
-        }
-      }
-    }
-    
-    // Only return if has description and significant changes
-    if (!variantShip.description) return null;
-    return hasSignificantChanges ? variantShip : null;
+
+    if (!v.description) return null;
+    return changed ? v : null;
   }
 
-  /**
-   * Processes all pending ship variants
-   * Must be called after all base ships are parsed
-   */
   processVariants() {
-    console.log(`Processing ${this.pendingVariants.length} ship variants...`);
-    
-    for (const variantInfo of this.pendingVariants) {
-      const variantShip = this.parseShipVariant(variantInfo);
-      if (variantShip) {
-        this.variants.push(variantShip);
-        console.log(`  Added variant: ${variantShip.name}`);
-      } else {
-        console.log(`  Skipped variant: ${variantInfo.baseName} (${variantInfo.variantName})`);
-      }
+    console.log(`  Processing ${this.pendingVariants.length} variants...`);
+    for (const vi of this.pendingVariants) {
+      const v = this.parseShipVariant(vi);
+      if (v) { this.variants.push(v); console.log(`    + ${v.name}`); }
     }
   }
 
-  /**
-   * Parses an outfit (equipment) definition from game data
-   * @param {Array<string>} lines - Array of text lines
-   * @param {number} startIdx - Starting line index
-   * @returns {Array} - [parsed outfit object, next line index]
-   */
   parseOutfit(lines, startIdx) {
     const line = lines[startIdx].trim();
-    
-    // Match outfit name - handle all quote types by matching opening and closing delimiters
-    let match = line.match(/^outfit\s+"([^"]+)"\s*$/) ||
-                line.match(/^outfit\s+`([^`]+)`\s*$/) ||
-                line.match(/^outfit\s+'([^']+)'\s*$/);
+    const match = line.match(/^outfit\s+"([^"]+)"\s*$/) ||
+                  line.match(/^outfit\s+`([^`]+)`\s*$/) ||
+                  line.match(/^outfit\s+'([^']+)'\s*$/);
     if (!match) return [null, startIdx + 1];
-    
-    const outfitName = match[1];
-    
-    // Check if next line is indented - if not, this is an incomplete outfit definition
-    if (startIdx + 1 >= lines.length) {
-      return [null, startIdx + 1]; // No next line, skip
-    }
-    
-    const nextLine = lines[startIdx + 1];
-    if (nextLine.trim()) { // If next line has content
-      const nextIndent = nextLine.length - nextLine.replace(/^\t+/, '').length;
-      if (nextIndent === 0) {
-        // Next line is not indented, this outfit has no data
-        console.log(`  Skipping outfit "${outfitName}" - no indented content`);
-        return [null, startIdx + 1];
-      }
-    }
-    
-    console.log('Matched outfit:', outfitName);
-    
-    const outfitData = { name: outfitName };
-    
-    // Parse outfit block (no hardpoints, no skip blocks)
-    const [parsedData, nextIdx] = this.parseBlock(lines, startIdx + 1, {
-      parseHardpoints: false
-    });
-    
-    // Merge parsed data
-    Object.assign(outfitData, parsedData);
-    
-    // Only return outfits with descriptions
-    return [outfitData.description ? outfitData : null, nextIdx];
+
+    const name = match[1];
+    if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
+    const nl = lines[startIdx + 1];
+    if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return [null, startIdx + 1];
+
+    const data = { name };
+    const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
+    Object.assign(data, parsed);
+    return [data.description ? data : null, ni];
   }
 
   parseExtraEffect(lines, startIdx) {
     const line = lines[startIdx].trim();
-    
-    // Match effect name - handle all quote types by matching opening and closing delimiters
-    let match = line.match(/^effect\s+"([^"]+)"\s*$/) ||
-                line.match(/^effect\s+`([^`]+)`\s*$/) ||
-                line.match(/^effect\s+'([^']+)'\s*$/);
+    const match = line.match(/^effect\s+"([^"]+)"\s*$/) ||
+                  line.match(/^effect\s+`([^`]+)`\s*$/) ||
+                  line.match(/^effect\s+'([^']+)'\s*$/);
     if (!match) return [null, startIdx + 1];
-    
-    const effectName = match[1];
-    
-    // Check if next line is indented - if not, this is an incomplete effect definition
-    if (startIdx + 1 >= lines.length) {
-      return [null, startIdx + 1]; // No next line, skip
-    }
-    
-    const nextLine = lines[startIdx + 1];
-    if (nextLine.trim()) { // If next line has content
-      const nextIndent = nextLine.length - nextLine.replace(/^\t+/, '').length;
-      if (nextIndent === 0) {
-        // Next line is not indented, this effect has no data
-        console.log(`  Skipping effect "${effectName}" - no indented content`);
-        return [null, startIdx + 1];
-      }
-    }
-    
-    console.log('Matched effect:', effectName);
-    
-    const effectData = { name: effectName };
-    
-    // Parse effect block (no hardpoints, no skip blocks)
-    const [parsedData, nextIdx] = this.parseBlock(lines, startIdx + 1, {
-      parseHardpoints: false
-    });
-    
-    // Merge parsed data
-    Object.assign(effectData, parsedData);
-    
-    // Only return effect with descriptions
-    return [effectData, nextIdx];
-  }
 
-  /**
-   * Parses a single data file's content
-   * Extracts all ships and outfits from the file
-   * @param {string} content - File content as text
-   */
-  parseFileContent(content) {
-    const lines = content.split('\n');
-    let i = 0;
-  
-    while (i < lines.length) {
-      const line = lines[i];
-      const trimmed = line.trim();
-      
-      // Calculate indentation level
-      const indent = line.length - line.replace(/^\t+/, '').length;
-      
-      // Only parse ship/outfit definitions at root level (indent 0)
-      if (indent === 0) {
-        // Check for ship definition (handle all quote types)
-        if (trimmed.startsWith('ship ')) {
-          const [shipData, nextI] = this.parseShip(lines, i);
-          if (shipData) this.ships.push(shipData);
-          i = nextI;
-          continue;
-        } 
-        // Check for outfit definition (handle all quote types)
-        else if (trimmed.startsWith('outfit ')) {
-          const [outfitData, nextI] = this.parseOutfit(lines, i);
-          if (outfitData) this.outfits.push(outfitData);
-          i = nextI;
-          continue;
-        }
-        // Check for effects (handle all quote types)
-        else if (trimmed.startsWith('effect ')) {
-          const [effectData, nextI] = this.parseExtraEffect(lines, i);
-          if (effectData) this.effects.push(effectData);
-          i = nextI;
-          continue;
-        }
-      }
-      
-      i++;
-    }
-  }
-  
-  /**
-   * Detects the default branch of a GitHub repository (main or master)
-   * @param {string} owner
-   * @param {string} repo
-   * @returns {Promise<string>} - Branch name
-   */
-  async detectDefaultBranch(owner, repo) {
-    try {
-      const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
-      const raw = await this.fetchUrl(apiUrl);
-      const repoData = JSON.parse(raw);
-      if (repoData.default_branch) {
-        return repoData.default_branch;
-      }
-    } catch (e) {
-      console.warn(`Could not detect default branch, falling back to 'master': ${e.message}`);
-    }
-    return 'master';
-  }
+    const name = match[1];
+    if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
+    const nl = lines[startIdx + 1];
+    if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return [null, startIdx + 1];
 
-  /**
-   * Parses an entire GitHub repository
-   * Fetches all data files and processes them
-   * @param {string} repoUrl - GitHub repository URL
-   * @returns {Promise<Array>} - Array of plugin result objects
-   */
-  async parseRepository(repoUrl) {
-    const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-    if (!match) throw new Error('Invalid GitHub URL: ' + repoUrl);
-
-    const owner = match[1];
-    const repo = match[2].replace('.git', '');
-
-    console.log(`Scanning repository: ${owner}/${repo}`);
-
-    // Determine branch: use URL-specified branch, or auto-detect main/master
-    let branch;
-    const branchMatch = repoUrl.match(/\/tree\/([^\/]+)/);
-    if (branchMatch) {
-      branch = branchMatch[1];
-    } else {
-      branch = await this.detectDefaultBranch(owner, repo);
-      console.log(`Using branch: ${branch}`);
-    }
-
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
-    const rawResponse = await this.fetchUrl(apiUrl);
-    let treeData;
-    try {
-      treeData = JSON.parse(rawResponse);
-    } catch (e) {
-      throw new Error(`Failed to parse GitHub API response: ${e.message}`);
-    }
-
-    if (treeData.message) {
-      throw new Error(`GitHub API error: ${treeData.message}`);
-    }
-
-    if (!treeData.tree) {
-      throw new Error(`GitHub API returned no tree data. Response: ${JSON.stringify(treeData).slice(0, 200)}`);
-    }
-
-    // Large repos get truncated - warn but continue with what we have
-    if (treeData.truncated) {
-      console.warn(`Warning: repository tree is truncated (repo is too large for a single API call). Some files may be missing.`);
-    }
-
-    const detectedPlugins = this.detectPluginRoots(treeData, repo);
-
-    if (detectedPlugins.length === 0) {
-      console.log('No valid plugin data folders detected.');
-      return [];
-    }
-
-    console.log(`Detected ${detectedPlugins.length} plugin(s)`);
-
-    const results = [];
-
-    for (const plugin of detectedPlugins) {
-      console.log(`\nProcessing plugin: ${plugin.name}`);
-
-      // Reset state per plugin
-      this.ships = [];
-      this.variants = [];
-      this.outfits = [];
-      this.effects = [];
-      this.pendingVariants = [];
-
-      const pluginFiles = treeData.tree.filter(file =>
-        file.type === 'blob' &&
-        file.path.startsWith(plugin.dataPrefix) &&
-        file.path.endsWith('.txt')
-      );
-
-      for (const file of pluginFiles) {
-        const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${file.path}`;
-        const content = await this.fetchUrl(rawUrl);
-        this.parseFileContent(content);
-      }
-
-      this.processVariants();
-
-      // FIX: dataPrefix is now included in the results object
-      results.push({
-        name: plugin.name,
-        repository: repoUrl,
-        dataPrefix: plugin.dataPrefix,
-        ships: this.ships,
-        variants: this.variants,
-        outfits: this.outfits,
-        effects: this.effects,
-        owner,
-        repo,
-        branch
-      });
-    }
-
-    return results;
-  }
-
-  /**
-   * Downloads images for a specific detected plugin.
-   * Assumes images folder is next to the data folder.
-   *
-   * @param {string} owner
-   * @param {string} repo
-   * @param {string} branch
-   * @param {string} pluginDir - Local output directory
-   * @param {string} pluginDataPrefix - e.g. "myplugins/pluginA/data/"
-   */
-  async downloadImages(owner, repo, branch, pluginDir, pluginDataPrefix) {
-    console.log('\nDownloading images (plugin-relative sparse checkout)...');
-
-    const tempRepoDir = path.join(pluginDir, '.tmp-images-repo');
-    const imageOutputDir = path.join(pluginDir, 'images');
-
-    await fs.mkdir(imageOutputDir, { recursive: true });
-
-    try {
-      // Determine plugin root (folder above data/)
-      const pluginRoot = path.dirname(pluginDataPrefix.replace(/\/$/, ''));
-
-      console.log(`Plugin root: ${pluginRoot}`);
-
-      // Clean temp
-      await fs.rm(tempRepoDir, { recursive: true, force: true });
-
-      const repoUrl = `https://github.com/${owner}/${repo}.git`;
-
-      // Sparse clone only plugin root
-      await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoUrl} "${tempRepoDir}"`);
-      await exec(`git -C "${tempRepoDir}" sparse-checkout init --cone`);
-      await exec(`git -C "${tempRepoDir}" sparse-checkout set "${pluginRoot}"`);
-      await exec(`git -C "${tempRepoDir}" checkout ${branch}`);
-
-      const sourceImagesDir = path.join(tempRepoDir, pluginRoot, 'images');
-
-      // Verify images folder exists
-      try {
-        await fs.access(sourceImagesDir);
-      } catch {
-        console.log('No images folder found next to data folder.');
-        return;
-      }
-
-      // Collect image paths from parsed data
-      const imagePaths = new Set();
-
-      const addImagePath = (pathStr) => {
-        if (!pathStr) return;
-        const basePath = pathStr.replace(/\/[^/]*$(?=.*\/)/, '');
-        imagePaths.add(basePath);
-      };
-
-      for (const ship of this.ships) {
-        addImagePath(ship.sprite);
-        addImagePath(ship.thumbnail);
-      }
-
-      for (const variant of this.variants) {
-        addImagePath(variant.sprite);
-        addImagePath(variant.thumbnail);
-      }
-
-      for (const outfit of this.outfits) {
-        addImagePath(outfit.sprite);
-        addImagePath(outfit.thumbnail);
-        addImagePath(outfit['flare sprite']);
-        addImagePath(outfit['steering flare sprite']);
-        addImagePath(outfit['reverse flare sprite']);
-
-        if (outfit.weapon) {
-          addImagePath(outfit.weapon['hardpoint sprite']);
-          addImagePath(outfit.weapon.sprite);
-        }
-      }
-
-      for (const effect of this.effects) {
-        addImagePath(effect.sprite);
-      }
-
-      console.log(`Found ${imagePaths.size} unique image paths`);
-
-      // Copy matching files
-      for (const imagePath of imagePaths) {
-        await this.copyMatchingImages(
-          sourceImagesDir,
-          imageOutputDir,
-          imagePath
-        );
-      }
-
-      // Cleanup
-      await fs.rm(tempRepoDir, { recursive: true, force: true });
-      console.log('✓ Images downloaded successfully');
-
-    } catch (error) {
-      console.error(`Image download error: ${error.message}`);
-      await fs.rm(tempRepoDir, { recursive: true, force: true });
-      throw error;
-    }
-  }
-
-  /**
-   * Copies all matching image files for a given base path
-   * @param {string} sourceDir - Source images directory
-   * @param {string} destDir - Destination directory
-   * @param {string} imagePath - Base image path to match
-   */
-  async copyMatchingImages(sourceDir, destDir, imagePath) {
-    const normalizedPath = imagePath.replace(/\\/g, '/');
-    const pathParts = normalizedPath.split('/');
-    const basenamePattern = pathParts[pathParts.length - 1];
-    const parentDir = pathParts.slice(0, -1).join('/');
-
-    // Try both parent directory and subdirectory with basename
-    const searchPaths = [
-      { dir: path.join(sourceDir, parentDir), relative: parentDir },
-      { dir: path.join(sourceDir, normalizedPath), relative: normalizedPath }
-    ];
-  
-    for (const searchPath of searchPaths) {
-      try {
-        const stats = await fs.stat(searchPath.dir);
-        if (!stats.isDirectory()) continue;
-
-        const files = await fs.readdir(searchPath.dir);
-        const escapedPattern = basenamePattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-        // Match various filename patterns (base, base-0, base.0, etc.)
-        const matchingFiles = files.filter(fileName => {
-          const fileExt = path.extname(fileName).toLowerCase();
-          const fileBase = path.basename(fileName, fileExt);
-
-          const patterns = [
-            new RegExp(`^${escapedPattern}$`),              // exact match
-            new RegExp(`^${escapedPattern}-\\d+$`),         // base-0
-            new RegExp(`^${escapedPattern}\\.\\d+$`),       // base.0
-            new RegExp(`^${escapedPattern}-.+\\d+$`),       // base-text0
-            new RegExp(`^${escapedPattern}.+\\d+$`),        // base+0
-            new RegExp(`^${escapedPattern}.$`),             // base+
-            new RegExp(`^${escapedPattern}-.+$`),           // base-text
-            new RegExp(`^${escapedPattern}.+$`)             // base+text
-          ];
-
-          const matches = patterns.some(p => fileBase.match(p));
-          const validExt = ['.png', '.jpg', '.jpeg', '.gif', '.avif', '.webp'].includes(fileExt);
-          
-          return matches && validExt;
-        });
-
-        if (matchingFiles.length > 0) {
-          const outputDir = path.join(destDir, searchPath.relative);
-          await fs.mkdir(outputDir, { recursive: true });
-
-          for (const fileName of matchingFiles) {
-            const sourceFile = path.join(searchPath.dir, fileName);
-            const destFile = path.join(outputDir, fileName);
-            await fs.copyFile(sourceFile, destFile);
-            console.log(`  ✓ Copied: ${searchPath.relative}/${fileName}`);
-          }
-          return; // Found files, done
-        }
-      } catch (error) {
-        continue; // Try next path
-      }
-    }
-
-    console.log(`  ✗ No files found for: ${normalizedPath}`);
+    const data = { name };
+    const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
+    Object.assign(data, parsed);
+    return [data, ni];
   }
 }
 
-/**
- * Main execution function
- * Reads plugin configuration and processes each plugin
- */
+// ---------------------------------------------------------------------------
+// Main
+// ---------------------------------------------------------------------------
 async function main() {
   try {
-    // Read plugin configuration
-    const configPath = path.join(process.cwd(), 'plugins.json');
-    const configData = await fs.readFile(configPath, 'utf8');
-    const config = JSON.parse(configData);
-    
-    console.log(`Found ${config.plugins.length} plugins to process\n`);
-    
-    // Process each plugin
-    for (const plugin of config.plugins) {
+    const config = JSON.parse(await fs.readFile(path.join(process.cwd(), 'plugins.json'), 'utf8'));
+    console.log(`Found ${config.plugins.length} repository source(s)\n`);
+
+    for (const source of config.plugins) {
       console.log(`\n${'='.repeat(60)}`);
-      console.log(`Processing plugin: ${plugin.name}`);
-      console.log(`${'='.repeat(60)}`);
-      
-      const parser = new EndlessSkyParser();
+      console.log(`Source: ${source.name}  |  ${source.repository}`);
+      console.log('='.repeat(60));
 
-      // FIX: parseRepository returns an array of detected plugin results
-      const pluginResults = await parser.parseRepository(plugin.repository);
+      const parser  = new EndlessSkyParser();
+      const results = await parser.parseRepository(source.repository);
 
-      for (const detectedPlugin of pluginResults) {
-        // Create output directories
-        const pluginDir = path.join(process.cwd(), 'data', detectedPlugin.name);
+      if (results.length === 0) {
+        console.log('No plugins found, skipping.');
+        continue;
+      }
+
+      for (const plugin of results) {
+        console.log(`\nSaving → data/${plugin.name}/`);
+
+        const pluginDir   = path.join(process.cwd(), 'data', plugin.name);
         const dataFilesDir = path.join(pluginDir, 'dataFiles');
         await fs.mkdir(dataFilesDir, { recursive: true });
-        
-        // Download images using info from the detected plugin result
-        await parser.downloadImages(
-          detectedPlugin.owner,
-          detectedPlugin.repo,
-          detectedPlugin.branch,
-          pluginDir,
-          detectedPlugin.dataPrefix
-        );
+
+        // Images were already copied inside parseRepository while the clone existed.
+        // Nothing extra needed here.
 
         /*// Convert image sequences to APNG
         const converter = new ImageConverter();
-        await converter.processAllImages(pluginDir, detectedPlugin, { fps: null });*/
+        await converter.processAllImages(pluginDir, plugin, { fps: null });*/
 
-        // Save JSON files
-        await fs.writeFile(
-          path.join(dataFilesDir, 'ships.json'), 
-          JSON.stringify(detectedPlugin.ships, null, 2)
-        );
-        console.log(`✓ Saved ${detectedPlugin.ships.length} ships`);
-        
-        await fs.writeFile(
-          path.join(dataFilesDir, 'variants.json'), 
-          JSON.stringify(detectedPlugin.variants, null, 2)
-        );
-        console.log(`✓ Saved ${detectedPlugin.variants.length} variants`);
-        
-        await fs.writeFile(
-          path.join(dataFilesDir, 'outfits.json'), 
-          JSON.stringify(detectedPlugin.outfits, null, 2)
-        );
-        console.log(`✓ Saved ${detectedPlugin.outfits.length} outfits`);
+        await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(plugin.ships,    null, 2));
+        await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(plugin.variants, null, 2));
+        await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(plugin.outfits,  null, 2));
+        await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(plugin.effects,  null, 2));
+        await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
+          plugin:     plugin.name,
+          repository: source.repository,
+          ships:      plugin.ships,
+          variants:   plugin.variants,
+          outfits:    plugin.outfits,
+          effects:    plugin.effects,
+          parsedAt:   new Date().toISOString()
+        }, null, 2));
 
-        await fs.writeFile(
-          path.join(dataFilesDir, 'effects.json'), 
-          JSON.stringify(detectedPlugin.effects, null, 2)
-        );
-        console.log(`✓ Saved ${detectedPlugin.effects.length} effects`);
-        
-        await fs.writeFile(
-          path.join(dataFilesDir, 'complete.json'),
-          JSON.stringify({
-            plugin: detectedPlugin.name,
-            repository: plugin.repository,
-            ships: detectedPlugin.ships,
-            variants: detectedPlugin.variants,
-            outfits: detectedPlugin.outfits,
-            effects: detectedPlugin.effects,
-            parsedAt: new Date().toISOString()
-          }, null, 2)
-        );
-        console.log(`✓ Saved complete data`);
+        console.log(`  ✓ ${plugin.ships.length} ships | ${plugin.variants.length} variants | ${plugin.outfits.length} outfits | ${plugin.effects.length} effects`);
       }
     }
-    
-    console.log(`\n${'='.repeat(60)}`);
-    console.log('✓ All plugins processed successfully!');
-    console.log(`${'='.repeat(60)}\n`);
-    
-  } catch (error) {
-    console.error('Error:', error.message);
-    console.error(error.stack);
+
+    console.log(`\n${'='.repeat(60)}\n✓ All done!\n${'='.repeat(60)}\n`);
+  } catch (err) {
+    console.error('Fatal error:', err.message);
+    console.error(err.stack);
     process.exit(1);
   }
 }
 
-// Run main if executed directly
-if (require.main === module) {
-  main();
-}
-
+if (require.main === module) main();
 module.exports = EndlessSkyParser;
