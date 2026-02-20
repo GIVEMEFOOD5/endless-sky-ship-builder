@@ -366,7 +366,7 @@ async function renderImageTab(spritePath, altText, spriteParams) {
     spriteParams = spriteParams || {};
     if (!spritePath) return null;
 
-    const element = await fetchSprite(spritePath, spriteParams);
+    const element = await window.fetchSprite(spritePath, spriteParams);
     if (!element) {
         const p = document.createElement('p');
         p.style.color = '#ef4444';
