@@ -1,3 +1,6 @@
+(function () {
+'use strict';
+
 /**
  * EffectGrabber.js — multi-plugin edition
  *
@@ -19,8 +22,6 @@
  *     first. Returns the rendered sprite element, or null if not found.
  *     → Promise<HTMLCanvasElement | HTMLImageElement | null>
  */
-
-'use strict';
 
 const EFFECTS_BASE_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/';
 
@@ -143,3 +144,5 @@ async function fetchEffectByName(effectName, spriteParams) {
 
 window.fetchEffectByName = fetchEffectByName;
 window.setEffectPlugin   = setEffectPlugin;
+
+})();
