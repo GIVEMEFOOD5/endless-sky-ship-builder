@@ -128,8 +128,14 @@ async function fetchEffectByName(effectName, spriteParams) {
         ? spriteParams
         : (effect.spriteData || {});
 
-    // Pass EXACT sprite path directly — avoids ambiguous suffix search
-    return await window.fetchSprite(effect.sprite, params);
+    // Call fetchSpriteExact (not fetchSprite) to avoid the circular call chain:
+    //   fetchSprite → fetchEffectByName → fetchSprite → infinite loop
+    // fetchSpriteExact goes straight to the image index, skipping EffectGrabber.
+    if (typeof window.fetchSpriteExact !== 'function') {
+        console.error('EffectGrabber: fetchSpriteExact not available — is ImageGrabber loaded?');
+        return null;
+    }
+    return await window.fetchSpriteExact(effect.sprite, params);
 }
 
 
