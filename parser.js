@@ -822,12 +822,64 @@ class EndlessSkyParser {
     return changed ? v : null;
   }
 
+  /**
+   * Compares two fully-resolved ship/variant objects to see if they are
+   * effectively identical (same stats, hardpoints, sprite, thumbnail).
+   * Used to deduplicate variants against each other.
+   */
+  shipsAreIdentical(a, b) {
+    // Must be the same base ship family
+    if (a.baseShip !== b.baseShip) return false;
+
+    // Compare sprite and thumbnail
+    if (a.sprite    !== b.sprite)    return false;
+    if (a.thumbnail !== b.thumbnail) return false;
+
+    // Compare hardpoints by count and position
+    for (const t of ['engines','reverseEngines','steeringEngines','guns','turrets','bays']) {
+      const aList = a[t] || [];
+      const bList = b[t] || [];
+      if (aList.length !== bList.length) return false;
+      for (let i = 0; i < aList.length; i++) {
+        if (aList[i].x !== bList[i].x || aList[i].y !== bList[i].y) return false;
+      }
+    }
+
+    // Compare attributes
+    const aAttr = a.attributes || {};
+    const bAttr = b.attributes || {};
+    const allKeys = new Set([...Object.keys(aAttr), ...Object.keys(bAttr)]);
+    for (const k of allKeys) {
+      if (aAttr[k] !== bAttr[k]) return false;
+    }
+
+    return true;
+  }
+
   processVariants() {
     console.log(`  Processing ${this.pendingVariants.length} variants...`);
+    let kept = 0, skippedNoChange = 0, skippedDuplicate = 0;
+
     for (const vi of this.pendingVariants) {
       const v = this.parseShipVariant(vi);
-      if (v) { this.variants.push(v); console.log(`    + ${v.name}`); }
+
+      // parseShipVariant already checks significance vs base ship
+      if (!v) { skippedNoChange++; continue; }
+
+      // Check against all already-accepted variants for duplicates
+      const isDuplicate = this.variants.some(existing => this.shipsAreIdentical(existing, v));
+      if (isDuplicate) {
+        console.log(`    ~ Skipped duplicate variant: ${v.name}`);
+        skippedDuplicate++;
+        continue;
+      }
+
+      this.variants.push(v);
+      console.log(`    + ${v.name}`);
+      kept++;
     }
+
+    console.log(`  Variants: ${kept} kept, ${skippedNoChange} no significant change, ${skippedDuplicate} duplicates removed`);
   }
 
   parseOutfit(lines, startIdx) {
