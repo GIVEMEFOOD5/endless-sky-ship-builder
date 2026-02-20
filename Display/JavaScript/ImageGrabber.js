@@ -1,44 +1,34 @@
 /**
- * ImageGrabber.js (integrated with effects support)
+ * ImageGrabber.js — multi-plugin edition
  *
- * Uses the GitHub API to fetch the full repo file tree once, builds a
- * searchable filename index, then fetches exact URLs.
- * Now includes built-in effects.json support!
+ * Builds a separate image index per plugin folder. When fetchSprite() is called
+ * it searches the current plugin's index first, then falls back to all other
+ * loaded indexes so variants can find base-game sprites.
  *
  * Requires Animator.js (EndlessSkyAnimator) to be loaded first.
  *
  * Public API
  * ──────────
- *   initImageIndex()
- *     Fetches the repo tree and builds the index. Call once at startup.
- *     Also loads effects.json automatically.
+ *   initImageIndex(outputName?)
+ *     Builds (or retrieves cached) index for the given plugin folder.
+ *     If no outputName given, initialises all known plugins from allData.
  *     → Promise<void>
  *
- *   fetchSprite(spritePath, spriteParams?)
- *     Looks up all frames for spritePath in the index, fetches their blobs,
- *     passes to EndlessSkyAnimator (or returns a plain <img> for statics).
- *     → Promise<HTMLCanvasElement | HTMLImageElement | null>
- *
- *   fetchEffectSprite(effectNameOrPath, spriteParams?)
- *     Tries to find the effect by name in effects.json, then fetches its sprite.
- *     If not found, treats the input as a direct sprite path.
- *     → Promise<HTMLCanvasElement | HTMLImageElement | null>
- *
- *   fetchOutfitEffects(outfit)
- *     Fetches all effect sprites for an outfit (flare sprite, afterburner, etc.)
- *     Returns an object with keys for each effect type.
- *     → Promise<Object>
- *
- *   getEffect(effectName)
- *     Looks up an effect by name in the loaded effects data.
- *     → Object | null
- *
- *   clearSpriteCache()
- *     Stops the active animator and revokes all object URLs.
+ *   setCurrentPlugin(outputName)
+ *     Tells the grabber which plugin is active. Called by selectPlugin() in main.js.
  *     → void
  *
- *   findImageVariations(basePath)
- *     Low-level: returns all matching frame entries from the index.
+ *   fetchSprite(spritePath, spriteParams?)
+ *     Searches the current plugin's index first, then all others as fallback.
+ *     → Promise<HTMLCanvasElement | HTMLImageElement | null>
+ *
+ *   clearSpriteCache()
+ *     Stops the active animator and revokes object URLs.
+ *     → void
+ *
+ *   findImageVariations(basePath, outputName?)
+ *     Low-level: returns all matching frame entries from the specified index
+ *     (or current plugin's index if omitted).
  *     → Array<{path, url, variation}>
  */
 
@@ -46,70 +36,92 @@
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-const GITHUB_REPO        = 'GIVEMEFOOD5/endless-sky-ship-builder';
-const GITHUB_BRANCH      = 'main';
-const IMAGES_REPO_PREFIX = 'data/official-game/images/';  // path inside repo
-const GITHUB_PAGES_BASE  =
-  'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/' + IMAGES_REPO_PREFIX;
+const GITHUB_REPO   = 'GIVEMEFOOD5/endless-sky-ship-builder';
+const GITHUB_BRANCH = 'main';
 
+// Base URL for GitHub Pages (raw image serving)
+const GITHUB_PAGES_BASE = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/`;
 
-// Separator chars used in ES animation filenames
+// Raw GitHub URL base for API
+const GITHUB_API_BASE = `https://api.github.com/repos/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
+
+// Image extensions
+const IMG_EXT_RE = /\.(png|jpg|jpeg)$/i;
+
+// Animation separator chars used in ES filenames
 const SEPARATORS = ['+', '~', '-', '^', '=', '@'];
-const SEP_RE     = new RegExp('[' + SEPARATORS.map(function(s) {
-  return s.replace(/[-^]/g, '\\$&');
-}).join('') + ']');
+
 
 // ─── Module state ─────────────────────────────────────────────────────────────
 
-// Image index: Map of normalised-base-path → Array<{fullPath, url, variation}>
-let _index     = null;   // null = not yet built
-let _indexing  = null;   // Promise while building, to avoid duplicate fetches
+// Per-plugin indexes: Map of outputName → { index: Map<baseKey → frames[]>, ready: bool }
+const _pluginIndexes  = {};
+const _pluginIndexing = {}; // outputName → Promise while building
 
-// Effects are now handled by EffectGrabber.js
+// Which plugin is currently selected
+let _currentPlugin = null;
 
-// Active animator / static-image disposable
+// Cached full repo tree (fetched once, shared across all index builds)
+let _repoTree        = null;
+let _repoTreeFetching = null;
+
+// Active animator/image for disposal
 let _active   = null;
 let _fetchGen = 0;
 
 
-// ─── Index builder ────────────────────────────────────────────────────────────
+// ─── Repo tree (fetched once) ─────────────────────────────────────────────────
 
-async function initImageIndex() {
-  if (_index)    return;
-  if (_indexing) return _indexing;
+async function _fetchRepoTree() {
+  if (_repoTree)        return _repoTree;
+  if (_repoTreeFetching) return _repoTreeFetching;
 
-  _indexing = (async function() {
-    const apiUrl =
-      'https://api.github.com/repos/' + GITHUB_REPO +
-      '/git/trees/' + GITHUB_BRANCH + '?recursive=1';
-
-    let tree;
+  _repoTreeFetching = (async () => {
     try {
-      const res = await fetch(apiUrl, {
-        headers: { 'Accept': 'application/vnd.github.v3+json' }
+      const res = await fetch(GITHUB_API_BASE, {
+        headers: { Accept: 'application/vnd.github.v3+json' }
       });
-      if (!res.ok) throw new Error('GitHub API returned ' + res.status);
+      if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
       const data = await res.json();
-      tree = data.tree;
+      _repoTree = data.tree || [];
+      console.log(`ImageGrabber: repo tree fetched — ${_repoTree.length} entries`);
     } catch (err) {
-      console.error('ImageGrabber: failed to build index:', err);
-      _index    = {};
-      _indexing = null;
-      return;
+      console.error('ImageGrabber: failed to fetch repo tree:', err);
+      _repoTree = [];
     }
+    _repoTreeFetching = null;
+    return _repoTree;
+  })();
 
-    const imgExts = /\.(png|jpg|jpeg)$/i;
-    _index = {};
+  return _repoTreeFetching;
+}
 
-    tree.forEach(function(node) {
-      if (node.type !== 'blob') return;
-      if (!node.path.startsWith(IMAGES_REPO_PREFIX)) return;
-      if (!imgExts.test(node.path)) return;
 
-      const rel     = node.path.slice(IMAGES_REPO_PREFIX.length);
-      const noExt   = rel.replace(imgExts, '');
-      const pageUrl = GITHUB_PAGES_BASE + rel;
+// ─── Per-plugin index builder ─────────────────────────────────────────────────
 
+/**
+ * Builds the image index for one plugin's images/ folder.
+ * e.g. outputName = "official-game" → scans data/official-game/images/
+ */
+async function _buildPluginIndex(outputName) {
+  if (_pluginIndexes[outputName]?.ready) return;
+  if (_pluginIndexing[outputName])       return _pluginIndexing[outputName];
+
+  _pluginIndexing[outputName] = (async () => {
+    const tree    = await _fetchRepoTree();
+    const prefix  = `data/${outputName}/images/`;
+    const index   = {};
+
+    tree.forEach(node => {
+      if (node.type !== 'blob')              return;
+      if (!node.path.startsWith(prefix))     return;
+      if (!IMG_EXT_RE.test(node.path))       return;
+
+      const rel    = node.path.slice(prefix.length);           // e.g. "ship/penguin.png"
+      const noExt  = rel.replace(IMG_EXT_RE, '');              // e.g. "ship/penguin"
+      const pageUrl = `${GITHUB_PAGES_BASE}${outputName}/images/${rel}`;
+
+      // Parse animation frame suffix
       const sepNumMatch  = noExt.match(/^(.*?)([+~\-\^=@])(\d+)$/);
       const sepOnlyMatch = noExt.match(/^(.*?)([+~\-\^=@])$/);
       let baseKey, variation;
@@ -125,121 +137,138 @@ async function initImageIndex() {
         variation = 'base';
       }
 
-      if (!_index[baseKey]) _index[baseKey] = [];
-      _index[baseKey].push({ fullPath: rel, url: pageUrl, variation: variation });
+      if (!index[baseKey]) index[baseKey] = [];
+      index[baseKey].push({ fullPath: rel, url: pageUrl, variation });
     });
 
     // Sort frames into playback order
-    Object.keys(_index).forEach(function(key) {
-      _index[key].sort(function(a, b) {
+    Object.values(index).forEach(frames => {
+      frames.sort((a, b) => {
         if (a.variation === 'base') return -1;
         if (b.variation === 'base') return  1;
-
-        const aIsNum = /\d/.test(a.variation);
-        const bIsNum = /\d/.test(b.variation);
-        if (!aIsNum &&  bIsNum) return -1;
-        if ( aIsNum && !bIsNum) return  1;
-        if (!aIsNum && !bIsNum) return a.variation.localeCompare(b.variation);
-
-        const na = parseInt(a.variation.replace(/\D/g, ''), 10);
-        const nb = parseInt(b.variation.replace(/\D/g, ''), 10);
-        return na - nb;
+        const aNum = /\d/.test(a.variation);
+        const bNum = /\d/.test(b.variation);
+        if (!aNum &&  bNum) return -1;
+        if ( aNum && !bNum) return  1;
+        if (!aNum && !bNum) return a.variation.localeCompare(b.variation);
+        return parseInt(a.variation.replace(/\D/g, ''), 10) -
+               parseInt(b.variation.replace(/\D/g, ''), 10);
       });
     });
 
-    console.log('ImageGrabber: index built —', Object.keys(_index).length, 'sprites');
-    _indexing = null;
+    _pluginIndexes[outputName] = { index, ready: true };
+    delete _pluginIndexing[outputName];
+
+    console.log(`ImageGrabber: index built for "${outputName}" — ${Object.keys(index).length} sprites`);
   })();
 
-  return _indexing;
+  return _pluginIndexing[outputName];
 }
 
 
-// ─── Effects data loader ──────────────────────────────────────────────────────
+// ─── Public: initImageIndex ───────────────────────────────────────────────────
 
-async function loadEffectsData() {
-  if (_effectsData)    return;
-  if (_effectsLoading) return _effectsLoading;
-
-  _effectsLoading = (async function() {
-    try {
-      const res = await fetch(EFFECTS_JSON_URL);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-
-      _effectsData = await res.json();
-
-      _effectsMap = {};
-      _effectsData.forEach(function(effect) {
-        if (effect.name) _effectsMap[effect.name] = effect;
-      });
-
-      console.log('ImageGrabber: loaded', _effectsData.length, 'effects');
-    } catch (err) {
-      console.warn('ImageGrabber: failed to load effects.json:', err);
-      _effectsData = [];
-      _effectsMap  = {};
-    }
-    _effectsLoading = null;
-  })();
-
-  return _effectsLoading;
-}
-
-
-// ─── getEffect ────────────────────────────────────────────────────────────────
-
-function getEffect(effectName) {
-  if (!_effectsMap) {
-    console.warn('ImageGrabber: effects not loaded — call initImageIndex() first');
-    return null;
-  }
-  return _effectsMap[effectName] || null;
-}
-
-
-// ─── findImageVariations ──────────────────────────────────────────────────────
-
-function findImageVariations(basePath) {
-  if (!_index) {
-    console.warn('ImageGrabber: index not ready — call initImageIndex() first');
-    return [];
+/**
+ * Call at startup (or when plugin list changes) to pre-build indexes.
+ * If outputName given, builds just that one. Otherwise builds all plugins
+ * known from window.allData (set by main.js).
+ */
+async function initImageIndex(outputName) {
+  if (outputName) {
+    await _buildPluginIndex(outputName);
+    return;
   }
 
+  // Build index for every known plugin in parallel
+  const knownPlugins = window.allData ? Object.keys(window.allData) : [];
+  if (knownPlugins.length === 0) {
+    // allData not ready yet — just fetch the tree so it's cached
+    await _fetchRepoTree();
+    return;
+  }
+
+  await Promise.all(knownPlugins.map(name => _buildPluginIndex(name)));
+}
+
+
+// ─── Public: setCurrentPlugin ─────────────────────────────────────────────────
+
+function setCurrentPlugin(outputName) {
+  _currentPlugin = outputName;
+  // Eagerly build index for this plugin if not already done
+  if (outputName) _buildPluginIndex(outputName);
+}
+
+
+// ─── Public: findImageVariations ─────────────────────────────────────────────
+
+/**
+ * Searches one plugin's index for all frames matching basePath.
+ * Returns [] if not found.
+ */
+function findImageVariations(basePath, outputName) {
+  const target = outputName || _currentPlugin;
+  if (!target) return [];
+
+  const pluginIdx = _pluginIndexes[target];
+  if (!pluginIdx?.ready) return [];
+
+  return _searchIndex(pluginIdx.index, basePath);
+}
+
+
+/**
+ * Internal: search a single index object for basePath.
+ */
+function _searchIndex(index, basePath) {
   // Normalise: strip leading slash, extension, trailing separator+number
   let key = basePath.replace(/^\/+/, '');
   key = key.replace(/\.(png|jpg|jpeg)$/i, '');
   key = key.replace(/[+~\-\^=@]\d+$/, '');
   key = key.replace(/[+~\-\^=@]$/, '');
 
-  // Exact match first
-  const frames = _index[key];
-  if (frames && frames.length) return frames;
+  // Exact match
+  if (index[key]?.length) return index[key];
 
-  // Suffix search — handles cases where the data path omits leading folders
-  // e.g. "penguin/penguin" matches index key "ship/penguin/penguin"
-  //
-  // We require the match to land on a folder boundary (preceded by '/')
-  // so "burner" never accidentally matches "afterburner".
+  // Suffix match (handles paths that omit leading folder names)
   const suffix  = '/' + key;
-  const matches = Object.keys(_index).filter(function(k) {
-    return k === key || k.endsWith(suffix);
-  });
+  const matches = Object.keys(index).filter(k => k === key || k.endsWith(suffix));
 
-  if (matches.length === 1) return _index[matches[0]];
+  if (matches.length === 1) return index[matches[0]];
   if (matches.length  > 1) {
-    // Prefer the LONGEST (most specific / most deeply nested) match.
-    // e.g. given key "remnant afterburner/remnant afterburner":
-    //   "effect/remnant afterburner/remnant afterburner"  ← correct (longer)
-    //   "outfit/remnant afterburner"                      ← wrong   (shorter)
-    matches.sort(function(a, b) { return b.length - a.length; });
-    return _index[matches[0]];
+    // Prefer longest (most specific) match
+    matches.sort((a, b) => b.length - a.length);
+    return index[matches[0]];
   }
 
   return [];
 }
 
 
-// ─── clearSpriteCache ─────────────────────────────────────────────────────────
+/**
+ * Searches all loaded plugin indexes in priority order:
+ * current plugin first, then all others.
+ * Returns { frames, sourcePlugin } or null.
+ */
+function _findAcrossPlugins(basePath) {
+  // Build search order: current plugin first
+  const order = _currentPlugin ? [_currentPlugin] : [];
+  for (const name of Object.keys(_pluginIndexes)) {
+    if (name !== _currentPlugin) order.push(name);
+  }
+
+  for (const name of order) {
+    const pluginIdx = _pluginIndexes[name];
+    if (!pluginIdx?.ready) continue;
+    const frames = _searchIndex(pluginIdx.index, basePath);
+    if (frames.length) return { frames, sourcePlugin: name };
+  }
+
+  return null;
+}
+
+
+// ─── Public: clearSpriteCache ─────────────────────────────────────────────────
 
 function clearSpriteCache() {
   if (_active) {
@@ -250,83 +279,61 @@ function clearSpriteCache() {
 }
 
 
-// ─── fetchSprite ──────────────────────────────────────────────────────────────
+// ─── Public: fetchSprite ──────────────────────────────────────────────────────
 
 async function fetchSprite(spritePath, spriteParams) {
   spriteParams = spriteParams || {};
-
-  // NOTE: clearSpriteCache() is intentionally NOT called here.
-  // It is called externally by switchModalTab() in Plugin_Script.js
-  // before fetchSprite() is invoked. Calling it here would cancel
-  // any concurrent fetch and cause stale content to remain visible.
-  const myGen = _fetchGen;
+  const myGen  = _fetchGen;
 
   if (!spritePath) {
     console.warn('fetchSprite: no spritePath provided');
     return null;
   }
 
-  // Ensure index and effects are ready
-  await initImageIndex();
+  // Ensure current plugin's index is ready
+  if (_currentPlugin && !_pluginIndexes[_currentPlugin]?.ready) {
+    await _buildPluginIndex(_currentPlugin);
+  }
   if (_fetchGen !== myGen) return null;
 
-  // ── Step 0: Check if this is an effect name in effects.json ──────────────
-  // This bypasses the suffix search which can match the wrong path when
-  // multiple index keys share the same ending (e.g. thumbnail vs effect).
+  // ── Step 0: Check EffectGrabber first (if loaded) ─────────────────────────
   if (typeof window.fetchEffectByName === 'function') {
     const effectResult = await window.fetchEffectByName(spritePath, spriteParams);
     if (effectResult !== null) {
       console.log('fetchSprite: resolved via EffectGrabber');
       return effectResult;
     }
-    // Not an effect name or effect not found — continue to normal image lookup
   }
 
-  // ── Step 1: Try direct image index lookup ─────────────────────────────────
-  let frames = findImageVariations(spritePath);
+  // ── Step 1: Search current plugin, then all others ─────────────────────────
+  let found = _findAcrossPlugins(spritePath);
 
-  // ── Step 2: Not found — check effects.json by name ───────────────────────
-  if (!frames.length) {
-    console.log('fetchSprite: "' + spritePath + '" not in image index, checking effects.json...');
+  if (!found) {
+    console.log(`fetchSprite: "${spritePath}" not in any image index, checking effects fallback...`);
 
-    const effect = getEffect(spritePath);
+    // Try prepending "effect/" as a last resort
+    found = _findAcrossPlugins('effect/' + spritePath);
 
-    if (effect && effect.sprite) {
-      console.log('fetchSprite: found effect "' + spritePath + '" → sprite: "' + effect.sprite + '"');
-
-      frames = findImageVariations(effect.sprite);
-
-      if (frames.length) {
-        // Use the effect's own spriteData unless the caller supplied params
-        if (!spriteParams || Object.keys(spriteParams).length === 0) {
-          spriteParams = effect.spriteData || {};
-        }
-      } else {
-        console.warn('fetchSprite: effect sprite "' + effect.sprite + '" not found in image index');
-        return null;
-      }
-
-    // ── Step 3: Not in effects.json — try prepending "effect/" ───────────
-    } else {
-      const withPrefix = 'effect/' + spritePath;
-      console.log('fetchSprite: not in effects.json, trying "' + withPrefix + '"...');
-      frames = findImageVariations(withPrefix);
-
-      if (!frames.length) {
-        console.warn('fetchSprite: "' + spritePath + '" not found anywhere');
-        return null;
-      }
-      console.log('fetchSprite: found as "' + withPrefix + '"');
+    if (!found) {
+      console.warn(`fetchSprite: "${spritePath}" not found anywhere`);
+      return null;
     }
+    console.log(`fetchSprite: found as "effect/${spritePath}" in "${found.sourcePlugin}"`);
+  } else if (found.sourcePlugin !== _currentPlugin) {
+    console.log(`fetchSprite: "${spritePath}" not in current plugin, found in "${found.sourcePlugin}"`);
   }
+
+  if (_fetchGen !== myGen) return null;
+
+  const frames = found.frames;
 
   // ── Fetch all frame blobs in parallel ─────────────────────────────────────
-  const blobResults = await Promise.all(frames.map(async function(frame) {
+  const blobResults = await Promise.all(frames.map(async frame => {
     try {
       const res = await fetch(frame.url);
       if (!res.ok) return null;
       return { variation: frame.variation, blob: await res.blob(), url: frame.url, path: frame.fullPath };
-    } catch (_) { return null; }
+    } catch { return null; }
   }));
 
   if (_fetchGen !== myGen) return null;
@@ -334,14 +341,14 @@ async function fetchSprite(spritePath, spriteParams) {
   const variations = blobResults.filter(Boolean);
 
   if (!variations.length) {
-    console.warn('fetchSprite: all frame fetches failed for "' + spritePath + '"');
+    console.warn(`fetchSprite: all frame fetches failed for "${spritePath}"`);
     return null;
   }
 
   // ── Single frame → plain <img> ────────────────────────────────────────────
   if (variations.length === 1) {
     const objectUrl = URL.createObjectURL(variations[0].blob);
-    _active = { dispose: function() { URL.revokeObjectURL(objectUrl); } };
+    _active = { dispose: () => URL.revokeObjectURL(objectUrl) };
 
     const img = document.createElement('img');
     img.src = objectUrl;
@@ -365,7 +372,6 @@ async function fetchSprite(spritePath, spriteParams) {
   _active = anim;
 
   await anim.loadVariations(variations, spriteParams);
-
   if (_fetchGen !== myGen) return null;
 
   anim.play();
@@ -373,16 +379,17 @@ async function fetchSprite(spritePath, spriteParams) {
 }
 
 
-// ─── fetchEffectSprite ────────────────────────────────────────────────────────
+// ─── fetchEffectSprite (compat wrapper) ───────────────────────────────────────
 
-// Wrapper kept for backward compatibility — fetchSprite now handles everything.
 async function fetchEffectSprite(effectNameOrPath, spriteParams) {
   if (!effectNameOrPath) {
     console.warn('fetchEffectSprite: no path provided');
     return null;
   }
-  await initImageIndex();
-  return await fetchSprite(effectNameOrPath, spriteParams);
+  if (_currentPlugin && !_pluginIndexes[_currentPlugin]?.ready) {
+    await _buildPluginIndex(_currentPlugin);
+  }
+  return fetchSprite(effectNameOrPath, spriteParams);
 }
 
 
@@ -390,37 +397,22 @@ async function fetchEffectSprite(effectNameOrPath, spriteParams) {
 
 async function fetchOutfitEffects(outfit) {
   if (!outfit) return {};
-
   const results = {};
-
-  if (outfit['flare sprite']) {
+  const pairs = [
+    ['flare sprite',         'flareSprite'],
+    ['steering flare sprite','steeringFlareSprite'],
+    ['reverse flare sprite', 'reverseFlareSprite'],
+    ['afterburner effect',   'afterburnerEffect'],
+  ];
+  for (const [key, resultKey] of pairs) {
+    if (!outfit[key]) continue;
     try {
-      const sprite = await fetchEffectSprite(outfit['flare sprite'], outfit.spriteData);
-      if (sprite) results.flareSprite = sprite;
-    } catch (err) { console.error('fetchOutfitEffects: flare sprite failed:', err); }
+      const sprite = await fetchEffectSprite(outfit[key], outfit.spriteData);
+      if (sprite) results[resultKey] = sprite;
+    } catch (err) {
+      console.error(`fetchOutfitEffects: ${key} failed:`, err);
+    }
   }
-
-  if (outfit['steering flare sprite']) {
-    try {
-      const sprite = await fetchEffectSprite(outfit['steering flare sprite'], outfit.spriteData);
-      if (sprite) results.steeringFlareSprite = sprite;
-    } catch (err) { console.error('fetchOutfitEffects: steering flare failed:', err); }
-  }
-
-  if (outfit['reverse flare sprite']) {
-    try {
-      const sprite = await fetchEffectSprite(outfit['reverse flare sprite'], outfit.spriteData);
-      if (sprite) results.reverseFlareSprite = sprite;
-    } catch (err) { console.error('fetchOutfitEffects: reverse flare failed:', err); }
-  }
-
-  if (outfit['afterburner effect']) {
-    try {
-      const sprite = await fetchEffectSprite(outfit['afterburner effect']);
-      if (sprite) results.afterburnerEffect = sprite;
-    } catch (err) { console.error('fetchOutfitEffects: afterburner effect failed:', err); }
-  }
-
   return results;
 }
 
@@ -428,6 +420,9 @@ async function fetchOutfitEffects(outfit) {
 // ─── Globals ──────────────────────────────────────────────────────────────────
 
 window.initImageIndex      = initImageIndex;
+window.setCurrentPlugin    = setCurrentPlugin;
 window.findImageVariations = findImageVariations;
 window.fetchSprite         = fetchSprite;
+window.fetchEffectSprite   = fetchEffectSprite;
+window.fetchOutfitEffects  = fetchOutfitEffects;
 window.clearSpriteCache    = clearSpriteCache;
