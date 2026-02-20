@@ -1,3 +1,6 @@
+(function () {
+'use strict';
+
 /**
  * ImageGrabber.js — multi-plugin edition
  *
@@ -31,8 +34,6 @@
  *     (or current plugin's index if omitted).
  *     → Array<{path, url, variation}>
  */
-
-'use strict';
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
@@ -464,3 +465,5 @@ window.fetchSpriteExact    = _fetchSpriteExact;  // used by EffectGrabber to avo
 window.fetchEffectSprite   = fetchEffectSprite;
 window.fetchOutfitEffects  = fetchOutfitEffects;
 window.clearSpriteCache    = clearSpriteCache;
+
+})();
