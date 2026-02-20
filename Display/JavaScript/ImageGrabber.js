@@ -279,55 +279,10 @@ function clearSpriteCache() {
 }
 
 
-// ─── Public: fetchSprite ──────────────────────────────────────────────────────
+// ─── Internal: render frames to canvas/img ────────────────────────────────────
+// Shared by fetchSprite and fetchSpriteExact. Does NOT call EffectGrabber.
 
-async function fetchSprite(spritePath, spriteParams) {
-  spriteParams = spriteParams || {};
-  const myGen  = _fetchGen;
-
-  if (!spritePath) {
-    console.warn('fetchSprite: no spritePath provided');
-    return null;
-  }
-
-  // Ensure current plugin's index is ready
-  if (_currentPlugin && !_pluginIndexes[_currentPlugin]?.ready) {
-    await _buildPluginIndex(_currentPlugin);
-  }
-  if (_fetchGen !== myGen) return null;
-
-  // ── Step 0: Check EffectGrabber first (if loaded) ─────────────────────────
-  if (typeof window.fetchEffectByName === 'function') {
-    const effectResult = await window.fetchEffectByName(spritePath, spriteParams);
-    if (effectResult !== null) {
-      console.log('fetchSprite: resolved via EffectGrabber');
-      return effectResult;
-    }
-  }
-
-  // ── Step 1: Search current plugin, then all others ─────────────────────────
-  let found = _findAcrossPlugins(spritePath);
-
-  if (!found) {
-    console.log(`fetchSprite: "${spritePath}" not in any image index, checking effects fallback...`);
-
-    // Try prepending "effect/" as a last resort
-    found = _findAcrossPlugins('effect/' + spritePath);
-
-    if (!found) {
-      console.warn(`fetchSprite: "${spritePath}" not found anywhere`);
-      return null;
-    }
-    console.log(`fetchSprite: found as "effect/${spritePath}" in "${found.sourcePlugin}"`);
-  } else if (found.sourcePlugin !== _currentPlugin) {
-    console.log(`fetchSprite: "${spritePath}" not in current plugin, found in "${found.sourcePlugin}"`);
-  }
-
-  if (_fetchGen !== myGen) return null;
-
-  const frames = found.frames;
-
-  // ── Fetch all frame blobs in parallel ─────────────────────────────────────
+async function _renderFrames(frames, spriteParams, myGen) {
   const blobResults = await Promise.all(frames.map(async frame => {
     try {
       const res = await fetch(frame.url);
@@ -339,17 +294,11 @@ async function fetchSprite(spritePath, spriteParams) {
   if (_fetchGen !== myGen) return null;
 
   const variations = blobResults.filter(Boolean);
+  if (!variations.length) return null;
 
-  if (!variations.length) {
-    console.warn(`fetchSprite: all frame fetches failed for "${spritePath}"`);
-    return null;
-  }
-
-  // ── Single frame → plain <img> ────────────────────────────────────────────
   if (variations.length === 1) {
     const objectUrl = URL.createObjectURL(variations[0].blob);
     _active = { dispose: () => URL.revokeObjectURL(objectUrl) };
-
     const img = document.createElement('img');
     img.src = objectUrl;
     img.style.cssText =
@@ -358,7 +307,6 @@ async function fetchSprite(spritePath, spriteParams) {
     return img;
   }
 
-  // ── Multiple frames → EndlessSkyAnimator ──────────────────────────────────
   if (typeof window.EndlessSkyAnimator !== 'function') {
     console.error('fetchSprite: EndlessSkyAnimator not loaded');
     return null;
@@ -376,6 +324,95 @@ async function fetchSprite(spritePath, spriteParams) {
 
   anim.play();
   return canvas;
+}
+
+
+// ─── Internal: fetchSpriteExact ───────────────────────────────────────────────
+// Looks up spritePath in the image indexes ONLY — no EffectGrabber call.
+// Used by EffectGrabber to avoid the circular call chain:
+//   fetchSprite → fetchEffectByName → fetchSprite (infinite loop)
+
+async function _fetchSpriteExact(spritePath, spriteParams) {
+  spriteParams = spriteParams || {};
+  const myGen  = _fetchGen;
+
+  if (!spritePath) return null;
+
+  if (_currentPlugin && !_pluginIndexes[_currentPlugin]?.ready) {
+    await _buildPluginIndex(_currentPlugin);
+  }
+  if (_fetchGen !== myGen) return null;
+
+  let found = _findAcrossPlugins(spritePath);
+
+  if (!found) {
+    found = _findAcrossPlugins('effect/' + spritePath);
+    if (!found) {
+      console.warn(`fetchSpriteExact: "${spritePath}" not found in any image index`);
+      return null;
+    }
+    console.log(`fetchSpriteExact: found as "effect/${spritePath}" in "${found.sourcePlugin}"`);
+  }
+
+  if (_fetchGen !== myGen) return null;
+
+  const result = await _renderFrames(found.frames, spriteParams, myGen);
+  if (result === null && _fetchGen === myGen) {
+    console.warn(`fetchSpriteExact: all frame fetches failed for "${spritePath}"`);
+  }
+  return result;
+}
+
+
+// ─── Public: fetchSprite ──────────────────────────────────────────────────────
+// Full pipeline: tries EffectGrabber first (for named effects), then image index.
+
+async function fetchSprite(spritePath, spriteParams) {
+  spriteParams = spriteParams || {};
+  const myGen  = _fetchGen;
+
+  if (!spritePath) {
+    console.warn('fetchSprite: no spritePath provided');
+    return null;
+  }
+
+  if (_currentPlugin && !_pluginIndexes[_currentPlugin]?.ready) {
+    await _buildPluginIndex(_currentPlugin);
+  }
+  if (_fetchGen !== myGen) return null;
+
+  // ── Step 0: Try EffectGrabber for named effects (e.g. "remnant afterburner") ─
+  // EffectGrabber calls _fetchSpriteExact (not fetchSprite) to avoid looping.
+  if (typeof window.fetchEffectByName === 'function') {
+    const effectResult = await window.fetchEffectByName(spritePath, spriteParams);
+    if (effectResult !== null) {
+      console.log('fetchSprite: resolved via EffectGrabber');
+      return effectResult;
+    }
+  }
+  if (_fetchGen !== myGen) return null;
+
+  // ── Step 1: Image index search ─────────────────────────────────────────────
+  let found = _findAcrossPlugins(spritePath);
+
+  if (!found) {
+    found = _findAcrossPlugins('effect/' + spritePath);
+    if (!found) {
+      console.warn(`fetchSprite: "${spritePath}" not found anywhere`);
+      return null;
+    }
+    console.log(`fetchSprite: found as "effect/${spritePath}" in "${found.sourcePlugin}"`);
+  } else if (found.sourcePlugin !== _currentPlugin) {
+    console.log(`fetchSprite: "${spritePath}" not in current plugin, found in "${found.sourcePlugin}"`);
+  }
+
+  if (_fetchGen !== myGen) return null;
+
+  const result = await _renderFrames(found.frames, spriteParams, myGen);
+  if (result === null && _fetchGen === myGen) {
+    console.warn(`fetchSprite: all frame fetches failed for "${spritePath}"`);
+  }
+  return result;
 }
 
 
@@ -423,6 +460,7 @@ window.initImageIndex      = initImageIndex;
 window.setCurrentPlugin    = setCurrentPlugin;
 window.findImageVariations = findImageVariations;
 window.fetchSprite         = fetchSprite;
+window.fetchSpriteExact    = _fetchSpriteExact;  // used by EffectGrabber to avoid circular calls
 window.fetchEffectSprite   = fetchEffectSprite;
 window.fetchOutfitEffects  = fetchOutfitEffects;
 window.clearSpriteCache    = clearSpriteCache;
