@@ -927,6 +927,10 @@ async function main() {
     const config = JSON.parse(await fs.readFile(path.join(process.cwd(), 'plugins.json'), 'utf8'));
     console.log(`Found ${config.plugins.length} repository source(s)\n`);
 
+    // index.json maps sourceName -> [{ outputName, displayName }]
+    // so the frontend knows exactly which folders were generated
+    const dataIndex = {};
+
     for (const source of config.plugins) {
       console.log(`\n${'='.repeat(60)}`);
       console.log(`Source: ${source.name}  |  ${source.repository}`);
@@ -977,8 +981,21 @@ async function main() {
         }, null, 2));
 
         console.log(`  ✓ ${plugin.ships.length} ships | ${plugin.variants.length} variants | ${plugin.outfits.length} outfits | ${plugin.effects.length} effects`);
+
+        // Track in index
+        if (!dataIndex[source.name]) dataIndex[source.name] = [];
+        dataIndex[source.name].push({
+          outputName:  plugin.outputName,
+          displayName: plugin.name
+        });
       }
     }
+
+    // Write index.json so the frontend can discover all generated folders
+    const indexPath = path.join(process.cwd(), 'data', 'index.json');
+    await fs.mkdir(path.join(process.cwd(), 'data'), { recursive: true });
+    await fs.writeFile(indexPath, JSON.stringify(dataIndex, null, 2));
+    console.log(`\nWrote data/index.json with ${Object.keys(dataIndex).length} source(s)`);
 
     console.log(`\n${'='.repeat(60)}\n✓ All done!\n${'='.repeat(60)}\n`);
   } catch (err) {
