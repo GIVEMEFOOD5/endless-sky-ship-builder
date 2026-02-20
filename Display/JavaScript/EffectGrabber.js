@@ -1,62 +1,95 @@
 /**
- * EffectGrabber.js
+ * EffectGrabber.js — multi-plugin edition
  *
- * Resolves effect names to their exact sprite paths from effects.json,
- * then fetches them via ImageGrabber.js.
- *
- * Why this exists:
- *   ImageGrabber's suffix search can find 2 matches for a path like
- *   "remnant afterburner/remnant afterburner" — one in effect/ and one
- *   in outfit/ — and pick the wrong one. By looking up the effect name
- *   in effects.json first, we get the EXACT sprite path and pass it
- *   directly to fetchSprite(), bypassing the ambiguous suffix search.
+ * Loads effects.json from each plugin folder on demand, keyed by outputName.
+ * When resolving an effect name, searches the current plugin first then falls
+ * back to all others — same pattern as ImageGrabber.
  *
  * Requires ImageGrabber.js to be loaded first.
  *
  * Public API
  * ──────────
+ *   setCurrentPlugin(outputName)
+ *     Tells EffectGrabber which plugin is active. Mirrors ImageGrabber's call
+ *     so both stay in sync. Called automatically by main.js selectPlugin().
+ *     → void
+ *
  *   fetchEffectByName(effectName, spriteParams?)
- *     Looks up effectName in effects.json, gets the exact sprite path,
- *     passes it directly to fetchSprite().
+ *     Searches all loaded plugin effect maps for effectName, current plugin
+ *     first. Returns the rendered sprite element, or null if not found.
  *     → Promise<HTMLCanvasElement | HTMLImageElement | null>
  */
 
 'use strict';
 
-const EFFECTS_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/official-game/dataFiles/effects.json';
+const EFFECTS_BASE_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/';
 
-let _effectsMap  = null;
-let _loading     = null;
+// Per-plugin effect maps: outputName → { map: { name → effect }, ready: bool }
+const _pluginEffects  = {};
+const _pluginLoading  = {}; // outputName → Promise while loading
 
-// ─── Loader ───────────────────────────────────────────────────────────────────
+let _currentPlugin = null;
 
-async function _loadEffects() {
-    if (_effectsMap)  return;
-    if (_loading)     return _loading;
 
-    _loading = (async function () {
+// ─── Per-plugin loader ────────────────────────────────────────────────────────
+
+async function _loadPluginEffects(outputName) {
+    if (_pluginEffects[outputName]?.ready) return;
+    if (_pluginLoading[outputName])        return _pluginLoading[outputName];
+
+    _pluginLoading[outputName] = (async () => {
         try {
-            const res = await fetch(EFFECTS_URL);
-            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const url = `${EFFECTS_BASE_URL}${outputName}/dataFiles/effects.json`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
             const effects = await res.json();
-            _effectsMap = {};
-            effects.forEach(function (e) {
-                if (e.name) _effectsMap[e.name] = e;
-            });
+            const map = {};
+            effects.forEach(e => { if (e.name) map[e.name] = e; });
 
-            console.log('EffectGrabber: loaded', effects.length, 'effects');
+            _pluginEffects[outputName] = { map, ready: true };
+            console.log(`EffectGrabber: loaded ${effects.length} effects from "${outputName}"`);
         } catch (err) {
-            console.warn('EffectGrabber: failed to load effects.json:', err);
-            _effectsMap = {};
+            // Plugin may not have effects — that's fine
+            console.log(`EffectGrabber: no effects.json for "${outputName}" (${err.message})`);
+            _pluginEffects[outputName] = { map: {}, ready: true };
         }
-        _loading = null;
+        delete _pluginLoading[outputName];
     })();
 
-    return _loading;
+    return _pluginLoading[outputName];
 }
 
-// ─── fetchEffectByName ────────────────────────────────────────────────────────
+
+// ─── Public: setCurrentPlugin ─────────────────────────────────────────────────
+
+function setEffectPlugin(outputName) {
+    _currentPlugin = outputName;
+    if (outputName) _loadPluginEffects(outputName);
+}
+
+
+// ─── Internal: search across plugins ─────────────────────────────────────────
+
+function _findEffect(effectName) {
+    // Search order: current plugin first, then all others
+    const order = _currentPlugin ? [_currentPlugin] : [];
+    for (const name of Object.keys(_pluginEffects)) {
+        if (name !== _currentPlugin) order.push(name);
+    }
+
+    for (const name of order) {
+        const entry = _pluginEffects[name];
+        if (!entry?.ready) continue;
+        const effect = entry.map[effectName];
+        if (effect) return { effect, sourcePlugin: name };
+    }
+
+    return null;
+}
+
+
+// ─── Public: fetchEffectByName ────────────────────────────────────────────────
 
 async function fetchEffectByName(effectName, spriteParams) {
     if (!effectName) {
@@ -64,13 +97,30 @@ async function fetchEffectByName(effectName, spriteParams) {
         return null;
     }
 
-    await _loadEffects();
+    // Ensure current plugin's effects are loaded
+    if (_currentPlugin && !_pluginEffects[_currentPlugin]?.ready) {
+        await _loadPluginEffects(_currentPlugin);
+    }
 
-    const effect = _effectsMap[effectName];
+    // Also load any other known plugins that haven't been loaded yet
+    const knownPlugins = window.allData ? Object.keys(window.allData) : [];
+    await Promise.all(
+        knownPlugins
+            .filter(name => !_pluginEffects[name]?.ready && !_pluginLoading[name])
+            .map(name => _loadPluginEffects(name))
+    );
 
-    // Silently return null if not found — caller will try other methods
-    if (!effect || !effect.sprite) {
-        return null;
+    const found = _findEffect(effectName);
+
+    // Return null silently — caller will try other methods
+    if (!found || !found.effect.sprite) return null;
+
+    const { effect, sourcePlugin } = found;
+
+    if (sourcePlugin !== _currentPlugin) {
+        console.log(`EffectGrabber: "${effectName}" found in "${sourcePlugin}" (fallback)`);
+    } else {
+        console.log(`EffectGrabber: "${effectName}" → "${effect.sprite}"`);
     }
 
     // Use effect's own spriteData unless caller supplied params
@@ -78,12 +128,12 @@ async function fetchEffectByName(effectName, spriteParams) {
         ? spriteParams
         : (effect.spriteData || {});
 
-    console.log('EffectGrabber: "' + effectName + '" → "' + effect.sprite + '"');
-
-    // Pass EXACT path directly — no suffix search ambiguity
+    // Pass EXACT sprite path directly — avoids ambiguous suffix search
     return await window.fetchSprite(effect.sprite, params);
 }
+
 
 // ─── Globals ──────────────────────────────────────────────────────────────────
 
 window.fetchEffectByName = fetchEffectByName;
+window.setEffectPlugin   = setEffectPlugin;
