@@ -78,6 +78,10 @@ async function loadData() {
         // Make allData accessible to ImageGrabber, then pre-build all indexes
         window.allData = allData;
         if (typeof initImageIndex === 'function') initImageIndex();
+        // Pre-load effect maps for all plugins in the background via the public API
+        if (typeof setEffectPlugin === 'function') {
+            Object.keys(allData).forEach(name => setEffectPlugin(name));
+        }
 
         selectPlugin(Object.keys(allData)[0]);
 
@@ -152,8 +156,9 @@ function selectPlugin(outputName) {
         t.classList.toggle('active', t.dataset.tab === 'ships');
     });
 
-    // Tell ImageGrabber which plugin is active so it searches the right images folder
+    // Tell ImageGrabber and EffectGrabber which plugin is active
     if (typeof setCurrentPlugin === 'function') setCurrentPlugin(outputName);
+    if (typeof setEffectPlugin  === 'function') setEffectPlugin(outputName);
 
     updateStats();
     renderCards();
