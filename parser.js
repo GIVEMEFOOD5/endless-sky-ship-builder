@@ -423,8 +423,22 @@ class EndlessSkyParser {
     // repos this is perfect; for multi-plugin repos each plugin will override
     // with its own name in the results loop below.
     const fallbackName = pluginMeta[0]?.name || sourceName || repo;
-    console.log(`  Resolving species (${this.fleets.length} fleets, ${this.npcRefs.length} npc refs, ${this.planets.length} planets)...`);
+    const sr = this.speciesResolver;
+    console.log(`  Resolving species: ${sr.fleets.length} fleets, ${sr.npcRefs.length} npc refs, ${sr.planets.length} planets, ${Object.keys(sr.sourceFiles).length} source folder entries`);
+
+    // Sample diagnostics: show first 3 ships and what data we have for them
+    for (const ship of this.ships.slice(0, 3)) {
+      const govts = sr._governmentsForShip(ship.name);
+      const folder = sr.sourceFiles[ship.name];
+      console.log(`    "${ship.name}": folder="${folder || 'none'}" govts=[${govts.slice(0,3).join(', ')}]`);
+    }
+
     this.speciesResolver.attachSpecies(this.ships, this.variants, this.outfits, fallbackName);
+
+    // Show results for first 3 ships
+    for (const ship of this.ships.slice(0, 3)) {
+      console.log(`    → "${ship.name}": species="${ship.species}" (${ship.speciesConfidence})`);
+    }
     console.log(`  ✓ Species attached`);
 
     // ── Step 4: split results per plugin, copy images, then delete clones ─────
