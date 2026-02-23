@@ -273,5 +273,4 @@ class SpeciesResolver {
   }
 }
 
-
 module.exports = SpeciesResolver;
