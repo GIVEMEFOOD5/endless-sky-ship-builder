@@ -92,11 +92,12 @@ class SpeciesResolver {
   // filePath: absolute path to the .txt file
   // dataDir:  absolute path to the plugin's data/ directory
   // itemName: ship or outfit name string
-  setSourceFile(itemName, filePath, dataDir) {
-    const path = require('path');
-    const rel   = path.relative(dataDir, filePath);
-    const parts = rel.split(path.sep);
-    if (parts.length > 1) this.sourceFiles[itemName] = parts[0];
+  // Record which parent folder an item was defined in.
+  // parentFolder: the immediate subdirectory of dataDir the file lives in,
+  //               e.g. "human" for data/human/ships.txt
+  //               Pass null if the file is directly in dataDir (no subfolder).
+  setSourceFileFolder(itemName, parentFolder) {
+    if (parentFolder) this.sourceFiles[itemName] = parentFolder;
   }
 
   // Record a named fleet block.
