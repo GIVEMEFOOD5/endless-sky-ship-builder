@@ -510,14 +510,14 @@ class EndlessSkyParser {
         if (trimmed.startsWith('ship ')) {
           const [d, ni] = this.parseShip(lines, i);
           if (d) {
-            if (parentFolder) this.speciesResolver.setSourceFile(d.name, f, dataDir);
+            if (parentFolder) this.speciesResolver.setSourceFileFolder(d.name, parentFolder);
             this.ships.push(d);
           }
           i = ni; continue;
         } else if (trimmed.startsWith('outfit ')) {
           const [d, ni] = this.parseOutfit(lines, i);
           if (d) {
-            if (parentFolder) this.speciesResolver.setSourceFile(d.name, f, dataDir);
+            if (parentFolder) this.speciesResolver.setSourceFileFolder(d.name, parentFolder);
             this.outfits.push(d);
           }
           i = ni; continue;
