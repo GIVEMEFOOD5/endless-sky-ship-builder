@@ -3,7 +3,8 @@
 // Uses sparse Git clones (data/ + images/ only) instead of the GitHub API,
 // which avoids rate limits and the 100k-file tree truncation limit.
 
-const https  = require('https');
+const https          = require('https');
+const SpeciesResolver = require('./speciesResolver');
 const fs     = require('fs').promises;
 const path   = require('path');
 const ImageConverter = require('./imageConverter');
@@ -26,11 +27,14 @@ async function sparseClone(repoGitUrl, branch, targetDir, folders) {
 // ---------------------------------------------------------------------------
 class EndlessSkyParser {
   constructor() {
-    this.ships         = [];
-    this.variants      = [];
-    this.outfits       = [];
-    this.effects       = [];
+    this.ships           = [];
+    this.variants        = [];
+    this.outfits         = [];
+    this.effects         = [];
     this.pendingVariants = [];
+
+    // Species resolution — handled by dedicated module
+    this.speciesResolver = new SpeciesResolver();
   }
 
   // ── Utilities ──────────────────────────────────────────────────────────────
@@ -341,11 +345,12 @@ class EndlessSkyParser {
     // so variants can resolve against base ships from any plugin in this repo.
 
     // Reset shared parser state once for the whole repository
-    this.ships         = [];
-    this.variants      = [];
-    this.outfits       = [];
-    this.effects       = [];
+    this.ships           = [];
+    this.variants        = [];
+    this.outfits         = [];
+    this.effects         = [];
     this.pendingVariants = [];
+    this.speciesResolver.reset();
 
     // Track per-plugin metadata so we can split results back out after
     const pluginMeta = []; // [{ name, shipsBefore, outfitsBefore, effectsBefore, imagesDir }]
@@ -379,7 +384,7 @@ class EndlessSkyParser {
         const txtFiles = await this.findTxtFiles(clonedPlugin.dataDir);
         console.log(`  Parsing ${txtFiles.length} data files...`);
         for (const f of txtFiles) {
-          this.parseFileContent(await fs.readFile(f, 'utf8'));
+          this.parseFileContent(await fs.readFile(f, 'utf8'), f, clonedPlugin.dataDir);
         }
 
         console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length} variants pending)`);
@@ -412,6 +417,16 @@ class EndlessSkyParser {
     this.processVariants();
     console.log(`  → ${this.variants.length} variants kept`);
 
+    // ── Step 3b: attach species to all ships, variants, and outfits ───────────
+    // Uses all parsed fleet/npc/shipyard/outfitter/planet data accumulated above.
+    // We pass the first plugin's name as the fallback label — for single-plugin
+    // repos this is perfect; for multi-plugin repos each plugin will override
+    // with its own name in the results loop below.
+    const fallbackName = pluginMeta[0]?.name || sourceName || repo;
+    console.log(`  Resolving species (${this.fleets.length} fleets, ${this.npcRefs.length} npc refs, ${this.planets.length} planets)...`);
+    this.speciesResolver.attachSpecies(this.ships, this.variants, this.outfits, fallbackName);
+    console.log(`  ✓ Species attached`);
+
     // ── Step 4: split results per plugin, copy images, then delete clones ─────
     const results = [];
 
@@ -434,6 +449,14 @@ class EndlessSkyParser {
         }
 
         console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
+
+      // For multi-plugin repos the fallback species was set to the first plugin's name.
+      // Fix any "fallback" confidence items to use THIS plugin's name instead.
+      if (probePlugins.length > 1) {
+        for (const item of [...pluginShips, ...pluginVariants, ...pluginOutfits]) {
+          if (item.speciesConfidence === 'fallback') item.species = meta.name;
+        }
+      }
 
         // Output folder: sourceName for single-plugin repos, internal name for multi-plugin
         const isSinglePlugin = probePlugins.length === 1;
@@ -467,7 +490,16 @@ class EndlessSkyParser {
 
   // ── Parsing methods (unchanged from original) ──────────────────────────────
 
-  parseFileContent(content) {
+  parseFileContent(content, filePath, dataDir) {
+    // Determine parent folder name relative to dataDir for folder-based species detection
+    // e.g. dataDir/.../data/human/ships.txt → parentFolder = "human"
+    let parentFolder = null;
+    if (filePath && dataDir) {
+      const rel    = path.relative(dataDir, filePath);
+      const parts  = rel.split(path.sep);
+      parentFolder = parts.length > 1 ? parts[0] : null;
+    }
+
     const lines = content.split('\n');
     let i = 0;
     while (i < lines.length) {
@@ -477,20 +509,165 @@ class EndlessSkyParser {
       if (indent === 0) {
         if (trimmed.startsWith('ship ')) {
           const [d, ni] = this.parseShip(lines, i);
-          if (d) this.ships.push(d);
+          if (d) {
+            if (parentFolder) this.speciesResolver.setSourceFile(d.name, f, dataDir);
+            this.ships.push(d);
+          }
           i = ni; continue;
         } else if (trimmed.startsWith('outfit ')) {
           const [d, ni] = this.parseOutfit(lines, i);
-          if (d) this.outfits.push(d);
+          if (d) {
+            if (parentFolder) this.speciesResolver.setSourceFile(d.name, f, dataDir);
+            this.outfits.push(d);
+          }
           i = ni; continue;
         } else if (trimmed.startsWith('effect ')) {
           const [d, ni] = this.parseExtraEffect(lines, i);
           if (d) this.effects.push(d);
           i = ni; continue;
+        } else if (trimmed.startsWith('fleet ')) {
+          i = this.parseFleetBlock(lines, i); continue;
+        } else if (trimmed.startsWith('mission ')) {
+          i = this.parseMissionBlock(lines, i); continue;
+        } else if (trimmed.startsWith('shipyard ')) {
+          i = this.parseShipyardBlock(lines, i); continue;
+        } else if (trimmed.startsWith('outfitter ')) {
+          i = this.parseOutfitterBlock(lines, i); continue;
+        } else if (trimmed.startsWith('planet ') || trimmed.startsWith('"planet"')) {
+          i = this.parsePlanetBlock(lines, i); continue;
         }
       }
       i++;
     }
+  }
+
+  // ── Species-resolution block parsers ────────────────────────────────────────
+
+  parseFleetBlock(lines, i) {
+    let government = null;
+    const shipNames = [];
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent === 0 && line.trim()) break;
+      const stripped = line.trim();
+      if (indent === 1) {
+        const govMatch = stripped.match(/^government\s+"([^"]+)"/);
+        if (govMatch) { government = govMatch[1]; i++; continue; }
+        if (stripped === 'variant' || stripped.startsWith('variant ')) { i++; continue; }
+      }
+      if (indent === 2) {
+        const shipMatch = stripped.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
+                          stripped.match(/^`([^`]+)`(?:\s+\d+)?$/);
+        if (shipMatch) shipNames.push(shipMatch[1]);
+      }
+      i++;
+    }
+    this.speciesResolver.collectFleet(government, shipNames);
+    return i;
+  }
+
+  parseMissionBlock(lines, i) {
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent === 0 && line.trim()) break;
+      const stripped = line.trim();
+      if (indent === 1 && (stripped === 'npc' || stripped.startsWith('npc '))) {
+        i = this.parseNpcBlock(lines, i);
+        continue;
+      }
+      i++;
+    }
+    return i;
+  }
+
+  parseNpcBlock(lines, i) {
+    let government = null;
+    const shipNames = [];
+    const npcIndent = lines[i].length - lines[i].replace(/^\t+/, '').length;
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent <= npcIndent && line.trim()) break;
+      const stripped = line.trim();
+      if (indent === npcIndent + 1) {
+        const govMatch  = stripped.match(/^government\s+"([^"]+)"/);
+        const shipMatch = stripped.match(/^ship\s+"([^"]+)"/) ||
+                          stripped.match(/^ship\s+`([^`]+)`/);
+        if (govMatch)  { government = govMatch[1];   i++; continue; }
+        if (shipMatch) { shipNames.push(shipMatch[1]); i++; continue; }
+      }
+      i++;
+    }
+    for (const shipName of shipNames) {
+      this.speciesResolver.collectNpcRef(government, shipName);
+    }
+    return i;
+  }
+
+  parseShipyardBlock(lines, i) {
+    const headerMatch = lines[i].trim().match(/^shipyard\s+"([^"]+)"/);
+    if (!headerMatch) return i + 1;
+    const name = headerMatch[1];
+    const ships = [];
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent === 0 && line.trim()) break;
+      const m = line.trim().match(/^"([^"]+)"/);
+      if (m) ships.push(m[1]);
+      i++;
+    }
+    this.speciesResolver.collectShipyard(name, ships);
+    return i;
+  }
+
+  parseOutfitterBlock(lines, i) {
+    const headerMatch = lines[i].trim().match(/^outfitter\s+"([^"]+)"/);
+    if (!headerMatch) return i + 1;
+    const name = headerMatch[1];
+    const outfits = [];
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent === 0 && line.trim()) break;
+      const m = line.trim().match(/^"([^"]+)"/);
+      if (m) outfits.push(m[1]);
+      i++;
+    }
+    this.speciesResolver.collectOutfitter(name, outfits);
+    return i;
+  }
+
+  parsePlanetBlock(lines, i) {
+    const headerMatch = lines[i].trim().match(/^(?:"planet"|planet)\s+"([^"]+)"/);
+    if (!headerMatch) { return this.skipIndentedBlock(lines, i, 0); }
+    const planetName = headerMatch[1];
+    let government = null;
+    const shipyards  = [];
+    const outfitters = [];
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent === 0 && line.trim()) break;
+      const stripped = line.trim();
+      const govMatch = stripped.match(/^government\s+"([^"]+)"/);
+      const syMatch  = stripped.match(/^shipyard\s+"([^"]+)"/);
+      const ofMatch  = stripped.match(/^outfitter\s+"([^"]+)"/);
+      if (govMatch) government = govMatch[1];
+      if (syMatch)  shipyards.push(syMatch[1]);
+      if (ofMatch)  outfitters.push(ofMatch[1]);
+      i++;
+    }
+    this.speciesResolver.collectPlanet(planetName, government, shipyards, outfitters);
+    return i;
   }
 
   parseBlock(lines, startIdx, options = {}) {
