@@ -77,37 +77,23 @@ class EndlessSkyParser {
   }
 
   /**
-   * Walk a cloned directory tree and find all plugin roots.
-   * A plugin root is a folder whose direct child is a directory named "data"
-   * containing at least one .txt file.
-   *
-   * Returns: [{ name, dataDir, imagesDir|null, pluginRootInRepo }]
-   * pluginRootInRepo is the path relative to cloneDir (e.g. "." or "plugins/foo")
-   */
-  /**
    * Uses git ls-tree to find plugin roots without cloning any files.
    * Much faster than a full probe clone, works on repos of any size.
-   * Returns same format as detectPlugins: [{ name, pluginRootInRepo, imagesDir: null }]
-   * imagesDir is null here - it gets resolved from the real clone later.
    */
   async detectPluginsViaLsTree(repoGitUrl, branch, repoName) {
-    // Clone with no checkout and no blobs - just the git objects
     const tmpDir = path.join(process.cwd(), `.tmp-lstree-${repoName}-${Date.now()}`);
     try {
       await fs.mkdir(tmpDir, { recursive: true });
       await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoGitUrl} "${tmpDir}"`);
 
-      // Use ls-tree to list all tree (directory) objects recursively
       const { stdout } = await exec(`git -C "${tmpDir}" ls-tree -r --name-only -t HEAD`);
       const allPaths = stdout.trim().split('\n').filter(Boolean);
 
-      // Find all paths ending in /data or equal to "data"
       const plugins = [];
       for (const p of allPaths) {
         const basename = path.basename(p);
         if (basename !== 'data') continue;
 
-        // Check there's at least one .txt file under this data/ path
         const hasTxt = allPaths.some(f => f.startsWith(p + '/') && f.endsWith('.txt'));
         if (!hasTxt) continue;
 
@@ -115,15 +101,10 @@ class EndlessSkyParser {
         const pluginRootInRepo = (parentDir === '.' || parentDir === '') ? '.' : parentDir;
         const pluginName = pluginRootInRepo === '.' ? repoName : path.basename(pluginRootInRepo);
 
-        // Check if images/ sibling exists in the tree
         const imagesPath = pluginRootInRepo === '.' ? 'images' : `${pluginRootInRepo}/images`;
         const hasImages = allPaths.includes(imagesPath);
 
-        plugins.push({
-          name: pluginName,
-          pluginRootInRepo,
-          hasImages // used later when deciding whether to sparse-clone images/
-        });
+        plugins.push({ name: pluginName, pluginRootInRepo, hasImages });
       }
 
       return plugins;
@@ -147,21 +128,14 @@ class EndlessSkyParser {
         const fullPath = path.join(dir, e.name);
 
         if (e.name === 'data') {
-          // Does it contain any .txt files?
           const files  = await fs.readdir(fullPath);
           const hasTxt = files.some(f => f.endsWith('.txt'));
           if (!hasTxt) continue;
 
-          // Parent of data/ is the plugin root
           const pluginRoot = dir;
-          const pluginName = pluginRoot === cloneDir
-            ? repoName
-            : path.basename(pluginRoot);
-
-          // Relative path of the plugin root inside the repo
+          const pluginName = pluginRoot === cloneDir ? repoName : path.basename(pluginRoot);
           const pluginRootInRepo = path.relative(cloneDir, pluginRoot) || '.';
 
-          // Optional sibling images/
           const imagesDir = path.join(pluginRoot, 'images');
           let hasImages = false;
           try { await fs.access(imagesDir); hasImages = true; } catch {}
@@ -170,10 +144,8 @@ class EndlessSkyParser {
             name:            pluginName,
             dataDir:         fullPath,
             imagesDir:       hasImages ? imagesDir : null,
-            pluginRootInRepo // e.g. "." or "plugins/my-plugin"
+            pluginRootInRepo
           });
-
-          // Don't recurse into data/ itself
           continue;
         }
 
@@ -191,27 +163,27 @@ class EndlessSkyParser {
     const paths = new Set();
     const add = p => { if (p) paths.add(p); };
 
-    for (const s of this.ships)   { add(s.sprite); add(s.thumbnail); }
+    for (const s of this.ships)    { add(s.sprite); add(s.thumbnail); }
     for (const v of this.variants) { add(v.sprite); add(v.thumbnail); }
     for (const o of this.outfits) {
       add(o.sprite); add(o.thumbnail);
       add(o['flare sprite']); add(o['steering flare sprite']); add(o['reverse flare sprite']);
       if (o.weapon) { add(o.weapon['hardpoint sprite']); add(o.weapon.sprite); }
     }
-    for (const e of this.effects) { add(e.sprite); }
+    for (const e of this.effects)  { add(e.sprite); }
     return paths;
   }
 
   async copyMatchingImages(sourceDir, destDir, imagePath) {
-    const norm       = imagePath.replace(/\\/g, '/');
-    const parts      = norm.split('/');
-    const basename   = parts[parts.length - 1];
-    const parentDir  = parts.slice(0, -1).join('/');
-    const escaped    = basename.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const norm      = imagePath.replace(/\\/g, '/');
+    const parts     = norm.split('/');
+    const basename  = parts[parts.length - 1];
+    const parentDir = parts.slice(0, -1).join('/');
+    const escaped   = basename.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     const searchPaths = [
-      { dir: path.join(sourceDir, parentDir), relative: parentDir  },
-      { dir: path.join(sourceDir, norm),      relative: norm       }
+      { dir: path.join(sourceDir, parentDir), relative: parentDir },
+      { dir: path.join(sourceDir, norm),      relative: norm      }
     ];
 
     for (const sp of searchPaths) {
@@ -219,7 +191,7 @@ class EndlessSkyParser {
         const stat = await fs.stat(sp.dir);
         if (!stat.isDirectory()) continue;
 
-        const files   = await fs.readdir(sp.dir);
+        const files    = await fs.readdir(sp.dir);
         const patterns = [
           new RegExp(`^${escaped}$`),
           new RegExp(`^${escaped}-\\d+$`),
@@ -253,58 +225,37 @@ class EndlessSkyParser {
   }
 
   async copyImages(sourceImagesDir, destImagesDir) {
-    if (!sourceImagesDir) {
-      console.log('  No images folder, skipping.');
-      return;
-    }
+    if (!sourceImagesDir) { console.log('  No images folder, skipping.'); return; }
     await fs.mkdir(destImagesDir, { recursive: true });
     const paths = this.collectImagePaths();
     console.log(`  Copying images (${paths.size} paths referenced)...`);
-    for (const p of paths) {
-      await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
-    }
+    for (const p of paths) await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
     console.log('  ✓ Images done');
   }
 
-  /**
-   * Same as copyImages but uses explicitly passed data instead of this.*
-   * Used when copying images after the shared state has moved on to other plugins.
-   */
   async copyImagesForPlugin(sourceImagesDir, destImagesDir, ships, variants, outfits, effects) {
-    if (!sourceImagesDir) {
-      console.log('  No images folder, skipping.');
-      return;
-    }
+    if (!sourceImagesDir) { console.log('  No images folder, skipping.'); return; }
     await fs.mkdir(destImagesDir, { recursive: true });
 
     const paths = new Set();
     const add = p => { if (p) paths.add(p); };
 
-    for (const s of ships)   { add(s.sprite); add(s.thumbnail); }
+    for (const s of ships)    { add(s.sprite); add(s.thumbnail); }
     for (const v of variants) { add(v.sprite); add(v.thumbnail); }
     for (const o of outfits) {
       add(o.sprite); add(o.thumbnail);
       add(o['flare sprite']); add(o['steering flare sprite']); add(o['reverse flare sprite']);
       if (o.weapon) { add(o.weapon['hardpoint sprite']); add(o.weapon.sprite); }
     }
-    for (const e of effects) { add(e.sprite); }
+    for (const e of effects)  { add(e.sprite); }
 
     console.log(`  Copying images (${paths.size} paths referenced)...`);
-    for (const p of paths) {
-      await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
-    }
+    for (const p of paths) await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
     console.log('  ✓ Images done');
   }
 
   // ── Main repository entry point ────────────────────────────────────────────
 
-  /**
-   * Sparse-clones data/ and images/ for every plugin found in the repository.
-   * No GitHub API tree calls — works on repos of any size.
-   *
-   * @param {string} repoUrl
-   * @returns {Promise<Array>} - array of result objects ready for main() to save
-   */
   async parseRepository(repoUrl, sourceName = null) {
     const urlMatch = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
     if (!urlMatch) throw new Error('Invalid GitHub URL: ' + repoUrl);
@@ -324,8 +275,6 @@ class EndlessSkyParser {
     const repoGitUrl = `https://github.com/${owner}/${repo}.git`;
     console.log(`\nScanning: ${owner}/${repo} @ ${branch}`);
 
-    // ── Step 1: probe - use git ls-tree to find plugin roots without cloning ────
-    // This avoids checking out any files at all, even for huge repos.
     let probePlugins;
     try {
       probePlugins = await this.detectPluginsViaLsTree(repoGitUrl, branch, repo);
@@ -340,11 +289,6 @@ class EndlessSkyParser {
 
     console.log(`Found ${probePlugins.length} plugin(s): ${probePlugins.map(p => p.name).join(', ')}`);
 
-    // ── Step 2: sparse clone each plugin's data/ + images/, parse into shared state ──
-    // We accumulate ALL ships and pendingVariants across every plugin first,
-    // so variants can resolve against base ships from any plugin in this repo.
-
-    // Reset shared parser state once for the whole repository
     this.ships           = [];
     this.variants        = [];
     this.outfits         = [];
@@ -352,17 +296,16 @@ class EndlessSkyParser {
     this.pendingVariants = [];
     this.speciesResolver.reset();
 
-    // Track per-plugin metadata so we can split results back out after
-    const pluginMeta = []; // [{ name, shipsBefore, outfitsBefore, effectsBefore, imagesDir }]
+    const pluginMeta = [];
 
     for (const probe of probePlugins) {
       console.log(`\n  ── Plugin: ${probe.name} ──`);
 
-      const root       = probe.pluginRootInRepo;
-      const dataPath   = root === '.' ? 'data'   : `${root}/data`;
-      const imagesPath = root === '.' ? 'images' : `${root}/images`;
+      const root           = probe.pluginRootInRepo;
+      const dataPath       = root === '.' ? 'data'   : `${root}/data`;
+      const imagesPath     = root === '.' ? 'images' : `${root}/images`;
       const foldersToClone = probe.hasImages ? [dataPath, imagesPath] : [dataPath];
-      const cloneDir   = path.join(process.cwd(), `.tmp-${repo}-${probe.name}`);
+      const cloneDir       = path.join(process.cwd(), `.tmp-${repo}-${probe.name}`);
 
       try {
         console.log(`  Sparse cloning data/ and images/...`);
@@ -376,7 +319,6 @@ class EndlessSkyParser {
           continue;
         }
 
-        // Snapshot counts BEFORE parsing this plugin so we can slice results later
         const shipsBefore   = this.ships.length;
         const outfitsBefore = this.outfits.length;
         const effectsBefore = this.effects.length;
@@ -389,11 +331,10 @@ class EndlessSkyParser {
 
         console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length} variants pending)`);
 
-        // Store snapshot so we can slice after variants are processed
         pluginMeta.push({
           name:         clonedPlugin.name,
           imagesDir:    clonedPlugin.imagesDir,
-          cloneDir,     // keep reference so we can copy images before deleting
+          cloneDir,
           shipsBefore,
           shipsAfter:   this.ships.length,
           outfitsBefore,
@@ -402,11 +343,7 @@ class EndlessSkyParser {
           effectsAfter: this.effects.length
         });
 
-        // NOTE: do NOT delete cloneDir here - we need it for image copying after
-        // variants are processed. It is deleted below after images are copied.
-
       } catch (err) {
-        // On error, clean up this clone and rethrow
         await fs.rm(cloneDir, { recursive: true, force: true });
         throw err;
       }
@@ -418,11 +355,9 @@ class EndlessSkyParser {
     console.log(`  → ${this.variants.length} variants kept`);
 
     // ── Step 3b: attach governments to all ships, variants, and outfits ───────
-    // Uses all parsed fleet/npc/shipyard/outfitter/planet data accumulated above.
     const sr = this.speciesResolver;
     console.log(`  Resolving governments: ${sr.fleets.length} fleets, ${sr.npcRefs.length} npc refs, ${sr.planets.length} planets`);
 
-    // Sample diagnostics: show first 3 ships and what governments we found for them
     for (const ship of this.ships.slice(0, 3)) {
       const govts = [...sr._governmentsForShip(ship.name)];
       console.log(`    "${ship.name}": govts=[${govts.slice(0, 3).join(', ')}]`);
@@ -430,7 +365,6 @@ class EndlessSkyParser {
 
     this.speciesResolver.attachSpecies(this.ships, this.variants, this.outfits);
 
-    // Show results for first 3 ships
     for (const ship of this.ships.slice(0, 3)) {
       const govts = (ship.governments || []).map(([g]) => g);
       console.log(`    → "${ship.name}": governments=[${govts.join(', ')}]`);
@@ -446,7 +380,6 @@ class EndlessSkyParser {
         const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
         const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
 
-        // Assign variants to the plugin that owns their base ship
         const pluginShipNames = new Set(pluginShips.map(s => s.name));
         const pluginVariants  = this.variants.filter(v => pluginShipNames.has(v.baseShip));
 
@@ -460,13 +393,9 @@ class EndlessSkyParser {
 
         console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
 
-        // Output folder: sourceName for single-plugin repos, internal name for multi-plugin
         const isSinglePlugin = probePlugins.length === 1;
-        const outputName = isSinglePlugin
-          ? (sourceName || meta.name)
-          : meta.name;
+        const outputName = isSinglePlugin ? (sourceName || meta.name) : meta.name;
 
-        // Copy images NOW while the clone still exists on disk
         const destImagesDir = path.join(process.cwd(), 'data', outputName, 'images');
         await this.copyImagesForPlugin(meta.imagesDir, destImagesDir, pluginShips, pluginVariants, pluginOutfits, pluginEffects);
 
@@ -482,7 +411,6 @@ class EndlessSkyParser {
         });
 
       } finally {
-        // Delete this plugin's clone now that images have been copied
         await fs.rm(meta.cloneDir, { recursive: true, force: true });
       }
     }
@@ -490,7 +418,7 @@ class EndlessSkyParser {
     return results;
   }
 
-  // ── Parsing methods (unchanged from original) ──────────────────────────────
+  // ── Parsing methods ────────────────────────────────────────────────────────
 
   parseFileContent(content, filePath, dataDir) {
     const lines = content.split('\n');
@@ -582,11 +510,19 @@ class EndlessSkyParser {
       if (indent <= npcIndent && line.trim()) break;
       const stripped = line.trim();
       if (indent === npcIndent + 1) {
-        const govMatch  = stripped.match(/^government\s+"([^"]+)"/);
-        const shipMatch = stripped.match(/^ship\s+"([^"]+)"/) ||
-                          stripped.match(/^ship\s+`([^`]+)`/);
-        if (govMatch)  { government = govMatch[1];   i++; continue; }
-        if (shipMatch) { shipNames.push(shipMatch[1]); i++; continue; }
+        const govMatch = stripped.match(/^government\s+"([^"]+)"/);
+        if (govMatch) { government = govMatch[1]; i++; continue; }
+
+        // Two forms:
+        //   ship "ShipType" "InstanceName"   ← mission NPC with a named instance
+        //   ship "ShipType"                  ← fleet-style single arg
+        const shipTwoArg = stripped.match(/^ship\s+"([^"]+)"\s+"[^"]*"/) ||
+                           stripped.match(/^ship\s+`([^`]+)`\s+`[^`]*`/);
+        const shipOneArg = stripped.match(/^ship\s+"([^"]+)"$/) ||
+                           stripped.match(/^ship\s+`([^`]+)`$/);
+
+        if (shipTwoArg) { shipNames.push(shipTwoArg[1]); i++; continue; }
+        if (shipOneArg) { shipNames.push(shipOneArg[1]); i++; continue; }
       }
       i++;
     }
@@ -655,6 +591,34 @@ class EndlessSkyParser {
     }
     this.speciesResolver.collectPlanet(planetName, government, shipyards, outfitters);
     return i;
+  }
+
+  /**
+   * Parse an `outfits` block, returning [outfitMap, nextLineIndex].
+   * outfitMap is { "Outfit Name": count, ... } — count defaults to 1 if omitted.
+   * Also registers the outfit names with the species resolver under shipName
+   * if provided (pass null when you only need the map, e.g. in variants).
+   */
+  parseOutfitsBlock(lines, i, shipName = null) {
+    const outfitMap = {};
+    i++; // move past the `outfits` header line
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent === 0 && line.trim()) break;
+      if (indent >= 1) {
+        // Format:  "Outfit Name" <count>   or   `Outfit Name` <count>
+        // Count is optional and defaults to 1.
+        const m = line.trim().match(/^"([^"]+)"(?:\s+(\d+))?/) ||
+                  line.trim().match(/^`([^`]+)`(?:\s+(\d+))?/);
+        if (m) outfitMap[m[1]] = m[2] ? parseInt(m[2], 10) : 1;
+      }
+      i++;
+    }
+    if (shipName && Object.keys(outfitMap).length) {
+      this.speciesResolver.collectShipOutfits(shipName, Object.keys(outfitMap));
+    }
+    return [outfitMap, i];
   }
 
   parseBlock(lines, startIdx, options = {}) {
@@ -751,9 +715,9 @@ class EndlessSkyParser {
       if (p.noQ && (stripped.includes('"') || stripped.includes('`'))) continue;
       const m = stripped.match(p.regex);
       if (m) {
-        const k = m[p.ki];
+        const k  = m[p.ki];
         const vs = m[p.vi].trim();
-        const v = p.str ? vs : (isNaN(parseFloat(vs)) ? vs : parseFloat(vs));
+        const v  = p.str ? vs : (isNaN(parseFloat(vs)) ? vs : parseFloat(vs));
         return [k, v];
       }
     }
@@ -805,11 +769,11 @@ class EndlessSkyParser {
   parseSpriteWithData(lines, i, baseIndent) {
     const stripped = lines[i].trim();
     const map = {
-      'sprite ':                { key: 'sprite',               re: /sprite\s+["`]([^"'`]+)["'`]/,                alt: /sprite\s+(\S+)/ },
-      '"flare sprite"':         { key: 'flare sprite',          re: /"flare sprite"\s+["`]([^"'`]+)["'`]/,         alt: /"flare sprite"\s+(\S+)/ },
-      '"steering flare sprite"':{ key: 'steering flare sprite', re: /"steering flare sprite"\s+["`]([^"'`]+)["'`]/,alt: /"steering flare sprite"\s+(\S+)/ },
-      '"reverse flare sprite"': { key: 'reverse flare sprite',  re: /"reverse flare sprite"\s+["`]([^"'`]+)["'`]/, alt: /"reverse flare sprite"\s+(\S+)/ },
-      '"afterburner effect"':   { key: 'afterburner effect',    re: /"afterburner effect"\s+["`]([^"'`]+)["'`]/,   alt: /"afterburner effect"\s+(\S+)/ }
+      'sprite ':                 { key: 'sprite',                re: /sprite\s+["`]([^"'`]+)["'`]/,                 alt: /sprite\s+(\S+)/ },
+      '"flare sprite"':          { key: 'flare sprite',           re: /"flare sprite"\s+["`]([^"'`]+)["'`]/,          alt: /"flare sprite"\s+(\S+)/ },
+      '"steering flare sprite"': { key: 'steering flare sprite',  re: /"steering flare sprite"\s+["`]([^"'`]+)["'`]/, alt: /"steering flare sprite"\s+(\S+)/ },
+      '"reverse flare sprite"':  { key: 'reverse flare sprite',   re: /"reverse flare sprite"\s+["`]([^"'`]+)["'`]/,  alt: /"reverse flare sprite"\s+(\S+)/ },
+      '"afterburner effect"':    { key: 'afterburner effect',     re: /"afterburner effect"\s+["`]([^"'`]+)["'`]/,    alt: /"afterburner effect"\s+(\S+)/ }
     };
 
     for (const [prefix, cfg] of Object.entries(map)) {
@@ -909,6 +873,20 @@ class EndlessSkyParser {
     return i;
   }
 
+  /**
+   * Helper to compare two outfit maps for equality.
+   * { "outfit name": count }
+   */
+  _outfitMapsEqual(a, b) {
+    const aKeys = Object.keys(a || {});
+    const bKeys = Object.keys(b || {});
+    if (aKeys.length !== bKeys.length) return false;
+    for (const k of aKeys) {
+      if ((a[k] ?? 1) !== (b[k] ?? 1)) return false;
+    }
+    return true;
+  }
+
   parseShip(lines, startIdx) {
     const line = lines[startIdx].trim();
     const match = line.match(/^ship\s+"([^"]+)"(?:\s+"([^"]+)")?/) ||
@@ -929,18 +907,50 @@ class EndlessSkyParser {
       return [null, this.skipIndentedBlock(lines, startIdx, 0)];
     }
 
-    const shipData = { name: baseName, engines: [], reverseEngines: [], steeringEngines: [], guns: [], turrets: [], bays: [] };
-    const [parsed, nextIdx] = this.parseBlock(lines, startIdx + 1, {
-      parseHardpoints: true,
-      skipBlocks: ['add attributes', 'outfits']
-    });
-    Object.assign(shipData, parsed);
+    // Parse the ship block manually so we can intercept `outfits` for the
+    // resolver while still storing it in the output data.
+    const shipData = {
+      name: baseName,
+      engines: [], reverseEngines: [], steeringEngines: [],
+      guns: [], turrets: [], bays: [],
+      outfitMap: {}   // { "outfit name": count }
+    };
+
+    let i = startIdx + 1;
+
+    while (i < lines.length) {
+      const line   = lines[i];
+      if (!line.trim() || line.trim().startsWith('#')) { i++; continue; }
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent < 1) break;
+
+      const stripped = line.trim();
+
+      // Intercept `outfits` block — store map and register with resolver
+      if (stripped === 'outfits') {
+        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName);
+        shipData.outfitMap = outfitMap;
+        i = ni;
+        continue;
+      }
+
+      // Skip `add attributes` from output
+      if (stripped === 'add attributes') {
+        i = this.skipIndentedBlock(lines, i, indent);
+        continue;
+      }
+
+      // Everything else via the generic block parser
+      const [parsed, ni] = this.parseBlock(lines, i, { parseHardpoints: true });
+      Object.assign(shipData, parsed);
+      i = ni;
+    }
 
     const hasData = shipData.description && (
       shipData.attributes || shipData.engines.length > 0 ||
       shipData.guns.length > 0 || shipData.turrets.length > 0 || shipData.bays.length > 0
     );
-    return [hasData ? shipData : null, nextIdx];
+    return [hasData ? shipData : null, i];
   }
 
   parseShipVariant(variantInfo) {
@@ -957,40 +967,69 @@ class EndlessSkyParser {
     v.variant  = variantInfo.variantName;
     v.baseShip = variantInfo.baseName;
 
-    const [parsed] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: true, skipBlocks: ['outfits'] });
     let changed = false;
 
-    if (parsed.displayName)                           { v.displayName = parsed.displayName; changed = true; }
-    if (parsed.sprite && parsed.sprite !== baseShip.sprite) {
-      v.sprite = parsed.sprite;
-      if (parsed.spriteData) v.spriteData = parsed.spriteData;
-      changed = true;
-    }
-    if (parsed.thumbnail && parsed.thumbnail !== baseShip.thumbnail) { v.thumbnail = parsed.thumbnail; changed = true; }
+    // Walk the variant block manually so we can handle `outfits` inline
+    let i = startIdx + 1;
+    while (i < lines.length) {
+      const line   = lines[i];
+      if (!line.trim() || line.trim().startsWith('#')) { i++; continue; }
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent < 1) break;
 
-    for (const t of ['engines','reverseEngines','steeringEngines','guns','turrets','bays']) {
-      if (parsed[t]?.length > 0) { v[t] = parsed[t]; changed = true; }
-    }
+      const stripped = line.trim();
 
-    if (parsed['add attributes']) {
-      changed = true;
-      if (!v.attributes) v.attributes = {};
-      for (const [k, val] of Object.entries(parsed['add attributes'])) {
-        if (k in v.attributes && typeof v.attributes[k] === 'number' && typeof val === 'number')
-          v.attributes[k] += val;
-        else v.attributes[k] = val;
+      // Parse `outfits` block — store in variant and check if different from base
+      if (stripped === 'outfits') {
+        // No shipName passed here — resolver registration was already done for
+        // the base ship; variants inherit government via their base ship name.
+        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, null);
+        if (!this._outfitMapsEqual(outfitMap, baseShip.outfitMap || {})) {
+          v.outfitMap = outfitMap;
+          changed = true;
+        }
+        i = ni;
+        continue;
       }
+
+      // Parse `add attributes` inline and merge into variant attributes
+      if (stripped === 'add attributes') {
+        const [parsed, ni] = this.parseBlock(lines, i + 1, {});
+        if (!v.attributes) v.attributes = {};
+        for (const [k, val] of Object.entries(parsed)) {
+          if (k in v.attributes && typeof v.attributes[k] === 'number' && typeof val === 'number')
+            v.attributes[k] += val;
+          else v.attributes[k] = val;
+        }
+        changed = true;
+        i = ni;
+        continue;
+      }
+
+      // Everything else via generic block parser
+      const [parsed, ni] = this.parseBlock(lines, i, { parseHardpoints: true });
+
+      if (parsed.displayName) { v.displayName = parsed.displayName; changed = true; }
+      if (parsed.sprite && parsed.sprite !== baseShip.sprite) {
+        v.sprite = parsed.sprite;
+        if (parsed.spriteData) v.spriteData = parsed.spriteData;
+        changed = true;
+      }
+      if (parsed.thumbnail && parsed.thumbnail !== baseShip.thumbnail) {
+        v.thumbnail = parsed.thumbnail;
+        changed = true;
+      }
+      for (const t of ['engines','reverseEngines','steeringEngines','guns','turrets','bays']) {
+        if (parsed[t]?.length > 0) { v[t] = parsed[t]; changed = true; }
+      }
+
+      i = ni;
     }
 
     if (!v.description) return null;
     return changed ? v : null;
   }
 
-  /**
-   * Compares two fully-resolved ship/variant objects to see if they are
-   * effectively identical (same stats, hardpoints, sprite, thumbnail).
-   * Used to deduplicate variants against each other.
-   */
   shipsAreIdentical(a, b) {
     if (a.baseShip !== b.baseShip) return false;
     if (a.sprite    !== b.sprite)    return false;
@@ -1012,6 +1051,9 @@ class EndlessSkyParser {
       if (aAttr[k] !== bAttr[k]) return false;
     }
 
+    // Also consider outfit loadout differences
+    if (!this._outfitMapsEqual(a.outfitMap || {}, b.outfitMap || {})) return false;
+
     return true;
   }
 
@@ -1021,7 +1063,6 @@ class EndlessSkyParser {
 
     for (const vi of this.pendingVariants) {
       const v = this.parseShipVariant(vi);
-
       if (!v) { skippedNoChange++; continue; }
 
       const isDuplicate = this.variants.some(existing => this.shipsAreIdentical(existing, v));
@@ -1110,7 +1151,7 @@ async function main() {
       for (const plugin of results) {
         console.log(`\nSaving → data/${plugin.outputName}/`);
 
-        const pluginDir   = path.join(process.cwd(), 'data', plugin.outputName);
+        const pluginDir    = path.join(process.cwd(), 'data', plugin.outputName);
         const dataFilesDir = path.join(pluginDir, 'dataFiles');
         await fs.mkdir(dataFilesDir, { recursive: true });
 
