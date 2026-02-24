@@ -60,6 +60,7 @@
       }
     ],
     "bays": [],
+    "outfitMap": {},
     "plural": "Argosies (wreck)",
     "sprite": "ship/argosy",
     "thumbnail": "thumbnail/argosy",
@@ -86,6 +87,16 @@
         "hit force": 900
       }
     },
+    "outfits": {
+      "A255 Atomic Steering": true,
+      "A370 Atomic Thruster": true,
+      "D23-QP Shield Generator": true,
+      "Dwarf Core": 2,
+      "Fuel Pod": 2,
+      "Jump Drive": true,
+      "Ramscoop": true,
+      "Water Coolant System": true
+    },
     "leak": 60,
     "flame": 60,
     "tiny explosion": 10,
@@ -94,7 +105,16 @@
     "large explosion": 10,
     "final explode": "final explosion medium",
     "description": "The Argosy from Southbound Shipyards is very popular with merchants not because of its capacity, which is actually slightly smaller than the Syndicate Freighter, but because it can hold its own in combat even against a small pirate fleet. \tThe Argosy is also a very easy ship to upgrade with faster engines or more powerful weapons as needed, so many privately owned Argosies have very different capabilities than the stock model.",
-    "governments": []
+    "governments": [
+      [
+        "Avalonian",
+        true
+      ],
+      [
+        "Republic",
+        true
+      ]
+    ]
   },
   {
     "name": "Dromedary",
@@ -179,6 +199,7 @@
         "launch effect": "human internal"
       }
     ],
+    "outfitMap": {},
     "plural": "Dromedaries",
     "sprite": "ship/modified dromedary",
     "thumbnail": "thumbnail/modified dromedary",
@@ -209,6 +230,21 @@
         "hull damage": 1300,
         "hit force": 3900
       }
+    },
+    "outfits": {
+      "Laser Turret": 2,
+      "Quad Blaster Turret": true,
+      "Anti-Missile Turret": 2,
+      "Fusion Reactor": true,
+      "LP144a Battery Pack": true,
+      "D94-YV Shield Generator": true,
+      "Large Radar Jammer": true,
+      "Ramscoop": true,
+      "NDR-114 Android": 100,
+      "Laser Rifle": 150,
+      "X4700 Ion Thruster": true,
+      "X5200 Ion Steering": true,
+      "Hyperdrive": true
     },
     "leak": 30,
     "flame": 30,
@@ -304,6 +340,7 @@
         "launch effect": "human internal"
       }
     ],
+    "outfitMap": {},
     "plural": "Dromedaries (wreck)",
     "sprite": "ship/modified dromedary",
     "thumbnail": "thumbnail/modified dromedary",
@@ -335,6 +372,18 @@
         "hull damage": 1300,
         "hit force": 3900
       }
+    },
+    "outfits": {
+      "Fusion Reactor": true,
+      "LP144a Battery Pack": true,
+      "D94-YV Shield Generator": true,
+      "Large Radar Jammer": true,
+      "Ramscoop": true,
+      "NDR-114 Android": 100,
+      "Laser Rifle": 150,
+      "X4700 Ion Thruster": true,
+      "X5200 Ion Steering": true,
+      "Hyperdrive": true
     },
     "leak": 30,
     "flame": 30,
@@ -489,6 +538,7 @@
         "launch effect": "human internal"
       }
     ],
+    "outfitMap": {},
     "sprite": "ship/carrier",
     "thumbnail": "thumbnail/carrier",
     "attributes": {
@@ -516,6 +566,21 @@
         "hull damage": 1500,
         "hit force": 4500
       }
+    },
+    "outfits": {
+      "Fusion Reactor": true,
+      "LP288a Battery Pack": true,
+      "D94-YV Shield Generator": true,
+      "Large Radar Jammer": 2,
+      "Water Coolant System": true,
+      "Brig": true,
+      "Laser Rifle": 40,
+      "Fragmentation Grenades": 40,
+      "Security Station": true,
+      "Tactical Scanner": true,
+      "X5700 Ion Thruster": true,
+      "X4200 Ion Steering": true,
+      "Hyperdrive": true
     },
     "leak": 30,
     "flame": 30,
@@ -959,6 +1024,7 @@
         "launch effect": "korath internal"
       }
     ],
+    "outfitMap": {},
     "display name": "Korsmanath A'awoj (wreck)",
     "sprite": "ship/korsmanath a-awoj",
     "thumbnail": "thumbnail/korsmanath a-awoj",
@@ -986,6 +1052,30 @@
         "hull damage": 7500,
         "hit force": 22500
       }
+    },
+    "outfits": {
+      "Banisher Grav-Turret": 7,
+      "Langrage Hyper-Heaver": 3,
+      "Korath Inferno": 4,
+      "Warder Anti-Missile": 7,
+      "Firelight Missile Bank": 4,
+      "Firelight Storage Rack": 4,
+      "Firelight Missile": 108,
+      "Firestorm Torpedo": 13,
+      "Firestorm Battery": 1,
+      "Triple Plasma Core": 3,
+      "Systems Core (Large)": 2,
+      "Liquid Sodium Cooler": 2,
+      "Fuel Processor": 7,
+      "Thermal Repeater Rifle": 1954,
+      "Microbot Defense Station": 214,
+      "Afterburner (Stellar Class)": true,
+      "Reverser (Stellar Class)": true,
+      "Thruster (Stellar Class)": true,
+      "Thruster (Planetary Class)": true,
+      "Steering (Stellar Class)": true,
+      "Steering (Planetary Class)": true,
+      "Scram Drive": true
     },
     "tiny explosion": 30,
     "small explosion": 45,
@@ -1431,6 +1521,7 @@
         "launch effect": "korath internal"
       }
     ],
+    "outfitMap": {},
     "display name": "Korsmanath A'awoj (wreck)",
     "sprite": "ship/korsmanath a-awoj",
     "thumbnail": "thumbnail/korsmanath a-awoj",
@@ -1457,6 +1548,30 @@
         "hull damage": 7500,
         "hit force": 22500
       }
+    },
+    "outfits": {
+      "Banisher Grav-Turret": 7,
+      "Langrage Hyper-Heaver": 3,
+      "Korath Inferno": 4,
+      "Warder Anti-Missile": 7,
+      "Firelight Missile Bank": 4,
+      "Firelight Storage Rack": 4,
+      "Firelight Missile": 108,
+      "Firestorm Torpedo": 13,
+      "Firestorm Battery": 1,
+      "Triple Plasma Core": 3,
+      "Systems Core (Large)": 2,
+      "Liquid Sodium Cooler": 2,
+      "Fuel Processor": 7,
+      "Thermal Repeater Rifle": 1954,
+      "Microbot Defense Station": 214,
+      "Afterburner (Stellar Class)": true,
+      "Reverser (Stellar Class)": true,
+      "Thruster (Stellar Class)": true,
+      "Thruster (Planetary Class)": true,
+      "Steering (Stellar Class)": true,
+      "Steering (Planetary Class)": true,
+      "Jump Drive": true
     },
     "tiny explosion": 30,
     "small explosion": 45,
@@ -1533,6 +1648,7 @@
       }
     ],
     "bays": [],
+    "outfitMap": {},
     "display name": "Planet Destroyer",
     "sprite": "ship/darkstar",
     "thumbnail": "thumbnail/argosy",
@@ -1558,6 +1674,20 @@
         "piercing": 1,
         "hit force": -8200
       }
+    },
+    "outfits": {
+      "Energy Blaster": 2,
+      "Meteor Missile Launcher": 2,
+      "Meteor Missile": 60,
+      "Blaster Turret": true,
+      "Anti-Missile Turret": true,
+      "RT-I Radiothermal": true,
+      "LP072a Battery Pack": true,
+      "D23-QP Shield Generator": true,
+      "Greyhound Plasma Thruster": true,
+      "Greyhound Plasma Steering": true,
+      "Capybara Reverse Thruster": true,
+      "Hyperdrive": true
     },
     "leak": 60,
     "flame": 60,
@@ -1635,6 +1765,7 @@
       }
     ],
     "bays": [],
+    "outfitMap": {},
     "display name": "CM-88B",
     "sprite": "ship/nostromo",
     "thumbnail": "thumbnail/argosy",
@@ -1660,6 +1791,20 @@
         "hull damage": 300,
         "hit force": 900
       }
+    },
+    "outfits": {
+      "Energy Blaster": 2,
+      "Meteor Missile Launcher": 2,
+      "Meteor Missile": 60,
+      "Blaster Turret": true,
+      "Anti-Missile Turret": true,
+      "RT-I Radiothermal": true,
+      "LP072a Battery Pack": true,
+      "D23-QP Shield Generator": true,
+      "Greyhound Plasma Thruster": true,
+      "Greyhound Plasma Steering": true,
+      "Capybara Reverse Thruster": true,
+      "Hyperdrive": true
     },
     "leak": 60,
     "flame": 60,
