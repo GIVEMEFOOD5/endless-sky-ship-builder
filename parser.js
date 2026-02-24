@@ -417,29 +417,25 @@ class EndlessSkyParser {
     this.processVariants();
     console.log(`  → ${this.variants.length} variants kept`);
 
-    // ── Step 3b: attach species to all ships, variants, and outfits ───────────
+    // ── Step 3b: attach governments to all ships, variants, and outfits ───────
     // Uses all parsed fleet/npc/shipyard/outfitter/planet data accumulated above.
-    // We pass the first plugin's name as the fallback label — for single-plugin
-    // repos this is perfect; for multi-plugin repos each plugin will override
-    // with its own name in the results loop below.
-    const fallbackName = pluginMeta[0]?.name || sourceName || repo;
     const sr = this.speciesResolver;
-    console.log(`  Resolving species: ${sr.fleets.length} fleets, ${sr.npcRefs.length} npc refs, ${sr.planets.length} planets, ${Object.keys(sr.sourceFiles).length} source folder entries`);
+    console.log(`  Resolving governments: ${sr.fleets.length} fleets, ${sr.npcRefs.length} npc refs, ${sr.planets.length} planets`);
 
-    // Sample diagnostics: show first 3 ships and what data we have for them
+    // Sample diagnostics: show first 3 ships and what governments we found for them
     for (const ship of this.ships.slice(0, 3)) {
-      const govts = sr._governmentsForShip(ship.name);
-      const folder = sr.sourceFiles[ship.name];
-      console.log(`    "${ship.name}": folder="${folder || 'none'}" govts=[${govts.slice(0,3).join(', ')}]`);
+      const govts = [...sr._governmentsForShip(ship.name)];
+      console.log(`    "${ship.name}": govts=[${govts.slice(0, 3).join(', ')}]`);
     }
 
-    this.speciesResolver.attachSpecies(this.ships, this.variants, this.outfits, fallbackName);
+    this.speciesResolver.attachSpecies(this.ships, this.variants, this.outfits);
 
     // Show results for first 3 ships
     for (const ship of this.ships.slice(0, 3)) {
-      console.log(`    → "${ship.name}": species="${ship.species}" (${ship.speciesConfidence})`);
+      const govts = (ship.governments || []).map(([g]) => g);
+      console.log(`    → "${ship.name}": governments=[${govts.join(', ')}]`);
     }
-    console.log(`  ✓ Species attached`);
+    console.log(`  ✓ Governments attached`);
 
     // ── Step 4: split results per plugin, copy images, then delete clones ─────
     const results = [];
@@ -463,14 +459,6 @@ class EndlessSkyParser {
         }
 
         console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
-
-      // For multi-plugin repos the fallback species was set to the first plugin's name.
-      // Fix any "fallback" confidence items to use THIS plugin's name instead.
-      if (probePlugins.length > 1) {
-        for (const item of [...pluginShips, ...pluginVariants, ...pluginOutfits]) {
-          if (item.speciesConfidence === 'fallback') item.species = meta.name;
-        }
-      }
 
         // Output folder: sourceName for single-plugin repos, internal name for multi-plugin
         const isSinglePlugin = probePlugins.length === 1;
@@ -505,15 +493,6 @@ class EndlessSkyParser {
   // ── Parsing methods (unchanged from original) ──────────────────────────────
 
   parseFileContent(content, filePath, dataDir) {
-    // Determine parent folder name relative to dataDir for folder-based species detection
-    // e.g. dataDir/.../data/human/ships.txt → parentFolder = "human"
-    let parentFolder = null;
-    if (filePath && dataDir) {
-      const rel    = path.relative(dataDir, filePath);
-      const parts  = rel.split(path.sep);
-      parentFolder = parts.length > 1 ? parts[0] : null;
-    }
-
     const lines = content.split('\n');
     let i = 0;
     while (i < lines.length) {
@@ -523,17 +502,11 @@ class EndlessSkyParser {
       if (indent === 0) {
         if (trimmed.startsWith('ship ')) {
           const [d, ni] = this.parseShip(lines, i);
-          if (d) {
-            if (parentFolder) this.speciesResolver.setSourceFileFolder(d.name, parentFolder);
-            this.ships.push(d);
-          }
+          if (d) this.ships.push(d);
           i = ni; continue;
         } else if (trimmed.startsWith('outfit ')) {
           const [d, ni] = this.parseOutfit(lines, i);
-          if (d) {
-            if (parentFolder) this.speciesResolver.setSourceFileFolder(d.name, parentFolder);
-            this.outfits.push(d);
-          }
+          if (d) this.outfits.push(d);
           i = ni; continue;
         } else if (trimmed.startsWith('effect ')) {
           const [d, ni] = this.parseExtraEffect(lines, i);
@@ -1019,14 +992,10 @@ class EndlessSkyParser {
    * Used to deduplicate variants against each other.
    */
   shipsAreIdentical(a, b) {
-    // Must be the same base ship family
     if (a.baseShip !== b.baseShip) return false;
-
-    // Compare sprite and thumbnail
     if (a.sprite    !== b.sprite)    return false;
     if (a.thumbnail !== b.thumbnail) return false;
 
-    // Compare hardpoints by count and position
     for (const t of ['engines','reverseEngines','steeringEngines','guns','turrets','bays']) {
       const aList = a[t] || [];
       const bList = b[t] || [];
@@ -1036,7 +1005,6 @@ class EndlessSkyParser {
       }
     }
 
-    // Compare attributes
     const aAttr = a.attributes || {};
     const bAttr = b.attributes || {};
     const allKeys = new Set([...Object.keys(aAttr), ...Object.keys(bAttr)]);
@@ -1054,10 +1022,8 @@ class EndlessSkyParser {
     for (const vi of this.pendingVariants) {
       const v = this.parseShipVariant(vi);
 
-      // parseShipVariant already checks significance vs base ship
       if (!v) { skippedNoChange++; continue; }
 
-      // Check against all already-accepted variants for duplicates
       const isDuplicate = this.variants.some(existing => this.shipsAreIdentical(existing, v));
       if (isDuplicate) {
         console.log(`    ~ Skipped duplicate variant: ${v.name}`);
@@ -1118,8 +1084,6 @@ async function main() {
     const config = JSON.parse(await fs.readFile(path.join(process.cwd(), 'plugins.json'), 'utf8'));
     console.log(`Found ${config.plugins.length} repository source(s)\n`);
 
-    // index.json maps sourceName -> [{ outputName, displayName }]
-    // so the frontend knows exactly which folders were generated
     const dataIndex = {};
 
     for (const source of config.plugins) {
@@ -1150,13 +1114,6 @@ async function main() {
         const dataFilesDir = path.join(pluginDir, 'dataFiles');
         await fs.mkdir(dataFilesDir, { recursive: true });
 
-        // Images were already copied inside parseRepository while the clone existed.
-        // Nothing extra needed here.
-
-        /*// Convert image sequences to APNG
-        const converter = new ImageConverter();
-        await converter.processAllImages(pluginDir, plugin, { fps: null });*/
-
         await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(plugin.ships,    null, 2));
         await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(plugin.variants, null, 2));
         await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(plugin.outfits,  null, 2));
@@ -1173,7 +1130,6 @@ async function main() {
 
         console.log(`  ✓ ${plugin.ships.length} ships | ${plugin.variants.length} variants | ${plugin.outfits.length} outfits | ${plugin.effects.length} effects`);
 
-        // Track in index
         if (!dataIndex[source.name]) dataIndex[source.name] = [];
         dataIndex[source.name].push({
           outputName:  plugin.outputName,
@@ -1182,7 +1138,6 @@ async function main() {
       }
     }
 
-    // Write index.json so the frontend can discover all generated folders
     const indexPath = path.join(process.cwd(), 'data', 'index.json');
     await fs.mkdir(path.join(process.cwd(), 'data'), { recursive: true });
     await fs.writeFile(indexPath, JSON.stringify(dataIndex, null, 2));
