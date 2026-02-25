@@ -1032,7 +1032,7 @@ class EndlessSkyParser {
       if (stripped === 'outfits') {
         // No shipName passed here — resolver registration was already done for
         // the base ship; variants inherit government via their base ship name.
-        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, null);
+        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, v.name);
         if (!this._outfitMapsEqual(outfitMap, baseShip.outfitMap || {})) {
           v.outfitMap = outfitMap;
           changed = true;
