@@ -607,8 +607,10 @@ class EndlessSkyParser {
     while (i < lines.length) {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
-      if (indent === 0 && line.trim()) break;
-      if (indent >= 1) {
+      // Stop when we return to the same level as the outfits header (indent 1)
+      // or back to the top level (indent 0)
+      if (indent <= 1 && line.trim()) break;
+      if (indent >= 2) {
         // Format:  "Outfit Name" <count>   or   `Outfit Name` <count>
         // Count is optional and defaults to 1.
         const m = line.trim().match(/^"([^"]+)"(?:\s+(\d+))?/) ||
