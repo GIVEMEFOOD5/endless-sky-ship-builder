@@ -1028,6 +1028,26 @@ class EndlessSkyParser {
 
       const stripped = line.trim();
 
+      // Handle inline outfit lines (e.g. "Moonbeam" 2)
+      const inlineOutfitMatch =
+        stripped.match(/^"([^"]+)"(?:\s+(\d+))?$/) ||
+        stripped.match(/^`([^`]+)`(?:\s+(\d+))?$/);
+
+      if (inlineOutfitMatch && indent === 1) {
+        const outfitName = inlineOutfitMatch[1];
+        const count = inlineOutfitMatch[2] ? Math.max(1, parseInt(inlineOutfitMatch[2], 10)) : 1;
+
+        if (!v.outfitMap) v.outfitMap = {};
+        v.outfitMap[outfitName] = count;
+
+        // Register with SpeciesResolver
+        this.speciesResolver.collectShipOutfits(v.name, [outfitName]);
+
+        changed = true;
+        i++;
+        continue;
+      }
+      
       // Parse `outfits` block — store in variant and check if different from base
       if (stripped === 'outfits') {
         // No shipName passed here — resolver registration was already done for
