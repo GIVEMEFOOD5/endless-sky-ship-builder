@@ -22,44 +22,16 @@ jobs:
         with:
           node-version: '18'
       
-      - name: Setup FFmpeg
-        uses: FedericoCarboni/setup-ffmpeg@v3
-        with:
-          ffmpeg-version: release
-      
-      - name: Install OpenGL dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libgl1-mesa-dri \
-            libegl1-mesa-dev \
-            libgles2-mesa-dev \
-            mesa-utils \
-            xvfb
-      
-      - name: Start Xvfb
-        run: |
-          Xvfb :99 -screen 0 1280x1024x24 &
-          sleep 2
-      
-      - name: Install dependencies
-        run: npm install sharp
-      
       - name: Run parser
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DISPLAY: :99
         run: node parser.js
       
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          # Re-add data/ exactly as it exists now
           git add data/
-          
-          # Commit only if there are changes
           git diff --staged --quiet || (
             git commit -m "Update Endless Sky data - $(date +'%Y-%m-%d')" &&
             git push
