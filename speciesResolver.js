@@ -76,15 +76,22 @@ class SpeciesResolver {
   }
 
   attachSpecies(ships, variants, outfits) {
+    const toObj = govts => {
+      const obj = {};
+      for (const g of govts) obj[g] = true;
+      return obj;
+    };
     for (const ship of ships)
-      ship.governments = [...this._governmentsForShip(ship.name)].map(g => [g, true]);
+      ship.governments = toObj(this._governmentsForShip(ship.name));
     for (const variant of variants) {
-      const byVariant = this._governmentsForShip(variant.name);
-      const byBase    = this._governmentsForShip(variant.baseShip ?? variant.name);
-      variant.governments = [...new Set([...byVariant, ...byBase])].map(g => [g, true]);
+      const merged = new Set([
+        ...this._governmentsForShip(variant.name),
+        ...this._governmentsForShip(variant.baseShip ?? variant.name)
+      ]);
+      variant.governments = toObj(merged);
     }
     for (const outfit of outfits)
-      outfit.governments = [...this._governmentsForOutfit(outfit.name)].map(g => [g, true]);
+      outfit.governments = toObj(this._governmentsForOutfit(outfit.name));
   }
 }
 module.exports = SpeciesResolver;
