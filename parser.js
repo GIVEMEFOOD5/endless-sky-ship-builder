@@ -490,7 +490,9 @@ class EndlessSkyParser {
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
-      if (indent === 1 && (stripped === 'npc' || stripped.startsWith('npc '))) {
+      // npc blocks can appear at indent 1 (top-level in mission) or at indent 2
+      // inside on offer / on enter / on complete / on visit etc. sub-blocks
+      if (stripped === 'npc' || stripped.startsWith('npc ')) {
         i = this.parseNpcBlock(lines, i);
         continue;
       }
@@ -611,7 +613,7 @@ class EndlessSkyParser {
         // Count is optional and defaults to 1.
         const m = line.trim().match(/^"([^"]+)"(?:\s+(\d+))?/) ||
                   line.trim().match(/^`([^`]+)`(?:\s+(\d+))?/);
-        if (m) outfitMap[m[1]] = m[2] ? parseInt(m[2], 10) : 1;
+        if (m) outfitMap[m[1]] = m[2] ? Math.max(1, parseInt(m[2], 10)) : 1;
       }
       i++;
     }
@@ -881,8 +883,9 @@ class EndlessSkyParser {
     const aKeys = Object.keys(a || {});
     const bKeys = Object.keys(b || {});
     if (aKeys.length !== bKeys.length) return false;
+    const norm = v => (v === true ? 1 : (v ?? 1));
     for (const k of aKeys) {
-      if ((a[k] ?? 1) !== (b[k] ?? 1)) return false;
+      if (norm(a[k]) !== norm(b[k])) return false;
     }
     return true;
   }
@@ -907,13 +910,13 @@ class EndlessSkyParser {
       return [null, this.skipIndentedBlock(lines, startIdx, 0)];
     }
 
-    // Parse the ship block manually so we can intercept `outfits` for the
-    // resolver while still storing it in the output data.
+    // Parse the ship block one top-level property at a time so that
+    // outfits and add attributes intercepts always fire regardless of order.
     const shipData = {
       name: baseName,
       engines: [], reverseEngines: [], steeringEngines: [],
       guns: [], turrets: [], bays: [],
-      outfitMap: {}   // { "outfit name": count }
+      outfitMap: {}
     };
 
     let i = startIdx + 1;
@@ -923,10 +926,11 @@ class EndlessSkyParser {
       if (!line.trim() || line.trim().startsWith('#')) { i++; continue; }
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent < 1) break;
+      if (indent > 1) { i++; continue; }
 
       const stripped = line.trim();
 
-      // Intercept `outfits` block — store map and register with resolver
+      // Intercept outfits block
       if (stripped === 'outfits') {
         const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName);
         shipData.outfitMap = outfitMap;
@@ -934,16 +938,58 @@ class EndlessSkyParser {
         continue;
       }
 
-      // Skip `add attributes` from output
+      // Skip add attributes from base ship output
       if (stripped === 'add attributes') {
         i = this.skipIndentedBlock(lines, i, indent);
         continue;
       }
 
-      // Everything else via the generic block parser
-      const [parsed, ni] = this.parseBlock(lines, i, { parseHardpoints: true });
-      Object.assign(shipData, parsed);
-      i = ni;
+      // Hardpoints
+      const hr = this.parseHardpoint(stripped, lines, i, indent);
+      if (hr) {
+        const [type, hdata, ni] = hr;
+        if (!shipData[type]) shipData[type] = [];
+        shipData[type].push(hdata);
+        i = ni;
+        continue;
+      }
+
+      // Description
+      if (stripped === 'description' || stripped.startsWith('description ')) {
+        const [desc, ni] = this.parseDescription(lines, i, indent);
+        if (desc) {
+          shipData.description = shipData.description
+            ? shipData.description + ' ' + desc.join(' ')
+            : desc.join(' ');
+        }
+        i = ni;
+        continue;
+      }
+
+      // Sprite
+      if (stripped.startsWith('sprite ')) {
+        const [sd, ni] = this.parseSpriteWithData(lines, i, indent);
+        Object.assign(shipData, sd);
+        i = ni;
+        continue;
+      }
+
+      // Sub-block (e.g. attributes)
+      if (i + 1 < lines.length) {
+        const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+        if (nextIndent > indent) {
+          const key = stripped.replace(/^["'`]([^"'`]+)["'`]$/, '$1');
+          const [nd, ni] = this.parseBlock(lines, i + 1, { parseHardpoints: false });
+          shipData[key] = nd;
+          i = ni;
+          continue;
+        }
+      }
+
+      // Plain key-value
+      const kv = this.parseKeyValue(stripped);
+      if (kv) shipData[kv[0]] = kv[1];
+      i++;
     }
 
     const hasData = shipData.description && (
