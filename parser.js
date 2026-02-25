@@ -534,7 +534,8 @@ class EndlessSkyParser {
   }
 
   parseShipyardBlock(lines, i) {
-    const headerMatch = lines[i].trim().match(/^shipyard\s+"([^"]+)"/);
+    const headerMatch = lines[i].trim().match(/^shipyard\s+"([^"]+)"/) ||
+                        lines[i].trim().match(/^shipyard\s+`([^`]+)`/);
     if (!headerMatch) return i + 1;
     const name = headerMatch[1];
     const ships = [];
@@ -543,7 +544,7 @@ class EndlessSkyParser {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent === 0 && line.trim()) break;
-      const m = line.trim().match(/^"([^"]+)"/);
+      const m = line.trim().match(/^"([^"]+)"/) || line.trim().match(/^`([^`]+)`/);
       if (m) ships.push(m[1]);
       i++;
     }
@@ -552,7 +553,8 @@ class EndlessSkyParser {
   }
 
   parseOutfitterBlock(lines, i) {
-    const headerMatch = lines[i].trim().match(/^outfitter\s+"([^"]+)"/);
+    const headerMatch = lines[i].trim().match(/^outfitter\s+"([^"]+)"/) ||
+                        lines[i].trim().match(/^outfitter\s+`([^`]+)`/);
     if (!headerMatch) return i + 1;
     const name = headerMatch[1];
     const outfits = [];
@@ -561,7 +563,7 @@ class EndlessSkyParser {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent === 0 && line.trim()) break;
-      const m = line.trim().match(/^"([^"]+)"/);
+      const m = line.trim().match(/^"([^"]+)"/) || line.trim().match(/^`([^`]+)`/);
       if (m) outfits.push(m[1]);
       i++;
     }
@@ -583,8 +585,8 @@ class EndlessSkyParser {
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
       const govMatch = stripped.match(/^government\s+"([^"]+)"/);
-      const syMatch  = stripped.match(/^shipyard\s+"([^"]+)"/);
-      const ofMatch  = stripped.match(/^outfitter\s+"([^"]+)"/);
+      const syMatch  = stripped.match(/^shipyard\s+"([^"]+)"/) || stripped.match(/^shipyard\s+`([^`]+)`/);
+      const ofMatch  = stripped.match(/^outfitter\s+"([^"]+)"/) || stripped.match(/^outfitter\s+`([^`]+)`/);
       if (govMatch) government = govMatch[1];
       if (syMatch)  shipyards.push(syMatch[1]);
       if (ofMatch)  outfitters.push(ofMatch[1]);
