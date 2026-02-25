@@ -926,7 +926,6 @@ class EndlessSkyParser {
       if (!line.trim() || line.trim().startsWith('#')) { i++; continue; }
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent < 1) break;
-      if (indent > 1) { i++; continue; }
 
       const stripped = line.trim();
 
@@ -992,10 +991,7 @@ class EndlessSkyParser {
       i++;
     }
 
-    const hasData = shipData.description && (
-      shipData.attributes || shipData.engines.length > 0 ||
-      shipData.guns.length > 0 || shipData.turrets.length > 0 || shipData.bays.length > 0
-    );
+    const hasData = shipData.description != null;
     return [hasData ? shipData : null, i];
   }
 
