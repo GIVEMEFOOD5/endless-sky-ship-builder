@@ -7,7 +7,6 @@ const https          = require('https');
 const SpeciesResolver = require('./speciesResolver');
 const fs     = require('fs').promises;
 const path   = require('path');
-const ImageConverter = require('./imageConverter');
 const { exec: execCallback } = require('child_process');
 const { promisify } = require('util');
 const exec   = promisify(execCallback);
