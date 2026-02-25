@@ -365,7 +365,7 @@ class EndlessSkyParser {
     this.speciesResolver.attachSpecies(this.ships, this.variants, this.outfits);
 
     for (const ship of this.ships.slice(0, 3)) {
-      const govts = (ship.governments || []).map(([g]) => g);
+      const govts = Object.keys(ship.governments || {});
       console.log(`    → "${ship.name}": governments=[${govts.join(', ')}]`);
     }
     console.log(`  ✓ Governments attached`);
