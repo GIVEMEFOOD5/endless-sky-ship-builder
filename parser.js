@@ -734,10 +734,14 @@ class EndlessSkyParser {
     const stripped = lines[i].trim();
     const descLines = [];
 
-    const single = stripped.match(/description\s+[`"](.+)[`"]$/);
+    // Single-line: description "text" or description `text`
+    const single = stripped.match(/^description\s+"([^"]*)"$/) ||
+                   stripped.match(/^description\s+`([^`]*)`$/);
     if (single) return [[single[1]], i + 1];
 
-    const start = stripped.match(/description\s+[`"](.*)$/);
+    // Multi-line: description "text that continues...
+    const start = stripped.match(/^description\s+"(.*)$/) ||
+                  stripped.match(/^description\s+`(.*)$/);
     if (start) {
       const st = start[1];
       if (st.endsWith('`') || st.endsWith('"')) return [[st.slice(0, -1)], i + 1];
