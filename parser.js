@@ -1196,6 +1196,11 @@ async function main() {
 
     const dataIndex = {};
 
+    // ── Single shared parser so the resolver sees ALL plugins' governments ──
+    const sharedParser = new EndlessSkyParser();
+
+    // Pass 1: parse every source and collect all raw data + resolver state
+    const allResults = [];
     for (const source of config.plugins) {
       console.log(`\n${'='.repeat(60)}`);
       console.log(`Source: ${source.name}  |  ${source.repository}`);
@@ -1203,8 +1208,7 @@ async function main() {
 
       let results;
       try {
-        const parser = new EndlessSkyParser();
-        results = await parser.parseRepository(source.repository, source.name);
+        results = await sharedParser.parseRepository(source.repository, source.name);
       } catch (err) {
         console.error(`  Error processing "${source.name}": ${err.message}`);
         console.error(err.stack);
@@ -1218,34 +1222,53 @@ async function main() {
       }
 
       for (const plugin of results) {
-        console.log(`\nSaving → data/${plugin.outputName}/`);
-
-        const pluginDir    = path.join(process.cwd(), 'data', plugin.outputName);
-        const dataFilesDir = path.join(pluginDir, 'dataFiles');
-        await fs.mkdir(dataFilesDir, { recursive: true });
-
-        await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(plugin.ships,    null, 2));
-        await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(plugin.variants, null, 2));
-        await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(plugin.outfits,  null, 2));
-        await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(plugin.effects,  null, 2));
-        await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
-          plugin:     plugin.name,
-          repository: source.repository,
-          ships:      plugin.ships,
-          variants:   plugin.variants,
-          outfits:    plugin.outfits,
-          effects:    plugin.effects,
-          parsedAt:   new Date().toISOString()
-        }, null, 2));
-
-        console.log(`  ✓ ${plugin.ships.length} ships | ${plugin.variants.length} variants | ${plugin.outfits.length} outfits | ${plugin.effects.length} effects`);
-
-        if (!dataIndex[source.name]) dataIndex[source.name] = [];
-        dataIndex[source.name].push({
-          outputName:  plugin.outputName,
-          displayName: plugin.name
-        });
+        allResults.push({ source, plugin });
       }
+    }
+
+    // Pass 2: now that the resolver has seen every government across every plugin,
+    // run attachSpecies over each plugin's data with the fully-populated resolver
+    console.log(`\n${'='.repeat(60)}`);
+    console.log(`Re-resolving governments across all ${allResults.length} plugin(s)...`);
+    console.log('='.repeat(60));
+
+    for (const { plugin } of allResults) {
+      sharedParser.speciesResolver.attachSpecies(
+        plugin.ships,
+        plugin.variants,
+        plugin.outfits
+      );
+    }
+
+    // Pass 3: write output files
+    for (const { source, plugin } of allResults) {
+      console.log(`\nSaving → data/${plugin.outputName}/`);
+
+      const pluginDir    = path.join(process.cwd(), 'data', plugin.outputName);
+      const dataFilesDir = path.join(pluginDir, 'dataFiles');
+      await fs.mkdir(dataFilesDir, { recursive: true });
+
+      await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(plugin.ships,    null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(plugin.variants, null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(plugin.outfits,  null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(plugin.effects,  null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
+        plugin:     plugin.name,
+        repository: source.repository,
+        ships:      plugin.ships,
+        variants:   plugin.variants,
+        outfits:    plugin.outfits,
+        effects:    plugin.effects,
+        parsedAt:   new Date().toISOString()
+      }, null, 2));
+
+      console.log(`  ✓ ${plugin.ships.length} ships | ${plugin.variants.length} variants | ${plugin.outfits.length} outfits | ${plugin.effects.length} effects`);
+
+      if (!dataIndex[source.name]) dataIndex[source.name] = [];
+      dataIndex[source.name].push({
+        outputName:  plugin.outputName,
+        displayName: plugin.name
+      });
     }
 
     const indexPath = path.join(process.cwd(), 'data', 'index.json');
