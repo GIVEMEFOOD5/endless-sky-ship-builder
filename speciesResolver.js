@@ -1,7 +1,6 @@
 'use strict';
 class SpeciesResolver {
   constructor() { this.reset(); }
-
   reset() {
     this.fleets      = [];
     this.npcRefs     = [];
@@ -10,7 +9,6 @@ class SpeciesResolver {
     this.planets     = [];
     this.shipOutfits = {};
   }
-
   collectFleet(government, shipNames) {
     if (government && shipNames.length)
       this.fleets.push({ government, shipNames: [...shipNames] });
@@ -35,19 +33,15 @@ class SpeciesResolver {
     if (!this.shipOutfits[shipName]) this.shipOutfits[shipName] = [];
     this.shipOutfits[shipName].push(...outfitNames);
   }
-
   _governmentsForShip(shipName) {
     const govts = new Set();
     const baseName = shipName.replace(/\s*\([^)]+\)\s*$/, '').trim();
-
     for (const fleet of this.fleets)
       if (fleet.shipNames.includes(shipName) || fleet.shipNames.includes(baseName))
         govts.add(fleet.government);
-
     for (const ref of this.npcRefs)
       if (ref.shipName === shipName || ref.shipName === baseName)
         govts.add(ref.government);
-
     for (const [yard, shipList] of Object.entries(this.shipyards)) {
       if (!shipList.includes(shipName) && !shipList.includes(baseName)) continue;
       for (const planet of this.planets)
@@ -56,17 +50,14 @@ class SpeciesResolver {
     }
     return govts;
   }
-
   _governmentsForOutfit(outfitName) {
     const govts = new Set();
-
     for (const [outfitter, outfitList] of Object.entries(this.outfitters)) {
       if (!outfitList.includes(outfitName)) continue;
       for (const planet of this.planets)
         if (planet.outfitters.includes(outfitter) && planet.government)
           govts.add(planet.government);
     }
-
     for (const [shipName, outfitList] of Object.entries(this.shipOutfits)) {
       if (!outfitList.includes(outfitName)) continue;
       for (const g of this._governmentsForShip(shipName))
@@ -74,22 +65,38 @@ class SpeciesResolver {
     }
     return govts;
   }
-
   attachSpecies(ships, variants, outfits) {
     const toObj = govts => {
       const obj = {};
       for (const g of govts) obj[g] = true;
       return obj;
     };
-    for (const ship of ships)
-      ship.governments = toObj(this._governmentsForShip(ship.name));
+
+    for (const ship of ships) {
+      const govts = this._governmentsForShip(ship.name);
+      // Fallback: infer from outfits if no direct government found
+      if (govts.size === 0 && ship.outfitMap) {
+        for (const outfitName of Object.keys(ship.outfitMap))
+          for (const g of this._governmentsForOutfit(outfitName))
+            govts.add(g);
+      }
+      ship.governments = toObj(govts);
+    }
+
     for (const variant of variants) {
       const merged = new Set([
         ...this._governmentsForShip(variant.name),
         ...this._governmentsForShip(variant.baseShip ?? variant.name)
       ]);
+      // Fallback: infer from variant's outfit loadout
+      if (merged.size === 0 && variant.outfitMap) {
+        for (const outfitName of Object.keys(variant.outfitMap))
+          for (const g of this._governmentsForOutfit(outfitName))
+            merged.add(g);
+      }
       variant.governments = toObj(merged);
     }
+
     for (const outfit of outfits)
       outfit.governments = toObj(this._governmentsForOutfit(outfit.name));
   }
