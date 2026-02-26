@@ -69,7 +69,7 @@ class SpeciesResolver {
       for (const g of this._governmentsForShip(shipName))
         govts.add(g);
     }
-    // Filter to only governments that have been confirmed across all parsed plugins
+    // Filter to only governments confirmed across all parsed plugins
     return new Set([...govts].filter(g => this.knownGovernments.has(g)));
   }
   _outfitFallbackGovernments(outfitMap) {
@@ -81,7 +81,8 @@ class SpeciesResolver {
           govts.add(g);
     return govts;
   }
-  attachSpecies(ships, variants, outfits) {
+  // pluginName is used as a last-resort fallback government when nothing else matches
+  attachSpecies(ships, variants, outfits, pluginName) {
     const toObj = govts => {
       const obj = {};
       for (const g of govts) obj[g] = true;
@@ -90,11 +91,12 @@ class SpeciesResolver {
 
     for (const ship of ships) {
       const govts = this._governmentsForShip(ship.name);
-      // Fallback: infer from outfits only if no direct government found,
-      // and only allow governments confirmed across all parsed plugins
       if (govts.size === 0)
         for (const g of this._outfitFallbackGovernments(ship.outfitMap))
           govts.add(g);
+      // Last resort: use the plugin name so nothing is left ungoverned
+      if (govts.size === 0 && pluginName)
+        govts.add(pluginName);
       ship.governments = toObj(govts);
     }
 
@@ -103,15 +105,22 @@ class SpeciesResolver {
         ...this._governmentsForShip(variant.name),
         ...this._governmentsForShip(variant.baseShip ?? variant.name)
       ]);
-      // Fallback: infer from variant's outfit loadout
       if (merged.size === 0)
         for (const g of this._outfitFallbackGovernments(variant.outfitMap))
           merged.add(g);
+      // Last resort: use the plugin name
+      if (merged.size === 0 && pluginName)
+        merged.add(pluginName);
       variant.governments = toObj(merged);
     }
 
-    for (const outfit of outfits)
-      outfit.governments = toObj(this._governmentsForOutfit(outfit.name));
+    for (const outfit of outfits) {
+      const govts = this._governmentsForOutfit(outfit.name);
+      // Last resort: use the plugin name
+      if (govts.size === 0 && pluginName)
+        govts.add(pluginName);
+      outfit.governments = toObj(govts);
+    }
   }
 }
 module.exports = SpeciesResolver;
