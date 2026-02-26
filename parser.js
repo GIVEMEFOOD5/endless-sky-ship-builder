@@ -580,15 +580,9 @@ class EndlessSkyParser {
     return i;
   }
 
-  /**
-   * Parse an `outfits` block, returning [outfitMap, nextLineIndex].
-   * outfitMap is { "Outfit Name": count, ... } — count defaults to 1 if omitted.
-   * Also registers the outfit names with the species resolver under shipName
-   * if provided (pass null when you only need the map, e.g. in variants).
-   */
   parseOutfitsBlock(lines, i, shipName = null) {
     const outfitMap = {};
-    i++; // move past the `outfits` header line
+    i++;
     while (i < lines.length) {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
@@ -1185,7 +1179,9 @@ async function main() {
     }
 
     // Pass 2: now that the resolver has seen every government across every plugin,
-    // run attachSpecies once per plugin with the fully-populated resolver
+    // run attachSpecies once per plugin with the fully-populated resolver.
+    // Pass the plugin's outputName as the fallback government for anything
+    // that couldn't be resolved via fleet/shipyard/outfit chains.
     console.log(`\n${'='.repeat(60)}`);
     console.log(`Resolving governments across all ${allResults.length} plugin(s)...`);
     console.log(`  Known governments: ${sharedParser.speciesResolver.knownGovernments.size}`);
@@ -1197,7 +1193,8 @@ async function main() {
       sharedParser.speciesResolver.attachSpecies(
         plugin.ships,
         plugin.variants,
-        plugin.outfits
+        plugin.outfits,
+        plugin.outputName   // ← fallback government if nothing else matches
       );
     }
 
