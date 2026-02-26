@@ -2,20 +2,25 @@
 class SpeciesResolver {
   constructor() { this.reset(); }
   reset() {
-    this.fleets      = [];
-    this.npcRefs     = [];
-    this.shipyards   = {};
-    this.outfitters  = {};
-    this.planets     = [];
-    this.shipOutfits = {};
+    this.fleets           = [];
+    this.npcRefs          = [];
+    this.shipyards        = {};
+    this.outfitters       = {};
+    this.planets          = [];
+    this.shipOutfits      = {};
+    this.knownGovernments = new Set();
   }
   collectFleet(government, shipNames) {
-    if (government && shipNames.length)
+    if (government && shipNames.length) {
+      this.knownGovernments.add(government);
       this.fleets.push({ government, shipNames: [...shipNames] });
+    }
   }
   collectNpcRef(government, shipName) {
-    if (government && shipName)
+    if (government && shipName) {
+      this.knownGovernments.add(government);
       this.npcRefs.push({ government, shipName });
+    }
   }
   collectShipyard(name, shipNames) {
     if (!this.shipyards[name]) this.shipyards[name] = [];
@@ -26,6 +31,7 @@ class SpeciesResolver {
     this.outfitters[name].push(...outfitNames);
   }
   collectPlanet(name, government, shipyards, outfitters) {
+    if (government) this.knownGovernments.add(government);
     this.planets.push({ name, government, shipyards, outfitters });
   }
   collectShipOutfits(shipName, outfitNames) {
@@ -63,6 +69,16 @@ class SpeciesResolver {
       for (const g of this._governmentsForShip(shipName))
         govts.add(g);
     }
+    // Filter to only governments that have been confirmed across all parsed plugins
+    return new Set([...govts].filter(g => this.knownGovernments.has(g)));
+  }
+  _outfitFallbackGovernments(outfitMap) {
+    const govts = new Set();
+    if (!outfitMap) return govts;
+    for (const outfitName of Object.keys(outfitMap))
+      for (const g of this._governmentsForOutfit(outfitName))
+        if (this.knownGovernments.has(g))
+          govts.add(g);
     return govts;
   }
   attachSpecies(ships, variants, outfits) {
@@ -74,12 +90,11 @@ class SpeciesResolver {
 
     for (const ship of ships) {
       const govts = this._governmentsForShip(ship.name);
-      // Fallback: infer from outfits if no direct government found
-      if (govts.size === 0 && ship.outfitMap) {
-        for (const outfitName of Object.keys(ship.outfitMap))
-          for (const g of this._governmentsForOutfit(outfitName))
-            govts.add(g);
-      }
+      // Fallback: infer from outfits only if no direct government found,
+      // and only allow governments confirmed across all parsed plugins
+      if (govts.size === 0)
+        for (const g of this._outfitFallbackGovernments(ship.outfitMap))
+          govts.add(g);
       ship.governments = toObj(govts);
     }
 
@@ -89,11 +104,9 @@ class SpeciesResolver {
         ...this._governmentsForShip(variant.baseShip ?? variant.name)
       ]);
       // Fallback: infer from variant's outfit loadout
-      if (merged.size === 0 && variant.outfitMap) {
-        for (const outfitName of Object.keys(variant.outfitMap))
-          for (const g of this._governmentsForOutfit(outfitName))
-            merged.add(g);
-      }
+      if (merged.size === 0)
+        for (const g of this._outfitFallbackGovernments(variant.outfitMap))
+          merged.add(g);
       variant.governments = toObj(merged);
     }
 
