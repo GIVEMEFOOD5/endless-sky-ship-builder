@@ -26,6 +26,8 @@ async function sparseClone(repoGitUrl, branch, targetDir, folders) {
 // ---------------------------------------------------------------------------
 class EndlessSkyParser {
   constructor() {
+    // These accumulate across ALL repositories and are never reset,
+    // so variants can resolve against base ships from any earlier repo.
     this.ships           = [];
     this.variants        = [];
     this.outfits         = [];
@@ -158,21 +160,6 @@ class EndlessSkyParser {
 
   // ── Image helpers ──────────────────────────────────────────────────────────
 
-  collectImagePaths() {
-    const paths = new Set();
-    const add = p => { if (p) paths.add(p); };
-
-    for (const s of this.ships)    { add(s.sprite); add(s.thumbnail); }
-    for (const v of this.variants) { add(v.sprite); add(v.thumbnail); }
-    for (const o of this.outfits) {
-      add(o.sprite); add(o.thumbnail);
-      add(o['flare sprite']); add(o['steering flare sprite']); add(o['reverse flare sprite']);
-      if (o.weapon) { add(o.weapon['hardpoint sprite']); add(o.weapon.sprite); }
-    }
-    for (const e of this.effects)  { add(e.sprite); }
-    return paths;
-  }
-
   async copyMatchingImages(sourceDir, destDir, imagePath) {
     const norm      = imagePath.replace(/\\/g, '/');
     const parts     = norm.split('/');
@@ -223,15 +210,6 @@ class EndlessSkyParser {
     console.log(`    ✗ No files found for: ${norm}`);
   }
 
-  async copyImages(sourceImagesDir, destImagesDir) {
-    if (!sourceImagesDir) { console.log('  No images folder, skipping.'); return; }
-    await fs.mkdir(destImagesDir, { recursive: true });
-    const paths = this.collectImagePaths();
-    console.log(`  Copying images (${paths.size} paths referenced)...`);
-    for (const p of paths) await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
-    console.log('  ✓ Images done');
-  }
-
   async copyImagesForPlugin(sourceImagesDir, destImagesDir, ships, variants, outfits, effects) {
     if (!sourceImagesDir) { console.log('  No images folder, skipping.'); return; }
     await fs.mkdir(destImagesDir, { recursive: true });
@@ -246,7 +224,7 @@ class EndlessSkyParser {
       add(o['flare sprite']); add(o['steering flare sprite']); add(o['reverse flare sprite']);
       if (o.weapon) { add(o.weapon['hardpoint sprite']); add(o.weapon.sprite); }
     }
-    for (const e of effects)  { add(e.sprite); }
+    for (const e of effects) { add(e.sprite); }
 
     console.log(`  Copying images (${paths.size} paths referenced)...`);
     for (const p of paths) await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
@@ -288,14 +266,14 @@ class EndlessSkyParser {
 
     console.log(`Found ${probePlugins.length} plugin(s): ${probePlugins.map(p => p.name).join(', ')}`);
 
-    // Reset ships/variants/outfits/effects for this repo, but do NOT reset
-    // speciesResolver — it must accumulate governments across all repos so
-    // that the final attachSpecies call in main() sees everything.
-    this.ships           = [];
-    this.variants        = [];
-    this.outfits         = [];
-    this.effects         = [];
-    this.pendingVariants = [];
+    // Record watermarks BEFORE parsing this repo so we can slice out
+    // only the data added by this repo when building results.
+    // We do NOT reset these arrays — they accumulate across all repos
+    // so that variants can resolve against base ships from any earlier repo.
+    const repoShipsBefore    = this.ships.length;
+    const repoOutfitsBefore  = this.outfits.length;
+    const repoEffectsBefore  = this.effects.length;
+    const repoPendingBefore  = this.pendingVariants.length;
 
     const pluginMeta = [];
 
@@ -330,7 +308,7 @@ class EndlessSkyParser {
           this.parseFileContent(await fs.readFile(f, 'utf8'), f, clonedPlugin.dataDir);
         }
 
-        console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length} variants pending)`);
+        console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length - repoPendingBefore} variants pending for this repo)`);
 
         pluginMeta.push({
           name:         clonedPlugin.name,
@@ -350,16 +328,17 @@ class EndlessSkyParser {
       }
     }
 
-    // ── Step 3: process ALL variants now, against the full combined ship pool ──
-    console.log(`\n  Processing ${this.pendingVariants.length} total variants against ${this.ships.length} total ships...`);
-    this.processVariants();
-    console.log(`  → ${this.variants.length} variants kept`);
+    // Process only the pending variants added by this repo, but search for
+    // base ships across ALL accumulated ships (including previous repos).
+    const repoPending = this.pendingVariants.slice(repoPendingBefore);
+    console.log(`\n  Processing ${repoPending.length} variants from this repo against ${this.ships.length} total ships (across all repos)...`);
+    this.processVariants(repoPending);
+    console.log(`  → ${this.variants.length} total variants kept so far`);
 
     // NOTE: attachSpecies is intentionally NOT called here.
-    // It is called once in main() after ALL repositories have been parsed,
-    // so the resolver has a complete view of every government across every plugin.
+    // It is called once in main() after ALL repositories have been parsed.
 
-    // ── Step 4: split results per plugin, copy images, then delete clones ─────
+    // ── Split results per plugin, copy images, then delete clones ─────
     const results = [];
 
     for (const meta of pluginMeta) {
@@ -368,8 +347,17 @@ class EndlessSkyParser {
         const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
         const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
 
+        // Variants that have a base ship defined in this plugin's ship range
         const pluginShipNames = new Set(pluginShips.map(s => s.name));
-        const pluginVariants  = this.variants.filter(v => pluginShipNames.has(v.baseShip));
+
+        // Also include variants whose base ship came from an earlier repo but
+        // whose variant definition was added by this repo's pending slice.
+        const repoVariantNames = new Set(
+          this.pendingVariants.slice(repoPendingBefore).map(pv => `${pv.baseName} (${pv.variantName})`)
+        );
+        const pluginVariants = this.variants.filter(v =>
+          pluginShipNames.has(v.baseShip) || repoVariantNames.has(v.name)
+        );
 
         const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
                         pluginOutfits.length === 0 && pluginEffects.length === 0;
@@ -962,8 +950,12 @@ class EndlessSkyParser {
   }
 
   parseShipVariant(variantInfo) {
+    // Search ALL accumulated ships, not just the current repo's
     const baseShip = this.ships.find(s => s.name === variantInfo.baseName);
-    if (!baseShip) { console.warn(`Warning: base ship "${variantInfo.baseName}" not found`); return null; }
+    if (!baseShip) {
+      console.warn(`Warning: base ship "${variantInfo.baseName}" not found in any repo`);
+      return null;
+    }
 
     const { startIdx, lines } = variantInfo;
     if (startIdx + 1 >= lines.length) return null;
@@ -997,7 +989,6 @@ class EndlessSkyParser {
         if (!v.outfitMap) v.outfitMap = {};
         v.outfitMap[outfitName] = count;
 
-        // Register under base ship name so _governmentsForShip can find it
         this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName]);
 
         changed = true;
@@ -1077,11 +1068,14 @@ class EndlessSkyParser {
     return true;
   }
 
-  processVariants() {
-    console.log(`  Processing ${this.pendingVariants.length} variants...`);
+  // Accepts a specific slice of pendingVariants to process, but always
+  // searches this.ships in full so base ships from any repo can be found.
+  processVariants(pendingSlice) {
+    const toProcess = pendingSlice ?? this.pendingVariants;
+    console.log(`  Processing ${toProcess.length} variants...`);
     let kept = 0, skippedNoChange = 0, skippedDuplicate = 0;
 
-    for (const vi of this.pendingVariants) {
+    for (const vi of toProcess) {
       const v = this.parseShipVariant(vi);
       if (!v) { skippedNoChange++; continue; }
 
@@ -1147,11 +1141,13 @@ async function main() {
 
     const dataIndex = {};
 
-    // Single shared parser so the speciesResolver accumulates governments
-    // from every plugin before attachSpecies is called for any of them.
+    // Single shared parser — ships, variants, outfits, effects, pendingVariants,
+    // and speciesResolver all accumulate across every repository so that:
+    //   - variants can resolve against base ships from any earlier repo
+    //   - governments are visible across all plugins before attachSpecies runs
     const sharedParser = new EndlessSkyParser();
 
-    // Pass 1: parse every source — resolver grows with each repo, never resets
+    // Pass 1: parse every source
     const allResults = [];
     for (const source of config.plugins) {
       console.log(`\n${'='.repeat(60)}`);
@@ -1178,10 +1174,8 @@ async function main() {
       }
     }
 
-    // Pass 2: now that the resolver has seen every government across every plugin,
-    // run attachSpecies once per plugin with the fully-populated resolver.
-    // Pass the plugin's outputName as the fallback government for anything
-    // that couldn't be resolved via fleet/shipyard/outfit chains.
+    // Pass 2: resolver has now seen every government across every plugin —
+    // run attachSpecies with the plugin name as the last-resort fallback.
     console.log(`\n${'='.repeat(60)}`);
     console.log(`Resolving governments across all ${allResults.length} plugin(s)...`);
     console.log(`  Known governments: ${sharedParser.speciesResolver.knownGovernments.size}`);
@@ -1194,7 +1188,7 @@ async function main() {
         plugin.ships,
         plugin.variants,
         plugin.outfits,
-        plugin.outputName   // ← fallback government if nothing else matches
+        plugin.outputName
       );
     }
 
