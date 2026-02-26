@@ -288,12 +288,14 @@ class EndlessSkyParser {
 
     console.log(`Found ${probePlugins.length} plugin(s): ${probePlugins.map(p => p.name).join(', ')}`);
 
+    // Reset ships/variants/outfits/effects for this repo, but do NOT reset
+    // speciesResolver — it must accumulate governments across all repos so
+    // that the final attachSpecies call in main() sees everything.
     this.ships           = [];
     this.variants        = [];
     this.outfits         = [];
     this.effects         = [];
     this.pendingVariants = [];
-    this.speciesResolver.reset();
 
     const pluginMeta = [];
 
@@ -353,22 +355,9 @@ class EndlessSkyParser {
     this.processVariants();
     console.log(`  → ${this.variants.length} variants kept`);
 
-    // ── Step 3b: attach governments to all ships, variants, and outfits ───────
-    const sr = this.speciesResolver;
-    console.log(`  Resolving governments: ${sr.fleets.length} fleets, ${sr.npcRefs.length} npc refs, ${sr.planets.length} planets`);
-
-    for (const ship of this.ships.slice(0, 3)) {
-      const govts = [...sr._governmentsForShip(ship.name)];
-      console.log(`    "${ship.name}": govts=[${govts.slice(0, 3).join(', ')}]`);
-    }
-
-    this.speciesResolver.attachSpecies(this.ships, this.variants, this.outfits);
-
-    for (const ship of this.ships.slice(0, 3)) {
-      const govts = Object.keys(ship.governments || {});
-      console.log(`    → "${ship.name}": governments=[${govts.join(', ')}]`);
-    }
-    console.log(`  ✓ Governments attached`);
+    // NOTE: attachSpecies is intentionally NOT called here.
+    // It is called once in main() after ALL repositories have been parsed,
+    // so the resolver has a complete view of every government across every plugin.
 
     // ── Step 4: split results per plugin, copy images, then delete clones ─────
     const results = [];
@@ -489,8 +478,6 @@ class EndlessSkyParser {
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
-      // npc blocks can appear at indent 1 (top-level in mission) or at indent 2
-      // inside on offer / on enter / on complete / on visit etc. sub-blocks
       if (stripped === 'npc' || stripped.startsWith('npc ')) {
         i = this.parseNpcBlock(lines, i);
         continue;
@@ -514,9 +501,6 @@ class EndlessSkyParser {
         const govMatch = stripped.match(/^government\s+"([^"]+)"/);
         if (govMatch) { government = govMatch[1]; i++; continue; }
 
-        // Two forms:
-        //   ship "ShipType" "InstanceName"   ← mission NPC with a named instance
-        //   ship "ShipType"                  ← fleet-style single arg
         const shipTwoArg = stripped.match(/^ship\s+"([^"]+)"\s+"[^"]*"/) ||
                            stripped.match(/^ship\s+`([^`]+)`\s+`[^`]*`/);
         const shipOneArg = stripped.match(/^ship\s+"([^"]+)"$/) ||
@@ -608,12 +592,8 @@ class EndlessSkyParser {
     while (i < lines.length) {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
-      // Stop when we return to the same level as the outfits header (indent 1)
-      // or back to the top level (indent 0)
       if (indent <= 1 && line.trim()) break;
       if (indent >= 2) {
-        // Format:  "Outfit Name" <count>   or   `Outfit Name` <count>
-        // Count is optional and defaults to 1.
         const m = line.trim().match(/^"([^"]+)"(?:\s+(\d+))?/) ||
                   line.trim().match(/^`([^`]+)`(?:\s+(\d+))?/);
         if (m) outfitMap[m[1]] = m[2] ? Math.max(1, parseInt(m[2], 10)) : 1;
@@ -737,12 +717,10 @@ class EndlessSkyParser {
     const stripped = lines[i].trim();
     const descLines = [];
 
-    // Single-line: description "text" or description `text`
     const single = stripped.match(/^description\s+"([^"]*)"$/) ||
                    stripped.match(/^description\s+`([^`]*)`$/);
     if (single) return [[single[1]], i + 1];
 
-    // Multi-line: description "text that continues...
     const start = stripped.match(/^description\s+"(.*)$/) ||
                   stripped.match(/^description\s+`(.*)$/);
     if (start) {
@@ -882,10 +860,6 @@ class EndlessSkyParser {
     return i;
   }
 
-  /**
-   * Helper to compare two outfit maps for equality.
-   * { "outfit name": count }
-   */
   _outfitMapsEqual(a, b) {
     const aKeys = Object.keys(a || {});
     const bKeys = Object.keys(b || {});
@@ -917,8 +891,6 @@ class EndlessSkyParser {
       return [null, this.skipIndentedBlock(lines, startIdx, 0)];
     }
 
-    // Parse the ship block one top-level property at a time so that
-    // outfits and add attributes intercepts always fire regardless of order.
     const shipData = {
       name: baseName,
       engines: [], reverseEngines: [], steeringEngines: [],
@@ -936,7 +908,6 @@ class EndlessSkyParser {
 
       const stripped = line.trim();
 
-      // Intercept outfits block
       if (stripped === 'outfits') {
         const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName);
         shipData.outfitMap = outfitMap;
@@ -944,13 +915,11 @@ class EndlessSkyParser {
         continue;
       }
 
-      // Skip add attributes from base ship output
       if (stripped === 'add attributes') {
         i = this.skipIndentedBlock(lines, i, indent);
         continue;
       }
 
-      // Hardpoints
       const hr = this.parseHardpoint(stripped, lines, i, indent);
       if (hr) {
         const [type, hdata, ni] = hr;
@@ -960,7 +929,6 @@ class EndlessSkyParser {
         continue;
       }
 
-      // Description
       if (stripped === 'description' || stripped.startsWith('description ')) {
         const [desc, ni] = this.parseDescription(lines, i, indent);
         if (desc) {
@@ -972,7 +940,6 @@ class EndlessSkyParser {
         continue;
       }
 
-      // Sprite
       if (stripped.startsWith('sprite ')) {
         const [sd, ni] = this.parseSpriteWithData(lines, i, indent);
         Object.assign(shipData, sd);
@@ -980,7 +947,6 @@ class EndlessSkyParser {
         continue;
       }
 
-      // Sub-block (e.g. attributes)
       if (i + 1 < lines.length) {
         const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
         if (nextIndent > indent) {
@@ -992,7 +958,6 @@ class EndlessSkyParser {
         }
       }
 
-      // Plain key-value
       const kv = this.parseKeyValue(stripped);
       if (kv) shipData[kv[0]] = kv[1];
       i++;
@@ -1018,7 +983,6 @@ class EndlessSkyParser {
 
     let changed = false;
 
-    // Walk the variant block manually so we can handle `outfits` inline
     let i = startIdx + 1;
     while (i < lines.length) {
       const line   = lines[i];
@@ -1028,7 +992,6 @@ class EndlessSkyParser {
 
       const stripped = line.trim();
 
-      // Handle inline outfit lines (e.g. "Moonbeam" 2)
       const inlineOutfitMatch =
         stripped.match(/^"([^"]+)"(?:\s+(\d+))?$/) ||
         stripped.match(/^`([^`]+)`(?:\s+(\d+))?$/);
@@ -1040,19 +1003,16 @@ class EndlessSkyParser {
         if (!v.outfitMap) v.outfitMap = {};
         v.outfitMap[outfitName] = count;
 
-        // Register with SpeciesResolver
-        this.speciesResolver.collectShipOutfits(v.name, [outfitName]);
+        // Register under base ship name so _governmentsForShip can find it
+        this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName]);
 
         changed = true;
         i++;
         continue;
       }
-      
-      // Parse `outfits` block — store in variant and check if different from base
+
       if (stripped === 'outfits') {
-        // No shipName passed here — resolver registration was already done for
-        // the base ship; variants inherit government via their base ship name.
-        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, v.name);
+        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, variantInfo.baseName);
         if (!this._outfitMapsEqual(outfitMap, baseShip.outfitMap || {})) {
           v.outfitMap = outfitMap;
           changed = true;
@@ -1061,7 +1021,6 @@ class EndlessSkyParser {
         continue;
       }
 
-      // Parse `add attributes` inline and merge into variant attributes
       if (stripped === 'add attributes') {
         const [parsed, ni] = this.parseBlock(lines, i + 1, {});
         if (!v.attributes) v.attributes = {};
@@ -1075,7 +1034,6 @@ class EndlessSkyParser {
         continue;
       }
 
-      // Everything else via generic block parser
       const [parsed, ni] = this.parseBlock(lines, i, { parseHardpoints: true });
 
       if (parsed.displayName) { v.displayName = parsed.displayName; changed = true; }
@@ -1120,7 +1078,6 @@ class EndlessSkyParser {
       if (aAttr[k] !== bAttr[k]) return false;
     }
 
-    // Also consider outfit loadout differences
     if (!this._outfitMapsEqual(a.outfitMap || {}, b.outfitMap || {})) return false;
 
     return true;
@@ -1196,10 +1153,11 @@ async function main() {
 
     const dataIndex = {};
 
-    // ── Single shared parser so the resolver sees ALL plugins' governments ──
+    // Single shared parser so the speciesResolver accumulates governments
+    // from every plugin before attachSpecies is called for any of them.
     const sharedParser = new EndlessSkyParser();
 
-    // Pass 1: parse every source and collect all raw data + resolver state
+    // Pass 1: parse every source — resolver grows with each repo, never resets
     const allResults = [];
     for (const source of config.plugins) {
       console.log(`\n${'='.repeat(60)}`);
@@ -1227,9 +1185,12 @@ async function main() {
     }
 
     // Pass 2: now that the resolver has seen every government across every plugin,
-    // run attachSpecies over each plugin's data with the fully-populated resolver
+    // run attachSpecies once per plugin with the fully-populated resolver
     console.log(`\n${'='.repeat(60)}`);
-    console.log(`Re-resolving governments across all ${allResults.length} plugin(s)...`);
+    console.log(`Resolving governments across all ${allResults.length} plugin(s)...`);
+    console.log(`  Known governments: ${sharedParser.speciesResolver.knownGovernments.size}`);
+    console.log(`  Fleets: ${sharedParser.speciesResolver.fleets.length}`);
+    console.log(`  Planets: ${sharedParser.speciesResolver.planets.length}`);
     console.log('='.repeat(60));
 
     for (const { plugin } of allResults) {
