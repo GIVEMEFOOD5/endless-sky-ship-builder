@@ -1,0 +1,1410 @@
+[
+  {
+    "name": "dun_raptor",
+    "engines": [
+      {
+        "x": -5,
+        "y": 21
+      },
+      {
+        "x": 5,
+        "y": 21
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -19.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Turret": 1,
+      "S-970 Regenerator": 1,
+      "Small Heat Shunt": 2,
+      "Red Sun Reactor": 1,
+      "Supercapacitor": 1,
+      "A120 Atomic Thruster": 1,
+      "A125 Atomic Steering": 1
+    },
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Raptor",
+    "sprite": "ship/bsg_raptor",
+    "attributes": {
+      "category": "Drone",
+      "cost": 490000,
+      "shields": 2500,
+      "hull": 2500,
+      "automaton": 1,
+      "mass": 105,
+      "drag": 1.8,
+      "heat dissipation": 0.79,
+      "fuel capacity": 200,
+      "outfit space": 160,
+      "weapon capacity": 80,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 24,
+        "shield damage": 240,
+        "hull damage": 120,
+        "hit force": 360
+      }
+    },
+    "flame": 50,
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "description": "A heavy duty frame well supported by a versatile suite to maintain pressure against any foe.",
+    "_internalId": "Zuckungs list/boss.loot::dun_raptor",
+    "_pluginId": "Zuckungs list/boss.loot",
+    "_hash": "f06047c17af3",
+    "governments": {
+      "Ka'het": true,
+      "Ka'het (Infighting)": true,
+      "Republic": true,
+      "Navy (Oathkeeper)": true,
+      "Free Worlds": true,
+      "Merchant": true,
+      "Syndicate": true,
+      "Pirate": true,
+      "Syndicate (Extremist)": true,
+      "Bounty Hunter": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Efret": true,
+      "Kor Sestor": true,
+      "Alpha": true,
+      "Kor Mereti": true,
+      "Remnant": true,
+      "Wanderer": true,
+      "Hai": true,
+      "Hai Merchant": true,
+      "Hai Merchant (Sympathizers)": true,
+      "Hai Merchant (Human)": true,
+      "Militia": true,
+      "Independent": true,
+      "Avalonian": true,
+      "Lunarium (Hidden)": true,
+      "Escort": true,
+      "Deep Security": true,
+      "Merchant (Hostile)": true,
+      "Independent (Killable)": true
+    }
+  },
+  {
+    "name": "dun_viper",
+    "engines": [
+      {
+        "x": -7,
+        "y": 36.5
+      },
+      {
+        "x": 7,
+        "y": 36.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 2.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Annihilator Turret": 1,
+      "S-270 Regenerator": 1,
+      "Small Heat Shunt": 2,
+      "Small Biochemical Cell": 1,
+      "Red Sun Reactor": 1,
+      "A120 Atomic Thruster": 1,
+      "A125 Atomic Steering": 1
+    },
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Viper",
+    "sprite": "ship/bsg_viper",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 286000,
+      "shields": 1800,
+      "hull": 1200,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 70,
+      "drag": 0.87,
+      "heat dissipation": 0.81,
+      "ramscoop": 3,
+      "fuel capacity": 100,
+      "outfit space": 160,
+      "weapon capacity": 80,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 12,
+        "shield damage": 120,
+        "hull damage": 60,
+        "hit force": 180
+      }
+    },
+    "flame": 13,
+    "tiny explosion": 15,
+    "small explosion": 5,
+    "description": "A craft that favors mobility and range to keep the pilot safe, yet still deceptively well protected.",
+    "_internalId": "Zuckungs list/boss.loot::dun_viper",
+    "_pluginId": "Zuckungs list/boss.loot",
+    "_hash": "ebdbced4e3ce",
+    "governments": {
+      "Ka'het": true,
+      "Ka'het (Infighting)": true,
+      "Free Worlds": true,
+      "Republic": true,
+      "Navy (Oathkeeper)": true,
+      "Syndicate": true,
+      "Pirate": true,
+      "Syndicate (Extremist)": true,
+      "Bounty Hunter": true,
+      "Merchant": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Efret": true,
+      "Kor Sestor": true,
+      "Alpha": true,
+      "Kor Mereti": true,
+      "Remnant": true,
+      "Wanderer": true,
+      "Deep Security": true,
+      "Militia": true,
+      "Independent": true
+    }
+  },
+  {
+    "name": "dun_raider",
+    "engines": [
+      {
+        "x": -7,
+        "y": 36.5
+      },
+      {
+        "x": 7,
+        "y": 36.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 2.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Annihilator Turret": 1,
+      "S-270 Regenerator": 1,
+      "Small Heat Shunt": 2,
+      "Small Biochemical Cell": 1,
+      "Red Sun Reactor": 1,
+      "A120 Atomic Thruster": 1,
+      "A125 Atomic Steering": 1
+    },
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Raider",
+    "sprite": "ship/bsg_raider",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 286000,
+      "shields": 1800,
+      "hull": 1200,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 70,
+      "drag": 0.87,
+      "heat dissipation": 0.81,
+      "ramscoop": 3,
+      "fuel capacity": 100,
+      "outfit space": 160,
+      "weapon capacity": 80,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 12,
+        "shield damage": 120,
+        "hull damage": 60,
+        "hit force": 180
+      }
+    },
+    "flame": 13,
+    "tiny explosion": 15,
+    "small explosion": 5,
+    "description": "A craft that favors mobility and range to keep the pilot safe, yet still deceptively well protected.",
+    "_internalId": "Zuckungs list/boss.loot::dun_raider",
+    "_pluginId": "Zuckungs list/boss.loot",
+    "_hash": "c7e3d30d6fe8",
+    "governments": {
+      "Ka'het": true,
+      "Ka'het (Infighting)": true,
+      "Free Worlds": true,
+      "Republic": true,
+      "Navy (Oathkeeper)": true,
+      "Syndicate": true,
+      "Pirate": true,
+      "Syndicate (Extremist)": true,
+      "Bounty Hunter": true,
+      "Merchant": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Efret": true,
+      "Kor Sestor": true,
+      "Alpha": true,
+      "Kor Mereti": true,
+      "Remnant": true,
+      "Wanderer": true,
+      "Deep Security": true,
+      "Militia": true,
+      "Independent": true
+    }
+  },
+  {
+    "name": "dun_tiger",
+    "engines": [
+      {
+        "x": 53,
+        "y": 300
+      },
+      {
+        "x": -53,
+        "y": 300
+      },
+      {
+        "x": 21,
+        "y": 300
+      },
+      {
+        "x": -21,
+        "y": 300
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -55,
+        "y": -31
+      },
+      {
+        "x": 55,
+        "y": -31
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -98,
+        "y": -20,
+        "gun": ""
+      },
+      {
+        "x": 98,
+        "y": -20,
+        "gun": ""
+      },
+      {
+        "x": -115,
+        "y": 10,
+        "gun": ""
+      },
+      {
+        "x": 115,
+        "y": 10,
+        "gun": ""
+      },
+      {
+        "x": -16,
+        "y": -300,
+        "gun": ""
+      },
+      {
+        "x": 16,
+        "y": -300,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -30,
+        "y": -200,
+        "turret": ""
+      },
+      {
+        "x": 30,
+        "y": -200,
+        "turret": ""
+      },
+      {
+        "x": -60,
+        "y": -8,
+        "turret": ""
+      },
+      {
+        "x": 60,
+        "y": -8,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Pug Seeker": 4,
+      "Replica Drak Cannon": 2,
+      "Anti-Missile Turret": 2,
+      "Banisher Grav-Turret": 2,
+      "Large Heat Shunt": 4,
+      "Triple Plasma Core": 2,
+      "Crystal Capacitor": 3,
+      "Thruster (Planetary Class)": 1,
+      "Steering (Stellar Class)": 1
+    },
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Tiger",
+    "sprite": "ship/bsg_tiger",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 50000,
+      "hull": 50000,
+      "shield generation": 1.66,
+      "hull repair rate": 1.66,
+      "mass": 3000,
+      "drag": 10,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.6,
+      "cargo space": 500,
+      "required crew": 50,
+      "bunks": 200,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs list/boss.loot::dun_tiger",
+    "_pluginId": "Zuckungs list/boss.loot",
+    "_hash": "ffa0c74ac58c",
+    "governments": {
+      "Pug": true,
+      "Pug (Wanderer)": true,
+      "Pug (Farm)": true,
+      "Merchant": true,
+      "Free Worlds": true,
+      "Militia": true,
+      "Pirate": true,
+      "Independent": true,
+      "Avalonian": true,
+      "Republic": true,
+      "Lunarium (Hidden)": true,
+      "Escort": true,
+      "Syndicate": true,
+      "Deep Security": true,
+      "Bounty Hunter": true,
+      "Syndicate (Extremist)": true,
+      "Alpha": true,
+      "Navy (Oathkeeper)": true,
+      "Hai Merchant (Human)": true,
+      "Merchant (Hostile)": true,
+      "Independent (Killable)": true,
+      "Derelict 2": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Efret": true,
+      "Kor Sestor": true,
+      "derelict ship": true,
+      "Kor Mereti": true,
+      "Remnant": true,
+      "Remnant (Research)": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true
+    }
+  },
+  {
+    "name": "dun_battlestar",
+    "engines": [
+      {
+        "x": -75,
+        "y": 385
+      },
+      {
+        "x": -30,
+        "y": 385
+      },
+      {
+        "x": 30,
+        "y": 385
+      },
+      {
+        "x": 75,
+        "y": 385
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -121,
+        "y": -140
+      },
+      {
+        "x": 121,
+        "y": -140
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 45,
+        "y": -350,
+        "turret": ""
+      },
+      {
+        "x": -45,
+        "y": -350,
+        "turret": ""
+      },
+      {
+        "x": 57.5,
+        "y": -252,
+        "turret": ""
+      },
+      {
+        "x": -57.5,
+        "y": -252,
+        "turret": ""
+      },
+      {
+        "x": 57.5,
+        "y": -202,
+        "turret": ""
+      },
+      {
+        "x": -57.5,
+        "y": -202,
+        "turret": ""
+      },
+      {
+        "x": 70,
+        "y": -152,
+        "turret": ""
+      },
+      {
+        "x": -70,
+        "y": -152,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      }
+    ],
+    "outfitMap": {
+      "Anti-Missile Turret": 4,
+      "Langrage Hyper-Heaver": 4,
+      "Refueling Module": 8,
+      "Large Heat Shunt": 2,
+      "Double Plasma Core": 1,
+      "Crystal Capacitor": 2,
+      "Thruster (Asteroid Class)": 1,
+      "Thruster (Planetary Class)": 1,
+      "Steering (Lunar Class)": 1,
+      "Steering (Planetary Class)": 1
+    },
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Battlestar",
+    "sprite": "ship/bsg_battlestar",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 62500,
+      "hull": 62500,
+      "shield generation": 3.22,
+      "hull repair rate": 2.49,
+      "mass": 4000,
+      "drag": 12,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.2,
+      "cargo space": 750,
+      "required crew": 60,
+      "bunks": 400,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs list/boss.loot::dun_battlestar",
+    "_pluginId": "Zuckungs list/boss.loot",
+    "_hash": "b37cf15a90ae",
+    "governments": {
+      "Merchant": true,
+      "Free Worlds": true,
+      "Militia": true,
+      "Pirate": true,
+      "Independent": true,
+      "Avalonian": true,
+      "Republic": true,
+      "Lunarium (Hidden)": true,
+      "Escort": true,
+      "Syndicate": true,
+      "Deep Security": true,
+      "Bounty Hunter": true,
+      "Syndicate (Extremist)": true,
+      "Alpha": true,
+      "Navy (Oathkeeper)": true,
+      "Hai Merchant (Human)": true,
+      "Merchant (Hostile)": true,
+      "Independent (Killable)": true,
+      "Derelict 2": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "derelict ship": true,
+      "Kor Efret": true,
+      "Kor Sestor": true,
+      "Kor Mereti": true,
+      "Remnant": true,
+      "Remnant (Research)": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true
+    }
+  },
+  {
+    "name": "dun_valkyrie",
+    "engines": [
+      {
+        "x": -23,
+        "y": 285
+      },
+      {
+        "x": 23,
+        "y": 285
+      },
+      {
+        "x": -83,
+        "y": 88
+      },
+      {
+        "x": 83,
+        "y": 88
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -85,
+        "y": -111
+      },
+      {
+        "x": 85,
+        "y": -111
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -291,
+        "gun": ""
+      },
+      {
+        "x": -18,
+        "y": -291,
+        "gun": ""
+      },
+      {
+        "x": 18,
+        "y": -291,
+        "gun": ""
+      },
+      {
+        "x": 35,
+        "y": -240,
+        "gun": ""
+      },
+      {
+        "x": -35,
+        "y": -240,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -30,
+        "y": -187,
+        "turret": ""
+      },
+      {
+        "x": 30,
+        "y": -187,
+        "turret": ""
+      },
+      {
+        "x": -84,
+        "y": -73,
+        "turret": ""
+      },
+      {
+        "x": 84,
+        "y": -73,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -81,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Nullifier": 2,
+      "Korath Detainer": 2,
+      "Fire-Lance": 1,
+      "Anti-Missile Turret": 1,
+      "Shield Disruptor Turret": 2,
+      "Korath Inferno": 2,
+      "Large Heat Shunt": 4,
+      "Small Hybrid Cooling": 2,
+      "Triple Plasma Core": 2,
+      "Crystal Capacitor": 2,
+      "Thruster (Asteroid Class)": 1,
+      "Thruster (Planetary Class)": 1,
+      "Steering (Stellar Class)": 1
+    },
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Valkyrie",
+    "sprite": "ship/bsg_valkyrie",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 75000,
+      "hull": 75000,
+      "shield generation": 4.98,
+      "hull repair rate": 3.32,
+      "mass": 5000,
+      "drag": 14,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.3,
+      "cargo space": 1000,
+      "required crew": 75,
+      "bunks": 600,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs list/boss.loot::dun_valkyrie",
+    "_pluginId": "Zuckungs list/boss.loot",
+    "_hash": "64dcbd71ad09",
+    "governments": {
+      "Ka'het": true,
+      "Ka'het (Infighting)": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Sestor": true,
+      "Merchant": true,
+      "Free Worlds": true,
+      "Militia": true,
+      "Pirate": true,
+      "Independent": true,
+      "Avalonian": true,
+      "Republic": true,
+      "Lunarium (Hidden)": true,
+      "Escort": true,
+      "Syndicate": true,
+      "Deep Security": true,
+      "Bounty Hunter": true,
+      "Syndicate (Extremist)": true,
+      "Alpha": true,
+      "Navy (Oathkeeper)": true,
+      "Hai Merchant (Human)": true,
+      "Merchant (Hostile)": true,
+      "Independent (Killable)": true,
+      "Derelict 2": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true,
+      "Kor Mereti": true,
+      "derelict ship": true,
+      "Kor Efret": true,
+      "Remnant": true,
+      "Remnant (Research)": true
+    }
+  },
+  {
+    "name": "dun_defender",
+    "engines": [
+      {
+        "x": -70,
+        "y": 295
+      },
+      {
+        "x": 70,
+        "y": 295
+      },
+      {
+        "x": -54,
+        "y": 295
+      },
+      {
+        "x": 54,
+        "y": 295
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -75,
+        "y": -68
+      },
+      {
+        "x": 75,
+        "y": -68
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -14,
+        "y": -295,
+        "gun": ""
+      },
+      {
+        "x": 14,
+        "y": -295,
+        "gun": ""
+      },
+      {
+        "x": 7,
+        "y": -295,
+        "gun": ""
+      },
+      {
+        "x": -7,
+        "y": -295,
+        "gun": ""
+      },
+      {
+        "x": -20,
+        "y": -283,
+        "gun": ""
+      },
+      {
+        "x": 20,
+        "y": -283,
+        "gun": ""
+      },
+      {
+        "x": -28,
+        "y": -267,
+        "gun": ""
+      },
+      {
+        "x": 28,
+        "y": -267,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -48,
+        "y": -110,
+        "turret": ""
+      },
+      {
+        "x": 48,
+        "y": -110,
+        "turret": ""
+      },
+      {
+        "x": -81,
+        "y": -15,
+        "turret": ""
+      },
+      {
+        "x": 81,
+        "y": -15,
+        "turret": ""
+      },
+      {
+        "x": -38,
+        "y": -213,
+        "turret": ""
+      },
+      {
+        "x": 38,
+        "y": -213,
+        "turret": ""
+      },
+      {
+        "x": -70,
+        "y": 33,
+        "turret": ""
+      },
+      {
+        "x": 70,
+        "y": 33,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Bombardment Cannon": 8,
+      "Sunbeam Turret": 4,
+      "Moonbeam Turret": 4,
+      "Double Plasma Core": 1,
+      "Triple Plasma Core": 1,
+      "Large Battery Module": 1,
+      "Thruster (Planetary Class)": 1,
+      "Steering (Planetary Class)": 1
+    },
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Defender",
+    "sprite": "ship/bsg_defender",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 87500,
+      "hull": 87500,
+      "shield generation": 6.64,
+      "hull repair rate": 4.98,
+      "mass": 6000,
+      "drag": 16,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.5,
+      "cargo space": 1250,
+      "required crew": 90,
+      "bunks": 800,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs list/boss.loot::dun_defender",
+    "_pluginId": "Zuckungs list/boss.loot",
+    "_hash": "c1bb2e39b939",
+    "governments": {
+      "Heliarch": true,
+      "Wanderer": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Efret": true,
+      "Kor Sestor": true,
+      "Kor Mereti": true,
+      "derelict ship": true,
+      "Coalition": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true
+    }
+  },
+  {
+    "name": "dun_basestar",
+    "engines": [
+      {
+        "x": -39,
+        "y": 97
+      },
+      {
+        "x": 39,
+        "y": 97
+      },
+      {
+        "x": -50,
+        "y": 120
+      },
+      {
+        "x": 50,
+        "y": 120
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -36,
+        "y": -100
+      },
+      {
+        "x": 36,
+        "y": -100
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -337,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -337,
+        "gun": ""
+      },
+      {
+        "x": -172,
+        "y": -290,
+        "gun": ""
+      },
+      {
+        "x": -172,
+        "y": -290,
+        "gun": ""
+      },
+      {
+        "x": 172,
+        "y": -290,
+        "gun": ""
+      },
+      {
+        "x": 172,
+        "y": -290,
+        "gun": ""
+      },
+      {
+        "x": -110,
+        "y": -205,
+        "gun": ""
+      },
+      {
+        "x": 110,
+        "y": -205,
+        "gun": ""
+      },
+      {
+        "x": -90,
+        "y": -184,
+        "gun": ""
+      },
+      {
+        "x": 90,
+        "y": -184,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -278,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -278,
+        "turret": ""
+      },
+      {
+        "x": -141,
+        "y": -235,
+        "turret": ""
+      },
+      {
+        "x": -141,
+        "y": -235,
+        "turret": ""
+      },
+      {
+        "x": 141,
+        "y": -235,
+        "turret": ""
+      },
+      {
+        "x": 141,
+        "y": -235,
+        "turret": ""
+      },
+      {
+        "x": -69.5,
+        "y": 98,
+        "turret": ""
+      },
+      {
+        "x": 61,
+        "y": 98,
+        "turret": ""
+      },
+      {
+        "x": 113.5,
+        "y": 191.5,
+        "turret": ""
+      },
+      {
+        "x": -119.5,
+        "y": 191,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      }
+    ],
+    "outfitMap": {
+      "Pug Seeker": 2,
+      "Ka'het Nullifier": 1,
+      "Korath Detainer": 1,
+      "Ballistic Cannon": 2,
+      "Plasma Repeater": 4,
+      "Pulse Laser Turret": 2,
+      "Grab-Strike Turret": 2,
+      "Anti-Missile Turret": 2,
+      "Shield Disruptor Turret": 2,
+      "Thrasher Turret": 2,
+      "Small Heat Shunt": 1,
+      "Large Heat Shunt": 6,
+      "Plasma Core": 1,
+      "Triple Plasma Core": 2,
+      "Crystal Capacitor": 2,
+      "Thruster (Lunar Class)": 1,
+      "Thruster (Planetary Class)": 1,
+      "Steering (Lunar Class)": 1,
+      "Steering (Planetary Class)": 1
+    },
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Basestar",
+    "plural": "Basestar",
+    "sprite": "ship/bsg_basestar",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 100000,
+      "hull": 100000,
+      "shield generation": 8.3,
+      "hull repair rate": 4.98,
+      "mass": 4500,
+      "drag": 20,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.4,
+      "cargo space": 1500,
+      "required crew": 100,
+      "bunks": 1000,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs list/boss.loot::dun_basestar",
+    "_pluginId": "Zuckungs list/boss.loot",
+    "_hash": "0e5eb6f1bc24",
+    "governments": {
+      "Pug": true,
+      "Pug (Wanderer)": true,
+      "Pug (Farm)": true,
+      "Ka'het": true,
+      "Ka'het (Infighting)": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Sestor": true,
+      "Gegno Vi": true,
+      "Gegno Pirates": true,
+      "Merchant": true,
+      "Pirate": true,
+      "Syndicate (Extremist)": true,
+      "Alpha": true,
+      "Merchant (Hostile)": true,
+      "Successor": true,
+      "House Sioeora": true,
+      "Kor Efret": true,
+      "Free Worlds": true,
+      "Militia": true,
+      "Independent": true,
+      "Avalonian": true,
+      "Republic": true,
+      "Lunarium (Hidden)": true,
+      "Escort": true,
+      "Syndicate": true,
+      "Deep Security": true,
+      "Bounty Hunter": true,
+      "Navy (Oathkeeper)": true,
+      "Hai Merchant (Human)": true,
+      "Independent (Killable)": true,
+      "Derelict 2": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true,
+      "Kor Mereti": true,
+      "Remnant": true,
+      "Remnant (Research)": true,
+      "derelict ship": true
+    }
+  }
+]

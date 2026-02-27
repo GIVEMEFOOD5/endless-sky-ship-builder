@@ -1,0 +1,126 @@
+[
+  {
+    "name": "Argosy (Argosy (Explorer))",
+    "engines": [
+      {
+        "x": -25,
+        "y": 91,
+        "zoom": 0.6
+      },
+      {
+        "x": -14,
+        "y": 91,
+        "zoom": 0.8
+      },
+      {
+        "x": 14,
+        "y": 91,
+        "zoom": 0.8
+      },
+      {
+        "x": 25,
+        "y": 91,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -22,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": -22,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -37,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -12.5,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 9.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "A255 Atomic Steering": 1,
+      "A370 Atomic Thruster": 1,
+      "Anti-Missile Turret": 1,
+      "Blaster Turret": 1,
+      "D23-QP Shield Generator": 1,
+      "Dwarf Core": 2,
+      "Energy Blaster": 2,
+      "Fuel Pod": 2,
+      "Jump Drive": 1,
+      "Water Coolant System": 1
+    },
+    "plural": "Argosies",
+    "sprite": "ship/argosy",
+    "thumbnail": "thumbnail/argosy",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 1960000,
+      "shields": 4200,
+      "hull": 2600,
+      "required crew": 4,
+      "bunks": 14,
+      "mass": 480,
+      "drag": 7.4,
+      "heat dissipation": 0.56,
+      "fuel capacity": 400,
+      "cargo space": 120,
+      "outfit space": 270,
+      "weapon capacity": 90,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 60,
+        "shield damage": 600,
+        "hull damage": 300,
+        "hit force": 900
+      }
+    },
+    "leak": 60,
+    "flame": 60,
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 25,
+    "large explosion": 10,
+    "final explode": "final explosion medium",
+    "description": "The Argosy from Southbound Shipyards is very popular with merchants not because of its capacity, which is actually slightly smaller than the Syndicate Freighter, but because it can hold its own in combat even against a small pirate fleet. \tThe Argosy is also a very easy ship to upgrade with faster engines or more powerful weapons as needed, so many privately owned Argosies have very different capabilities than the stock model.",
+    "_internalId": "official-game/endless-sky::Argosy",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "7a308c536221",
+    "variant": "Argosy (Explorer)",
+    "baseShip": "Argosy",
+    "_variantPluginId": "Zuckungs list/uniques",
+    "governments": {
+      "Merchant": true,
+      "Free Worlds": true,
+      "Militia": true,
+      "Pirate": true,
+      "Independent": true,
+      "Avalonian": true,
+      "Republic": true,
+      "Lunarium (Hidden)": true,
+      "Escort": true
+    }
+  }
+]
