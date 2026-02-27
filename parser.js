@@ -3,13 +3,14 @@
 // Uses sparse Git clones (data/ + images/ only) instead of the GitHub API,
 // which avoids rate limits and the 100k-file tree truncation limit.
 
-const https          = require('https');
+const https           = require('https');
 const SpeciesResolver = require('./speciesResolver');
-const fs     = require('fs').promises;
-const path   = require('path');
+const crypto          = require('crypto');
+const fs              = require('fs').promises;
+const path            = require('path');
 const { exec: execCallback } = require('child_process');
-const { promisify } = require('util');
-const exec   = promisify(execCallback);
+const { promisify }   = require('util');
+const exec            = promisify(execCallback);
 
 // ---------------------------------------------------------------------------
 // Helper: sparse-clone specific folders from a repo
@@ -24,18 +25,125 @@ async function sparseClone(repoGitUrl, branch, targetDir, folders) {
 }
 
 // ---------------------------------------------------------------------------
+// Compute a deterministic structural hash of a ship's data for duplicate detection.
+// Only structural fields are hashed — not name, governments, or plugin metadata.
+// ---------------------------------------------------------------------------
+function hashShip(ship) {
+  const relevant = {
+    sprite:          ship.sprite         ?? null,
+    thumbnail:       ship.thumbnail      ?? null,
+    description:     ship.description    ?? null,
+    attributes:      ship.attributes     ?? {},
+    outfitMap:       ship.outfitMap      ?? {},
+    engines:         ship.engines        ?? [],
+    reverseEngines:  ship.reverseEngines ?? [],
+    steeringEngines: ship.steeringEngines ?? [],
+    guns:            ship.guns           ?? [],
+    turrets:         ship.turrets        ?? [],
+    bays:            ship.bays           ?? [],
+  };
+  return crypto
+    .createHash('sha1')
+    .update(JSON.stringify(relevant))
+    .digest('hex')
+    .slice(0, 12);
+}
+
+// ---------------------------------------------------------------------------
 class EndlessSkyParser {
   constructor() {
-    // These accumulate across ALL repositories and are never reset,
-    // so variants can resolve against base ships from any earlier repo.
+    // Flat array of all parsed ships — used for slicing per-plugin output.
     this.ships           = [];
     this.variants        = [];
     this.outfits         = [];
     this.effects         = [];
     this.pendingVariants = [];
 
-    // Species resolution — handled by dedicated module
+    // ── Ship registries ──────────────────────────────────────────────────────
+    // shipById:        internalId → ship object
+    //   internalId format: "pluginID::shipName"
+    //
+    // shipsByName:     displayName → [ ship, ... ]
+    //   Multiple entries mean name collision across plugins.
+    //   Same hash → safe to unify; different hash → true collision.
+    this.shipById    = new Map();
+    this.shipsByName = new Map();
+
+    // Plugin ID currently being parsed — set before parsing each plugin's files.
+    this._currentPluginId = null;
+
+    // Repo-level ship watermarks for same-repo variant preference.
+    this._currentRepoShipsBefore = 0;
+    this._currentRepoShipsAfter  = 0;
+
+    // Species resolution
     this.speciesResolver = new SpeciesResolver();
+  }
+
+  // ── Ship registry helpers ──────────────────────────────────────────────────
+
+  /**
+   * Register a parsed ship into both maps.
+   * Returns the internal ID assigned to it.
+   */
+  _registerShip(ship, pluginId) {
+    const internalId = `${pluginId}::${ship.name}`;
+    ship._internalId = internalId;
+    ship._pluginId   = pluginId;
+    ship._hash       = hashShip(ship);
+
+    this.shipById.set(internalId, ship);
+
+    if (!this.shipsByName.has(ship.name)) {
+      this.shipsByName.set(ship.name, []);
+    }
+    this.shipsByName.get(ship.name).push(ship);
+
+    return internalId;
+  }
+
+  /**
+   * Resolve a base ship for a variant.
+   *
+   * Resolution order:
+   *   1. Same plugin namespace  →  pluginId::shipName
+   *   2. Global display-name map:
+   *      - exactly one entry   →  bind to it
+   *      - zero entries        →  skip (no base found)
+   *      - multiple entries    →  ambiguity error (collision)
+   *
+   * Returns { baseShip, error } where error is a string or null.
+   */
+  _resolveBaseShip(baseName, variantPluginId) {
+    // 1. Same-plugin lookup
+    const localId   = `${variantPluginId}::${baseName}`;
+    const localShip = this.shipById.get(localId);
+    if (localShip) return { baseShip: localShip, error: null };
+
+    // 2. Global display-name lookup
+    const candidates = this.shipsByName.get(baseName) ?? [];
+
+    if (candidates.length === 0) {
+      return { baseShip: null, error: `no base ship found for "${baseName}"` };
+    }
+
+    if (candidates.length === 1) {
+      return { baseShip: candidates[0], error: null };
+    }
+
+    // Multiple candidates — check if they're all structurally identical (same hash)
+    const hashes = new Set(candidates.map(s => s._hash));
+    if (hashes.size === 1) {
+      // All identical — safe to pick any (use first)
+      return { baseShip: candidates[0], error: null };
+    }
+
+    // True collision — different ships share the same display name
+    const pluginList = candidates.map(s => s._pluginId).join(', ');
+    return {
+      baseShip: null,
+      error: `more than one base ship named "${baseName}" with different stats found across plugins: ${pluginList}`
+    };
   }
 
   // ── Utilities ──────────────────────────────────────────────────────────────
@@ -77,10 +185,6 @@ class EndlessSkyParser {
     return results;
   }
 
-  /**
-   * Uses git ls-tree to find plugin roots without cloning any files.
-   * Much faster than a full probe clone, works on repos of any size.
-   */
   async detectPluginsViaLsTree(repoGitUrl, branch, repoName) {
     const tmpDir = path.join(process.cwd(), `.tmp-lstree-${repoName}-${Date.now()}`);
     try {
@@ -266,19 +370,24 @@ class EndlessSkyParser {
 
     console.log(`Found ${probePlugins.length} plugin(s): ${probePlugins.map(p => p.name).join(', ')}`);
 
-    // Record watermarks BEFORE parsing this repo so we can slice out
-    // only the data added by this repo when building results.
-    // We do NOT reset these arrays — they accumulate across all repos
-    // so that variants can resolve against base ships from any earlier repo.
-    const repoShipsBefore    = this.ships.length;
-    const repoOutfitsBefore  = this.outfits.length;
-    const repoEffectsBefore  = this.effects.length;
-    const repoPendingBefore  = this.pendingVariants.length;
+    const repoShipsBefore   = this.ships.length;
+    const repoOutfitsBefore = this.outfits.length;
+    const repoEffectsBefore = this.effects.length;
+    const repoPendingBefore = this.pendingVariants.length;
+
+    this._currentRepoShipsBefore = repoShipsBefore;
 
     const pluginMeta = [];
 
     for (const probe of probePlugins) {
       console.log(`\n  ── Plugin: ${probe.name} ──`);
+
+      // The plugin ID is used as the namespace for ship internal IDs.
+      // Use sourceName (from plugins.json) for single-plugin repos so the
+      // namespace matches the human-readable output name.
+      const pluginId = probePlugins.length === 1
+        ? (sourceName || probe.name)
+        : probe.name;
 
       const root           = probe.pluginRootInRepo;
       const dataPath       = root === '.' ? 'data'   : `${root}/data`;
@@ -298,6 +407,9 @@ class EndlessSkyParser {
           continue;
         }
 
+        // Set the current plugin ID so parseShip can stamp ships and pendingVariants
+        this._currentPluginId = pluginId;
+
         const shipsBefore   = this.ships.length;
         const outfitsBefore = this.outfits.length;
         const effectsBefore = this.effects.length;
@@ -312,6 +424,7 @@ class EndlessSkyParser {
 
         pluginMeta.push({
           name:         clonedPlugin.name,
+          pluginId,
           imagesDir:    clonedPlugin.imagesDir,
           cloneDir,
           shipsBefore,
@@ -328,15 +441,18 @@ class EndlessSkyParser {
       }
     }
 
-    // Process only the pending variants added by this repo, but search for
-    // base ships across ALL accumulated ships (including previous repos).
+    this._currentRepoShipsAfter = this.ships.length;
+    this._currentPluginId = null;
+
+    // Stamp repoShipsAfter on every pending variant added by this repo
+    for (const pv of this.pendingVariants.slice(repoPendingBefore)) {
+      pv.repoShipsAfter = this._currentRepoShipsAfter;
+    }
+
     const repoPending = this.pendingVariants.slice(repoPendingBefore);
     console.log(`\n  Processing ${repoPending.length} variants from this repo against ${this.ships.length} total ships (across all repos)...`);
     this.processVariants(repoPending);
     console.log(`  → ${this.variants.length} total variants kept so far`);
-
-    // NOTE: attachSpecies is intentionally NOT called here.
-    // It is called once in main() after ALL repositories have been parsed.
 
     // ── Split results per plugin, copy images, then delete clones ─────
     const results = [];
@@ -347,13 +463,9 @@ class EndlessSkyParser {
         const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
         const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
 
-        // Variants that have a base ship defined in this plugin's ship range
-        const pluginShipNames = new Set(pluginShips.map(s => s.name));
-
-        // Also include variants whose base ship came from an earlier repo but
-        // whose variant definition was added by this repo's pending slice.
+        const pluginShipNames  = new Set(pluginShips.map(s => s.name));
         const repoVariantNames = new Set(
-          this.pendingVariants.slice(repoPendingBefore).map(pv => `${pv.baseName} (${pv.variantName})`)
+          repoPending.map(pv => `${pv.baseName} (${pv.variantName})`)
         );
         const pluginVariants = this.variants.filter(v =>
           pluginShipNames.has(v.baseShip) || repoVariantNames.has(v.name)
@@ -406,7 +518,10 @@ class EndlessSkyParser {
       if (indent === 0) {
         if (trimmed.startsWith('ship ')) {
           const [d, ni] = this.parseShip(lines, i);
-          if (d) this.ships.push(d);
+          if (d) {
+            this._registerShip(d, this._currentPluginId);
+            this.ships.push(d);
+          }
           i = ni; continue;
         } else if (trimmed.startsWith('outfit ')) {
           const [d, ni] = this.parseOutfit(lines, i);
@@ -869,7 +984,16 @@ class EndlessSkyParser {
     }
 
     if (variantName) {
-      this.pendingVariants.push({ baseName, variantName, startIdx, lines });
+      this.pendingVariants.push({
+        baseName,
+        variantName,
+        startIdx,
+        lines,
+        // The plugin ID this variant belongs to — used for same-plugin base ship lookup
+        variantPluginId:  this._currentPluginId,
+        repoShipsBefore:  this._currentRepoShipsBefore,
+        repoShipsAfter:   null  // filled after all plugins in this repo are parsed
+      });
       return [null, this.skipIndentedBlock(lines, startIdx, 0)];
     }
 
@@ -950,10 +1074,13 @@ class EndlessSkyParser {
   }
 
   parseShipVariant(variantInfo) {
-    // Search ALL accumulated ships, not just the current repo's
-    const baseShip = this.ships.find(s => s.name === variantInfo.baseName);
-    if (!baseShip) {
-      console.warn(`Warning: base ship "${variantInfo.baseName}" not found in any repo`);
+    const { baseShip, error } = this._resolveBaseShip(
+      variantInfo.baseName,
+      variantInfo.variantPluginId
+    );
+
+    if (error) {
+      console.warn(`  Skipping variant "${variantInfo.baseName} (${variantInfo.variantName})": ${error}`);
       return null;
     }
 
@@ -1068,16 +1195,18 @@ class EndlessSkyParser {
     return true;
   }
 
-  // Accepts a specific slice of pendingVariants to process, but always
-  // searches this.ships in full so base ships from any repo can be found.
   processVariants(pendingSlice) {
     const toProcess = pendingSlice ?? this.pendingVariants;
     console.log(`  Processing ${toProcess.length} variants...`);
-    let kept = 0, skippedNoChange = 0, skippedDuplicate = 0;
+    let kept = 0, skippedNoChange = 0, skippedDuplicate = 0, skippedError = 0;
 
     for (const vi of toProcess) {
       const v = this.parseShipVariant(vi);
-      if (!v) { skippedNoChange++; continue; }
+      if (!v) {
+        // parseShipVariant already logged the reason if it was an error
+        skippedNoChange++;
+        continue;
+      }
 
       const isDuplicate = this.variants.some(existing => this.shipsAreIdentical(existing, v));
       if (isDuplicate) {
@@ -1091,7 +1220,7 @@ class EndlessSkyParser {
       kept++;
     }
 
-    console.log(`  Variants: ${kept} kept, ${skippedNoChange} no significant change, ${skippedDuplicate} duplicates removed`);
+    console.log(`  Variants: ${kept} kept, ${skippedNoChange} skipped, ${skippedDuplicate} duplicates removed`);
   }
 
   parseOutfit(lines, startIdx) {
@@ -1141,9 +1270,9 @@ async function main() {
 
     const dataIndex = {};
 
-    // Single shared parser — ships, variants, outfits, effects, pendingVariants,
-    // and speciesResolver all accumulate across every repository so that:
-    //   - variants can resolve against base ships from any earlier repo
+    // Single shared parser — all arrays, maps, and the speciesResolver accumulate
+    // across every repository so that:
+    //   - variants resolve against base ships from any repo with correct collision handling
     //   - governments are visible across all plugins before attachSpecies runs
     const sharedParser = new EndlessSkyParser();
 
@@ -1174,8 +1303,7 @@ async function main() {
       }
     }
 
-    // Pass 2: resolver has now seen every government across every plugin —
-    // run attachSpecies with the plugin name as the last-resort fallback.
+    // Pass 2: resolver has now seen every government across every plugin
     console.log(`\n${'='.repeat(60)}`);
     console.log(`Resolving governments across all ${allResults.length} plugin(s)...`);
     console.log(`  Known governments: ${sharedParser.speciesResolver.knownGovernments.size}`);
