@@ -450,9 +450,12 @@ class EndlessSkyParser {
     for (const probe of probePlugins) {
       console.log(`\n  ── Plugin: ${probe.name} ──`);
 
+      // Always use the sourceName (from plugins.json) as the pluginId namespace
+      // so it matches what the user writes in the "overrides" field.
+      // For multi-plugin repos, append the probe name to keep them distinct.
       const pluginId = probePlugins.length === 1
         ? (sourceName || probe.name)
-        : probe.name;
+        : `${sourceName || probe.name}/${probe.name}`;
 
       const root           = probe.pluginRootInRepo;
       const dataPath       = root === '.' ? 'data'   : `${root}/data`;
@@ -526,11 +529,12 @@ class EndlessSkyParser {
         const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
 
         const pluginShipNames  = new Set(pluginShips.map(s => s.name));
-        const repoVariantNames = new Set(
-          repoPending.map(pv => `${pv.baseName} (${pv.variantName})`)
-        );
+        // Only include variants whose definition came from THIS plugin (matched by pluginId),
+        // plus variants whose base ship is defined in this plugin's ship range.
+        // This prevents every plugin in a multi-plugin repo getting all variants.
         const pluginVariants = this.variants.filter(v =>
-          pluginShipNames.has(v.baseShip) || repoVariantNames.has(v.name)
+          pluginShipNames.has(v.baseShip) ||
+          (v._variantPluginId === meta.pluginId)
         );
 
         const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
@@ -1151,11 +1155,13 @@ class EndlessSkyParser {
     if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return null;
 
     const v = JSON.parse(JSON.stringify(baseShip));
-    v.name     = `${variantInfo.baseName} (${variantInfo.variantName})`;
-    v.variant  = variantInfo.variantName;
-    v.baseShip = variantInfo.baseName;
+    v.name            = `${variantInfo.baseName} (${variantInfo.variantName})`;
+    v.variant         = variantInfo.variantName;
+    v.baseShip        = variantInfo.baseName;
+    v._variantPluginId = variantInfo.variantPluginId;
 
     let changed = false;
+    let inlineOutfitsStarted = false;  // tracks whether we've seen the first inline outfit entry
 
     let i = startIdx + 1;
     while (i < lines.length) {
@@ -1174,11 +1180,15 @@ class EndlessSkyParser {
         const outfitName = inlineOutfitMatch[1];
         const count = inlineOutfitMatch[2] ? Math.max(1, parseInt(inlineOutfitMatch[2], 10)) : 1;
 
-        if (!v.outfitMap) v.outfitMap = {};
+        // First inline outfit seen — clear the base ship's copied outfitMap
+        // so the variant specifies its complete loadout rather than adding to it.
+        if (!inlineOutfitsStarted) {
+          v.outfitMap = {};
+          inlineOutfitsStarted = true;
+        }
+
         v.outfitMap[outfitName] = count;
-
         this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName]);
-
         changed = true;
         i++;
         continue;
