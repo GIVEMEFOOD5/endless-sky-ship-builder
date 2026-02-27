@@ -30,17 +30,17 @@ async function sparseClone(repoGitUrl, branch, targetDir, folders) {
 // ---------------------------------------------------------------------------
 function hashShip(ship) {
   const relevant = {
-    sprite:          ship.sprite         ?? null,
-    thumbnail:       ship.thumbnail      ?? null,
-    description:     ship.description    ?? null,
-    attributes:      ship.attributes     ?? {},
-    outfitMap:       ship.outfitMap      ?? {},
-    engines:         ship.engines        ?? [],
-    reverseEngines:  ship.reverseEngines ?? [],
+    sprite:          ship.sprite          ?? null,
+    thumbnail:       ship.thumbnail       ?? null,
+    description:     ship.description     ?? null,
+    attributes:      ship.attributes      ?? {},
+    outfitMap:       ship.outfitMap       ?? {},
+    engines:         ship.engines         ?? [],
+    reverseEngines:  ship.reverseEngines  ?? [],
     steeringEngines: ship.steeringEngines ?? [],
-    guns:            ship.guns           ?? [],
-    turrets:         ship.turrets        ?? [],
-    bays:            ship.bays           ?? [],
+    guns:            ship.guns            ?? [],
+    turrets:         ship.turrets         ?? [],
+    bays:            ship.bays            ?? [],
   };
   return crypto
     .createHash('sha1')
@@ -60,19 +60,25 @@ class EndlessSkyParser {
     this.pendingVariants = [];
 
     // ── Ship registries ──────────────────────────────────────────────────────
-    // shipById:        internalId → ship object
-    //   internalId format: "pluginID::shipName"
-    //
-    // shipsByName:     displayName → [ ship, ... ]
-    //   Multiple entries mean name collision across plugins.
-    //   Same hash → safe to unify; different hash → true collision.
+    // shipById:    internalId (pluginID::shipName) → ship object
+    // shipsByName: displayName → [ ship, ... ]  (multiple = name collision)
     this.shipById    = new Map();
     this.shipsByName = new Map();
 
-    // Plugin ID currently being parsed — set before parsing each plugin's files.
+    // Source priority order: pluginId → numeric index (lower = higher priority).
+    // Populated by main() before parsing starts.
+    // Used as tiebreaker when no explicit override covers a collision.
+    this._sourcePriority = new Map();
+
+    // Explicit override map: pluginId → Set of pluginIds it overrides.
+    // Populated from plugins.json `overrides` field by main().
+    // If PluginB overrides PluginA, PluginB's ship wins in a collision.
+    this._overrides = new Map();
+
+    // Plugin ID currently being parsed.
     this._currentPluginId = null;
 
-    // Repo-level ship watermarks for same-repo variant preference.
+    // Repo-level ship watermarks.
     this._currentRepoShipsBefore = 0;
     this._currentRepoShipsAfter  = 0;
 
@@ -80,12 +86,40 @@ class EndlessSkyParser {
     this.speciesResolver = new SpeciesResolver();
   }
 
-  // ── Ship registry helpers ──────────────────────────────────────────────────
+  // ── Configuration helpers (called from main before parsing) ───────────────
 
   /**
-   * Register a parsed ship into both maps.
-   * Returns the internal ID assigned to it.
+   * Register source priority order from the plugins.json array.
+   * Sources listed earlier have higher priority (lower index = wins collision).
    */
+  setSourcePriority(sources) {
+    this._sourcePriority.clear();
+    sources.forEach((source, index) => {
+      this._sourcePriority.set(source.name, index);
+    });
+  }
+
+  /**
+   * Register explicit override declarations from plugins.json.
+   * Each source may have an optional `overrides` array of source names.
+   *
+   * Example plugins.json entry:
+   *   { "name": "My Plugin", "repository": "...", "overrides": ["Endless Sky"] }
+   *
+   * This means "My Plugin"'s ships take priority over "Endless Sky"'s ships
+   * when resolving variant base ships.
+   */
+  setOverrides(sources) {
+    this._overrides.clear();
+    for (const source of sources) {
+      if (source.overrides?.length) {
+        this._overrides.set(source.name, new Set(source.overrides));
+      }
+    }
+  }
+
+  // ── Ship registry helpers ──────────────────────────────────────────────────
+
   _registerShip(ship, pluginId) {
     const internalId = `${pluginId}::${ship.name}`;
     ship._internalId = internalId;
@@ -103,47 +137,81 @@ class EndlessSkyParser {
   }
 
   /**
-   * Resolve a base ship for a variant.
+   * Resolve a base ship for a variant using a three-tier strategy:
    *
-   * Resolution order:
-   *   1. Same plugin namespace  →  pluginId::shipName
-   *   2. Global display-name map:
-   *      - exactly one entry   →  bind to it
-   *      - zero entries        →  skip (no base found)
-   *      - multiple entries    →  ambiguity error (collision)
+   * Tier 1 — Same plugin namespace (pluginId::shipName).
+   *           Always wins. No ambiguity possible.
+   *
+   * Tier 2 — Explicit override declaration in plugins.json.
+   *           If the variant's plugin declares it overrides another plugin,
+   *           and exactly one of the candidates belongs to that overridden plugin,
+   *           use that candidate. This is intentional and explicit.
+   *
+   * Tier 3 — Source order priority (position in plugins.json).
+   *           If multiple candidates exist but none is covered by an explicit
+   *           override, pick the one whose plugin has the lowest source index
+   *           (i.e. listed earliest in plugins.json). Log a warning so the
+   *           user knows a collision was resolved silently.
+   *
+   * If all candidates share the same structural hash they are identical —
+   * pick any (first) without warning.
    *
    * Returns { baseShip, error } where error is a string or null.
    */
   _resolveBaseShip(baseName, variantPluginId) {
-    // 1. Same-plugin lookup
+    // Tier 1: same-plugin lookup — always authoritative
     const localId   = `${variantPluginId}::${baseName}`;
     const localShip = this.shipById.get(localId);
     if (localShip) return { baseShip: localShip, error: null };
 
-    // 2. Global display-name lookup
+    // Global candidates
     const candidates = this.shipsByName.get(baseName) ?? [];
 
     if (candidates.length === 0) {
-      return { baseShip: null, error: `no base ship found for "${baseName}"` };
+      return {
+        baseShip: null,
+        error: `no base ship found for "${baseName}"`
+      };
     }
 
     if (candidates.length === 1) {
       return { baseShip: candidates[0], error: null };
     }
 
-    // Multiple candidates — check if they're all structurally identical (same hash)
+    // Multiple candidates — check if all identical (same hash → safe unification)
     const hashes = new Set(candidates.map(s => s._hash));
     if (hashes.size === 1) {
-      // All identical — safe to pick any (use first)
       return { baseShip: candidates[0], error: null };
     }
 
-    // True collision — different ships share the same display name
-    const pluginList = candidates.map(s => s._pluginId).join(', ');
-    return {
-      baseShip: null,
-      error: `more than one base ship named "${baseName}" with different stats found across plugins: ${pluginList}`
-    };
+    // True collision — differing ships share the same display name.
+    // Tier 2: check explicit overrides declared by the variant's plugin.
+    const variantOverrides = this._overrides.get(variantPluginId);
+    if (variantOverrides?.size) {
+      const overriddenCandidates = candidates.filter(s => variantOverrides.has(s._pluginId));
+      if (overriddenCandidates.length === 1) {
+        console.log(`    ↳ Collision on "${baseName}" resolved via override: using ${overriddenCandidates[0]._pluginId}`);
+        return { baseShip: overriddenCandidates[0], error: null };
+      }
+      // Override matched multiple or zero — fall through to tier 3
+    }
+
+    // Tier 3: source order priority — pick earliest in plugins.json
+    const ranked = [...candidates].sort((a, b) => {
+      const pa = this._sourcePriority.get(a._pluginId) ?? Infinity;
+      const pb = this._sourcePriority.get(b._pluginId) ?? Infinity;
+      return pa - pb;
+    });
+
+    const winner = ranked[0];
+    const losers = ranked.slice(1).map(s => s._pluginId).join(', ');
+    console.warn(
+      `    ⚠ Collision on base ship "${baseName}" for variant in "${variantPluginId}". ` +
+      `Plugins with this ship: ${candidates.map(s => s._pluginId).join(', ')}. ` +
+      `Resolved by source order — using "${winner._pluginId}" (overridden: ${losers}). ` +
+      `Add an "overrides" declaration to plugins.json to silence this warning.`
+    );
+    return { baseShip: winner, error: null };
   }
 
   // ── Utilities ──────────────────────────────────────────────────────────────
@@ -382,9 +450,6 @@ class EndlessSkyParser {
     for (const probe of probePlugins) {
       console.log(`\n  ── Plugin: ${probe.name} ──`);
 
-      // The plugin ID is used as the namespace for ship internal IDs.
-      // Use sourceName (from plugins.json) for single-plugin repos so the
-      // namespace matches the human-readable output name.
       const pluginId = probePlugins.length === 1
         ? (sourceName || probe.name)
         : probe.name;
@@ -407,7 +472,6 @@ class EndlessSkyParser {
           continue;
         }
 
-        // Set the current plugin ID so parseShip can stamp ships and pendingVariants
         this._currentPluginId = pluginId;
 
         const shipsBefore   = this.ships.length;
@@ -444,7 +508,6 @@ class EndlessSkyParser {
     this._currentRepoShipsAfter = this.ships.length;
     this._currentPluginId = null;
 
-    // Stamp repoShipsAfter on every pending variant added by this repo
     for (const pv of this.pendingVariants.slice(repoPendingBefore)) {
       pv.repoShipsAfter = this._currentRepoShipsAfter;
     }
@@ -454,7 +517,6 @@ class EndlessSkyParser {
     this.processVariants(repoPending);
     console.log(`  → ${this.variants.length} total variants kept so far`);
 
-    // ── Split results per plugin, copy images, then delete clones ─────
     const results = [];
 
     for (const meta of pluginMeta) {
@@ -989,10 +1051,9 @@ class EndlessSkyParser {
         variantName,
         startIdx,
         lines,
-        // The plugin ID this variant belongs to — used for same-plugin base ship lookup
-        variantPluginId:  this._currentPluginId,
-        repoShipsBefore:  this._currentRepoShipsBefore,
-        repoShipsAfter:   null  // filled after all plugins in this repo are parsed
+        variantPluginId: this._currentPluginId,
+        repoShipsBefore: this._currentRepoShipsBefore,
+        repoShipsAfter:  null
       });
       return [null, this.skipIndentedBlock(lines, startIdx, 0)];
     }
@@ -1198,15 +1259,11 @@ class EndlessSkyParser {
   processVariants(pendingSlice) {
     const toProcess = pendingSlice ?? this.pendingVariants;
     console.log(`  Processing ${toProcess.length} variants...`);
-    let kept = 0, skippedNoChange = 0, skippedDuplicate = 0, skippedError = 0;
+    let kept = 0, skippedNoChange = 0, skippedDuplicate = 0;
 
     for (const vi of toProcess) {
       const v = this.parseShipVariant(vi);
-      if (!v) {
-        // parseShipVariant already logged the reason if it was an error
-        skippedNoChange++;
-        continue;
-      }
+      if (!v) { skippedNoChange++; continue; }
 
       const isDuplicate = this.variants.some(existing => this.shipsAreIdentical(existing, v));
       if (isDuplicate) {
@@ -1270,11 +1327,19 @@ async function main() {
 
     const dataIndex = {};
 
-    // Single shared parser — all arrays, maps, and the speciesResolver accumulate
-    // across every repository so that:
-    //   - variants resolve against base ships from any repo with correct collision handling
-    //   - governments are visible across all plugins before attachSpecies runs
     const sharedParser = new EndlessSkyParser();
+
+    // Register source priority and override declarations from plugins.json
+    // before any parsing begins, so _resolveBaseShip has full context.
+    sharedParser.setSourcePriority(config.plugins);
+    sharedParser.setOverrides(config.plugins);
+
+    // Log any override declarations so they're visible in CI output
+    for (const source of config.plugins) {
+      if (source.overrides?.length) {
+        console.log(`  Override declared: "${source.name}" overrides [${source.overrides.join(', ')}]`);
+      }
+    }
 
     // Pass 1: parse every source
     const allResults = [];
