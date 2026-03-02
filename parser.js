@@ -627,9 +627,10 @@ class EndlessSkyParser {
       if (indent === 1) {
         const govMatch = stripped.match(/^government\s+"([^"]+)"/);
         if (govMatch) { government = govMatch[1]; i++; continue; }
-        if (stripped === 'variant' || stripped.startsWith('variant ')) { i++; continue; }
       }
-      if (indent === 2) {
+      // Collect ship names at indent 2 (direct fleet members) and
+      // indent 3 (ships inside a variant sub-block) so no ship is missed.
+      if (indent === 2 || indent === 3) {
         const shipMatch = stripped.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
                           stripped.match(/^`([^`]+)`(?:\s+\d+)?$/);
         if (shipMatch) shipNames.push(shipMatch[1]);
