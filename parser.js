@@ -607,6 +607,8 @@ class EndlessSkyParser {
           i = this.parseOutfitterBlock(lines, i); continue;
         } else if (trimmed.startsWith('planet ') || trimmed.startsWith('"planet"')) {
           i = this.parsePlanetBlock(lines, i); continue;
+        } else if (trimmed.startsWith('event ') || trimmed === 'event') {
+          i = this.parseEventBlock(lines, i); continue;
         }
       }
       i++;
@@ -642,6 +644,9 @@ class EndlessSkyParser {
   }
 
   parseMissionBlock(lines, i) {
+    // Scan the entire mission block for npc keywords at any indent level.
+    // NPCs can be nested inside on enter/accept/complete/fail/offer/visit
+    // sub-blocks, so we can't just look at indent 1.
     i++;
     while (i < lines.length) {
       const line   = lines[i];
@@ -667,9 +672,19 @@ class EndlessSkyParser {
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent <= npcIndent && line.trim()) break;
       const stripped = line.trim();
+
+      // Government and ship lines can appear at npcIndent+1 (direct children).
+      // Use relative indent check rather than absolute so this works whether
+      // the npc block is at indent 1 (top-level mission) or indent 2+ (nested).
       if (indent === npcIndent + 1) {
-        const govMatch = stripped.match(/^government\s+"([^"]+)"/);
-        if (govMatch) { government = govMatch[1]; i++; continue; }
+        const govMatch = stripped.match(/^government\s+"([^"]+)"/) ||
+                         stripped.match(/^government\s+`([^`]+)`/);
+        if (govMatch) {
+          government = govMatch[1];
+          // Register immediately — government is known even before ships are seen
+          this.speciesResolver.knownGovernments.add(government);
+          i++; continue;
+        }
 
         const shipTwoArg = stripped.match(/^ship\s+"([^"]+)"\s+"[^"]*"/) ||
                            stripped.match(/^ship\s+`([^`]+)`\s+`[^`]*`/);
@@ -678,6 +693,23 @@ class EndlessSkyParser {
 
         if (shipTwoArg) { shipNames.push(shipTwoArg[1]); i++; continue; }
         if (shipOneArg) { shipNames.push(shipOneArg[1]); i++; continue; }
+
+        // fleet sub-block inside npc — extract ship names from it
+        if (stripped === 'fleet' || stripped.startsWith('fleet ')) {
+          const fleetIndent = indent;
+          i++;
+          while (i < lines.length) {
+            const fl = lines[i];
+            const fi = fl.length - fl.replace(/^\t+/, '').length;
+            if (fi <= fleetIndent && fl.trim()) break;
+            const fs = fl.trim();
+            const fm = fs.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
+                       fs.match(/^`([^`]+)`(?:\s+\d+)?$/);
+            if (fm) shipNames.push(fm[1]);
+            i++;
+          }
+          continue;
+        }
       }
       i++;
     }
@@ -747,6 +779,37 @@ class EndlessSkyParser {
       i++;
     }
     this.speciesResolver.collectPlanet(planetName, government, shipyards, outfitters);
+    return i;
+  }
+
+  parseEventBlock(lines, i) {
+    // Events can add/modify fleets, planets, and npc blocks mid-game.
+    // Scan for the same blocks we care about in the top-level file.
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent === 0 && line.trim()) break;
+      const stripped = line.trim();
+      if (indent >= 1) {
+        if (stripped.startsWith('fleet ') || stripped === 'fleet') {
+          i = this.parseFleetBlock(lines, i); continue;
+        }
+        if (stripped.startsWith('planet ') || stripped.startsWith('"planet"')) {
+          i = this.parsePlanetBlock(lines, i); continue;
+        }
+        if (stripped.startsWith('shipyard ')) {
+          i = this.parseShipyardBlock(lines, i); continue;
+        }
+        if (stripped.startsWith('outfitter ')) {
+          i = this.parseOutfitterBlock(lines, i); continue;
+        }
+        if (stripped === 'npc' || stripped.startsWith('npc ')) {
+          i = this.parseNpcBlock(lines, i); continue;
+        }
+      }
+      i++;
+    }
     return i;
   }
 
