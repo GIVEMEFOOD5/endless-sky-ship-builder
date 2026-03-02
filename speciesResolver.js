@@ -11,8 +11,11 @@ class SpeciesResolver {
     this.knownGovernments = new Set();
   }
   collectFleet(government, shipNames) {
-    if (government && shipNames.length) {
-      this.knownGovernments.add(government);
+    if (!government) return;
+    // Always register the government as known — even if no ship names were
+    // collected from this fleet block (ships may be in shipyards/variants).
+    this.knownGovernments.add(government);
+    if (shipNames.length) {
       this.fleets.push({ government, shipNames: [...shipNames] });
     }
   }
