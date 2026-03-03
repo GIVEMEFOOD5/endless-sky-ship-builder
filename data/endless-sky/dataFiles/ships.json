@@ -953,7 +953,7 @@
       "Hyperdrive": 1
     },
     "sprite": "ship/avgi koryfi/koryfi",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 24
     },
     "thumbnail": "thumbnail/avgi koryfi",
@@ -1259,7 +1259,7 @@
     },
     "plural": "Melodikos",
     "sprite": "ship/avgi melodikos/melodikos",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 30
     },
     "thumbnail": "thumbnail/avgi melodikos",
@@ -1480,7 +1480,7 @@
       "Hyperdrive": 1
     },
     "sprite": "ship/avgi avlaki",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 30
     },
     "thumbnail": "thumbnail/avgi avlaki",
@@ -1785,7 +1785,7 @@
     },
     "plural": "Harmonikos",
     "sprite": "ship/avgi harmonikos",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 30
     },
     "thumbnail": "thumbnail/avgi harmonikos",
@@ -2816,7 +2816,7 @@
       "Hyperdrive": 1
     },
     "sprite": "ship/avgi tachytia/tachytia",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 24
     },
     "thumbnail": "thumbnail/avgi tachytia",
@@ -8202,7 +8202,7 @@
     },
     "noun": "entity",
     "sprite": "ship/archon",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 0.87
     },
     "thumbnail": "thumbnail/archon",
@@ -8354,7 +8354,7 @@
     },
     "noun": "creature",
     "sprite": "ship/void sprite/void sprite adult",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 14.3,
       "random start frame": true,
       "rewind": true
@@ -8431,7 +8431,7 @@
     "outfitMap": {},
     "noun": "creature",
     "sprite": "ship/ember waste node/ember waste node",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 5,
       "rewind": true
     },
@@ -8507,7 +8507,7 @@
     "outfitMap": {},
     "noun": "creature",
     "sprite": "ship/embershade/embershade",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 3,
       "random start frame": true,
       "rewind": true
@@ -8566,7 +8566,7 @@
     },
     "noun": "creature",
     "sprite": "ship/embersylph/embersylph",
-    "spriteData": {
+    "sprite data": {
       "center": 0,
       "frame rate": 34,
       "random start frame": true
@@ -21581,7 +21581,7 @@
       "Hyperdrive": 1
     },
     "sprite": "ship/shuttle",
-    "spriteData": {
+    "sprite data": {
       "frame time": 4,
       "delay": 14,
       "random start frame": true
@@ -30454,7 +30454,7 @@
     "swizzle": 0,
     "noun": "genocidal maniac",
     "sprite": "ship/shooting star/shooting star",
-    "spriteData": {
+    "sprite data": {
       "frame time": 3
     },
     "attributes": {
@@ -33738,13 +33738,19 @@
       "reverse thrusting energy": 0.75,
       "reverse thrusting heat": 0.7,
       "flare sprite": "effect/remnant flare/small",
-      "spriteData": {
+      "flare sprite data": {
         "frame rate": 5
       },
       "flare sound": "plasma tiny",
       "steering flare sprite": "effect/remnant flare/small",
+      "steering flare sprite data": {
+        "frame rate": 5
+      },
       "steering flare sound": "plasma tiny",
       "reverse flare sprite": "effect/remnant flare/small",
+      "reverse flare sprite data": {
+        "frame rate": 5
+      },
       "reverse flare sound": "plasma tiny",
       "weapon": {
         "blast radius": 10,
@@ -33758,7 +33764,7 @@
     "description": "The Merganser is the first production ship the Remnant deem to be truly alive, and are considered to be equivalent to dolphins in reasoning tests. These interceptors, deemed for short range operations by Remnant standards, are designed to patrol the upper atmosphere of gas giants and use their decisive speed advantage to conduct hit-and-run attacks on threats in nearby systems. \tThe cloaking technology is built into the Merganser's hull; it cannot be removed or transferred to another ship.",
     "_internalId": "official-game/endless-sky::Merganser",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "769679080416",
+    "_hash": "20dd7ccf0ac8",
     "governments": {
       "Remnant": true
     }
@@ -33945,7 +33951,7 @@
       "Hyperdrive": 1
     },
     "sprite": "ship/penguin/penguin",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 3
     },
     "thumbnail": "thumbnail/penguin",
@@ -34000,13 +34006,19 @@
       "energy generation": 0.6,
       "heat generation": 1,
       "flare sprite": "effect/remnant flare/small",
-      "spriteData": {
+      "flare sprite data": {
         "frame rate": 5
       },
       "flare sound": "plasma tiny",
       "steering flare sprite": "effect/remnant flare/small",
+      "steering flare sprite data": {
+        "frame rate": 5
+      },
       "steering flare sound": "plasma tiny",
       "reverse flare sprite": "effect/remnant flare/small",
+      "reverse flare sprite data": {
+        "frame rate": 5
+      },
       "reverse flare sound": "plasma tiny",
       "remnant node": 1,
       "weapon": {
@@ -34022,7 +34034,7 @@
     "description": "Inspired by close contact with void sprites and the reinvigoration of xenobiology, the Penguin is a prototype designed to serve the dual roles of testing new starship technology while exploring hostile planets throughout the Ember Waste. One of this ship's distinguishing features is that it is truly alive and has a mind that approaches self-awareness. \tThe cloaking technology is built into the Penguin's hull; it cannot be removed or transferred to another ship.",
     "_internalId": "official-game/endless-sky::Penguin",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "e47341cb2d97",
+    "_hash": "2cc791ea92a3",
     "governments": {
       "Remnant": true,
       "Remnant (Research)": true,
@@ -34176,7 +34188,7 @@
       "Scram Drive": 1
     },
     "sprite": "ship/peregrine/peregrine",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 3,
       "rewind": true
     },
@@ -34838,7 +34850,7 @@
     },
     "noun": "entity",
     "sprite": "ship/vyuir/vyuir",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 4
     },
     "thumbnail": "thumbnail/vyuir",
@@ -36928,7 +36940,7 @@
     "noun": "creature",
     "plural": "Vyrmeid",
     "sprite": "ship/vyrmeid/plankton",
-    "spriteData": {
+    "sprite data": {
       "frame rate": 24,
       "random start frame": true
     },
@@ -36998,7 +37010,7 @@
     },
     "noun": "creature",
     "sprite": "ship/astral cetacean/astral",
-    "spriteData": {
+    "sprite data": {
       "center": 0,
       "frame rate": 24,
       "random start frame": true

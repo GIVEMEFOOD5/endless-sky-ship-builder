@@ -66,7 +66,7 @@
     "thrusting energy": 1.1,
     "thrusting heat": 1,
     "flare sprite": "effect/plasma flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 5
     },
     "flare sound": "plasma tiny",
@@ -103,7 +103,7 @@
     "thrusting energy": 5.9,
     "thrusting heat": 14.3,
     "flare sprite": "effect/plasma flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 8
     },
     "flare sound": "plasma large",
@@ -190,7 +190,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/grab-strike",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 25,
         "random start frame": true
       },
@@ -235,7 +235,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/banisher",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60
       },
       "hardpoint sprite": "hardpoint/banisher",
@@ -295,7 +295,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/fire-lance",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 12,
         "random start frame": true
       },
@@ -328,7 +328,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/repeater",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5
       },
       "sound": "repeater",
@@ -364,7 +364,7 @@
     "turret mounts": -1,
     "weapon": {
       "sprite": "projectile/repeater",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5
       },
       "hardpoint sprite": "hardpoint/repeater turret",
@@ -429,7 +429,7 @@
     "piercer capacity": 31,
     "weapon": {
       "sprite": "projectile/piercer",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5,
         "random start frame": true
       },
@@ -507,7 +507,7 @@
     "minelayer capacity": 17,
     "weapon": {
       "sprite": "projectile/korath minelayer",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 0.6,
         "no repeat": true
       },
@@ -555,7 +555,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/disruptor",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 15
       },
       "hardpoint sprite": "hardpoint/disruptor",
@@ -589,7 +589,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/slicer",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 6
       },
       "sound": "slicer",
@@ -622,7 +622,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/slicer",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 6
       },
       "hardpoint sprite": "hardpoint/slicer turret",
@@ -711,7 +711,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/skylance",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1
       },
       "hardpoint sprite": "hardpoint/quarg skylance",
@@ -831,15 +831,18 @@
     "thrusting fuel": 0.3,
     "drag reduction": 9,
     "flare sprite": "effect/avgi flare/antimatter",
-    "spriteData": {
-      "frame rate": 15,
-      "scale": 0.5
+    "flare sprite data": {
+      "frame rate": 15
     },
     "flare sound": "fusion torch",
     "turn": 6000,
     "turning energy": 9,
     "turning heat": 54,
     "steering flare sprite": "effect/avgi flare/rcs",
+    "steering flare sprite data": {
+      "frame rate": 15,
+      "scale": 0.5
+    },
     "steering flare sound": "remnant afterburner",
     "magnetic nozzle": 18,
     "description": "The fastest Avgi starships were propelled not just by their engines, but also by immense banks of lasers and particle beams stationed in the Anax system, pushing ships to velocities in excess of 0.2c before braking with a magsail or plasma magnet. Just before the invention of the hyperdrive, however, the Avgi perfected this beam-core antimatter drive, capable of pushing a starship with sufficient antimatter fuel to 0.4c and perhaps beyond. Requiring immense quantities of antimatter, the amat farms around Anax such as Antivli Station would have been strained to their limits had this design entered mass production, but the surprise invention of the hyperdrive rendered it laughably obsolete overnight.",
@@ -1226,13 +1229,19 @@
     "turning heat": 0.6,
     "drag reduction": 0.3,
     "flare sprite": "effect/wanderer flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 5
     },
     "flare sound": "plasma tiny",
     "steering flare sprite": "effect/wanderer flare/tiny",
+    "steering flare sprite data": {
+      "frame rate": 5
+    },
     "steering flare sound": "plasma tiny",
     "reverse flare sprite": "effect/wanderer flare/tiny",
+    "reverse flare sprite data": {
+      "frame rate": 5
+    },
     "reverse flare sound": "plasma tiny",
     "description": "For bulk transportation of passengers and goods, electric propulsion has long been used by the Avgi for its versatility and low cost. This compact set of magnetoplasmadynamic thrusters can propel light ships to impressive velocities, given time to accelerate, but it is also notably energy-hungry. Being propellant agnostic, it is common to see this workhorse drive ran with common water or ammonia propellants, contributing to its renowned flexibility. \tDesigned to be clustered and oriented in any direction, the thruster layout gives a ship full six-axis control, allowing it to translate and rotate in any direction with ease.",
     "governments": {
@@ -1261,7 +1270,7 @@
     "overheat damage rate": 3,
     "drag reduction": 0.6,
     "flare sprite": "effect/avgi flare/ntr",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 15
     },
     "flare sound": "atomic small",
@@ -1289,15 +1298,18 @@
     "thrusting fuel": 0.3,
     "drag reduction": 9,
     "flare sprite": "effect/avgi flare/antimatter",
-    "spriteData": {
-      "frame rate": 15,
-      "scale": 0.5
+    "flare sprite data": {
+      "frame rate": 15
     },
     "flare sound": "fusion torch",
     "turn": 6000,
     "turning energy": 9,
     "turning heat": 54,
     "steering flare sprite": "effect/avgi flare/rcs",
+    "steering flare sprite data": {
+      "frame rate": 15,
+      "scale": 0.5
+    },
     "steering flare sound": "remnant afterburner",
     "magnetic nozzle": 18,
     "description": "The fastest Avgi starships were propelled not just by their engines, but also by immense banks of lasers and particle beams stationed in the Anax system, pushing ships to velocities in excess of 0.2c before braking with a magsail or plasma magnet. Just before the invention of the hyperdrive, however, the Avgi perfected this beam-core antimatter drive, capable of pushing a starship with sufficient antimatter fuel to 0.4c and perhaps beyond. Requiring immense quantities of antimatter, the amat farms around Anax such as Antivli Station would have been strained to their limits had this design entered mass production, but the surprise invention of the hyperdrive rendered it laughably obsolete overnight.",
@@ -1324,7 +1336,7 @@
     "thrusting fuel": 0.15,
     "drag reduction": 1,
     "flare sprite": "effect/avgi flare/fusion",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 15,
       "scale": 0.75
     },
@@ -1359,7 +1371,7 @@
     "thrusting fuel": 0.3,
     "drag reduction": 2,
     "flare sprite": "effect/avgi flare/fusion",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 15
     },
     "flare sound": "fusion torch",
@@ -1389,7 +1401,7 @@
     "thrusting fuel": 0.45,
     "drag reduction": 3,
     "flare sprite": "effect/avgi flare/fusion",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 15,
       "scale": 2
     },
@@ -1474,12 +1486,16 @@
     "reverse thrusting energy": 1.5,
     "reverse thrusting heat": -3,
     "steering flare sprite": "effect/avgi flare/rcs",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 30,
-      "scale": 0.125
+      "scale": 0.0625
     },
     "steering flare sound": "plasma small",
     "reverse flare sprite": "effect/avgi flare/rcs",
+    "reverse flare sprite data": {
+      "frame rate": 30,
+      "scale": 0.125
+    },
     "reverse flare sound": "plasma small",
     "description": "Avgi reaction control thrusters are hybrid thermal-electric thrusters, designed to allow translation in any direction. By using reactor heat to expel superheated water vapor out of a set of nozzles, they can help a ship cool off, but require the ship to have excess heat in order to function.",
     "governments": {
@@ -1508,12 +1524,16 @@
     "reverse thrusting energy": 3,
     "reverse thrusting heat": -6,
     "steering flare sprite": "effect/avgi flare/rcs",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 30,
-      "scale": 0.25
+      "scale": 0.125
     },
     "steering flare sound": "plasma small",
     "reverse flare sprite": "effect/avgi flare/rcs",
+    "reverse flare sprite data": {
+      "frame rate": 30,
+      "scale": 0.25
+    },
     "reverse flare sound": "plasma small",
     "description": "The Avgi have designed their reaction control thrusters to synergize with their fusion torches, tapping off high temperature waste heat and using it to superheat water for use in their reaction control systems. An additional magnetohydrodynamic accelerator around each thruster's nozzle improves specific impulse at the cost of significant energy use. These thrusters allow Avgi starships to easily dock with stations or other ships without igniting their highly radioactive fusion torches.",
     "governments": {
@@ -1541,12 +1561,16 @@
     "reverse thrusting energy": 6,
     "reverse thrusting heat": -9,
     "steering flare sprite": "effect/avgi flare/rcs",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 30,
-      "scale": 0.5
+      "scale": 0.25
     },
     "steering flare sound": "plasma small",
     "reverse flare sprite": "effect/avgi flare/rcs",
+    "reverse flare sprite data": {
+      "frame rate": 30,
+      "scale": 0.5
+    },
     "reverse flare sound": "plasma small",
     "description": "This large set of 'teakettle' style reaction control thrusters can allow even the largest of Avgi starships to maneuver with ease, or even reverse course without needing to fully turn around. They also can be used to reject considerable amounts of waste heat by expelling superheated water vapor, boosted by an electromagnetic accelerator.",
     "governments": {
@@ -1855,7 +1879,7 @@
     "ophrys capacity": 1,
     "weapon": {
       "sprite": "projectile/orchid terminal",
-      "spriteData": {
+      "sprite data": {
         "scale": 0.5
       },
       "sound": "nuke",
@@ -1901,7 +1925,7 @@
     "orchid capacity": 6,
     "weapon": {
       "sprite": "projectile/orchid inactive",
-      "spriteData": {
+      "sprite data": {
         "scale": 0.5
       },
       "sound": "nuke",
@@ -1955,7 +1979,7 @@
     "weapon": {
       "hardpoint sprite": "hardpoint/tiny vls",
       "sprite": "projectile/nettle",
-      "spriteData": {
+      "sprite data": {
         "scale": 0.5
       },
       "sound": "bounce",
@@ -2009,7 +2033,7 @@
     "weapon": {
       "hardpoint sprite": "hardpoint/small vls",
       "sprite": "projectile/nettle",
-      "spriteData": {
+      "sprite data": {
         "scale": 0.5
       },
       "sound": "bounce",
@@ -2061,7 +2085,7 @@
     "weapon": {
       "hardpoint sprite": "hardpoint/medium vls",
       "sprite": "projectile/nettle",
-      "spriteData": {
+      "sprite data": {
         "scale": 0.5
       },
       "sound": "bounce",
@@ -2572,7 +2596,7 @@
     "thrusting energy": 1.15,
     "thrusting heat": 0.65,
     "flare sprite": "effect/bunrodea flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 1,
       "rewind": true,
       "scale": 0.3
@@ -2600,7 +2624,7 @@
     "thrusting energy": 2.3,
     "thrusting heat": 1.3,
     "flare sprite": "effect/bunrodea flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 1,
       "rewind": true,
       "scale": 0.6
@@ -2625,7 +2649,7 @@
     "thrusting energy": 4.4,
     "thrusting heat": 2.5,
     "flare sprite": "effect/bunrodea flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 1,
       "rewind": true,
       "scale": 0.8
@@ -2654,7 +2678,7 @@
     "thrusting energy": 8.6,
     "thrusting heat": 4.9,
     "flare sprite": "effect/bunrodea flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 1,
       "rewind": true
     },
@@ -2678,7 +2702,7 @@
     "turning energy": 2.6,
     "turning heat": 1,
     "steering flare sprite": "effect/bunrodea flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 1,
       "rewind": true,
       "scale": 0.3
@@ -2707,7 +2731,7 @@
     "turning energy": 5.3,
     "turning heat": 2.1,
     "steering flare sprite": "effect/bunrodea flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 1,
       "rewind": true,
       "scale": 0.6
@@ -2734,7 +2758,7 @@
     "turning energy": 9.2,
     "turning heat": 3.65,
     "steering flare sprite": "effect/bunrodea flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 1,
       "rewind": true,
       "scale": 0.8
@@ -2763,7 +2787,7 @@
     "turning energy": 17.1,
     "turning heat": 6.5,
     "steering flare sprite": "effect/bunrodea flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 1,
       "rewind": true
     },
@@ -2860,7 +2884,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/mandible cannon",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 10,
         "random start frame": true
       },
@@ -2901,7 +2925,7 @@
     "energy capacity": 7000,
     "weapon": {
       "sprite": "projectile/thorax cannon",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 15,
         "rewind": true
       },
@@ -2981,7 +3005,7 @@
     "swarm capacity": 400,
     "weapon": {
       "sprite": "effect/swarm",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 0.01
       },
       "sound": "swarm missile",
@@ -3506,7 +3530,7 @@
     "thrusting energy": 0.46,
     "thrusting heat": 3,
     "flare sprite": "effect/coalition flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 10
     },
     "flare sound": "atomic tiny",
@@ -3534,7 +3558,7 @@
     "thrusting energy": 1.7,
     "thrusting heat": 11,
     "flare sprite": "effect/coalition flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 7
     },
     "flare sound": "atomic small",
@@ -3561,7 +3585,7 @@
     "reverse thrusting energy": 0.46,
     "reverse thrusting heat": 3,
     "reverse flare sprite": "effect/coalition flare/small",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 10
     },
     "reverse flare sound": "atomic tiny",
@@ -3589,7 +3613,7 @@
     "reverse thrusting energy": 1.7,
     "reverse thrusting heat": 11,
     "reverse flare sprite": "effect/coalition flare/large",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 7
     },
     "reverse flare sound": "atomic small",
@@ -3616,7 +3640,7 @@
     "turning energy": 0.26,
     "turning heat": 1.8,
     "steering flare sprite": "effect/coalition flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 10
     },
     "steering flare sound": "atomic tiny",
@@ -3644,7 +3668,7 @@
     "turning energy": 1,
     "turning heat": 6.5,
     "steering flare sprite": "effect/coalition flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 7
     },
     "steering flare sound": "atomic small",
@@ -3774,7 +3798,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/bombardment",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 3.2,
         "no repeat": true
       },
@@ -3813,7 +3837,7 @@
     "turret mounts": -1,
     "weapon": {
       "sprite": "projectile/bombardment",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 3.2,
         "no repeat": true
       },
@@ -3855,7 +3879,7 @@
     "finisher capacity": 40,
     "weapon": {
       "sprite": "projectile/finisher activating",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1,
         "no repeat": true
       },
@@ -3904,7 +3928,7 @@
     "finisher capacity": 60,
     "weapon": {
       "sprite": "projectile/finisher activating",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1,
         "no repeat": true
       },
@@ -3987,7 +4011,7 @@
     "turret mounts": -1,
     "weapon": {
       "sprite": "projectile/attractor",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5.2,
         "random start frame": true
       },
@@ -4029,7 +4053,7 @@
     "turret mounts": -1,
     "weapon": {
       "sprite": "projectile/repulsor",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 3.2,
         "random start frame": true
       },
@@ -4105,7 +4129,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/ion rain",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 7,
         "random start frame": true
       },
@@ -4330,7 +4354,7 @@
     "energy capacity": 4800,
     "weapon": {
       "sprite": "projectile/drak bolt",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 13.318,
         "random start frame": true
       },
@@ -4366,7 +4390,7 @@
     "weapon": {
       "Jump Drive": 0,
       "sprite": "projectile/drak bolt",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 13.318,
         "random start frame": true
       },
@@ -4706,7 +4730,7 @@
     "thrusting energy": 0.7,
     "thrusting heat": 1.5,
     "flare sprite": "effect/vi flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 2.5
     },
     "flare sound": "ion torch small",
@@ -4737,7 +4761,7 @@
     "turning energy": 0.4,
     "turning heat": 0.85,
     "steering flare sprite": "effect/vi flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 2.4
     },
     "steering flare sound": "ion torch small",
@@ -4768,7 +4792,7 @@
     "thrusting energy": 1.25,
     "thrusting heat": 2.9,
     "flare sprite": "effect/vi flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 2.4
     },
     "flare sound": "ion torch medium",
@@ -4798,7 +4822,7 @@
     "turning energy": 0.65,
     "turning heat": 1.5,
     "steering flare sprite": "effect/vi flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 2.4
     },
     "steering flare sound": "ion torch medium",
@@ -4831,7 +4855,7 @@
     "thrusting energy": 2.2,
     "thrusting heat": 5.4,
     "flare sprite": "effect/vi flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 2.3
     },
     "flare sound": "ion torch large",
@@ -4863,7 +4887,7 @@
     "turning energy": 1.15,
     "turning heat": 2.8,
     "steering flare sprite": "effect/vi flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 2.3
     },
     "steering flare sound": "ion torch large",
@@ -4895,7 +4919,7 @@
     "thrusting energy": 0.4,
     "thrusting heat": 1,
     "flare sprite": "effect/scin flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 0.6
     },
     "flare sound": "scplasma tiny",
@@ -4903,6 +4927,9 @@
     "turning energy": 0.35,
     "turning heat": 0.8,
     "steering flare sprite": "effect/scin flare/tiny",
+    "steering flare sprite data": {
+      "frame rate": 0.6
+    },
     "steering flare sound": "scplasma tiny",
     "description": "In order to power the tiny Halite frame, the Gegno Scin developed this smaller engine system. Based on their larger plasma thrusters, these engines are much more efficient than the Vi's bigger, more sluggish ion engines, which would never be compact or light enough to run on a fighter.",
     "governments": {
@@ -4931,7 +4958,7 @@
     "thrusting energy": 0.85,
     "thrusting heat": 2.25,
     "flare sprite": "effect/scin flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 0.5
     },
     "flare sound": "scplasma small",
@@ -4962,7 +4989,7 @@
     "turning energy": 0.45,
     "turning heat": 1.15,
     "steering flare sprite": "effect/scin flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 0.5
     },
     "steering flare sound": "scplasma small",
@@ -4992,7 +5019,7 @@
     "thrusting energy": 1.7,
     "thrusting heat": 4.95,
     "flare sprite": "effect/scin flare/med",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 0.4
     },
     "flare sound": "scplasma medium",
@@ -5022,7 +5049,7 @@
     "turning energy": 1,
     "turning heat": 2.95,
     "steering flare sprite": "effect/scin flare/med",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 0.4
     },
     "steering flare sound": "scplasma medium",
@@ -5055,7 +5082,7 @@
     "thrusting energy": 3.1,
     "thrusting heat": 9.5,
     "flare sprite": "effect/scin flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 0.3
     },
     "flare sound": "scplasma large",
@@ -5063,6 +5090,9 @@
     "reverse thrusting energy": 1.45,
     "reverse thrusting heat": 4.45,
     "reverse flare sprite": "effect/scin flare/large",
+    "reverse flare sprite data": {
+      "frame rate": 0.3
+    },
     "reverse flare sound": "scplasma large",
     "description": "The Gegno Scin have taken another step forward from the SC-14 class engine system, incorporating both reverse and forward thrust into a single engine. In order to field the SC-15, the Scin had to design their largest ships around the thrusters, rather than fit it on later. The ability to reverse is especially important in engagements with the Gegno Vi's forward-heavy combat vessels.",
     "governments": {
@@ -5390,7 +5420,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/acuit",
-      "spriteData": {
+      "sprite data": {
         "random start frame": true
       },
       "hardpoint sprite": "hardpoint/acuit",
@@ -5433,7 +5463,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/neutron bolt",
-      "spriteData": {
+      "sprite data": {
         "scale": 0.5
       },
       "hit effect": "neutron explosion",
@@ -6019,7 +6049,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/ion bolt",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5
       },
       "sound": "ion",
@@ -6071,7 +6101,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/ionic blast",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5
       },
       "sound": "ionic blast",
@@ -6108,7 +6138,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/ionic turret",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 20
       },
       "fade out": 10,
@@ -6182,7 +6212,7 @@
     "railgun slug capacity": 1000,
     "weapon": {
       "sprite": "projectile/rail slug",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 30
       },
       "ammo": "Railgun Slug",
@@ -6274,7 +6304,7 @@
     "tracker capacity": 56,
     "weapon": {
       "sprite": "projectile/tracker",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 10,
         "random start frame": true
       },
@@ -6893,12 +6923,16 @@
     "turning energy": 0.64,
     "turning heat": 1.28,
     "flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 14,
       "scale": 0.8
     },
     "flare sound": "atomic tiny",
     "steering flare sprite": "effect/atomic flare/tiny",
+    "steering flare sprite data": {
+      "frame rate": 14,
+      "scale": 0.8
+    },
     "steering flare sound": "atomic tiny",
     "description": "While the Hai were designing the Flea, it quickly became apparent that even the \"Basrem\" engine set was too large for the purpose. As a result, a combined thruster steering set was created: \"Baellie.\"",
     "governments": {
@@ -6919,7 +6953,7 @@
     "thrusting energy": 1.4,
     "thrusting heat": 2.8,
     "flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 14,
       "scale": 0.8
     },
@@ -6949,7 +6983,7 @@
     "thrusting energy": 2.5,
     "thrusting heat": 4.8,
     "flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 14
     },
     "flare sound": "atomic tiny",
@@ -6981,7 +7015,7 @@
     "thrusting energy": 4,
     "thrusting heat": 8.2,
     "flare sprite": "effect/atomic flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 13
     },
     "flare sound": "atomic small",
@@ -7015,7 +7049,7 @@
     "thrusting energy": 6.1,
     "thrusting heat": 12.7,
     "flare sprite": "effect/atomic flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 12
     },
     "flare sound": "atomic medium",
@@ -7054,7 +7088,7 @@
     "thrusting energy": 10.4,
     "thrusting heat": 22.6,
     "flare sprite": "effect/atomic flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 11
     },
     "flare sound": "atomic large",
@@ -7079,7 +7113,7 @@
     "reverse thrusting energy": 1.4,
     "reverse thrusting heat": 2.8,
     "reverse flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 14,
       "scale": 0.8
     },
@@ -7111,7 +7145,7 @@
     "reverse thrusting energy": 2.5,
     "reverse thrusting heat": 4.8,
     "reverse flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 14
     },
     "reverse flare sound": "atomic tiny",
@@ -7134,7 +7168,7 @@
     "reverse thrusting energy": 4,
     "reverse thrusting heat": 8.2,
     "reverse flare sprite": "effect/atomic flare/small",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 13
     },
     "reverse flare sound": "atomic small",
@@ -7160,7 +7194,7 @@
     "turning energy": 0.7,
     "turning heat": 1.5,
     "steering flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 14,
       "scale": 0.8
     },
@@ -7193,7 +7227,7 @@
     "turning energy": 1.1,
     "turning heat": 2.85,
     "steering flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 14
     },
     "steering flare sound": "atomic tiny",
@@ -7225,7 +7259,7 @@
     "turning energy": 2,
     "turning heat": 5.1,
     "steering flare sprite": "effect/atomic flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 13
     },
     "steering flare sound": "atomic small",
@@ -7259,7 +7293,7 @@
     "turning energy": 3.2,
     "turning heat": 8.2,
     "steering flare sprite": "effect/atomic flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 12
     },
     "steering flare sound": "atomic medium",
@@ -7297,7 +7331,7 @@
     "turning energy": 5.2,
     "turning heat": 13.8,
     "steering flare sprite": "effect/atomic flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 11
     },
     "steering flare sound": "atomic large",
@@ -7700,11 +7734,14 @@
     "turning energy": 0.25,
     "turning heat": 0.5,
     "flare sprite": "effect/ion flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 1.2
     },
     "flare sound": "ion tiny",
     "steering flare sprite": "effect/ion flare/tiny",
+    "steering flare sprite data": {
+      "frame rate": 1.2
+    },
     "steering flare sound": "ion tiny",
     "description": "When designing the Barb, the Syndicate took the opportunity to integrate their smallest thruster models to create a more compact steering and thrusting engine. The result is not very useful on anything but a fighter, and is only \"adequate\" in that role. Still, if engine space is at a premium, this is the smallest set of engines that will still get you there (eventually).",
     "governments": {
@@ -7730,7 +7767,7 @@
     "thrusting energy": 0.6,
     "thrusting heat": 0.9,
     "flare sprite": "effect/ion flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 1.2
     },
     "flare sound": "ion tiny",
@@ -7764,7 +7801,7 @@
     "thrusting energy": 1.1,
     "thrusting heat": 1.7,
     "flare sprite": "effect/ion flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 1.1
     },
     "flare sound": "ion small",
@@ -7801,7 +7838,7 @@
     "thrusting energy": 1.9,
     "thrusting heat": 3.2,
     "flare sprite": "effect/ion flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 1
     },
     "flare sound": "ion medium",
@@ -7842,7 +7879,7 @@
     "thrusting energy": 3.5,
     "thrusting heat": 6.2,
     "flare sprite": "effect/ion flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 0.9
     },
     "flare sound": "ion large",
@@ -7870,7 +7907,7 @@
     "thrusting energy": 6.3,
     "thrusting heat": 11.7,
     "flare sprite": "effect/ion flare/huge",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 0.8
     },
     "flare sound": "ion huge",
@@ -7895,7 +7932,7 @@
     "turning energy": 0.3,
     "turning heat": 0.6,
     "steering flare sprite": "effect/ion flare/tiny",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 1.2
     },
     "steering flare sound": "ion tiny",
@@ -7930,7 +7967,7 @@
     "turning energy": 0.6,
     "turning heat": 1.1,
     "steering flare sprite": "effect/ion flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 1.1
     },
     "steering flare sound": "ion small",
@@ -7967,7 +8004,7 @@
     "turning energy": 1.1,
     "turning heat": 2,
     "steering flare sprite": "effect/ion flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 1
     },
     "steering flare sound": "ion medium",
@@ -8004,7 +8041,7 @@
     "turning energy": 1.9,
     "turning heat": 3.9,
     "steering flare sprite": "effect/ion flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 0.9
     },
     "steering flare sound": "ion large",
@@ -8041,7 +8078,7 @@
     "turning energy": 3.5,
     "turning heat": 7.3,
     "steering flare sprite": "effect/ion flare/huge",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 0.8
     },
     "steering flare sound": "ion huge",
@@ -8068,7 +8105,7 @@
     "reverse thrusting energy": 0.6,
     "reverse thrusting heat": 0.9,
     "reverse flare sprite": "effect/ion flare/tiny",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 1.2
     },
     "reverse flare sound": "ion tiny",
@@ -8098,7 +8135,7 @@
     "thrusting energy": 1,
     "thrusting heat": 1.8,
     "flare sprite": "effect/plasma flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 5
     },
     "flare sound": "plasma tiny",
@@ -8132,7 +8169,7 @@
     "thrusting energy": 1.8,
     "thrusting heat": 3.4,
     "flare sprite": "effect/plasma flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 6
     },
     "flare sound": "plasma small",
@@ -8172,7 +8209,7 @@
     "thrusting energy": 3.2,
     "thrusting heat": 6.5,
     "flare sprite": "effect/plasma flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 7
     },
     "flare sound": "plasma medium",
@@ -8210,7 +8247,7 @@
     "thrusting energy": 5.8,
     "thrusting heat": 12.3,
     "flare sprite": "effect/plasma flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 8
     },
     "flare sound": "plasma large",
@@ -8241,7 +8278,7 @@
     "thrusting energy": 8.6,
     "thrusting heat": 19.1,
     "flare sprite": "effect/plasma flare/huge",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 9
     },
     "flare sound": "plasma huge",
@@ -8264,7 +8301,7 @@
     "turning energy": 0.5,
     "turning heat": 1.1,
     "steering flare sprite": "effect/plasma flare/tiny",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 5
     },
     "steering flare sound": "plasma tiny",
@@ -8302,7 +8339,7 @@
     "turning energy": 0.9,
     "turning heat": 2.1,
     "steering flare sprite": "effect/plasma flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 6
     },
     "steering flare sound": "plasma small",
@@ -8342,7 +8379,7 @@
     "turning energy": 1.6,
     "turning heat": 4.1,
     "steering flare sprite": "effect/plasma flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 7
     },
     "steering flare sound": "plasma medium",
@@ -8382,7 +8419,7 @@
     "turning energy": 2.9,
     "turning heat": 7.7,
     "steering flare sprite": "effect/plasma flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 8
     },
     "steering flare sound": "plasma large",
@@ -8414,7 +8451,7 @@
     "turning energy": 4.4,
     "turning heat": 12.5,
     "steering flare sprite": "effect/plasma flare/huge",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 9
     },
     "steering flare sound": "plasma huge",
@@ -8437,7 +8474,7 @@
     "reverse thrusting energy": 1,
     "reverse thrusting heat": 1.8,
     "reverse flare sprite": "effect/plasma flare/tiny",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 5
     },
     "reverse flare sound": "plasma tiny",
@@ -8475,7 +8512,7 @@
     "thrusting energy": 1.8,
     "thrusting heat": 3.5,
     "flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 14
     },
     "flare sound": "atomic tiny",
@@ -8508,7 +8545,7 @@
     "thrusting energy": 3.1,
     "thrusting heat": 6.1,
     "flare sprite": "effect/atomic flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 13
     },
     "flare sound": "atomic small",
@@ -8545,7 +8582,7 @@
     "thrusting energy": 5.1,
     "thrusting heat": 10.3,
     "flare sprite": "effect/atomic flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 12
     },
     "flare sound": "atomic medium",
@@ -8586,7 +8623,7 @@
     "thrusting energy": 8.3,
     "thrusting heat": 17.4,
     "flare sprite": "effect/atomic flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 11
     },
     "flare sound": "atomic large",
@@ -8618,7 +8655,7 @@
     "thrusting energy": 13.3,
     "thrusting heat": 29.1,
     "flare sprite": "effect/atomic flare/huge",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 10
     },
     "flare sound": "atomic huge",
@@ -8643,7 +8680,7 @@
     "turning energy": 0.9,
     "turning heat": 2.2,
     "steering flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 14
     },
     "steering flare sound": "atomic tiny",
@@ -8675,7 +8712,7 @@
     "turning energy": 1.5,
     "turning heat": 3.7,
     "steering flare sprite": "effect/atomic flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 13
     },
     "steering flare sound": "atomic small",
@@ -8713,7 +8750,7 @@
     "turning energy": 2.5,
     "turning heat": 6.3,
     "steering flare sprite": "effect/atomic flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 12
     },
     "steering flare sound": "atomic medium",
@@ -8750,7 +8787,7 @@
     "turning energy": 4.1,
     "turning heat": 10.5,
     "steering flare sprite": "effect/atomic flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 11
     },
     "steering flare sound": "atomic large",
@@ -8786,7 +8823,7 @@
     "turning energy": 6.6,
     "turning heat": 17.5,
     "steering flare sprite": "effect/atomic flare/huge",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 10
     },
     "steering flare sound": "atomic huge",
@@ -8809,7 +8846,7 @@
     "reverse thrusting energy": 1.8,
     "reverse thrusting heat": 3.5,
     "reverse flare sprite": "effect/atomic flare/tiny",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 14
     },
     "reverse flare sound": "atomic tiny",
@@ -11194,7 +11231,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/laser",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1
       },
       "sound": "laser",
@@ -11241,7 +11278,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/2x laser",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1
       },
       "hardpoint sprite": "hardpoint/laser turret",
@@ -11291,7 +11328,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/heavy laser",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1
       },
       "sound": "heavy laser",
@@ -11341,7 +11378,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/2x heavy laser",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1
       },
       "hardpoint sprite": "hardpoint/heavy laser turret",
@@ -11394,7 +11431,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/mining laser",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1
       },
       "sound": "mining laser",
@@ -11438,7 +11475,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/mining laser",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1
       },
       "hardpoint sprite": "hardpoint/mining laser turret",
@@ -11523,7 +11560,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/electron",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60
       },
       "sound": "electron beam",
@@ -11558,7 +11595,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/2x electron",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60
       },
       "hardpoint sprite": "hardpoint/electron turret",
@@ -11826,7 +11863,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/plasma",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 3
       },
       "sound": "plasma",
@@ -11875,7 +11912,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/plasma",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 3
       },
       "hardpoint sprite": "hardpoint/plasma turret",
@@ -11921,7 +11958,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/plasma",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 3
       },
       "sound": "plasma",
@@ -11963,7 +12000,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "effect/explosion/small",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60,
         "no repeat": true
       },
@@ -12071,7 +12108,7 @@
     "meteor capacity": 30,
     "weapon": {
       "sprite": "projectile/meteor",
-      "spriteData": {
+      "sprite data": {
         "no repeat": true,
         "frame rate": 0.25
       },
@@ -12137,7 +12174,7 @@
     "meteor capacity": 7,
     "weapon": {
       "sprite": "projectile/meteor",
-      "spriteData": {
+      "sprite data": {
         "no repeat": true,
         "frame rate": 0.25
       },
@@ -12253,7 +12290,7 @@
     "sidewinder capacity": 45,
     "weapon": {
       "sprite": "projectile/sidewinder",
-      "spriteData": {
+      "sprite data": {
         "no repeat": true,
         "frame rate": 0.25
       },
@@ -12312,7 +12349,7 @@
     "sidewinder capacity": 6,
     "weapon": {
       "sprite": "projectile/sidewinder",
-      "spriteData": {
+      "sprite data": {
         "no repeat": true,
         "frame rate": 0.25
       },
@@ -12620,7 +12657,7 @@
     "torpedo capacity": 30,
     "weapon": {
       "sprite": "projectile/torpedo",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 2,
         "random start frame": true
       },
@@ -12686,7 +12723,7 @@
     "torpedo capacity": 3,
     "weapon": {
       "sprite": "projectile/torpedo",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 2,
         "random start frame": true
       },
@@ -12779,7 +12816,7 @@
     "typhoon capacity": 30,
     "weapon": {
       "sprite": "projectile/typhoon",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 4,
         "random start frame": true
       },
@@ -12829,7 +12866,7 @@
     "typhoon capacity": 3,
     "weapon": {
       "sprite": "projectile/typhoon",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 4,
         "random start frame": true
       },
@@ -12928,7 +12965,7 @@
     "rocket capacity": 20,
     "weapon": {
       "sprite": "projectile/rocket",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 4
       },
       "sound": "rocket",
@@ -12982,7 +13019,7 @@
     "rocket capacity": 2,
     "weapon": {
       "sprite": "projectile/rocket",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 4
       },
       "sound": "rocket",
@@ -13032,7 +13069,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/missile",
-      "spriteData": {
+      "sprite data": {
         "no repeat": true,
         "frame rate": 0.25
       },
@@ -13151,7 +13188,7 @@
     "gatling round capacity": 3000,
     "weapon": {
       "sprite": "projectile/tinyflare",
-      "spriteData": {
+      "sprite data": {
         "random start frame": true
       },
       "sound": "gatling",
@@ -13199,7 +13236,7 @@
     "weapon": {
       "sound": "gatling",
       "sprite": "projectile/2x tinyflare",
-      "spriteData": {
+      "sprite data": {
         "random start frame": true
       },
       "hardpoint sprite": "hardpoint/gat turret hardpoint",
@@ -13290,7 +13327,7 @@
     },
     "weapon": {
       "sprite": "projectile/stagnation beam",
-      "spriteData": {
+      "sprite data": {
         "random start frame": true,
         "frame rate": 6
       },
@@ -13331,7 +13368,7 @@
     },
     "weapon": {
       "sprite": "projectile/star tail upload",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 10,
         "no repeat": true
       },
@@ -13478,7 +13515,7 @@
     "outfit space": -27,
     "engine capacity": -27,
     "flare sprite": "effect/incipias flare/metallic hydrogen small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 24
     },
     "flare sound": "incip plasma small",
@@ -13519,7 +13556,7 @@
     "outfit space": -32,
     "engine capacity": -32,
     "flare sprite": "effect/incipias flare/metallic hydrogen medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 24
     },
     "flare sound": "incip plasma med",
@@ -13560,7 +13597,7 @@
     "outfit space": -41,
     "engine capacity": -41,
     "flare sprite": "effect/incipias flare/metallic hydrogen large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 24
     },
     "flare sound": "incip plasma large",
@@ -13625,7 +13662,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/strange ray",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60,
         "no repeat": true
       },
@@ -13653,7 +13690,7 @@
     "thrust": 36,
     "turn": 1500,
     "flare sprite": "effect/plasma exhaust",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 16
     },
     "description": "The Tace Mesa move by expelling plasma from the end of their body.",
@@ -13675,7 +13712,7 @@
     "unplunderable": 1,
     "weapon": {
       "sprite": "projectile/aberrant spike",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 24,
         "scale": 0.5,
         "rewind": true
@@ -13728,7 +13765,7 @@
     "unplunderable": 1,
     "weapon": {
       "sprite": "projectile/nucleolysis",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 15
       },
       "sound": "nucleolysis",
@@ -13901,7 +13938,7 @@
     "asteroid mount small": -1,
     "weapon": {
       "sprite": "projectile/asteroid weapon circle",
-      "spriteData": {
+      "sprite data": {
         "frame time": 20,
         "start frame": 0,
         "no repeat": true
@@ -13938,7 +13975,7 @@
     "asteroid mount": -1,
     "weapon": {
       "sprite": "effect/asteroid projectile print",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 21
       },
       "velocity": 10,
@@ -14002,7 +14039,7 @@
     "asteroid mount 3": -1,
     "weapon": {
       "sprite": "projectile/asteroid twin projectile",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 10,
         "random start frame": true
       },
@@ -14047,7 +14084,7 @@
     "asteroid mount 4": -1,
     "weapon": {
       "sprite": "effect/asteroid projectile print",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 21
       },
       "sound": "magic weapon",
@@ -14126,7 +14163,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/ionball",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 15,
         "rewind": true
       },
@@ -14179,7 +14216,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/ravager beam",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 15
       },
       "sound": "disruptor",
@@ -14215,7 +14252,7 @@
     "turret mounts": -1,
     "weapon": {
       "sprite": "projectile/ravager beam",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 15
       },
       "hardpoint sprite": "hardpoint/ravager turret",
@@ -14252,7 +14289,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/annihilator",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 7
       },
       "sound": "inhibitor",
@@ -14285,7 +14322,7 @@
     "turret mounts": -1,
     "weapon": {
       "sprite": "projectile/annihilator",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 7
       },
       "sound": "inhibitor",
@@ -14322,7 +14359,7 @@
     "emp torpedo capacity": 16,
     "weapon": {
       "sprite": "projectile/emp torpedo",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 2,
         "no repeat": true
       },
@@ -14378,7 +14415,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/mhd",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 2
       },
       "sound": "rocket",
@@ -14543,11 +14580,14 @@
     "turn": 1397.1,
     "turning heat": 1.3,
     "flare sprite": "\"effect/ka'het",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 30
     },
     "flare sound": "plasma medium",
     "steering flare sprite": "\"effect/ka'het",
+    "steering flare sprite data": {
+      "frame rate": 30
+    },
     "steering flare sound": "plasma medium",
     "description": "The Ka'het engines are peculiar in that they continuously draw large amounts of energy, but require no additional energy to activate: while this means that less power remains available for other subsystems, it is also somewhat more efficient than most types of propulsion, and generates only a tiny amount of heat.",
     "governments": {
@@ -14573,11 +14613,14 @@
     "turn": 648.15,
     "turning heat": 0.5,
     "flare sprite": "\"effect/ka'het",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 30
     },
     "flare sound": "plasma small",
     "steering flare sprite": "\"effect/ka'het",
+    "steering flare sprite data": {
+      "frame rate": 30
+    },
     "steering flare sound": "plasma small",
     "description": "While Ka'het vessels are already equipped with proper engines, most of them use a sustainer engine in addition to give the ship enough maneuverability to be useful in combat. Following the same design as its bigger cousins, the sustainer requires no power to function at the cost of constant energy consumption.",
     "governments": {
@@ -14603,11 +14646,14 @@
     "turn": 2068.8,
     "turning heat": 1.9,
     "flare sprite": "\"effect/ka'het",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 30
     },
     "flare sound": "plasma medium",
     "steering flare sprite": "\"effect/ka'het",
+    "steering flare sprite data": {
+      "frame rate": 30
+    },
     "steering flare sound": "plasma medium",
     "description": "These nacelles used to comprise the entire engine block of a Telis'het. While their size is not impressive compared to other engines, if used in conjunction with a sustainer or two, they can be a powerful form of propulsion, combining both turning and thrusting engines in one.",
     "governments": {
@@ -14632,11 +14678,14 @@
     "turn": 3500.85,
     "turning heat": 3.32,
     "flare sprite": "\"effect/ka'het",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 30
     },
     "flare sound": "plasma large",
     "steering flare sprite": "\"effect/ka'het",
+    "steering flare sprite data": {
+      "frame rate": 30
+    },
     "steering flare sound": "plasma large",
     "description": "This is the largest single engine the Builders ever built, made for the most massive ships they were in control of. Due to its sheer size, it isn't as modular as its smaller equivalents, but it is more efficient and powerful as a result.",
     "governments": {
@@ -14663,11 +14712,14 @@
     "turning energy": 0.42,
     "turning heat": 0.3,
     "flare sprite": "\"effect/ka'het",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 30
     },
     "flare sound": "plasma small",
     "steering flare sprite": "\"effect/ka'het",
+    "steering flare sprite data": {
+      "frame rate": 30
+    },
     "steering flare sound": "plasma small",
     "description": "This tiny engine was developed as the main propulsion of the Ka'mar drones, long before the Ka'het were created and their nacelle design standardized. Improvements over time allowed it to maintain a comparable efficiency to the larger models, although unlike those, it requires some energy to activate the engines in addition to the constant energy drain that all Builder-designed engines have.",
     "governments": {
@@ -15199,11 +15251,14 @@
     "turning energy": 0.65,
     "turning heat": 1.95,
     "flare sprite": "effect/korath flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 8
     },
     "flare sound": "plasma tiny",
     "steering flare sprite": "effect/korath flare/tiny",
+    "steering flare sprite data": {
+      "frame rate": 8
+    },
     "steering flare sound": "plasma tiny",
     "description": "Although the prevailing Korath attitude towards engine construction has always been with a focus on making things bigger, faster, and more powerful, the Exiles found it necessary to develop these engines to allow their fighters to carry larger weapons or more cargo, at the cost of some speed.",
     "governments": {
@@ -15230,10 +15285,13 @@
     "reverse thrusting energy": 1.35,
     "reverse thrusting heat": 2.9,
     "steering flare sprite": "effect/korath flare/tiny",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 8
     },
     "reverse flare sprite": "effect/korath flare/tiny",
+    "reverse flare sprite data": {
+      "frame rate": 8
+    },
     "reverse flare sound": "plasma tiny",
     "steering flare sound": "plasma tiny",
     "description": "This modification of the Meteor Class engines acts as a reverser, allowing a full range of mobility for small craft when paired with more powerful base thrusters.",
@@ -15258,7 +15316,7 @@
     "reverse thrusting energy": 1.5,
     "reverse thrusting heat": 3.4,
     "reverse flare sprite": "effect/korath flare/tiny",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 8
     },
     "reverse flare sound": "plasma tiny",
@@ -15284,7 +15342,7 @@
     "reverse thrusting energy": 2.8,
     "reverse thrusting heat": 6.5,
     "reverse flare sprite": "effect/korath flare/small",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 7.5
     },
     "reverse flare sound": "plasma small",
@@ -15310,7 +15368,7 @@
     "reverse thrusting energy": 4.9,
     "reverse thrusting heat": 11.9,
     "reverse flare sprite": "effect/korath flare/medium",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 7
     },
     "reverse flare sound": "plasma medium",
@@ -15336,7 +15394,7 @@
     "reverse thrusting energy": 8.9,
     "reverse thrusting heat": 22.7,
     "reverse flare sprite": "effect/korath flare/large",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 6.5
     },
     "reverse flare sound": "plasma large",
@@ -15362,7 +15420,7 @@
     "reverse thrusting energy": 15.8,
     "reverse thrusting heat": 42.6,
     "reverse flare sprite": "effect/korath flare/huge",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 6
     },
     "reverse flare sound": "plasma huge",
@@ -15387,7 +15445,7 @@
     "thrusting energy": 1.5,
     "thrusting heat": 3.4,
     "flare sprite": "effect/korath flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 8
     },
     "flare sound": "plasma tiny",
@@ -15417,7 +15475,7 @@
     "thrusting energy": 2.8,
     "thrusting heat": 6.5,
     "flare sprite": "effect/korath flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 7.5
     },
     "flare sound": "plasma small",
@@ -15441,7 +15499,7 @@
     "thrusting energy": 4.9,
     "thrusting heat": 11.9,
     "flare sprite": "effect/korath flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 7
     },
     "flare sound": "plasma medium",
@@ -15471,7 +15529,7 @@
     "thrusting energy": 8.9,
     "thrusting heat": 22.7,
     "flare sprite": "effect/korath flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 6.5
     },
     "flare sound": "plasma large",
@@ -15504,7 +15562,7 @@
     "thrusting energy": 15.8,
     "thrusting heat": 42.6,
     "flare sprite": "effect/korath flare/huge",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 6
     },
     "flare sound": "plasma huge",
@@ -15531,7 +15589,7 @@
     "turning energy": 0.7,
     "turning heat": 2.1,
     "steering flare sprite": "effect/korath flare/tiny",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 8
     },
     "steering flare sound": "plasma tiny",
@@ -15560,7 +15618,7 @@
     "turning energy": 1.4,
     "turning heat": 4.1,
     "steering flare sprite": "effect/korath flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 7.5
     },
     "steering flare sound": "plasma small",
@@ -15588,7 +15646,7 @@
     "turning energy": 2.5,
     "turning heat": 7.4,
     "steering flare sprite": "effect/korath flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 7
     },
     "steering flare sound": "plasma medium",
@@ -15617,7 +15675,7 @@
     "turning energy": 4.6,
     "turning heat": 14.2,
     "steering flare sprite": "effect/korath flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 6.5
     },
     "steering flare sound": "plasma large",
@@ -15648,7 +15706,7 @@
     "turning energy": 8.2,
     "turning heat": 26.7,
     "steering flare sprite": "effect/korath flare/huge",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 6
     },
     "steering flare sound": "plasma huge",
@@ -15677,7 +15735,7 @@
     "thrusting energy": 2.6,
     "thrusting heat": 3,
     "flare sprite": "effect/efreti flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 8
     },
     "flare sound": "ion tiny",
@@ -15700,7 +15758,7 @@
     "thrusting energy": 5.05,
     "thrusting heat": 5.9,
     "flare sprite": "effect/efreti flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 7.5
     },
     "flare sound": "ion small",
@@ -15723,7 +15781,7 @@
     "thrusting energy": 9.1,
     "thrusting heat": 11.05,
     "flare sprite": "effect/efreti flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 7
     },
     "flare sound": "ion medium",
@@ -15746,7 +15804,7 @@
     "thrusting energy": 14,
     "thrusting heat": 18,
     "flare sprite": "effect/efreti flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 6.5
     },
     "flare sound": "ion large",
@@ -15769,7 +15827,7 @@
     "turning energy": 1.25,
     "turning heat": 1.3,
     "steering flare sprite": "effect/efreti flare/tiny",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 8
     },
     "steering flare sound": "ion tiny",
@@ -15792,7 +15850,7 @@
     "turning energy": 2.7,
     "turning heat": 2.95,
     "steering flare sprite": "effect/efreti flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 7.5
     },
     "steering flare sound": "ion small",
@@ -15815,7 +15873,7 @@
     "turning energy": 4.9,
     "turning heat": 5.85,
     "steering flare sprite": "effect/efreti flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 7
     },
     "steering flare sound": "ion medium",
@@ -15838,7 +15896,7 @@
     "turning energy": 7.85,
     "turning heat": 10,
     "steering flare sprite": "effect/efreti flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 6.5
     },
     "steering flare sound": "ion large",
@@ -15901,7 +15959,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/grab-strike",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 25,
         "random start frame": true
       },
@@ -15954,7 +16012,7 @@
     "asteroid scan power": 16,
     "weapon": {
       "sprite": "projectile/shunt-strike",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 24,
         "random start frame": true
       },
@@ -16007,7 +16065,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/banisher",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60
       },
       "hardpoint sprite": "hardpoint/banisher",
@@ -16048,7 +16106,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/expeller",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60
       },
       "sound": "banisher",
@@ -16114,7 +16172,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/fire-lance",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 12,
         "random start frame": true
       },
@@ -16152,7 +16210,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/blaze-pike",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 20
       },
       "hardpoint sprite": "hardpoint/blaze-pike",
@@ -16190,7 +16248,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/korath inferno",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 20
       },
       "hardpoint sprite": "hardpoint/korath inferno",
@@ -16233,7 +16291,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/repeater",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5
       },
       "sound": "repeater",
@@ -16274,7 +16332,7 @@
     "turret mounts": -1,
     "weapon": {
       "sprite": "projectile/repeater",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5
       },
       "hardpoint sprite": "hardpoint/repeater turret",
@@ -16349,7 +16407,7 @@
     "piercer capacity": 31,
     "weapon": {
       "sprite": "projectile/piercer",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5,
         "random start frame": true
       },
@@ -16404,7 +16462,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/detainer",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 2.5
       },
       "sound": "detainer",
@@ -16485,7 +16543,7 @@
     "minelayer capacity": 17,
     "weapon": {
       "sprite": "projectile/korath minelayer",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 0.6,
         "no repeat": true
       },
@@ -16538,7 +16596,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/disruptor",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 15
       },
       "hardpoint sprite": "hardpoint/disruptor",
@@ -16581,7 +16639,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/slicer",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 6
       },
       "sound": "slicer",
@@ -16619,7 +16677,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/slicer",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 6
       },
       "hardpoint sprite": "hardpoint/slicer turret",
@@ -16661,7 +16719,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/digger",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 20
       },
       "hardpoint sprite": "hardpoint/digger turret",
@@ -16700,7 +16758,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/digger thin",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 20
       },
       "sound": "korath digger",
@@ -16742,7 +16800,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/heaver hyperspace",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 12,
         "rewind": true
       },
@@ -16945,7 +17003,7 @@
     "firestorm torpedo capacity": 13,
     "weapon": {
       "sprite": "projectile/firestorm torpedo",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 6,
         "random start frame": true
       },
@@ -17113,7 +17171,7 @@
     "required crew": 12,
     "weapon": {
       "sprite": "projectile/fusion gun bolt",
-      "spriteData": {
+      "sprite data": {
         "no repeat": true,
         "frame rate": 0.25
       },
@@ -17171,7 +17229,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/lightning",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60,
         "random start frame": true,
         "delay": 6
@@ -17208,7 +17266,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/lightning",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60,
         "random start frame": true
       },
@@ -17246,7 +17304,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/seeker",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 20,
         "random start frame": true
       },
@@ -17390,7 +17448,7 @@
     "thrusting energy": 2.2,
     "thrusting heat": 3.1,
     "flare sprite": "effect/pug flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 20
     },
     "flare sound": "ion medium",
@@ -17415,7 +17473,7 @@
     "turning energy": 1.3,
     "turning heat": 2.1,
     "steering flare sprite": "effect/pug flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 20
     },
     "steering flare sound": "ion medium",
@@ -17440,7 +17498,7 @@
     "thrusting energy": 3.3,
     "thrusting heat": 4.6,
     "flare sprite": "effect/pug flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 22
     },
     "flare sound": "ion large",
@@ -17465,7 +17523,7 @@
     "turning energy": 1.9,
     "turning heat": 3.1,
     "steering flare sprite": "effect/pug flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 22
     },
     "steering flare sound": "ion large",
@@ -17490,7 +17548,7 @@
     "thrusting energy": 4.9,
     "thrusting heat": 6.9,
     "flare sprite": "effect/pug flare/huge",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 23
     },
     "flare sound": "ion huge",
@@ -17515,7 +17573,7 @@
     "turning energy": 2.8,
     "turning heat": 4.7,
     "steering flare sprite": "effect/pug flare/huge",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 23
     },
     "steering flare sound": "ion huge",
@@ -17580,7 +17638,7 @@
     "force protection": 0.1,
     "inertia reduction": 0.1,
     "flare sprite": "effect/graviton flare/graviton flare",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 5,
       "scale": 0.75
     },
@@ -17636,7 +17694,7 @@
     "force protection": 0.15,
     "inertia reduction": 0.15,
     "flare sprite": "effect/graviton flare/graviton flare",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 5
     },
     "description": "Quarg thrusters are quite powerful for their size and produce very little heat, but at the cost of consuming immense amounts of energy. The mechanism by which they produce thrust is unknown, but it is rumored that the passing of a Quarg ship wreaks havoc on every gravitational wave antenna in the system. \tThey also have strange capabilities which seem to violate the laws of physics as humanity understands them. Ships with these engines accelerate faster under their own power than one would expect, while also taking less impact from external forces.",
@@ -17691,7 +17749,7 @@
     "force protection": 0.2,
     "inertia reduction": 0.2,
     "flare sprite": "effect/graviton flare/graviton flare",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 5,
       "scale": 1.25
     },
@@ -17927,7 +17985,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/skydagger",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1
       },
       "hardpoint sprite": "hardpoint/quarg skydagger",
@@ -17969,7 +18027,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/skylance",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 1
       },
       "hardpoint sprite": "hardpoint/quarg skylance",
@@ -18076,7 +18134,7 @@
     "weapon capacity": -45,
     "weapon": {
       "sprite": "projectile/culverin",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 60,
         "random start frame": true,
         "rewind": true
@@ -18162,7 +18220,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/slipstream projector/slipstream",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 20
       },
       "sound": "slipstream projector",
@@ -18217,7 +18275,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/inhibitor",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 10,
         "no repeat": true
       },
@@ -18263,7 +18321,7 @@
     "turret mounts": -1,
     "weapon": {
       "sprite": "projectile/inhibitor",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 10,
         "no repeat": true
       },
@@ -18307,7 +18365,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/thrasher",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 10,
         "random start frame": true,
         "no repeat": true
@@ -18346,7 +18404,7 @@
     "turret mounts": -1,
     "weapon": {
       "sprite": "projectile/thrasher",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 10,
         "random start frame": true,
         "no repeat": true
@@ -18465,7 +18523,7 @@
     "emp torpedo capacity": 9,
     "weapon": {
       "sprite": "projectile/emp torpedo",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 2,
         "no repeat": true
       },
@@ -18560,7 +18618,7 @@
     "teciimach canister capacity": 9,
     "weapon": {
       "sprite": "projectile/emp torpedo",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 2,
         "no repeat": true
       },
@@ -18623,7 +18681,7 @@
     "teciimach canister capacity": 3,
     "weapon": {
       "sprite": "projectile/emp torpedo",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 2,
         "no repeat": true
       },
@@ -18689,7 +18747,7 @@
     "unplunderable": 1,
     "weapon": {
       "sprite": "projectile/ember tear/ember tear",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 30
       },
       "sound": "ember tear",
@@ -18974,13 +19032,19 @@
     "reverse thrusting heat": 1.45,
     "slowing resistance": 0.02,
     "flare sprite": "effect/remnant flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 5
     },
     "flare sound": "plasma tiny",
     "steering flare sprite": "effect/remnant flare/small",
+    "steering flare sprite data": {
+      "frame rate": 5
+    },
     "steering flare sound": "plasma tiny",
     "reverse flare sprite": "effect/remnant flare/small",
+    "reverse flare sprite data": {
+      "frame rate": 5
+    },
     "reverse flare sound": "plasma tiny",
     "description": "This tiny set of engines was designed specifically for craft so small that it combines both thrusters and steering into one unit.",
     "governments": {
@@ -19008,11 +19072,14 @@
     "reverse thrusting heat": 1.5,
     "slowing resistance": 0.012,
     "flare sprite": "effect/remnant flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 5
     },
     "flare sound": "plasma tiny",
     "reverse flare sprite": "effect/remnant flare/small",
+    "reverse flare sprite data": {
+      "frame rate": 5
+    },
     "reverse flare sound": "plasma tiny",
     "description": "These small but powerful engines are driven by ionized gas propelled at a sizable fraction of the speed of light.",
     "governments": {
@@ -19040,11 +19107,14 @@
     "reverse thrusting heat": 3.2,
     "slowing resistance": 0.024,
     "flare sprite": "effect/remnant flare/medium",
-    "spriteData": {
-      "frame rate": 5
+    "flare sprite data": {
+      "frame rate": 4
     },
     "flare sound": "plasma small",
     "reverse flare sprite": "effect/remnant flare/small",
+    "reverse flare sprite data": {
+      "frame rate": 5
+    },
     "reverse flare sound": "plasma small",
     "description": "The Remnant have taken the basic ion thruster design that has been used by humanity since the dawn of spaceflight and made it significantly more powerful... but also more power-hungry.",
     "governments": {
@@ -19073,11 +19143,14 @@
     "reverse thrusting heat": 7.2,
     "slowing resistance": 0.048,
     "flare sprite": "effect/remnant flare/large",
-    "spriteData": {
-      "frame rate": 5
+    "flare sprite data": {
+      "frame rate": 3
     },
     "flare sound": "plasma medium",
     "reverse flare sprite": "effect/remnant flare/medium",
+    "reverse flare sprite data": {
+      "frame rate": 5
+    },
     "reverse flare sound": "plasma medium",
     "description": "It is not unheard of for a Remnant ship's engines to draw even more power than its weapon systems: an indication, perhaps, of their preference for avoiding battle when possible.",
     "governments": {
@@ -19102,7 +19175,7 @@
     "turning heat": 1.4,
     "slowing resistance": 0.008,
     "steering flare sprite": "effect/remnant flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 5
     },
     "steering flare sound": "plasma tiny",
@@ -19130,7 +19203,7 @@
     "turning heat": 3,
     "slowing resistance": 0.016,
     "steering flare sprite": "effect/remnant flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 4
     },
     "steering flare sound": "plasma small",
@@ -19158,7 +19231,7 @@
     "turning heat": 6.2,
     "slowing resistance": 0.032,
     "steering flare sprite": "effect/remnant flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 3
     },
     "steering flare sound": "plasma medium",
@@ -19459,12 +19532,16 @@
     "turning energy": 0.585,
     "turning heat": 1.365,
     "flare sprite": "effect/fissionflare",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 30,
       "rewind": true
     },
     "flare sound": "atomic small",
     "steering flare sprite": "effect/fissionflare",
+    "steering flare sprite data": {
+      "frame rate": 30,
+      "rewind": true
+    },
     "steering flare sound": "atomic tiny",
     "description": "A much smaller cousin of the Fusion Drive, it relies on fission instead of fusion to function, providing the necessary power generation and thrust to drive the Heavy Ion Cyclotron.",
     "governments": {
@@ -19497,14 +19574,22 @@
     "reverse thrusting energy": 4.9,
     "reverse thrusting heat": 13.3,
     "flare sprite": "effect/fusionflare",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 30,
       "rewind": true
     },
     "flare sound": "atomic huge",
     "steering flare sprite": "effect/fusionflare",
+    "steering flare sprite data": {
+      "frame rate": 30,
+      "rewind": true
+    },
     "steering flare sound": "atomic medium",
     "reverse flare sprite": "effect/fusionflare",
+    "reverse flare sprite data": {
+      "frame rate": 30,
+      "rewind": true
+    },
     "reverse flare sound": "atomic large",
     "unplunderable": 1,
     "description": "The Sheragi engines are much more than simple tubes spewing fire; they are a collection of interdependent devices, providing increased efficiency at the cost of modularity. These include a hyperdrive, an enormous fusion reactor, and the most powerful plasma engines you've ever seen. It's all examples of relatively simple technology, but they have been refined and taken to their extreme. The engines are fundamentally connected to the fusion reactor, increasing their thrust even further and thereby allowing the Emerald Sword to fly at impressive speeds, traveling through interstellar space with relative ease.",
@@ -19616,7 +19701,7 @@
     "unique": 1,
     "weapon": {
       "sprite": "projectile/pwavecannon",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 20
       },
       "sound": "pwave",
@@ -19658,7 +19743,7 @@
     "operating costs": 150,
     "weapon": {
       "sprite": "projectile/shardactive",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 30,
         "random start frame": true
       },
@@ -19706,7 +19791,7 @@
     "unique": 1,
     "weapon": {
       "sprite": "projectile/hion",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 30
       },
       "sound": "hion",
@@ -20227,7 +20312,7 @@
     "afterburner heat": 1.6,
     "afterburner effect": "tiny successor afterburner",
     "flare sprite": "effect/successor flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 20
     },
     "flare sound": "ion tiny",
@@ -20235,6 +20320,9 @@
     "turning energy": 0.24,
     "turning heat": 0.4,
     "steering flare sprite": "effect/successor flare/tiny",
+    "steering flare sprite data": {
+      "frame rate": 20
+    },
     "steering flare sound": "ion tiny",
     "description": "This tiny set of inductive engines is just enough to push around a Successor shuttle. They retain the dual-mode capabilities of the larger models, albeit at a much smaller scale.",
     "governments": {
@@ -20263,7 +20351,7 @@
     "afterburner energy": 1.74,
     "afterburner effect": "small successor afterburner",
     "flare sprite": "effect/successor flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 20
     },
     "flare sound": "ion small",
@@ -20292,7 +20380,7 @@
     "turning energy": 1.1,
     "turning heat": 0.8,
     "steering flare sprite": "effect/successor flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 20
     },
     "steering flare sound": "ion small",
@@ -20321,7 +20409,7 @@
     "reverse thrusting heat": 0.7,
     "afterburner energy": -0.52,
     "reverse flare sprite": "effect/successor flare/small",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 20
     },
     "reverse flare sound": "ion small",
@@ -20359,7 +20447,7 @@
     "afterburner energy": 2.7,
     "afterburner effect": "medium successor afterburner",
     "flare sprite": "effect/successor flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 20
     },
     "flare sound": "ion medium",
@@ -20394,7 +20482,7 @@
     "turning energy": 2.3,
     "turning heat": 1.7,
     "steering flare sprite": "effect/successor flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 20
     },
     "steering flare sound": "ion medium",
@@ -20431,7 +20519,7 @@
     "reverse thrusting heat": 1.6,
     "afterburner energy": -1.2,
     "reverse flare sprite": "effect/successor flare/medium",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 20
     },
     "reverse flare sound": "ion medium",
@@ -20469,7 +20557,7 @@
     "afterburner energy": 4.8,
     "afterburner effect": "large successor afterburner",
     "flare sprite": "effect/successor flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 20
     },
     "flare sound": "ion large",
@@ -20504,7 +20592,7 @@
     "turning energy": 3.15,
     "turning heat": 2.54,
     "steering flare sprite": "effect/successor flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 20
     },
     "steering flare sound": "ion large",
@@ -20539,7 +20627,7 @@
     "reverse thrusting energy": 3.5,
     "reverse thrusting heat": 2.8,
     "reverse flare sprite": "effect/successor flare/large",
-    "spriteData": {
+    "reverse flare sprite data": {
       "frame rate": 20
     },
     "reverse flare sound": "ion large",
@@ -20684,7 +20772,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/bimodal",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5,
         "start frame": 0,
         "no repeat": true
@@ -20742,7 +20830,7 @@
       "hardpoint sprite": "hardpoint/bimodal turret",
       "hardpoint offset": 12,
       "sprite": "projectile/bimodal",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 5,
         "start frame": 0,
         "no repeat": true
@@ -20835,7 +20923,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/successor pulse laser",
-      "spriteData": {
+      "sprite data": {
         "random start frame": true,
         "frame rate": 5
       },
@@ -20877,7 +20965,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/successor pulse laser",
-      "spriteData": {
+      "sprite data": {
         "random start frame": true,
         "frame rate": 5
       },
@@ -20921,7 +21009,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/successor pulse laser",
-      "spriteData": {
+      "sprite data": {
         "start frame": 2,
         "frame rate": 8,
         "rewind": true
@@ -20965,7 +21053,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/successor pulse laser",
-      "spriteData": {
+      "sprite data": {
         "start frame": 2,
         "frame rate": 8,
         "rewind": true
@@ -21013,7 +21101,7 @@
     "spike capacity": 20,
     "weapon": {
       "sprite": "projectile/sjeja kinetic lance",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 4,
         "random start frame": true
       },
@@ -21110,7 +21198,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/sunbeam/sunbeam",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 30
       },
       "sound": "sunbeam",
@@ -21147,7 +21235,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/sunbeam/sunbeam",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 30
       },
       "hardpoint sprite": "hardpoint/sunbeam turret",
@@ -21188,7 +21276,7 @@
     "required crew": 2,
     "weapon": {
       "sprite": "projectile/sunbeam/2x sunbeam",
-      "spriteData": {
+      "sprite data": {
         "frame rate": 30
       },
       "hardpoint sprite": "hardpoint/dual sunbeam turret",
@@ -21227,7 +21315,7 @@
     "gun ports": -1,
     "weapon": {
       "sprite": "projectile/moonbeam",
-      "spriteData": {
+      "sprite data": {
         "random start frame": true
       },
       "sound": "moonbeam",
@@ -21266,7 +21354,7 @@
     "required crew": 1,
     "weapon": {
       "sprite": "projectile/moonbeam",
-      "spriteData": {
+      "sprite data": {
         "random start frame": true
       },
       "hardpoint sprite": "hardpoint/moonbeam turret",
@@ -21339,7 +21427,7 @@
     "thunderhead capacity": 40,
     "weapon": {
       "sprite": "projectile/thunderhead",
-      "spriteData": {
+      "sprite data": {
         "no repeat": true,
         "frame rate": 0.1
       },
@@ -21629,7 +21717,7 @@
     "thrusting heat": 0.85,
     "cooling": 1.5,
     "flare sprite": "effect/wanderer flare/tiny",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 12
     },
     "flare sound": "plasma tiny",
@@ -21656,7 +21744,7 @@
     "thrusting heat": 2.4,
     "cooling": 3.6,
     "flare sprite": "effect/wanderer flare/small",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 14
     },
     "flare sound": "plasma small",
@@ -21683,7 +21771,7 @@
     "thrusting heat": 4.3,
     "cooling": 6.5,
     "flare sprite": "effect/wanderer flare/medium",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 16
     },
     "flare sound": "plasma medium",
@@ -21710,7 +21798,7 @@
     "thrusting heat": 7.6,
     "cooling": 11.7,
     "flare sprite": "effect/wanderer flare/large",
-    "spriteData": {
+    "flare sprite data": {
       "frame rate": 18
     },
     "flare sound": "plasma large",
@@ -21737,7 +21825,7 @@
     "turning heat": 0.6,
     "cooling": 1,
     "steering flare sprite": "effect/wanderer flare/tiny",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 12
     },
     "steering flare sound": "plasma tiny",
@@ -21764,7 +21852,7 @@
     "turning heat": 1.5,
     "cooling": 2.1,
     "steering flare sprite": "effect/wanderer flare/small",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 14
     },
     "steering flare sound": "plasma small",
@@ -21791,7 +21879,7 @@
     "turning heat": 2.6,
     "cooling": 3.9,
     "steering flare sprite": "effect/wanderer flare/medium",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 16
     },
     "steering flare sound": "plasma medium",
@@ -21818,7 +21906,7 @@
     "turning heat": 4.5,
     "cooling": 6.7,
     "steering flare sprite": "effect/wanderer flare/large",
-    "spriteData": {
+    "steering flare sprite data": {
       "frame rate": 18
     },
     "steering flare sound": "plasma large",
