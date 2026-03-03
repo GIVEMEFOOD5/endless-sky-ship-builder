@@ -991,13 +991,17 @@ class EndlessSkyParser {
   parseSpriteWithData(lines, i, baseIndent) {
     const stripped = lines[i].trim();
     const map = {
-      'sprite ':                 { key: 'sprite',                re: /sprite\s+["`]([^"'\`]+)["\`]/,                 alt: /sprite\s+(\S+)/ },
-      'thumbnail ':              { key: 'thumbnail',              re: /thumbnail\s+["`]([^"'\`]+)["\`]/,              alt: /thumbnail\s+(\S+)/ },
-      '"thumbnail"':             { key: 'thumbnail',              re: /"thumbnail"\s+["`]([^"'\`]+)["\`]/,            alt: /"thumbnail"\s+(\S+)/ },
-      '"flare sprite"':          { key: 'flare sprite',           re: /"flare sprite"\s+["`]([^"'\`]+)["\`]/,          alt: /"flare sprite"\s+(\S+)/ },
-      '"steering flare sprite"': { key: 'steering flare sprite',  re: /"steering flare sprite"\s+["`]([^"'\`]+)["\`]/, alt: /"steering flare sprite"\s+(\S+)/ },
-      '"reverse flare sprite"':  { key: 'reverse flare sprite',   re: /"reverse flare sprite"\s+["`]([^"'\`]+)["\`]/,  alt: /"reverse flare sprite"\s+(\S+)/ },
-      '"afterburner effect"':    { key: 'afterburner effect',     re: /"afterburner effect"\s+["`]([^"'\`]+)["\`]/,    alt: /"afterburner effect"\s+(\S+)/ }
+      'sprite ':                  { key: 'sprite',                 re: /sprite\s+["`]([^"'\`]+)["\`]/,                  alt: /sprite\s+(\S+)/ },
+      'thumbnail ':               { key: 'thumbnail',               re: /thumbnail\s+["`]([^"'\`]+)["\`]/,               alt: /thumbnail\s+(\S+)/ },
+      '"thumbnail"':              { key: 'thumbnail',               re: /"thumbnail"\s+["`]([^"'\`]+)["\`]/,             alt: /"thumbnail"\s+(\S+)/ },
+      '"flare sprite"':           { key: 'flare sprite',            re: /"flare sprite"\s+["`]([^"'\`]+)["\`]/,           alt: /"flare sprite"\s+(\S+)/ },
+      '"flare sound"':            { key: 'flare sound',             re: /"flare sound"\s+["`]([^"'\`]+)["\`]/,            alt: /"flare sound"\s+(\S+)/, noSubBlock: true },
+      '"steering flare sprite"':  { key: 'steering flare sprite',   re: /"steering flare sprite"\s+["`]([^"'\`]+)["\`]/,  alt: /"steering flare sprite"\s+(\S+)/ },
+      '"steering flare sound"':   { key: 'steering flare sound',    re: /"steering flare sound"\s+["`]([^"'\`]+)["\`]/,   alt: /"steering flare sound"\s+(\S+)/, noSubBlock: true },
+      '"reverse flare sprite"':   { key: 'reverse flare sprite',    re: /"reverse flare sprite"\s+["`]([^"'\`]+)["\`]/,   alt: /"reverse flare sprite"\s+(\S+)/ },
+      '"reverse flare sound"':    { key: 'reverse flare sound',     re: /"reverse flare sound"\s+["`]([^"'\`]+)["\`]/,    alt: /"reverse flare sound"\s+(\S+)/, noSubBlock: true },
+      '"afterburner effect"':     { key: 'afterburner effect',      re: /"afterburner effect"\s+["`]([^"'\`]+)["\`]/,     alt: /"afterburner effect"\s+(\S+)/ },
+      '"afterburner sound"':      { key: 'afterburner sound',       re: /"afterburner sound"\s+["`]([^"'\`]+)["\`]/,      alt: /"afterburner sound"\s+(\S+)/, noSubBlock: true },
     };
 
     for (const [prefix, cfg] of Object.entries(map)) {
@@ -1005,11 +1009,12 @@ class EndlessSkyParser {
         const m = stripped.match(cfg.re) || stripped.match(cfg.alt);
         if (!m) break;
         const result = { [cfg.key]: m[1] };
-        if (i + 1 < lines.length) {
+        // Sound fields and other simple values have no sub-block
+        if (!cfg.noSubBlock && i + 1 < lines.length) {
           const ni = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
           if (ni > baseIndent) {
             const [sd, nextIdx] = this.parseBlock(lines, i + 1);
-            result.spriteData = sd;
+            result[cfg.key + ' data'] = sd;
             return [result, nextIdx];
           }
         }
@@ -1188,10 +1193,10 @@ class EndlessSkyParser {
       // Handle all sprite/flare/thumbnail/afterburner fields via parseSpriteWithData
       if (stripped.startsWith('sprite ') ||
           stripped.startsWith('"thumbnail"') || stripped.startsWith('thumbnail ') ||
-          stripped.startsWith('"flare sprite"') ||
-          stripped.startsWith('"steering flare sprite"') ||
-          stripped.startsWith('"reverse flare sprite"') ||
-          stripped.startsWith('"afterburner effect"')) {
+          stripped.startsWith('"flare sprite"') || stripped.startsWith('"flare sound"') ||
+          stripped.startsWith('"steering flare sprite"') || stripped.startsWith('"steering flare sound"') ||
+          stripped.startsWith('"reverse flare sprite"') || stripped.startsWith('"reverse flare sound"') ||
+          stripped.startsWith('"afterburner effect"') || stripped.startsWith('"afterburner sound"')) {
         const [sd, ni] = this.parseSpriteWithData(lines, i, indent);
         Object.assign(shipData, sd);
         i = ni;
@@ -1301,10 +1306,10 @@ class EndlessSkyParser {
       // keys like "flare sprite" are routed through parseSpriteWithData.
       if (stripped.startsWith('sprite ') ||
           stripped.startsWith('"thumbnail"') || stripped.startsWith('thumbnail ') ||
-          stripped.startsWith('"flare sprite"') ||
-          stripped.startsWith('"steering flare sprite"') ||
-          stripped.startsWith('"reverse flare sprite"') ||
-          stripped.startsWith('"afterburner effect"')) {
+          stripped.startsWith('"flare sprite"') || stripped.startsWith('"flare sound"') ||
+          stripped.startsWith('"steering flare sprite"') || stripped.startsWith('"steering flare sound"') ||
+          stripped.startsWith('"reverse flare sprite"') || stripped.startsWith('"reverse flare sound"') ||
+          stripped.startsWith('"afterburner effect"') || stripped.startsWith('"afterburner sound"')) {
         const [sd, ni] = this.parseSpriteWithData(lines, i, indent);
         for (const [k, val] of Object.entries(sd)) {
           if (val !== baseShip[k]) { v[k] = val; changed = true; }
