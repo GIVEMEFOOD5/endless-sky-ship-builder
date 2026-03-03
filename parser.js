@@ -702,7 +702,9 @@ class EndlessSkyParser {
         if (shipTwoArg) { shipNames.push(shipTwoArg[1]); i++; continue; }
         if (shipOneArg) { shipNames.push(shipOneArg[1]); i++; continue; }
 
-        // fleet sub-block inside npc — extract ship names from it
+        // fleet sub-block inside npc — extract ship names from variant sub-blocks only.
+        // Top-level fleet lines like "names", "government", "personality" are not ship names.
+        // Only names inside a "variant" sub-block (indent > fleetIndent+1) are actual ships.
         if (stripped === 'fleet' || stripped.startsWith('fleet ')) {
           const fleetIndent = indent;
           i++;
@@ -711,9 +713,12 @@ class EndlessSkyParser {
             const fi = fl.length - fl.replace(/^\t+/, '').length;
             if (fi <= fleetIndent && fl.trim()) break;
             const fs = fl.trim();
-            const fm = fs.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
-                       fs.match(/^`([^`]+)`(?:\s+\d+)?$/);
-            if (fm) shipNames.push(fm[1]);
+            // Only collect names inside a variant sub-block, not top-level fleet properties
+            if (fi > fleetIndent + 1) {
+              const fm = fs.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
+                         fs.match(/^`([^`]+)`(?:\s+\d+)?$/);
+              if (fm) shipNames.push(fm[1]);
+            }
             i++;
           }
           continue;
