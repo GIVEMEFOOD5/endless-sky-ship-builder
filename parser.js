@@ -389,8 +389,16 @@ class EndlessSkyParser {
     const paths = new Set();
     const add = p => { if (p) paths.add(p); };
 
-    for (const s of ships)    { add(s.sprite); add(s.thumbnail); }
-    for (const v of variants) { add(v.sprite); add(v.thumbnail); }
+    for (const s of ships) {
+      add(s.sprite); add(s.thumbnail);
+      add(s['flare sprite']); add(s['steering flare sprite']); add(s['reverse flare sprite']);
+      add(s['afterburner effect']);
+    }
+    for (const v of variants) {
+      add(v.sprite); add(v.thumbnail);
+      add(v['flare sprite']); add(v['steering flare sprite']); add(v['reverse flare sprite']);
+      add(v['afterburner effect']);
+    }
     for (const o of outfits) {
       add(o.sprite); add(o.thumbnail);
       add(o['flare sprite']); add(o['steering flare sprite']); add(o['reverse flare sprite']);
@@ -983,11 +991,13 @@ class EndlessSkyParser {
   parseSpriteWithData(lines, i, baseIndent) {
     const stripped = lines[i].trim();
     const map = {
-      'sprite ':                 { key: 'sprite',                re: /sprite\s+["`]([^"'`]+)["'`]/,                 alt: /sprite\s+(\S+)/ },
-      '"flare sprite"':          { key: 'flare sprite',           re: /"flare sprite"\s+["`]([^"'`]+)["'`]/,          alt: /"flare sprite"\s+(\S+)/ },
-      '"steering flare sprite"': { key: 'steering flare sprite',  re: /"steering flare sprite"\s+["`]([^"'`]+)["'`]/, alt: /"steering flare sprite"\s+(\S+)/ },
-      '"reverse flare sprite"':  { key: 'reverse flare sprite',   re: /"reverse flare sprite"\s+["`]([^"'`]+)["'`]/,  alt: /"reverse flare sprite"\s+(\S+)/ },
-      '"afterburner effect"':    { key: 'afterburner effect',     re: /"afterburner effect"\s+["`]([^"'`]+)["'`]/,    alt: /"afterburner effect"\s+(\S+)/ }
+      'sprite ':                 { key: 'sprite',                re: /sprite\s+["`]([^"'\`]+)["\`]/,                 alt: /sprite\s+(\S+)/ },
+      'thumbnail ':              { key: 'thumbnail',              re: /thumbnail\s+["`]([^"'\`]+)["\`]/,              alt: /thumbnail\s+(\S+)/ },
+      '"thumbnail"':             { key: 'thumbnail',              re: /"thumbnail"\s+["`]([^"'\`]+)["\`]/,            alt: /"thumbnail"\s+(\S+)/ },
+      '"flare sprite"':          { key: 'flare sprite',           re: /"flare sprite"\s+["`]([^"'\`]+)["\`]/,          alt: /"flare sprite"\s+(\S+)/ },
+      '"steering flare sprite"': { key: 'steering flare sprite',  re: /"steering flare sprite"\s+["`]([^"'\`]+)["\`]/, alt: /"steering flare sprite"\s+(\S+)/ },
+      '"reverse flare sprite"':  { key: 'reverse flare sprite',   re: /"reverse flare sprite"\s+["`]([^"'\`]+)["\`]/,  alt: /"reverse flare sprite"\s+(\S+)/ },
+      '"afterburner effect"':    { key: 'afterburner effect',     re: /"afterburner effect"\s+["`]([^"'\`]+)["\`]/,    alt: /"afterburner effect"\s+(\S+)/ }
     };
 
     for (const [prefix, cfg] of Object.entries(map)) {
@@ -1175,7 +1185,13 @@ class EndlessSkyParser {
         continue;
       }
 
-      if (stripped.startsWith('sprite ')) {
+      // Handle all sprite/flare/thumbnail/afterburner fields via parseSpriteWithData
+      if (stripped.startsWith('sprite ') ||
+          stripped.startsWith('"thumbnail"') || stripped.startsWith('thumbnail ') ||
+          stripped.startsWith('"flare sprite"') ||
+          stripped.startsWith('"steering flare sprite"') ||
+          stripped.startsWith('"reverse flare sprite"') ||
+          stripped.startsWith('"afterburner effect"')) {
         const [sd, ni] = this.parseSpriteWithData(lines, i, indent);
         Object.assign(shipData, sd);
         i = ni;
@@ -1277,6 +1293,22 @@ class EndlessSkyParser {
           else v.attributes[k] = val;
         }
         changed = true;
+        i = ni;
+        continue;
+      }
+
+      // Handle sprite/flare/thumbnail/afterburner fields explicitly so quoted
+      // keys like "flare sprite" are routed through parseSpriteWithData.
+      if (stripped.startsWith('sprite ') ||
+          stripped.startsWith('"thumbnail"') || stripped.startsWith('thumbnail ') ||
+          stripped.startsWith('"flare sprite"') ||
+          stripped.startsWith('"steering flare sprite"') ||
+          stripped.startsWith('"reverse flare sprite"') ||
+          stripped.startsWith('"afterburner effect"')) {
+        const [sd, ni] = this.parseSpriteWithData(lines, i, indent);
+        for (const [k, val] of Object.entries(sd)) {
+          if (val !== baseShip[k]) { v[k] = val; changed = true; }
+        }
         i = ni;
         continue;
       }
