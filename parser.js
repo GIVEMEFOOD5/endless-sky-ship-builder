@@ -594,7 +594,9 @@ class EndlessSkyParser {
           const [d, ni] = this.parseShip(lines, i);
           if (d) {
             this._registerShip(d, this._currentPluginId);
-            this.ships.push(d);
+            // Only include in output if it has a description.
+            // Description-less ships are hull templates used only for variant resolution.
+            if (d.description != null) this.ships.push(d);
           }
           i = ni; continue;
         } else if (trimmed.startsWith('outfit ')) {
@@ -1224,8 +1226,7 @@ class EndlessSkyParser {
       i++;
     }
 
-    const hasData = shipData.description != null;
-    return [hasData ? shipData : null, i];
+    return [shipData, i];
   }
 
   parseShipVariant(variantInfo) {
@@ -1342,8 +1343,7 @@ class EndlessSkyParser {
       i = ni;
     }
 
-    if (!v.description) return null;
-    return changed ? v : null;
+    return (changed || v.description) ? v : null;
   }
 
   shipsAreIdentical(a, b) {
