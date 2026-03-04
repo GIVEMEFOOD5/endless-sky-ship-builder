@@ -57,30 +57,30 @@ class SpeciesResolver {
   _governmentsForShip(shipName) {
     const govts = new Set();
 
-    // Build the set of names to match against:
-    //   "Falcon (Combat)" → also try "Falcon"
-    //   "Falcon"          → just "Falcon"
+    // Strip variant suffix: "Carrier (Alpha)" → "Carrier"
     const baseName = shipName.replace(/\s*\([^)]+\)\s*$/, '').trim();
-    const names = baseName !== shipName
-      ? [shipName, baseName]
-      : [shipName];
+    const isVariant = baseName !== shipName;
 
-    // Fleet membership
+    // Fleet and shipyard lookups use EXACT name only.
+    // A fleet listing "Carrier" refers to the base hull, not "Carrier (Alpha)".
+    // Letting the base name match here would bleed base ship governments into
+    // unrelated variants (e.g. Republic/Syndicate into Alpha variants).
     for (const fleet of this.fleets)
-      for (const n of names)
-        if (fleet.shipNames.includes(n))
-          govts.add(fleet.government);
+      if (fleet.shipNames.includes(shipName))
+        govts.add(fleet.government);
 
-    // Mission NPC references — only use entries with a known government
+    // NPC refs use both exact name and base name, because missions reference
+    // ships by their type name: ship "Carrier (Alpha)" "Giftbringer" stores
+    // "Carrier (Alpha)" directly, but ship "Carrier" "Bob" stores "Carrier"
+    // which should match a base ship lookup.
     for (const ref of this.npcRefs)
       if (ref.government)
-        for (const n of names)
-          if (ref.shipName === n)
-            govts.add(ref.government);
+        if (ref.shipName === shipName || ref.shipName === baseName)
+          govts.add(ref.government);
 
-    // Shipyard → planet → government chain
+    // Shipyard → planet → government chain: exact name only (same reason as fleets)
     for (const [yard, shipList] of Object.entries(this.shipyards)) {
-      if (!names.some(n => shipList.includes(n))) continue;
+      if (!shipList.includes(shipName)) continue;
       for (const planet of this.planets)
         if (planet.shipyards.includes(yard) && planet.government)
           govts.add(planet.government);
