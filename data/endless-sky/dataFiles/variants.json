@@ -2971,6 +2971,83 @@
     }
   },
   {
+    "name": "Korath Chaser (Korath Chaser (Expeller))",
+    "engines": [
+      {
+        "x": -7,
+        "y": 23
+      },
+      {
+        "x": 7,
+        "y": 23
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -28,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Korath Fire-Lance": 1,
+      "Generator (Furnace Class)": 1,
+      "Small Heat Shunt": 1,
+      "Thermal Repeater Rifle": 1,
+      "Thruster (Asteroid Class)": 1,
+      "Steering (Asteroid Class)": 1
+    },
+    "sprite": "ship/chaser",
+    "thumbnail": "thumbnail/chaser",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 671000,
+      "shields": 2300,
+      "hull": 900,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 106,
+      "drag": 1.35,
+      "heat dissipation": 0.6,
+      "outfit space": 92,
+      "weapon capacity": 25,
+      "engine capacity": 30,
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "The Korath Chaser is a fighter carried by most of their capital ships. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+    "_internalId": "official-game/endless-sky::Korath Chaser",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "6f2f6b7540ad",
+    "variant": "Korath Chaser (Expeller)",
+    "baseShip": "Korath Chaser",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Efret": true,
+      "Kor Sestor": true,
+      "Alpha": true,
+      "Kor Mereti": true,
+      "Kor Mereti (Hostile)": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true,
+      "Remnant": true,
+      "Sagittarian": true,
+      "derelict ship": true
+    }
+  },
+  {
     "name": "Korath Chaser (Korath Chaser (Digger))",
     "engines": [
       {
@@ -15177,6 +15254,80 @@
     }
   },
   {
+    "name": "Aphid (Aphid (Unfettered))",
+    "engines": [
+      {
+        "x": -8,
+        "y": 40
+      },
+      {
+        "x": 8,
+        "y": 40
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 24,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Chameleon Anti-Missile": 1,
+      "Sand Cell": 2,
+      "Hai Fissure Batteries": 1,
+      "Hai Corundum Regenerator": 1,
+      "\"Basrem\" Atomic Thruster": 1,
+      "\"Basrem\" Atomic Steering": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/hai aphid",
+    "thumbnail": "thumbnail/hai aphid",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 570000,
+      "shields": 1700,
+      "hull": 1400,
+      "required crew": 1,
+      "bunks": 5,
+      "mass": 130,
+      "drag": 2.1,
+      "heat dissipation": 0.82,
+      "fuel capacity": 400,
+      "cargo space": 51,
+      "outfit space": 185,
+      "weapon capacity": 37,
+      "engine capacity": 48,
+      "weapon": {
+        "blast radius": 30,
+        "shield damage": 300,
+        "hull damage": 150,
+        "hit force": 450
+      }
+    },
+    "leak": 60,
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "description": "The Aphid is the lightest freighter used by the Hai and was for many millennia the backbone of the Hai interplanetary economy. Because of how peaceful Hai space has been for much of its history, Aphids only come with basic defenses as stock, and rely on larger Hai ships for more serious protection.",
+    "_internalId": "official-game/endless-sky::Aphid",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "ceae75007dd9",
+    "variant": "Aphid (Unfettered)",
+    "baseShip": "Aphid",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Hai": true,
+      "Hai Merchant": true,
+      "Hai Merchant (Human)": true,
+      "Merchant": true
+    }
+  },
+  {
     "name": "Centipede (Centipede (Holovid))",
     "engines": [
       {
@@ -15762,6 +15913,84 @@
     }
   },
   {
+    "name": "Grasshopper (Grasshopper (Ion))",
+    "engines": [
+      {
+        "x": 0,
+        "y": 36
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -6,
+        "y": -34,
+        "gun": ""
+      },
+      {
+        "x": 6,
+        "y": -34,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Pulse Cannon": 2,
+      "Sand Cell": 2,
+      "Hai Fissure Batteries": 1,
+      "Hai Corundum Regenerator": 1,
+      "Hai Williwaw Cooling": 1,
+      "Quantum Keystone": 1,
+      "Pulse Rifle": 1,
+      "\"Benga\" Atomic Thruster": 1,
+      "\"Benga\" Atomic Steering": 1
+    },
+    "sprite": "ship/hai grasshopper",
+    "thumbnail": "thumbnail/hai grasshopper",
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 684000,
+      "shields": 3300,
+      "hull": 600,
+      "required crew": 1,
+      "bunks": 5,
+      "mass": 124,
+      "drag": 1.65,
+      "heat dissipation": 0.78,
+      "fuel capacity": 300,
+      "cargo space": 29,
+      "outfit space": 198,
+      "weapon capacity": 47,
+      "engine capacity": 61,
+      "weapon": {
+        "blast radius": 36,
+        "shield damage": 180,
+        "hull damage": 360,
+        "hit force": 540
+      }
+    },
+    "leak": 60,
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "medium explosion": 5,
+    "final explode": "final explosion small",
+    "description": "Designed by the Hai to serve as a fast reconnaissance craft, the Grasshopper has been adopted by thrill-seekers and miners alike. At the same time, it is often used by Hai captains who are looking for effective protection at a low cost.",
+    "_internalId": "official-game/endless-sky::Grasshopper",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "ae95b214ea81",
+    "variant": "Grasshopper (Ion)",
+    "baseShip": "Grasshopper",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Hai": true,
+      "Hai Merchant": true,
+      "Hai Merchant (Sympathizers)": true,
+      "Hai Merchant (Human)": true
+    }
+  },
+  {
     "name": "Lightning Bug (Lightning Bug (Phantom Pallet))",
     "engines": [
       {
@@ -16036,6 +16265,101 @@
     "_pluginId": "official-game/endless-sky",
     "_hash": "73b50525f3ee",
     "variant": "Lightning Bug (Surveillance)",
+    "baseShip": "Lightning Bug",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Hai": true,
+      "Hai Merchant": true,
+      "Hai Merchant (Sympathizers)": true,
+      "Hai Merchant (Human)": true,
+      "Hai (Unfettered Civilians)": true,
+      "Hai (Unfettered)": true
+    }
+  },
+  {
+    "name": "Lightning Bug (Lightning Bug (Unfettered Shipyards))",
+    "engines": [
+      {
+        "x": -40,
+        "y": 22
+      },
+      {
+        "x": 40,
+        "y": 22
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -40,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -47,
+        "y": 18,
+        "turret": ""
+      },
+      {
+        "x": 47,
+        "y": 18,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ion Cannon": 1,
+      "Bullfrog Anti-Missile": 2,
+      "Hai Cuttlefish Jammer": 1,
+      "Geode Reactor": 1,
+      "Hai Gorge Batteries": 1,
+      "Hai Corundum Regenerator": 1,
+      "Hai Williwaw Cooling": 1,
+      "Quantum Keystone": 1,
+      "Pulse Rifle": 2,
+      "\"Benga\" Atomic Thruster": 1,
+      "\"Biroo\" Atomic Steering": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/hai lightning bug",
+    "thumbnail": "thumbnail/hai lightning bug",
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 3200000,
+      "shields": 6700,
+      "hull": 1700,
+      "required crew": 4,
+      "bunks": 10,
+      "mass": 345,
+      "drag": 4.8,
+      "heat dissipation": 0.68,
+      "fuel capacity": 600,
+      "cargo space": 73,
+      "outfit space": 278,
+      "weapon capacity": 87,
+      "engine capacity": 93,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "leak": 40,
+    "flame": 40,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion small",
+    "description": "The Lightning Bug is a small defensive ship, mostly used by the Hai as a convoy escort. The Lightning Bug, as with many insects, works best in a swarm: even a small number of Lightning Bugs can manage to leave the largest of ships helpless with their stock-fitted Ion Cannons.",
+    "_internalId": "official-game/endless-sky::Lightning Bug",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "73b50525f3ee",
+    "variant": "Lightning Bug (Unfettered Shipyards)",
     "baseShip": "Lightning Bug",
     "_variantPluginId": "official-game/endless-sky",
     "governments": {
@@ -18072,6 +18396,158 @@
     }
   },
   {
+    "name": "Sea Scorpion (Sea Scorpion (Ionic Blasters))",
+    "engines": [
+      {
+        "x": -23.5,
+        "y": 68.5
+      },
+      {
+        "x": 23.5,
+        "y": 68.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": 13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -56,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -56,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -35.5,
+        "y": 24.5,
+        "turret": ""
+      },
+      {
+        "x": 35.5,
+        "y": 24.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "\"Bondir\" Atomic Steering": 1,
+      "\"Bondir\" Atomic Thruster": 1,
+      "Cargo Expansion": 1,
+      "Chameleon Anti-Missile": 1,
+      "Fuel Pod": 1,
+      "Geode Reactor": 1,
+      "Hai Diamond Regenerator": 1,
+      "Hai Ravine Batteries": 1,
+      "Hai Tracker": 336,
+      "Hai Tracker Pod": 4,
+      "Hai Williwaw Cooling": 1,
+      "Pulse Rifle": 15,
+      "Pulse Turret": 1,
+      "Quantum Keystone": 1,
+      "Tracker Storage Pod": 4,
+      "Value Detector": 2
+    },
+    "sprite": "ship/hai sea scorpion",
+    "thumbnail": "thumbnail/hai sea scorpion",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5450000,
+      "shields": 15500,
+      "hull": 4900,
+      "required crew": 14,
+      "bunks": 36,
+      "mass": 735,
+      "drag": 7.8,
+      "heat dissipation": 0.47,
+      "fuel capacity": 500,
+      "cargo space": 45,
+      "outfit space": 510,
+      "weapon capacity": 188,
+      "engine capacity": 117,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "leak": 40,
+    "flame": 40,
+    "tiny explosion": 24,
+    "small explosion": 50,
+    "medium explosion": 30,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The Sea Scorpion was designed several decades ago to serve as a mobile platform to launch Trackers. However, it is only recently that the Unfettered have been able to mass-produce them. While individually vulnerable, the reduced cost of manufacturing compared to Shield Beetles allow the materially inferior Unfettered to gain a numerical advantage against their brethren.",
+    "_internalId": "official-game/endless-sky::Sea Scorpion",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "b91516395e48",
+    "variant": "Sea Scorpion (Ionic Blasters)",
+    "baseShip": "Sea Scorpion",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Hai": true,
+      "Hai Merchant": true,
+      "Hai Merchant (Human)": true,
+      "Hai (Wormhole Access)": true,
+      "Pirate": true,
+      "Merchant": true,
+      "Deep Security": true,
+      "Bounty Hunter": true,
+      "Republic": true,
+      "Syndicate (Extremist)": true,
+      "Alpha": true,
+      "Merchant (Hostile)": true,
+      "Bounty": true,
+      "Bounty (Disguised)": true,
+      "Free Worlds": true,
+      "Militia": true,
+      "Hai Merchant (Sympathizers)": true,
+      "Hai (Unfettered)": true,
+      "Avgi (Twilight Guard)": true,
+      "Avalonian": true,
+      "Avgi": true,
+      "Avgi (Dissonance)": true,
+      "Avgi (Dissonance Angry)": true,
+      "Independent": true,
+      "Syndicate": true,
+      "Independent (Killable)": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Remnant": true,
+      "People's Houses": true,
+      "People's Houses (Hostile)": true,
+      "Successor": true,
+      "Lunarium (Hidden)": true,
+      "Escort": true,
+      "Navy (Oathkeeper)": true,
+      "Wanderer": true,
+      "derelict ship": true,
+      "Hai (Unfettered Civilians)": true,
+      "Bunrodea": true,
+      "Bunrodea (Guard)": true,
+      "Bunrodea (Erabu)": true,
+      "Remnant (Research)": true,
+      "Indigenous Lifeform": true,
+      "Ember Waste": true
+    }
+  },
+  {
     "name": "Sea Scorpion (Sea Scorpion (Shredder))",
     "engines": [
       {
@@ -18532,6 +19008,152 @@
     "_pluginId": "official-game/endless-sky",
     "_hash": "4de3a6a26467",
     "variant": "Shield Beetle (Unfettered)",
+    "baseShip": "Shield Beetle",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Hai": true,
+      "Hai Merchant": true,
+      "Hai Merchant (Sympathizers)": true,
+      "Hai Merchant (Human)": true,
+      "Hai (Unfettered)": true,
+      "Merchant": true
+    }
+  },
+  {
+    "name": "Shield Beetle (Shield Beetle (Unfettered Shipyards))",
+    "engines": [
+      {
+        "x": -44,
+        "y": 133
+      },
+      {
+        "x": 44,
+        "y": 133
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": -34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": 34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": -49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": 49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": -14,
+        "gun": ""
+      },
+      {
+        "x": 61,
+        "y": -14,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": 39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": -57,
+        "y": 75,
+        "turret": ""
+      },
+      {
+        "x": 57,
+        "y": 75,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ion Cannon": 4,
+      "Hai Tracker Pod": 4,
+      "Hai Tracker": 280,
+      "Tracker Storage Pod": 2,
+      "Bullfrog Anti-Missile": 4,
+      "Hai Cuttlefish Jammer": 3,
+      "Boulder Reactor": 1,
+      "Geode Reactor": 1,
+      "Hai Valley Batteries": 1,
+      "Hai Diamond Regenerator": 1,
+      "Hai Williwaw Cooling": 3,
+      "Quantum Keystone": 1,
+      "Pulse Rifle": 55,
+      "\"Bondir\" Atomic Thruster": 1,
+      "\"Bufaer\" Atomic Steering": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/hai shield beetle",
+    "thumbnail": "thumbnail/hai shield beetle",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 17900000,
+      "shields": 32000,
+      "hull": 9800,
+      "required crew": 47,
+      "bunks": 95,
+      "mass": 1881,
+      "drag": 16.3,
+      "heat dissipation": 0.33,
+      "fuel capacity": 500,
+      "cargo space": 142,
+      "outfit space": 798,
+      "weapon capacity": 333,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 3000
+      }
+    },
+    "leak": 40,
+    "flame": 50,
+    "big leak": 60,
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "This ship was first built millennia ago, near the end of a more violent time in Hai history. Since then, it has served as the only heavy warship at the disposal of the Hai. The Shield Beetle is a versatile warship used by the Hai to guard their merchant convoys, or by the Unfettered to attack those very same convoys.",
+    "_internalId": "official-game/endless-sky::Shield Beetle",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "4de3a6a26467",
+    "variant": "Shield Beetle (Unfettered Shipyards)",
     "baseShip": "Shield Beetle",
     "_variantPluginId": "official-game/endless-sky",
     "governments": {
@@ -19108,6 +19730,152 @@
     "_pluginId": "official-game/endless-sky",
     "_hash": "4de3a6a26467",
     "variant": "Shield Beetle (Tracker)",
+    "baseShip": "Shield Beetle",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Hai": true,
+      "Hai Merchant": true,
+      "Hai Merchant (Sympathizers)": true,
+      "Hai Merchant (Human)": true,
+      "Hai (Unfettered)": true,
+      "Merchant": true
+    }
+  },
+  {
+    "name": "Shield Beetle (Shield Beetle (Tripulse Ionic Turret))",
+    "engines": [
+      {
+        "x": -44,
+        "y": 133
+      },
+      {
+        "x": 44,
+        "y": 133
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": -34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": 34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": -49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": 49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": -14,
+        "gun": ""
+      },
+      {
+        "x": 61,
+        "y": -14,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": 39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": -57,
+        "y": 75,
+        "turret": ""
+      },
+      {
+        "x": 57,
+        "y": 75,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ion Cannon": 4,
+      "Hai Tracker Pod": 4,
+      "Hai Tracker": 280,
+      "Tracker Storage Pod": 2,
+      "Bullfrog Anti-Missile": 4,
+      "Hai Cuttlefish Jammer": 3,
+      "Boulder Reactor": 1,
+      "Geode Reactor": 1,
+      "Hai Valley Batteries": 1,
+      "Hai Diamond Regenerator": 1,
+      "Hai Williwaw Cooling": 3,
+      "Quantum Keystone": 1,
+      "Pulse Rifle": 55,
+      "\"Bondir\" Atomic Thruster": 1,
+      "\"Bufaer\" Atomic Steering": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/hai shield beetle",
+    "thumbnail": "thumbnail/hai shield beetle",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 17900000,
+      "shields": 32000,
+      "hull": 9800,
+      "required crew": 47,
+      "bunks": 95,
+      "mass": 1881,
+      "drag": 16.3,
+      "heat dissipation": 0.33,
+      "fuel capacity": 500,
+      "cargo space": 142,
+      "outfit space": 798,
+      "weapon capacity": 333,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 3000
+      }
+    },
+    "leak": 40,
+    "flame": 50,
+    "big leak": 60,
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "This ship was first built millennia ago, near the end of a more violent time in Hai history. Since then, it has served as the only heavy warship at the disposal of the Hai. The Shield Beetle is a versatile warship used by the Hai to guard their merchant convoys, or by the Unfettered to attack those very same convoys.",
+    "_internalId": "official-game/endless-sky::Shield Beetle",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "4de3a6a26467",
+    "variant": "Shield Beetle (Tripulse Ionic Turret)",
     "baseShip": "Shield Beetle",
     "_variantPluginId": "official-game/endless-sky",
     "governments": {
@@ -28432,6 +29200,147 @@
     }
   },
   {
+    "name": "Auxiliary (Auxiliary (Mark II))",
+    "engines": [
+      {
+        "x": -41,
+        "y": 180.5,
+        "zoom": 0.45
+      },
+      {
+        "x": 41,
+        "y": 180.5,
+        "zoom": 0.45
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -12.5,
+        "y": -182,
+        "gun": ""
+      },
+      {
+        "x": 12.5,
+        "y": -182,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -74,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -17,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 32,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 83,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -74,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -17,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 32,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 83,
+        "launch effect": "human internal"
+      }
+    ],
+    "outfitMap": {
+      "Sidewinder Missile Launcher": 2,
+      "Sidewinder Missile": 90,
+      "Quad Blaster Turret": 2,
+      "Heavy Anti-Missile Turret": 2,
+      "Fusion Reactor": 1,
+      "LP288a Battery Pack": 1,
+      "D94-YV Shield Generator": 1,
+      "D67-TM Shield Generator": 1,
+      "Water Coolant System": 1,
+      "Large Radar Jammer": 1,
+      "Ramscoop": 1,
+      "X4700 Ion Thruster": 1,
+      "X1700 Ion Thruster": 1,
+      "X5200 Ion Steering": 1,
+      "Scram Drive": 1
+    },
+    "plural": "Auxiliaries",
+    "sprite": "ship/auxiliaryh",
+    "thumbnail": "thumbnail/auxiliaryh",
+    "attributes": {
+      "category": "Utility",
+      "licenses": {
+        "Navy Auxiliary": true
+      },
+      "cost": 13720000,
+      "shields": 17100,
+      "hull": 5900,
+      "required crew": 87,
+      "bunks": 250,
+      "mass": 1900,
+      "drag": 22.6,
+      "heat dissipation": 0.27,
+      "fuel capacity": 900,
+      "cargo space": 250,
+      "outfit space": 720,
+      "weapon capacity": 160,
+      "engine capacity": 200,
+      "weapon": {
+        "blast radius": 280,
+        "shield damage": 2800,
+        "hull damage": 1400,
+        "hit force": 4200
+      }
+    },
+    "leak": 30,
+    "flame": 30,
+    "big leak": 30,
+    "tiny explosion": 20,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 10,
+    "final explode": "final explosion large",
+    "description": "The Auxiliary is the Republic Navy's logistical backbone. The size and durability of a capital ship but more cargo and passenger space than any other Navy ship, the Auxiliary is used whenever the Navy needs large amounts of troops or cargo transported with a guarantee that they'll reach the destination. The Auxiliary was built with modularity in mind, allowing the ship to be fitted for more cargo or bunk space depending on the mission. This modularity makes the ship rather expensive to build, however, and therefore a rare sight to see.",
+    "_internalId": "official-game/endless-sky::Auxiliary",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "90a08c2959e5",
+    "variant": "Auxiliary (Mark II)",
+    "baseShip": "Auxiliary",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Republic": true
+    }
+  },
+  {
     "name": "Auxiliary (Auxiliary (Cargo Mark II))",
     "engines": [
       {
@@ -31179,6 +32088,85 @@
     "_pluginId": "official-game/endless-sky",
     "_hash": "8131962d0a91",
     "variant": "Bounder (Hai)",
+    "baseShip": "Bounder",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Merchant": true,
+      "Syndicate": true
+    }
+  },
+  {
+    "name": "Bounder (Bounder (Luxury))",
+    "engines": [
+      {
+        "x": -10,
+        "y": 44
+      },
+      {
+        "x": 10,
+        "y": 44
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -38,
+        "y": 12,
+        "turret": ""
+      },
+      {
+        "x": 38,
+        "y": 12,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Anti-Missile Turret": 2,
+      "nGVF-CC Fuel Cell": 1,
+      "KP-6 Photovoltaic Array": 1,
+      "LP036a Battery Pack": 1,
+      "D14-RN Shield Generator": 1,
+      "X3700 Ion Thruster": 1,
+      "X3200 Ion Steering": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/bounder",
+    "thumbnail": "thumbnail/bounder",
+    "attributes": {
+      "category": "Transport",
+      "cost": 1140000,
+      "shields": 2200,
+      "hull": 700,
+      "required crew": 1,
+      "bunks": 17,
+      "mass": 200,
+      "drag": 4.4,
+      "heat dissipation": 0.67,
+      "fuel capacity": 800,
+      "cargo space": 40,
+      "outfit space": 220,
+      "weapon capacity": 50,
+      "engine capacity": 110,
+      "weapon": {
+        "blast radius": 30,
+        "shield damage": 300,
+        "hull damage": 150,
+        "hit force": 450
+      }
+    },
+    "leak": 60,
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "The Megaparsec Bounder is a scout ship and courier, designed not for battle but for carrying passengers and small amounts of cargo across large distances quickly.",
+    "_internalId": "official-game/endless-sky::Bounder",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "8131962d0a91",
+    "variant": "Bounder (Luxury)",
     "baseShip": "Bounder",
     "_variantPluginId": "official-game/endless-sky",
     "governments": {
@@ -34421,6 +35409,180 @@
     }
   },
   {
+    "name": "Cruiser (Cruiser (Jump Plasma Anti-Missile))",
+    "engines": [
+      {
+        "x": -28,
+        "y": 154,
+        "zoom": 0.95
+      },
+      {
+        "x": 28,
+        "y": 154,
+        "zoom": 0.95
+      },
+      {
+        "x": -52,
+        "y": 151,
+        "zoom": 0.75
+      },
+      {
+        "x": 52,
+        "y": 151,
+        "zoom": 0.75
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -30,
+        "y": -55,
+        "gun": ""
+      },
+      {
+        "x": 30,
+        "y": -55,
+        "gun": ""
+      },
+      {
+        "x": -40.5,
+        "y": -52,
+        "gun": ""
+      },
+      {
+        "x": 40.5,
+        "y": -52,
+        "gun": ""
+      },
+      {
+        "x": -30,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": 30,
+        "y": -30,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -39.5,
+        "turret": ""
+      },
+      {
+        "x": -32,
+        "y": -23,
+        "turret": ""
+      },
+      {
+        "x": 32,
+        "y": -23,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -25,
+        "y": 19.5,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": 25,
+        "y": 19.5,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": -25,
+        "y": 49.5,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": 25,
+        "y": 49.5,
+        "launch effect": "human internal"
+      }
+    ],
+    "outfitMap": {
+      "Particle Cannon": 4,
+      "Sidewinder Missile Launcher": 2,
+      "Sidewinder Missile": 90,
+      "Heavy Laser Turret": 2,
+      "Heavy Anti-Missile Turret": 2,
+      "Fusion Reactor": 1,
+      "LP288a Battery Pack": 1,
+      "D67-TM Shield Generator": 1,
+      "Large Radar Jammer": 2,
+      "Liquid Nitrogen Cooler": 1,
+      "Laser Rifle": 20,
+      "Fragmentation Grenades": 20,
+      "Security Station": 1,
+      "Tactical Scanner": 1,
+      "X4700 Ion Thruster": 1,
+      "X4200 Ion Steering": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/cruiser",
+    "thumbnail": "thumbnail/cruiser",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Navy Cruiser": true
+      },
+      "cost": 11200000,
+      "shields": 19600,
+      "hull": 6400,
+      "required crew": 81,
+      "bunks": 136,
+      "mass": 1910,
+      "drag": 18.7,
+      "heat dissipation": 0.25,
+      "fuel capacity": 600,
+      "cargo space": 60,
+      "outfit space": 760,
+      "weapon capacity": 320,
+      "engine capacity": 170,
+      "weapon": {
+        "blast radius": 260,
+        "shield damage": 2600,
+        "hull damage": 1300,
+        "hit force": 3900
+      }
+    },
+    "leak": 30,
+    "flame": 50,
+    "big leak": 40,
+    "tiny explosion": 20,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 10,
+    "final explode": "final explosion large",
+    "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
+    "_internalId": "official-game/endless-sky::Cruiser",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "f23677025b4f",
+    "variant": "Cruiser (Jump Plasma Anti-Missile)",
+    "baseShip": "Cruiser",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Republic": true,
+      "Navy (Oathkeeper)": true,
+      "Pirate": true
+    }
+  },
+  {
     "name": "Dagger (Dagger (Miner))",
     "engines": [
       {
@@ -37065,6 +38227,96 @@
     "_pluginId": "official-game/endless-sky",
     "_hash": "6ba3ba9cfaeb",
     "variant": "Freighter (Proton)",
+    "baseShip": "Freighter",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Hai Merchant (Human)": true,
+      "Merchant": true,
+      "Avalonian": true,
+      "Deep Security": true,
+      "Free Worlds": true,
+      "Republic": true
+    }
+  },
+  {
+    "name": "Freighter (Freighter (Secret Cargo))",
+    "engines": [
+      {
+        "x": -7.5,
+        "y": 92
+      },
+      {
+        "x": 7.5,
+        "y": 92
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -64,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -4.5,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 64.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Blaster Turret": 2,
+      "Heavy Anti-Missile Turret": 1,
+      "nGVF-DD Fuel Cell": 1,
+      "LP072a Battery Pack": 1,
+      "D14-RN Shield Generator": 1,
+      "X2700 Ion Thruster": 1,
+      "X2200 Ion Steering": 1,
+      "X1100 Ion Reverse Thruster": 1,
+      "Scram Drive": 1
+    },
+    "sprite": "ship/freighter",
+    "thumbnail": "thumbnail/freighter",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 730000,
+      "shields": 2000,
+      "hull": 2000,
+      "required crew": 2,
+      "bunks": 7,
+      "mass": 410,
+      "drag": 7.6,
+      "heat dissipation": 0.45,
+      "fuel capacity": 600,
+      "cargo space": 150,
+      "outfit space": 250,
+      "weapon capacity": 80,
+      "engine capacity": 70,
+      "weapon": {
+        "blast radius": 40,
+        "shield damage": 400,
+        "hull damage": 200,
+        "hit force": 600
+      }
+    },
+    "leak": 60,
+    "flame": 50,
+    "tiny explosion": 10,
+    "small explosion": 30,
+    "medium explosion": 20,
+    "final explode": "final explosion small",
+    "description": "The Freighter is designed by the Syndicate to be an efficient means of carrying cargo from system to system, but is so slow and difficult to land that most pilots hate flying them. \tFreighters are an obvious target for pirates, but turn much too slowly to be able to bring any forward-facing guns to bear on an approaching enemy. As a result, the latest model of freighter is equipped only with turrets, including an anti-missile turret to prevent attackers from simply bombarding them into submission from a safe distance.",
+    "_internalId": "official-game/endless-sky::Freighter",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "6ba3ba9cfaeb",
+    "variant": "Freighter (Secret Cargo)",
     "baseShip": "Freighter",
     "_variantPluginId": "official-game/endless-sky",
     "governments": {
@@ -41211,6 +42463,95 @@
       "Merchant": true,
       "Bounty": true,
       "Bounty (Disguised)": true
+    }
+  },
+  {
+    "name": "Marauder Bounder (Marauder Bounder (Hai))",
+    "engines": [
+      {
+        "x": -10,
+        "y": 44
+      },
+      {
+        "x": 10,
+        "y": 44
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -84.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -38,
+        "y": 12,
+        "turret": ""
+      },
+      {
+        "x": 38,
+        "y": 12,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Particle Cannon": 1,
+      "Quad Blaster Turret": 2,
+      "Dwarf Core": 1,
+      "LP072a Battery Pack": 1,
+      "Hai Corundum Regenerator": 1,
+      "Outfits Expansion": 1,
+      "Water Coolant System": 1,
+      "Security Station": 1,
+      "Laser Rifle": 18,
+      "A250 Atomic Thruster": 1,
+      "A255 Atomic Steering": 1,
+      "Volcano Afterburner": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/mbounders",
+    "thumbnail": "thumbnail/mbounders",
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 1250000,
+      "shields": 2500,
+      "hull": 700,
+      "required crew": 2,
+      "bunks": 18,
+      "mass": 220,
+      "drag": 4.4,
+      "heat dissipation": 0.67,
+      "fuel capacity": 800,
+      "cargo space": 20,
+      "outfit space": 240,
+      "weapon capacity": 80,
+      "engine capacity": 115,
+      "self destruct": 0.25,
+      "weapon": {
+        "blast radius": 35,
+        "shield damage": 350,
+        "hull damage": 175,
+        "hit force": 500
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "This Megaparsec Bounder has been modified from a courier-scout into a heavy escort interceptor - currently the largest in the class. A little extra outfit space, reinforced turret mounts, a new gun port in front of the pilot, and additional shield emitters grant this former transport both fearsome speed and armament.",
+    "_internalId": "official-game/endless-sky::Marauder Bounder",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "cb033ae1041a",
+    "variant": "Marauder Bounder (Hai)",
+    "baseShip": "Marauder Bounder",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Pirate": true
     }
   },
   {
@@ -46125,6 +47466,78 @@
     }
   },
   {
+    "name": "Star Barge (Star Barge (Miner))",
+    "engines": [
+      {
+        "x": -9.5,
+        "y": 38
+      },
+      {
+        "x": 9.5,
+        "y": 38
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -18,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Anti-Missile Turret": 1,
+      "nGVF-BB Fuel Cell": 1,
+      "LP036a Battery Pack": 1,
+      "D14-RN Shield Generator": 1,
+      "X1700 Ion Thruster": 1,
+      "X1200 Ion Steering": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/star barge",
+    "thumbnail": "thumbnail/star barge",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 190000,
+      "shields": 600,
+      "hull": 1000,
+      "required crew": 1,
+      "bunks": 3,
+      "mass": 80,
+      "drag": 2.2,
+      "heat dissipation": 0.77,
+      "fuel capacity": 300,
+      "cargo space": 50,
+      "outfit space": 130,
+      "weapon capacity": 20,
+      "engine capacity": 40,
+      "weapon": {
+        "blast radius": 16,
+        "shield damage": 160,
+        "hull damage": 80,
+        "hit force": 240
+      }
+    },
+    "leak": 60,
+    "tiny explosion": 10,
+    "small explosion": 10,
+    "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
+    "_internalId": "official-game/endless-sky::Star Barge",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "3f27a3733e70",
+    "variant": "Star Barge (Miner)",
+    "baseShip": "Star Barge",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Hai Merchant (Human)": true,
+      "Merchant": true,
+      "Avalonian": true
+    }
+  },
+  {
     "name": "Star Queen (Star Queen (Hai))",
     "engines": [
       {
@@ -46345,6 +47758,108 @@
     "governments": {
       "Merchant": true,
       "Republic": true
+    }
+  },
+  {
+    "name": "Sunder (Sunder (Heavy))",
+    "engines": [
+      {
+        "x": -11.5,
+        "y": 54
+      },
+      {
+        "x": 11.5,
+        "y": 54
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9.5,
+        "y": -53,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -53,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 28.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -14,
+        "under": true,
+        "launch effect": "human external"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": 38,
+        "under": true,
+        "angle": 180,
+        "launch effect": "human external"
+      }
+    ],
+    "outfitMap": {
+      "Mining Laser": 2,
+      "Tractor Beam": 1,
+      "Asteroid Scanner": 1,
+      "nGVF-CC Fuel Cell": 1,
+      "LP036a Battery Pack": 1,
+      "D23-QP Shield Generator": 1,
+      "X3700 Ion Thruster": 1,
+      "X3200 Ion Steering": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/sunder",
+    "thumbnail": "thumbnail/sunder",
+    "attributes": {
+      "category": "Utility",
+      "cost": 1000000,
+      "shields": 1200,
+      "hull": 1600,
+      "required crew": 3,
+      "bunks": 5,
+      "mass": 260,
+      "drag": 4.7,
+      "heat dissipation": 0.56,
+      "fuel capacity": 600,
+      "cargo space": 80,
+      "outfit space": 230,
+      "weapon capacity": 50,
+      "engine capacity": 90,
+      "weapon": {
+        "blast radius": 28,
+        "shield damage": 280,
+        "hull damage": 140,
+        "hit force": 420
+      }
+    },
+    "leak": 60,
+    "flame": 50,
+    "tiny explosion": 20,
+    "small explosion": 15,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "The Sunder is a versatile mining platform equipped with dedicated prospecting equipment, most notably an undercarriage that supports two Mining Drones. The lineage of this ship can be traced back to the old asteroid mining ships used in the Sol Main Belt centuries ago; however, because of recent Syndicate efforts to further exploit the Core's mineral wealth, the newest model of the Sunder is now manufactured by Syndicated Shipyards.",
+    "_internalId": "official-game/endless-sky::Sunder",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "d715f84107ed",
+    "variant": "Sunder (Heavy)",
+    "baseShip": "Sunder",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Merchant": true
     }
   },
   {
@@ -47269,6 +48784,1635 @@
     }
   },
   {
+    "name": "Nimbus (Nimbus (Mining))",
+    "engines": [
+      {
+        "x": 0,
+        "y": 120
+      },
+      {
+        "x": 0,
+        "y": 120
+      },
+      {
+        "x": -30.5,
+        "y": 120
+      },
+      {
+        "x": 30.5,
+        "y": 120
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -15,
+        "y": -117,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -117,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -117,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -117,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 31.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Liquid-Class Shield": 1,
+      "Metallic Hydrogen Cell": 1,
+      "Plasma Discharger": 4,
+      "Stagnation Beam": 1,
+      "Cloud Piercer": 20,
+      "MH Red-Class Thruster": 1,
+      "MH Red-Class Steering": 1
+    },
+    "plural": "Nimbi",
+    "sprite": "ship/nimbus",
+    "thumbnail": "thumbnail/nimbus",
+    "swizzle": 0,
+    "attributes": {
+      "category": "Medium Warship",
+      "licenses": {
+        "Hicemus Conflict": true
+      },
+      "cost": 3250000,
+      "hull": 4000,
+      "shields": 6000,
+      "required crew": 20,
+      "bunks": 40,
+      "mass": 1640,
+      "drag": 10.8,
+      "heat dissipation": 0.46,
+      "cargo space": 75,
+      "outfit space": 450,
+      "weapon capacity": 120,
+      "engine capacity": 85,
+      "gaslining": 1,
+      "fuel capacity": 200,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 10,
+    "final explode": "final explosion large",
+    "description": "The Nimbus is the first spaceship that the Incipias built that was truly able to navigate through a system. Since it was first manufactured it has been cherished among wealthier captains and a dream of captains just starting out. \tAlthough the Nimbus is labeled as a medium warship, it is multipurpose; whether one uses it for mining, passenger transport or cargo, it will perform its job nicely. It is only occasionally used in combat because the Incipias are not currently fighting open wars.",
+    "_internalId": "official-game/endless-sky::Nimbus",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "f02475f8cd63",
+    "variant": "Nimbus (Mining)",
+    "baseShip": "Nimbus",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Hicemus": true
+    }
+  },
+  {
+    "name": "Aberrant Latte (Aberrant Latte (Disable-able))",
+    "engines": [
+      {
+        "x": -18,
+        "y": 35.5
+      },
+      {
+        "x": 18,
+        "y": 35.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -12,
+        "y": -31,
+        "gun": ""
+      },
+      {
+        "x": 12,
+        "y": -31,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Ka'het Compact Engine": 2,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 15
+    },
+    "display name": "K-IA \"Latte\"",
+    "plural": "Lattes",
+    "sprite": "ship/aberrant latte",
+    "thumbnail": "thumbnail/aberrant latte",
+    "never disabled": true,
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 5700000,
+      "shields": 9600,
+      "hull": 14400,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 289,
+      "drag": 3,
+      "heat dissipation": 0.91,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 82,
+      "outfit space": 232,
+      "weapon capacity": 64,
+      "engine capacity": 66,
+      "energy capacity": 12000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 1.2,
+      "hull repair rate": 0.6,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to be as close to the baseline as can be expected from such a strange creature.",
+    "_internalId": "official-game/endless-sky::Aberrant Latte",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "b4f37ec726d1",
+    "variant": "Aberrant Latte (Disable-able)",
+    "baseShip": "Aberrant Latte",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Chomper (Aberrant Chomper (Disable-able))",
+    "engines": [
+      {
+        "x": -18,
+        "y": 50.5
+      },
+      {
+        "x": 18,
+        "y": 50.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13.5,
+        "y": -36.5,
+        "gun": ""
+      },
+      {
+        "x": 13.5,
+        "y": -36.5,
+        "gun": ""
+      },
+      {
+        "x": -24.5,
+        "y": -29.5,
+        "gun": ""
+      },
+      {
+        "x": 24.5,
+        "y": -29.5,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -27.5,
+        "gun": ""
+      },
+      {
+        "x": -28,
+        "y": -19.5,
+        "gun": ""
+      },
+      {
+        "x": 28,
+        "y": -19.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 6,
+      "Nucleolysis Beam": 1,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Antimatter Power Cell": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Ka'het Compact Engine": 2,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 15
+    },
+    "display name": "K-IB \"Chomper\"",
+    "plural": "Chompers",
+    "sprite": "ship/aberrant chomper",
+    "thumbnail": "thumbnail/aberrant chomper",
+    "never disabled": true,
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 5700000,
+      "shields": 6400,
+      "hull": 14400,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 304,
+      "drag": 3.2,
+      "heat dissipation": 0.91,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 61,
+      "outfit space": 351,
+      "weapon capacity": 189,
+      "engine capacity": 62,
+      "energy capacity": 12000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 1.2,
+      "hull repair rate": 0.6,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to be much more heavily armed than most others of its kind.",
+    "_internalId": "official-game/endless-sky::Aberrant Chomper",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "d7f621a0ad9d",
+    "variant": "Aberrant Chomper (Disable-able)",
+    "baseShip": "Aberrant Chomper",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Pileup (Aberrant Pileup (Disable-able))",
+    "engines": [
+      {
+        "x": -19,
+        "y": 57
+      },
+      {
+        "x": 19,
+        "y": 57
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -11,
+        "y": -40.5,
+        "gun": ""
+      },
+      {
+        "x": 11,
+        "y": -40.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Anomalous Shield Restorer": 1,
+      "Ka'het Compact Engine": 2,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 17
+    },
+    "display name": "K-IC \"Pileup\"",
+    "plural": "Pileups",
+    "sprite": "ship/aberrant pileup",
+    "thumbnail": "thumbnail/aberrant pileup",
+    "never disabled": true,
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 5700000,
+      "shields": 13600,
+      "hull": 18600,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 354,
+      "drag": 3.7,
+      "heat dissipation": 0.91,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 123,
+      "outfit space": 269,
+      "weapon capacity": 94,
+      "engine capacity": 66,
+      "energy capacity": 17000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 1.2,
+      "hull repair rate": 0.6,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to be somewhat larger and sturdier than others.",
+    "_internalId": "official-game/endless-sky::Aberrant Pileup",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "ef5cc2724e46",
+    "variant": "Aberrant Pileup (Disable-able)",
+    "baseShip": "Aberrant Pileup",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Hugger (Aberrant Hugger (Disable-able))",
+    "engines": [
+      {
+        "x": -11.5,
+        "y": 85.5
+      },
+      {
+        "x": 11.5,
+        "y": 85.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -16.5,
+        "y": -8.5,
+        "gun": ""
+      },
+      {
+        "x": 16.5,
+        "y": -8.5,
+        "gun": ""
+      },
+      {
+        "x": -13,
+        "y": -3.5,
+        "gun": ""
+      },
+      {
+        "x": 13,
+        "y": -3.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 4,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Antimatter Power Cell": 1,
+      "Ka'het Compact Engine": 3,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 12
+    },
+    "display name": "K-IE \"Hugger\"",
+    "plural": "Huggers",
+    "sprite": "ship/aberrant hugger",
+    "thumbnail": "thumbnail/aberrant hugger",
+    "never disabled": true,
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 5700000,
+      "shields": 9600,
+      "hull": 14400,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 240,
+      "drag": 1.4,
+      "heat dissipation": 0.96,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 82,
+      "outfit space": 305,
+      "weapon capacity": 144,
+      "engine capacity": 93,
+      "energy capacity": 12000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 1.2,
+      "hull repair rate": 0.6,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to be lighter and capable of higher speeds than most other Aberrant ships, yet it still carries an enlarged armament.",
+    "_internalId": "official-game/endless-sky::Aberrant Hugger",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "3ed8fc97ac4b",
+    "variant": "Aberrant Hugger (Disable-able)",
+    "baseShip": "Aberrant Hugger",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Longfellow (Aberrant Longfellow (Disable-able))",
+    "engines": [
+      {
+        "x": -14,
+        "y": 37.5
+      },
+      {
+        "x": 14,
+        "y": 37.5
+      },
+      {
+        "x": -6.5,
+        "y": 39.5
+      },
+      {
+        "x": 6.5,
+        "y": 39.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -14.5,
+        "y": -63.5,
+        "gun": ""
+      },
+      {
+        "x": 14.5,
+        "y": -63.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -11.5,
+        "y": -21.5,
+        "turret": ""
+      },
+      {
+        "x": 11.5,
+        "y": -21.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Antimatter Power Cell": 1,
+      "Ka'het Compact Engine": 5,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 15
+    },
+    "display name": "K-IF \"Longfellow\"",
+    "plural": "Longfellows",
+    "sprite": "ship/aberrant longfellow",
+    "thumbnail": "thumbnail/aberrant longfellow",
+    "never disabled": true,
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 5700000,
+      "shields": 10800,
+      "hull": 17200,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 303,
+      "drag": 2.7,
+      "heat dissipation": 0.91,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 82,
+      "outfit space": 319,
+      "weapon capacity": 72,
+      "engine capacity": 135,
+      "energy capacity": 12000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 1.2,
+      "hull repair rate": 0.6,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "zoom": 1.5,
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to have grown extra thrusters around a lean, sleek fuselage.",
+    "_internalId": "official-game/endless-sky::Aberrant Longfellow",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "fa9433f0c4a4",
+    "variant": "Aberrant Longfellow (Disable-able)",
+    "baseShip": "Aberrant Longfellow",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Dancer (Aberrant Dancer (Disable-able))",
+    "engines": [
+      {
+        "x": -3.5,
+        "y": 43.5
+      },
+      {
+        "x": 3.5,
+        "y": 43.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -34.5,
+        "y": -58,
+        "gun": ""
+      },
+      {
+        "x": 34.5,
+        "y": -58,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -9.5,
+        "y": -22.5,
+        "turret": ""
+      },
+      {
+        "x": 9.5,
+        "y": -22.5,
+        "turret": ""
+      },
+      {
+        "x": -33.5,
+        "y": -9.5,
+        "turret": ""
+      },
+      {
+        "x": 33.5,
+        "y": -9.5,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -2.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 2,
+      "Telescopic Antimissile": 4,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Antimatter Power Cell": 1,
+      "Ka'het Compact Engine": 2,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 24
+    },
+    "display name": "K-IG \"Dancer\"",
+    "plural": "Dancers",
+    "sprite": "ship/aberrant dancer",
+    "thumbnail": "thumbnail/aberrant dancer",
+    "never disabled": true,
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 5700000,
+      "shields": 19200,
+      "hull": 33800,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 469,
+      "drag": 4.8,
+      "heat dissipation": 0.91,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 82,
+      "outfit space": 510,
+      "weapon capacity": 244,
+      "engine capacity": 96,
+      "energy capacity": 12000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 1.2,
+      "hull repair rate": 0.6,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 500,
+        "shield damage": 11400,
+        "hull damage": 8800,
+        "hit force": 3400
+      }
+    },
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular appears to have several hardpoints designed to mount turrets.",
+    "_internalId": "official-game/endless-sky::Aberrant Dancer",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "ea92c75dbeb7",
+    "variant": "Aberrant Dancer (Disable-able)",
+    "baseShip": "Aberrant Dancer",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true,
+      "Ka'het": true,
+      "Ka'het (Infighting)": true,
+      "Builder": true,
+      "Ka'sei": true,
+      "Avgi (Twilight Guard)": true,
+      "Avgi": true,
+      "Avgi (Dissonance)": true,
+      "Avgi (Wandering Fleet)": true,
+      "Avgi (Dissonance Angry)": true,
+      "Bunrodea (Erabu)": true,
+      "Bunrodea (Megasa)": true,
+      "Bunrodea": true,
+      "Bunrodea (Criminal)": true,
+      "Bunrodea (Guard)": true,
+      "Coalition": true,
+      "Derelict 2": true,
+      "Heliarch": true,
+      "Drak": true,
+      "Gegno Pirates": true,
+      "Gegno Vi": true,
+      "Gegno Vi (Neutral)": true,
+      "Gegno Vi (Combative)": true,
+      "Gegno": true,
+      "Gegno Scin": true,
+      "Gegno Scin (Neutral)": true,
+      "Gegno Scin (Combative)": true,
+      "Hai": true,
+      "Hai Merchant": true,
+      "Hai Merchant (Human)": true,
+      "Merchant": true,
+      "Hai Merchant (Sympathizers)": true,
+      "Hai (Unfettered Civilians)": true,
+      "Hai (Unfettered)": true,
+      "Independent": true,
+      "Test Dummy": true,
+      "Pirate": true,
+      "Deep Security": true,
+      "Bounty Hunter": true,
+      "Republic": true,
+      "Free Worlds": true,
+      "Militia": true,
+      "Avalonian": true,
+      "Lunarium (Hidden)": true,
+      "Escort": true,
+      "Bounty": true,
+      "Syndicate": true,
+      "Bounty (Disguised)": true,
+      "Navy (Oathkeeper)": true,
+      "Syndicate (Extremist)": true,
+      "Alpha": true,
+      "Hai (Wormhole Access)": true,
+      "Merchant (Hostile)": true,
+      "Independent (Killable)": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Sestor": true,
+      "Remnant": true,
+      "Remnant (Research)": true,
+      "Old Houses": true,
+      "New Houses": true,
+      "House Aqrabe": true,
+      "House Chydiyi": true,
+      "Successor": true,
+      "House Seineq": true,
+      "House Myurej": true,
+      "Derelict (Boardable)": true,
+      "People's Houses": true,
+      "People's Houses (Hostile)": true,
+      "House Sioeora": true,
+      "Wanderer": true,
+      "derelict ship": true
+    }
+  },
+  {
+    "name": "Aberrant Junior (Aberrant Junior (Disable-able))",
+    "engines": [
+      {
+        "x": -14.5,
+        "y": 41
+      },
+      {
+        "x": 14.5,
+        "y": 41
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9.5,
+        "y": -27.5,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -27.5,
+        "gun": ""
+      },
+      {
+        "x": -25,
+        "y": 21,
+        "gun": ""
+      },
+      {
+        "x": 25,
+        "y": 21,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 2,
+      "Aberrant Spiker": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Ka'het Compact Engine": 2,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 16
+    },
+    "display name": "K-IIA \"Junior\"",
+    "plural": "Juniors",
+    "sprite": "ship/aberrant junior",
+    "thumbnail": "thumbnail/aberrant junior",
+    "never disabled": true,
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 5700000,
+      "shields": 6400,
+      "hull": 18600,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 324,
+      "drag": 3.4,
+      "heat dissipation": 0.87,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 66,
+      "outfit space": 277,
+      "weapon capacity": 92,
+      "engine capacity": 62,
+      "energy capacity": 12000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 0.6,
+      "hull repair rate": 1.2,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "angle": 90,
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to be compact, smaller-than-average, and still in the process of growing.",
+    "_internalId": "official-game/endless-sky::Aberrant Junior",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "b029e51b8615",
+    "variant": "Aberrant Junior (Disable-able)",
+    "baseShip": "Aberrant Junior",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Icebreaker (Aberrant Icebreaker (Disable-able))",
+    "engines": [
+      {
+        "x": -12,
+        "y": 51
+      },
+      {
+        "x": 12,
+        "y": 51
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -10.5,
+        "y": -42.5,
+        "gun": ""
+      },
+      {
+        "x": 10.5,
+        "y": -42.5,
+        "gun": ""
+      },
+      {
+        "x": -24,
+        "y": 30,
+        "gun": ""
+      },
+      {
+        "x": 24,
+        "y": 30,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 2,
+      "Aberrant Spiker": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Anomalous Shield Restorer": 1,
+      "Ka'het Compact Engine": 2,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 18
+    },
+    "display name": "K-IIB \"Icebreaker\"",
+    "plural": "Icebreakers",
+    "sprite": "ship/aberrant icebreaker",
+    "thumbnail": "thumbnail/aberrant icebreaker",
+    "never disabled": true,
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 5700000,
+      "shields": 7600,
+      "hull": 21600,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 354,
+      "drag": 3.6,
+      "heat dissipation": 0.87,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 66,
+      "outfit space": 313,
+      "weapon capacity": 103,
+      "engine capacity": 73,
+      "energy capacity": 15000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 0.6,
+      "hull repair rate": 1.2,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "angle": 90,
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to be in the process of growing more elongated, and has a tougher hull than most other variants.",
+    "_internalId": "official-game/endless-sky::Aberrant Icebreaker",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "de62cc4c6b78",
+    "variant": "Aberrant Icebreaker (Disable-able)",
+    "baseShip": "Aberrant Icebreaker",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Pike (Aberrant Pike (Disable-able))",
+    "engines": [
+      {
+        "x": -12.5,
+        "y": 54
+      },
+      {
+        "x": 12.5,
+        "y": 54
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9.5,
+        "y": -39,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -39,
+        "gun": ""
+      },
+      {
+        "x": -23,
+        "y": 7,
+        "gun": ""
+      },
+      {
+        "x": 23,
+        "y": 7,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 2,
+      "Aberrant Spiker": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Ka'het Compact Engine": 2,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 20
+    },
+    "display name": "K-IIC \"Pike\"",
+    "plural": "Pikes",
+    "sprite": "ship/aberrant pike",
+    "thumbnail": "thumbnail/aberrant pike",
+    "never disabled": true,
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 5700000,
+      "shields": 6600,
+      "hull": 17900,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 398,
+      "drag": 3.3,
+      "heat dissipation": 0.89,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 66,
+      "outfit space": 291,
+      "weapon capacity": 102,
+      "engine capacity": 62,
+      "energy capacity": 18000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 0.6,
+      "hull repair rate": 1.2,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "angle": 90,
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular has grown into a sleek, elongated shape.",
+    "_internalId": "official-game/endless-sky::Aberrant Pike",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "e6d9e3f3a5f2",
+    "variant": "Aberrant Pike (Disable-able)",
+    "baseShip": "Aberrant Pike",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Mole (Aberrant Mole (Disable-able))",
+    "engines": [
+      {
+        "x": -11.5,
+        "y": 42.5
+      },
+      {
+        "x": 11.5,
+        "y": 42.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -3.5,
+        "y": -35.5,
+        "gun": ""
+      },
+      {
+        "x": 3.5,
+        "y": -35.5,
+        "gun": ""
+      },
+      {
+        "x": -8.5,
+        "y": -30.5,
+        "gun": ""
+      },
+      {
+        "x": 8.5,
+        "y": -30.5,
+        "gun": ""
+      },
+      {
+        "x": -25,
+        "y": 21,
+        "gun": ""
+      },
+      {
+        "x": 25,
+        "y": 21,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 4,
+      "Aberrant Spiker": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Ka'het Compact Engine": 2,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 16
+    },
+    "display name": "K-IID \"Mole\"",
+    "plural": "Moles",
+    "sprite": "ship/aberrant mole",
+    "thumbnail": "thumbnail/aberrant mole",
+    "never disabled": true,
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 5700000,
+      "shields": 6600,
+      "hull": 15200,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 324,
+      "drag": 3.4,
+      "heat dissipation": 0.87,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 66,
+      "outfit space": 318,
+      "weapon capacity": 148,
+      "engine capacity": 52,
+      "energy capacity": 12000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 0.6,
+      "hull repair rate": 1.2,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "angle": 90,
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant has grown a sharp, bladed prow capable of fitting more forward weapons.",
+    "_internalId": "official-game/endless-sky::Aberrant Mole",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "a7ee15cd71f8",
+    "variant": "Aberrant Mole (Disable-able)",
+    "baseShip": "Aberrant Mole",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Whiskers (Aberrant Whiskers (Disable-able))",
+    "engines": [
+      {
+        "x": -12.5,
+        "y": 27
+      },
+      {
+        "x": 12.5,
+        "y": 27
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9,
+        "y": -46.5,
+        "gun": ""
+      },
+      {
+        "x": 9,
+        "y": -46.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Ka'het Compact Engine": 3,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 16
+    },
+    "display name": "K-IIE \"Whiskers\"",
+    "plural": "Whiskers",
+    "sprite": "ship/aberrant whiskers",
+    "thumbnail": "thumbnail/aberrant whiskers",
+    "never disabled": true,
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 5700000,
+      "shields": 6200,
+      "hull": 17200,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 331,
+      "drag": 2.1,
+      "heat dissipation": 0.9,
+      "fuel capacity": 300,
+      "ramscoop": 0.2,
+      "cargo space": 66,
+      "outfit space": 265,
+      "weapon capacity": 64,
+      "engine capacity": 72,
+      "energy capacity": 12000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 3.4,
+      "shield generation": 0.6,
+      "hull repair rate": 1.2,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 6400,
+        "hull damage": 4800,
+        "hit force": 2800
+      }
+    },
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular appears to be growing some sort of tail-like structure, increasing its agility.",
+    "_internalId": "official-game/endless-sky::Aberrant Whiskers",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "77eee6501e0f",
+    "variant": "Aberrant Whiskers (Disable-able)",
+    "baseShip": "Aberrant Whiskers",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Trip (Aberrant Trip (Disable-able))",
+    "engines": [
+      {
+        "x": -19,
+        "y": 37.5
+      },
+      {
+        "x": 23.5,
+        "y": 43
+      },
+      {
+        "x": 18,
+        "y": 45
+      },
+      {
+        "x": -1.5,
+        "y": 52.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -2,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": 16,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": -25,
+        "y": -17.5,
+        "gun": ""
+      },
+      {
+        "x": -34,
+        "y": 25,
+        "gun": ""
+      },
+      {
+        "x": 32,
+        "y": 32,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 8.5,
+        "y": -21,
+        "turret": ""
+      },
+      {
+        "x": -5,
+        "y": -3.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 1,
+      "Nucleolysis Beam": 2,
+      "Aberrant Spiker": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Anomalous Shield Restorer": 1,
+      "Ka'het Compact Engine": 1,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 22
+    },
+    "display name": "K-IIF \"Trip\"",
+    "plural": "Trips",
+    "sprite": "ship/aberrant trip",
+    "thumbnail": "thumbnail/aberrant trip",
+    "never disabled": true,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5700000,
+      "shields": 14200,
+      "hull": 16600,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 444,
+      "drag": 8.6,
+      "heat dissipation": 0.4,
+      "fuel capacity": 600,
+      "ramscoop": 0.2,
+      "cargo space": 77,
+      "outfit space": 383,
+      "weapon capacity": 185,
+      "engine capacity": 61,
+      "energy capacity": 13000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 7.6,
+      "shield generation": 0.9,
+      "hull repair rate": 0.2,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 600,
+        "shield damage": 12400,
+        "hull damage": 9600,
+        "hit force": 3800
+      }
+    },
+    "angle": 90,
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. Something appears to have gone terribly wrong in the germination of this variant. It is a lopsided, deformed mass of malformed material, which survives only through sheer luck.",
+    "_internalId": "official-game/endless-sky::Aberrant Trip",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "4d2dd92640b7",
+    "variant": "Aberrant Trip (Disable-able)",
+    "baseShip": "Aberrant Trip",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
+    "name": "Aberrant Triplet (Aberrant Triplet (Disable-able))",
+    "engines": [
+      {
+        "x": -29,
+        "y": 38
+      },
+      {
+        "x": 29,
+        "y": 38
+      },
+      {
+        "x": -8,
+        "y": 57
+      },
+      {
+        "x": 8,
+        "y": 57
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -8.5,
+        "y": -42,
+        "gun": ""
+      },
+      {
+        "x": 8.5,
+        "y": -42,
+        "gun": ""
+      },
+      {
+        "x": -25,
+        "y": -31,
+        "gun": ""
+      },
+      {
+        "x": 25,
+        "y": -31,
+        "gun": ""
+      },
+      {
+        "x": -35.5,
+        "y": -22,
+        "gun": ""
+      },
+      {
+        "x": 35.5,
+        "y": -22,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": 25,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": 25,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -21,
+        "turret": ""
+      },
+      {
+        "x": -13,
+        "y": -3,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -3,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Ka'het Ravager Beam": 4,
+      "Nucleolysis Beam": 2,
+      "Aberrant Spiker": 2,
+      "Ka'het Primary Cooling": 1,
+      "Ka'het Shield Restorer": 1,
+      "Ka'het MHD Generator": 1,
+      "Ka'het Reserve Accumulator": 1,
+      "Anomalous Shield Restorer": 1,
+      "Ka'het Compact Engine": 1,
+      "Hyperdrive": 1,
+      "Anomalous Mass": 34
+    },
+    "display name": "K-IIG \"Triplet\"",
+    "plural": "Triplets",
+    "sprite": "ship/aberrant triplet",
+    "thumbnail": "thumbnail/aberrant triplet",
+    "never disabled": true,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5700000,
+      "shields": 34600,
+      "hull": 33800,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 666,
+      "drag": 6.7,
+      "heat dissipation": 0.65,
+      "fuel capacity": 900,
+      "ramscoop": 0.2,
+      "cargo space": 126,
+      "outfit space": 496,
+      "weapon capacity": 266,
+      "engine capacity": 92,
+      "energy capacity": 23000,
+      "inscrutable": 1,
+      "energy generation": 39,
+      "heat generation": 32,
+      "shield heat": 6.6,
+      "shield generation": 1.8,
+      "hull repair rate": 1.4,
+      "quantum keystone": 1,
+      "ka'sei": 1,
+      "overheat damage threshold": 0.7,
+      "overheat damage rate": 0.7,
+      "weapon": {
+        "blast radius": 600,
+        "shield damage": 12400,
+        "hull damage": 9600,
+        "hit force": 3800
+      }
+    },
+    "angle": 90,
+    "tiny explosion": 8,
+    "small explosion": 14,
+    "medium explosion": 26,
+    "large explosion": 18,
+    "final explode": "nuke residue fast",
+    "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant seems to be a composite of two or three individuals, fused together into a single mass.",
+    "_internalId": "official-game/endless-sky::Aberrant Triplet",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "1a01b26efe3b",
+    "variant": "Aberrant Triplet (Disable-able)",
+    "baseShip": "Aberrant Triplet",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Aberrant": true
+    }
+  },
+  {
     "name": "Fetri'sei (Fetri'sei (Patir 12.2))",
     "engines": [
       {
@@ -47359,6 +50503,97 @@
     "_variantPluginId": "official-game/endless-sky",
     "governments": {
       "Ka'sei": true
+    }
+  },
+  {
+    "name": "Asteroid Large 1 (Asteroid Large (Patir 12.2))",
+    "engines": [
+      {
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": 0,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Asteroid Anti-Missile": 1,
+      "Asteroid Weapon Large": 2,
+      "Asteroid Jump Drive": 1
+    },
+    "display name": "???",
+    "noun": "asteroid",
+    "sprite": "ship/asteroid adult",
+    "uncapturable": true,
+    "attributes": {
+      "category": "Transport",
+      "inscrutable": 1,
+      "cost": 29000000,
+      "hull": 36561,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 11740,
+      "drag": 704,
+      "heat dissipation": 10,
+      "fuel capacity": 1000,
+      "energy capacity": 1,
+      "fuel generation": 0.3,
+      "cargo space": 40,
+      "outfit space": 390,
+      "weapon capacity": 150,
+      "engine capacity": 95,
+      "hull repair rate": 47,
+      "cargo scan power": 1,
+      "cargo scan efficiency": 0.001,
+      "thrust": 3402,
+      "flare sprite": "effect/asteroid adult flare",
+      "flare sprite data": {
+        "frame rate": 1
+      },
+      "turn": 59314,
+      "asteroid mount jd": 1,
+      "asteroid mount am": 1,
+      "asteroid mount": 1,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "over": true,
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 25,
+    "large explosion": 10,
+    "final explode": "final explosion medium",
+    "_internalId": "official-game/endless-sky::Asteroid Large 1",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "95a44a3ae05e",
+    "variant": "Asteroid Large (Patir 12.2)",
+    "baseShip": "Asteroid Large 1",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Magic Asteroid": true
     }
   },
   {
@@ -51627,6 +54862,73 @@
       "Quarg (Kor Efret)": true,
       "Quarg (Gegno)": true,
       "Quarg (Evil)": true
+    }
+  },
+  {
+    "name": "'olofez ('olofez (Expeller))",
+    "engines": [
+      {
+        "x": -13,
+        "y": 23
+      },
+      {
+        "x": 13,
+        "y": 23
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -28,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Fire-Lance": 1,
+      "Generator (Furnace Class)": 1,
+      "Small Heat Shunt": 1,
+      "Thermal Repeater Rifle": 1,
+      "Thruster (Asteroid Class)": 1,
+      "Steering (Asteroid Class)": 1
+    },
+    "plural": "'olofezes",
+    "sprite": "ship/chaser",
+    "thumbnail": "thumbnail/chaser",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 671000,
+      "shields": 2300,
+      "hull": 900,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 40,
+      "drag": 0.9,
+      "heat dissipation": 0.9,
+      "outfit space": 92,
+      "weapon capacity": 25,
+      "engine capacity": 30,
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "The 'olofez-Class Carried Chaser, named for a renowned artist who painted their visions of ancient hunts, is a fighter carried by most Exile capital ships. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+    "_internalId": "official-game/endless-sky::'olofez",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "35f9ab64065d",
+    "variant": "'olofez (Expeller)",
+    "baseShip": "'olofez",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Korath": true,
+      "Korath (Civilian)": true
     }
   },
   {
@@ -61044,6 +64346,228 @@
     }
   },
   {
+    "name": "Emerald Sword (Emerald Sword (Fixed))",
+    "engines": [
+      {
+        "x": 83,
+        "y": 275
+      },
+      {
+        "x": 132,
+        "y": 282
+      },
+      {
+        "x": -83,
+        "y": 275
+      },
+      {
+        "x": -132,
+        "y": 282
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -131,
+        "y": 136,
+        "position": "over"
+      },
+      {
+        "x": 131,
+        "y": 136,
+        "position": "over"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -131,
+        "y": 136,
+        "position": "left"
+      },
+      {
+        "x": 131,
+        "y": 136,
+        "position": "right"
+      },
+      {
+        "x": -34.5,
+        "y": -221.5,
+        "position": "right"
+      },
+      {
+        "x": -39,
+        "y": -193.5,
+        "position": "right"
+      },
+      {
+        "x": -43.5,
+        "y": -165.5,
+        "position": "right"
+      },
+      {
+        "x": 34.5,
+        "y": -221.5,
+        "position": "left"
+      },
+      {
+        "x": 39,
+        "y": -193.5,
+        "position": "left"
+      },
+      {
+        "x": 43.5,
+        "y": -165.5,
+        "position": "left"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -276,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -18,
+        "y": -41.5,
+        "turret": ""
+      },
+      {
+        "x": 18,
+        "y": -41.5,
+        "turret": ""
+      },
+      {
+        "x": -70,
+        "y": 70.5,
+        "turret": ""
+      },
+      {
+        "x": 70,
+        "y": 70.5,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 114,
+        "turret": ""
+      },
+      {
+        "x": -128.5,
+        "y": 174,
+        "turret": ""
+      },
+      {
+        "x": 128.5,
+        "y": 174,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 183,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 220.5,
+        "position": "back",
+        "launch effect": "sheragi launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 220.5,
+        "position": "back",
+        "launch effect": "sheragi launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 220.5,
+        "position": "back",
+        "launch effect": "sheragi launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 220.5,
+        "position": "back",
+        "launch effect": "sheragi launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 220.5,
+        "position": "back",
+        "launch effect": "sheragi launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 220.5,
+        "position": "back",
+        "launch effect": "sheragi launch"
+      }
+    ],
+    "outfitMap": {
+      "Dragonflame Cannon": 1,
+      "Particle Waveform Turret": 6,
+      "Sheragi Anti-Missile": 2,
+      "Large EM Battery": 1,
+      "Large Hybrid Cooling": 1,
+      "Electronic Warfare System": 2,
+      "Fusion Drive": 1
+    },
+    "sprite": "ship/emeraldsword",
+    "thumbnail": "thumbnail/emeraldsword",
+    "swizzle": 3,
+    "attributes": {
+      "category": "Superheavy",
+      "cost": 100000000,
+      "shields": 9500,
+      "hull": 45000,
+      "required crew": 86,
+      "bunks": 302,
+      "mass": 4360,
+      "drag": 41,
+      "heat dissipation": 0.22,
+      "fuel capacity": 900,
+      "cargo space": 169,
+      "outfit space": 1190,
+      "weapon capacity": 512,
+      "engine capacity": 230,
+      "spinal mount": 1,
+      "weapon": {
+        "blast radius": 993,
+        "shield damage": 19930,
+        "hull damage": 11965,
+        "hit force": 11495
+      }
+    },
+    "zoom": 0.8,
+    "over": true,
+    "tiny explosion": 60,
+    "small explosion": 26,
+    "medium explosion": 47,
+    "large explosion": 39,
+    "huge explosion": 42,
+    "nuke explosion": 2,
+    "final explode": "nuke residue fast",
+    "description": "An ancient Sheragi warship that was crewed by mutineers that fled from their civil war and escaped into interstellar space. Found orbiting a disconnected star, this is an impressively large ship, fit for the equally large Sheragi. The ship's main weapon is a fusion-pumped gamma-ray laser called the 'Dragonflame Cannon.' Despite the relatively primitive outfits, it's still a very capable war machine due to its size. For its original Sheragi masters, this warship was home to around 100 individuals. For others, however, that number more than doubles, bringing it on par with the largest city ships.",
+    "_internalId": "official-game/endless-sky::Emerald Sword",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "2adb628c792e",
+    "variant": "Emerald Sword (Fixed)",
+    "baseShip": "Emerald Sword",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Sheragi": true
+    }
+  },
+  {
     "name": "Grasshopper (Grasshopper (Hai Start))",
     "engines": [
       {
@@ -61120,6 +64644,1068 @@
       "Hai Merchant": true,
       "Hai Merchant (Sympathizers)": true,
       "Hai Merchant (Human)": true
+    }
+  },
+  {
+    "name": "Aaulqra (Aaulqra (Naive))",
+    "engines": [
+      {
+        "x": -17,
+        "y": 50
+      },
+      {
+        "x": 17,
+        "y": 50
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -36,
+        "y": -20,
+        "position": "zoom .8"
+      },
+      {
+        "x": 36,
+        "y": -20,
+        "position": "zoom .8"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -41,
+        "y": 55,
+        "position": "left"
+      },
+      {
+        "x": 41,
+        "y": 55,
+        "position": "right"
+      },
+      {
+        "x": -9,
+        "y": -94,
+        "position": "right"
+      },
+      {
+        "x": 9,
+        "y": -94,
+        "position": "left"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -116,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -109,
+        "gun": ""
+      },
+      {
+        "x": -14,
+        "y": -74,
+        "gun": ""
+      },
+      {
+        "x": 14,
+        "y": -74,
+        "gun": ""
+      },
+      {
+        "x": -12,
+        "y": -83,
+        "gun": ""
+      },
+      {
+        "x": 12,
+        "y": -83,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -17,
+        "y": 4,
+        "turret": ""
+      },
+      {
+        "x": 17,
+        "y": 4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "\"Ojet\" Bimodal Coilgun": 6,
+      "\"Nnesa\" Fusion Core": 1,
+      "\"Uoret\" Fusion Core": 1,
+      "Primary Power Reserve": 1,
+      "\"Jorv\" Shield Cortex": 1,
+      "Successor Cooling": 2,
+      "Multimodal Armor: Regen": 1,
+      "Kinetic Rail Rifle": 7,
+      "\"Chyyra\" Inductive Thruster": 1,
+      "\"Veusa\" Inductive Steering": 1,
+      "\"Chyyra\" Inductive Reverser": 1,
+      "Hyperdrive": 1
+    },
+    "plural": "Aaulqran",
+    "sprite": "ship/aaulqra",
+    "thumbnail": "thumbnail/aaulqra",
+    "attributes": {
+      "licenses": {
+        "High Houses": true
+      },
+      "category": "Medium Warship",
+      "cost": 26000000,
+      "shields": 10000,
+      "hull": 55000,
+      "required crew": 18,
+      "bunks": 25,
+      "mass": 650,
+      "drag": 8.75,
+      "heat dissipation": 0.49,
+      "fuel capacity": 600,
+      "cargo space": 15,
+      "outfit space": 550,
+      "weapon capacity": 240,
+      "engine capacity": 120,
+      "multimodal armor": 1,
+      "hull repair rate": 2.75,
+      "hull energy": 3.025,
+      "hull heat": 3.025,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "leak": 50,
+    "flame": 30,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Aaulqra is the oldest warship design currently produced by the High Houses in Successor space, with a recognizable lineage continuing back several thousand years to early in the old empire. It is compact, fast, and durable for a ship of its class, but has relatively limited internal space and lacks any significant cargo or passenger facilities. The captains of these vessels are often up-and-coming Successor officers hoping to prove themselves to one of the High Houses by demonstrating their mastery of the vessel; while most, of course, do not, the ship's flexibility and ubiquitous presence make it an excellent starting point for those who do.",
+    "_internalId": "official-game/endless-sky::Aaulqra",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "cb6c560bcf92",
+    "variant": "Aaulqra (Naive)",
+    "baseShip": "Aaulqra",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Old Houses": true,
+      "New Houses": true,
+      "House Aqrabe": true,
+      "House Chydiyi": true
+    }
+  },
+  {
+    "name": "Kvelqde (Kvelqde (Naive))",
+    "engines": [
+      {
+        "x": -8,
+        "y": 28
+      },
+      {
+        "x": 8,
+        "y": 28
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 12.5,
+        "y": -5,
+        "position": "over"
+      },
+      {
+        "x": -12.5,
+        "y": -5,
+        "position": "over"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 9,
+        "y": -20.5,
+        "position": "angle 270"
+      },
+      {
+        "x": -9,
+        "y": -20.5,
+        "position": "angle 90"
+      },
+      {
+        "x": 6.5,
+        "y": 29,
+        "position": "angle 270"
+      },
+      {
+        "x": -6.5,
+        "y": 29,
+        "position": "angle 90"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -32,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "1-\"Uurau\" Betavoltaic Cell": 2,
+      "\"Ej\" Shield Cortex": 1,
+      "\"Aqra\" Inductive Thruster": 1,
+      "\"Aqra\" Inductive Steering": 1,
+      "\"Aqra\" Inductive Reverser": 1,
+      "Hyperdrive": 1
+    },
+    "plural": "Kvelqden",
+    "sprite": "ship/kvelqde",
+    "thumbnail": "thumbnail/kvelqde",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Transport",
+      "cost": 185000,
+      "shields": 350,
+      "hull": 2400,
+      "required crew": 1,
+      "bunks": 9,
+      "mass": 110,
+      "drag": 2.25,
+      "heat dissipation": 0.82,
+      "fuel capacity": 500,
+      "cargo space": 25,
+      "outfit space": 160,
+      "weapon capacity": 55,
+      "engine capacity": 45,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "leak": 50,
+    "flame": 30,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "This tiny shuttle is the smallest vessel operating in Successor space, and the first ship that new Successor pilots are able to get their arms on. Despite their small size, they are capable multipurpose vessels, and are frequently used for transporting passengers and cargo, and for short-duration research expeditions. \tThe design of the Kvelqde is, like most Successor vessels, based on originals from the time of the Predecessors. While the modern incarnation is nowhere near as advanced, successive iterations with more limited resources have promoted the cost-efficiency and user-friendliness of the design.",
+    "_internalId": "official-game/endless-sky::Kvelqde",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "43fe997b250f",
+    "variant": "Kvelqde (Naive)",
+    "baseShip": "Kvelqde",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Successor": true
+    }
+  },
+  {
+    "name": "Myaede (Myaede (Naive))",
+    "engines": [
+      {
+        "x": -40,
+        "y": 10
+      },
+      {
+        "x": 40,
+        "y": 10
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -40,
+        "y": -28,
+        "position": "over"
+      },
+      {
+        "x": 40,
+        "y": -28,
+        "position": "over"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 20,
+        "y": -50,
+        "position": "angle 270"
+      },
+      {
+        "x": -20,
+        "y": -50,
+        "position": "angle 90"
+      },
+      {
+        "x": 13,
+        "y": 54,
+        "position": "angle 270"
+      },
+      {
+        "x": -13,
+        "y": 54,
+        "position": "angle 90"
+      }
+    ],
+    "guns": [
+      {
+        "x": -3,
+        "y": -60,
+        "gun": ""
+      },
+      {
+        "x": 3,
+        "y": -60,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -33,
+        "y": -11,
+        "turret": ""
+      },
+      {
+        "x": 33,
+        "y": -11,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Pulse Laser Turret": 2,
+      "3-\"Kaska\" Betavoltaic Cell": 2,
+      "1-\"Uurau\" Betavoltaic Cell": 1,
+      "\"Ej\" Shield Cortex": 1,
+      "\"Chyyra\" Inductive Thruster": 1,
+      "\"Chyyra\" Inductive Steering": 1,
+      "\"Aqra\" Inductive Reverser": 1,
+      "Hyperdrive": 1
+    },
+    "plural": "Myaeden",
+    "sprite": "ship/myaede",
+    "thumbnail": "thumbnail/myaede",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Light Freighter",
+      "cost": 3250000,
+      "shields": 1500,
+      "hull": 13000,
+      "required crew": 6,
+      "bunks": 20,
+      "mass": 500,
+      "drag": 7.1,
+      "heat dissipation": 0.62,
+      "fuel capacity": 500,
+      "cargo space": 125,
+      "outfit space": 275,
+      "weapon capacity": 125,
+      "engine capacity": 130,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "leak": 50,
+    "flame": 30,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Myaede is neither elegant nor fast, but it has remained the mainstay of Successor commerce since before the collapse of the old empire over a thousand years ago, boasting a spacious cargo hold, heavy armor, and a flexible enough weapons layout to let it fight back in a pinch. Much like the grand heirlooms of the High Houses, a familial Myaede is often passed down through the lineage of spacefaring low-born Successors, and many of the pilots flying these first took the helm as children under a grandparent's watchful gaze.",
+    "_internalId": "official-game/endless-sky::Myaede",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "a61dbae6c489",
+    "variant": "Myaede (Naive)",
+    "baseShip": "Myaede",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Successor": true
+    }
+  },
+  {
+    "name": "Nnesaarau (Nnesaarau (Naive))",
+    "engines": [
+      {
+        "x": 0,
+        "y": 34
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -20,
+        "y": -14,
+        "position": "over"
+      },
+      {
+        "x": 20,
+        "y": -14,
+        "position": "over"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -10,
+        "y": -29,
+        "position": "angle 270"
+      },
+      {
+        "x": 10,
+        "y": -29,
+        "position": "angle 90"
+      }
+    ],
+    "guns": [
+      {
+        "x": -7.5,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -34,
+        "gun": ""
+      },
+      {
+        "x": 7.5,
+        "y": -38,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "3-\"Kaska\" Betavoltaic Cell": 1,
+      "1-\"Uurau\" Betavoltaic Cell": 1,
+      "Auxiliary Power Reserve": 1,
+      "\"Ej\" Shield Cortex": 1,
+      "\"Chyyra\" Inductive Thruster": 1,
+      "\"Aqra\" Inductive Steering": 1,
+      "\"Aqra\" Inductive Reverser": 1,
+      "Scram Drive": 1
+    },
+    "plural": "Nnesaaraun",
+    "sprite": "ship/nnesaarau",
+    "thumbnail": "thumbnail/nnesaarau",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Transport",
+      "cost": 1225000,
+      "shields": 1800,
+      "hull": 2200,
+      "required crew": 1,
+      "bunks": 4,
+      "mass": 90,
+      "drag": 2.1,
+      "heat dissipation": 0.86,
+      "fuel capacity": 600,
+      "cargo space": 8,
+      "outfit space": 175,
+      "weapon capacity": 30,
+      "engine capacity": 60,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "leak": 50,
+    "flame": 30,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Quick and comfortable, the Nnesaarau is among the newest designs utilized in Successor space, having first emerged from House Chydiyi's shipyards no more than twenty years ago. For various reasons, it is also among the least popular; it was designed solely as a luxury passenger transport and sees very little use outside that role because of its high price and restrictive internals. Nonetheless, some hotshot pilots swear by these ships as racing or fast courier vessels.",
+    "_internalId": "official-game/endless-sky::Nnesaarau",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "95bf3afc0852",
+    "variant": "Nnesaarau (Naive)",
+    "baseShip": "Nnesaarau",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Successor": true
+    }
+  },
+  {
+    "name": "Ojde (Ojde (Naive))",
+    "engines": [
+      {
+        "x": 15,
+        "y": 93
+      },
+      {
+        "x": -15,
+        "y": 93
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -19,
+        "y": -117,
+        "position": "zoom .8"
+      },
+      {
+        "x": 19,
+        "y": -117,
+        "position": "zoom .8"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 33,
+        "y": -99,
+        "position": "left"
+      },
+      {
+        "x": -33,
+        "y": -99,
+        "position": "right"
+      },
+      {
+        "x": 43,
+        "y": 63,
+        "position": "right"
+      },
+      {
+        "x": -43,
+        "y": 63,
+        "position": "left"
+      }
+    ],
+    "guns": [
+      {
+        "x": 28,
+        "y": -110,
+        "gun": ""
+      },
+      {
+        "x": -28,
+        "y": -110,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 34,
+        "y": 37,
+        "turret": ""
+      },
+      {
+        "x": -34,
+        "y": 37,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 32,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Pulse Laser Turret": 2,
+      "6-\"Ruuv\" Betavoltaic Cell": 1,
+      "Auxiliary Power Reserve": 3,
+      "\"Ej\" Shield Cortex": 1,
+      "Successor Cooling": 1,
+      "\"Veusa\" Inductive Thruster": 1,
+      "\"Veusa\" Inductive Steering": 1,
+      "\"Chyyra\" Inductive Reverser": 1,
+      "Hyperdrive": 1
+    },
+    "plural": "Ojden",
+    "sprite": "ship/ojde",
+    "thumbnail": "thumbnail/ojde",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Heavy Freighter",
+      "cost": 8250000,
+      "shields": 3000,
+      "hull": 31500,
+      "required crew": 8,
+      "bunks": 24,
+      "mass": 1190,
+      "drag": 15.5,
+      "heat dissipation": 0.5,
+      "fuel capacity": 500,
+      "cargo space": 450,
+      "outfit space": 330,
+      "weapon capacity": 180,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "leak": 50,
+    "flame": 30,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Although it is the largest freighter employed by the Successors, the \"Ojde\" is still substantially smaller than large human freighters like the Bulk Freighter and Behemoth. While this limits the cargo capacity of any single ship, it also allows these vessels to be surprisingly fast and maneuverable and increases the number of facilities which can effectively tend to them. \tThough somewhat less popular among more traditional merchants than the time-tested Myaede, the increased cargo capacity of the Ojde makes it a more or less mandatory choice for those hoping to assemble a large-scale transport operation.",
+    "_internalId": "official-game/endless-sky::Ojde",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "4b71e409d03c",
+    "variant": "Ojde (Naive)",
+    "baseShip": "Ojde",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Successor": true
+    }
+  },
+  {
+    "name": "Stolsaqra (Stolsaqra (Naive))",
+    "engines": [
+      {
+        "x": -8,
+        "y": 35
+      },
+      {
+        "x": 8,
+        "y": 35
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 15,
+        "y": -3,
+        "position": "over"
+      },
+      {
+        "x": -15,
+        "y": -3,
+        "position": "over"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 4,
+        "y": -41,
+        "position": "angle 270"
+      },
+      {
+        "x": -4,
+        "y": -41,
+        "position": "angle 90"
+      },
+      {
+        "x": 12,
+        "y": 33,
+        "position": "angle 270"
+      },
+      {
+        "x": -12,
+        "y": 33,
+        "position": "angle 90"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -40,
+        "gun": ""
+      },
+      {
+        "x": -10.5,
+        "y": -20,
+        "gun": ""
+      },
+      {
+        "x": 10.5,
+        "y": -20,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Successor Pulse Laser": 3,
+      "3-\"Kaska\" Betavoltaic Cell": 1,
+      "1-\"Uurau\" Betavoltaic Cell": 2,
+      "Auxiliary Power Reserve": 2,
+      "\"Byiaa\" Shield Cortex": 1,
+      "\"Aqra\" Inductive Thruster": 2,
+      "\"Aqra\" Inductive Steering": 1,
+      "\"Aqra\" Inductive Reverser": 1,
+      "Hyperdrive": 1
+    },
+    "plural": "Stolsaqran",
+    "sprite": "ship/stolsaqra",
+    "thumbnail": "thumbnail/stolsaqra",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Interceptor",
+      "cost": 450000,
+      "shields": 850,
+      "hull": 6100,
+      "required crew": 1,
+      "bunks": 2,
+      "mass": 120,
+      "drag": 2.75,
+      "heat dissipation": 0.79,
+      "fuel capacity": 300,
+      "cargo space": 5,
+      "outfit space": 212,
+      "weapon capacity": 90,
+      "engine capacity": 80,
+      "multimodal armor": 1,
+      "hull repair rate": 0.3,
+      "hull energy": 0.33,
+      "hull heat": 0.33,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "leak": 50,
+    "flame": 30,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Successors have limited experience in making warships this small, and while their attempt at an interceptor is durable and sports a surprising amount of firepower for a ship of its size, it is also plagued with power and propulsion issues, as most of their standard technology is either too large or not powerful enough to yield effective combat performance at this scale. The result is a ship that ambitious pilots call a challenge and prudent captains call a deathtrap, but that continues to see use as a patrol and escort vessel because of its speed and heavy armament. \tThe Stolsaqra also has the distinction of being the only purpose-built warship manufactured by the High Houses that is made available to the general public, albeit with significantly downgraded systems compared to the military-exclusive model.",
+    "_internalId": "official-game/endless-sky::Stolsaqra",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "6c8d25f3d408",
+    "variant": "Stolsaqra (Naive)",
+    "baseShip": "Stolsaqra",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Successor": true,
+      "People's Houses": true,
+      "People's Houses (Hostile)": true
+    }
+  },
+  {
+    "name": "Veusade (Veusade (Naive))",
+    "engines": [
+      {
+        "x": -11,
+        "y": 21
+      },
+      {
+        "x": 11,
+        "y": 21
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -27,
+        "y": -25,
+        "position": "zoom .7"
+      },
+      {
+        "x": 27,
+        "y": -25,
+        "position": "zoom .7"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -40,
+        "y": 28,
+        "position": "over"
+      },
+      {
+        "x": 40,
+        "y": 28,
+        "position": "over"
+      },
+      {
+        "x": -7,
+        "y": -71,
+        "position": "zoom .5"
+      },
+      {
+        "x": 7,
+        "y": -71,
+        "position": "zoom .5"
+      }
+    ],
+    "guns": [
+      {
+        "x": -25,
+        "y": -32,
+        "gun": ""
+      },
+      {
+        "x": -22,
+        "y": -34,
+        "gun": ""
+      },
+      {
+        "x": -11,
+        "y": -64,
+        "gun": ""
+      },
+      {
+        "x": -7,
+        "y": -72,
+        "gun": ""
+      },
+      {
+        "x": 7,
+        "y": -72,
+        "gun": ""
+      },
+      {
+        "x": 11,
+        "y": -64,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -34,
+        "gun": ""
+      },
+      {
+        "x": 25,
+        "y": -32,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Drag Cannon": 8,
+      "\"Ryuit\" Fusion Core": 1,
+      "Auxiliary Power Reserve": 2,
+      "\"Jaase\" Shield Cortex": 1,
+      "Successor Cooling": 1,
+      "Multimodal Armor: Heavy": 1,
+      "Kinetic Rail Rifle": 5,
+      "\"Veusa\" Inductive Thruster": 1,
+      "\"Veusa\" Inductive Steering": 1,
+      "Hyperdrive": 1
+    },
+    "plural": "Veusaden",
+    "sprite": "ship/veusade",
+    "thumbnail": "thumbnail/veusade",
+    "attributes": {
+      "licenses": {
+        "High Houses": true
+      },
+      "category": "Light Warship",
+      "cost": 16500000,
+      "shields": 8000,
+      "hull": 29000,
+      "required crew": 5,
+      "bunks": 10,
+      "mass": 360,
+      "drag": 5.45,
+      "heat dissipation": 0.62,
+      "fuel capacity": 500,
+      "cargo space": 15,
+      "outfit space": 370,
+      "weapon capacity": 96,
+      "engine capacity": 120,
+      "multimodal armor": 1,
+      "hull repair rate": 1.45,
+      "hull energy": 1.595,
+      "hull heat": 1.595,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "zoom": 0.8,
+    "leak": 50,
+    "flame": 30,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Blessed with the honor of being named with the Successor word for swiftness, the Veusade is designed for only one purpose: to carry eight drag cannons as close to an enemy ship's hull as possible. \tVessels of this lineage earned renown in many of the conflicts between the Predecessors' High Houses, catching and killing ships many times their size and escaping before reinforcements could arrive. In the present, such a narrowly-focused design makes these vessels ill-suited for multipurpose use, but they are frequently seen as auxiliary or police craft, owing to their ability to rapidly intercept and immobilize fleeing ships.",
+    "_internalId": "official-game/endless-sky::Veusade",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "3610f283ac36",
+    "variant": "Veusade (Naive)",
+    "baseShip": "Veusade",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Old Houses": true,
+      "New Houses": true,
+      "House Aqrabe": true,
+      "House Chydiyi": true
+    }
+  },
+  {
+    "name": "Vujlet (Vujlet (Naive))",
+    "engines": [
+      {
+        "x": -16,
+        "y": 49
+      },
+      {
+        "x": 16,
+        "y": 49
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -16,
+        "y": -6,
+        "position": "over"
+      },
+      {
+        "x": 16,
+        "y": -5,
+        "position": "over"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -4,
+        "y": -53,
+        "position": "over"
+      },
+      {
+        "x": 4,
+        "y": -53,
+        "position": "over"
+      },
+      {
+        "x": -28,
+        "y": 34,
+        "position": "over"
+      },
+      {
+        "x": 28,
+        "y": 34,
+        "position": "over"
+      }
+    ],
+    "guns": [
+      {
+        "x": -6,
+        "y": -46,
+        "gun": ""
+      },
+      {
+        "x": 6,
+        "y": -46,
+        "gun": ""
+      },
+      {
+        "x": -9,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": 9,
+        "y": -30,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "\"Ojet\" Bimodal Coilgun": 2,
+      "\"Nnesa\" Fusion Core": 1,
+      "OC-\"Mavra\" Betavoltaic Cell": 1,
+      "Auxiliary Power Reserve": 1,
+      "\"Jaase\" Shield Cortex": 1,
+      "Successor Cooling": 1,
+      "Multimodal Armor: Heavy": 1,
+      "Kinetic Rail Rifle": 4,
+      "\"Chyyra\" Inductive Thruster": 1,
+      "\"Chyyra\" Inductive Steering": 1,
+      "\"Chyyra\" Inductive Reverser": 1,
+      "Hyperdrive": 1
+    },
+    "plural": "Vujleten",
+    "sprite": "ship/vujlet",
+    "thumbnail": "thumbnail/vujlet",
+    "attributes": {
+      "licenses": {
+        "High Houses": true
+      },
+      "category": "Light Warship",
+      "cost": 8200000,
+      "shields": 3000,
+      "hull": 17500,
+      "required crew": 2,
+      "bunks": 6,
+      "mass": 230,
+      "drag": 3.8,
+      "heat dissipation": 0.68,
+      "fuel capacity": 600,
+      "cargo space": 10,
+      "outfit space": 280,
+      "weapon capacity": 105,
+      "engine capacity": 85,
+      "exclusive: Vujlet": 1,
+      "multimodal armor": 1,
+      "hull repair rate": 0.875,
+      "hull energy": 0.9625,
+      "hull heat": 0.9625,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "zoom": 0.9,
+    "leak": 50,
+    "flame": 30,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Navigating the stars with the grace of a flitting bird, the compact Vujlet is a mass-produced High Houses warship flexible enough to serve in a variety of light-duty roles. Large enough to operate as a self-sufficient unit, these vessels serve as a useful bridge between short-ranged and relatively vulnerable interceptors, and larger, more resource-intensive warships that can be much more expensive to build and operate. \tThe design was originally employed by House Kaatrij as a stealth reconnaissance vessel that made use of their then-recently-developed cloaking technology. As the alliance between the New Houses strengthened, the plans for the Vujlet were distributed among them, and the light warship rapidly became a mainstay of their fleets. Unfortunately, without the materials present in their Predecessors' domain, House Kaatrij has been unable to manufacture stealth equipment for the Vujlet in the modern era.",
+    "_internalId": "official-game/endless-sky::Vujlet",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "0cfccf25d845",
+    "variant": "Vujlet (Naive)",
+    "baseShip": "Vujlet",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "New Houses": true,
+      "House Aqrabe": true,
+      "House Seineq": true
     }
   },
   {
@@ -64951,6 +69537,153 @@
     "_variantPluginId": "official-game/endless-sky",
     "governments": {
       "Wanderer": true
+    }
+  },
+  {
+    "name": "Cool Breeze (Cool Breeze (Sunbeam))",
+    "engines": [
+      {
+        "x": -10,
+        "y": 47
+      },
+      {
+        "x": 10,
+        "y": 47
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -15,
+        "y": -10,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -10,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "outfitMap": {
+      "Moonbeam": 2,
+      "Red Sun Reactor": 1,
+      "Bright Cloud Shielding": 1,
+      "Type 2 Radiant Thruster": 1,
+      "Type 3 Radiant Steering": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/cool breeze",
+    "thumbnail": "thumbnail/cool breeze",
+    "attributes": {
+      "category": "Interceptor",
+      "licenses": {
+        "Wanderer Military": true
+      },
+      "cost": 4530000,
+      "shields": 7700,
+      "hull": 3100,
+      "required crew": 1,
+      "bunks": 3,
+      "mass": 86,
+      "drag": 2.1,
+      "heat dissipation": 0.79,
+      "fuel capacity": 400,
+      "cargo space": 14,
+      "outfit space": 192,
+      "weapon capacity": 41,
+      "engine capacity": 62,
+      "weapon": {
+        "blast radius": 36,
+        "shield damage": 360,
+        "hull damage": 180,
+        "hit force": 540
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 10,
+    "final explode": "final explosion small",
+    "description": "This is the first ship the Wanderers have built in millennia that is designed to be operated by a single pilot instead of a crew. They are flown mostly by young warriors eager to prove their mettle by winning individual glory in battle.",
+    "_internalId": "official-game/endless-sky::Cool Breeze",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "a4b4b4c739d3",
+    "variant": "Cool Breeze (Sunbeam)",
+    "baseShip": "Cool Breeze",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "Wanderer": true,
+      "Sagittarian": true,
+      "Avgi (Twilight Guard)": true,
+      "Avgi": true,
+      "Avgi (Dissonance)": true,
+      "Avgi (Wandering Fleet)": true,
+      "Avgi (Dissonance Angry)": true,
+      "Bunrodea (Erabu)": true,
+      "Bunrodea (Megasa)": true,
+      "Bunrodea": true,
+      "Bunrodea (Criminal)": true,
+      "Bunrodea (Guard)": true,
+      "Coalition": true,
+      "Derelict 2": true,
+      "Heliarch": true,
+      "Drak": true,
+      "Gegno Pirates": true,
+      "Gegno Vi": true,
+      "Gegno Vi (Neutral)": true,
+      "Gegno Vi (Combative)": true,
+      "Gegno": true,
+      "Gegno Scin": true,
+      "Gegno Scin (Neutral)": true,
+      "Gegno Scin (Combative)": true,
+      "Hai": true,
+      "Hai Merchant": true,
+      "Hai Merchant (Human)": true,
+      "Merchant": true,
+      "Hai Merchant (Sympathizers)": true,
+      "Hai (Unfettered Civilians)": true,
+      "Hai (Unfettered)": true,
+      "Independent": true,
+      "Test Dummy": true,
+      "Pirate": true,
+      "Deep Security": true,
+      "Bounty Hunter": true,
+      "Republic": true,
+      "Free Worlds": true,
+      "Militia": true,
+      "Avalonian": true,
+      "Lunarium (Hidden)": true,
+      "Escort": true,
+      "Bounty": true,
+      "Syndicate": true,
+      "Bounty (Disguised)": true,
+      "Navy (Oathkeeper)": true,
+      "Syndicate (Extremist)": true,
+      "Alpha": true,
+      "Hai (Wormhole Access)": true,
+      "Merchant (Hostile)": true,
+      "Independent (Killable)": true,
+      "Aberrant": true,
+      "Ka'het": true,
+      "Ka'het (Infighting)": true,
+      "Korath": true,
+      "Korath (Civilian)": true,
+      "Kor Sestor": true,
+      "Remnant": true,
+      "Remnant (Research)": true,
+      "Old Houses": true,
+      "New Houses": true,
+      "House Aqrabe": true,
+      "House Chydiyi": true,
+      "Successor": true,
+      "House Seineq": true,
+      "House Myurej": true,
+      "Derelict (Boardable)": true,
+      "People's Houses": true,
+      "People's Houses (Hostile)": true,
+      "House Sioeora": true,
+      "derelict ship": true
     }
   },
   {

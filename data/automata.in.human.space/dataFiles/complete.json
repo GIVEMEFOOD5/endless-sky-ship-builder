@@ -143,6 +143,189 @@
       }
     },
     {
+      "name": "Tek Far 71 - Lek (Tek Far 71 - Lek (Jump))",
+      "engines": [
+        {
+          "x": -9,
+          "y": 219
+        },
+        {
+          "x": 9,
+          "y": 219
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 10,
+          "y": -180,
+          "gun": ""
+        },
+        {
+          "x": 10,
+          "y": -180,
+          "gun": ""
+        },
+        {
+          "x": 10,
+          "y": -180,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -10,
+          "y": -85,
+          "turret": ""
+        },
+        {
+          "x": -13,
+          "y": -61,
+          "turret": ""
+        },
+        {
+          "x": -14,
+          "y": -38,
+          "turret": ""
+        },
+        {
+          "x": 14,
+          "y": 177,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": 20.5,
+          "y": -65,
+          "position": "over",
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Drone",
+          "x": 44.5,
+          "y": -40,
+          "position": "over",
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Drone",
+          "x": 30,
+          "y": 67,
+          "position": "over",
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Drone",
+          "x": 61.5,
+          "y": 83,
+          "position": "over",
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Drone",
+          "x": 43,
+          "y": 137,
+          "position": "over",
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Drone",
+          "x": 18,
+          "y": 171.5,
+          "position": "over",
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Drone",
+          "x": 30,
+          "y": -106,
+          "position": "under",
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Drone",
+          "x": 24,
+          "y": -8,
+          "position": "under",
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Drone",
+          "x": 42,
+          "y": 55,
+          "position": "under",
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Drone",
+          "x": 34,
+          "y": 172,
+          "position": "under",
+          "launch effect": "korath external"
+        }
+      ],
+      "outfitMap": {
+        "Korath Detainer": 1,
+        "Piercer Missile Launcher": 2,
+        "Piercer Missile": 62,
+        "Banisher Grav-Turret": 1,
+        "Warder Anti-Missile": 2,
+        "Double Plasma Core": 1,
+        "Generator (Furnace Class)": 1,
+        "Systems Core (Medium)": 1,
+        "Large Heat Shunt": 1,
+        "Control Transceiver": 1,
+        "Thruster (Lunar Class)": 1,
+        "Steering (Lunar Class)": 1,
+        "Hyperdrive": 1
+      },
+      "sprite": "ship/tek far 71 lek",
+      "thumbnail": "thumbnail/tek far 71 lek",
+      "attributes": {
+        "category": "Medium Warship",
+        "cost": 22870000,
+        "shields": 25400,
+        "hull": 29500,
+        "automaton": 1,
+        "crew equivalent": 50,
+        "mass": 1240,
+        "drag": 14.9,
+        "heat dissipation": 0.39,
+        "fuel capacity": 400,
+        "cargo space": 36,
+        "outfit space": 533,
+        "weapon capacity": 235,
+        "engine capacity": 102,
+        "self destruct": 0.7,
+        "ramscoop": 3,
+        "weapon": {
+          "blast radius": 320,
+          "shield damage": 4000,
+          "hull damage": 2000,
+          "hit force": 6000
+        }
+      },
+      "tiny explosion": 80,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Kor Sestor war fleets rely heavily on small, powerful fighters and drones. This ship can carry up to ten of their drones, clamped to the exterior of its hull.",
+      "_internalId": "official-game/endless-sky::Tek Far 71 - Lek",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "685f6dec8694",
+      "variant": "Tek Far 71 - Lek (Jump)",
+      "baseShip": "Tek Far 71 - Lek",
+      "_variantPluginId": "Zuckungs list/automata.in.human.space",
+      "governments": {
+        "Kor Sestor": true
+      }
+    },
+    {
       "name": "Tek Far 78 - Osk (Tek Far 78 - Osk (Jump))",
       "engines": [
         {
@@ -537,6 +720,125 @@
       "_hash": "791dcf4fade8",
       "variant": "Tek Far 109 (Jump)",
       "baseShip": "Tek Far 109",
+      "_variantPluginId": "Zuckungs list/automata.in.human.space",
+      "governments": {
+        "Kor Sestor": true
+      }
+    },
+    {
+      "name": "Met Par Tek 53 (Met Par Tek 53 (Jump))",
+      "engines": [
+        {
+          "x": -24,
+          "y": 132
+        },
+        {
+          "x": 24,
+          "y": 132
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 0,
+          "y": -92,
+          "gun": ""
+        },
+        {
+          "x": -10,
+          "y": -65,
+          "gun": ""
+        },
+        {
+          "x": 10,
+          "y": -65,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -36,
+          "y": -45,
+          "turret": ""
+        },
+        {
+          "x": 36,
+          "y": -45,
+          "turret": ""
+        },
+        {
+          "x": -38,
+          "y": -28,
+          "turret": ""
+        },
+        {
+          "x": 38,
+          "y": -28,
+          "turret": ""
+        },
+        {
+          "x": -40,
+          "y": -8,
+          "turret": ""
+        },
+        {
+          "x": 40,
+          "y": -8,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "outfitMap": {
+        "Thermal Repeater": 3,
+        "Thermal Repeater Turret": 6,
+        "Double Plasma Core": 1,
+        "Generator (Inferno Class)": 1,
+        "Systems Core (Medium)": 1,
+        "Large Heat Shunt": 3,
+        "Control Transceiver": 1,
+        "Thruster (Lunar Class)": 1,
+        "Steering (Planetary Class)": 1,
+        "Hyperdrive": 1
+      },
+      "sprite": "ship/met par tek 53",
+      "thumbnail": "thumbnail/met par tek 53",
+      "attributes": {
+        "category": "Light Warship",
+        "cost": 14480000,
+        "shields": 15100,
+        "hull": 22200,
+        "automaton": 1,
+        "crew equivalent": 25,
+        "mass": 935,
+        "drag": 8.6,
+        "heat dissipation": 0.54,
+        "fuel capacity": 400,
+        "cargo space": 26,
+        "outfit space": 610,
+        "weapon capacity": 213,
+        "engine capacity": 110,
+        "self destruct": 0.65,
+        "ramscoop": 3,
+        "weapon": {
+          "blast radius": 250,
+          "shield damage": 3200,
+          "hull damage": 1600,
+          "hit force": 4800
+        }
+      },
+      "tiny explosion": 60,
+      "small explosion": 30,
+      "medium explosion": 35,
+      "large explosion": 20,
+      "huge explosion": 6,
+      "final explode": "final explosion medium",
+      "description": "Although this is the smallest Kor Sestor ship other than their fighters, it is larger than most human capital ships and considerably more powerful.",
+      "_internalId": "official-game/endless-sky::Met Par Tek 53",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "9078abf012c4",
+      "variant": "Met Par Tek 53 (Jump)",
+      "baseShip": "Met Par Tek 53",
       "_variantPluginId": "Zuckungs list/automata.in.human.space",
       "governments": {
         "Kor Sestor": true
@@ -1138,9 +1440,132 @@
         "Kor Mereti": true,
         "Kor Mereti (Hostile)": true
       }
+    },
+    {
+      "name": "Model 512 (Model 512 (Jump))",
+      "engines": [
+        {
+          "x": -145,
+          "y": 97
+        },
+        {
+          "x": 145,
+          "y": 97
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -22,
+          "y": -143,
+          "gun": ""
+        },
+        {
+          "x": 22,
+          "y": -143,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -23,
+          "y": -134,
+          "turret": ""
+        },
+        {
+          "x": 91,
+          "y": -102,
+          "turret": ""
+        },
+        {
+          "x": 124,
+          "y": -57,
+          "turret": ""
+        },
+        {
+          "x": -130,
+          "y": -33,
+          "turret": ""
+        },
+        {
+          "x": 138,
+          "y": 20,
+          "turret": ""
+        },
+        {
+          "x": -121,
+          "y": 86,
+          "turret": ""
+        },
+        {
+          "x": 54,
+          "y": 138,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "outfitMap": {
+        "Cluster Mine Layer": 2,
+        "Cluster Mine": 52,
+        "Cluster Mine Rack": 2,
+        "Shield Disruptor Turret": 3,
+        "Husk-Slice Turret": 4,
+        "Triple Plasma Core": 1,
+        "Plasma Core": 1,
+        "Systems Core (Large)": 1,
+        "Large Heat Shunt": 1,
+        "Small Heat Shunt": 2,
+        "Reasoning Node": 3,
+        "Thruster (Lunar Class)": 1,
+        "Thruster (Planetary Class)": 1,
+        "Steering (Planetary Class)": 1
+      },
+      "sprite": "ship/model 512",
+      "thumbnail": "thumbnail/model 512",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 40375000,
+        "shields": 86400,
+        "hull": 34200,
+        "automaton": 1,
+        "crew equivalent": 150,
+        "mass": 3186,
+        "drag": 33.9,
+        "heat dissipation": 0.42,
+        "fuel capacity": 400,
+        "cargo space": 107,
+        "outfit space": 994,
+        "weapon capacity": 440,
+        "engine capacity": 161,
+        "self destruct": 0.8,
+        "ramscoop": 3,
+        "weapon": {
+          "blast radius": 380,
+          "shield damage": 5600,
+          "hull damage": 2800,
+          "hit force": 8400
+        }
+      },
+      "tiny explosion": 160,
+      "small explosion": 115,
+      "medium explosion": 80,
+      "large explosion": 35,
+      "final explode": "final explosion large",
+      "description": "This is the final state in the evolution of a Kor Mereti war drone: a perfect ring, with incredibly powerful shields and turrets firing in every direction.",
+      "_internalId": "official-game/endless-sky::Model 512",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "96c9728a8d48",
+      "variant": "Model 512 (Jump)",
+      "baseShip": "Model 512",
+      "_variantPluginId": "Zuckungs list/automata.in.human.space",
+      "governments": {
+        "Kor Mereti": true,
+        "Kor Mereti (Hostile)": true
+      }
     }
   ],
   "outfits": [],
   "effects": [],
-  "parsedAt": "2026-03-03T13:58:33.474Z"
+  "parsedAt": "2026-03-04T09:02:55.451Z"
 }
