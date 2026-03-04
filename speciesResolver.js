@@ -140,19 +140,26 @@ class SpeciesResolver {
     }
 
     for (const variant of variants) {
-      // Resolve by full variant name first, then fall back to base ship name.
-      // _governmentsForShip internally also strips the variant suffix, so
-      // "Falcon (Combat)" will match npcRefs/fleets storing "Falcon".
-      const merged = new Set([
-        ...this._governmentsForShip(variant.name),
-        ...this._governmentsForShip(variant.baseShip ?? variant.name),
-      ]);
-      if (merged.size === 0)
+      // First: look up by the full variant name e.g. "Carrier (Alpha)".
+      // _governmentsForShip also strips the suffix internally, so this covers
+      // npcRefs/fleets that stored "Carrier (Alpha)" OR "Carrier".
+      const govts = this._governmentsForShip(variant.name);
+
+      // Only fall back to the base ship lookup if the variant-specific lookup
+      // found nothing. Merging both unconditionally causes base ship governments
+      // (e.g. Republic, Syndicate for "Carrier") to bleed into variants that
+      // belong to a completely different government (e.g. "Carrier (Alpha)" → Alpha).
+      if (govts.size === 0) {
+        for (const g of this._governmentsForShip(variant.baseShip ?? variant.name))
+          govts.add(g);
+      }
+
+      if (govts.size === 0)
         for (const g of this._outfitFallbackGovernments(variant.outfitMap))
-          merged.add(g);
-      if (merged.size === 0 && pluginName)
-        merged.add(pluginName);
-      variant.governments = toObj(merged);
+          govts.add(g);
+      if (govts.size === 0 && pluginName)
+        govts.add(pluginName);
+      variant.governments = toObj(govts);
     }
 
     for (const outfit of outfits) {
