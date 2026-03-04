@@ -13,8 +13,6 @@ class SpeciesResolver {
 
   collectFleet(government, shipNames) {
     if (!government) return;
-    // Always register the government as known — even if no ship names were
-    // collected from this fleet block (ships may be in shipyards/variants).
     this.knownGovernments.add(government);
     if (shipNames.length) {
       this.fleets.push({ government, shipNames: [...shipNames] });
@@ -23,13 +21,7 @@ class SpeciesResolver {
 
   collectNpcRef(government, shipName) {
     if (!shipName) return;
-    if (government) {
-      this.knownGovernments.add(government);
-    }
-    // Store every ship seen in a mission NPC block regardless of whether it
-    // has an explicit government. Null-government entries are skipped in the
-    // direct government lookup but still exist so we can attempt outfit-based
-    // fallback resolution — previously these were silently dropped entirely.
+    if (government) this.knownGovernments.add(government);
     this.npcRefs.push({ government: government ?? null, shipName });
   }
 
@@ -59,26 +51,23 @@ class SpeciesResolver {
 
     // Strip variant suffix: "Carrier (Alpha)" → "Carrier"
     const baseName = shipName.replace(/\s*\([^)]+\)\s*$/, '').trim();
-    const isVariant = baseName !== shipName;
 
-    // Fleet and shipyard lookups use EXACT name only.
+    // Fleet and shipyard lookups: exact name only.
     // A fleet listing "Carrier" refers to the base hull, not "Carrier (Alpha)".
-    // Letting the base name match here would bleed base ship governments into
-    // unrelated variants (e.g. Republic/Syndicate into Alpha variants).
+    // Using the base name here would bleed base ship governments into unrelated variants.
     for (const fleet of this.fleets)
       if (fleet.shipNames.includes(shipName))
         govts.add(fleet.government);
 
-    // NPC refs use both exact name and base name, because missions reference
-    // ships by their type name: ship "Carrier (Alpha)" "Giftbringer" stores
-    // "Carrier (Alpha)" directly, but ship "Carrier" "Bob" stores "Carrier"
-    // which should match a base ship lookup.
+    // NPC refs: match exact name OR base name.
+    // Missions store the full type name e.g. "Carrier (Alpha)", but a mission that
+    // just says ship "Carrier" "Bob" stores "Carrier" which should match base lookups.
     for (const ref of this.npcRefs)
       if (ref.government)
         if (ref.shipName === shipName || ref.shipName === baseName)
           govts.add(ref.government);
 
-    // Shipyard → planet → government chain: exact name only (same reason as fleets)
+    // Shipyard → planet → government chain: exact name only
     for (const [yard, shipList] of Object.entries(this.shipyards)) {
       if (!shipList.includes(shipName)) continue;
       for (const planet of this.planets)
@@ -111,17 +100,9 @@ class SpeciesResolver {
     return new Set([...govts].filter(g => this.knownGovernments.has(g)));
   }
 
-  _outfitFallbackGovernments(outfitMap) {
-    const govts = new Set();
-    if (!outfitMap) return govts;
-    for (const outfitName of Object.keys(outfitMap))
-      for (const g of this._governmentsForOutfit(outfitName))
-        if (this.knownGovernments.has(g))
-          govts.add(g);
-    return govts;
-  }
-
-  // pluginName is used as a last-resort fallback government when nothing else matches
+  // pluginName is the last-resort fallback when no government can be determined.
+  // For multi-plugin repos it is the subfolder name; for single-plugin repos it
+  // is the source name from plugins.json — both passed in as outputName by main().
   attachSpecies(ships, variants, outfits, pluginName) {
     const toObj = govts => {
       const obj = {};
@@ -131,31 +112,18 @@ class SpeciesResolver {
 
     for (const ship of ships) {
       const govts = this._governmentsForShip(ship.name);
-      if (govts.size === 0)
-        for (const g of this._outfitFallbackGovernments(ship.outfitMap))
-          govts.add(g);
       if (govts.size === 0 && pluginName)
         govts.add(pluginName);
       ship.governments = toObj(govts);
     }
 
     for (const variant of variants) {
-      // First: look up by the full variant name e.g. "Carrier (Alpha)".
-      // _governmentsForShip also strips the suffix internally, so this covers
-      // npcRefs/fleets that stored "Carrier (Alpha)" OR "Carrier".
+      // Look up by full variant name first (e.g. "Carrier (Alpha)").
+      // Only fall back to base ship name if nothing found — prevents base ship
+      // governments bleeding into variants belonging to a different faction.
       const govts = this._governmentsForShip(variant.name);
-
-      // Only fall back to the base ship lookup if the variant-specific lookup
-      // found nothing. Merging both unconditionally causes base ship governments
-      // (e.g. Republic, Syndicate for "Carrier") to bleed into variants that
-      // belong to a completely different government (e.g. "Carrier (Alpha)" → Alpha).
-      if (govts.size === 0) {
-        for (const g of this._governmentsForShip(variant.baseShip ?? variant.name))
-          govts.add(g);
-      }
-
       if (govts.size === 0)
-        for (const g of this._outfitFallbackGovernments(variant.outfitMap))
+        for (const g of this._governmentsForShip(variant.baseShip ?? variant.name))
           govts.add(g);
       if (govts.size === 0 && pluginName)
         govts.add(pluginName);
