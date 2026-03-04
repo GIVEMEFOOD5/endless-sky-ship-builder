@@ -1246,7 +1246,12 @@ class EndlessSkyParser {
     if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return null;
 
     const v = JSON.parse(JSON.stringify(baseShip));
-    v.name            = `${variantInfo.baseName} (${variantInfo.variantName})`;
+    // If variantName already contains the base name (e.g. "Carrier (Alpha)" as the
+    // variant identifier for base "Carrier"), use it directly to avoid double-wrapping
+    // into "Carrier (Carrier (Alpha))".
+    v.name            = variantInfo.variantName.startsWith(variantInfo.baseName)
+      ? variantInfo.variantName
+      : `${variantInfo.baseName} (${variantInfo.variantName})`;
     v.variant         = variantInfo.variantName;
     v.baseShip        = variantInfo.baseName;
     v._variantPluginId = variantInfo.variantPluginId;
