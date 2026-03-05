@@ -1,17 +1,11 @@
 // governmentFilter.js
-// Extracts unique governments from ships/variants/outfits JSON data
-// and renders them as checkboxes, mirroring the category filter pattern.
+// Extracts unique governments from the current tab's data and renders
+// them as checkboxes. Integrates with renderCards, filterItems, and clearFilters.
 
 // ---------------------------------------------------------------------------
 // Extraction
 // ---------------------------------------------------------------------------
 
-/**
- * Collect every government key from a ships, variants, or outfits array.
- * Each item has a `governments` object where keys are government names.
- *
- * e.g. item.governments = { "Republic": true, "Syndicate": true }
- */
 function extractGovernments(data) {
     const governments = new Set();
 
@@ -31,28 +25,15 @@ function extractGovernments(data) {
 }
 
 // ---------------------------------------------------------------------------
-// Populate
+// Populate — called from renderCards alongside populateFilters
 // ---------------------------------------------------------------------------
 
-/**
- * Populate the government filter checkboxes from the loaded plugin data.
- * Expects the page to have:
- *   <div id="governmentFilterSection">
- *     <div id="governmentFilterOptions"></div>
- *   </div>
- *
- * @param {Array|Object} data  - ships, variants, or outfits array/object
- * @param {Function}     onChangeCallback  - called whenever a checkbox changes
- */
-function populateGovernmentFilters(data, onChangeCallback) {
+function populateGovernmentFilters(data) {
     const governments = extractGovernments(data);
     const filterOptions = document.getElementById('governmentFilterOptions');
     const filterSection = document.getElementById('governmentFilterSection');
 
-    if (!filterOptions || !filterSection) {
-        console.warn('governmentFilter: missing #governmentFilterOptions or #governmentFilterSection elements');
-        return;
-    }
+    if (!filterOptions || !filterSection) return;
 
     if (governments.length === 0) {
         filterSection.style.display = 'none';
@@ -71,7 +52,7 @@ function populateGovernmentFilters(data, onChangeCallback) {
         checkbox.id = `gov-filter-${CSS.escape(government)}`;
         checkbox.value = government;
         checkbox.checked = false;
-        checkbox.onchange = onChangeCallback || filterByGovernment;
+        checkbox.onchange = filterItems; // same filterItems used by categories
 
         const label = document.createElement('label');
         label.htmlFor = `gov-filter-${CSS.escape(government)}`;
@@ -87,65 +68,34 @@ function populateGovernmentFilters(data, onChangeCallback) {
 // Read selection
 // ---------------------------------------------------------------------------
 
-/**
- * Returns an array of the currently checked government names.
- * Returns an empty array if none are checked (meaning "show all").
- */
 function getSelectedGovernments() {
     const checkboxes = document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]');
     const selected = [];
-
-    checkboxes.forEach(cb => {
-        if (cb.checked) selected.push(cb.value);
-    });
-
+    checkboxes.forEach(cb => { if (cb.checked) selected.push(cb.value); });
     return selected;
 }
 
 // ---------------------------------------------------------------------------
-// Filter logic
+// Per-item check — call this inside filterItems alongside category checks
 // ---------------------------------------------------------------------------
 
-/**
- * Returns true if the item should be shown given the currently selected governments.
- * If no governments are selected, all items pass.
- *
- * @param {Object}   item        - a ship, variant, or outfit object
- * @param {string[]} selected    - array from getSelectedGovernments()
- */
 function itemMatchesGovernmentFilter(item, selected) {
     if (selected.length === 0) return true;
     if (!item || typeof item.governments !== 'object') return false;
     return selected.some(g => item.governments[g] === true);
 }
 
-/**
- * Default filter handler — override with your own or pass a callback to
- * populateGovernmentFilters(). Dispatches a custom event so the rest of
- * your page can react without tight coupling.
- */
-function filterByGovernment() {
-    const selected = getSelectedGovernments();
-    document.dispatchEvent(new CustomEvent('governmentFilterChanged', {
-        detail: { selected }
-    }));
-}
-
 // ---------------------------------------------------------------------------
-// Clear
+// Clear — plug into clearFilters
 // ---------------------------------------------------------------------------
 
-/**
- * Uncheck all government checkboxes and trigger the filter callback.
- */
 function clearGovernmentFilters() {
     const checkboxes = document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]');
     checkboxes.forEach(cb => { cb.checked = false; });
-    filterByGovernment();
 }
 
 // ---------------------------------------------------------------------------
-// Exports — global (mirrors the pattern in your existing filter file)
+// Global exports
 // ---------------------------------------------------------------------------
 
 window.extractGovernments          = extractGovernments;
