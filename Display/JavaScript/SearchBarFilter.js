@@ -9,6 +9,8 @@ function filterItems() {
         
         // Get category - handle both item.category and item.attributes.category
         const itemCategory = item.category || item.attributes?.category;
+
+        const selectedGovts = getSelectedGovernments();
         
         // Check if item matches selected categories
         const matchesCategory = selectedCategories.length === 0 || 
@@ -16,7 +18,7 @@ function filterItems() {
                                 selectedCategories.includes(itemCategory);
         
         // Item must match both search and category
-        return matchesSearch && matchesCategory;
+        return matchesSearch && matchesCategory && itemMatchesGovernmentFilter(item, selectedGovts);
     });
 
     container.innerHTML = '';
