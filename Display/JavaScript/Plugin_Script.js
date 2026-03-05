@@ -199,6 +199,7 @@ function renderCards() {
 
     filteredData = items;
     if (typeof populateFilters === 'function') populateFilters(items);
+    if (typeof populateGovernmentFilters === 'function') populateGovernmentFilters(items);
     if (typeof filterItems === 'function') filterItems();
 }
 
