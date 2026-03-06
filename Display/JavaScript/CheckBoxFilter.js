@@ -81,7 +81,7 @@ function clearFilters() {
     const searchBar = document.getElementById('searchInput');
     checkboxes.forEach(cb => { cb.checked = false; });
     searchBar.value = "";
-    if (typeof clearGovernmentFilters === 'function') clearGovernmentsFilters();
+    if (typeof clearGovernmentFilters === 'function') clearGovernmentFilters();
     filterItems();
 }
 
