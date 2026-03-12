@@ -3,6 +3,7 @@ let currentPlugin = null;
 let currentTab = 'ships';
 let filteredData = [];
 let currentModalTab = 'attributes';
+let attrDefs = null;   // attributeDefinitions.json — loaded once during loadData()
 
 // ─── Data loading ─────────────────────────────────────────────────────────────
 
@@ -19,6 +20,12 @@ async function loadData() {
     mainContent.style.display = 'none';
 
     if (typeof initImageIndex === 'function') initImageIndex();
+
+    // Load attribute definitions in the background — non-fatal if missing
+    fetch(`${baseUrl}/attributeDefinitions.json`)
+        .then(r => r.ok ? r.json() : null)
+        .then(d => { attrDefs = d; })
+        .catch(() => {});
 
     try {
         // Load the index which maps sourceName → [{ outputName, displayName }]
@@ -384,6 +391,12 @@ async function renderImageTab(spritePath, altText, spriteParams) {
 }
 
 function renderAttributesTab(item) {
+    // Use AttributeDisplay enhanced renderer if available and attrDefs are loaded
+    if (attrDefs && window.AttributeDisplay) {
+        return window.AttributeDisplay.renderAttributesTabEnhanced(item, attrDefs, currentTab);
+    }
+
+    // ── Fallback: original plain renderer ────────────────────────────────────
     let html = '';
 
     if (currentTab === 'ships' || currentTab === 'variants') {
@@ -481,6 +494,12 @@ function clearData() {
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Initialise AttributeDisplay styles and tooltips if loaded
+    if (window.AttributeDisplay) {
+        window.AttributeDisplay.injectStyles();
+        window.AttributeDisplay.initTooltips();
+    }
+
     document.getElementById('detailModal').addEventListener('click', function (e) {
         if (e.target.id === 'detailModal') closeModal();
     });
