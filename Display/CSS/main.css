@@ -634,3 +634,9 @@ button {
 .ad-stacking-rule { 
     color: #a3a3a3; 
 }
+
+@media (max-width: 500px) {
+    .ad-grid {
+        grid-template-columns: 1fr;
+    }
+}
