@@ -1,0 +1,922 @@
+{
+  "_source": "https://github.com/endless-sky/endless-sky",
+  "_sourceFiles": [
+    "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/OutfitInfoDisplay.cpp",
+    "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/Ship.cpp",
+    "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/Outfit.cpp",
+    "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipInfoDisplay.cpp"
+  ],
+  "_generatedAt": "2026-03-12T08:58:02.316Z",
+  "_notes": "Frames are 1/60 of a second. Attributes stack additively unless noted in stackingRules.",
+  "outfitAttributes": {},
+  "derivedStats": {
+    "maxSpeed": {
+      "label": "Max Speed",
+      "unit": "px/s",
+      "formula": "thrust / drag",
+      "formulaDisplay": "thrust / drag",
+      "description": "Theoretical top speed. Thrust exactly balances drag at this velocity.",
+      "sourceFunction": "Ship::MaxVelocity"
+    },
+    "acceleration": {
+      "label": "Acceleration",
+      "unit": "px/s²",
+      "formula": "3600 * thrust / mass",
+      "formulaDisplay": "3600 × thrust / mass",
+      "description": "Acceleration in px/s². (thrust / mass) per frame × 60² for per-second².",
+      "sourceFunction": "Ship::Acceleration"
+    },
+    "turnRate": {
+      "label": "Turn Rate",
+      "unit": "°/s",
+      "formula": "60 * turn / mass",
+      "formulaDisplay": "60 × turn / mass",
+      "description": "Turn speed in degrees per second.",
+      "sourceFunction": "Ship::TurnRate"
+    },
+    "ramscoopFuelPerSecond": {
+      "label": "Ramscoop Fuel/s",
+      "unit": "fuel/s at 1 AU",
+      "formula": "0.03 * sqrt(ramscoop)",
+      "formulaDisplay": "0.03 × √ramscoop",
+      "description": "Fuel per second at 1 AU. Multiplied by (0.2 + 1.8 / (dist/1000 + 1)) × solar_wind.",
+      "sourceFunction": "ramscoop inline"
+    },
+    "heatCapacity": {
+      "label": "Heat Capacity",
+      "unit": "heat",
+      "formula": "100 * (mass + heat_capacity_outfits)",
+      "formulaDisplay": "100 × (mass + heat capacity outfits)",
+      "description": "Maximum heat before overheating.",
+      "sourceFunction": "Ship::MaxHeat"
+    },
+    "disabledHullThreshold": {
+      "label": "Disabled Hull Threshold",
+      "unit": "hull",
+      "formula": "hull * max(0.15, min(0.45, 10 / sqrt(hull)))",
+      "formulaDisplay": "hull × max(0.15, min(0.45, 10 / √hull))",
+      "description": "Hull value at which the ship is disabled. Overridden by \"absolute threshold\" or \"threshold percentage\".",
+      "sourceFunction": "Ship::DisabledHull"
+    },
+    "scanEvasion": {
+      "label": "Scan Evasion",
+      "unit": "fraction",
+      "formula": "scan_interference / (1 + scan_interference)",
+      "formulaDisplay": "scan interference / (1 + scan interference)",
+      "description": "Probability that a scan finds nothing illegal.",
+      "sourceFunction": "inline"
+    },
+    "cargoScanRange": {
+      "label": "Cargo Scan Range",
+      "unit": "px",
+      "formula": "100 * sqrt(cargo_scan_power)",
+      "formulaDisplay": "100 × √(cargo scan power)",
+      "description": "Max cargo scan range in pixels.",
+      "sourceFunction": "inline"
+    },
+    "outfitScanRange": {
+      "label": "Outfit Scan Range",
+      "unit": "px",
+      "formula": "100 * sqrt(outfit_scan_power)",
+      "formulaDisplay": "100 × √(outfit scan power)",
+      "description": "Max outfit scan range in pixels.",
+      "sourceFunction": "inline"
+    },
+    "tacticalScanRange": {
+      "label": "Tactical Scan Range",
+      "unit": "px",
+      "formula": "100 * sqrt(tactical_scan_power)",
+      "formulaDisplay": "100 × √(tactical scan power)",
+      "description": "Range for fuel/energy/heat/crew readout.",
+      "sourceFunction": "inline"
+    },
+    "asteroidScanRange": {
+      "label": "Asteroid Scan Range",
+      "unit": "px",
+      "formula": "100 * sqrt(asteroid_scan_power)",
+      "formulaDisplay": "100 × √(asteroid scan power)",
+      "description": "Range for targeting minable asteroids.",
+      "sourceFunction": "inline"
+    },
+    "dragReduction": {
+      "label": "Effective Drag",
+      "unit": "",
+      "formula": "drag / (1 + drag_reduction)",
+      "formulaDisplay": "drag / (1 + drag reduction)",
+      "description": "Actual drag after drag reduction outfits.",
+      "sourceFunction": "inline"
+    },
+    "inertiaReduction": {
+      "label": "Inertial Mass",
+      "unit": "tons",
+      "formula": "mass / (1 + inertia_reduction)",
+      "formulaDisplay": "mass / (1 + inertia reduction)",
+      "description": "Effective mass for movement calculations.",
+      "sourceFunction": "inline"
+    },
+    "damageProtection": {
+      "label": "Damage Reduction Factor",
+      "unit": "× incoming",
+      "formula": "1 / (1 + protection)",
+      "formulaDisplay": "1 / (1 + protection)",
+      "description": "Multiplier on incoming damage of the relevant type. 1.0 protection = half damage.",
+      "sourceFunction": "inline"
+    },
+    "coolingInefficiency": {
+      "label": "Cooling Inefficiency Factor",
+      "unit": "×",
+      "formula": "2 + 2/(1+exp(i/-2)) - 4/(1+exp(i/-4))",
+      "formulaDisplay": "2 + 2/(1+e^(i/−2)) − 4/(1+e^(i/−4))",
+      "description": "S-curve multiplier reducing cooling effectiveness as inefficiency rises.",
+      "sourceFunction": "inline"
+    },
+    "weaponRange": {
+      "label": "Weapon Range",
+      "unit": "px",
+      "formula": "velocity * lifetime",
+      "formulaDisplay": "velocity × lifetime",
+      "description": "Max distance a projectile travels.",
+      "sourceFunction": "inline"
+    },
+    "shieldDPS": {
+      "label": "Shield DPS",
+      "unit": "dmg/s",
+      "formula": "shield_damage / reload * 60",
+      "formulaDisplay": "shield damage / reload × 60",
+      "description": "Shield damage per second for a single weapon.",
+      "sourceFunction": "inline"
+    },
+    "hullDPS": {
+      "label": "Hull DPS",
+      "unit": "dmg/s",
+      "formula": "hull_damage / reload * 60",
+      "formulaDisplay": "hull damage / reload × 60",
+      "description": "Hull damage per second for a single weapon.",
+      "sourceFunction": "inline"
+    },
+    "antiMissileChance": {
+      "label": "Anti-Missile Intercept Chance",
+      "unit": "fraction",
+      "formula": "anti_missile / (anti_missile + missile_strength)",
+      "formulaDisplay": "anti-missile / (anti-missile + missile strength)",
+      "description": "Probability of intercepting a given missile.",
+      "sourceFunction": "inline"
+    },
+    "MaxVelocity": {
+      "label": "MaxVelocity",
+      "rawExpression": "(thrust ? thrust + afterburnerThrust * withAfterburner : afterburnerThrust) / Drag()",
+      "formula": "(thrust ? thrust + afterburnerThrust * withAfterburner : afterburnerThrust) / Drag()",
+      "formulaDisplay": "(thrust ? thrust + afterburnerThrust × withAfterburner : afterburnerThrust) / Drag()"
+    },
+    "Acceleration": {
+      "label": "Acceleration",
+      "rawExpression": "(thrust ? thrust : attributes.Get(\"afterburner thrust\")) / InertialMass()\n\t\t* (1. + attributes.Get(\"acceleration multiplier\"))",
+      "formula": "(thrust ? thrust : afterburner_thrust) / InertialMass() * (1. + acceleration_multiplier)",
+      "formulaDisplay": "(thrust ? thrust : afterburner thrust) / InertialMass() × (1. + acceleration multiplier)"
+    },
+    "TurnRate": {
+      "label": "TurnRate",
+      "rawExpression": "attributes.Get(\"turn\") / InertialMass()\n\t\t* (1. + attributes.Get(\"turn multiplier\"))",
+      "formula": "turn / InertialMass() * (1. + turn_multiplier)",
+      "formulaDisplay": "turn / InertialMass() × (1. + turn multiplier)"
+    },
+    "MaxReverseVelocity": {
+      "label": "MaxReverseVelocity",
+      "rawExpression": "attributes.Get(\"reverse thrust\") / Drag()",
+      "formula": "reverse_thrust / Drag()",
+      "formulaDisplay": "reverse thrust / Drag()"
+    },
+    "IdleHeat": {
+      "label": "IdleHeat",
+      "rawExpression": "production ? numeric_limits<double>::max() : 0",
+      "formula": "production ? numeric_limits<double>::max() : 0",
+      "formulaDisplay": "production ? numeric limits<double>::max() : 0"
+    },
+    "HeatDissipation": {
+      "label": "HeatDissipation",
+      "rawExpression": ".001 * attributes.Get(\"heat dissipation\")",
+      "formula": ".001 * heat_dissipation",
+      "formulaDisplay": ".001 × heat dissipation"
+    },
+    "DisabledHull": {
+      "label": "DisabledHull",
+      "rawExpression": "(hull > 0. ? minimumHull / hull : 0.)",
+      "formula": "(hull > 0. ? minimumHull / hull : 0.)",
+      "formulaDisplay": "(hull > 0. ? minimumHull / hull : 0.)"
+    },
+    "val": {
+      "label": "val",
+      "rawExpression": "attributes.Get(attr)",
+      "formula": "attributes.Get(attr)",
+      "formulaDisplay": "attributes.Get(attr)"
+    },
+    "generation": {
+      "label": "generation",
+      "rawExpression": "attributes.Get(\"energy generation\") - attributes.Get(\"energy consumption\")",
+      "formula": "energy_generation - energy_consumption",
+      "formulaDisplay": "energy generation − energy consumption"
+    },
+    "consuming": {
+      "label": "consuming",
+      "rawExpression": "attributes.Get(\"fuel energy\")",
+      "formula": "fuel_energy",
+      "formulaDisplay": "fuel energy"
+    },
+    "solar": {
+      "label": "solar",
+      "rawExpression": "attributes.Get(\"solar collection\")",
+      "formula": "solar_collection",
+      "formulaDisplay": "solar collection"
+    },
+    "battery": {
+      "label": "battery",
+      "rawExpression": "attributes.Get(\"energy capacity\")",
+      "formula": "energy_capacity",
+      "formulaDisplay": "energy capacity"
+    },
+    "fuelChange": {
+      "label": "fuelChange",
+      "rawExpression": "attributes.Get(\"fuel generation\") - attributes.Get(\"fuel consumption\")",
+      "formula": "fuel_generation - fuel_consumption",
+      "formulaDisplay": "fuel generation − fuel consumption"
+    },
+    "fuelCapacity": {
+      "label": "fuelCapacity",
+      "rawExpression": "attributes.Get(\"fuel capacity\")",
+      "formula": "fuel_capacity",
+      "formulaDisplay": "fuel capacity"
+    },
+    "thrust": {
+      "label": "thrust",
+      "rawExpression": "attributes.Get(\"thrust\")",
+      "formula": "thrust",
+      "formulaDisplay": "thrust"
+    },
+    "reverseThrust": {
+      "label": "reverseThrust",
+      "rawExpression": "attributes.Get(\"reverse thrust\")",
+      "formula": "reverse_thrust",
+      "formulaDisplay": "reverse thrust"
+    },
+    "afterburner": {
+      "label": "afterburner",
+      "rawExpression": "attributes.Get(\"afterburner thrust\")",
+      "formula": "afterburner_thrust",
+      "formulaDisplay": "afterburner thrust"
+    },
+    "thrustEnergy": {
+      "label": "thrustEnergy",
+      "rawExpression": "attributes.Get(\"thrusting energy\")",
+      "formula": "thrusting_energy",
+      "formulaDisplay": "thrusting energy"
+    },
+    "thrustHeat": {
+      "label": "thrustHeat",
+      "rawExpression": "attributes.Get(\"thrusting heat\")",
+      "formula": "thrusting_heat",
+      "formulaDisplay": "thrusting heat"
+    },
+    "turn": {
+      "label": "turn",
+      "rawExpression": "attributes.Get(\"turn\")",
+      "formula": "turn",
+      "formulaDisplay": "turn"
+    },
+    "turnEnergy": {
+      "label": "turnEnergy",
+      "rawExpression": "attributes.Get(\"turning energy\")",
+      "formula": "turning_energy",
+      "formulaDisplay": "turning energy"
+    },
+    "turnHeat": {
+      "label": "turnHeat",
+      "rawExpression": "attributes.Get(\"turning heat\")",
+      "formula": "turning_heat",
+      "formulaDisplay": "turning heat"
+    },
+    "maxFuel": {
+      "label": "maxFuel",
+      "rawExpression": "bay.ship->attributes.Get(\"fuel capacity\")",
+      "formula": "bay.ship->fuel_capacity",
+      "formulaDisplay": "bay.ship − >fuel capacity"
+    },
+    "toGive": {
+      "label": "toGive",
+      "rawExpression": "max(attributes.Get(\"energy capacity\") * 0.1, victim->Attributes().Get(\"energy capacity\") * 0.2)",
+      "formula": "max(energy_capacity * 0.1, victim->Attributes().Get(\"energy capacity\") * 0.2)",
+      "formulaDisplay": "max(energy capacity × 0.1, victim − >Attributes().Get(\"energy capacity\") × 0.2)"
+    },
+    "cargoDistanceSquared": {
+      "label": "cargoDistanceSquared",
+      "rawExpression": "attributes.Get(\"cargo scan power\")",
+      "formula": "cargo_scan_power",
+      "formulaDisplay": "cargo scan power"
+    },
+    "outfitDistanceSquared": {
+      "label": "outfitDistanceSquared",
+      "rawExpression": "attributes.Get(\"outfit scan power\")",
+      "formula": "outfit_scan_power",
+      "formulaDisplay": "outfit scan power"
+    },
+    "cargoSpeed": {
+      "label": "cargoSpeed",
+      "rawExpression": "attributes.Get(\"cargo scan efficiency\")",
+      "formula": "cargo_scan_efficiency",
+      "formulaDisplay": "cargo scan efficiency"
+    },
+    "outfitSpeed": {
+      "label": "outfitSpeed",
+      "rawExpression": "attributes.Get(\"outfit scan efficiency\")",
+      "formula": "outfit_scan_efficiency",
+      "formulaDisplay": "outfit scan efficiency"
+    },
+    "outfitsSize": {
+      "label": "outfitsSize",
+      "rawExpression": "target->baseAttributes.Get(\"outfit space\") + target->attributes.Get(\"outfit scan opacity\")",
+      "formula": "target->baseAttributes.Get(\"outfit space\") + target->outfit_scan_opacity",
+      "formulaDisplay": "target − >baseAttributes.Get(\"outfit space\") + target − >outfit scan opacity"
+    },
+    "cargoSize": {
+      "label": "cargoSize",
+      "rawExpression": "target->attributes.Get(\"cargo space\") + target->attributes.Get(\"cargo scan opacity\")",
+      "formula": "target->cargo_space + target->cargo_scan_opacity",
+      "formulaDisplay": "target − >cargo space + target − >cargo scan opacity"
+    },
+    "cloakingFiring": {
+      "label": "cloakingFiring",
+      "rawExpression": "attributes.Get(\"cloaked firing\")",
+      "formula": "cloaked_firing",
+      "formulaDisplay": "cloaked firing"
+    },
+    "scramThreshold": {
+      "label": "scramThreshold",
+      "rawExpression": "attributes.Get(\"scram drive\")",
+      "formula": "scram_drive",
+      "formulaDisplay": "scram drive"
+    },
+    "maximum": {
+      "label": "maximum",
+      "rawExpression": "attributes.Get(\"fuel capacity\")",
+      "formula": "fuel_capacity",
+      "formulaDisplay": "fuel capacity"
+    },
+    "cooling": {
+      "label": "cooling",
+      "rawExpression": "coolingEfficiency * attributes.Get(\"cooling\")",
+      "formula": "coolingEfficiency * cooling",
+      "formulaDisplay": "coolingEfficiency × cooling"
+    },
+    "activeCooling": {
+      "label": "activeCooling",
+      "rawExpression": "coolingEfficiency * attributes.Get(\"active cooling\")",
+      "formula": "coolingEfficiency * active_cooling",
+      "formulaDisplay": "coolingEfficiency × active cooling"
+    },
+    "production": {
+      "label": "production",
+      "rawExpression": "max(0., attributes.Get(\"heat generation\") - cooling)",
+      "formula": "max(0., heat_generation - cooling)",
+      "formulaDisplay": "max(0., heat generation − cooling)"
+    },
+    "x": {
+      "label": "x",
+      "rawExpression": "attributes.Get(\"cooling inefficiency\")",
+      "formula": "cooling_inefficiency",
+      "formulaDisplay": "cooling inefficiency"
+    },
+    "drag": {
+      "label": "drag",
+      "rawExpression": "attributes.Get(\"drag\") / (1. + attributes.Get(\"drag reduction\"))",
+      "formula": "drag / (1. + drag_reduction)",
+      "formulaDisplay": "drag / (1. + drag reduction)"
+    },
+    "afterburnerThrust": {
+      "label": "afterburnerThrust",
+      "rawExpression": "attributes.Get(\"afterburner thrust\")",
+      "formula": "afterburner_thrust",
+      "formulaDisplay": "afterburner thrust"
+    },
+    "relativeEnergyChange": {
+      "label": "relativeEnergyChange",
+      "rawExpression": "weapon.RelativeFiringEnergy() * attributes.Get(\"energy capacity\")",
+      "formula": "weapon.RelativeFiringEnergy() * energy_capacity",
+      "formulaDisplay": "weapon.RelativeFiringEnergy() × energy capacity"
+    },
+    "relativeFuelChange": {
+      "label": "relativeFuelChange",
+      "rawExpression": "weapon.RelativeFiringFuel() * attributes.Get(\"fuel capacity\")",
+      "formula": "weapon.RelativeFiringFuel() * fuel_capacity",
+      "formulaDisplay": "weapon.RelativeFiringFuel() × fuel capacity"
+    },
+    "flotsamChance": {
+      "label": "flotsamChance",
+      "rawExpression": "it.first->Get(\"flotsam chance\")",
+      "formula": "it.first->Get(\"flotsam chance\")",
+      "formulaDisplay": "it.first − >Get(\"flotsam chance\")"
+    },
+    "hullAvailable": {
+      "label": "hullAvailable",
+      "rawExpression": "(attributes.Get(\"hull repair rate\")\n\t\t\t+ (hullDelay ? 0 : attributes.Get(\"delayed hull repair rate\")))\n\t\t\t* (1. + attributes.Get(\"hull repair multiplier\"))\n\t\t\t* (1. + attributes.Get(\"cloaked repair multiplier\") * Cloaking())",
+      "formula": "(hull_repair_rate + (hullDelay ? 0 : delayed_hull_repair_rate)) * (1. + hull_repair_multiplier) * (1. + cloaked_repair_multiplier * Cloaking())",
+      "formulaDisplay": "(hull repair rate + (hullDelay ? 0 : delayed hull repair rate)) × (1. + hull repair multiplier) × (1. + cloaked repair multiplier × Cloaking())"
+    },
+    "hullEnergy": {
+      "label": "hullEnergy",
+      "rawExpression": "(attributes.Get(\"hull energy\")\n\t\t\t+ (hullDelay ? 0 : attributes.Get(\"delayed hull energy\")))\n\t\t\t* (1. + attributes.Get(\"hull energy multiplier\")) / hullAvailable",
+      "formula": "(hull_energy + (hullDelay ? 0 : delayed_hull_energy)) * (1. + hull_energy_multiplier) / hullAvailable",
+      "formulaDisplay": "(hull energy + (hullDelay ? 0 : delayed hull energy)) × (1. + hull energy multiplier) / hullAvailable"
+    },
+    "hullFuel": {
+      "label": "hullFuel",
+      "rawExpression": "(attributes.Get(\"hull fuel\")\n\t\t\t+ (hullDelay ? 0 : attributes.Get(\"delayed hull fuel\")))\n\t\t\t* (1. + attributes.Get(\"hull fuel multiplier\")) / hullAvailable",
+      "formula": "(hull_fuel + (hullDelay ? 0 : delayed_hull_fuel)) * (1. + hull_fuel_multiplier) / hullAvailable",
+      "formulaDisplay": "(hull fuel + (hullDelay ? 0 : delayed hull fuel)) × (1. + hull fuel multiplier) / hullAvailable"
+    },
+    "hullHeat": {
+      "label": "hullHeat",
+      "rawExpression": "(attributes.Get(\"hull heat\")\n\t\t\t+ (hullDelay ? 0 : attributes.Get(\"delayed hull heat\")))\n\t\t\t* (1. + attributes.Get(\"hull heat multiplier\")) / hullAvailable",
+      "formula": "(hull_heat + (hullDelay ? 0 : delayed_hull_heat)) * (1. + hull_heat_multiplier) / hullAvailable",
+      "formulaDisplay": "(hull heat + (hullDelay ? 0 : delayed hull heat)) × (1. + hull heat multiplier) / hullAvailable"
+    },
+    "shieldsAvailable": {
+      "label": "shieldsAvailable",
+      "rawExpression": "(attributes.Get(\"shield generation\")\n\t\t\t+ (shieldDelay ? 0 : attributes.Get(\"delayed shield generation\")))\n\t\t\t* (1. + attributes.Get(\"shield generation multiplier\"))\n\t\t\t* (1. + attributes.Get(\"cloaked regen multiplier\") * Cloaking())",
+      "formula": "(shield_generation + (shieldDelay ? 0 : delayed_shield_generation)) * (1. + shield_generation_multiplier) * (1. + cloaked_regen_multiplier * Cloaking())",
+      "formulaDisplay": "(shield generation + (shieldDelay ? 0 : delayed shield generation)) × (1. + shield generation multiplier) × (1. + cloaked regen multiplier × Cloaking())"
+    },
+    "shieldsEnergy": {
+      "label": "shieldsEnergy",
+      "rawExpression": "(attributes.Get(\"shield energy\")\n\t\t\t+ (shieldDelay ? 0 : attributes.Get(\"delayed shield energy\")))\n\t\t\t* (1. + attributes.Get(\"shield energy multiplier\")) / shieldsAvailable",
+      "formula": "(shield_energy + (shieldDelay ? 0 : delayed_shield_energy)) * (1. + shield_energy_multiplier) / shieldsAvailable",
+      "formulaDisplay": "(shield energy + (shieldDelay ? 0 : delayed shield energy)) × (1. + shield energy multiplier) / shieldsAvailable"
+    },
+    "shieldsFuel": {
+      "label": "shieldsFuel",
+      "rawExpression": "(attributes.Get(\"shield fuel\")\n\t\t\t+ (shieldDelay ? 0 : attributes.Get(\"delayed shield fuel\")))\n\t\t\t* (1. + attributes.Get(\"shield fuel multiplier\")) / shieldsAvailable",
+      "formula": "(shield_fuel + (shieldDelay ? 0 : delayed_shield_fuel)) * (1. + shield_fuel_multiplier) / shieldsAvailable",
+      "formulaDisplay": "(shield fuel + (shieldDelay ? 0 : delayed shield fuel)) × (1. + shield fuel multiplier) / shieldsAvailable"
+    },
+    "shieldsHeat": {
+      "label": "shieldsHeat",
+      "rawExpression": "(attributes.Get(\"shield heat\")\n\t\t\t+ (shieldDelay ? 0 : attributes.Get(\"delayed shield heat\")))\n\t\t\t* (1. + attributes.Get(\"shield heat multiplier\")) / shieldsAvailable",
+      "formula": "(shield_heat + (shieldDelay ? 0 : delayed_shield_heat)) * (1. + shield_heat_multiplier) / shieldsAvailable",
+      "formulaDisplay": "(shield heat + (shieldDelay ? 0 : delayed shield heat)) × (1. + shield heat multiplier) / shieldsAvailable"
+    },
+    "energyRemaining": {
+      "label": "energyRemaining",
+      "rawExpression": "energy - attributes.Get(\"energy capacity\")",
+      "formula": "energy - energy_capacity",
+      "formulaDisplay": "energy − energy capacity"
+    },
+    "fuelRemaining": {
+      "label": "fuelRemaining",
+      "rawExpression": "fuel - attributes.Get(\"fuel capacity\")",
+      "formula": "fuel - fuel_capacity",
+      "formulaDisplay": "fuel − fuel capacity"
+    },
+    "disabledRepairEnergy": {
+      "label": "disabledRepairEnergy",
+      "rawExpression": "attributes.Get(\"disabled recovery energy\")",
+      "formula": "disabled_recovery_energy",
+      "formulaDisplay": "disabled recovery energy"
+    },
+    "disabledRepairFuel": {
+      "label": "disabledRepairFuel",
+      "rawExpression": "attributes.Get(\"disabled recovery fuel\")",
+      "formula": "disabled_recovery_fuel",
+      "formulaDisplay": "disabled recovery fuel"
+    },
+    "ionResistance": {
+      "label": "ionResistance",
+      "rawExpression": "attributes.Get(\"ion resistance\")",
+      "formula": "ion_resistance",
+      "formulaDisplay": "ion resistance"
+    },
+    "ionEnergy": {
+      "label": "ionEnergy",
+      "rawExpression": "attributes.Get(\"ion resistance energy\") / ionResistance",
+      "formula": "ion_resistance_energy / ionResistance",
+      "formulaDisplay": "ion resistance energy / ionResistance"
+    },
+    "ionFuel": {
+      "label": "ionFuel",
+      "rawExpression": "attributes.Get(\"ion resistance fuel\") / ionResistance",
+      "formula": "ion_resistance_fuel / ionResistance",
+      "formulaDisplay": "ion resistance fuel / ionResistance"
+    },
+    "ionHeat": {
+      "label": "ionHeat",
+      "rawExpression": "attributes.Get(\"ion resistance heat\") / ionResistance",
+      "formula": "ion_resistance_heat / ionResistance",
+      "formulaDisplay": "ion resistance heat / ionResistance"
+    },
+    "scramblingResistance": {
+      "label": "scramblingResistance",
+      "rawExpression": "attributes.Get(\"scramble resistance\")",
+      "formula": "scramble_resistance",
+      "formulaDisplay": "scramble resistance"
+    },
+    "scramblingEnergy": {
+      "label": "scramblingEnergy",
+      "rawExpression": "attributes.Get(\"scramble resistance energy\") / scramblingResistance",
+      "formula": "scramble_resistance_energy / scramblingResistance",
+      "formulaDisplay": "scramble resistance energy / scramblingResistance"
+    },
+    "scramblingFuel": {
+      "label": "scramblingFuel",
+      "rawExpression": "attributes.Get(\"scramble resistance fuel\") / scramblingResistance",
+      "formula": "scramble_resistance_fuel / scramblingResistance",
+      "formulaDisplay": "scramble resistance fuel / scramblingResistance"
+    },
+    "scramblingHeat": {
+      "label": "scramblingHeat",
+      "rawExpression": "attributes.Get(\"scramble resistance heat\") / scramblingResistance",
+      "formula": "scramble_resistance_heat / scramblingResistance",
+      "formulaDisplay": "scramble resistance heat / scramblingResistance"
+    },
+    "disruptionResistance": {
+      "label": "disruptionResistance",
+      "rawExpression": "attributes.Get(\"disruption resistance\")",
+      "formula": "disruption_resistance",
+      "formulaDisplay": "disruption resistance"
+    },
+    "disruptionEnergy": {
+      "label": "disruptionEnergy",
+      "rawExpression": "attributes.Get(\"disruption resistance energy\") / disruptionResistance",
+      "formula": "disruption_resistance_energy / disruptionResistance",
+      "formulaDisplay": "disruption resistance energy / disruptionResistance"
+    },
+    "disruptionFuel": {
+      "label": "disruptionFuel",
+      "rawExpression": "attributes.Get(\"disruption resistance fuel\") / disruptionResistance",
+      "formula": "disruption_resistance_fuel / disruptionResistance",
+      "formulaDisplay": "disruption resistance fuel / disruptionResistance"
+    },
+    "disruptionHeat": {
+      "label": "disruptionHeat",
+      "rawExpression": "attributes.Get(\"disruption resistance heat\") / disruptionResistance",
+      "formula": "disruption_resistance_heat / disruptionResistance",
+      "formulaDisplay": "disruption resistance heat / disruptionResistance"
+    },
+    "slowingResistance": {
+      "label": "slowingResistance",
+      "rawExpression": "attributes.Get(\"slowing resistance\")",
+      "formula": "slowing_resistance",
+      "formulaDisplay": "slowing resistance"
+    },
+    "slowingEnergy": {
+      "label": "slowingEnergy",
+      "rawExpression": "attributes.Get(\"slowing resistance energy\") / slowingResistance",
+      "formula": "slowing_resistance_energy / slowingResistance",
+      "formulaDisplay": "slowing resistance energy / slowingResistance"
+    },
+    "slowingFuel": {
+      "label": "slowingFuel",
+      "rawExpression": "attributes.Get(\"slowing resistance fuel\") / slowingResistance",
+      "formula": "slowing_resistance_fuel / slowingResistance",
+      "formulaDisplay": "slowing resistance fuel / slowingResistance"
+    },
+    "slowingHeat": {
+      "label": "slowingHeat",
+      "rawExpression": "attributes.Get(\"slowing resistance heat\") / slowingResistance",
+      "formula": "slowing_resistance_heat / slowingResistance",
+      "formulaDisplay": "slowing resistance heat / slowingResistance"
+    },
+    "dischargeResistance": {
+      "label": "dischargeResistance",
+      "rawExpression": "attributes.Get(\"discharge resistance\")",
+      "formula": "discharge_resistance",
+      "formulaDisplay": "discharge resistance"
+    },
+    "dischargeEnergy": {
+      "label": "dischargeEnergy",
+      "rawExpression": "attributes.Get(\"discharge resistance energy\") / dischargeResistance",
+      "formula": "discharge_resistance_energy / dischargeResistance",
+      "formulaDisplay": "discharge resistance energy / dischargeResistance"
+    },
+    "dischargeFuel": {
+      "label": "dischargeFuel",
+      "rawExpression": "attributes.Get(\"discharge resistance fuel\") / dischargeResistance",
+      "formula": "discharge_resistance_fuel / dischargeResistance",
+      "formulaDisplay": "discharge resistance fuel / dischargeResistance"
+    },
+    "dischargeHeat": {
+      "label": "dischargeHeat",
+      "rawExpression": "attributes.Get(\"discharge resistance heat\") / dischargeResistance",
+      "formula": "discharge_resistance_heat / dischargeResistance",
+      "formulaDisplay": "discharge resistance heat / dischargeResistance"
+    },
+    "corrosionResistance": {
+      "label": "corrosionResistance",
+      "rawExpression": "attributes.Get(\"corrosion resistance\")",
+      "formula": "corrosion_resistance",
+      "formulaDisplay": "corrosion resistance"
+    },
+    "corrosionEnergy": {
+      "label": "corrosionEnergy",
+      "rawExpression": "attributes.Get(\"corrosion resistance energy\") / corrosionResistance",
+      "formula": "corrosion_resistance_energy / corrosionResistance",
+      "formulaDisplay": "corrosion resistance energy / corrosionResistance"
+    },
+    "corrosionFuel": {
+      "label": "corrosionFuel",
+      "rawExpression": "attributes.Get(\"corrosion resistance fuel\") / corrosionResistance",
+      "formula": "corrosion_resistance_fuel / corrosionResistance",
+      "formulaDisplay": "corrosion resistance fuel / corrosionResistance"
+    },
+    "corrosionHeat": {
+      "label": "corrosionHeat",
+      "rawExpression": "attributes.Get(\"corrosion resistance heat\") / corrosionResistance",
+      "formula": "corrosion_resistance_heat / corrosionResistance",
+      "formulaDisplay": "corrosion resistance heat / corrosionResistance"
+    },
+    "leakResistance": {
+      "label": "leakResistance",
+      "rawExpression": "attributes.Get(\"leak resistance\")",
+      "formula": "leak_resistance",
+      "formulaDisplay": "leak resistance"
+    },
+    "leakEnergy": {
+      "label": "leakEnergy",
+      "rawExpression": "attributes.Get(\"leak resistance energy\") / leakResistance",
+      "formula": "leak_resistance_energy / leakResistance",
+      "formulaDisplay": "leak resistance energy / leakResistance"
+    },
+    "leakFuel": {
+      "label": "leakFuel",
+      "rawExpression": "attributes.Get(\"leak resistance fuel\") / leakResistance",
+      "formula": "leak_resistance_fuel / leakResistance",
+      "formulaDisplay": "leak resistance fuel / leakResistance"
+    },
+    "leakHeat": {
+      "label": "leakHeat",
+      "rawExpression": "attributes.Get(\"leak resistance heat\") / leakResistance",
+      "formula": "leak_resistance_heat / leakResistance",
+      "formulaDisplay": "leak resistance heat / leakResistance"
+    },
+    "burnResistance": {
+      "label": "burnResistance",
+      "rawExpression": "attributes.Get(\"burn resistance\")",
+      "formula": "burn_resistance",
+      "formulaDisplay": "burn resistance"
+    },
+    "burnEnergy": {
+      "label": "burnEnergy",
+      "rawExpression": "attributes.Get(\"burn resistance energy\") / burnResistance",
+      "formula": "burn_resistance_energy / burnResistance",
+      "formulaDisplay": "burn resistance energy / burnResistance"
+    },
+    "burnFuel": {
+      "label": "burnFuel",
+      "rawExpression": "attributes.Get(\"burn resistance fuel\") / burnResistance",
+      "formula": "burn_resistance_fuel / burnResistance",
+      "formulaDisplay": "burn resistance fuel / burnResistance"
+    },
+    "burnHeat": {
+      "label": "burnHeat",
+      "rawExpression": "attributes.Get(\"burn resistance heat\") / burnResistance",
+      "formula": "burn_resistance_heat / burnResistance",
+      "formulaDisplay": "burn resistance heat / burnResistance"
+    },
+    "heatRatio": {
+      "label": "heatRatio",
+      "rawExpression": "Heat() / (1. + attributes.Get(\"overheat damage threshold\"))",
+      "formula": "Heat() / (1. + overheat_damage_threshold)",
+      "formulaDisplay": "Heat() / (1. + overheat damage threshold)"
+    },
+    "coolingEnergy": {
+      "label": "coolingEnergy",
+      "rawExpression": "attributes.Get(\"cooling energy\")",
+      "formula": "cooling_energy",
+      "formulaDisplay": "cooling energy"
+    },
+    "minimalHullForCloak": {
+      "label": "minimalHullForCloak",
+      "rawExpression": "attributes.Get(\"cloak hull threshold\")",
+      "formula": "cloak_hull_threshold",
+      "formulaDisplay": "cloak hull threshold"
+    },
+    "cloakingFuel": {
+      "label": "cloakingFuel",
+      "rawExpression": "attributes.Get(\"cloaking fuel\")",
+      "formula": "cloaking_fuel",
+      "formulaDisplay": "cloaking fuel"
+    },
+    "cloakingEnergy": {
+      "label": "cloakingEnergy",
+      "rawExpression": "attributes.Get(\"cloaking energy\")",
+      "formula": "cloaking_energy",
+      "formulaDisplay": "cloaking energy"
+    },
+    "cloakingHull": {
+      "label": "cloakingHull",
+      "rawExpression": "attributes.Get(\"cloaking hull\")",
+      "formula": "cloaking_hull",
+      "formulaDisplay": "cloaking hull"
+    },
+    "cloakingShield": {
+      "label": "cloakingShield",
+      "rawExpression": "attributes.Get(\"cloaking shields\")",
+      "formula": "cloaking_shields",
+      "formulaDisplay": "cloaking shields"
+    },
+    "cloakingShieldDelay": {
+      "label": "cloakingShieldDelay",
+      "rawExpression": "attributes.Get(\"cloaking shield delay\")",
+      "formula": "cloaking_shield_delay",
+      "formulaDisplay": "cloaking shield delay"
+    },
+    "cloakingHullDelay": {
+      "label": "cloakingHullDelay",
+      "rawExpression": "attributes.Get(\"cloaking repair delay\")",
+      "formula": "cloaking_repair_delay",
+      "formulaDisplay": "cloaking repair delay"
+    },
+    "cost": {
+      "label": "cost",
+      "rawExpression": "attributes.Get(\"turning energy\")",
+      "formula": "turning_energy",
+      "formulaDisplay": "turning energy"
+    },
+    "shieldCost": {
+      "label": "shieldCost",
+      "rawExpression": "attributes.Get(\"afterburner shields\")",
+      "formula": "afterburner_shields",
+      "formulaDisplay": "afterburner shields"
+    },
+    "hullCost": {
+      "label": "hullCost",
+      "rawExpression": "attributes.Get(\"afterburner hull\")",
+      "formula": "afterburner_hull",
+      "formulaDisplay": "afterburner hull"
+    },
+    "energyCost": {
+      "label": "energyCost",
+      "rawExpression": "attributes.Get(\"afterburner energy\")",
+      "formula": "afterburner_energy",
+      "formulaDisplay": "afterburner energy"
+    },
+    "fuelCost": {
+      "label": "fuelCost",
+      "rawExpression": "attributes.Get(\"afterburner fuel\")",
+      "formula": "afterburner_fuel",
+      "formulaDisplay": "afterburner fuel"
+    },
+    "heatCost": {
+      "label": "heatCost",
+      "rawExpression": "-attributes.Get(\"afterburner heat\")",
+      "formula": "-afterburner_heat",
+      "formulaDisplay": "− afterburner heat"
+    },
+    "dischargeCost": {
+      "label": "dischargeCost",
+      "rawExpression": "attributes.Get(\"afterburner discharge\")",
+      "formula": "afterburner_discharge",
+      "formulaDisplay": "afterburner discharge"
+    },
+    "corrosionCost": {
+      "label": "corrosionCost",
+      "rawExpression": "attributes.Get(\"afterburner corrosion\")",
+      "formula": "afterburner_corrosion",
+      "formulaDisplay": "afterburner corrosion"
+    },
+    "ionCost": {
+      "label": "ionCost",
+      "rawExpression": "attributes.Get(\"afterburner ion\")",
+      "formula": "afterburner_ion",
+      "formulaDisplay": "afterburner ion"
+    },
+    "scramblingCost": {
+      "label": "scramblingCost",
+      "rawExpression": "attributes.Get(\"afterburner scramble\")",
+      "formula": "afterburner_scramble",
+      "formulaDisplay": "afterburner scramble"
+    },
+    "leakageCost": {
+      "label": "leakageCost",
+      "rawExpression": "attributes.Get(\"afterburner leakage\")",
+      "formula": "afterburner_leakage",
+      "formulaDisplay": "afterburner leakage"
+    },
+    "burningCost": {
+      "label": "burningCost",
+      "rawExpression": "attributes.Get(\"afterburner burn\")",
+      "formula": "afterburner_burn",
+      "formulaDisplay": "afterburner burn"
+    },
+    "slownessCost": {
+      "label": "slownessCost",
+      "rawExpression": "attributes.Get(\"afterburner slowing\")",
+      "formula": "afterburner_slowing",
+      "formulaDisplay": "afterburner slowing"
+    },
+    "disruptionCost": {
+      "label": "disruptionCost",
+      "rawExpression": "attributes.Get(\"afterburner disruption\")",
+      "formula": "afterburner_disruption",
+      "formulaDisplay": "afterburner disruption"
+    },
+    "absoluteThreshold": {
+      "label": "absoluteThreshold",
+      "rawExpression": "attributes.Get(\"absolute threshold\")",
+      "formula": "absolute_threshold",
+      "formulaDisplay": "absolute threshold"
+    },
+    "thresholdPercent": {
+      "label": "thresholdPercent",
+      "rawExpression": "attributes.Get(\"threshold percentage\")",
+      "formula": "threshold_percentage",
+      "formulaDisplay": "threshold percentage"
+    },
+    "energyFactor": {
+      "label": "energyFactor",
+      "rawExpression": "weapon->EnergyDamage()\n\t\t\t\t\t+ weapon->RelativeEnergyDamage() * attributes.Get(\"energy capacity\")\n\t\t\t\t\t+ weapon->IonDamage() * 100.",
+      "formula": "weapon->EnergyDamage() + weapon->RelativeEnergyDamage() * energy_capacity + weapon->IonDamage() * 100.",
+      "formulaDisplay": "weapon − >EnergyDamage() + weapon − >RelativeEnergyDamage() × energy capacity + weapon − >IonDamage() × 100."
+    },
+    "fuelFactor": {
+      "label": "fuelFactor",
+      "rawExpression": "weapon->FuelDamage()\n\t\t\t\t\t+ weapon->RelativeFuelDamage() * attributes.Get(\"fuel capacity\")\n\t\t\t\t\t+ weapon->LeakDamage() * 100.",
+      "formula": "weapon->FuelDamage() + weapon->RelativeFuelDamage() * fuel_capacity + weapon->LeakDamage() * 100.",
+      "formulaDisplay": "weapon − >FuelDamage() + weapon − >RelativeFuelDamage() × fuel capacity + weapon − >LeakDamage() × 100."
+    }
+  },
+  "stackingRules": {
+    "hull multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "hull repair multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "hull energy multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "hull fuel multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "hull heat multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "cloaked repair multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "shield multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "shield generation multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "shield energy multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "shield fuel multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "shield heat multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "cloaked regen multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "acceleration multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "turn multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    },
+    "turret turn multiplier": {
+      "stacking": "additive-multiplier",
+      "formula": "stat × (1 + sum_of_multipliers)",
+      "note": "Stacks additively with other multipliers, then applied as a multiplier to the base stat."
+    }
+  },
+  "shipDisplayStats": {}
+}
