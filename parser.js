@@ -5,6 +5,7 @@
 
 const https           = require('https');
 const SpeciesResolver = require('./speciesResolver');
+const { parseAttributes } = require('./attributeParser');
 const crypto          = require('crypto');
 const fs              = require('fs').promises;
 const path            = require('path');
@@ -1541,6 +1542,9 @@ async function main() {
     await fs.mkdir(path.join(process.cwd(), 'data'), { recursive: true });
     await fs.writeFile(indexPath, JSON.stringify(dataIndex, null, 2));
     console.log(`\nWrote data/index.json with ${Object.keys(dataIndex).length} source(s)`);
+
+    // Parse attribute definitions and formulas from Endless Sky source code
+    await parseAttributes(path.join(process.cwd(), 'data'));
 
     console.log(`\n${'='.repeat(60)}\n✓ All done!\n${'='.repeat(60)}\n`);
   } catch (err) {
