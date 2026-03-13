@@ -16,14 +16,17 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "aiCacheCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipAICache.cpp"
     },
-    "generatedAt": "2026-03-13T13:15:27.319Z",
-    "formulaNotation": "[attr name] = attributes.Get(\"attr name\") in C++. Function calls like Drag(), InertialMass() remain as-is when not reducible to attribute expressions.",
+    "generatedAt": "2026-03-13T13:22:23.553Z",
+    "formulaNotation": [
+      "[attr name] = attributes.Get(\"attr name\") in C++.",
+      "Function calls like Drag(), InertialMass() remain as-is when not reducible to attribute expressions.",
+      "Multi-branch functions (MinimumHull, Health, etc.) have one formula entry per return statement."
+    ],
     "notes": [
       "Zero hardcoding: all data extracted from C++ source via regex/AST analysis.",
-      "displayMultiplier converts per-frame values to per-second for display (1 frame = 1/60 second).",
-      "stacking: additive = direct sum; additive-then-multiply = base*(1+sum); minimum/maximum = extreme value.",
-      "formulas[]: one entry per return statement. Multi-branch functions have multiple entries.",
-      "attributeVariables: intermediate local vars that directly read attributes - shows what feeds into the formula."
+      "displayMultiplier converts per-frame game values to per-second for display (1 frame = 1/60 s).",
+      "stacking: additive = direct sum; additive-then-multiply = base*(1+sum); minimum/maximum = extreme.",
+      "attributeVariables: intermediate local vars that directly read attributes (shows formula inputs)."
     ]
   },
   "attributes": {
@@ -5003,7 +5006,7 @@
     "energyHeatTable": [
       {
         "label": "idle",
-        "rawLabelExpr": "\"idle:\"",
+        "rawLabelArg": "\"idle:\"",
         "energyFormula": "(60. * ([energy generation] + [solar collection] + [fuel energy] - [energy consumption] - [cooling energy]))",
         "heatFormula": "(60. * ([heat generation] + [solar heat] + [fuel heat] - ship.CoolingEfficiency() * ([cooling] + [active cooling])))",
         "rawEnergyExpr": "Format::Number(60. * idleEnergyPerFrame)",
@@ -5011,7 +5014,7 @@
       },
       {
         "label": "moving",
-        "rawLabelExpr": "\"moving:\"",
+        "rawLabelArg": "\"moving:\"",
         "energyFormula": "(-60. * (max([thrusting energy], [reverse thrusting energy]) + [turning energy] + [afterburner energy]))",
         "heatFormula": "(60. * (max([thrusting heat], [reverse thrusting heat]) + [turning heat] + [afterburner heat]))",
         "rawEnergyExpr": "Format::Number(-60. * movingEnergyPerFrame)",
@@ -5019,15 +5022,23 @@
       },
       {
         "label": "firing",
-        "rawLabelExpr": "\"firing:\"",
+        "rawLabelArg": "\"firing:\"",
         "energyFormula": "(-60. * 0.)",
         "heatFormula": "(60. * 0.)",
         "rawEnergyExpr": "Format::Number(-60. * firingEnergy)",
         "rawHeatExpr": "Format::Number(60. * firingHeat)"
       },
       {
+        "label": "shields / hull / repairing hull / charging shields",
+        "rawLabelArg": "(shieldEnergy && hullEnergy) ? \"shields / hull:\" :\n\t\thullEnergy ? \"repairing hull:\" : \"charging shields:\"",
+        "energyFormula": "(-60. * (((hasShieldRegen) ? ([shield energy] + [delayed shield energy]) * (1. + [shield energy multiplier]) : 0.) + ((hasHullRepair) ? ([hull energy] + [delayed hull energy]) * (1. + [hull energy multiplier]) : 0.)))",
+        "heatFormula": "(60. * (((hasShieldRegen) ? ([shield heat] + [delayed shield heat]) * (1. + [shield heat multiplier]) : 0.) + ((hasHullRepair) ? ([hull heat] + [delayed hull heat]) * (1. + [hull heat multiplier]) : 0.)))",
+        "rawEnergyExpr": "Format::Number(-60. * (shieldEnergy + hullEnergy))",
+        "rawHeatExpr": "Format::Number(60. * (shieldHeat + hullHeat))"
+      },
+      {
         "label": "net change",
-        "rawLabelExpr": "\"net change:\"",
+        "rawLabelArg": "\"net change:\"",
         "energyFormula": "(60. * overallEnergy)",
         "heatFormula": "(60. * overallHeat)",
         "rawEnergyExpr": "Format::Number(60. * overallEnergy)",
@@ -5035,7 +5046,7 @@
       },
       {
         "label": "max",
-        "rawLabelExpr": "\"max:\"",
+        "rawLabelArg": "\"max:\"",
         "energyFormula": "(([energy capacity]))",
         "heatFormula": "(maxHeat)",
         "rawEnergyExpr": "Format::Number(maxEnergy)",
@@ -5049,29 +5060,9 @@
         "rawExpr": "license"
       },
       {
-        "label": "cost",
-        "formula": "Format::AbbreviatedNumber(depreciated)",
-        "rawExpr": "Format::AbbreviatedNumber(depreciated)"
-      },
-      {
-        "label": "hull (repair)",
+        "label": "mass with no cargo / mass",
         "formula": "(isGeneric ? emptyMass : currentMass) + \" tons\"",
         "rawExpr": "Format::Number(isGeneric ? emptyMass : currentMass) + \" tons\""
-      },
-      {
-        "label": "required crew / bunks",
-        "formula": "(([fuel capacity]))",
-        "rawExpr": "Format::Number(fuelCapacity)"
-      },
-      {
-        "label": "max speed",
-        "formula": "((3600. * forwardThrust * (1. + [acceleration multiplier])) / currentMass)",
-        "rawExpr": "Format::Number(baseAccel / currentMass)"
-      },
-      {
-        "label": "turning",
-        "formula": "((60. * [turn] * (1. + [turn multiplier])) / currentMass)",
-        "rawExpr": "Format::Number(baseTurn / currentMass)"
       }
     ],
     "capacityDisplay": [
