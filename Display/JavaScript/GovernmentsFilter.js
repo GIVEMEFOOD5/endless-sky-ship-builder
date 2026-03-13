@@ -50,11 +50,9 @@ function populateGovernmentFilters(data) {
     // Only render if expanded
     if (!governmentFilterExpanded) {
         filterOptions.innerHTML = '';
-        filterOptions.style.display = 'none';
         return;
     }
 
-    filterOptions.style.display = 'block';
     filterOptions.innerHTML = '';
 
     governments.forEach(government => {
