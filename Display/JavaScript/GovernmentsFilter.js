@@ -2,6 +2,9 @@
 // Extracts unique governments from the current tab's data and renders
 // them as checkboxes. Integrates with renderCards, filterItems, and clearFilters.
 
+let governmentFilterExpanded = false;
+let lastGovernmentData = [];
+
 // ---------------------------------------------------------------------------
 // Extraction
 // ---------------------------------------------------------------------------
@@ -29,6 +32,8 @@ function extractGovernments(data) {
 // ---------------------------------------------------------------------------
 
 function populateGovernmentFilters(data) {
+    lastGovernmentData = data;
+
     const governments = extractGovernments(data);
     const filterOptions = document.getElementById('governmentFilterOptions');
     const filterSection = document.getElementById('governmentFilterSection');
@@ -41,6 +46,15 @@ function populateGovernmentFilters(data) {
     }
 
     filterSection.style.display = 'block';
+
+    // Only render if expanded
+    if (!governmentFilterExpanded) {
+        filterOptions.innerHTML = '';
+        filterOptions.style.display = 'none';
+        return;
+    }
+
+    filterOptions.style.display = 'block';
     filterOptions.innerHTML = '';
 
     governments.forEach(government => {
@@ -52,7 +66,7 @@ function populateGovernmentFilters(data) {
         checkbox.id = `gov-filter-${CSS.escape(government)}`;
         checkbox.value = government;
         checkbox.checked = false;
-        checkbox.onchange = filterItems; // same filterItems used by categories
+        checkbox.onchange = filterItems;
 
         const label = document.createElement('label');
         label.htmlFor = `gov-filter-${CSS.escape(government)}`;
@@ -95,6 +109,29 @@ function clearGovernmentFilters() {
 }
 
 // ---------------------------------------------------------------------------
+// Hide/show — plug to hide and show checkboxes
+// ---------------------------------------------------------------------------
+
+function governmentFilterDisplay() {
+    const filterOptions = document.getElementById('governmentFilterOptions');
+    if (!filterOptions) return;
+
+    governmentFilterExpanded = !governmentFilterExpanded;
+
+    if (governmentFilterExpanded) {
+        filterOptions.style.display = 'block';
+
+        // Rebuild checkboxes
+        if (lastGovernmentData.length) {
+            populateGovernmentFilters(lastGovernmentData);
+        }
+    } else {
+        filterOptions.style.display = 'none';
+        filterOptions.innerHTML = ''; // clear to reduce DOM load
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Global exports
 // ---------------------------------------------------------------------------
 
@@ -103,3 +140,4 @@ window.populateGovernmentFilters   = populateGovernmentFilters;
 window.getSelectedGovernments      = getSelectedGovernments;
 window.itemMatchesGovernmentFilter = itemMatchesGovernmentFilter;
 window.clearGovernmentFilters      = clearGovernmentFilters;
+window.governmentFilterDisplay     = governmentFilterDisplay;
