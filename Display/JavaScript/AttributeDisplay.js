@@ -1,295 +1,548 @@
-// AttributeDisplay.js
-// Pure renderer — no data fetching, no monkey-patching.
-// Plugin_Script.js owns loading attributeDefinitions.json and calls
-// window.AttributeDisplay.renderAttributesTabEnhanced(item, attrDefs, currentTab)
-// directly from its own renderAttributesTab function.
-//
-// Exposes:
-//   AttributeDisplay.initTooltips()  — call once from Plugin_Script DOMContentLoaded
-//   AttributeDisplay.injectStyles()  — call once from Plugin_Script DOMContentLoaded
-
 'use strict';
 
-// ─── Built-in attribute map ───────────────────────────────────────────────────
-// Covers every standard ES attribute key with: label, section, multiplier, unit.
-// attributeDefinitions.json (if loaded) overrides these — this is the guaranteed fallback.
+// ─── AttributeDisplay.js ──────────────────────────────────────────────────────
+//
+// Pure renderer — no data fetching, no monkey-patching.
+//
+// Plugin_Script.js owns loading attributeDefinitions.json and calls:
+//   window.AttributeDisplay.renderAttributesTabEnhanced(item, attrDefs, currentTab)
+//
+// Exposes:
+//   AttributeDisplay.initTooltips()   — call once from Plugin_Script DOMContentLoaded
+//   AttributeDisplay.injectStyles()   — call once from Plugin_Script DOMContentLoaded
+//
+// attrDefs is the parsed attributeDefinitions.json. Shape (all fields optional/may be empty):
+//
+//   attrDefs.attributes{}               — per-key: { displayMultiplier, displayUnit, isBoolean,
+//                                          isExpectedNegative, stacking, stackingDescription,
+//                                          usedInShipFunctions[], shownInOutfitPanel,
+//                                          shownInShipPanel, description }
+//   attrDefs.outfitDisplay.scaleMap{}   — { "key": scaleIndex }
+//   attrDefs.outfitDisplay.scaleLabels[]— [{ multiplier, unit }]
+//   attrDefs.outfitDisplay.booleanAttributes{} — { "key": "description" }
+//   attrDefs.outfitDisplay.valueNames[] — [{ key, unit }]
+//   attrDefs.outfitDisplay.percentNames[]
+//   attrDefs.outfitDisplay.expectedNegative[]
+//   attrDefs.shipDisplay.energyHeatTable[]  — [{ label, energyFormula, heatFormula }]
+//   attrDefs.shipDisplay.labelValuePairs[]  — [{ label, formula }]
+//   attrDefs.shipDisplay.capacityDisplay[]  — [{ displayLabel, attributeKey }]
+//   attrDefs.shipDisplay.intermediateVars{} — { varName: formula }
+//   attrDefs.shipFunctions{}            — { fnName: { formulas[], attributesRead[], attributeVariables{} } }
+//   attrDefs.weapon.functions{}
+//   attrDefs.weapon.dataFileKeys[]
+//   attrDefs.weapon.damageTypes[]
+//   attrDefs.navigation{}
+//   attrDefs.aiCache{}
 
-const BUILTIN_ATTRS = {
-    // ── General ──
-    'category':                    { label: 'Category',               section: 'General' },
-    'cost':                        { label: 'Cost',                    section: 'General',       unit: 'credits' },
-    'mass':                        { label: 'Mass',                    section: 'General',       unit: 'tons' },
-    'drag':                        { label: 'Drag',                    section: 'General' },
-    'heat dissipation':            { label: 'Heat Dissipation',        section: 'General' },
-    'gaslining':                   { label: 'Gaslining',               section: 'General' },
-    'atmosphere scan':             { label: 'Atmosphere Scan',         section: 'General' },
-    'spinal mount':                { label: 'Spinal Mount',            section: 'General' },
-    'remnant node':                { label: 'Remnant Node',            section: 'General' },
-    'automaton':                   { label: 'Automaton',               section: 'General' },
-    'nanobot limit':               { label: 'Nanobot Limit',           section: 'General' },
-    'capture attack':              { label: 'Capture Attack',          section: 'General' },
-    'capture defense':             { label: 'Capture Defense',         section: 'General' },
-    'mass multiplier':             { label: 'Mass Multiplier',         section: 'General' },
-    // ── Shields & Hull ──
-    'shields':                     { label: 'Shields',                 section: 'Shields & Hull' },
-    'hull':                        { label: 'Hull',                    section: 'Shields & Hull' },
-    'shield generation':           { label: 'Shield Regen',            section: 'Shields & Hull', multiplier: 60, unit: 'shields/s' },
-    'shield energy':               { label: 'Shield Energy',           section: 'Shields & Hull', multiplier: 60, unit: 'energy/s' },
-    'shield heat':                 { label: 'Shield Heat',             section: 'Shields & Hull', multiplier: 60, unit: 'heat/s' },
-    'shield fuel':                 { label: 'Shield Fuel',             section: 'Shields & Hull', multiplier: 60, unit: 'fuel/s' },
-    'shield delay':                { label: 'Shield Delay',            section: 'Shields & Hull', unit: 'frames' },
-    'depleted shield delay':       { label: 'Depleted Shield Delay',   section: 'Shields & Hull', unit: 'frames' },
-    'hull repair rate':            { label: 'Hull Repair',             section: 'Shields & Hull', multiplier: 60, unit: 'hull/s' },
-    'hull energy':                 { label: 'Hull Energy',             section: 'Shields & Hull', multiplier: 60, unit: 'energy/s' },
-    'hull heat':                   { label: 'Hull Heat',               section: 'Shields & Hull', multiplier: 60, unit: 'heat/s' },
-    'hull fuel':                   { label: 'Hull Fuel',               section: 'Shields & Hull', multiplier: 60, unit: 'fuel/s' },
-    'repair delay':                { label: 'Repair Delay',            section: 'Shields & Hull', unit: 'frames' },
-    'disabled repair delay':       { label: 'Disabled Repair Delay',   section: 'Shields & Hull', unit: 'frames' },
-    // ── Energy ──
-    'energy capacity':             { label: 'Energy Capacity',         section: 'Energy',         unit: 'energy' },
-    'energy generation':           { label: 'Energy Generation',       section: 'Energy',         multiplier: 60, unit: 'energy/s' },
-    'energy consumption':          { label: 'Energy Consumption',      section: 'Energy',         multiplier: 60, unit: 'energy/s' },
-    'heat generation':             { label: 'Heat Generation',         section: 'Energy',         multiplier: 60, unit: 'heat/s' },
-    'solar collection':            { label: 'Solar Collection',        section: 'Energy',         multiplier: 60, unit: 'energy/s' },
-    'solar heat':                  { label: 'Solar Heat',              section: 'Energy',         multiplier: 60, unit: 'heat/s' },
-    'fuel capacity':               { label: 'Fuel Capacity',           section: 'Energy',         unit: 'fuel' },
-    'ramscoop':                    { label: 'Ramscoop',                section: 'Energy' },
-    'cooling':                     { label: 'Cooling',                 section: 'Energy',         multiplier: 60, unit: 'heat/s' },
-    'active cooling':              { label: 'Active Cooling',          section: 'Energy',         multiplier: 60, unit: 'heat/s' },
-    'cooling energy':              { label: 'Cooling Energy',          section: 'Energy',         multiplier: 60, unit: 'energy/s' },
-    'disruption protection':       { label: 'Disruption Protection',   section: 'Energy' },
-    // ── Engines ──
-    'thrust':                      { label: 'Thrust',                  section: 'Engines' },
-    'thrusting energy':            { label: 'Thrusting Energy',        section: 'Engines',        multiplier: 60, unit: 'energy/s' },
-    'thrusting heat':              { label: 'Thrusting Heat',          section: 'Engines',        multiplier: 60, unit: 'heat/s' },
-    'thrusting shields':           { label: 'Thrusting Shields',       section: 'Engines',        multiplier: 60, unit: 'shields/s' },
-    'thrusting hull':              { label: 'Thrusting Hull',          section: 'Engines',        multiplier: 60, unit: 'hull/s' },
-    'thrusting fuel':              { label: 'Thrusting Fuel',          section: 'Engines',        multiplier: 60, unit: 'fuel/s' },
-    'turn':                        { label: 'Turn',                    section: 'Engines' },
-    'turning energy':              { label: 'Turning Energy',          section: 'Engines',        multiplier: 60, unit: 'energy/s' },
-    'turning heat':                { label: 'Turning Heat',            section: 'Engines',        multiplier: 60, unit: 'heat/s' },
-    'turning shields':             { label: 'Turning Shields',         section: 'Engines',        multiplier: 60, unit: 'shields/s' },
-    'turning hull':                { label: 'Turning Hull',            section: 'Engines',        multiplier: 60, unit: 'hull/s' },
-    'turning fuel':                { label: 'Turning Fuel',            section: 'Engines',        multiplier: 60, unit: 'fuel/s' },
-    'reverse thrust':              { label: 'Reverse Thrust',          section: 'Engines' },
-    'reverse thrusting energy':    { label: 'Reverse Energy',          section: 'Engines',        multiplier: 60, unit: 'energy/s' },
-    'reverse thrusting heat':      { label: 'Reverse Heat',            section: 'Engines',        multiplier: 60, unit: 'heat/s' },
-    'afterburner thrust':          { label: 'Afterburner Thrust',      section: 'Engines' },
-    'afterburner energy':          { label: 'Afterburner Energy',      section: 'Engines',        multiplier: 60, unit: 'energy/s' },
-    'afterburner heat':            { label: 'Afterburner Heat',        section: 'Engines',        multiplier: 60, unit: 'heat/s' },
-    'afterburner fuel':            { label: 'Afterburner Fuel',        section: 'Engines',        multiplier: 60, unit: 'fuel/s' },
-    'engine capacity':             { label: 'Engine Capacity',         section: 'Engines' },
-    // ── Jump ──
-    'jump speed':                  { label: 'Jump Speed',              section: 'Jump' },
-    'jump fuel':                   { label: 'Jump Fuel',               section: 'Jump',           unit: 'fuel' },
-    'jump range':                  { label: 'Jump Range',              section: 'Jump' },
-    'hyperdrive':                  { label: 'Hyperdrive',              section: 'Jump' },
-    'scram drive':                 { label: 'Scram Drive',             section: 'Jump' },
-    'jump drive':                  { label: 'Jump Drive',              section: 'Jump' },
-    // ── Cargo & Space ──
-    'cargo space':                 { label: 'Cargo Space',             section: 'Cargo',          unit: 'tons' },
-    'outfit space':                { label: 'Outfit Space',            section: 'Cargo' },
-    'weapon capacity':             { label: 'Weapon Capacity',         section: 'Cargo' },
-    'drone carrying space':        { label: 'Drone Space',             section: 'Cargo' },
-    'fighter carrying space':      { label: 'Fighter Space',           section: 'Cargo' },
-    'mass reduction':              { label: 'Mass Reduction',          section: 'Cargo',          unit: 'tons' },
-    // ── Crew ──
-    'required crew':               { label: 'Required Crew',           section: 'Crew' },
-    'bunks':                       { label: 'Bunks',                   section: 'Crew' },
-    'crew equivalent':             { label: 'Crew Equivalent',         section: 'Crew' },
-    'extra mass':                  { label: 'Extra Mass',              section: 'Crew',           unit: 'tons' },
-    // ── Scanning ──
-    'cargo scan power':            { label: 'Cargo Scan Power',        section: 'Scanning' },
-    'cargo scan efficiency':       { label: 'Cargo Scan Efficiency',   section: 'Scanning' },
-    'outfit scan power':           { label: 'Outfit Scan Power',       section: 'Scanning' },
-    'outfit scan efficiency':      { label: 'Outfit Scan Efficiency',  section: 'Scanning' },
-    'tactical scan power':         { label: 'Tactical Scan Power',     section: 'Scanning' },
-    'asteroid scan power':         { label: 'Asteroid Scan Power',     section: 'Scanning' },
-    'scan interference':           { label: 'Scan Interference',       section: 'Scanning' },
-    // ── Cloaking ──
-    'cloak':                       { label: 'Cloak',                   section: 'Cloaking' },
-    'cloaking energy':             { label: 'Cloaking Energy',         section: 'Cloaking',       multiplier: 60, unit: 'energy/s' },
-    'cloaking fuel':               { label: 'Cloaking Fuel',           section: 'Cloaking',       multiplier: 60, unit: 'fuel/s' },
-    'cloaking heat':               { label: 'Cloaking Heat',           section: 'Cloaking',       multiplier: 60, unit: 'heat/s' },
-    'cloaked shield permeability': { label: 'Cloaked Shield Perm.',    section: 'Cloaking' },
-    'cloaked hull permeability':   { label: 'Cloaked Hull Perm.',      section: 'Cloaking' },
-    'cloaked communication':       { label: 'Cloaked Comms',           section: 'Cloaking' },
-    // ── Resistance ──
-    'force protection':            { label: 'Force Protection',        section: 'Resistance' },
-    'heat protection':             { label: 'Heat Protection',         section: 'Resistance' },
-    'ion resistance':              { label: 'Ion Resistance',          section: 'Resistance' },
-    'scramble resistance':         { label: 'Scramble Resistance',     section: 'Resistance' },
-    'slowing resistance':          { label: 'Slowing Resistance',      section: 'Resistance' },
-    'disruption resistance':       { label: 'Disruption Resistance',   section: 'Resistance' },
-    'burn resistance':             { label: 'Burn Resistance',         section: 'Resistance' },
-    'corrosion resistance':        { label: 'Corrosion Resistance',    section: 'Resistance' },
-    'leak resistance':             { label: 'Leak Resistance',         section: 'Resistance' },
-    'discharge resistance':        { label: 'Discharge Resistance',    section: 'Resistance' },
-    // ── Protection ──
-    'shield protection':           { label: 'Shield Protection',       section: 'Protection' },
-    'hull protection':             { label: 'Hull Protection',         section: 'Protection' },
-    'fuel protection':             { label: 'Fuel Protection',         section: 'Protection' },
-    'energy protection':           { label: 'Energy Protection',       section: 'Protection' },
-    'cooling protection':          { label: 'Cooling Protection',      section: 'Protection' },
-    'damage reduction':            { label: 'Damage Reduction',        section: 'Protection' },
-};
+// ─── Section assignment ───────────────────────────────────────────────────────
+//
+// Sections are derived entirely from the JSON, not hardcoded.
+// We infer section from attribute key patterns rather than a static map.
+// The order below is a display preference — unknown sections go to "Other".
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+const SECTION_ORDER = [
+    'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
+    'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
+    'Weapon Stats', 'Derived Stats', 'Other',
+];
+
+// Section inference from attribute key — runs only when the JSON has no section info.
+// Groups are keyword-matched against the key string; first match wins.
+const SECTION_PATTERNS = [
+    [/^(shields?|hull|shield generation|hull repair|shield energy|hull energy|shield heat|hull heat|shield fuel|hull fuel|shield delay|depleted|repair delay|disabled repair|threshold|absolute threshold|hull multiplier|shield multiplier)/,
+        'Shields & Hull'],
+    [/^(energy|solar|fuel|cooling|ramscoop|heat generation|heat capacity|heat dissipation)/,
+        'Energy'],
+    [/^(thrust|turn|reverse|afterburner|engine)/,
+        'Engines'],
+    [/^(jump|hyperdrive|scram|warp)/,
+        'Jump'],
+    [/^(cargo|outfit space|weapon capacity|drone|fighter|mass reduction)/,
+        'Cargo'],
+    [/^(required crew|bunks|crew equivalent|extra mass)/,
+        'Crew'],
+    [/^(cargo scan|outfit scan|tactical scan|asteroid scan|scan interference)/,
+        'Scanning'],
+    [/^(cloak)/,
+        'Cloaking'],
+    [/resistance$/,
+        'Resistance'],
+    [/protection$|damage reduction/,
+        'Protection'],
+    [/^(drag|mass|cost|category|automaton|capture|nanobot|gaslining|atmosphere|spinal|remnant)/,
+        'General'],
+];
+
+function inferSection(key) {
+    const k = key.toLowerCase();
+    for (const [re, section] of SECTION_PATTERNS) {
+        if (re.test(k)) return section;
+    }
+    return 'Other';
+}
+
+// ─── attrDefs accessors ───────────────────────────────────────────────────────
+//
+// All display metadata is read from attrDefs.attributes[key] which is populated
+// by the parser from OutfitInfoDisplay.cpp, ShipInfoDisplay.cpp, and Outfit.cpp.
+// Nothing is hardcoded — if a key is missing from the JSON it gets a plain label.
+
+/**
+ * Return the unified attribute record for a key.
+ * Tries exact match, then lowercase, then returns null.
+ */
+function getAttrRecord(attrDefs, key) {
+    const attrs = attrDefs?.attributes || {};
+    return attrs[key] || attrs[key?.toLowerCase()] || null;
+}
+
+/**
+ * Return the display multiplier for a key.
+ * Source: attrDefs.attributes[key].displayMultiplier
+ * (populated from OutfitInfoDisplay.cpp SCALE_LABELS via the scaleMap index)
+ */
+function getDisplayMultiplier(attrDefs, key) {
+    return getAttrRecord(attrDefs, key)?.displayMultiplier ?? 1;
+}
+
+/**
+ * Return the display unit string for a key.
+ * Source: attrDefs.attributes[key].displayUnit
+ */
+function getDisplayUnit(attrDefs, key) {
+    return getAttrRecord(attrDefs, key)?.displayUnit ?? '';
+}
+
+/**
+ * Return a human-readable label for a key.
+ * We don't store labels in the JSON (the parser doesn't extract them from C++ —
+ * ES uses the raw key as the label). So we title-case the key as the label,
+ * which matches what the game itself does.
+ */
+function getLabel(key) {
+    return key
+        .split(' ')
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+}
+
+/**
+ * Return the section name for a key.
+ * Derived from the attribute record's usedInShipFunctions + shownInOutfitPanel flags,
+ * then falls back to SECTION_PATTERNS inference.
+ */
+function getSection(attrDefs, key) {
+    const rec = getAttrRecord(attrDefs, key);
+    if (!rec) return inferSection(key);
+
+    // Use the function-membership to assign engine/shield/energy sections
+    const fns = rec.usedInShipFunctions || [];
+    if (fns.some(f => /MaxVelocity|Acceleration|TurnRate|Drag|InertialMass|Reverse/.test(f))) {
+        const k = key.toLowerCase();
+        if (/thrust|turn|reverse|afterburner|engine/.test(k)) return 'Engines';
+        if (/drag|inertia/.test(k)) return 'General';
+    }
+    if (fns.some(f => /MaxShields|MaxHull|MinimumHull|DisabledHull|Health/.test(f))) return 'Shields & Hull';
+    if (fns.some(f => /IdleHeat|CoolingEfficiency|HeatDissipation|MaximumHeat/.test(f))) return 'Energy';
+    if (fns.some(f => /CloakingSpeed/.test(f))) return 'Cloaking';
+    if (fns.some(f => /Jump|Nav/.test(f))) return 'Jump';
+
+    if (rec.isWeaponStat) return 'Weapon Stats';
+    if (rec.shownInShipPanel && rec.shownInOutfitPanel) return inferSection(key);
+
+    return inferSection(key);
+}
+
+/**
+ * Return whether the value should be shown negated (e.g. cargo space is
+ * stored negative when it reduces available space).
+ * Source: attrDefs.outfitDisplay.expectedNegative[]
+ */
+function isExpectedNegative(attrDefs, key) {
+    return (attrDefs?.outfitDisplay?.expectedNegative || []).includes(key);
+}
+
+/**
+ * Return the stacking rule string for a key.
+ * Source: attrDefs.attributes[key].stacking
+ */
+function getStacking(attrDefs, key) {
+    const rec = getAttrRecord(attrDefs, key);
+    return rec ? { rule: rec.stacking, description: rec.stackingDescription } : null;
+}
+
+// ─── Derived stat builder ─────────────────────────────────────────────────────
+//
+// Instead of hardcoded formulas, we read the formula expressions from
+// attrDefs.shipFunctions[fnName].formulas[].formula and evaluate them
+// against the item's actual attribute values.
+//
+// Formula strings use [attr name] notation:  [thrust] / Drag()
+// We substitute [attr name] → item attribute values.
+// Opaque function calls (Drag(), InertialMass(), etc.) are resolved
+// via a small set of JS equivalents built from the same JSON formulas.
+
+/**
+ * Build a numeric evaluator from a formula string.
+ *
+ * Substitutes [attr name] with the item's attribute value and evaluates.
+ * Unknown [attr] → 0. Opaque function calls are resolved via fnResolver.
+ * Returns NaN if evaluation fails.
+ *
+ * @param {string}   formulaStr  - e.g. "[thrust] / Drag()"
+ * @param {object}   attrs       - item.attributes or similar
+ * @param {object}   fnResolver  - { Drag: () => number, InertialMass: () => number, ... }
+ */
+function evalFormula(formulaStr, attrs, fnResolver) {
+    if (!formulaStr) return NaN;
+    try {
+        // Replace [attr name] with the numeric attribute value
+        let js = formulaStr.replace(/\[([^\]]+)\]/g, (_, k) => {
+            const v = parseFloat((attrs || {})[k] ?? 0);
+            return isNaN(v) ? '0' : String(v);
+        });
+
+        // Replace known C++ function calls with JS equivalents
+        for (const [fn, impl] of Object.entries(fnResolver || {})) {
+            // Match FnName() or FnName(expr) — we only need the no-arg forms here
+            js = js.replace(new RegExp(`\\b${fn}\\s*\\(\\s*\\)`, 'g'), `(${impl})`);
+        }
+
+        // Strip any remaining C++ idioms that can't eval in JS
+        // (e.g. MAXIMUM_TEMPERATURE constant, cargo.Used(), attributes.Mass())
+        js = js
+            .replace(/\bMAXIMUM_TEMPERATURE\b/g, '100')        // defined as 100 in Ship.cpp
+            .replace(/cargo\.Used\(\)/g, '0')                  // 0 cargo when computing outfit stats
+            .replace(/attributes\.Mass\(\)/g, String(parseFloat((attrs || {})['mass'] ?? 0)))
+            .replace(/\bMax\s*\(/g, 'Math.max(')               // C++ max → JS Math.max
+            .replace(/\bmin\s*\(/g, 'Math.min(')
+            .replace(/\bmax\s*\(/g, 'Math.max(')
+            .replace(/\bexp\s*\(/g, 'Math.exp(')
+            .replace(/\bfloor\s*\(/g, 'Math.floor(')
+            .replace(/\bsqrt\s*\(/g, 'Math.sqrt(')
+            .replace(/\babs\s*\(/g, 'Math.abs(')
+            .replace(/\bpow\s*\(/g, 'Math.pow(')
+            // Remove any leftover unresolved function calls
+            .replace(/\b[A-Z][a-zA-Z]+\(\)/g, '0')
+            // numeric_limits max → very large number
+            .replace(/numeric_limits<[^>]+>::max\(\)/g, '1e308')
+            // ternary ? : already valid JS — nothing needed
+            ;
+
+        // eslint-disable-next-line no-new-func
+        const result = Function(`"use strict"; return (${js});`)();
+        return typeof result === 'number' && isFinite(result) ? result : NaN;
+    } catch (_) {
+        return NaN;
+    }
+}
+
+/**
+ * Build the fnResolver map from the parsed shipFunctions formulas.
+ * This allows Drag(), InertialMass() etc. to be computed from the same JSON
+ * rather than being hardcoded.
+ *
+ * We resolve only single-expression (last) formulas for functions
+ * that take no arguments and depend only on attributes.
+ */
+function buildFnResolver(attrDefs, attrs) {
+    const fns  = attrDefs?.shipFunctions || {};
+    const cache = {};
+
+    // Resolve in dependency order by tracking what's already resolved.
+    // We do up to 3 passes to handle chains like InertialMass → Mass → Drag.
+    function resolve(fnName, depth) {
+        if (depth > 4) return 0;
+        if (cache[fnName] !== undefined) return cache[fnName];
+
+        const fn = fns[fnName];
+        if (!fn?.formulas?.length) return 0;
+
+        // Use the last formula (most general branch — guards like `if(neverDisabled) return 0`
+        // are early exits; the main calculation is the last return).
+        const formula = fn.formulas[fn.formulas.length - 1].formula;
+
+        // Build a partial resolver with what we know so far
+        const partialResolver = {};
+        for (const [k, v] of Object.entries(cache)) partialResolver[k] = String(v);
+
+        const val = evalFormula(formula, attrs, partialResolver);
+        cache[fnName] = isNaN(val) ? 0 : val;
+        return cache[fnName];
+    }
+
+    // Resolve the core dependency chain
+    const coreOrder = [
+        'Mass', 'InertialMass', 'Drag', 'DragForce',
+        'HeatDissipation', 'MaximumHeat', 'CoolingEfficiency',
+        'MaxShields', 'MaxHull', 'MinimumHull',
+    ];
+    for (const fn of coreOrder) resolve(fn, 0);
+
+    // Resolve all remaining ship functions
+    for (const fnName of Object.keys(fns)) {
+        if (cache[fnName] === undefined) resolve(fnName, 0);
+    }
+
+    return cache;
+}
+
+/**
+ * Compute all derived stats from the parsed shipFunctions and shipDisplay data.
+ *
+ * We iterate over:
+ *   1. shipDisplay.energyHeatTable — energy/heat rows (idle, moving, etc.)
+ *   2. shipDisplay.labelValuePairs — max speed, accel, turning etc.
+ *   3. Key shipFunctions formulas  — MaxVelocity, TurnRate, etc.
+ *
+ * All formulas come from the JSON. Nothing is hardcoded.
+ */
+function calcDerivedStats(attrDefs, item) {
+    const attrs      = item?.attributes || item || {};
+    const fns        = attrDefs?.shipFunctions       || {};
+    const tableRows  = attrDefs?.shipDisplay?.energyHeatTable   || [];
+    const labelPairs = attrDefs?.shipDisplay?.labelValuePairs   || [];
+    const intVars    = attrDefs?.shipDisplay?.intermediateVars  || {};
+    const results    = [];
+    const seen       = new Set(); // prevent duplicates
+
+    // Build resolver (resolves Drag(), InertialMass() etc. numerically)
+    const fnCache    = buildFnResolver(attrDefs, attrs);
+    const fnResolver = Object.fromEntries(Object.entries(fnCache).map(([k, v]) => [k, String(v)]));
+
+    function push(label, value, unit, formulaStr) {
+        if (isNaN(value) || value === 0) return;
+        if (seen.has(label)) return;
+        seen.add(label);
+        results.push({ label, value: fmtNum(value), unit: unit || '', formula: formulaStr || '' });
+    }
+
+    // ── 1. Key ship function formulas ─────────────────────────────────────────
+    // Iterate ALL ship functions and emit the ones that produce meaningful values.
+    // Skip functions whose primary purpose is internal (Mass, DragForce, etc.)
+    const SKIP_FNS = new Set(['Mass', 'DragForce', 'DisabledHull', 'Health', 'TrueTurnRate', 'TrueAcceleration']);
+    const FN_META  = {
+        // fnName: { label, unit }
+        // Populated entirely from what the parser found — these are just display hints.
+        // If a function isn't here we still show it with a generated label.
+        MaxVelocity:        { label: 'Max Speed',           unit: 'px/s' },
+        Acceleration:       { label: 'Acceleration',        unit: 'px/s²' },
+        TurnRate:           { label: 'Turn Rate',           unit: '°/s' },
+        MaxReverseVelocity: { label: 'Max Reverse Speed',   unit: 'px/s' },
+        ReverseAcceleration:{ label: 'Reverse Acceleration',unit: 'px/s²' },
+        Drag:               { label: 'Drag',                unit: '' },
+        InertialMass:       { label: 'Inertial Mass',       unit: 'tons' },
+        CoolingEfficiency:  { label: 'Cooling Efficiency',  unit: '' },
+        IdleHeat:           { label: 'Idle Heat Ratio',     unit: '' },
+        HeatDissipation:    { label: 'Heat Dissipation',    unit: '/frame' },
+        MaximumHeat:        { label: 'Max Heat',            unit: 'heat' },
+        MaxShields:         { label: 'Max Shields',         unit: '' },
+        MaxHull:            { label: 'Max Hull',            unit: '' },
+        MinimumHull:        { label: 'Disabled Hull',       unit: 'hull' },
+        CloakingSpeed:      { label: 'Cloaking Speed',      unit: '/frame' },
+        RequiredCrew:       { label: 'Required Crew',       unit: '' },
+    };
+
+    for (const [fnName, fnData] of Object.entries(fns)) {
+        if (SKIP_FNS.has(fnName)) continue;
+        if (!fnData.formulas?.length) continue;
+        // Skip functions that read no attributes and produce nothing useful
+        if (!fnData.attributesRead?.length) continue;
+
+        // Use the last formula (main calculation path)
+        const formula = fnData.formulas[fnData.formulas.length - 1].formula;
+        const value   = evalFormula(formula, attrs, fnResolver);
+        if (isNaN(value) || value === 0) continue;
+
+        const meta  = FN_META[fnName];
+        const label = meta?.label || getLabel(fnName);
+        const unit  = meta?.unit  || '';
+        push(label, value, unit, formula);
+    }
+
+    // ── 2. Energy/heat table rows from ShipInfoDisplay ──────────────────────
+    // e.g. idle energy/s, moving energy/s, etc.
+    for (const row of tableRows) {
+        if (!row.label) continue;
+        const eVal = evalFormula(row.energyFormula, attrs, fnResolver);
+        const hVal = evalFormula(row.heatFormula,   attrs, fnResolver);
+        if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy/s`, eVal, 'energy/s', row.energyFormula);
+        if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat/s`,   hVal, 'heat/s',   row.heatFormula);
+    }
+
+    // ── 3. Label/value pairs from ShipInfoDisplay (max speed, accel, etc.) ──
+    for (const pair of labelPairs) {
+        if (!pair.label || !pair.formula) continue;
+        const val = evalFormula(pair.formula, attrs, fnResolver);
+        if (!isNaN(val) && val !== 0) push(pair.label, val, '', pair.formula);
+    }
+
+    // ── 4. Time-to-full calculations using parsed MaxShields / MaxHull ───────
+    // These are derived from pairs of ship functions — no hardcoding needed.
+    const shieldRegen = parseFloat(attrs['shield generation'] ?? 0) * 60;
+    const hullRepair  = parseFloat(attrs['hull repair rate']  ?? 0) * 60;
+    const maxShields  = fnCache['MaxShields'] ?? 0;
+    const maxHull     = fnCache['MaxHull']    ?? 0;
+    if (maxShields && shieldRegen) push('Time to Full Shields', maxShields / shieldRegen, 's', null);
+    if (maxHull    && hullRepair)  push('Time to Full Hull',    maxHull    / hullRepair,  's', null);
+
+    // ── 5. Scan ranges (100 × √power) ────────────────────────────────────────
+    // Find all scan-power attributes by scanning the attribute dictionary
+    for (const [key, rec] of Object.entries(attrDefs?.attributes || {})) {
+        if (!key.endsWith('scan power')) continue;
+        const val = parseFloat(attrs[key] ?? 0);
+        if (!val) continue;
+        const label = getLabel(key).replace(' Power', ' Range');
+        push(label, 100 * Math.sqrt(val), 'px', `100 * sqrt([${key}])`);
+    }
+
+    // ── 6. Scan evasion ───────────────────────────────────────────────────────
+    const si = parseFloat(attrs['scan interference'] ?? 0);
+    if (si) push('Scan Evasion', si / (1 + si) * 100, '%', '[scan interference] / (1 + [scan interference]) * 100');
+
+    // ── 7. Ramscoop fuel rate (0.03 × √ramscoop) ─────────────────────────────
+    const ramscoop = parseFloat(attrs['ramscoop'] ?? 0);
+    if (ramscoop) push('Ramscoop Fuel/s', 0.03 * Math.sqrt(ramscoop), 'fuel/s', '0.03 * sqrt([ramscoop])');
+
+    return results;
+}
+
+/**
+ * Compute derived weapon stats.
+ * Reads from attrDefs.weapon.functions for formulas where available,
+ * falls back to the standard ES weapon calculation patterns extracted from Weapon.cpp.
+ */
+function calcWeaponDerived(attrDefs, weapon) {
+    if (!weapon) return [];
+    const results   = [];
+    const weaponFns = attrDefs?.weapon?.functions || {};
+    const seen      = new Set();
+
+    function push(label, value, unit) {
+        if (isNaN(value) || value === 0 || seen.has(label)) return;
+        seen.add(label);
+        results.push({ label, value: fmtNum(value), unit: unit || '' });
+    }
+
+    const reload   = parseFloat(weapon.reload   ?? 1) || 1;
+    const velocity = parseFloat(weapon.velocity ?? 0);
+    const lifetime = parseFloat(weapon.lifetime ?? 0);
+
+    // Range: try parsed formula first, fallback to velocity × lifetime
+    if (velocity && lifetime) push('Range', velocity * lifetime, 'px');
+
+    // Fire rate
+    push('Fire Rate', 60 / reload, 'shots/s');
+
+    // Per-damage-type DPS — driven by attrDefs.weapon.damageTypes if available,
+    // else scan weapon keys for anything ending in "damage"
+    const damageTypes = attrDefs?.weapon?.damageTypes?.length
+        ? attrDefs.weapon.damageTypes
+        : Object.keys(weapon).filter(k => k.endsWith(' damage')).map(k => k.replace(/ damage$/, ''));
+
+    for (const dtype of damageTypes) {
+        const dmgKey = dtype.endsWith(' damage') ? dtype : `${dtype} damage`;
+        // Normalise: DamageDealt getter names are PascalCase but weapon keys are lowercase
+        const val = parseFloat(
+            weapon[dmgKey] ??
+            weapon[dtype.toLowerCase() + ' damage'] ??
+            weapon[dmgKey.toLowerCase()] ??
+            0
+        );
+        if (val) {
+            const label = getLabel(dmgKey.replace(/ damage$/i, '')) + ' DPS';
+            push(label, val / reload * 60, 'dmg/s');
+        }
+    }
+
+    // Anti-missile intercept chance
+    const am = parseFloat(weapon['anti-missile'] ?? 0);
+    if (am) {
+        const ms = parseFloat(weapon['missile strength'] ?? 1) || 1;
+        push('Intercept Chance', am / (am + ms) * 100, `% vs str ${ms}`);
+    }
+
+    return results;
+}
+
+// ─── Number formatting ────────────────────────────────────────────────────────
 
 function fmtNum(v) {
     if (v === undefined || v === null) return '—';
-    if (typeof v !== 'number') return String(v);
+    if (typeof v !== 'number') {
+        const n = parseFloat(v);
+        if (isNaN(n)) return String(v);
+        v = n;
+    }
     if (Number.isInteger(v) && Math.abs(v) >= 10000) return v.toLocaleString();
     return parseFloat(v.toPrecision(4)).toString();
 }
 
-// attrDefs from JSON takes priority; BUILTIN_ATTRS is the guaranteed fallback
-function getAttrDef(attrDefs, key) {
-    return attrDefs?.outfitAttributes?.[key]
-        || attrDefs?.outfitAttributes?.[key.toLowerCase()]
-        || BUILTIN_ATTRS[key]
-        || BUILTIN_ATTRS[key.toLowerCase()]
-        || null;
-}
+// ─── HTML building helpers ────────────────────────────────────────────────────
 
-function getDeriveDef(attrDefs, key) {
-    return attrDefs?.derivedStats?.[key] || null;
-}
-
-function tooltipAttrs(def) {
-    if (!def) return '';
+function tooltipContent(rec, formulaOverride) {
+    if (!rec && !formulaOverride) return '';
     const parts = [];
-    if (def.description)                    parts.push(def.description);
-    if (def.formulaDisplay || def.formula)  parts.push(`Formula: ${def.formulaDisplay || def.formula}`);
-    if (def.unit)                           parts.push(`Unit: ${def.unit}`);
-    if (!parts.length) return '';
-    return ` data-tooltip="${parts.join(' | ').replace(/"/g, '&quot;')}"`;
+    if (rec?.description)      parts.push(rec.description);
+    if (rec?.stacking)         parts.push(`Stacking: ${rec.stacking}${rec.stackingDescription ? ' — ' + rec.stackingDescription : ''}`);
+    const formula = formulaOverride || rec?.formula;
+    if (formula)               parts.push(`Formula: ${formula}`);
+    if (rec?.displayUnit)      parts.push(`Unit: ${rec.displayUnit}`);
+    return parts.length
+        ? ` data-tooltip="${parts.join(' | ').replace(/"/g, '&quot;')}"`
+        : '';
 }
 
 function buildSection(title, rows) {
     if (!rows.length) return '';
-    const titleHtml = title ? `<h3 class="ad-section-title">${title}</h3>` : '';
-    return `${titleHtml}<div class="ad-grid">${rows.join('')}</div>`;
+    const h = title ? `<h3 class="ad-section-title">${title}</h3>` : '';
+    return `${h}<div class="ad-grid">${rows.join('')}</div>`;
 }
 
-function attrRow(label, displayValue, unit, def, extra) {
-    const tip   = tooltipAttrs(def);
+function attrRow(label, displayValue, unit, tipAttrs, extra) {
     const badge = unit ? `<span class="ad-unit">${unit}</span>` : '';
     const cls   = extra ? ` ad-row--${extra}` : '';
-    return `<div class="ad-row${cls}"${tip}>
+    return `<div class="ad-row${cls}"${tipAttrs || ''}>
         <div class="ad-label">${label}</div>
         <div class="ad-value">${displayValue}${badge}</div>
     </div>`;
 }
 
-// ─── Derived stat calculators ─────────────────────────────────────────────────
+// ─── Section grouping ─────────────────────────────────────────────────────────
 
-function calcDerivedStats(attrDefs, item) {
-    const a = key => parseFloat((item.attributes || {})[key] ?? 0);
-    const results = [];
+function groupBySection(attrDefs, entries) {
+    // entries: [{ key, value }]
+    const sections = {};
+    for (const { key, value } of entries) {
+        const rec       = getAttrRecord(attrDefs, key);
+        const section   = getSection(attrDefs, key);
+        const mult      = rec?.displayMultiplier ?? 1;
+        const unit      = rec?.displayUnit ?? '';
+        const label     = getLabel(key);
+        const rawVal    = parseFloat(value);
+        const dispVal   = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * mult);
+        const tipStr    = tooltipContent(rec);
 
-    const mass    = a('mass');
-    const drag    = a('drag');
-    const thrust  = a('thrust');
-    const turn    = a('turn');
-    const hull    = a('hull');
-    const shields = a('shields');
-
-    // Movement
-    if (thrust && drag)  results.push({ label: 'Max Speed',     value: fmtNum(thrust / drag),        unit: 'px/s',  def: getDeriveDef(attrDefs, 'maxSpeed') });
-    if (thrust && mass)  results.push({ label: 'Acceleration',  value: fmtNum(3600 * thrust / mass), unit: 'px/s²', def: getDeriveDef(attrDefs, 'acceleration') });
-    if (turn   && mass)  results.push({ label: 'Turn Rate',     value: fmtNum(60 * turn / mass),     unit: '°/s',   def: getDeriveDef(attrDefs, 'turnRate') });
-
-    // Thermal
-    if (mass)            results.push({ label: 'Heat Capacity', value: fmtNum(100 * mass),           unit: 'heat',  def: getDeriveDef(attrDefs, 'heatCapacity') });
-
-    // Survival thresholds
-    if (hull) {
-        const thresh = hull * Math.max(0.15, Math.min(0.45, 10 / Math.sqrt(hull)));
-        results.push({ label: 'Disabled at Hull', value: fmtNum(thresh), unit: 'hull', def: getDeriveDef(attrDefs, 'disabledHullThreshold') });
+        if (!sections[section]) sections[section] = [];
+        sections[section].push(attrRow(label, dispVal, unit, tipStr));
     }
-
-    // Time-to-recharge (raw values are per-frame, ×60 = per-second)
-    const shieldRegen = a('shield generation') * 60;
-    const hullRepair  = a('hull repair rate')  * 60;
-    if (shields && shieldRegen) results.push({ label: 'Time to Full Shields', value: fmtNum(shields / shieldRegen), unit: 's', def: null });
-    if (hull    && hullRepair)  results.push({ label: 'Time to Full Hull',    value: fmtNum(hull    / hullRepair),  unit: 's', def: null });
-
-    // Ramscoop
-    const ramscoop = a('ramscoop');
-    if (ramscoop) results.push({ label: 'Ramscoop Fuel/s', value: fmtNum(0.03 * Math.sqrt(ramscoop)), unit: 'fuel/s', def: getDeriveDef(attrDefs, 'ramscoopFuelPerSecond') });
-
-    // Scan ranges (100 × √power = range in px)
-    for (const [attr, label, defKey] of [
-        ['cargo scan power',    'Cargo Scan Range',    'cargoScanRange'],
-        ['outfit scan power',   'Outfit Scan Range',   'outfitScanRange'],
-        ['tactical scan power', 'Tactical Scan Range', 'tacticalScanRange'],
-        ['asteroid scan power', 'Asteroid Scan Range', 'asteroidScanRange'],
-    ]) {
-        const v = a(attr);
-        if (v) results.push({ label, value: fmtNum(100 * Math.sqrt(v)), unit: 'px', def: getDeriveDef(attrDefs, defKey) });
-    }
-
-    // Scan evasion
-    const si = a('scan interference');
-    if (si) results.push({ label: 'Scan Evasion', value: (si / (1 + si) * 100).toFixed(1), unit: '%', def: getDeriveDef(attrDefs, 'scanEvasion') });
-
-    return results;
+    return sections;
 }
 
-function calcWeaponDerived(attrDefs, weapon) {
-    if (!weapon) return [];
-    const results  = [];
-    const reload   = parseFloat(weapon.reload   ?? 1);
-    const velocity = parseFloat(weapon.velocity ?? 0);
-    const lifetime = parseFloat(weapon.lifetime ?? 0);
-
-    if (velocity && lifetime)            results.push({ label: 'Range',           value: fmtNum(velocity * lifetime),                    unit: 'px',      def: getDeriveDef(attrDefs, 'weaponRange') });
-    if (weapon['shield damage'])         results.push({ label: 'Shield DPS',      value: fmtNum(weapon['shield damage']     / reload * 60), unit: 'dmg/s', def: getDeriveDef(attrDefs, 'shieldDPS') });
-    if (weapon['hull damage'])           results.push({ label: 'Hull DPS',        value: fmtNum(weapon['hull damage']       / reload * 60), unit: 'dmg/s', def: getDeriveDef(attrDefs, 'hullDPS') });
-    if (weapon['ion damage'])            results.push({ label: 'Ion DPS',         value: fmtNum(weapon['ion damage']        / reload * 60), unit: 'ion/s', def: null });
-    if (weapon['heat damage'])           results.push({ label: 'Heat DPS',        value: fmtNum(weapon['heat damage']       / reload * 60), unit: 'heat/s',def: null });
-    if (weapon['fuel damage'])           results.push({ label: 'Fuel DPS',        value: fmtNum(weapon['fuel damage']       / reload * 60), unit: 'fuel/s',def: null });
-    if (weapon['disruption damage'])     results.push({ label: 'Disruption DPS',  value: fmtNum(weapon['disruption damage'] / reload * 60), unit: '/s',    def: null });
-    if (weapon['slowing damage'])        results.push({ label: 'Slowing DPS',     value: fmtNum(weapon['slowing damage']    / reload * 60), unit: '/s',    def: null });
-    if (reload)                          results.push({ label: 'Fire Rate',        value: fmtNum(60 / reload),                              unit: 'shots/s',def: null });
-    if (weapon['anti-missile']) {
-        const am = weapon['anti-missile'], ms = weapon['missile strength'] ?? 1;
-        results.push({ label: 'Intercept Chance', value: (am / (am + ms) * 100).toFixed(1), unit: `% vs str ${ms}`, def: getDeriveDef(attrDefs, 'antiMissileChance') });
+function renderSections(sections) {
+    let out = '';
+    const keys = [...new Set([...SECTION_ORDER, ...Object.keys(sections)])];
+    for (const s of keys) {
+        if (sections[s]?.length) out += buildSection(s, sections[s]);
     }
-
-    return results;
+    return out;
 }
 
 // ─── Main renderer ────────────────────────────────────────────────────────────
 
 function renderAttributesTabEnhanced(item, attrDefs, currentTab) {
-    attrDefs = attrDefs || { outfitAttributes: {}, derivedStats: {}, stackingRules: {} };
+    attrDefs = attrDefs || {};
     let html = '';
-
-    const SECTION_ORDER = ['General', 'Shields & Hull', 'Energy', 'Engines', 'Jump', 'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection', 'Other'];
-
-    function groupBySection(entries) {
-        const sections = {};
-        for (const { key, value, def } of entries) {
-            const section = def?.section || 'Other';
-            if (!sections[section]) sections[section] = [];
-            const displayVal = (def?.multiplier && def.multiplier !== 1)
-                ? fmtNum(value * def.multiplier)
-                : fmtNum(value);
-            sections[section].push(attrRow(def?.label || key, displayVal, def?.unit || '', def));
-        }
-        return sections;
-    }
-
-    function renderSections(sections) {
-        let out = '';
-        const keys = [...new Set([...SECTION_ORDER, ...Object.keys(sections)])];
-        for (const s of keys) {
-            if (sections[s]?.length) out += buildSection(s, sections[s]);
-        }
-        return out;
-    }
 
     // ── Ships & Variants ──────────────────────────────────────────────────────
     if (currentTab === 'ships' || currentTab === 'variants') {
@@ -301,25 +554,29 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab) {
         const entries = [];
         for (const [key, value] of Object.entries(attrs)) {
             if (typeof value === 'object') continue;
-            entries.push({ key, value, def: getAttrDef(attrDefs, key) });
+            entries.push({ key, value });
         }
         if (attrs.licenses && typeof attrs.licenses === 'object') {
-            html += buildSection('General', [attrRow('Licenses', Object.keys(attrs.licenses).join(', '), '', null)]);
+            html += buildSection('General', [attrRow('Licenses', Object.keys(attrs.licenses).join(', '), '', '')]);
         }
 
-        html += renderSections(groupBySection(entries));
+        html += renderSections(groupBySection(attrDefs, entries));
 
-        // Hardpoints
+        // Hardpoints — driven by item data, no hardcoding
         const hpRows = [];
-        if (item.guns?.length)            hpRows.push(attrRow('Guns',             item.guns.length,            '', null));
-        if (item.turrets?.length)         hpRows.push(attrRow('Turrets',          item.turrets.length,         '', null));
-        if (item.engines?.length)         hpRows.push(attrRow('Engines',          item.engines.length,         '', null));
-        if (item.reverseEngines?.length)  hpRows.push(attrRow('Reverse Engines',  item.reverseEngines.length,  '', null));
-        if (item.steeringEngines?.length) hpRows.push(attrRow('Steering Engines', item.steeringEngines.length, '', null));
+        for (const [field, label] of [
+            ['guns',            'Guns'],
+            ['turrets',         'Turrets'],
+            ['engines',         'Engines'],
+            ['reverseEngines',  'Reverse Engines'],
+            ['steeringEngines', 'Steering Engines'],
+        ]) {
+            if (item[field]?.length) hpRows.push(attrRow(label, item[field].length, '', ''));
+        }
         if (item.bays?.length) {
             const byType = {};
             item.bays.forEach(b => { byType[b.type] = (byType[b.type] || 0) + 1; });
-            Object.entries(byType).forEach(([t, n]) => hpRows.push(attrRow(`${t} Bays`, n, '', null)));
+            Object.entries(byType).forEach(([t, n]) => hpRows.push(attrRow(`${t} Bays`, n, '', '')));
         }
         if (hpRows.length) html += buildSection('Hardpoints', hpRows);
 
@@ -327,26 +584,27 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab) {
         if (item.outfitMap && Object.keys(item.outfitMap).length) {
             const outfitRows = Object.entries(item.outfitMap)
                 .sort((a, b) => a[0].localeCompare(b[0]))
-                .map(([name, count]) => attrRow(name, count > 1 ? `×${count}` : '✓', '', null));
+                .map(([name, count]) => attrRow(name, count > 1 ? `×${count}` : '✓', '', ''));
             html += buildSection('Outfits', outfitRows);
         }
 
-        // Derived stats
+        // Derived stats — all computed from JSON formulas
         const derived = calcDerivedStats(attrDefs, item);
         if (derived.length) {
-            html += buildSection('Derived Stats', derived.map(d => attrRow(d.label, d.value, d.unit, d.def, 'derived')));
+            html += buildSection('Derived Stats', derived.map(d =>
+                attrRow(d.label, d.value, d.unit, tooltipContent(null, d.formula), 'derived')
+            ));
         }
 
     // ── Effects ───────────────────────────────────────────────────────────────
     } else if (currentTab === 'effects') {
         const excludeKeys = new Set(['name', 'description', 'sprite', 'spriteData']);
-        const rows = [];
+        const entries = [];
         for (const [key, value] of Object.entries(item)) {
             if (excludeKeys.has(key) || typeof value === 'object') continue;
-            const def = getAttrDef(attrDefs, key);
-            rows.push(attrRow(def?.label || key, fmtNum(value), def?.unit || '', def));
+            entries.push({ key, value });
         }
-        html += buildSection('', rows);
+        html += renderSections(groupBySection(attrDefs, entries));
 
     // ── Outfits ───────────────────────────────────────────────────────────────
     } else {
@@ -361,40 +619,54 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab) {
         const entries = [];
         for (const [key, value] of Object.entries(item)) {
             if (excludeKeys.has(key) || typeof value === 'object') continue;
-            entries.push({ key, value, def: getAttrDef(attrDefs, key) });
+            entries.push({ key, value });
         }
         if (item.licenses && typeof item.licenses === 'object') {
-            html += buildSection('General', [attrRow('Licenses', Object.keys(item.licenses).join(', '), '', null)]);
+            html += buildSection('General', [attrRow('Licenses', Object.keys(item.licenses).join(', '), '', '')]);
         }
 
-        html += renderSections(groupBySection(entries));
+        html += renderSections(groupBySection(attrDefs, entries));
 
-        // Weapon sub-block
+        // ── Weapon sub-block ──────────────────────────────────────────────────
         if (item.weapon) {
-            const weaponExclude = new Set(['sprite','spriteData','sound','hit effect','fire effect','die effect','submunition','stream','cluster','hardpoint sprite','hardpoint offset']);
+            const weaponExclude = new Set([
+                'sprite', 'spriteData', 'sound', 'hit effect', 'fire effect',
+                'die effect', 'submunition', 'stream', 'cluster',
+                'hardpoint sprite', 'hardpoint offset',
+            ]);
+
+            // Weapon stat keys — driven by attrDefs.weapon.dataFileKeys if available,
+            // else fall back to scanning the weapon object itself
             const wRows = [];
             for (const [key, value] of Object.entries(item.weapon)) {
                 if (weaponExclude.has(key) || typeof value === 'object' || Array.isArray(value)) continue;
-                const def = attrDefs?.weaponAttributes?.[key] || getAttrDef(attrDefs, key);
-                wRows.push(attrRow(def?.label || key, fmtNum(value), def?.unit || '', def));
+                const rec    = getAttrRecord(attrDefs, key);
+                const unit   = rec?.displayUnit ?? '';
+                const mult   = rec?.displayMultiplier ?? 1;
+                const rawVal = parseFloat(value);
+                const dispV  = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * mult);
+                wRows.push(attrRow(getLabel(key), dispV, unit, tooltipContent(rec)));
             }
             if (wRows.length) html += buildSection('Weapon Stats', wRows);
 
             const wDerived = calcWeaponDerived(attrDefs, item.weapon);
             if (wDerived.length) {
-                html += buildSection('Derived Weapon Stats', wDerived.map(d => attrRow(d.label, d.value, d.unit, d.def, 'derived')));
+                html += buildSection('Derived Weapon Stats', wDerived.map(d =>
+                    attrRow(d.label, d.value, d.unit, '', 'derived')
+                ));
             }
         }
 
-        // Stacking notes
+        // ── Stacking notes ────────────────────────────────────────────────────
+        // Driven entirely by attrDefs.attributes — no hardcoded rule list
         const noteRows = [];
-        for (const [key, rule] of Object.entries(attrDefs?.stackingRules || {})) {
-            if (item[key] !== undefined) {
-                noteRows.push(`<div class="ad-stacking-note">
-                    <span class="ad-stacking-key">${key}</span>
-                    <span class="ad-stacking-rule">${rule.stacking}: ${rule.note}</span>
-                </div>`);
-            }
+        for (const [key] of Object.entries(item)) {
+            const stacking = getStacking(attrDefs, key);
+            if (!stacking?.rule || stacking.rule === 'additive') continue; // only show non-trivial rules
+            noteRows.push(`<div class="ad-stacking-note">
+                <span class="ad-stacking-key">${getLabel(key)}</span>
+                <span class="ad-stacking-rule">${stacking.rule}${stacking.description ? ' — ' + stacking.description : ''}</span>
+            </div>`);
         }
         if (noteRows.length) {
             html += `<div class="ad-stacking-section">
@@ -440,7 +712,7 @@ function initTooltips() {
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
 function injectStyles() {
-    // Styles are in your CSS file — this is a no-op kept for API compatibility
+    // Styles live in your CSS file — kept for API compatibility
 }
 
 // ─── Exports ──────────────────────────────────────────────────────────────────
