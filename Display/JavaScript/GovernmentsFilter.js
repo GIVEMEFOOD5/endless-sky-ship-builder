@@ -119,14 +119,11 @@ function governmentFilterDisplay() {
     governmentFilterExpanded = !governmentFilterExpanded;
 
     if (governmentFilterExpanded) {
-        filterOptions.style.display = 'block';
-
         // Rebuild checkboxes
         if (lastGovernmentData.length) {
             populateGovernmentFilters(lastGovernmentData);
         }
     } else {
-        filterOptions.style.display = 'none';
         filterOptions.innerHTML = ''; // clear to reduce DOM load
     }
 }
