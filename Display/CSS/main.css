@@ -151,7 +151,7 @@ button {
 
 .search-section {
     background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(10px);
+    backdrop-: blur(10px);
     border: 1px solid rgba(59, 130, 246, 0.3);
     border-radius: 12px;
     padding: 20px;
@@ -177,7 +177,7 @@ button {
 
 .card {
     background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(10px);
+    backdrop-: blur(10px);
     border: 1px solid rgba(59, 130, 246, 0.3);
     border-radius: 12px;
     padding: 20px;
@@ -230,7 +230,7 @@ button {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
+    backdrop-: blur(5px);
     z-index: 1000;
     overflow-y: auto;
 }
@@ -402,6 +402,12 @@ button {
 .filter-title {
     font-weight: 600;
     margin-bottom: 15px;
+    color: #93c5fd;
+    font-size: 1.1rem;
+}
+
+.filter-title-no-margin {
+    font-weight: 600;
     color: #93c5fd;
     font-size: 1.1rem;
 }
