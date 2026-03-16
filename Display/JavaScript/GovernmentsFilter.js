@@ -112,6 +112,8 @@ function clearGovernmentFilters() {
 
 function governmentFilterDisplay() {
     const filterOptions = document.getElementById('governmentFilterOptions');
+    const filterTitle = document.getElementById('governmentFilterTitle');
+    
     if (!filterOptions) return;
 
     governmentFilterExpanded = !governmentFilterExpanded;
@@ -119,14 +121,14 @@ function governmentFilterDisplay() {
     if (governmentFilterExpanded) {
         // Rebuild checkboxes
         if (lastGovernmentData.length) {
-            filterOptions.classList.remove("filter-title-no-margin");
-            filterOptions.classList.add("filter-title");
+            filterTitle.classList.remove("filter-title-no-margin");
+            filterTitle.classList.add("filter-title");
             populateGovernmentFilters(lastGovernmentData);
         }
     } else {
         filterOptions.innerHTML = ''; // clear to reduce DOM load
-        filterOptions.classList.remove("filter-title");
-        filterOptions.classList.add("filter-title-no-margin");
+        filterTitle.classList.remove("filter-title");
+        filterTitle.classList.add("filter-title-no-margin");
     }
 }
 
