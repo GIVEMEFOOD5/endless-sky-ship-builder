@@ -119,14 +119,14 @@ function governmentFilterDisplay() {
     if (governmentFilterExpanded) {
         // Rebuild checkboxes
         if (lastGovernmentData.length) {
-            element.classList.remove("filter-title-no-margin");
-            element.classList.add("filter-title");
+            filterOptions.classList.remove("filter-title-no-margin");
+            filterOptions.classList.add("filter-title");
             populateGovernmentFilters(lastGovernmentData);
         }
     } else {
         filterOptions.innerHTML = ''; // clear to reduce DOM load
-        element.classList.remove("filter-title");
-        element.classList.add("filter-title-no-margin");
+        filterOptions.classList.remove("filter-title");
+        filterOptions.classList.add("filter-title-no-margin");
     }
 }
 
