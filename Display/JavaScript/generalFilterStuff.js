@@ -25,7 +25,7 @@ function filterDisplay() {
 
     filtersExpanded = !filtersExpanded;
 
-    if (filtersExpanded) {
+    if (!filtersExpanded) {
         // Rebuild checkboxes
         if (lastFilterItems.length) {
             //filterTitle.classList.remove("filter-title-no-margin");
