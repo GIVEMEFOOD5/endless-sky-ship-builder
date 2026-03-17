@@ -1,3 +1,6 @@
+let categoryFilterExpanded = false;
+let lastCategoryFilter = [];
+
 // Function to extract unique categories from JSON data
 function extractCategories(data) {
     const categories = new Set();
@@ -28,6 +31,7 @@ function extractCategories(data) {
 
 // Function to populate filter checkboxes
 function populateFilters(data) {
+    lastCategoryFilter = data;
     const categories = extractCategories(data);
     const filterOptions = document.getElementById('filterOptions');
     const filterSection = document.getElementById('filterSection');
@@ -85,7 +89,33 @@ function clearFilters() {
     filterItems();
 }
 
+function categoryFilterDisplay() {
+    const filterOptions = document.getElementById('filterOptions');
+    const filterTitle = document.getElementById('categoryFilterTitle');
+    
+    if (!filterOptions) return;
+
+    categoryFilterExpanded = !categoryFilterExpanded;
+
+    if (categoryFilterExpanded) {
+        // Rebuild checkboxes
+        if (lastCategoryFilter.length) {
+            filterTitle.classList.remove("filter-title-no-margin");
+            filterTitle.classList.add("filter-title");
+            filterTitle.innerHTML = 'Filter by Category: 🡆'
+            populateGovernmentFilters(lastCategoryFilter);
+        }
+    } else {
+        filterOptions.innerHTML = ''; // clear to reduce DOM load
+        filterTitle.classList.remove("filter-title");
+        filterTitle.classList.add("filter-title-no-margin");
+        filterTitle.innerHTML = 'Filter by Category: 🡇'
+    }
+}
+
+
 // Make functions globally accessible for HTML onclick attributes
 window.clearFilters = clearFilters;
 window.populateFilters = populateFilters;
 window.getSelectedCategories = getSelectedCategories;
+window.categoryFilterDisplay     = categoryFilterDisplay;
