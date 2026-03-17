@@ -41,11 +41,10 @@ function populateGovernmentFilters(data) {
     if (!filterOptions || !filterSection) return;
 
     if (governments.length === 0) {
-        filterSection.style.display = 'none';
+        filterSection.classList.add("hidden");
+        filterSection.classList.remove("shown");
         return;
     }
-
-    filterSection.style.display = 'block';
 
     // Only render if expanded
     if (!governmentFilterExpanded) {
