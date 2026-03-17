@@ -44,7 +44,7 @@ function populateFilters(data) {
     filterSection.style.display = 'block';
     
     // Only render if expanded
-    if (!governmentFilterExpanded) {
+    if (!categoryFilterExpanded) {
         filterOptions.innerHTML = '';
         return;
     }
