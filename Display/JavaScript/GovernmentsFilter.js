@@ -1,13 +1,6 @@
-// governmentFilter.js
-// Extracts unique governments from the current tab's data and renders
-// them as checkboxes. Integrates with renderCards, filterItems, and clearFilters.
-
 let governmentFilterExpanded = false;
 let lastGovernmentData = [];
-
-// ---------------------------------------------------------------------------
-// Extraction
-// ---------------------------------------------------------------------------
+let savedGovernmentFilterState = {};
 
 function extractGovernments(data) {
     const governments = new Set();
@@ -27,10 +20,6 @@ function extractGovernments(data) {
     return Array.from(governments).sort();
 }
 
-// ---------------------------------------------------------------------------
-// Populate — called from renderCards alongside populateFilters
-// ---------------------------------------------------------------------------
-
 function populateGovernmentFilters(data) {
     lastGovernmentData = data;
 
@@ -46,7 +35,6 @@ function populateGovernmentFilters(data) {
         return;
     }
 
-    // Only render if expanded
     if (!governmentFilterExpanded) {
         filterOptions.innerHTML = '';
         return;
@@ -62,7 +50,8 @@ function populateGovernmentFilters(data) {
         checkbox.type = 'checkbox';
         checkbox.id = `gov-filter-${CSS.escape(government)}`;
         checkbox.value = government;
-        checkbox.checked = false;
+        // Restore saved state, default to false
+        checkbox.checked = savedGovernmentFilterState[government] ?? false;
         checkbox.onchange = filterItems;
 
         const label = document.createElement('label');
@@ -75,10 +64,6 @@ function populateGovernmentFilters(data) {
     });
 }
 
-// ---------------------------------------------------------------------------
-// Read selection
-// ---------------------------------------------------------------------------
-
 function getSelectedGovernments() {
     const checkboxes = document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]');
     const selected = [];
@@ -86,56 +71,45 @@ function getSelectedGovernments() {
     return selected;
 }
 
-// ---------------------------------------------------------------------------
-// Per-item check — call this inside filterItems alongside category checks
-// ---------------------------------------------------------------------------
-
 function itemMatchesGovernmentFilter(item, selected) {
     if (selected.length === 0) return true;
     if (!item || typeof item.governments !== 'object') return false;
     return selected.some(g => item.governments[g] === true);
 }
 
-// ---------------------------------------------------------------------------
-// Clear — plug into clearFilters
-// ---------------------------------------------------------------------------
-
 function clearGovernmentFilters() {
+    savedGovernmentFilterState = {};
     const checkboxes = document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]');
     checkboxes.forEach(cb => { cb.checked = false; });
 }
 
-// ---------------------------------------------------------------------------
-// Hide/show — plug to hide and show checkboxes
-// ---------------------------------------------------------------------------
-
 function governmentFilterDisplay() {
     const filterOptions = document.getElementById('governmentFilterOptions');
     const filterTitle = document.getElementById('governmentFilterTitle');
-    
+
     if (!filterOptions) return;
 
     governmentFilterExpanded = !governmentFilterExpanded;
 
     if (governmentFilterExpanded) {
-        // Rebuild checkboxes
         if (lastGovernmentData.length) {
             filterTitle.classList.remove("filter-title-no-margin");
             filterTitle.classList.add("filter-title");
-            filterTitle.innerHTML = 'Filter by Government: 🡆'
+            filterTitle.innerHTML = 'Filter by Government: 🡆';
             populateGovernmentFilters(lastGovernmentData);
         }
     } else {
-        filterOptions.innerHTML = ''; // clear to reduce DOM load
+        // Save state before clearing
+        document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]').forEach(cb => {
+            savedGovernmentFilterState[cb.value] = cb.checked;
+        });
+
+        filterOptions.innerHTML = '';
         filterTitle.classList.remove("filter-title");
         filterTitle.classList.add("filter-title-no-margin");
-        filterTitle.innerHTML = 'Filter by Government: 🡇'
+        filterTitle.innerHTML = 'Filter by Government: 🡇';
     }
 }
-
-// ---------------------------------------------------------------------------
-// Global exports
-// ---------------------------------------------------------------------------
 
 window.extractGovernments          = extractGovernments;
 window.populateGovernmentFilters   = populateGovernmentFilters;
