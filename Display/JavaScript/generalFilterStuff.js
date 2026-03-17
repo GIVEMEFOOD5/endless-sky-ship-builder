@@ -30,7 +30,7 @@ function filterDisplay() {
         if (lastFilterItems.length) {
             //filterTitle.classList.remove("filter-title-no-margin");
             //filterTitle.classList.add("filter-title");
-            filterTitle.innerHTML = 'Filters 🡆'
+            filterTitle.innerHTML = 'Filters 🡇'
             governmentFilterSection.classList.add("hidden");
             categoryFilterSection.classList.add("hidden");
             governmentFilterSection.classList.remove("shown");
@@ -46,7 +46,7 @@ function filterDisplay() {
         categoryFilterSection.classList.remove("hidden");
         governmentFilterSection.classList.add("shown");
         categoryFilterSection.classList.add("shown");
-        filterTitle.innerHTML = 'Filters 🡇'
+        filterTitle.innerHTML = 'Filters 🡆'
     }
 }
 
