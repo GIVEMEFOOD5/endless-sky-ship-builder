@@ -1,8 +1,12 @@
-let filtersExpanded = true;
+let filtersExpanded = false;
 let lastFilterItems = [];
+let savedCategoryFilterState = {};
+let savedGovernmentFilterState = {};
 
 // Function to clear all filters
 function clearFilters() {
+    savedCategoryFilterState = {};
+    savedGovernmentFilterState = {};
     const checkboxes = document.querySelectorAll('#filterOptions input[type="checkbox"]');
     const searchBar = document.getElementById('searchInput');
     checkboxes.forEach(cb => { cb.checked = false; });
@@ -12,45 +16,62 @@ function clearFilters() {
 }
 
 function getFilterData(data) {
-        lastFilterItems = data;
+    lastFilterItems = data;
 }
 
 function filterDisplay() {
-    
     const governmentFilterSection = document.getElementById('governmentFilterSection');
     const categoryFilterSection = document.getElementById('filterSection');
     const filterTitle = document.getElementById('filterTitle');
-    
-    if (!filterOptions) return;
+
+    if (!governmentFilterSection || !categoryFilterSection || !filterTitle) return;
 
     filtersExpanded = !filtersExpanded;
 
-    if (!filtersExpanded) {
-        // Rebuild checkboxes
-        if (lastFilterItems.length) {
-            //filterTitle.classList.remove("filter-title-no-margin");
-            //filterTitle.classList.add("filter-title");
-            filterTitle.innerHTML = 'Filters 🡇'
-            governmentFilterSection.classList.add("hidden");
-            categoryFilterSection.classList.add("hidden");
-            governmentFilterSection.classList.remove("shown");
-            categoryFilterSection.classList.remove("shown");
-            populateGovernmentFilters(lastFilterItems);
-            populateCategoryFilters(lastFilterItems);
-        }
-    } else {
-        //filterOptions.innerHTML = ''; // clear to reduce DOM load
-        //filterTitle.classList.remove("filter-title");
-        //filterTitle.classList.add("filter-title-no-margin");
+    if (filtersExpanded) {
+        filterTitle.innerHTML = 'Filters 🡆';
         governmentFilterSection.classList.remove("hidden");
         categoryFilterSection.classList.remove("hidden");
         governmentFilterSection.classList.add("shown");
         categoryFilterSection.classList.add("shown");
-        filterTitle.innerHTML = 'Filters 🡆'
+
+        if (lastFilterItems.length) {
+            populateGovernmentFilters(lastFilterItems);
+            populateCategoryFilters(lastFilterItems);
+
+            // Restore category state
+            document.querySelectorAll('#filterOptions input[type="checkbox"]').forEach(cb => {
+                if (savedCategoryFilterState[cb.value] !== undefined) {
+                    cb.checked = savedCategoryFilterState[cb.value];
+                }
+            });
+
+            // Restore government state
+            document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]').forEach(cb => {
+                if (savedGovernmentFilterState[cb.value] !== undefined) {
+                    cb.checked = savedGovernmentFilterState[cb.value];
+                }
+            });
+        }
+    } else {
+        // Save category state before hiding
+        document.querySelectorAll('#filterOptions input[type="checkbox"]').forEach(cb => {
+            savedCategoryFilterState[cb.value] = cb.checked;
+        });
+
+        // Save government state before hiding
+        document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]').forEach(cb => {
+            savedGovernmentFilterState[cb.value] = cb.checked;
+        });
+
+        filterTitle.innerHTML = 'Filters 🡇';
+        governmentFilterSection.classList.add("hidden");
+        categoryFilterSection.classList.add("hidden");
+        governmentFilterSection.classList.remove("shown");
+        categoryFilterSection.classList.remove("shown");
     }
 }
 
-// Make functions globally accessible for HTML onclick attributes
 window.clearFilters = clearFilters;
 window.filterDisplay = filterDisplay;
 window.getFilterData = getFilterData;
