@@ -108,7 +108,7 @@ function categoryFilterDisplay() {
             filterTitle.classList.remove("filter-title-no-margin");
             filterTitle.classList.add("filter-title");
             filterTitle.innerHTML = 'Filter by Category: 🡆'
-            populateGovernmentFilters(lastCategoryFilter);
+            populateFilters(lastCategoryFilter);
         }
     } else {
         filterOptions.innerHTML = ''; // clear to reduce DOM load
