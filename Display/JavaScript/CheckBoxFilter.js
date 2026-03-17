@@ -30,7 +30,7 @@ function extractCategories(data) {
 }
 
 // Function to populate filter checkboxes
-function populateFilters(data) {
+function populateCategoryFilters(data) {
     lastCategoryFilter = data;
     const categories = extractCategories(data);
     const filterOptions = document.getElementById('filterOptions');
@@ -108,7 +108,7 @@ function categoryFilterDisplay() {
             filterTitle.classList.remove("filter-title-no-margin");
             filterTitle.classList.add("filter-title");
             filterTitle.innerHTML = 'Filter by Category: 🡆'
-            populateFilters(lastCategoryFilter);
+            populateCategoryFilters(lastCategoryFilter);
         }
     } else {
         filterOptions.innerHTML = ''; // clear to reduce DOM load
@@ -121,6 +121,6 @@ function categoryFilterDisplay() {
 
 // Make functions globally accessible for HTML onclick attributes
 window.clearFilters = clearFilters;
-window.populateFilters = populateFilters;
+window.populateCategoryFilters = populateCategoryFilters;
 window.getSelectedCategories = getSelectedCategories;
 window.categoryFilterDisplay     = categoryFilterDisplay;
