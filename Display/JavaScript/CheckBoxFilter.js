@@ -37,11 +37,10 @@ function populateCategoryFilters(data) {
     const filterSection = document.getElementById('filterSection');
             
     if (categories.length === 0) {
-        filterSection.style.display = 'none';
+        filterSection.classList.add("hidden");
+        filterSection.classList.remove("shown");
         return;
     }
-            
-    filterSection.style.display = 'block';
     
     // Only render if expanded
     if (!categoryFilterExpanded) {
