@@ -205,7 +205,8 @@ function renderCards() {
     else if (currentTab === 'effects')  items = data.effects;
 
     filteredData = items;
-    if (typeof populateFilters === 'function') populateFilters(items);
+    if (typeof getFilterData === 'function') getFilterData(items);
+    if (typeof populateCategoryFilters === 'function') populateCategoryFilters(items);
     if (typeof populateGovernmentFilters === 'function') populateGovernmentFilters(items);
     if (typeof filterItems === 'function') filterItems();
 }
