@@ -42,7 +42,12 @@ function populateFilters(data) {
     }
             
     filterSection.style.display = 'block';
-    filterOptions.innerHTML = '';
+    
+    // Only render if expanded
+    if (!governmentFilterExpanded) {
+        filterOptions.innerHTML = '';
+        return;
+    }
             
     categories.forEach(category => {
         const optionDiv = document.createElement('div');
