@@ -33,6 +33,8 @@ function filterDisplay() {
             filterTitle.innerHTML = 'Filters 🡆'
             governmentFilterSection.classList.add("hidden");
             categoryFilterSection.classList.add("hidden");
+            governmentFilterSection.classList.remove("shown");
+            categoryFilterSection.classList.remove("shown");
             populateGovernmentFilters(lastFilterItems);
             populateCategoryFilters(lastFilterItems);
         }
@@ -42,6 +44,8 @@ function filterDisplay() {
         //filterTitle.classList.add("filter-title-no-margin");
         governmentFilterSection.classList.remove("hidden");
         categoryFilterSection.classList.remove("hidden");
+        governmentFilterSection.classList.add("shown");
+        categoryFilterSection.classList.add("shown");
         filterTitle.innerHTML = 'Filters 🡇'
     }
 }
