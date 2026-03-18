@@ -103671,6 +103671,54 @@
       }
     },
     {
+      "name": "Bullfrog Anti-Missile Turret",
+      "category": "Turrets",
+      "cost": 55000,
+      "thumbnail": "outfit/anti-missile hai",
+      "mass": 10,
+      "outfit space": -10,
+      "weapon capacity": -10,
+      "turret mounts": -1,
+      "weapon": {
+        "hit effect": "small anti-missile",
+        "anti-missile": 12,
+        "velocity": 150,
+        "lifetime": 1,
+        "reload": 20,
+        "firing energy": 12,
+        "firing heat": 5,
+        "stream": true
+      },
+      "description": "",
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Chameleon Anti-Missile Turret",
+      "category": "Turrets",
+      "cost": 140000,
+      "thumbnail": "outfit/heavy anti-missile hai",
+      "mass": 22,
+      "outfit space": -22,
+      "weapon capacity": -22,
+      "turret mounts": -1,
+      "weapon": {
+        "hit effect": "large anti-missile",
+        "anti-missile": 16,
+        "velocity": 200,
+        "lifetime": 1,
+        "reload": 15,
+        "firing energy": 23,
+        "firing heat": 6,
+        "stream": true
+      },
+      "description": "",
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Cruiser License",
       "category": "Special",
       "thumbnail": "outfit/navy cruiser license",
@@ -105289,6 +105337,28 @@
       }
     },
     {
+      "name": "Speck",
+      "weapon": {
+        "sprite": "projectile/speck",
+        "sprite data": {
+          "scale": 0.5,
+          "frame rate": 30,
+          "no repeat": true
+        },
+        "hit effect": "speck impact",
+        "velocity": 30,
+        "random velocity": 0.6,
+        "lifetime": 24,
+        "random lifetime": 3,
+        "shield damage": 24,
+        "hull damage": 48,
+        "hit force": 18
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Optical Lasing Generator",
       "category": "Systems",
       "series": "Special Systems",
@@ -105392,6 +105462,171 @@
         "Avgi (Dissonance)": true,
         "Avgi (Dissonance Angry)": true,
         "Avgi (Wandering Fleet)": true
+      }
+    },
+    {
+      "name": "Ultraviolet Excimer Laser",
+      "series": "Avgi: Beams",
+      "index": 30,
+      "category": "Turrets",
+      "licenses": {
+        "Twilight Guard": true
+      },
+      "cost": 120000,
+      "thumbnail": "outfit/unknown",
+      "mass": 120,
+      "outfit space": -60,
+      "weapon capacity": -30,
+      "engine capacity": -30,
+      "thrusting heat": 24,
+      "turret mounts": -1,
+      "magnetic nozzle": -2,
+      "weapon": {
+        "hardpoint offset 3": {
+          "frame rate": 3
+        },
+        "sound": "optical laser",
+        "fire effect": "uv laser glare",
+        "hit effect": [
+          "laser ejecta",
+          "laser explosion",
+          "uv laser reflection",
+          "uv laser scattering"
+        ],
+        "velocity": 2100,
+        "lifetime": 1,
+        "reload": 1,
+        "inaccuracy": 1.8,
+        "turret turn": 0.9,
+        "firing energy": 24,
+        "firing heat": 60,
+        "firing fuel": 0.24,
+        "shield damage": 24,
+        "hull damage": 18,
+        "heat damage": 18,
+        "hit force": 3,
+        "damage dropoff": 0,
+        "dropoff modifier": 0
+      },
+      "governments": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    {
+      "name": "Ultrarelativistic Electron Beam",
+      "category": "Guns",
+      "series": "Guns",
+      "index": 7020,
+      "cost": 3000000,
+      "thumbnail": "outfit/unknown",
+      "mass": 90,
+      "outfit space": -90,
+      "weapon capacity": -90,
+      "gun ports": -1,
+      "weapon": {
+        "sound": "slicer",
+        "fire effect": "electron flare",
+        "firing energy": 540,
+        "firing heat": 180,
+        "firing scramble": 4.5,
+        "reload": 18,
+        "burst count": 1,
+        "inaccuracy 3": {
+          "narrow": true
+        },
+        "velocity override": 300,
+        "piercing": 0.3,
+        "submunition": "TeV Electron Bunch"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "TeV Electron Bunch",
+      "weapon": {
+        "sprite": "effect/mhd spark",
+        "sprite data": {
+          "frame rate": 15,
+          "no repeat": true
+        },
+        "hit effect": [
+          "bremsstrahlung",
+          "nuclear spallation"
+        ],
+        "velocity": 300,
+        "random velocity": -240,
+        "lifetime": 9,
+        "random lifetime": 3,
+        "inaccuracy": 0.6,
+        "shield damage": 1.2,
+        "hull damage": 1.8,
+        "scrambling damage": 0.006,
+        "piercing": 0.3,
+        "penetration count": 3
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "UREB Turret",
+      "category": "Turrets",
+      "series": "Turrets",
+      "index": 7010,
+      "cost": 3000000,
+      "thumbnail": "outfit/ureb turret",
+      "mass": 60,
+      "outfit space": -45,
+      "weapon capacity": -60,
+      "turret mounts": -1,
+      "weapon": {
+        "hardpoint sprite": "hardpoint/ureb turret",
+        "hardpoint offset": 21,
+        "sound": "slicer",
+        "fire effect": "electron flare",
+        "firing energy": 60,
+        "firing heat": 90,
+        "turret turn": 0.3,
+        "reload": 6,
+        "burst reload": 3,
+        "burst count": 30,
+        "inaccuracy 3": {
+          "narrow": true
+        },
+        "velocity override": 300,
+        "piercing": 0.15,
+        "submunition": "GeV Electron Bunch"
+      },
+      "governments": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    {
+      "name": "GeV Electron Bunch",
+      "weapon": {
+        "sprite": "effect/mhd spark",
+        "sprite data": {
+          "frame rate": 15,
+          "no repeat": true
+        },
+        "hit effect": [
+          "bremsstrahlung",
+          "nuclear spallation"
+        ],
+        "velocity": 300,
+        "random velocity": -210,
+        "lifetime": 12,
+        "random lifetime": 3,
+        "inaccuracy": 0.6,
+        "shield damage": 0.12,
+        "hull damage": 0.15,
+        "scrambling damage": 0.003,
+        "piercing": 0.15,
+        "penetration count": 3
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -105671,6 +105906,61 @@
       }
     },
     {
+      "name": "Nettle Active",
+      "weapon": {
+        "sprite": "projectile/nettle",
+        "sprite data": {
+          "scale": 0.5
+        },
+        "hit effect": "missile hit",
+        "die effect": "nettle split",
+        "lifetime": 300,
+        "split range": 180,
+        "acceleration": 0.27,
+        "drag": 0.03,
+        "turn": 6,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "infrared tracking": 0.6,
+        "optical tracking": 0.6,
+        "shield damage": -81,
+        "hull damage": -108,
+        "missile strength": 12,
+        "submunition": "Nettle Flecks"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Nettle Flecks",
+      "plural": "Nettle Flecks",
+      "weapon": {
+        "sprite": "projectile/fleck",
+        "sprite data": {
+          "frame rate": 15,
+          "no repeat": true,
+          "scale": 0.5
+        },
+        "die effect": "missile death",
+        "hit effect": "fleck impact",
+        "inaccuracy 15": {
+          "narrow": true
+        },
+        "lifetime": 60,
+        "random lifetime": 30,
+        "random velocity": 6,
+        "shield damage": 9,
+        "hull damage": 12,
+        "hit force": 36
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "\"Orchid\" Nuclear Missile",
       "category": "Ammunition",
       "series": "Ammunition",
@@ -105688,6 +105978,204 @@
         "Avgi": true,
         "Avgi (Dissonance)": true,
         "Avgi (Dissonance Angry)": true
+      }
+    },
+    {
+      "name": "Orchid Active",
+      "weapon": {
+        "sprite": "projectile/orchid inactive",
+        "sprite data": {
+          "scale": 0.5
+        },
+        "hit effect": [
+          "thermonuclear flash",
+          "prompt radiation",
+          "fission fragments"
+        ],
+        "die effect": "missile death",
+        "lifetime": 15,
+        "drag": 3,
+        "turn": 3,
+        "homing": true,
+        "radar tracking": 0.9,
+        "submunition": "Orchid Boost",
+        "missile strength": 36
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Orchid Boost",
+      "weapon": {
+        "sprite": "projectile/orchid boost",
+        "sprite data": {
+          "scale": 0.5,
+          "frame rate": 3,
+          "rewind": true
+        },
+        "hit effect": [
+          "thermonuclear flash",
+          "prompt radiation",
+          "fission fragments"
+        ],
+        "die effect": "nettle split",
+        "lifetime": 180,
+        "acceleration": 0.3,
+        "drag": 0.018,
+        "turn": 3,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "radar tracking": 0.9,
+        "split range": 300,
+        "submunition": [
+          "Orchid Coast",
+          "Orchid Boost Stage Expended"
+        ],
+        "missile strength": 36
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Orchid Coast",
+      "weapon": {
+        "sprite": "projectile/orchid coast",
+        "sprite data": {
+          "scale": 0.5
+        },
+        "hit effect": [
+          "thermonuclear flash",
+          "prompt radiation",
+          "fission fragments"
+        ],
+        "die effect": "missile death",
+        "lifetime": 180,
+        "acceleration": 0.03,
+        "drag": 0.006,
+        "turn": 1.5,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "radar tracking": 0.9,
+        "split range": 1200,
+        "submunition": "Orchid Divert",
+        "missile strength": 24
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Orchid Divert",
+      "weapon": {
+        "sprite": "projectile/orchid divert",
+        "sprite data": {
+          "scale": 0.5,
+          "frame rate": 3,
+          "rewind": true
+        },
+        "hit effect": [
+          "thermonuclear flash",
+          "prompt radiation",
+          "fission fragments"
+        ],
+        "die effect": "nettle split",
+        "lifetime": 300,
+        "acceleration": 0.3,
+        "drag": 0.018,
+        "turn": 3,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "radar tracking": 0.9,
+        "split range": 600,
+        "submunition": [
+          "Orchid Terminal",
+          "Orchid Divert Stage Expended"
+        ],
+        "missile strength": 24
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Orchid Terminal",
+      "weapon": {
+        "sprite": "projectile/orchid terminal",
+        "sprite data": {
+          "scale": 0.5
+        },
+        "hit effect": [
+          "thermonuclear flash",
+          "prompt radiation",
+          "fission fragments"
+        ],
+        "die effect": "missile death",
+        "lifetime": 180,
+        "acceleration": 0.12,
+        "drag": 0.012,
+        "trigger radius": 90,
+        "blast radius": 180,
+        "shield damage": 12000,
+        "hull damage": 18000,
+        "hit force": 6000,
+        "missile strength": 18
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Orchid Boost Stage Expended",
+      "weapon": {
+        "sprite": "projectile/orchid boost stage",
+        "sprite data": {
+          "scale": 0.5
+        },
+        "die effect": "missile death",
+        "lifetime": 300,
+        "fade out": 60,
+        "velocity": -18,
+        "random velocity": 3,
+        "inaccuracy": 30,
+        "drag": 1.2,
+        "shield damage": 300,
+        "hull damage": 600,
+        "hit force": 900,
+        "missile strength": 12
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Orchid Divert Stage Expended",
+      "weapon": {
+        "sprite": "projectile/orchid divert stage",
+        "sprite data": {
+          "scale": 0.5
+        },
+        "die effect": "missile death",
+        "lifetime": 300,
+        "fade out": 60,
+        "velocity": -12,
+        "random velocity": 3,
+        "inaccuracy": 30,
+        "drag": 1.2,
+        "shield damage": 300,
+        "hull damage": 600,
+        "hit force": 900,
+        "missile strength": 12
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -105727,6 +106215,36 @@
       "description": "This remotely operated reloading bay, intended for use on carriers, can quickly replenish a docked fighter or drone with Ophrys Torpedoes. A generous stockpile of torpedoes allows a carrier to support multiple sorties before needing to resupply. \tThe restocking system requires oversight by a small team of specialists to ensure no accidents occur during the loading process.",
       "governments": {
         "Avgi (Twilight Guard)": true
+      }
+    },
+    {
+      "name": "Ophrys Terminal",
+      "weapon": {
+        "sprite": "projectile/orchid terminal",
+        "sprite data": {
+          "scale": 0.5
+        },
+        "hit effect": [
+          "thermonuclear flash",
+          "prompt radiation",
+          "fission fragments"
+        ],
+        "die effect": "missile death",
+        "lifetime": 240,
+        "acceleration": 0.006,
+        "drag": 0.0003,
+        "turn": 6,
+        "homing": true,
+        "optical tracking": 0.72,
+        "trigger radius": 30,
+        "blast radius": 90,
+        "shield damage": 12000,
+        "hull damage": 18000,
+        "hit force": 6000,
+        "missile strength": 72
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -107495,6 +108013,38 @@
       }
     },
     {
+      "name": "Active Finisher",
+      "weapon": {
+        "sprite": "projectile/finisher",
+        "sprite data": {
+          "frame rate": 2.4
+        },
+        "live effect": "finisher trail",
+        "hit effect": [
+          "finisher impact",
+          "finisher fragment"
+        ],
+        "die effect": "small explosion",
+        "lifetime": 500,
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 2,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "radar tracking": 0.8,
+        "optical tracking": 0.5,
+        "missile strength": 50,
+        "shield damage": 1500,
+        "hull damage": 1900,
+        "hit force": 1125
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Finisher Storage Tube",
       "category": "Ammunition",
       "series": "Ammunition",
@@ -107643,6 +108193,29 @@
       "description": "Instead of just placing an Ion Rain Gun on a turret mount, the Heliarch tweaked the cycles of shots, having each shot be significantly more effective and seeing an overall increase to the weapon's range, but at the cost of a reload period.",
       "governments": {
         "Heliarch": true
+      }
+    },
+    {
+      "name": "ion hail",
+      "weapon": {
+        "sprite": "projectile/ion rain",
+        "sprite data": {
+          "frame rate": 7,
+          "random start frame": true
+        },
+        "hit effect": "ion rain impact",
+        "inaccuracy": 1,
+        "random velocity": 3,
+        "lifetime": 40,
+        "random lifetime": 4,
+        "hit force": 1,
+        "shield damage": 12,
+        "hull damage": 5,
+        "ion damage": 0.3,
+        "scrambling damage": 0.3
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -108010,6 +108583,88 @@
       "description": "This is the most powerful weapon that the Archons deign to utilize in the presence of the younger races. Hitherto unknown as Archons are rarely pushed to the point of needing to use more than their minimum abilities, the Antimatter Cannon is capable of far more damage than originally thought.",
       "governments": {
         "Drak": true
+      }
+    },
+    {
+      "name": "Drak Antimatter Fragment",
+      "weapon": {
+        "sprite": "projectile/drak bolt",
+        "sprite data": {
+          "frame rate": 9.835,
+          "random start frame": true
+        },
+        "live effect": [
+          "antimatter spark",
+          "antimatter dust"
+        ],
+        "hit effect": [
+          "antimatter dust",
+          "nuke explosion"
+        ],
+        "safe": true,
+        "inaccuracy": 1,
+        "lifetime": 499,
+        "hit force": 1500,
+        "disruption damage": 300,
+        "heat damage": 500,
+        "shield damage": 5610,
+        "hull damage": 5610,
+        "blast radius": 100
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Drak Antimatter Fragment (Augmented)",
+      "weapon": {
+        "sprite": "projectile/drak bolt",
+        "sprite data": {
+          "frame rate": 9.835,
+          "random start frame": true
+        },
+        "live effect": [
+          "antimatter spark",
+          "antimatter dust"
+        ],
+        "hit effect": [
+          "antimatter dust",
+          "nuke explosion"
+        ],
+        "safe": true,
+        "inaccuracy": 1,
+        "lifetime": 1000,
+        "hit force": 1500,
+        "disruption damage": 1000,
+        "heat damage": 2500,
+        "shield damage": 56100,
+        "hull damage": 56100,
+        "blast radius": 250
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Absorption Organ",
+      "category": "Turrets",
+      "series": "Turrets",
+      "index": 92010,
+      "thumbnail": "outfit/unknown",
+      "turret mounts": -1,
+      "weapon": {
+        "velocity": 150,
+        "inaccuracy": 20,
+        "turret turn": 4,
+        "lifetime": 1,
+        "reload": 3,
+        "firing shields": -10,
+        "energy damage": 80,
+        "shield damage": 80,
+        "ion damage": 2
+      },
+      "governments": {
+        "Ember Waste": true
       }
     },
     {
@@ -109759,6 +110414,32 @@
         "submunition": "rslug"
       },
       "description": "The Hai designed this weapon to best complement their Flea drones. Each Skipper Railgun provides a significant amount of force upon firing, pushing the Flea drone backwards and therefore forcing it to keep its distance from its target. \tFlea drone pilots joke that they provide more thrust than engines of similar size, so Unfettered should be using them at the back of their ships. There's probably a cultural component to the joke that many miss, because it's told quite often and the Hai laugh hysterically about it - every time. \tAmmunition for this weapon can be restocked at any outfitter.",
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "rslug",
+      "weapon": {
+        "sprite": "projectile/rail slug",
+        "sprite data": {
+          "frame rate": 30
+        },
+        "hit effect": "bullet impact",
+        "lifetime": 49,
+        "acceleration": 2.2,
+        "drag": 0.05,
+        "turn": 0.6,
+        "homing": {
+          "blindspot": true
+        },
+        "optical tracking": 0.4,
+        "shield damage": 4.2,
+        "hull damage": 8.4,
+        "ion damage": 0.3,
+        "scrambling damage": 0.3,
+        "hit force": 22.5
+      },
       "governments": {
         "endless-sky": true
       }
@@ -112314,6 +112995,35 @@
       }
     },
     {
+      "name": "Imaginary Weapon",
+      "category": "Guns",
+      "gun ports": -1,
+      "weapon": {
+        "sprite": "projectile/rainbow",
+        "sprite data": {
+          "frame rate": 12,
+          "random start frame": true
+        },
+        "hit effect": "puff",
+        "die effect": "puff",
+        "inaccuracy": 20,
+        "velocity": 12,
+        "lifetime": 60,
+        "reload": 10,
+        "acceleration": 1.2,
+        "drag": 0.1,
+        "turn": 3,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "tracking": 1
+      },
+      "governments": {
+        "Bad Trip": true
+      }
+    },
+    {
       "name": "Cooling Ducts",
       "plural": "Cooling Ducts",
       "category": "Systems",
@@ -114342,6 +115052,20 @@
       }
     },
     {
+      "name": "Blaster Submunition",
+      "weapon": {
+        "sprite": "projectile/blaster",
+        "hit effect": "blaster impact",
+        "velocity": 10.625,
+        "lifetime": 48,
+        "shield damage": 10.6,
+        "hull damage": 6.6
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Blaster Turret",
       "category": "Turrets",
       "series": "Turrets",
@@ -114516,6 +115240,20 @@
         "Alpha": true,
         "Deep Security": true,
         "Syndicate": true
+      }
+    },
+    {
+      "name": "Modified Blaster Submunition",
+      "weapon": {
+        "sprite": "projectile/mod blaster",
+        "hit effect": "blaster impact",
+        "velocity": 10,
+        "lifetime": 48,
+        "shield damage": 13.2,
+        "hull damage": 8.8
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -115155,6 +115893,25 @@
       }
     },
     {
+      "name": "Proton Fragment",
+      "weapon": {
+        "sprite": "projectile/proton fragment",
+        "sprite data": {
+          "no repeat": true,
+          "frame rate": 2
+        },
+        "hit effect": "proton impact",
+        "inaccuracy": 2,
+        "lifetime": 24,
+        "hit force": 9,
+        "shield damage": 10.1,
+        "hull damage": 8.4
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Proton Turret",
       "category": "Turrets",
       "series": "Turrets",
@@ -115369,6 +116126,29 @@
         "Bounty Hunter": true,
         "Republic": true,
         "Avalonian Fauna": true
+      }
+    },
+    {
+      "name": "Flamethrower Projectile",
+      "weapon": {
+        "sprite": "projectile/flamethrower",
+        "sprite data": {
+          "frame rate": 17,
+          "random start frame": true
+        },
+        "hit effect": "flamethrower hit",
+        "die effect": "flamethrower die",
+        "inaccuracy": 20,
+        "lifetime": 18,
+        "random lifetime": 8,
+        "damage dropoff": 0,
+        "dropoff modifier": 0.5,
+        "shield damage": 0.8,
+        "hull damage": 0.7,
+        "heat damage": 125
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -116580,6 +117360,27 @@
       }
     },
     {
+      "name": "gbullet",
+      "weapon": {
+        "sprite": "projectile/bullet",
+        "sprite data": {
+          "delay": 5,
+          "random start frame": true,
+          "frame rate": 0
+        },
+        "random velocity": 8,
+        "lifetime": 20,
+        "random lifetime": 5,
+        "shield damage": 3,
+        "hull damage": 6,
+        "hit force": 3,
+        "hit effect": "bullet impact"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Plasma Discharger",
       "category": "Guns",
       "series": "Guns",
@@ -116610,6 +117411,22 @@
       "governments": {
         "Hicemus": true,
         "Incipias Civilian": true
+      }
+    },
+    {
+      "name": "plasma particle",
+      "weapon": {
+        "sprite": "effect/plasma particle",
+        "hit effect": "blaster impact",
+        "lifetime": 60,
+        "random velocity": 2,
+        "inaccuracy": 20,
+        "shield damage": 6.6,
+        "hull damage": 7.8,
+        "minable damage": 18
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -116694,6 +117511,31 @@
       "description": "Little to no information about this weapon has ever been made public. Rumors are that it shoots highly volatile plasma chunks. \tCaptains that have used this weapon say that its projectiles could change direction mid-flight, and were able to follow their targets despite attempts by their victims to dodge the shots. \tAmmunition for this weapon can be restocked at any outfitter.",
       "governments": {
         "Hicemus": true
+      }
+    },
+    {
+      "name": "Star Tail Projectile",
+      "weapon": {
+        "sprite": "projectile/star tail",
+        "sprite data": {
+          "frame rate": 12
+        },
+        "hit effect": "star tail hit",
+        "live effect": "star tail live",
+        "velocity": 1,
+        "acceleration": 5,
+        "drag": 0.2,
+        "lifetime": 120,
+        "shield damage": 410,
+        "hull damage": 430,
+        "homing": {
+          "blindspot": true
+        },
+        "optical tracking": 1,
+        "turn": 0.5
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -117264,6 +118106,33 @@
       }
     },
     {
+      "name": "Asteroid Circle Submunition",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon live",
+        "inaccuracy": 360,
+        "hit effect": [
+          "detainer impact",
+          "detainer smoke"
+        ],
+        "die effect": "tiny explosion",
+        "turn": 6,
+        "homing": {
+          "throttle control": true
+        },
+        "tracking": 1,
+        "acceleration": 1.5,
+        "drag": 0.2,
+        "lifetime": 390,
+        "hull damage": 50,
+        "slowing damage": 4,
+        "hit force": -300,
+        "missile strength": 22
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Asteroid Weapon Large",
       "display name": "???",
       "category": "Guns",
@@ -117291,6 +118160,658 @@
       "description": "By creating a circle of energy-based mines and then converting them into missiles at the same time, this weapon is capable of breaking through anti-missile defenses better than most.",
       "governments": {
         "Magic Asteroid": true
+      }
+    },
+    {
+      "name": "creeper1 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 2,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper1 static",
+          "creeper2 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper1 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 75,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper2 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper2 static",
+          "creeper3 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper2 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 70,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper3 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper3 static",
+          "creeper4 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper3 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 65,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper4 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper4 static",
+          "creeper5 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper4 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 60,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper5 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper5 static",
+          "creeper6 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper5 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 55,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper6 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper6 static",
+          "creeper7 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper6 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 50,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper7 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper7 static",
+          "creeper8 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper7 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 45,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper8 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper8 static",
+          "creeper9 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper8 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 40,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper9 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper9 static",
+          "creeper10 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper9 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 35,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper10 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper10 static",
+          "creeper11 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper10 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 30,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper11 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper11 static",
+          "creeper12 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper11 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 25,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper12 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper12 static",
+          "creeper13 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper12 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 20,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper13 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper13 static",
+          "creeper14 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper13 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 15,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper14 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": [
+          "creeper14 static",
+          "creeper15 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper14 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 10,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper15 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -8,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": "creeper15 static"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "creeper15 static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 5,
+        "submunition": "asteroid launch",
+        "hull damage": 60
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "asteroid launch",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 2,
+        "drag": 0.1,
+        "turn": 6,
+        "homing": {
+          "throttle control": true
+        },
+        "hit effect": "seeker impact",
+        "die effect": "seeker impact",
+        "tracking": 1,
+        "lifetime": 120,
+        "hull damage": 45,
+        "missile strength": 90
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -117325,6 +118846,462 @@
       "description": "This very peculiar weapon overwhelms its target by creating an array of short-living, laser-armed entities. However, the precision it requires, as well as its low raw damage output, limits its potential.",
       "governments": {
         "Magic Asteroid": true
+      }
+    },
+    {
+      "name": "spin1 print right",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "velocity": -25,
+        "random velocity": 20,
+        "inaccuracy": 5,
+        "acceleration": -1,
+        "live effect": "asteroid circle trail",
+        "drag": 0.1,
+        "turn": -5,
+        "lifetime": 40,
+        "submunition": [
+          "track1 print right",
+          "spin2 print left"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "spin1 print left",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "velocity": -25,
+        "random velocity": 20,
+        "inaccuracy": 5,
+        "acceleration": -1,
+        "live effect": "asteroid circle trail",
+        "drag": 0.1,
+        "turn": 5,
+        "lifetime": 40,
+        "submunition": [
+          "track1 print left",
+          "spin2 print right"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "track1 print right",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 20,
+        "live effect": "asteroid circle trail",
+        "homing": {
+          "throttle control": true
+        },
+        "tracking": 1,
+        "lifetime": 550,
+        "inaccuracy": 5,
+        "split range": 180,
+        "submunition asteroid laser 1": {
+          "offset": 0
+        },
+        "submunition": [
+          "spin2 print right",
+          "spin2 print left"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "track1 print left",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 20,
+        "live effect": "asteroid circle trail",
+        "homing": {
+          "throttle control": true
+        },
+        "tracking": 1,
+        "lifetime": 550,
+        "inaccuracy": 5,
+        "split range": 180,
+        "submunition asteroid laser 1": {
+          "offset": 0
+        },
+        "submunition": [
+          "spin2 print right",
+          "spin2 print left"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "spin2 print right",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "velocity": -25,
+        "random velocity": 20,
+        "inaccuracy": 5,
+        "acceleration": -1,
+        "live effect": "asteroid circle trail",
+        "drag": 0.1,
+        "turn": -5,
+        "lifetime": 40,
+        "submunition": [
+          "track2 print right",
+          "spin3 print left"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "spin2 print left",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "velocity": -25,
+        "random velocity": 20,
+        "inaccuracy": 5,
+        "acceleration": -1,
+        "live effect": "asteroid circle trail",
+        "drag": 0.1,
+        "turn": 5,
+        "lifetime": 40,
+        "submunition": [
+          "track2 print left",
+          "spin3 print right"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "track2 print right",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 20,
+        "live effect": "asteroid circle trail",
+        "homing": {
+          "throttle control": true
+        },
+        "tracking": 1,
+        "lifetime": 550,
+        "inaccuracy": 5,
+        "split range": 180,
+        "submunition asteroid laser 1": {
+          "offset": 0
+        },
+        "submunition": [
+          "spin3 print right",
+          "spin3 print left"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "track2 print left",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 20,
+        "live effect": "asteroid circle trail",
+        "homing": {
+          "throttle control": true
+        },
+        "tracking": 1,
+        "lifetime": 550,
+        "inaccuracy": 5,
+        "split range": 180,
+        "submunition asteroid laser 1": {
+          "offset": 0
+        },
+        "submunition": [
+          "spin3 print right",
+          "spin3 print left"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "spin3 print right",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "velocity": -25,
+        "random velocity": 20,
+        "inaccuracy": 5,
+        "acceleration": -1,
+        "live effect": "asteroid circle trail",
+        "drag": 0.1,
+        "turn": -5,
+        "lifetime": 40,
+        "submunition": [
+          "track3 print right",
+          "spin4 print left"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "spin3 print left",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "velocity": -25,
+        "random velocity": 20,
+        "inaccuracy": 5,
+        "acceleration": -1,
+        "live effect": "asteroid circle trail",
+        "drag": 0.1,
+        "turn": 5,
+        "lifetime": 40,
+        "submunition": [
+          "track3 print left",
+          "spin4 print right"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "track3 print right",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 20,
+        "live effect": "asteroid circle trail",
+        "homing": {
+          "throttle control": true
+        },
+        "tracking": 1,
+        "lifetime": 550,
+        "inaccuracy": 5,
+        "split range": 180,
+        "submunition asteroid laser 1": {
+          "offset": 0
+        },
+        "submunition": [
+          "spin4 print right",
+          "spin4 print left"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "track3 print left",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 20,
+        "live effect": "asteroid circle trail",
+        "homing": {
+          "throttle control": true
+        },
+        "tracking": 1,
+        "lifetime": 550,
+        "inaccuracy": 5,
+        "split range": 180,
+        "submunition asteroid laser 1": {
+          "offset": 0
+        },
+        "submunition": [
+          "spin4 print right",
+          "spin4 print left"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "spin4 print right",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "velocity": -25,
+        "random velocity": 20,
+        "inaccuracy": 5,
+        "acceleration": -1,
+        "live effect": "asteroid circle trail",
+        "drag": 0.1,
+        "turn": -5,
+        "lifetime": 40,
+        "submunition": "track4 print right"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "spin4 print left",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "velocity": -25,
+        "random velocity": 20,
+        "inaccuracy": 5,
+        "acceleration": -1,
+        "live effect": "asteroid circle trail",
+        "drag": 0.1,
+        "turn": 5,
+        "lifetime": 40,
+        "submunition": "track4 print left"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "track4 print right",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 20,
+        "live effect": "asteroid circle trail",
+        "homing": {
+          "throttle control": true
+        },
+        "tracking": 1,
+        "lifetime": 550,
+        "inaccuracy": 5,
+        "split range": 180,
+        "submunition asteroid laser 1": {
+          "offset": 0
+        }
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "track4 print left",
+      "weapon": {
+        "sprite": "projectile/asteroid weapon swarm",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 20,
+        "live effect": "asteroid circle trail",
+        "homing": {
+          "throttle control": true
+        },
+        "tracking": 1,
+        "lifetime": 550,
+        "inaccuracy": 5,
+        "split range": 180,
+        "submunition asteroid laser 1": {
+          "offset": 0
+        }
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "asteroid laser 1",
+      "weapon": {
+        "sprite": "projectile/asteroid laser",
+        "sprite data": {
+          "frame rate": 60,
+          "random start frame": true
+        },
+        "sound": "zapper",
+        "hit effect": "skylance impact",
+        "target effect": "asteroid target",
+        "inaccuracy": 0.3,
+        "velocity": 200,
+        "lifetime": 1,
+        "reload": 1,
+        "corrosion damage": 0.7,
+        "hull damage": 18.9
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -117373,6 +119350,190 @@
       }
     },
     {
+      "name": "asteroid missile",
+      "weapon": {
+        "sprite": "projectile/asteroid missile",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "velocity": 30,
+        "acceleration": 1,
+        "drag": 0.03,
+        "turn": 60,
+        "hit effect": "seeker impact",
+        "die effect": "seeker impact",
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "tracking": 0.95,
+        "lifetime": 155,
+        "hit force": 120,
+        "hull damage": 25,
+        "inaccuracy": 10,
+        "missile strength": 90
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "magic deployer1",
+      "weapon": {
+        "sprite": "projectile/asteroid twin projectile",
+        "sprite data": {
+          "frame rate": 10,
+          "random start frame": true
+        },
+        "drag": 0.1,
+        "acceleration": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 30,
+        "submunition asteroid missile": [
+          {
+            "facing": 30
+          },
+          {
+            "facing": -30
+          }
+        ],
+        "submunition": "magic deployer2"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "magic deployer2",
+      "weapon": {
+        "sprite": "projectile/asteroid twin projectile",
+        "sprite data": {
+          "frame rate": 10,
+          "random start frame": true
+        },
+        "drag": 0.1,
+        "acceleration": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 30,
+        "submunition asteroid missile": [
+          {
+            "facing": 30
+          },
+          {
+            "facing": -30
+          }
+        ],
+        "submunition": "magic deployer3"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "magic deployer3",
+      "weapon": {
+        "sprite": "projectile/asteroid twin projectile",
+        "sprite data": {
+          "frame rate": 10,
+          "random start frame": true
+        },
+        "drag": 0.1,
+        "acceleration": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 30,
+        "submunition asteroid missile": [
+          {
+            "facing": 30
+          },
+          {
+            "facing": -30
+          }
+        ],
+        "submunition": "magic deployer4"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "magic deployer4",
+      "weapon": {
+        "sprite": "projectile/asteroid twin projectile",
+        "sprite data": {
+          "frame rate": 10,
+          "random start frame": true
+        },
+        "drag": 0.1,
+        "acceleration": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 30,
+        "submunition asteroid missile": [
+          {
+            "facing": 30
+          },
+          {
+            "facing": -30
+          }
+        ],
+        "submunition": "magic deployer5"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "magic deployer5",
+      "weapon": {
+        "sprite": "projectile/asteroid twin projectile",
+        "sprite data": {
+          "frame rate": 10,
+          "random start frame": true
+        },
+        "drag": 0.1,
+        "acceleration": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 30,
+        "submunition asteroid missile": [
+          {
+            "facing": 30
+          },
+          {
+            "facing": -30
+          }
+        ],
+        "submunition": "magic deployer6"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "magic deployer6",
+      "weapon": {
+        "sprite": "projectile/asteroid twin projectile",
+        "sprite data": {
+          "frame rate": 10,
+          "random start frame": true
+        },
+        "drag": 0.1,
+        "acceleration": 1,
+        "hit effect": "seeker impact",
+        "lifetime": 30,
+        "submunition asteroid missile 15": [
+          {
+            "facing": 30
+          },
+          {
+            "facing": -30
+          }
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Asteroid Weapon Large 4",
       "display name": "???",
       "category": "Guns",
@@ -117405,6 +119566,1163 @@
       "description": "An impressive defensive weapon, fending off even the mightiest attackers by projecting enormous bubble-shaped minefields all around itself. Though not a rapid-fire weapon by any means, it is able to maintain one of those fields continuously without issue.",
       "governments": {
         "Magic Asteroid": true
+      }
+    },
+    {
+      "name": "wep1 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep2 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep2 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep3 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep3 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep4 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep4 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep5 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep5 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep6 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep6 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep7 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep7 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep8 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep8 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep9 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep9 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep10 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep10 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep11 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep11 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep12 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep12 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep13 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep13 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep14 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep14 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep15 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep15 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep16 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep16 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep17 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep17 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep18 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep18 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep19 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep19 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep20 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep20 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep21 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep21 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep22 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep22 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep23 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep23 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep24 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep24 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep25 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep25 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep26 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep26 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep27 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep27 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep28 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep28 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep29 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep29 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep30 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep30 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep31 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep31 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep32 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep32 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep33 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep33 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep34 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep34 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep35 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep35 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep36 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep36 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep37 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep37 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep38 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep38 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep39 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep39 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep40 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep40 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep41 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep41 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": [
+          "wep static",
+          "wep42 print"
+        ]
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep42 print",
+      "weapon": {
+        "sprite": "effect/asteroid projectile print",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "velocity": 2,
+        "acceleration": 3,
+        "drag": 0.1,
+        "turn": -2,
+        "hit effect": "circle defense",
+        "lifetime": 15,
+        "random lifetime": 5,
+        "corrosion damage": -1.4,
+        "hull damage": -50,
+        "slowing damage": -9,
+        "submunition": "wep static"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "wep static",
+      "weapon": {
+        "sprite": "effect/asteroid projectile static",
+        "sprite data": {
+          "start frame": 1,
+          "frame rate": 9
+        },
+        "acceleration": 1e-7,
+        "drag": 1,
+        "lifetime": 575,
+        "turn": 360,
+        "homing": true,
+        "tracking": 1,
+        "trigger radius": 240,
+        "blast radius": 400,
+        "corrosion damage": 1.4,
+        "hull damage": 72.9,
+        "slowing damage": 10,
+        "hit force": 150,
+        "hit effect": "circle defense"
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -117449,6 +120767,129 @@
       "description": "Whatever the mechanism that hides beneath the translucent orb may be, it functions similarly to a jump drive, bridging different parts of the universe together for the cost of merely 200 units of fuel.",
       "governments": {
         "Magic Asteroid": true
+      }
+    },
+    {
+      "name": "Cloak Checker",
+      "category": "Turrets",
+      "thumbnail": "outfit/unknown",
+      "turret mounts": -1,
+      "weapon": {
+        "velocity": 10,
+        "lifetime": 1,
+        "reload": 1,
+        "blast radius": 20,
+        "hull damage": 5,
+        "no damage scaling": true,
+        "range override": 1000000,
+        "turret turn": 360
+      },
+      "governments": {
+        "Test Dummy": true
+      }
+    },
+    {
+      "name": "Asteroid Weapon Super",
+      "display name": "???",
+      "category": "Guns",
+      "cost": 1861000000,
+      "thumbnail": "outfit/unknown",
+      "mass": 1,
+      "outfit space": -1,
+      "weapon capacity": -1,
+      "gun ports": -1,
+      "weapon": {
+        "submunition": "asteroid fragment",
+        "inaccuracy": 1,
+        "velocity": 70,
+        "lifetime": 2,
+        "reload": 360,
+        "safe": true,
+        "split range": 300,
+        "blast radius": 400
+      },
+      "governments": {
+        "Magic Asteroid": true
+      }
+    },
+    {
+      "name": "asteroid fragment",
+      "weapon": {
+        "submunition": [
+          "spin1 print right",
+          "spin1 print left"
+        ],
+        "inaccuracy": 360,
+        "velocity": -65,
+        "random velocity": 20,
+        "lifetime": 40,
+        "random lifetime": 80,
+        "hull damage": 50,
+        "heat damage": 800,
+        "ion damage": 3,
+        "safe": true,
+        "hit force": 100,
+        "blast radius": 200
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Fuel Removal",
+      "category": "Turret",
+      "thumbnail": "outfit/unknown",
+      "turret mounts": -1,
+      "weapon": {
+        "velocity": 1000,
+        "lifetime": 10,
+        "reload": 100000,
+        "blast radius": 200000,
+        "safe": true,
+        "no damage scaling": true,
+        "range override": 10000000,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "tracking": 1,
+        "acceleration": 1.5,
+        "drag": 0.2,
+        "turn": 12,
+        "fuel damage": 500,
+        "turret turn": 360
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Ka'het Machinery",
+      "category": "Turrets",
+      "thumbnail": "outfit/unknown",
+      "turret mounts": -1,
+      "unplunderable": 1,
+      "weapon": {
+        "velocity": 1000,
+        "lifetime": 1,
+        "reload": 1,
+        "blast radius": 100000,
+        "safe": true,
+        "no damage scaling": true,
+        "range override": 1000000,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "tracking": 1,
+        "acceleration": 1.5,
+        "drag": 0.2,
+        "turn": 12,
+        "fuel damage": -400,
+        "turret turn": 360
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -117644,6 +121085,25 @@
         "Ka'het": true,
         "Ka'het (Infighting)": true,
         "Sagittarian": true
+      }
+    },
+    {
+      "name": "Annihilator Projectile",
+      "weapon": {
+        "sprite": "projectile/annihilator",
+        "sprite data": {
+          "frame rate": 7
+        },
+        "sound": "inhibitor",
+        "hit effect": "bullet impact",
+        "inaccuracy": 2,
+        "velocity": 18,
+        "lifetime": 35,
+        "shield damage": 43,
+        "hull damage": 12
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -119884,6 +123344,32 @@
       }
     },
     {
+      "name": "Korath Mine Submunition",
+      "weapon": {
+        "sprite": "projectile/korath mine",
+        "sprite data": {
+          "frame rate": 1,
+          "no repeat": true
+        },
+        "hit effect": "large explosion",
+        "die effect": "tiny explosion",
+        "inaccuracy": 360,
+        "velocity": 2,
+        "random velocity": 5,
+        "lifetime": 1000,
+        "random lifetime": 60,
+        "acceleration": 0.00001,
+        "drag": 0.05,
+        "shield damage": 350,
+        "hull damage": 280,
+        "hit force": 300,
+        "missile strength": 22
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Shield Disruptor Turret",
       "category": "Turrets",
       "series": "Turrets",
@@ -120133,6 +123619,48 @@
       }
     },
     {
+      "name": "Heaver Shard",
+      "weapon": {
+        "sprite": "projectile/heaver shard",
+        "sprite data": {
+          "frame rate": 12,
+          "rewind": true
+        },
+        "hit effect": "heaver shard hit",
+        "inaccuracy": 4,
+        "velocity": 10,
+        "random velocity": 1.5,
+        "lifetime": 20,
+        "random lifetime": 7.5,
+        "hit force": 30,
+        "Heaver Splinter": 3
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Heaver Splinter",
+      "weapon": {
+        "sprite": "projectile/heaver shard",
+        "sprite data": {
+          "frame rate": 12,
+          "rewind": true,
+          "scale": 0.33
+        },
+        "hit effect": "heaver splinter hit",
+        "inaccuracy": 5,
+        "lifetime": 20,
+        "random lifetime": 7.5,
+        "shield damage": 5.7,
+        "hull damage": 5.7,
+        "hit force": 10.05
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Firelight Storage Rack",
       "category": "Ammunition",
       "series": "Ammunition",
@@ -120213,6 +123741,64 @@
         "Korath": true,
         "Korath (Civilian)": true,
         "derelict ship": true
+      }
+    },
+    {
+      "name": "Firelight Turning",
+      "weapon": {
+        "sprite": "projectile/firelight",
+        "hit effect": "firelight ring",
+        "die effect": "piercer fire",
+        "velocity": 0.1,
+        "lifetime": 20,
+        "acceleration": -0.1,
+        "turn": 4.6,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "tracking": 0.9,
+        "trigger radius": 20,
+        "blast radius": 48,
+        "hit force": 90,
+        "missile strength": 30,
+        "submunition": "Firelight Activated"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Firelight Activated",
+      "weapon": {
+        "sprite": "projectile/firelight active",
+        "sprite data": {
+          "frame rate": 12,
+          "random start frame": true
+        },
+        "hit effect": "firelight ring",
+        "die effect": "small explosion",
+        "velocity": 3,
+        "lifetime": 168,
+        "acceleration": 1.6,
+        "drag": 0.12,
+        "turn": 1.7,
+        "homing": {
+          "throttle control": true
+        },
+        "optical tracking": 0.7,
+        "trigger radius": 20,
+        "blast radius": 48,
+        "shield damage": 950,
+        "hull damage": 950,
+        "heat damage": 1800,
+        "burn damage": 10,
+        "corrosion damage": 2,
+        "hit force": 600,
+        "missile strength": 33
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -120346,6 +123932,60 @@
         "Korath": true,
         "Korath (Civilian)": true,
         "derelict ship": true
+      }
+    },
+    {
+      "name": "Nano Strike",
+      "category": "Guns",
+      "series": "Guns",
+      "index": 99090,
+      "thumbnail": "outfit/unknown",
+      "mass": 5,
+      "outfit space": -5,
+      "weapon capacity": -5,
+      "gun ports": -1,
+      "weapon": {
+        "hit effect": "nano spark",
+        "die effect": "nano spark",
+        "inaccuracy": 10,
+        "velocity": 200,
+        "lifetime": 1,
+        "reload": 10,
+        "firing energy": 5,
+        "shield damage": 10,
+        "hull damage": 10
+      },
+      "governments": {
+        "Korath Nanobots": true
+      }
+    },
+    {
+      "name": "LG Gridfire Turret",
+      "category": "Turrets",
+      "turret mounts": -1,
+      "weapon": {
+        "hardpoint sprite": "hardpoint/pug gridfire turret",
+        "fire effect": "gridfire fire",
+        "hit effect": [
+          "gridfire hit",
+          "gridfire cloud"
+        ],
+        "phasing": true,
+        "velocity": 1440,
+        "lifetime": 1,
+        "reload": 20,
+        "turret turn": 20,
+        "firing energy": 800,
+        "firing heat": 400,
+        "firing force": 225,
+        "shield damage": 600,
+        "hull damage": 600,
+        "blast radius": 40,
+        "piercing": 0.3,
+        "safe": true
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -121508,6 +125148,47 @@
       }
     },
     {
+      "name": "ribault unguided",
+      "weapon": {
+        "sprite": "projectile/ribault",
+        "hit effect": "ribault impact",
+        "inaccuracy": 11,
+        "lifetime": 20,
+        "submunition": "ribault guided"
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "ribault guided",
+      "weapon": {
+        "sprite": "projectile/ribault",
+        "sprite data": {
+          "frame rate": 10,
+          "random start frame": true
+        },
+        "hit effect": "ribault impact",
+        "inaccuracy": 11,
+        "lifetime": 30,
+        "fade out": 7,
+        "turn": 5,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "tracking": 0.6,
+        "acceleration": 1,
+        "drag": 0.1,
+        "hit force": -120,
+        "shield damage": 100,
+        "hull damage": 35
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Slipstream Projector",
       "category": "Guns",
       "series": "Guns",
@@ -121558,6 +125239,23 @@
         "Quarg (Kor Efret)": true,
         "Quarg (Gegno)": true,
         "Quarg (Evil)": true
+      }
+    },
+    {
+      "name": "Suicide Gun",
+      "category": "Guns",
+      "thumbnail": "outfit/unknown",
+      "gun ports": -1,
+      "weapon": {
+        "velocity": 100,
+        "lifetime": 10,
+        "reload": 1,
+        "blast radius": 900,
+        "shield damage": 0.01,
+        "hull damage": 1
+      },
+      "governments": {
+        "Test Dummy": true
       }
     },
     {
@@ -122659,6 +126357,25 @@
       }
     },
     {
+      "name": "Fate Sealer Activated",
+      "weapon": {
+        "hit effect": "fusion blast",
+        "lifetime": 4,
+        "velocity": 1400,
+        "acceleration": 0.01,
+        "trigger radius": 50,
+        "blast radius": 100,
+        "shield damage": 900,
+        "hull damage": 300,
+        "hit force": -1200,
+        "slowing damage": 20,
+        "safe": true
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Fate Divider",
       "category": "Guns",
       "series": "Guns",
@@ -122691,6 +126408,25 @@
       "description": "An energy particle weapon that intensifies a blast to a single location after a brief duration. The after-effect of the explosion pushes the target farther from the origin of the blast.",
       "governments": {
         "Rulei": true
+      }
+    },
+    {
+      "name": "Fate Divider Activated",
+      "weapon": {
+        "hit effect": "fusion blast",
+        "lifetime": 1,
+        "velocity": 1400,
+        "acceleration": 0.01,
+        "trigger radius": 50,
+        "blast radius": 100,
+        "shield damage": 900,
+        "hull damage": 300,
+        "hit force": 1200,
+        "discharge damage": 45,
+        "safe": true
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -122732,6 +126468,36 @@
       "description": "This is an extremely dangerous device that uses graviton technology to pull a target's mass and energy apart, and then feeds the materials to the firing ship's systems.",
       "governments": {
         "Rulei": true
+      }
+    },
+    {
+      "name": "Timer Weapon",
+      "category": "Guns",
+      "thumbnail": "outfit/unknown",
+      "gun ports": -1,
+      "weapon": {
+        "velocity": 10,
+        "lifetime": 2,
+        "reload": 100,
+        "blast radius": 10,
+        "split range": 200,
+        "submunition": "Timer Submunition"
+      },
+      "governments": {
+        "Test Dummy": true
+      }
+    },
+    {
+      "name": "Timer Submunition",
+      "weapon": {
+        "lifetime": 20,
+        "trigger radius": 200,
+        "blast radius": 20,
+        "hull damage": 0.15,
+        "no damage scaling": true
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -123079,6 +126845,26 @@
       }
     },
     {
+      "name": "Shard inactive",
+      "weapon": {
+        "sprite": "projectile/shardinactive",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "hit effect": "shard impact",
+        "die effect": "missile death",
+        "lifetime": 60,
+        "random lifetime": 40,
+        "hit force": 30,
+        "shield damage": 110,
+        "hull damage": 160
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Heavy Ion Cyclotron",
       "category": "Guns",
       "series": "Guns",
@@ -123106,6 +126892,29 @@
         "firing force": 13.5
       },
       "description": "The main weapon of the Sheragi fighters is a particle accelerator not unlike the ones used by the Republic Navy and the Syndicate. However, this one produces a dense stream of heavy metal ions instead of bursts of lighter ones, resulting in high damage with intense recoil. Because the particle accelerator itself can be mounted elsewhere, it saves on weapon space.",
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
+      "name": "Heavy Ion Fragment",
+      "weapon": {
+        "sprite": "projectile/hionfrag",
+        "sprite data": {
+          "no repeat": true,
+          "frame time": 8
+        },
+        "hit effect": "proton impact",
+        "inaccuracy": 1,
+        "random velocity": 8,
+        "lifetime": 25,
+        "random lifetime": 8,
+        "acceleration": 0.001,
+        "drag": 0.02,
+        "hit force": 4.5,
+        "shield damage": 1.79,
+        "hull damage": 1.47
+      },
       "governments": {
         "endless-sky": true
       }
@@ -124172,6 +127981,26 @@
       }
     },
     {
+      "name": "Bimodal Switch",
+      "weapon": {
+        "sprite": "projectile/bimodal switch",
+        "sprite data": {
+          "random start frame": true,
+          "frame rate": 20
+        },
+        "hit effect": "bimodal switch impact",
+        "inaccuracy": 10,
+        "velocity": 30,
+        "lifetime": 6,
+        "random lifetime": 3,
+        "shield damage": 48,
+        "hull damage": 14
+      },
+      "governments": {
+        "endless-sky": true
+      }
+    },
+    {
       "name": "Drag Cannon",
       "category": "Guns",
       "series": "Guns",
@@ -124210,6 +128039,27 @@
         "Successor": true,
         "People's Houses": true,
         "People's Houses (Hostile)": true
+      }
+    },
+    {
+      "name": "Drag Projectile",
+      "weapon": {
+        "sprite": "projectile/drag cannon",
+        "sprite data": {
+          "frame rate": 20,
+          "no repeat": true
+        },
+        "hit effect": "drag cannon impact",
+        "inaccuracy": 20,
+        "velocity": 25,
+        "lifetime": 10,
+        "random lifetime": 5,
+        "slowing damage": 0.45,
+        "shield damage": 52,
+        "hull damage": 48
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -124485,6 +128335,50 @@
         "House Seineq": true,
         "House Myurej": true,
         "Derelict (Boardable)": true
+      }
+    },
+    {
+      "name": "Plankton Mouth",
+      "category": "Guns",
+      "series": "Guns",
+      "index": 92030,
+      "thumbnail": "outfit/unknown",
+      "gun ports": -1,
+      "weapon": {
+        "sound": "plankton bite",
+        "velocity": 50,
+        "lifetime": 1,
+        "burst reload": 1,
+        "burst count": 5,
+        "reload": 20,
+        "firing force": 75,
+        "energy damage": 50
+      },
+      "governments": {
+        "Indigenous Lifeform (Acheron)": true
+      }
+    },
+    {
+      "name": "Astral Mouth",
+      "category": "Guns",
+      "series": "Guns",
+      "index": 92040,
+      "thumbnail": "outfit/unknown",
+      "gun ports": -1,
+      "weapon": {
+        "sound": "astral attack",
+        "velocity": 100,
+        "lifetime": 1,
+        "inaccuracy": 3,
+        "burst reload": 1,
+        "burst count": 10,
+        "reload": 40,
+        "hit force": -75,
+        "piercing": 1,
+        "hull damage": 200
+      },
+      "governments": {
+        "Indigenous Lifeform (Astral)": true
       }
     },
     {
@@ -124778,6 +128672,37 @@
       "description": "Thunderhead cluster munitions are long-range Wanderer missiles that split into five fast and agile submunitions when they are close to their target. Each launcher can hold up to 40 of these.",
       "governments": {
         "Wanderer": true
+      }
+    },
+    {
+      "name": "Thunderhead",
+      "weapon": {
+        "sprite": "projectile/thunderhead fragment",
+        "sprite data": {
+          "no repeat": true,
+          "frame rate": 0.1
+        },
+        "die effect": "missile death",
+        "hit effect": "small explosion",
+        "inaccuracy": 90,
+        "velocity": 2,
+        "lifetime": 400,
+        "acceleration": 1.4,
+        "drag": 0.1,
+        "turn": 3,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "optical tracking": 0.9,
+        "radar tracking": 0.6,
+        "shield damage": 110,
+        "hull damage": 80,
+        "hit force": 225,
+        "missile strength": 3
+      },
+      "governments": {
+        "endless-sky": true
       }
     },
     {
@@ -128808,5 +132733,5 @@
       "velocity scale": 1
     }
   ],
-  "parsedAt": "2026-03-13T13:22:21.743Z"
+  "parsedAt": "2026-03-18T21:44:05.708Z"
 }
