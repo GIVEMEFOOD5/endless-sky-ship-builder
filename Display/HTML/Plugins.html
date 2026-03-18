@@ -63,19 +63,13 @@
 
                 <h2 id="sorterTitle">Sorters 🡇 (not yets implement)</h2>
                 
-                <!--<div class="filter-section" id="governmentFilterSection" style="display: none;">
-                    <div class="filter-title-no-margin" id="governmentFilterTitle" onclick="governmentFilterDisplay()">Filter by Government: 🡇</div>
-                    <div class="filter-options" id="governmentFilterOptions"></div>
+                <div class="sorter-section-header">
+                    <button class="btn-add-sorter" onclick="openSorterPicker()">+ Add Sorter</button>
                 </div>
-                            
-                <div class="filter-section" id="filterSection" style="display: none;">
-                    <div class="filter-title">Filter by Category:</div>
-                    <div class="filter-options" id="filterOptions"></div>
-                </div>
-
-                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search..." oninput="filterItems()">
                 
-                <button class="filter-clear" onclick="clearFilters()">Clear Filters</button>-->
+                <div id="sorterActiveList">
+                    <span class="sorter-empty">No sorters active. Click "Add Sorter" to begin.</span>
+                </div>
             </div>
 
             <div class="cards-grid" id="cardsContainer"></div>
@@ -97,11 +91,31 @@
             <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
+
+    <div id="sorterPickerOverlay">
+        <div class="sorter-picker-modal">
+            <div class="sorter-picker-header">
+                Add Sorters
+                <button class="sorter-picker-close" onclick="closeSorterPicker()">✕</button>
+            </div>
+            
+            <input type="text" id="sorterPickerSearch" placeholder="🔍 Search fields..." oninput="renderPickerList(this.value)">
+            
+            <div id="sorterPickerList"></div>
+            
+            <div class="sorter-picker-footer">
+                <button class="btn-picker-cancel" onclick="closeSorterPicker()">Cancel</button>
+                <button class="btn-picker-done"   onclick="confirmSorterPicker()">Done</button>
+            </div>
+        </div>
+    </div>
+    
     <script src="../JavaScript/Animator.js"></script>
     <script src="../JavaScript/SearchBarFilter.js"></script>
     <script src="../JavaScript/GovernmentsFilter.js"></script>
     <script src="../JavaScript/CheckBoxFilter.js"></script>
     <script src="../JavaScript/generalFilterStuff.js"></script>
+    <script src="../JavaScript/generalSorterStuff.js"></script>
     <script src="../JavaScript/EffectGrabber.js"></script>
     <script src="../JavaScript/ImageGrabber.js"></script>
     <script src="../JavaScript/AttributeDisplay.js"></script>
