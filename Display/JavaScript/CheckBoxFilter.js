@@ -65,6 +65,14 @@ function populateCategoryFilters(data) {
 
 function getSelectedCategories() {
     const checkboxes = document.querySelectorAll('#filterOptions input[type="checkbox"]');
+    
+    // If dropdowns are collapsed, read from saved state instead
+    if (checkboxes.length === 0) {
+        return Object.entries(savedCategoryFilterState)
+            .filter(([_, checked]) => checked)
+            .map(([value]) => value);
+    }
+
     const selected = [];
     checkboxes.forEach(cb => { if (cb.checked) selected.push(cb.value); });
     return selected;
