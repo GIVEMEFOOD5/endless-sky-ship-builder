@@ -1,140 +1,160 @@
 // Sorter.js
-// Manages a multi-field sorter with ascending/descending per field,
-// average display, and a pop-up picker. Items missing a field sort to the bottom.
-
-// ---------------------------------------------------------------------------
-// Attribute definitions per tab
-// ---------------------------------------------------------------------------
-
-const SORTER_FIELDS = {
-    ships: [
-        { key: 'attributes.cost',               label: 'Cost' },
-        { key: 'attributes.shields',             label: 'Shields' },
-        { key: 'attributes.hull',                label: 'Hull' },
-        { key: 'attributes.mass',                label: 'Mass' },
-        { key: 'attributes.drag',                label: 'Drag' },
-        { key: 'attributes.heat dissipation',    label: 'Heat Dissipation' },
-        { key: 'attributes.fuel capacity',       label: 'Fuel Capacity' },
-        { key: 'attributes.ramscoop',            label: 'Ramscoop' },
-        { key: 'attributes.cargo space',         label: 'Cargo Space' },
-        { key: 'attributes.outfit space',        label: 'Outfit Space' },
-        { key: 'attributes.weapon capacity',     label: 'Weapon Capacity' },
-        { key: 'attributes.engine capacity',     label: 'Engine Capacity' },
-        { key: 'attributes.required crew',       label: 'Required Crew' },
-        { key: 'attributes.bunks',               label: 'Bunks' },
-        { key: 'attributes.shield generation',   label: 'Shield Generation' },
-        { key: 'attributes.shield energy',       label: 'Shield Energy' },
-        { key: 'attributes.hull repair rate',    label: 'Hull Repair Rate' },
-        { key: 'attributes.hull energy',         label: 'Hull Energy' },
-        { key: 'attributes.cloak',               label: 'Cloak' },
-        { key: 'attributes.cloaking energy',     label: 'Cloaking Energy' },
-        { key: 'attributes.cloaking fuel',       label: 'Cloaking Fuel' },
-        { key: 'attributes.force protection',    label: 'Force Protection' },
-        { key: 'attributes.heat protection',     label: 'Heat Protection' },
-        { key: 'attributes.ion resistance',      label: 'Ion Resistance' },
-        { key: 'attributes.scramble resistance', label: 'Scramble Resistance' },
-        { key: 'attributes.slowing resistance',  label: 'Slowing Resistance' },
-        { key: 'attributes.outfit scan power',   label: 'Outfit Scan Power' },
-        { key: 'attributes.tactical scan power', label: 'Tactical Scan Power' },
-        // Computed helpers
-        { key: '_gunCount',    label: 'Gun Ports',    computed: item => (item.guns    || []).length },
-        { key: '_turretCount', label: 'Turret Ports', computed: item => (item.turrets || []).length },
-        { key: '_bayCount',    label: 'Bay Count',    computed: item => (item.bays    || []).length },
-    ],
-    variants: [
-        { key: 'attributes.cost',             label: 'Cost' },
-        { key: 'attributes.shields',          label: 'Shields' },
-        { key: 'attributes.hull',             label: 'Hull' },
-        { key: 'attributes.mass',             label: 'Mass' },
-        { key: 'attributes.drag',             label: 'Drag' },
-        { key: 'attributes.cargo space',      label: 'Cargo Space' },
-        { key: 'attributes.outfit space',     label: 'Outfit Space' },
-        { key: 'attributes.weapon capacity',  label: 'Weapon Capacity' },
-        { key: 'attributes.engine capacity',  label: 'Engine Capacity' },
-        { key: 'attributes.required crew',    label: 'Required Crew' },
-        { key: 'attributes.bunks',            label: 'Bunks' },
-        { key: '_gunCount',    label: 'Gun Ports',    computed: item => (item.guns    || []).length },
-        { key: '_turretCount', label: 'Turret Ports', computed: item => (item.turrets || []).length },
-    ],
-    outfits: [
-        { key: 'attributes.cost',                label: 'Cost' },
-        { key: 'attributes.mass',                label: 'Mass' },
-        { key: 'attributes.outfit space',        label: 'Outfit Space' },
-        { key: 'attributes.shields',             label: 'Shields' },
-        { key: 'attributes.hull',                label: 'Hull' },
-        { key: 'attributes.shield generation',   label: 'Shield Generation' },
-        { key: 'attributes.hull repair rate',    label: 'Hull Repair Rate' },
-        { key: 'attributes.energy capacity',     label: 'Energy Capacity' },
-        { key: 'attributes.energy generation',   label: 'Energy Generation' },
-        { key: 'attributes.heat generation',     label: 'Heat Generation' },
-        { key: 'attributes.cooling',             label: 'Cooling' },
-        { key: 'attributes.thrust',              label: 'Thrust' },
-        { key: 'attributes.turn',                label: 'Turn' },
-        { key: 'attributes.afterburner thrust',  label: 'Afterburner Thrust' },
-        { key: 'attributes.engine capacity',     label: 'Engine Capacity' },
-        { key: 'attributes.weapon capacity',     label: 'Weapon Capacity' },
-        { key: 'attributes.cargo space',         label: 'Cargo Space' },
-        { key: 'attributes.fuel capacity',       label: 'Fuel Capacity' },
-        { key: 'attributes.ramscoop',            label: 'Ramscoop' },
-        { key: 'attributes.drag',                label: 'Drag' },
-        { key: 'attributes.bunks',               label: 'Bunks' },
-        { key: 'attributes.required crew',       label: 'Required Crew' },
-        { key: 'attributes.ion resistance',      label: 'Ion Resistance' },
-        { key: 'attributes.disruption resistance', label: 'Disruption Resistance' },
-        { key: 'attributes.slowing resistance',  label: 'Slowing Resistance' },
-        { key: 'attributes.force protection',    label: 'Force Protection' },
-        { key: 'attributes.heat protection',     label: 'Heat Protection' },
-    ],
-};
+// Dynamically builds sortable field lists from attributeDefinitions.json.
+// Attribute keys are used as IDs with spaces removed (e.g. "shield generation" → "shieldgeneration").
+// No hardcoded attribute lists — all come from attrDefs at runtime.
 
 // ---------------------------------------------------------------------------
 // State
 // ---------------------------------------------------------------------------
 
-let activeSorters  = [];   // [{ key, label, dir: 'asc'|'desc', computed? }]
-let sorterPickerPending = []; // keys staged in the popup before confirming
+let activeSorters          = [];   // [{ id, key, label, path, dir, computed? }]
+let sorterCurrentTab       = 'ships';
+let sorterPickerPending    = [];   // ids staged in popup before confirming
+let _sorterItems           = [];   // last filtered item set, for avg calculation
+let _sorterAttrDefs        = null; // reference to window.attrDefs / passed-in defs
 
 // ---------------------------------------------------------------------------
-// Helpers
+// Field building — called lazily so attrDefs is loaded by then
+// ---------------------------------------------------------------------------
+
+function keyToId(key) {
+    // Remove all spaces and special chars that would break DOM IDs
+    return key.replace(/\s+/g, '').replace(/[^a-zA-Z0-9_\-]/g, '_');
+}
+
+function toTitleCase(str) {
+    return str.replace(/\b\w/g, c => c.toUpperCase());
+}
+
+/**
+ * Build the flat field list for a given tab from attrDefs.
+ * Ships / variants: attributes.* fields + computed helpers.
+ * Outfits: same pool, filtered to shownInOutfitPanel.
+ * For ships we include everything that is numeric and not a weapon-only key.
+ */
+function buildFieldsForTab(tab) {
+    const defs = _sorterAttrDefs?.attributes || {};
+    const fields = [];
+
+    // Decide which defs to include based on tab
+    const isShipLike = tab === 'ships' || tab === 'variants';
+
+    for (const [key, def] of Object.entries(defs)) {
+        // Skip boolean and weapon-only stats — they aren't sortable numbers on an item
+        if (def.isBoolean)    continue;
+        if (def.isWeaponStat) continue;
+
+        if (tab === 'outfits') {
+            if (!def.shownInOutfitPanel) continue;
+        }
+        // For ships/variants include everything numeric that appears on a ship
+        // (shownInShipPanel, usedInShipFunctions, or general attributes)
+
+        const id    = keyToId(key);
+        const label = toTitleCase(key);
+
+        if (isShipLike) {
+            // Ship attributes live under item.attributes.*
+            fields.push({
+                id,
+                key,
+                label,
+                path: ['attributes', key],
+            });
+        } else {
+            // Outfit attributes live flat on the item (not nested under attributes)
+            fields.push({
+                id,
+                key,
+                label,
+                path: [key],
+            });
+        }
+    }
+
+    // Add a top-level cost field for outfits (lives at item.cost, not item.attributes.cost)
+    if (tab === 'outfits') {
+        fields.unshift({ id: 'cost', key: 'cost', label: 'Cost', path: ['cost'] });
+        fields.unshift({ id: 'mass', key: 'mass', label: 'Mass', path: ['mass'] });
+    }
+
+    // Computed helpers for ships
+    if (isShipLike) {
+        fields.push({ id: '_gunCount',    key: '_gunCount',    label: 'Gun Ports',    computed: item => (item.guns    || []).length });
+        fields.push({ id: '_turretCount', key: '_turretCount', label: 'Turret Ports', computed: item => (item.turrets || []).length });
+        fields.push({ id: '_bayCount',    key: '_bayCount',    label: 'Bay Count',    computed: item => (item.bays    || []).length });
+        fields.push({ id: '_engineCount', key: '_engineCount', label: 'Engine Points',computed: item => (item.engines || []).length });
+    }
+
+    // Sort alphabetically for picker UX
+    fields.sort((a, b) => a.label.localeCompare(b.label));
+    return fields;
+}
+
+// Cache so we don't rebuild every keypress
+const _fieldCache = {};
+function getFieldsForTab(tab) {
+    if (!_fieldCache[tab]) {
+        _fieldCache[tab] = buildFieldsForTab(tab);
+    }
+    return _fieldCache[tab];
+}
+
+/** Clear cache when attrDefs is set (called from setSorterAttrDefs) */
+function clearFieldCache() {
+    Object.keys(_fieldCache).forEach(k => delete _fieldCache[k]);
+}
+
+// ---------------------------------------------------------------------------
+// Public: receive attrDefs from Plugin_Script.js
+// ---------------------------------------------------------------------------
+
+function setSorterAttrDefs(defs) {
+    _sorterAttrDefs = defs;
+    clearFieldCache();
+}
+
+// ---------------------------------------------------------------------------
+// Value extraction
 // ---------------------------------------------------------------------------
 
 function getFieldValue(item, field) {
     if (field.computed) return field.computed(item);
-    // Support dot-paths like "attributes.cost"
-    return field.key.split('.').reduce((obj, k) => (obj != null ? obj[k] : undefined), item);
+    // Walk dot-path: ['attributes', 'shields'] → item.attributes.shields
+    return field.path.reduce((obj, k) => (obj != null ? obj[k] : undefined), item);
 }
 
-function formatValue(val) {
-    if (val == null || val === undefined) return '—';
+function formatAvgValue(val) {
+    if (val == null) return '—';
     if (typeof val === 'number') {
-        return val >= 1000 ? val.toLocaleString() : val;
+        if (val >= 10000) return val.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        if (Number.isInteger(val)) return val.toLocaleString();
+        return val.toFixed(2);
     }
     return val;
 }
 
-function getFieldsForTab(tab) {
-    return SORTER_FIELDS[tab] || SORTER_FIELDS.ships;
-}
-
 // ---------------------------------------------------------------------------
-// Core sort — applied to whatever array filterItems produces
+// Core sort — pass your filtered array through this before rendering
 // ---------------------------------------------------------------------------
 
 function applySorters(items) {
     if (activeSorters.length === 0) return items;
 
+    const fields = getFieldsForTab(sorterCurrentTab);
+
     return [...items].sort((a, b) => {
         for (const sorter of activeSorters) {
-            const field = getFieldsForTab(currentTab).find(f => f.key === sorter.key);
+            const field = fields.find(f => f.id === sorter.id);
             if (!field) continue;
 
             const av = getFieldValue(a, field);
             const bv = getFieldValue(b, field);
 
-            const aMissing = av == null || av === undefined;
-            const bMissing = bv == null || bv === undefined;
+            const aMissing = av == null || av === undefined || (typeof av === 'number' && isNaN(av));
+            const bMissing = bv == null || bv === undefined || (typeof bv === 'number' && isNaN(bv));
 
-            // Missing values always go to bottom regardless of direction
+            // Items missing a field always go to the bottom regardless of direction
             if (aMissing && bMissing) continue;
             if (aMissing) return 1;
             if (bMissing) return -1;
@@ -147,7 +167,30 @@ function applySorters(items) {
 }
 
 // ---------------------------------------------------------------------------
-// Render the active sorters box
+// Average calculation across currently visible items
+// ---------------------------------------------------------------------------
+
+function setSorterItems(items) {
+    _sorterItems = items || [];
+    renderSorterBox(); // refresh averages whenever filtered set changes
+}
+
+function computeAverage(sorter) {
+    const fields = getFieldsForTab(sorterCurrentTab);
+    const field  = fields.find(f => f.id === sorter.id);
+    if (!field || _sorterItems.length === 0) return '—';
+
+    const vals = _sorterItems
+        .map(item => getFieldValue(item, field))
+        .filter(v => v != null && typeof v === 'number' && !isNaN(v));
+
+    if (vals.length === 0) return '—';
+    const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+    return formatAvgValue(avg);
+}
+
+// ---------------------------------------------------------------------------
+// Render active sorter box
 // ---------------------------------------------------------------------------
 
 function renderSorterBox() {
@@ -165,17 +208,14 @@ function renderSorterBox() {
         const row = document.createElement('div');
         row.className = 'sorter-row';
 
-        // Drag handle + label
         const label = document.createElement('span');
         label.className = 'sorter-label';
         label.textContent = sorter.label;
 
-        // Average badge
         const avg = document.createElement('span');
         avg.className = 'sorter-avg';
         avg.textContent = `avg: ${computeAverage(sorter)}`;
 
-        // Direction toggle
         const dirBtn = document.createElement('button');
         dirBtn.className = 'sorter-dir-btn';
         dirBtn.textContent = sorter.dir === 'asc' ? '↑ Asc' : '↓ Desc';
@@ -183,34 +223,31 @@ function renderSorterBox() {
         dirBtn.onclick = () => {
             sorter.dir = sorter.dir === 'asc' ? 'desc' : 'asc';
             renderSorterBox();
-            if (typeof filterItems === 'function') filterItems();
+            _triggerFilterItems();
         };
 
-        // Move up
         const upBtn = document.createElement('button');
         upBtn.className = 'sorter-move-btn';
         upBtn.textContent = '▲';
-        upBtn.title = 'Move up';
+        upBtn.title = 'Move up (higher priority)';
         upBtn.disabled = idx === 0;
         upBtn.onclick = () => {
             [activeSorters[idx - 1], activeSorters[idx]] = [activeSorters[idx], activeSorters[idx - 1]];
             renderSorterBox();
-            if (typeof filterItems === 'function') filterItems();
+            _triggerFilterItems();
         };
 
-        // Move down
         const downBtn = document.createElement('button');
         downBtn.className = 'sorter-move-btn';
         downBtn.textContent = '▼';
-        downBtn.title = 'Move down';
+        downBtn.title = 'Move down (lower priority)';
         downBtn.disabled = idx === activeSorters.length - 1;
         downBtn.onclick = () => {
             [activeSorters[idx], activeSorters[idx + 1]] = [activeSorters[idx + 1], activeSorters[idx]];
             renderSorterBox();
-            if (typeof filterItems === 'function') filterItems();
+            _triggerFilterItems();
         };
 
-        // Remove
         const removeBtn = document.createElement('button');
         removeBtn.className = 'sorter-remove-btn';
         removeBtn.textContent = '✕';
@@ -218,7 +255,7 @@ function renderSorterBox() {
         removeBtn.onclick = () => {
             activeSorters.splice(idx, 1);
             renderSorterBox();
-            if (typeof filterItems === 'function') filterItems();
+            _triggerFilterItems();
         };
 
         row.appendChild(label);
@@ -231,28 +268,8 @@ function renderSorterBox() {
     });
 }
 
-// ---------------------------------------------------------------------------
-// Average calculation across currently visible items
-// ---------------------------------------------------------------------------
-
-let _lastSorterItems = [];
-
-function setSorterItems(items) {
-    _lastSorterItems = items;
-    renderSorterBox(); // refresh averages when data changes
-}
-
-function computeAverage(sorter) {
-    const field = getFieldsForTab(currentTab).find(f => f.key === sorter.key);
-    if (!field || _lastSorterItems.length === 0) return '—';
-
-    const vals = _lastSorterItems
-        .map(item => getFieldValue(item, field))
-        .filter(v => v != null && typeof v === 'number');
-
-    if (vals.length === 0) return '—';
-    const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
-    return avg >= 1000 ? avg.toLocaleString(undefined, { maximumFractionDigits: 0 }) : avg.toFixed(2);
+function _triggerFilterItems() {
+    if (typeof filterItems === 'function') filterItems();
 }
 
 // ---------------------------------------------------------------------------
@@ -260,13 +277,12 @@ function computeAverage(sorter) {
 // ---------------------------------------------------------------------------
 
 function openSorterPicker() {
-    sorterPickerPending = activeSorters.map(s => s.key); // pre-tick already active
+    // Pre-populate pending with whatever is already active
+    sorterPickerPending = activeSorters.map(s => s.id);
 
     const overlay = document.getElementById('sorterPickerOverlay');
-    const list    = document.getElementById('sorterPickerList');
     const search  = document.getElementById('sorterPickerSearch');
-
-    if (!overlay || !list) return;
+    if (!overlay) return;
 
     search.value = '';
     renderPickerList('');
@@ -280,66 +296,94 @@ function closeSorterPicker() {
 }
 
 function confirmSorterPicker() {
-    const fields = getFieldsForTab(currentTab);
+    const fields = getFieldsForTab(sorterCurrentTab);
 
-    // Add newly ticked fields (preserve existing dir)
-    sorterPickerPending.forEach(key => {
-        if (!activeSorters.find(s => s.key === key)) {
-            const field = fields.find(f => f.key === key);
-            if (field) activeSorters.push({ ...field, dir: 'desc' });
+    // Add newly ticked fields (default dir: desc so biggest first)
+    sorterPickerPending.forEach(id => {
+        if (!activeSorters.find(s => s.id === id)) {
+            const field = fields.find(f => f.id === id);
+            if (field) {
+                activeSorters.push({
+                    id:       field.id,
+                    key:      field.key,
+                    label:    field.label,
+                    path:     field.path,
+                    computed: field.computed,
+                    dir:      'desc',
+                });
+            }
         }
     });
 
     // Remove unticked fields
-    activeSorters = activeSorters.filter(s => sorterPickerPending.includes(s.key));
+    activeSorters = activeSorters.filter(s => sorterPickerPending.includes(s.id));
 
     closeSorterPicker();
     renderSorterBox();
-    if (typeof filterItems === 'function') filterItems();
+    _triggerFilterItems();
 }
 
 function renderPickerList(query) {
     const list   = document.getElementById('sorterPickerList');
-    const fields = getFieldsForTab(currentTab);
-    const lq     = query.toLowerCase();
+    if (!list) return;
+
+    const fields = getFieldsForTab(sorterCurrentTab);
+    const lq     = query.toLowerCase().trim();
 
     list.innerHTML = '';
 
-    fields
-        .filter(f => f.label.toLowerCase().includes(lq))
-        .forEach(field => {
-            const row = document.createElement('div');
-            row.className = 'sorter-picker-row';
+    const filtered = lq
+        ? fields.filter(f => f.label.toLowerCase().includes(lq) || f.key.toLowerCase().includes(lq))
+        : fields;
 
-            const checkbox = document.createElement('input');
-            checkbox.type    = 'checkbox';
-            checkbox.id      = `sp-${field.key}`;
-            checkbox.checked = sorterPickerPending.includes(field.key);
-            checkbox.onchange = () => {
-                if (checkbox.checked) {
-                    sorterPickerPending.push(field.key);
-                } else {
-                    sorterPickerPending = sorterPickerPending.filter(k => k !== field.key);
+    if (filtered.length === 0) {
+        const empty = document.createElement('p');
+        empty.style.cssText = 'color:#94a3b8;font-style:italic;font-size:0.9rem;padding:8px;';
+        empty.textContent = 'No matching fields.';
+        list.appendChild(empty);
+        return;
+    }
+
+    filtered.forEach(field => {
+        const row = document.createElement('div');
+        row.className = 'sorter-picker-row';
+
+        const checkbox = document.createElement('input');
+        checkbox.type    = 'checkbox';
+        checkbox.id      = `sp-${field.id}`;
+        checkbox.checked = sorterPickerPending.includes(field.id);
+        checkbox.onchange = () => {
+            if (checkbox.checked) {
+                if (!sorterPickerPending.includes(field.id)) {
+                    sorterPickerPending.push(field.id);
                 }
-            };
+            } else {
+                sorterPickerPending = sorterPickerPending.filter(id => id !== field.id);
+            }
+        };
 
-            const label = document.createElement('label');
-            label.htmlFor     = `sp-${field.key}`;
-            label.textContent = field.label;
+        const lbl = document.createElement('label');
+        lbl.htmlFor     = `sp-${field.id}`;
+        lbl.textContent = field.label;
 
-            row.appendChild(checkbox);
-            row.appendChild(label);
-            list.appendChild(row);
-        });
+        // Click anywhere on the row to toggle
+        row.onclick = (e) => {
+            if (e.target !== checkbox) checkbox.click();
+        };
+
+        row.appendChild(checkbox);
+        row.appendChild(lbl);
+        list.appendChild(row);
+    });
 }
 
 // ---------------------------------------------------------------------------
-// Tab change hook — call this from your switchTab function
+// Tab change — call this from switchTab() in Plugin_Script.js
 // ---------------------------------------------------------------------------
 
 function onSorterTabChange(tab) {
-    currentTab    = tab;
-    activeSorters = [];
+    sorterCurrentTab = tab;
+    activeSorters    = [];   // reset sorters when tab changes (fields are different)
     renderSorterBox();
 }
 
@@ -347,11 +391,12 @@ function onSorterTabChange(tab) {
 // Global exports
 // ---------------------------------------------------------------------------
 
-window.applySorters       = applySorters;
-window.renderSorterBox    = renderSorterBox;
-window.setSorterItems     = setSorterItems;
-window.openSorterPicker   = openSorterPicker;
-window.closeSorterPicker  = closeSorterPicker;
+window.applySorters        = applySorters;
+window.setSorterItems      = setSorterItems;
+window.setSorterAttrDefs   = setSorterAttrDefs;
+window.renderSorterBox     = renderSorterBox;
+window.openSorterPicker    = openSorterPicker;
+window.closeSorterPicker   = closeSorterPicker;
 window.confirmSorterPicker = confirmSorterPicker;
-window.renderPickerList   = renderPickerList;
-window.onSorterTabChange  = onSorterTabChange;
+window.renderPickerList    = renderPickerList;
+window.onSorterTabChange   = onSorterTabChange;
