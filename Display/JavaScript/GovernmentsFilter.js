@@ -66,6 +66,14 @@ function populateGovernmentFilters(data) {
 
 function getSelectedGovernments() {
     const checkboxes = document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]');
+
+    // If dropdowns are collapsed, read from saved state instead
+    if (checkboxes.length === 0) {
+        return Object.entries(savedGovernmentFilterState)
+            .filter(([_, checked]) => checked)
+            .map(([value]) => value);
+    }
+
     const selected = [];
     checkboxes.forEach(cb => { if (cb.checked) selected.push(cb.value); });
     return selected;
