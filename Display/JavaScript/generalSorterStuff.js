@@ -92,7 +92,6 @@ const SORTER_FIELDS = {
 // ---------------------------------------------------------------------------
 
 let activeSorters  = [];   // [{ key, label, dir: 'asc'|'desc', computed? }]
-let currentTab     = 'ships';
 let sorterPickerPending = []; // keys staged in the popup before confirming
 
 // ---------------------------------------------------------------------------
