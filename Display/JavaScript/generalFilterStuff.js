@@ -1,4 +1,4 @@
-let filtersExpanded = false;
+let filtersExpanded = true;
 let lastFilterItems = [];
 //let savedCategoryFilterState = {};
 //let savedGovernmentFilterState = {};
