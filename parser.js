@@ -1417,7 +1417,7 @@ class EndlessSkyParser {
     const data = { name };
     const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
     Object.assign(data, parsed);
-    return [data.description ? data : null, ni];
+    return [(data.description || data.weapon) ? data : null, ni];
   }
 
   parseExtraEffect(lines, startIdx) {
