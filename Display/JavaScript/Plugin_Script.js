@@ -21,13 +21,15 @@ async function loadData() {
 
     if (typeof initImageIndex === 'function') initImageIndex();
 
-    // Load attribute definitions in the background — non-fatal if missing
-    fetch(`${baseUrl}/attributeDefinitions.json`)
-        .then(r => r.ok ? r.json() : null)
-        .then(d => { 
-            attrDefs = d; 
-            if (typeof setSorterAttrDefs === 'function') setSorterAttrDefs(d);})
-        .catch(() => {});
+    // Load attribute definitions BEFORE plugin data so computed stats are ready
+    try {
+        const attrDefsRes = await fetch(`${baseUrl}/attributeDefinitions.json`);
+        if (attrDefsRes.ok) {
+            attrDefs = await attrDefsRes.json();
+            if (typeof setSorterAttrDefs === 'function') setSorterAttrDefs(attrDefs);
+            if (typeof initComputedStats  === 'function') initComputedStats(attrDefs, baseUrl);
+        }
+    } catch (_) {}
 
     try {
         // Load the index which maps sourceName → [{ outputName, displayName }]
@@ -168,6 +170,8 @@ function selectPlugin(outputName) {
     // Tell ImageGrabber and EffectGrabber which plugin is active
     if (typeof setCurrentPlugin === 'function') setCurrentPlugin(outputName);
     if (typeof setEffectPlugin  === 'function') setEffectPlugin(outputName);
+    if (typeof setSorterPluginId  === 'function') setSorterPluginId(outputName);
+    if (typeof clearComputedCache === 'function') clearComputedCache();
 
     updateStats();
     renderCards();
@@ -193,6 +197,7 @@ function switchTab(tab) {
     document.querySelectorAll('.tab').forEach(t => {
         t.classList.toggle('active', t.dataset.tab === tab);
     });
+
     if (typeof onSorterTabChange === 'function') onSorterTabChange(tab); // ← resets sorters for new tab
     renderCards();
 }
@@ -397,7 +402,7 @@ async function renderImageTab(spritePath, altText, spriteParams) {
 function renderAttributesTab(item) {
     // Use AttributeDisplay enhanced renderer if available and attrDefs are loaded
     if (attrDefs && window.AttributeDisplay) {
-        return window.AttributeDisplay.renderAttributesTabEnhanced(item, attrDefs, currentTab);
+        return window.AttributeDisplay.renderAttributesTabEnhanced(item, attrDefs, currentTab, currentPlugin);
     }
 
     // ── Fallback: original plain renderer ────────────────────────────────────

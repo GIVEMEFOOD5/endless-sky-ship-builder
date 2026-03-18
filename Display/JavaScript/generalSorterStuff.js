@@ -1,9 +1,11 @@
 // Sorter.js
-// Builds sortable field lists from two sources:
+// Builds sortable field lists from:
 //   1. attributeDefinitions.json  — all defined game attributes
-//   2. Raw item scanning          — any numeric field found on actual loaded items
-//      (catches cost, mass, and any plugin-specific fields not in attrDefs)
-// No hardcoded attribute lists anywhere.
+//   2. ComputedStats fields        — derived values (effective shields, regen/s etc.)
+//   3. Raw item scanning           — any numeric field found on actual loaded items
+//
+// For ship/variant tabs, sorting uses getComputedStats() so values reflect
+// the ship's installed outfits, not just base attributes.
 
 // ---------------------------------------------------------------------------
 // State
@@ -14,6 +16,7 @@ let sorterCurrentTab       = 'ships';
 let sorterPickerPending    = [];
 let _sorterItems           = [];
 let _sorterAttrDefs        = null;
+let _sorterPluginId        = null;  // current plugin — needed for computed stats
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -32,60 +35,42 @@ function toTitleCase(str) {
 // ---------------------------------------------------------------------------
 
 /**
- * Scan a sample of items to find every numeric field not already covered by
- * attrDefs. Returns an array of field descriptors.
- *
- * For ships:   checks item.* (top level) and item.attributes.*
- * For outfits: checks item.* (top level) only
+ * Scan a sample of items for numeric fields not already in knownIds.
+ * Ships: checks item.* and item.attributes.*
+ * Outfits: checks item.* only
  */
 function scanItemsForExtraFields(items, tab, knownIds) {
-    const extras = {};
+    const extras    = {};
     const isShipLike = tab === 'ships' || tab === 'variants';
 
-    // Sample up to 100 items so this stays fast
-    const sample = items.slice(0, 100);
-
     const SKIP_KEYS = new Set([
-        'name', 'description', 'sprite', 'thumbnail', 'projectile',
-        'afterburner effect', 'flare sprite', 'reverse flare sprite',
-        'steering flare sprite', '_internalId', '_pluginId', '_hash',
-        'final explode', 'outfitMap', 'governments', 'licenses',
-        'weapon', 'engines', 'reverseEngines', 'steeringEngines',
-        'guns', 'turrets', 'bays', 'spriteData',
+        'name','description','sprite','thumbnail','projectile',
+        'afterburner effect','flare sprite','reverse flare sprite',
+        'steering flare sprite','_internalId','_pluginId','_hash',
+        'final explode','outfitMap','governments','licenses',
+        'weapon','engines','reverseEngines','steeringEngines',
+        'guns','turrets','bays','spriteData',
     ]);
 
+    const sample = items.slice(0, 100);
+
     for (const item of sample) {
-        // Scan top-level numeric fields (cost, mass, etc.)
+        // Top-level numerics
         for (const [key, val] of Object.entries(item)) {
             if (SKIP_KEYS.has(key)) continue;
             if (typeof val !== 'number') continue;
             const id = keyToId(key);
-            if (knownIds.has(id)) continue;
-            if (!extras[id]) {
-                extras[id] = {
-                    id,
-                    key,
-                    label: toTitleCase(key),
-                    path: [key],
-                };
-            }
+            if (knownIds.has(id) || extras[id]) continue;
+            extras[id] = { id, key, label: toTitleCase(key), path: [key] };
         }
 
-        // For ships: also scan item.attributes.* for any numeric fields
-        // not already picked up from attrDefs (plugin-specific attrs)
+        // Ship: also scan item.attributes.*
         if (isShipLike && item.attributes && typeof item.attributes === 'object') {
             for (const [key, val] of Object.entries(item.attributes)) {
                 if (typeof val !== 'number') continue;
                 const id = keyToId(key);
-                if (knownIds.has(id)) continue;
-                if (!extras[id]) {
-                    extras[id] = {
-                        id,
-                        key,
-                        label: toTitleCase(key),
-                        path: ['attributes', key],
-                    };
-                }
+                if (knownIds.has(id) || extras[id]) continue;
+                extras[id] = { id, key, label: toTitleCase(key), path: ['attributes', key] };
             }
         }
     }
@@ -93,69 +78,71 @@ function scanItemsForExtraFields(items, tab, knownIds) {
     return Object.values(extras);
 }
 
-/**
- * Build the full field list for a tab.
- * Called the first time a tab is accessed after items are available.
- */
 function buildFieldsForTab(tab, items) {
-    const defs      = _sorterAttrDefs?.attributes || {};
+    const defs       = _sorterAttrDefs?.attributes || {};
     const isShipLike = tab === 'ships' || tab === 'variants';
-    const fields    = [];
-    const seenIds   = new Set();
+    const fields     = [];
+    const seenIds    = new Set();
 
-    // ── 1. Pull numeric fields from attrDefs ──────────────────────────────
+    // ── 1. Fields from attributeDefinitions.json ─────────────────────────
     for (const [key, def] of Object.entries(defs)) {
-        if (def.isBoolean)    continue;  // booleans aren't sortable numbers
-        if (def.isWeaponStat) continue;  // weapon stats live on weapon sub-object
+        if (def.isBoolean)    continue;
+        if (def.isWeaponStat) continue;
 
         const id    = keyToId(key);
         const label = toTitleCase(key);
 
         if (isShipLike) {
-            fields.push({ id, key, label, path: ['attributes', key] });
+            // For ships we read from computedStats (includes outfit contributions)
+            fields.push({ id, key, label, path: ['attributes', key], useComputed: true });
         } else {
-            // Outfits: most attrs are flat on the item
             fields.push({ id, key, label, path: [key] });
         }
         seenIds.add(id);
     }
 
-    // ── 2. Scan actual items for any numeric fields not in attrDefs ───────
-    if (items && items.length > 0) {
-        const extras = scanItemsForExtraFields(items, tab, seenIds);
-        extras.forEach(f => {
-            fields.push(f);
-            seenIds.add(f.id);
-        });
-    }
-
-    // ── 3. Computed helpers for ship-like tabs ────────────────────────────
-    if (isShipLike) {
-        const computed = [
-            { id: '_gunCount',    key: '_gunCount',    label: 'Gun Ports',     computed: item => (item.guns    || []).length },
-            { id: '_turretCount', key: '_turretCount', label: 'Turret Ports',  computed: item => (item.turrets || []).length },
-            { id: '_bayCount',    key: '_bayCount',    label: 'Bay Count',     computed: item => (item.bays    || []).length },
-            { id: '_engineCount', key: '_engineCount', label: 'Engine Points', computed: item => (item.engines || []).length },
-        ];
-        computed.forEach(f => {
+    // ── 2. Computed/derived fields (ships only) ───────────────────────────
+    if (isShipLike && typeof getComputedSorterFields === 'function') {
+        getComputedSorterFields().forEach(f => {
             if (!seenIds.has(f.id)) {
-                fields.push(f);
+                fields.push({ ...f, useComputed: true });
                 seenIds.add(f.id);
             }
         });
     }
 
-    // ── 4. Sort alphabetically for UX ─────────────────────────────────────
+    // ── 3. Raw item scan for anything else ────────────────────────────────
+    if (items && items.length > 0) {
+        scanItemsForExtraFields(items, tab, seenIds).forEach(f => {
+            fields.push(f);
+            seenIds.add(f.id);
+        });
+    }
+
+    // ── 4. Computed helpers (port/bay counts) ─────────────────────────────
+    if (isShipLike) {
+        [
+            { id: '_gunCount',    label: 'Gun Ports',     fn: i => (i.guns    || []).length },
+            { id: '_turretCount', label: 'Turret Ports',  fn: i => (i.turrets || []).length },
+            { id: '_bayCount',    label: 'Bay Count',     fn: i => (i.bays    || []).length },
+            { id: '_engineCount', label: 'Engine Points', fn: i => (i.engines || []).length },
+        ].forEach(({ id, label, fn }) => {
+            if (!seenIds.has(id)) {
+                fields.push({ id, key: id, label, computed: fn });
+                seenIds.add(id);
+            }
+        });
+    }
+
     fields.sort((a, b) => a.label.localeCompare(b.label));
     return fields;
 }
 
-// Cache keyed by tab. Invalidated when attrDefs or items change.
+// Cache keyed by tab, rebuilt when items or attrDefs change
 const _fieldCache = {};
 
 function getFieldsForTab(tab) {
     if (!_fieldCache[tab]) {
-        // Build with current _sorterItems as the sample
         _fieldCache[tab] = buildFieldsForTab(tab, _sorterItems);
     }
     return _fieldCache[tab];
@@ -166,7 +153,7 @@ function clearFieldCache() {
 }
 
 // ---------------------------------------------------------------------------
-// Public: receive attrDefs from Plugin_Script.js
+// Public setters called from Plugin_Script.js
 // ---------------------------------------------------------------------------
 
 function setSorterAttrDefs(defs) {
@@ -174,13 +161,36 @@ function setSorterAttrDefs(defs) {
     clearFieldCache();
 }
 
+function setSorterPluginId(pluginId) {
+    _sorterPluginId = pluginId;
+    clearFieldCache();
+    if (typeof clearComputedCache === 'function') clearComputedCache();
+}
+
 // ---------------------------------------------------------------------------
 // Value extraction
 // ---------------------------------------------------------------------------
 
 function getFieldValue(item, field) {
+    // Inline computed (port counts etc.)
     if (field.computed) return field.computed(item);
-    return field.path.reduce((obj, k) => (obj != null ? obj[k] : undefined), item);
+
+    // Use computed stats engine for ship-like tabs
+    if (field.useComputed && _sorterPluginId && typeof getComputedStats === 'function') {
+        const stats = getComputedStats(item, _sorterPluginId);
+        // Computed fields (derived values like _effectiveShields) live directly on stats
+        // Attribute fields: stats has them flat (e.g. stats['shields'])
+        const val = stats[field.key];
+        if (val !== undefined) return val;
+        // Fall back to path lookup if not in computed stats
+    }
+
+    // Default: walk the path
+    if (field.path) {
+        return field.path.reduce((obj, k) => (obj != null ? obj[k] : undefined), item);
+    }
+
+    return undefined;
 }
 
 function formatAvgValue(val) {
@@ -213,7 +223,6 @@ function applySorters(items) {
             const aMissing = av == null || (typeof av === 'number' && isNaN(av));
             const bMissing = bv == null || (typeof bv === 'number' && isNaN(bv));
 
-            // Missing always sinks to the bottom regardless of direction
             if (aMissing && bMissing) continue;
             if (aMissing) return 1;
             if (bMissing) return -1;
@@ -231,9 +240,7 @@ function applySorters(items) {
 
 function setSorterItems(items) {
     _sorterItems = items || [];
-    // Rebuild field cache for the current tab now that we have real items,
-    // so any extra scanned fields appear immediately
-    delete _fieldCache[sorterCurrentTab];
+    delete _fieldCache[sorterCurrentTab]; // rebuild with fresh sample
     renderSorterBox();
 }
 
@@ -271,15 +278,15 @@ function renderSorterBox() {
         row.className = 'sorter-row';
 
         const label = document.createElement('span');
-        label.className = 'sorter-label';
+        label.className   = 'sorter-label';
         label.textContent = sorter.label;
 
         const avg = document.createElement('span');
-        avg.className = 'sorter-avg';
+        avg.className   = 'sorter-avg';
         avg.textContent = `avg: ${computeAverage(sorter)}`;
 
         const dirBtn = document.createElement('button');
-        dirBtn.className = 'sorter-dir-btn';
+        dirBtn.className   = 'sorter-dir-btn';
         dirBtn.textContent = sorter.dir === 'asc' ? '↑ Asc' : '↓ Desc';
         dirBtn.onclick = () => {
             sorter.dir = sorter.dir === 'asc' ? 'desc' : 'asc';
@@ -288,9 +295,9 @@ function renderSorterBox() {
         };
 
         const upBtn = document.createElement('button');
-        upBtn.className = 'sorter-move-btn';
+        upBtn.className   = 'sorter-move-btn';
         upBtn.textContent = '▲';
-        upBtn.disabled = idx === 0;
+        upBtn.disabled    = idx === 0;
         upBtn.onclick = () => {
             [activeSorters[idx - 1], activeSorters[idx]] = [activeSorters[idx], activeSorters[idx - 1]];
             renderSorterBox();
@@ -298,9 +305,9 @@ function renderSorterBox() {
         };
 
         const downBtn = document.createElement('button');
-        downBtn.className = 'sorter-move-btn';
+        downBtn.className   = 'sorter-move-btn';
         downBtn.textContent = '▼';
-        downBtn.disabled = idx === activeSorters.length - 1;
+        downBtn.disabled    = idx === activeSorters.length - 1;
         downBtn.onclick = () => {
             [activeSorters[idx], activeSorters[idx + 1]] = [activeSorters[idx + 1], activeSorters[idx]];
             renderSorterBox();
@@ -308,7 +315,7 @@ function renderSorterBox() {
         };
 
         const removeBtn = document.createElement('button');
-        removeBtn.className = 'sorter-remove-btn';
+        removeBtn.className   = 'sorter-remove-btn';
         removeBtn.textContent = '✕';
         removeBtn.onclick = () => {
             activeSorters.splice(idx, 1);
@@ -360,12 +367,13 @@ function confirmSorterPicker() {
             const field = fields.find(f => f.id === id);
             if (field) {
                 activeSorters.push({
-                    id:       field.id,
-                    key:      field.key,
-                    label:    field.label,
-                    path:     field.path,
-                    computed: field.computed,
-                    dir:      'desc',
+                    id:          field.id,
+                    key:         field.key,
+                    label:       field.label,
+                    path:        field.path,
+                    computed:    field.computed,
+                    useComputed: field.useComputed,
+                    dir:         'desc',
                 });
             }
         }
@@ -401,35 +409,52 @@ function renderPickerList(query) {
         return;
     }
 
-    filtered.forEach(field => {
-        const row = document.createElement('div');
-        row.className = 'sorter-picker-row';
+    // Group: computed/derived fields first, then the rest
+    const derived = filtered.filter(f => f.isComputed);
+    const normal  = filtered.filter(f => !f.isComputed);
 
-        const checkbox = document.createElement('input');
-        checkbox.type     = 'checkbox';
-        checkbox.id       = `sp-${field.id}`;
-        checkbox.checked  = sorterPickerPending.includes(field.id);
-        checkbox.onchange = () => {
-            if (checkbox.checked) {
-                if (!sorterPickerPending.includes(field.id)) {
-                    sorterPickerPending.push(field.id);
+    const renderGroup = (groupFields, groupLabel) => {
+        if (groupFields.length === 0) return;
+
+        if (groupLabel) {
+            const header = document.createElement('div');
+            header.style.cssText =
+                'color:#63b3ed;font-size:11px;font-weight:700;letter-spacing:.1em;' +
+                'text-transform:uppercase;padding:8px 8px 4px;margin-top:4px;' +
+                'border-top:1px solid rgba(59,130,246,0.2);';
+            header.textContent = groupLabel;
+            list.appendChild(header);
+        }
+
+        groupFields.forEach(field => {
+            const row = document.createElement('div');
+            row.className = 'sorter-picker-row';
+
+            const checkbox       = document.createElement('input');
+            checkbox.type        = 'checkbox';
+            checkbox.id          = `sp-${field.id}`;
+            checkbox.checked     = sorterPickerPending.includes(field.id);
+            checkbox.onchange    = () => {
+                if (checkbox.checked) {
+                    if (!sorterPickerPending.includes(field.id)) sorterPickerPending.push(field.id);
+                } else {
+                    sorterPickerPending = sorterPickerPending.filter(id => id !== field.id);
                 }
-            } else {
-                sorterPickerPending = sorterPickerPending.filter(id => id !== field.id);
-            }
-        };
+            };
 
-        const lbl     = document.createElement('label');
-        lbl.htmlFor   = `sp-${field.id}`;
-        lbl.textContent = field.label;
+            const lbl         = document.createElement('label');
+            lbl.htmlFor       = `sp-${field.id}`;
+            lbl.textContent   = field.label;
 
-        // Click anywhere on the row toggles the checkbox
-        row.onclick = (e) => { if (e.target !== checkbox) checkbox.click(); };
+            row.onclick = (e) => { if (e.target !== checkbox) checkbox.click(); };
+            row.appendChild(checkbox);
+            row.appendChild(lbl);
+            list.appendChild(row);
+        });
+    };
 
-        row.appendChild(checkbox);
-        row.appendChild(lbl);
-        list.appendChild(row);
-    });
+    renderGroup(derived, derived.length > 0 ? '⚡ Computed (with outfits)' : null);
+    renderGroup(normal,  derived.length > 0 ? 'Base Attributes' : null);
 }
 
 // ---------------------------------------------------------------------------
@@ -449,6 +474,7 @@ function onSorterTabChange(tab) {
 window.applySorters        = applySorters;
 window.setSorterItems      = setSorterItems;
 window.setSorterAttrDefs   = setSorterAttrDefs;
+window.setSorterPluginId   = setSorterPluginId;
 window.renderSorterBox     = renderSorterBox;
 window.openSorterPicker    = openSorterPicker;
 window.closeSorterPicker   = closeSorterPicker;
