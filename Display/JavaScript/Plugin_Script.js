@@ -24,7 +24,9 @@ async function loadData() {
     // Load attribute definitions in the background — non-fatal if missing
     fetch(`${baseUrl}/attributeDefinitions.json`)
         .then(r => r.ok ? r.json() : null)
-        .then(d => { attrDefs = d; })
+        .then(d => { 
+            attrDefs = d; 
+            if (typeof setSorterAttrDefs === 'function') setSorterAttrDefs(d);})
         .catch(() => {});
 
     try {
@@ -191,6 +193,7 @@ function switchTab(tab) {
     document.querySelectorAll('.tab').forEach(t => {
         t.classList.toggle('active', t.dataset.tab === tab);
     });
+    if (typeof onSorterTabChange === 'function') onSorterTabChange(tab); // ← resets sorters for new tab
     renderCards();
 }
 
