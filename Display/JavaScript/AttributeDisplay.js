@@ -395,17 +395,55 @@ function lookupOutfit(name, pluginId) {
     return null;
 }
 
-function renderWeaponStats(attrDefs, weapon, sectionTitle) {
-    const exclude = new Set([
+function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext) {
+    // outfitContext: the parent outfit object (for submunitions), so we can
+    // show its description, cost, mass etc. alongside the weapon stats.
+    const excludeWeapon = new Set([
         'sprite', 'spriteData', 'sound', 'hit effect', 'fire effect',
-        'die effect', 'submunition', 'ammo', 'stream', 'cluster',
-        'hardpoint sprite', 'hardpoint offset', 'icon',
+        'die effect', 'live effect', 'submunition', 'ammo', 'stream',
+        'cluster', 'hardpoint sprite', 'hardpoint offset', 'icon',
     ]);
-    let html = '';
+    const excludeOutfit = new Set([
+        'name', 'weapon', 'sprite', 'spriteData', 'thumbnail',
+        'description', 'flare sprite', 'steering flare sprite',
+        'reverse flare sprite', 'afterburner effect',
+    ]);
 
+    let html = '';
     const wRows = [];
+
+    // ── Outfit-level context (cost, mass, description) ────────────────────────
+    if (outfitContext) {
+        if (outfitContext.description) {
+            wRows.push(`<div class="ad-description">${outfitContext.description}</div>`);
+        }
+        for (const [key, value] of Object.entries(outfitContext)) {
+            if (excludeOutfit.has(key)) continue;
+            if (typeof value === 'object' || Array.isArray(value)) continue;
+            const rec    = getAttrRecord(attrDefs, key);
+            const unit   = rec?.displayUnit ?? '';
+            const mult   = rec?.displayMultiplier ?? 1;
+            const rawVal = parseFloat(value);
+            const dispV  = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * mult);
+            wRows.push(attrRow(getLabel(key), dispV, unit, tooltipContent(rec)));
+        }
+    }
+
+    // ── Weapon stats ──────────────────────────────────────────────────────────
     for (const [key, value] of Object.entries(weapon)) {
-        if (exclude.has(key) || typeof value === 'object' || Array.isArray(value)) continue;
+        if (excludeWeapon.has(key)) continue;
+
+        // Arrays (e.g. multiple live effects) — show each entry
+        if (Array.isArray(value)) {
+            for (const v of value) {
+                if (typeof v === 'object') continue;
+                wRows.push(attrRow(getLabel(key), String(v), '', ''));
+            }
+            continue;
+        }
+
+        if (typeof value === 'object') continue;
+
         const rec    = getAttrRecord(attrDefs, key);
         const unit   = rec?.displayUnit ?? '';
         const mult   = rec?.displayMultiplier ?? 1;
@@ -413,6 +451,26 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle) {
         const dispV  = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * mult);
         wRows.push(attrRow(getLabel(key), dispV, unit, tooltipContent(rec)));
     }
+
+    // ── Effect lists (hit effect, fire effect etc.) ───────────────────────────
+    for (const effectKey of ['hit effect', 'fire effect', 'die effect', 'live effect']) {
+        const val = weapon[effectKey];
+        if (!val) continue;
+        const entries = Array.isArray(val) ? val : [val];
+        for (const e of entries) {
+            if (typeof e === 'object') {
+                // { name: "...", count: N }
+                const label = `${getLabel(effectKey)}: ${e.name ?? e}`;
+                const count = e.count ?? 1;
+                wRows.push(attrRow(label, count > 1 ? String(count) : '✓', '', ''));
+            } else if (typeof e === 'string') {
+                wRows.push(attrRow(`${getLabel(effectKey)}: ${e}`, '✓', '', ''));
+            } else if (typeof e === 'number') {
+                wRows.push(attrRow(getLabel(effectKey), String(e), '', ''));
+            }
+        }
+    }
+
     if (wRows.length) html += buildSection(sectionTitle, wRows);
 
     const wDerived = calcWeaponDerived(attrDefs, weapon);
@@ -458,42 +516,39 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     const totalDamage = {};
     const visited = new Set();
 
-    // Each entry in the queue: { weapon, title, multiplier, depth }
-    const queue = [{ weapon, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
+    // Each entry in the queue: { weapon, outfit, title, multiplier, depth }
+    // outfit = the parent outfit object (null for the root weapon)
+    const queue = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
     const sections = []; // collect in order for rendering
 
     while (queue.length > 0) {
-        const { weapon: w, title, multiplier, depth } = queue.shift();
+        const { weapon: w, outfit: o, title, multiplier, depth } = queue.shift();
 
         // Render this weapon level
-        sections.push({ weapon: w, title, multiplier });
+        sections.push({ weapon: w, outfit: o, title, multiplier });
 
         // Accumulate its damage into totals
         mergeInto(totalDamage, collectDamage(w, multiplier));
 
         // ── Follow submunition chain ──────────────────────────────────────────
-        // submunition can be: a string name, or an array of { name, count } objects
+        // After parser fix, submunition is always an array of { name, count }
         const sub = w.submunition;
         if (sub && depth < 8) {
             const entries = Array.isArray(sub)
                 ? sub
-                : typeof sub === 'string'
-                    ? [{ name: sub, count: 1 }]
-                    : typeof sub === 'object'
-                        ? [{ name: sub.name || sub, count: sub.count ?? 1 }]
-                        : [];
+                : [{ name: String(sub), count: 1 }];
 
             for (const entry of entries) {
-                const subName  = typeof entry === 'string' ? entry : entry.name;
-                const subCount = typeof entry === 'string' ? 1 : (entry.count ?? 1);
+                const subName  = entry?.name ?? String(entry);
+                const subCount = entry?.count ?? 1;
                 if (!subName || visited.has(subName)) continue;
                 visited.add(subName);
 
                 const subOutfit = lookupOutfit(subName, pluginId);
-                const subWeapon = subOutfit?.weapon;
-                if (subWeapon) {
+                if (subOutfit?.weapon) {
                     queue.push({
-                        weapon:     subWeapon,
+                        weapon:     subOutfit.weapon,
+                        outfit:     subOutfit,
                         title:      `Submunition: ${subName}${subCount > 1 ? ` ×${subCount}` : ''}`,
                         multiplier: multiplier * subCount,
                         depth:      depth + 1,
@@ -503,19 +558,17 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
         }
 
         // ── Follow ammo chain ─────────────────────────────────────────────────
-        // ammo is the outfit that gets consumed — it may itself have a weapon
+        // ammo is a string outfit name — the ammo outfit may itself have a weapon
         const ammoVal = w.ammo;
-        if (ammoVal && depth < 8) {
-            const ammoName = typeof ammoVal === 'string'
-                ? ammoVal
-                : ammoVal?.name ?? null;
-            if (ammoName && !visited.has(ammoName)) {
-                visited.add(ammoName);
-                const ammoOutfit = lookupOutfit(ammoName, pluginId);
+        if (ammoVal && typeof ammoVal === 'string' && depth < 8) {
+            if (!visited.has(ammoVal)) {
+                visited.add(ammoVal);
+                const ammoOutfit = lookupOutfit(ammoVal, pluginId);
                 if (ammoOutfit?.weapon) {
                     queue.push({
                         weapon:     ammoOutfit.weapon,
-                        title:      `Ammo: ${ammoName}`,
+                        outfit:     ammoOutfit,
+                        title:      `Ammo: ${ammoVal}`,
                         multiplier: multiplier,
                         depth:      depth + 1,
                     });
@@ -525,8 +578,8 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     }
 
     // ── Render all collected sections ─────────────────────────────────────────
-    for (const { weapon: w, title } of sections) {
-        html += renderWeaponStats(attrDefs, w, title);
+    for (const { weapon: w, outfit: o, title } of sections) {
+        html += renderWeaponStats(attrDefs, w, title, o);
     }
 
     // ── Total damage summary (only if there were sub-levels) ─────────────────
