@@ -1,24 +1,25 @@
 // Sorter.js
-// Dynamically builds sortable field lists from attributeDefinitions.json.
-// Attribute keys are used as IDs with spaces removed (e.g. "shield generation" → "shieldgeneration").
-// No hardcoded attribute lists — all come from attrDefs at runtime.
+// Builds sortable field lists from two sources:
+//   1. attributeDefinitions.json  — all defined game attributes
+//   2. Raw item scanning          — any numeric field found on actual loaded items
+//      (catches cost, mass, and any plugin-specific fields not in attrDefs)
+// No hardcoded attribute lists anywhere.
 
 // ---------------------------------------------------------------------------
 // State
 // ---------------------------------------------------------------------------
 
-let activeSorters          = [];   // [{ id, key, label, path, dir, computed? }]
+let activeSorters          = [];
 let sorterCurrentTab       = 'ships';
-let sorterPickerPending    = [];   // ids staged in popup before confirming
-let _sorterItems           = [];   // last filtered item set, for avg calculation
-let _sorterAttrDefs        = null; // reference to window.attrDefs / passed-in defs
+let sorterPickerPending    = [];
+let _sorterItems           = [];
+let _sorterAttrDefs        = null;
 
 // ---------------------------------------------------------------------------
-// Field building — called lazily so attrDefs is loaded by then
+// Helpers
 // ---------------------------------------------------------------------------
 
 function keyToId(key) {
-    // Remove all spaces and special chars that would break DOM IDs
     return key.replace(/\s+/g, '').replace(/[^a-zA-Z0-9_\-]/g, '_');
 }
 
@@ -26,81 +27,140 @@ function toTitleCase(str) {
     return str.replace(/\b\w/g, c => c.toUpperCase());
 }
 
-/**
- * Build the flat field list for a given tab from attrDefs.
- * Ships / variants: attributes.* fields + computed helpers.
- * Outfits: same pool, filtered to shownInOutfitPanel.
- * For ships we include everything that is numeric and not a weapon-only key.
- */
-function buildFieldsForTab(tab) {
-    const defs = _sorterAttrDefs?.attributes || {};
-    const fields = [];
+// ---------------------------------------------------------------------------
+// Field building
+// ---------------------------------------------------------------------------
 
-    // Decide which defs to include based on tab
+/**
+ * Scan a sample of items to find every numeric field not already covered by
+ * attrDefs. Returns an array of field descriptors.
+ *
+ * For ships:   checks item.* (top level) and item.attributes.*
+ * For outfits: checks item.* (top level) only
+ */
+function scanItemsForExtraFields(items, tab, knownIds) {
+    const extras = {};
     const isShipLike = tab === 'ships' || tab === 'variants';
 
-    for (const [key, def] of Object.entries(defs)) {
-        // Skip boolean and weapon-only stats — they aren't sortable numbers on an item
-        if (def.isBoolean)    continue;
-        if (def.isWeaponStat) continue;
+    // Sample up to 100 items so this stays fast
+    const sample = items.slice(0, 100);
 
-        if (tab === 'outfits') {
-            if (!def.shownInOutfitPanel) continue;
+    const SKIP_KEYS = new Set([
+        'name', 'description', 'sprite', 'thumbnail', 'projectile',
+        'afterburner effect', 'flare sprite', 'reverse flare sprite',
+        'steering flare sprite', '_internalId', '_pluginId', '_hash',
+        'final explode', 'outfitMap', 'governments', 'licenses',
+        'weapon', 'engines', 'reverseEngines', 'steeringEngines',
+        'guns', 'turrets', 'bays', 'spriteData',
+    ]);
+
+    for (const item of sample) {
+        // Scan top-level numeric fields (cost, mass, etc.)
+        for (const [key, val] of Object.entries(item)) {
+            if (SKIP_KEYS.has(key)) continue;
+            if (typeof val !== 'number') continue;
+            const id = keyToId(key);
+            if (knownIds.has(id)) continue;
+            if (!extras[id]) {
+                extras[id] = {
+                    id,
+                    key,
+                    label: toTitleCase(key),
+                    path: [key],
+                };
+            }
         }
-        // For ships/variants include everything numeric that appears on a ship
-        // (shownInShipPanel, usedInShipFunctions, or general attributes)
+
+        // For ships: also scan item.attributes.* for any numeric fields
+        // not already picked up from attrDefs (plugin-specific attrs)
+        if (isShipLike && item.attributes && typeof item.attributes === 'object') {
+            for (const [key, val] of Object.entries(item.attributes)) {
+                if (typeof val !== 'number') continue;
+                const id = keyToId(key);
+                if (knownIds.has(id)) continue;
+                if (!extras[id]) {
+                    extras[id] = {
+                        id,
+                        key,
+                        label: toTitleCase(key),
+                        path: ['attributes', key],
+                    };
+                }
+            }
+        }
+    }
+
+    return Object.values(extras);
+}
+
+/**
+ * Build the full field list for a tab.
+ * Called the first time a tab is accessed after items are available.
+ */
+function buildFieldsForTab(tab, items) {
+    const defs      = _sorterAttrDefs?.attributes || {};
+    const isShipLike = tab === 'ships' || tab === 'variants';
+    const fields    = [];
+    const seenIds   = new Set();
+
+    // ── 1. Pull numeric fields from attrDefs ──────────────────────────────
+    for (const [key, def] of Object.entries(defs)) {
+        if (def.isBoolean)    continue;  // booleans aren't sortable numbers
+        if (def.isWeaponStat) continue;  // weapon stats live on weapon sub-object
 
         const id    = keyToId(key);
         const label = toTitleCase(key);
 
         if (isShipLike) {
-            // Ship attributes live under item.attributes.*
-            fields.push({
-                id,
-                key,
-                label,
-                path: ['attributes', key],
-            });
+            fields.push({ id, key, label, path: ['attributes', key] });
         } else {
-            // Outfit attributes live flat on the item (not nested under attributes)
-            fields.push({
-                id,
-                key,
-                label,
-                path: [key],
-            });
+            // Outfits: most attrs are flat on the item
+            fields.push({ id, key, label, path: [key] });
         }
+        seenIds.add(id);
     }
 
-    // Add a top-level cost field for outfits (lives at item.cost, not item.attributes.cost)
-    if (tab === 'outfits') {
-        fields.unshift({ id: 'cost', key: 'cost', label: 'Cost', path: ['cost'] });
-        fields.unshift({ id: 'mass', key: 'mass', label: 'Mass', path: ['mass'] });
+    // ── 2. Scan actual items for any numeric fields not in attrDefs ───────
+    if (items && items.length > 0) {
+        const extras = scanItemsForExtraFields(items, tab, seenIds);
+        extras.forEach(f => {
+            fields.push(f);
+            seenIds.add(f.id);
+        });
     }
 
-    // Computed helpers for ships
+    // ── 3. Computed helpers for ship-like tabs ────────────────────────────
     if (isShipLike) {
-        fields.push({ id: '_gunCount',    key: '_gunCount',    label: 'Gun Ports',    computed: item => (item.guns    || []).length });
-        fields.push({ id: '_turretCount', key: '_turretCount', label: 'Turret Ports', computed: item => (item.turrets || []).length });
-        fields.push({ id: '_bayCount',    key: '_bayCount',    label: 'Bay Count',    computed: item => (item.bays    || []).length });
-        fields.push({ id: '_engineCount', key: '_engineCount', label: 'Engine Points',computed: item => (item.engines || []).length });
+        const computed = [
+            { id: '_gunCount',    key: '_gunCount',    label: 'Gun Ports',     computed: item => (item.guns    || []).length },
+            { id: '_turretCount', key: '_turretCount', label: 'Turret Ports',  computed: item => (item.turrets || []).length },
+            { id: '_bayCount',    key: '_bayCount',    label: 'Bay Count',     computed: item => (item.bays    || []).length },
+            { id: '_engineCount', key: '_engineCount', label: 'Engine Points', computed: item => (item.engines || []).length },
+        ];
+        computed.forEach(f => {
+            if (!seenIds.has(f.id)) {
+                fields.push(f);
+                seenIds.add(f.id);
+            }
+        });
     }
 
-    // Sort alphabetically for picker UX
+    // ── 4. Sort alphabetically for UX ─────────────────────────────────────
     fields.sort((a, b) => a.label.localeCompare(b.label));
     return fields;
 }
 
-// Cache so we don't rebuild every keypress
+// Cache keyed by tab. Invalidated when attrDefs or items change.
 const _fieldCache = {};
+
 function getFieldsForTab(tab) {
     if (!_fieldCache[tab]) {
-        _fieldCache[tab] = buildFieldsForTab(tab);
+        // Build with current _sorterItems as the sample
+        _fieldCache[tab] = buildFieldsForTab(tab, _sorterItems);
     }
     return _fieldCache[tab];
 }
 
-/** Clear cache when attrDefs is set (called from setSorterAttrDefs) */
 function clearFieldCache() {
     Object.keys(_fieldCache).forEach(k => delete _fieldCache[k]);
 }
@@ -120,7 +180,6 @@ function setSorterAttrDefs(defs) {
 
 function getFieldValue(item, field) {
     if (field.computed) return field.computed(item);
-    // Walk dot-path: ['attributes', 'shields'] → item.attributes.shields
     return field.path.reduce((obj, k) => (obj != null ? obj[k] : undefined), item);
 }
 
@@ -135,7 +194,7 @@ function formatAvgValue(val) {
 }
 
 // ---------------------------------------------------------------------------
-// Core sort — pass your filtered array through this before rendering
+// Core sort
 // ---------------------------------------------------------------------------
 
 function applySorters(items) {
@@ -151,10 +210,10 @@ function applySorters(items) {
             const av = getFieldValue(a, field);
             const bv = getFieldValue(b, field);
 
-            const aMissing = av == null || av === undefined || (typeof av === 'number' && isNaN(av));
-            const bMissing = bv == null || bv === undefined || (typeof bv === 'number' && isNaN(bv));
+            const aMissing = av == null || (typeof av === 'number' && isNaN(av));
+            const bMissing = bv == null || (typeof bv === 'number' && isNaN(bv));
 
-            // Items missing a field always go to the bottom regardless of direction
+            // Missing always sinks to the bottom regardless of direction
             if (aMissing && bMissing) continue;
             if (aMissing) return 1;
             if (bMissing) return -1;
@@ -167,12 +226,15 @@ function applySorters(items) {
 }
 
 // ---------------------------------------------------------------------------
-// Average calculation across currently visible items
+// Average calculation
 // ---------------------------------------------------------------------------
 
 function setSorterItems(items) {
     _sorterItems = items || [];
-    renderSorterBox(); // refresh averages whenever filtered set changes
+    // Rebuild field cache for the current tab now that we have real items,
+    // so any extra scanned fields appear immediately
+    delete _fieldCache[sorterCurrentTab];
+    renderSorterBox();
 }
 
 function computeAverage(sorter) {
@@ -219,7 +281,6 @@ function renderSorterBox() {
         const dirBtn = document.createElement('button');
         dirBtn.className = 'sorter-dir-btn';
         dirBtn.textContent = sorter.dir === 'asc' ? '↑ Asc' : '↓ Desc';
-        dirBtn.title = 'Toggle direction';
         dirBtn.onclick = () => {
             sorter.dir = sorter.dir === 'asc' ? 'desc' : 'asc';
             renderSorterBox();
@@ -229,7 +290,6 @@ function renderSorterBox() {
         const upBtn = document.createElement('button');
         upBtn.className = 'sorter-move-btn';
         upBtn.textContent = '▲';
-        upBtn.title = 'Move up (higher priority)';
         upBtn.disabled = idx === 0;
         upBtn.onclick = () => {
             [activeSorters[idx - 1], activeSorters[idx]] = [activeSorters[idx], activeSorters[idx - 1]];
@@ -240,7 +300,6 @@ function renderSorterBox() {
         const downBtn = document.createElement('button');
         downBtn.className = 'sorter-move-btn';
         downBtn.textContent = '▼';
-        downBtn.title = 'Move down (lower priority)';
         downBtn.disabled = idx === activeSorters.length - 1;
         downBtn.onclick = () => {
             [activeSorters[idx], activeSorters[idx + 1]] = [activeSorters[idx + 1], activeSorters[idx]];
@@ -251,7 +310,6 @@ function renderSorterBox() {
         const removeBtn = document.createElement('button');
         removeBtn.className = 'sorter-remove-btn';
         removeBtn.textContent = '✕';
-        removeBtn.title = 'Remove sorter';
         removeBtn.onclick = () => {
             activeSorters.splice(idx, 1);
             renderSorterBox();
@@ -277,7 +335,6 @@ function _triggerFilterItems() {
 // ---------------------------------------------------------------------------
 
 function openSorterPicker() {
-    // Pre-populate pending with whatever is already active
     sorterPickerPending = activeSorters.map(s => s.id);
 
     const overlay = document.getElementById('sorterPickerOverlay');
@@ -298,7 +355,6 @@ function closeSorterPicker() {
 function confirmSorterPicker() {
     const fields = getFieldsForTab(sorterCurrentTab);
 
-    // Add newly ticked fields (default dir: desc so biggest first)
     sorterPickerPending.forEach(id => {
         if (!activeSorters.find(s => s.id === id)) {
             const field = fields.find(f => f.id === id);
@@ -315,7 +371,6 @@ function confirmSorterPicker() {
         }
     });
 
-    // Remove unticked fields
     activeSorters = activeSorters.filter(s => sorterPickerPending.includes(s.id));
 
     closeSorterPicker();
@@ -324,7 +379,7 @@ function confirmSorterPicker() {
 }
 
 function renderPickerList(query) {
-    const list   = document.getElementById('sorterPickerList');
+    const list = document.getElementById('sorterPickerList');
     if (!list) return;
 
     const fields = getFieldsForTab(sorterCurrentTab);
@@ -333,13 +388,15 @@ function renderPickerList(query) {
     list.innerHTML = '';
 
     const filtered = lq
-        ? fields.filter(f => f.label.toLowerCase().includes(lq) || f.key.toLowerCase().includes(lq))
+        ? fields.filter(f =>
+            f.label.toLowerCase().includes(lq) ||
+            f.key.toLowerCase().includes(lq))
         : fields;
 
     if (filtered.length === 0) {
         const empty = document.createElement('p');
         empty.style.cssText = 'color:#94a3b8;font-style:italic;font-size:0.9rem;padding:8px;';
-        empty.textContent = 'No matching fields.';
+        empty.textContent   = 'No matching fields.';
         list.appendChild(empty);
         return;
     }
@@ -349,9 +406,9 @@ function renderPickerList(query) {
         row.className = 'sorter-picker-row';
 
         const checkbox = document.createElement('input');
-        checkbox.type    = 'checkbox';
-        checkbox.id      = `sp-${field.id}`;
-        checkbox.checked = sorterPickerPending.includes(field.id);
+        checkbox.type     = 'checkbox';
+        checkbox.id       = `sp-${field.id}`;
+        checkbox.checked  = sorterPickerPending.includes(field.id);
         checkbox.onchange = () => {
             if (checkbox.checked) {
                 if (!sorterPickerPending.includes(field.id)) {
@@ -362,14 +419,12 @@ function renderPickerList(query) {
             }
         };
 
-        const lbl = document.createElement('label');
-        lbl.htmlFor     = `sp-${field.id}`;
+        const lbl     = document.createElement('label');
+        lbl.htmlFor   = `sp-${field.id}`;
         lbl.textContent = field.label;
 
-        // Click anywhere on the row to toggle
-        row.onclick = (e) => {
-            if (e.target !== checkbox) checkbox.click();
-        };
+        // Click anywhere on the row toggles the checkbox
+        row.onclick = (e) => { if (e.target !== checkbox) checkbox.click(); };
 
         row.appendChild(checkbox);
         row.appendChild(lbl);
@@ -378,12 +433,12 @@ function renderPickerList(query) {
 }
 
 // ---------------------------------------------------------------------------
-// Tab change — call this from switchTab() in Plugin_Script.js
+// Tab change
 // ---------------------------------------------------------------------------
 
 function onSorterTabChange(tab) {
     sorterCurrentTab = tab;
-    activeSorters    = [];   // reset sorters when tab changes (fields are different)
+    activeSorters    = [];
     renderSorterBox();
 }
 
