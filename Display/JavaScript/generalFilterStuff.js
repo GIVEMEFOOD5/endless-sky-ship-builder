@@ -1,7 +1,7 @@
 let filtersExpanded = false;
 let lastFilterItems = [];
-let savedCategoryFilterState = {};
-let savedGovernmentFilterState = {};
+//let savedCategoryFilterState = {};
+//let savedGovernmentFilterState = {};
 
 // Function to clear all filters
 function clearFilters() {
