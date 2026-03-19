@@ -22,7 +22,7 @@ function filterItems() {
         return;
     }
     display.forEach(item => {
-        const card = createCard(item);
+        const card = await createCard(item);
         container.appendChild(card);
     });
 }
