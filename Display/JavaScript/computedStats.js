@@ -12,6 +12,7 @@ let _cache    = {};
 function initComputedStats(attrDefs, baseUrl) {
     _attrDefs = attrDefs;
     _cache    = {};
+    _knownDisplayFns = null; // reset lazy cache
     if (baseUrl) ensurePluginOrder(baseUrl);
 }
 
@@ -59,11 +60,10 @@ function getOutfitIndex(pluginId) {
     const cacheKey   = `_mergedOutfitIndex_${pluginId}`;
     const pluginData = allData[pluginId];
     if (pluginData?.[cacheKey]) return pluginData[cacheKey];
-
-    const merged      = {};
-    const order       = _pluginOrder || [];
+    const merged       = {};
+    const order        = _pluginOrder || [];
     const allPluginIds = Object.keys(allData);
-    const searchOrder = [
+    const searchOrder  = [
         pluginId,
         ...order.filter(id => id !== pluginId && allData[id]),
         ...allPluginIds.filter(id => id !== pluginId && !order.includes(id)),
@@ -79,8 +79,113 @@ function getOutfitIndex(pluginId) {
 }
 
 // ---------------------------------------------------------------------------
+// Ship function suppression — purely data-driven, zero hardcoded fn names
+//
+// Patterns derived from the JSON itself:
+//   1. returnType is non-numeric (bool, void, string, pointer, reference)
+//   2. No formulas extracted
+//   3. attributesRead is empty AND formula has no calls to known display fns
+//   4. formula contains 'min(1.' — returns 0-1 fraction (Fuel, Energy, Shields)
+//   5. formula contains '/ maximum' — returns 0-1 ratio
+//   6. formula is a bare single identifier (pure internal state read)
+//   7. formula is always zero
+//   8. DragForce pattern: ternary ending in '/ mass' returns drag coefficient
+//   9. Pure economic formula: uses sqrt( with single cargo-space attr
+// ---------------------------------------------------------------------------
+
+let _knownDisplayFns = null;
+
+function getKnownDisplayFns() {
+    if (_knownDisplayFns) return _knownDisplayFns;
+    _knownDisplayFns = new Set();
+    const fns = _attrDefs?.shipFunctions || {};
+    for (const [name, fn] of Object.entries(fns)) {
+        if (
+            fn.attributesRead?.length &&
+            fn.formulas?.length &&
+            (fn.displayScale ?? 1) > 1 &&
+            !/^(bool|void|string|const string|shared_ptr|vector|map|set|pair|.*[*&])/.test(fn.returnType || '')
+        ) {
+            _knownDisplayFns.add(name);
+        }
+    }
+    return _knownDisplayFns;
+}
+
+function shouldSuppressFn(fnName, fnData) {
+    const ret     = (fnData.returnType || '').trim();
+    const attrs   = fnData.attributesRead || [];
+    const formula = fnData.formulas?.[fnData.formulas.length - 1]?.formula ?? '';
+
+    // 1. Non-numeric return type
+    if (/^(bool|void|string|const string|shared_ptr|vector|map|set|pair|.*[*&])/.test(ret)) return true;
+
+    // 2. No formulas
+    if (!fnData.formulas?.length) return true;
+
+    // 3. No attributesRead and no calls to known display functions
+    if (!attrs.length) {
+        const displayFns = getKnownDisplayFns();
+        const callsDisplayFn = [...displayFns].some(fn => formula.includes(`${fn}()`));
+        if (!callsDisplayFn) return true;
+    }
+
+    // 4. Returns 0-1 fraction via min(1.
+    if (formula.includes('min(1.')) return true;
+
+    // 5. Divides by 'maximum'
+    if (formula.includes('/ maximum')) return true;
+
+    // 6. Bare single identifier (pure state read: 'crew', 'disruption', etc.)
+    if (formula && !formula.includes('[') && !formula.includes('(') && /^\w+$/.test(formula.trim())) return true;
+
+    // 7. Always zero
+    if (/^0[.\s]*$/.test(formula.trim())) return true;
+
+    // 8. DragForce pattern: ternary that compares to mass and divides by mass
+    // Returns a 0-1 drag coefficient, not a displayable force value
+    if (formula.includes('>= mass') && formula.includes('/ mass')) return true;
+
+    // 9. Economic formula: sqrt of a single cargo attr (not a ship physics stat)
+    if (formula.includes('sqrt(') && attrs.length === 1 && attrs[0].includes('cargo')) return true;
+
+    return false;
+}
+
+// ---------------------------------------------------------------------------
+// IntermediateVar suppression — purely data-driven
+//
+// Patterns:
+//   1. name ends with 'PerFrame' — per-frame duplicate of shown /s value
+//   2. No division, no fn call, no max/min, ≤1 attr read — single attr passthrough
+//   3. No division, no fn call, 2 attr reads with '?' — ternary attr selection
+//   4. Formula starts with a numeric literal × — pre-scaled duplicate of ship fn
+// ---------------------------------------------------------------------------
+
+function shouldSuppressIntermediateVar(varName, formula) {
+    // 1. Per-frame duplicates
+    if (/PerFrame$/i.test(varName)) return true;
+
+    const bracketCount = (formula.match(/\[/g) || []).length;
+    const hasDivision  = formula.includes('/');
+    const hasFnCall    = /[A-Z][a-zA-Z]+\s*\(/.test(formula);
+    const hasMaxMin    = /\bmax\s*\(|\bmin\s*\(/.test(formula);
+
+    // 2. Single attribute passthrough (emptyMass, fuelCapacity, reduction, etc.)
+    if (!hasDivision && !hasFnCall && !hasMaxMin && bracketCount <= 1) return true;
+
+    // 3. Simple ternary attr selection (forwardThrust = [thrust] ? [thrust] : [afterburner])
+    if (!hasDivision && !hasFnCall && bracketCount === 2 && formula.includes('?')) return true;
+
+    // 4. Pre-scaled intermediateVar duplicating a ship function
+    // e.g. baseTurn = 60. * [turn] * ..., baseAccel = 3600. * forwardThrust * ...
+    if (/^\d+\.\s*\*/.test(formula.trim())) return true;
+
+    return false;
+}
+
+// ---------------------------------------------------------------------------
 // Formula evaluator
-// FIX: broadened fuel/energy regex — was missing standalone occurrences
 // ---------------------------------------------------------------------------
 
 function evalFormula(formulaStr, attrs, resolvedFns) {
@@ -88,23 +193,19 @@ function evalFormula(formulaStr, attrs, resolvedFns) {
     try {
         let js = formulaStr;
 
-        // Step 1: substitute [attr name] → numeric value
         js = js.replace(/\[([^\]]+)\]/g, (_, k) => {
             const v = parseFloat((attrs || {})[k] ?? 0);
             return isNaN(v) ? '0' : String(v);
         });
 
-        // Step 2: substitute resolved function results
         for (const [fn, val] of Object.entries(resolvedFns || {})) {
             const escaped = fn.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             js = js.replace(new RegExp('\\b' + escaped + '\\s*\\(\\s*\\)', 'g'), '(' + val + ')');
         }
 
-        // Step 3: C++ template syntax
         js = js.replace(/\b(max|min)<[^>]+>\s*\(/g, '__MATH_$1__(');
         js = js.replace(/static_cast<[^>]+>\s*\(([^)]+)\)/g, '($1)');
 
-        // Step 4: C++ local variables and constants
         const massVal = String(parseFloat((attrs || {})['mass'] ?? 0));
         const eCap    = String(parseFloat((attrs || {})['energy capacity'] ?? 0));
         const fCap    = String(parseFloat((attrs || {})['fuel capacity'] ?? 0));
@@ -112,33 +213,27 @@ function evalFormula(formulaStr, attrs, resolvedFns) {
                           ? String(resolvedFns['CoolingEfficiency']) : '1';
 
         js = js
-            .replace(/\bMAXIMUM_TEMPERATURE\b/g,              '100')
-            .replace(/numeric_limits<[^>]+>::max\(\)/g,        '1e308')
-            .replace(/cargo\.Used\(\)/g,                       '0')
-            .replace(/attributes\.Mass\(\)/g,                  massVal)
-            .replace(/\bcarriedMass\b/g,                       '0')
-            // bare 'mass' local var in Drag/InertialMass formulas
-            .replace(/(?<!\[)\bmass\b(?!\])/g,                 massVal)
-            .replace(/\bwithAfterburner\b/g,                   '0')
-            .replace(/\bslowness\b/g,                          '0')
-            .replace(/\bdisruption\b/g,                        '0')
-            .replace(/\bionization\b/g,                        '0')
-            .replace(/\bscrambling\b/g,                        '0')
-            .replace(/\bhullDelay\b/g,                         '0')
-            .replace(/\bshieldDelay\b/g,                       '0')
+            .replace(/\bMAXIMUM_TEMPERATURE\b/g,  '100')
+            .replace(/numeric_limits<[^>]+>::max\(\)/g, '1e308')
+            .replace(/cargo\.Used\(\)/g,           '0')
+            .replace(/attributes\.Mass\(\)/g,      massVal)
+            .replace(/\bcarriedMass\b/g,           '0')
+            .replace(/(?<!\[)\bmass\b(?!\])/g,     massVal)
+            .replace(/\bwithAfterburner\b/g,       '0')
+            .replace(/\bslowness\b/g,              '0')
+            .replace(/\bdisruption\b/g,            '0')
+            .replace(/\bionization\b/g,            '0')
+            .replace(/\bscrambling\b/g,            '0')
+            .replace(/\bhullDelay\b/g,             '0')
+            .replace(/\bshieldDelay\b/g,           '0')
             .replace(/\bminimumHull\b/g, String(
                 parseFloat((attrs || {})['threshold percentage'] ?? 0) *
                 parseFloat((attrs || {})['hull'] ?? 0)
             ))
-            .replace(/\bcoolingEfficiency\b/g,                 coolEff)
-            // FIX: broadened from lookahead — [fuel capacity] and [energy capacity]
-            // are already substituted in Step 1, so bare 'fuel'/'energy' here
-            // are C++ local variables (current fuel/energy level), not attributes.
-            // Use full capacity as the base-stat approximation.
-            .replace(/\bfuel\b/g,                              fCap)
-            .replace(/\benergy\b/g,                            eCap);
+            .replace(/\bcoolingEfficiency\b/g,     coolEff)
+            .replace(/\bfuel\b/g,                  fCap)
+            .replace(/\benergy\b/g,                eCap);
 
-        // Step 5: JS math replacements
         js = js
             .replace(/\bMax\s*\(/g,   'Math.max(')
             .replace(/\bmin\s*\(/g,   'Math.min(')
@@ -149,10 +244,8 @@ function evalFormula(formulaStr, attrs, resolvedFns) {
             .replace(/\babs\s*\(/g,   'Math.abs(')
             .replace(/\bpow\s*\(/g,   'Math.pow(');
 
-        // Step 6: strip remaining unresolved C++ identifiers
         js = js.replace(/\b(?!Math\b)[A-Za-z_][A-Za-z0-9_:]*(?:->|\.)[A-Za-z_][A-Za-z0-9_]*\s*\([^)]*\)/g, '0');
         js = js.replace(/\b(?!Math\b)[A-Z][a-zA-Z]+\s*\(\s*\)/g, '0');
-        // FIX: strip unresolved lowercase identifiers that survived (e.g. 'dissipation')
         js = js.replace(/\b(?!Math\b|return\b|true\b|false\b)[a-z][a-zA-Z]+\b(?!\s*[\[(])/g, '0');
 
         js = js.replace(/__MATH_(max|min)__\(/g, 'Math.$1(');
@@ -166,17 +259,15 @@ function evalFormula(formulaStr, attrs, resolvedFns) {
 }
 
 // ---------------------------------------------------------------------------
-// accumulateOutfits — FIX 4: removed premature multiply step
+// accumulateOutfits
 // ---------------------------------------------------------------------------
 
 function accumulateOutfits(baseAttrs, outfitMap, outfitIdx) {
     const attrDefs = _attrDefs?.attributes || {};
     const result   = {};
-
     for (const [key, val] of Object.entries(baseAttrs)) {
         if (typeof val === 'number') result[key] = val;
     }
-
     for (const [outfitName, qty] of Object.entries(outfitMap || {})) {
         const outfit = outfitIdx[outfitName];
         if (!outfit) continue;
@@ -185,23 +276,16 @@ function accumulateOutfits(baseAttrs, outfitMap, outfitIdx) {
             outfit.attributes !== null &&
             Object.keys(outfit.attributes).length > 0
         ) ? outfit.attributes : outfit;
-
         for (const [key, rawVal] of Object.entries(outfitAttrs)) {
             if (typeof rawVal !== 'number') continue;
             if (key.startsWith('_')) continue;
-            const def      = attrDefs[key];
-            const stacking = def?.stacking || 'additive';
+            const stacking = attrDefs[key]?.stacking || 'additive';
             const contrib  = rawVal * qty;
             switch (stacking) {
-                case 'maximum':
-                    result[key] = Math.max(result[key] ?? -Infinity, contrib); break;
-                case 'minimum':
-                    result[key] = Math.min(result[key] ??  Infinity, contrib); break;
-                case 'additive-then-multiply':
-                    // FIX 4: sum additively — ship function formulas apply the multiply
-                    /* falls through */
-                default:
-                    result[key] = (result[key] || 0) + contrib; break;
+                case 'maximum': result[key] = Math.max(result[key] ?? -Infinity, contrib); break;
+                case 'minimum': result[key] = Math.min(result[key] ??  Infinity, contrib); break;
+                case 'additive-then-multiply': /* falls through */
+                default: result[key] = (result[key] || 0) + contrib; break;
             }
         }
         if (typeof outfit.cost === 'number')
@@ -209,14 +293,12 @@ function accumulateOutfits(baseAttrs, outfitMap, outfitIdx) {
         if (typeof outfit.mass === 'number')
             result['_outfitMass'] = (result['_outfitMass'] || 0) + outfit.mass * qty;
     }
-
     result['_totalOutfits'] = Object.values(outfitMap || {}).reduce((s, q) => s + q, 0);
     return result;
 }
 
 // ---------------------------------------------------------------------------
-// resolveShipFunctions — FIX 3: Mass first, then CloakingSpeed
-// Also FIX: CoolingEfficiency sanity clamp (truncated formula guard)
+// resolveShipFunctions
 // ---------------------------------------------------------------------------
 
 function resolveShipFunctions(attrs) {
@@ -248,14 +330,13 @@ function resolveShipFunctions(attrs) {
         return evalFormula(formula, attrs, substitutions);
     }
 
-    // FIX 3: Mass must resolve before CloakingSpeed
     const PRIORITY = [
         'Mass', 'Drag', 'DragForce', 'InertialMass',
         'CoolingEfficiency', 'HeatDissipation', 'MaximumHeat',
         'MaxShields', 'MaxHull', 'MinimumHull',
         'TurnRate', 'Acceleration', 'MaxVelocity',
         'ReverseAcceleration', 'MaxReverseVelocity',
-        'CloakingSpeed', 'RequiredCrew',
+        'CloakingSpeed', 'RequiredCrew', 'IdleHeat',
     ];
 
     for (const fnName of PRIORITY) {
@@ -264,11 +345,7 @@ function resolveShipFunctions(attrs) {
         const formula = fn.formulas[fn.formulas.length - 1].formula;
         let val = resolveFormula(formula);
 
-        // FIX: CoolingEfficiency S-curve returns 0–2.
-        // If the formula was truncated by the regex and returned garbage,
-        // clamp to a safe default of 1 (neutral — no bonus or penalty).
         if (fnName === 'CoolingEfficiency' && (isNaN(val) || val < 0 || val > 2)) {
-            // Try evaluating the known-correct S-curve directly
             const x = parseFloat(attrs['cooling inefficiency'] ?? 0);
             val = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
         }
@@ -299,13 +376,11 @@ function resolveShipFunctions(attrs) {
             }
         }
     }
-
     return cache;
 }
 
 // ---------------------------------------------------------------------------
-// resolveDerivedValues — FIX 5: varCache seeded from fnCache
-// Also FIX: filter passthrough intermediateVars from display
+// resolveDerivedValues — suppression applied here
 // ---------------------------------------------------------------------------
 
 function resolveDerivedValues(attrs, fnCache) {
@@ -313,8 +388,6 @@ function resolveDerivedValues(attrs, fnCache) {
     const display  = _attrDefs?.shipDisplay || {};
     const intVars  = display.intermediateVars || {};
     const table    = display.energyHeatTable  || [];
-
-    // FIX 5: seed with fnCache so PascalCase() calls resolve in var formulas
     const varCache = { ...fnCache };
 
     const maxPasses    = Object.keys(intVars).length + 1;
@@ -325,20 +398,7 @@ function resolveDerivedValues(attrs, fnCache) {
         changed = false; pass++;
         for (const [varName, formula] of Object.entries(intVars)) {
             if (resolvedVars.has(varName)) continue;
-
-            // FIX: skip raw pass-through intermediateVars that are just
-            // unscaled attribute values with no division or function call.
-            // These are pre-calculation inputs (e.g. emptyMass = [mass],
-            // reduction = 1 + [inertia reduction]) that have no standalone
-            // display value and would duplicate or confuse the shown stats.
-            const isPassthrough = (
-                !formula.includes('/') &&
-                !/[A-Z][a-zA-Z]+\s*\(/.test(formula) &&
-                (formula.match(/\[/g) || []).length <= 1 &&
-                !formula.includes('max(') && !formula.includes('min(')
-            );
-            if (isPassthrough) continue;
-
+            if (shouldSuppressIntermediateVar(varName, formula)) continue;
             const val = evalFormula(formula, attrs, varCache);
             if (!isNaN(val) && isFinite(val)) {
                 const prev = varCache[varName];
@@ -350,7 +410,6 @@ function resolveDerivedValues(attrs, fnCache) {
         }
     }
 
-    // Energy/heat table rows — pass full varCache so activeCooling feeds in
     for (const row of table) {
         if (!row.label) continue;
         const eVal = evalFormula(row.energyFormula, attrs, varCache);
@@ -363,7 +422,7 @@ function resolveDerivedValues(attrs, fnCache) {
     const fns = _attrDefs?.shipFunctions || {};
     for (const [fnName, fnData] of Object.entries(fns)) {
         if (fnCache[fnName] === undefined) continue;
-        if (!fnData.attributesRead?.length) continue;
+        if (shouldSuppressFn(fnName, fnData)) continue;
         derived[`_fn_${fnName}`] = fnCache[fnName];
     }
 
@@ -377,19 +436,15 @@ function resolveDerivedValues(attrs, fnCache) {
 function getComputedStats(ship, pluginId) {
     const id = ship._internalId || ship.name;
     if (_cache[id]) return _cache[id];
-
     const baseAttrs = ship.attributes || {};
     const outfitIdx = getOutfitIndex(pluginId);
     const result    = accumulateOutfits(baseAttrs, ship.outfitMap || {}, outfitIdx);
-
     for (const [key, val] of Object.entries(ship)) {
         if (typeof val === 'number' && !key.startsWith('_') && !(key in result)) result[key] = val;
     }
-
     const fnCache = resolveShipFunctions(result);
     const derived = resolveDerivedValues(result, fnCache);
     Object.assign(result, derived);
-
     _cache[id] = result;
     return result;
 }
@@ -399,15 +454,18 @@ function getComputedStat(ship, pluginId, statKey) {
 }
 
 // ---------------------------------------------------------------------------
-// Sorter field descriptors
+// Sorter field descriptors — suppression applied here too
 // ---------------------------------------------------------------------------
 
 function getComputedSorterFields() {
     if (!_attrDefs) return [];
     const fields  = [];
     const display = _attrDefs.shipDisplay || {};
+    const intVars = display.intermediateVars || {};
+    const fns     = _attrDefs.shipFunctions || {};
 
-    for (const varName of Object.keys(display.intermediateVars || {})) {
+    for (const [varName, formula] of Object.entries(intVars)) {
+        if (shouldSuppressIntermediateVar(varName, formula)) continue;
         const id    = `_derived_${varName}`;
         const label = varName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim() + ' (computed)';
         fields.push({ id, key: id, label, path: null, isComputed: true });
@@ -419,9 +477,8 @@ function getComputedSorterFields() {
         fields.push({ id: `_derived_energy_${safeLabel}`, key: `_derived_energy_${safeLabel}`, label: `${baseLabel} Energy/s (computed)`, path: null, isComputed: true });
         fields.push({ id: `_derived_heat_${safeLabel}`,   key: `_derived_heat_${safeLabel}`,   label: `${baseLabel} Heat/s (computed)`,   path: null, isComputed: true });
     }
-    const fns = _attrDefs.shipFunctions || {};
     for (const [fnName, fnData] of Object.entries(fns)) {
-        if (!fnData.attributesRead?.length) continue;
+        if (shouldSuppressFn(fnName, fnData)) continue;
         const id    = `_fn_${fnName}`;
         const label = fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim() + ' (computed)';
         fields.push({ id, key: id, label, path: null, isComputed: true });
@@ -439,11 +496,9 @@ function debugComputedStats(pluginId, shipName) {
     const ship = (plugin.ships || []).find(s => s.name === shipName) || (plugin.variants || []).find(s => s.name === shipName);
     if (!ship) { console.error('Ship not found:', shipName); return; }
     if (!_attrDefs) { console.error('attrDefs not loaded'); return; }
-    const idx = getOutfitIndex(pluginId);
-    console.log('outfit index size:', Object.keys(idx).length);
     const stats = getComputedStats(ship, pluginId);
-    console.log('computed stats keys:', Object.keys(stats).length);
-    console.log('derived keys:', Object.keys(stats).filter(k => k.startsWith('_derived_') || k.startsWith('_fn_')).slice(0, 20));
+    console.log('_fn_ keys shown:', Object.keys(stats).filter(k => k.startsWith('_fn_')));
+    console.log('_derived_ keys shown:', Object.keys(stats).filter(k => k.startsWith('_derived_')));
     return stats;
 }
 
@@ -452,30 +507,25 @@ function debugFnResolution(pluginId, shipName) {
     const ship   = (plugin?.ships || []).find(s => s.name === shipName);
     if (!ship || !_attrDefs) { console.error('Ship or attrDefs not found'); return; }
     const attrs = accumulateOutfits(ship.attributes || {}, ship.outfitMap || {}, getOutfitIndex(pluginId));
-    console.log('--- Key attrs ---');
-    ['mass','drag','drag reduction','inertia reduction','thrust','turn','shields','hull',
-     'shield multiplier','hull multiplier','cooling inefficiency','heat dissipation',
-     'energy capacity','fuel capacity'].forEach(k => console.log(`  ${k}:`, attrs[k]));
     const fns   = _attrDefs.shipFunctions || {};
-    const PRIORITY = ['Mass','Drag','DragForce','InertialMass','CoolingEfficiency',
-        'HeatDissipation','MaximumHeat','MaxShields','MaxHull','MinimumHull',
-        'TurnRate','Acceleration','MaxVelocity','CloakingSpeed'];
+    const PRIORITY = ['Mass','Drag','InertialMass','CoolingEfficiency','HeatDissipation',
+        'MaximumHeat','MaxShields','MaxHull','TurnRate','Acceleration','MaxVelocity','CloakingSpeed'];
     const testCache = {};
-    console.log('--- Function resolutions ---');
     for (const fnName of PRIORITY) {
         const fn = fns[fnName];
         if (!fn?.formulas?.length) { console.log(`  ${fnName}: no formulas`); continue; }
-        const formula = fn.formulas[fn.formulas.length - 1].formula;
-        const val = evalFormula(formula, attrs, testCache);
-        console.log(`  ${fnName} → ${val}  (scale=${fn.displayScale}) → display=${val*(fn.displayScale??1)}`);
+        const val   = evalFormula(fn.formulas[fn.formulas.length - 1].formula, attrs, testCache);
+        const scale = fn.displayScale ?? 1;
+        const sup   = shouldSuppressFn(fnName, fn);
+        console.log(`  ${fnName}: raw=${val}  display=${val*scale}  suppressed=${sup}`);
         if (!isNaN(val)) testCache[fnName] = val;
     }
 }
 
-window.debugComputedStats       = debugComputedStats;
-window.debugFnResolution        = debugFnResolution;
-window.initComputedStats        = initComputedStats;
-window.clearComputedCache       = clearComputedCache;
-window.getComputedStats         = getComputedStats;
-window.getComputedStat          = getComputedStat;
-window.getComputedSorterFields  = getComputedSorterFields;
+window.debugComputedStats      = debugComputedStats;
+window.debugFnResolution       = debugFnResolution;
+window.initComputedStats       = initComputedStats;
+window.clearComputedCache      = clearComputedCache;
+window.getComputedStats        = getComputedStats;
+window.getComputedStat         = getComputedStat;
+window.getComputedSorterFields = getComputedSorterFields;
