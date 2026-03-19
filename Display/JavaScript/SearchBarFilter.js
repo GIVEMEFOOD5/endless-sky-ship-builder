@@ -1,4 +1,4 @@
-function filterItems() {
+async function filterItems() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const selectedCategories = getSelectedCategories();
     const container = document.getElementById('cardsContainer');
