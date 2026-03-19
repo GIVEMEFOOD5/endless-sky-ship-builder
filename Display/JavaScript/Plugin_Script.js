@@ -224,8 +224,10 @@ async function createCard(item) {
     card.className = 'card';
     card.onclick = () => showDetails(item);
 
-    var thumbnailImage = await window.fetchSprite(item.thumbnail, null);
-    var spriteImage = await window.fetchSprite(item.sprite, null);
+    const spriteData = {};
+    
+    const thumbnailImage = await window.fetchSprite(item.thumbnail, spriteData);
+    const spriteImage = await window.fetchSprite(item.sprite, spriteData);
     
     // Image
     const img = document.createElement('img');
