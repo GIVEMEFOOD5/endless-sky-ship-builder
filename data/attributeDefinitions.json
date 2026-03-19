@@ -16,7 +16,7 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "aiCacheCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipAICache.cpp"
     },
-    "generatedAt": "2026-03-18T21:44:07.235Z",
+    "generatedAt": "2026-03-19T08:36:15.039Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "Function calls like Drag(), InertialMass() remain as-is when not reducible to attribute expressions.",
@@ -26,7 +26,10 @@
       "Zero hardcoding: all data extracted from C++ source via regex/AST analysis.",
       "displayMultiplier converts per-frame game values to per-second for display (1 frame = 1/60 s).",
       "stacking: additive = direct sum; additive-then-multiply = base*(1+sum); minimum/maximum = extreme.",
-      "attributeVariables: intermediate local vars that directly read attributes (shows formula inputs)."
+      "attributeVariables: intermediate local vars that directly read attributes (shows formula inputs).",
+      "FIX 1&2: shipFunctions entries now carry displayScale, displayUnit, labelPrefix for correct unit display.",
+      "FIX 3: attributes.Mass() sentinelized as [mass] so Mass() resolves correctly in CloakingSpeed.",
+      "FIX 5: extractVarMap captures PascalCase()-leading RHS with sentinels (e.g. activeCooling)."
     ]
   },
   "attributes": {
@@ -36,11 +39,11 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "IdleHeat",
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "afterburner shields": {
       "key": "afterburner shields",
@@ -68,10 +71,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoMovement"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "afterburner fuel": {
       "key": "afterburner fuel",
@@ -89,10 +92,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoMovement"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "burn resistance energy": {
       "key": "burn resistance energy",
@@ -191,11 +194,11 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "IdleHeat",
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "cooling energy": {
       "key": "cooling energy",
@@ -203,10 +206,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "corrosion resistance energy": {
       "key": "corrosion resistance energy",
@@ -304,11 +307,11 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "energy generation": {
       "key": "energy generation",
@@ -316,13 +319,13 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "Recharge",
         "NeedsEnergy",
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "fuel consumption": {
       "key": "fuel consumption",
@@ -341,12 +344,12 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "NeedsEnergy",
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "fuel generation": {
       "key": "fuel generation",
@@ -366,10 +369,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "heat generation": {
       "key": "heat generation",
@@ -377,11 +380,11 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "IdleHeat",
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "heat dissipation": {
       "key": "heat dissipation",
@@ -399,11 +402,11 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "Recharge",
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "hull energy": {
       "key": "hull energy",
@@ -411,10 +414,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "hull fuel": {
       "key": "hull fuel",
@@ -432,10 +435,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "delayed hull repair rate": {
       "key": "delayed hull repair rate",
@@ -443,10 +446,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "delayed hull energy": {
       "key": "delayed hull energy",
@@ -454,10 +457,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "delayed hull fuel": {
       "key": "delayed hull fuel",
@@ -475,10 +478,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "ion resistance energy": {
       "key": "ion resistance energy",
@@ -610,10 +613,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "IsIonized"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "reverse thrusting fuel": {
       "key": "reverse thrusting fuel",
@@ -638,11 +641,11 @@
       "shownInOutfitPanel": true,
       "stacking": "additive",
       "stackingDescription": "Values sum directly across all installed outfits.",
-      "usedInShipFunctions": [
-        "IsReadyToJump"
-      ],
       "usedInNavFunctions": [
         "Calibrate"
+      ],
+      "usedInShipFunctions": [
+        "IsReadyToJump"
       ]
     },
     "shield generation": {
@@ -651,11 +654,11 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "Recharge",
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "shield energy": {
       "key": "shield energy",
@@ -663,10 +666,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "shield fuel": {
       "key": "shield fuel",
@@ -684,10 +687,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "delayed shield generation": {
       "key": "delayed shield generation",
@@ -695,10 +698,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "delayed shield energy": {
       "key": "delayed shield energy",
@@ -706,10 +709,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "delayed shield fuel": {
       "key": "delayed shield fuel",
@@ -727,10 +730,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "slowing resistance energy": {
       "key": "slowing resistance energy",
@@ -768,12 +771,12 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "NeedsEnergy",
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "solar heat": {
       "key": "solar heat",
@@ -781,10 +784,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "thrusting shields": {
       "key": "thrusting shields",
@@ -806,11 +809,11 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "IsIonized"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "thrusting fuel": {
       "key": "thrusting fuel",
@@ -825,10 +828,10 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "turn": {
       "key": "turn",
@@ -836,12 +839,12 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
+      "isWeaponDataKey": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "TurnRate"
-      ],
-      "shownInShipPanel": true,
-      "isWeaponDataKey": true
+      ]
     },
     "turning shields": {
       "key": "turning shields",
@@ -869,12 +872,12 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "IsIonized",
         "DoMovement"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "turning fuel": {
       "key": "turning fuel",
@@ -892,11 +895,11 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "DoMovement"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "thrust": {
       "key": "thrust",
@@ -904,12 +907,12 @@
       "displayUnit": "/s²",
       "scaleIndex": 1,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "Acceleration",
         "MaxVelocity"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "reverse thrust": {
       "key": "reverse thrust",
@@ -930,13 +933,13 @@
       "displayUnit": "/s²",
       "scaleIndex": 1,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "Acceleration",
         "MaxVelocity",
         "DoMovement"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "afterburner discharge": {
       "key": "afterburner discharge",
@@ -1326,10 +1329,10 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "hull energy multiplier": {
       "key": "hull energy multiplier",
@@ -1337,10 +1340,10 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "hull fuel multiplier": {
       "key": "hull fuel multiplier",
@@ -1358,10 +1361,10 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "piercing resistance": {
       "key": "piercing resistance",
@@ -1376,10 +1379,10 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "shield energy multiplier": {
       "key": "shield energy multiplier",
@@ -1387,10 +1390,10 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "shield fuel multiplier": {
       "key": "shield fuel multiplier",
@@ -1408,10 +1411,10 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "threshold percentage": {
       "key": "threshold percentage",
@@ -1480,12 +1483,12 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "Acceleration",
         "ReverseAcceleration",
         "DoMovement"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "turn multiplier": {
       "key": "turn multiplier",
@@ -1493,10 +1496,10 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "TurnRate"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "turret turn multiplier": {
       "key": "turret turn multiplier",
@@ -1585,10 +1588,10 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "InertialMass"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "ion protection": {
       "key": "ion protection",
@@ -2131,11 +2134,11 @@
       "key": "outfit space",
       "isExpectedNegative": true,
       "isPrerequisite": true,
+      "shipPanelLabel": "outfit space free",
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "Scan"
-      ],
-      "shipPanelLabel": "outfit space free",
-      "shownInShipPanel": true
+      ]
     },
     "weapon capacity": {
       "key": "weapon capacity",
@@ -2195,36 +2198,28 @@
       "stacking": "additive",
       "stackingDescription": "Values sum directly across all installed outfits."
     },
+    "bunks": {
+      "key": "bunks",
+      "shownInShipPanel": true,
+      "usedInShipFunctions": [
+        "FlightCheck",
+        "Recharge",
+        "AddCrew"
+      ]
+    },
     "cargo space": {
       "key": "cargo space",
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FinishLoading",
         "Scan",
         "AddOutfit",
         "CalculateAttraction"
-      ],
-      "shownInShipPanel": true
-    },
-    "drag": {
-      "key": "drag",
-      "usedInShipFunctions": [
-        "FinishLoading",
-        "Drag",
-        "DragForce"
-      ],
-      "isWeaponDataKey": true
-    },
-    "bunks": {
-      "key": "bunks",
-      "usedInShipFunctions": [
-        "FlightCheck",
-        "Recharge",
-        "AddCrew"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "energy capacity": {
       "key": "energy capacity",
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "Board",
@@ -2237,11 +2232,11 @@
         "ExpendAmmo",
         "DoGeneration",
         "CalculateDeterrence"
-      ],
-      "shownInShipPanel": true
+      ]
     },
     "fuel capacity": {
       "key": "fuel capacity",
+      "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
         "Launch",
@@ -2255,200 +2250,6 @@
         "DoGeneration",
         "DoLandingLogic",
         "CalculateDeterrence"
-      ],
-      "shownInShipPanel": true
-    },
-    "cargo scan efficiency": {
-      "key": "cargo scan efficiency",
-      "usedInShipFunctions": [
-        "Scan"
-      ]
-    },
-    "cargo scan opacity": {
-      "key": "cargo scan opacity",
-      "usedInShipFunctions": [
-        "Scan"
-      ]
-    },
-    "cargo scan power": {
-      "key": "cargo scan power",
-      "usedInShipFunctions": [
-        "Scan"
-      ]
-    },
-    "outfit scan efficiency": {
-      "key": "outfit scan efficiency",
-      "usedInShipFunctions": [
-        "Scan"
-      ]
-    },
-    "outfit scan opacity": {
-      "key": "outfit scan opacity",
-      "usedInShipFunctions": [
-        "Scan"
-      ]
-    },
-    "outfit scan power": {
-      "key": "outfit scan power",
-      "usedInShipFunctions": [
-        "Scan"
-      ]
-    },
-    "silent scans": {
-      "key": "silent scans",
-      "usedInShipFunctions": [
-        "Scan"
-      ]
-    },
-    "shields": {
-      "key": "shields",
-      "usedInShipFunctions": [
-        "MaxShields"
-      ]
-    },
-    "hull": {
-      "key": "hull",
-      "usedInShipFunctions": [
-        "MaxHull",
-        "DoCloakDecision"
-      ]
-    },
-    "heat capacity": {
-      "key": "heat capacity",
-      "usedInShipFunctions": [
-        "MaximumHeat"
-      ]
-    },
-    "cloak phasing": {
-      "key": "cloak phasing",
-      "usedInShipFunctions": [
-        "Phases"
-      ]
-    },
-    "cooling inefficiency": {
-      "key": "cooling inefficiency",
-      "usedInShipFunctions": [
-        "CoolingEfficiency"
-      ]
-    },
-    "required crew": {
-      "key": "required crew",
-      "usedInShipFunctions": [
-        "RequiredCrew"
-      ]
-    },
-    "crew equivalent": {
-      "key": "crew equivalent",
-      "usedInShipFunctions": [
-        "CrewValue"
-      ]
-    },
-    "use crew equivalent as crew": {
-      "key": "use crew equivalent as crew",
-      "usedInShipFunctions": [
-        "CrewValue"
-      ]
-    },
-    "disabled recovery burning": {
-      "key": "disabled recovery burning",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery corrosion": {
-      "key": "disabled recovery corrosion",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery discharge": {
-      "key": "disabled recovery discharge",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery disruption": {
-      "key": "disabled recovery disruption",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery energy": {
-      "key": "disabled recovery energy",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery fuel": {
-      "key": "disabled recovery fuel",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery heat": {
-      "key": "disabled recovery heat",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery ionization": {
-      "key": "disabled recovery ionization",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery leak": {
-      "key": "disabled recovery leak",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery scrambling": {
-      "key": "disabled recovery scrambling",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "disabled recovery slowing": {
-      "key": "disabled recovery slowing",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "ramscoop": {
-      "key": "ramscoop",
-      "usedInShipFunctions": [
-        "DoGeneration"
-      ]
-    },
-    "cloak hull threshold": {
-      "key": "cloak hull threshold",
-      "usedInShipFunctions": [
-        "DoCloakDecision"
-      ]
-    },
-    "cloaking hull": {
-      "key": "cloaking hull",
-      "usedInShipFunctions": [
-        "DoCloakDecision"
-      ]
-    },
-    "landing speed": {
-      "key": "landing speed",
-      "usedInShipFunctions": [
-        "DoLandingLogic"
-      ]
-    },
-    "absolute threshold": {
-      "key": "absolute threshold",
-      "usedInShipFunctions": [
-        "MinimumHull"
-      ]
-    },
-    "hull threshold": {
-      "key": "hull threshold",
-      "usedInShipFunctions": [
-        "MinimumHull"
       ]
     },
     "acceleration": {
@@ -2486,6 +2287,15 @@
     "disabled damage": {
       "key": "disabled damage",
       "isWeaponDataKey": true
+    },
+    "drag": {
+      "key": "drag",
+      "isWeaponDataKey": true,
+      "usedInShipFunctions": [
+        "FinishLoading",
+        "Drag",
+        "DragForce"
+      ]
     },
     "dropoff modifier": {
       "key": "dropoff modifier",
@@ -2720,7 +2530,10 @@
         "drag"
       ],
       "formulas": [],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsValid": {
       "returnType": "bool",
@@ -2734,7 +2547,10 @@
           "formula": "isDefined"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Save": {
       "returnType": "void",
@@ -2752,7 +2568,10 @@
           "formula": "lhs->first->TrueName() < rhs->first->TrueName()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Description": {
       "returnType": "string",
@@ -2766,7 +2585,10 @@
           "formula": "description.ToString()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Cost": {
       "returnType": "int64_t",
@@ -2780,7 +2602,10 @@
           "formula": "attributes.Cost()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "ChassisCost": {
       "returnType": "int64_t",
@@ -2794,7 +2619,10 @@
           "formula": "baseAttributes.Cost()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Strength": {
       "returnType": "int64_t",
@@ -2808,7 +2636,10 @@
           "formula": "Cost()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Attraction": {
       "returnType": "double",
@@ -2822,7 +2653,10 @@
           "formula": "attraction"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Deterrence": {
       "returnType": "double",
@@ -2836,7 +2670,10 @@
           "formula": "deterrence"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "FlightCheck": {
       "returnType": "vector<string>",
@@ -2884,7 +2721,10 @@
         "turnEnergy": "[turning energy]",
         "turnHeat": "[turning heat]",
         "bunks": "[bunks]"
-      }
+      },
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "IsSpecial": {
       "returnType": "bool",
@@ -2898,7 +2738,10 @@
           "formula": "isSpecial"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsYours": {
       "returnType": "bool",
@@ -2912,7 +2755,10 @@
           "formula": "isYours"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsParked": {
       "returnType": "bool",
@@ -2926,7 +2772,10 @@
           "formula": "isParked"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "HasDeployOrder": {
       "returnType": "bool",
@@ -2940,7 +2789,10 @@
           "formula": "shouldDeploy"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "GetHail": {
       "returnType": "string",
@@ -2958,7 +2810,10 @@
           "formula": "Format::Replace(hailStr, subs)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Launch": {
       "returnType": "void",
@@ -2973,7 +2828,10 @@
       "formulas": [],
       "attributeVariables": {
         "maxFuel": "bay.ship->[fuel capacity]"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Board": {
       "returnType": "shared_ptr<Ship>",
@@ -3011,7 +2869,10 @@
       ],
       "attributeVariables": {
         "toGive": "max([energy capacity] * 0.1, victim->Attributes().Get(\"energy capacity\") * 0.2)"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Scan": {
       "returnType": "int",
@@ -3037,7 +2898,10 @@
         "outfitSpeed": "[outfit scan efficiency]",
         "outfitsSize": "target->[outfit space] + target->[outfit scan opacity]",
         "cargoSize": "target->[cargo space] + target->[cargo scan opacity]"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CargoScanFraction": {
       "returnType": "double",
@@ -3051,7 +2915,10 @@
           "formula": "cargoScan / SCAN_TIME"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "OutfitScanFraction": {
       "returnType": "double",
@@ -3065,7 +2932,10 @@
           "formula": "outfitScan / SCAN_TIME"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Fire": {
       "returnType": "void",
@@ -3078,7 +2948,10 @@
       "formulas": [],
       "attributeVariables": {
         "cloakingFiring": "[cloaked firing]"
-      }
+      },
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "HasAntiMissile": {
       "returnType": "bool",
@@ -3092,7 +2965,10 @@
           "formula": "antiMissileRange"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "HasTractorBeam": {
       "returnType": "bool",
@@ -3106,7 +2982,10 @@
           "formula": "tractorBeamRange"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "FireTractorBeam": {
       "returnType": "Point",
@@ -3144,7 +3023,10 @@
           "formula": "pullVector"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsCapturable": {
       "returnType": "bool",
@@ -3158,7 +3040,10 @@
           "formula": "isCapturable"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsTargetable": {
       "returnType": "bool",
@@ -3172,7 +3057,10 @@
           "formula": "(zoom == 1f && !explosionRate && !forget && !isInvisible && !IsCloaked() && hull >= 0. && hyperspaceCount < 70)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsOverheated": {
       "returnType": "bool",
@@ -3186,7 +3074,10 @@
           "formula": "isOverheated"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsIonized": {
       "returnType": "bool",
@@ -3205,12 +3096,15 @@
         },
         {
           "rawReturn": "usesEnergy ? ionization > energy : false",
-          "formula": "([thrusting energy] > 0 || [reverse thrusting energy] > 0 || [turning energy] > 0 || any_of(outfits.begin(), outfits.end(), [](const auto &it) -> bool { const Weapon *weapon = it.first->GetWeapon().get()) ? ionization > energy : false"
+          "formula": "([thrusting energy] > 0) ? ionization > energy : false"
         }
       ],
       "attributeVariables": {
-        "usesEnergy": "[thrusting energy] > 0 || [reverse thrusting energy] > 0 || [turning energy] > 0 || any_of(outfits.begin(), outfits.end(), [](const auto &it) -> bool { const Weapon *weapon = it.first->GetWeapon().get()"
-      }
+        "usesEnergy": "[thrusting energy] > 0"
+      },
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "IsDisabled": {
       "returnType": "bool",
@@ -3224,7 +3118,10 @@
           "formula": "(hull < minimumHull || (!crew && needsCrew))"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsBoarding": {
       "returnType": "bool",
@@ -3238,7 +3135,10 @@
           "formula": "isBoarding"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsLanding": {
       "returnType": "bool",
@@ -3252,7 +3152,10 @@
           "formula": "landingPlanet"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsFleeing": {
       "returnType": "bool",
@@ -3266,7 +3169,10 @@
           "formula": "isFleeing"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CanLand": {
       "returnType": "bool",
@@ -3280,7 +3186,10 @@
           "formula": "(speed < 1. && distance.Length() < GetTargetStellar()->Radius())"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CannotAct": {
       "returnType": "bool",
@@ -3301,7 +3210,10 @@
           "formula": "(cloak == 1. && !canActCloaked) || (cloak != 1. && cloak && !cloakDisruption && !canActCloaked)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "Cloaking": {
       "returnType": "double",
@@ -3315,7 +3227,10 @@
           "formula": "isInvisible ? 1. : cloak"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsEnteringHyperspace": {
       "returnType": "bool",
@@ -3329,7 +3244,10 @@
           "formula": "hyperspaceSystem"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsHyperspacing": {
       "returnType": "bool",
@@ -3343,7 +3261,10 @@
           "formula": "GetHyperspacePercentage() != 0"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "GetHyperspacePercentage": {
       "returnType": "int",
@@ -3357,7 +3278,10 @@
           "formula": "hyperspaceCount"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsUsingJumpDrive": {
       "returnType": "bool",
@@ -3371,7 +3295,10 @@
           "formula": "(hyperspaceSystem || hyperspaceCount) && isUsingJumpDrive"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsRestrictedFrom": {
       "returnType": "bool",
@@ -3389,7 +3316,10 @@
           "formula": "!personality.IsUnrestricted() && restrictedByGov"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsReadyToJump": {
       "returnType": "bool",
@@ -3403,7 +3333,10 @@
       "formulas": [],
       "attributeVariables": {
         "scramThreshold": "[scram drive]"
-      }
+      },
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "IsThrusting": {
       "returnType": "bool",
@@ -3417,7 +3350,10 @@
           "formula": "isThrusting"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsReversing": {
       "returnType": "bool",
@@ -3431,7 +3367,10 @@
           "formula": "isReversing"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsSteering": {
       "returnType": "bool",
@@ -3445,7 +3384,10 @@
           "formula": "isSteering"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "SteeringDirection": {
       "returnType": "double",
@@ -3459,7 +3401,10 @@
           "formula": "steeringDirection"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsDamaged": {
       "returnType": "bool",
@@ -3473,7 +3418,10 @@
           "formula": "(MaxShields() != 0 && Shields() != 1.) || Hull() != 1."
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsDestroyed": {
       "returnType": "bool",
@@ -3487,7 +3435,10 @@
           "formula": "(hull < 0.)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Recharge": {
       "returnType": "void",
@@ -3504,7 +3455,10 @@
       ],
       "attributesSet": [],
       "formulas": [],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "CanRefuel": {
       "returnType": "bool",
@@ -3518,7 +3472,10 @@
           "formula": "(fuel - navigation.JumpFuel(targetSystem) >= other.JumpFuelMissing())"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CanGiveEnergy": {
       "returnType": "bool",
@@ -3536,7 +3493,10 @@
       ],
       "attributeVariables": {
         "toGive": "min(other.[energy capacity], max(200., other.[energy capacity] * 0.2))"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "TransferFuel": {
       "returnType": "double",
@@ -3556,7 +3516,10 @@
           "formula": "amount"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "TransferEnergy": {
       "returnType": "double",
@@ -3576,7 +3539,10 @@
           "formula": "amount"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "WasCaptured": {
       "returnType": "int",
@@ -3590,7 +3556,10 @@
           "formula": "transfer"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Shields": {
       "returnType": "double",
@@ -3604,7 +3573,10 @@
           "formula": "maximum ? min(1., shields / maximum) : 0."
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Hull": {
       "returnType": "double",
@@ -3618,7 +3590,10 @@
           "formula": "maximum ? min(1., hull / maximum) : 1."
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Fuel": {
       "returnType": "double",
@@ -3636,7 +3611,10 @@
       ],
       "attributeVariables": {
         "maximum": "[fuel capacity]"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Energy": {
       "returnType": "double",
@@ -3654,7 +3632,10 @@
       ],
       "attributeVariables": {
         "maximum": "[energy capacity]"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Health": {
       "returnType": "double",
@@ -3672,7 +3653,10 @@
           "formula": "min(spareHull / hullDivisor, (spareHull + shields / (1. + disruption * .01)) / divisor)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "DisabledHull": {
       "returnType": "double",
@@ -3686,7 +3670,10 @@
           "formula": "(hull > 0. ? minimumHull / hull : 0.)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "MaxShields": {
       "returnType": "double",
@@ -3703,7 +3690,10 @@
           "formula": "[shields] * (1 + [shield multiplier])"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 100,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "MaxHull": {
       "returnType": "double",
@@ -3720,7 +3710,10 @@
           "formula": "[hull] * (1 + [hull multiplier])"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 100,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "ShieldLevel": {
       "returnType": "double",
@@ -3734,7 +3727,10 @@
           "formula": "shields"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "HullLevel": {
       "returnType": "double",
@@ -3748,7 +3744,10 @@
           "formula": "hull"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "FuelLevel": {
       "returnType": "double",
@@ -3762,7 +3761,10 @@
           "formula": "fuel"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "DisruptionLevel": {
       "returnType": "double",
@@ -3776,7 +3778,10 @@
           "formula": "disruption"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "HullUntilDisabled": {
       "returnType": "double",
@@ -3790,7 +3795,10 @@
           "formula": "max(0., hull + 025 - MinimumHull())"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "DamageOverlayTimer": {
       "returnType": "int",
@@ -3804,7 +3812,10 @@
           "formula": "damageOverlayTimer"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "JumpsRemaining": {
       "returnType": "int",
@@ -3822,7 +3833,10 @@
           "formula": "0. ? fuel / 0. : 0."
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "NeedsFuel": {
       "returnType": "bool",
@@ -3838,7 +3852,10 @@
           "formula": "(fuel < 0.) && ([fuel capacity] >= 0.)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "NeedsEnergy": {
       "returnType": "bool",
@@ -3857,7 +3874,10 @@
           "formula": "[energy capacity] && !energy && ![energy generation] && ![fuel energy] && ![solar collection]"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "JumpFuelMissing": {
       "returnType": "double",
@@ -3877,7 +3897,10 @@
           "formula": "jumpFuel - fuel"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IdleHeat": {
       "returnType": "double",
@@ -3903,7 +3926,10 @@
         "cooling": "coolingEfficiency * [cooling]",
         "activeCooling": "coolingEfficiency * [active cooling]",
         "production": "max(0., [heat generation] - cooling)"
-      }
+      },
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "HeatDissipation": {
       "returnType": "double",
@@ -3919,7 +3945,10 @@
           "formula": ".001 * [heat dissipation]"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "MaximumHeat": {
       "returnType": "double",
@@ -3932,10 +3961,13 @@
       "formulas": [
         {
           "rawReturn": "MAXIMUM_TEMPERATURE * (cargo.Used() + attributes.Mass() + attributes.Get(\"heat capacity\"))",
-          "formula": "MAXIMUM_TEMPERATURE * (cargo.Used() + attributes.Mass() + [heat capacity])"
+          "formula": "MAXIMUM_TEMPERATURE * (cargo.Used() + [mass] + [heat capacity])"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "IsCloaked": {
       "returnType": "bool",
@@ -3949,7 +3981,10 @@
           "formula": "Cloaking() == 1."
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CloakingSpeed": {
       "returnType": "double",
@@ -3966,7 +4001,10 @@
           "formula": "[cloak] + [cloak by mass] * 1000. / Mass()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "Phases": {
       "returnType": "bool",
@@ -3977,7 +4015,10 @@
       ],
       "attributesSet": [],
       "formulas": [],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CoolingEfficiency": {
       "returnType": "double",
@@ -3995,7 +4036,10 @@
       ],
       "attributeVariables": {
         "x": "[cooling inefficiency]"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Crew": {
       "returnType": "int",
@@ -4009,7 +4053,10 @@
           "formula": "crew"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Drag": {
       "returnType": "double",
@@ -4028,7 +4075,10 @@
       ],
       "attributeVariables": {
         "drag": "[drag] / (1. + [drag reduction])"
-      }
+      },
+      "displayScale": 100,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "DragForce": {
       "returnType": "double",
@@ -4047,7 +4097,10 @@
       ],
       "attributeVariables": {
         "drag": "[drag] / (1. + [drag reduction])"
-      }
+      },
+      "displayScale": 100,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "RequiredCrew": {
       "returnType": "int",
@@ -4064,7 +4117,10 @@
           "formula": "max<int>(1, [required crew])"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CrewValue": {
       "returnType": "int",
@@ -4087,7 +4143,10 @@
       ],
       "attributeVariables": {
         "crewEquivalent": "[crew equivalent]"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "AddCrew": {
       "returnType": "void",
@@ -4098,7 +4157,10 @@
       ],
       "attributesSet": [],
       "formulas": [],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CanBeFlagship": {
       "returnType": "bool",
@@ -4112,7 +4174,10 @@
           "formula": "RequiredCrew() && Crew() && !IsDisabled()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Mass": {
       "returnType": "double",
@@ -4123,10 +4188,13 @@
       "formulas": [
         {
           "rawReturn": "carriedMass + cargo.Used() + attributes.Mass()",
-          "formula": "carriedMass + cargo.Used() + attributes.Mass()"
+          "formula": "carriedMass + cargo.Used() + [mass]"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "InertialMass": {
       "returnType": "double",
@@ -4142,7 +4210,10 @@
           "formula": "Mass() / (1. + [inertia reduction])"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 100,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "TurnRate": {
       "returnType": "double",
@@ -4159,7 +4230,10 @@
           "formula": "[turn] / InertialMass() * (1. + [turn multiplier])"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "TrueTurnRate": {
       "returnType": "double",
@@ -4173,7 +4247,10 @@
           "formula": "TurnRate() * 1. / (1. + slowness * .05)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CrewTurnRate": {
       "returnType": "double",
@@ -4187,7 +4264,10 @@
           "formula": "1. return TurnRate() * min(1., static_cast<double>(Crew()) / RequiredCrew())"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Acceleration": {
       "returnType": "double",
@@ -4207,7 +4287,10 @@
       ],
       "attributeVariables": {
         "thrust": "[thrust]"
-      }
+      },
+      "displayScale": 100,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "TrueAcceleration": {
       "returnType": "double",
@@ -4221,7 +4304,10 @@
           "formula": "Acceleration() * 1. / (1. + slowness * .05)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CrewAcceleration": {
       "returnType": "double",
@@ -4235,7 +4321,10 @@
           "formula": "1. return Acceleration() * min(1., static_cast<double>(Crew()) / RequiredCrew())"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "MaxVelocity": {
       "returnType": "double",
@@ -4255,7 +4344,10 @@
       "attributeVariables": {
         "thrust": "[thrust]",
         "afterburnerThrust": "[afterburner thrust]"
-      }
+      },
+      "displayScale": 3600,
+      "displayUnit": "/s²",
+      "labelPrefix": "Base "
     },
     "ReverseAcceleration": {
       "returnType": "double",
@@ -4272,7 +4364,10 @@
           "formula": "[reverse thrust] / InertialMass() * (1. + [acceleration multiplier])"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 100,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "MaxReverseVelocity": {
       "returnType": "double",
@@ -4288,7 +4383,10 @@
           "formula": "[reverse thrust] / Drag()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 3600,
+      "displayUnit": "/s²",
+      "labelPrefix": ""
     },
     "ThrustHeldFraction": {
       "returnType": "double",
@@ -4302,7 +4400,10 @@
           "formula": "ThrustHeldFrames(kind) * THRUST_HELD_FRAMES_RECIP"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "ThrustHeldFrames": {
       "returnType": "uint8_t",
@@ -4316,7 +4417,10 @@
           "formula": "thrustHeldFrames[static_cast<size_t>(kind)]"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CurrentSpeed": {
       "returnType": "double",
@@ -4330,7 +4434,10 @@
           "formula": "Velocity().Length()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "TakeDamage": {
       "returnType": "int",
@@ -4346,7 +4453,10 @@
       "formulas": [],
       "attributeVariables": {
         "disabledDelay": "[depleted shield delay]"
-      }
+      },
+      "displayScale": 0.016666666666666666,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "HasBays": {
       "returnType": "bool",
@@ -4360,7 +4470,10 @@
           "formula": "!bays.empty()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "BaysFree": {
       "returnType": "int",
@@ -4374,7 +4487,10 @@
           "formula": "0"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "BaysTotal": {
       "returnType": "int",
@@ -4388,7 +4504,10 @@
           "formula": "0"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CanCarry": {
       "returnType": "bool",
@@ -4402,7 +4521,10 @@
           "formula": "(free > 0)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CanBeCarried": {
       "returnType": "bool",
@@ -4416,7 +4538,10 @@
           "formula": "canBeCarried"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "PositionFighters": {
       "returnType": "bool",
@@ -4430,7 +4555,10 @@
           "formula": "hasVisible"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "OutfitCount": {
       "returnType": "int",
@@ -4444,7 +4572,10 @@
           "formula": "(it == outfits.end()) ? 0 : it->second"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "AddOutfit": {
       "returnType": "void",
@@ -4455,7 +4586,10 @@
       ],
       "attributesSet": [],
       "formulas": [],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CanFire": {
       "returnType": "Ship::CanFireResult",
@@ -4504,7 +4638,10 @@
           "formula": "CanFireResult::CAN_FIRE"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "ExpendAmmo": {
       "returnType": "void",
@@ -4519,7 +4656,10 @@
       "attributeVariables": {
         "relativeEnergyChange": "weapon.RelativeFiringEnergy() * [energy capacity]",
         "relativeFuelChange": "weapon.RelativeFiringFuel() * [fuel capacity]"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "GetTargetShip": {
       "returnType": "shared_ptr<Ship>",
@@ -4533,7 +4673,10 @@
           "formula": "targetShip.lock()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "GetShipToAssist": {
       "returnType": "shared_ptr<Ship>",
@@ -4547,7 +4690,10 @@
           "formula": "shipToAssist.lock()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "GetTargetAsteroid": {
       "returnType": "shared_ptr<Minable>",
@@ -4561,7 +4707,10 @@
           "formula": "targetAsteroid.lock()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "GetTargetFlotsam": {
       "returnType": "shared_ptr<Flotsam>",
@@ -4575,7 +4724,10 @@
           "formula": "targetFlotsam.lock()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "SetTargetShip": {
       "returnType": "void",
@@ -4589,7 +4741,10 @@
           "formula": "s.lock().get() == this"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "GetTargeterStrength": {
       "returnType": "double",
@@ -4603,7 +4758,10 @@
           "formula": "targeterStrength"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CanPickUp": {
       "returnType": "bool",
@@ -4617,7 +4775,10 @@
           "formula": "cargo.Free() >= flotsam.UnitSize()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "GetParent": {
       "returnType": "shared_ptr<Ship>",
@@ -4631,7 +4792,10 @@
           "formula": "parent.lock()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "GetLingerSteps": {
       "returnType": "int",
@@ -4645,7 +4809,10 @@
           "formula": "lingerSteps"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "Imitates": {
       "returnType": "bool",
@@ -4659,7 +4826,10 @@
           "formula": "displayModelName == other.DisplayModelName() && outfits == other.Outfits()"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "StepDestroyed": {
       "returnType": "int",
@@ -4673,7 +4843,12 @@
           "formula": "-1"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {
+        "debrisCount": "[mass] * .07"
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "DoGeneration": {
       "returnType": "void",
@@ -4780,14 +4955,14 @@
         }
       ],
       "attributeVariables": {
-        "hullAvailable": "([hull repair rate] + (hullDelay ? 0 : [delayed hull repair rate])) * (1. + [hull repair multiplier]) * (1. + [cloaked repair multiplier] * Cloaking())",
-        "hullEnergy": "([hull energy] + (hullDelay ? 0 : [delayed hull energy])) * (1. + [hull energy multiplier]) / hullAvailable",
-        "hullFuel": "([hull fuel] + (hullDelay ? 0 : [delayed hull fuel])) * (1. + [hull fuel multiplier]) / hullAvailable",
-        "hullHeat": "([hull heat] + (hullDelay ? 0 : [delayed hull heat])) * (1. + [hull heat multiplier]) / hullAvailable",
-        "shieldsAvailable": "([shield generation] + (shieldDelay ? 0 : [delayed shield generation])) * (1. + [shield generation multiplier]) * (1. + [cloaked regen multiplier] * Cloaking())",
-        "shieldsEnergy": "([shield energy] + (shieldDelay ? 0 : [delayed shield energy])) * (1. + [shield energy multiplier]) / shieldsAvailable",
-        "shieldsFuel": "([shield fuel] + (shieldDelay ? 0 : [delayed shield fuel])) * (1. + [shield fuel multiplier]) / shieldsAvailable",
-        "shieldsHeat": "([shield heat] + (shieldDelay ? 0 : [delayed shield heat])) * (1. + [shield heat multiplier]) / shieldsAvailable",
+        "hullAvailable": "([hull repair rate]",
+        "hullEnergy": "([hull energy]",
+        "hullFuel": "([hull fuel]",
+        "hullHeat": "([hull heat]",
+        "shieldsAvailable": "([shield generation]",
+        "shieldsEnergy": "([shield energy]",
+        "shieldsFuel": "([shield fuel]",
+        "shieldsHeat": "([shield heat]",
         "energyRemaining": "energy - [energy capacity]",
         "fuelRemaining": "fuel - [fuel capacity]",
         "disabledRepairEnergy": "[disabled recovery energy]",
@@ -4827,7 +5002,10 @@
         "heatRatio": "Heat() / (1. + [overheat damage threshold])",
         "activeCooling": "coolingEfficiency * [active cooling]",
         "coolingEnergy": "[cooling energy]"
-      }
+      },
+      "displayScale": 0.016666666666666666,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "DoCloakDecision": {
       "returnType": "void",
@@ -4854,7 +5032,10 @@
         "cloakingShield": "[cloaking shields]",
         "cloakingShieldDelay": "[cloaking shield delay]",
         "cloakingHullDelay": "[cloaking repair delay]"
-      }
+      },
+      "displayScale": 0.016666666666666666,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "DoLandingLogic": {
       "returnType": "bool",
@@ -4868,7 +5049,10 @@
       "formulas": [],
       "attributeVariables": {
         "landingSpeed": "[landing speed]"
-      }
+      },
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "DoMovement": {
       "returnType": "void",
@@ -4921,9 +5105,11 @@
         "leakageCost": "[afterburner leakage]",
         "burningCost": "[afterburner burn]",
         "slownessCost": "[afterburner slowing]",
-        "disruptionCost": "[afterburner disruption]",
-        "dragAcceleration": "acceleration - velocity * dragForce * (1. + [acceleration multiplier])"
-      }
+        "disruptionCost": "[afterburner disruption]"
+      },
+      "displayScale": 60,
+      "displayUnit": "/s",
+      "labelPrefix": ""
     },
     "StepTargeting": {
       "returnType": "void",
@@ -4934,7 +5120,10 @@
       ],
       "attributesSet": [],
       "formulas": [],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "MinimumHull": {
       "returnType": "double",
@@ -4963,7 +5152,10 @@
       "attributeVariables": {
         "absoluteThreshold": "[absolute threshold]",
         "thresholdPercent": "[threshold percentage]"
-      }
+      },
+      "displayScale": 100,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CalculateAttraction": {
       "returnType": "double",
@@ -4979,7 +5171,10 @@
           "formula": "max(0., .4 * sqrt([cargo space]) - 18)"
         }
       ],
-      "attributeVariables": {}
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     },
     "CalculateDeterrence": {
       "returnType": "double",
@@ -4996,10 +5191,10 @@
           "formula": "0."
         }
       ],
-      "attributeVariables": {
-        "energyFactor": "weapon->EnergyDamage() + weapon->RelativeEnergyDamage() * [energy capacity] + weapon->IonDamage() * 100.",
-        "fuelFactor": "weapon->FuelDamage() + weapon->RelativeFuelDamage() * [fuel capacity] + weapon->LeakDamage() * 100."
-      }
+      "attributeVariables": {},
+      "displayScale": 1,
+      "displayUnit": "",
+      "labelPrefix": ""
     }
   },
   "shipDisplay": {
@@ -5007,16 +5202,16 @@
       {
         "label": "idle",
         "rawLabelArg": "\"idle:\"",
-        "energyFormula": "(60. * ([energy generation] + [solar collection] + [fuel energy] - [energy consumption] - [cooling energy]))",
-        "heatFormula": "(60. * ([heat generation] + [solar heat] + [fuel heat] - ship.CoolingEfficiency() * ([cooling] + [active cooling])))",
+        "energyFormula": "(60. * ([energy generation]))",
+        "heatFormula": "(60. * ([heat generation]))",
         "rawEnergyExpr": "Format::Number(60. * idleEnergyPerFrame)",
         "rawHeatExpr": "Format::Number(60. * idleHeatPerFrame)"
       },
       {
         "label": "moving",
         "rawLabelArg": "\"moving:\"",
-        "energyFormula": "(-60. * (max([thrusting energy], [reverse thrusting energy]) + [turning energy] + [afterburner energy]))",
-        "heatFormula": "(60. * (max([thrusting heat], [reverse thrusting heat]) + [turning heat] + [afterburner heat]))",
+        "energyFormula": "(-60. * movingEnergyPerFrame)",
+        "heatFormula": "(60. * (max([thrusting heat], [reverse thrusting heat])))",
         "rawEnergyExpr": "Format::Number(-60. * movingEnergyPerFrame)",
         "rawHeatExpr": "Format::Number(60. * movingHeatPerFrame)"
       },
@@ -5031,8 +5226,8 @@
       {
         "label": "shields / hull / repairing hull / charging shields",
         "rawLabelArg": "(shieldEnergy && hullEnergy) ? \"shields / hull:\" :\n\t\thullEnergy ? \"repairing hull:\" : \"charging shields:\"",
-        "energyFormula": "(-60. * (((hasShieldRegen) ? ([shield energy] + [delayed shield energy]) * (1. + [shield energy multiplier]) : 0.) + ((hasHullRepair) ? ([hull energy] + [delayed hull energy]) * (1. + [hull energy multiplier]) : 0.)))",
-        "heatFormula": "(60. * (((hasShieldRegen) ? ([shield heat] + [delayed shield heat]) * (1. + [shield heat multiplier]) : 0.) + ((hasHullRepair) ? ([hull heat] + [delayed hull heat]) * (1. + [hull heat multiplier]) : 0.)))",
+        "energyFormula": "(-60. * (((hasShieldRegen) ? ([shield energy]) + ((hasHullRepair) ? ([hull energy])))",
+        "heatFormula": "(60. * (((hasShieldRegen) ? ([shield heat]) + ((hasHullRepair) ? ([hull heat])))",
         "rawEnergyExpr": "Format::Number(-60. * (shieldEnergy + hullEnergy))",
         "rawHeatExpr": "Format::Number(60. * (shieldHeat + hullHeat))"
       },
@@ -5061,7 +5256,7 @@
       },
       {
         "label": "mass with no cargo / mass",
-        "formula": "(isGeneric ? emptyMass : currentMass) + \" tons\"",
+        "formula": "(isGeneric ? ([mass]) : currentMass) + \" tons\"",
         "rawExpr": "Format::Number(isGeneric ? emptyMass : currentMass) + \" tons\""
       }
     ],
@@ -5088,22 +5283,22 @@
       }
     ],
     "intermediateVars": {
-      "shieldRegen": "([shield generation] + [delayed shield generation]) * (1. + [shield generation multiplier])",
-      "hullRepair": "([hull repair rate] + [delayed hull repair rate]) * (1. + [hull repair multiplier])",
+      "shieldRegen": "([shield generation]",
+      "hullRepair": "([hull repair rate]",
+      "emptyMass": "[mass]",
       "fuelCapacity": "[fuel capacity]",
       "fullMass": "emptyMass + [cargo space]",
       "forwardThrust": "[thrust] ? [thrust] : [afterburner thrust]",
       "reduction": "1. + [inertia reduction]",
       "baseAccel": "3600. * forwardThrust * (1. + [acceleration multiplier])",
       "baseTurn": "60. * [turn] * (1. + [turn multiplier])",
-      "idleEnergyPerFrame": "[energy generation] + [solar collection] + [fuel energy] - [energy consumption] - [cooling energy]",
-      "idleHeatPerFrame": "[heat generation] + [solar heat] + [fuel heat] - ship.CoolingEfficiency() * ([cooling] + [active cooling])",
-      "movingEnergyPerFrame": "max([thrusting energy], [reverse thrusting energy]) + [turning energy] + [afterburner energy]",
-      "movingHeatPerFrame": "max([thrusting heat], [reverse thrusting heat]) + [turning heat] + [afterburner heat]",
-      "shieldEnergy": "(hasShieldRegen) ? ([shield energy] + [delayed shield energy]) * (1. + [shield energy multiplier]) : 0.",
-      "hullEnergy": "(hasHullRepair) ? ([hull energy] + [delayed hull energy]) * (1. + [hull energy multiplier]) : 0.",
-      "shieldHeat": "(hasShieldRegen) ? ([shield heat] + [delayed shield heat]) * (1. + [shield heat multiplier]) : 0.",
-      "hullHeat": "(hasHullRepair) ? ([hull heat] + [delayed hull heat]) * (1. + [hull heat multiplier]) : 0.",
+      "idleEnergyPerFrame": "[energy generation]",
+      "idleHeatPerFrame": "[heat generation]",
+      "movingHeatPerFrame": "max([thrusting heat], [reverse thrusting heat])",
+      "shieldEnergy": "(hasShieldRegen) ? ([shield energy]",
+      "hullEnergy": "(hasHullRepair) ? ([hull energy]",
+      "shieldHeat": "(hasShieldRegen) ? ([shield heat]",
+      "hullHeat": "(hasHullRepair) ? ([hull heat]",
       "maxEnergy": "[energy capacity]"
     }
   },
