@@ -29,7 +29,7 @@ function filterDisplay() {
     filtersExpanded = !filtersExpanded;
 
     if (filtersExpanded) {
-        filterTitle.innerHTML = 'Filters 🡆';
+        filterTitle.innerHTML = 'Filters ▶';
         governmentFilterSection.classList.remove("hidden");
         categoryFilterSection.classList.remove("hidden");
         governmentFilterSection.classList.add("shown");
@@ -64,7 +64,7 @@ function filterDisplay() {
             savedGovernmentFilterState[cb.value] = cb.checked;
         });
 
-        filterTitle.innerHTML = 'Filters 🡇';
+        filterTitle.innerHTML = 'Filters ▼';
         governmentFilterSection.classList.add("hidden");
         categoryFilterSection.classList.add("hidden");
         governmentFilterSection.classList.remove("shown");
