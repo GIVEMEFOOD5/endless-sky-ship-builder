@@ -262,7 +262,7 @@ function computeAverage(sorter) {
 // Render active sorter box
 // ---------------------------------------------------------------------------
 
-function renderSorterBox() {
+async function renderSorterBox() {
     const box = document.getElementById('sorterActiveList');
     if (!box) return;
 
@@ -288,39 +288,39 @@ function renderSorterBox() {
         const dirBtn = document.createElement('button');
         dirBtn.className   = 'sorter-dir-btn';
         dirBtn.textContent = sorter.dir === 'asc' ? '↑ Asc' : '↓ Desc';
-        dirBtn.onclick = () => {
+        dirBtn.onclick = async () => {          // ✅ fixed
             sorter.dir = sorter.dir === 'asc' ? 'desc' : 'asc';
             renderSorterBox();
-            _triggerFilterItems();
+            await _triggerFilterItems();
         };
 
         const upBtn = document.createElement('button');
         upBtn.className   = 'sorter-move-btn';
         upBtn.textContent = '▲';
         upBtn.disabled    = idx === 0;
-        upBtn.onclick = () => {
+        upBtn.onclick = async () => {            // ✅ fixed
             [activeSorters[idx - 1], activeSorters[idx]] = [activeSorters[idx], activeSorters[idx - 1]];
             renderSorterBox();
-            _triggerFilterItems();
+            await _triggerFilterItems();
         };
 
         const downBtn = document.createElement('button');
         downBtn.className   = 'sorter-move-btn';
         downBtn.textContent = '▼';
         downBtn.disabled    = idx === activeSorters.length - 1;
-        downBtn.onclick = () => {
+        downBtn.onclick = async () => {          // ✅ fixed
             [activeSorters[idx], activeSorters[idx + 1]] = [activeSorters[idx + 1], activeSorters[idx]];
             renderSorterBox();
-            _triggerFilterItems();
+            await _triggerFilterItems();
         };
 
         const removeBtn = document.createElement('button');
         removeBtn.className   = 'sorter-remove-btn';
         removeBtn.textContent = '✕';
-        removeBtn.onclick = () => {
+        removeBtn.onclick = async () => {        // ✅ fixed
             activeSorters.splice(idx, 1);
             renderSorterBox();
-            _triggerFilterItems();
+            await _triggerFilterItems();
         };
 
         row.appendChild(label);
@@ -333,8 +333,8 @@ function renderSorterBox() {
     });
 }
 
-function _triggerFilterItems() {
-    if (typeof filterItems === 'function') filterItems();
+async function _triggerFilterItems() {
+    if (typeof filterItems === 'function') await filterItems();
 }
 
 // ---------------------------------------------------------------------------
@@ -359,7 +359,7 @@ function closeSorterPicker() {
     if (overlay) overlay.classList.remove('sorter-overlay-visible');
 }
 
-function confirmSorterPicker() {
+async function confirmSorterPicker() {
     const fields = getFieldsForTab(sorterCurrentTab);
 
     sorterPickerPending.forEach(id => {
@@ -383,7 +383,7 @@ function confirmSorterPicker() {
 
     closeSorterPicker();
     renderSorterBox();
-    _triggerFilterItems();
+    await _triggerFilterItems();
 }
 
 function renderPickerList(query) {

@@ -998,37 +998,61 @@ class EndlessSkyParser {
 
   parseSpriteWithData(lines, i, baseIndent) {
     const stripped = lines[i].trim();
-    const map = {
-      'sprite ':                  { key: 'sprite',                 re: /sprite\s+["`]([^"'\`]+)["\`]/,                  alt: /sprite\s+(\S+)/ },
-      'thumbnail ':               { key: 'thumbnail',               re: /thumbnail\s+["`]([^"'\`]+)["\`]/,               alt: /thumbnail\s+(\S+)/ },
-      '"thumbnail"':              { key: 'thumbnail',               re: /"thumbnail"\s+["`]([^"'\`]+)["\`]/,             alt: /"thumbnail"\s+(\S+)/ },
-      '"flare sprite"':           { key: 'flare sprite',            re: /"flare sprite"\s+["`]([^"'\`]+)["\`]/,           alt: /"flare sprite"\s+(\S+)/ },
-      '"flare sound"':            { key: 'flare sound',             re: /"flare sound"\s+["`]([^"'\`]+)["\`]/,            alt: /"flare sound"\s+(\S+)/, noSubBlock: true },
-      '"steering flare sprite"':  { key: 'steering flare sprite',   re: /"steering flare sprite"\s+["`]([^"'\`]+)["\`]/,  alt: /"steering flare sprite"\s+(\S+)/ },
-      '"steering flare sound"':   { key: 'steering flare sound',    re: /"steering flare sound"\s+["`]([^"'\`]+)["\`]/,   alt: /"steering flare sound"\s+(\S+)/, noSubBlock: true },
-      '"reverse flare sprite"':   { key: 'reverse flare sprite',    re: /"reverse flare sprite"\s+["`]([^"'\`]+)["\`]/,   alt: /"reverse flare sprite"\s+(\S+)/ },
-      '"reverse flare sound"':    { key: 'reverse flare sound',     re: /"reverse flare sound"\s+["`]([^"'\`]+)["\`]/,    alt: /"reverse flare sound"\s+(\S+)/, noSubBlock: true },
-      '"afterburner effect"':     { key: 'afterburner effect',      re: /"afterburner effect"\s+["`]([^"'\`]+)["\`]/,     alt: /"afterburner effect"\s+(\S+)/ },
-      '"afterburner sound"':      { key: 'afterburner sound',       re: /"afterburner sound"\s+["`]([^"'\`]+)["\`]/,      alt: /"afterburner sound"\s+(\S+)/, noSubBlock: true },
-    };
-
-    for (const [prefix, cfg] of Object.entries(map)) {
-      if (stripped.startsWith(prefix)) {
-        const m = stripped.match(cfg.re) || stripped.match(cfg.alt);
-        if (!m) break;
-        const result = { [cfg.key]: m[1] };
-        // Sound fields and other simple values have no sub-block
-        if (!cfg.noSubBlock && i + 1 < lines.length) {
-          const ni = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-          if (ni > baseIndent) {
-            const [sd, nextIdx] = this.parseBlock(lines, i + 1);
-            result[cfg.key + ' data'] = sd;
-            return [result, nextIdx];
-          }
-        }
-        return [result, i + 1];
-      }
+ 
+    // Keyword definitions — just the canonical name and whether it has a sub-block.
+    const FIELDS = [
+      { key: 'sprite'               },
+      { key: 'thumbnail'            },
+      { key: 'flare sprite'         },
+      { key: 'flare sound',           noSubBlock: true },
+      { key: 'steering flare sprite' },
+      { key: 'steering flare sound',  noSubBlock: true },
+      { key: 'reverse flare sprite'  },
+      { key: 'reverse flare sound',   noSubBlock: true },
+      { key: 'afterburner effect'    },
+      { key: 'afterburner sound',     noSubBlock: true },
+    ];
+ 
+    // A keyword may itself appear quoted ("flare sprite", `flare sprite`, 'flare sprite')
+    // or unquoted (sprite, thumbnail).  Build one regex per field that handles all forms.
+    //
+    // Keyword pattern:  (?:"KEY"|`KEY`|'KEY'|KEY)
+    // Path pattern:     (?:"([^"]+)"|`([^`]+)`|'([^']+)'|(\S+))
+    //   groups 1-4 capture the path in each quote style; only one will be non-null.
+    //
+    // We escape the key so multi-word keys with no special chars pass through cleanly,
+    // and so this is safe if a key ever gains a special regex character.
+    const esc      = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const kwPat    = (key) => `(?:"${esc(key)}"|` + '`' + `${esc(key)}` + '`' + `|'${esc(key)}'|${esc(key)})`;
+    const pathPat  = `(?:"([^"]+)"|` + '`([^`]+)`' + `|'([^']+)'|(\\S+))`;
+    const extractPath = (m) => m[1] ?? m[2] ?? m[3] ?? m[4] ?? null;
+ 
+    // Compile once and cache on the field object.
+    for (const f of FIELDS) {
+      if (!f.re) f.re = new RegExp(`^${kwPat(f.key)}\\s+${pathPat}`);
     }
+ 
+    for (const cfg of FIELDS) {
+      const m = stripped.match(cfg.re);
+      if (!m) continue;
+ 
+      const pathValue = extractPath(m);
+      if (!pathValue) continue;
+ 
+      const result = { [cfg.key]: pathValue };
+ 
+      if (!cfg.noSubBlock && i + 1 < lines.length) {
+        const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+        if (nextIndent > baseIndent) {
+          const [sd, nextIdx] = this.parseBlock(lines, i + 1);
+          result[cfg.key + ' data'] = sd;
+          return [result, nextIdx];
+        }
+      }
+ 
+      return [result, i + 1];
+    }
+ 
     return [{}, i + 1];
   }
 
