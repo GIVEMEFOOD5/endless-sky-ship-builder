@@ -1,0 +1,175 @@
+{
+  "plugin": "vague.improvements",
+  "repository": "https://github.com/zuckung/endless-sky-plugins",
+  "ships": [],
+  "variants": [
+    {
+      "name": "Rano'erek (Ground Assault)",
+      "engines": [
+        {
+          "x": 0,
+          "y": 179
+        },
+        {
+          "x": -32,
+          "y": 164,
+          "zoom": 0.7
+        },
+        {
+          "x": 32,
+          "y": 164,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": -116,
+          "y": -68,
+          "position": "zoom 0.6"
+        },
+        {
+          "x": 116,
+          "y": -68,
+          "position": "zoom 0.6"
+        },
+        {
+          "x": -80.5,
+          "y": 73,
+          "position": "zoom 0.7"
+        },
+        {
+          "x": 80.5,
+          "y": 73,
+          "position": "zoom 0.7"
+        }
+      ],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -153,
+          "turret": ""
+        },
+        {
+          "x": -37.5,
+          "y": -152.5,
+          "turret": ""
+        },
+        {
+          "x": 37.5,
+          "y": -152.5,
+          "turret": ""
+        },
+        {
+          "x": -45,
+          "y": -27.5,
+          "turret": ""
+        },
+        {
+          "x": 45,
+          "y": -27.5,
+          "turret": ""
+        },
+        {
+          "x": -85.5,
+          "y": 128,
+          "turret": ""
+        },
+        {
+          "x": 85.5,
+          "y": 128,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -93.5,
+          "y": -61,
+          "launch effect": "korath internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 93.5,
+          "y": -61,
+          "launch effect": "korath internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -84,
+          "y": 174,
+          "back": true,
+          "launch effect": "korath internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 84,
+          "y": 174,
+          "back": true,
+          "launch effect": "korath internal"
+        }
+      ],
+      "outfitMap": {
+        "Grab-Strike Turret": 2,
+        "Banisher Grav-Turret": 1,
+        "Warder Anti-Missile": 1,
+        "Digger Mining Turret": 3,
+        "Systems Core (Large)": 1,
+        "Triple Plasma Core": 1,
+        "Large Heat Shunt": 2,
+        "Small Heat Shunt": 1,
+        "Fuel Processor": 1,
+        "Thermal Repeater Rifle": 190,
+        "Reverser (Lunar Class)": 1,
+        "Steering (Planetary Class)": 1,
+        "Thruster (Planetary Class)": 1,
+        "Scram Drive": 1,
+        "Jump Drive": 1
+      },
+      "sprite": "ship/dredger",
+      "thumbnail": "thumbnail/dredger",
+      "attributes": {
+        "category": "Utility",
+        "cost": 29370000,
+        "shields": 32500,
+        "hull": 16500,
+        "required crew": 137,
+        "bunks": 357,
+        "mass": 3542,
+        "drag": 32.5,
+        "heat dissipation": 0.24,
+        "fuel capacity": 900,
+        "cargo space": 675,
+        "outfit space": 763,
+        "weapon capacity": 276,
+        "engine capacity": 206,
+        "weapon": {
+          "blast radius": 300,
+          "shield damage": 4600,
+          "hull damage": 2300,
+          "hit force": 5900
+        }
+      },
+      "tiny explosion": 120,
+      "small explosion": 60,
+      "medium explosion": 70,
+      "large explosion": 50,
+      "huge explosion": 15,
+      "final explode": "final explosion large",
+      "description": "After the Korath were exiled from their homelands, efficient resource collection became a priority. World-ships were too precious to risk on dangerous forays, and raiders lacked the cargo capacity. The Rano'erek-class Asteroid Dredging Ship, named for a respected civilian politician and economist, was born as an answer to this problem. \tFeaturing an abundance of cargo and passenger space in addition to their formidable defensive armament, these bulky ships can also offer potent support for frontline Palavrets.",
+      "_internalId": "official-game/endless-sky::Rano'erek",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "d9b8c87942cd",
+      "variant": "Rano'erek (Ground Assault)",
+      "baseShip": "Rano'erek",
+      "_variantPluginId": "Zuckungs list/vague.improvements",
+      "governments": {
+        "Korath": true
+      }
+    }
+  ],
+  "outfits": [],
+  "effects": [],
+  "parsedAt": "2026-03-19T08:56:28.642Z"
+}
