@@ -1,9 +1,6 @@
 'use strict';
 
 // ─── AttributeDisplay.js ─────────────────────────────────────────────────────
-// Pure renderer. Plugin_Script.js owns loading attributeDefinitions.json.
-
-// ─── Section assignment ───────────────────────────────────────────────────────
 
 const SECTION_ORDER = [
     'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
@@ -27,13 +24,9 @@ const SECTION_PATTERNS = [
 
 function inferSection(key) {
     const k = key.toLowerCase();
-    for (const [re, section] of SECTION_PATTERNS) {
-        if (re.test(k)) return section;
-    }
+    for (const [re, section] of SECTION_PATTERNS) { if (re.test(k)) return section; }
     return 'Other';
 }
-
-// ─── attrDefs accessors ───────────────────────────────────────────────────────
 
 function getAttrRecord(attrDefs, key) {
     const attrs = attrDefs?.attributes || {};
@@ -53,7 +46,7 @@ function getSection(attrDefs, key) {
         if (/thrust|turn|reverse|afterburner|engine/.test(k)) return 'Engines';
         if (/drag|inertia/.test(k)) return 'General';
     }
-    if (fns.some(f => /MaxShields|MaxHull|MinimumHull|DisabledHull|Health/.test(f))) return 'Shields & Hull';
+    if (fns.some(f => /MaxShields|MaxHull|MinimumHull/.test(f))) return 'Shields & Hull';
     if (fns.some(f => /IdleHeat|CoolingEfficiency|HeatDissipation|MaximumHeat/.test(f))) return 'Energy';
     if (fns.some(f => /CloakingSpeed/.test(f))) return 'Cloaking';
     if (fns.some(f => /Jump|Nav/.test(f))) return 'Jump';
@@ -64,6 +57,57 @@ function getSection(attrDefs, key) {
 function getStacking(attrDefs, key) {
     const rec = getAttrRecord(attrDefs, key);
     return rec ? { rule: rec.stacking, description: rec.stackingDescription } : null;
+}
+
+// ─── Ship function suppression — mirrors ComputedStats.shouldSuppressFn ──────
+// Same patterns, kept in sync. No hardcoded function names.
+
+function _buildKnownDisplayFns(attrDefs) {
+    const fns = attrDefs?.shipFunctions || {};
+    const known = new Set();
+    for (const [name, fn] of Object.entries(fns)) {
+        if (
+            fn.attributesRead?.length &&
+            fn.formulas?.length &&
+            (fn.displayScale ?? 1) > 1 &&
+            !/^(bool|void|string|const string|shared_ptr|vector|map|set|pair|.*[*&])/.test(fn.returnType || '')
+        ) known.add(name);
+    }
+    return known;
+}
+
+function shouldSuppressFn(fnName, fnData, knownDisplayFns) {
+    const ret     = (fnData.returnType || '').trim();
+    const attrs   = fnData.attributesRead || [];
+    const formula = fnData.formulas?.[fnData.formulas.length - 1]?.formula ?? '';
+
+    if (/^(bool|void|string|const string|shared_ptr|vector|map|set|pair|.*[*&])/.test(ret)) return true;
+    if (!fnData.formulas?.length) return true;
+    if (!attrs.length) {
+        const callsDisplayFn = knownDisplayFns && [...knownDisplayFns].some(fn => formula.includes(`${fn}()`));
+        if (!callsDisplayFn) return true;
+    }
+    if (formula.includes('min(1.')) return true;
+    if (formula.includes('/ maximum')) return true;
+    if (formula && !formula.includes('[') && !formula.includes('(') && /^\w+$/.test(formula.trim())) return true;
+    if (/^0[.\s]*$/.test(formula.trim())) return true;
+    if (formula.includes('>= mass') && formula.includes('/ mass')) return true;
+    if (formula.includes('sqrt(') && attrs.length === 1 && attrs[0].includes('cargo')) return true;
+    return false;
+}
+
+// ─── IntermediateVar suppression — mirrors ComputedStats ─────────────────────
+
+function shouldSuppressIntermediateVar(varName, formula) {
+    if (/PerFrame$/i.test(varName)) return true;
+    const bracketCount = (formula.match(/\[/g) || []).length;
+    const hasDivision  = formula.includes('/');
+    const hasFnCall    = /[A-Z][a-zA-Z]+\s*\(/.test(formula);
+    const hasMaxMin    = /\bmax\s*\(|\bmin\s*\(/.test(formula);
+    if (!hasDivision && !hasFnCall && !hasMaxMin && bracketCount <= 1) return true;
+    if (!hasDivision && !hasFnCall && bracketCount === 2 && formula.includes('?')) return true;
+    if (/^\d+\.\s*\*/.test(formula.trim())) return true;
+    return false;
 }
 
 // ─── Formula evaluator (display-side) ────────────────────────────────────────
@@ -96,9 +140,7 @@ function evalFormula(formulaStr, attrs, fnResolver) {
         // eslint-disable-next-line no-new-func
         const result = Function(`"use strict"; return (${js});`)();
         return typeof result === 'number' && isFinite(result) ? result : NaN;
-    } catch (_) {
-        return NaN;
-    }
+    } catch (_) { return NaN; }
 }
 
 function buildFnResolver(attrDefs, attrs) {
@@ -113,28 +155,18 @@ function buildFnResolver(attrDefs, attrs) {
         const formula = fn.formulas[fn.formulas.length - 1].formula;
         const partialResolver = Object.fromEntries(Object.entries(cache).map(([k, v]) => [k, String(v)]));
         let val = evalFormula(formula, attrs, partialResolver);
-
-        // Guard: CoolingEfficiency must be 0–2
         if (fnName === 'CoolingEfficiency' && (isNaN(val) || val < 0 || val > 2)) {
             const x = parseFloat((attrs || {})['cooling inefficiency'] ?? 0);
             val = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
         }
-
         cache[fnName] = isNaN(val) ? 0 : val;
         return cache[fnName];
     }
 
-    // FIX 3: Mass first so CloakingSpeed resolves correctly
-    const coreOrder = [
-        'Mass', 'Drag', 'DragForce', 'InertialMass',
-        'HeatDissipation', 'MaximumHeat', 'CoolingEfficiency',
-        'MaxShields', 'MaxHull', 'MinimumHull',
-        'CloakingSpeed',
-    ];
+    const coreOrder = ['Mass', 'Drag', 'DragForce', 'InertialMass', 'HeatDissipation',
+        'MaximumHeat', 'CoolingEfficiency', 'MaxShields', 'MaxHull', 'MinimumHull', 'CloakingSpeed'];
     for (const fn of coreOrder) resolve(fn, 0);
-    for (const fnName of Object.keys(fns)) {
-        if (cache[fnName] === undefined) resolve(fnName, 0);
-    }
+    for (const fnName of Object.keys(fns)) { if (cache[fnName] === undefined) resolve(fnName, 0); }
     return cache;
 }
 
@@ -149,35 +181,20 @@ function computedKeyToLabel(key) {
     return s.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/^./, c => c.toUpperCase()).trim();
 }
 
-// ─── Functions to skip displaying — data-driven ───────────────────────────────
-// These are internal Ship:: helpers that return non-numeric or non-useful values.
-// Detected from returnType extracted by the parser — no hardcoded name list.
-
-function shouldSkipFn(fnName, fnData) {
-    const retType = (fnData.returnType || '').trim();
-    // Skip void, bool, string, pointer returns
-    if (/^(bool|void|string|.*\*|.*&)/.test(retType)) return true;
-    // Skip functions with no attribute reads (pure state accessors)
-    if (!fnData.attributesRead?.length) return true;
-    // Skip functions with no formula
-    if (!fnData.formulas?.length) return true;
-    return false;
-}
-
-// ─── calcDerivedStats — FIX 1 & 2 revised ────────────────────────────────────
-// Reads displayScale/displayUnit/labelPrefix from JSON (written by parser).
-// No hardcoded FN_META. No hardcoded SKIP_FNS.
+// ─── calcDerivedStats ─────────────────────────────────────────────────────────
 
 function calcDerivedStats(attrDefs, item, pluginId) {
     const attrs      = item?.attributes || item || {};
     const fns        = attrDefs?.shipFunctions       || {};
     const tableRows  = attrDefs?.shipDisplay?.energyHeatTable   || [];
     const labelPairs = attrDefs?.shipDisplay?.labelValuePairs   || [];
+    const intVars    = attrDefs?.shipDisplay?.intermediateVars  || {};
     const results    = [];
     const seen       = new Set();
 
-    const fnCache    = buildFnResolver(attrDefs, attrs);
-    const fnResolver = Object.fromEntries(Object.entries(fnCache).map(([k, v]) => [k, String(v)]));
+    const fnCache         = buildFnResolver(attrDefs, attrs);
+    const fnResolver      = Object.fromEntries(Object.entries(fnCache).map(([k, v]) => [k, String(v)]));
+    const knownDisplayFns = _buildKnownDisplayFns(attrDefs);
 
     function push(label, rawValue, displayScale, unit, formulaStr, isComputedOutfit) {
         const scale = (typeof displayScale === 'number' && displayScale > 0) ? displayScale : 1;
@@ -188,9 +205,9 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         results.push({ label, value: fmtNum(value), unit: unit || '', formula: formulaStr || '', isComputedOutfit: !!isComputedOutfit });
     }
 
-    // ── 1. Ship function formulas — data-driven ───────────────────────────────
+    // ── 1. Ship function formulas ─────────────────────────────────────────────
     for (const [fnName, fnData] of Object.entries(fns)) {
-        if (shouldSkipFn(fnName, fnData)) continue;
+        if (shouldSuppressFn(fnName, fnData, knownDisplayFns)) continue;
 
         const formula = fnData.formulas[fnData.formulas.length - 1].formula;
         const rawVal  = evalFormula(formula, attrs, fnResolver);
@@ -199,9 +216,9 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         const scale  = fnData.displayScale  ?? 1;
         const unit   = fnData.displayUnit   ?? '';
         const prefix = fnData.labelPrefix   ?? '';
+        const label  = prefix + fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim();
 
-        const baseLabel = fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim();
-        push(prefix + baseLabel, rawVal, scale, unit, formula);
+        push(label, rawVal, scale, unit, formula);
     }
 
     // ── 2. Energy/heat table rows ─────────────────────────────────────────────
@@ -244,31 +261,35 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     const ramscoop = parseFloat(attrs['ramscoop'] ?? 0);
     if (ramscoop) push('Ramscoop Fuel/s', 0.03 * Math.sqrt(ramscoop), 1, 'fuel/s');
 
-    // ── 8. Computed stats from ComputedStats.js (outfit-aware) ───────────────
+    // ── 8. Computed stats from ComputedStats.js ───────────────────────────────
     if (pluginId && typeof getComputedStats === 'function') {
         const computed = getComputedStats(item, pluginId);
         for (const [statKey, val] of Object.entries(computed)) {
             const isComputedKey = statKey.startsWith('_derived_') || statKey.startsWith('_fn_') || statKey.startsWith('_total') || statKey === '_outfitMass';
             if (!isComputedKey) continue;
             if (val == null || (typeof val === 'number' && (isNaN(val) || val === 0))) continue;
-            const label = computedKeyToLabel(statKey);
 
-            // For _fn_ keys, apply the displayScale from the JSON
             let displayVal = val;
             if (statKey.startsWith('_fn_')) {
-                const fnName  = statKey.slice(4);
-                const fnData  = fns[fnName];
-                const scale   = fnData?.displayScale ?? 1;
-                displayVal    = val * scale;
+                const fnName = statKey.slice(4);
+                const fnData = fns[fnName];
+                if (fnData && shouldSuppressFn(fnName, fnData, knownDisplayFns)) continue;
+                displayVal = val * (fnData?.displayScale ?? 1);
+            }
+            if (statKey.startsWith('_derived_')) {
+                const varName = statKey.slice('_derived_'.length).replace(/_energy_|_heat_/, '');
+                const ivar    = intVars[varName];
+                if (ivar && shouldSuppressIntermediateVar(varName, ivar)) continue;
             }
 
+            const label = computedKeyToLabel(statKey);
             if (seen.has(label)) {
                 const existing = results.find(r => r.label === label);
                 if (existing) { existing.value = fmtNum(displayVal); existing.isComputedOutfit = true; }
                 continue;
             }
             seen.add(label);
-            results.push({ label, value: fmtNum(displayVal), unit: fns[statKey.slice(4)]?.displayUnit ?? '', formula: '', isComputedOutfit: true });
+            results.push({ label, value: fmtNum(displayVal), unit: '', formula: '', isComputedOutfit: true });
         }
     }
 
@@ -297,12 +318,9 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext) {
         if (outfitContext.description) wRows.push(`<div class="ad-description">${outfitContext.description}</div>`);
         for (const [key, value] of Object.entries(outfitContext)) {
             if (excludeOutfit.has(key) || typeof value === 'object' || Array.isArray(value)) continue;
-            const rec    = getAttrRecord(attrDefs, key);
-            const unit   = rec?.displayUnit ?? '';
-            const mult   = rec?.displayMultiplier ?? 1;
-            const rawVal = parseFloat(value);
-            const dispV  = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * mult);
-            wRows.push(attrRow(getLabel(key), dispV, unit, tooltipContent(rec)));
+            const rec = getAttrRecord(attrDefs, key);
+            const dispV = isNaN(parseFloat(value)) ? fmtNum(value) : fmtNum(parseFloat(value) * (rec?.displayMultiplier ?? 1));
+            wRows.push(attrRow(getLabel(key), dispV, rec?.displayUnit ?? '', tooltipContent(rec)));
         }
     }
 
@@ -313,19 +331,16 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext) {
             continue;
         }
         if (typeof value === 'object') continue;
-        const rec    = getAttrRecord(attrDefs, key);
-        const unit   = rec?.displayUnit ?? '';
-        const mult   = rec?.displayMultiplier ?? 1;
-        const rawVal = parseFloat(value);
-        const dispV  = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * mult);
-        wRows.push(attrRow(getLabel(key), dispV, unit, tooltipContent(rec)));
+        const rec   = getAttrRecord(attrDefs, key);
+        const rawV  = parseFloat(value);
+        const dispV = isNaN(rawV) ? fmtNum(value) : fmtNum(rawV * (rec?.displayMultiplier ?? 1));
+        wRows.push(attrRow(getLabel(key), dispV, rec?.displayUnit ?? '', tooltipContent(rec)));
     }
 
     for (const effectKey of ['hit effect','fire effect','die effect','live effect']) {
         const val = weapon[effectKey];
         if (!val) continue;
-        const entries = Array.isArray(val) ? val : [val];
-        for (const e of entries) {
+        for (const e of (Array.isArray(val) ? val : [val])) {
             if (typeof e === 'object') wRows.push(attrRow(`${getLabel(effectKey)}: ${e.name ?? e}`, (e.count ?? 1) > 1 ? String(e.count) : '✓', '', ''));
             else if (typeof e === 'string') wRows.push(attrRow(`${getLabel(effectKey)}: ${e}`, '✓', '', ''));
             else if (typeof e === 'number') wRows.push(attrRow(getLabel(effectKey), String(e), '', ''));
@@ -342,9 +357,7 @@ function collectDamage(weapon, multiplier = 1) {
     const dmg = {};
     for (const [key, val] of Object.entries(weapon || {})) {
         if (typeof val !== 'number') continue;
-        if (key.endsWith(' damage') || key === 'anti-missile' || key === 'blast radius') {
-            dmg[key] = (dmg[key] || 0) + val * multiplier;
-        }
+        if (key.endsWith(' damage') || key === 'anti-missile' || key === 'blast radius') dmg[key] = (dmg[key] || 0) + val * multiplier;
     }
     return dmg;
 }
@@ -356,80 +369,60 @@ function mergeInto(target, source) {
 function renderWeaponChain(attrDefs, weapon, pluginId) {
     if (!weapon) return '';
     let html = '';
-    const totalDamage = {};
-    const visited = new Set();
-    const queue   = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
+    const totalDamage = {}, visited = new Set();
+    const queue = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
     const sections = [];
 
     while (queue.length > 0) {
         const { weapon: w, outfit: o, title, multiplier, depth } = queue.shift();
-        sections.push({ weapon: w, outfit: o, title, multiplier });
+        sections.push({ weapon: w, outfit: o, title });
         mergeInto(totalDamage, collectDamage(w, multiplier));
-
-        const sub = w.submunition;
-        if (sub && depth < 8) {
-            const entries = Array.isArray(sub) ? sub : [{ name: String(sub), count: 1 }];
-            for (const entry of entries) {
-                const subName  = entry?.name ?? String(entry);
-                const subCount = entry?.count ?? 1;
+        if (w.submunition && depth < 8) {
+            for (const entry of (Array.isArray(w.submunition) ? w.submunition : [{ name: String(w.submunition), count: 1 }])) {
+                const subName = entry?.name ?? String(entry), subCount = entry?.count ?? 1;
                 if (!subName || visited.has(subName)) continue;
                 visited.add(subName);
-                const subOutfit = lookupOutfit(subName, pluginId);
-                if (subOutfit?.weapon) queue.push({ weapon: subOutfit.weapon, outfit: subOutfit, title: `Submunition: ${subName}${subCount > 1 ? ` ×${subCount}` : ''}`, multiplier: multiplier * subCount, depth: depth + 1 });
+                const sub = lookupOutfit(subName, pluginId);
+                if (sub?.weapon) queue.push({ weapon: sub.weapon, outfit: sub, title: `Submunition: ${subName}${subCount > 1 ? ` ×${subCount}` : ''}`, multiplier: multiplier * subCount, depth: depth + 1 });
             }
         }
-
-        const ammoVal = w.ammo;
-        if (ammoVal && typeof ammoVal === 'string' && depth < 8 && !visited.has(ammoVal)) {
-            visited.add(ammoVal);
-            const ammoOutfit = lookupOutfit(ammoVal, pluginId);
-            if (ammoOutfit?.weapon) queue.push({ weapon: ammoOutfit.weapon, outfit: ammoOutfit, title: `Ammo: ${ammoVal}`, multiplier, depth: depth + 1 });
+        if (w.ammo && typeof w.ammo === 'string' && depth < 8 && !visited.has(w.ammo)) {
+            visited.add(w.ammo);
+            const ammo = lookupOutfit(w.ammo, pluginId);
+            if (ammo?.weapon) queue.push({ weapon: ammo.weapon, outfit: ammo, title: `Ammo: ${w.ammo}`, multiplier, depth: depth + 1 });
         }
     }
 
     for (const { weapon: w, outfit: o, title } of sections) html += renderWeaponStats(attrDefs, w, title, o);
-
     if (sections.length > 1 && Object.keys(totalDamage).length > 0) {
-        const totalRows = Object.entries(totalDamage).filter(([, v]) => v !== 0).map(([key, val]) => attrRow(getLabel(key), fmtNum(val), '', ''));
-        if (totalRows.length) html += buildSection('Total Damage (full chain)', totalRows);
+        const rows = Object.entries(totalDamage).filter(([, v]) => v !== 0).map(([k, v]) => attrRow(getLabel(k), fmtNum(v), '', ''));
+        if (rows.length) html += buildSection('Total Damage (full chain)', rows);
     }
-
     return html;
 }
 
 function calcWeaponDerived(attrDefs, weapon) {
     if (!weapon) return [];
-    const results = [];
-    const seen    = new Set();
+    const results = [], seen = new Set();
     function push(label, value, unit) {
         if (isNaN(value) || value === 0 || seen.has(label)) return;
-        seen.add(label);
-        results.push({ label, value: fmtNum(value), unit: unit || '' });
+        seen.add(label); results.push({ label, value: fmtNum(value), unit: unit || '' });
     }
-
-    const reload   = parseFloat(weapon.reload   ?? 1) || 1;
-    const velocity = parseFloat(weapon.velocity ?? 0);
-    const lifetime = parseFloat(weapon.lifetime ?? 0);
-
-    if (velocity && lifetime) push('Range', velocity * lifetime, 'px');
+    const reload = parseFloat(weapon.reload ?? 1) || 1;
+    const vel    = parseFloat(weapon.velocity ?? 0);
+    const life   = parseFloat(weapon.lifetime ?? 0);
+    if (vel && life) push('Range', vel * life, 'px');
     push('Fire Rate', 60 / reload, 'shots/s');
-
     const damageTypes = attrDefs?.weapon?.damageTypes?.length
         ? attrDefs.weapon.damageTypes
         : Object.keys(weapon).filter(k => k.endsWith(' damage')).map(k => k.replace(/ damage$/, ''));
-
     for (const dtype of damageTypes) {
         const dmgKey = dtype.endsWith(' damage') ? dtype : `${dtype} damage`;
         const val = parseFloat(weapon[dmgKey] ?? weapon[dtype.toLowerCase() + ' damage'] ?? weapon[dmgKey.toLowerCase()] ?? 0);
         if (val) push(getLabel(dmgKey.replace(/ damage$/i, '')) + ' DPS', val / reload * 60, 'dmg/s');
     }
-
     const am = parseFloat(weapon['anti-missile'] ?? 0);
-    if (am) {
-        const ms = parseFloat(weapon['missile strength'] ?? 1) || 1;
-        push('Intercept Chance', am / (am + ms) * 100, `% vs str ${ms}`);
-    }
-
+    if (am) { const ms = parseFloat(weapon['missile strength'] ?? 1) || 1; push('Intercept Chance', am / (am + ms) * 100, `% vs str ${ms}`); }
     return results;
 }
 
@@ -442,7 +435,7 @@ function fmtNum(v) {
     return parseFloat(v.toPrecision(4)).toString();
 }
 
-// ─── HTML building helpers ────────────────────────────────────────────────────
+// ─── HTML helpers ─────────────────────────────────────────────────────────────
 
 function tooltipContent(rec, formulaOverride) {
     if (!rec && !formulaOverride) return '';
@@ -457,8 +450,7 @@ function tooltipContent(rec, formulaOverride) {
 
 function buildSection(title, rows) {
     if (!rows.length) return '';
-    const h = title ? `<h3 class="ad-section-title">${title}</h3>` : '';
-    return `${h}<div class="ad-grid">${rows.join('')}</div>`;
+    return `${title ? `<h3 class="ad-section-title">${title}</h3>` : ''}<div class="ad-grid">${rows.join('')}</div>`;
 }
 
 function attrRow(label, displayValue, unit, tipAttrs, extra) {
@@ -467,19 +459,15 @@ function attrRow(label, displayValue, unit, tipAttrs, extra) {
     return `<div class="ad-row${cls}"${tipAttrs || ''}><div class="ad-label">${label}</div><div class="ad-value">${displayValue}${badge}</div></div>`;
 }
 
-// ─── Section grouping ─────────────────────────────────────────────────────────
-
 function groupBySection(attrDefs, entries) {
     const sections = {};
     for (const { key, value } of entries) {
         const rec     = getAttrRecord(attrDefs, key);
         const section = getSection(attrDefs, key);
-        const mult    = rec?.displayMultiplier ?? 1;
-        const unit    = rec?.displayUnit ?? '';
         const rawVal  = parseFloat(value);
-        const dispVal = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * mult);
+        const dispVal = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * (rec?.displayMultiplier ?? 1));
         if (!sections[section]) sections[section] = [];
-        sections[section].push(attrRow(getLabel(key), dispVal, unit, tooltipContent(rec)));
+        sections[section].push(attrRow(getLabel(key), dispVal, rec?.displayUnit ?? '', tooltipContent(rec)));
     }
     return sections;
 }
@@ -498,19 +486,13 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
     let html = '';
 
     if (currentTab === 'ships' || currentTab === 'variants') {
-        if (currentTab === 'variants' && item.baseShip) {
+        if (currentTab === 'variants' && item.baseShip)
             html += `<p class="ad-base-ship">Base Ship: <strong>${item.baseShip}</strong></p>`;
-        }
 
         const attrs   = item.attributes || {};
-        const entries = [];
-        for (const [key, value] of Object.entries(attrs)) {
-            if (typeof value === 'object') continue;
-            entries.push({ key, value });
-        }
-        if (attrs.licenses && typeof attrs.licenses === 'object') {
+        const entries = Object.entries(attrs).filter(([, v]) => typeof v !== 'object').map(([k, v]) => ({ key: k, value: v }));
+        if (attrs.licenses && typeof attrs.licenses === 'object')
             html += buildSection('General', [attrRow('Licenses', Object.keys(attrs.licenses).join(', '), '', '')]);
-        }
         html += renderSections(groupBySection(attrDefs, entries));
 
         const hpRows = [];
@@ -542,25 +524,15 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
 
     } else if (currentTab === 'effects') {
         const excludeKeys = new Set(['name','description','sprite','spriteData']);
-        const entries = [];
-        for (const [key, value] of Object.entries(item)) {
-            if (excludeKeys.has(key) || typeof value === 'object') continue;
-            entries.push({ key, value });
-        }
+        const entries = Object.entries(item).filter(([k, v]) => !excludeKeys.has(k) && typeof v !== 'object').map(([k, v]) => ({ key: k, value: v }));
         html += renderSections(groupBySection(attrDefs, entries));
 
     } else {
         const excludeKeys = new Set(['name','description','thumbnail','sprite','hardpointSprite','hardpoint sprite','steering flare sprite','flare sprite','reverse flare sprite','afterburner effect','projectile','weapon','spriteData','_internalId','_pluginId','_hash','governments','_variantPluginId']);
-        const entries = [];
-        for (const [key, value] of Object.entries(item)) {
-            if (excludeKeys.has(key) || typeof value === 'object') continue;
-            entries.push({ key, value });
-        }
-        if (item.licenses && typeof item.licenses === 'object') {
+        const entries = Object.entries(item).filter(([k, v]) => !excludeKeys.has(k) && typeof v !== 'object').map(([k, v]) => ({ key: k, value: v }));
+        if (item.licenses && typeof item.licenses === 'object')
             html += buildSection('General', [attrRow('Licenses', Object.keys(item.licenses).join(', '), '', '')]);
-        }
         html += renderSections(groupBySection(attrDefs, entries));
-
         if (item.weapon) html += renderWeaponChain(attrDefs, item.weapon, pluginId);
 
         const noteRows = [];
@@ -569,9 +541,7 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
             if (!stacking?.rule || stacking.rule === 'additive') continue;
             noteRows.push(`<div class="ad-stacking-note"><span class="ad-stacking-key">${getLabel(key)}</span><span class="ad-stacking-rule">${stacking.rule}${stacking.description ? ' — ' + stacking.description : ''}</span></div>`);
         }
-        if (noteRows.length) {
-            html += `<div class="ad-stacking-section"><h3 class="ad-section-title">Stacking Notes</h3>${noteRows.join('')}</div>`;
-        }
+        if (noteRows.length) html += `<div class="ad-stacking-section"><h3 class="ad-section-title">Stacking Notes</h3>${noteRows.join('')}</div>`;
     }
 
     return html;
@@ -585,30 +555,11 @@ function initTooltips() {
     tooltip.id = 'ad-tooltip';
     tooltip.style.cssText = ['position:fixed','z-index:9999','max-width:320px','padding:10px 14px','background:rgba(15,23,42,0.97)','border:1px solid rgba(99,179,237,0.35)','border-radius:8px','color:#e2e8f0','font-size:12px','line-height:1.55','pointer-events:none','opacity:0','transition:opacity 0.15s ease','box-shadow:0 8px 32px rgba(0,0,0,0.6)','white-space:pre-wrap'].join(';');
     document.body.appendChild(tooltip);
-    document.addEventListener('mouseover', e => {
-        const t = e.target.closest('[data-tooltip]');
-        if (!t) return;
-        tooltip.textContent = t.dataset.tooltip.replace(/ \| /g, '\n');
-        tooltip.style.opacity = '1';
-    });
-    document.addEventListener('mousemove', e => {
-        tooltip.style.left = Math.min(e.clientX + 16, window.innerWidth  - 340) + 'px';
-        tooltip.style.top  = Math.min(e.clientY + 12, window.innerHeight - 120) + 'px';
-    });
-    document.addEventListener('mouseout', e => {
-        if (e.target.closest('[data-tooltip]')) tooltip.style.opacity = '0';
-    });
+    document.addEventListener('mouseover', e => { const t = e.target.closest('[data-tooltip]'); if (!t) return; tooltip.textContent = t.dataset.tooltip.replace(/ \| /g, '\n'); tooltip.style.opacity = '1'; });
+    document.addEventListener('mousemove', e => { tooltip.style.left = Math.min(e.clientX + 16, window.innerWidth - 340) + 'px'; tooltip.style.top = Math.min(e.clientY + 12, window.innerHeight - 120) + 'px'; });
+    document.addEventListener('mouseout', e => { if (e.target.closest('[data-tooltip]')) tooltip.style.opacity = '0'; });
 }
 
 function injectStyles() { /* Styles live in CSS file */ }
 
-// ─── Exports ──────────────────────────────────────────────────────────────────
-
-window.AttributeDisplay = {
-    renderAttributesTabEnhanced,
-    calcDerivedStats,
-    calcWeaponDerived,
-    initTooltips,
-    injectStyles,
-    fmtNum,
-};
+window.AttributeDisplay = { renderAttributesTabEnhanced, calcDerivedStats, calcWeaponDerived, initTooltips, injectStyles, fmtNum };
