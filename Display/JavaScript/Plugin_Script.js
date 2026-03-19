@@ -216,7 +216,7 @@ function renderCards() {
     if (typeof getFilterData === 'function') getFilterData(items);
     if (typeof populateCategoryFilters === 'function') populateCategoryFilters(items);
     if (typeof populateGovernmentFilters === 'function') populateGovernmentFilters(items);
-    if (typeof filterItems === 'function') filterItems();
+    if (typeof filterItems === 'function') await filterItems();
 }
 
 async function createCard(item) {
