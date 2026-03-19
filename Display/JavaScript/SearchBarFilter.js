@@ -21,8 +21,10 @@ async function filterItems() {
         return;
     }
 
-    const cards = await Promise.all(display.map(item => createCard(item)));
-    cards.forEach(card => container.appendChild(card));
+    for (const item of display) {
+        const card = await createCard(item);
+        container.appendChild(card);
+    }
 }
 
 window.filterItems = filterItems;
