@@ -1,15 +1,7 @@
 'use strict';
 
-// ─── AttributeDisplay.js ──────────────────────────────────────────────────────
-//
-// Pure renderer — no data fetching, no monkey-patching.
-//
-// Plugin_Script.js owns loading attributeDefinitions.json and calls:
-//   window.AttributeDisplay.renderAttributesTabEnhanced(item, attrDefs, currentTab)
-//
-// Exposes:
-//   AttributeDisplay.initTooltips()   — call once from Plugin_Script DOMContentLoaded
-//   AttributeDisplay.injectStyles()   — call once from Plugin_Script DOMContentLoaded
+// ─── AttributeDisplay.js ─────────────────────────────────────────────────────
+// Pure renderer. Plugin_Script.js owns loading attributeDefinitions.json.
 
 // ─── Section assignment ───────────────────────────────────────────────────────
 
@@ -20,28 +12,17 @@ const SECTION_ORDER = [
 ];
 
 const SECTION_PATTERNS = [
-    [/^(shields?|hull|shield generation|hull repair|shield energy|hull energy|shield heat|hull heat|shield fuel|hull fuel|shield delay|depleted|repair delay|disabled repair|threshold|absolute threshold|hull multiplier|shield multiplier)/,
-        'Shields & Hull'],
-    [/^(energy|solar|fuel|cooling|ramscoop|heat generation|heat capacity|heat dissipation)/,
-        'Energy'],
-    [/^(thrust|turn|reverse|afterburner|engine)/,
-        'Engines'],
-    [/^(jump|hyperdrive|scram|warp)/,
-        'Jump'],
-    [/^(cargo|outfit space|weapon capacity|drone|fighter|mass reduction)/,
-        'Cargo'],
-    [/^(required crew|bunks|crew equivalent|extra mass)/,
-        'Crew'],
-    [/^(cargo scan|outfit scan|tactical scan|asteroid scan|scan interference)/,
-        'Scanning'],
-    [/^(cloak)/,
-        'Cloaking'],
-    [/resistance$/,
-        'Resistance'],
-    [/protection$|damage reduction/,
-        'Protection'],
-    [/^(drag|mass|cost|category|automaton|capture|nanobot|gaslining|atmosphere|spinal|remnant)/,
-        'General'],
+    [/^(shields?|hull|shield generation|hull repair|shield energy|hull energy|shield heat|hull heat|shield fuel|hull fuel|shield delay|depleted|repair delay|disabled repair|threshold|absolute threshold|hull multiplier|shield multiplier)/, 'Shields & Hull'],
+    [/^(energy|solar|fuel|cooling|ramscoop|heat generation|heat capacity|heat dissipation)/, 'Energy'],
+    [/^(thrust|turn|reverse|afterburner|engine)/, 'Engines'],
+    [/^(jump|hyperdrive|scram|warp)/, 'Jump'],
+    [/^(cargo|outfit space|weapon capacity|drone|fighter|mass reduction)/, 'Cargo'],
+    [/^(required crew|bunks|crew equivalent|extra mass)/, 'Crew'],
+    [/^(cargo scan|outfit scan|tactical scan|asteroid scan|scan interference)/, 'Scanning'],
+    [/^(cloak)/, 'Cloaking'],
+    [/resistance$/, 'Resistance'],
+    [/protection$|damage reduction/, 'Protection'],
+    [/^(drag|mass|cost|category|automaton|capture|nanobot|gaslining|atmosphere|spinal|remnant)/, 'General'],
 ];
 
 function inferSection(key) {
@@ -59,25 +40,13 @@ function getAttrRecord(attrDefs, key) {
     return attrs[key] || attrs[key?.toLowerCase()] || null;
 }
 
-function getDisplayMultiplier(attrDefs, key) {
-    return getAttrRecord(attrDefs, key)?.displayMultiplier ?? 1;
-}
-
-function getDisplayUnit(attrDefs, key) {
-    return getAttrRecord(attrDefs, key)?.displayUnit ?? '';
-}
-
 function getLabel(key) {
-    return key
-        .split(' ')
-        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(' ');
+    return key.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
 function getSection(attrDefs, key) {
     const rec = getAttrRecord(attrDefs, key);
     if (!rec) return inferSection(key);
-
     const fns = rec.usedInShipFunctions || [];
     if (fns.some(f => /MaxVelocity|Acceleration|TurnRate|Drag|InertialMass|Reverse/.test(f))) {
         const k = key.toLowerCase();
@@ -88,15 +57,8 @@ function getSection(attrDefs, key) {
     if (fns.some(f => /IdleHeat|CoolingEfficiency|HeatDissipation|MaximumHeat/.test(f))) return 'Energy';
     if (fns.some(f => /CloakingSpeed/.test(f))) return 'Cloaking';
     if (fns.some(f => /Jump|Nav/.test(f))) return 'Jump';
-
     if (rec.isWeaponStat) return 'Weapon Stats';
-    if (rec.shownInShipPanel && rec.shownInOutfitPanel) return inferSection(key);
-
     return inferSection(key);
-}
-
-function isExpectedNegative(attrDefs, key) {
-    return (attrDefs?.outfitDisplay?.expectedNegative || []).includes(key);
 }
 
 function getStacking(attrDefs, key) {
@@ -104,7 +66,7 @@ function getStacking(attrDefs, key) {
     return rec ? { rule: rec.stacking, description: rec.stackingDescription } : null;
 }
 
-// ─── Derived stat builder ─────────────────────────────────────────────────────
+// ─── Formula evaluator (display-side) ────────────────────────────────────────
 
 function evalFormula(formulaStr, attrs, fnResolver) {
     if (!formulaStr) return NaN;
@@ -113,15 +75,14 @@ function evalFormula(formulaStr, attrs, fnResolver) {
             const v = parseFloat((attrs || {})[k] ?? 0);
             return isNaN(v) ? '0' : String(v);
         });
-
         for (const [fn, impl] of Object.entries(fnResolver || {})) {
             js = js.replace(new RegExp(`\\b${fn}\\s*\\(\\s*\\)`, 'g'), `(${impl})`);
         }
-
+        const massVal = String(parseFloat((attrs || {})['mass'] ?? 0));
         js = js
             .replace(/\bMAXIMUM_TEMPERATURE\b/g, '100')
             .replace(/cargo\.Used\(\)/g, '0')
-            .replace(/attributes\.Mass\(\)/g, String(parseFloat((attrs || {})['mass'] ?? 0)))
+            .replace(/attributes\.Mass\(\)/g, massVal)
             .replace(/\bMax\s*\(/g, 'Math.max(')
             .replace(/\bmin\s*\(/g, 'Math.min(')
             .replace(/\bmax\s*\(/g, 'Math.max(')
@@ -132,7 +93,6 @@ function evalFormula(formulaStr, attrs, fnResolver) {
             .replace(/\bpow\s*\(/g, 'Math.pow(')
             .replace(/\b[A-Z][a-zA-Z]+\(\)/g, '0')
             .replace(/numeric_limits<[^>]+>::max\(\)/g, '1e308');
-
         // eslint-disable-next-line no-new-func
         const result = Function(`"use strict"; return (${js});`)();
         return typeof result === 'number' && isFinite(result) ? result : NaN;
@@ -148,23 +108,25 @@ function buildFnResolver(attrDefs, attrs) {
     function resolve(fnName, depth) {
         if (depth > 4) return 0;
         if (cache[fnName] !== undefined) return cache[fnName];
-
         const fn = fns[fnName];
         if (!fn?.formulas?.length) return 0;
-
         const formula = fn.formulas[fn.formulas.length - 1].formula;
-        const partialResolver = {};
-        for (const [k, v] of Object.entries(cache)) partialResolver[k] = String(v);
+        const partialResolver = Object.fromEntries(Object.entries(cache).map(([k, v]) => [k, String(v)]));
+        let val = evalFormula(formula, attrs, partialResolver);
 
-        const val = evalFormula(formula, attrs, partialResolver);
+        // Guard: CoolingEfficiency must be 0–2
+        if (fnName === 'CoolingEfficiency' && (isNaN(val) || val < 0 || val > 2)) {
+            const x = parseFloat((attrs || {})['cooling inefficiency'] ?? 0);
+            val = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
+        }
+
         cache[fnName] = isNaN(val) ? 0 : val;
         return cache[fnName];
     }
 
-    // FIX 3: Mass must be first so CloakingSpeed resolves correctly
+    // FIX 3: Mass first so CloakingSpeed resolves correctly
     const coreOrder = [
-        'Mass',
-        'InertialMass', 'Drag', 'DragForce',
+        'Mass', 'Drag', 'DragForce', 'InertialMass',
         'HeatDissipation', 'MaximumHeat', 'CoolingEfficiency',
         'MaxShields', 'MaxHull', 'MinimumHull',
         'CloakingSpeed',
@@ -173,48 +135,39 @@ function buildFnResolver(attrDefs, attrs) {
     for (const fnName of Object.keys(fns)) {
         if (cache[fnName] === undefined) resolve(fnName, 0);
     }
-
     return cache;
 }
 
-/**
- * Convert a _derived_* or _fn_* computed stat key into a human-readable label.
- */
 function computedKeyToLabel(key) {
     let s = key;
-    if (s.startsWith('_fn_'))             s = s.slice(4);
+    if (s.startsWith('_fn_'))                  s = s.slice(4);
     else if (s.startsWith('_derived_energy_')) s = s.slice('_derived_energy_'.length) + ' Energy/s';
     else if (s.startsWith('_derived_heat_'))   s = s.slice('_derived_heat_'.length)   + ' Heat/s';
     else if (s.startsWith('_derived_'))        s = s.slice('_derived_'.length);
     else if (s.startsWith('_total'))           s = s.slice(1);
     else if (s.startsWith('_'))                s = s.slice(1);
-
-    return s
-        .replace(/([A-Z])/g, ' $1')
-        .replace(/_/g, ' ')
-        .replace(/\s+/g, ' ')
-        .replace(/^./, c => c.toUpperCase())
-        .trim();
+    return s.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/^./, c => c.toUpperCase()).trim();
 }
 
-/**
- * calcDerivedStats — fully data-driven from attrDefs.shipFunctions.
- *
- * FIX 1 & 2: Reads displayScale and labelPrefix from attrDefs.shipFunctions
- * entries (written by the parser's annotateShipFunctionScales) so that raw
- * per-frame formula results are correctly scaled to per-second for display.
- *
- * The old hardcoded FN_META and SKIP_FNS constants have been removed.
- * Function filtering is now data-driven:
- *   - Skip bool/void/string return types (not numeric stats).
- *   - Skip functions with no attributesRead (structural helpers).
- *   - Skip functions with no formulas.
- *
- * labelPrefix 'Base ' is written by the parser when the formula contains
- * 'withAfterburner' and the function name contains 'Velocity'/'Speed',
- * so MaxVelocity displays as "Base Max Velocity" to clarify that the
- * afterburner contribution is excluded in base stat evaluation.
- */
+// ─── Functions to skip displaying — data-driven ───────────────────────────────
+// These are internal Ship:: helpers that return non-numeric or non-useful values.
+// Detected from returnType extracted by the parser — no hardcoded name list.
+
+function shouldSkipFn(fnName, fnData) {
+    const retType = (fnData.returnType || '').trim();
+    // Skip void, bool, string, pointer returns
+    if (/^(bool|void|string|.*\*|.*&)/.test(retType)) return true;
+    // Skip functions with no attribute reads (pure state accessors)
+    if (!fnData.attributesRead?.length) return true;
+    // Skip functions with no formula
+    if (!fnData.formulas?.length) return true;
+    return false;
+}
+
+// ─── calcDerivedStats — FIX 1 & 2 revised ────────────────────────────────────
+// Reads displayScale/displayUnit/labelPrefix from JSON (written by parser).
+// No hardcoded FN_META. No hardcoded SKIP_FNS.
+
 function calcDerivedStats(attrDefs, item, pluginId) {
     const attrs      = item?.attributes || item || {};
     const fns        = attrDefs?.shipFunctions       || {};
@@ -224,67 +177,40 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     const seen       = new Set();
 
     const fnCache    = buildFnResolver(attrDefs, attrs);
-    const fnResolver = Object.fromEntries(
-        Object.entries(fnCache).map(([k, v]) => [k, String(v)])
-    );
+    const fnResolver = Object.fromEntries(Object.entries(fnCache).map(([k, v]) => [k, String(v)]));
 
     function push(label, rawValue, displayScale, unit, formulaStr, isComputedOutfit) {
-        // FIX 1: apply the per-frame → per-second scale from the parser
-        const scale = (typeof displayScale === 'number' && displayScale > 0)
-            ? displayScale
-            : 1;
+        const scale = (typeof displayScale === 'number' && displayScale > 0) ? displayScale : 1;
         const value = rawValue * scale;
         if (isNaN(value) || value === 0) return;
         if (seen.has(label)) return;
         seen.add(label);
-        results.push({
-            label,
-            value:            fmtNum(value),
-            unit:             unit || '',
-            formula:          formulaStr || '',
-            isComputedOutfit: !!isComputedOutfit,
-        });
+        results.push({ label, value: fmtNum(value), unit: unit || '', formula: formulaStr || '', isComputedOutfit: !!isComputedOutfit });
     }
 
-    // ── 1. Ship function formulas — fully data-driven ─────────────────────────
+    // ── 1. Ship function formulas — data-driven ───────────────────────────────
     for (const [fnName, fnData] of Object.entries(fns)) {
-        if (!fnData.formulas?.length)       continue;
-        if (!fnData.attributesRead?.length) continue;
-
-        // Skip non-numeric return types
-        const retType = (fnData.returnType || '').trim();
-        if (retType === 'bool' || retType === 'void' || retType === 'string') continue;
+        if (shouldSkipFn(fnName, fnData)) continue;
 
         const formula = fnData.formulas[fnData.formulas.length - 1].formula;
         const rawVal  = evalFormula(formula, attrs, fnResolver);
         if (isNaN(rawVal) || rawVal === 0) continue;
 
-        // FIX 1: displayScale and displayUnit are written by parser
-        // FIX 2: labelPrefix is 'Base ' when withAfterburner is zeroed
         const scale  = fnData.displayScale  ?? 1;
         const unit   = fnData.displayUnit   ?? '';
         const prefix = fnData.labelPrefix   ?? '';
 
-        const baseLabel = fnName
-            .replace(/([A-Z])/g, ' $1')
-            .replace(/^./, c => c.toUpperCase())
-            .trim();
-        const label = prefix + baseLabel;
-
-        push(label, rawVal, scale, unit, formula);
+        const baseLabel = fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim();
+        push(prefix + baseLabel, rawVal, scale, unit, formula);
     }
 
     // ── 2. Energy/heat table rows ─────────────────────────────────────────────
-    // These are already in display units (the ShipInfoDisplay formulas include
-    // their own ×60 scaling), so displayScale = 1 here.
     for (const row of tableRows) {
         if (!row.label) continue;
         const eVal = evalFormula(row.energyFormula, attrs, fnResolver);
         const hVal = evalFormula(row.heatFormula,   attrs, fnResolver);
-        if (!isNaN(eVal) && eVal !== 0)
-            push(`${row.label} energy/s`, eVal, 1, 'energy/s', row.energyFormula);
-        if (!isNaN(hVal) && hVal !== 0)
-            push(`${row.label} heat/s`,   hVal, 1, 'heat/s',   row.heatFormula);
+        if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy/s`, eVal, 1, 'energy/s', row.energyFormula);
+        if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat/s`,   hVal, 1, 'heat/s',   row.heatFormula);
     }
 
     // ── 3. Label/value pairs from ShipInfoDisplay ─────────────────────────────
@@ -303,17 +229,11 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     if (maxHull    && hullRepair)  push('Time to Full Hull',    maxHull    / hullRepair,  1, 's');
 
     // ── 5. Scan ranges ────────────────────────────────────────────────────────
-    for (const [key, rec] of Object.entries(attrDefs?.attributes || {})) {
+    for (const [key] of Object.entries(attrDefs?.attributes || {})) {
         if (!key.endsWith('scan power')) continue;
         const val = parseFloat(attrs[key] ?? 0);
         if (!val) continue;
-        push(
-            getLabel(key).replace(' Power', ' Range'),
-            100 * Math.sqrt(val),
-            1,
-            'px',
-            `100 * sqrt([${key}])`
-        );
+        push(getLabel(key).replace(' Power', ' Range'), 100 * Math.sqrt(val), 1, 'px', `100 * sqrt([${key}])`);
     }
 
     // ── 6. Scan evasion ───────────────────────────────────────────────────────
@@ -327,36 +247,28 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     // ── 8. Computed stats from ComputedStats.js (outfit-aware) ───────────────
     if (pluginId && typeof getComputedStats === 'function') {
         const computed = getComputedStats(item, pluginId);
-
         for (const [statKey, val] of Object.entries(computed)) {
-            const isComputedKey =
-                statKey.startsWith('_derived_') ||
-                statKey.startsWith('_fn_')      ||
-                statKey.startsWith('_total')    ||
-                statKey === '_outfitMass';
-
+            const isComputedKey = statKey.startsWith('_derived_') || statKey.startsWith('_fn_') || statKey.startsWith('_total') || statKey === '_outfitMass';
             if (!isComputedKey) continue;
             if (val == null || (typeof val === 'number' && (isNaN(val) || val === 0))) continue;
-
             const label = computedKeyToLabel(statKey);
+
+            // For _fn_ keys, apply the displayScale from the JSON
+            let displayVal = val;
+            if (statKey.startsWith('_fn_')) {
+                const fnName  = statKey.slice(4);
+                const fnData  = fns[fnName];
+                const scale   = fnData?.displayScale ?? 1;
+                displayVal    = val * scale;
+            }
 
             if (seen.has(label)) {
                 const existing = results.find(r => r.label === label);
-                if (existing) {
-                    existing.value            = fmtNum(val);
-                    existing.isComputedOutfit = true;
-                }
+                if (existing) { existing.value = fmtNum(displayVal); existing.isComputedOutfit = true; }
                 continue;
             }
-
             seen.add(label);
-            results.push({
-                label,
-                value:            fmtNum(val),
-                unit:             '',
-                formula:          '',
-                isComputedOutfit: true,
-            });
+            results.push({ label, value: fmtNum(displayVal), unit: fns[statKey.slice(4)]?.displayUnit ?? '', formula: '', isComputedOutfit: true });
         }
     }
 
@@ -376,27 +288,15 @@ function lookupOutfit(name, pluginId) {
 }
 
 function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext) {
-    const excludeWeapon = new Set([
-        'sprite', 'spriteData', 'sound', 'hit effect', 'fire effect',
-        'die effect', 'live effect', 'submunition', 'ammo', 'stream',
-        'cluster', 'hardpoint sprite', 'hardpoint offset', 'icon',
-    ]);
-    const excludeOutfit = new Set([
-        'name', 'weapon', 'sprite', 'spriteData', 'thumbnail',
-        'description', 'flare sprite', 'steering flare sprite',
-        'reverse flare sprite', 'afterburner effect',
-    ]);
-
+    const excludeWeapon = new Set(['sprite','spriteData','sound','hit effect','fire effect','die effect','live effect','submunition','ammo','stream','cluster','hardpoint sprite','hardpoint offset','icon']);
+    const excludeOutfit = new Set(['name','weapon','sprite','spriteData','thumbnail','description','flare sprite','steering flare sprite','reverse flare sprite','afterburner effect']);
     let html = '';
     const wRows = [];
 
     if (outfitContext) {
-        if (outfitContext.description) {
-            wRows.push(`<div class="ad-description">${outfitContext.description}</div>`);
-        }
+        if (outfitContext.description) wRows.push(`<div class="ad-description">${outfitContext.description}</div>`);
         for (const [key, value] of Object.entries(outfitContext)) {
-            if (excludeOutfit.has(key)) continue;
-            if (typeof value === 'object' || Array.isArray(value)) continue;
+            if (excludeOutfit.has(key) || typeof value === 'object' || Array.isArray(value)) continue;
             const rec    = getAttrRecord(attrDefs, key);
             const unit   = rec?.displayUnit ?? '';
             const mult   = rec?.displayMultiplier ?? 1;
@@ -408,17 +308,11 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext) {
 
     for (const [key, value] of Object.entries(weapon)) {
         if (excludeWeapon.has(key)) continue;
-
         if (Array.isArray(value)) {
-            for (const v of value) {
-                if (typeof v === 'object') continue;
-                wRows.push(attrRow(getLabel(key), String(v), '', ''));
-            }
+            for (const v of value) { if (typeof v !== 'object') wRows.push(attrRow(getLabel(key), String(v), '', '')); }
             continue;
         }
-
         if (typeof value === 'object') continue;
-
         const rec    = getAttrRecord(attrDefs, key);
         const unit   = rec?.displayUnit ?? '';
         const mult   = rec?.displayMultiplier ?? 1;
@@ -427,37 +321,24 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext) {
         wRows.push(attrRow(getLabel(key), dispV, unit, tooltipContent(rec)));
     }
 
-    for (const effectKey of ['hit effect', 'fire effect', 'die effect', 'live effect']) {
+    for (const effectKey of ['hit effect','fire effect','die effect','live effect']) {
         const val = weapon[effectKey];
         if (!val) continue;
         const entries = Array.isArray(val) ? val : [val];
         for (const e of entries) {
-            if (typeof e === 'object') {
-                const label = `${getLabel(effectKey)}: ${e.name ?? e}`;
-                const count = e.count ?? 1;
-                wRows.push(attrRow(label, count > 1 ? String(count) : '✓', '', ''));
-            } else if (typeof e === 'string') {
-                wRows.push(attrRow(`${getLabel(effectKey)}: ${e}`, '✓', '', ''));
-            } else if (typeof e === 'number') {
-                wRows.push(attrRow(getLabel(effectKey), String(e), '', ''));
-            }
+            if (typeof e === 'object') wRows.push(attrRow(`${getLabel(effectKey)}: ${e.name ?? e}`, (e.count ?? 1) > 1 ? String(e.count) : '✓', '', ''));
+            else if (typeof e === 'string') wRows.push(attrRow(`${getLabel(effectKey)}: ${e}`, '✓', '', ''));
+            else if (typeof e === 'number') wRows.push(attrRow(getLabel(effectKey), String(e), '', ''));
         }
     }
 
     if (wRows.length) html += buildSection(sectionTitle, wRows);
-
     const wDerived = calcWeaponDerived(attrDefs, weapon);
-    if (wDerived.length) {
-        html += buildSection(`${sectionTitle} — Derived`, wDerived.map(d =>
-            attrRow(d.label, d.value, d.unit, '', 'derived')
-        ));
-    }
-
+    if (wDerived.length) html += buildSection(`${sectionTitle} — Derived`, wDerived.map(d => attrRow(d.label, d.value, d.unit, '', 'derived')));
     return html;
 }
 
-function collectDamage(weapon, multiplier) {
-    multiplier = multiplier ?? 1;
+function collectDamage(weapon, multiplier = 1) {
     const dmg = {};
     for (const [key, val] of Object.entries(weapon || {})) {
         if (typeof val !== 'number') continue;
@@ -469,82 +350,48 @@ function collectDamage(weapon, multiplier) {
 }
 
 function mergeInto(target, source) {
-    for (const [k, v] of Object.entries(source)) {
-        target[k] = (target[k] || 0) + v;
-    }
+    for (const [k, v] of Object.entries(source)) target[k] = (target[k] || 0) + v;
 }
 
 function renderWeaponChain(attrDefs, weapon, pluginId) {
     if (!weapon) return '';
-
     let html = '';
     const totalDamage = {};
     const visited = new Set();
-
-    const queue = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
+    const queue   = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
     const sections = [];
 
     while (queue.length > 0) {
         const { weapon: w, outfit: o, title, multiplier, depth } = queue.shift();
-
         sections.push({ weapon: w, outfit: o, title, multiplier });
-
         mergeInto(totalDamage, collectDamage(w, multiplier));
 
         const sub = w.submunition;
         if (sub && depth < 8) {
-            const entries = Array.isArray(sub)
-                ? sub
-                : [{ name: String(sub), count: 1 }];
-
+            const entries = Array.isArray(sub) ? sub : [{ name: String(sub), count: 1 }];
             for (const entry of entries) {
                 const subName  = entry?.name ?? String(entry);
                 const subCount = entry?.count ?? 1;
                 if (!subName || visited.has(subName)) continue;
                 visited.add(subName);
-
                 const subOutfit = lookupOutfit(subName, pluginId);
-                if (subOutfit?.weapon) {
-                    queue.push({
-                        weapon:     subOutfit.weapon,
-                        outfit:     subOutfit,
-                        title:      `Submunition: ${subName}${subCount > 1 ? ` ×${subCount}` : ''}`,
-                        multiplier: multiplier * subCount,
-                        depth:      depth + 1,
-                    });
-                }
+                if (subOutfit?.weapon) queue.push({ weapon: subOutfit.weapon, outfit: subOutfit, title: `Submunition: ${subName}${subCount > 1 ? ` ×${subCount}` : ''}`, multiplier: multiplier * subCount, depth: depth + 1 });
             }
         }
 
         const ammoVal = w.ammo;
-        if (ammoVal && typeof ammoVal === 'string' && depth < 8) {
-            if (!visited.has(ammoVal)) {
-                visited.add(ammoVal);
-                const ammoOutfit = lookupOutfit(ammoVal, pluginId);
-                if (ammoOutfit?.weapon) {
-                    queue.push({
-                        weapon:     ammoOutfit.weapon,
-                        outfit:     ammoOutfit,
-                        title:      `Ammo: ${ammoVal}`,
-                        multiplier: multiplier,
-                        depth:      depth + 1,
-                    });
-                }
-            }
+        if (ammoVal && typeof ammoVal === 'string' && depth < 8 && !visited.has(ammoVal)) {
+            visited.add(ammoVal);
+            const ammoOutfit = lookupOutfit(ammoVal, pluginId);
+            if (ammoOutfit?.weapon) queue.push({ weapon: ammoOutfit.weapon, outfit: ammoOutfit, title: `Ammo: ${ammoVal}`, multiplier, depth: depth + 1 });
         }
     }
 
-    for (const { weapon: w, outfit: o, title } of sections) {
-        html += renderWeaponStats(attrDefs, w, title, o);
-    }
+    for (const { weapon: w, outfit: o, title } of sections) html += renderWeaponStats(attrDefs, w, title, o);
 
     if (sections.length > 1 && Object.keys(totalDamage).length > 0) {
-        const totalRows = Object.entries(totalDamage)
-            .filter(([, v]) => v !== 0)
-            .map(([key, val]) => attrRow(getLabel(key), fmtNum(val), '', ''));
-        if (totalRows.length) {
-            html += buildSection('Total Damage (full chain)', totalRows);
-        }
+        const totalRows = Object.entries(totalDamage).filter(([, v]) => v !== 0).map(([key, val]) => attrRow(getLabel(key), fmtNum(val), '', ''));
+        if (totalRows.length) html += buildSection('Total Damage (full chain)', totalRows);
     }
 
     return html;
@@ -552,9 +399,8 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
 
 function calcWeaponDerived(attrDefs, weapon) {
     if (!weapon) return [];
-    const results   = [];
-    const seen      = new Set();
-
+    const results = [];
+    const seen    = new Set();
     function push(label, value, unit) {
         if (isNaN(value) || value === 0 || seen.has(label)) return;
         seen.add(label);
@@ -574,15 +420,8 @@ function calcWeaponDerived(attrDefs, weapon) {
 
     for (const dtype of damageTypes) {
         const dmgKey = dtype.endsWith(' damage') ? dtype : `${dtype} damage`;
-        const val = parseFloat(
-            weapon[dmgKey] ??
-            weapon[dtype.toLowerCase() + ' damage'] ??
-            weapon[dmgKey.toLowerCase()] ??
-            0
-        );
-        if (val) {
-            push(getLabel(dmgKey.replace(/ damage$/i, '')) + ' DPS', val / reload * 60, 'dmg/s');
-        }
+        const val = parseFloat(weapon[dmgKey] ?? weapon[dtype.toLowerCase() + ' damage'] ?? weapon[dmgKey.toLowerCase()] ?? 0);
+        if (val) push(getLabel(dmgKey.replace(/ damage$/i, '')) + ' DPS', val / reload * 60, 'dmg/s');
     }
 
     const am = parseFloat(weapon['anti-missile'] ?? 0);
@@ -598,11 +437,7 @@ function calcWeaponDerived(attrDefs, weapon) {
 
 function fmtNum(v) {
     if (v === undefined || v === null) return '—';
-    if (typeof v !== 'number') {
-        const n = parseFloat(v);
-        if (isNaN(n)) return String(v);
-        v = n;
-    }
+    if (typeof v !== 'number') { const n = parseFloat(v); if (isNaN(n)) return String(v); v = n; }
     if (Number.isInteger(v) && Math.abs(v) >= 10000) return v.toLocaleString();
     return parseFloat(v.toPrecision(4)).toString();
 }
@@ -612,14 +447,12 @@ function fmtNum(v) {
 function tooltipContent(rec, formulaOverride) {
     if (!rec && !formulaOverride) return '';
     const parts = [];
-    if (rec?.description)      parts.push(rec.description);
-    if (rec?.stacking)         parts.push(`Stacking: ${rec.stacking}${rec.stackingDescription ? ' — ' + rec.stackingDescription : ''}`);
+    if (rec?.description) parts.push(rec.description);
+    if (rec?.stacking)    parts.push(`Stacking: ${rec.stacking}${rec.stackingDescription ? ' — ' + rec.stackingDescription : ''}`);
     const formula = formulaOverride || rec?.formula;
-    if (formula)               parts.push(`Formula: ${formula}`);
-    if (rec?.displayUnit)      parts.push(`Unit: ${rec.displayUnit}`);
-    return parts.length
-        ? ` data-tooltip="${parts.join(' | ').replace(/"/g, '&quot;')}"`
-        : '';
+    if (formula)          parts.push(`Formula: ${formula}`);
+    if (rec?.displayUnit) parts.push(`Unit: ${rec.displayUnit}`);
+    return parts.length ? ` data-tooltip="${parts.join(' | ').replace(/"/g, '&quot;')}"` : '';
 }
 
 function buildSection(title, rows) {
@@ -631,10 +464,7 @@ function buildSection(title, rows) {
 function attrRow(label, displayValue, unit, tipAttrs, extra) {
     const badge = unit ? `<span class="ad-unit">${unit}</span>` : '';
     const cls   = extra ? ` ad-row--${extra}` : '';
-    return `<div class="ad-row${cls}"${tipAttrs || ''}>
-        <div class="ad-label">${label}</div>
-        <div class="ad-value">${displayValue}${badge}</div>
-    </div>`;
+    return `<div class="ad-row${cls}"${tipAttrs || ''}><div class="ad-label">${label}</div><div class="ad-value">${displayValue}${badge}</div></div>`;
 }
 
 // ─── Section grouping ─────────────────────────────────────────────────────────
@@ -642,17 +472,14 @@ function attrRow(label, displayValue, unit, tipAttrs, extra) {
 function groupBySection(attrDefs, entries) {
     const sections = {};
     for (const { key, value } of entries) {
-        const rec       = getAttrRecord(attrDefs, key);
-        const section   = getSection(attrDefs, key);
-        const mult      = rec?.displayMultiplier ?? 1;
-        const unit      = rec?.displayUnit ?? '';
-        const label     = getLabel(key);
-        const rawVal    = parseFloat(value);
-        const dispVal   = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * mult);
-        const tipStr    = tooltipContent(rec);
-
+        const rec     = getAttrRecord(attrDefs, key);
+        const section = getSection(attrDefs, key);
+        const mult    = rec?.displayMultiplier ?? 1;
+        const unit    = rec?.displayUnit ?? '';
+        const rawVal  = parseFloat(value);
+        const dispVal = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * mult);
         if (!sections[section]) sections[section] = [];
-        sections[section].push(attrRow(label, dispVal, unit, tipStr));
+        sections[section].push(attrRow(getLabel(key), dispVal, unit, tooltipContent(rec)));
     }
     return sections;
 }
@@ -660,9 +487,7 @@ function groupBySection(attrDefs, entries) {
 function renderSections(sections) {
     let out = '';
     const keys = [...new Set([...SECTION_ORDER, ...Object.keys(sections)])];
-    for (const s of keys) {
-        if (sections[s]?.length) out += buildSection(s, sections[s]);
-    }
+    for (const s of keys) { if (sections[s]?.length) out += buildSection(s, sections[s]); }
     return out;
 }
 
@@ -686,17 +511,10 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
         if (attrs.licenses && typeof attrs.licenses === 'object') {
             html += buildSection('General', [attrRow('Licenses', Object.keys(attrs.licenses).join(', '), '', '')]);
         }
-
         html += renderSections(groupBySection(attrDefs, entries));
 
         const hpRows = [];
-        for (const [field, label] of [
-            ['guns',            'Guns'],
-            ['turrets',         'Turrets'],
-            ['engines',         'Engines'],
-            ['reverseEngines',  'Reverse Engines'],
-            ['steeringEngines', 'Steering Engines'],
-        ]) {
+        for (const [field, label] of [['guns','Guns'],['turrets','Turrets'],['engines','Engines'],['reverseEngines','Reverse Engines'],['steeringEngines','Steering Engines']]) {
             if (item[field]?.length) hpRows.push(attrRow(label, item[field].length, '', ''));
         }
         if (item.bays?.length) {
@@ -707,33 +525,23 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
         if (hpRows.length) html += buildSection('Hardpoints', hpRows);
 
         if (item.outfitMap && Object.keys(item.outfitMap).length) {
-            const outfitRows = Object.entries(item.outfitMap)
-                .sort((a, b) => a[0].localeCompare(b[0]))
-                .map(([name, count]) => attrRow(name, count > 1 ? `×${count}` : '✓', '', ''));
+            const outfitRows = Object.entries(item.outfitMap).sort((a, b) => a[0].localeCompare(b[0])).map(([name, count]) => attrRow(name, count > 1 ? `×${count}` : '✓', '', ''));
             html += buildSection('Outfits', outfitRows);
         }
 
         const derived = calcDerivedStats(attrDefs, item, pluginId);
         if (derived.length) {
-            const baseRows = derived
-                .filter(d => !d.isComputedOutfit)
-                .map(d => attrRow(d.label, d.value, d.unit, tooltipContent(null, d.formula), 'derived'));
-
-            const computedRows = derived
-                .filter(d => d.isComputedOutfit)
-                .map(d => {
-                    const tip = d.formula
-                        ? `Includes installed outfit contributions | Formula: ${d.formula}`
-                        : 'Includes installed outfit contributions';
-                    return attrRow(`⚡ ${d.label}`, d.value, d.unit, tooltipContent(null, tip), 'derived');
-                });
-
+            const baseRows = derived.filter(d => !d.isComputedOutfit).map(d => attrRow(d.label, d.value, d.unit, tooltipContent(null, d.formula), 'derived'));
+            const computedRows = derived.filter(d => d.isComputedOutfit).map(d => {
+                const tip = d.formula ? `Includes installed outfit contributions | Formula: ${d.formula}` : 'Includes installed outfit contributions';
+                return attrRow(`⚡ ${d.label}`, d.value, d.unit, tooltipContent(null, tip), 'derived');
+            });
             if (baseRows.length)     html += buildSection('Derived Stats', baseRows);
             if (computedRows.length) html += buildSection('Derived Stats (with Outfits)', computedRows);
         }
 
     } else if (currentTab === 'effects') {
-        const excludeKeys = new Set(['name', 'description', 'sprite', 'spriteData']);
+        const excludeKeys = new Set(['name','description','sprite','spriteData']);
         const entries = [];
         for (const [key, value] of Object.entries(item)) {
             if (excludeKeys.has(key) || typeof value === 'object') continue;
@@ -742,14 +550,7 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
         html += renderSections(groupBySection(attrDefs, entries));
 
     } else {
-        const excludeKeys = new Set([
-            'name', 'description', 'thumbnail', 'sprite', 'hardpointSprite',
-            'hardpoint sprite', 'steering flare sprite', 'flare sprite',
-            'reverse flare sprite', 'afterburner effect', 'projectile',
-            'weapon', 'spriteData', '_internalId', '_pluginId', '_hash',
-            'governments', '_variantPluginId',
-        ]);
-
+        const excludeKeys = new Set(['name','description','thumbnail','sprite','hardpointSprite','hardpoint sprite','steering flare sprite','flare sprite','reverse flare sprite','afterburner effect','projectile','weapon','spriteData','_internalId','_pluginId','_hash','governments','_variantPluginId']);
         const entries = [];
         for (const [key, value] of Object.entries(item)) {
             if (excludeKeys.has(key) || typeof value === 'object') continue;
@@ -758,27 +559,18 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
         if (item.licenses && typeof item.licenses === 'object') {
             html += buildSection('General', [attrRow('Licenses', Object.keys(item.licenses).join(', '), '', '')]);
         }
-
         html += renderSections(groupBySection(attrDefs, entries));
 
-        if (item.weapon) {
-            html += renderWeaponChain(attrDefs, item.weapon, pluginId);
-        }
+        if (item.weapon) html += renderWeaponChain(attrDefs, item.weapon, pluginId);
 
         const noteRows = [];
         for (const [key] of Object.entries(item)) {
             const stacking = getStacking(attrDefs, key);
             if (!stacking?.rule || stacking.rule === 'additive') continue;
-            noteRows.push(`<div class="ad-stacking-note">
-                <span class="ad-stacking-key">${getLabel(key)}</span>
-                <span class="ad-stacking-rule">${stacking.rule}${stacking.description ? ' — ' + stacking.description : ''}</span>
-            </div>`);
+            noteRows.push(`<div class="ad-stacking-note"><span class="ad-stacking-key">${getLabel(key)}</span><span class="ad-stacking-rule">${stacking.rule}${stacking.description ? ' — ' + stacking.description : ''}</span></div>`);
         }
         if (noteRows.length) {
-            html += `<div class="ad-stacking-section">
-                <h3 class="ad-section-title">Stacking Notes</h3>
-                ${noteRows.join('')}
-            </div>`;
+            html += `<div class="ad-stacking-section"><h3 class="ad-section-title">Stacking Notes</h3>${noteRows.join('')}</div>`;
         }
     }
 
@@ -791,15 +583,8 @@ function initTooltips() {
     if (document.getElementById('ad-tooltip')) return;
     const tooltip = document.createElement('div');
     tooltip.id = 'ad-tooltip';
-    tooltip.style.cssText = [
-        'position:fixed', 'z-index:9999', 'max-width:320px', 'padding:10px 14px',
-        'background:rgba(15,23,42,0.97)', 'border:1px solid rgba(99,179,237,0.35)',
-        'border-radius:8px', 'color:#e2e8f0', 'font-size:12px', 'line-height:1.55',
-        'pointer-events:none', 'opacity:0', 'transition:opacity 0.15s ease',
-        'box-shadow:0 8px 32px rgba(0,0,0,0.6)', 'white-space:pre-wrap',
-    ].join(';');
+    tooltip.style.cssText = ['position:fixed','z-index:9999','max-width:320px','padding:10px 14px','background:rgba(15,23,42,0.97)','border:1px solid rgba(99,179,237,0.35)','border-radius:8px','color:#e2e8f0','font-size:12px','line-height:1.55','pointer-events:none','opacity:0','transition:opacity 0.15s ease','box-shadow:0 8px 32px rgba(0,0,0,0.6)','white-space:pre-wrap'].join(';');
     document.body.appendChild(tooltip);
-
     document.addEventListener('mouseover', e => {
         const t = e.target.closest('[data-tooltip]');
         if (!t) return;
@@ -815,11 +600,7 @@ function initTooltips() {
     });
 }
 
-// ─── Styles ───────────────────────────────────────────────────────────────────
-
-function injectStyles() {
-    // Styles live in your CSS file — kept for API compatibility
-}
+function injectStyles() { /* Styles live in CSS file */ }
 
 // ─── Exports ──────────────────────────────────────────────────────────────────
 
