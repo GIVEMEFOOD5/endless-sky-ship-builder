@@ -219,7 +219,7 @@ function renderCards() {
     if (typeof filterItems === 'function') filterItems();
 }
 
-function createCard(item) {
+async function createCard(item) {
     const card = document.createElement('div');
     card.className = 'card';
     card.onclick = () => showDetails(item);
@@ -233,7 +233,7 @@ function createCard(item) {
     img.src = spriteImage || thumbnailImage || "None";
     img.alt = item.name || 'None';
 
-    // 🆕 Content wrapper
+    // Content wrapper
     const content = document.createElement('div');
     content.className = 'card-content';
 
