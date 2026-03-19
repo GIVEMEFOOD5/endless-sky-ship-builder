@@ -221,18 +221,40 @@ async function createCard(item) {
     imageWrapper.className = 'card-image';
 
     try {
-        const spriteElement    = await window.fetchSprite(item.sprite, null);
-        const thumbnailElement = await window.fetchSprite(item.thumbnail, null);
-        const element = spriteElement || thumbnailElement;
+        let element = null;
+
+        if (currentTab === 'ships' || currentTab === 'variants') {
+            // Ships: try sprite first, then thumbnail, then fallback image
+            if (item.sprite) {
+                element = await window.fetchSprite(item.sprite, null);
+            }
+            if (!element && item.thumbnail) {
+                element = await window.fetchSprite(item.thumbnail, null);
+            }
+            if (!element) {
+                const img = document.createElement('img');
+                img.src = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png`;
+                img.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+                element = img;
+            }
+        } else {
+            // Outfits/effects: thumbnail only, then fallback image
+            if (item.thumbnail) {
+                element = await window.fetchSprite(item.thumbnail, null);
+            }
+            if (!element) {
+                const img = document.createElement('img');
+                img.src = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png`;
+                img.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+                element = img;
+            }
+        }
 
         if (element) {
-            // fetchSprite returns a canvas or img — just append it directly
             element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
             imageWrapper.appendChild(element);
-        } else {
-            // Placeholder if no image found
-            imageWrapper.style.background = 'rgba(15,23,42,0.5)';
         }
+
     } catch (e) {
         console.warn('Failed to fetch sprite for', item.name, e);
         imageWrapper.style.background = 'rgba(15,23,42,0.5)';
