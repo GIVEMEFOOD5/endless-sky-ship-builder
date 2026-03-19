@@ -84,7 +84,7 @@ async function loadData() {
 
         loadingIndicator.style.display = 'none';
         mainContent.style.display = 'block';
-        renderPluginTabs();
+        await renderPluginTabs();
 
         // Make allData accessible to ImageGrabber, then pre-build all indexes
         window.allData = allData;
@@ -94,7 +94,7 @@ async function loadData() {
             Object.keys(allData).forEach(name => setEffectPlugin(name));
         }
 
-        selectPlugin(Object.keys(allData)[0]);
+        await selectPlugin(Object.keys(allData)[0]);
 
     } catch (error) {
         loadingIndicator.style.display = 'none';
@@ -104,7 +104,7 @@ async function loadData() {
 
 // ─── Plugin tabs ──────────────────────────────────────────────────────────────
 
-function renderPluginTabs() {
+async function renderPluginTabs() {
     const selector = document.getElementById('pluginSelector');
     selector.innerHTML = '';
 
@@ -124,7 +124,7 @@ function renderPluginTabs() {
             btn.className = 'plugin-btn';
             btn.textContent = sourceName;
             btn.dataset.plugin = outputName;
-            btn.onclick = () => selectPlugin(outputName);
+            btn.onclick = () => await selectPlugin(outputName);
             selector.appendChild(btn);
         } else {
             // Multiple plugins from this source — group label + child tabs
@@ -144,7 +144,7 @@ function renderPluginTabs() {
                 btn.className = 'plugin-btn plugin-btn-child';
                 btn.textContent = data.displayName;
                 btn.dataset.plugin = outputName;
-                btn.onclick = () => selectPlugin(outputName);
+                btn.onclick = () => await selectPlugin(outputName);
                 children.appendChild(btn);
             }
 
@@ -154,7 +154,7 @@ function renderPluginTabs() {
     }
 }
 
-function selectPlugin(outputName) {
+async function selectPlugin(outputName) {
     currentPlugin = outputName;
     currentTab = 'ships';
 
@@ -174,7 +174,7 @@ function selectPlugin(outputName) {
     if (typeof clearComputedCache === 'function') clearComputedCache();
 
     updateStats();
-    renderCards();
+    await renderCards();
 }
 
 // ─── Stats / tab / card rendering ─────────────────────────────────────────────
@@ -202,7 +202,7 @@ function switchTab(tab) {
     renderCards();
 }
 
-function renderCards() {
+async function renderCards() {
     if (!currentPlugin || !allData[currentPlugin]) return;
     const data = allData[currentPlugin];
 
