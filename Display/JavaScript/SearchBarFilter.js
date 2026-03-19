@@ -12,8 +12,7 @@ async function filterItems() {
         return matchesSearch && matchesCategory && itemMatchesGovernmentFilter(item, selectedGovts);
     });
 
-    // Apply sorters and update averages
-    const display = typeof applySorters  === 'function' ? applySorters(filtered)  : filtered;
+    const display = typeof applySorters === 'function' ? applySorters(filtered) : filtered;
     if (typeof setSorterItems === 'function') setSorterItems(display);
 
     container.innerHTML = '';
@@ -21,10 +20,9 @@ async function filterItems() {
         container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px;">No items found</p>';
         return;
     }
-    display.forEach(item => {
-        const card = await createCard(item);
-        container.appendChild(card);
-    });
+
+    const cards = await Promise.all(display.map(item => createCard(item)));
+    cards.forEach(card => container.appendChild(card));
 }
 
 window.filterItems = filterItems;
