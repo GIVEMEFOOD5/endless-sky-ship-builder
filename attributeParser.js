@@ -65,53 +65,70 @@ function fetchText(url) {
 
 // ---------------------------------------------------------------------------
 // Formula extraction helpers
-//
-// Strategy:
-//   1. Sentinelize: replace ALL attributes.Get("key") calls with ⟦key⟧ BEFORE
-//      any variable substitution. This prevents "thrust" from matching inside
-//      the already-replaced token "⟦afterburner thrust⟧".
-//
-//   2. Extract local variable assignments. Only keep vars whose RHS contains a
-//      ⟦sentinel⟧ (directly reads an attribute) or is pure arithmetic.
-//      Skip vars assigned from opaque calls like CoolingEfficiency() - these
-//      remain as readable function-call references in the final formula.
-//
-//   3. Substitute variable names in return expressions ONLY outside ⟦...⟧
-//      brackets (using split-and-rejoin to protect sentinels).
-//
-//   4. Convert ⟦key⟧ → [key] in the final output.
 // ---------------------------------------------------------------------------
 
-/** Replace all attributes.Get("key") patterns with ⟦key⟧ sentinel. */
+/**
+ * Replace all attributes.Get("key") patterns with ⟦key⟧ sentinel.
+ *
+ * FIX 3: Also treats attributes.Mass() as a read of the "mass" attribute.
+ * This ensures Ship::Mass() gets attributesRead: ["mass"] in the JSON,
+ * which allows CloakingSpeed() to resolve correctly via Mass().
+ */
 function sentinelizeGetCalls(src) {
   return src
     .replace(/\battributes?\.Get\s*\(\s*"([^"]+)"\s*\)/g,             (_, k) => `\u27e6${k}\u27e7`)
     .replace(/\bship\.Attributes\(\)\.Get\s*\(\s*"([^"]+)"\s*\)/g,   (_, k) => `\u27e6${k}\u27e7`)
     .replace(/\boutfit\.Attributes\(\)\.Get\s*\(\s*"([^"]+)"\s*\)/g, (_, k) => `\u27e6${k}\u27e7`)
-    .replace(/\bbaseAttributes\.Get\s*\(\s*"([^"]+)"\s*\)/g,         (_, k) => `\u27e6${k}\u27e7`);
+    .replace(/\bbaseAttributes\.Get\s*\(\s*"([^"]+)"\s*\)/g,         (_, k) => `\u27e6${k}\u27e7`)
+    // FIX 3: treat attributes.Mass() as a read of the "mass" attribute key.
+    // This ensures Ship::Mass() and any formula using attributes.Mass()
+    // shows up with attributesRead: ["mass"] rather than being dropped.
+    .replace(/\battributes?\.Mass\s*\(\s*\)/g,             () => `\u27e6mass\u27e7`)
+    .replace(/\bship\.Attributes\(\)\.Mass\s*\(\s*\)/g,   () => `\u27e6mass\u27e7`);
 }
 
 /**
  * Extract variable assignments from a sentinelized body.
  * Returns { varName: expressionString }.
- * Only includes vars whose value contains a sentinel or is pure arithmetic.
+ *
+ * FIX 5: Extended filter to also capture vars whose RHS starts with a
+ * PascalCase() call and contains a sentinel. This captures expressions like:
+ *   activeCooling = CoolingEfficiency() * (⟦cooling⟧ + ⟦active cooling⟧)
+ * which were previously dropped because the filter only checked for pure
+ * sentinel-only or pure-arithmetic RHS values.
+ *
+ * Also switched to line-by-line matching to avoid multi-line regex greediness
+ * issues that could truncate multi-line RHS expressions at the wrong semicolon.
  */
 function extractVarMap(sentBody) {
-  const vars = {};
-  const varRe = /(?:const\s+)?(?:double|int|bool|float|size_t|int64_t)\s+(\w+)\s*=\s*([\s\S]*?);/g;
-  let m;
-  while ((m = varRe.exec(sentBody)) !== null) {
-    const def = m[2].replace(/\s+/g, ' ').trim();
-    if (def.includes('\u27e6') || /^[\d\s+\-*/.()\[\]e]+$/i.test(def)) {
-      vars[m[1]] = def;
+  const vars  = {};
+  const lines = sentBody.split('\n');
+
+  for (const line of lines) {
+    const m = line.match(
+      /^\s*(?:const\s+)?(?:double|int|bool|float|size_t|int64_t)\s+(\w+)\s*=\s*(.*?)\s*;?\s*$/
+    );
+    if (!m) continue;
+    const name = m[1];
+    const def  = m[2].replace(/\s+/g, ' ').trim();
+    if (!def) continue;
+
+    const hasSentinel  = def.includes('\u27e6');
+    const isPureArith  = /^[\d\s+\-*/.()\[\]e]+$/i.test(def);
+    // FIX 5: also accept RHS that starts with a PascalCase fn call AND has
+    // a sentinel anywhere (e.g. activeCooling = CoolingEfficiency() * (⟦...⟧))
+    const hasFnAndSent = /^[A-Z][a-zA-Z]+\s*\(/.test(def) && hasSentinel;
+
+    if (hasSentinel || isPureArith || hasFnAndSent) {
+      vars[name] = def;
     }
   }
+
   return vars;
 }
 
 /**
  * Substitute variable names in expr, but ONLY outside ⟦...⟧ protected regions.
- * Uses split-and-rejoin to avoid touching sentinelized attribute names.
  */
 function substituteVars(expr, vars) {
   const sorted = Object.entries(vars).sort((a, b) => b[0].length - a[0].length);
@@ -119,7 +136,7 @@ function substituteVars(expr, vars) {
     const sentinel = '\u27e6', endSentinel = '\u27e7';
     const parts = expr.split(new RegExp(`(${sentinel}[^${endSentinel}]*${endSentinel})`));
     expr = parts.map((part, idx) => {
-      if (idx % 2 === 1) return part; // inside ⟦...⟧, protected
+      if (idx % 2 === 1) return part;
       return part.replace(
         new RegExp(`\\b${name}\\b(?!\\s*\\()`, 'g'),
         def.includes('\u27e6') || def.length > 18 ? `(${def})` : def
@@ -131,7 +148,6 @@ function substituteVars(expr, vars) {
 
 /**
  * Build a clean formula from a raw return expression and its surrounding body.
- * Output uses [attr name] notation for all attribute reads.
  */
 function buildFormula(rawReturn, rawBody) {
   const sentBody   = sentinelizeGetCalls(rawBody);
@@ -141,7 +157,7 @@ function buildFormula(rawReturn, rawBody) {
   return inlined
     .replace(/Format::Number\s*\(/g, '(')
     .replace(/\u27e6/g, '[').replace(/\u27e7/g, ']')
-    .replace(/\b(\d+)\.\b/g, '$1')   // strip trailing dots from literals: 60. → 60
+    .replace(/\b(\d+)\.\b/g, '$1')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -149,14 +165,18 @@ function buildFormula(rawReturn, rawBody) {
 /** Collect all unique attribute keys referenced via Get() anywhere in a source text. */
 function extractAllAttributeKeys(src) {
   const keys = new Set();
+  // Also pick up the sentinelized mass token after FIX 3
+  const sentSrc = sentinelizeGetCalls(src);
   for (const re of [
+    /\u27e6([^\u27e7]+)\u27e7/g,   // already-sentinelized (picks up ⟦mass⟧ too)
     /\battributes?\.Get\s*\(\s*"([^"]+)"\s*\)/g,
     /\bbaseAttributes?\.Get\s*\(\s*"([^"]+)"\s*\)/g,
     /\bship\.Attributes\(\)\.Get\s*\(\s*"([^"]+)"\s*\)/g,
     /\boutfit\.Attributes\(\)\.Get\s*\(\s*"([^"]+)"\s*\)/g,
   ]) {
     let m;
-    while ((m = re.exec(src)) !== null) keys.add(m[1]);
+    const target = re.source.includes('\u27e6') ? sentSrc : src;
+    while ((m = re.exec(target)) !== null) keys.add(m[1]);
   }
   return [...keys].sort();
 }
@@ -172,7 +192,6 @@ function extractSetKeys(src) {
 
 // ---------------------------------------------------------------------------
 // C++ function body extractor
-// Finds all `RetType Class::FnName(params) [const] { ... }` via brace-counting.
 // ---------------------------------------------------------------------------
 
 function extractFunctionBodies(src, classPrefix) {
@@ -213,26 +232,15 @@ function extractReturns(body) {
   return returns;
 }
 
-/**
- * Parse a C++ push_back label argument into a human-readable string.
- * Handles: "literal string", simple ternary, and nested ternary.
- * For conditional labels, collects all string literals and joins with " / ".
- */
 function parseLabelArg(arg) {
   const trimmed = arg.trim();
-  // Simple string literal
   const litMatch = trimmed.match(/^"([^"]*)"$/);
   if (litMatch) return litMatch[1].replace(/:$/, '').trim();
-  // Extract all string literals from any ternary expression and deduplicate
   const allStrings = [...trimmed.matchAll(/"([^"]+)"/g)].map(m => m[1].replace(/:$/, '').trim());
   const unique = [...new Set(allStrings)];
   return unique.length > 0 ? unique.join(' / ') : trimmed;
 }
 
-/**
- * Extract a parenthesised argument from a source string starting at `start` index,
- * using brace-depth counting. Returns { arg: string, end: number }.
- */
 function extractParenArg(src, start) {
   let depth = 1, i = start;
   while (i < src.length && depth > 0) {
@@ -245,7 +253,6 @@ function extractParenArg(src, start) {
 
 // ---------------------------------------------------------------------------
 // Parse OutfitInfoDisplay.cpp
-// All static data maps/vectors extracted purely from the source text.
 // ---------------------------------------------------------------------------
 
 function parseOutfitInfoDisplay(src) {
@@ -261,7 +268,6 @@ function parseOutfitInfoDisplay(src) {
     allAttributeKeys: extractAllAttributeKeys(src),
   };
 
-  // SCALE_LABELS: const vector<pair<double,string>> SCALE_LABELS = { make_pair(expr,"unit"), ... };
   const slMatch = src.match(/SCALE_LABELS\s*=\s*\{([\s\S]*?)\};/);
   if (slMatch) {
     const pairRe = /make_pair\s*\(\s*([\d\s.*\/]+?)\s*,\s*"([^"]*)"\s*\)/g;
@@ -277,7 +283,6 @@ function parseOutfitInfoDisplay(src) {
     }
   }
 
-  // SCALE: const map<string,int> SCALE = { {"key", index}, ... };
   const scMatch = src.match(/const map<string,\s*int> SCALE\s*=\s*\{([\s\S]*?)\};/);
   if (scMatch) {
     const entryRe = /\{\s*"([^"]+)"\s*,\s*(\d+)\s*\}/g;
@@ -285,7 +290,6 @@ function parseOutfitInfoDisplay(src) {
     while ((m = entryRe.exec(scMatch[1])) !== null) r.scaleMap[m[1]] = parseInt(m[2], 10);
   }
 
-  // BOOLEAN_ATTRIBUTES: { {"key", "description"}, ... }
   const baMatch = src.match(/BOOLEAN_ATTRIBUTES\s*=\s*\{([\s\S]*?)\};/);
   if (baMatch) {
     const entryRe = /\{\s*"([^"]+)"\s*,\s*"([^"]+)"\s*\}/g;
@@ -293,7 +297,6 @@ function parseOutfitInfoDisplay(src) {
     while ((m = entryRe.exec(baMatch[1])) !== null) r.booleanAttrs[m[1]] = m[2];
   }
 
-  // VALUE_NAMES: vector<pair<string,string>> = { {"key","unit"}, ... }
   const vnMatch = src.match(/VALUE_NAMES\s*=\s*\{([\s\S]*?)\};/);
   if (vnMatch) {
     const entryRe = /\{\s*"([^"]+)"\s*,\s*"([^"]*)"\s*\}/g;
@@ -303,7 +306,6 @@ function parseOutfitInfoDisplay(src) {
     }
   }
 
-  // PERCENT_NAMES, OTHER_NAMES: vector<string> = { "key", ... }
   for (const [field, target] of [['PERCENT_NAMES', r.percentNames], ['OTHER_NAMES', r.otherNames]]) {
     const match = src.match(new RegExp(`${field}\\s*=\\s*\\{([\\s\\S]*?)\\};`));
     if (match) {
@@ -313,7 +315,6 @@ function parseOutfitInfoDisplay(src) {
     }
   }
 
-  // EXPECTED_NEGATIVE, BEFORE: set<string> = { "key", ... }
   for (const [field, target] of [['EXPECTED_NEGATIVE', r.expectedNegative], ['\\bBEFORE\\b', r.beforeAttrs]]) {
     const match = src.match(new RegExp(`${field}\\s*=\\s*\\{([\\s\\S]*?)\\};`));
     if (match) {
@@ -342,7 +343,6 @@ function parseShipCpp(src) {
 
     if (attrKeys.length === 0 && returns.length === 0) continue;
 
-    // Extract intermediate variables that directly read attributes
     const sentBody = sentinelizeGetCalls(body);
     const varMap   = extractVarMap(sentBody);
     const attrVars = {};
@@ -358,13 +358,10 @@ function parseShipCpp(src) {
       isConst,
       attributesRead: attrKeys,
       attributesSet:  setKeys,
-      // One entry per return statement. Multi-branch functions have multiple.
       formulas: returns.map(ret => ({
         rawReturn: ret,
         formula:   buildFormula(ret, body),
       })),
-      // Intermediate variables that directly hold attribute values.
-      // Useful for understanding what feeds into a formula.
       attributeVariables: attrVars,
     };
   }
@@ -373,13 +370,7 @@ function parseShipCpp(src) {
 }
 
 // ---------------------------------------------------------------------------
-// Parse ShipInfoDisplay.cpp — extract ship panel display data
-//
-// Three things are extracted:
-//   A) Energy/heat table rows (idle, moving, firing, shields/hull, net, max)
-//      Uses paren-depth counting to handle nested ternary label expressions.
-//   B) attributeLabels / attributeValues strict pairs (immediate succession only)
-//   C) NAMES capacity vector (alternating display-label / attribute-key pairs)
+// Parse ShipInfoDisplay.cpp
 // ---------------------------------------------------------------------------
 
 function parseShipInfoDisplay(src) {
@@ -394,7 +385,6 @@ function parseShipInfoDisplay(src) {
   const fnBodies   = extractFunctionBodies(src, 'ShipInfoDisplay::');
   const updateBody = fnBodies['UpdateAttributes']?.body || src;
 
-  // ── Extract intermediate variables ────────────────────────────────────────
   const sentBody = sentinelizeGetCalls(updateBody);
   const varMap   = extractVarMap(sentBody);
   for (const [name, def] of Object.entries(varMap)) {
@@ -403,9 +393,6 @@ function parseShipInfoDisplay(src) {
     }
   }
 
-  // ── A) Energy/heat table rows via paren-depth counting ────────────────────
-  // This handles nested ternary label expressions like:
-  // (shieldEnergy && hullEnergy) ? "shields / hull:" : hullEnergy ? "repairing hull:" : "charging shields:"
   {
     let pos = 0;
     while (true) {
@@ -415,7 +402,6 @@ function parseShipInfoDisplay(src) {
       const { arg: labelArg, end: afterLabel } = extractParenArg(updateBody, argStart);
       pos = afterLabel;
 
-      // Look for energyTable.push_back within 200 chars
       const searchWindow = updateBody.slice(pos, pos + 200);
       const eMatch = searchWindow.match(/energyTable\.push_back\s*\(/);
       if (!eMatch) continue;
@@ -423,7 +409,6 @@ function parseShipInfoDisplay(src) {
       const { arg: energyArg, end: afterEnergy } = extractParenArg(updateBody, eArgStart);
       pos = afterEnergy;
 
-      // Look for heatTable.push_back within 600 chars (allows for intervening assignments)
       const searchWindow2 = updateBody.slice(pos, pos + 600);
       const hMatch = searchWindow2.match(/heatTable\.push_back\s*\(/);
       if (!hMatch) continue;
@@ -442,9 +427,6 @@ function parseShipInfoDisplay(src) {
     }
   }
 
-  // ── B) attributeLabels / attributeValues strict pairs ─────────────────────
-  // "Strict" means attributeValues immediately follows attributeLabels with no
-  // intervening attributeLabels.push_back. This prevents wrong pairing.
   {
     const strictPairRe = /attributeLabels\.push_back\s*\(((?:"[^"]*"|[^)]+))\)\s*;\s*(?:\/\/[^\n]*)?\n?\s*attributeValues\.push_back\s*\(((?:[^()]+|\([^()]*\)(?:[^()]*\([^()]*\))*[^()]*)*)\)\s*;/g;
     let m;
@@ -459,9 +441,6 @@ function parseShipInfoDisplay(src) {
     }
   }
 
-  // ── C) NAMES capacity vector ───────────────────────────────────────────────
-  // static const vector<string> NAMES = { "display label:", "attr key", ... };
-  // Entries alternate: display label then attribute key.
   const namesMatch = updateBody.match(/\bNAMES\s*=\s*\{([\s\S]*?)\};/);
   if (namesMatch) {
     const strRe  = /"([^"]+)"/g;
@@ -487,14 +466,12 @@ function parseOutfitCpp(src) {
   const stackingRules = {};
   const sentSrc       = sentinelizeGetCalls(src);
 
-  // Explicit minimum stacking: min(..., ⟦key⟧, ...)
   const minRe = /\bmin\s*\([^)]*\u27e6([^\u27e7]+)\u27e7[^)]*\)/g;
   let m;
   while ((m = minRe.exec(sentSrc)) !== null) {
     stackingRules[m[1]] = { stacking: 'minimum', description: 'Takes the lowest value among all installed outfits.' };
   }
 
-  // Explicit maximum stacking: max(..., ⟦key⟧, ...)
   const maxRe = /\bmax\s*\([^)]*\u27e6([^\u27e7]+)\u27e7[^)]*\)/g;
   while ((m = maxRe.exec(sentSrc)) !== null) {
     if (!stackingRules[m[1]]) {
@@ -502,7 +479,6 @@ function parseOutfitCpp(src) {
     }
   }
 
-  // Classify remaining keys by name pattern
   for (const key of extractAllAttributeKeys(src)) {
     if (!stackingRules[key]) {
       if (/multiplier|reduction|protection/.test(key)) {
@@ -523,7 +499,7 @@ function parseOutfitCpp(src) {
 }
 
 // ---------------------------------------------------------------------------
-// Parse Weapon.cpp — weapon stat functions and data-file keys
+// Parse Weapon.cpp
 // ---------------------------------------------------------------------------
 
 function parseWeaponCpp(src) {
@@ -536,7 +512,6 @@ function parseWeaponCpp(src) {
     const returns  = extractReturns(body);
     const attrKeys = extractAllAttributeKeys(body);
 
-    // Extract data-file keys from the Load() function
     if (fnName === 'Load') {
       const keyRe = /\bkey\s*==\s*"([^"]+)"/g;
       let m;
@@ -561,19 +536,17 @@ function parseWeaponCpp(src) {
 }
 
 // ---------------------------------------------------------------------------
-// Parse DamageDealt.h/cpp — damage type names
+// Parse DamageDealt.h/cpp
 // ---------------------------------------------------------------------------
 
 function parseDamageDealt(hSrc, cppSrc) {
   const types   = new Set();
   const combined = (hSrc || '') + '\n' + (cppSrc || '');
 
-  // Method declarations in header: double TypeName() const;
   const declRe = /\bdouble\s+(\w+)\s*\(\s*\)\s*const\s*(?:noexcept)?\s*;/g;
   let m;
   while ((m = declRe.exec(hSrc || '')) !== null) types.add(m[1]);
 
-  // Method definitions: double DamageDealt::TypeName()
   const defRe = /\bdouble\s+DamageDealt::(\w+)\s*\(\s*\)/g;
   while ((m = defRe.exec(combined)) !== null) types.add(m[1]);
 
@@ -623,11 +596,92 @@ function parseAICache(src) {
 }
 
 // ---------------------------------------------------------------------------
-// Build unified attribute dictionary
+// FIX 1 & 2: inferFunctionDisplayScale
 //
-// One entry per unique attribute key found anywhere across all parsed sources.
-// Aggregates: display info, stacking rule, which functions reference it,
-// which panels show it, and more.
+// Derives the per-frame → per-second display scale for a ship function's
+// output entirely from the displayMultipliers of the attributes it reads.
+//
+// Rules (zero hardcoding):
+//   - Collect displayMultiplier for every attribute the function reads.
+//   - If ALL collected multipliers are equal → that is the output scale.
+//   - If mixed → take the minimum (conservative, avoids over-scaling).
+//   - If none → scale = 1 (dimensionless result, e.g. MaxShields, MaxHull).
+//
+// displayUnit is inferred from scale to match the SCALE_LABELS pattern:
+//   3600 → /s²  (acceleration)
+//    60  → /s   (velocity, rates)
+//   6000 → %/s
+//      1 → ''   (dimensionless)
+//
+// labelPrefix: if the formula contains "withAfterburner" AND the function
+// name contains "Velocity" or "Speed", it's labelled "Base " to clarify
+// that afterburner contribution is excluded (withAfterburner is zeroed
+// during base stat evaluation).
+// ---------------------------------------------------------------------------
+
+function inferFunctionDisplayScale(attributesRead, attrDict, formula, fnName) {
+  const multipliers = [];
+  for (const key of (attributesRead || [])) {
+    const m = attrDict[key]?.displayMultiplier;
+    if (m && m !== 1) multipliers.push(m);
+  }
+
+  let scale = 1;
+  if (multipliers.length > 0) {
+    const allSame = multipliers.every(m => m === multipliers[0]);
+    scale = allSame ? multipliers[0] : Math.min(...multipliers);
+  }
+
+  let unit = '';
+  if      (scale === 3600) unit = '/s²';
+  else if (scale === 60)   unit = '/s';
+  else if (scale === 6000) unit = '%/s';
+
+  let labelPrefix = '';
+  if (
+    formula &&
+    formula.includes('withAfterburner') &&
+    /velocity|speed/i.test(fnName)
+  ) {
+    labelPrefix = 'Base ';
+  }
+
+  return { displayScale: scale, displayUnit: unit, labelPrefix };
+}
+
+// ---------------------------------------------------------------------------
+// FIX 1 & 2: annotateShipFunctionScales
+//
+// Writes displayScale, displayUnit, labelPrefix into each shipFunctions entry
+// and updates usedInShipFunctions on each attribute.
+// Called at the end of buildAttributeDictionary after attrs is fully seeded.
+// ---------------------------------------------------------------------------
+
+function annotateShipFunctionScales(shipFns, attrs) {
+  for (const [fnName, fnData] of Object.entries(shipFns)) {
+    if (!fnData) continue;
+
+    const formula = fnData.formulas?.[fnData.formulas.length - 1]?.formula ?? '';
+    const { displayScale, displayUnit, labelPrefix } =
+      inferFunctionDisplayScale(fnData.attributesRead, attrs, formula, fnName);
+
+    fnData.displayScale = displayScale;
+    fnData.displayUnit  = displayUnit;
+    fnData.labelPrefix  = labelPrefix;
+
+    for (const key of (fnData.attributesRead || [])) {
+      const a = attrs[key];
+      if (!a) continue;
+      if (!a.usedInShipFunctions) a.usedInShipFunctions = [];
+      if (!a.usedInShipFunctions.includes(fnName)) {
+        a.usedInShipFunctions.push(fnName);
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Build unified attribute dictionary
 // ---------------------------------------------------------------------------
 
 function deriveDisplayUnit(multiplier) {
@@ -690,14 +744,8 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
     a.stacking = rule.stacking; a.stackingDescription = rule.description;
   }
 
-  // Which Ship:: functions read each attribute
-  for (const [fnName, fnData] of Object.entries(shipFns)) {
-    for (const key of (fnData.attributesRead || [])) {
-      const a = ensure(key);
-      if (!a.usedInShipFunctions) a.usedInShipFunctions = [];
-      if (!a.usedInShipFunctions.includes(fnName)) a.usedInShipFunctions.push(fnName);
-    }
-  }
+  // NOTE: usedInShipFunctions is now handled by annotateShipFunctionScales below.
+  // The old loop has been removed to avoid duplication.
 
   // ShipInfoDisplay capacity NAMES
   for (const { displayLabel, attributeKey } of shipDisplay.capacityNames) {
@@ -732,6 +780,11 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
   // All remaining Get() keys from OutfitInfoDisplay
   for (const key of oidData.allAttributeKeys) ensure(key);
 
+  // FIX 1 & 2: annotate ship functions with displayScale, displayUnit, labelPrefix
+  // and populate usedInShipFunctions on each attribute.
+  // Must run AFTER all attrs are seeded so displayMultiplier lookups work.
+  annotateShipFunctionScales(shipFns, attrs);
+
   return attrs;
 }
 
@@ -749,7 +802,6 @@ async function parseAttributes(outputDir) {
   console.log('Endless Sky Attribute Parser');
   console.log('='.repeat(60));
 
-  // Fetch all source files
   const sources = {};
   for (const [name, url] of Object.entries(SOURCE_FILES)) {
     const filename = url.split('/').pop();
@@ -763,7 +815,6 @@ async function parseAttributes(outputDir) {
     }
   }
 
-  // Parse each source
   console.log('\n  Parsing...');
 
   const oidData = sources.outfitInfoDisplay
@@ -796,13 +847,11 @@ async function parseAttributes(outputDir) {
   const aiCacheFns = parseAICache(sources.aiCacheCpp);
   console.log(`  ShipAICache        ${Object.keys(aiCacheFns).length} AI cache functions`);
 
-  // Build unified attribute dictionary
   const attributes = buildAttributeDictionary(
     oidData, shipFns, shipDisplay, outfitStacking, weaponData, jumpNavFns, aiCacheFns
   );
   console.log(`\n  Unified dictionary: ${Object.keys(attributes).length} unique attribute keys`);
 
-  // Assemble final output
   const result = {
     _meta: {
       source:      'https://github.com/endless-sky/endless-sky',
@@ -818,32 +867,22 @@ async function parseAttributes(outputDir) {
         'displayMultiplier converts per-frame game values to per-second for display (1 frame = 1/60 s).',
         'stacking: additive = direct sum; additive-then-multiply = base*(1+sum); minimum/maximum = extreme.',
         'attributeVariables: intermediate local vars that directly read attributes (shows formula inputs).',
+        'FIX 1&2: shipFunctions entries now carry displayScale, displayUnit, labelPrefix for correct unit display.',
+        'FIX 3: attributes.Mass() sentinelized as [mass] so Mass() resolves correctly in CloakingSpeed.',
+        'FIX 5: extractVarMap captures PascalCase()-leading RHS with sentinels (e.g. activeCooling).',
       ],
     },
 
-    // One entry per unique attribute key found anywhere in the codebase.
-    // Fields: displayMultiplier, displayUnit, isBoolean, isWeaponStat, isExpectedNegative,
-    //         stacking, stackingDescription, usedInShipFunctions, shownInOutfitPanel,
-    //         shownInShipPanel, isWeaponDataKey, usedInNavFunctions, usedInAIFunctions
     attributes,
-
-    // All Ship:: member functions that reference attributes.
-    // formulas[]: one per return statement. attributeVariables: local vars reading attrs.
     shipFunctions: shipFns,
 
-    // What the ship info panel shows.
     shipDisplay: {
-      // 6 rows: idle, moving, firing, shields/hull, net change, max
       energyHeatTable:  shipDisplay.tableRows,
-      // label/value pairs shown below the table
       labelValuePairs:  shipDisplay.attributeLabels,
-      // capacity display (outfit space, weapon capacity, etc.)
       capacityDisplay:  shipDisplay.capacityNames,
-      // intermediate variables used in the table row formulas
       intermediateVars: shipDisplay.intermediateVars,
     },
 
-    // Raw extracted data from the outfit info panel.
     outfitDisplay: {
       scaleLabels:       oidData.scaleLabels,
       scaleMap:          oidData.scaleMap,
@@ -855,18 +894,14 @@ async function parseAttributes(outputDir) {
       beforeAttributes:  oidData.beforeAttrs,
     },
 
-    // Weapon system.
     weapon: {
       functions:    weaponData.functions,
       dataFileKeys: weaponData.dataFileKeys,
       damageTypes,
     },
 
-    // Navigation (jump/hyperdrive) functions.
     navigation: jumpNavFns,
-
-    // AI cache derived combat stats.
-    aiCache: aiCacheFns,
+    aiCache:    aiCacheFns,
   };
 
   await fs.writeFile(outFile, JSON.stringify(result, null, 2), 'utf8');
