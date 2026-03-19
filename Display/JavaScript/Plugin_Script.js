@@ -224,10 +224,25 @@ function createCard(item) {
     card.className = 'card';
     card.onclick = () => showDetails(item);
 
+    var thumbnailImage = await window.fetchSprite(item.thumbnail, null);
+    var spriteImage = await window.fetchSprite(item.sprite, null);
+    
+    // Image
+    const img = document.createElement('img');
+    img.className = 'card-image';
+    img.src = spriteImage || thumbnailImage || "None";
+    img.alt = item.name || 'None';
+
+    // 🆕 Content wrapper
+    const content = document.createElement('div');
+    content.className = 'card-content';
+
+    // Title
     const title = document.createElement('div');
     title.className = 'card-title';
     title.textContent = item.name || 'Unknown';
 
+    // Details
     const details = document.createElement('div');
     details.className = 'card-details';
 
@@ -238,11 +253,6 @@ function createCard(item) {
             <div class="detail-item"><div class="detail-label">Hull</div><div class="detail-value">${formatNumber(item.attributes?.hull) || 'N/A'}</div></div>
             <div class="detail-item"><div class="detail-label">Shields</div><div class="detail-value">${formatNumber(item.attributes?.shields) || 'N/A'}</div></div>
         `;
-    } else if (currentTab === 'effects') {
-        details.innerHTML = `
-            <div class="detail-item"><div class="detail-label">Lifetime</div><div class="detail-value">${item.lifetime || 'N/A'}</div></div>
-            <div class="detail-item"><div class="detail-label">Random Lifetime</div><div class="detail-value">${item['random lifetime'] || 'N/A'}</div></div>
-        `;
     } else {
         details.innerHTML = `
             <div class="detail-item"><div class="detail-label">Category</div><div class="detail-value">${item.category || 'N/A'}</div></div>
@@ -252,8 +262,12 @@ function createCard(item) {
         `;
     }
 
-    card.appendChild(title);
-    card.appendChild(details);
+    // Build structure
+    content.appendChild(title);
+    content.appendChild(details);
+
+    card.appendChild(img);
+    card.appendChild(content);
     return card;
 }
 
