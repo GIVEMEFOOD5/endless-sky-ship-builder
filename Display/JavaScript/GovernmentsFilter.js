@@ -103,7 +103,7 @@ function governmentFilterDisplay() {
         if (lastGovernmentData.length) {
             filterTitle.classList.remove("filter-title-no-margin");
             filterTitle.classList.add("filter-title");
-            filterTitle.innerHTML = 'Filter by Government: 🡆';
+            filterTitle.innerHTML = 'Filter by Government: ▶';
             populateGovernmentFilters(lastGovernmentData);
         }
     } else {
@@ -115,7 +115,7 @@ function governmentFilterDisplay() {
         filterOptions.innerHTML = '';
         filterTitle.classList.remove("filter-title");
         filterTitle.classList.add("filter-title-no-margin");
-        filterTitle.innerHTML = 'Filter by Government: 🡇';
+        filterTitle.innerHTML = 'Filter by Government: ▼';
     }
 }
 
