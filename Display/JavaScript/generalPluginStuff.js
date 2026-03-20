@@ -97,7 +97,16 @@ async function initDefaultPlugin() {
     const keys = Object.keys(_allData());
     if (keys.length === 0) return;
     _activePlugins = [keys[0]];
-    await _notifyChange();
+    // First load: reset to ships tab
+    const primary = getPrimaryPlugin();
+    if (typeof window.setCurrentPlugin === 'function') window.setCurrentPlugin(primary);
+    if (typeof window.setEffectPlugin  === 'function') window.setEffectPlugin(primary);
+    if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
+    if (typeof window.clearComputedCache === 'function') window.clearComputedCache();
+    _renderActiveList();
+    _updateMergedStats();
+    await _renderMergedCards(true); // true = reset to ships tab
+}
 }
 
 // ── Internal: notify the rest of the app ──────────────────────────────────
@@ -122,9 +131,9 @@ async function _notifyChange() {
     // Refresh picker list highlights if open
     _refreshPickerHighlights();
 
-    // Update stats bar and re-render cards
+    // Update stats bar and re-render cards (preserve current tab)
     _updateMergedStats();
-    await _renderMergedCards();
+    await _renderMergedCards(false);
 }
 
 // ── Stats (merged across active plugins) ──────────────────────────────────
@@ -152,11 +161,11 @@ function _updateMergedStats() {
 
 // ── Cards (delegates to Plugin_Script.js renderCards via a hook) ──────────
 
-async function _renderMergedCards() {
+async function _renderMergedCards(resetTab = false) {
     // Plugin_Script.renderCards() will call getMergedItems() instead of
     // allData[currentPlugin][tab] — see the patched renderCards() below.
     if (typeof window._renderCardsFromManager === 'function') {
-        await window._renderCardsFromManager();
+        await window._renderCardsFromManager(resetTab);
     }
 }
 
