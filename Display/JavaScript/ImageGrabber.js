@@ -306,7 +306,7 @@ async function _renderFrames(frames, spriteParams, myGen) {
     img.src = objectUrl;
     img.style.cssText =
       'max-width:100%;max-height:500px;object-fit:contain;' +
-      'image-rendering:pixelated;display:block;margin:auto;';
+      'image-rendering:pixelated;display:block;';
     return img;
   }
 
@@ -317,7 +317,7 @@ async function _renderFrames(frames, spriteParams, myGen) {
 
   const canvas = document.createElement('canvas');
   canvas.style.cssText =
-    'max-width:100%;image-rendering:pixelated;display:block;margin:auto;';
+    'max-width:100%;image-rendering:pixelated;display:block;';
 
   const anim = new window.EndlessSkyAnimator(canvas);
   _active = anim;
