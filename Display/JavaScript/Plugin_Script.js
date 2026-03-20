@@ -100,10 +100,25 @@ async function loadData() {
 
 // ─── Plugin tabs ──────────────────────────────────────────────────────────────
 
-async function renderPluginTabs() {
-    const selector = document.getElementById('pluginSelector');
-    selector.innerHTML = '';
+function openPluginPicker() {
+    renderPluginPickerList('');
+    document.getElementById('pluginPickerOverlay').classList.add('plugin-overlay-visible');
+    const search = document.getElementById('pluginPickerSearch');
+    if (search) { search.value = ''; search.focus(); }
+}
 
+function closePluginPicker() {
+    document.getElementById('pluginPickerOverlay').classList.remove('plugin-overlay-visible');
+}
+
+function renderPluginPickerList(query) {
+    const list = document.getElementById('pluginPickerList');
+    if (!list) return;
+    list.innerHTML = '';
+
+    const lq = (query || '').toLowerCase().trim();
+
+    // Build groups
     const groups = {};
     for (const [outputName, data] of Object.entries(allData)) {
         const src = data.sourceName;
@@ -111,40 +126,60 @@ async function renderPluginTabs() {
         groups[src].push({ outputName, data });
     }
 
+    let anyVisible = false;
+
     for (const [sourceName, plugins] of Object.entries(groups)) {
-        if (plugins.length === 1) {
-            const { outputName, data } = plugins[0];
-            const btn = document.createElement('button');
-            btn.className = 'plugin-btn';
-            btn.textContent = sourceName;
-            btn.dataset.plugin = outputName;
-            btn.onclick = async () => await selectPlugin(outputName); // ✅ fixed
-            selector.appendChild(btn);
-        } else {
-            const group = document.createElement('div');
-            group.className = 'plugin-group';
+        // Filter plugins by query
+        const visible = lq
+            ? plugins.filter(p =>
+                p.data.displayName.toLowerCase().includes(lq) ||
+                sourceName.toLowerCase().includes(lq))
+            : plugins;
 
-            const label = document.createElement('div');
-            label.className = 'plugin-group-label';
-            label.textContent = sourceName;
-            group.appendChild(label);
+        if (visible.length === 0) continue;
+        anyVisible = true;
 
-            const children = document.createElement('div');
-            children.className = 'plugin-group-children';
+        const header = document.createElement('div');
+        header.className = 'plugin-picker-group-header';
+        header.textContent = sourceName;
+        list.appendChild(header);
 
-            for (const { outputName, data } of plugins) {
-                const btn = document.createElement('button');
-                btn.className = 'plugin-btn plugin-btn-child';
-                btn.textContent = data.displayName;
-                btn.dataset.plugin = outputName;
-                btn.onclick = async () => await selectPlugin(outputName); // ✅ fixed
-                children.appendChild(btn);
-            }
+        for (const { outputName, data } of visible) {
+            const row = document.createElement('div');
+            row.className = 'plugin-picker-row' + (outputName === currentPlugin ? ' active' : '');
+            row.dataset.plugin = outputName;
 
-            group.appendChild(children);
-            selector.appendChild(group);
+            const dot = document.createElement('span');
+            dot.className = 'plugin-picker-active-dot';
+
+            const label = document.createElement('span');
+            label.className = 'plugin-picker-row-label';
+            // If a source has only one plugin, just show the source name (no redundancy)
+            label.textContent = plugins.length === 1 ? sourceName : data.displayName;
+
+            row.appendChild(dot);
+            row.appendChild(label);
+
+            row.onclick = async () => {
+                closePluginPicker();
+                await selectPlugin(outputName);
+            };
+
+            list.appendChild(row);
         }
     }
+
+    if (!anyVisible) {
+        const empty = document.createElement('p');
+        empty.style.cssText = 'color:#94a3b8;font-style:italic;font-size:0.9rem;padding:12px 10px;';
+        empty.textContent = 'No matching plugins.';
+        list.appendChild(empty);
+    }
+}
+
+async function renderPluginTabs() {
+    // Now just pre-populates the picker list; no inline buttons rendered
+    renderPluginPickerList('');
 }
 
 // ─── Plugin selection ─────────────────────────────────────────────────────────
@@ -153,8 +188,19 @@ async function selectPlugin(outputName) {
     currentPlugin = outputName;
     currentTab = 'ships';
 
-    document.querySelectorAll('.plugin-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.plugin === outputName);
+    // Update the active label shown next to the picker button
+    const labelEl = document.getElementById('activePluginLabel');
+    if (labelEl && allData[outputName]) {
+        const d = allData[outputName];
+        // Show "Source › Display" if they differ, else just source
+        labelEl.textContent = (d.sourceName !== d.displayName)
+            ? `${d.sourceName}  ›  ${d.displayName}`
+            : d.sourceName;
+    }
+
+    // Refresh active state in picker list if it's open
+    document.querySelectorAll('#pluginPickerList .plugin-picker-row').forEach(row => {
+        row.classList.toggle('active', row.dataset.plugin === outputName);
     });
 
     document.querySelectorAll('.tab').forEach(t => {
@@ -548,14 +594,30 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeModal();
     });
+
+    document.getElementById('pluginPickerOverlay').addEventListener('click', function(e) {
+        if (e.target.id === 'pluginPickerOverlay') closePluginPicker();
+    });
+    // The existing Escape handler for closeModal() will also need to close the plugin picker:
+    // Change your keydown listener to:
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+            closePluginPicker();
+        }
+    });
+    
     loadData();
 });
 
 // ─── Global exports ───────────────────────────────────────────────────────────
 
-window.loadData       = loadData;
-window.clearData      = clearData;
-window.switchTab      = switchTab;
-window.closeModal     = closeModal;
-window.selectPlugin   = selectPlugin;
-window.switchModalTab = switchModalTab;
+window.loadData               = loadData;
+window.clearData              = clearData;
+window.switchTab              = switchTab;
+window.closeModal             = closeModal;
+window.selectPlugin           = selectPlugin;
+window.switchModalTab         = switchModalTab;
+window.openPluginPicker       = openPluginPicker;
+window.closePluginPicker      = closePluginPicker;
+window.renderPluginPickerList = renderPluginPickerList;
