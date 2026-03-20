@@ -107,7 +107,6 @@ async function initDefaultPlugin() {
     _updateMergedStats();
     await _renderMergedCards(true); // true = reset to ships tab
 }
-}
 
 // ── Internal: notify the rest of the app ──────────────────────────────────
 
