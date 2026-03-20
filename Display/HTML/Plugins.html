@@ -35,20 +35,23 @@
                 
                 <h2 id="pluginSelectorTitle">Plugin ▼</h2>
                 
-                <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                    <button class="btn-add-sorter" onclick="openPluginPicker()" id="pluginPickerBtn">
-                        ☰ Select Plugin
-                    </button>
-                    <span id="activePluginLabel" style="
-                        font-size: 0.9rem;
-                        color: #93c5fd;
-                        background: rgba(59,130,246,0.15);
-                        border: 1px solid rgba(59,130,246,0.35);
-                        border-radius: 6px;
-                        padding: 5px 14px;
-                        font-weight: 600;
-                        letter-spacing: 0.02em;
-                    ">—</span>
+                <!-- Plugin selector trigger + active list -->
+                <div style="margin-bottom: 20px;">
+
+                    <!-- Top row: button + search hint -->
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                        <button class="btn-add-sorter" onclick="openPluginPicker()">
+                            ☰ Select Plugins
+                        </button>
+                        <span style="font-size:0.82rem; color:#64748b; font-style:italic;">
+                            First plugin = primary (for image/sprite lookup)
+                        </span>
+                    </div>
+
+                    <!-- Active plugin list (mirrors sorter active list) -->
+                    <div id="activePluginList">
+                        <span class="sorter-empty">Loading plugins…</span>
+                    </div>
                 </div>
             </div>
 
@@ -132,25 +135,30 @@
 
     <div id="pluginPickerOverlay">
         <div class="sorter-picker-modal">
+
             <div class="sorter-picker-header">
-                <span class="sorter-picker-header-title">Select Plugin</span>
+                <span class="sorter-picker-header-title">Select Plugins</span>
                 <button class="sorter-picker-close" onclick="closePluginPicker()">✕</button>
             </div>
 
             <input
                 type="text"
                 id="pluginPickerSearch"
-                class="search-input"
                 placeholder="🔍 Search plugins..."
                 oninput="renderPluginPickerList(this.value)"
-                style="margin: 12px 16px; width: calc(100% - 32px);"
+                style="margin: 12px 16px; width: calc(100% - 32px);
+                       padding:12px; background:rgba(30,41,59,0.8);
+                       border:1px solid rgba(59,130,246,0.4); border-radius:8px;
+                       color:#e2e8f0; font-size:1rem;"
             >
 
             <div id="pluginPickerList"></div>
 
             <div class="sorter-picker-footer">
-                <button class="btn-picker-cancel" onclick="closePluginPicker()">Close</button>
+                <button class="btn-picker-cancel" onclick="closePluginPicker()">Cancel</button>
+                <button class="btn-picker-done"   onclick="confirmPluginPicker()">Done</button>
             </div>
+
         </div>
     </div>
     
@@ -164,6 +172,7 @@
     <script src="../JavaScript/AttributeDisplay.js"></script>
     <script src="../JavaScript/generalFilterStuff.js"></script>
     <script src="../JavaScript/computedStats.js"></script>
+    <script src="../JavaScript/generalPluginStuff.js"></script>
     <script src="../JavaScript/Plugin_Script.js"></script>
 </body>
 </html>
