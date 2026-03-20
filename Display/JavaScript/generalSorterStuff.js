@@ -6,6 +6,10 @@
 //
 // For ship/variant tabs, sorting uses getComputedStats() so values reflect
 // the ship's installed outfits, not just base attributes.
+//
+// Multi-plugin: items carry a _pluginId property (set by PluginManager.getMergedItems).
+// getFieldValue() uses item._pluginId when calling getComputedStats so each item
+// is evaluated against its own plugin's outfit index.
 
 // ---------------------------------------------------------------------------
 // State
@@ -16,7 +20,7 @@ let sorterCurrentTab       = 'ships';
 let sorterPickerPending    = [];
 let _sorterItems           = [];
 let _sorterAttrDefs        = null;
-let _sorterPluginId        = null;  // current plugin — needed for computed stats
+let _sorterPluginId        = null;  // primary plugin — fallback when item has no _pluginId
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -34,11 +38,6 @@ function toTitleCase(str) {
 // Field building
 // ---------------------------------------------------------------------------
 
-/**
- * Scan a sample of items for numeric fields not already in knownIds.
- * Ships: checks item.* and item.attributes.*
- * Outfits: checks item.* only
- */
 function scanItemsForExtraFields(items, tab, knownIds) {
     const extras    = {};
     const isShipLike = tab === 'ships' || tab === 'variants';
@@ -55,7 +54,6 @@ function scanItemsForExtraFields(items, tab, knownIds) {
     const sample = items.slice(0, 100);
 
     for (const item of sample) {
-        // Top-level numerics
         for (const [key, val] of Object.entries(item)) {
             if (SKIP_KEYS.has(key)) continue;
             if (typeof val !== 'number') continue;
@@ -64,7 +62,6 @@ function scanItemsForExtraFields(items, tab, knownIds) {
             extras[id] = { id, key, label: toTitleCase(key), path: [key] };
         }
 
-        // Ship: also scan item.attributes.*
         if (isShipLike && item.attributes && typeof item.attributes === 'object') {
             for (const [key, val] of Object.entries(item.attributes)) {
                 if (typeof val !== 'number') continue;
@@ -84,7 +81,6 @@ function buildFieldsForTab(tab, items) {
     const fields     = [];
     const seenIds    = new Set();
 
-    // ── 1. Fields from attributeDefinitions.json ─────────────────────────
     for (const [key, def] of Object.entries(defs)) {
         if (def.isBoolean)    continue;
         if (def.isWeaponStat) continue;
@@ -93,7 +89,6 @@ function buildFieldsForTab(tab, items) {
         const label = toTitleCase(key);
 
         if (isShipLike) {
-            // For ships we read from computedStats (includes outfit contributions)
             fields.push({ id, key, label, path: ['attributes', key], useComputed: true });
         } else {
             fields.push({ id, key, label, path: [key] });
@@ -101,7 +96,6 @@ function buildFieldsForTab(tab, items) {
         seenIds.add(id);
     }
 
-    // ── 2. Computed/derived fields (ships only) ───────────────────────────
     if (isShipLike && typeof getComputedSorterFields === 'function') {
         getComputedSorterFields().forEach(f => {
             if (!seenIds.has(f.id)) {
@@ -111,7 +105,6 @@ function buildFieldsForTab(tab, items) {
         });
     }
 
-    // ── 3. Raw item scan for anything else ────────────────────────────────
     if (items && items.length > 0) {
         scanItemsForExtraFields(items, tab, seenIds).forEach(f => {
             fields.push(f);
@@ -119,7 +112,6 @@ function buildFieldsForTab(tab, items) {
         });
     }
 
-    // ── 4. Computed helpers (port/bay counts) ─────────────────────────────
     if (isShipLike) {
         [
             { id: '_gunCount',    label: 'Gun Ports',     fn: i => (i.guns    || []).length },
@@ -138,7 +130,6 @@ function buildFieldsForTab(tab, items) {
     return fields;
 }
 
-// Cache keyed by tab, rebuilt when items or attrDefs change
 const _fieldCache = {};
 
 function getFieldsForTab(tab) {
@@ -175,14 +166,17 @@ function getFieldValue(item, field) {
     // Inline computed (port counts etc.)
     if (field.computed) return field.computed(item);
 
-    // Use computed stats engine for ship-like tabs
-    if (field.useComputed && _sorterPluginId && typeof getComputedStats === 'function') {
-        const stats = getComputedStats(item, _sorterPluginId);
-        // Computed fields (derived values like _effectiveShields) live directly on stats
-        // Attribute fields: stats has them flat (e.g. stats['shields'])
-        const val = stats[field.key];
-        if (val !== undefined) return val;
-        // Fall back to path lookup if not in computed stats
+    // Use computed stats engine for ship-like tabs.
+    // KEY CHANGE: prefer item._pluginId over the global _sorterPluginId so that
+    // ships from secondary plugins are evaluated against their own outfit index.
+    if (field.useComputed && typeof getComputedStats === 'function') {
+        const pluginId = item._pluginId || _sorterPluginId;
+        if (pluginId) {
+            const stats = getComputedStats(item, pluginId);
+            const val   = stats[field.key];
+            if (val !== undefined) return val;
+            // Fall through to path lookup if key not in computed stats
+        }
     }
 
     // Default: walk the path
@@ -240,7 +234,7 @@ function applySorters(items) {
 
 function setSorterItems(items) {
     _sorterItems = items || [];
-    delete _fieldCache[sorterCurrentTab]; // rebuild with fresh sample
+    delete _fieldCache[sorterCurrentTab];
     renderSorterBox();
 }
 
@@ -288,7 +282,7 @@ async function renderSorterBox() {
         const dirBtn = document.createElement('button');
         dirBtn.className   = 'sorter-dir-btn';
         dirBtn.textContent = sorter.dir === 'asc' ? '↑ Asc' : '↓ Desc';
-        dirBtn.onclick = async () => {          // ✅ fixed
+        dirBtn.onclick = async () => {
             sorter.dir = sorter.dir === 'asc' ? 'desc' : 'asc';
             renderSorterBox();
             await _triggerFilterItems();
@@ -298,7 +292,7 @@ async function renderSorterBox() {
         upBtn.className   = 'sorter-move-btn';
         upBtn.textContent = '▲';
         upBtn.disabled    = idx === 0;
-        upBtn.onclick = async () => {            // ✅ fixed
+        upBtn.onclick = async () => {
             [activeSorters[idx - 1], activeSorters[idx]] = [activeSorters[idx], activeSorters[idx - 1]];
             renderSorterBox();
             await _triggerFilterItems();
@@ -308,7 +302,7 @@ async function renderSorterBox() {
         downBtn.className   = 'sorter-move-btn';
         downBtn.textContent = '▼';
         downBtn.disabled    = idx === activeSorters.length - 1;
-        downBtn.onclick = async () => {          // ✅ fixed
+        downBtn.onclick = async () => {
             [activeSorters[idx], activeSorters[idx + 1]] = [activeSorters[idx + 1], activeSorters[idx]];
             renderSorterBox();
             await _triggerFilterItems();
@@ -317,7 +311,7 @@ async function renderSorterBox() {
         const removeBtn = document.createElement('button');
         removeBtn.className   = 'sorter-remove-btn';
         removeBtn.textContent = '✕';
-        removeBtn.onclick = async () => {        // ✅ fixed
+        removeBtn.onclick = async () => {
             activeSorters.splice(idx, 1);
             renderSorterBox();
             await _triggerFilterItems();
@@ -409,7 +403,6 @@ function renderPickerList(query) {
         return;
     }
 
-    // Group: computed/derived fields first, then the rest
     const derived = filtered.filter(f => f.isComputed);
     const normal  = filtered.filter(f => !f.isComputed);
 
