@@ -32,6 +32,23 @@
         <div id="mainContent" style="display: none;">
             <div class="plugin-selector" id="pluginSelector"></div>
 
+            <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <button class="btn-add-sorter" onclick="openPluginPicker()" id="pluginPickerBtn">
+                    ☰ Select Plugin
+                </button>
+                <span id="activePluginLabel" style="
+                    font-size: 0.9rem;
+                    color: #93c5fd;
+                    background: rgba(59,130,246,0.15);
+                    border: 1px solid rgba(59,130,246,0.35);
+                    border-radius: 6px;
+                    padding: 5px 14px;
+                    font-weight: 600;
+                    letter-spacing: 0.02em;
+                ">—</span>
+            </div>
+
+
             <div class="stats" id="stats"></div>
 
             <div class="tabs">
@@ -106,6 +123,30 @@
             <div class="sorter-picker-footer">
                 <button class="btn-picker-cancel" onclick="closeSorterPicker()">Cancel</button>
                 <button class="btn-picker-done"   onclick="confirmSorterPicker()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pluginPickerOverlay">
+        <div class="sorter-picker-modal">
+            <div class="sorter-picker-header">
+                <span class="sorter-picker-header-title">Select Plugin</span>
+                <button class="sorter-picker-close" onclick="closePluginPicker()">✕</button>
+            </div>
+
+            <input
+                type="text"
+                id="pluginPickerSearch"
+                class="search-input"
+                placeholder="🔍 Search plugins..."
+                oninput="renderPluginPickerList(this.value)"
+                style="margin: 12px 16px; width: calc(100% - 32px);"
+            >
+
+            <div id="pluginPickerList"></div>
+
+            <div class="sorter-picker-footer">
+                <button class="btn-picker-cancel" onclick="closePluginPicker()">Close</button>
             </div>
         </div>
     </div>
