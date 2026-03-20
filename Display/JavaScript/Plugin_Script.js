@@ -108,16 +108,18 @@ async function selectPlugin(outputName) {
 // ─── Hook called by PluginManager when active plugins change ─────────────────
 // PluginManager calls window._renderCardsFromManager() to trigger a card refresh.
 
-window._renderCardsFromManager = async function () {
+window._renderCardsFromManager = async function (resetTab = false) {
     // Sync the legacy currentPlugin variable to the primary
     currentPlugin = window.PluginManager.getPrimaryPlugin();
 
-    // Reset to ships tab on plugin change
-    currentTab = 'ships';
-    document.querySelectorAll('.tab').forEach(t => {
-        t.classList.toggle('active', t.dataset.tab === 'ships');
-    });
-    if (typeof onSorterTabChange === 'function') onSorterTabChange('ships');
+    // Only reset to ships tab when explicitly requested (e.g. first load)
+    if (resetTab) {
+        currentTab = 'ships';
+        document.querySelectorAll('.tab').forEach(t => {
+            t.classList.toggle('active', t.dataset.tab === 'ships');
+        });
+        if (typeof onSorterTabChange === 'function') onSorterTabChange('ships');
+    }
 
     await renderCards();
 };
