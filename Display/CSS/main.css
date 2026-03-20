@@ -984,6 +984,104 @@ button {
     color: #a3a3a3;
 }
 
+/* ── Plugin picker overlay ────────────────────────────────────────────────── */
+
+#pluginPickerOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+#pluginPickerOverlay.plugin-overlay-visible {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#pluginPickerList {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+#pluginPickerList::-webkit-scrollbar        { width: 6px; }
+#pluginPickerList::-webkit-scrollbar-track  { background: rgba(15,23,42,0.4); border-radius: 3px; }
+#pluginPickerList::-webkit-scrollbar-thumb  { background: rgba(59,130,246,0.4); border-radius: 3px; }
+#pluginPickerList::-webkit-scrollbar-thumb:hover { background: rgba(59,130,246,0.7); }
+
+.plugin-picker-group-header {
+    color: #63b3ed;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 10px 10px 4px;
+    margin-top: 4px;
+    border-top: 1px solid rgba(59,130,246,0.2);
+    user-select: none;
+}
+
+.plugin-picker-group-header:first-child {
+    border-top: none;
+    margin-top: 0;
+}
+
+.plugin-picker-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    background: rgba(15, 23, 42, 0.3);
+    margin: 0 2px;
+}
+
+.plugin-picker-row:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.plugin-picker-row.active {
+    background: rgba(59, 130, 246, 0.25);
+    border-color: rgba(59, 130, 246, 0.5);
+}
+
+.plugin-picker-row-label {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    flex: 1;
+    user-select: none;
+}
+
+.plugin-picker-row.active .plugin-picker-row-label {
+    color: #93c5fd;
+    font-weight: 600;
+}
+
+.plugin-picker-active-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3b82f6;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.plugin-picker-row.active .plugin-picker-active-dot {
+    opacity: 1;
+}
+
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
