@@ -216,11 +216,14 @@ button {
 .card-image {
     width: 90px;
     height: 90px;
-    object-fit: cover;
     border-radius: 10px;
     border: 1px solid rgba(59, 130, 246, 0.3);
     background: rgba(30, 41, 59, 0.6);
     flex-shrink: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-content {
