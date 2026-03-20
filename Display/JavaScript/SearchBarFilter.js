@@ -1,4 +1,8 @@
+let _filterGeneration = 0;
+
 async function filterItems() {
+    const myGeneration = ++_filterGeneration;  // claim this search's generation
+
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const selectedCategories = getSelectedCategories();
     const container = document.getElementById('cardsContainer');
@@ -22,7 +26,12 @@ async function filterItems() {
     }
 
     for (const item of display) {
+        // If a newer search has started, stop appending old results
+        if (myGeneration !== _filterGeneration) return;
+
         const card = await createCard(item);
+
+        if (myGeneration !== _filterGeneration) return;
         container.appendChild(card);
     }
 }
