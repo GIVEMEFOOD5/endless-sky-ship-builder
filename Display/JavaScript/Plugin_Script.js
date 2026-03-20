@@ -1,5 +1,5 @@
 let allData = {};
-let currentPlugin = null;
+let currentPlugin = null; // kept for backward-compat; mirrors PluginManager.getPrimaryPlugin()
 let currentTab = 'ships';
 let filteredData = [];
 let currentModalTab = 'attributes';
@@ -82,7 +82,6 @@ async function loadData() {
 
         loadingIndicator.style.display = 'none';
         mainContent.style.display = 'block';
-        await renderPluginTabs();
 
         window.allData = allData;
         if (typeof initImageIndex === 'function') initImageIndex();
@@ -90,7 +89,8 @@ async function loadData() {
             Object.keys(allData).forEach(name => setEffectPlugin(name));
         }
 
-        await selectPlugin(Object.keys(allData)[0]);
+        // Hand off to PluginManager for initial selection
+        await window.PluginManager.initDefaultPlugin();
 
     } catch (error) {
         loadingIndicator.style.display = 'none';
@@ -98,165 +98,83 @@ async function loadData() {
     }
 }
 
-// ─── Plugin tabs ──────────────────────────────────────────────────────────────
-
-function openPluginPicker() {
-    renderPluginPickerList('');
-    document.getElementById('pluginPickerOverlay').classList.add('plugin-overlay-visible');
-    const search = document.getElementById('pluginPickerSearch');
-    if (search) { search.value = ''; search.focus(); }
-}
-
-function closePluginPicker() {
-    document.getElementById('pluginPickerOverlay').classList.remove('plugin-overlay-visible');
-}
-
-function renderPluginPickerList(query) {
-    const list = document.getElementById('pluginPickerList');
-    if (!list) return;
-    list.innerHTML = '';
-
-    const lq = (query || '').toLowerCase().trim();
-
-    // Build groups
-    const groups = {};
-    for (const [outputName, data] of Object.entries(allData)) {
-        const src = data.sourceName;
-        if (!groups[src]) groups[src] = [];
-        groups[src].push({ outputName, data });
-    }
-
-    let anyVisible = false;
-
-    for (const [sourceName, plugins] of Object.entries(groups)) {
-        // Filter plugins by query
-        const visible = lq
-            ? plugins.filter(p =>
-                p.data.displayName.toLowerCase().includes(lq) ||
-                sourceName.toLowerCase().includes(lq))
-            : plugins;
-
-        if (visible.length === 0) continue;
-        anyVisible = true;
-
-        const header = document.createElement('div');
-        header.className = 'plugin-picker-group-header';
-        header.textContent = sourceName;
-        list.appendChild(header);
-
-        for (const { outputName, data } of visible) {
-            const row = document.createElement('div');
-            row.className = 'plugin-picker-row' + (outputName === currentPlugin ? ' active' : '');
-            row.dataset.plugin = outputName;
-
-            const dot = document.createElement('span');
-            dot.className = 'plugin-picker-active-dot';
-
-            const label = document.createElement('span');
-            label.className = 'plugin-picker-row-label';
-            // If a source has only one plugin, just show the source name (no redundancy)
-            label.textContent = plugins.length === 1 ? sourceName : data.displayName;
-
-            row.appendChild(dot);
-            row.appendChild(label);
-
-            row.onclick = async () => {
-                closePluginPicker();
-                await selectPlugin(outputName);
-            };
-
-            list.appendChild(row);
-        }
-    }
-
-    if (!anyVisible) {
-        const empty = document.createElement('p');
-        empty.style.cssText = 'color:#94a3b8;font-style:italic;font-size:0.9rem;padding:12px 10px;';
-        empty.textContent = 'No matching plugins.';
-        list.appendChild(empty);
-    }
-}
-
-async function renderPluginTabs() {
-    // Now just pre-populates the picker list; no inline buttons rendered
-    renderPluginPickerList('');
-}
-
-// ─── Plugin selection ─────────────────────────────────────────────────────────
+// ─── Plugin selection (now delegates to PluginManager) ───────────────────────
+// Kept for any external callers (e.g. legacy onclick handlers).
 
 async function selectPlugin(outputName) {
-    currentPlugin = outputName;
+    await window.PluginManager.setActivePlugins([outputName]);
+}
+
+// ─── Hook called by PluginManager when active plugins change ─────────────────
+// PluginManager calls window._renderCardsFromManager() to trigger a card refresh.
+
+window._renderCardsFromManager = async function () {
+    // Sync the legacy currentPlugin variable to the primary
+    currentPlugin = window.PluginManager.getPrimaryPlugin();
+
+    // Reset to ships tab on plugin change
     currentTab = 'ships';
-
-    // Update the active label shown next to the picker button
-    const labelEl = document.getElementById('activePluginLabel');
-    if (labelEl && allData[outputName]) {
-        const d = allData[outputName];
-        // Show "Source › Display" if they differ, else just source
-        labelEl.textContent = (d.sourceName !== d.displayName)
-            ? `${d.sourceName}  ›  ${d.displayName}`
-            : d.sourceName;
-    }
-
-    // Refresh active state in picker list if it's open
-    document.querySelectorAll('#pluginPickerList .plugin-picker-row').forEach(row => {
-        row.classList.toggle('active', row.dataset.plugin === outputName);
-    });
-
     document.querySelectorAll('.tab').forEach(t => {
         t.classList.toggle('active', t.dataset.tab === 'ships');
     });
+    if (typeof onSorterTabChange === 'function') onSorterTabChange('ships');
 
-    if (typeof setCurrentPlugin === 'function') setCurrentPlugin(outputName);
-    if (typeof setEffectPlugin  === 'function') setEffectPlugin(outputName);
-    if (typeof setSorterPluginId  === 'function') setSorterPluginId(outputName);
-    if (typeof clearComputedCache === 'function') clearComputedCache();
-
-    updateStats();
     await renderCards();
-}
+};
 
-// ─── Stats / tab / card rendering ─────────────────────────────────────────────
-
-function updateStats() {
-    if (!currentPlugin || !allData[currentPlugin]) return;
-    const data = allData[currentPlugin];
-    const statsContainer = document.getElementById('stats');
-    const totalShips = data.ships.length + data.variants.length;
-    statsContainer.innerHTML = `
-        <div class="stat-card"><div class="stat-value">${data.ships.length}</div><div class="stat-label">Base Ships</div></div>
-        <div class="stat-card"><div class="stat-value">${data.variants.length}</div><div class="stat-label">Variants</div></div>
-        <div class="stat-card"><div class="stat-value">${data.outfits.length}</div><div class="stat-label">Outfits</div></div>
-        <div class="stat-card"><div class="stat-value">${totalShips + data.outfits.length}</div><div class="stat-label">Total Items</div></div>
-    `;
-}
+// ─── Tab switching ────────────────────────────────────────────────────────────
 
 function switchTab(tab) {
     currentTab = tab;
     document.querySelectorAll('.tab').forEach(t => {
         t.classList.toggle('active', t.dataset.tab === tab);
     });
-
     if (typeof onSorterTabChange === 'function') onSorterTabChange(tab);
     renderCards();
 }
 
-async function renderCards() {
-    if (!currentPlugin || !allData[currentPlugin]) return;
-    const data = allData[currentPlugin];
+// ─── Card rendering ───────────────────────────────────────────────────────────
 
-    let items = [];
-    if      (currentTab === 'ships')    items = data.ships;
-    else if (currentTab === 'variants') items = data.variants;
-    else if (currentTab === 'outfits')  items = data.outfits;
-    else if (currentTab === 'effects')  items = data.effects;
+async function renderCards() {
+    // Get merged items from all active plugins
+    const items = window.PluginManager
+        ? window.PluginManager.getMergedItems(currentTab)
+        : [];
 
     filteredData = items;
-    if (typeof getFilterData === 'function') getFilterData(items);
+    if (typeof getFilterData          === 'function') getFilterData(items);
     if (typeof populateCategoryFilters === 'function') populateCategoryFilters(items);
     if (typeof populateGovernmentFilters === 'function') populateGovernmentFilters(items);
-    if (typeof filterItems === 'function') await filterItems();
+    if (typeof filterItems            === 'function') await filterItems();
 }
+
+// ─── updateStats (delegated to PluginManager._updateMergedStats via notifyChange)
+// This stub is kept so external code calling updateStats() still works.
+function updateStats() {
+    if (!window.PluginManager) return;
+    // PluginManager exposes _updateMergedStats via _notifyChange;
+    // we reproduce the logic here for direct calls.
+    const activePlugins = window.PluginManager.getActivePlugins();
+    let ships = 0, variants = 0, outfits = 0;
+    for (const outputName of activePlugins) {
+        const d = allData[outputName];
+        if (!d) continue;
+        ships    += d.ships?.length    || 0;
+        variants += d.variants?.length || 0;
+        outfits  += d.outfits?.length  || 0;
+    }
+    const total = ships + variants + outfits;
+    const statsContainer = document.getElementById('stats');
+    if (!statsContainer) return;
+    statsContainer.innerHTML = `
+        <div class="stat-card"><div class="stat-value">${ships}</div><div class="stat-label">Base Ships</div></div>
+        <div class="stat-card"><div class="stat-value">${variants}</div><div class="stat-label">Variants</div></div>
+        <div class="stat-card"><div class="stat-value">${outfits}</div><div class="stat-label">Outfits</div></div>
+        <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Items</div></div>
+    `;
+}
+
+// ─── Card creation ────────────────────────────────────────────────────────────
 
 async function createCard(item) {
     const card = document.createElement('div');
@@ -270,7 +188,6 @@ async function createCard(item) {
         let element = null;
 
         if (currentTab === 'ships' || currentTab === 'variants') {
-            // Ships: try sprite first, then thumbnail, then fallback image
             if (item.sprite) {
                 element = await window.fetchSprite(item.sprite, null);
             }
@@ -284,7 +201,6 @@ async function createCard(item) {
                 element = img;
             }
         } else {
-            // Outfits/effects: thumbnail only, then fallback image
             if (item.thumbnail) {
                 element = await window.fetchSprite(item.thumbnail, null);
             }
@@ -300,7 +216,6 @@ async function createCard(item) {
             element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
             imageWrapper.appendChild(element);
         }
-
     } catch (e) {
         console.warn('Failed to fetch sprite for', item.name, e);
         imageWrapper.style.background = 'rgba(15,23,42,0.5)';
@@ -382,7 +297,7 @@ async function showDetails(item) {
             btn.className = 'modal-tab' + (tab.id === currentModalTab ? ' active' : '');
             btn.dataset.tab = tab.id;
             btn.textContent = tab.label;
-            btn.onclick = async () => await switchModalTab(tab.id); // ✅ also fixed this one
+            btn.onclick = async () => await switchModalTab(tab.id);
             tabBar.appendChild(btn);
         });
         modalBody.appendChild(tabBar);
@@ -435,7 +350,9 @@ async function switchModalTab(tabId) {
     tabContent.style.display = 'block';
 
     if (tabId === 'attributes') {
-        tabContent.innerHTML = renderAttributesTab(item);
+        // Pass item's own _pluginId so AttributeDisplay resolves correctly
+        const pluginIdForDisplay = item._pluginId || currentPlugin;
+        tabContent.innerHTML = renderAttributesTab(item, pluginIdForDisplay);
         return;
     }
 
@@ -481,9 +398,12 @@ async function renderImageTab(spritePath, altText, spriteParams) {
     return wrap;
 }
 
-function renderAttributesTab(item) {
+function renderAttributesTab(item, pluginIdOverride) {
+    // Use the item's own plugin ID for computed stats, falling back to currentPlugin
+    const pluginId = pluginIdOverride || item._pluginId || currentPlugin;
+
     if (attrDefs && window.AttributeDisplay) {
-        return window.AttributeDisplay.renderAttributesTabEnhanced(item, attrDefs, currentTab, currentPlugin);
+        return window.AttributeDisplay.renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId);
     }
 
     let html = '';
@@ -515,7 +435,7 @@ function renderAttributesTab(item) {
         }
     } else if (currentTab === 'effects') {
         html += '<div class="attribute-grid">';
-        const excludeKeys = ['name','description','sprite','spriteData'];
+        const excludeKeys = ['name','description','sprite','spriteData','_pluginId'];
         Object.entries(item).forEach(([key, value]) => {
             if (!excludeKeys.includes(key) && typeof value !== 'object') {
                 html += `<div class="attribute"><div class="attribute-name">${key}</div><div class="attribute-value">${formatValue(value)}</div></div>`;
@@ -526,7 +446,7 @@ function renderAttributesTab(item) {
         html += '<div class="attribute-grid">';
         const excludeKeys = ['name','description','thumbnail','sprite','hardpointSprite',
             'hardpoint sprite','steering flare sprite','flare sprite','reverse flare sprite',
-            'afterburner effect','projectile','weapon','spriteData'];
+            'afterburner effect','projectile','weapon','spriteData','_pluginId'];
         Object.entries(item).forEach(([key, value]) => {
             if (!excludeKeys.includes(key) && typeof value !== 'object') {
                 html += `<div class="attribute"><div class="attribute-name">${key}</div><div class="attribute-value">${formatValue(value)}</div></div>`;
@@ -591,33 +511,28 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('detailModal').addEventListener('click', function (e) {
         if (e.target.id === 'detailModal') closeModal();
     });
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeModal();
-    });
 
-    document.getElementById('pluginPickerOverlay').addEventListener('click', function(e) {
+    document.getElementById('pluginPickerOverlay').addEventListener('click', function (e) {
         if (e.target.id === 'pluginPickerOverlay') closePluginPicker();
     });
-    // The existing Escape handler for closeModal() will also need to close the plugin picker:
-    // Change your keydown listener to:
-    document.addEventListener('keydown', function(e) {
+
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             closeModal();
             closePluginPicker();
         }
     });
-    
+
     loadData();
 });
 
 // ─── Global exports ───────────────────────────────────────────────────────────
 
-window.loadData               = loadData;
-window.clearData              = clearData;
-window.switchTab              = switchTab;
-window.closeModal             = closeModal;
-window.selectPlugin           = selectPlugin;
-window.switchModalTab         = switchModalTab;
-window.openPluginPicker       = openPluginPicker;
-window.closePluginPicker      = closePluginPicker;
-window.renderPluginPickerList = renderPluginPickerList;
+window.loadData       = loadData;
+window.clearData      = clearData;
+window.switchTab      = switchTab;
+window.closeModal     = closeModal;
+window.selectPlugin   = selectPlugin;
+window.switchModalTab = switchModalTab;
+window.updateStats    = updateStats;
+window.renderCards    = renderCards;
