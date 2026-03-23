@@ -450,16 +450,13 @@ class LocationResolver {
    */
   attachLocations(ships, variants, outfits, pluginName) {
     for (const ship of ships) {
-      const raw = this._resolveShipLocations(ship.name, null);
+      const raw = this.(ship.name, null);
       ship.locations = this._finalise(raw, pluginName);
     }
 
     for (const variant of variants) {
       // Try full variant name first, then fall back to base ship name
-      let raw = this._resolveShipLocations(variant.name, variant.baseShip ?? null);
-      if (Object.keys(raw).length === 0 && variant.baseShip) {
-        raw = this._resolveShipLocations(variant.baseShip, null);
-      }
+      const raw = this._resolveShipLocations(variant.name, null);
       variant.locations = this._finalise(raw, pluginName);
     }
 
