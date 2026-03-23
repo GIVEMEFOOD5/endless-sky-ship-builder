@@ -450,7 +450,7 @@ class LocationResolver {
    */
   attachLocations(ships, variants, outfits, pluginName) {
     for (const ship of ships) {
-      const raw = this.(ship.name, null);
+      const raw = this._resolveShipLocations(ship.name, null);
       ship.locations = this._finalise(raw, pluginName);
     }
 
