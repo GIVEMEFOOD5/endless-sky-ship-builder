@@ -2,139 +2,197 @@
 class SpeciesResolver {
   constructor() { this.reset(); }
   reset() {
-    this.fleets           = [];
-    this.npcRefs          = [];
-    this.shipyards        = {};
-    this.outfitters       = {};
-    this.planets          = [];
-    this.shipOutfits      = {};
+    this.fleets           = [];   // { government, shipNames, pluginId }
+    this.npcRefs          = [];   // { government, shipName,  pluginId }
+    this.shipyards        = {};   // name → [{ shipName, pluginId }]
+    this.outfitters       = {};   // name → [{ outfitName, pluginId }]
+    this.planets          = [];   // { name, government, shipyards, outfitters, pluginId }
+    this.shipOutfits      = {};   // shipName → [{ outfitName, pluginId }]
     this.knownGovernments = new Set();
   }
 
-  collectFleet(government, shipNames) {
+  // ── Collectors (now accept pluginId) ────────────────────────────────────────
+
+  collectFleet(government, shipNames, pluginId) {
     if (!government) return;
     this.knownGovernments.add(government);
     if (shipNames.length) {
-      this.fleets.push({ government, shipNames: [...shipNames] });
+      this.fleets.push({ government, shipNames: [...shipNames], pluginId: pluginId ?? null });
     }
   }
 
-  collectNpcRef(government, shipName) {
+  collectNpcRef(government, shipName, pluginId) {
     if (!shipName) return;
     if (government) this.knownGovernments.add(government);
-    this.npcRefs.push({ government: government ?? null, shipName });
+    this.npcRefs.push({ government: government ?? null, shipName, pluginId: pluginId ?? null });
   }
 
-  collectShipyard(name, shipNames) {
+  collectShipyard(name, shipNames, pluginId) {
     if (!this.shipyards[name]) this.shipyards[name] = [];
-    this.shipyards[name].push(...shipNames);
+    for (const shipName of shipNames)
+      this.shipyards[name].push({ shipName, pluginId: pluginId ?? null });
   }
 
-  collectOutfitter(name, outfitNames) {
+  collectOutfitter(name, outfitNames, pluginId) {
     if (!this.outfitters[name]) this.outfitters[name] = [];
-    this.outfitters[name].push(...outfitNames);
+    for (const outfitName of outfitNames)
+      this.outfitters[name].push({ outfitName, pluginId: pluginId ?? null });
   }
 
-  collectPlanet(name, government, shipyards, outfitters) {
+  collectPlanet(name, government, shipyards, outfitters, pluginId) {
     if (government) this.knownGovernments.add(government);
-    this.planets.push({ name, government, shipyards, outfitters });
+    this.planets.push({ name, government, shipyards, outfitters, pluginId: pluginId ?? null });
   }
 
-  collectShipOutfits(shipName, outfitNames) {
+  collectShipOutfits(shipName, outfitNames, pluginId) {
     if (!outfitNames.length) return;
     if (!this.shipOutfits[shipName]) this.shipOutfits[shipName] = [];
-    this.shipOutfits[shipName].push(...outfitNames);
+    for (const outfitName of outfitNames)
+      this.shipOutfits[shipName].push({ outfitName, pluginId: pluginId ?? null });
   }
 
+  // ── Internal lookups ─────────────────────────────────────────────────────────
+  // Each returns a Map<pluginId, Set<government>> so callers know the source.
+
   _governmentsForShip(shipName) {
-    const govts = new Set();
+    // pluginId → Set<government>
+    const result = new Map();
+
+    const add = (pluginId, government) => {
+      const key = pluginId ?? '__unknown__';
+      if (!result.has(key)) result.set(key, new Set());
+      result.get(key).add(government);
+    };
 
     // Strip variant suffix: "Carrier (Alpha)" → "Carrier"
     const baseName = shipName.replace(/\s*\([^)]+\)\s*$/, '').trim();
 
-    // Fleet and shipyard lookups: exact name only.
-    // A fleet listing "Carrier" refers to the base hull, not "Carrier (Alpha)".
-    // Using the base name here would bleed base ship governments into unrelated variants.
+    // Fleet listings: exact name only
     for (const fleet of this.fleets)
       if (fleet.shipNames.includes(shipName))
-        govts.add(fleet.government);
+        add(fleet.pluginId, fleet.government);
 
-    // NPC refs: match exact name OR base name.
-    // Missions store the full type name e.g. "Carrier (Alpha)", but a mission that
-    // just says ship "Carrier" "Bob" stores "Carrier" which should match base lookups.
+    // NPC refs: match exact name OR base name
     for (const ref of this.npcRefs)
       if (ref.government)
         if (ref.shipName === shipName || ref.shipName === baseName)
-          govts.add(ref.government);
+          add(ref.pluginId, ref.government);
 
     // Shipyard → planet → government chain: exact name only
-    for (const [yard, shipList] of Object.entries(this.shipyards)) {
-      if (!shipList.includes(shipName)) continue;
-      for (const planet of this.planets)
-        if (planet.shipyards.includes(yard) && planet.government)
-          govts.add(planet.government);
+    for (const [yard, entries] of Object.entries(this.shipyards)) {
+      const matchingEntries = entries.filter(e => e.shipName === shipName);
+      if (!matchingEntries.length) continue;
+      for (const planet of this.planets) {
+        if (!planet.shipyards.includes(yard) || !planet.government) continue;
+        // Use the pluginId of the planet (the government-assigning side)
+        for (const e of matchingEntries)
+          add(planet.pluginId ?? e.pluginId, planet.government);
+      }
     }
 
-    return govts;
+    return result;
   }
 
   _governmentsForOutfit(outfitName) {
-    const govts = new Set();
+    const result = new Map();
+
+    const add = (pluginId, government) => {
+      const key = pluginId ?? '__unknown__';
+      if (!result.has(key)) result.set(key, new Set());
+      result.get(key).add(government);
+    };
 
     // Outfitter → planet → government chain
-    for (const [outfitter, outfitList] of Object.entries(this.outfitters)) {
-      if (!outfitList.includes(outfitName)) continue;
-      for (const planet of this.planets)
-        if (planet.outfitters.includes(outfitter) && planet.government)
-          govts.add(planet.government);
+    for (const [outfitter, entries] of Object.entries(this.outfitters)) {
+      const matchingEntries = entries.filter(e => e.outfitName === outfitName);
+      if (!matchingEntries.length) continue;
+      for (const planet of this.planets) {
+        if (!planet.outfitters.includes(outfitter) || !planet.government) continue;
+        for (const e of matchingEntries)
+          add(planet.pluginId ?? e.pluginId, planet.government);
+      }
     }
 
     // Ship outfit → ship government chain
-    for (const [shipName, outfitList] of Object.entries(this.shipOutfits)) {
-      if (!outfitList.includes(outfitName)) continue;
-      for (const g of this._governmentsForShip(shipName))
-        govts.add(g);
+    for (const [shipName, entries] of Object.entries(this.shipOutfits)) {
+      const matchingEntries = entries.filter(e => e.outfitName === outfitName);
+      if (!matchingEntries.length) continue;
+      for (const [pluginId, govts] of this._governmentsForShip(shipName)) {
+        for (const g of govts) {
+          // Carry the pluginId from the ship lookup; fall back to outfit entry's pluginId
+          const effectivePlugin = pluginId !== '__unknown__'
+            ? pluginId
+            : (matchingEntries[0]?.pluginId ?? null);
+          add(effectivePlugin, g);
+        }
+      }
     }
 
     // Filter to only governments confirmed across all parsed plugins
-    return new Set([...govts].filter(g => this.knownGovernments.has(g)));
+    for (const [pluginId, govts] of result) {
+      for (const g of govts)
+        if (!this.knownGovernments.has(g))
+          govts.delete(g);
+      if (!govts.size) result.delete(pluginId);
+    }
+
+    return result;
   }
 
-  // pluginName is the last-resort fallback when no government can be determined.
-  // For multi-plugin repos it is the subfolder name; for single-plugin repos it
-  // is the source name from plugins.json — both passed in as outputName by main().
+  // ── Public API ───────────────────────────────────────────────────────────────
+
+  /**
+   * Attach government data to ships, variants, and outfits.
+   *
+   * Output shape — ship.governments:
+   * {
+   *   "Plugin A": { "Human": true },
+   *   "Plugin B": { "Hai": true, "Republic": true }
+   * }
+   *
+   * pluginName is the last-resort fallback when no government can be determined.
+   */
   attachSpecies(ships, variants, outfits, pluginName) {
-    const toObj = govts => {
+    /**
+     * Convert a Map<pluginId, Set<government>> into the nested output object.
+     * Falls back to pluginName-keyed entry if the map is empty.
+     */
+    const toObj = (byPlugin) => {
+      if (byPlugin.size === 0) {
+        if (!pluginName) return {};
+        return { [pluginName]: { [pluginName]: true } };
+      }
       const obj = {};
-      for (const g of govts) obj[g] = true;
+      for (const [pluginId, govts] of byPlugin) {
+        const key = pluginId === '__unknown__' ? (pluginName ?? '__unknown__') : pluginId;
+        if (!obj[key]) obj[key] = {};
+        for (const g of govts) obj[key][g] = true;
+      }
       return obj;
     };
 
     for (const ship of ships) {
-      const govts = this._governmentsForShip(ship.name);
-      if (govts.size === 0 && pluginName)
-        govts.add(pluginName);
-      ship.governments = toObj(govts);
+      const byPlugin = this._governmentsForShip(ship.name);
+      if (byPlugin.size === 0 && pluginName)
+        byPlugin.set(pluginName, new Set([pluginName]));
+      ship.governments = toObj(byPlugin);
     }
 
     for (const variant of variants) {
-      // Look up by full variant name first (e.g. "Carrier (Alpha)").
-      // Only fall back to base ship name if nothing found — prevents base ship
-      // governments bleeding into variants belonging to a different faction.
-      const govts = this._governmentsForShip(variant.name);
-      if (govts.size === 0)
-        for (const g of this._governmentsForShip(variant.baseShip ?? variant.name))
-          govts.add(g);
-      if (govts.size === 0 && pluginName)
-        govts.add(pluginName);
-      variant.governments = toObj(govts);
+      // Full variant name first; fall back to base ship name only if nothing found
+      let byPlugin = this._governmentsForShip(variant.name);
+      if (byPlugin.size === 0)
+        byPlugin = this._governmentsForShip(variant.baseShip ?? variant.name);
+      if (byPlugin.size === 0 && pluginName)
+        byPlugin.set(pluginName, new Set([pluginName]));
+      variant.governments = toObj(byPlugin);
     }
 
     for (const outfit of outfits) {
-      const govts = this._governmentsForOutfit(outfit.name);
-      if (govts.size === 0 && pluginName)
-        govts.add(pluginName);
-      outfit.governments = toObj(govts);
+      const byPlugin = this._governmentsForOutfit(outfit.name);
+      if (byPlugin.size === 0 && pluginName)
+        byPlugin.set(pluginName, new Set([pluginName]));
+      outfit.governments = toObj(byPlugin);
     }
   }
 }
