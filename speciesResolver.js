@@ -11,7 +11,7 @@ class SpeciesResolver {
     this.knownGovernments = new Set();
   }
 
-  // ── Collectors (now accept pluginId) ────────────────────────────────────────
+  // ── Collectors (accept pluginId) ─────────────────────────────────────────────
 
   collectFleet(government, shipNames, pluginId) {
     if (!government) return;
@@ -44,18 +44,29 @@ class SpeciesResolver {
     this.planets.push({ name, government, shipyards, outfitters, pluginId: pluginId ?? null });
   }
 
-  collectShipOutfits(shipName, outfitNames, pluginId) {
+  /**
+   * Record outfits installed on a ship or variant.
+   *
+   * speciesShipName  — always the base ship name, used for government chain
+   *                    resolution (base ship → government → outfit government).
+   * variantShipName  — the full variant name when called from a variant context,
+   *                    or null for base ships. When provided, outfits are stored
+   *                    under the variant's own name so government lookups for the
+   *                    variant reflect only its own outfit load, not the base ship's.
+   */
+  collectShipOutfits(speciesShipName, outfitNames, pluginId, variantShipName = null) {
     if (!outfitNames.length) return;
-    if (!this.shipOutfits[shipName]) this.shipOutfits[shipName] = [];
+    // Store under variant name if provided, otherwise under the base ship name.
+    const storeName = variantShipName ?? speciesShipName;
+    if (!this.shipOutfits[storeName]) this.shipOutfits[storeName] = [];
     for (const outfitName of outfitNames)
-      this.shipOutfits[shipName].push({ outfitName, pluginId: pluginId ?? null });
+      this.shipOutfits[storeName].push({ outfitName, pluginId: pluginId ?? null });
   }
 
   // ── Internal lookups ─────────────────────────────────────────────────────────
-  // Each returns a Map<pluginId, Set<government>> so callers know the source.
+  // Each returns a Map<pluginId, Set<government>>.
 
   _governmentsForShip(shipName) {
-    // pluginId → Set<government>
     const result = new Map();
 
     const add = (pluginId, government) => {
@@ -84,7 +95,6 @@ class SpeciesResolver {
       if (!matchingEntries.length) continue;
       for (const planet of this.planets) {
         if (!planet.shipyards.includes(yard) || !planet.government) continue;
-        // Use the pluginId of the planet (the government-assigning side)
         for (const e of matchingEntries)
           add(planet.pluginId ?? e.pluginId, planet.government);
       }
@@ -114,12 +124,13 @@ class SpeciesResolver {
     }
 
     // Ship outfit → ship government chain
+    // shipOutfits may be keyed by either a base ship name or a variant name.
+    // _governmentsForShip handles both cases via its baseName strip + NPC fallback.
     for (const [shipName, entries] of Object.entries(this.shipOutfits)) {
       const matchingEntries = entries.filter(e => e.outfitName === outfitName);
       if (!matchingEntries.length) continue;
       for (const [pluginId, govts] of this._governmentsForShip(shipName)) {
         for (const g of govts) {
-          // Carry the pluginId from the ship lookup; fall back to outfit entry's pluginId
           const effectivePlugin = pluginId !== '__unknown__'
             ? pluginId
             : (matchingEntries[0]?.pluginId ?? null);
@@ -153,10 +164,6 @@ class SpeciesResolver {
    * pluginName is the last-resort fallback when no government can be determined.
    */
   attachSpecies(ships, variants, outfits, pluginName) {
-    /**
-     * Convert a Map<pluginId, Set<government>> into the nested output object.
-     * Falls back to pluginName-keyed entry if the map is empty.
-     */
     const toObj = (byPlugin) => {
       if (byPlugin.size === 0) {
         if (!pluginName) return {};
