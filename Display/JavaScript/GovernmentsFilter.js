@@ -2,18 +2,24 @@ let governmentFilterExpanded = false;
 let lastGovernmentData = [];
 let savedGovernmentFilterState = {};
 
-// Track the plugin that was active when lastGovernmentData was populated
-let lastGovernmentPlugin = null;
-
 function extractGovernments(data) {
     const governments = new Set();
 
+    const activePlugins = window.PluginManager
+        ? new Set(window.PluginManager.getActivePlugins())
+        : new Set();
+
     const processItem = item => {
-        if (item && typeof item.governments === 'object') {
-            Object.keys(item.governments).forEach(g => {
-                const trimmed = g.trim();
-                if (trimmed) governments.add(trimmed);   // skip blank keys
-            });
+        if (!item || typeof item.governments !== 'object') return;
+
+        for (const [pluginId, govMap] of Object.entries(item.governments)) {
+            if (activePlugins.size > 0 && !activePlugins.has(pluginId)) continue;
+            if (typeof govMap !== 'object') continue;
+
+            for (const govName of Object.keys(govMap)) {
+                const trimmed = govName.trim();
+                if (trimmed) governments.add(trimmed);
+            }
         }
     };
 
@@ -27,16 +33,6 @@ function extractGovernments(data) {
 }
 
 function populateGovernmentFilters(data) {
-    // Detect plugin change — if the active plugin changed, reset saved filter state
-    const activePlugin = window.PluginManager
-        ? window.PluginManager.getPrimaryPlugin()
-        : null;
-
-    if (activePlugin !== lastGovernmentPlugin) {
-        savedGovernmentFilterState = {};   // clear stale selections from old plugin
-        lastGovernmentPlugin = activePlugin;
-    }
-
     lastGovernmentData = data;
 
     const governments = extractGovernments(data);
@@ -46,21 +42,18 @@ function populateGovernmentFilters(data) {
     if (!filterOptions || !filterSection) return;
 
     if (governments.length === 0) {
-        filterSection.classList.add("hidden");
-        filterSection.classList.remove("shown");
+        filterSection.classList.add('hidden');
+        filterSection.classList.remove('shown');
         return;
     }
 
-    // Show the section now that there are governments
-    filterSection.classList.remove("hidden");
+    filterSection.classList.remove('hidden');
 
     if (!governmentFilterExpanded) {
         filterOptions.innerHTML = '';
         return;
     }
 
-    // Re-render checkboxes (Set already deduplicates; trim() above handles
-    // whitespace variants; sort() in extractGovernments keeps list stable)
     filterOptions.innerHTML = '';
 
     governments.forEach(government => {
@@ -71,7 +64,6 @@ function populateGovernmentFilters(data) {
         checkbox.type = 'checkbox';
         checkbox.id = `gov-filter-${CSS.escape(government)}`;
         checkbox.value = government;
-        // Restore saved state for this plugin; default unchecked
         checkbox.checked = savedGovernmentFilterState[government] ?? false;
         checkbox.onchange = filterItems;
 
@@ -88,7 +80,6 @@ function populateGovernmentFilters(data) {
 function getSelectedGovernments() {
     const checkboxes = document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]');
 
-    // If the dropdown is collapsed, read from saved state
     if (checkboxes.length === 0) {
         return Object.entries(savedGovernmentFilterState)
             .filter(([_, checked]) => checked)
@@ -103,7 +94,17 @@ function getSelectedGovernments() {
 function itemMatchesGovernmentFilter(item, selected) {
     if (selected.length === 0) return true;
     if (!item || typeof item.governments !== 'object') return false;
-    return selected.some(g => item.governments[g] === true);
+
+    const activePlugins = window.PluginManager
+        ? new Set(window.PluginManager.getActivePlugins())
+        : new Set();
+
+    return selected.some(govName =>
+        Object.entries(item.governments).some(([pluginId, govMap]) => {
+            if (activePlugins.size > 0 && !activePlugins.has(pluginId)) return false;
+            return typeof govMap === 'object' && govMap[govName] === true;
+        })
+    );
 }
 
 function clearGovernmentFilters() {
@@ -114,7 +115,7 @@ function clearGovernmentFilters() {
 
 function governmentFilterDisplay() {
     const filterOptions = document.getElementById('governmentFilterOptions');
-    const filterTitle   = document.getElementById('governmentFilterTitle');
+    const filterTitle = document.getElementById('governmentFilterTitle');
 
     if (!filterOptions) return;
 
@@ -122,20 +123,19 @@ function governmentFilterDisplay() {
 
     if (governmentFilterExpanded) {
         if (lastGovernmentData.length) {
-            filterTitle.classList.remove("filter-title-no-margin");
-            filterTitle.classList.add("filter-title");
+            filterTitle.classList.remove('filter-title-no-margin');
+            filterTitle.classList.add('filter-title');
             filterTitle.innerHTML = 'Filter by Government: ▶';
             populateGovernmentFilters(lastGovernmentData);
         }
     } else {
-        // Persist checkbox state before collapsing
         document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]').forEach(cb => {
             savedGovernmentFilterState[cb.value] = cb.checked;
         });
 
         filterOptions.innerHTML = '';
-        filterTitle.classList.remove("filter-title");
-        filterTitle.classList.add("filter-title-no-margin");
+        filterTitle.classList.remove('filter-title');
+        filterTitle.classList.add('filter-title-no-margin');
         filterTitle.innerHTML = 'Filter by Government: ▼';
     }
 }
