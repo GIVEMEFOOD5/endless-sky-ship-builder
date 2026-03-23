@@ -5,6 +5,7 @@
 
 const https           = require('https');
 const SpeciesResolver = require('./speciesResolver');
+const LocationResolver = require('./locationResolver');
 const { parseAttributes } = require('./attributeParser');
 const crypto          = require('crypto');
 const fs              = require('fs').promises;
@@ -85,6 +86,9 @@ class EndlessSkyParser {
 
     // Species resolution
     this.speciesResolver = new SpeciesResolver();
+
+    // Location Resolution
+    this.locationResolver = new LocationResolver();
   }
 
   // ── Configuration helpers (called from main before parsing) ───────────────
@@ -620,15 +624,23 @@ class EndlessSkyParser {
           i = this.parsePlanetBlock(lines, i); continue;
         } else if (trimmed.startsWith('event ') || trimmed === 'event') {
           i = this.parseEventBlock(lines, i); continue;
+        } else if (trimmed.startsWith('system ')) {
+          i = this.parseSystemBlock(lines, i); continue;
         }
       }
       i++;
     }
   }
 
-  // ── Species-resolution block parsers ────────────────────────────────────────
+  // ── Resolution block parsers ────────────────────────────────────────
 
   parseFleetBlock(lines, i) {
+    // Capture the fleet name from the header line BEFORE advancing i
+    const headerLine = lines[i].trim();
+    const nameMatch = headerLine.match(/^fleet\s+"([^"]+)"/) ||
+                      headerLine.match(/^fleet\s+`([^`]+)`/);
+    const fleetName = nameMatch ? nameMatch[1] : null;
+
     let government = null;
     const shipNames = [];
     i++;
@@ -641,8 +653,6 @@ class EndlessSkyParser {
         const govMatch = stripped.match(/^government\s+"([^"]+)"/);
         if (govMatch) { government = govMatch[1]; i++; continue; }
       }
-      // Collect ship names at indent 2 (direct fleet members) and
-      // indent 3 (ships inside a variant sub-block) so no ship is missed.
       if (indent === 2 || indent === 3) {
         const shipMatch = stripped.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
                           stripped.match(/^`([^`]+)`(?:\s+\d+)?$/);
@@ -651,24 +661,114 @@ class EndlessSkyParser {
       i++;
     }
     this.speciesResolver.collectFleet(government, shipNames, this._currentPluginId);
+    
+    this.locationResolver.collectFleet(fleetName, shipNames, this._currentPluginId);
     return i;
   }
 
   parseMissionBlock(lines, i) {
-    // Scan the entire mission block for npc keywords at any indent level.
-    // NPCs can be nested inside on enter/accept/complete/fail/offer/visit
-    // sub-blocks, so we can't just look at indent 1.
+    const headerLine = lines[i].trim();
+    const nameMatch = headerLine.match(/^mission\s+"([^"]+)"/) ||
+                      headerLine.match(/^mission\s+`([^`]+)`/);
+    const missionName = nameMatch ? nameMatch[1] : null;
+
     i++;
     while (i < lines.length) {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
+
+      // NPC blocks (may be nested inside on enter/accept/complete etc.)
       if (stripped === 'npc' || stripped.startsWith('npc ')) {
-        i = this.parseNpcBlock(lines, i);
+        // Capture ship names from this npc block and record them against missionName
+        i = this._parseMissionNpcBlock(lines, i, missionName);
         continue;
       }
+
+      // "outfit" / "give outfit" lines inside on complete / on accept blocks
+      // Endless Sky syntax:  outfit "Item Name" [count]
+      if (missionName && (stripped.startsWith('outfit "') || stripped.startsWith('outfit `'))) {
+        const om = stripped.match(/^outfit\s+"([^"]+)"(?:\s+(-?\d+))?/) ||
+                   stripped.match(/^outfit\s+`([^`]+)`(?:\s+(-?\d+))?/);
+        if (om) {
+          const count = om[2] ? parseInt(om[2], 10) : 1;
+          if (count > 0) { // negative counts remove outfits — skip those
+            this.locationResolver.collectMissionGiveOutfit(missionName, om[1], count, this._currentPluginId);
+          }
+        }
+      }
+
+      // "add shipyard" inside an event/planet block nested in a mission
+      if (missionName && (stripped.startsWith('add shipyard ') || stripped.startsWith('shipyard "'))) {
+        const sm = stripped.match(/^(?:add\s+)?shipyard\s+"([^"]+)"/) ||
+                   stripped.match(/^(?:add\s+)?shipyard\s+`([^`]+)`/);
+        if (sm) {
+          // Walk back up to find the planet name this belongs to (best-effort)
+          // Store as a mission-level yard add; planet resolution is handled separately
+          // by eventPlanetShipyardAdds when parsePlanetBlock is called inside events.
+        }
+      }
+
       i++;
+    }
+    return i;
+  }
+
+  // Like parseNpcBlock but also records missionName
+  _parseMissionNpcBlock(lines, i, missionName) {
+    let government = null;
+    const shipNames = [];
+    const npcIndent = lines[i].length - lines[i].replace(/^\t+/, '').length;
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent <= npcIndent && line.trim()) break;
+      const stripped = line.trim();
+
+      if (indent === npcIndent + 1) {
+        const govMatch = stripped.match(/^government\s+"([^"]+)"/) ||
+                         stripped.match(/^government\s+`([^`]+)`/);
+        if (govMatch) {
+          government = govMatch[1];
+          this.speciesResolver.knownGovernments.add(government);
+          i++; continue;
+        }
+
+        const shipTwoArg = stripped.match(/^ship\s+"([^"]+)"\s+"[^"]*"/) ||
+                           stripped.match(/^ship\s+`([^`]+)`\s+`[^`]*`/);
+        const shipOneArg = stripped.match(/^ship\s+"([^"]+)"$/) ||
+                           stripped.match(/^ship\s+`([^`]+)`$/);
+        if (shipTwoArg) { shipNames.push(shipTwoArg[1]); i++; continue; }
+        if (shipOneArg) { shipNames.push(shipOneArg[1]); i++; continue; }
+
+        if (stripped === 'fleet' || stripped.startsWith('fleet ')) {
+          const fleetIndent = indent;
+          i++;
+          while (i < lines.length) {
+            const fl = lines[i];
+            const fi = fl.length - fl.replace(/^\t+/, '').length;
+            if (fi <= fleetIndent && fl.trim()) break;
+            const fs = fl.trim();
+            if (fi > fleetIndent + 1) {
+              const fm = fs.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
+                         fs.match(/^`([^`]+)`(?:\s+\d+)?$/);
+              if (fm) shipNames.push(fm[1]);
+            }
+            i++;
+          }
+          continue;
+        }
+      }
+      i++;
+    }
+
+    for (const shipName of shipNames) {
+      this.speciesResolver.collectNpcRef(government, shipName, this._currentPluginId);
+      if (missionName) {
+        this.locationResolver.collectMissionNpcShip(missionName, shipName, this._currentPluginId);
+      }
     }
     return i;
   }
@@ -751,6 +851,8 @@ class EndlessSkyParser {
       i++;
     }
     this.speciesResolver.collectShipyard(name, ships, this._currentPluginId);
+
+    this.locationResolver.collectShipyard(name, ships, this._currentPluginId);
     return i;
   }
 
@@ -770,6 +872,8 @@ class EndlessSkyParser {
       i++;
     }
     this.speciesResolver.collectOutfitter(name, outfits, this._currentPluginId);
+
+    this.locationResolver.collectOutfitter(name, outfits, this._currentPluginId);
     return i;
   }
 
@@ -788,13 +892,69 @@ class EndlessSkyParser {
       const stripped = line.trim();
       const govMatch = stripped.match(/^government\s+"([^"]+)"/);
       const syMatch  = stripped.match(/^shipyard\s+"([^"]+)"/) || stripped.match(/^shipyard\s+`([^`]+)`/);
+      const addSyMatch = stripped.match(/^add\s+shipyard\s+"([^"]+)"/) || stripped.match(/^add\s+shipyard\s+`([^`]+)`/);
       const ofMatch  = stripped.match(/^outfitter\s+"([^"]+)"/) || stripped.match(/^outfitter\s+`([^`]+)`/);
       if (govMatch) government = govMatch[1];
       if (syMatch)  shipyards.push(syMatch[1]);
       if (ofMatch)  outfitters.push(ofMatch[1]);
+      if (addSyMatch) {
+        shipyards.push(addSyMatch[1]);
+        // Record dynamic add separately so locationResolver can track event-added yards
+        this.locationResolver.collectEventPlanetShipyardAdd(planetName, addSyMatch[1], this._currentPluginId);
+      }
       i++;
     }
     this.speciesResolver.collectPlanet(planetName, government, shipyards, outfitters, this._currentPluginId);
+
+    this.locationResolver.collectPlanet(planetName, shipyards, outfitters, this._currentPluginId);
+    return i;
+  }
+
+  parseSystemBlock(lines, i) {
+    const headerLine = lines[i].trim();
+    const nameMatch = headerLine.match(/^system\s+"([^"]+)"/) ||
+                      headerLine.match(/^system\s+`([^`]+)`/)  ||
+                      headerLine.match(/^system\s+(\S+)/);
+    const systemName = nameMatch ? nameMatch[1] : null;
+    if (!systemName) return i + 1;
+
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent === 0 && line.trim()) break;
+      const stripped = line.trim();
+
+      if (indent === 1) {
+        // fleet "Human Merchant" 100
+        const fleetMatch = stripped.match(/^fleet\s+"([^"]+)"/) ||
+                           stripped.match(/^fleet\s+`([^`]+)`/);
+        if (fleetMatch) {
+          this.locationResolver.collectFleetInSystem(fleetMatch[1], systemName, this._currentPluginId);
+          i++; continue;
+        }
+      }
+
+      // Planets are nested inside object blocks:
+      // object
+      //   sprite star/sun
+      //   object
+      //     sprite planet/rock
+      //     distance 150
+      //     period 30
+      //     object
+      //       planet Earth
+      if (stripped.startsWith('planet ') || stripped === 'planet') {
+        const pm = stripped.match(/^planet\s+"([^"]+)"/) ||
+                   stripped.match(/^planet\s+`([^`]+)`/)  ||
+                   stripped.match(/^planet\s+(\S+)/);
+        if (pm) {
+          this.locationResolver.collectPlanetInSystem(pm[1], systemName, this._currentPluginId);
+        }
+      }
+
+      i++;
+    }
     return i;
   }
 
@@ -845,6 +1005,9 @@ class EndlessSkyParser {
     }
     if (shipName && Object.keys(outfitMap).length) {
       this.speciesResolver.collectShipOutfits(shipName, Object.keys(outfitMap), this._currentPluginId);
+      for (const outfitName of Object.keys(outfitMap)) {
+        this.locationResolver.collectShipOutfit(shipName, outfitName, this._currentPluginId);
+      }
     }
     return [outfitMap, i];
   }
@@ -1310,6 +1473,7 @@ class EndlessSkyParser {
 
         v.outfitMap[outfitName] = count;
         this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName], this._currentPluginId);
+        this.locationResolver.collectShipOutfit(variantInfo.baseName, outfitName, this._currentPluginId);
         changed = true;
         i++;
         continue;
@@ -1524,6 +1688,13 @@ async function main() {
 
     for (const { plugin } of allResults) {
       sharedParser.speciesResolver.attachSpecies(
+        plugin.ships,
+        plugin.variants,
+        plugin.outfits,
+        plugin.outputName
+      );
+
+      sharedParser.locationResolver.attachLocations(
         plugin.ships,
         plugin.variants,
         plugin.outfits,
