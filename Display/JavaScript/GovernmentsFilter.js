@@ -2,12 +2,18 @@ let governmentFilterExpanded = false;
 let lastGovernmentData = [];
 let savedGovernmentFilterState = {};
 
+// Track the plugin that was active when lastGovernmentData was populated
+let lastGovernmentPlugin = null;
+
 function extractGovernments(data) {
     const governments = new Set();
 
     const processItem = item => {
         if (item && typeof item.governments === 'object') {
-            Object.keys(item.governments).forEach(g => governments.add(g));
+            Object.keys(item.governments).forEach(g => {
+                const trimmed = g.trim();
+                if (trimmed) governments.add(trimmed);   // skip blank keys
+            });
         }
     };
 
@@ -21,6 +27,16 @@ function extractGovernments(data) {
 }
 
 function populateGovernmentFilters(data) {
+    // Detect plugin change — if the active plugin changed, reset saved filter state
+    const activePlugin = window.PluginManager
+        ? window.PluginManager.getPrimaryPlugin()
+        : null;
+
+    if (activePlugin !== lastGovernmentPlugin) {
+        savedGovernmentFilterState = {};   // clear stale selections from old plugin
+        lastGovernmentPlugin = activePlugin;
+    }
+
     lastGovernmentData = data;
 
     const governments = extractGovernments(data);
@@ -35,11 +51,16 @@ function populateGovernmentFilters(data) {
         return;
     }
 
+    // Show the section now that there are governments
+    filterSection.classList.remove("hidden");
+
     if (!governmentFilterExpanded) {
         filterOptions.innerHTML = '';
         return;
     }
 
+    // Re-render checkboxes (Set already deduplicates; trim() above handles
+    // whitespace variants; sort() in extractGovernments keeps list stable)
     filterOptions.innerHTML = '';
 
     governments.forEach(government => {
@@ -50,7 +71,7 @@ function populateGovernmentFilters(data) {
         checkbox.type = 'checkbox';
         checkbox.id = `gov-filter-${CSS.escape(government)}`;
         checkbox.value = government;
-        // Restore saved state, default to false
+        // Restore saved state for this plugin; default unchecked
         checkbox.checked = savedGovernmentFilterState[government] ?? false;
         checkbox.onchange = filterItems;
 
@@ -67,7 +88,7 @@ function populateGovernmentFilters(data) {
 function getSelectedGovernments() {
     const checkboxes = document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]');
 
-    // If dropdowns are collapsed, read from saved state instead
+    // If the dropdown is collapsed, read from saved state
     if (checkboxes.length === 0) {
         return Object.entries(savedGovernmentFilterState)
             .filter(([_, checked]) => checked)
@@ -93,7 +114,7 @@ function clearGovernmentFilters() {
 
 function governmentFilterDisplay() {
     const filterOptions = document.getElementById('governmentFilterOptions');
-    const filterTitle = document.getElementById('governmentFilterTitle');
+    const filterTitle   = document.getElementById('governmentFilterTitle');
 
     if (!filterOptions) return;
 
@@ -107,7 +128,7 @@ function governmentFilterDisplay() {
             populateGovernmentFilters(lastGovernmentData);
         }
     } else {
-        // Save state before clearing
+        // Persist checkbox state before collapsing
         document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]').forEach(cb => {
             savedGovernmentFilterState[cb.value] = cb.checked;
         });
