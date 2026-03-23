@@ -87,7 +87,7 @@ class EndlessSkyParser {
     // Species resolution
     this.speciesResolver = new SpeciesResolver();
 
-    // Location Resolution
+    // Location resolution
     this.locationResolver = new LocationResolver();
   }
 
@@ -632,7 +632,7 @@ class EndlessSkyParser {
     }
   }
 
-  // ── Resolution block parsers ────────────────────────────────────────
+  // ── Resolution block parsers ───────────────────────────────────────────────
 
   parseFleetBlock(lines, i) {
     // Capture the fleet name from the header line BEFORE advancing i
@@ -661,7 +661,6 @@ class EndlessSkyParser {
       i++;
     }
     this.speciesResolver.collectFleet(government, shipNames, this._currentPluginId);
-    
     this.locationResolver.collectFleet(fleetName, shipNames, this._currentPluginId);
     return i;
   }
@@ -681,7 +680,6 @@ class EndlessSkyParser {
 
       // NPC blocks (may be nested inside on enter/accept/complete etc.)
       if (stripped === 'npc' || stripped.startsWith('npc ')) {
-        // Capture ship names from this npc block and record them against missionName
         i = this._parseMissionNpcBlock(lines, i, missionName);
         continue;
       }
@@ -693,20 +691,9 @@ class EndlessSkyParser {
                    stripped.match(/^outfit\s+`([^`]+)`(?:\s+(-?\d+))?/);
         if (om) {
           const count = om[2] ? parseInt(om[2], 10) : 1;
-          if (count > 0) { // negative counts remove outfits — skip those
+          if (count > 0) {
             this.locationResolver.collectMissionGiveOutfit(missionName, om[1], count, this._currentPluginId);
           }
-        }
-      }
-
-      // "add shipyard" inside an event/planet block nested in a mission
-      if (missionName && (stripped.startsWith('add shipyard ') || stripped.startsWith('shipyard "'))) {
-        const sm = stripped.match(/^(?:add\s+)?shipyard\s+"([^"]+)"/) ||
-                   stripped.match(/^(?:add\s+)?shipyard\s+`([^`]+)`/);
-        if (sm) {
-          // Walk back up to find the planet name this belongs to (best-effort)
-          // Store as a mission-level yard add; planet resolution is handled separately
-          // by eventPlanetShipyardAdds when parsePlanetBlock is called inside events.
         }
       }
 
@@ -784,15 +771,11 @@ class EndlessSkyParser {
       if (indent <= npcIndent && line.trim()) break;
       const stripped = line.trim();
 
-      // Government and ship lines can appear at npcIndent+1 (direct children).
-      // Use relative indent check rather than absolute so this works whether
-      // the npc block is at indent 1 (top-level mission) or indent 2+ (nested).
       if (indent === npcIndent + 1) {
         const govMatch = stripped.match(/^government\s+"([^"]+)"/) ||
                          stripped.match(/^government\s+`([^`]+)`/);
         if (govMatch) {
           government = govMatch[1];
-          // Register immediately — government is known even before ships are seen
           this.speciesResolver.knownGovernments.add(government);
           i++; continue;
         }
@@ -805,9 +788,6 @@ class EndlessSkyParser {
         if (shipTwoArg) { shipNames.push(shipTwoArg[1]); i++; continue; }
         if (shipOneArg) { shipNames.push(shipOneArg[1]); i++; continue; }
 
-        // fleet sub-block inside npc — extract ship names from variant sub-blocks only.
-        // Top-level fleet lines like "names", "government", "personality" are not ship names.
-        // Only names inside a "variant" sub-block (indent > fleetIndent+1) are actual ships.
         if (stripped === 'fleet' || stripped.startsWith('fleet ')) {
           const fleetIndent = indent;
           i++;
@@ -816,7 +796,6 @@ class EndlessSkyParser {
             const fi = fl.length - fl.replace(/^\t+/, '').length;
             if (fi <= fleetIndent && fl.trim()) break;
             const fs = fl.trim();
-            // Only collect names inside a variant sub-block, not top-level fleet properties
             if (fi > fleetIndent + 1) {
               const fm = fs.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
                          fs.match(/^`([^`]+)`(?:\s+\d+)?$/);
@@ -851,7 +830,6 @@ class EndlessSkyParser {
       i++;
     }
     this.speciesResolver.collectShipyard(name, ships, this._currentPluginId);
-
     this.locationResolver.collectShipyard(name, ships, this._currentPluginId);
     return i;
   }
@@ -872,7 +850,6 @@ class EndlessSkyParser {
       i++;
     }
     this.speciesResolver.collectOutfitter(name, outfits, this._currentPluginId);
-
     this.locationResolver.collectOutfitter(name, outfits, this._currentPluginId);
     return i;
   }
@@ -890,22 +867,20 @@ class EndlessSkyParser {
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
-      const govMatch = stripped.match(/^government\s+"([^"]+)"/);
-      const syMatch  = stripped.match(/^shipyard\s+"([^"]+)"/) || stripped.match(/^shipyard\s+`([^`]+)`/);
+      const govMatch   = stripped.match(/^government\s+"([^"]+)"/);
+      const syMatch    = stripped.match(/^shipyard\s+"([^"]+)"/) || stripped.match(/^shipyard\s+`([^`]+)`/);
       const addSyMatch = stripped.match(/^add\s+shipyard\s+"([^"]+)"/) || stripped.match(/^add\s+shipyard\s+`([^`]+)`/);
-      const ofMatch  = stripped.match(/^outfitter\s+"([^"]+)"/) || stripped.match(/^outfitter\s+`([^`]+)`/);
+      const ofMatch    = stripped.match(/^outfitter\s+"([^"]+)"/) || stripped.match(/^outfitter\s+`([^`]+)`/);
       if (govMatch) government = govMatch[1];
       if (syMatch)  shipyards.push(syMatch[1]);
       if (ofMatch)  outfitters.push(ofMatch[1]);
       if (addSyMatch) {
         shipyards.push(addSyMatch[1]);
-        // Record dynamic add separately so locationResolver can track event-added yards
         this.locationResolver.collectEventPlanetShipyardAdd(planetName, addSyMatch[1], this._currentPluginId);
       }
       i++;
     }
     this.speciesResolver.collectPlanet(planetName, government, shipyards, outfitters, this._currentPluginId);
-
     this.locationResolver.collectPlanet(planetName, shipyards, outfitters, this._currentPluginId);
     return i;
   }
@@ -926,7 +901,6 @@ class EndlessSkyParser {
       const stripped = line.trim();
 
       if (indent === 1) {
-        // fleet "Human Merchant" 100
         const fleetMatch = stripped.match(/^fleet\s+"([^"]+)"/) ||
                            stripped.match(/^fleet\s+`([^`]+)`/);
         if (fleetMatch) {
@@ -935,15 +909,6 @@ class EndlessSkyParser {
         }
       }
 
-      // Planets are nested inside object blocks:
-      // object
-      //   sprite star/sun
-      //   object
-      //     sprite planet/rock
-      //     distance 150
-      //     period 30
-      //     object
-      //       planet Earth
       if (stripped.startsWith('planet ') || stripped === 'planet') {
         const pm = stripped.match(/^planet\s+"([^"]+)"/) ||
                    stripped.match(/^planet\s+`([^`]+)`/)  ||
@@ -960,7 +925,6 @@ class EndlessSkyParser {
 
   parseEventBlock(lines, i) {
     // Events can add/modify fleets, planets, and npc blocks mid-game.
-    // Scan for the same blocks we care about in the top-level file.
     i++;
     while (i < lines.length) {
       const line   = lines[i];
@@ -989,7 +953,15 @@ class EndlessSkyParser {
     return i;
   }
 
-  parseOutfitsBlock(lines, i, shipName = null, locationShipName = null) {
+  /**
+   * Parse an outfits block.
+   *
+   * speciesShipName  — base ship name, passed to speciesResolver unchanged.
+   * variantShipName  — full variant name when parsing a variant's outfits, or
+   *                    null for base ships. Passed to both resolvers so outfit
+   *                    refs are stored under the variant's own name.
+   */
+  parseOutfitsBlock(lines, i, speciesShipName = null, variantShipName = null) {
     const outfitMap = {};
     i++;
     while (i < lines.length) {
@@ -1003,9 +975,17 @@ class EndlessSkyParser {
       }
       i++;
     }
-    if (shipName && Object.keys(outfitMap).length) {
-      this.speciesResolver.collectShipOutfits(shipName, Object.keys(outfitMap), this._currentPluginId);
-      const locName = locationShipName ?? shipName;
+    if (speciesShipName && Object.keys(outfitMap).length) {
+      // speciesResolver: always use base ship name, but pass variantShipName so
+      // it can store the entry under the variant's own key when appropriate.
+      this.speciesResolver.collectShipOutfits(
+        speciesShipName,
+        Object.keys(outfitMap),
+        this._currentPluginId,
+        variantShipName
+      );
+      // locationResolver: use variant name if provided, otherwise base ship name.
+      const locName = variantShipName ?? speciesShipName;
       for (const outfitName of Object.keys(outfitMap)) {
         this.locationResolver.collectShipOutfit(locName, outfitName, this._currentPluginId);
       }
@@ -1162,8 +1142,7 @@ class EndlessSkyParser {
 
   parseSpriteWithData(lines, i, baseIndent) {
     const stripped = lines[i].trim();
- 
-    // Keyword definitions — just the canonical name and whether it has a sub-block.
+
     const FIELDS = [
       { key: 'sprite'               },
       { key: 'thumbnail'            },
@@ -1176,35 +1155,25 @@ class EndlessSkyParser {
       { key: 'afterburner effect'    },
       { key: 'afterburner sound',     noSubBlock: true },
     ];
- 
-    // A keyword may itself appear quoted ("flare sprite", `flare sprite`, 'flare sprite')
-    // or unquoted (sprite, thumbnail).  Build one regex per field that handles all forms.
-    //
-    // Keyword pattern:  (?:"KEY"|`KEY`|'KEY'|KEY)
-    // Path pattern:     (?:"([^"]+)"|`([^`]+)`|'([^']+)'|(\S+))
-    //   groups 1-4 capture the path in each quote style; only one will be non-null.
-    //
-    // We escape the key so multi-word keys with no special chars pass through cleanly,
-    // and so this is safe if a key ever gains a special regex character.
+
     const esc      = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const kwPat    = (key) => `(?:"${esc(key)}"|` + '`' + `${esc(key)}` + '`' + `|'${esc(key)}'|${esc(key)})`;
     const pathPat  = `(?:"([^"]+)"|` + '`([^`]+)`' + `|'([^']+)'|(\\S+))`;
     const extractPath = (m) => m[1] ?? m[2] ?? m[3] ?? m[4] ?? null;
- 
-    // Compile once and cache on the field object.
+
     for (const f of FIELDS) {
       if (!f.re) f.re = new RegExp(`^${kwPat(f.key)}\\s+${pathPat}`);
     }
- 
+
     for (const cfg of FIELDS) {
       const m = stripped.match(cfg.re);
       if (!m) continue;
- 
+
       const pathValue = extractPath(m);
       if (!pathValue) continue;
- 
+
       const result = { [cfg.key]: pathValue };
- 
+
       if (!cfg.noSubBlock && i + 1 < lines.length) {
         const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
         if (nextIndent > baseIndent) {
@@ -1213,10 +1182,10 @@ class EndlessSkyParser {
           return [result, nextIdx];
         }
       }
- 
+
       return [result, i + 1];
     }
- 
+
     return [{}, i + 1];
   }
 
@@ -1355,7 +1324,8 @@ class EndlessSkyParser {
       const stripped = line.trim();
 
       if (stripped === 'outfits') {
-        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName);
+        // Base ship — no variantShipName needed
+        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName, null);
         shipData.outfitMap = outfitMap;
         i = ni;
         continue;
@@ -1386,7 +1356,6 @@ class EndlessSkyParser {
         continue;
       }
 
-      // Handle all sprite/flare/thumbnail/afterburner fields via parseSpriteWithData
       if (stripped.startsWith('sprite ') ||
           stripped.startsWith('"thumbnail"') || stripped.startsWith('thumbnail ') ||
           stripped.startsWith('"flare sprite"') || stripped.startsWith('"flare sound"') ||
@@ -1438,15 +1407,15 @@ class EndlessSkyParser {
     // If variantName already contains the base name (e.g. "Carrier (Alpha)" as the
     // variant identifier for base "Carrier"), use it directly to avoid double-wrapping
     // into "Carrier (Carrier (Alpha))".
-    v.name            = variantInfo.variantName.startsWith(variantInfo.baseName)
+    v.name             = variantInfo.variantName.startsWith(variantInfo.baseName)
       ? variantInfo.variantName
       : `${variantInfo.baseName} (${variantInfo.variantName})`;
-    v.variant         = variantInfo.variantName;
-    v.baseShip        = variantInfo.baseName;
+    v.variant          = variantInfo.variantName;
+    v.baseShip         = variantInfo.baseName;
     v._variantPluginId = variantInfo.variantPluginId;
 
     let changed = false;
-    let inlineOutfitsStarted = false;  // tracks whether we've seen the first inline outfit entry
+    let inlineOutfitsStarted = false;
 
     let i = startIdx + 1;
     while (i < lines.length) {
@@ -1465,15 +1434,20 @@ class EndlessSkyParser {
         const outfitName = inlineOutfitMatch[1];
         const count = inlineOutfitMatch[2] ? Math.max(1, parseInt(inlineOutfitMatch[2], 10)) : 1;
 
-        // First inline outfit seen — clear the base ship's copied outfitMap
-        // so the variant specifies its complete loadout rather than adding to it.
         if (!inlineOutfitsStarted) {
           v.outfitMap = {};
           inlineOutfitsStarted = true;
         }
 
         v.outfitMap[outfitName] = count;
-        this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName], this._currentPluginId);
+        // speciesResolver: base ship name for government chain, variant name as storage key
+        this.speciesResolver.collectShipOutfits(
+          variantInfo.baseName,
+          [outfitName],
+          this._currentPluginId,
+          v.name
+        );
+        // locationResolver: variant name only
         this.locationResolver.collectShipOutfit(v.name, outfitName, this._currentPluginId);
         changed = true;
         i++;
@@ -1481,6 +1455,7 @@ class EndlessSkyParser {
       }
 
       if (stripped === 'outfits') {
+        // Pass v.name as variantShipName so both resolvers store under the variant
         const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, variantInfo.baseName, v.name);
         if (!this._outfitMapsEqual(outfitMap, baseShip.outfitMap || {})) {
           v.outfitMap = outfitMap;
@@ -1503,8 +1478,6 @@ class EndlessSkyParser {
         continue;
       }
 
-      // Handle sprite/flare/thumbnail/afterburner fields explicitly so quoted
-      // keys like "flare sprite" are routed through parseSpriteWithData.
       if (stripped.startsWith('sprite ') ||
           stripped.startsWith('"thumbnail"') || stripped.startsWith('thumbnail ') ||
           stripped.startsWith('"flare sprite"') || stripped.startsWith('"flare sound"') ||
@@ -1640,12 +1613,9 @@ async function main() {
 
     const sharedParser = new EndlessSkyParser();
 
-    // Register source priority and override declarations from plugins.json
-    // before any parsing begins, so _resolveBaseShip has full context.
     sharedParser.setSourcePriority(config.plugins);
     sharedParser.setOverrides(config.plugins);
 
-    // Log any override declarations so they're visible in CI output
     for (const source of config.plugins) {
       if (source.overrides?.length) {
         console.log(`  Override declared: "${source.name}" overrides [${source.overrides.join(', ')}]`);
@@ -1679,7 +1649,7 @@ async function main() {
       }
     }
 
-    // Pass 2: resolver has now seen every government across every plugin
+    // Pass 2: attach species and locations now that all plugins have been parsed
     console.log(`\n${'='.repeat(60)}`);
     console.log(`Resolving governments across all ${allResults.length} plugin(s)...`);
     console.log(`  Known governments: ${sharedParser.speciesResolver.knownGovernments.size}`);
@@ -1739,7 +1709,6 @@ async function main() {
     await fs.writeFile(indexPath, JSON.stringify(dataIndex, null, 2));
     console.log(`\nWrote data/index.json with ${Object.keys(dataIndex).length} source(s)`);
 
-    // Parse attribute definitions and formulas from Endless Sky source code
     await parseAttributes(path.join(process.cwd(), 'data'));
 
     console.log(`\n${'='.repeat(60)}\n✓ All done!\n${'='.repeat(60)}\n`);
