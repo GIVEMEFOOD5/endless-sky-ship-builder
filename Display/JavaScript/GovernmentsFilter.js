@@ -13,9 +13,8 @@ function extractGovernments(data) {
         if (!item || typeof item.governments !== 'object') return;
 
         for (const [pluginId, govMap] of Object.entries(item.governments)) {
-            if (activePlugins.size > 0 && !activePlugins.has(pluginId)) continue;
+            if (!activePlugins.has(pluginId)) continue;
             if (typeof govMap !== 'object') continue;
-
             for (const govName of Object.keys(govMap)) {
                 const trimmed = govName.trim();
                 if (trimmed) governments.add(trimmed);
@@ -101,7 +100,7 @@ function itemMatchesGovernmentFilter(item, selected) {
 
     return selected.some(govName =>
         Object.entries(item.governments).some(([pluginId, govMap]) => {
-            if (activePlugins.size > 0 && !activePlugins.has(pluginId)) return false;
+            if (!activePlugins.has(pluginId)) return false;
             return typeof govMap === 'object' && govMap[govName] === true;
         })
     );
