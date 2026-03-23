@@ -34,7 +34,6 @@ class LocationResolver {
     // ── Raw data stores ──────────────────────────────────────────────────────
 
     // Named fleets: { name, shipNames[], pluginId }
-    // Anonymous inline fleets are handled via npcRefs.
     this.fleets = [];
 
     // { fleetName, systemName, pluginId }
@@ -61,10 +60,6 @@ class LocationResolver {
     // Mission "give outfit" refs: { missionName, outfitName, count, pluginId }
     this.missionGiveOutfits = [];
 
-    // Mission shipyard-add refs: { missionName, yardName, pluginId }
-    // (missions can add a shipyard to a planet via "add shipyard")
-    this.missionShipyardAdds = [];
-
     // Mission planet-add shipyard refs: { planetName, yardName, pluginId }
     // (events / missions can modify planets to add shipyards)
     this.eventPlanetShipyardAdds = [];
@@ -75,111 +70,52 @@ class LocationResolver {
 
   // ── Collectors (called from parser) ─────────────────────────────────────────
 
-  /**
-   * A top-level named fleet block.
-   * fleet "Human Merchant"
-   *   government "Republic"
-   *   variant
-   *     "Bulk Freighter" 2
-   */
   collectFleet(fleetName, shipNames, pluginId) {
     if (!fleetName) return;
     this.fleets.push({ name: fleetName, shipNames: [...shipNames], pluginId: pluginId ?? null });
   }
 
-  /**
-   * A system block's fleet reference.
-   * system Sol
-   *   fleet "Human Merchant" 100
-   */
   collectFleetInSystem(fleetName, systemName, pluginId) {
     if (!fleetName || !systemName) return;
     this.fleetSystems.push({ fleetName, systemName, pluginId: pluginId ?? null });
   }
 
-  /**
-   * A planet found inside a system block.
-   * system Sol
-   *   object Earth
-   *     planet Earth
-   */
   collectPlanetInSystem(planetName, systemName, pluginId) {
     if (!planetName || !systemName) return;
     this.planetSystems.push({ planetName, systemName, pluginId: pluginId ?? null });
   }
 
-  /**
-   * A named shipyard block listing.
-   * shipyard "Betelgeuse Shipyard"
-   *   "Bulk Freighter"
-   */
   collectShipyard(yardName, shipNames, pluginId) {
     if (!yardName) return;
     this.shipyardEntries.push({ yardName, shipNames: [...shipNames], pluginId: pluginId ?? null });
   }
 
-  /**
-   * A planet block referencing shipyards / outfitters.
-   * planet Earth
-   *   shipyard "Betelgeuse Shipyard"
-   *   outfitter "Ammo"
-   */
   collectPlanet(planetName, yardNames, outfitterNames, pluginId) {
     if (!planetName) return;
     this.planetShipyards.push({ planetName, yardNames: [...yardNames], pluginId: pluginId ?? null });
     this.planetOutfitters.push({ planetName, outfitterNames: [...outfitterNames], pluginId: pluginId ?? null });
   }
 
-  /**
-   * A named outfitter block listing.
-   * outfitter "Ammo"
-   *   "Sidewinder Missile"
-   */
   collectOutfitter(outfitterName, outfitNames, pluginId) {
     if (!outfitterName) return;
     this.outfitterEntries.push({ outfitterName, outfitNames: [...outfitNames], pluginId: pluginId ?? null });
   }
 
-  /**
-   * An NPC ship reference inside a mission block.
-   * mission "Rescue"
-   *   npc
-   *     ship "Bulk Freighter" "Bob"
-   */
   collectMissionNpcShip(missionName, shipName, pluginId) {
     if (!missionName || !shipName) return;
     this.missionNpcShips.push({ missionName, shipName, pluginId: pluginId ?? null });
   }
 
-  /**
-   * A "give outfit" or "outfit" reward inside a mission block.
-   * mission "Reward"
-   *   on complete
-   *     outfit "Sidewinder Missile" 30
-   */
   collectMissionGiveOutfit(missionName, outfitName, count, pluginId) {
     if (!missionName || !outfitName) return;
     this.missionGiveOutfits.push({ missionName, outfitName, count: count ?? 1, pluginId: pluginId ?? null });
   }
 
-  /**
-   * An "add shipyard" or "shipyard" line inside a mission / event planet block,
-   * linking a shipyard to a planet dynamically.
-   * event "Liberate Earth"
-   *   planet Earth
-   *     add shipyard "Betelgeuse Shipyard"
-   */
   collectEventPlanetShipyardAdd(planetName, yardName, pluginId) {
     if (!planetName || !yardName) return;
     this.eventPlanetShipyardAdds.push({ planetName, yardName, pluginId: pluginId ?? null });
   }
 
-  /**
-   * An outfit installed in a ship's outfit section.
-   * ship "Bulk Freighter"
-   *   outfits
-   *     "Sidewinder Missile" 30
-   */
   collectShipOutfit(shipName, outfitName, pluginId) {
     if (!shipName || !outfitName) return;
     this.shipOutfitRefs.push({ shipName, outfitName, pluginId: pluginId ?? null });
@@ -187,9 +123,8 @@ class LocationResolver {
 
   // ── Internal helpers ─────────────────────────────────────────────────────────
 
-  /** Map planetName → Set<systemName> (from planetSystems) */
   _buildPlanetToSystems() {
-    const map = new Map(); // planetName → Map<pluginId, Set<systemName>>
+    const map = new Map();
     for (const { planetName, systemName, pluginId } of this.planetSystems) {
       if (!map.has(planetName)) map.set(planetName, new Map());
       const byPlugin = map.get(planetName);
@@ -200,7 +135,6 @@ class LocationResolver {
     return map;
   }
 
-  /** Map fleetName → Map<pluginId, Set<systemName>> */
   _buildFleetToSystems() {
     const map = new Map();
     for (const { fleetName, systemName, pluginId } of this.fleetSystems) {
@@ -213,10 +147,8 @@ class LocationResolver {
     return map;
   }
 
-  /** Map yardName → Map<pluginId, Set<planetName>>
-   *  Includes both static planet→shipyard links and dynamic event adds. */
   _buildYardToPlanets() {
-    const map = new Map(); // yardName → Map<pluginId, Set<planetName>>
+    const map = new Map();
 
     const add = (yardName, planetName, pluginId) => {
       if (!map.has(yardName)) map.set(yardName, new Map());
@@ -235,7 +167,6 @@ class LocationResolver {
     return map;
   }
 
-  /** Map outfitterName → Map<pluginId, Set<planetName>> */
   _buildOutfitterToPlanets() {
     const map = new Map();
     for (const { planetName, outfitterNames, pluginId } of this.planetOutfitters) {
@@ -250,12 +181,6 @@ class LocationResolver {
     return map;
   }
 
-  // ── Core merge utility ────────────────────────────────────────────────────────
-
-  /**
-   * Merge a Map<pluginId, Set<value>> into a result object keyed by pluginId.
-   * result shape: { pluginId: { category: Set<string> } }
-   */
   _mergeInto(result, byPlugin, category, fallbackPlugin) {
     for (const [rawKey, values] of byPlugin) {
       const key = rawKey === '__unknown__' ? (fallbackPlugin ?? '__unknown__') : rawKey;
@@ -268,10 +193,10 @@ class LocationResolver {
   // ── Ship / variant location resolution ──────────────────────────────────────
 
   /**
-   * Resolve all location data for a ship (or variant base name).
-   * Returns a raw result object: { pluginId: { Planets: Set, Systems: Set } }
+   * Resolve all location data for a ship or variant.
+   * Matches only on the exact shipName — no base-name fallback whatsoever.
    */
-  _resolveShipLocations(shipName, baseName) {
+  _resolveShipLocations(shipName) {
     const result = {};
     const fleetToSystems  = this._buildFleetToSystems();
     const yardToPlanets   = this._buildYardToPlanets();
@@ -279,9 +204,7 @@ class LocationResolver {
 
     // ── 1. Named fleet membership → systems ─────────────────────────────────
     for (const fleet of this.fleets) {
-      // Match exact name or base name (for variants)
-      if (!fleet.shipNames.includes(shipName) &&
-          !(baseName && fleet.shipNames.includes(baseName))) continue;
+      if (!fleet.shipNames.includes(shipName)) continue;
 
       const systemsByPlugin = fleetToSystems.get(fleet.name);
       if (systemsByPlugin) {
@@ -291,8 +214,7 @@ class LocationResolver {
 
     // ── 2. Shipyard listings → planets and their systems ────────────────────
     for (const yard of this.shipyardEntries) {
-      if (!yard.shipNames.includes(shipName) &&
-          !(baseName && yard.shipNames.includes(baseName))) continue;
+      if (!yard.shipNames.includes(shipName)) continue;
 
       const planetsByPlugin = yardToPlanets.get(yard.yardName);
       if (!planetsByPlugin) continue;
@@ -303,25 +225,19 @@ class LocationResolver {
         if (!result[effectiveKey]['Planets']) result[effectiveKey]['Planets'] = new Set();
         for (const planet of planets) {
           result[effectiveKey]['Planets'].add(planet);
-          // Also resolve that planet's system(s)
           const sysMap = planetToSystems.get(planet);
           if (sysMap) this._mergeInto(result, sysMap, 'Systems', effectiveKey);
         }
       }
     }
 
-    // ── 3. Mission NPC references ────────────────────────────────────────────
-    const missionNames = new Set();
+    // ── 3. Mission NPC references — exact name match only ───────────────────
     for (const ref of this.missionNpcShips) {
-      const stripped = shipName.replace(/\s*\([^)]+\)\s*$/, '').trim();
-      if (ref.shipName === shipName || ref.shipName === stripped ||
-          (baseName && (ref.shipName === baseName))) {
-        missionNames.add(`mission:${ref.missionName}`);
-        const key = ref.pluginId ?? '__unknown__';
-        if (!result[key]) result[key] = {};
-        if (!result[key]['Missions']) result[key]['Missions'] = new Set();
-        result[key]['Missions'].add(ref.missionName);
-      }
+      if (ref.shipName !== shipName) continue;
+      const key = ref.pluginId ?? '__unknown__';
+      if (!result[key]) result[key] = {};
+      if (!result[key]['Missions']) result[key]['Missions'] = new Set();
+      result[key]['Missions'].add(ref.missionName);
     }
 
     return result;
@@ -353,8 +269,7 @@ class LocationResolver {
       }
     }
 
-    // ── 2. Ships that carry this outfit → shipyards those ships are sold at
-    //        → planets of those shipyards → systems of those planets ──────────
+    // ── 2. Ships that carry this outfit → shipyards → planets → systems ─────
     const shipsWithOutfit = new Set(
       this.shipOutfitRefs
         .filter(r => r.outfitName === outfitName)
@@ -362,7 +277,7 @@ class LocationResolver {
     );
 
     for (const shipName of shipsWithOutfit) {
-      // Track the ships themselves
+      // Record the ships themselves
       for (const ref of this.shipOutfitRefs) {
         if (ref.outfitName !== outfitName || ref.shipName !== shipName) continue;
         const key = ref.pluginId ?? '__unknown__';
@@ -371,7 +286,7 @@ class LocationResolver {
         result[key]['Ships'].add(shipName);
       }
 
-      // Shipyard path for that ship → planets → systems
+      // Shipyard path for that ship → planets
       for (const yard of this.shipyardEntries) {
         if (!yard.shipNames.includes(shipName)) continue;
         const planetsByPlugin = yardToPlanets.get(yard.yardName);
@@ -381,9 +296,7 @@ class LocationResolver {
           const effectiveKey = pluginKey === '__unknown__' ? (yard.pluginId ?? '__unknown__') : pluginKey;
           if (!result[effectiveKey]) result[effectiveKey] = {};
           if (!result[effectiveKey]['ShipyardPlanets']) result[effectiveKey]['ShipyardPlanets'] = new Set();
-          for (const planet of planets) {
-            result[effectiveKey]['ShipyardPlanets'].add(planet);
-          }
+          for (const planet of planets) result[effectiveKey]['ShipyardPlanets'].add(planet);
         }
       }
 
@@ -410,12 +323,6 @@ class LocationResolver {
 
   // ── Serialisation helper ─────────────────────────────────────────────────────
 
-  /**
-   * Convert a raw result { pluginId: { Category: Set<string> } }
-   * into the final JSON-safe shape { pluginId: { Category: [...] } }
-   * with Sets → sorted arrays.
-   * If result is empty, marks the entity as deprecated/unused.
-   */
   _finalise(result, pluginName) {
     if (Object.keys(result).length === 0) {
       const key = pluginName ?? '__unknown__';
@@ -430,7 +337,7 @@ class LocationResolver {
         if (values instanceof Set) {
           out[key][cat] = [...values].sort();
         } else {
-          out[key][cat] = values; // boolean flags like _deprecated/unused
+          out[key][cat] = values;
         }
       }
     }
@@ -439,24 +346,14 @@ class LocationResolver {
 
   // ── Public API ───────────────────────────────────────────────────────────────
 
-  /**
-   * Attach `.locations` to every ship, variant, and outfit.
-   * Call this after all plugins have been parsed (same timing as attachSpecies).
-   *
-   * @param {object[]} ships
-   * @param {object[]} variants
-   * @param {object[]} outfits
-   * @param {string}   pluginName  - fallback plugin label for unused entities
-   */
   attachLocations(ships, variants, outfits, pluginName) {
     for (const ship of ships) {
-      const raw = this._resolveShipLocations(ship.name, null);
+      const raw = this._resolveShipLocations(ship.name);
       ship.locations = this._finalise(raw, pluginName);
     }
 
     for (const variant of variants) {
-      // Try full variant name first, then fall back to base ship name
-      const raw = this._resolveShipLocations(variant.name, null);
+      const raw = this._resolveShipLocations(variant.name);
       variant.locations = this._finalise(raw, pluginName);
     }
 
