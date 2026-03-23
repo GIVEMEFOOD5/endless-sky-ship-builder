@@ -2,6 +2,12 @@ let governmentFilterExpanded = false;
 let lastGovernmentData = [];
 let savedGovernmentFilterState = {};
 
+function isPluginId(key) {
+    // Plugin IDs contain a slash e.g. "official-game/endless-sky" or "Zuckungs list/tribute.republic"
+    // Plain government names like "Merchant", "Militia" etc. never contain a slash
+    return key.includes('/');
+}
+
 function extractGovernments(data) {
     const governments = new Set();
 
@@ -12,12 +18,20 @@ function extractGovernments(data) {
     const processItem = item => {
         if (!item || typeof item.governments !== 'object') return;
 
-        for (const [pluginId, govMap] of Object.entries(item.governments)) {
-            if (!activePlugins.has(pluginId)) continue;
-            if (typeof govMap !== 'object') continue;
-            for (const govName of Object.keys(govMap)) {
-                const trimmed = govName.trim();
-                if (trimmed) governments.add(trimmed);
+        for (const [key, value] of Object.entries(item.governments)) {
+            if (isPluginId(key)) {
+                // Nested format: { "plugin-id": { "GovernmentName": true } }
+                if (!activePlugins.has(key)) continue;
+                if (typeof value !== 'object') continue;
+                for (const govName of Object.keys(value)) {
+                    const trimmed = govName.trim();
+                    if (trimmed) governments.add(trimmed);
+                }
+            } else {
+                // Flat format: { "GovernmentName": true }
+                // No plugin filtering possible — always include
+                const trimmed = key.trim();
+                if (trimmed && value === true) governments.add(trimmed);
             }
         }
     };
@@ -98,12 +112,19 @@ function itemMatchesGovernmentFilter(item, selected) {
         ? new Set(window.PluginManager.getActivePlugins())
         : new Set();
 
-    return selected.some(govName =>
-        Object.entries(item.governments).some(([pluginId, govMap]) => {
-            if (!activePlugins.has(pluginId)) return false;
-            return typeof govMap === 'object' && govMap[govName] === true;
-        })
-    );
+    return selected.some(govName => {
+        for (const [key, value] of Object.entries(item.governments)) {
+            if (isPluginId(key)) {
+                // Nested format — only check active plugins
+                if (!activePlugins.has(key)) continue;
+                if (typeof value === 'object' && value[govName] === true) return true;
+            } else {
+                // Flat format — key is the government name
+                if (key === govName && value === true) return true;
+            }
+        }
+        return false;
+    });
 }
 
 function clearGovernmentFilters() {
