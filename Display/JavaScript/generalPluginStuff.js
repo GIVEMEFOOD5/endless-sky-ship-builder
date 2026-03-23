@@ -2,7 +2,7 @@
 'use strict';
 
 // ---------------------------------------------------------------------------
-// PluginManager.js
+// generalPluginStuff.js
 //
 // Replaces the single `currentPlugin` string with an ordered array of active
 // plugins. Handles:
