@@ -5,9 +5,16 @@ let savedGovernmentFilterState = {};
 function extractGovernments(data) {
     const governments = new Set();
 
+    const activePlugins = new Set(window.PluginManager ? window.PluginManager.getActivePlugins() : []);
+
     const processItem = item => {
-        if (item && typeof item.governments === 'object') {
-            Object.keys(item.governments).forEach(g => governments.add(g));
+        if (!item || typeof item.governments !== 'object') return;
+        for (const [pluginId, govMap] of Object.entries(item.governments)) {
+            if (!activePlugins.has(pluginId)) continue;
+            if (typeof govMap !== 'object') continue;
+            for (const govName of Object.keys(govMap)) {
+                if (govName.trim()) governments.add(govName.trim());
+            }
         }
     };
 
@@ -50,7 +57,6 @@ function populateGovernmentFilters(data) {
         checkbox.type = 'checkbox';
         checkbox.id = `gov-filter-${CSS.escape(government)}`;
         checkbox.value = government;
-        // Restore saved state, default to false
         checkbox.checked = savedGovernmentFilterState[government] ?? false;
         checkbox.onchange = filterItems;
 
@@ -67,7 +73,6 @@ function populateGovernmentFilters(data) {
 function getSelectedGovernments() {
     const checkboxes = document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]');
 
-    // If dropdowns are collapsed, read from saved state instead
     if (checkboxes.length === 0) {
         return Object.entries(savedGovernmentFilterState)
             .filter(([_, checked]) => checked)
@@ -82,7 +87,15 @@ function getSelectedGovernments() {
 function itemMatchesGovernmentFilter(item, selected) {
     if (selected.length === 0) return true;
     if (!item || typeof item.governments !== 'object') return false;
-    return selected.some(g => item.governments[g] === true);
+
+    const activePlugins = new Set(window.PluginManager ? window.PluginManager.getActivePlugins() : []);
+
+    return selected.some(govName =>
+        Object.entries(item.governments).some(([pluginId, govMap]) => {
+            if (!activePlugins.has(pluginId)) return false;
+            return typeof govMap === 'object' && govMap[govName] === true;
+        })
+    );
 }
 
 function clearGovernmentFilters() {
@@ -107,7 +120,6 @@ function governmentFilterDisplay() {
             populateGovernmentFilters(lastGovernmentData);
         }
     } else {
-        // Save state before clearing
         document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]').forEach(cb => {
             savedGovernmentFilterState[cb.value] = cb.checked;
         });
