@@ -650,7 +650,7 @@ class EndlessSkyParser {
       }
       i++;
     }
-    this.speciesResolver.collectFleet(government, shipNames);
+    this.speciesResolver.collectFleet(government, shipNames, this._currentPluginId);
     return i;
   }
 
@@ -730,7 +730,7 @@ class EndlessSkyParser {
       i++;
     }
     for (const shipName of shipNames) {
-      this.speciesResolver.collectNpcRef(government, shipName);
+      this.speciesResolver.collectNpcRef(government, shipName, this._currentPluginId);
     }
     return i;
   }
@@ -750,7 +750,7 @@ class EndlessSkyParser {
       if (m) ships.push(m[1]);
       i++;
     }
-    this.speciesResolver.collectShipyard(name, ships);
+    this.speciesResolver.collectShipyard(name, ships, this._currentPluginId);
     return i;
   }
 
@@ -769,7 +769,7 @@ class EndlessSkyParser {
       if (m) outfits.push(m[1]);
       i++;
     }
-    this.speciesResolver.collectOutfitter(name, outfits);
+    this.speciesResolver.collectOutfitter(name, outfits, this._currentPluginId);
     return i;
   }
 
@@ -794,7 +794,7 @@ class EndlessSkyParser {
       if (ofMatch)  outfitters.push(ofMatch[1]);
       i++;
     }
-    this.speciesResolver.collectPlanet(planetName, government, shipyards, outfitters);
+    this.speciesResolver.collectPlanet(planetName, government, shipyards, outfitters, this._currentPluginId);
     return i;
   }
 
@@ -844,7 +844,7 @@ class EndlessSkyParser {
       i++;
     }
     if (shipName && Object.keys(outfitMap).length) {
-      this.speciesResolver.collectShipOutfits(shipName, Object.keys(outfitMap));
+      this.speciesResolver.collectShipOutfits(shipName, Object.keys(outfitMap), this._currentPluginId);
     }
     return [outfitMap, i];
   }
@@ -1309,7 +1309,7 @@ class EndlessSkyParser {
         }
 
         v.outfitMap[outfitName] = count;
-        this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName]);
+        this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName], this._currentPluginId);
         changed = true;
         i++;
         continue;
