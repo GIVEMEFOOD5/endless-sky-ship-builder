@@ -110,11 +110,49 @@
       "_pluginId": "Zuckungs list/uniques",
       "_hash": "06a25b6d0e69",
       "governments": {
-        "Lunarium (Hidden)": true,
-        "Free Worlds": true,
-        "Escort": true,
-        "Merchant": true,
-        "derelict ship": true
+        "official-game/endless-sky": {
+          "Lunarium (Hidden)": true,
+          "Free Worlds": true,
+          "Escort": true,
+          "Merchant": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Merchant": true
+        },
+        "Zuckungs list/uniques": {
+          "derelict ship": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Missions": [
+            "Defend Sabik",
+            "Escort Stolen Vessel (Extra Large, Core, Dangerous Path)",
+            "FW Conservatory 2",
+            "FW Conservatory 2B",
+            "FW Convoy Defense [0]",
+            "FW Convoy Defense [1]",
+            "FW Convoy Defense [2]",
+            "FW Defend New Tibet",
+            "FW Rand 1B",
+            "FWC Diplomacy 1B",
+            "FWC Diplomacy 1C",
+            "FWC Pug 1",
+            "Lunarium: Combat Training 2"
+          ]
+        },
+        "Zuckungs list/job.coloring": {
+          "Missions": [
+            "FW Convoy Defense [0] ",
+            "FW Convoy Defense [1] ",
+            "FW Convoy Defense [2] "
+          ]
+        },
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "derelict sospi"
+          ]
+        }
       }
     },
     {
@@ -260,7 +298,14 @@
       "_pluginId": "Zuckungs list/uniques",
       "_hash": "e6f8ea520596",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "uniques": {
+          "_deprecated/unused": true
+        }
       }
     },
     {
@@ -404,7 +449,16 @@
       "_pluginId": "Zuckungs list/uniques",
       "_hash": "c4a0945a297f",
       "governments": {
-        "derelict ship": true
+        "Zuckungs list/uniques": {
+          "derelict ship": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "derelict sadr"
+          ]
+        }
       }
     },
     {
@@ -606,9 +660,34 @@
       "_pluginId": "Zuckungs list/uniques",
       "_hash": "614e6a40b990",
       "governments": {
-        "Republic": true,
-        "Navy (Oathkeeper)": true,
-        "derelict ship": true
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Zuckungs list/uniques": {
+          "derelict ship": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Missions": [
+            "Deep: Mystery Cubes 4",
+            "Defend Sabik",
+            "FW Defend Farpoint",
+            "FW Pug 6",
+            "FW Wolf Pack 4",
+            "FWC Pug 3D: Reinforcements",
+            "Republic Assassination [2]",
+            "Wanderers: Sestor: Drones in Alnilam",
+            "Wanderers: Sestor: Farpoint Attack 1",
+            "Wanderers: Sestor: Farpoint Attack 2"
+          ]
+        },
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "derelict orbona"
+          ]
+        }
       }
     },
     {
@@ -1106,7 +1185,16 @@
       "_pluginId": "Zuckungs list/uniques",
       "_hash": "5420be523b87",
       "governments": {
-        "derelict ship": true
+        "Zuckungs list/uniques": {
+          "derelict ship": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_korsmanath_1"
+          ]
+        }
       }
     },
     {
@@ -1603,7 +1691,16 @@
       "_pluginId": "Zuckungs list/uniques",
       "_hash": "bb02ac6d03f4",
       "governments": {
-        "derelict ship": true
+        "Zuckungs list/uniques": {
+          "derelict ship": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_korsmanath_2"
+          ]
+        }
       }
     },
     {
@@ -1719,7 +1816,16 @@
       "_pluginId": "Zuckungs list/uniques",
       "_hash": "cd70e390b4b7",
       "governments": {
-        "Derelict 2": true
+        "Zuckungs list/uniques": {
+          "Derelict 2": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "exotic mission 1"
+          ]
+        }
       }
     },
     {
@@ -1835,7 +1941,16 @@
       "_pluginId": "Zuckungs list/uniques",
       "_hash": "164795e5e4af",
       "governments": {
-        "Derelict 2": true
+        "Zuckungs list/uniques": {
+          "Derelict 2": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "alien mission 1"
+          ]
+        }
       }
     }
   ],
@@ -1953,10 +2068,184 @@
       "baseShip": "Argosy",
       "_variantPluginId": "Zuckungs list/uniques",
       "governments": {
-        "Lunarium (Hidden)": true,
-        "Free Worlds": true,
-        "Escort": true,
-        "Merchant": true
+        "official-game/endless-sky": {
+          "Lunarium (Hidden)": true,
+          "Free Worlds": true,
+          "Escort": true,
+          "Merchant": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Merchant": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Systems": [
+            "Acamar",
+            "Achernar",
+            "Acrux",
+            "Al Dhanab",
+            "Albaldah",
+            "Albireo",
+            "Alderamin",
+            "Aldhibain",
+            "Algol",
+            "Algorel",
+            "Alioth",
+            "Alkaid",
+            "Alnair",
+            "Alnasl",
+            "Alniyat",
+            "Alpha Arae",
+            "Alpha Hydri",
+            "Alphecca",
+            "Alpheratz",
+            "Alpherg",
+            "Altair",
+            "Ankaa",
+            "Antares",
+            "Arcturus",
+            "Ascella",
+            "Atria",
+            "Belenos",
+            "Bellatrix",
+            "Beta Lupi",
+            "Caph",
+            "Cebalrai",
+            "Citadelle",
+            "Cor Caroli",
+            "Dabih",
+            "Delta Capricorni",
+            "Delta Sagittarii",
+            "Delta Velorum",
+            "Diphda",
+            "Dschubba",
+            "Eber",
+            "Eltanin",
+            "Enif",
+            "Fomalhaut",
+            "Fumalsamakah",
+            "Gacrux",
+            "Gamma Corvi",
+            "Girtab",
+            "Graffias",
+            "Hadar",
+            "Hamal",
+            "Han",
+            "Holeb",
+            "Ildaria",
+            "Izar",
+            "Kappa Centauri",
+            "Kaus Australis",
+            "Kaus Borealis",
+            "Kochab",
+            "Kornephoros",
+            "Kraz",
+            "Kugel",
+            "Lesath",
+            "Limen",
+            "Lurata",
+            "Markab",
+            "Matar",
+            "Men",
+            "Menkar",
+            "Menkent",
+            "Merak",
+            "Mimosa",
+            "Minkar",
+            "Mirach",
+            "Mirfak",
+            "Mizar",
+            "Moktar",
+            "Mora",
+            "Muhlifain",
+            "Muphrid",
+            "Nunki",
+            "Orbona",
+            "Orvala",
+            "Peacock",
+            "Phecda",
+            "Pherkad",
+            "Polaris",
+            "Porrima",
+            "Rasalhague",
+            "Rastaban",
+            "Regulus",
+            "Ruchbah",
+            "Rutilicus",
+            "Sabik",
+            "Sadalmelik",
+            "Sadalsuud",
+            "Sadr",
+            "Sargas",
+            "Sarin",
+            "Scheat",
+            "Schedar",
+            "Seginus",
+            "Shaula",
+            "Sheratan",
+            "Sol",
+            "Spica",
+            "Tais",
+            "Tarazed",
+            "Terminus",
+            "Thuban",
+            "Turais",
+            "Umbral",
+            "Unukalhai",
+            "Vindemiatrix",
+            "Wei",
+            "Yed Prior",
+            "Zaurak",
+            "Zeta Aquilae",
+            "Zeta Centauri",
+            "Zubenelgenubi",
+            "Zubeneschamali"
+          ],
+          "Planets": [
+            "Buccaneer Bay",
+            "New Tortuga",
+            "Smuggler's Den"
+          ],
+          "Missions": [
+            "Defend Sabik",
+            "Escort Stolen Vessel (Extra Large, Core, Dangerous Path)",
+            "FW Conservatory 2",
+            "FW Conservatory 2B",
+            "FW Convoy Defense [0]",
+            "FW Convoy Defense [1]",
+            "FW Convoy Defense [2]",
+            "FW Defend New Tibet",
+            "FW Rand 1B",
+            "FWC Diplomacy 1B",
+            "FWC Diplomacy 1C",
+            "FWC Pug 1",
+            "Lunarium: Combat Training 2"
+          ]
+        },
+        "Zuckungs list/planet.map": {
+          "Systems": [
+            "Dunes",
+            "Eastern Desert",
+            "North Cape",
+            "North Woods",
+            "The Eastern Sea",
+            "The Great Desert",
+            "The Landing Site",
+            "The Northern Tundra",
+            "Tropical Forests of the South"
+          ],
+          "Planets": [
+            "Center (City)"
+          ]
+        },
+        "Zuckungs list/job.coloring": {
+          "Missions": [
+            "FW Convoy Defense [0] ",
+            "FW Convoy Defense [1] ",
+            "FW Convoy Defense [2] "
+          ]
+        }
       }
     },
     {
@@ -2456,7 +2745,21 @@
       "baseShip": "Korsmanath A'awoj",
       "_variantPluginId": "Zuckungs list/uniques",
       "governments": {
-        "Korath (Civilian)": true
+        "official-game/endless-sky": {
+          "Korath (Civilian)": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Systems": [
+            "Kor En'lakfar",
+            "Kor Fel'tar",
+            "Kor Men",
+            "Kor Nor'peli",
+            "Kor Tar'bei",
+            "Kor Zena'i"
+          ]
+        }
       }
     }
   ],
@@ -2474,7 +2777,16 @@
       "cost": 25000,
       "description": "Four bottles of old and well-aged whisky. You've found them in an abandoned pirate base.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_pirate_base"
+          ]
+        }
       }
     },
     {
@@ -2489,7 +2801,18 @@
       "cost": 40,
       "description": "This is a copy of the \"Human Cultural Archive\". You bought it at the souvenir shop of the great library of Alexandria, a space station dedicated to the conservation of human knowledge.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq Human Cultural Archives",
+            "unq Remnant: Salvage 1",
+            "unq archive patch"
+          ]
+        }
       }
     },
     {
@@ -2506,7 +2829,16 @@
       "cost": 250000,
       "description": "A powerful alien handgun you've found in an ancient crashed alien ship. Although this handgun went a very long way into your hands, it is still working perfectly.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_crashed_alien_ship"
+          ]
+        }
       }
     },
     {
@@ -2521,7 +2853,16 @@
       "cost": 2000000,
       "description": "A bioluminescent plant you have found on jungle world. It may be very valuable for science, but it looks too good on you bridge. Maybe someday it gifts you with an offspring.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_aesilas_plant"
+          ]
+        }
       }
     },
     {
@@ -2536,7 +2877,16 @@
       "cost": 2000000,
       "description": "An offspring of your bioluminescent plant. You don't know why, but unfortunately it can't get own offsprings.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_bioluminescent_offspring"
+          ]
+        }
       }
     },
     {
@@ -2552,7 +2902,17 @@
       "cost": 2000000,
       "description": "A very small bio reactor for generating energy. It is made out of an offspring of the bioluminescent plant you've discovered.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_bioluminescent_offspring_science02",
+            "unq_bioluminescent_offspring_science03"
+          ]
+        }
       }
     },
     {
@@ -2570,7 +2930,16 @@
       "cost": 8800,
       "description": "A book like this, made out of paper, is nowadays a rarity. You have bought it in a small store on Glory. Although you consider yourself as an expert in piloting, you really learned one or two tricks from this book.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_book store"
+          ]
+        }
       }
     },
     {
@@ -2584,7 +2953,16 @@
       "cost": 50000,
       "description": "A special scanner to detect old ship wrecks. Active ships send out many kinds of radiation, and even disabled ships can be detected for months, till their engines and reactors are cold and dead. You don't understand how it works, but this scanner can detect ship wrecks which are dead for centuries.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "buy advanced sanner"
+          ]
+        }
       }
     },
     {
@@ -2599,7 +2977,14 @@
       "thumbnail": "outfit/fluffy_bawdy",
       "description": "Several strange ancient porn magazines, found in an old derelict ship. Somehow you really like the style. You shouldn't tell anyone about this.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "uniques": {
+          "_deprecated/unused": true
+        }
       }
     },
     {
@@ -2612,7 +2997,16 @@
       "thumbnail": "outfit/fluffy_cat_figurine",
       "description": "A modern art figurine of a cat, made of glass. It is a gift by 'Beings for Ethical Treatment of Animals' (BETA) for your work in the field of animal protection. You just wonder how this Organization found out of your pet rescues. Do they have some kind of intelligence service?",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "beta"
+          ]
+        }
       }
     },
     {
@@ -2628,7 +3022,16 @@
       "thumbnail": "outfit/fluffy_cat",
       "description": "Once just an innocent bystander caught in a firefight, \"Cleo\" has come a long way, now she reigns supreme on the starship bridge. Technically, she holds no official rank, but everyone knows she's one level above the captain. She strolls across control panels like she owns them (because she does), and dares anyone to move her. Orders? She ignores them. Meetings? She naps through them. The crew adores her, or fears her, it's hard to tell. \"Cleo\" is equal parts survivor, diva, and dictator. A true legend in fur. After all, not every ship has a queen lounging on the command console.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "cat mission 1"
+          ]
+        }
       }
     },
     {
@@ -2644,7 +3047,16 @@
       "thumbnail": "outfit/fluffy_ocelot",
       "description": "\"Babou\", former pirate ocelot, current hero, and still a menace to unattended snacks. Sleek, spotted, and dangerously charming, \"Babou\" struts with the confidence of someone who's stolen both,  hearts and cargo. About the size of a large housecat, but with the attitude of a jungle god, ocelots like \"Babou\" are known for their agility, sharp claws, and zero respect for personal space. Once feared across the galaxy as the \"Whiskered Bandit\", \"Babou\" now fights for the good side... mostly. Just don't try to put a collar on him. Or touch his tail. Seriously. You've been warned.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "ocelot mission 1"
+          ]
+        }
       }
     },
     {
@@ -2660,7 +3072,16 @@
       "thumbnail": "outfit/fluffy_raccoon",
       "description": "This little raccoon is always at your side. At least at lunchtime. With his bandit mask and grabby little hands, he's the galaxy's most adorable food thief. Officially, he's not part of the crew, but try telling him that when he's already halfway into your sandwich. Raccoons are clever, curious, and alarmingly good at opening things they absolutely shouldn't. Like airlock panels. Or pudding cups. Somehow both. He's loyal in his own mischievous way, especially if snacks are involved. Just don't leave shiny objects lying around. Or snacks. Or anything. He's not a pet, he's a fuzzy, chaos-powered sidekick.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "raccoon mission 1"
+          ]
+        }
       }
     },
     {
@@ -2676,7 +3097,14 @@
       "thumbnail": "outfit/fluffy_alien",
       "description": "Some kind of strange animal, more exactly a xenomorph, you found on a derelict ship. Although it tries to bite you regularly, you keep it as a pet. Why? Well... it's kind of cute in a terrifying, acid-dripping, nightmarish way. You've named it \"Snuggles\", which seems to confuse and mildly enrage it. It hisses at everyone, chews on bulkheads, and once tried to cocoon you. Classic \"Snuggles\". Still, it follows you around, sleeps (hanging upside down) near your bunk, and only occasionally drools on the navigation console. Deep down, you think it likes you. Or maybe it's just waiting for the perfect moment to strike. Either way, companionship!",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "uniques": {
+          "_deprecated/unused": true
+        }
       }
     },
     {
@@ -2692,7 +3120,16 @@
       "thumbnail": "outfit/fluffy_ferret",
       "description": "\"Gummi Bear\" is a hyperactive ferret with zero sense of fear and even less understanding of privacy. He's always wherever the action is, blaster fire, engine malfunctions, spontaneous zero-G dance parties. You name it, he's in the middle of it. Somehow, he especially enjoys space battles, zooming through the corridors like a furry torpedo of chaos. No one knows how he gets into the ventilation shafts so fast. Or how he got into your helmet. Again. He may be small, but he's 100% trouble, and 110% adorable. He's not just a pet. He's the ship's unofficial morale officer. And chaos gremlin.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "ferret mission 2"
+          ]
+        }
       }
     },
     {
@@ -2708,7 +3145,16 @@
       "thumbnail": "outfit/fluffy_koala",
       "description": "You installed half a tree on the bridge for \"Archie\". Now he sleeps there. All day. Every day. Occasionally, he takes a break, to eat, stretch, and give the crew a slow, judgmental blink. That's it. He's fluffy, he's lazy, and somehow he's become the ship's emotional support koala. He contributes absolutely nothing to missions, but morale skyrocketed the day he arrived. No one dares question his presence anymore. He once clung to the navigator's leg for two hours. The navigator never spoke of it again. Archie may not move much, but when he does, it's usually toward snacks. Or higher branches.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "koala mission 1"
+          ]
+        }
       }
     },
     {
@@ -2724,7 +3170,16 @@
       "thumbnail": "outfit/fluffy_rabbit",
       "description": "\"Thumper\" may look like a fluffy bundle of innocence, but don't be fooled, he's a cable-chewing menace with a twitchy nose and a thirst for destruction. It took a full engineering team and three rolls of anti-gnawing tape to rabbit-proof the bridge. If only he weren't so heartbreakingly adorable. The crew pretends to love him, but you've seen the fear in their eyes. One even called him the \"Rabbit of Caerbannog\". You don't get the reference, but judging by the way he shredded a datapad last week... maybe you should find out. Still, he's your rabbit. Your adorable, slightly terrifying little chaos bunny.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "rabbit mission 2"
+          ]
+        }
       }
     },
     {
@@ -2740,7 +3195,16 @@
       "thumbnail": "outfit/fluffy_hamster",
       "description": "As a real spacefaring hamster, \"Peanut\" takes his nut-smuggling duties very seriously. Tiny but determined, he can transport an impossible amount of cargo, mostly nuts, snacks, and occasionally shiny bolts, straight to his nest behind the communications console. No one knows how he got access to the ship's storage bay, but somehow he's hoarding half the crew's trail mix. He's small, fast, and utterly fearless. He once squared off with a cleaning droid. He won. \"Peanut\" is fluffy, full of attitude, and always busy with some mysterious hamster mission. Is he just cute? Or secretly running the whole ship? No one's sure.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "hamster mission 1"
+          ]
+        }
       }
     },
     {
@@ -2756,7 +3220,16 @@
       "thumbnail": "outfit/fluffy_squirrel",
       "description": "\"Trixie\" is a little squirrel girl with big eyes, a bushy tail, and the energy of a caffeine-powered rocket. She's now your friend. Well, more like your tiny, nut-hoarding shadow. Whenever Hai visit the ship, \"Trixie\" instantly becomes the main attraction. She performs daring acrobatics across the ceiling panels, poses dramatically on consoles, and occasionally steals someone's snack mid-sentence. The Hai are completely mesmerized. She may look cute, but she's a certified whirlwind of fluff and mischief. Whether she's chasing laser pointers or hiding in the captain's chair, one thing's certain: life aboard the ship got a lot more fun.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "squirrel mission 4"
+          ]
+        }
       }
     },
     {
@@ -2772,7 +3245,14 @@
       "thumbnail": "outfit/fluffy_exotic",
       "description": "An alien of unknown origin, discovered aboard a derelict ship, now a semi-official crew member, mostly because no one can catch it. It looks like a gas-filled beach ball with webbed feet and a permanent look of mild confusion. It bounces instead of walks, squeaks instead of speaks, and somehow got into the air ducts twice. Generally friendly, until it's hungry. Then it turns into a grumpy, floating menace with a taste for freeze-dried rations and fingers. Still, you've grown oddly attached to it. You even named it \"Exotic\". No idea what it is, but it's yours. Probably. Unless it eats you.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "uniques": {
+          "_deprecated/unused": true
+        }
       }
     },
     {
@@ -2788,7 +3268,16 @@
       "thumbnail": "outfit/fluffy_chicken",
       "description": "Attila the chicken is no ordinary bird. Once traded in a shady deal between a slick businessman and a ruthless space pirate, both of whom are now conveniently dead. He struts around like he owns the galaxy, feathers bristling with dark history. Every peck carries the weight of interstellar betrayal, and every cluck echoes with cosmic menace.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "chicken mission 1"
+          ]
+        }
       }
     },
     {
@@ -2804,7 +3293,14 @@
       "thumbnail": "outfit/fluffy_audreyii",
       "description": "\"Audrey II\" is a bizarre, plantlike alien you stumbled upon in the husk of a derelict ship. At first, it looks terrifying, an enormous flytrap with a mouth full of what can only be described as salad-themed teeth, but once you get to know it, it's oddly charming, like a cat that hisses at you for three days straight before deciding to nap on your lap. You've called it Audrey \"II\", because it reminded you, strangely enough, of your crewmate Audrey, though this one is considerably louder, hungrier, and far less hygienic. The name also serves as a warning: this is Audrey, but more drama, more appetite, and definitely more vines.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "uniques": {
+          "_deprecated/unused": true
+        }
       }
     },
     {
@@ -2819,7 +3315,16 @@
       "unplunderable": 1,
       "description": "This is a data pad you've found in a crashed spaceship. It contains detailed astronomical information of a region called Gegno Space.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_crashedgegno"
+          ]
+        }
       }
     },
     {
@@ -2834,7 +3339,16 @@
       "unplunderable": 1,
       "description": "This is a data pad you've found in a crashed spaceship. It contains detailed astronomical information of a region called Gegno Space.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_crashedgegno"
+          ]
+        }
       }
     },
     {
@@ -2849,7 +3363,16 @@
       "cost": 50000,
       "description": "This is a holo emitter made for displaying advertisements on your ship hull. It wasn't cheap, but with customers for this service it generates free credits. You should keep an eye open for customers, like the big ship and outfit manufacturers.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_install_holo"
+          ]
+        }
       }
     },
     {
@@ -2864,7 +3387,16 @@
       "cost": 1000,
       "description": "This is a round flat engraved stone. It seems to be some kind of pillow for Korath, maybe ceremonial?",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_korathpillow"
+          ]
+        }
       }
     },
     {
@@ -2880,7 +3412,16 @@
       "cost": 250000,
       "description": "A powerful computer calculating optimal landing vectors to speed up planet landings.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_landing_computer6"
+          ]
+        }
       }
     },
     {
@@ -2896,7 +3437,16 @@
       "cost": 25000,
       "description": "A box of old nav buoys. In past times these navigation buoys were used for marking safe flight paths. Maybe you can use them to cartograph shrouded systems?",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_get_nav_buoys"
+          ]
+        }
       }
     },
     {
@@ -2912,7 +3462,16 @@
       "cost": 2000,
       "description": "A ring made of blue crystalline rock. You have won it during a poker game with some shady characters on ... You forgot where that was, you just remember the headache on the next morning. When pressing a little button at the side of it, a holographic cat shows up and reads your fortune.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_quantum_ring"
+          ]
+        }
       }
     },
     {
@@ -2931,7 +3490,16 @@
       "cost": 800000,
       "description": "You've found this high-tech scanning computer inside an old alien probe drifting in the atmosphere of a gas giant. It's technology and complex algorithms are superior to what Humanity can do. Also it is very small and easy to install.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_alien_probe"
+          ]
+        }
       }
     },
     {
@@ -2946,7 +3514,17 @@
       "cost": 200,
       "description": "This is an old-style book, bound up in a green cover, titled: \"The Skadenga Saga: Against All Odds, by Hjlod Hrimnirsdottir\". It is the story of the Skadenge and how you've helped them. Reading it lets you feel very nostalgic.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq The Book of Skadenga",
+            "unq skadenga patch"
+          ]
+        }
       }
     },
     {
@@ -2961,7 +3539,16 @@
       "cost": 200,
       "description": "A spaceship figurine of Megaparsec's newest project. Maybe you can buy one of these lovely ships in a few years.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_shipyard"
+          ]
+        }
       }
     },
     {
@@ -2977,7 +3564,16 @@
       "cost": 4000,
       "description": "Several boxes of Hai survival rations and all of them made out of nuts. Nut pasta, sweet nut creme, baked nuts with other nuts, big nuts filled with smaller nuts ... and so on.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_survival_rations"
+          ]
+        }
       }
     },
     {
@@ -2992,7 +3588,16 @@
       "cost": 25,
       "description": "A little girl named Lily gave you this teddybear after you saved the life of her father at a shuttle crash.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq crashed shuttle"
+          ]
+        }
       }
     },
     {
@@ -3009,7 +3614,16 @@
       "cost": 600,
       "description": "A toolbox you've bought during a spaceship engineering seminar. In your skilled hands it can make a difference.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq toolbox"
+          ]
+        }
       }
     },
     {
@@ -3026,7 +3640,16 @@
       "thumbnail": "outfit/fluffy_tribble",
       "description": "\"Furbel\" is less a pet and more a portable pile of sentient lint that somehow developed a purr. It doesn't walk, run, or jump - it simply exists, vibrating happily like a warm beanbag with opinions. Furbel's hobbies include multiplying when you're not looking, rolling dramatically under furniture, and staring at you with the judgmental intensity of a thousand fluffballs. Owning Furbel is like having a living dust bunny that unionized.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_tribbles 1"
+          ]
+        }
       }
     },
     {
@@ -3044,10 +3667,23 @@
       "thumbnail": "outfit/fluffy_tribbles",
       "description": "Furbel's \"kids\" are basically copy-paste errors in the shape of squeaky pom-poms. They roll in herds, squeal like squeaky toys with stage fright, and collectively shed enough fluff to knit a sweater for a yeti. Together, they form a living carpet that judges you for daring to own only one chair.",
       "governments": {
-        "uniques": true
+        "uniques": {
+          "uniques": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "unq_tribbles 1",
+            "unq_tribbles gain 1",
+            "unq_tribbles gain 2",
+            "unq_tribbles gain 3",
+            "unq_tribbles gain 4"
+          ]
+        }
       }
     }
   ],
   "effects": [],
-  "parsedAt": "2026-03-19T20:04:55.933Z"
+  "parsedAt": "2026-03-23T08:58:18.357Z"
 }

@@ -10,7 +10,16 @@
     "cost": 60000,
     "description": "A wonderful trophy for slaughtering all Author ship captains. It is a gift by a mysterious man named 'Zuckung', who wanted to see them dead. It looks like he was jealous because they didn't let him join their ranks. Or something like that.",
     "governments": {
-      "captureable.person.ships": true
+      "captureable.person.ships": {
+        "captureable.person.ships": true
+      }
+    },
+    "locations": {
+      "Zuckungs list/captureable.person.ships": {
+        "Missions": [
+          "kill em all reward"
+        ]
+      }
     }
   }
 ]

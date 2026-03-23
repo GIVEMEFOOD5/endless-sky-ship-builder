@@ -83,7 +83,34 @@
       "baseShip": "Finch",
       "_variantPluginId": "Zuckungs list/captureable.person.ships",
       "governments": {
-        "Free Worlds": true
+        "official-game/endless-sky": {
+          "Free Worlds": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Glaze",
+            "Greenwater",
+            "New Britain"
+          ],
+          "Missions": [
+            "FW Defend New Tibet",
+            "FW Liberate Delta Sagittarii",
+            "FW Pirates: Attack 2",
+            "FW Rand 1",
+            "FW Rand 1B",
+            "FW Southern Battle 2",
+            "FWC Attack Kaus Borealis",
+            "FWC Checkmate 1",
+            "FWC Checkmate 1B",
+            "FWC Checkmate Escorts",
+            "FWC Pug 1",
+            "FWC Pug 3B",
+            "FWC Pug 3D: Reinforcements",
+            "FWC Pug 6"
+          ]
+        }
       }
     },
     {
@@ -209,7 +236,24 @@
       "baseShip": "vyu-Ir",
       "_variantPluginId": "Zuckungs list/captureable.person.ships",
       "governments": {
-        "Rulei": true
+        "official-game/endless-sky": {
+          "Rulei": true
+        },
+        "Zuckungs list/captureable.person.ships": {
+          "Rulei": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Missions": [
+            "Relic of Pasts"
+          ]
+        },
+        "Zuckungs list/captureable.person.ships": {
+          "Missions": [
+            "rework Relic of Pasts"
+          ]
+        }
       }
     }
   ],
@@ -225,10 +269,19 @@
       "cost": 60000,
       "description": "A wonderful trophy for slaughtering all Author ship captains. It is a gift by a mysterious man named 'Zuckung', who wanted to see them dead. It looks like he was jealous because they didn't let him join their ranks. Or something like that.",
       "governments": {
-        "captureable.person.ships": true
+        "captureable.person.ships": {
+          "captureable.person.ships": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/captureable.person.ships": {
+          "Missions": [
+            "kill em all reward"
+          ]
+        }
       }
     }
   ],
   "effects": [],
-  "parsedAt": "2026-03-19T20:04:55.652Z"
+  "parsedAt": "2026-03-23T08:58:18.089Z"
 }
