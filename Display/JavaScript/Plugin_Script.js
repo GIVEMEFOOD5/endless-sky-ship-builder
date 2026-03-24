@@ -535,8 +535,6 @@ function clearData() {
 
 document.addEventListener('DOMContentLoaded', function () {
     if (window.AttributeDisplay) {
-        window.AttributeDisplay.injectStyles();
-        if (window.LocationDisplay) window.LocationDisplay.injectStyles();
         window.AttributeDisplay.initTooltips();
     }
 
