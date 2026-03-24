@@ -26,16 +26,24 @@ async function filterItems() {
         return;
     }
 
-    // Create all cards as lightweight placeholders first — no sprite fetching
-    const fragment = document.createDocumentFragment();
-    for (const item of display) {
+    // Build cards in chunks to avoid freezing the browser on large datasets
+    const CHUNK_SIZE = 500;
+    for (let i = 0; i < display.length; i += CHUNK_SIZE) {
         if (myGeneration !== _filterGeneration) return;
-        const card = createCardPlaceholder(item);
-        fragment.appendChild(card);
-    }
-    container.appendChild(fragment);
 
-    // Now lazily load sprites only for visible cards
+        const chunk = display.slice(i, i + CHUNK_SIZE);
+        const fragment = document.createDocumentFragment();
+        for (const item of chunk) {
+            fragment.appendChild(createCardPlaceholder(item));
+        }
+        container.appendChild(fragment);
+
+        // Yield to browser between chunks so it stays responsive
+        if (i + CHUNK_SIZE < display.length) {
+            await new Promise(resolve => setTimeout(resolve, 0));
+        }
+    }
+
     if (myGeneration !== _filterGeneration) return;
     initLazySprites(myGeneration);
 }
