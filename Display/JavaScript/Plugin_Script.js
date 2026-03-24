@@ -1,9 +1,12 @@
 let allData = {};
-let currentPlugin = null; // kept for backward-compat; mirrors PluginManager.getPrimaryPlugin()
+let currentPlugin = null;
 let currentTab = 'ships';
 let filteredData = [];
 let currentModalTab = 'attributes';
 let attrDefs = null;
+
+// ─── Card item map (replaces dataset.itemJson) ────────────────────────────────
+const _cardItemMap = new WeakMap();
 
 // ─── Data loading ─────────────────────────────────────────────────────────────
 
@@ -89,7 +92,6 @@ async function loadData() {
             Object.keys(allData).forEach(name => setEffectPlugin(name));
         }
 
-        // Hand off to PluginManager for initial selection
         await window.PluginManager.initDefaultPlugin();
 
     } catch (error) {
@@ -98,21 +100,17 @@ async function loadData() {
     }
 }
 
-// ─── Plugin selection (now delegates to PluginManager) ───────────────────────
-// Kept for any external callers (e.g. legacy onclick handlers).
+// ─── Plugin selection ─────────────────────────────────────────────────────────
 
 async function selectPlugin(outputName) {
     await window.PluginManager.setActivePlugins([outputName]);
 }
 
-// ─── Hook called by PluginManager when active plugins change ─────────────────
-// PluginManager calls window._renderCardsFromManager() to trigger a card refresh.
+// ─── Hook called by PluginManager ─────────────────────────────────────────────
 
 window._renderCardsFromManager = async function (resetTab = false) {
-    // Sync the legacy currentPlugin variable to the primary
     currentPlugin = window.PluginManager.getPrimaryPlugin();
 
-    // Only reset to ships tab when explicitly requested (e.g. first load)
     if (resetTab) {
         currentTab = 'ships';
         document.querySelectorAll('.tab').forEach(t => {
@@ -138,24 +136,21 @@ function switchTab(tab) {
 // ─── Card rendering ───────────────────────────────────────────────────────────
 
 async function renderCards() {
-    // Get merged items from all active plugins
     const items = window.PluginManager
         ? window.PluginManager.getMergedItems(currentTab)
         : [];
 
     filteredData = items;
-    if (typeof getFilterData          === 'function') getFilterData(items);
-    if (typeof populateCategoryFilters === 'function') populateCategoryFilters(items);
+    if (typeof getFilterData           === 'function') getFilterData(items);
+    if (typeof populateCategoryFilters  === 'function') populateCategoryFilters(items);
     if (typeof populateGovernmentFilters === 'function') populateGovernmentFilters(items);
-    if (typeof filterItems            === 'function') await filterItems();
+    if (typeof filterItems             === 'function') await filterItems();
 }
 
-// ─── updateStats (delegated to PluginManager._updateMergedStats via notifyChange)
-// This stub is kept so external code calling updateStats() still works.
+// ─── updateStats ──────────────────────────────────────────────────────────────
+
 function updateStats() {
     if (!window.PluginManager) return;
-    // PluginManager exposes _updateMergedStats via _notifyChange;
-    // we reproduce the logic here for direct calls.
     const activePlugins = window.PluginManager.getActivePlugins();
     let ships = 0, variants = 0, outfits = 0;
     for (const outputName of activePlugins) {
@@ -176,52 +171,20 @@ function updateStats() {
     `;
 }
 
-// ─── Card creation ────────────────────────────────────────────────────────────
+// ─── Card placeholder (instant, no sprite fetch) ──────────────────────────────
 
-async function createCard(item) {
+function createCardPlaceholder(item) {
     const card = document.createElement('div');
     card.className = 'card';
+    card.dataset.spriteLoaded = 'false';
+
+    // Store item reference directly — no JSON serialise/deserialise
+    _cardItemMap.set(card, item);
     card.onclick = () => showDetails(item);
 
     const imageWrapper = document.createElement('div');
-    imageWrapper.className = 'card-image';
-
-    try {
-        let element = null;
-
-        if (currentTab === 'ships' || currentTab === 'variants') {
-            if (item.sprite) {
-                element = await window.fetchSprite(item.sprite, null);
-            }
-            if (!element && item.thumbnail) {
-                element = await window.fetchSprite(item.thumbnail, null);
-            }
-            if (!element) {
-                const img = document.createElement('img');
-                img.src = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png`;
-                img.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
-                element = img;
-            }
-        } else {
-            if (item.thumbnail) {
-                element = await window.fetchSprite(item.thumbnail, null);
-            }
-            if (!element) {
-                const img = document.createElement('img');
-                img.src = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png`;
-                img.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
-                element = img;
-            }
-        }
-
-        if (element) {
-            element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
-            imageWrapper.appendChild(element);
-        }
-    } catch (e) {
-        console.warn('Failed to fetch sprite for', item.name, e);
-        imageWrapper.style.background = 'rgba(15,23,42,0.5)';
-    }
+    imageWrapper.className = 'card-image card-image--placeholder';
+    imageWrapper.innerHTML = `<div style="width:100%;height:100%;background:rgba(15,23,42,0.5);border-radius:4px;"></div>`;
 
     const content = document.createElement('div');
     content.className = 'card-content';
@@ -254,6 +217,67 @@ async function createCard(item) {
     card.appendChild(imageWrapper);
     card.appendChild(content);
     return card;
+}
+
+// ─── Lazy sprite loader ───────────────────────────────────────────────────────
+
+let _lazyObserver = null;
+
+function initLazySprites(generation) {
+    if (_lazyObserver) {
+        _lazyObserver.disconnect();
+        _lazyObserver = null;
+    }
+
+    _lazyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const card = entry.target;
+            if (card.dataset.spriteLoaded === 'true') return;
+            card.dataset.spriteLoaded = 'true';
+            _lazyObserver.unobserve(card);
+            _loadSpriteForCard(card, generation);
+        });
+    }, {
+        rootMargin: '200px',
+        threshold: 0
+    });
+
+    const cards = document.querySelectorAll('#cardsContainer .card[data-sprite-loaded="false"]');
+    cards.forEach(card => _lazyObserver.observe(card));
+}
+
+async function _loadSpriteForCard(card, generation) {
+    if (generation !== _filterGeneration) return;
+
+    const item = _cardItemMap.get(card);
+    if (!item) return;
+
+    const imageWrapper = card.querySelector('.card-image');
+    if (!imageWrapper) return;
+
+    try {
+        let element = null;
+
+        if (currentTab === 'ships' || currentTab === 'variants') {
+            if (item.sprite) element = await window.fetchSprite(item.sprite, null);
+            if (!element && item.thumbnail) element = await window.fetchSprite(item.thumbnail, null);
+        } else {
+            if (item.thumbnail) element = await window.fetchSprite(item.thumbnail, null);
+        }
+
+        if (generation !== _filterGeneration) return;
+
+        if (element) {
+            element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+            imageWrapper.innerHTML = '';
+            imageWrapper.appendChild(element);
+        } else {
+            imageWrapper.innerHTML = `<img src="https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png" style="max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;">`;
+        }
+    } catch (e) {
+        console.warn('Failed to fetch sprite for', item.name, e);
+    }
 }
 
 // ─── Modal ────────────────────────────────────────────────────────────────────
@@ -352,7 +376,6 @@ async function switchModalTab(tabId) {
     tabContent.style.display = 'block';
 
     if (tabId === 'attributes') {
-        // Pass item's own _pluginId so AttributeDisplay resolves correctly
         const pluginIdForDisplay = item._pluginId || currentPlugin;
         tabContent.innerHTML = renderAttributesTab(item, pluginIdForDisplay);
         return;
@@ -401,7 +424,6 @@ async function renderImageTab(spritePath, altText, spriteParams) {
 }
 
 function renderAttributesTab(item, pluginIdOverride) {
-    // Use the item's own plugin ID for computed stats, falling back to currentPlugin
     const pluginId = pluginIdOverride || item._pluginId || currentPlugin;
 
     if (attrDefs && window.AttributeDisplay) {
