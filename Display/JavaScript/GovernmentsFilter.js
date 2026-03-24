@@ -6,16 +6,11 @@ function getGovernmentsForItem(item) {
     if (!item || typeof item.governments !== 'object') return [];
     const governments = new Set();
 
-    // item._pluginId matches the key in item.governments for its own plugin's governments
-    // We also need to check other active plugins' contributions to this item
     const activePlugins = new Set(window.PluginManager ? window.PluginManager.getActivePlugins() : []);
 
     for (const [govKey, govMap] of Object.entries(item.governments)) {
         if (typeof govMap !== 'object') continue;
 
-        // Check if this govKey corresponds to any active plugin
-        // govKey could be "official-game/endless-sky", activePlugin could be "endless-sky"
-        // So we check if any active plugin outputName appears at the end of the govKey
         const isActive = [...activePlugins].some(pluginId =>
             govKey === pluginId || govKey.endsWith('/' + pluginId) || govKey === item._pluginId
         );
@@ -61,11 +56,12 @@ function populateGovernmentFilters(data) {
         return;
     }
 
-    if (!governmentFilterExpanded) {
-        filterOptions.innerHTML = '';
-        return;
-    }
+    filterSection.classList.remove("hidden");
 
+    // If not expanded, don't touch the DOM at all — just update the data
+    if (!governmentFilterExpanded) return;
+
+    // Re-render checkboxes preserving checked state
     filterOptions.innerHTML = '';
 
     governments.forEach(government => {
@@ -77,7 +73,10 @@ function populateGovernmentFilters(data) {
         checkbox.id = `gov-filter-${CSS.escape(government)}`;
         checkbox.value = government;
         checkbox.checked = savedGovernmentFilterState[government] ?? false;
-        checkbox.onchange = filterItems;
+        checkbox.onchange = () => {
+            savedGovernmentFilterState[government] = checkbox.checked;
+            filterItems();
+        };
 
         const label = document.createElement('label');
         label.htmlFor = `gov-filter-${CSS.escape(government)}`;
@@ -139,13 +138,14 @@ function governmentFilterDisplay() {
     governmentFilterExpanded = !governmentFilterExpanded;
 
     if (governmentFilterExpanded) {
+        filterTitle.classList.remove("filter-title-no-margin");
+        filterTitle.classList.add("filter-title");
+        filterTitle.innerHTML = 'Filter by Government: ▶';
         if (lastGovernmentData.length) {
-            filterTitle.classList.remove("filter-title-no-margin");
-            filterTitle.classList.add("filter-title");
-            filterTitle.innerHTML = 'Filter by Government: ▶';
             populateGovernmentFilters(lastGovernmentData);
         }
     } else {
+        // Save state before collapsing
         document.querySelectorAll('#governmentFilterOptions input[type="checkbox"]').forEach(cb => {
             savedGovernmentFilterState[cb.value] = cb.checked;
         });
