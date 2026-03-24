@@ -289,6 +289,7 @@ function hasString(val) {
 function getAvailableTabs(item) {
     const tabs = [];
     tabs.push({ id: 'attributes', label: 'Attributes' });
+    if (item.locations && Object.keys(item.locations).length > 0) tabs.push({ id: 'locations', label: 'Locations'          });
     if (hasString(item.thumbnail))                        tabs.push({ id: 'thumbnail',         label: 'Thumbnail'          });
     if (hasString(item.weapon?.['hardpoint sprite']))     tabs.push({ id: 'hardpointSprite',   label: 'Hardpoint'          });
     if (hasString(item.sprite) || hasString(item.weapon?.sprite))
@@ -378,6 +379,12 @@ async function switchModalTab(tabId) {
     if (tabId === 'attributes') {
         const pluginIdForDisplay = item._pluginId || currentPlugin;
         tabContent.innerHTML = renderAttributesTab(item, pluginIdForDisplay);
+        return;
+    }
+
+    if (tabId === 'locations') {
+        const pluginIdForDisplay = item._pluginId || currentPlugin;
+        window.LocationDisplay.renderLocationsTab(tabContent, item, pluginIdForDisplay);
         return;
     }
 
@@ -529,6 +536,7 @@ function clearData() {
 document.addEventListener('DOMContentLoaded', function () {
     if (window.AttributeDisplay) {
         window.AttributeDisplay.injectStyles();
+        if (window.LocationDisplay) window.LocationDisplay.injectStyles();
         window.AttributeDisplay.initTooltips();
     }
 
