@@ -3,165 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plugins</title>
+    <title>Endless Sky Data Viewer</title>
     <link rel="stylesheet" href="../CSS/main.css">
 </head>
 <body>
-        <div class="container">
-        <header>
+    <div class="container">
+
+        <header class="panel">
             <h1>🚀 Endless Sky Data Viewer</h1>
             <p class="subtitle">Browse ships and outfits from GitHub repositories</p>
         </header>
-<!-- THIS HAS NO REASON NOT WORKKKKK -->
-        <div class="config-section">
-            <h2>⚙️ Configuration</h2>
+
+        <!-- ── Configuration ───────────────────────────────────────────────── -->
+        <div class="panel config-section">
+            <h2 class="section-title">⚙️ Configuration</h2>
             <div class="input-group">
                 <label for="repoUrl">GitHub Repository URL (username/repository)</label>
-                <input type="text" id="repoUrl" placeholder="e.g., yourusername/endless-sky-data" value="">
+                <input class="text-input" type="text" id="repoUrl"
+                       placeholder="e.g., yourusername/endless-sky-data" value="">
             </div>
             <div class="button-group">
-                <button class="btn-primary" onclick="loadData()">
+                <button class="btn btn-primary" onclick="loadData()">
                     <span>📥</span> Load Data
                 </button>
-                <button class="btn-secondary" onclick="clearData()">
+                <button class="btn btn-secondary" onclick="clearData()">
                     <span>🗑️</span> Clear
                 </button>
             </div>
         </div>
 
-        <div id="mainContent" style="display: none;">
-            
-            <div class="search-section">
-                
-                <h2 id="pluginSelectorTitle">Plugin ▼</h2>
-                
-                <!-- Plugin selector trigger + active list -->
-                <div>
+        <!-- ── Main content (hidden until data loads) ──────────────────────── -->
+        <div id="mainContent" style="display:none;">
 
-                    <!-- Top row: button + search hint -->
-                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-                        <button class="btn-add-sorter" onclick="openPluginPicker()">
-                            ☰ Select Plugins
-                        </button>
-                        <span style="font-size:0.82rem; color:#64748b; font-style:italic;">
-                            First plugin = primary (for image/sprite lookup)
-                        </span>
-                    </div>
+            <!-- Plugin selector -->
+            <div class="panel search-section">
+                <h2 class="section-title" id="pluginSelectorTitle">Plugin ▼</h2>
 
-                    <!-- Active plugin list (mirrors sorter active list) -->
-                    <div id="activePluginList">
-                        <span class="sorter-empty">Loading plugins…</span>
-                    </div>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+                    <button class="btn-action" onclick="openPluginPicker()">
+                        ☰ Select Plugins
+                    </button>
+                    <span style="font-size:0.82rem;color:#64748b;font-style:italic;">
+                        First plugin = primary (for image/sprite lookup)
+                    </span>
+                </div>
+
+                <div id="activePluginList">
+                    <span class="sorter-empty">Loading plugins…</span>
                 </div>
             </div>
 
+            <!-- Stats bar -->
             <div class="stats" id="stats"></div>
 
+            <!-- Tab bar -->
             <div class="tabs">
-                <div class="tab active" onclick="switchTab('ships')">Ships</div>
-                <div class="tab" onclick="switchTab('variants')">Variants</div>
-                <div class="tab" onclick="switchTab('outfits')">Outfits</div>
+                <div class="tab active" data-tab="ships"    onclick="switchTab('ships')">Ships</div>
+                <div class="tab"        data-tab="variants" onclick="switchTab('variants')">Variants</div>
+                <div class="tab"        data-tab="outfits"  onclick="switchTab('outfits')">Outfits</div>
             </div>
 
-            <div class="search-section">
-                
-                <h2 id="filterTitle" onclick="filterDisplay()">Filters ▶</h2>
-                
+            <!-- Filters -->
+            <div class="panel search-section">
+                <h2 class="section-title" id="filterTitle" onclick="filterDisplay()" style="cursor:pointer;">
+                    Filters ▶
+                </h2>
+
                 <div class="filter-section shown" id="governmentFilterSection">
-                    <div class="filter-title-no-margin" id="governmentFilterTitle" onclick="governmentFilterDisplay()">Filter by Government: ▼</div>
+                    <div class="filter-title--collapsed filter-title-no-margin"
+                         id="governmentFilterTitle"
+                         onclick="governmentFilterDisplay()">Filter by Government: ▼</div>
                     <div class="filter-options" id="governmentFilterOptions"></div>
                 </div>
-                            
+
                 <div class="filter-section shown" id="filterSection">
-                    <div class="filter-title-no-margin" id="categoryFilterTitle" onclick="categoryFilterDisplay()">Filter by Category: ▼</div>
+                    <div class="filter-title--collapsed filter-title-no-margin"
+                         id="categoryFilterTitle"
+                         onclick="categoryFilterDisplay()">Filter by Category: ▼</div>
                     <div class="filter-options" id="filterOptions"></div>
                 </div>
 
-                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search..." oninput="filterItems()">
-                
-                <button class="filter-clear" onclick="clearFilters()">Clear Filters</button>
+                <input type="text" class="search-input" id="searchInput"
+                       placeholder="🔍 Search…" oninput="filterItems()">
+
+                <button class="btn btn-secondary filter-clear" onclick="clearFilters()">
+                    Clear Filters
+                </button>
             </div>
 
-            <div class="search-section">
+            <!-- Sorters -->
+            <div class="panel search-section">
+                <h2 class="section-title" id="sorterTitle">Sorters ▼</h2>
 
-                <h2 id="sorterTitle">Sorters ▼</h2>
-                
                 <div class="sorter-section-header">
-                    <button class="btn-add-sorter" onclick="openSorterPicker()">+ Add Sorter</button>
+                    <button class="btn-action" onclick="openSorterPicker()">+ Add Sorter</button>
                 </div>
-                
+
                 <div id="sorterActiveList">
                     <span class="sorter-empty">No sorters active. Click "Add Sorter" to begin.</span>
                 </div>
             </div>
 
+            <!-- Card grid -->
             <div class="cards-grid" id="cardsContainer"></div>
         </div>
 
-        <div id="loadingIndicator" class="loading" style="display: none;">
-            Loading data...
-        </div>
-
+        <!-- Loading / error states -->
+        <div id="loadingIndicator" class="loading" style="display:none;">Loading data…</div>
         <div id="errorContainer"></div>
-    </div>
 
+    </div><!-- /.container -->
+
+    <!-- ── Detail modal ───────────────────────────────────────────────────── -->
     <div class="modal" id="detailModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title" id="modalTitle"></h2>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <button class="btn-close btn-close--lg" onclick="closeModal()">&times;</button>
             </div>
             <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
+    <!-- ── Sorter picker overlay ───────────────────────────────────────────── -->
     <div id="sorterPickerOverlay">
-        <div class="sorter-picker-modal">
-            <div class="sorter-picker-header">
-                Add Sorters
-                <button class="sorter-picker-close" onclick="closeSorterPicker()">✕</button>
+        <div class="modal-box modal-box--picker">
+
+            <div class="picker-header">
+                <span class="picker-header__title">Add Sorters</span>
+                <button class="btn-close btn-close--sm" onclick="closeSorterPicker()">✕</button>
             </div>
-            
-            <input type="text" id="sorterPickerSearch" placeholder="🔍 Search fields..." oninput="renderPickerList(this.value)">
-            
-            <div id="sorterPickerList"></div>
-            
-            <div class="sorter-picker-footer">
-                <button class="btn-picker-cancel" onclick="closeSorterPicker()">Cancel</button>
-                <button class="btn-picker-done"   onclick="confirmSorterPicker()">Done</button>
+
+            <input class="text-input picker-search" type="text"
+                   id="sorterPickerSearch"
+                   placeholder="🔍 Search fields…"
+                   oninput="renderPickerList(this.value)">
+
+            <div class="picker-list" id="sorterPickerList"></div>
+
+            <div class="picker-footer">
+                <button class="btn btn-secondary" onclick="closeSorterPicker()">Cancel</button>
+                <button class="btn btn-primary"   onclick="confirmSorterPicker()">Done</button>
             </div>
         </div>
     </div>
 
+    <!-- ── Plugin picker overlay ──────────────────────────────────────────── -->
     <div id="pluginPickerOverlay">
-        <div class="sorter-picker-modal">
+        <div class="modal-box modal-box--picker">
 
-            <div class="sorter-picker-header">
-                <span class="sorter-picker-header-title">Select Plugins</span>
-                <button class="sorter-picker-close" onclick="closePluginPicker()">✕</button>
+            <div class="picker-header">
+                <span class="picker-header__title">Select Plugins</span>
+                <button class="btn-close btn-close--sm" onclick="closePluginPicker()">✕</button>
             </div>
 
-            <input
-                type="text"
-                id="pluginPickerSearch"
-                placeholder="🔍 Search plugins..."
-                oninput="renderPluginPickerList(this.value)"
-                style="margin: 12px 16px; width: calc(100% - 32px);
-                       padding:12px; background:rgba(30,41,59,0.8);
-                       border:1px solid rgba(59,130,246,0.4); border-radius:8px;
-                       color:#e2e8f0; font-size:1rem;"
-            >
+            <input class="text-input picker-search" type="text"
+                   id="pluginPickerSearch"
+                   placeholder="🔍 Search plugins…"
+                   oninput="renderPluginPickerList(this.value)">
 
-            <div id="pluginPickerList"></div>
+            <div class="picker-list" id="pluginPickerList"></div>
 
-            <div class="sorter-picker-footer">
-                <button class="btn-picker-cancel" onclick="closePluginPicker()">Cancel</button>
-                <button class="btn-picker-done"   onclick="confirmPluginPicker()">Done</button>
+            <div class="picker-footer">
+                <button class="btn btn-secondary" onclick="closePluginPicker()">Cancel</button>
+                <button class="btn btn-primary"   onclick="confirmPluginPicker()">Done</button>
             </div>
-
         </div>
     </div>
-    
+
+    <!-- ── Scripts ────────────────────────────────────────────────────────── -->
     <script src="../JavaScript/Animator.js"></script>
     <script src="../JavaScript/SearchBarFilter.js"></script>
     <script src="../JavaScript/GovernmentsFilter.js"></script>

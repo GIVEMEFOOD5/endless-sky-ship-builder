@@ -1,26 +1,45 @@
-let allData = {};
-let currentPlugin = null;
-let currentTab = 'ships';
-let filteredData = [];
-let currentModalTab = 'attributes';
-let attrDefs = null;
+'use strict';
 
-// ─── Card item map (replaces dataset.itemJson) ────────────────────────────────
+// ─── Plugin_Script.js ─────────────────────────────────────────────────────────
+//
+// Top-level orchestrator: data loading, tab switching, card rendering,
+// modal display, and utility helpers.
+//
+// Dependencies (loaded before this file):
+//   generalPluginStuff.js  — PluginManager
+//   generalFilterStuff.js  — filterItems, _filterGeneration
+//   CheckBoxFilter.js      — getSelectedCategories, savedCategoryFilterState
+//   GovernmentsFilter.js   — getSelectedGovernments, itemMatchesGovernmentFilter
+//   Sorter.js              — applySorters, setSorterItems
+//   AttributeDisplay.js    — window.AttributeDisplay
+//   LocationDisplay.js     — window.LocationDisplay
+//   ImageGrabber.js        — window.fetchSprite
+//   ComputedStats.js       — initComputedStats
+// ─────────────────────────────────────────────────────────────────────────────
+
+let allData        = {};
+let currentPlugin  = null;
+let currentTab     = 'ships';
+let filteredData   = [];
+let currentModalTab = 'attributes';
+let attrDefs       = null;
+
+// ── Card → item reference (avoids JSON round-trips) ──────────────────────────
 const _cardItemMap = new WeakMap();
 
 // ─── Data loading ─────────────────────────────────────────────────────────────
 
 async function loadData() {
-    const repoUrl = "GIVEMEFOOD5/endless-sky-ship-builder";
+    const repoUrl = 'GIVEMEFOOD5/endless-sky-ship-builder';
     const baseUrl = `https://raw.githubusercontent.com/${repoUrl}/main/data`;
 
-    const loadingIndicator = document.getElementById('loadingIndicator');
-    const errorContainer   = document.getElementById('errorContainer');
-    const mainContent      = document.getElementById('mainContent');
+    const loadingEl = document.getElementById('loadingIndicator');
+    const errorEl   = document.getElementById('errorContainer');
+    const mainEl    = document.getElementById('mainContent');
 
-    loadingIndicator.style.display = 'block';
-    errorContainer.innerHTML = '';
-    mainContent.style.display = 'none';
+    loadingEl.style.display = 'block';
+    errorEl.innerHTML       = '';
+    mainEl.style.display    = 'none';
 
     if (typeof initImageIndex === 'function') initImageIndex();
 
@@ -28,28 +47,23 @@ async function loadData() {
         const attrDefsRes = await fetch(`${baseUrl}/attributeDefinitions.json`);
         if (attrDefsRes.ok) {
             attrDefs = await attrDefsRes.json();
-            if (typeof setSorterAttrDefs === 'function') setSorterAttrDefs(attrDefs);
+            if (typeof setSorterAttrDefs  === 'function') setSorterAttrDefs(attrDefs);
             if (typeof initComputedStats  === 'function') initComputedStats(attrDefs, baseUrl);
         }
     } catch (_) {}
 
     try {
-        const indexResponse = await fetch(`${baseUrl}/index.json`);
-        if (!indexResponse.ok) throw new Error('Could not find data/index.json in repository');
-        const dataIndex = await indexResponse.json();
+        const indexRes = await fetch(`${baseUrl}/index.json`);
+        if (!indexRes.ok) throw new Error('Could not find data/index.json in repository');
+        const dataIndex = await indexRes.json();
 
         allData = {};
 
         for (const [sourceName, pluginList] of Object.entries(dataIndex)) {
             for (const { outputName, displayName } of pluginList) {
                 const pluginData = {
-                    sourceName,
-                    displayName,
-                    outputName,
-                    ships:    [],
-                    variants: [],
-                    outfits:  [],
-                    effects:  []
+                    sourceName, displayName, outputName,
+                    ships: [], variants: [], outfits: [], effects: []
                 };
                 let loadedSomething = false;
 
@@ -58,7 +72,7 @@ async function loadData() {
                         fetch(`${baseUrl}/${outputName}/dataFiles/ships.json`),
                         fetch(`${baseUrl}/${outputName}/dataFiles/variants.json`),
                         fetch(`${baseUrl}/${outputName}/dataFiles/outfits.json`),
-                        fetch(`${baseUrl}/${outputName}/dataFiles/effects.json`)
+                        fetch(`${baseUrl}/${outputName}/dataFiles/effects.json`),
                     ]);
 
                     if (shipsRes.ok)    { pluginData.ships    = await shipsRes.json();    loadedSomething = true; }
@@ -66,11 +80,8 @@ async function loadData() {
                     if (outfitsRes.ok)  { pluginData.outfits  = await outfitsRes.json();  loadedSomething = true; }
                     if (effectsRes.ok)  { pluginData.effects  = await effectsRes.json();  loadedSomething = true; }
 
-                    if (loadedSomething) {
-                        allData[outputName] = pluginData;
-                    } else {
-                        console.warn(`${outputName}: no data files found, skipping`);
-                    }
+                    if (loadedSomething) allData[outputName] = pluginData;
+                    else console.warn(`${outputName}: no data files found, skipping`);
                 } catch (err) {
                     console.warn(`Failed loading plugin ${outputName}:`, err);
                 }
@@ -80,22 +91,19 @@ async function loadData() {
         const hasAnyData = Object.values(allData).some(p =>
             p.ships.length > 0 || p.variants.length > 0 || p.outfits.length > 0
         );
-
         if (!hasAnyData) throw new Error('No plugin data files could be loaded');
 
-        loadingIndicator.style.display = 'none';
-        mainContent.style.display = 'block';
+        loadingEl.style.display = 'none';
+        mainEl.style.display    = 'block';
 
         window.allData = allData;
-        if (typeof initImageIndex === 'function') initImageIndex();
-        if (typeof setEffectPlugin === 'function') {
-            Object.keys(allData).forEach(name => setEffectPlugin(name));
-        }
+        if (typeof initImageIndex    === 'function') initImageIndex();
+        if (typeof setEffectPlugin   === 'function') Object.keys(allData).forEach(n => setEffectPlugin(n));
 
         await window.PluginManager.initDefaultPlugin();
 
     } catch (error) {
-        loadingIndicator.style.display = 'none';
+        loadingEl.style.display = 'none';
         showError(`Error loading data: ${error.message}`);
     }
 }
@@ -141,56 +149,55 @@ async function renderCards() {
         : [];
 
     filteredData = items;
-    if (typeof getFilterData           === 'function') getFilterData(items);
+    if (typeof getFilterData            === 'function') getFilterData(items);
     if (typeof populateCategoryFilters  === 'function') populateCategoryFilters(items);
     if (typeof populateGovernmentFilters === 'function') populateGovernmentFilters(items);
-    if (typeof filterItems             === 'function') await filterItems();
+    if (typeof filterItems              === 'function') await filterItems();
 }
 
-// ─── updateStats ──────────────────────────────────────────────────────────────
+// ─── Stats ────────────────────────────────────────────────────────────────────
 
 function updateStats() {
     if (!window.PluginManager) return;
     const activePlugins = window.PluginManager.getActivePlugins();
     let ships = 0, variants = 0, outfits = 0;
-    for (const outputName of activePlugins) {
-        const d = allData[outputName];
+    for (const n of activePlugins) {
+        const d = allData[n];
         if (!d) continue;
         ships    += d.ships?.length    || 0;
         variants += d.variants?.length || 0;
         outfits  += d.outfits?.length  || 0;
     }
-    const total = ships + variants + outfits;
-    const statsContainer = document.getElementById('stats');
-    if (!statsContainer) return;
-    statsContainer.innerHTML = `
+    const el = document.getElementById('stats');
+    if (!el) return;
+    el.innerHTML = `
         <div class="stat-card"><div class="stat-value">${ships}</div><div class="stat-label">Base Ships</div></div>
         <div class="stat-card"><div class="stat-value">${variants}</div><div class="stat-label">Variants</div></div>
         <div class="stat-card"><div class="stat-value">${outfits}</div><div class="stat-label">Outfits</div></div>
-        <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Items</div></div>
+        <div class="stat-card"><div class="stat-value">${ships + variants + outfits}</div><div class="stat-label">Total Items</div></div>
     `;
 }
 
-// ─── Card placeholder (instant, no sprite fetch) ──────────────────────────────
+// ─── Card placeholder ─────────────────────────────────────────────────────────
 
 function createCardPlaceholder(item) {
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.spriteLoaded = 'false';
-
-    // Store item reference directly — no JSON serialise/deserialise
     _cardItemMap.set(card, item);
     card.onclick = () => showDetails(item);
 
-    const imageWrapper = document.createElement('div');
-    imageWrapper.className = 'card-image card-image--placeholder';
-    imageWrapper.innerHTML = `<div style="width:100%;height:100%;background:rgba(15,23,42,0.5);border-radius:4px;"></div>`;
+    // Image slot
+    const imgWrap = document.createElement('div');
+    imgWrap.className = 'card-image card-image--placeholder';
+    imgWrap.innerHTML = '<div style="width:100%;height:100%;background:rgba(15,23,42,0.5);border-radius:4px;"></div>';
 
+    // Content
     const content = document.createElement('div');
     content.className = 'card-content';
 
     const title = document.createElement('div');
-    title.className = 'card-title';
+    title.className   = 'card-title';
     title.textContent = item.name || 'Unknown';
 
     const details = document.createElement('div');
@@ -214,7 +221,7 @@ function createCardPlaceholder(item) {
 
     content.appendChild(title);
     content.appendChild(details);
-    card.appendChild(imageWrapper);
+    card.appendChild(imgWrap);
     card.appendChild(content);
     return card;
 }
@@ -230,50 +237,51 @@ function initLazySprites(generation) {
     }
 
     _lazyObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
+        for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
             const card = entry.target;
-            if (card.dataset.spriteLoaded === 'true') return;
+            if (card.dataset.spriteLoaded === 'true') continue;
             card.dataset.spriteLoaded = 'true';
             _lazyObserver.unobserve(card);
             _loadSpriteForCard(card, generation);
-        });
-    }, {
-        rootMargin: '200px',
-        threshold: 0
-    });
+        }
+    }, { rootMargin: '200px', threshold: 0 });
 
-    const cards = document.querySelectorAll('#cardsContainer .card[data-sprite-loaded="false"]');
-    cards.forEach(card => _lazyObserver.observe(card));
+    document.querySelectorAll('#cardsContainer .card[data-sprite-loaded="false"]')
+        .forEach(c => _lazyObserver.observe(c));
 }
 
 async function _loadSpriteForCard(card, generation) {
-    if (generation !== _filterGeneration) return;
+    if (generation !== window._filterGeneration) return;
 
     const item = _cardItemMap.get(card);
     if (!item) return;
 
-    const imageWrapper = card.querySelector('.card-image');
-    if (!imageWrapper) return;
+    const imgWrap = card.querySelector('.card-image');
+    if (!imgWrap) return;
 
     try {
         let element = null;
 
         if (currentTab === 'ships' || currentTab === 'variants') {
-            if (item.sprite) element = await window.fetchSprite(item.sprite, null);
+            if (item.sprite)    element = await window.fetchSprite(item.sprite, null);
             if (!element && item.thumbnail) element = await window.fetchSprite(item.thumbnail, null);
         } else {
             if (item.thumbnail) element = await window.fetchSprite(item.thumbnail, null);
         }
 
-        if (generation !== _filterGeneration) return;
+        if (generation !== window._filterGeneration) return;
 
         if (element) {
             element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
-            imageWrapper.innerHTML = '';
-            imageWrapper.appendChild(element);
+            imgWrap.innerHTML = '';
+            imgWrap.appendChild(element);
         } else {
-            imageWrapper.innerHTML = `<img src="https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png" style="max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;">`;
+            const img = document.createElement('img');
+            img.src   = 'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png';
+            img.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+            imgWrap.innerHTML = '';
+            imgWrap.appendChild(img);
         }
     } catch (e) {
         console.warn('Failed to fetch sprite for', item.name, e);
@@ -287,18 +295,25 @@ function hasString(val) {
 }
 
 function getAvailableTabs(item) {
-    const tabs = [];
-    tabs.push({ id: 'attributes', label: 'Attributes' });
-    if (item.locations && Object.keys(item.locations).length > 0) tabs.push({ id: 'locations', label: 'Locations'          });
-    if (hasString(item.thumbnail))                        tabs.push({ id: 'thumbnail',         label: 'Thumbnail'          });
-    if (hasString(item.weapon?.['hardpoint sprite']))     tabs.push({ id: 'hardpointSprite',   label: 'Hardpoint'          });
+    const tabs = [{ id: 'attributes', label: 'Attributes' }];
+    if (item.locations && Object.keys(item.locations).length > 0)
+        tabs.push({ id: 'locations', label: 'Locations' });
+    if (hasString(item.thumbnail))
+        tabs.push({ id: 'thumbnail', label: 'Thumbnail' });
+    if (hasString(item.weapon?.['hardpoint sprite']))
+        tabs.push({ id: 'hardpointSprite', label: 'Hardpoint' });
     if (hasString(item.sprite) || hasString(item.weapon?.sprite))
-                                                          tabs.push({ id: 'sprite',            label: 'Sprite'             });
-    if (hasString(item['steering flare sprite']))         tabs.push({ id: 'steeringFlare',     label: 'Steering Flare'     });
-    if (hasString(item['flare sprite']))                  tabs.push({ id: 'flare',             label: 'Flare'              });
-    if (hasString(item['reverse flare sprite']))          tabs.push({ id: 'reverseFlare',      label: 'Reverse Flare'      });
-    if (hasString(item.projectile))                       tabs.push({ id: 'projectile',        label: 'Projectile'         });
-    if (hasString(item['afterburner effect']))            tabs.push({ id: 'afterburnerEffect', label: 'Afterburner Effect' });
+        tabs.push({ id: 'sprite', label: 'Sprite' });
+    if (hasString(item['steering flare sprite']))
+        tabs.push({ id: 'steeringFlare', label: 'Steering Flare' });
+    if (hasString(item['flare sprite']))
+        tabs.push({ id: 'flare', label: 'Flare' });
+    if (hasString(item['reverse flare sprite']))
+        tabs.push({ id: 'reverseFlare', label: 'Reverse Flare' });
+    if (hasString(item.projectile))
+        tabs.push({ id: 'projectile', label: 'Projectile' });
+    if (hasString(item['afterburner effect']))
+        tabs.push({ id: 'afterburnerEffect', label: 'Afterburner Effect' });
     return tabs;
 }
 
@@ -319,25 +334,26 @@ async function showDetails(item) {
     if (availableTabs.length > 0) {
         const tabBar = document.createElement('div');
         tabBar.className = 'modal-tabs';
-        availableTabs.forEach(tab => {
-            const btn = document.createElement('button');
-            btn.className = 'modal-tab' + (tab.id === currentModalTab ? ' active' : '');
-            btn.dataset.tab = tab.id;
-            btn.textContent = tab.label;
-            btn.onclick = async () => await switchModalTab(tab.id);
-            tabBar.appendChild(btn);
-        });
-        modalBody.appendChild(tabBar);
 
         const tabContents = document.createElement('div');
         tabContents.className = 'modal-tab-contents';
-        availableTabs.forEach(tab => {
+
+        for (const tab of availableTabs) {
+            const btn = document.createElement('button');
+            btn.className   = 'modal-tab' + (tab.id === currentModalTab ? ' active' : '');
+            btn.dataset.tab = tab.id;
+            btn.textContent = tab.label;
+            btn.onclick     = () => switchModalTab(tab.id);
+            tabBar.appendChild(btn);
+
             const pane = document.createElement('div');
-            pane.className = 'modal-tab-content';
+            pane.className   = 'modal-tab-content';
             pane.dataset.tab = tab.id;
             pane.style.display = 'none';
             tabContents.appendChild(pane);
-        });
+        }
+
+        modalBody.appendChild(tabBar);
         modalBody.appendChild(tabContents);
     }
 
@@ -350,7 +366,8 @@ async function showDetails(item) {
         modalBody.appendChild(desc);
     }
 
-    modalBody.dataset.itemJson = JSON.stringify(item);
+    // Store item as a property on the element (no JSON round-trip)
+    modalBody._item = item;
     modal.classList.add('active');
     await switchModalTab(currentModalTab);
 }
@@ -358,39 +375,38 @@ async function showDetails(item) {
 async function switchModalTab(tabId) {
     currentModalTab = tabId;
 
-    document.querySelectorAll('.modal-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.tab === tabId);
+    document.querySelectorAll('.modal-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === tabId);
     });
 
     const modalBody = document.getElementById('modalBody');
-    const item      = JSON.parse(modalBody.dataset.itemJson);
+    const item      = modalBody._item;
+    if (!item) return;
 
-    document.querySelectorAll('.modal-tab-content').forEach(content => {
-        content.style.display = 'none';
-        content.innerHTML     = '';
+    document.querySelectorAll('.modal-tab-content').forEach(c => {
+        c.style.display = 'none';
+        c.innerHTML     = '';
     });
     if (typeof clearSpriteCache === 'function') clearSpriteCache();
 
     const tabContent = document.querySelector(`.modal-tab-content[data-tab="${tabId}"]`);
     if (!tabContent) return;
-
     tabContent.style.display = 'block';
 
     if (tabId === 'attributes') {
-        const pluginIdForDisplay = item._pluginId || currentPlugin;
-        tabContent.innerHTML = renderAttributesTab(item, pluginIdForDisplay);
+        const pluginId = item._pluginId || currentPlugin;
+        tabContent.innerHTML = renderAttributesTab(item, pluginId);
         return;
     }
 
     if (tabId === 'locations') {
-        const pluginIdForDisplay = item._pluginId || currentPlugin;
-        window.LocationDisplay.renderLocationsTab(tabContent, item, pluginIdForDisplay);
+        const pluginId = item._pluginId || currentPlugin;
+        window.LocationDisplay.renderLocationsTab(tabContent, item, pluginId);
         return;
     }
 
     tabContent.innerHTML = '<p style="color:#94a3b8;text-align:center;">Loading…</p>';
 
-    const spriteParams = item.spriteData || {};
     const pathMap = {
         thumbnail:         item.thumbnail,
         sprite:            item.sprite || item.weapon?.sprite,
@@ -402,7 +418,7 @@ async function switchModalTab(tabId) {
         afterburnerEffect: item['afterburner effect'],
     };
 
-    const element = await renderImageTab(pathMap[tabId], tabId, spriteParams);
+    const element = await renderImageTab(pathMap[tabId], tabId, item.spriteData || {});
     if (currentModalTab !== tabId) return;
 
     tabContent.innerHTML = '';
@@ -410,22 +426,16 @@ async function switchModalTab(tabId) {
 }
 
 async function renderImageTab(spritePath, altText, spriteParams) {
-    altText      = altText      || 'Image';
-    spriteParams = spriteParams || {};
     if (!spritePath) return null;
-
-    const element = await window.fetchSprite(spritePath, spriteParams);
+    const element = await window.fetchSprite(spritePath, spriteParams || {});
     if (!element) {
         const p = document.createElement('p');
-        p.style.color = '#ef4444';
-        p.textContent = 'Failed to load: ' + altText;
+        p.style.color  = '#ef4444';
+        p.textContent  = 'Failed to load: ' + (altText || 'Image');
         return p;
     }
-
     const wrap = document.createElement('div');
-    wrap.style.cssText =
-        'display:flex;justify-content:center;align-items:center;' +
-        'padding:20px;background:rgba(15,23,42,0.5);border-radius:8px;';
+    wrap.style.cssText = 'display:flex;justify-content:center;align-items:center;padding:20px;background:rgba(15,23,42,0.5);border-radius:8px;';
     wrap.appendChild(element);
     return wrap;
 }
@@ -437,25 +447,22 @@ function renderAttributesTab(item, pluginIdOverride) {
         return window.AttributeDisplay.renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId);
     }
 
+    // ── Fallback plain renderer ───────────────────────────────────────────────
     let html = '';
 
     if (currentTab === 'ships' || currentTab === 'variants') {
-        if (currentTab === 'variants' && item.baseShip) {
+        if (currentTab === 'variants' && item.baseShip)
             html += `<p style="color:#93c5fd;margin-bottom:20px;">Base Ship: ${item.baseShip}</p>`;
-        }
         html += '<div class="attribute-grid">';
         if (item.attributes) {
-            Object.entries(item.attributes).forEach(([key, value]) => {
-                if (typeof value !== 'object') {
+            for (const [key, value] of Object.entries(item.attributes)) {
+                if (typeof value !== 'object')
                     html += `<div class="attribute"><div class="attribute-name">${key}</div><div class="attribute-value">${formatValue(value)}</div></div>`;
-                }
-            });
+            }
         }
         html += '</div>';
-
         if (item.guns || item.turrets || item.bays || item.engines) {
-            html += '<h3 style="color:#93c5fd;margin-top:20px;">Hardpoints</h3>';
-            html += '<div class="attribute-grid">';
+            html += '<h3 style="color:#93c5fd;margin-top:20px;">Hardpoints</h3><div class="attribute-grid">';
             html += `
                 <div class="attribute"><div class="attribute-name">Guns</div><div class="attribute-value">${item.guns?.length ?? 0}</div></div>
                 <div class="attribute"><div class="attribute-name">Turrets</div><div class="attribute-value">${item.turrets?.length ?? 0}</div></div>
@@ -466,34 +473,29 @@ function renderAttributesTab(item, pluginIdOverride) {
         }
     } else if (currentTab === 'effects') {
         html += '<div class="attribute-grid">';
-        const excludeKeys = ['name','description','sprite','spriteData','_pluginId'];
-        Object.entries(item).forEach(([key, value]) => {
-            if (!excludeKeys.includes(key) && typeof value !== 'object') {
+        const skip = new Set(['name','description','sprite','spriteData','_pluginId']);
+        for (const [key, value] of Object.entries(item)) {
+            if (!skip.has(key) && typeof value !== 'object')
                 html += `<div class="attribute"><div class="attribute-name">${key}</div><div class="attribute-value">${formatValue(value)}</div></div>`;
-            }
-        });
+        }
         html += '</div>';
     } else {
         html += '<div class="attribute-grid">';
-        const excludeKeys = ['name','description','thumbnail','sprite','hardpointSprite',
-            'hardpoint sprite','steering flare sprite','flare sprite','reverse flare sprite',
-            'afterburner effect','projectile','weapon','spriteData','_pluginId'];
-        Object.entries(item).forEach(([key, value]) => {
-            if (!excludeKeys.includes(key) && typeof value !== 'object') {
+        const skip = new Set(['name','description','thumbnail','sprite','hardpointSprite','hardpoint sprite',
+            'steering flare sprite','flare sprite','reverse flare sprite','afterburner effect',
+            'projectile','weapon','spriteData','_pluginId']);
+        for (const [key, value] of Object.entries(item)) {
+            if (!skip.has(key) && typeof value !== 'object')
                 html += `<div class="attribute"><div class="attribute-name">${key}</div><div class="attribute-value">${formatValue(value)}</div></div>`;
-            }
-        });
+        }
         html += '</div>';
-
         if (item.weapon) {
-            html += '<h3 style="color:#93c5fd;margin-top:20px;">Weapon Stats</h3>';
-            html += '<div class="attribute-grid">';
-            const weaponExclude = ['sprite','spriteData','sound','hit effect','fire effect','die effect','submunition','stream','cluster'];
-            Object.entries(item.weapon).forEach(([key, value]) => {
-                if (!weaponExclude.includes(key) && typeof value !== 'object' && !Array.isArray(value)) {
+            html += '<h3 style="color:#93c5fd;margin-top:20px;">Weapon Stats</h3><div class="attribute-grid">';
+            const weaponSkip = new Set(['sprite','spriteData','sound','hit effect','fire effect','die effect','submunition','stream','cluster']);
+            for (const [key, value] of Object.entries(item.weapon)) {
+                if (!weaponSkip.has(key) && typeof value !== 'object' && !Array.isArray(value))
                     html += `<div class="attribute"><div class="attribute-name">${key}</div><div class="attribute-value">${formatValue(value)}</div></div>`;
-                }
-            });
+            }
             html += '</div>';
         }
     }
@@ -506,13 +508,17 @@ function renderAttributesTab(item, pluginIdOverride) {
 function closeModal() {
     if (typeof clearSpriteCache === 'function') clearSpriteCache();
     document.querySelectorAll('.modal-tab-content').forEach(c => { c.innerHTML = ''; });
-    document.getElementById('detailModal').classList.remove('active');
+    const modal = document.getElementById('detailModal');
+    modal.classList.remove('active');
+    // Clear stored item reference
+    const modalBody = document.getElementById('modalBody');
+    if (modalBody) delete modalBody._item;
 }
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
 
 function formatNumber(num) {
-    if (num === undefined || num === null) return 'N/A';
+    if (num == null) return 'N/A';
     return num.toLocaleString();
 }
 
@@ -526,27 +532,25 @@ function showError(message) {
 
 function clearData() {
     document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('errorContainer').innerHTML = '';
-    allData = {};
+    document.getElementById('errorContainer').innerHTML  = '';
+    allData       = {};
     currentPlugin = null;
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
-document.addEventListener('DOMContentLoaded', function () {
-    if (window.AttributeDisplay) {
-        window.AttributeDisplay.initTooltips();
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.AttributeDisplay) window.AttributeDisplay.initTooltips();
 
-    document.getElementById('detailModal').addEventListener('click', function (e) {
+    document.getElementById('detailModal').addEventListener('click', e => {
         if (e.target.id === 'detailModal') closeModal();
     });
 
-    document.getElementById('pluginPickerOverlay').addEventListener('click', function (e) {
+    document.getElementById('pluginPickerOverlay').addEventListener('click', e => {
         if (e.target.id === 'pluginPickerOverlay') closePluginPicker();
     });
 
-    document.addEventListener('keydown', function (e) {
+    document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
             closeModal();
             closePluginPicker();
@@ -558,6 +562,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ─── Global exports ───────────────────────────────────────────────────────────
 
+window.allData        = allData;
 window.loadData       = loadData;
 window.clearData      = clearData;
 window.switchTab      = switchTab;

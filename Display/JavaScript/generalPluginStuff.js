@@ -23,6 +23,9 @@
 // Ordered list of active plugin outputNames (first = primary)
 let _activePlugins = [];
 
+// Snapshot taken when the picker opens — restored if the user cancels
+let _pickerSnapshot = [];
+
 // ── Helpers ────────────────────────────────────────────────────────────────
 
 function _allData() {
@@ -234,6 +237,9 @@ function _renderActiveList() {
 // ── Plugin picker overlay ─────────────────────────────────────────────────
 
 function openPluginPicker() {
+    // Snapshot current state so cancel can restore it exactly
+    _pickerSnapshot = [..._activePlugins];
+
     _renderPluginPickerList('');
     document.getElementById('pluginPickerOverlay').classList.add('plugin-overlay-visible');
     const search = document.getElementById('pluginPickerSearch');
@@ -241,6 +247,10 @@ function openPluginPicker() {
 }
 
 function closePluginPicker() {
+    // Restore the snapshot — discard any checkbox changes made in this session
+    _activePlugins = [..._pickerSnapshot];
+    _pickerSnapshot = [];
+
     document.getElementById('pluginPickerOverlay').classList.remove('plugin-overlay-visible');
 }
 
@@ -248,6 +258,8 @@ function _refreshPickerHighlights() {
     document.querySelectorAll('#pluginPickerList .plugin-picker-row').forEach(row => {
         const isActive = _activePlugins.includes(row.dataset.plugin);
         row.classList.toggle('active', isActive);
+        const cb = row.querySelector('input[type="checkbox"]');
+        if (cb) cb.checked = isActive;
     });
 }
 
@@ -297,7 +309,8 @@ function _renderPluginPickerList(query) {
             checkbox.style.cssText =
                 'cursor:pointer;accent-color:#3b82f6;width:16px;height:16px;flex-shrink:0;';
             checkbox.onclick = e => e.stopPropagation(); // let row handle toggle
-            checkbox.onchange = async () => {
+            checkbox.onchange = () => {
+                // Only mutate the in-progress selection — no rendering until Apply
                 if (checkbox.checked) {
                     if (!_activePlugins.includes(outputName)) {
                         _activePlugins.push(outputName);
@@ -314,9 +327,7 @@ function _renderPluginPickerList(query) {
                     }
                 }
                 row.classList.toggle('active', _activePlugins.includes(outputName));
-                _renderActiveList();
-                _updateMergedStats();
-                // Don't re-render cards on every tick — wait for Done
+                // No stats update, no card render — deferred to confirmPluginPicker
             };
 
             const dot = document.createElement('span');
@@ -345,12 +356,16 @@ function _renderPluginPickerList(query) {
 }
 
 async function confirmPluginPicker() {
-    closePluginPicker();
+    _pickerSnapshot = []; // discard snapshot — changes are committed
+    document.getElementById('pluginPickerOverlay').classList.remove('plugin-overlay-visible');
+
     // Ensure at least one active plugin
     if (_activePlugins.length === 0) {
         const first = Object.keys(_allData())[0];
         if (first) _activePlugins = [first];
     }
+
+    // Now do the full render + stats update
     await _notifyChange();
 }
 
