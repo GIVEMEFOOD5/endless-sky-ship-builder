@@ -2,20 +2,39 @@ let governmentFilterExpanded = false;
 let lastGovernmentData = [];
 let savedGovernmentFilterState = {};
 
+function getGovernmentsForItem(item) {
+    if (!item || typeof item.governments !== 'object') return [];
+    const governments = new Set();
+
+    // item._pluginId matches the key in item.governments for its own plugin's governments
+    // We also need to check other active plugins' contributions to this item
+    const activePlugins = new Set(window.PluginManager ? window.PluginManager.getActivePlugins() : []);
+
+    for (const [govKey, govMap] of Object.entries(item.governments)) {
+        if (typeof govMap !== 'object') continue;
+
+        // Check if this govKey corresponds to any active plugin
+        // govKey could be "official-game/endless-sky", activePlugin could be "endless-sky"
+        // So we check if any active plugin outputName appears at the end of the govKey
+        const isActive = [...activePlugins].some(pluginId =>
+            govKey === pluginId || govKey.endsWith('/' + pluginId) || govKey === item._pluginId
+        );
+
+        if (!isActive) continue;
+
+        for (const govName of Object.keys(govMap)) {
+            if (govName.trim()) governments.add(govName.trim());
+        }
+    }
+
+    return [...governments];
+}
+
 function extractGovernments(data) {
     const governments = new Set();
 
-    const activePlugins = new Set(window.PluginManager ? window.PluginManager.getActivePlugins() : []);
-
     const processItem = item => {
-        if (!item || typeof item.governments !== 'object') return;
-        for (const [pluginId, govMap] of Object.entries(item.governments)) {
-            if (!activePlugins.has(pluginId)) continue;
-            if (typeof govMap !== 'object') continue;
-            for (const govName of Object.keys(govMap)) {
-                if (govName.trim()) governments.add(govName.trim());
-            }
-        }
+        getGovernmentsForItem(item).forEach(g => governments.add(g));
     };
 
     if (Array.isArray(data)) {
@@ -90,12 +109,19 @@ function itemMatchesGovernmentFilter(item, selected) {
 
     const activePlugins = new Set(window.PluginManager ? window.PluginManager.getActivePlugins() : []);
 
-    return selected.some(govName =>
-        Object.entries(item.governments).some(([pluginId, govMap]) => {
-            if (!activePlugins.has(pluginId)) return false;
-            return typeof govMap === 'object' && govMap[govName] === true;
-        })
-    );
+    return selected.some(govName => {
+        for (const [govKey, govMap] of Object.entries(item.governments)) {
+            if (typeof govMap !== 'object') continue;
+
+            const isActive = [...activePlugins].some(pluginId =>
+                govKey === pluginId || govKey.endsWith('/' + pluginId) || govKey === item._pluginId
+            );
+
+            if (!isActive) continue;
+            if (govMap[govName] === true) return true;
+        }
+        return false;
+    });
 }
 
 function clearGovernmentFilters() {
