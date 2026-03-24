@@ -553,11 +553,42 @@ function initTooltips() {
     if (document.getElementById('ad-tooltip')) return;
     const tooltip = document.createElement('div');
     tooltip.id = 'ad-tooltip';
-    tooltip.style.cssText = ['position:fixed','z-index:9999','max-width:320px','padding:10px 14px','background:rgba(15,23,42,0.97)','border:1px solid rgba(99,179,237,0.35)','border-radius:8px','color:#e2e8f0','font-size:12px','line-height:1.55','pointer-events:none','opacity:0','transition:opacity 0.15s ease','box-shadow:0 8px 32px rgba(0,0,0,0.6)','white-space:pre-wrap'].join(';');
+    tooltip.style.cssText = [
+        'position:fixed','z-index:9999','max-width:320px','padding:10px 14px',
+        'background:rgba(15,23,42,0.97)','border:1px solid rgba(99,179,237,0.35)',
+        'border-radius:8px','color:#e2e8f0','font-size:12px','line-height:1.55',
+        'pointer-events:none','opacity:0','transition:opacity 0.15s ease',
+        'box-shadow:0 8px 32px rgba(0,0,0,0.6)','white-space:pre-wrap'
+    ].join(';');
     document.body.appendChild(tooltip);
-    document.addEventListener('mouseover', e => { const t = e.target.closest('[data-tooltip]'); if (!t) return; tooltip.textContent = t.dataset.tooltip.replace(/ \| /g, '\n'); tooltip.style.opacity = '1'; });
-    document.addEventListener('mousemove', e => { tooltip.style.left = Math.min(e.clientX + 16, window.innerWidth - 340) + 'px'; tooltip.style.top = Math.min(e.clientY + 12, window.innerHeight - 120) + 'px'; });
-    document.addEventListener('mouseout', e => { if (e.target.closest('[data-tooltip]')) tooltip.style.opacity = '0'; });
+
+    let _mouseX = 0, _mouseY = 0, _rafPending = false;
+
+    document.addEventListener('mouseover', e => {
+        const t = e.target.closest('[data-tooltip]');
+        if (!t) return;
+        tooltip.textContent = t.dataset.tooltip.replace(/ \| /g, '\n');
+        tooltip.style.opacity = '1';
+    });
+
+    document.addEventListener('mouseout', e => {
+        if (e.target.closest('[data-tooltip]')) tooltip.style.opacity = '0';
+    });
+
+    document.addEventListener('mousemove', e => {
+        _mouseX = e.clientX;
+        _mouseY = e.clientY;
+
+        // Only schedule one rAF at a time
+        if (_rafPending) return;
+        _rafPending = true;
+
+        requestAnimationFrame(() => {
+            tooltip.style.left = Math.min(_mouseX + 16, window.innerWidth  - 340) + 'px';
+            tooltip.style.top  = Math.min(_mouseY + 12, window.innerHeight - 120) + 'px';
+            _rafPending = false;
+        });
+    }, { passive: true });
 }
 
 function injectStyles() { /* Styles live in CSS file */ }
