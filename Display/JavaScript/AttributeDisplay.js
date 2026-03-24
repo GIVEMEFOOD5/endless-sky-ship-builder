@@ -3,7 +3,7 @@
 // ─── AttributeDisplay.js ─────────────────────────────────────────────────────
 
 const SECTION_ORDER = [
-    'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
+    'Licenses', 'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
     'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
     'Weapon Stats', 'Derived Stats', 'Other',
 ];
@@ -20,6 +20,7 @@ const SECTION_PATTERNS = [
     [/resistance$/, 'Resistance'],
     [/protection$|damage reduction/, 'Protection'],
     [/^(drag|mass|cost|category|automaton|capture|nanobot|gaslining|atmosphere|spinal|remnant)/, 'General'],
+    [/^(licenses)/, 'Licenses']
 ];
 
 function inferSection(key) {
