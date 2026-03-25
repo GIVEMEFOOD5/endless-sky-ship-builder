@@ -1,6 +1,6 @@
 'use strict';
 
-// ─── Plugin_Script.js ─────────────────────────────────────────────────────────
+// ─── DataViewer.js ─────────────────────────────────────────────────────────
 //
 // Top-level orchestrator: data loading, tab switching, card rendering,
 // modal display, and utility helpers.
