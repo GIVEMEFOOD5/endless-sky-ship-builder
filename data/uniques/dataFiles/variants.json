@@ -120,6 +120,12 @@
       },
       "Zuckungs list/job.coloring": {
         "Merchant": true
+      },
+      "Lost In Midnight": {
+        "Merchant": true,
+        "Escort": true,
+        "Pirate": true,
+        "Free Worlds": true
       }
     },
     "locations": {
@@ -627,11 +633,16 @@
     "baseShip": "Korsmanath A'awoj",
     "_variantPluginId": "Zuckungs list/uniques",
     "governments": {
-      "official-game/endless-sky": {
+      "Lost In Midnight": {
         "Korath (Civilian)": true
       }
     },
     "locations": {
+      "Lost In Midnight": {
+        "Missions": [
+          "Midnight: Kor Explorers"
+        ]
+      },
       "Zuckungs list/uniques": {
         "Missions": [
           "unq_korsmanath_2"
