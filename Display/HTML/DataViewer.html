@@ -14,24 +14,6 @@
             <p class="subtitle">Browse ships and outfits from GitHub repositories</p>
         </header>
 
-        <!-- ── Configuration ───────────────────────────────────────────────── -->
-        <div class="panel config-section">
-            <h2 class="section-title">⚙️ Configuration</h2>
-            <div class="input-group">
-                <label for="repoUrl">GitHub Repository URL (username/repository)</label>
-                <input class="text-input" type="text" id="repoUrl"
-                       placeholder="e.g., yourusername/endless-sky-data" value="">
-            </div>
-            <div class="button-group">
-                <button class="btn btn-primary" onclick="loadData()">
-                    <span>📥</span> Load Data
-                </button>
-                <button class="btn btn-secondary" onclick="clearData()">
-                    <span>🗑️</span> Clear
-                </button>
-            </div>
-        </div>
-
         <!-- ── Main content (hidden until data loads) ──────────────────────── -->
         <div id="mainContent" style="display:none;">
 
