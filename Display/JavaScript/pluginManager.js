@@ -8,7 +8,7 @@
 
 /* ── Path to the JSON file (relative to this HTML page) ─────── */
 const PLUGINS_JSON_PATH = '../plugins.json';
-const BACKEND_URL = 'https://<your-vercel-app>.vercel.app/api/update-json';
+const BACKEND_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/update-json';
 
 /* ── Optional: shared secret for basic auth protection ──────────
    Set to null to disable.  Must match SECRET_KEY in Vercel env.  */
