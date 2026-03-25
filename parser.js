@@ -615,7 +615,7 @@ class EndlessSkyParser {
         } else if (trimmed.startsWith('fleet ')) {
           i = this.parseFleetBlock(lines, i); continue;
         } else if (trimmed.startsWith('mission ')) {
-          i = this.ssionBlock(lines, i); continue;
+          i = this.parseMissionBlock(lines, i); continue;
         } else if (trimmed.startsWith('shipyard ')) {
           i = this.parseShipyardBlock(lines, i); continue;
         } else if (trimmed.startsWith('outfitter ')) {
