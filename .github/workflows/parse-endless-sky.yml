@@ -41,5 +41,6 @@ jobs:
           git add data/
           git diff --staged --quiet || (
             git commit -m "Update Endless Sky data - $(date +'%Y-%m-%d')" &&
+            git pull --rebase &&
             git push
           )
