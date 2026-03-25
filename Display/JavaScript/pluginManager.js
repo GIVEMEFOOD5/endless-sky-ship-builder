@@ -8,6 +8,11 @@
 
 /* ── Path to the JSON file (relative to this HTML page) ─────── */
 const PLUGINS_JSON_PATH = '../plugins.json';
+const BACKEND_URL = 'https://<your-vercel-app>.vercel.app/api/update-json';
+
+/* ── Optional: shared secret for basic auth protection ──────────
+   Set to null to disable.  Must match SECRET_KEY in Vercel env.  */
+const UPDATE_SECRET = null;
 
 /* ── Helpers ─────────────────────────────────────────────────── */
 
@@ -132,29 +137,49 @@ class PluginStore {
     }
 
     /* ── Save back to plugins.json ───────────────────────────── */
-    async save() {
-        const body = this.toJSON();
-
-        // Try a fetch POST first (works if your local server supports writes)
+     async save() {
+        /* Build the payload the backend expects */
+        const payload = { plugins: this._plugins };
+    
+        const headers = { 'Content-Type': 'application/json' };
+    
+        /* Attach the shared secret if one is configured */
+        if (UPDATE_SECRET) {
+            headers['X-Update-Secret'] = UPDATE_SECRET;
+        }
+    
         try {
-            const res = await fetch(PLUGINS_JSON_PATH, {
+            const res = await fetch(BACKEND_URL, {
                 method:  'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body,
+                headers,
+                body:    JSON.stringify(payload),
             });
-            if (res.ok) return { ok: true };
-        } catch (_) { /* server write not available — fall through to download */ }
-
-        // Fallback: trigger a browser download
-        const blob = new Blob([body], { type: 'application/json' });
-        const url  = URL.createObjectURL(blob);
-        const a    = document.createElement('a');
-        a.href     = url;
-        a.download = 'plugins.json';
-        a.click();
-        URL.revokeObjectURL(url);
-
-        return { ok: true, downloaded: true };
+        
+            /* Try to parse JSON; fall back gracefully if response isn't JSON */
+            let data;
+            try {
+                data = await res.json();
+            } catch {
+                data = {};
+            }
+        
+            if (!res.ok) {
+                /* Backend returned a 4xx / 5xx — surface the error message */
+                return {
+                    ok:    false,
+                    error: data.error || `Server error ${res.status}`,
+                };
+            }
+        
+            return { ok: true };
+        
+        } catch (networkErr) {
+            /* Fetch itself failed (no connection, CORS blocked, etc.) */
+            return {
+                ok:    false,
+                error: `Network error: ${networkErr.message}`,
+            };
+        }
     }
 }
 
