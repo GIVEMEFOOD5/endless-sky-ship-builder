@@ -615,7 +615,7 @@ class EndlessSkyParser {
         } else if (trimmed.startsWith('fleet ')) {
           i = this.parseFleetBlock(lines, i); continue;
         } else if (trimmed.startsWith('mission ')) {
-          i = this.parseMissionBlock(lines, i); continue;
+          i = this.ssionBlock(lines, i); continue;
         } else if (trimmed.startsWith('shipyard ')) {
           i = this.parseShipyardBlock(lines, i); continue;
         } else if (trimmed.startsWith('outfitter ')) {
@@ -694,6 +694,16 @@ class EndlessSkyParser {
           if (count > 0) {
             this.locationResolver.collectMissionGiveOutfit(missionName, om[1], count, this._currentPluginId);
           }
+        }
+      }
+
+      // "ship" lines inside on accept / on complete blocks
+      // Endless Sky syntax:  ship "Ship Name"  or  ship "Type" "Name"
+      if (missionName && (stripped.startsWith('ship "') || stripped.startsWith('ship `'))) {
+        const sm = stripped.match(/^ship\s+"([^"]+)"(?:\s+"[^"]*")?/) ||
+                   stripped.match(/^ship\s+`([^`]+)`(?:\s+`[^`]*`)?/);
+        if (sm) {
+          this.locationResolver.collectMissionGiveShip(missionName, sm[1], this._currentPluginId);
         }
       }
 
