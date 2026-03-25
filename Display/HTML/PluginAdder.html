@@ -89,6 +89,56 @@
             border-color: var(--c-accent);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.20);
         }
+
+        /* ── Search bar ────────────────────────────────────────── */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .search-wrapper .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.95rem;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .search-input {
+            width: 100%;
+            padding: 9px 12px 9px 36px;
+            box-sizing: border-box;
+            border-radius: var(--r-md);
+            border: 1px solid var(--c-border);
+            background: var(--c-input-bg, var(--c-surface));
+            color: var(--c-text);
+            font-size: 0.9rem;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--c-accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+        }
+        .search-input::placeholder {
+            color: var(--c-text-muted);
+        }
+
+        /* ── No-results message ────────────────────────────────── */
+        .search-no-results {
+            text-align: center;
+            color: var(--c-text-muted);
+            font-size: 0.9rem;
+            padding: 20px 0;
+        }
+
+        /* ── Search match highlight ────────────────────────────── */
+        mark.search-hl {
+            background: rgba(250, 200, 50, 0.35);
+            color: inherit;
+            border-radius: 2px;
+            padding: 0 1px;
+        }
     </style>
 </head>
 <body>
@@ -144,8 +194,21 @@
             <span class="plugin-count-badge" id="pluginCounter">0</span>
         </div>
 
+        <!-- Search bar -->
+        <div class="search-wrapper" style="margin-top:14px;">
+            <span class="search-icon">🔍</span>
+            <input
+                class="search-input"
+                type="search"
+                id="pluginSearch"
+                placeholder="Search by name or repository URL…"
+                autocomplete="off"
+                spellcheck="false"
+            >
+        </div>
+
         <!-- Plugins rendered here by pluginManager.js -->
-        <div id="pluginActiveList" style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
+        <div id="pluginActiveList" style="display:flex; flex-direction:column; gap:8px;">
             <div class="sorter-empty">Loading…</div>
         </div>
 

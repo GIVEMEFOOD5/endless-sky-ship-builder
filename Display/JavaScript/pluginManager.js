@@ -1,17 +1,18 @@
 /* ═══════════════════════════════════════════════════════════════
    pluginManager.js  —  Endless Sky Plugin Manager
    Fetches plugins.json on page load, lets the user add / edit /
-   remove entries, then saves back via fetch POST or download.
+   remove entries, then saves back via the Vercel backend.
    ═══════════════════════════════════════════════════════════════ */
 
 'use strict';
 
-/* ── Path to the JSON file (relative to this HTML page) ─────── */
+/* ── Path to the JSON file (absolute URL for GitHub Pages) ─────── */
 const PLUGINS_JSON_PATH = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
+
+/* ── Vercel backend endpoint ─────────────────────────────────── */
 const BACKEND_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/update-json';
 
-/* ── Optional: shared secret for basic auth protection ──────────
-   Set to null to disable.  Must match SECRET_KEY in Vercel env.  */
+/* ── Optional shared secret (must match SECRET_KEY in Vercel env) */
 const UPDATE_SECRET = null;
 
 /* ── Helpers ─────────────────────────────────────────────────── */
@@ -46,6 +47,20 @@ function esc(str) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+}
+
+/**
+ * Wrap every occurrence of `query` in a string with <mark> tags.
+ * Case-insensitive. Returns escaped HTML.
+ */
+function highlight(str, query) {
+    const escaped = esc(str);
+    if (!query) return escaped;
+    const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return escaped.replace(
+        new RegExp(`(${safeQuery})`, 'gi'),
+        '<mark class="search-hl">$1</mark>'
+    );
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -136,49 +151,33 @@ class PluginStore {
         return { ok: true };
     }
 
-    /* ── Save back to plugins.json ───────────────────────────── */
-     async save() {
-        /* Build the payload the backend expects */
+    /* ── Save to GitHub via Vercel backend ───────────────────── */
+    async save() {
         const payload = { plugins: this._plugins };
-    
         const headers = { 'Content-Type': 'application/json' };
-    
-        /* Attach the shared secret if one is configured */
+
         if (UPDATE_SECRET) {
             headers['X-Update-Secret'] = UPDATE_SECRET;
         }
-    
+
         try {
             const res = await fetch(BACKEND_URL, {
                 method:  'POST',
                 headers,
                 body:    JSON.stringify(payload),
             });
-        
-            /* Try to parse JSON; fall back gracefully if response isn't JSON */
+
             let data;
-            try {
-                data = await res.json();
-            } catch {
-                data = {};
-            }
-        
+            try { data = await res.json(); } catch { data = {}; }
+
             if (!res.ok) {
-                /* Backend returned a 4xx / 5xx — surface the error message */
-                return {
-                    ok:    false,
-                    error: data.error || `Server error ${res.status}`,
-                };
+                return { ok: false, error: data.error || `Server error ${res.status}` };
             }
-        
+
             return { ok: true };
-        
+
         } catch (networkErr) {
-            /* Fetch itself failed (no connection, CORS blocked, etc.) */
-            return {
-                ok:    false,
-                error: `Network error: ${networkErr.message}`,
-            };
+            return { ok: false, error: `Network error: ${networkErr.message}` };
         }
     }
 }
@@ -198,9 +197,11 @@ class PluginManagerUI {
         this.listEl     = document.getElementById('pluginActiveList');
         this.counterEl  = document.getElementById('pluginCounter');
         this.statusEl   = document.getElementById('statusMsg');
+        this.searchEl   = document.getElementById('pluginSearch');
 
         this._editIndex   = null;
         this._statusTimer = null;
+        this._searchQuery = '';
 
         this._bindEvents();
         this.store.onChange(() => this._render());
@@ -217,6 +218,18 @@ class PluginManagerUI {
                 if (e.key === 'Enter') this._handleAddOrEdit();
             })
         );
+
+        /* Search — filter on every keystroke */
+        this.searchEl.addEventListener('input', () => {
+            this._searchQuery = this.searchEl.value.trim();
+            this._render();
+        });
+
+        /* Clear search when the × button inside <input type="search"> is clicked */
+        this.searchEl.addEventListener('search', () => {
+            this._searchQuery = '';
+            this._render();
+        });
     }
 
     /* ── Add / edit ──────────────────────────────────────────── */
@@ -248,12 +261,7 @@ class PluginManagerUI {
 
         if (!result.ok) { this._showStatus('Save failed: ' + (result.error || ''), 'error'); return; }
 
-        this._showStatus(
-            result.downloaded
-                ? 'Downloaded plugins.json — replace your existing file with this one.'
-                : 'plugins.json saved!',
-            result.downloaded ? 'info' : 'success'
-        );
+        this._showStatus('plugins.json saved!', 'success');
     }
 
     /* ── Edit entry ──────────────────────────────────────────── */
@@ -275,11 +283,21 @@ class PluginManagerUI {
         this.addBtn.innerHTML = '<span>📥</span> Add Plugin';
     }
 
-    /* ── Render list ─────────────────────────────────────────── */
+    /* ── Render list (respects current search query) ─────────── */
     _render() {
         const plugins = this.store.plugins;
+        const query   = this._searchQuery.toLowerCase();
 
+        /* Always show total count, not filtered count */
         if (this.counterEl) this.counterEl.textContent = plugins.length;
+
+        /* Filter by name or repository */
+        const filtered = query
+            ? plugins.filter(p =>
+                p.name.toLowerCase().includes(query) ||
+                p.repository.toLowerCase().includes(query)
+              )
+            : plugins;
 
         if (plugins.length === 0) {
             this.listEl.innerHTML =
@@ -287,17 +305,29 @@ class PluginManagerUI {
             return;
         }
 
+        if (filtered.length === 0) {
+            this.listEl.innerHTML =
+                `<div class="search-no-results">No plugins match "<strong>${esc(this._searchQuery)}</strong>".</div>`;
+            return;
+        }
+
         this.listEl.innerHTML = '';
-        plugins.forEach((p, i) => {
+
+        filtered.forEach(p => {
+            /* Find the real index in the full list so edit/remove work correctly */
+            const realIndex = plugins.findIndex(
+                x => x.name === p.name && x.repository === p.repository
+            );
+
             const row = document.createElement('div');
             row.className = 'sorter-row';
             row.innerHTML = `
                 <div class="sorter-label">
-                    <span class="plugin-list-name">${esc(p.name)}</span>
-                    <span class="plugin-list-repo">${esc(p.repository)}</span>
+                    <span class="plugin-list-name">${highlight(p.name, this._searchQuery)}</span>
+                    <span class="plugin-list-repo">${highlight(p.repository, this._searchQuery)}</span>
                 </div>
-                <button class="btn-action plugin-edit-btn"      data-i="${i}" title="Edit">✏️</button>
-                <button class="sorter-remove-btn plugin-rm-btn" data-i="${i}" title="Remove">✕ Remove</button>
+                <button class="btn-action plugin-edit-btn"      data-i="${realIndex}" title="Edit">✏️</button>
+                <button class="sorter-remove-btn plugin-rm-btn" data-i="${realIndex}" title="Remove">✕ Remove</button>
             `;
 
             row.querySelector('.plugin-edit-btn').addEventListener('click', e => {
