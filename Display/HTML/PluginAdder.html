@@ -3,36 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Endless Sky Data Viewer</title>
+    <title>Endless Sky — Plugin Manager</title>
     <link rel="stylesheet" href="../CSS/main.css">
+
+    <!-- Extra styles specific to this page, keeping the same design tokens -->
+    <style>
+        /* ── Plugin list name / repo stacked layout ────────────── */
+        .plugin-list-name {
+            display: block;
+            font-weight: 600;
+            color: var(--c-accent-text);
+            font-size: 0.95rem;
+        }
+        .plugin-list-repo {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--c-text-muted);
+            margin-top: 2px;
+            word-break: break-all;
+        }
+
+        /* ── Status banner ─────────────────────────────────────── */
+        .status-msg {
+            padding: 12px 16px;
+            border-radius: var(--r-md);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-top: 16px;
+            border: 1px solid transparent;
+            transition: opacity var(--t-base);
+        }
+        .status--success {
+            background: var(--c-success);
+            color: var(--c-success-text);
+            border-color: rgba(34, 197, 94, 0.35);
+        }
+        .status--error {
+            background: var(--c-danger);
+            color: var(--c-danger-text);
+            border-color: rgba(239, 68, 68, 0.35);
+        }
+        .status--info {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--c-accent-text);
+            border-color: var(--c-border-hi);
+        }
+
+        /* ── Plugin count badge ────────────────────────────────── */
+        .plugin-count-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(59, 130, 246, 0.20);
+            color: var(--c-accent-text);
+            border: 1px solid var(--c-border-hi);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            min-width: 28px;
+        }
+
+        /* ── File action group ─────────────────────────────────── */
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ── WIP notice strip ──────────────────────────────────── */
+        .wip-notice {
+            background: var(--c-warn);
+            border: 1px solid rgba(250, 200, 50, 0.30);
+            border-radius: var(--r-md);
+            color: var(--c-warn-text);
+            font-size: 0.88rem;
+            padding: 10px 16px;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        /* ── Edit-mode highlight on input group ────────────────── */
+        .input-group.editing .text-input {
+            border-color: var(--c-accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.20);
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
 
-        <header class="panel">
-            <h1>🚀 Endless Sky Plugin Adder</h1>
-            <p class="subtitle">Add your favourit plugin repositorys</p>
-            <p class="subtitle">THESE ARE GLOBAL ANDS CURRENTLY AN WIP!!</p>
-            <p class="subtitle">THERE IS MULTI PLUGIN REPOSITORY SUPPORT!! (tested with Zuckungs <3)</p>
-        </header>
-      
-        <!-- ── Configuration ───────────────────────────────────────────────── -->
-        <div class="panel config-section">
-            <h2 class="section-title">⚙️ Configuration</h2>
-            <div class="input-group">
-                <label for="repoUrl">GitHub Repository URL (username/repository)</label>
-                <input class="text-input" type="text" id="repoUrl"
-                       placeholder="e.g., username/endless-sky-data" value="">
-            </div>
-            <div class="button-group">
-                <button class="btn btn-primary">
-                    <span>📥</span> Add Plugin
-                </button>
-                <button class="btn btn-secondary">
-                    <span>🗑️</span> Clear
-                </button>
-            </div>
+    <!-- ── Header ─────────────────────────────────────────────── -->
+    <header class="panel">
+        <h1>🚀 Endless Sky Plugin Manager</h1>
+        <p class="subtitle">Add and manage your plugin repositories globally.</p>
+        <div class="wip-notice">
+            ⚠️ <strong>WIP</strong> — These settings are global. Multi-plugin repository support is active
+            (tested with Zuckungs list ♥). Parsing all repositories may take a moment — please be patient!
+        </div>
+    </header>
+
+    <!-- ── Add / Edit plugin ──────────────────────────────────── -->
+    <div class="panel config-section">
+        <h2 class="section-title">⚙️ Add Plugin Repository</h2>
+
+        <div class="input-group" id="nameGroup">
+            <label for="pluginName">Plugin Name</label>
+            <input class="text-input" type="text" id="pluginName"
+                   placeholder="e.g., Zuckungs list"
+                   autocomplete="off" spellcheck="false">
+        </div>
+
+        <div class="input-group" id="repoGroup">
+            <label for="repoUrl">GitHub Repository URL <span style="color:var(--c-text-muted);font-weight:400">(username/repo  or  full URL)</span></label>
+            <input class="text-input" type="text" id="repoUrl"
+                   placeholder="e.g., zuckung/endless-sky-plugins"
+                   autocomplete="off" spellcheck="false">
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-primary" id="addPluginBtn">
+                <span>📥</span> Add Plugin
+            </button>
+            <button class="btn btn-secondary" id="clearBtn">
+                <span>🗑️</span> Clear
+            </button>
+        </div>
+
+        <!-- Status / error feedback -->
+        <div class="status-msg hidden" id="statusMsg"></div>
+    </div>
+
+    <!-- ── Active plugin list ─────────────────────────────────── -->
+    <div class="panel config-section">
+        <div class="sorter-section-header">
+            <span class="section-title" style="font-size:1.2rem; margin-bottom:0">
+                📦 Active Plugins
+            </span>
+            <span class="plugin-count-badge" id="pluginCounter">0</span>
+        </div>
+
+        <!-- Plugins rendered here by pluginManager.js -->
+        <div id="pluginActiveList" style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
+            <div class="sorter-empty">Loading…</div>
+        </div>
+
+        <!-- File persistence controls -->
+        <div class="file-actions">
+            <button class="btn btn-secondary" id="openFileBtn" title="Open an existing plugins.json">
+                <span>📂</span> Open plugins.json
+            </button>
+            <button class="btn btn-primary" id="saveFileBtn" title="Save current list to plugins.json">
+                <span>💾</span> Save plugins.json
+            </button>
         </div>
     </div>
+
+</div>
+
+<!-- ── JS ─────────────────────────────────────────────────────── -->
+<script src="pluginManager.js"></script>
 </body>
 </html>
