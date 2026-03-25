@@ -2,6 +2,10 @@
    pluginManager.js  —  Endless Sky Plugin Manager
    Fetches plugins.json on page load, lets the user add / edit /
    remove entries, then saves back via the Vercel backend.
+
+   Two lists:
+     _plugins  — already committed to plugins.json (Active Plugins)
+     _pending  — added this session, not yet saved (Awaiting Save)
    ═══════════════════════════════════════════════════════════════ */
 
 'use strict';
@@ -68,8 +72,10 @@ function highlight(str, query) {
    ══════════════════════════════════════════════════════════════ */
 class PluginStore {
     constructor() {
-        /** @type {Array<{name:string, repository:string}>} */
-        this._plugins   = [];
+        /** Already saved to plugins.json */
+        this._plugins  = [];
+        /** Added this session, not yet saved */
+        this._pending  = [];
         this._listeners = [];
     }
 
@@ -78,10 +84,12 @@ class PluginStore {
     _notify()    { this._listeners.forEach(fn => fn()); }
 
     /* ── Accessors ───────────────────────────────────────────── */
-    get plugins() { return JSON.parse(JSON.stringify(this._plugins)); }
-    get count()   { return this._plugins.length; }
+    get plugins()      { return JSON.parse(JSON.stringify(this._plugins)); }
+    get pending()      { return JSON.parse(JSON.stringify(this._pending)); }
+    get count()        { return this._plugins.length; }
+    get pendingCount() { return this._pending.length; }
 
-    /* ── Load from parsed object ─────────────────────────────── */
+    /* ── Load from parsed object (populates _plugins only) ───── */
     loadFromObject(obj) {
         if (!obj || !Array.isArray(obj.plugins)) {
             throw new Error('JSON must have a "plugins" array at the root.');
@@ -93,12 +101,12 @@ class PluginStore {
         this._notify();
     }
 
-    /* ── Serialise ───────────────────────────────────────────── */
-    toJSON() {
-        return JSON.stringify({ plugins: this._plugins }, null, 2);
+    /* ── Combined list used when saving ─────────────────────── */
+    _allPlugins() {
+        return [...this._plugins, ...this._pending];
     }
 
-    /* ── CRUD ────────────────────────────────────────────────── */
+    /* ── Add to pending list ─────────────────────────────────── */
     addPlugin(name, repo) {
         const trimName = (name || '').trim();
         if (!trimName) return { ok: false, error: 'Plugin name cannot be empty.' };
@@ -106,19 +114,23 @@ class PluginStore {
         const normRepo = normaliseRepository(repo);
         if (!normRepo) return { ok: false, error: 'Invalid repository — use  username/repo  or a full GitHub URL.' };
 
+        /* Check against both active and pending */
         const lower = trimName.toLowerCase();
-        for (const p of this._plugins) {
-            if (p.name.toLowerCase() === lower)
-                return { ok: false, error: `A plugin named "${p.name}" already exists.` };
-            if (p.repository === normRepo)
-                return { ok: false, error: `That repository is already listed as "${p.name}".` };
+        for (const list of [this._plugins, this._pending]) {
+            for (const p of list) {
+                if (p.name.toLowerCase() === lower)
+                    return { ok: false, error: `A plugin named "${p.name}" already exists.` };
+                if (p.repository === normRepo)
+                    return { ok: false, error: `That repository is already listed as "${p.name}".` };
+            }
         }
 
-        this._plugins.push({ name: trimName, repository: normRepo });
+        this._pending.push({ name: trimName, repository: normRepo });
         this._notify();
         return { ok: true };
     }
 
+    /* ── Edit active plugin ──────────────────────────────────── */
     editPlugin(index, name, repo) {
         if (index < 0 || index >= this._plugins.length)
             return { ok: false, error: `No plugin at index ${index}.` };
@@ -137,12 +149,50 @@ class PluginStore {
             if (this._plugins[i].repository === normRepo)
                 return { ok: false, error: `That repository is already listed as "${this._plugins[i].name}".` };
         }
+        for (const p of this._pending) {
+            if (p.name.toLowerCase() === lower)
+                return { ok: false, error: `A plugin named "${p.name}" is awaiting save.` };
+            if (p.repository === normRepo)
+                return { ok: false, error: `That repository is awaiting save as "${p.name}".` };
+        }
 
         this._plugins[index] = { name: trimName, repository: normRepo };
         this._notify();
         return { ok: true };
     }
 
+    /* ── Edit pending plugin ─────────────────────────────────── */
+    editPending(index, name, repo) {
+        if (index < 0 || index >= this._pending.length)
+            return { ok: false, error: `No pending plugin at index ${index}.` };
+
+        const trimName = (name || '').trim();
+        if (!trimName) return { ok: false, error: 'Plugin name cannot be empty.' };
+
+        const normRepo = normaliseRepository(repo);
+        if (!normRepo) return { ok: false, error: 'Invalid repository — use  username/repo  or a full GitHub URL.' };
+
+        const lower = trimName.toLowerCase();
+        for (const p of this._plugins) {
+            if (p.name.toLowerCase() === lower)
+                return { ok: false, error: `A plugin named "${p.name}" already exists.` };
+            if (p.repository === normRepo)
+                return { ok: false, error: `That repository is already listed as "${p.name}".` };
+        }
+        for (let i = 0; i < this._pending.length; i++) {
+            if (i === index) continue;
+            if (this._pending[i].name.toLowerCase() === lower)
+                return { ok: false, error: `A plugin named "${this._pending[i].name}" already exists.` };
+            if (this._pending[i].repository === normRepo)
+                return { ok: false, error: `That repository is already listed as "${this._pending[i].name}".` };
+        }
+
+        this._pending[index] = { name: trimName, repository: normRepo };
+        this._notify();
+        return { ok: true };
+    }
+
+    /* ── Remove active plugin ────────────────────────────────── */
     removePlugin(index) {
         if (index < 0 || index >= this._plugins.length)
             return { ok: false, error: `No plugin at index ${index}.` };
@@ -151,9 +201,18 @@ class PluginStore {
         return { ok: true };
     }
 
-    /* ── Save to GitHub via Vercel backend ───────────────────── */
+    /* ── Remove pending plugin ───────────────────────────────── */
+    removePending(index) {
+        if (index < 0 || index >= this._pending.length)
+            return { ok: false, error: `No pending plugin at index ${index}.` };
+        this._pending.splice(index, 1);
+        this._notify();
+        return { ok: true };
+    }
+
+    /* ── Save: merge pending into active, then commit ────────── */
     async save() {
-        const payload = { plugins: this._plugins };
+        const payload = { plugins: this._allPlugins() };
         const headers = { 'Content-Type': 'application/json' };
 
         if (UPDATE_SECRET) {
@@ -174,6 +233,10 @@ class PluginStore {
                 return { ok: false, error: data.error || `Server error ${res.status}` };
             }
 
+            /* On success: move pending into active and clear pending */
+            this._plugins = this._allPlugins();
+            this._pending = [];
+            this._notify();
             return { ok: true };
 
         } catch (networkErr) {
@@ -189,17 +252,21 @@ class PluginManagerUI {
     constructor(store) {
         this.store = store;
 
-        this.nameInput  = document.getElementById('pluginName');
-        this.repoInput  = document.getElementById('repoUrl');
-        this.addBtn     = document.getElementById('addPluginBtn');
-        this.clearBtn   = document.getElementById('clearBtn');
-        this.saveBtn    = document.getElementById('saveBtn');
-        this.listEl     = document.getElementById('pluginActiveList');
-        this.counterEl  = document.getElementById('pluginCounter');
-        this.statusEl   = document.getElementById('statusMsg');
-        this.searchEl   = document.getElementById('pluginSearch');
+        this.nameInput        = document.getElementById('pluginName');
+        this.repoInput        = document.getElementById('repoUrl');
+        this.addBtn           = document.getElementById('addPluginBtn');
+        this.clearBtn         = document.getElementById('clearBtn');
+        this.saveBtn          = document.getElementById('saveBtn');
+        this.listEl           = document.getElementById('pluginActiveList');
+        this.pendingListEl    = document.getElementById('pluginPendingList');
+        this.pendingPanel     = document.getElementById('pendingPanel');
+        this.counterEl        = document.getElementById('pluginCounter');
+        this.pendingCounterEl = document.getElementById('pendingCounter');
+        this.statusEl         = document.getElementById('statusMsg');
+        this.searchEl         = document.getElementById('pluginSearch');
 
-        this._editIndex   = null;
+        this._editIndex   = null;   // index in _plugins (active)
+        this._editPending = null;   // index in _pending
         this._statusTimer = null;
         this._searchQuery = '';
 
@@ -219,13 +286,11 @@ class PluginManagerUI {
             })
         );
 
-        /* Search — filter on every keystroke */
         this.searchEl.addEventListener('input', () => {
             this._searchQuery = this.searchEl.value.trim();
             this._render();
         });
 
-        /* Clear search when the × button inside <input type="search"> is clicked */
         this.searchEl.addEventListener('search', () => {
             this._searchQuery = '';
             this._render();
@@ -234,15 +299,21 @@ class PluginManagerUI {
 
     /* ── Add / edit ──────────────────────────────────────────── */
     _handleAddOrEdit() {
-        const result = this._editIndex !== null
-            ? this.store.editPlugin(this._editIndex, this.nameInput.value, this.repoInput.value)
-            : this.store.addPlugin(this.nameInput.value, this.repoInput.value);
+        let result;
+
+        if (this._editPending !== null) {
+            result = this.store.editPending(this._editPending, this.nameInput.value, this.repoInput.value);
+        } else if (this._editIndex !== null) {
+            result = this.store.editPlugin(this._editIndex, this.nameInput.value, this.repoInput.value);
+        } else {
+            result = this.store.addPlugin(this.nameInput.value, this.repoInput.value);
+        }
 
         if (!result.ok) { this._showStatus(result.error, 'error'); return; }
 
-        const wasEditing = this._editIndex !== null;
+        const wasEditing = this._editIndex !== null || this._editPending !== null;
         this._clearInputs();
-        this._showStatus(wasEditing ? 'Plugin updated.' : 'Plugin added.', 'success');
+        this._showStatus(wasEditing ? 'Plugin updated.' : 'Plugin staged — save when ready.', 'success');
     }
 
     /* ── Clear ───────────────────────────────────────────────── */
@@ -259,39 +330,61 @@ class PluginManagerUI {
         const result = await this.store.save();
         this.saveBtn.disabled = false;
 
-        if (!result.ok) { this._showStatus('Save failed: ' + (result.error || ''), 'error'); return; }
+        if (!result.ok) {
+            this._showStatus('Save failed: ' + (result.error || ''), 'error');
+            return;
+        }
 
         this._showStatus('plugins.json saved!', 'success');
     }
 
-    /* ── Edit entry ──────────────────────────────────────────── */
+    /* ── Start editing an active plugin ─────────────────────── */
     _startEdit(index) {
         const p = this.store.plugins[index];
         if (!p) return;
         this._editIndex       = index;
+        this._editPending     = null;
         this.nameInput.value  = p.name;
         this.repoInput.value  = p.repository;
         this.addBtn.innerHTML = '<span>✏️</span> Save Changes';
         this.nameInput.focus();
-        this._showStatus(`Editing: ${p.name}`, 'info');
+        this._showStatus(`Editing active: ${p.name}`, 'info');
+    }
+
+    /* ── Start editing a pending plugin ─────────────────────── */
+    _startEditPending(index) {
+        const p = this.store.pending[index];
+        if (!p) return;
+        this._editPending     = index;
+        this._editIndex       = null;
+        this.nameInput.value  = p.name;
+        this.repoInput.value  = p.repository;
+        this.addBtn.innerHTML = '<span>✏️</span> Save Changes';
+        this.nameInput.focus();
+        this._showStatus(`Editing staged: ${p.name}`, 'info');
     }
 
     _clearInputs() {
         this._editIndex       = null;
+        this._editPending     = null;
         this.nameInput.value  = '';
         this.repoInput.value  = '';
         this.addBtn.innerHTML = '<span>📥</span> Add Plugin';
     }
 
-    /* ── Render list (respects current search query) ─────────── */
+    /* ── Render both lists ───────────────────────────────────── */
     _render() {
+        this._renderActive();
+        this._renderPending();
+    }
+
+    /* ── Render active list ──────────────────────────────────── */
+    _renderActive() {
         const plugins = this.store.plugins;
         const query   = this._searchQuery.toLowerCase();
 
-        /* Always show total count, not filtered count */
         if (this.counterEl) this.counterEl.textContent = plugins.length;
 
-        /* Filter by name or repository */
         const filtered = query
             ? plugins.filter(p =>
                 p.name.toLowerCase().includes(query) ||
@@ -300,8 +393,7 @@ class PluginManagerUI {
             : plugins;
 
         if (plugins.length === 0) {
-            this.listEl.innerHTML =
-                '<div class="sorter-empty">No plugins yet — add one above.</div>';
+            this.listEl.innerHTML = '<div class="sorter-empty">No plugins yet — add one above.</div>';
             return;
         }
 
@@ -312,9 +404,7 @@ class PluginManagerUI {
         }
 
         this.listEl.innerHTML = '';
-
         filtered.forEach(p => {
-            /* Find the real index in the full list so edit/remove work correctly */
             const realIndex = plugins.findIndex(
                 x => x.name === p.name && x.repository === p.repository
             );
@@ -326,7 +416,7 @@ class PluginManagerUI {
                     <span class="plugin-list-name">${highlight(p.name, this._searchQuery)}</span>
                     <span class="plugin-list-repo">${highlight(p.repository, this._searchQuery)}</span>
                 </div>
-                <button class="btn-action plugin-edit-btn"      data-i="${realIndex}" title="Edit">✏️</button>
+                <button class="btn-action plugin-edit-btn" data-i="${realIndex}" title="Edit">✏️</button>
                 <button class="sorter-remove-btn plugin-rm-btn" data-i="${realIndex}" title="Remove">✕ Remove</button>
             `;
 
@@ -346,6 +436,53 @@ class PluginManagerUI {
             });
 
             this.listEl.appendChild(row);
+        });
+    }
+
+    /* ── Render pending list + show/hide the panel ───────────── */
+    _renderPending() {
+        const pending = this.store.pending;
+
+        if (this.pendingCounterEl) this.pendingCounterEl.textContent = pending.length;
+
+        /* Show or hide the whole panel */
+        if (pending.length === 0) {
+            this.pendingPanel.classList.remove('has-items');
+            this.pendingListEl.innerHTML = '';
+            return;
+        }
+
+        this.pendingPanel.classList.add('has-items');
+        this.pendingListEl.innerHTML = '';
+
+        pending.forEach((p, i) => {
+            const row = document.createElement('div');
+            row.className = 'sorter-row';
+            row.innerHTML = `
+                <div class="sorter-label">
+                    <span class="plugin-list-name">${esc(p.name)}</span>
+                    <span class="plugin-list-repo">${esc(p.repository)}</span>
+                </div>
+                <button class="btn-action plugin-edit-btn" data-i="${i}" title="Edit">✏️</button>
+                <button class="sorter-remove-btn plugin-rm-btn" data-i="${i}" title="Remove">✕ Remove</button>
+            `;
+
+            row.querySelector('.plugin-edit-btn').addEventListener('click', e => {
+                e.stopPropagation();
+                this._startEditPending(+e.currentTarget.dataset.i);
+            });
+
+            row.querySelector('.plugin-rm-btn').addEventListener('click', e => {
+                e.stopPropagation();
+                const idx  = +e.currentTarget.dataset.i;
+                const name = this.store.pending[idx]?.name ?? 'this plugin';
+                if (confirm(`Remove "${name}" from the pending list?`)) {
+                    if (this._editPending === idx) this._clearInputs();
+                    this.store.removePending(idx);
+                }
+            });
+
+            this.pendingListEl.appendChild(row);
         });
     }
 

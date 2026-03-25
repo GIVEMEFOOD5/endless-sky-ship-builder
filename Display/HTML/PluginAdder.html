@@ -139,6 +139,37 @@
             border-radius: 2px;
             padding: 0 1px;
         }
+
+        /* ── Awaiting Save panel ───────────────────────────────── */
+        #pendingPanel {
+            display: none; /* hidden until a plugin is staged */
+        }
+        #pendingPanel.has-items {
+            display: block;
+        }
+        .pending-notice {
+            background: rgba(250, 200, 50, 0.10);
+            border: 1px solid rgba(250, 200, 50, 0.30);
+            border-radius: var(--r-md);
+            color: var(--c-warn-text, #fbbf24);
+            font-size: 0.85rem;
+            padding: 9px 14px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .pending-count-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(250, 200, 50, 0.20);
+            color: #fbbf24;
+            border: 1px solid rgba(250, 200, 50, 0.40);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            min-width: 28px;
+        }
     </style>
 </head>
 <body>
@@ -151,6 +182,11 @@
         <div class="wip-notice">
             ⚠️ <strong>WIP</strong> — These settings are global. Multi-plugin repository support is active
             (tested with Zuckungs list ♥). Parsing all repositories may take a moment — please be patient!
+            <br>
+            ANY CHANGES WILL TAKE EFFECT ACROSS ALL INSTANCES OF THIS PLUGIN!! 
+            PLEASE DO NOT REMOVE THEM UNLESS YOU ARE TESTTING YOUR OWN PLUGIN!!
+            CHANGES CAN TAKE PROBABLY 30 MINUTES TO IMPLEMENT
+            (massives over estiamte every time a plugin is added the ammount of time increases tho)
         </div>
     </header>
 
@@ -180,9 +216,6 @@
                 <span>🗑️</span> Clear
             </button>
         </div>
-
-        <!-- Status / error feedback -->
-        <div class="status-msg hidden" id="statusMsg"></div>
     </div>
 
     <!-- ── Active plugin list ─────────────────────────────────── -->
@@ -211,13 +244,34 @@
         <div id="pluginActiveList" style="display:flex; flex-direction:column; gap:8px;">
             <div class="sorter-empty">Loading…</div>
         </div>
+    </div>
 
-        <!-- File persistence controls -->
+    <!-- ── Awaiting Save (hidden until items are staged) ─────────── -->
+    <div class="panel config-section" id="pendingPanel">
+        <div class="sorter-section-header">
+            <span class="section-title" style="font-size:1.2rem; margin-bottom:0">
+                ⏳ Awaiting Save
+            </span>
+            <span class="pending-count-badge" id="pendingCounter">0</span>
+        </div>
+
+        <div class="pending-notice">
+            These plugins have been added but not yet saved to the repository.
+            Click <strong>Save plugins.json</strong> to commit them.
+        </div>
+
+        <!-- Pending plugins rendered here by pluginManager.js -->
+        <div id="pluginPendingList" style="display:flex; flex-direction:column; gap:8px;"></div>
+
+        <!-- Save button lives here -->
         <div class="file-actions">
-            <button class="btn btn-primary" id="saveBtn" title="Save current list to plugins.json">
+            <button class="btn btn-primary" id="saveBtn" title="Save all pending plugins to plugins.json">
                 <span>💾</span> Save plugins.json
             </button>
         </div>
+
+        <!-- Status feedback -->
+        <div class="status-msg hidden" id="statusMsg"></div>
     </div>
 
 </div>
