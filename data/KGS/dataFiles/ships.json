@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Hauler IV",
+    "engines": [
+      {
+        "x": -45,
+        "y": 230
+      },
+      {
+        "x": 45,
+        "y": 230
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -14.5,
+        "y": -200,
+        "gun": ""
+      },
+      {
+        "x": 14.5,
+        "y": -200,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -21.5,
+        "y": -159.5,
+        "turret": ""
+      },
+      {
+        "x": 21.5,
+        "y": -159.5,
+        "turret": ""
+      },
+      {
+        "x": -18.5,
+        "y": 188,
+        "turret": ""
+      },
+      {
+        "x": 18.5,
+        "y": 188,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "outfitMap": {
+      "Meteor Missile Pod": 2,
+      "Meteor Missile": 59,
+      "Meteor Missile Box": 3,
+      "Quad Blaster Turret": 2,
+      "Heavy Anti-Missile Turret": 2,
+      "S3 Thermionic": 1,
+      "LP072a Battery Pack": 1,
+      "D23-QP Shield Generator": 1,
+      "Small Radar Jammer": 1,
+      "Laser Rifle": 1,
+      "Greyhound Plasma Thruster": 1,
+      "Impala Plasma Steering": 1,
+      "Capybara Reverse Thruster": 1,
+      "Hyperdrive": 1
+    },
+    "sprite": "ship/hauler_iv",
+    "thumbnail": "thumbnail/hauler_iv",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 4190000,
+      "shields": 3700,
+      "hull": 8200,
+      "required crew": 3,
+      "bunks": 12,
+      "mass": 940,
+      "drag": 12.5,
+      "heat dissipation": 0.43,
+      "fuel capacity": 400,
+      "cargo space": 520,
+      "outfit space": 350,
+      "weapon capacity": 140,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 120,
+        "shield damage": 1200,
+        "hull damage": 600,
+        "hit force": 1800
+      }
+    },
+    "leak": 50,
+    "flame": 40,
+    "big leak": 80,
+    "small explosion": 15,
+    "medium explosion": 30,
+    "large explosion": 20,
+    "huge explosion": 5,
+    "final explode": "final explosion large",
+    "description": "An enthusiastic captain has had another cargo pod bolted to a Hauler III, and this is the result.",
+    "_internalId": "Kai's list/KGS::Hauler IV",
+    "_pluginId": "Kai's list/KGS",
+    "_hash": "a96ce419821b",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "KGS": {
+        "_deprecated/unused": true
+      }
+    }
+  }
+]
