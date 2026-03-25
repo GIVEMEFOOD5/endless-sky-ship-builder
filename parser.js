@@ -684,11 +684,18 @@ class EndlessSkyParser {
         continue;
       }
 
-      // "outfit" / "give outfit" lines inside on complete / on accept blocks
-      // Endless Sky syntax:  outfit "Item Name" [count]
-      if (missionName && (stripped.startsWith('outfit "') || stripped.startsWith('outfit `'))) {
-        const om = stripped.match(/^outfit\s+"([^"]+)"(?:\s+(-?\d+))?/) ||
-                   stripped.match(/^outfit\s+`([^`]+)`(?:\s+(-?\d+))?/);
+      // "give outfit" lines — bare or inside action blocks
+      // Endless Sky syntax:  give outfit "Item Name" [count]
+      //                 or:  outfit "Item Name" [count]   (legacy top-level form)
+      if (missionName && (
+        stripped.startsWith('give outfit "') || stripped.startsWith('give outfit `') ||
+        stripped.startsWith('outfit "')      || stripped.startsWith('outfit `')
+      )) {
+        const om =
+          stripped.match(/^give\s+outfit\s+"([^"]+)"(?:\s+(-?\d+))?/) ||
+          stripped.match(/^give\s+outfit\s+`([^`]+)`(?:\s+(-?\d+))?/) ||
+          stripped.match(/^outfit\s+"([^"]+)"(?:\s+(-?\d+))?/)        ||
+          stripped.match(/^outfit\s+`([^`]+)`(?:\s+(-?\d+))?/);
         if (om) {
           const count = om[2] ? parseInt(om[2], 10) : 1;
           if (count > 0) {
@@ -697,11 +704,18 @@ class EndlessSkyParser {
         }
       }
 
-      // "ship" lines inside on accept / on complete blocks
-      // Endless Sky syntax:  ship "Ship Name"  or  ship "Type" "Name"
-      if (missionName && (stripped.startsWith('ship "') || stripped.startsWith('ship `'))) {
-        const sm = stripped.match(/^ship\s+"([^"]+)"(?:\s+"[^"]*")?/) ||
-                   stripped.match(/^ship\s+`([^`]+)`(?:\s+`[^`]*`)?/);
+      // "give ship" lines — bare or inside action blocks
+      // Endless Sky syntax:  give ship "Type"  or  give ship "Type" "Instance Name"
+      //                 or:  ship "Type"            (legacy top-level form)
+      if (missionName && (
+        stripped.startsWith('give ship "') || stripped.startsWith('give ship `') ||
+        stripped.startsWith('ship "')      || stripped.startsWith('ship `')
+      )) {
+        const sm =
+          stripped.match(/^give\s+ship\s+"([^"]+)"(?:\s+"[^"]*")?/) ||
+          stripped.match(/^give\s+ship\s+`([^`]+)`(?:\s+`[^`]*`)?/) ||
+          stripped.match(/^ship\s+"([^"]+)"(?:\s+"[^"]*")?/)        ||
+          stripped.match(/^ship\s+`([^`]+)`(?:\s+`[^`]*`)?/);
         if (sm) {
           this.locationResolver.collectMissionGiveShip(missionName, sm[1], this._currentPluginId);
         }
