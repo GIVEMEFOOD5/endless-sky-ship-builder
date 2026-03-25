@@ -29,6 +29,11 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Clear existing data folder
+        run: |
+          git rm -r --cached data/ --quiet || true
+          rm -rf data/
+
       - name: Run parser
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -38,7 +43,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git rm -r --cached data/ --quiet
           git add data/
           git diff --staged --quiet || (
             git commit -m "Update Endless Sky data - $(date +'%Y-%m-%d')" &&
