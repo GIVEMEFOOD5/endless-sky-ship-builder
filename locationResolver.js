@@ -60,6 +60,9 @@ class LocationResolver {
     // Mission "give outfit" refs: { missionName, outfitName, count, pluginId }
     this.missionGiveOutfits = [];
 
+    // Mission "give ship" refs: { missionName, shipName, pluginId }
+    this.missionGiveShips = [];
+
     // Mission planet-add shipyard refs: { planetName, yardName, pluginId }
     // (events / missions can modify planets to add shipyards)
     this.eventPlanetShipyardAdds = [];
@@ -109,6 +112,11 @@ class LocationResolver {
   collectMissionGiveOutfit(missionName, outfitName, count, pluginId) {
     if (!missionName || !outfitName) return;
     this.missionGiveOutfits.push({ missionName, outfitName, count: count ?? 1, pluginId: pluginId ?? null });
+  }
+
+  collectMissionGiveShip(missionName, shipName, pluginId) {
+    if (!missionName || !shipName) return;
+    this.missionGiveShips.push({ missionName, shipName, pluginId: pluginId ?? null });
   }
 
   collectEventPlanetShipyardAdd(planetName, yardName, pluginId) {
@@ -233,6 +241,15 @@ class LocationResolver {
 
     // ── 3. Mission NPC references — exact name match only ───────────────────
     for (const ref of this.missionNpcShips) {
+      if (ref.shipName !== shipName) continue;
+      const key = ref.pluginId ?? '__unknown__';
+      if (!result[key]) result[key] = {};
+      if (!result[key]['Missions']) result[key]['Missions'] = new Set();
+      result[key]['Missions'].add(ref.missionName);
+    }
+
+    // ── 4. Mission "give ship" references ──────────────────────────────────
+    for (const ref of this.missionGiveShips) {
       if (ref.shipName !== shipName) continue;
       const key = ref.pluginId ?? '__unknown__';
       if (!result[key]) result[key] = {};
