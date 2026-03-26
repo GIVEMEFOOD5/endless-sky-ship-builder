@@ -1244,6 +1244,15 @@ h1 {
   box-sizing: border-box;
 }
 
+#navbar-mount {
+    overflow: visible;
+}
+
+#navbar-mount,
+.container {
+    overflow: visible;
+}
+
 /* ── Brand ──────────────────────────────────────────────────── */
 #es-navbar .nav-brand {
   display: flex;
