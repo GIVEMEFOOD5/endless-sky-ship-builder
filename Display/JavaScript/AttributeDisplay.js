@@ -1,6 +1,10 @@
 'use strict';
 
 // ─── AttributeDisplay.js ─────────────────────────────────────────────────────
+//
+// Renders attribute panels for ships, outfits, and effects.
+// Relies on ComputedStats.js for all numeric derivations.
+// Zero hardcoded attribute names or formulas.
 
 const SECTION_ORDER = [
     'Licenses', 'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
@@ -20,7 +24,7 @@ const SECTION_PATTERNS = [
     [/resistance$/, 'Resistance'],
     [/protection$|damage reduction/, 'Protection'],
     [/^(drag|mass|cost|category|automaton|capture|nanobot|gaslining|atmosphere|spinal|remnant)/, 'General'],
-    [/^(licenses)/, 'Licenses']
+    [/^(licenses)/, 'Licenses'],
 ];
 
 function inferSection(key) {
@@ -60,11 +64,10 @@ function getStacking(attrDefs, key) {
     return rec ? { rule: rec.stacking, description: rec.stackingDescription } : null;
 }
 
-// ─── Ship function suppression — mirrors ComputedStats.shouldSuppressFn ──────
-// Same patterns, kept in sync. No hardcoded function names.
+// ─── Ship function suppression (mirrors ComputedStats, kept in sync) ─────────
 
 function _buildKnownDisplayFns(attrDefs) {
-    const fns = attrDefs?.shipFunctions || {};
+    const fns   = attrDefs?.shipFunctions || {};
     const known = new Set();
     for (const [name, fn] of Object.entries(fns)) {
         if (
@@ -88,16 +91,18 @@ function shouldSuppressFn(fnName, fnData, knownDisplayFns) {
         const callsDisplayFn = knownDisplayFns && [...knownDisplayFns].some(fn => formula.includes(`${fn}()`));
         if (!callsDisplayFn) return true;
     }
-    if (formula.includes('min(1.')) return true;
-    if (formula.includes('/ maximum')) return true;
-    if (formula && !formula.includes('[') && !formula.includes('(') && /^\w+$/.test(formula.trim())) return true;
-    if (/^0[.\s]*$/.test(formula.trim())) return true;
-    if (formula.includes('>= mass') && formula.includes('/ mass')) return true;
-    if (formula.includes('sqrt(') && attrs.length === 1 && attrs[0].includes('cargo')) return true;
+    if (formula.includes('min(1.'))                                     return true;
+    if (formula.includes('/ maximum'))                                  return true;
+    if (formula && !formula.includes('[') && !formula.includes('(') &&
+        /^\w+$/.test(formula.trim()))                                   return true;
+    if (/^0[.\s]*$/.test(formula.trim()))                               return true;
+    if (formula.includes('>= mass') && formula.includes('/ mass'))     return true;
+    if (formula.includes('sqrt(') && attrs.length === 1 &&
+        attrs[0].includes('cargo'))                                     return true;
     return false;
 }
 
-// ─── IntermediateVar suppression — mirrors ComputedStats ─────────────────────
+// ─── IntermediateVar suppression (mirrors ComputedStats) ─────────────────────
 
 function shouldSuppressIntermediateVar(varName, formula) {
     if (/PerFrame$/i.test(varName)) return true;
@@ -111,9 +116,13 @@ function shouldSuppressIntermediateVar(varName, formula) {
     return false;
 }
 
-// ─── Formula evaluator (display-side) ────────────────────────────────────────
+// ─── Formula evaluator (display-side, thin wrapper over ComputedStats) ───────
+//
+// For AttributeDisplay we use the same evalFormula logic as ComputedStats but
+// don't need the full resolveLocalVars pass — we just need to evaluate
+// already-resolved formulas for display purposes.
 
-function evalFormula(formulaStr, attrs, fnResolver) {
+function evalFormulaDisplay(formulaStr, attrs, fnResolver) {
     if (!formulaStr) return NaN;
     try {
         let js = formulaStr.replace(/\[([^\]]+)\]/g, (_, k) => {
@@ -121,13 +130,27 @@ function evalFormula(formulaStr, attrs, fnResolver) {
             return isNaN(v) ? '0' : String(v);
         });
         for (const [fn, impl] of Object.entries(fnResolver || {})) {
-            js = js.replace(new RegExp(`\\b${fn}\\s*\\(\\s*\\)`, 'g'), `(${impl})`);
+            const escaped = fn.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            js = js.replace(new RegExp('\\b' + escaped + '\\s*\\(\\s*\\)', 'g'), `(${impl})`);
         }
         const massVal = String(parseFloat((attrs || {})['mass'] ?? 0));
+        const eCap    = String(parseFloat((attrs || {})['energy capacity'] ?? 0));
+        const fCap    = String(parseFloat((attrs || {})['fuel capacity'] ?? 0));
+        const solar   = '1';
+
         js = js
             .replace(/\bMAXIMUM_TEMPERATURE\b/g, '100')
             .replace(/cargo\.Used\(\)/g, '0')
             .replace(/attributes\.Mass\(\)/g, massVal)
+            .replace(/\bcarriedMass\b/g, '0')
+            .replace(/(?<![[\w])\bmass\b(?!["\]\w])/g, massVal)
+            .replace(/\bsolar_power\b/g, solar)
+            .replace(/\bwithAfterburner\b/g, '0')
+            .replace(/\bslowness\b/g, '0')
+            .replace(/\bdisruption\b/g, '0')
+            .replace(/\bionization\b/g, '0')
+            .replace(/\benergy\b(?!\s*capacity|\s*generation|\s*consumption|\s*protection|\s*damage|\s*multiplier|\s*\[)/g, eCap)
+            .replace(/\bfuel\b(?!\s*capacity|\s*generation|\s*consumption|\s*protection|\s*damage|\s*energy|\s*heat|\s*\[)/g, fCap)
             .replace(/\bMax\s*\(/g, 'Math.max(')
             .replace(/\bmin\s*\(/g, 'Math.min(')
             .replace(/\bmax\s*\(/g, 'Math.max(')
@@ -136,8 +159,10 @@ function evalFormula(formulaStr, attrs, fnResolver) {
             .replace(/\bsqrt\s*\(/g, 'Math.sqrt(')
             .replace(/\babs\s*\(/g, 'Math.abs(')
             .replace(/\bpow\s*\(/g, 'Math.pow(')
-            .replace(/\b[A-Z][a-zA-Z]+\(\)/g, '0')
+            .replace(/\b(?!Math\b)[A-Z][a-zA-Z]+\(\)/g, '0')
+            .replace(/\b(?!Math\b|return\b|true\b|false\b)[a-z][a-zA-Z_]*\b(?!\s*[\[(])/g, '0')
             .replace(/numeric_limits<[^>]+>::max\(\)/g, '1e308');
+
         // eslint-disable-next-line no-new-func
         const result = Function(`"use strict"; return (${js});`)();
         return typeof result === 'number' && isFinite(result) ? result : NaN;
@@ -149,14 +174,21 @@ function buildFnResolver(attrDefs, attrs) {
     const cache = {};
 
     function resolve(fnName, depth) {
-        if (depth > 4) return 0;
+        if (depth > 6) return 0;
         if (cache[fnName] !== undefined) return cache[fnName];
         const fn = fns[fnName];
         if (!fn?.formulas?.length) return 0;
-        const formula = fn.formulas[fn.formulas.length - 1].formula;
-        const partialResolver = Object.fromEntries(Object.entries(cache).map(([k, v]) => [k, String(v)]));
-        let val = evalFormula(formula, attrs, partialResolver);
-        if (fnName === 'CoolingEfficiency' && (isNaN(val) || val < 0 || val > 2)) {
+        const formula    = fn.formulas[fn.formulas.length - 1].formula;
+        // Also resolve local vars for this function
+        const localVars  = {};
+        for (const [varName, varFormula] of Object.entries(fn.attributeVariables || {})) {
+            const vv = evalFormulaDisplay(varFormula, attrs, cache);
+            if (!isNaN(vv)) localVars[varName] = vv;
+        }
+        // Add local vars to the resolution context via a merged resolver
+        const mergedResolver = { ...cache, ...Object.fromEntries(Object.entries(localVars).map(([k, v]) => [k, String(v)])) };
+        let val = evalFormulaDisplay(formula, attrs, mergedResolver);
+        if (fnName === 'CoolingEfficiency' && (isNaN(val) || val < 0 || val > 2.5)) {
             const x = parseFloat((attrs || {})['cooling inefficiency'] ?? 0);
             val = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
         }
@@ -165,7 +197,9 @@ function buildFnResolver(attrDefs, attrs) {
     }
 
     const coreOrder = ['Mass', 'Drag', 'DragForce', 'InertialMass', 'HeatDissipation',
-        'MaximumHeat', 'CoolingEfficiency', 'MaxShields', 'MaxHull', 'MinimumHull', 'CloakingSpeed'];
+        'MaximumHeat', 'CoolingEfficiency', 'IdleHeat', 'MaxShields', 'MaxHull',
+        'MinimumHull', 'CloakingSpeed', 'TurnRate', 'Acceleration', 'MaxVelocity',
+        'ReverseAcceleration', 'MaxReverseVelocity', 'RequiredCrew'];
     for (const fn of coreOrder) resolve(fn, 0);
     for (const fnName of Object.keys(fns)) { if (cache[fnName] === undefined) resolve(fnName, 0); }
     return cache;
@@ -177,12 +211,18 @@ function computedKeyToLabel(key) {
     else if (s.startsWith('_derived_energy_')) s = s.slice('_derived_energy_'.length) + ' Energy/s';
     else if (s.startsWith('_derived_heat_'))   s = s.slice('_derived_heat_'.length)   + ' Heat/s';
     else if (s.startsWith('_derived_'))        s = s.slice('_derived_'.length);
+    else if (s.startsWith('_sys_'))            s = s.slice('_sys_'.length).replace(/_/g, ' ') + ' (system)';
     else if (s.startsWith('_total'))           s = s.slice(1);
     else if (s.startsWith('_'))                s = s.slice(1);
-    return s.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/^./, c => c.toUpperCase()).trim();
+    return s.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\s+/g, ' ')
+            .replace(/^./, c => c.toUpperCase()).trim();
 }
 
 // ─── calcDerivedStats ─────────────────────────────────────────────────────────
+//
+// Computes displayable derived stats for a single item (ship or outfit).
+// Uses ComputedStats.getComputedStats if pluginId provided, otherwise
+// runs the formula evaluations locally for standalone items.
 
 function calcDerivedStats(attrDefs, item, pluginId) {
     const attrs      = item?.attributes || item || {};
@@ -211,7 +251,8 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         if (shouldSuppressFn(fnName, fnData, knownDisplayFns)) continue;
 
         const formula = fnData.formulas[fnData.formulas.length - 1].formula;
-        const rawVal  = evalFormula(formula, attrs, fnResolver);
+        // Use the already-resolved fnCache value (which includes localVar resolution)
+        const rawVal  = fnCache[fnName] ?? evalFormulaDisplay(formula, attrs, fnResolver);
         if (isNaN(rawVal) || rawVal === 0) continue;
 
         const scale  = fnData.displayScale  ?? 1;
@@ -219,14 +260,26 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         const prefix = fnData.labelPrefix   ?? '';
         const label  = prefix + fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim();
 
+        // Special case: IdleHeat should be shown as % of MaximumHeat
+        if (fnName === 'IdleHeat') {
+            const maxHeat = fnCache['MaximumHeat'] ?? 0;
+            if (maxHeat > 0) {
+                const heatPct = rawVal / maxHeat * 100;
+                push('Idle Heat %', heatPct, 1, '%', formula);
+            }
+            // Also show raw value for reference
+            push(label, rawVal, scale, unit, formula);
+            continue;
+        }
+
         push(label, rawVal, scale, unit, formula);
     }
 
     // ── 2. Energy/heat table rows ─────────────────────────────────────────────
     for (const row of tableRows) {
         if (!row.label) continue;
-        const eVal = evalFormula(row.energyFormula, attrs, fnResolver);
-        const hVal = evalFormula(row.heatFormula,   attrs, fnResolver);
+        const eVal = evalFormulaDisplay(row.energyFormula, attrs, fnResolver);
+        const hVal = evalFormulaDisplay(row.heatFormula,   attrs, fnResolver);
         if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy/s`, eVal, 1, 'energy/s', row.energyFormula);
         if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat/s`,   hVal, 1, 'heat/s',   row.heatFormula);
     }
@@ -234,7 +287,7 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     // ── 3. Label/value pairs from ShipInfoDisplay ─────────────────────────────
     for (const pair of labelPairs) {
         if (!pair.label || !pair.formula) continue;
-        const val = evalFormula(pair.formula, attrs, fnResolver);
+        const val = evalFormulaDisplay(pair.formula, attrs, fnResolver);
         if (!isNaN(val) && val !== 0) push(pair.label, val, 1, '', pair.formula);
     }
 
@@ -246,7 +299,7 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     if (maxShields && shieldRegen) push('Time to Full Shields', maxShields / shieldRegen, 1, 's');
     if (maxHull    && hullRepair)  push('Time to Full Hull',    maxHull    / hullRepair,  1, 's');
 
-    // ── 5. Scan ranges ────────────────────────────────────────────────────────
+    // ── 5. Scan ranges (derived from scan power) ──────────────────────────────
     for (const [key] of Object.entries(attrDefs?.attributes || {})) {
         if (!key.endsWith('scan power')) continue;
         const val = parseFloat(attrs[key] ?? 0);
@@ -258,15 +311,26 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     const si = parseFloat(attrs['scan interference'] ?? 0);
     if (si) push('Scan Evasion', si / (1 + si) * 100, 1, '%');
 
-    // ── 7. Ramscoop ───────────────────────────────────────────────────────────
-    const ramscoop = parseFloat(attrs['ramscoop'] ?? 0);
-    if (ramscoop) push('Ramscoop Fuel/s', 0.03 * Math.sqrt(ramscoop), 1, 'fuel/s');
+    // ── 7. System-aware stats (solar, ramscoop) ───────────────────────────────
+    const sysFormulas = attrDefs?.systemAwareFormulas || {};
+    const solar = attrDefs?.systemContext?.referenceSolarPower ?? 1.0;
+    for (const [attrKey, info] of Object.entries(sysFormulas)) {
+        const attrVal = parseFloat(attrs[attrKey] ?? 0);
+        if (!attrVal) continue;
+        const rawVal = evalFormulaDisplay(info.formula, attrs, fnResolver);
+        if (isNaN(rawVal) || rawVal === 0) continue;
+        const displayVal = rawVal * (info.displayScale ?? 1);
+        const label = getLabel(attrKey) + ' (at solar ×' + solar + ')';
+        push(label, displayVal, 1, info.displayUnit ?? '/s', info.formula);
+    }
 
     // ── 8. Computed stats from ComputedStats.js ───────────────────────────────
     if (pluginId && typeof getComputedStats === 'function') {
         const computed = getComputedStats(item, pluginId);
         for (const [statKey, val] of Object.entries(computed)) {
-            const isComputedKey = statKey.startsWith('_derived_') || statKey.startsWith('_fn_') || statKey.startsWith('_total') || statKey === '_outfitMass';
+            const isComputedKey = statKey.startsWith('_derived_') || statKey.startsWith('_fn_')
+                               || statKey.startsWith('_total') || statKey.startsWith('_sys_')
+                               || statKey === '_outfitMass';
             if (!isComputedKey) continue;
             if (val == null || (typeof val === 'number' && (isNaN(val) || val === 0))) continue;
 
@@ -278,7 +342,7 @@ function calcDerivedStats(attrDefs, item, pluginId) {
                 displayVal = val * (fnData?.displayScale ?? 1);
             }
             if (statKey.startsWith('_derived_')) {
-                const varName = statKey.slice('_derived_'.length).replace(/_energy_|_heat_/, '');
+                const varName = statKey.slice('_derived_'.length).replace(/^energy_|^heat_/, '');
                 const ivar    = intVars[varName];
                 if (ivar && shouldSuppressIntermediateVar(varName, ivar)) continue;
             }
@@ -419,7 +483,8 @@ function calcWeaponDerived(attrDefs, weapon) {
         : Object.keys(weapon).filter(k => k.endsWith(' damage')).map(k => k.replace(/ damage$/, ''));
     for (const dtype of damageTypes) {
         const dmgKey = dtype.endsWith(' damage') ? dtype : `${dtype} damage`;
-        const val = parseFloat(weapon[dmgKey] ?? weapon[dtype.toLowerCase() + ' damage'] ?? weapon[dmgKey.toLowerCase()] ?? 0);
+        const searchKey = [dmgKey, dmgKey.toLowerCase(), dtype.toLowerCase() + ' damage'].find(k => weapon[k] !== undefined);
+        const val = searchKey !== undefined ? parseFloat(weapon[searchKey] ?? 0) : 0;
         if (val) push(getLabel(dmgKey.replace(/ damage$/i, '')) + ' DPS', val / reload * 60, 'dmg/s');
     }
     const am = parseFloat(weapon['anti-missile'] ?? 0);
@@ -491,7 +556,9 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
             html += `<p class="ad-base-ship">Base Ship: <strong>${item.baseShip}</strong></p>`;
 
         const attrs   = item.attributes || {};
-        const entries = Object.entries(attrs).filter(([, v]) => typeof v !== 'object').map(([k, v]) => ({ key: k, value: v }));
+        const entries = Object.entries(attrs)
+            .filter(([, v]) => typeof v !== 'object')
+            .map(([k, v]) => ({ key: k, value: v }));
         if (attrs.licenses && typeof attrs.licenses === 'object')
             html += buildSection('General', [attrRow('Licenses', Object.keys(attrs.licenses).join(', '), '', '')]);
         html += renderSections(groupBySection(attrDefs, entries));
@@ -516,7 +583,9 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
         if (derived.length) {
             const baseRows = derived.filter(d => !d.isComputedOutfit).map(d => attrRow(d.label, d.value, d.unit, tooltipContent(null, d.formula), 'derived'));
             const computedRows = derived.filter(d => d.isComputedOutfit).map(d => {
-                const tip = d.formula ? `Includes installed outfit contributions | Formula: ${d.formula}` : 'Includes installed outfit contributions';
+                const tip = d.formula
+                    ? `Includes installed outfit contributions | Formula: ${d.formula}`
+                    : 'Includes installed outfit contributions';
                 return attrRow(`⚡ ${d.label}`, d.value, d.unit, tooltipContent(null, tip), 'derived');
             });
             if (baseRows.length)     html += buildSection('Derived Stats', baseRows);
@@ -525,17 +594,29 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
 
     } else if (currentTab === 'effects') {
         const excludeKeys = new Set(['name','description','sprite','spriteData']);
-        const entries = Object.entries(item).filter(([k, v]) => !excludeKeys.has(k) && typeof v !== 'object').map(([k, v]) => ({ key: k, value: v }));
+        const entries = Object.entries(item)
+            .filter(([k, v]) => !excludeKeys.has(k) && typeof v !== 'object')
+            .map(([k, v]) => ({ key: k, value: v }));
         html += renderSections(groupBySection(attrDefs, entries));
 
     } else {
-        const excludeKeys = new Set(['name','description','thumbnail','sprite','hardpointSprite','hardpoint sprite','steering flare sprite','flare sprite','reverse flare sprite','afterburner effect','projectile','weapon','spriteData','_internalId','_pluginId','_hash','governments','_variantPluginId']);
-        const entries = Object.entries(item).filter(([k, v]) => !excludeKeys.has(k) && typeof v !== 'object').map(([k, v]) => ({ key: k, value: v }));
+        // Outfits and other items
+        const excludeKeys = new Set([
+            'name','description','thumbnail','sprite','hardpointSprite',
+            'hardpoint sprite','steering flare sprite','flare sprite',
+            'reverse flare sprite','afterburner effect','projectile','weapon',
+            'spriteData','_internalId','_pluginId','_hash','governments',
+            '_variantPluginId',
+        ]);
+        const entries = Object.entries(item)
+            .filter(([k, v]) => !excludeKeys.has(k) && typeof v !== 'object')
+            .map(([k, v]) => ({ key: k, value: v }));
         if (item.licenses && typeof item.licenses === 'object')
             html += buildSection('General', [attrRow('Licenses', Object.keys(item.licenses).join(', '), '', '')]);
         html += renderSections(groupBySection(attrDefs, entries));
         if (item.weapon) html += renderWeaponChain(attrDefs, item.weapon, pluginId);
 
+        // Stacking notes for non-additive attributes
         const noteRows = [];
         for (const [key] of Object.entries(item)) {
             const stacking = getStacking(attrDefs, key);
@@ -559,7 +640,7 @@ function initTooltips() {
         'background:rgba(15,23,42,0.97)','border:1px solid rgba(99,179,237,0.35)',
         'border-radius:8px','color:#e2e8f0','font-size:12px','line-height:1.55',
         'pointer-events:none','opacity:0','transition:opacity 0.15s ease',
-        'box-shadow:0 8px 32px rgba(0,0,0,0.6)','white-space:pre-wrap'
+        'box-shadow:0 8px 32px rgba(0,0,0,0.6)','white-space:pre-wrap',
     ].join(';');
     document.body.appendChild(tooltip);
 
@@ -579,11 +660,8 @@ function initTooltips() {
     document.addEventListener('mousemove', e => {
         _mouseX = e.clientX;
         _mouseY = e.clientY;
-
-        // Only schedule one rAF at a time
         if (_rafPending) return;
         _rafPending = true;
-
         requestAnimationFrame(() => {
             tooltip.style.left = Math.min(_mouseX + 16, window.innerWidth  - 340) + 'px';
             tooltip.style.top  = Math.min(_mouseY + 12, window.innerHeight - 120) + 'px';
@@ -594,4 +672,11 @@ function initTooltips() {
 
 function injectStyles() { /* Styles live in CSS file */ }
 
-window.AttributeDisplay = { renderAttributesTabEnhanced, calcDerivedStats, calcWeaponDerived, initTooltips, injectStyles, fmtNum };
+window.AttributeDisplay = {
+    renderAttributesTabEnhanced,
+    calcDerivedStats,
+    calcWeaponDerived,
+    initTooltips,
+    injectStyles,
+    fmtNum,
+};

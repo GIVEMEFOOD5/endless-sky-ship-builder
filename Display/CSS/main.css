@@ -1396,6 +1396,7 @@ h1 {
   padding: 0;
   flex-shrink: 0;
   transition: background var(--nav-t), border-color var(--nav-t);
+  margin-left: auto;
 }
 .es-nav__hamburger:hover {
   background: var(--nav-hover-bg);
@@ -1489,7 +1490,7 @@ h1 {
 .es-nav__drawer .es-nav__icon { font-size: 1rem; line-height: 1; }
 
 /* ── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .es-nav__links    { display: none; }
   .es-nav__divider  { display: none; }
   .es-nav__spacer   { display: none; }

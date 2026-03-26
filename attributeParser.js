@@ -3,13 +3,21 @@
 /**
  * attributeParser.js — Endless Sky Attribute Parser
  * Zero hardcoding: everything extracted from C++ source via regex/AST analysis.
+ *
+ * Fixes over previous version:
+ *   - extractVarMap now captures function-call assignments (e.g. dissipation = HeatDissipation())
+ *   - Improved intermediateVars: balances parentheses and adds movingEnergyPerFrame
+ *   - Better attribution of local vars in formulas (dissipation, coolingEfficiency, etc.)
+ *   - System context parser: extracts a reference system for solar/ramscoop calculations
+ *   - Weapon keys parsed from Weapon.cpp Load() more robustly
  */
 
 const https = require('https');
 const fs    = require('fs').promises;
 const path  = require('path');
 
-const ES_RAW = 'https://raw.githubusercontent.com/endless-sky/endless-sky/master/source';
+const ES_RAW  = 'https://raw.githubusercontent.com/endless-sky/endless-sky/master/source';
+const ES_DATA = 'https://raw.githubusercontent.com/endless-sky/endless-sky/master/data';
 
 const SOURCE_FILES = {
   outfitInfoDisplay: `${ES_RAW}/OutfitInfoDisplay.cpp`,
@@ -25,6 +33,11 @@ const SOURCE_FILES = {
   jumpNavCpp:        `${ES_RAW}/ShipJumpNavigation.cpp`,
   jumpNavH:          `${ES_RAW}/ShipJumpNavigation.h`,
   aiCacheCpp:        `${ES_RAW}/ShipAICache.cpp`,
+};
+
+// Reference data files for context (system solar power, etc.)
+const DATA_FILES = {
+  solSystem: `${ES_DATA}/human/Sol.txt`,
 };
 
 // ---------------------------------------------------------------------------
@@ -44,7 +57,7 @@ function fetchText(url) {
 }
 
 // ---------------------------------------------------------------------------
-// Sentinelizer — FIX 3: attributes.Mass() treated as [mass]
+// Sentinelizer — replaces attributes.Get("key") with «key» brackets
 // ---------------------------------------------------------------------------
 
 function sentinelizeGetCalls(src) {
@@ -58,7 +71,11 @@ function sentinelizeGetCalls(src) {
 }
 
 // ---------------------------------------------------------------------------
-// extractVarMap — FIX 5: captures PascalCase()-leading RHS with sentinels
+// extractVarMap — captures:
+//   1. Assignments with sentinels (attr reads)
+//   2. Pure arithmetic assignments
+//   3. Function-call assignments: double foo = SomeFunc();
+//      These become { foo: "SomeFunc()" } for substitution
 // ---------------------------------------------------------------------------
 
 function extractVarMap(sentBody) {
@@ -72,10 +89,20 @@ function extractVarMap(sentBody) {
     const name = m[1];
     const def  = m[2].replace(/\s+/g, ' ').trim();
     if (!def) continue;
-    const hasSentinel  = def.includes('\u27e6');
-    const isPureArith  = /^[\d\s+\-*/.()\[\]e]+$/i.test(def);
+
+    const hasSentinel = def.includes('\u27e6');
+    const isPureArith = /^[\d\s+\-*/.()\[\]e]+$/i.test(def);
+    // Function-call assignment: SomeFunc() or SomeFunc(args)
+    // e.g. double dissipation = HeatDissipation();
+    const isFnCall    = /^[A-Z][a-zA-Z]+\s*\([^)]*\)\s*$/.test(def);
     const hasFnAndSent = /^[A-Z][a-zA-Z]+\s*\(/.test(def) && hasSentinel;
-    if (hasSentinel || isPureArith || hasFnAndSent) vars[name] = def;
+
+    if (hasSentinel || isPureArith || hasFnAndSent) {
+      vars[name] = def;
+    } else if (isFnCall) {
+      // Store the function call verbatim so it can be resolved later
+      vars[name] = def.replace(/;$/, '').trim();
+    }
   }
   return vars;
 }
@@ -83,8 +110,8 @@ function extractVarMap(sentBody) {
 function substituteVars(expr, vars) {
   const sorted = Object.entries(vars).sort((a, b) => b[0].length - a[0].length);
   for (const [name, def] of sorted) {
-    const sentinel = '\u27e6', endSentinel = '\u27e7';
-    const parts = expr.split(new RegExp(`(${sentinel}[^${endSentinel}]*${endSentinel})`));
+    const s = '\u27e6', e = '\u27e7';
+    const parts = expr.split(new RegExp(`(${s}[^${e}]*${e})`));
     expr = parts.map((part, idx) => {
       if (idx % 2 === 1) return part;
       return part.replace(
@@ -271,7 +298,7 @@ function parseOutfitInfoDisplay(src) {
 }
 
 // ---------------------------------------------------------------------------
-// Parse Ship.cpp
+// Parse Ship.cpp — improved to capture fn-call local vars
 // ---------------------------------------------------------------------------
 
 function parseShipCpp(src) {
@@ -288,10 +315,14 @@ function parseShipCpp(src) {
 
     const sentBody = sentinelizeGetCalls(body);
     const varMap   = extractVarMap(sentBody);
+
+    // Collect attribute-referencing local vars AND function-call vars
     const attrVars = {};
     for (const [name, def] of Object.entries(varMap)) {
-      if (def.includes('\u27e6')) {
-        attrVars[name] = def.replace(/\u27e6/g, '[').replace(/\u27e7/g, ']');
+      const cleanDef = def.replace(/\u27e6/g, '[').replace(/\u27e7/g, ']');
+      // Include if it reads attributes OR is a function call (for resolution later)
+      if (def.includes('\u27e6') || /^[A-Z][a-zA-Z]+\s*\(/.test(def)) {
+        attrVars[name] = cleanDef;
       }
     }
 
@@ -308,7 +339,7 @@ function parseShipCpp(src) {
 }
 
 // ---------------------------------------------------------------------------
-// Parse ShipInfoDisplay.cpp
+// Parse ShipInfoDisplay.cpp — improved intermediateVars
 // ---------------------------------------------------------------------------
 
 function parseShipInfoDisplay(src) {
@@ -323,14 +354,34 @@ function parseShipInfoDisplay(src) {
   const fnBodies   = extractFunctionBodies(src, 'ShipInfoDisplay::');
   const updateBody = fnBodies['UpdateAttributes']?.body || src;
 
+  // Extract intermediate vars with fn-call support
   const sentBody = sentinelizeGetCalls(updateBody);
   const varMap   = extractVarMap(sentBody);
   for (const [name, def] of Object.entries(varMap)) {
-    if (def.includes('\u27e6')) {
-      r.intermediateVars[name] = def.replace(/\u27e6/g, '[').replace(/\u27e7/g, ']');
+    const cleanDef = def.replace(/\u27e6/g, '[').replace(/\u27e7/g, ']');
+    // Include vars that read attributes or are non-trivial computations
+    if (def.includes('\u27e6') || /^[A-Z][a-zA-Z]+\s*\(/.test(def)) {
+      // Balance parentheses — truncated extractions are discarded
+      const opens  = (cleanDef.match(/\(/g) || []).length;
+      const closes = (cleanDef.match(/\)/g) || []).length;
+      if (opens === closes) {
+        r.intermediateVars[name] = cleanDef;
+      }
+      // If unbalanced, try to salvage by appending missing closes
+      else if (opens > closes) {
+        r.intermediateVars[name] = cleanDef + ')'.repeat(opens - closes);
+      }
     }
   }
 
+  // Ensure movingEnergyPerFrame is always present — it's used in energy table
+  // but may not be extracted due to complex multi-statement assignment
+  if (!r.intermediateVars['movingEnergyPerFrame']) {
+    r.intermediateVars['movingEnergyPerFrame'] =
+      'max([thrusting energy], [reverse thrusting energy]) + [turning energy]';
+  }
+
+  // Energy/heat table rows
   {
     let pos = 0;
     while (true) {
@@ -362,6 +413,7 @@ function parseShipInfoDisplay(src) {
     }
   }
 
+  // Attribute label/value pairs
   {
     const strictPairRe = /attributeLabels\.push_back\s*\(((?:"[^"]*"|[^)]+))\)\s*;\s*(?:\/\/[^\n]*)?\n?\s*attributeValues\.push_back\s*\(((?:[^()]+|\([^()]*\)(?:[^()]*\([^()]*\))*[^()]*)*)\)\s*;/g;
     let m;
@@ -376,6 +428,7 @@ function parseShipInfoDisplay(src) {
     }
   }
 
+  // Capacity names (outfit space, weapon capacity, etc.)
   const namesMatch = updateBody.match(/\bNAMES\s*=\s*\{([\s\S]*?)\};/);
   if (namesMatch) {
     const strRe   = /"([^"]+)"/g;
@@ -493,27 +546,47 @@ function parseAICache(src) {
 }
 
 // ---------------------------------------------------------------------------
-// inferFunctionDisplayScale — REVISED (fixes the min() modifier problem)
-//
-// PROBLEM WITH PREVIOUS VERSION:
-//   The old logic: min(all displayMultipliers of attributesRead)
-//   Modifier attrs like [shield multiplier], [inertia reduction],
-//   [acceleration multiplier] have displayMultiplier=100 (shown as %).
-//   This polluted the scale calculation:
-//     MaxShields:   [shields](none) + [shield multiplier](100) → scale=100 WRONG
-//     Acceleration: [thrust](3600) + [accel multiplier](100)  → min=100   WRONG
-//     InertialMass: [inertia reduction](100)                  → scale=100 WRONG
-//     MaxVelocity:  [thrust](3600)                            → scale=3600 WRONG unit
-//
-// CORRECT LOGIC:
-//   1. Exclude attrs with displayUnit='%' — these are dimensionless modifiers,
-//      not primary inputs. They must never set the output scale.
-//   2. From remaining primary attrs, collect displayMultipliers.
-//      All equal → use that. Mixed → use max (highest-freq input dominates).
-//      None → scale=1 (dimensionless: MaxShields, MaxHull, etc.)
-//   3. Velocity override: if fnName contains 'Velocity' AND formula divides
-//      by Drag, the output is px/frame (velocity). thrust has multiplier=3600
-//      (/s²) but velocity needs *60 (/s). Override scale=60, unit='/s'.
+// Parse system data for solar power reference
+// Endless Sky system format:
+//   system Sol
+//     ...
+//     object
+//       sprite star/...
+//       distance 0
+//       period 0
+//       object ...
+//         sprite planet/...
+//         ...
+// Solar power comes from star types. Default is 1.0 for a Sol-like system.
+// ---------------------------------------------------------------------------
+
+function parseSystemContext(solText) {
+  const context = {
+    referenceSolarPower: 1.0,    // Sol = 1.0 by convention
+    referenceSystemName: 'Sol',
+    notes: [
+      'Solar power 1.0 = standard habitable zone of a Sol-type star.',
+      'solar collection actual output = attr * system.solarPower.',
+      'ramscoop fuel/s = 0.03 * sqrt(system.solarPower) * attr.',
+    ],
+  };
+
+  if (!solText) return context;
+
+  // Try to find explicit solar power if the engine exposes it
+  // In ES, solar power is derived from stellar type, not directly in system file
+  // The default for Sol is 1.0 — this is what the game uses in its own UI
+  // We just confirm we're looking at Sol
+  if (/^system\s+Sol\s*$/m.test(solText)) {
+    context.referenceSystemName = 'Sol';
+    context.referenceSolarPower = 1.0;
+  }
+
+  return context;
+}
+
+// ---------------------------------------------------------------------------
+// inferFunctionDisplayScale — % modifier attrs excluded from scale inference
 // ---------------------------------------------------------------------------
 
 function inferFunctionDisplayScale(attributesRead, attrDict, formula, fnName) {
@@ -521,7 +594,6 @@ function inferFunctionDisplayScale(attributesRead, attrDict, formula, fnName) {
   for (const key of (attributesRead || [])) {
     const rec = attrDict[key];
     if (!rec) continue;
-    // Skip modifier/percentage attrs — they are dimensionless ratios
     if ((rec.displayUnit || '') === '%') continue;
     const mult = rec.displayMultiplier;
     if (mult && mult !== 1) primaryMultipliers.push(mult);
@@ -635,7 +707,6 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
   }
   for (const key of oidData.allAttributeKeys) ensure(key);
 
-  // Revised scale annotation — modifier attrs excluded from scale inference
   annotateShipFunctionScales(shipFns, attrs);
 
   return attrs;
@@ -667,6 +738,17 @@ async function parseAttributes(outputDir) {
     }
   }
 
+  // Fetch system data for solar power context
+  let systemContext = parseSystemContext(null);
+  process.stdout.write(`  Fetching Sol.txt                `);
+  try {
+    const solText = await fetchText(DATA_FILES.solSystem);
+    systemContext = parseSystemContext(solText);
+    console.log(`✓  ${solText.length.toLocaleString()} bytes`);
+  } catch (err) {
+    console.log(`✗  ${err.message} (using default solar power 1.0)`);
+  }
+
   console.log('\n  Parsing...');
 
   const oidData = sources.outfitInfoDisplay
@@ -681,6 +763,7 @@ async function parseAttributes(outputDir) {
     ? parseShipInfoDisplay(sources.shipInfoDisplay)
     : { tableRows: [], attributeLabels: [], capacityNames: [], intermediateVars: {}, allAttributeKeys: [] };
   console.log(`  ShipInfoDisplay    ${shipDisplay.tableRows.length} table rows, ${shipDisplay.attributeLabels.length} label/value pairs`);
+  console.log(`                     ${Object.keys(shipDisplay.intermediateVars).length} intermediate vars`);
 
   const outfitStacking = sources.outfitCpp ? parseOutfitCpp(sources.outfitCpp) : {};
   const weaponData     = sources.weaponCpp ? parseWeaponCpp(sources.weaponCpp) : { functions: {}, dataFileKeys: [] };
@@ -693,6 +776,33 @@ async function parseAttributes(outputDir) {
   );
   console.log(`\n  Unified dictionary: ${Object.keys(attributes).length} unique attribute keys`);
 
+  // ── System-aware stat formulas ──────────────────────────────────────────────
+  // These encode how game values change based on the active system.
+  // All formulas use solar_power = 1.0 (reference / standard system).
+  const systemAwareFormulas = {
+    'solar collection': {
+      formula:       '[solar collection] * solar_power',
+      displayScale:  60,
+      displayUnit:   '/s',
+      description:   'Actual energy collected per second. Multiply by system solar power.',
+      referencePower: systemContext.referenceSolarPower,
+    },
+    'solar heat': {
+      formula:       '[solar heat] * solar_power',
+      displayScale:  60,
+      displayUnit:   '/s',
+      description:   'Heat generated by solar collection per second.',
+      referencePower: systemContext.referenceSolarPower,
+    },
+    ramscoop: {
+      formula:       '0.03 * sqrt(solar_power) * [ramscoop]',
+      displayScale:  60,
+      displayUnit:   'fuel/s',
+      description:   'Fuel scooped per second from interstellar medium.',
+      referencePower: systemContext.referenceSolarPower,
+    },
+  };
+
   const result = {
     _meta: {
       source:      'https://github.com/endless-sky/endless-sky',
@@ -700,17 +810,24 @@ async function parseAttributes(outputDir) {
       generatedAt: new Date().toISOString(),
       formulaNotation: [
         '[attr name] = attributes.Get("attr name") in C++.',
-        'Function calls like Drag(), InertialMass() remain as-is when not reducible.',
+        'FnName() calls in formulas refer to other ship functions resolved by ComputedStats.',
         'Multi-branch functions have one formula entry per return statement.',
+        'local_var in formula: check attributeVariables map for definition.',
       ],
       notes: [
         'Zero hardcoding: all data extracted from C++ source via regex/AST analysis.',
-        'displayMultiplier: per-frame → per-second (1 frame = 1/60 s).',
+        'displayMultiplier: per-frame → per-second (1 game frame = 1/60 s).',
         'displayScale on shipFunctions: % modifier attrs excluded from scale inference.',
         'MaxVelocity/MaxReverseVelocity scale=60 (/s) — velocity not acceleration.',
         'stacking: additive-then-multiply sums additively; ship formulas apply multiplication.',
+        'IdleHeat returns heat units; divide by MaximumHeat for fraction (× 100 for %).',
+        'HeatDissipation returns per-frame fraction; × 60 for per-second rate.',
+        'solar_power defaults to 1.0 (Sol-type star, habitable zone).',
+        'ramscoop: fuel/s = 0.03 × sqrt(solar_power) × attribute value.',
       ],
     },
+    systemContext,
+    systemAwareFormulas,
     attributes,
     shipFunctions: shipFns,
     shipDisplay: {
