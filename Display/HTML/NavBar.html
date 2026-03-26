@@ -1,100 +1,88 @@
 <!-- ════════════════════════════════════════════════════════════
      navbar.html  —  Endless Sky Data Viewer  |  Top Navigation
-     Styles : ../CSS/main.css  (navbar section at the bottom)
+     Styles : ../CSS/main.css
      Logic  : ../JavaScript/navBar.js
      ════════════════════════════════════════════════════════════ -->
 
-<nav id="es-navbar">
+<nav class="es-nav">
 
-  <!-- Brand -->
-  <a href="index.html" class="nav-brand">
-    <span class="nav-brand-icon">🚀</span>
+  <a href="index.html" class="es-nav__brand">
+    <span class="es-nav__brand-icon">🚀</span>
     Endless Sky
   </a>
 
-  <div class="nav-divider"></div>
+  <div class="es-nav__divider"></div>
 
-  <!-- Desktop link list -->
-  <!-- ╔══════════════════════════════════════════════════════════╗
-       ║  EDIT YOUR PAGES HERE                                    ║
-       ║  • href      = relative path to the page                 ║
-       ║  • data-page = unique key for active-link highlighting   ║
-       ║  • Duplicate a .nav-dropdown <li> to add grouped pages  ║
-       ╚══════════════════════════════════════════════════════════╝ -->
-  <ul class="nav-links" id="es-nav-links">
+  <ul class="es-nav__links" id="es-nav-links">
 
     <li>
-      <a href="DataViewer.html" class="nav-link" data-page="dataviewer">
-        <span class="nav-icon">🔭</span> Data Viewer
+      <a href="DataViewer.html" class="es-nav__link" data-page="dataviewer">
+        <span class="es-nav__icon">🔭</span> Data Viewer
       </a>
     </li>
 
-    <li class="nav-dropdown" id="nav-dd-browse">
-      <button class="nav-link nav-dropdown-toggle" data-page="browse">
-        <span class="nav-icon">📦</span> Browse
+    <li class="es-nav__dropdown" id="nav-dd-browse">
+      <button class="es-nav__link es-nav__dropdown-toggle" data-page="browse">
+        <span class="es-nav__icon">📦</span> Browse
       </button>
-      <div class="nav-dropdown-menu">
-        <a href="Ships.html"       class="nav-dropdown-item" data-page="ships">
-          <span class="nav-icon">🛸</span> Ships
+      <!-- Menu sits outside the scrollable list, anchored by JS -->
+      <div class="es-nav__dropdown-menu">
+        <a href="Ships.html"       class="es-nav__dropdown-item" data-page="ships">
+          <span class="es-nav__icon">🛸</span> Ships
         </a>
-        <a href="Outfits.html"     class="nav-dropdown-item" data-page="outfits">
-          <span class="nav-icon">⚙️</span> Outfits
+        <a href="Outfits.html"     class="es-nav__dropdown-item" data-page="outfits">
+          <span class="es-nav__icon">⚙️</span> Outfits
         </a>
-        <a href="Variants.html"    class="nav-dropdown-item" data-page="variants">
-          <span class="nav-icon">🔀</span> Variants
+        <a href="Variants.html"    class="es-nav__dropdown-item" data-page="variants">
+          <span class="es-nav__icon">🔀</span> Variants
         </a>
-        <div class="nav-dropdown-sep"></div>
-        <a href="Governments.html" class="nav-dropdown-item" data-page="governments">
-          <span class="nav-icon">🏛️</span> Governments
+        <div class="es-nav__dropdown-sep"></div>
+        <a href="Governments.html" class="es-nav__dropdown-item" data-page="governments">
+          <span class="es-nav__icon">🏛️</span> Governments
         </a>
-        <a href="Systems.html"     class="nav-dropdown-item" data-page="systems">
-          <span class="nav-icon">🌌</span> Systems
+        <a href="Systems.html"     class="es-nav__dropdown-item" data-page="systems">
+          <span class="es-nav__icon">🌌</span> Systems
         </a>
       </div>
     </li>
 
-    <li class="nav-dropdown" id="nav-dd-tools">
-      <button class="nav-link nav-dropdown-toggle" data-page="tools">
-        <span class="nav-icon">🛠️</span> Tools
+    <li class="es-nav__dropdown" id="nav-dd-tools">
+      <button class="es-nav__link es-nav__dropdown-toggle" data-page="tools">
+        <span class="es-nav__icon">🛠️</span> Tools
       </button>
-      <div class="nav-dropdown-menu">
-        <a href="Comparator.html"  class="nav-dropdown-item" data-page="comparator">
-          <span class="nav-icon">⚖️</span> Comparator
+      <div class="es-nav__dropdown-menu">
+        <a href="Comparator.html"  class="es-nav__dropdown-item" data-page="comparator">
+          <span class="es-nav__icon">⚖️</span> Comparator
         </a>
-        <a href="FitEditor.html"   class="nav-dropdown-item" data-page="fiteditor">
-          <span class="nav-icon">🔧</span> Fit Editor
+        <a href="FitEditor.html"   class="es-nav__dropdown-item" data-page="fiteditor">
+          <span class="es-nav__icon">🔧</span> Fit Editor
         </a>
-        <a href="Calculator.html"  class="nav-dropdown-item" data-page="calculator">
-          <span class="nav-icon">🧮</span> Calculator
+        <a href="Calculator.html"  class="es-nav__dropdown-item" data-page="calculator">
+          <span class="es-nav__icon">🧮</span> Calculator
         </a>
       </div>
     </li>
 
     <li>
-      <a href="Plugins.html" class="nav-link" data-page="plugins">
-        <span class="nav-icon">🧩</span> Plugins
+      <a href="Plugins.html" class="es-nav__link" data-page="plugins">
+        <span class="es-nav__icon">🧩</span> Plugins
       </a>
     </li>
 
     <li>
-      <a href="About.html" class="nav-link" data-page="about">
-        <span class="nav-icon">ℹ️</span> About
+      <a href="About.html" class="es-nav__link" data-page="about">
+        <span class="es-nav__icon">ℹ️</span> About
       </a>
     </li>
 
   </ul>
-  <!-- END EDITABLE LINKS -->
 
-  <div class="nav-spacer"></div>
+  <div class="es-nav__spacer"></div>
 
-  <!-- Hamburger (mobile only — shown via CSS media query) -->
-  <button class="nav-hamburger" aria-label="Toggle menu">
+  <button class="es-nav__hamburger" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
 
 </nav>
 
-<!-- Mobile drawer — JS mirrors the link list above into here -->
-<div id="es-navbar-drawer"></div>
-
-<script src="../JavaScript/navBar.js"></script>
+<div class="es-nav__drawer"></div>
