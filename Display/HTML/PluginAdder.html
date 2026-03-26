@@ -176,13 +176,13 @@
 
 <div id="navbar-mount"></div>
    <script>
-       fetch('../HTML/navbar.html')
+       fetch('../HTML/NavBar.html')
            .then(r => r.text())
            .then(html => {
                document.getElementById('navbar-mount').innerHTML = html;
                // Load the navbar script only after the markup exists
                const s = document.createElement('script');
-               s.src = '../JavaScript/navbar.js';
+               s.src = '../JavaScript/navBar.js';
                document.body.appendChild(s);
            })
            .catch(() => console.warn('Navbar failed to load.'));
