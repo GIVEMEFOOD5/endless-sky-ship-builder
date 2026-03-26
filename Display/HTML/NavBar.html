@@ -1,0 +1,81 @@
+<!-- ════════════════════════════════════════════════════════════
+     navbar.html  —  Endless Sky Data Viewer  |  Top Navigation
+     Styles : ../CSS/main.css  (navbar section at the bottom)
+     Logic  : ../JavaScript/navbar.js
+     ════════════════════════════════════════════════════════════ -->
+
+<!-- ── Navbar markup ────────────────────────────────────────── -->
+<nav id="es-navbar">
+
+  <!-- Brand -->
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-icon">🚀</span>
+    Endless Sky
+  </a>
+
+  <div class="nav-divider"></div>
+
+  <!-- Desktop link list -->
+
+  <ul class="nav-links" id="es-nav-links">
+
+    <!--<li>
+      <a href="DataViewer.html" class="nav-link" data-page="dataviewer">
+        <span class="nav-icon">🔭</span> Data Viewer
+      </a>
+    </li>-->
+
+    <li class="nav-dropdown" id="nav-dd-browse">
+      <button class="nav-link nav-dropdown-toggle" data-page="browse"
+              onclick="esNavToggleDropdown('nav-dd-browse', event)">
+        <span class="nav-icon">📦</span> Browse
+      </button>
+      <div class="nav-dropdown-menu">
+        <a href="DataViewer.html"       class="nav-dropdown-item" data-page="ships">
+          <span class="nav-icon">🛸</span> Data Viewer
+        </a>
+        <a class="nav-dropdown-item" data-page="calculator">
+          <span class="nav-icon">🧮</span> Battle Sim (Comming soon)
+        </a>
+      </div>
+    </li>
+
+    <li class="nav-dropdown" id="nav-dd-tools">
+      <button class="nav-link nav-dropdown-toggle" data-page="tools"
+              onclick="esNavToggleDropdown('nav-dd-tools', event)">
+        <span class="nav-icon">🛠️</span> Pages
+      </button>
+      <div class="nav-dropdown-menu">
+        <a href="PluginAdder.html"   class="nav-dropdown-item" data-page="fiteditor">
+          <span class="nav-icon">🔧</span> Plugin Adder
+        </a>
+      </div>
+    </li>
+
+    <li>
+      <a href="Plugins.html" class="nav-link" data-page="plugins">
+        <span class="nav-icon">🧩</span> Plugins
+      </a>
+    </li>
+
+    <li>
+      <a href="About.html" class="nav-link" data-page="about">
+        <span class="nav-icon">ℹ️</span> About
+      </a>
+    </li>
+
+  </ul>
+  <!-- END EDITABLE LINKS -->
+
+  <div class="nav-spacer"></div>
+
+  <!-- Hamburger button (mobile only — shown via CSS media query) -->
+  <button class="nav-hamburger" aria-label="Toggle menu"
+          onclick="esNavToggleDrawer()">
+    <span></span><span></span><span></span>
+  </button>
+
+</nav>
+
+<!-- Mobile drawer — JS mirrors the link list above into here -->
+<div id="es-navbar-drawer"></div>
