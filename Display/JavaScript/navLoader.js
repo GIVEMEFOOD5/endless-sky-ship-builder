@@ -4,8 +4,9 @@
   const mount = document.getElementById('navbar-mount');
   if (!mount) return;
 
-  // Adjust the path to navbar.html to suit your folder structure
-  fetch('Display/HTML/NavBar.html')
+  const src = mount.dataset.src || 'NavBar.html';
+
+  fetch(src)
     .then(function (r) {
       if (!r.ok) throw new Error('Navbar fetch failed: ' + r.status);
       return r.text();
@@ -13,10 +14,11 @@
     .then(function (html) {
       mount.innerHTML = html;
 
-      // Now run the navbar logic (dropdowns, drawer, active link)
-      // Load navBar.js dynamically AFTER the HTML exists in the DOM
+      // Load navBar.js relative to this script's own location
       const script = document.createElement('script');
-      script.src = 'Display/JavaScript/navBar.js';
+      script.src = new URL('../JavaScript/navBar.js', document.currentScript
+        ? document.currentScript.src
+        : location.href).href;
       document.body.appendChild(script);
     })
     .catch(function (err) {
