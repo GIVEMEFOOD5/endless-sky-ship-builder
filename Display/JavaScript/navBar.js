@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   navbar.js  —  Endless Sky Data Viewer  |  Top Navigation Logic
+   navBar.js  —  Endless Sky Data Viewer  |  Top Navigation Logic
    ═══════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -18,22 +18,27 @@
   }
 
   /* ── Dropdown toggle ────────────────────────────────────────── */
-  window.esNavToggleDropdown = function (id, evt) {
-    evt && evt.stopPropagation();
-    const dd = document.getElementById(id);
+  function toggleDropdown (dd, evt) {
+    evt.stopPropagation();
     const isOpen = dd.classList.contains('open');
-
-    // Close all open dropdowns first
-    document.querySelectorAll('#es-navbar .nav-dropdown.open')
-      .forEach(el => el.classList.remove('open'));
-
+    closeAllDropdowns();
     if (!isOpen) dd.classList.add('open');
-  };
+  }
 
-  // Close dropdowns on any outside click
-  document.addEventListener('click', function () {
+  function closeAllDropdowns () {
     document.querySelectorAll('#es-navbar .nav-dropdown.open')
       .forEach(el => el.classList.remove('open'));
+  }
+
+  // Wire up every dropdown toggle button
+  document.querySelectorAll('#es-navbar .nav-dropdown').forEach(dd => {
+    const btn = dd.querySelector('.nav-dropdown-toggle');
+    if (btn) btn.addEventListener('click', e => toggleDropdown(dd, e));
+  });
+
+  // Close dropdowns when clicking anywhere outside the navbar
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('#es-navbar')) closeAllDropdowns();
   });
 
   /* ── Mobile drawer ──────────────────────────────────────────── */
@@ -41,7 +46,6 @@
     const drawer = document.getElementById('es-navbar-drawer');
     if (!drawer) return;
 
-    // Mirror the desktop link list into the mobile drawer
     const links = document.querySelectorAll('#es-nav-links > li');
     const frag  = document.createDocumentFragment();
 
@@ -49,14 +53,14 @@
       const isDropdown = li.classList.contains('nav-dropdown');
 
       if (isDropdown) {
-        // Group label from the dropdown toggle text
+        // Group label from the toggle button text
         const toggle = li.querySelector('.nav-dropdown-toggle');
         const label  = document.createElement('div');
         label.className   = 'nav-drawer-group-label';
         label.textContent = toggle ? toggle.textContent.trim() : '';
         frag.appendChild(label);
 
-        // Each sub-item becomes a flat link in the drawer
+        // Flatten sub-items into the drawer
         li.querySelectorAll('.nav-dropdown-item').forEach(item => {
           const a = document.createElement('a');
           a.href         = item.href;
@@ -86,23 +90,28 @@
     markActive(); // re-run now that drawer links exist
   }
 
-  window.esNavToggleDrawer = function () {
+  /* ── Hamburger toggle ───────────────────────────────────────── */
+  function toggleDrawer () {
     const nav    = document.getElementById('es-navbar');
     const drawer = document.getElementById('es-navbar-drawer');
     const isOpen = drawer.classList.contains('nav-drawer-open');
-
     nav.classList.toggle('nav-open', !isOpen);
     drawer.classList.toggle('nav-drawer-open', !isOpen);
-  };
+  }
+
+  const hamburger = document.querySelector('#es-navbar .nav-hamburger');
+  if (hamburger) hamburger.addEventListener('click', toggleDrawer);
 
   // Close the drawer when a link inside it is clicked
-  document.getElementById('es-navbar-drawer')
-    .addEventListener('click', function (e) {
+  const drawer = document.getElementById('es-navbar-drawer');
+  if (drawer) {
+    drawer.addEventListener('click', function (e) {
       if (e.target.closest('.nav-link')) {
         document.getElementById('es-navbar').classList.remove('nav-open');
-        document.getElementById('es-navbar-drawer').classList.remove('nav-drawer-open');
+        drawer.classList.remove('nav-drawer-open');
       }
     });
+  }
 
   /* ── Init ───────────────────────────────────────────────────── */
   markActive();
