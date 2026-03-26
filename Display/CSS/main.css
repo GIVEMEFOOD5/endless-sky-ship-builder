@@ -1208,6 +1208,338 @@ h1 {
     pointer-events: none; /* prevent label for= from double-toggling checkbox */
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   Navbar  —  appended from navbar.html
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Nav tokens ─────────────────────────────────────────────── */
+#es-navbar {
+  --nav-h:          56px;
+  --nav-bg:         rgba(10, 18, 38, 0.88);
+  --nav-border:     rgba(59, 130, 246, 0.25);
+  --nav-accent:     #3b82f6;
+  --nav-accent-text:#93c5fd;
+  --nav-text:       #cbd5e1;
+  --nav-text-muted: #64748b;
+  --nav-hover-bg:   rgba(59, 130, 246, 0.12);
+  --nav-active-bg:  rgba(59, 130, 246, 0.22);
+  --nav-radius:     8px;
+  --nav-t:          0.18s ease;
+
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  width: 100%;
+  height: var(--nav-h);
+  background: var(--nav-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--nav-border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+/* ── Brand ──────────────────────────────────────────────────── */
+#es-navbar .nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--nav-accent-text);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  margin-right: 12px;
+  flex-shrink: 0;
+  transition: color var(--nav-t);
+}
+
+#es-navbar .nav-brand:hover   { 
+   color: #bfdbfe; 
+}
+
+#es-navbar .nav-brand-icon    { 
+   font-size: 1.3rem; 
+   line-height: 1; 
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+#es-navbar .nav-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--nav-border);
+  flex-shrink: 0;
+  margin: 0 4px;
+}
+
+/* ── Link list ──────────────────────────────────────────────── */
+#es-navbar .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#es-navbar .nav-links::-webkit-scrollbar { 
+   display: none; 
+}
+
+#es-navbar .nav-links li { 
+   flex-shrink: 0; 
+}
+
+/* ── Nav link ───────────────────────────────────────────────── */
+#es-navbar .nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--nav-radius);
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background var(--nav-t), color var(--nav-t);
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: none;
+  font-family: inherit;
+}
+
+#es-navbar .nav-link .nav-icon { 
+   font-size: 1rem; 
+   line-height: 1; 
+}
+
+#es-navbar .nav-link:hover {
+  background: var(--nav-hover-bg);
+  color: var(--nav-accent-text);
+  border-color: rgba(59,130,246,0.20);
+}
+
+#es-navbar .nav-link.active {
+  background: var(--nav-active-bg);
+  color: var(--nav-accent-text);
+  border-color: rgba(59,130,246,0.35);
+}
+
+/* ── Dropdown ───────────────────────────────────────────────── */
+#es-navbar .nav-dropdown { position: relative; }
+
+#es-navbar .nav-dropdown-toggle::after {
+  content: '▾';
+  font-size: 0.7rem;
+  margin-left: 2px;
+  opacity: 0.6;
+  transition: transform var(--nav-t);
+}
+
+#es-navbar .nav-dropdown.open .nav-dropdown-toggle::after { 
+   transform: rotate(180deg); 
+}
+
+#es-navbar .nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 200px;
+  background: rgba(10, 18, 38, 0.97);
+  border: 1px solid rgba(59,130,246,0.30);
+  border-radius: var(--nav-radius);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+  padding: 6px;
+  z-index: 1000;
+  animation: navDropIn 0.15s ease;
+}
+
+#es-navbar .nav-dropdown.open .nav-dropdown-menu { 
+   display: block; 
+}
+
+@keyframes navDropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#es-navbar .nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: background var(--nav-t), color var(--nav-t);
+  cursor: pointer;
+}
+
+#es-navbar .nav-dropdown-item:hover {
+  background: var(--nav-hover-bg);
+  color: var(--nav-accent-text);
+}
+
+#es-navbar .nav-dropdown-item .nav-icon { 
+   font-size: 0.95rem; opacity: 0.8; 
+}
+
+#es-navbar .nav-dropdown-sep {
+  height: 1px;
+  background: rgba(59,130,246,0.15);
+  margin: 4px 6px;
+}
+
+/* ── Spacer ─────────────────────────────────────────────────── */
+#es-navbar .nav-spacer { 
+   flex: 1; 
+}
+
+/* ── Hamburger (mobile) ─────────────────────────────────────── */
+#es-navbar .nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--nav-border);
+  border-radius: var(--nav-radius);
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background var(--nav-t), border-color var(--nav-t);
+}
+#es-navbar .nav-hamburger:hover {
+  background: var(--nav-hover-bg);
+  border-color: rgba(59,130,246,0.40);
+}
+#es-navbar .nav-hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--nav-text);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+#es-navbar.nav-open .nav-hamburger span:nth-child(1) { 
+   transform: translateY(7px) rotate(45deg); 
+}
+#es-navbar.nav-open .nav-hamburger span:nth-child(2) { 
+   opacity: 0; 
+}
+#es-navbar.nav-open .nav-hamburger span:nth-child(3) { 
+   transform: translateY(-7px) rotate(-45deg); 
+}
+
+/* ── Mobile drawer ──────────────────────────────────────────── */
+#es-navbar-drawer {
+  display: none;
+  position: fixed;
+  top: 56px; /* matches --nav-h */
+  left: 0;
+  right: 0;
+  background: rgba(10, 18, 38, 0.98);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.25);
+  padding: 12px 16px 20px;
+  z-index: 899;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.60);
+  animation: drawerSlide 0.2s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  /* Drawer-scoped tokens (navbar's custom properties don't inherit here) */
+  --nav-accent-text: #93c5fd;
+  --nav-text:        #cbd5e1;
+  --nav-text-muted:  #64748b;
+  --nav-hover-bg:    rgba(59, 130, 246, 0.12);
+  --nav-active-bg:   rgba(59, 130, 246, 0.22);
+  --nav-border:      rgba(59, 130, 246, 0.25);
+  --nav-t:           0.18s ease;
+  --nav-radius:      8px;
+}
+
+@keyframes drawerSlide {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#es-navbar-drawer.nav-drawer-open { display: flex; }
+
+#es-navbar-drawer .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--nav-radius);
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background var(--nav-t), color var(--nav-t);
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: none;
+  font-family: inherit;
+}
+
+#es-navbar-drawer .nav-link:hover {
+  background: var(--nav-hover-bg);
+  color: var(--nav-accent-text);
+  border-color: rgba(59,130,246,0.20);
+}
+
+#es-navbar-drawer .nav-link.active {
+  background: var(--nav-active-bg);
+  color: var(--nav-accent-text);
+  border-color: rgba(59,130,246,0.35);
+}
+
+#es-navbar-drawer .nav-drawer-sep {
+  height: 1px;
+  background: rgba(59,130,246,0.15);
+  margin: 6px 0;
+}
+
+#es-navbar-drawer .nav-drawer-group-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nav-text-muted);
+  padding: 8px 14px 2px;
+  user-select: none;
+}
+
+#es-navbar-drawer .nav-icon { 
+   font-size: 1rem; 
+   line-height: 1; 
+}
+
+/* ── Responsive: swap to hamburger below 700 px ─────────────── */
+@media (max-width: 700px) {
+  #es-navbar .nav-links    { display: none; }
+  #es-navbar .nav-divider  { display: none; }
+  #es-navbar .nav-spacer   { display: none; }
+  #es-navbar .nav-hamburger { display: flex; }
+}
+
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 768px) {
     .modal-tab { padding: 10px 16px; font-size: 0.9rem; }
