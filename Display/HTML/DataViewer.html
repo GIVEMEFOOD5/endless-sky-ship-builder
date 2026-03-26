@@ -9,18 +9,7 @@
 <body>
 
     <div id="navbar-mount"></div>
-    <script>
-        fetch('../HTML/NavBar.html')
-            .then(r => r.text())
-            .then(html => {
-                document.getElementById('navbar-mount').innerHTML = html;
-                // Load the navbar script only after the markup exists
-                const s = document.createElement('script');
-                s.src = '../JavaScript/navBar.js';
-                document.body.appendChild(s);
-            })
-            .catch(() => console.warn('Navbar failed to load.'));
-    </script>
+    <script src="../JavaScript/navBar.js"></script>
     
     <div class="container">
 
