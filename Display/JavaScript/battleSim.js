@@ -195,7 +195,7 @@ async function selectShip(slot, ship) {
     document.getElementById('search' + slot).value = ship.name;
     const resolved = resolveShipStats(ship);
     _slots[slot] = resolved;
-    renderSlotPreview(slot, ship, resolved);
+    await renderSlotPreview(slot, ship, resolved);
     updateFightButton();
     hideResults();
 }
@@ -950,7 +950,7 @@ function checkMilestones(st, stats, side, t, m, phases) {
 //  UI
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function renderSlotPreview(slot, ship, stats) {
+async function renderSlotPreview(slot, ship, stats) {
     const el     = document.getElementById('selected' + slot);
     const imgEl  = document.getElementById('img' + slot);
     const nameEl = document.getElementById('name' + slot);
@@ -961,11 +961,11 @@ function renderSlotPreview(slot, ship, stats) {
     let imgSrc = '';
     if (ship.sprite) {
         const spritePath = ship.sprite;
-        imgSrc = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/${ship._pluginId}/images/${spritePath}.png`;
+        imgSrc = await window.fetchSprite(spritePath, null);
     }
     else {
         const spritePath = ship.thumbnail;
-        imgSrc = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/${ship._pluginId}/images/${spritePath}.png`;
+        imgSrc = await window.fetchSprite(spritePath, null);
     }
     imgEl.src          = imgSrc;
     imgEl.style.display = imgSrc ? 'block' : 'none';
