@@ -20,6 +20,9 @@ const FPS            = 60;
 const SOLAR_POWER    = 1.0;  // standard Sol-type system
 const MAX_SIM_SECS   = 3600; // cap at 1 hour (effectively "never")
 
+const repoUrl = 'GIVEMEFOOD5/endless-sky-ship-builder';
+const baseUrl = `https://raw.githubusercontent.com/${repoUrl}/main/data`;
+    
 // ── State ────────────────────────────────────────────────────────────────────
 let _allShips    = [];   // merged + tagged with _pluginId
 let _outfitIndex = {};   // name → outfit object
@@ -32,7 +35,7 @@ const _slots = { A: null, B: null }; // resolved ship stats
 async function init() {
     // Load attrDefs if available
     try {
-        const res = await fetch('.../data/attributeDefinitions.json');
+        const res = await fetch('${baseUrl}/attributeDefinitions.json');
         if (res.ok) _attrDefs = await res.json();
     } catch (_) {}
 
@@ -42,7 +45,7 @@ async function init() {
 
     // Load index to determine plugin order
     try {
-        const res = await fetch('.../data/index.json');
+        const res = await fetch(`${baseUrl}/index.json`);
         if (res.ok) {
             const idx = await res.json();
             window._indexPluginOrder = [];
