@@ -3,23 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>An Endless Sky Data Center</title>
+    <title>Battle Simulator — Endless Sky Data Center</title>
     <link rel="stylesheet" href="../CSS/main.css">
 </head>
 <body>
-    
-    <div id="navbar-mount" data-src="NavBar.html"></div>
-    <script src="../JavaScript/navLoader.js"></script>
-    
-    <div class="container">
-        <header class="panel">
-            <h1>🚀 Battle Simulator</h1>
-            <p class="subtitle">Choose ships to see who wins</p>
-            <div class="wip-notice">
-                WIP NEED TO DO MATH FIRST NOT CURRENTLY WORKING!
-            </div>
-        </header>
+
+<div id="navbar-mount" data-src="NavBar.html"></div>
+<script src="../JavaScript/navLoader.js"></script>
+
+<div class="container">
+    <header class="panel">
+        <h1>⚔️ Battle Simulator</h1>
+        <p class="subtitle">Analytical combat prediction — select two ships and see who wins</p>
+    </header>
+
+    <!-- Plugin selector (mirrors DataViewer) -->
+    <div class="panel search-section" id="pluginSelectorPanel">
+        <h2 class="section-title" style="font-size:1.1rem;margin-bottom:10px;">
+            Active Plugins
+        </h2>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <button class="btn-action" onclick="openPluginPicker()">☰ Select Plugins</button>
+            <span style="font-size:0.82rem;color:#64748b;font-style:italic;">
+                First plugin = primary for image/outfit lookup
+            </span>
+        </div>
+        <div id="activePluginList">
+            <span class="sorter-empty">Loading…</span>
+        </div>
     </div>
-<!--why-->
+
+    <!-- Main sim area -->
+    <div class="panel" id="simPanel" style="display:none;">
+
+        <!-- Ship selectors -->
+        <div class="sim-layout">
+
+            <!-- Slot A -->
+            <div class="ship-slot slot-a" id="slotA">
+                <div class="slot-title">⚔ Attacker A</div>
+
+                <div class="ship-search-wrap">
+                    <input type="text" id="searchA" placeholder="🔍 Search ships…"
+                           autocomplete="off" oninput="searchShips('A', this.value)"
+                           onfocus="openDropdown('A')" onblur="blurDropdown('A')">
+                    <div class="ship-dropdown" id="dropdownA"></div>
+                </div>
+
+                <div class="selected-ship" id="selectedA">
+                    <img class="selected-ship-img" id="imgA" src="" alt="">
+                    <div class="selected-ship-info">
+                        <div class="selected-ship-name" id="nameA"></div>
+                        <div class="selected-ship-meta" id="metaA"></div>
+                    </div>
+                    <button class="selected-ship-clear" onclick="clearSlot('A')" title="Clear">✕</button>
+                </div>
+
+                <div class="slot-stats" id="statsA" style="display:none;"></div>
+            </div>
+
+            <div class="sim-vs">VS</div>
+
+            <!-- Slot B -->
+            <div class="ship-slot slot-b" id="slotB">
+                <div class="slot-title">⚔ Attacker B</div>
+
+                <div class="ship-search-wrap">
+                    <input type="text" id="searchB" placeholder="🔍 Search ships…"
+                           autocomplete="off" oninput="searchShips('B', this.value)"
+                           onfocus="openDropdown('B')" onblur="blurDropdown('B')">
+                    <div class="ship-dropdown" id="dropdownB"></div>
+                </div>
+
+                <div class="selected-ship" id="selectedB">
+                    <img class="selected-ship-img" id="imgB" src="" alt="">
+                    <div class="selected-ship-info">
+                        <div class="selected-ship-name" id="nameB"></div>
+                        <div class="selected-ship-meta" id="metaB"></div>
+                    </div>
+                    <button class="selected-ship-clear" onclick="clearSlot('B')" title="Clear">✕</button>
+                </div>
+
+                <div class="slot-stats" id="statsB" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- Fight button -->
+        <div class="fight-btn-wrap">
+            <button class="fight-btn" id="fightBtn" onclick="runSimulation()" disabled>
+                ⚔ SIMULATE BATTLE
+            </button>
+        </div>
+
+        <div class="sim-loading" id="simLoading">Computing battle…</div>
+
+        <!-- Results -->
+        <div id="resultsPanel">
+
+            <div class="result-header">
+                <div class="result-winner-label">🏆 Winner</div>
+                <div class="result-winner-name" id="resultWinnerName"></div>
+                <div class="result-subtitle" id="resultSubtitle"></div>
+            </div>
+
+            <!-- Timeline bar -->
+            <div class="timeline-section">
+                <div class="timeline-label">Survival Timeline</div>
+                <div class="timeline-track">
+                    <div class="timeline-bar-a" id="timelineBarA">
+                        <span class="timeline-bar-label" id="timelineLabelA"></span>
+                    </div>
+                    <div class="timeline-bar-b" id="timelineBarB">
+                        <span class="timeline-bar-label" id="timelineLabelB"></span>
+                    </div>
+                    <div class="timeline-midline"></div>
+                </div>
+            </div>
+
+            <!-- Stats comparison -->
+            <div id="compareGrid"></div>
+
+            <!-- Weapon breakdown -->
+            <div style="margin-bottom:8px;">
+                <div class="timeline-label">Weapon Analysis</div>
+                <div class="weapons-grid" id="weaponsGrid"></div>
+            </div>
+
+            <!-- Combat phases -->
+            <div>
+                <div class="timeline-label">Combat Phases</div>
+                <div class="phase-list" id="phaseList"></div>
+            </div>
+
+        </div><!-- /#resultsPanel -->
+
+    </div><!-- /#simPanel -->
+
+    <!-- Plugin picker (shared with DataViewer) -->
+    <div id="pluginPickerOverlay">
+        <div class="modal-box modal-box--picker">
+            <div class="picker-header">
+                <span class="picker-header__title">Select Plugins</span>
+                <button class="btn-close btn-close--sm" onclick="closePluginPicker()">✕</button>
+            </div>
+            <input class="text-input picker-search" type="text"
+                   id="pluginPickerSearch"
+                   placeholder="🔍 Search plugins…"
+                   oninput="renderPluginPickerList(this.value)">
+            <div class="picker-list" id="pluginPickerList"></div>
+            <div class="picker-footer">
+                <button class="btn btn-secondary" onclick="closePluginPicker()">Cancel</button>
+                <button class="btn btn-primary"   onclick="confirmPluginPicker()">Done</button>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.container -->
+
+<!-- Scripts -->
+<script src="../JavaScript/generalPluginStuff.js"></script>
+<script src="../JavaScript/computedStats.js"></script>
+<script src="../JavaScript/battleSim.js"></script>
+
 </body>
 </html>
