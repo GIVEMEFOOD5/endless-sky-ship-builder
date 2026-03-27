@@ -25,6 +25,7 @@
  *   • Overheat: weapons cannot fire above 100% heat (isOverheated)
  *   • Ionization: weapons cannot fire when ionization > energy
  *   • Energy blackout: firing stops if energy < firing energy cost
+ *   • Submunitions: weapons can spawn child projectiles, whose damage is included in DPS
  *
  * Frame-accurate simulation: runs at 60fps, up to MAX_SIM_SECS seconds.
  */
@@ -226,6 +227,8 @@ function resolveShipStats(ship) {
 
     const combined   = { ...baseAttrs };
     const weapons    = [];   // raw weapon objects (one entry per gun, per qty)
+    // Track which attributes come from outfits (for display)
+    const outfitContributions = {}; // key → { total, sources: [{name, qty, perUnit}] }
 
     for (const [outfitName, qty] of Object.entries(outfitMap)) {
         const outfit = _outfitIndex[outfitName];
@@ -249,6 +252,12 @@ function resolveShipStats(ship) {
                 case 'maximum': combined[key] = Math.max(combined[key] ?? -Infinity, contrib); break;
                 case 'minimum': combined[key] = Math.min(combined[key] ??  Infinity, contrib); break;
                 default:        combined[key] = (combined[key] || 0) + contrib;
+            }
+            // Track contributions for display
+            if (rawVal !== 0) {
+                if (!outfitContributions[key]) outfitContributions[key] = { total: 0, sources: [] };
+                outfitContributions[key].total += contrib;
+                outfitContributions[key].sources.push({ name: outfitName, qty, perUnit: rawVal });
             }
         }
     }
@@ -347,7 +356,7 @@ function resolveShipStats(ship) {
     // Cooling energy cost
     const coolingEnergyPerFrame = a('cooling energy');
 
-    // Weapon stats — full accurate analysis
+    // Weapon stats — full accurate analysis with submunition resolution
     const weaponSummary = analyzeWeapons(weapons, combined);
 
     // Navigation (for display)
@@ -362,6 +371,7 @@ function resolveShipStats(ship) {
         rawShip:   ship,
         combined,
         weapons,
+        outfitContributions,
 
         // HP
         maxShields, maxHull, minHull, hullToDisable,
@@ -404,12 +414,44 @@ function resolveShipStats(ship) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  WEAPON ANALYSIS
+//  WEAPON ANALYSIS  (with full submunition recursion)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 /**
+ * Recursively resolve submunitions for a weapon, returning a flat damage map
+ * scaled by count.  Prevents infinite loops via a visited set.
+ */
+function resolveSubmunitionDamage(weapon, multiplier, visited, depth) {
+    if (depth > 8) return {};
+    const dmgTypes = _attrDefs?.weapon?.damageTypes || [
+        'Shield','Hull','Heat','Energy','Fuel','Ion','Scrambling','Disruption',
+        'Slowing','Discharge','Corrosion','Leak','Burn',
+    ];
+    const totals = {};
+    for (const t of dmgTypes) {
+        const key = t.toLowerCase() + ' damage';
+        const val = weapon[key] || 0;
+        if (val) totals[t] = (totals[t] || 0) + val * multiplier;
+    }
+
+    const subs = weapon.submunition;
+    if (!subs) return totals;
+    for (const entry of (Array.isArray(subs) ? subs : [subs])) {
+        const subName  = typeof entry === 'string' ? entry : (entry?.name ?? String(entry));
+        const subCount = typeof entry === 'object' ? (entry?.count ?? 1) : 1;
+        if (!subName || visited.has(subName)) continue;
+        visited.add(subName);
+        const subOutfit = _outfitIndex[subName];
+        if (!subOutfit?.weapon) continue;
+        const subDmg = resolveSubmunitionDamage(subOutfit.weapon, multiplier * subCount, visited, depth + 1);
+        for (const [t, v] of Object.entries(subDmg)) totals[t] = (totals[t] || 0) + v;
+    }
+    return totals;
+}
+
+/**
  * Analyse every weapon and produce:
- *   - per-weapon detail objects
+ *   - per-weapon detail objects (with submunition damage included)
  *   - aggregate DPS figures (one per damage type, both raw and vs shields/hull)
  *   - aggregate firing cost rates
  *
@@ -441,12 +483,16 @@ function analyzeWeapons(weapons, shipAttrs) {
         const piercing   = Math.max(0, Math.min(1, w.piercing || 0));
         const range      = w.velocity && w.lifetime ? w.velocity * w.lifetime : null;
 
-        // Per-shot damage for each type
+        // Per-shot damage for each type — includes submunition damage
         const dmgPerShot = {};
+        const visited = new Set([w._name].filter(Boolean));
+        const resolvedDmg = resolveSubmunitionDamage(w, 1, visited, 0);
         for (const t of damageTypes) {
-            const key = t.toLowerCase() + ' damage';
-            dmgPerShot[t] = (w[key] || 0);
+            dmgPerShot[t] = resolvedDmg[t] || 0;
         }
+
+        // Track whether any damage came from submunitions (for display)
+        const hasSubmunitions = !!(w.submunition);
 
         // Relative (%) damages (scale to target's current stat) — recorded for display
         const relShield = w['% shield damage'] || 0;
@@ -475,6 +521,7 @@ function analyzeWeapons(weapons, shipAttrs) {
             range,
             homing:      (w.homing || 0) > 0,
             antiMissile: (w['anti-missile'] || 0) > 0,
+            hasSubmunitions,
             dmgPerShot,
             relShield: +(relShield * 100).toFixed(1),
             relHull:   +(relHull   * 100).toFixed(1),
@@ -627,7 +674,6 @@ function simulateBattle(sA, sB) {
         stA.isOverheated = stA.heat >= stA.stats.maxHeat;
         stB.isOverheated = stB.heat >= stB.stats.maxHeat;
 
-        const movingEnergyA = sA.movingEnergyPerFrame + sA.coolingEnergyPerFrame;
         stA.isIonized = sA.movingEnergyPerFrame > 0 && stA.ionization > stA.energy;
         stB.isIonized = sB.movingEnergyPerFrame > 0 && stB.ionization > stB.energy;
 
@@ -770,12 +816,16 @@ function shootFrame(attSt, defSt, attStats, defStats, frame, events) {
             attSt.weaponReloadCounters[i] = reload - 1;
         }
 
-        // Apply damage to defender
+        // Apply damage to defender (uses pre-resolved submunition damage from dmgPerShot)
         applyWeaponDamage(w, defSt, defStats);
     }
 }
 
 // ── applyWeaponDamage: compute and apply one shot to defender ────────────────
+// Note: submunition damage is already baked into weapon analysis DPS figures,
+// but for the frame-accurate simulation we apply the raw weapon's direct damage
+// only (submunitions travel separately in-game and are hard to model accurately
+// without full projectile physics). This gives a conservative damage estimate.
 
 function applyWeaponDamage(w, defSt, defStats) {
     const st = defStats;
@@ -947,28 +997,46 @@ function checkMilestones(st, stats, side, t, m, phases) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  UI
+//  UI  —  Image loading matches DataViewer.js pattern exactly
 // ═══════════════════════════════════════════════════════════════════════════════
 
 async function renderSlotPreview(slot, ship, stats) {
     const el     = document.getElementById('selected' + slot);
-    const imgEl  = document.getElementById('img' + slot);
+    const imgWrap = document.getElementById('imgWrap' + slot);   // <-- wrapping div, not bare <img>
     const nameEl = document.getElementById('name' + slot);
     const metaEl = document.getElementById('meta' + slot);
     const statEl = document.getElementById('stats' + slot);
     const slotEl = document.getElementById('slot' + slot);
 
-    let imgSrc = '';
-    if (ship.sprite) {
-        const spritePath = ship.sprite;
-        imgSrc = await window.fetchSprite(spritePath, null);
+    // ── Image loading — mirrors DataViewer._loadSpriteForCard exactly ──────
+    // fetchSprite() returns an element (canvas or img), NOT a URL string.
+    if (imgWrap) {
+        imgWrap.innerHTML = '<div style="width:100%;height:100%;background:rgba(15,23,42,0.5);border-radius:4px;"></div>';
+        try {
+            let element = null;
+            const spritePath   = ship.sprite;
+            const thumbnailPath = ship.thumbnail;
+
+            if (spritePath)    element = await window.fetchSprite(spritePath, null);
+            if (!element && thumbnailPath) element = await window.fetchSprite(thumbnailPath, null);
+
+            if (element) {
+                element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+                imgWrap.innerHTML = '';
+                imgWrap.appendChild(element);
+            } else {
+                // Fallback placeholder image
+                const fallback = document.createElement('img');
+                fallback.src = 'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png';
+                fallback.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+                imgWrap.innerHTML = '';
+                imgWrap.appendChild(fallback);
+            }
+        } catch (e) {
+            console.warn('Failed to fetch sprite for', ship.name, e);
+        }
     }
-    else {
-        const spritePath = ship.thumbnail;
-        imgSrc = await window.fetchSprite(spritePath, null);
-    }
-    imgEl.src          = imgSrc;
-    imgEl.style.display = imgSrc ? 'block' : 'none';
+
     nameEl.textContent  = ship.name;
     metaEl.textContent  = (window.allData?.[ship._pluginId]?.sourceName) || ship._pluginId || '';
     el.classList.add('visible');
@@ -998,25 +1066,19 @@ function updateFightButton() {
 }
 
 function hideResults() {
-    document.getElementById('resultsPanel').classList.remove('visible');
+    const el = document.getElementById('simResults');
+    if (el) el.style.display = 'none';
 }
+
+// ─── Main run button ──────────────────────────────────────────────────────────
 
 function runSimulation() {
     const sA = _slots.A;
     const sB = _slots.B;
     if (!sA || !sB) return;
 
-    document.getElementById('simLoading').classList.add('visible');
-    hideResults();
-
-    setTimeout(() => {
-        try {
-            const result = simulateBattle(sA, sB);
-            renderResults(sA, sB, result);
-        } finally {
-            document.getElementById('simLoading').classList.remove('visible');
-        }
-    }, 60);
+    const result = simulateBattle(sA, sB);
+    renderResults(sA, sB, result);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1024,141 +1086,108 @@ function runSimulation() {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function renderResults(sA, sB, result) {
-    const panel = document.getElementById('resultsPanel');
+    const el = document.getElementById('simResults');
+    if (!el) return;
 
-    // ── Winner banner ────────────────────────────────────────────────────────
-    const winnerEl   = document.getElementById('resultWinnerName');
-    const subtitleEl = document.getElementById('resultSubtitle');
-    winnerEl.className = 'result-winner-name';
+    const winnerLabel = result.winner === 'A'
+        ? `<span class="winner-a">${escHtml(sA.name)}</span>`
+        : result.winner === 'B'
+            ? `<span class="winner-b">${escHtml(sB.name)}</span>`
+            : '<span class="winner-draw">Draw</span>';
 
-    if (result.winner === 'A') {
-        winnerEl.textContent = sA.name;
-        winnerEl.classList.add('result-winner-a');
-        subtitleEl.textContent = `Disables ${sB.name} in ${fmtT(result.ttkB)} — survives ${isFinite(result.ttkA) ? fmtT(result.ttkA) : '∞'}`;
-    } else if (result.winner === 'B') {
-        winnerEl.textContent = sB.name;
-        winnerEl.classList.add('result-winner-b');
-        subtitleEl.textContent = `Disables ${sA.name} in ${fmtT(result.ttkA)} — survives ${isFinite(result.ttkB) ? fmtT(result.ttkB) : '∞'}`;
-    } else {
-        winnerEl.textContent = 'Draw';
-        winnerEl.classList.add('result-winner-draw');
-        subtitleEl.textContent = 'Neither ship could disable the other.';
+    let html = `
+        <div class="result-header">
+            <div class="result-winner-label">Winner: ${winnerLabel}</div>
+            <div class="result-ttk">
+                <span class="ttk-a">${escHtml(sA.name)} disabled in: ${fmtTTK(result.ttkA)}</span>
+                <span class="ttk-b">${escHtml(sB.name)} disabled in: ${fmtTTK(result.ttkB)}</span>
+            </div>
+        </div>
+    `;
+
+    // Timeline chart
+    html += renderTimelineChart(sA, sB, result);
+
+    // Phase log
+    if (result.phases.length) {
+        html += '<div class="phase-log">';
+        for (const ph of result.phases) {
+            const cls = ph.type === 'A' ? 'phase-a' : ph.type === 'B' ? 'phase-b' : 'phase-neutral';
+            html += `<div class="phase-item ${cls}">${ph.icon} [${fmtT(ph.time)}] ${ph.text}</div>`;
+        }
+        html += '</div>';
     }
 
-    // ── Timeline bars ────────────────────────────────────────────────────────
-    const tA   = isFinite(result.ttkA) ? result.ttkA : null;
-    const tB   = isFinite(result.ttkB) ? result.ttkB : null;
-    const maxT = Math.max(tA || 0, tB || 0) || 1;
-    const pctA = tA ? Math.min(92, (tA / maxT) * 46) : 46;
-    const pctB = tB ? Math.min(92, (tB / maxT) * 46) : 46;
-    document.getElementById('timelineBarA').style.width   = pctA + '%';
-    document.getElementById('timelineBarB').style.width   = pctB + '%';
-    document.getElementById('timelineLabelA').textContent = tA ? fmtT(tA) : '∞';
-    document.getElementById('timelineLabelB').textContent = tB ? fmtT(tB) : '∞';
+    // Comparison grid
+    html += renderCompareGrid(sA, sB, result);
 
-    // ── HP chart ─────────────────────────────────────────────────────────────
-    renderHPChart(sA, sB, result);
-
-    // ── Stats comparison ─────────────────────────────────────────────────────
-    document.getElementById('compareGrid').innerHTML = renderCompareGrid(sA, sB, result);
-
-    // ── Weapon breakdown ─────────────────────────────────────────────────────
-    document.getElementById('weaponsGrid').innerHTML = `
-        <div>
-            <div class="weapons-col-title weapons-col-title-a">${escHtml(sA.name)} Weapons</div>
+    // Weapon lists
+    html += `<div class="weapons-section">
+        <div class="weapons-col">
+            <h3 class="weapons-title">${escHtml(sA.name)} — Weapons</h3>
             ${renderWeaponsList(sA.weaponDetails)}
         </div>
-        <div>
-            <div class="weapons-col-title weapons-col-title-b">${escHtml(sB.name)} Weapons</div>
+        <div class="weapons-col">
+            <h3 class="weapons-title">${escHtml(sB.name)} — Weapons</h3>
             ${renderWeaponsList(sB.weaponDetails)}
-        </div>`;
+        </div>
+    </div>`;
 
-    // ── Phase list ───────────────────────────────────────────────────────────
-    const phaseEl = document.getElementById('phaseList');
-    if (!result.phases.length) {
-        phaseEl.innerHTML = '<div class="phase-item phase-neutral"><span class="phase-text">No events — stalemate from the start.</span></div>';
-    } else {
-        phaseEl.innerHTML = result.phases.map(p => `
-            <div class="phase-item phase-${p.type}">
-                <span class="phase-time">${p.time >= MAX_SIM_SECS ? '∞' : fmtT(p.time)}</span>
-                <span class="phase-icon">${p.icon || '•'}</span>
-                <span class="phase-text">${p.text}</span>
-            </div>`).join('');
-    }
-
-    panel.classList.add('visible');
-    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.innerHTML = html;
+    el.style.display = 'block';
 }
 
-// ── HP / resource chart ───────────────────────────────────────────────────────
+function renderTimelineChart(sA, sB, result) {
+    const timelineA = result.timelineA || [];
+    const timelineB = result.timelineB || [];
+    if (!timelineA.length && !timelineB.length) return '';
 
-function renderHPChart(sA, sB, result) {
-    const container = document.getElementById('hpChartContainer');
-    if (!container) return;
+    const W = 700, H = 200;
+    const PAD = { l: 48, r: 16, t: 20, b: 32 };
+    const cW = W - PAD.l - PAD.r;
+    const cH = H - PAD.t - PAD.b;
 
-    const tlA = result.timelineA || [];
-    const tlB = result.timelineB || [];
-    if (!tlA.length && !tlB.length) { container.innerHTML = ''; return; }
-
-    const maxT    = Math.max(
-        tlA[tlA.length - 1]?.t || 0,
-        tlB[tlB.length - 1]?.t || 0,
-        0.1
+    const maxTime = Math.max(
+        timelineA[timelineA.length - 1]?.t ?? 0,
+        timelineB[timelineB.length - 1]?.t ?? 0,
+        1
     );
-    const W = 800, H = 180;
-    const PAD = { l: 50, r: 20, t: 16, b: 30 };
-    const cW  = W - PAD.l - PAD.r;
-    const cH  = H - PAD.t - PAD.b;
+    const maxHPA = sA.maxShields + sA.maxHull;
+    const maxHPB = sB.maxShields + sB.maxHull;
+    const maxHP  = Math.max(maxHPA, maxHPB, 1);
 
-    // Normalise hp (0→1) for display
-    const maxHPA = sA.maxShields + sA.maxHull || 1;
-    const maxHPB = sB.maxShields + sB.maxHull || 1;
+    const px = t  => PAD.l + (t / maxTime) * cW;
+    const pyA = hp => PAD.t + cH - (hp / maxHP) * cH;
+    const pyB = hp => PAD.t + cH - (hp / maxHP) * cH;
 
-    function px(t)  { return PAD.l + (t / maxT) * cW; }
-    function pyA(v) { return PAD.t + (1 - v / maxHPA) * cH; }
-    function pyB(v) { return PAD.t + (1 - v / maxHPB) * cH; }
+    const pathAHull    = timelineA.map((p, i) => `${i === 0 ? 'M' : 'L'}${px(p.t).toFixed(1)},${pyA(p.hull).toFixed(1)}`).join(' ');
+    const pathBHull    = timelineB.map((p, i) => `${i === 0 ? 'M' : 'L'}${px(p.t).toFixed(1)},${pyB(p.hull).toFixed(1)}`).join(' ');
+    const pathAShields = timelineA.map((p, i) => `${i === 0 ? 'M' : 'L'}${px(p.t).toFixed(1)},${pyA(p.hull + p.shields).toFixed(1)}`).join(' ');
+    const pathBShields = timelineB.map((p, i) => `${i === 0 ? 'M' : 'L'}${px(p.t).toFixed(1)},${pyB(p.hull + p.shields).toFixed(1)}`).join(' ');
 
-    function buildPath(tl, hpFn, getVal) {
-        return tl.map((d, i) => `${i === 0 ? 'M' : 'L'}${px(d.t).toFixed(1)},${hpFn(getVal(d)).toFixed(1)}`).join(' ');
-    }
-
-    // Shield + hull stacked line
-    const pathAShields = buildPath(tlA, pyA, d => d.shields + d.hull);
-    const pathAHull    = buildPath(tlA, pyA, d => d.hull);
-    const pathBShields = buildPath(tlB, pyB, d => d.shields + d.hull);
-    const pathBHull    = buildPath(tlB, pyB, d => d.hull);
-
-    // Axis ticks
-    const tickCount = 5;
+    // Y-axis ticks
+    const tickCount = 4;
     let ticks = '';
     for (let i = 0; i <= tickCount; i++) {
-        const t = (maxT * i / tickCount);
-        const x = px(t);
-        ticks += `<line x1="${x.toFixed(1)}" y1="${PAD.t}" x2="${x.toFixed(1)}" y2="${PAD.t + cH}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
-        ticks += `<text x="${x.toFixed(1)}" y="${H - 6}" fill="#64748b" font-size="9" text-anchor="middle">${fmtT(t)}s</text>`;
+        const v = (maxHP * i / tickCount);
+        const y = pyA(v).toFixed(1);
+        ticks += `<line x1="${PAD.l}" y1="${y}" x2="${PAD.l + cW}" y2="${y}" stroke="rgba(148,163,184,0.15)" stroke-width="1"/>
+                  <text x="${PAD.l - 4}" y="${parseFloat(y) + 4}" fill="#64748b" font-size="9" text-anchor="end">${Math.round(v)}</text>`;
     }
 
-    container.innerHTML = `
-    <div class="timeline-label" style="margin-top:20px;margin-bottom:8px;">HP Timeline (shields + hull, normalised)</div>
-    <div class="hp-chart-wrap">
-      <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+    return `<div class="timeline-chart">
+      <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:${W}px;display:block;">
         <rect x="${PAD.l}" y="${PAD.t}" width="${cW}" height="${cH}"
               fill="rgba(15,23,42,0.5)" rx="4"/>
         ${ticks}
-        <!-- Disable threshold lines -->
         ${sA.minHull > 0 ? `<line x1="${PAD.l}" y1="${pyA(sA.minHull).toFixed(1)}" x2="${PAD.l + cW}" y2="${pyA(sA.minHull).toFixed(1)}"
               stroke="rgba(59,130,246,0.35)" stroke-width="1" stroke-dasharray="4,3"/>` : ''}
         ${sB.minHull > 0 ? `<line x1="${PAD.l}" y1="${pyB(sB.minHull).toFixed(1)}" x2="${PAD.l + cW}" y2="${pyB(sB.minHull).toFixed(1)}"
               stroke="rgba(239,68,68,0.35)" stroke-width="1" stroke-dasharray="4,3"/>` : ''}
-        <!-- A shields (total height) -->
         <path d="${pathAShields}" fill="none" stroke="rgba(59,130,246,0.55)" stroke-width="1.5"/>
-        <!-- A hull -->
         <path d="${pathAHull}" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
-        <!-- B shields (total) -->
         <path d="${pathBShields}" fill="none" stroke="rgba(239,68,68,0.55)" stroke-width="1.5"/>
-        <!-- B hull -->
         <path d="${pathBHull}" fill="none" stroke="#ef4444" stroke-width="2.5"/>
-        <!-- Legend -->
         <rect x="${PAD.l + 8}" y="${PAD.t + 8}" width="10" height="3" fill="#3b82f6" rx="1"/>
         <text x="${PAD.l + 22}" y="${PAD.t + 13}" fill="#93c5fd" font-size="9">${escHtml(sA.name)} hull</text>
         <rect x="${PAD.l + 8}" y="${PAD.t + 20}" width="10" height="3" fill="#ef4444" rx="1"/>
@@ -1167,12 +1196,7 @@ function renderHPChart(sA, sB, result) {
     </div>`;
 }
 
-// ── Compare grid ──────────────────────────────────────────────────────────────
-
 function renderCompareGrid(sA, sB, result) {
-    const stFinal = result.finalStateA;
-    const stFinalB = result.finalStateB;
-
     const rows = [
         ['Combat', [
             ['Time to Disable',      fmtTTK(result.ttkA),            fmtTTK(result.ttkB)],
@@ -1245,7 +1269,7 @@ function renderWeaponsList(details) {
 
         return `
         <div class="weapon-item">
-            <div class="weapon-item-name">${escHtml(w.name)}</div>
+            <div class="weapon-item-name">${escHtml(w.name)}${w.hasSubmunitions ? ' <span class="weapon-sub-badge" title="Includes submunition damage">⚡ Sub</span>' : ''}</div>
             <div class="weapon-item-stats">
                 <span class="weapon-stat">Rate: <span>${w.sps}/s</span></span>
                 <span class="weapon-stat">Shld: <span>${fmt(w.shieldDPS)}/s</span></span>

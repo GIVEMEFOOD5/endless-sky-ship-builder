@@ -5,6 +5,12 @@
 // Renders attribute panels for ships, outfits, and effects.
 // Relies on ComputedStats.js for all numeric derivations.
 // Zero hardcoded attribute names or formulas.
+//
+// Improvements over previous version:
+//   • Submunition damage chain fully displayed in weapon stats
+//   • Outfit attribute contributions shown on ship panels (which outfit adds what)
+//   • Effect wear-off times calculated from resistance values
+//   • Outfit-to-ship attribute bonuses shown in a dedicated section
 
 const SECTION_ORDER = [
     'Licenses', 'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
@@ -117,10 +123,6 @@ function shouldSuppressIntermediateVar(varName, formula) {
 }
 
 // ─── Formula evaluator (display-side, thin wrapper over ComputedStats) ───────
-//
-// For AttributeDisplay we use the same evalFormula logic as ComputedStats but
-// don't need the full resolveLocalVars pass — we just need to evaluate
-// already-resolved formulas for display purposes.
 
 function evalFormulaDisplay(formulaStr, attrs, fnResolver) {
     if (!formulaStr) return NaN;
@@ -179,13 +181,11 @@ function buildFnResolver(attrDefs, attrs) {
         const fn = fns[fnName];
         if (!fn?.formulas?.length) return 0;
         const formula    = fn.formulas[fn.formulas.length - 1].formula;
-        // Also resolve local vars for this function
         const localVars  = {};
         for (const [varName, varFormula] of Object.entries(fn.attributeVariables || {})) {
             const vv = evalFormulaDisplay(varFormula, attrs, cache);
             if (!isNaN(vv)) localVars[varName] = vv;
         }
-        // Add local vars to the resolution context via a merged resolver
         const mergedResolver = { ...cache, ...Object.fromEntries(Object.entries(localVars).map(([k, v]) => [k, String(v)])) };
         let val = evalFormulaDisplay(formula, attrs, mergedResolver);
         if (fnName === 'CoolingEfficiency' && (isNaN(val) || val < 0 || val > 2.5)) {
@@ -219,10 +219,6 @@ function computedKeyToLabel(key) {
 }
 
 // ─── calcDerivedStats ─────────────────────────────────────────────────────────
-//
-// Computes displayable derived stats for a single item (ship or outfit).
-// Uses ComputedStats.getComputedStats if pluginId provided, otherwise
-// runs the formula evaluations locally for standalone items.
 
 function calcDerivedStats(attrDefs, item, pluginId) {
     const attrs      = item?.attributes || item || {};
@@ -251,7 +247,6 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         if (shouldSuppressFn(fnName, fnData, knownDisplayFns)) continue;
 
         const formula = fnData.formulas[fnData.formulas.length - 1].formula;
-        // Use the already-resolved fnCache value (which includes localVar resolution)
         const rawVal  = fnCache[fnName] ?? evalFormulaDisplay(formula, attrs, fnResolver);
         if (isNaN(rawVal) || rawVal === 0) continue;
 
@@ -260,14 +255,12 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         const prefix = fnData.labelPrefix   ?? '';
         const label  = prefix + fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim();
 
-        // Special case: IdleHeat should be shown as % of MaximumHeat
         if (fnName === 'IdleHeat') {
             const maxHeat = fnCache['MaximumHeat'] ?? 0;
             if (maxHeat > 0) {
                 const heatPct = rawVal / maxHeat * 100;
                 push('Idle Heat %', heatPct, 1, '%', formula);
             }
-            // Also show raw value for reference
             push(label, rawVal, scale, unit, formula);
             continue;
         }
@@ -361,7 +354,79 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     return results;
 }
 
-// ─── Weapon chain renderer ───────────────────────────────────────────────────
+// ─── Effect wear-off time calculations ───────────────────────────────────────
+//
+// Endless Sky status effects accumulate and then decay per-frame based on
+// resistance values. Given a one-shot dose of a status effect and the ship's
+// resistance, we can compute:
+//   • Frames to decay = effectAmount / resistancePerFrame
+//   • Seconds to decay = frames / 60
+//
+// The resistance attributes that control decay rate (per frame) are:
+//   ion resistance, scramble resistance, disruption resistance,
+//   slowing resistance, burn resistance, discharge resistance,
+//   corrosion resistance, leak resistance
+
+const STATUS_EFFECT_DECAY = [
+    { damageKey: 'ion damage',         resistKey: 'ion resistance',         label: 'Ion' },
+    { damageKey: 'scrambling damage',  resistKey: 'scramble resistance',    label: 'Scrambling' },
+    { damageKey: 'disruption damage',  resistKey: 'disruption resistance',  label: 'Disruption' },
+    { damageKey: 'slowing damage',     resistKey: 'slowing resistance',     label: 'Slowing' },
+    { damageKey: 'burn damage',        resistKey: 'burn resistance',        label: 'Burn' },
+    { damageKey: 'discharge damage',   resistKey: 'discharge resistance',   label: 'Discharge' },
+    { damageKey: 'corrosion damage',   resistKey: 'corrosion resistance',   label: 'Corrosion' },
+    { damageKey: 'leak damage',        resistKey: 'leak resistance',        label: 'Leak' },
+];
+
+/**
+ * Calculate wear-off times for all status effects for a given ship's attrs.
+ * Returns array of { label, effectPerShot, resistPerFrame, wearOffFrames, wearOffSeconds }
+ * for any effect where the ship has nonzero resistance.
+ */
+function calcEffectWearOffTimes(attrs) {
+    const results = [];
+    for (const { resistKey, label } of STATUS_EFFECT_DECAY) {
+        const resist = parseFloat(attrs[resistKey] ?? 0);
+        if (!resist || resist <= 0) continue;
+        // Wear-off time for a one-unit dose (scales linearly for larger doses)
+        const wearOffFrames  = 1 / resist;
+        const wearOffSeconds = wearOffFrames / 60;
+        results.push({
+            label,
+            resistPerFrame: resist,
+            wearOffSecondsPerUnit: wearOffSeconds,
+        });
+    }
+    return results;
+}
+
+/**
+ * Calculate how long a specific weapon's status effect will last on a target ship.
+ * @param {object} weapon - the weapon object (one shot worth)
+ * @param {object} targetAttrs - the target ship's combined attributes
+ * @returns array of { label, dose, resistPerFrame, wearOffSeconds }
+ */
+function calcWeaponEffectDuration(weapon, targetAttrs) {
+    const results = [];
+    for (const { damageKey, resistKey, label } of STATUS_EFFECT_DECAY) {
+        const dose   = parseFloat(weapon[damageKey] ?? 0);
+        const resist = parseFloat((targetAttrs || {})[resistKey] ?? 0);
+        if (!dose) continue;
+        if (!resist || resist <= 0) {
+            results.push({ label, dose, resistPerFrame: 0, wearOffSeconds: Infinity });
+        } else {
+            const wearOffFrames  = dose / resist;
+            results.push({ label, dose, resistPerFrame: resist, wearOffSeconds: wearOffFrames / 60 });
+        }
+    }
+    return results;
+}
+
+// ─── Outfit contributions to ship attributes ──────────────────────────────────
+//
+// Computes which outfits are installed on a ship and what each contributes
+// to specific attribute categories. Useful for understanding why a ship has
+// particular stats.
 
 function lookupOutfit(name, pluginId) {
     const allData = window.allData || {};
@@ -372,6 +437,63 @@ function lookupOutfit(name, pluginId) {
     }
     return null;
 }
+
+/**
+ * For a ship item, compute all outfit contributions to each attribute.
+ * Returns: { [attrKey]: { total, sources: [{name, qty, perUnit}] } }
+ */
+function computeOutfitContributions(item, pluginId) {
+    const outfitMap = item.outfitMap || {};
+    const contributions = {};
+
+    for (const [outfitName, qty] of Object.entries(outfitMap)) {
+        const outfit = lookupOutfit(outfitName, pluginId);
+        if (!outfit) continue;
+        const outfitAttrs = (outfit.attributes && Object.keys(outfit.attributes).length)
+            ? outfit.attributes : outfit;
+        for (const [key, rawVal] of Object.entries(outfitAttrs)) {
+            if (typeof rawVal !== 'number' || key.startsWith('_')) continue;
+            if (rawVal === 0) continue;
+            if (!contributions[key]) contributions[key] = { total: 0, sources: [] };
+            contributions[key].total += rawVal * qty;
+            contributions[key].sources.push({ name: outfitName, qty, perUnit: rawVal });
+        }
+    }
+    return contributions;
+}
+
+/**
+ * Render outfit contributions section for a ship.
+ * Groups contributions by section and lists which outfits provide each attribute.
+ */
+function renderOutfitContributions(attrDefs, item, pluginId) {
+    const contributions = computeOutfitContributions(item, pluginId);
+    if (!Object.keys(contributions).length) return '';
+
+    const rows = [];
+    for (const [key, info] of Object.entries(contributions).sort((a, b) => a[0].localeCompare(b[0]))) {
+        if (!info.sources.length) continue;
+        const rec    = getAttrRecord(attrDefs, key);
+        const mult   = rec?.displayMultiplier ?? 1;
+        const unit   = rec?.displayUnit ?? '';
+        const label  = getLabel(key);
+        const total  = fmtNum(info.total * mult) + (unit ? ' ' + unit : '');
+        // Build a compact source list: "NameA ×2 (+val), NameB ×1 (+val)"
+        const sourceStr = info.sources.map(s => {
+            const perDisplay = fmtNum(s.perUnit * mult * s.qty) + (unit ? ' ' + unit : '');
+            return s.qty > 1
+                ? `${s.name} ×${s.qty} (${s.perUnit >= 0 ? '+' : ''}${perDisplay})`
+                : `${s.name} (${s.perUnit >= 0 ? '+' : ''}${fmtNum(s.perUnit * mult)}${unit ? ' ' + unit : ''})`;
+        }).join(', ');
+
+        const tipContent = `Sources: ${sourceStr}`;
+        rows.push(attrRow(label, total, unit, ` data-tooltip="${tipContent.replace(/"/g, '&quot;')}"`));
+    }
+    if (!rows.length) return '';
+    return buildSection('Outfit Contributions (hover for sources)', rows);
+}
+
+// ─── Weapon chain renderer ───────────────────────────────────────────────────
 
 function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext) {
     const excludeWeapon = new Set(['sprite','spriteData','sound','hit effect','fire effect','die effect','live effect','submunition','ammo','stream','cluster','hardpoint sprite','hardpoint offset','icon']);
@@ -431,6 +553,10 @@ function mergeInto(target, source) {
     for (const [k, v] of Object.entries(source)) target[k] = (target[k] || 0) + v;
 }
 
+/**
+ * Render the full weapon chain: weapon → submunitions → ammo.
+ * Now also shows per-submunition stats and combined totals.
+ */
 function renderWeaponChain(attrDefs, weapon, pluginId) {
     if (!weapon) return '';
     let html = '';
@@ -440,15 +566,28 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
 
     while (queue.length > 0) {
         const { weapon: w, outfit: o, title, multiplier, depth } = queue.shift();
-        sections.push({ weapon: w, outfit: o, title });
+        sections.push({ weapon: w, outfit: o, title, multiplier });
         mergeInto(totalDamage, collectDamage(w, multiplier));
         if (w.submunition && depth < 8) {
-            for (const entry of (Array.isArray(w.submunition) ? w.submunition : [{ name: String(w.submunition), count: 1 }])) {
-                const subName = entry?.name ?? String(entry), subCount = entry?.count ?? 1;
+            const subs = Array.isArray(w.submunition)
+                ? w.submunition
+                : [{ name: String(w.submunition), count: 1 }];
+            for (const entry of subs) {
+                const subName  = typeof entry === 'string' ? entry : (entry?.name ?? String(entry));
+                const subCount = typeof entry === 'object' ? (entry?.count ?? 1) : 1;
                 if (!subName || visited.has(subName)) continue;
                 visited.add(subName);
                 const sub = lookupOutfit(subName, pluginId);
-                if (sub?.weapon) queue.push({ weapon: sub.weapon, outfit: sub, title: `Submunition: ${subName}${subCount > 1 ? ` ×${subCount}` : ''}`, multiplier: multiplier * subCount, depth: depth + 1 });
+                if (sub?.weapon) {
+                    const countLabel = subCount > 1 ? ` ×${subCount}` : '';
+                    queue.push({
+                        weapon:     sub.weapon,
+                        outfit:     sub,
+                        title:      `Submunition: ${subName}${countLabel}`,
+                        multiplier: multiplier * subCount,
+                        depth:      depth + 1,
+                    });
+                }
             }
         }
         if (w.ammo && typeof w.ammo === 'string' && depth < 8 && !visited.has(w.ammo)) {
@@ -459,10 +598,13 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     }
 
     for (const { weapon: w, outfit: o, title } of sections) html += renderWeaponStats(attrDefs, w, title, o);
+
+    // Combined totals across the full chain
     if (sections.length > 1 && Object.keys(totalDamage).length > 0) {
         const rows = Object.entries(totalDamage).filter(([, v]) => v !== 0).map(([k, v]) => attrRow(getLabel(k), fmtNum(v), '', ''));
         if (rows.length) html += buildSection('Total Damage (full chain)', rows);
     }
+
     return html;
 }
 
@@ -478,6 +620,15 @@ function calcWeaponDerived(attrDefs, weapon) {
     const life   = parseFloat(weapon.lifetime ?? 0);
     if (vel && life) push('Range', vel * life, 'px');
     push('Fire Rate', 60 / reload, 'shots/s');
+
+    // Burst-adjusted fire rate
+    const burstCount  = parseFloat(weapon['burst count']  ?? 1) || 1;
+    const burstReload = parseFloat(weapon['burst reload']  ?? reload) || reload;
+    if (burstCount > 1) {
+        const framesPerCycle = (burstCount - 1) * burstReload + reload;
+        push('Sustained Rate', (burstCount / framesPerCycle) * 60, 'shots/s');
+    }
+
     const damageTypes = attrDefs?.weapon?.damageTypes?.length
         ? attrDefs.weapon.damageTypes
         : Object.keys(weapon).filter(k => k.endsWith(' damage')).map(k => k.replace(/ damage$/, ''));
@@ -489,6 +640,15 @@ function calcWeaponDerived(attrDefs, weapon) {
     }
     const am = parseFloat(weapon['anti-missile'] ?? 0);
     if (am) { const ms = parseFloat(weapon['missile strength'] ?? 1) || 1; push('Intercept Chance', am / (am + ms) * 100, `% vs str ${ms}`); }
+
+    // Effect duration (vs a no-resistance target and vs a target that has some)
+    for (const { damageKey, label } of STATUS_EFFECT_DECAY) {
+        const dose = parseFloat(weapon[damageKey] ?? 0);
+        if (!dose) continue;
+        // Show the raw dose for reference — wear-off time depends on target's resistance
+        push(`${label} dose/shot`, dose, 'units');
+    }
+
     return results;
 }
 
@@ -545,6 +705,23 @@ function renderSections(sections) {
     return out;
 }
 
+// ─── Effect wear-off section ──────────────────────────────────────────────────
+
+function renderEffectWearOff(attrs) {
+    const wearOffs = calcEffectWearOffTimes(attrs);
+    if (!wearOffs.length) return '';
+    const rows = wearOffs.map(w => {
+        const tip = ` data-tooltip="Resistance: ${fmtNum(w.resistPerFrame)}/frame | Wear-off: ${fmtNum(w.wearOffSecondsPerUnit)}s per unit of ${w.label} damage received"`;
+        return attrRow(
+            `${w.label} wear-off`,
+            fmtNum(w.wearOffSecondsPerUnit),
+            's/unit',
+            tip
+        );
+    });
+    return buildSection('Status Effect Wear-off (per unit of damage, no stacking)', rows);
+}
+
 // ─── Main renderer ────────────────────────────────────────────────────────────
 
 function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
@@ -577,6 +754,9 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
         if (item.outfitMap && Object.keys(item.outfitMap).length) {
             const outfitRows = Object.entries(item.outfitMap).sort((a, b) => a[0].localeCompare(b[0])).map(([name, count]) => attrRow(name, count > 1 ? `×${count}` : '✓', '', ''));
             html += buildSection('Outfits', outfitRows);
+
+            // Show what each outfit contributes to the ship's attributes
+            html += renderOutfitContributions(attrDefs, item, pluginId);
         }
 
         const derived = calcDerivedStats(attrDefs, item, pluginId);
@@ -592,12 +772,31 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
             if (computedRows.length) html += buildSection('Derived Stats (with Outfits)', computedRows);
         }
 
+        // Show effect wear-off for the ship's resistances
+        html += renderEffectWearOff(attrs);
+
     } else if (currentTab === 'effects') {
         const excludeKeys = new Set(['name','description','sprite','spriteData']);
         const entries = Object.entries(item)
             .filter(([k, v]) => !excludeKeys.has(k) && typeof v !== 'object')
             .map(([k, v]) => ({ key: k, value: v }));
         html += renderSections(groupBySection(attrDefs, entries));
+
+        // Effects: show how long this effect lasts if the ship applies it once
+        // (for things like hit effects / status effects on projectile impacts)
+        const effectAttrs = {};
+        for (const { damageKey } of STATUS_EFFECT_DECAY) {
+            const val = parseFloat(item[damageKey] ?? 0);
+            if (val) effectAttrs[damageKey] = val;
+        }
+        if (Object.keys(effectAttrs).length) {
+            const doseRows = Object.entries(effectAttrs).map(([k, v]) => {
+                const label = STATUS_EFFECT_DECAY.find(e => e.damageKey === k)?.label ?? k;
+                return attrRow(`${label} dose`, fmtNum(v), 'units',
+                    ` data-tooltip="Wear-off time depends on target ship's ${k.replace('damage','resistance')}"`);
+            });
+            html += buildSection('Status Effect Doses', doseRows);
+        }
 
     } else {
         // Outfits and other items
@@ -676,6 +875,12 @@ window.AttributeDisplay = {
     renderAttributesTabEnhanced,
     calcDerivedStats,
     calcWeaponDerived,
+    calcEffectWearOffTimes,
+    calcWeaponEffectDuration,
+    computeOutfitContributions,
+    renderOutfitContributions,
+    renderEffectWearOff,
+    renderWeaponChain,
     initTooltips,
     injectStyles,
     fmtNum,
