@@ -120,7 +120,48 @@
                     <div class="timeline-midline"></div>
                 </div>
             </div>
-
+            <!-- Results -->
+            <div id="resultsPanel">
+ 
+                <div class="result-header">
+                    <div class="result-winner-label">🏆 Winner</div>
+                    <div class="result-winner-name" id="resultWinnerName"></div>
+                    <div class="result-subtitle" id="resultSubtitle"></div>
+                </div>
+ 
+                <!-- Survival timeline bar -->
+                <div class="timeline-section">
+                    <div class="timeline-label">Survival Timeline</div>
+                    <div class="timeline-track">
+                        <div class="timeline-bar-a" id="timelineBarA">
+                            <span class="timeline-bar-label" id="timelineLabelA"></span>
+                        </div>
+                        <div class="timeline-bar-b" id="timelineBarB">
+                            <span class="timeline-bar-label" id="timelineLabelB"></span>
+                        </div>
+                        <div class="timeline-midline"></div>
+                    </div>
+                </div>
+ 
+                <!-- HP chart (injected by JS) -->
+                <div id="hpChartContainer"></div>
+ 
+                <!-- Stats comparison -->
+                <div id="compareGrid"></div>
+ 
+                <!-- Weapon breakdown -->
+                <div style="margin-bottom:8px;">
+                    <div class="timeline-label">Weapon Analysis</div>
+                    <div class="weapons-grid" id="weaponsGrid"></div>
+                </div>
+ 
+                <!-- Combat phases -->
+                <div>
+                    <div class="timeline-label">Combat Phases</div>
+                    <div class="phase-list" id="phaseList"></div>
+                </div>
+ 
+            </div><!-- /#resultsPanel -->
             <!-- Stats comparison -->
             <div id="compareGrid"></div>
 
