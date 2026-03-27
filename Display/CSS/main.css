@@ -1794,6 +1794,265 @@ h1 {
    pointer-events: none;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   Battle Simulator — Results Output Styles
+   Add these rules to main.css (after the existing sim styles)
+   All tokens reference the existing :root variables.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Sim loading indicator ───────────────────────────────────── */
+.sim-loading {
+    display: none;
+    text-align: center;
+    padding: 24px;
+    color: var(--c-accent-text);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    animation: simPulse 1.2s ease-in-out infinite;
+}
+.sim-loading.visible { display: block; }
+
+@keyframes simPulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Stats Comparison Grid  (renderCompareGrid)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Section heading — "Combat", "Energy", "Heat", "Navigation" */
+.res-section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #63b3ed;
+    padding: 18px 0 8px;
+    border-bottom: 1px solid rgba(99, 179, 237, 0.18);
+    margin-bottom: 6px;
+}
+
+/* Three-column layout: A values | labels | B values */
+.results-compare {
+    display: grid;
+    grid-template-columns: 1fr minmax(160px, 1.6fr) 1fr;
+    gap: 0 8px;
+    margin-bottom: 4px;
+}
+
+/* Value columns */
+.res-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.res-col-a .res-row { justify-content: flex-end; text-align: right; }
+.res-col-b .res-row { justify-content: flex-start; text-align: left; }
+
+.res-row {
+    display: flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 4px 10px;
+    border-radius: var(--r-sm);
+    background: rgba(15, 23, 42, 0.35);
+    transition: background var(--t-fast);
+}
+.res-row:hover { background: rgba(30, 58, 138, 0.25); }
+
+.res-row-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--c-text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* Colour-tint value columns by team */
+.res-col-a .res-row-value { color: #93c5fd; }
+.res-col-b .res-row-value { color: #fca5a5; }
+
+/* Centre label column */
+.res-divider {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.res-divider-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    color: var(--c-text-muted);
+    text-align: center;
+    line-height: 1.3;
+    border-radius: var(--r-sm);
+    background: rgba(15, 23, 42, 0.20);
+    transition: background var(--t-fast);
+}
+.res-divider-item:hover { background: rgba(30, 58, 138, 0.18); }
+
+/* Responsive: stack on narrow screens */
+@media (max-width: 680px) {
+    .results-compare {
+        grid-template-columns: 1fr;
+    }
+    .res-divider { display: none; }
+    .res-col { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+    .res-col-a .res-row,
+    .res-col-b .res-row { flex: 1 1 120px; justify-content: center; text-align: center; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Weapon Analysis  (renderWeaponsList)
+   ═══════════════════════════════════════════════════════════════ */
+
+.weapons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 640px) {
+    .weapons-grid { grid-template-columns: 1fr; }
+}
+
+.weapons-col-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--c-border);
+}
+.weapons-col-title-a { color: #93c5fd; border-color: rgba(59, 130, 246, 0.30); }
+.weapons-col-title-b { color: #fca5a5; border-color: rgba(239, 68,  68, 0.30); }
+
+.weapon-item {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    transition: border-color var(--t-fast), background var(--t-fast);
+}
+.weapon-item:hover {
+    border-color: rgba(59, 130, 246, 0.45);
+    background: rgba(15, 23, 42, 0.65);
+}
+.weapon-item:last-child { margin-bottom: 0; }
+
+.weapon-item-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--c-accent-text);
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.weapon-item-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+}
+
+.weapon-stat {
+    font-size: 0.75rem;
+    color: var(--c-text-muted);
+    background: rgba(30, 41, 59, 0.60);
+    border: 1px solid var(--c-border-2);
+    border-radius: 4px;
+    padding: 2px 7px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+.weapon-stat span {
+    color: var(--c-text);
+    font-weight: 600;
+    margin-left: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Combat Phases Timeline  (renderResults → phaseList)
+   ═══════════════════════════════════════════════════════════════ */
+
+.phase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
+.phase-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 9px 14px;
+    border-radius: var(--r-md);
+    border-left: 3px solid transparent;
+    font-size: 0.86rem;
+    line-height: 1.45;
+    transition: background var(--t-fast);
+    background: rgba(15, 23, 42, 0.35);
+}
+.phase-item:hover { background: rgba(15, 23, 42, 0.60); }
+
+/* Team-coloured left border + tint */
+.phase-A {
+    border-left-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.07);
+}
+.phase-A:hover { background: rgba(59, 130, 246, 0.13); }
+
+.phase-B {
+    border-left-color: #ef4444;
+    background: rgba(239, 68, 68, 0.07);
+}
+.phase-B:hover { background: rgba(239, 68, 68, 0.13); }
+
+.phase-neutral {
+    border-left-color: var(--c-text-dim);
+    background: rgba(100, 116, 139, 0.07);
+    font-style: italic;
+    color: var(--c-text-muted);
+}
+
+/* Timestamp badge */
+.phase-time {
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--c-text-dim);
+    background: rgba(15, 23, 42, 0.60);
+    border: 1px solid var(--c-border-2);
+    border-radius: 4px;
+    padding: 2px 7px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.03em;
+}
+
+.phase-A .phase-time { color: #93c5fd; border-color: rgba(59, 130, 246, 0.30); }
+.phase-B .phase-time { color: #fca5a5; border-color: rgba(239, 68,  68, 0.30); }
+
+.phase-text {
+    color: var(--c-text-mid);
+    flex: 1;
+}
+
+/* Bold ship names inside phase text (injected via innerHTML strong tags) */
+.phase-text strong { color: var(--c-text); font-weight: 700; }
+
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 600px) {
   .es-nav__links    { display: none; }
