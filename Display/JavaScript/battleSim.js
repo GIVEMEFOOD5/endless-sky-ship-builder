@@ -35,7 +35,7 @@ const _slots = { A: null, B: null }; // resolved ship stats
 async function init() {
     // Load attrDefs if available
     try {
-        const res = await fetch('${baseUrl}/attributeDefinitions.json');
+        const res = await fetch(`${baseUrl}/attributeDefinitions.json`);
         if (res.ok) _attrDefs = await res.json();
     } catch (_) {}
 
