@@ -1,5 +1,5 @@
 /**
- * battleSim.js
+ * BattleSim.js
  * Endless Sky Battle Simulator
  *
  * Analytical combat model — no frame-by-frame loop needed for the core
@@ -16,64 +16,102 @@
 'use strict';
 
 // ── Constants ────────────────────────────────────────────────────────────────
-const FPS            = 60;
-const SOLAR_POWER    = 1.0;  // standard Sol-type system
-const MAX_SIM_SECS   = 3600; // cap at 1 hour (effectively "never")
+const FPS         = 60;
+const SOLAR_POWER = 1.0;
+const MAX_SIM_SECS = 3600;
 
-const repoUrl = 'GIVEMEFOOD5/endless-sky-ship-builder';
-const baseUrl = `https://raw.githubusercontent.com/${repoUrl}/main/data`;
-    
+const REPO_URL = 'GIVEMEFOOD5/endless-sky-ship-builder';
+const BASE_URL = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
+
 // ── State ────────────────────────────────────────────────────────────────────
-let _allShips    = [];   // merged + tagged with _pluginId
-let _outfitIndex = {};   // name → outfit object
-let _attrDefs    = null; // attributeDefinitions.json
+let _allShips    = [];
+let _outfitIndex = {};
+let _attrDefs    = null;
 
-const _slots = { A: null, B: null }; // resolved ship stats
+const _slots = { A: null, B: null };
 
-// ── Init ─────────────────────────────────────────────────────────────────────
+// ── Data loading (mirrors DataViewer.loadData exactly) ────────────────────────
 
-async function init() {
-    // Load attrDefs if available
+async function loadData() {
+    setStatus('Loading plugin data…');
+
+    // attrDefs
     try {
-        const res = await fetch(`${baseUrl}/attributeDefinitions.json`);
-        if (res.ok) _attrDefs = await res.json();
-    } catch (_) {}
-
-    if (typeof initComputedStats === 'function' && _attrDefs) {
-        initComputedStats(_attrDefs);
-    }
-
-    // Load index to determine plugin order
-    try {
-        const res = await fetch(`${baseUrl}/index.json`);
+        const res = await fetch(`${BASE_URL}/attributeDefinitions.json`);
         if (res.ok) {
-            const idx = await res.json();
-            window._indexPluginOrder = [];
-            for (const pluginList of Object.values(idx)) {
-                for (const { outputName } of pluginList)
-                    window._indexPluginOrder.push(outputName);
-            }
+            _attrDefs = await res.json();
+            if (typeof initComputedStats === 'function') initComputedStats(_attrDefs, BASE_URL);
         }
     } catch (_) {}
 
-    // Wait for PluginManager to init (it fires _renderCardsFromManager)
-    // We hook into this by patching the global
-    window._renderCardsFromManager = async function(resetTab) {
-        await onPluginsChanged();
-    };
-
-    // Initialise the plugin list
-    if (window.PluginManager && Object.keys(window.allData || {}).length > 0) {
-        await PluginManager.initDefaultPlugin();
-    } else {
-        // Data not yet loaded — watch for it
-        const poll = setInterval(async () => {
-            if (Object.keys(window.allData || {}).length > 0) {
-                clearInterval(poll);
-                await PluginManager.initDefaultPlugin();
-            }
-        }, 200);
+    // index.json — determines plugin list and order
+    let dataIndex;
+    try {
+        const res = await fetch(`${BASE_URL}/index.json`);
+        if (!res.ok) throw new Error('Could not fetch index.json');
+        dataIndex = await res.json();
+    } catch (err) {
+        setStatus(`Error: ${err.message}`, true);
+        return;
     }
+
+    // Record index order for outfit fallback lookup
+    window._indexPluginOrder = [];
+    for (const pluginList of Object.values(dataIndex)) {
+        for (const { outputName } of pluginList)
+            window._indexPluginOrder.push(outputName);
+    }
+
+    // Load all plugins (same logic as DataViewer)
+    window.allData = {};
+    for (const [sourceName, pluginList] of Object.entries(dataIndex)) {
+        for (const { outputName, displayName } of pluginList) {
+            const pluginData = {
+                sourceName, displayName, outputName,
+                ships: [], variants: [], outfits: [], effects: [],
+            };
+            try {
+                const [shipsRes, variantsRes, outfitsRes] = await Promise.all([
+                    fetch(`${BASE_URL}/${outputName}/dataFiles/ships.json`),
+                    fetch(`${BASE_URL}/${outputName}/dataFiles/variants.json`),
+                    fetch(`${BASE_URL}/${outputName}/dataFiles/outfits.json`),
+                ]);
+                let loaded = false;
+                if (shipsRes.ok)    { pluginData.ships    = await shipsRes.json();    loaded = true; }
+                if (variantsRes.ok) { pluginData.variants = await variantsRes.json(); loaded = true; }
+                if (outfitsRes.ok)  { pluginData.outfits  = await outfitsRes.json();  loaded = true; }
+                if (loaded) window.allData[outputName] = pluginData;
+            } catch (err) {
+                console.warn(`Failed loading plugin ${outputName}:`, err);
+            }
+        }
+    }
+
+    if (!Object.keys(window.allData).length) {
+        setStatus('Error: no plugin data could be loaded.', true);
+        return;
+    }
+
+    setStatus('');
+
+    // Hook _renderCardsFromManager so PluginManager can notify us of changes
+    window._renderCardsFromManager = async () => { await onPluginsChanged(); };
+
+    await PluginManager.initDefaultPlugin();
+}
+
+function setStatus(msg, isError = false) {
+    let el = document.getElementById('simStatus');
+    if (!el) return;
+    el.textContent = msg;
+    el.style.color = isError ? 'var(--c-danger-text)' : 'var(--c-text-muted)';
+    el.style.display = msg ? 'block' : 'none';
+}
+
+// ── Init (entry point) ────────────────────────────────────────────────────────
+
+async function init() {
+    await loadData();
 }
 
 async function onPluginsChanged() {
@@ -577,16 +615,14 @@ function renderSlotPreview(slot, ship, stats) {
     const statEl = document.getElementById('stats' + slot);
     const slotEl = document.getElementById('slot' + slot);
 
-    // Try to get ship image
+    // Try to get ship image using the GitHub Pages image URL (same pattern as DataViewer)
     const pluginId = ship._pluginId;
     const allData  = window.allData || {};
     let imgSrc = '';
     try {
-        const baseUrl = allData[pluginId]?._baseUrl || `../data/${pluginId}`;
         if (ship.sprite) {
-            // Convert sprite name to image path
             const spritePath = ship.sprite.replace(/\s+/g, '_');
-            imgSrc = `${baseUrl}/images/${spritePath}.png`;
+            imgSrc = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/${pluginId}/images/${spritePath}.png`;
         }
     } catch (_) {}
 
