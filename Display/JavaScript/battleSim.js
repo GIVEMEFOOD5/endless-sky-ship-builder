@@ -1,5 +1,5 @@
 /**
- * BattleSim.js
+ * battleSim.js
  * Endless Sky Battle Simulator
  *
  * Analytical combat model — no frame-by-frame loop needed for the core
@@ -32,7 +32,7 @@ const _slots = { A: null, B: null }; // resolved ship stats
 async function init() {
     // Load attrDefs if available
     try {
-        const res = await fetch('../data/attributeDefinitions.json');
+        const res = await fetch('.../data/attributeDefinitions.json');
         if (res.ok) _attrDefs = await res.json();
     } catch (_) {}
 
@@ -42,7 +42,7 @@ async function init() {
 
     // Load index to determine plugin order
     try {
-        const res = await fetch('../data/index.json');
+        const res = await fetch('.../data/index.json');
         if (res.ok) {
             const idx = await res.json();
             window._indexPluginOrder = [];
