@@ -960,7 +960,11 @@ function renderSlotPreview(slot, ship, stats) {
 
     let imgSrc = '';
     if (ship.sprite) {
-        const spritePath = ship.sprite.replace(/\s+/g, '_');
+        const spritePath = ship.sprite;
+        imgSrc = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/${ship._pluginId}/images/${spritePath}.png`;
+    }
+    else {
+        const spritePath = ship.thumbnail;
         imgSrc = `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/${ship._pluginId}/images/${spritePath}.png`;
     }
     imgEl.src          = imgSrc;
