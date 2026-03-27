@@ -1795,9 +1795,7 @@ h1 {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Battle Simulator — Results Output Styles
-   Add these rules to main.css (after the existing sim styles)
-   All tokens reference the existing :root variables.
+   Battle Simulator — Results Output Styles  (add to main.css)
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Sim loading indicator ───────────────────────────────────── */
@@ -1822,7 +1820,6 @@ h1 {
    Stats Comparison Grid  (renderCompareGrid)
    ═══════════════════════════════════════════════════════════════ */
 
-/* Section heading — "Combat", "Energy", "Heat", "Navigation" */
 .res-section-title {
     font-size: 0.7rem;
     font-weight: 700;
@@ -1834,7 +1831,6 @@ h1 {
     margin-bottom: 6px;
 }
 
-/* Three-column layout: A values | labels | B values */
 .results-compare {
     display: grid;
     grid-template-columns: 1fr minmax(160px, 1.6fr) 1fr;
@@ -1842,7 +1838,6 @@ h1 {
     margin-bottom: 4px;
 }
 
-/* Value columns */
 .res-col {
     display: flex;
     flex-direction: column;
@@ -1855,8 +1850,8 @@ h1 {
 .res-row {
     display: flex;
     align-items: center;
-    min-height: 30px;
-    padding: 4px 10px;
+    min-height: 28px;
+    padding: 3px 10px;
     border-radius: var(--r-sm);
     background: rgba(15, 23, 42, 0.35);
     transition: background var(--t-fast);
@@ -1864,18 +1859,16 @@ h1 {
 .res-row:hover { background: rgba(30, 58, 138, 0.25); }
 
 .res-row-value {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: var(--c-text);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
 }
 
-/* Colour-tint value columns by team */
 .res-col-a .res-row-value { color: #93c5fd; }
 .res-col-b .res-row-value { color: #fca5a5; }
 
-/* Centre label column */
 .res-divider {
     display: flex;
     flex-direction: column;
@@ -1886,25 +1879,20 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 30px;
-    padding: 4px 8px;
-    font-size: 0.75rem;
+    min-height: 28px;
+    padding: 3px 8px;
+    font-size: 0.73rem;
     color: var(--c-text-muted);
     text-align: center;
     line-height: 1.3;
     border-radius: var(--r-sm);
     background: rgba(15, 23, 42, 0.20);
-    transition: background var(--t-fast);
 }
-.res-divider-item:hover { background: rgba(30, 58, 138, 0.18); }
 
-/* Responsive: stack on narrow screens */
 @media (max-width: 680px) {
-    .results-compare {
-        grid-template-columns: 1fr;
-    }
-    .res-divider { display: none; }
-    .res-col { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+    .results-compare { grid-template-columns: 1fr; }
+    .res-divider      { display: none; }
+    .res-col          { flex-direction: row; flex-wrap: wrap; gap: 4px; }
     .res-col-a .res-row,
     .res-col-b .res-row { flex: 1 1 120px; justify-content: center; text-align: center; }
 }
@@ -1983,7 +1971,7 @@ h1 {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Combat Phases Timeline  (renderResults → phaseList)
+   Combat Phases Timeline
    ═══════════════════════════════════════════════════════════════ */
 
 .phase-list {
@@ -1996,7 +1984,7 @@ h1 {
 .phase-item {
     display: flex;
     align-items: baseline;
-    gap: 12px;
+    gap: 10px;
     padding: 9px 14px;
     border-radius: var(--r-md);
     border-left: 3px solid transparent;
@@ -2007,7 +1995,6 @@ h1 {
 }
 .phase-item:hover { background: rgba(15, 23, 42, 0.60); }
 
-/* Team-coloured left border + tint */
 .phase-A {
     border-left-color: #3b82f6;
     background: rgba(59, 130, 246, 0.07);
@@ -2027,7 +2014,6 @@ h1 {
     color: var(--c-text-muted);
 }
 
-/* Timestamp badge */
 .phase-time {
     font-size: 0.72rem;
     font-weight: 700;
@@ -2040,18 +2026,34 @@ h1 {
     white-space: nowrap;
     flex-shrink: 0;
     letter-spacing: 0.03em;
+    min-width: 46px;
+    text-align: center;
 }
 
 .phase-A .phase-time { color: #93c5fd; border-color: rgba(59, 130, 246, 0.30); }
 .phase-B .phase-time { color: #fca5a5; border-color: rgba(239, 68,  68, 0.30); }
 
-.phase-text {
-    color: var(--c-text-mid);
-    flex: 1;
+.phase-icon {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    line-height: 1;
 }
 
-/* Bold ship names inside phase text (injected via innerHTML strong tags) */
+.phase-text { color: var(--c-text-mid); flex: 1; }
 .phase-text strong { color: var(--c-text); font-weight: 700; }
+
+/* ═══════════════════════════════════════════════════════════════
+   HP Chart
+   ═══════════════════════════════════════════════════════════════ */
+
+.hp-chart-wrap {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    padding: 4px;
+    margin-bottom: 24px;
+}
 
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 600px) {
