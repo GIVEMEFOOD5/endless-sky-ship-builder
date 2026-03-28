@@ -16,7 +16,7 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "aiCacheCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipAICache.cpp"
     },
-    "generatedAt": "2026-03-27T22:37:03.755Z",
+    "generatedAt": "2026-03-28T09:25:10.816Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls in formulas refer to other ship functions resolved by ComputedStats.",
@@ -32,7 +32,10 @@
       "IdleHeat returns heat units; divide by MaximumHeat for fraction (× 100 for %).",
       "HeatDissipation returns per-frame fraction; × 60 for per-second rate.",
       "solar_power defaults to 1.0 (Sol-type star, habitable zone).",
-      "ramscoop: fuel/s = 0.03 × sqrt(solar_power) × attribute value."
+      "ramscoop: fuel/s = 0.03 × sqrt(solar_power) × attribute value.",
+      "statusEffectDecay: each effect decays by its resistKey value per frame at 60fps.",
+      "Submunitions: weapon.submunition[] entries reference outfit names; damage is additive.",
+      "Outfit contributions to ship: sum outfit.attributes[key] * qty for each outfitMap entry."
     ]
   },
   "systemContext": {
@@ -5894,13 +5897,6 @@
         ]
       }
     },
-    "submunitionKeys": [
-      "ammo",
-      "cluster",
-      "exclude submunition damage",
-      "stream",
-      "submunition"
-    ],
     "dataFileKeys": [
       "acceleration",
       "ammo",
@@ -6004,6 +6000,12 @@
       "velocity",
       "velocity override"
     ],
+    "submunitionKeys": [
+      "ammo",
+      "cluster",
+      "stream",
+      "submunition"
+    ],
     "damageTypes": [
       "Burn",
       "Corrosion",
@@ -6019,7 +6021,99 @@
       "Scrambling",
       "Shield",
       "Slowing"
-    ]
+    ],
+    "statusEffectDecay": {
+      "decayMap": {
+        "ionization": "ion resistance",
+        "scrambling": "scramble resistance",
+        "disruption": "disruption resistance",
+        "slowing": "slowing resistance",
+        "burn": "burn resistance",
+        "discharge": "discharge resistance",
+        "corrosion": "corrosion resistance",
+        "leak": "leak resistance"
+      },
+      "descriptors": [
+        {
+          "statName": "ionization",
+          "resistKey": "ion resistance",
+          "damageKey": "ion damage",
+          "protectionKey": "ion protection",
+          "label": "Ionization",
+          "wearOffFormula": "dose / [ion resistance] / 60",
+          "description": "Accumulated ionization decays by [ion resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+        },
+        {
+          "statName": "scrambling",
+          "resistKey": "scramble resistance",
+          "damageKey": "scrambling damage",
+          "protectionKey": "scramble protection",
+          "label": "Scrambling",
+          "wearOffFormula": "dose / [scramble resistance] / 60",
+          "description": "Accumulated scrambling decays by [scramble resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+        },
+        {
+          "statName": "disruption",
+          "resistKey": "disruption resistance",
+          "damageKey": "disruption damage",
+          "protectionKey": "disruption protection",
+          "label": "Disruption",
+          "wearOffFormula": "dose / [disruption resistance] / 60",
+          "description": "Accumulated disruption decays by [disruption resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+        },
+        {
+          "statName": "slowing",
+          "resistKey": "slowing resistance",
+          "damageKey": "slowing damage",
+          "protectionKey": "slowing protection",
+          "label": "Slowing",
+          "wearOffFormula": "dose / [slowing resistance] / 60",
+          "description": "Accumulated slowing decays by [slowing resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+        },
+        {
+          "statName": "burn",
+          "resistKey": "burn resistance",
+          "damageKey": "burn damage",
+          "protectionKey": "burn protection",
+          "label": "Burn",
+          "wearOffFormula": "dose / [burn resistance] / 60",
+          "description": "Accumulated burn decays by [burn resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+        },
+        {
+          "statName": "discharge",
+          "resistKey": "discharge resistance",
+          "damageKey": "discharge damage",
+          "protectionKey": "discharge protection",
+          "label": "Discharge",
+          "wearOffFormula": "dose / [discharge resistance] / 60",
+          "description": "Accumulated discharge decays by [discharge resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+        },
+        {
+          "statName": "corrosion",
+          "resistKey": "corrosion resistance",
+          "damageKey": "corrosion damage",
+          "protectionKey": "corrosion protection",
+          "label": "Corrosion",
+          "wearOffFormula": "dose / [corrosion resistance] / 60",
+          "description": "Accumulated corrosion decays by [corrosion resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+        },
+        {
+          "statName": "leak",
+          "resistKey": "leak resistance",
+          "damageKey": "leak damage",
+          "protectionKey": "leak protection",
+          "label": "Leak",
+          "wearOffFormula": "dose / [leak resistance] / 60",
+          "description": "Accumulated leak decays by [leak resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+        }
+      ],
+      "notes": [
+        "Each status effect accumulates during combat and decays per-frame.",
+        "Decay per frame = attributes.Get(resistKey).",
+        "Wear-off time (s) for a one-shot dose = dose / resistPerFrame / 60.",
+        "Protection attributes reduce the initial dose: effectiveDose = rawDose * (1 - protection)."
+      ]
+    }
   },
   "navigation": {
     "Calibrate": {
