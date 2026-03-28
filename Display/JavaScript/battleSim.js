@@ -150,6 +150,13 @@ async function onPluginsChanged() {
             _allShips.push({ ...ship, _pluginId: pid });
     }
 
+    // Tell ImageGrabber which plugin is primary so it searches the right index first
+    const primaryPlugin = activePlugins[0] || null;
+    if (primaryPlugin) {
+        if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primaryPlugin);
+        if (typeof window.initImageIndex    === 'function') await window.initImageIndex(primaryPlugin);
+    }
+
     document.getElementById('simPanel').style.display = 'block';
     updateFightButton();
 }
@@ -204,9 +211,13 @@ async function selectShip(slot, ship) {
 function clearSlot(slot) {
     _slots[slot] = null;
     document.getElementById('search' + slot).value = '';
-    document.getElementById('selected' + slot).classList.remove('visible');
-    document.getElementById('stats' + slot).style.display = 'none';
-    document.getElementById('slot' + slot).classList.remove('has-ship');
+    const selEl  = document.getElementById('selected' + slot);
+    const statEl = document.getElementById('stats'    + slot);
+    const slotEl = document.getElementById('slot'     + slot);
+    if (selEl)  selEl.classList.remove('visible');
+    if (statEl) statEl.style.display = 'none';
+    if (slotEl) slotEl.classList.remove('has-ship');
+    if (typeof window.clearSpriteCache === 'function') window.clearSpriteCache();
     updateFightButton();
     hideResults();
 }
@@ -997,64 +1008,61 @@ function checkMilestones(st, stats, side, t, m, phases) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  UI  —  Image loading matches DataViewer.js pattern exactly
+//  UI  —  Image loading using ImageGrabber.js fetchSprite pattern
 // ═══════════════════════════════════════════════════════════════════════════════
 
 async function renderSlotPreview(slot, ship, stats) {
     const el     = document.getElementById('selected' + slot);
-    const imgWrap = document.getElementById('imgWrap' + slot);   // <-- wrapping div, not bare <img>
-    const nameEl = document.getElementById('name' + slot);
-    const metaEl = document.getElementById('meta' + slot);
-    const statEl = document.getElementById('stats' + slot);
-    const slotEl = document.getElementById('slot' + slot);
+    const imgEl  = document.getElementById('img'      + slot);
+    const nameEl = document.getElementById('name'     + slot);
+    const metaEl = document.getElementById('meta'     + slot);
+    const statEl = document.getElementById('stats'    + slot);
+    const slotEl = document.getElementById('slot'     + slot);
 
-    // ── Image loading — mirrors DataViewer._loadSpriteForCard exactly ──────
-    // fetchSprite() returns an element (canvas or img), NOT a URL string.
-    if (imgWrap) {
-        imgWrap.innerHTML = '<div style="width:100%;height:100%;background:rgba(15,23,42,0.5);border-radius:4px;"></div>';
+    // ── Image loading ──────────────────────────────────────────────────────
+    if (typeof window.setCurrentPlugin === 'function') window.setCurrentPlugin(ship._pluginId);
+    if (typeof window.clearSpriteCache === 'function') window.clearSpriteCache();
+
+    if (imgEl) {
+        imgEl.style.display = 'none';
+        imgEl.src = '';
         try {
             let element = null;
-            const spritePath   = ship.sprite;
-            const thumbnailPath = ship.thumbnail;
-
-            if (spritePath)    element = await window.fetchSprite(spritePath, null);
-            if (!element && thumbnailPath) element = await window.fetchSprite(thumbnailPath, null);
-
+            if (ship.sprite)      element = await window.fetchSprite(ship.sprite,    ship.spriteData || {});
+            if (!element && ship.thumbnail) element = await window.fetchSprite(ship.thumbnail, ship.spriteData || {});
             if (element) {
-                element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
-                imgWrap.innerHTML = '';
-                imgWrap.appendChild(element);
+                element.id = imgEl.id;
+                element.className = imgEl.className;
+                imgEl.parentElement.replaceChild(element, imgEl);
             } else {
-                // Fallback placeholder image
-                const fallback = document.createElement('img');
-                fallback.src = 'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png';
-                fallback.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
-                imgWrap.innerHTML = '';
-                imgWrap.appendChild(fallback);
+                imgEl.src = 'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png';
+                imgEl.style.display = 'block';
             }
         } catch (e) {
-            console.warn('Failed to fetch sprite for', ship.name, e);
+            console.warn('renderSlotPreview: sprite fetch failed for', ship.name, e);
+            imgEl.style.display = 'none';
         }
     }
 
-    nameEl.textContent  = ship.name;
-    metaEl.textContent  = (window.allData?.[ship._pluginId]?.sourceName) || ship._pluginId || '';
-    el.classList.add('visible');
-    slotEl.classList.add('has-ship');
+    // ── Populate name / meta / clear button ────────────────────────────────
+    if (nameEl) nameEl.textContent = ship.name;
+    if (metaEl) metaEl.textContent = (window.allData?.[ship._pluginId]?.sourceName) || ship._pluginId || '';
+    if (el)     el.classList.add('visible');
+    if (slotEl) slotEl.classList.add('has-ship');
 
-    const sDPS = stats.shieldDPS;
-    const hDPS = stats.hullDPS;
-    statEl.innerHTML = `
-        ${statRow('Shields',    fmt(stats.maxShields))}
-        ${statRow('Hull',       fmt(stats.maxHull))}
-        ${statRow('Min Hull',   fmt(stats.minHull))}
-        ${statRow('Shld DPS',   fmt(sDPS))}
-        ${statRow('Hull DPS',   fmt(hDPS))}
-        ${statRow('Shld Regen', fmt(stats.shieldRegenPerSec) + '/s')}
-        ${statRow('Energy',     fmt(stats.energyCap))}
-        ${statRow('Heat Cap',   fmt(stats.maxHeat))}
-    `;
-    statEl.style.display = 'grid';
+    if (statEl) {
+        statEl.innerHTML = `
+            ${statRow('Shields',    fmt(stats.maxShields))}
+            ${statRow('Hull',       fmt(stats.maxHull))}
+            ${statRow('Min Hull',   fmt(stats.minHull))}
+            ${statRow('Shld DPS',   fmt(stats.shieldDPS))}
+            ${statRow('Hull DPS',   fmt(stats.hullDPS))}
+            ${statRow('Shld Regen', fmt(stats.shieldRegenPerSec) + '/s')}
+            ${statRow('Energy',     fmt(stats.energyCap))}
+            ${statRow('Heat Cap',   fmt(stats.maxHeat))}
+        `;
+        statEl.style.display = 'grid';
+    }
 }
 
 function statRow(label, value) {
@@ -1075,10 +1083,15 @@ function hideResults() {
 function runSimulation() {
     const sA = _slots.A;
     const sB = _slots.B;
-    if (!sA || !sB) return;
+    if (!sA || !sB) { setStatus('Select two ships first.', true); return; }
 
-    const result = simulateBattle(sA, sB);
-    renderResults(sA, sB, result);
+    try {
+        const result = simulateBattle(sA, sB);
+        renderResults(sA, sB, result);
+    } catch (err) {
+        console.error('runSimulation error:', err);
+        setStatus('Simulation error: ' + err.message, true);
+    }
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════

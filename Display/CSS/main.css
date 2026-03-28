@@ -1516,6 +1516,73 @@ h1 {
    user-select: none;
 }
 
+/* ── Slot header box: name + plugin + X ─────────────────────────── */
+.slot-header-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--c-surface-2, rgba(30, 41, 59, 0.9));
+    border: 1px solid var(--c-border, rgba(148,163,184,0.15));
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.slot-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.slot-header-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--c-text, #e2e8f0);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.slot-header-plugin {
+    font-size: 0.72rem;
+    color: var(--c-text-muted, #64748b);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.slot-header-clear {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid var(--c-border, rgba(148,163,184,0.2));
+    border-radius: 5px;
+    color: var(--c-text-muted, #64748b);
+    font-size: 0.75rem;
+    padding: 3px 7px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.15s, border-color 0.15s;
+}
+.slot-header-clear:hover {
+    color: var(--c-danger-text, #f87171);
+    border-color: var(--c-danger-text, #f87171);
+}
+
+/* ── Slot image box ─────────────────────────────────────────────── */
+.slot-image-box {
+    background: var(--c-surface-1, rgba(15, 23, 42, 0.6));
+    border: 1px solid var(--c-border, rgba(148,163,184,0.15));
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
 /* ── Ship slot ─────────────────────────────────────────── */
 .ship-slot {
    background: var(--c-surface);
@@ -1605,54 +1672,99 @@ h1 {
 }
 
 /* ── Selected ship card ─────────────────────────────────── */
+/* ── Selected ship card ─────────────────────────────────── */
 .selected-ship {
-   display: none;
-   background: rgba(15,23,42,0.5);
-   border: 1px solid var(--c-border);
-   border-radius: var(--r-md);
-   padding: 14px;
-   gap: 12px;
+    display: none;
+    flex-direction: column;   /* stack vertically: header → image */
+    gap: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
 }
-
 .selected-ship.visible { display: flex; }
 
-.selected-ship-img {
-   width: 64px; height: 64px;
-   border-radius: var(--r-sm);
-   object-fit: contain;
-   background: rgba(30,41,59,0.5);
-   flex-shrink: 0;
+/* Header row: name + plugin + X */
+.selected-ship-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--c-surface-2);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md) var(--r-md) 0 0;
+    min-width: 0;
+    order: 1;
 }
-.selected-ship-info { flex: 1; min-width: 0; }
 
 .selected-ship-name {
-   font-weight: 700;
-   font-size: 1.05rem;
-   color: var(--c-accent-text);
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--c-accent-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
 }
 
 .selected-ship-meta {
-   font-size: 0.8rem;
-   color: var(--c-text-muted);
-   margin-top: 3px;
+    font-size: 0.78rem;
+    color: var(--c-text-muted);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+/* Reuse existing .selected-ship-clear — just position it in the header */
 .selected-ship-clear {
-   background: none;
-   border: none;
-   color: var(--c-text-dim);
-   cursor: pointer;
-   font-size: 1.2rem;
-   padding: 2px 6px;
-   border-radius: var(--r-sm);
-   flex-shrink: 0;
-   transition: color var(--t-fast), background var(--t-fast);
+    background: none;
+    border: none;
+    color: var(--c-text-dim);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 2px 6px;
+    border-radius: var(--r-sm);
+    flex-shrink: 0;
+    order: 2;
+    align-self: center;
+    transition: color var(--t-fast), background var(--t-fast);
+}
+.selected-ship-clear:hover { color: var(--c-danger-hi); background: var(--c-danger); }
+
+/* Image box: sits below the header */
+.selected-ship-img {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid var(--c-border);
+    border-top: none;
+    border-radius: 0 0 var(--r-md) var(--r-md);
+    image-rendering: pixelated;
+    order: 3;
+    padding: 12px;
+    box-sizing: border-box;
 }
 
-.selected-ship-clear:hover { color: var(--c-danger-hi); background: var(--c-danger); }
+/* canvas/img injected by fetchSprite inherits the same treatment */
+.selected-ship canvas,
+.selected-ship img:not(.selected-ship-img) {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid var(--c-border);
+    border-top: none;
+    border-radius: 0 0 var(--r-md) var(--r-md);
+    image-rendering: pixelated;
+    order: 3;
+    padding: 12px;
+    box-sizing: border-box;
+}
 
 /* ── Mini stat strip on the slot ──────────────────────────*/
 .slot-stats {

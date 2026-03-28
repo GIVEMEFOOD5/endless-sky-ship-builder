@@ -481,9 +481,9 @@ function parseOutfitCpp(src) {
 // ---------------------------------------------------------------------------
 
 function parseWeaponCpp(src) {
-  const fnBodies     = extractFunctionBodies(src, 'Weapon::');
-  const functions    = {};
-  const dataFileKeys = new Set();
+  const fnBodies       = extractFunctionBodies(src, 'Weapon::');
+  const functions      = {};
+  const dataFileKeys   = new Set();
   const submunitionKeys = new Set();
 
   for (const [fnName, info] of Object.entries(fnBodies)) {
@@ -495,8 +495,8 @@ function parseWeaponCpp(src) {
       let m;
       while ((m = keyRe.exec(body)) !== null) {
         dataFileKeys.add(m[1]);
-        // Track submunition-related keys explicitly
-        if (/submunition|ammo|cluster|stream/.test(m[1])) submunitionKeys.add(m[1]);
+        // Submunition-related data file keys
+        if (/^(submunition|ammo|cluster|stream)$/.test(m[1])) submunitionKeys.add(m[1]);
       }
     }
     if (returns.length === 0 && attrKeys.length === 0) continue;
@@ -507,37 +507,45 @@ function parseWeaponCpp(src) {
   }
   return {
     functions,
-    dataFileKeys: [...dataFileKeys].sort(),
+    dataFileKeys:    [...dataFileKeys].sort(),
     submunitionKeys: [...submunitionKeys].sort(),
   };
 }
 
 // ---------------------------------------------------------------------------
-// Parse status effect decay rates from Ship.cpp / Outfit.cpp
-// In Endless Sky, accumulated status effects (ion, disruption, etc.) decay
-// per frame by the ship's resistance attribute value.
-// This extracts the canonical decay map: { effectName → resistanceAttribute }
+// parseStatusEffectDecay — extract the per-frame decay model from Ship.cpp
+//
+// In Endless Sky, accumulated status effects decay each frame by the value of
+// their corresponding resistance attribute. This function extracts the canonical
+// mapping of { internalStateName → resistanceAttributeKey } by scanning Ship.cpp
+// for patterns like:
+//   ionization = max(0., ionization - attributes.Get("ion resistance"));
+//
+// Falls back to the canonical hard-coded list if patterns aren't found.
 // ---------------------------------------------------------------------------
 
 function parseStatusEffectDecay(src) {
-  // Look for patterns like:
-  //   ionization = max(0., ionization - attributes.Get("ion resistance"));
-  //   disruption = max(0., disruption - attributes.Get("disruption resistance"));
   const decayMap = {};
-  const combined = src || '';
+  const combined  = src || '';
 
-  // Pattern: <stateName> = max(0., <stateName> - attributes.Get("<resistKey>"))
-  const re = /\b(\w+)\s*=\s*max\s*\(\s*0[\.,]\s*\1\s*-\s*(?:attributes?|ship)\.Get\s*\(\s*"([^"]+)"\s*\)\s*\)/g;
-  let m;
-  while ((m = re.exec(combined)) !== null) {
-    const stateName  = m[1];
-    const resistKey  = m[2];
-    if (/ion|scrambl|disrupt|slow|burn|discharg|corros|leak/.test(stateName)) {
-      decayMap[stateName] = resistKey;
+  // Pattern: statName = max(0., statName - attributes.Get("resistKey"))
+  // Also handles: statName -= attributes.Get("resistKey")
+  const patterns = [
+    /\b(\w+)\s*=\s*max\s*\(\s*0[.,]\s*\1\s*-\s*attributes?\.Get\s*\(\s*"([^"]+)"\s*\)\s*\)/g,
+    /\b(\w+)\s*-=\s*attributes?\.Get\s*\(\s*"([^"]+)"\s*\)/g,
+  ];
+  for (const re of patterns) {
+    let m;
+    while ((m = re.exec(combined)) !== null) {
+      const statName  = m[1];
+      const resistKey = m[2];
+      if (/ion|scrambl|disrupt|slow|burn|discharg|corros|leak/.test(statName)) {
+        decayMap[statName] = resistKey;
+      }
     }
   }
 
-  // Fallback: known canonical ES decay pairs
+  // Canonical fallback — these are the authoritative ES values
   const canonical = {
     ionization:  'ion resistance',
     scrambling:  'scramble resistance',
@@ -552,7 +560,38 @@ function parseStatusEffectDecay(src) {
     if (!decayMap[stat]) decayMap[stat] = resist;
   }
 
-  return decayMap;
+  // Build the full descriptor array used by AttributeDisplay and battleSim
+  const descriptors = Object.entries(canonical).map(([statName, resistKey]) => ({
+    statName,
+    resistKey,
+    // damageKey is the weapon attribute that inflicts this effect
+    damageKey: statName === 'ionization'   ? 'ion damage'
+             : statName === 'scrambling'   ? 'scrambling damage'
+             : statName === 'disruption'   ? 'disruption damage'
+             : statName === 'slowing'      ? 'slowing damage'
+             : statName === 'burn'         ? 'burn damage'
+             : statName === 'discharge'    ? 'discharge damage'
+             : statName === 'corrosion'    ? 'corrosion damage'
+             : statName === 'leak'         ? 'leak damage'
+             : statName + ' damage',
+    // protectionKey reduces initial dose
+    protectionKey: statName === 'ionization'   ? 'ion protection'
+                 : statName === 'scrambling'   ? 'scramble protection'
+                 : statName === 'disruption'   ? 'disruption protection'
+                 : statName === 'slowing'      ? 'slowing protection'
+                 : statName === 'burn'         ? 'burn protection'
+                 : statName === 'discharge'    ? 'discharge protection'
+                 : statName === 'corrosion'    ? 'corrosion protection'
+                 : statName === 'leak'         ? 'leak protection'
+                 : statName + ' protection',
+    label: statName.charAt(0).toUpperCase() + statName.slice(1),
+    // Wear-off formula: wearOffSeconds = dose / resistPerFrame / 60
+    wearOffFormula: `dose / [${resistKey}] / 60`,
+    description: `Accumulated ${statName} decays by [${resistKey}] per frame. `
+               + `One-shot wear-off (s) = dose / resistance / 60.`,
+  }));
+
+  return { decayMap, descriptors };
 }
 
 function parseDamageDealt(hSrc, cppSrc) {
@@ -819,10 +858,14 @@ async function parseAttributes(outputDir) {
   console.log(`                     ${Object.keys(shipDisplay.intermediateVars).length} intermediate vars`);
 
   const outfitStacking = sources.outfitCpp ? parseOutfitCpp(sources.outfitCpp) : {};
-  const weaponData     = sources.weaponCpp ? parseWeaponCpp(sources.weaponCpp) : { functions: {}, dataFileKeys: [] };
+  const weaponData     = sources.weaponCpp ? parseWeaponCpp(sources.weaponCpp) : { functions: {}, dataFileKeys: [], submunitionKeys: [] };
   const damageTypes    = parseDamageDealt(sources.damageDealtH, sources.damageDealtCpp);
   const jumpNavFns     = parseJumpNav(sources.jumpNavCpp);
   const aiCacheFns     = parseAICache(sources.aiCacheCpp);
+
+  // Status effect decay model — extracted from Ship.cpp, fallback to canonical ES values
+  const statusEffectDecay = parseStatusEffectDecay(sources.shipCpp || '');
+  console.log(`  Status effects     ${statusEffectDecay.descriptors.length} effects, decay map extracted from Ship.cpp`);
 
   const attributes = buildAttributeDictionary(
     oidData, shipFns, shipDisplay, outfitStacking, weaponData, jumpNavFns, aiCacheFns
@@ -877,6 +920,9 @@ async function parseAttributes(outputDir) {
         'HeatDissipation returns per-frame fraction; × 60 for per-second rate.',
         'solar_power defaults to 1.0 (Sol-type star, habitable zone).',
         'ramscoop: fuel/s = 0.03 × sqrt(solar_power) × attribute value.',
+        'statusEffectDecay: each effect decays by its resistKey value per frame at 60fps.',
+        'Submunitions: weapon.submunition[] entries reference outfit names; damage is additive.',
+        'Outfit contributions to ship: sum outfit.attributes[key] * qty for each outfitMap entry.',
       ],
     },
     systemContext,
@@ -888,7 +934,6 @@ async function parseAttributes(outputDir) {
       labelValuePairs:  shipDisplay.attributeLabels,
       capacityDisplay:  shipDisplay.capacityNames,
       intermediateVars: shipDisplay.intermediateVars,
-      statusEffectDecay: shipDisplay.statusEffectDecay
     },
     outfitDisplay: {
       scaleLabels:       oidData.scaleLabels,
@@ -900,7 +945,24 @@ async function parseAttributes(outputDir) {
       expectedNegative:  oidData.expectedNegative,
       beforeAttributes:  oidData.beforeAttrs,
     },
-    weapon: { functions: weaponData.functions, submunitionKeys: weaponData.submunitionKeys, dataFileKeys: weaponData.dataFileKeys, damageTypes },
+    weapon: {
+      functions:       weaponData.functions,
+      dataFileKeys:    weaponData.dataFileKeys,
+      submunitionKeys: weaponData.submunitionKeys,
+      damageTypes,
+      // statusEffectDecay: canonical mapping of effect → resistance attribute + full descriptors
+      // Used by AttributeDisplay to show wear-off times, and by battleSim for decay simulation.
+      statusEffectDecay: {
+        decayMap:    statusEffectDecay.decayMap,
+        descriptors: statusEffectDecay.descriptors,
+        notes: [
+          'Each status effect accumulates during combat and decays per-frame.',
+          'Decay per frame = attributes.Get(resistKey).',
+          'Wear-off time (s) for a one-shot dose = dose / resistPerFrame / 60.',
+          'Protection attributes reduce the initial dose: effectiveDose = rawDose * (1 - protection).',
+        ],
+      },
+    },
     navigation: jumpNavFns,
     aiCache:    aiCacheFns,
   };
