@@ -2001,7 +2001,7 @@ h1 {
     background: rgba(15, 23, 42, 0.20);
 }
 
-@media (max-width: 680px) {
+@media (max-width: 690px) {
     .results-compare { grid-template-columns: 1fr; }
     .res-divider      { display: none; }
     .res-col          { flex-direction: row; flex-wrap: wrap; gap: 4px; }
@@ -2165,6 +2165,324 @@ h1 {
     overflow: hidden;
     padding: 4px;
     margin-bottom: 24px;
+}
+
+/* Mobile frendly */
+
+/* ═══════════════════════════════════════════════════════════════
+   Battle Simulator — CSS additions / overrides
+   Append these rules to the end of main.css
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Fix: selected-ship should be column (header then image) ──── */
+/* The clear button is a sibling of selected-ship-info — both are
+   direct children of .selected-ship. We want them in a row on the
+   header line, not stacked.  Override the flex direction so the
+   info block and clear button sit side-by-side, then the image
+   spans the full width below. */
+
+.selected-ship {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+}
+.selected-ship.visible { display: flex; }
+
+/* Header row: info text + clear button sit inline */
+.selected-ship-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--c-surface-2);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md) var(--r-md) 0 0;
+    min-width: 0;
+}
+
+/* Name and plugin label stack vertically inside the info block */
+.selected-ship-name {
+    flex: 1;
+    min-width: 0;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--c-accent-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selected-ship-meta {
+    font-size: 0.75rem;
+    color: var(--c-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+
+/* Clear button sits at the end of the info row */
+.selected-ship-clear {
+    flex-shrink: 0;
+    align-self: center;
+    background: none;
+    border: 1px solid rgba(148,163,184,0.2);
+    border-radius: var(--r-sm);
+    color: var(--c-text-dim);
+    font-size: 0.8rem;
+    padding: 3px 7px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color var(--t-fast), border-color var(--t-fast);
+}
+.selected-ship-clear:hover {
+    color: var(--c-danger-hi);
+    border-color: var(--c-danger-hi);
+}
+
+/* Image fills width below header */
+.selected-ship-img {
+    display: block;
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    background: rgba(15,23,42,0.55);
+    border: 1px solid var(--c-border);
+    border-top: none;
+    border-radius: 0 0 var(--r-md) var(--r-md);
+    image-rendering: pixelated;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* fetchSprite canvas/img replacement inherits the same look */
+.selected-ship canvas,
+.selected-ship img:not(.selected-ship-img) {
+    display: block;
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    background: rgba(15,23,42,0.55);
+    border: 1px solid var(--c-border);
+    border-top: none;
+    border-radius: 0 0 var(--r-md) var(--r-md);
+    image-rendering: pixelated;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* ── Slot-stats: mobile-friendly grid ────────────────────────── */
+.slot-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.slot-stat {
+    background: rgba(15,23,42,0.4);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-sm);
+    padding: 6px 8px;
+    font-size: 0.76rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.slot-stat-label {
+    color: var(--c-text-muted);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.slot-stat-value {
+    color: var(--c-text);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── Ensure simResults is hidden until JS populates it ────────── */
+/* JS calls el.style.display = 'none' on DOMContentLoaded,
+   but this provides a fallback for slower load paths */
+#simResults:empty { display: none !important; }
+
+/* ── Responsive: single-column results on narrow screens ─────── */
+@media (max-width: 600px) {
+    .results-compare {
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+    .res-divider { display: none; }
+    .res-col { gap: 2px; }
+    .res-col-a .res-row,
+    .res-col-b .res-row { justify-content: flex-start; text-align: left; }
+    .res-col-a .res-row-value,
+    .res-col-b .res-row-value { color: var(--c-text); font-size: 0.8rem; }
+
+    /* Restore readable contrast — no blue/red split on mobile */
+    .res-col-a .res-row-value { color: #93c5fd; }
+    .res-col-b .res-row-value { color: #fca5a5; }
+
+    .weapons-grid { grid-template-columns: 1fr; }
+
+    .slot-stats { grid-template-columns: 1fr 1fr; }
+
+    .fight-btn { font-size: 0.95rem; padding: 14px 20px; }
+
+    .sim-vs { font-size: 1.8rem; padding: 6px 0; }
+}
+
+@media (max-width: 420px) {
+    .slot-stats { grid-template-columns: 1fr; }
+    .slot-stat { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+/* ── Phase item: make icon + time + text wrap cleanly ─────────── */
+.phase-item {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+}
+
+.phase-icon { flex-shrink: 0; line-height: 1; }
+.phase-time {
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--c-text-dim);
+    background: rgba(15,23,42,0.60);
+    border: 1px solid var(--c-border-2);
+    border-radius: 4px;
+    padding: 2px 7px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 46px;
+    text-align: center;
+}
+.phase-text { flex: 1; min-width: 120px; color: var(--c-text-mid); }
+.phase-text strong { color: var(--c-text); font-weight: 700; }
+
+.phase-A .phase-time { color: #93c5fd; border-color: rgba(59,130,246,0.30); }
+.phase-B .phase-time { color: #fca5a5; border-color: rgba(239,68,68,0.30); }
+
+/* ── HP chart wrapper ─────────────────────────────────────────── */
+.hp-chart-wrap {
+    background: rgba(15,23,42,0.4);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+/* ── Weapon sub badge ─────────────────────────────────────────── */
+.weapon-sub-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 1px 5px;
+    background: rgba(59,130,246,0.15);
+    border: 1px solid rgba(59,130,246,0.30);
+    border-radius: 4px;
+    color: var(--c-accent-text);
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE PATCH — append to the END of main.css
+   (or replace the existing mobile results-compare block if present)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── HP chart: always fills container, never overflows ───────── */
+.hp-chart-wrap {
+    overflow: hidden;
+}
+.hp-chart-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;          /* respects viewBox aspect ratio        */
+    max-height: 220px;     /* cap on wide/desktop                  */
+}
+
+/* ── Stats comparison: mobile labelled-row layout ────────────── */
+
+/*
+ * .res-row-mobile is generated by buildCompareGrid() alongside the
+ * existing desktop three-column markup.  It is hidden on desktop
+ * and shown on mobile where the three-column grid collapses.
+ */
+.res-row-mobile {
+    display: none;   /* hidden by default — mobile @media shows it */
+}
+
+@media (max-width: 690px) {
+
+    /* Hide the three-column desktop structure */
+    .results-compare .res-col    { display: none !important; }
+    .results-compare .res-divider { display: none !important; }
+
+    /* Show the mobile rows instead */
+    .res-row-mobile {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        align-items: center;
+        gap: 0 8px;
+        min-height: 28px;
+        padding: 5px 10px;
+        border-radius: var(--r-sm, 6px);
+        background: rgba(15, 23, 42, 0.35);
+        transition: background 0.15s ease;
+    }
+    .res-row-mobile:hover {
+        background: rgba(30, 58, 138, 0.25);
+    }
+
+    .res-row-mobile__label {
+        font-size: 0.74rem;
+        color: var(--c-text-muted, #94a3b8);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .res-row-mobile__val-a {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #93c5fd;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+        text-align: right;
+        min-width: 44px;
+    }
+
+    .res-row-mobile__val-b {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #fca5a5;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+        text-align: right;
+        min-width: 44px;
+    }
+
+    /* Section title stays full-width */
+    .res-section-title {
+        grid-column: 1 / -1;
+    }
+
+    /* Weapons grid: single column on mobile */
+    .weapons-grid { grid-template-columns: 1fr; }
+
+    /* Phase items: allow text to wrap */
+    .phase-item { flex-wrap: wrap; }
+    .phase-text { min-width: 0; flex: 1 1 160px; }
 }
 
 /* ── Responsive ─────────────────────────────────────────────── */
