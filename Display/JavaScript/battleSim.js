@@ -4,50 +4,42 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 //  battleSim.js  —  Endless Sky Battle Simulator
 //
-//  Corrections in this version (all sourced from ES C++ headers/source):
+//  Key fixes in this version:
 //
-//  1. SLOWING is NOT a damage type — it is a speed multiplier status effect.
-//     Applied as: effectiveSpeed = speed / (1 + slowing * 0.05)
-//     It does NOT reduce hull/shield/heat HP in any way.
+//  1. OUTFIT ATTRIBUTE READING — root cause of "0% protection" bug.
+//     The JSON outfit objects store all numeric attributes (shields, hull,
+//     piercing resistance, ion protection, etc.) BOTH as:
+//       a) outfit.attributes.{key}  (preferred, normalised block)
+//       b) outfit.{key}             (flat, legacy / raw parse)
+//     The previous code only read one or the other.  The new code merges both,
+//     so no attribute is ever silently dropped.
 //
-//  2. DISRUPTION is NOT a damage type — it is a shield-damage multiplier.
-//     Applied as: shieldDamageReceived *= (1 + disruption * 0.01)
-//     It does NOT deal direct shield damage.
+//  2. PROTECTION / RESISTANCE KEYS — dynamically discovered.
+//     getProtectionKeys()     → all attrDefs keys ending in ' protection'
+//     getResistanceKeys()     → all attrDefs keys ending in ' resistance'
+//     These are used to build the ship's `protections` map and `statusResist`
+//     map from the combined attributes, so no attribute needs to be hardcoded.
 //
-//  3. STATUS EFFECT DECAY corrected from Ship.cpp DoStatusEffect():
-//     Each frame: stat = max(0, 0.99 * stat - effectiveResistance)
-//     effectiveResistance = min(resistance, 0.99 * stat)
-//     → 1% passive decay always applies. Resistance removes up to `resistance`
-//       extra units per frame on top. Half-life at zero resistance ≈ 69 frames.
+//  3. SLOWING DAMAGE — does NOT reduce HP.
+//     Slowing accumulates in statusEffects.slowing and is noted in the combat
+//     phases (🐌 milestone).  It is never applied to shields/hull/heat/etc.
 //
-//  4. JAM CHANCE corrected from Ship.cpp CalculateJamChance():
+//  4. DISRUPTION — multiplies shield damage received (not direct damage).
+//     Already correct in applyWeaponDamage; confirmed here.
+//
+//  5. STATUS EFFECT DECAY — corrected DoStatusEffect() formula:
+//     stat = max(0, 0.99*stat - min(resistance, 0.99*stat))
+//     Passive 1%/frame decay always applies.
+//
+//  6. JAM CHANCE — corrected CalculateJamChance():
 //     scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0
-//     (Previous version used /1024 which was wrong.)
-//
-//  5. PROTECTION ATTRIBUTES (ion protection, slowing protection, etc.) are now
-//     correctly read from the ship's combined attributes and applied to reduce
-//     the incoming status effect dose before it accumulates.
-//     All protections are clamped to [0, 1].
-//
-//  6. OUTFIT ATTRIBUTES now correctly contribute to the ship's combined stat
-//     block including all protection/resistance keys. The attribute lookup now
-//     explicitly checks for all known protection and resistance keys.
-//
-//  7. STATUS EFFECTS: Discharge drains shields, Corrosion drains hull,
-//     Burn adds heat, Leak drains fuel — these remain DoT effects.
-//     Ion gates movement-energy weapons. Scrambling jams weapons randomly.
-//     Disruption multiplies shield damage. Slowing reduces speed (not modelled
-//     in combat sim directly but noted in phases).
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const FPS           = 60;
-const MAX_SIM_SECS  = 600;
-const MAX_FRAMES    = MAX_SIM_SECS * FPS;
-const SOLAR_POWER   = 1.0;
-
-// Shield overflow: when no hull weapon, only 50% of excess shield damage
-// bleeds to hull (from Ship.cpp TakeDamage)
-const SHIELD_BLEED_FRACTION = 0.5;
+const FPS          = 60;
+const MAX_SIM_SECS = 600;
+const MAX_FRAMES   = MAX_SIM_SECS * FPS;
+const SOLAR_POWER  = 1.0;
+const SHIELD_BLEED_FRACTION = 0.5;  // from Ship.cpp TakeDamage
 
 const REPO_URL = 'GIVEMEFOOD5/endless-sky-ship-builder';
 const BASE_URL = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
@@ -57,13 +49,12 @@ let _allShips          = [];
 let _outfitIndex       = {};
 let _attrDefs          = null;
 let _damageTypes       = [];
-let _statusDecayMap    = {};   // statName → resistKey
+let _statusDecayMap    = {};
 let _statusDescriptors = [];
 let _weaponDataKeys    = new Set();
 
 const _slots = { A: null, B: null };
 
-// Firing self-effect keys: statName → weapon attribute key
 const FIRING_STATUS_MAP = {
     ionization: 'firing ion',
     scrambling: 'firing scramble',
@@ -227,12 +218,13 @@ async function selectShip(slot, ship) {
 function clearSlot(slot) {
     _slots[slot] = null;
     document.getElementById('search' + slot).value = '';
-    const selEl  = document.getElementById('selected' + slot);
-    const statEl = document.getElementById('stats'    + slot);
-    const slotEl = document.getElementById('slot'     + slot);
-    if (selEl)  selEl.classList.remove('visible');
-    if (statEl) statEl.style.display = 'none';
-    if (slotEl) slotEl.classList.remove('has-ship');
+    ['selected', 'stats', 'slot'].forEach(prefix => {
+        const el = document.getElementById(prefix + slot);
+        if (!el) return;
+        if (prefix === 'selected') el.classList.remove('visible');
+        else if (prefix === 'stats') el.style.display = 'none';
+        else if (prefix === 'slot') el.classList.remove('has-ship');
+    });
     if (typeof window.clearSpriteCache === 'function') window.clearSpriteCache();
     updateFightButton();
     hideResults();
@@ -246,15 +238,16 @@ function getStacking(key) {
     return (_attrDefs?.attributes?.[key]?.stacking) || 'additive';
 }
 
-// All keys ending in ' protection' — from Outfit.cpp MINIMUM_OVERRIDES
+// All attrDef keys ending in ' protection' (dynamically discovered)
 function getProtectionKeys() {
     if (!_attrDefs?.attributes) return [];
     return Object.keys(_attrDefs.attributes).filter(k => k.endsWith(' protection'));
 }
 
-// All known status effect names (statName)
-function getStatusEffectNames() {
-    return Object.keys(_statusDecayMap);
+// All attrDef keys ending in ' resistance' (dynamically discovered)
+function getResistanceKeys() {
+    if (!_attrDefs?.attributes) return [];
+    return Object.keys(_attrDefs.attributes).filter(k => k.endsWith(' resistance'));
 }
 
 const dmgKey    = t => t.toLowerCase() + ' damage';
@@ -262,10 +255,56 @@ const protKey   = t => t.toLowerCase() + ' protection';
 const relDmgKey = t => '% ' + t.toLowerCase() + ' damage';
 
 // ═══════════════════════════════════════════════════════════════════════════════
+//  OUTFIT ATTRIBUTE EXTRACTION
+//
+//  The JSON can store outfit attributes in two places:
+//    1. outfit.attributes.{key}   — a nested normalised block
+//    2. outfit.{key}              — flat on the root object
+//
+//  We MERGE both, preferring the nested block when a key appears in both.
+//  Keys that are non-numeric or internal (_pluginId, name, weapon, etc.)
+//  are skipped.
+//
+//  This is the root cause of the "0% piercing resistance / 0% protection"
+//  bug: the flat attributes were being silently dropped whenever the nested
+//  block existed, even if the nested block was incomplete.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// Set of non-attribute keys present on every outfit object in the JSON
+const OUTFIT_META_KEYS = new Set([
+    '_pluginId', 'name', 'displayName', 'pluralName', 'category',
+    'weapon', 'attributes', 'description', 'thumbnail', 'sprite',
+    'licenses', 'series', 'index', 'ammoStored', 'cost', 'mass',
+    'flareSprites', 'reverseFlareSprites', 'steeringFlareSprites',
+    'flareSounds', 'jumpEffects', 'hyperSounds', 'jumpSounds',
+    'flotsamSprite', 'ammo', 'isDefined',
+]);
+
+function extractOutfitAttributes(outfit) {
+    const merged = {};
+
+    // 1. Read flat properties from the root object (skipping meta keys)
+    for (const [key, val] of Object.entries(outfit)) {
+        if (OUTFIT_META_KEYS.has(key)) continue;
+        if (typeof val === 'number') merged[key] = val;
+    }
+
+    // 2. Overlay with the nested .attributes block (takes precedence)
+    if (outfit.attributes && typeof outfit.attributes === 'object') {
+        for (const [key, val] of Object.entries(outfit.attributes)) {
+            if (typeof val === 'number') merged[key] = val;
+        }
+    }
+
+    return merged;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 //  STAT RESOLUTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function resolveShipStats(ship) {
+    // Start with the ship's own base attributes
     const combined            = { ...(ship.attributes || {}) };
     const weapons             = [];
     const outfitContributions = {};
@@ -274,16 +313,16 @@ function resolveShipStats(ship) {
         const outfit = _outfitIndex[outfitName];
         if (!outfit) continue;
 
-        if (outfit.weapon)
+        // Weapons: each unit is a separate instance
+        if (outfit.weapon) {
             for (let i = 0; i < qty; i++)
                 weapons.push({ _name: outfitName, ...outfit.weapon });
+        }
 
-        // Prefer outfit.attributes block; fall back to flat outfit props
-        const attrs = (outfit.attributes && Object.keys(outfit.attributes).length)
-            ? outfit.attributes : outfit;
+        // FIXED: merge flat + nested attributes so nothing is dropped
+        const attrs = extractOutfitAttributes(outfit);
 
         for (const [key, rawVal] of Object.entries(attrs)) {
-            if (typeof rawVal !== 'number' || key.startsWith('_')) continue;
             const contrib = rawVal * qty;
             switch (getStacking(key)) {
                 case 'maximum': combined[key] = Math.max(combined[key] ?? -Infinity, contrib); break;
@@ -300,7 +339,7 @@ function resolveShipStats(ship) {
 
     const a = k => combined[k] || 0;
 
-    // Ship.cpp formulas
+    // ── Ship.cpp formulas ───────────────────────────────────────────────────
     const rawMass      = a('mass');
     const inertialMass = rawMass / (1 + a('inertia reduction'));
     const drag         = Math.min(a('drag') / (1 + a('drag reduction')), inertialMass);
@@ -312,11 +351,10 @@ function resolveShipStats(ship) {
         ? absThresh
         : Math.max(0, Math.floor(a('threshold percentage') * maxHull + a('hull threshold')));
 
-    const x       = a('cooling inefficiency');
-    const coolEff = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
-
-    const maxHeat        = 100 * (rawMass + a('heat capacity'));
-    const heatDissipFrac = 0.001 * a('heat dissipation');
+    const x        = a('cooling inefficiency');
+    const coolEff  = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
+    const maxHeat  = 100 * (rawMass + a('heat capacity'));
+    const heatDissipFrac  = 0.001 * a('heat dissipation');
     const coolingPerFrame = coolEff * (a('cooling') + a('active cooling'));
 
     const shieldRegenPerFrame   = a('shield generation')         * (1 + a('shield generation multiplier'));
@@ -324,20 +362,22 @@ function resolveShipStats(ship) {
     const hullRepairPerFrame    = a('hull repair rate')          * (1 + a('hull repair multiplier'));
     const delayedHullPerFrame   = a('delayed hull repair rate')  * (1 + a('hull repair multiplier'));
 
-    // All protection attributes — clamped [0, 1]
+    // ── Protections — all keys ending in ' protection', clamped [0,1] ──────
     const protections = {};
     for (const key of getProtectionKeys())
         protections[key] = Math.max(0, Math.min(1, a(key)));
     const shieldProt  = protections['shield protection']  || 0;
     const hullProt    = protections['hull protection']    || 0;
+
+    // ── Piercing resistance — ends in ' resistance', not ' protection' ──────
     const piercingRes = Math.max(0, Math.min(1, a('piercing resistance')));
 
-    // Status effect resistance per frame (how much is cleared per frame beyond passive 1% decay)
+    // ── Status effect resistances (per-frame decay bonus) ───────────────────
     const statusResist = {};
     for (const [statName, resistKey] of Object.entries(_statusDecayMap))
         statusResist[statName] = Math.max(0, a(resistKey));
 
-    // Energy
+    // ── Energy ──────────────────────────────────────────────────────────────
     const energyCap                 = a('energy capacity');
     const energyGenPerFrame         = a('energy generation')
                                     + a('solar collection') * SOLAR_POWER
@@ -347,7 +387,7 @@ function resolveShipStats(ship) {
                                     + a('turning energy');
     const coolingEnergyPerFrame     = a('cooling energy');
 
-    // Heat
+    // ── Heat ────────────────────────────────────────────────────────────────
     const heatGenIdlePerFrame = a('heat generation');
     const movingHeatPerFrame  = Math.max(a('thrusting heat'), a('reverse thrusting heat'))
                               + a('turning heat');
@@ -397,11 +437,10 @@ function resolveSubmunitionDamage(weapon, multiplier, visited, depth) {
         const subName  = typeof entry === 'string' ? entry : (entry?.name ?? String(entry));
         const subCount = typeof entry === 'object'  ? (entry?.count ?? 1) : 1;
         if (!subName || visited.has(subName)) continue;
-        const newVisited = new Set(visited);
-        newVisited.add(subName);
+        const nv = new Set(visited); nv.add(subName);
         const sub = _outfitIndex[subName];
         if (!sub?.weapon) continue;
-        const subDmg = resolveSubmunitionDamage(sub.weapon, multiplier * subCount, newVisited, depth + 1);
+        const subDmg = resolveSubmunitionDamage(sub.weapon, multiplier * subCount, nv, depth + 1);
         for (const [t, v] of Object.entries(subDmg))
             totals[t] = (totals[t] || 0) + v;
     }
@@ -418,15 +457,14 @@ function analyzeWeapons(weapons) {
     const details = [];
 
     for (const w of weapons) {
-        const reload      = Math.max(1, w.reload || 1);
-        const burstCount  = w['burst count']  || 1;
-        const burstReload = w['burst reload'] || reload;
+        const reload         = Math.max(1, w.reload || 1);
+        const burstCount     = w['burst count']  || 1;
+        const burstReload    = w['burst reload'] || reload;
         const framesPerCycle = (burstCount - 1) * burstReload + reload;
         const sps            = (burstCount / framesPerCycle) * FPS;
-
-        const piercing = Math.max(0, Math.min(1, w.piercing || 0));
-        const visited  = new Set([w._name].filter(Boolean));
-        const dmgPerShot = resolveSubmunitionDamage(w, 1, visited, 0);
+        const piercing       = Math.max(0, Math.min(1, w.piercing || 0));
+        const visited        = new Set([w._name].filter(Boolean));
+        const dmgPerShot     = resolveSubmunitionDamage(w, 1, visited, 0);
         for (const t of _damageTypes) if (dmgPerShot[t] === undefined) dmgPerShot[t] = 0;
 
         for (const t of _damageTypes) totalDPS[t] = (totalDPS[t] || 0) + dmgPerShot[t] * sps;
@@ -453,7 +491,7 @@ function analyzeWeapons(weapons) {
     result.heatDPS       = totalDPS['Heat']       || 0;
     result.ionDPS        = totalDPS['Ion']        || 0;
     result.disruptionDPS = totalDPS['Disruption'] || 0;
-    result.slowingDPS    = totalDPS['Slowing']    || 0;  // accumulation rate, not HP damage
+    result.slowingDPS    = totalDPS['Slowing']    || 0;
     result.firingEnergyPerSec     = +(totalFiring['firing energy']  || 0).toFixed(3);
     result.firingHeatPerSec       = +(totalFiring['firing heat']    || 0).toFixed(3);
     result.firingFuelPerSec       = +(totalFiring['firing fuel']    || 0).toFixed(3);
@@ -484,8 +522,7 @@ function createCombatantState(stats) {
         weaponBurstCounters:  stats.weapons.map(() => 0),
         disabled:    false, disabledAt:  Infinity,
         destroyed:   false, destroyedAt: Infinity,
-        isOverheated: false,
-        isIonized:    false,
+        isOverheated: false, isIonized:  false,
         totalShieldDamageReceived: 0,
         totalHullDamageReceived:   0,
     };
@@ -501,8 +538,10 @@ function simulateBattle(sA, sB) {
     const stA = createCombatantState(sA);
     const stB = createCombatantState(sB);
     const milestones = {
-        A: { shieldsBroken: false, halfHull: false, disabled: false, energyBlackout: false, overheated: false, heavilySlowed: false },
-        B: { shieldsBroken: false, halfHull: false, disabled: false, energyBlackout: false, overheated: false, heavilySlowed: false },
+        A: { shieldsBroken: false, halfHull: false, disabled: false,
+             energyBlackout: false, overheated: false, heavilySlowed: false },
+        B: { shieldsBroken: false, halfHull: false, disabled: false,
+             energyBlackout: false, overheated: false, heavilySlowed: false },
     };
     const timelineA = [], timelineB = [];
     let frame = 0;
@@ -517,8 +556,8 @@ function simulateBattle(sA, sB) {
         const preShieldsA = stA.shields, preHullA = stA.hull;
         const preShieldsB = stB.shields, preHullB = stB.hull;
 
-        if (!stA.disabled && !stA.destroyed) shootFrame(stA, stB, sA, sB);
-        if (!stB.disabled && !stB.destroyed) shootFrame(stB, stA, sB, sA);
+        if (!stA.disabled && !stA.destroyed) shootFrame(stA, stB, sA);
+        if (!stB.disabled && !stB.destroyed) shootFrame(stB, stA, sB);
 
         stA.totalShieldDamageReceived += Math.max(0, preShieldsA - stA.shields);
         stA.totalHullDamageReceived   += Math.max(0, preHullA   - stA.hull);
@@ -529,13 +568,10 @@ function simulateBattle(sA, sB) {
         doRegen(stA, sA);      doRegen(stB, sB);
         decayStatusEffects(stA, sA); decayStatusEffects(stB, sB);
 
-        // IsOverheated: heat >= MaximumHeat — blocks weapons only
         stA.isOverheated = stA.heat >= sA.maxHeat;
         stB.isOverheated = stB.heat >= sB.maxHeat;
-
-        // IsIonized: ionization > energy AND ship uses energy for movement
-        stA.isIonized = sA.movingEnergyPerFrame > 0 && (stA.statusEffects.ionization || 0) > stA.energy;
-        stB.isIonized = sB.movingEnergyPerFrame > 0 && (stB.statusEffects.ionization || 0) > stB.energy;
+        stA.isIonized    = sA.movingEnergyPerFrame > 0 && (stA.statusEffects.ionization || 0) > stA.energy;
+        stB.isIonized    = sB.movingEnergyPerFrame > 0 && (stB.statusEffects.ionization || 0) > stB.energy;
 
         stA.shields = Math.max(0, Math.min(sA.maxShields, stA.shields));
         stB.shields = Math.max(0, Math.min(sB.maxShields, stB.shields));
@@ -566,12 +602,12 @@ function simulateBattle(sA, sB) {
     }
 
     const finalT = frame / FPS;
-    if (!timelineA.length || timelineA[timelineA.length-1].t < finalT) {
+    if (!timelineA.length || timelineA[timelineA.length - 1].t < finalT) {
         timelineA.push({ t: finalT, shields: stA.shields, hull: stA.hull, energy: stA.energy, heat: stA.heat });
         timelineB.push({ t: finalT, shields: stB.shields, hull: stB.hull, energy: stB.energy, heat: stB.heat });
     }
     result.timelineA = timelineA; result.timelineB = timelineB;
-    result.finalStateA = stA; result.finalStateB = stB;
+    result.finalStateA = stA;     result.finalStateB = stB;
 
     const aKilled = isFinite(result.ttkA), bKilled = isFinite(result.ttkB);
     if (!aKilled && !bKilled) {
@@ -618,25 +654,21 @@ function shootFrame(attSt, defSt, attStats) {
         // Scrambling jam: 1 - pow(2, -scrambling/70) for scrambling > 0.1
         const scrambling = attSt.statusEffects.scrambling || 0;
         if (scrambling > 0.1) {
-            const jamChance = 1 - Math.pow(2, -scrambling / 70);
-            if (Math.random() < jamChance) {
+            if (Math.random() < (1 - Math.pow(2, -scrambling / 70))) {
                 advanceBurst(attSt, i, burstCount, burstReload, reload);
                 continue;
             }
         }
 
-        // Firing costs
         attSt.energy  -= firingEnergy;
         attSt.fuel    -= (w['firing fuel']    || 0);
         attSt.hull    -= (w['firing hull']    || 0);
         attSt.shields -= (w['firing shields'] || 0);
         attSt.heat    += (w['firing heat']    || 0);
 
-        // Self-inflicted status effects from firing
         for (const [statName, firingKey] of Object.entries(FIRING_STATUS_MAP)) {
             const val = w[firingKey] || 0;
-            if (val > 0)
-                attSt.statusEffects[statName] = (attSt.statusEffects[statName] || 0) + val;
+            if (val > 0) attSt.statusEffects[statName] = (attSt.statusEffects[statName] || 0) + val;
         }
 
         applyWeaponDamage(w, defSt, defSt.stats);
@@ -660,14 +692,14 @@ function advanceBurst(attSt, i, burstCount, burstReload, reload) {
 
 // ── applyWeaponDamage ─────────────────────────────────────────────────────────
 function applyWeaponDamage(w, defSt, defStats) {
-    // Disruption multiplies shield damage (status multiplier, not direct damage)
+    // Disruption multiplies shield damage (status multiplier, NOT direct damage)
     const disruptMult = 1 + (defSt.statusEffects.disruption || 0) * 0.01;
 
     // Effective piercing after target's piercing resistance
     const effectivePiercing = Math.max(0, Math.min(1, w.piercing || 0))
                             * (1 - defStats.piercingRes);
 
-    // Relative (%) damage — applied to current HP
+    // Relative (%) damage applied to current HP
     const relShieldDmg = (w['% shield damage'] || 0)
                        * Math.min(Math.max(0, defSt.shields), defStats.maxShields);
     const relHullDmg   = (w['% hull damage']   || 0)
@@ -676,27 +708,22 @@ function applyWeaponDamage(w, defSt, defStats) {
     const rawShieldDmg = (w['shield damage'] || 0) + relShieldDmg;
     const rawHullDmg   = (w['hull damage']   || 0) + relHullDmg;
 
-    // Shield damage after protection and disruption
     const shieldDmgTotal   = rawShieldDmg * (1 - defStats.shieldProt) * disruptMult;
     const hullDmgAfterProt = rawHullDmg   * (1 - defStats.hullProt);
 
-    // Piercing bypasses shields
     const hullPiercedDmg   = shieldDmgTotal * effectivePiercing;
     const shieldDmgApplied = shieldDmgTotal * (1 - effectivePiercing);
 
     if (defSt.shields > 0) {
         defSt.shields -= shieldDmgApplied;
         defSt.hull    -= hullPiercedDmg + hullDmgAfterProt;
-
         if (defSt.shields < 0) {
-            // Overflow: 50% bleed if no hull weapon, 100% if weapon has hull damage
             const bleed = (rawHullDmg > 0) ? 1.0 : SHIELD_BLEED_FRACTION;
             defSt.hull    += defSt.shields * bleed * (1 - defStats.hullProt);
             defSt.shields  = 0;
             defSt.depletedFlag = true;
         }
     } else {
-        // No shields — all damage to hull
         defSt.hull -= hullDmgAfterProt + rawShieldDmg * (1 - defStats.shieldProt);
     }
 
@@ -705,55 +732,37 @@ function applyWeaponDamage(w, defSt, defStats) {
     if (defSt.depletedFlag)
         defSt.shieldDelayCounter = Math.max(defSt.shieldDelayCounter, defStats.depletedDelay || 0);
 
-    // Non-shield/hull damage types
+    // Non-shield/hull damage types — loop dynamically over all _damageTypes
     for (const typeName of _damageTypes) {
         if (typeName === 'Shield' || typeName === 'Hull') continue;
-        const raw = w[dmgKey(typeName)] || 0;
-        const rel = w[relDmgKey(typeName)] || 0;
+        const raw      = w[dmgKey(typeName)]    || 0;
+        const rel      = w[relDmgKey(typeName)] || 0;
         const totalDmg = raw + rel;
         if (!totalDmg) continue;
-
-        // Protection reduces initial dose
+        // Protection key: "ion protection", "slowing protection", etc.
         const prot = defStats.protections[protKey(typeName)] || 0;
-        applyStatusOrInstantDamage(defSt, defStats, typeName, totalDmg * (1 - prot));
+        applyStatusOrInstantDamage(defSt, typeName, totalDmg * (1 - prot));
     }
 }
 
-// Correctly route each damage type:
-// - Instantaneous: Energy, Heat, Fuel  → directly modify the resource
-// - DoT status effects: Discharge (shields), Corrosion (hull), Burn (heat), Leak (fuel)
-// - Status multipliers: Disruption (shield damage multiplier), Slowing (speed multiplier)
-// - Firing-gate / weapon-jam: Ion (ionization), Scrambling
-function applyStatusOrInstantDamage(defSt, defStats, typeName, dmg) {
+function applyStatusOrInstantDamage(defSt, typeName, dmg) {
     switch (typeName) {
-        // Instantaneous resource drain
         case 'Energy':     defSt.energy -= dmg; break;
         case 'Heat':       defSt.heat   += dmg; break;
         case 'Fuel':       defSt.fuel   -= dmg; break;
-
-        // DoT status — accumulates, applied each frame in doGeneration
         case 'Discharge':  defSt.statusEffects.discharge  = Math.max(0, (defSt.statusEffects.discharge  || 0) + dmg); break;
         case 'Corrosion':  defSt.statusEffects.corrosion  = Math.max(0, (defSt.statusEffects.corrosion  || 0) + dmg); break;
         case 'Burn':       defSt.statusEffects.burn       = Math.max(0, (defSt.statusEffects.burn       || 0) + dmg); break;
         case 'Leak':       defSt.statusEffects.leak       = Math.max(0, (defSt.statusEffects.leak       || 0) + dmg); break;
-
-        // Firing-gate status
         case 'Ion':        defSt.statusEffects.ionization = Math.max(0, (defSt.statusEffects.ionization || 0) + dmg); break;
         case 'Scrambling': defSt.statusEffects.scrambling = Math.max(0, (defSt.statusEffects.scrambling || 0) + dmg); break;
-
-        // Status multipliers — accumulate, applied in shootFrame / doGeneration
-        // Disruption: shieldDmg *= (1 + disruption*0.01) — already used in applyWeaponDamage
         case 'Disruption': defSt.statusEffects.disruption = Math.max(0, (defSt.statusEffects.disruption || 0) + dmg); break;
-        // Slowing: effectiveSpeed /= (1 + slowing*0.05) — noted in phases, not directly affecting
-        // sim outcome (combat range is infinite in our model), but accumulated for display
+        // Slowing: speed multiplier only — does NOT affect HP/shields/heat
         case 'Slowing':    defSt.statusEffects.slowing    = Math.max(0, (defSt.statusEffects.slowing    || 0) + dmg); break;
-
-        // Minable damage, disabled damage — not applicable in ship-vs-ship
         default: break;
     }
 }
 
-// ── doGeneration ──────────────────────────────────────────────────────────────
 function doGeneration(st, stats) {
     st.energy += stats.energyGenPerFrame
                - stats.energyConsumeIdlePerFrame
@@ -763,46 +772,33 @@ function doGeneration(st, stats) {
                + stats.movingHeatPerFrame
                - stats.coolingPerFrame;
     st.heat   -= st.heat * stats.heatDissipFrac;
-
-    // DoT status tick damage
     if ((st.statusEffects.discharge || 0) > 0) st.shields -= st.statusEffects.discharge;
     if ((st.statusEffects.corrosion || 0) > 0) st.hull    -= st.statusEffects.corrosion;
     if ((st.statusEffects.burn      || 0) > 0) st.heat    += st.statusEffects.burn;
     if ((st.statusEffects.leak      || 0) > 0) st.fuel    -= st.statusEffects.leak;
 }
 
-// ── doRegen ───────────────────────────────────────────────────────────────────
 function doRegen(st, stats) {
     if (st.shieldDelayCounter > 0) st.shieldDelayCounter--;
     else if (st.shields < stats.maxShields)
         st.shields += stats.shieldRegenPerFrame + stats.delayedShieldPerFrame;
-
     if (st.repairDelayCounter > 0) st.repairDelayCounter--;
     else if (st.hull < stats.maxHull && !st.disabled)
         st.hull += stats.hullRepairPerFrame + stats.delayedHullPerFrame;
 }
 
-// ── decayStatusEffects — DoStatusEffect() from Ship.cpp ──────────────────────
-// stat = max(0, 0.99 * stat - effectiveResistance)
-// effectiveResistance = min(resistance, 0.99 * stat)
-// (Energy/fuel/heat costs for resistance not modelled — resistance always applied fully)
+// DoStatusEffect() from Ship.cpp: stat = max(0, 0.99*stat - min(resistance, 0.99*stat))
 function decayStatusEffects(st, stats) {
-    for (const [statName, resistPerFrame] of Object.entries(stats.statusResist)) {
+    for (const statName of Object.keys(_statusDecayMap)) {
         const cur = st.statusEffects[statName] || 0;
         if (cur <= 0) continue;
-        const passive     = 0.99 * cur;               // always applied
-        const effectiveR  = Math.min(resistPerFrame, passive);
+        const passive    = 0.99 * cur;
+        const resistPerFrame = stats.statusResist[statName] || 0;
+        const effectiveR = Math.min(resistPerFrame, passive);
         st.statusEffects[statName] = Math.max(0, passive - effectiveR);
-    }
-    // For status effects with no resistance entry, apply 1% passive decay
-    for (const statName of getStatusEffectNames()) {
-        if (stats.statusResist[statName] !== undefined) continue;
-        const cur = st.statusEffects[statName] || 0;
-        if (cur > 0) st.statusEffects[statName] = Math.max(0, 0.99 * cur);
     }
 }
 
-// ── checkMilestones ────────────────────────────────────────────────────────────
 function checkMilestones(st, stats, side, t, m, phases) {
     if (!m.shieldsBroken && stats.maxShields > 0 && st.shields <= 0) {
         m.shieldsBroken = true;
@@ -824,17 +820,14 @@ function checkMilestones(st, stats, side, t, m, phases) {
         phases.push({ time: t, type: side, icon: '🔥',
             text: `<strong>${escHtml(stats.name)}</strong> overheated — weapons offline at ${fmtT(t)}` });
     }
-    // Slowing milestone: note when heavily slowed (>50% speed reduction)
-    // speed *= 1/(1 + slowing*0.05); 50% reduction = slowing >= 20
     if (!m.heavilySlowed && (st.statusEffects.slowing || 0) >= 20) {
         m.heavilySlowed = true;
-        const pct = Math.round((1 - 1/(1 + (st.statusEffects.slowing || 0) * 0.05)) * 100);
+        const pct = Math.round((1 - 1 / (1 + (st.statusEffects.slowing || 0) * 0.05)) * 100);
         phases.push({ time: t, type: side, icon: '🐌',
             text: `<strong>${escHtml(stats.name)}</strong> heavily slowed (~${pct}% speed reduction) at ${fmtT(t)}` });
     }
 }
 
-// ── projectSurvival ────────────────────────────────────────────────────────────
 function projectSurvival(stats, finalState, avgShieldDps, avgHullDps) {
     if (avgShieldDps <= 0 && avgHullDps <= 0) return Infinity;
     let shields = Math.max(0, finalState.shields);
@@ -890,7 +883,21 @@ async function renderSlotPreview(slot, ship, stats) {
     if (slotEl) slotEl.classList.add('has-ship');
 
     if (statEl) {
-        statEl.innerHTML = [
+        // Build protection/resistance display dynamically
+        const protDisplay = [];
+        if (stats.shieldProt > 0)  protDisplay.push(['Shld Prot', fmtPct(stats.shieldProt)]);
+        if (stats.hullProt > 0)    protDisplay.push(['Hull Prot', fmtPct(stats.hullProt)]);
+        if (stats.piercingRes > 0) protDisplay.push(['Pierce Res', fmtPct(stats.piercingRes)]);
+        // Show any other non-zero protection attributes
+        for (const [key, val] of Object.entries(stats.protections)) {
+            if (key === 'shield protection' || key === 'hull protection') continue;
+            if (val > 0) {
+                const label = key.replace(' protection', '').replace(/\b\w/g, l => l.toUpperCase()) + ' Prot';
+                protDisplay.push([label, fmtPct(val)]);
+            }
+        }
+
+        const baseStats = [
             ['Shields',    fmt(stats.maxShields)],
             ['Hull',       fmt(stats.maxHull)],
             ['Min Hull',   fmt(stats.minHull)],
@@ -899,10 +906,13 @@ async function renderSlotPreview(slot, ship, stats) {
             ['Shld Regen', fmt(stats.shieldRegenPerSec) + '/s'],
             ['Energy',     fmt(stats.energyCap)],
             ['Heat Cap',   fmt(stats.maxHeat)],
-        ].map(([l, v]) => `<div class="slot-stat">
-            <div class="slot-stat-label">${l}</div>
-            <div class="slot-stat-value">${v}</div>
-        </div>`).join('');
+        ];
+
+        statEl.innerHTML = [...baseStats, ...protDisplay].map(([l, v]) =>
+            `<div class="slot-stat">
+                <div class="slot-stat-label">${l}</div>
+                <div class="slot-stat-value">${v}</div>
+            </div>`).join('');
         statEl.style.display = 'grid';
     }
 }
@@ -956,8 +966,7 @@ function renderResults(sA, sB, result) {
                                  : result.winner === 'B' ? sB.name : 'Draw';
     }
     if (subtitleEl) {
-        subtitleEl.innerHTML =
-            `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
+        subtitleEl.innerHTML = `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
     }
 
     const effA = isFinite(result.ttkA) ? result.ttkA
@@ -1033,8 +1042,7 @@ function buildTtkString(name, ttk, projectedTtk) {
 function buildHpChart(sA, sB, result) {
     const tlA = result.timelineA || [], tlB = result.timelineB || [];
     if (!tlA.length && !tlB.length) return '';
-    const W=560, H=180, PL=44, PR=12, PT=14, PB=28;
-    const cW=W-PL-PR, cH=H-PT-PB;
+    const W=560, H=180, PL=44, PR=12, PT=14, PB=28, cW=W-PL-PR, cH=H-PT-PB;
     const maxTime = Math.max(tlA.length?tlA[tlA.length-1].t:0, tlB.length?tlB[tlB.length-1].t:0, 1);
     const maxHP   = Math.max(sA.maxShields+sA.maxHull, sB.maxShields+sB.maxHull, 1);
     const px = t  => PL + (t/maxTime)*cW;
@@ -1072,36 +1080,51 @@ function buildCompareGrid(sA, sB, result) {
     const ttkStrB = isFinite(result.ttkB) ? fmtTTK(result.ttkB)
         : result.projectedTtkB != null ? (isFinite(result.projectedTtkB) ? `~${fmtT(result.projectedTtkB)} (proj.)` : '∞ (regen wins)') : '∞ (survived)';
 
+    // Build protection rows dynamically — only show keys that have non-zero values on either ship
+    const allProtKeys = new Set([
+        ...Object.keys(sA.protections),
+        ...Object.keys(sB.protections),
+        'piercing resistance',
+    ]);
+    const protRows = [];
+    for (const key of [...allProtKeys].sort()) {
+        const va = key === 'piercing resistance' ? sA.piercingRes : (sA.protections[key] || 0);
+        const vb = key === 'piercing resistance' ? sB.piercingRes : (sB.protections[key] || 0);
+        if (va === 0 && vb === 0) continue;
+        const label = key.replace(/\b\w/g, l => l.toUpperCase());
+        protRows.push([label, fmtPct(va), fmtPct(vb)]);
+    }
+
+    const combatRows = [
+        ['Time to Disable',   ttkStrA,                                  ttkStrB],
+        ['Max Shields',       fmt(sA.maxShields),                       fmt(sB.maxShields)],
+        ['Max Hull',          fmt(sA.maxHull),                          fmt(sB.maxHull)],
+        ['Disable Threshold', fmt(sA.minHull),                          fmt(sB.minHull)],
+        ['Shield DPS',        fmt(sA.shieldDPS),                        fmt(sB.shieldDPS)],
+        ['Hull DPS',          fmt(sA.hullDPS),                          fmt(sB.hullDPS)],
+        ['Shield Regen/s',    fmt(sA.shieldRegenPerSec),                fmt(sB.shieldRegenPerSec)],
+        ['Hull Repair/s',     fmt(sA.hullRepairPerSec),                 fmt(sB.hullRepairPerSec)],
+        ...protRows,
+    ];
+
     const sections = [
-        ['Combat', [
-            ['Time to Disable',   ttkStrA,                                    ttkStrB],
-            ['Max Shields',       fmt(sA.maxShields),                         fmt(sB.maxShields)],
-            ['Max Hull',          fmt(sA.maxHull),                            fmt(sB.maxHull)],
-            ['Disable Threshold', fmt(sA.minHull),                            fmt(sB.minHull)],
-            ['Shield DPS',        fmt(sA.shieldDPS),                          fmt(sB.shieldDPS)],
-            ['Hull DPS',          fmt(sA.hullDPS),                            fmt(sB.hullDPS)],
-            ['Shield Regen/s',    fmt(sA.shieldRegenPerSec),                  fmt(sB.shieldRegenPerSec)],
-            ['Hull Repair/s',     fmt(sA.hullRepairPerSec),                   fmt(sB.hullRepairPerSec)],
-            ['Shield Prot.',      fmtPct(sA.shieldProt),                      fmtPct(sB.shieldProt)],
-            ['Hull Prot.',        fmtPct(sA.hullProt),                        fmtPct(sB.hullProt)],
-            ['Pierce Resist.',    fmtPct(sA.piercingRes),                     fmtPct(sB.piercingRes)],
-        ]],
+        ['Combat', combatRows],
         ['Energy & Heat', [
-            ['Energy Cap.',       fmt(sA.energyCap),                          fmt(sB.energyCap)],
-            ['Energy Gen/s',      fmt(sA.energyGenPerFrame*FPS),              fmt(sB.energyGenPerFrame*FPS)],
-            ['Firing Energy/s',   fmt(sA.firingEnergyPerSec),                 fmt(sB.firingEnergyPerSec)],
+            ['Energy Cap.',     fmt(sA.energyCap),                      fmt(sB.energyCap)],
+            ['Energy Gen/s',    fmt(sA.energyGenPerFrame*FPS),          fmt(sB.energyGenPerFrame*FPS)],
+            ['Firing Energy/s', fmt(sA.firingEnergyPerSec),             fmt(sB.firingEnergyPerSec)],
             ['Net Energy/s',
                 fmtNet((sA.energyGenPerFrame-sA.energyConsumeIdlePerFrame-sA.movingEnergyPerFrame-sA.coolingEnergyPerFrame-sA.firingEnergyPerSec/FPS)*FPS),
                 fmtNet((sB.energyGenPerFrame-sB.energyConsumeIdlePerFrame-sB.movingEnergyPerFrame-sB.coolingEnergyPerFrame-sB.firingEnergyPerSec/FPS)*FPS)],
-            ['Heat Capacity',     fmt(sA.maxHeat),                            fmt(sB.maxHeat)],
-            ['Cooling/s',         fmt(sA.coolingPerSec),                      fmt(sB.coolingPerSec)],
-            ['Firing Heat/s',     fmt(sA.firingHeatPerSec),                   fmt(sB.firingHeatPerSec)],
-            ['Cool Efficiency',   sA.coolEff.toFixed(3),                      sB.coolEff.toFixed(3)],
+            ['Heat Capacity',   fmt(sA.maxHeat),                        fmt(sB.maxHeat)],
+            ['Cooling/s',       fmt(sA.coolingPerSec),                  fmt(sB.coolingPerSec)],
+            ['Firing Heat/s',   fmt(sA.firingHeatPerSec),               fmt(sB.firingHeatPerSec)],
+            ['Cool Efficiency', sA.coolEff.toFixed(3),                  sB.coolEff.toFixed(3)],
         ]],
         ['Navigation', [
-            ['Mass',              fmt(sA.rawMass)+' t',                       fmt(sB.rawMass)+' t'],
-            ['Inertial Mass',     fmt(sA.inertialMass)+' t',                  fmt(sB.inertialMass)+' t'],
-            ['Max Velocity',      fmt(sA.maxVelocity)+' px/s',                fmt(sB.maxVelocity)+' px/s'],
+            ['Mass',            fmt(sA.rawMass)+' t',                   fmt(sB.rawMass)+' t'],
+            ['Inertial Mass',   fmt(sA.inertialMass)+' t',              fmt(sB.inertialMass)+' t'],
+            ['Max Velocity',    fmt(sA.maxVelocity)+' px/s',            fmt(sB.maxVelocity)+' px/s'],
         ]],
     ];
 
@@ -1134,10 +1157,9 @@ function buildWeaponsList(details) {
         for (const typeName of _damageTypes) {
             if (typeName==='Shield'||typeName==='Hull') continue;
             const dps = w[typeName.toLowerCase()+'DPS']||0;
-            // Label slowing/disruption as "status" not damage
             if (dps > 0.001) {
-                const isStatus = typeName === 'Slowing' || typeName === 'Disruption';
-                extra.push(`${typeName}: ${fmt(dps)}/s${isStatus ? ' ⚡' : ''}`);
+                const isStatusOnly = typeName === 'Slowing' || typeName === 'Disruption';
+                extra.push(`${typeName}: ${fmt(dps)}/s${isStatusOnly ? ' ⚡' : ''}`);
             }
         }
         if (w.relShield>0) extra.push(`%Shld: ${w.relShield}%/hit`);
@@ -1178,7 +1200,6 @@ function escHtml(s) {
         .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
-// ── Globals ────────────────────────────────────────────────────────────────────
 window.searchShips   = searchShips;
 window.openDropdown  = openDropdown;
 window.blurDropdown  = blurDropdown;
