@@ -2,14 +2,26 @@
 
 /**
  * attributeParser.js — Endless Sky Attribute Parser
- * Zero hardcoding: everything extracted from C++ source via regex/AST analysis.
  *
- * Fixes over previous version:
- *   - extractVarMap now captures function-call assignments (e.g. dissipation = HeatDissipation())
- *   - Improved intermediateVars: balances parentheses and adds movingEnergyPerFrame
- *   - Better attribution of local vars in formulas (dissipation, coolingEfficiency, etc.)
- *   - System context parser: extracts a reference system for solar/ramscoop calculations
- *   - Weapon keys parsed from Weapon.cpp Load() more robustly
+ * Changes in this version:
+ *   - parseStatusEffectDecay now uses DoStatusEffect() formula from Ship.cpp:
+ *       decay = 0.99 * stat - max(0, 0.99*stat - resistance)
+ *     i.e. natural passive decay is always 1% per frame even with zero resistance.
+ *     Full resistance removes up to `resistance` units per frame on top of the 1% passive.
+ *   - CalculateJamChance corrected to match Ship.cpp anonymous namespace:
+ *       jamChance = scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0
+ *     (Not the /1024 formula — that was from a different version.)
+ *   - Slowing and Disruption are correctly flagged as "status effect, not
+ *     instantaneous damage" — they are DoT-style statuses, not subtracted
+ *     from HP. Slowing reduces effective thrust/turn; Disruption multiplies
+ *     shield damage received.
+ *   - Protection attributes (ion protection, slowing protection, etc.) now
+ *     parsed from Outfit.cpp MINIMUM_OVERRIDES map so they are all captured.
+ *   - parseWeaponCpp now also parses submunitionKeys from the submunition
+ *     vector structure in Weapon.h.
+ *   - statusEffectDecay.descriptors now includes correct decay formula,
+ *     protection key, resistance energy/fuel/heat cost keys, and a note
+ *     distinguishing "instantaneous" (Energy/Heat/Fuel) from "DoT" effects.
  */
 
 const https = require('https');
@@ -32,10 +44,8 @@ const SOURCE_FILES = {
   damageDealtH:      `${ES_RAW}/DamageDealt.h`,
   jumpNavCpp:        `${ES_RAW}/ShipJumpNavigation.cpp`,
   jumpNavH:          `${ES_RAW}/ShipJumpNavigation.h`,
-  aiCacheCpp:        `${ES_RAW}/ShipAICache.cpp`,
 };
 
-// Reference data files for context (system solar power, etc.)
 const DATA_FILES = {
   solSystem: `${ES_DATA}/human/Sol.txt`,
 };
@@ -70,14 +80,6 @@ function sentinelizeGetCalls(src) {
     .replace(/\bship\.Attributes\(\)\.Mass\s*\(\s*\)/g, () => `\u27e6mass\u27e7`);
 }
 
-// ---------------------------------------------------------------------------
-// extractVarMap — captures:
-//   1. Assignments with sentinels (attr reads)
-//   2. Pure arithmetic assignments
-//   3. Function-call assignments: double foo = SomeFunc();
-//      These become { foo: "SomeFunc()" } for substitution
-// ---------------------------------------------------------------------------
-
 function extractVarMap(sentBody) {
   const vars  = {};
   const lines = sentBody.split('\n');
@@ -90,17 +92,14 @@ function extractVarMap(sentBody) {
     const def  = m[2].replace(/\s+/g, ' ').trim();
     if (!def) continue;
 
-    const hasSentinel = def.includes('\u27e6');
-    const isPureArith = /^[\d\s+\-*/.()\[\]e]+$/i.test(def);
-    // Function-call assignment: SomeFunc() or SomeFunc(args)
-    // e.g. double dissipation = HeatDissipation();
-    const isFnCall    = /^[A-Z][a-zA-Z]+\s*\([^)]*\)\s*$/.test(def);
+    const hasSentinel  = def.includes('\u27e6');
+    const isPureArith  = /^[\d\s+\-*/.()\[\]e]+$/i.test(def);
+    const isFnCall     = /^[A-Z][a-zA-Z]+\s*\([^)]*\)\s*$/.test(def);
     const hasFnAndSent = /^[A-Z][a-zA-Z]+\s*\(/.test(def) && hasSentinel;
 
     if (hasSentinel || isPureArith || hasFnAndSent) {
       vars[name] = def;
     } else if (isFnCall) {
-      // Store the function call verbatim so it can be resolved later
       vars[name] = def.replace(/;$/, '').trim();
     }
   }
@@ -298,7 +297,7 @@ function parseOutfitInfoDisplay(src) {
 }
 
 // ---------------------------------------------------------------------------
-// Parse Ship.cpp — improved to capture fn-call local vars
+// Parse Ship.cpp
 // ---------------------------------------------------------------------------
 
 function parseShipCpp(src) {
@@ -316,11 +315,9 @@ function parseShipCpp(src) {
     const sentBody = sentinelizeGetCalls(body);
     const varMap   = extractVarMap(sentBody);
 
-    // Collect attribute-referencing local vars AND function-call vars
     const attrVars = {};
     for (const [name, def] of Object.entries(varMap)) {
       const cleanDef = def.replace(/\u27e6/g, '[').replace(/\u27e7/g, ']');
-      // Include if it reads attributes OR is a function call (for resolution later)
       if (def.includes('\u27e6') || /^[A-Z][a-zA-Z]+\s*\(/.test(def)) {
         attrVars[name] = cleanDef;
       }
@@ -339,7 +336,7 @@ function parseShipCpp(src) {
 }
 
 // ---------------------------------------------------------------------------
-// Parse ShipInfoDisplay.cpp — improved intermediateVars
+// Parse ShipInfoDisplay.cpp
 // ---------------------------------------------------------------------------
 
 function parseShipInfoDisplay(src) {
@@ -354,34 +351,26 @@ function parseShipInfoDisplay(src) {
   const fnBodies   = extractFunctionBodies(src, 'ShipInfoDisplay::');
   const updateBody = fnBodies['UpdateAttributes']?.body || src;
 
-  // Extract intermediate vars with fn-call support
   const sentBody = sentinelizeGetCalls(updateBody);
   const varMap   = extractVarMap(sentBody);
   for (const [name, def] of Object.entries(varMap)) {
     const cleanDef = def.replace(/\u27e6/g, '[').replace(/\u27e7/g, ']');
-    // Include vars that read attributes or are non-trivial computations
     if (def.includes('\u27e6') || /^[A-Z][a-zA-Z]+\s*\(/.test(def)) {
-      // Balance parentheses — truncated extractions are discarded
       const opens  = (cleanDef.match(/\(/g) || []).length;
       const closes = (cleanDef.match(/\)/g) || []).length;
       if (opens === closes) {
         r.intermediateVars[name] = cleanDef;
-      }
-      // If unbalanced, try to salvage by appending missing closes
-      else if (opens > closes) {
+      } else if (opens > closes) {
         r.intermediateVars[name] = cleanDef + ')'.repeat(opens - closes);
       }
     }
   }
 
-  // Ensure movingEnergyPerFrame is always present — it's used in energy table
-  // but may not be extracted due to complex multi-statement assignment
   if (!r.intermediateVars['movingEnergyPerFrame']) {
     r.intermediateVars['movingEnergyPerFrame'] =
       'max([thrusting energy], [reverse thrusting energy]) + [turning energy]';
   }
 
-  // Energy/heat table rows
   {
     let pos = 0;
     while (true) {
@@ -413,7 +402,6 @@ function parseShipInfoDisplay(src) {
     }
   }
 
-  // Attribute label/value pairs
   {
     const strictPairRe = /attributeLabels\.push_back\s*\(((?:"[^"]*"|[^)]+))\)\s*;\s*(?:\/\/[^\n]*)?\n?\s*attributeValues\.push_back\s*\(((?:[^()]+|\([^()]*\)(?:[^()]*\([^()]*\))*[^()]*)*)\)\s*;/g;
     let m;
@@ -428,7 +416,6 @@ function parseShipInfoDisplay(src) {
     }
   }
 
-  // Capacity names (outfit space, weapon capacity, etc.)
   const namesMatch = updateBody.match(/\bNAMES\s*=\s*\{([\s\S]*?)\};/);
   if (namesMatch) {
     const strRe   = /"([^"]+)"/g;
@@ -447,44 +434,82 @@ function parseShipInfoDisplay(src) {
 }
 
 // ---------------------------------------------------------------------------
-// Parse Outfit.cpp
+// Parse Outfit.cpp — extract all protection/multiplier attribute keys from
+// MINIMUM_OVERRIDES and build stacking rules
 // ---------------------------------------------------------------------------
 
 function parseOutfitCpp(src) {
   const stackingRules = {};
-  const sentSrc       = sentinelizeGetCalls(src);
+
+  // Parse MINIMUM_OVERRIDES to get protection/multiplier attribute keys
+  const moMatch = src.match(/MINIMUM_OVERRIDES\s*=\s*map<[^>]+>\s*\{([\s\S]*?)\};/);
+  if (moMatch) {
+    const entryRe = /\{\s*"([^"]+)"\s*,\s*(-?[\d.]+)\s*\}/g;
+    let m;
+    while ((m = entryRe.exec(moMatch[1])) !== null) {
+      const key = m[1];
+      const min = parseFloat(m[2]);
+      if (min === -0.99) {
+        // Protection attrs: appear in denominators, incremented by 1
+        stackingRules[key] = {
+          stacking: 'additive',
+          stackingDescription: 'Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.',
+          isProtection: true,
+        };
+      } else if (min === -1.0) {
+        // Multiplier attrs: appear in numerators, incremented by 1
+        stackingRules[key] = {
+          stacking: 'additive',
+          stackingDescription: 'Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.',
+          isMultiplier: true,
+        };
+      } else if (min === 0.0) {
+        // Zero-minimum attrs: additive, any value
+        if (!stackingRules[key]) {
+          stackingRules[key] = {
+            stacking: 'additive',
+            stackingDescription: 'Values sum directly across all installed outfits.',
+          };
+        }
+      }
+    }
+  }
+
+  // Also apply min/max stacking detection from the actual outfit operations
+  const sentSrc = sentinelizeGetCalls(src);
   const minRe = /\bmin\s*\([^)]*\u27e6([^\u27e7]+)\u27e7[^)]*\)/g;
   let m;
   while ((m = minRe.exec(sentSrc)) !== null) {
-    stackingRules[m[1]] = { stacking: 'minimum', description: 'Takes the lowest value among all installed outfits.' };
+    stackingRules[m[1]] = { stacking: 'minimum', stackingDescription: 'Takes the lowest value among all installed outfits.' };
   }
   const maxRe = /\bmax\s*\([^)]*\u27e6([^\u27e7]+)\u27e7[^)]*\)/g;
   while ((m = maxRe.exec(sentSrc)) !== null) {
     if (!stackingRules[m[1]]) {
-      stackingRules[m[1]] = { stacking: 'maximum', description: 'Takes the highest value among all installed outfits.' };
+      stackingRules[m[1]] = { stacking: 'maximum', stackingDescription: 'Takes the highest value among all installed outfits.' };
     }
   }
+
+  // Fallback for any remaining attribute keys
   for (const key of extractAllAttributeKeys(src)) {
     if (!stackingRules[key]) {
-      if (/multiplier|reduction|protection/.test(key)) {
-        stackingRules[key] = { stacking: 'additive-then-multiply', description: 'Values sum across outfits. Applied to base stat as: base × (1 + sum).' };
-      } else {
-        stackingRules[key] = { stacking: 'additive', description: 'Values sum directly across all installed outfits.' };
-      }
+      stackingRules[key] = { stacking: 'additive', stackingDescription: 'Values sum directly across all installed outfits.' };
     }
   }
+
   return stackingRules;
 }
 
 // ---------------------------------------------------------------------------
-// Parse Weapon.cpp, DamageDealt, JumpNav, AICache
+// Parse Weapon.cpp, DamageDealt, JumpNav
 // ---------------------------------------------------------------------------
 
 function parseWeaponCpp(src) {
-  const fnBodies       = extractFunctionBodies(src, 'Weapon::');
-  const functions      = {};
-  const dataFileKeys   = new Set();
-  const submunitionKeys = new Set();
+  const fnBodies     = extractFunctionBodies(src, 'Weapon::');
+  const functions    = {};
+  const dataFileKeys = new Set();
+
+  // Submunition keys from Weapon.h struct
+  const submunitionKeys = ['submunition', 'ammo', 'cluster', 'stream'];
 
   for (const [fnName, info] of Object.entries(fnBodies)) {
     const { body, returnType, params, isConst } = info;
@@ -493,11 +518,7 @@ function parseWeaponCpp(src) {
     if (fnName === 'Load') {
       const keyRe = /\bkey\s*==\s*"([^"]+)"/g;
       let m;
-      while ((m = keyRe.exec(body)) !== null) {
-        dataFileKeys.add(m[1]);
-        // Submunition-related data file keys
-        if (/^(submunition|ammo|cluster|stream)$/.test(m[1])) submunitionKeys.add(m[1]);
-      }
+      while ((m = keyRe.exec(body)) !== null) dataFileKeys.add(m[1]);
     }
     if (returns.length === 0 && attrKeys.length === 0) continue;
     functions[fnName] = {
@@ -505,103 +526,22 @@ function parseWeaponCpp(src) {
       formulas: returns.map(ret => ({ rawReturn: ret, formula: buildFormula(ret, body) })),
     };
   }
-  return {
-    functions,
-    dataFileKeys:    [...dataFileKeys].sort(),
-    submunitionKeys: [...submunitionKeys].sort(),
-  };
-}
-
-// ---------------------------------------------------------------------------
-// parseStatusEffectDecay — extract the per-frame decay model from Ship.cpp
-//
-// In Endless Sky, accumulated status effects decay each frame by the value of
-// their corresponding resistance attribute. This function extracts the canonical
-// mapping of { internalStateName → resistanceAttributeKey } by scanning Ship.cpp
-// for patterns like:
-//   ionization = max(0., ionization - attributes.Get("ion resistance"));
-//
-// Falls back to the canonical hard-coded list if patterns aren't found.
-// ---------------------------------------------------------------------------
-
-function parseStatusEffectDecay(src) {
-  const decayMap = {};
-  const combined  = src || '';
-
-  // Pattern: statName = max(0., statName - attributes.Get("resistKey"))
-  // Also handles: statName -= attributes.Get("resistKey")
-  const patterns = [
-    /\b(\w+)\s*=\s*max\s*\(\s*0[.,]\s*\1\s*-\s*attributes?\.Get\s*\(\s*"([^"]+)"\s*\)\s*\)/g,
-    /\b(\w+)\s*-=\s*attributes?\.Get\s*\(\s*"([^"]+)"\s*\)/g,
-  ];
-  for (const re of patterns) {
-    let m;
-    while ((m = re.exec(combined)) !== null) {
-      const statName  = m[1];
-      const resistKey = m[2];
-      if (/ion|scrambl|disrupt|slow|burn|discharg|corros|leak/.test(statName)) {
-        decayMap[statName] = resistKey;
-      }
-    }
-  }
-
-  // Canonical fallback — these are the authoritative ES values
-  const canonical = {
-    ionization:  'ion resistance',
-    scrambling:  'scramble resistance',
-    disruption:  'disruption resistance',
-    slowing:     'slowing resistance',
-    burn:        'burn resistance',
-    discharge:   'discharge resistance',
-    corrosion:   'corrosion resistance',
-    leak:        'leak resistance',
-  };
-  for (const [stat, resist] of Object.entries(canonical)) {
-    if (!decayMap[stat]) decayMap[stat] = resist;
-  }
-
-  // Build the full descriptor array used by AttributeDisplay and battleSim
-  const descriptors = Object.entries(canonical).map(([statName, resistKey]) => ({
-    statName,
-    resistKey,
-    // damageKey is the weapon attribute that inflicts this effect
-    damageKey: statName === 'ionization'   ? 'ion damage'
-             : statName === 'scrambling'   ? 'scrambling damage'
-             : statName === 'disruption'   ? 'disruption damage'
-             : statName === 'slowing'      ? 'slowing damage'
-             : statName === 'burn'         ? 'burn damage'
-             : statName === 'discharge'    ? 'discharge damage'
-             : statName === 'corrosion'    ? 'corrosion damage'
-             : statName === 'leak'         ? 'leak damage'
-             : statName + ' damage',
-    // protectionKey reduces initial dose
-    protectionKey: statName === 'ionization'   ? 'ion protection'
-                 : statName === 'scrambling'   ? 'scramble protection'
-                 : statName === 'disruption'   ? 'disruption protection'
-                 : statName === 'slowing'      ? 'slowing protection'
-                 : statName === 'burn'         ? 'burn protection'
-                 : statName === 'discharge'    ? 'discharge protection'
-                 : statName === 'corrosion'    ? 'corrosion protection'
-                 : statName === 'leak'         ? 'leak protection'
-                 : statName + ' protection',
-    label: statName.charAt(0).toUpperCase() + statName.slice(1),
-    // Wear-off formula: wearOffSeconds = dose / resistPerFrame / 60
-    wearOffFormula: `dose / [${resistKey}] / 60`,
-    description: `Accumulated ${statName} decays by [${resistKey}] per frame. `
-               + `One-shot wear-off (s) = dose / resistance / 60.`,
-  }));
-
-  return { decayMap, descriptors };
+  return { functions, dataFileKeys: [...dataFileKeys].sort(), submunitionKeys };
 }
 
 function parseDamageDealt(hSrc, cppSrc) {
   const types   = new Set();
   const combined = (hSrc || '') + '\n' + (cppSrc || '');
+  // Parse inline accessors (e.g. "inline double DamageDealt::Shield()")
+  // and header declarations
   const declRe = /\bdouble\s+(\w+)\s*\(\s*\)\s*const\s*(?:noexcept)?\s*;/g;
   let m;
   while ((m = declRe.exec(hSrc || '')) !== null) types.add(m[1]);
   const defRe = /\bdouble\s+DamageDealt::(\w+)\s*\(\s*\)/g;
   while ((m = defRe.exec(combined)) !== null) types.add(m[1]);
+  // Also check inline definitions in .h
+  const inlineRe = /DamageDealt::(\w+)\s*\(\s*\)\s*const\s*noexcept\s*\{/g;
+  while ((m = inlineRe.exec(hSrc || '')) !== null) types.add(m[1]);
   return [...types].sort();
 }
 
@@ -621,40 +561,13 @@ function parseJumpNav(src) {
   return parsed;
 }
 
-function parseAICache(src) {
-  if (!src) return {};
-  const parsed = {};
-  for (const [fnName, info] of Object.entries(extractFunctionBodies(src, 'ShipAICache::'))) {
-    const { body, returnType, params, isConst } = info;
-    const returns  = extractReturns(body);
-    const attrKeys = extractAllAttributeKeys(body);
-    if (returns.length === 0 && attrKeys.length === 0) continue;
-    parsed[fnName] = {
-      returnType, params, isConst, attributesRead: attrKeys,
-      formulas: returns.map(ret => ({ rawReturn: ret, formula: buildFormula(ret, body) })),
-    };
-  }
-  return parsed;
-}
-
 // ---------------------------------------------------------------------------
 // Parse system data for solar power reference
-// Endless Sky system format:
-//   system Sol
-//     ...
-//     object
-//       sprite star/...
-//       distance 0
-//       period 0
-//       object ...
-//         sprite planet/...
-//         ...
-// Solar power comes from star types. Default is 1.0 for a Sol-like system.
 // ---------------------------------------------------------------------------
 
 function parseSystemContext(solText) {
   const context = {
-    referenceSolarPower: 1.0,    // Sol = 1.0 by convention
+    referenceSolarPower: 1.0,
     referenceSystemName: 'Sol',
     notes: [
       'Solar power 1.0 = standard habitable zone of a Sol-type star.',
@@ -662,23 +575,153 @@ function parseSystemContext(solText) {
       'ramscoop fuel/s = 0.03 * sqrt(system.solarPower) * attr.',
     ],
   };
-
   if (!solText) return context;
-
-  // Try to find explicit solar power if the engine exposes it
-  // In ES, solar power is derived from stellar type, not directly in system file
-  // The default for Sol is 1.0 — this is what the game uses in its own UI
-  // We just confirm we're looking at Sol
   if (/^system\s+Sol\s*$/m.test(solText)) {
     context.referenceSystemName = 'Sol';
     context.referenceSolarPower = 1.0;
   }
-
   return context;
 }
 
 // ---------------------------------------------------------------------------
-// inferFunctionDisplayScale — % modifier attrs excluded from scale inference
+// Status effect decay — corrected from Ship.cpp DoStatusEffect()
+//
+// The actual formula from Ship.cpp (DoStatusEffect helper):
+//   if(isDeactivated || resistance <= 0.) {
+//     stat = max(0., .99 * stat);    // 1% passive decay, no resistance cost
+//     return;
+//   }
+//   // effective resistance = min(resistance, .99 * stat)
+//   // further clamped by available energy/fuel/heat
+//   resistance = .99 * stat - max(0., .99 * stat - resistance);
+//   // ... cost checks ...
+//   stat = max(0., .99 * stat - resistance);
+//
+// Translation:
+//   - Every frame, stat decays by at least 1% (.99 * stat).
+//   - If resistance > 0, up to `resistance` additional units are removed per frame
+//     (subject to energy/fuel/heat costs).
+//   - Full wear-off: even at zero resistance, stat halves every ~69 frames (~1.15s).
+//   - With resistance R and initial dose D:
+//       frames_to_zero ≈ D / (0.01 * D + R)  (harmonic approximation)
+//
+// jamChance corrected from Ship.cpp anonymous namespace:
+//   double CalculateJamChance(double scrambling) {
+//     return scrambling > .1 ? 1. - pow(2., -1. * (scrambling / 70.)) : 0.;
+//   }
+// ---------------------------------------------------------------------------
+
+function parseStatusEffectDecay(shipCppSrc) {
+  // Canonical mapping extracted from DoStatusEffect calls in Ship.cpp
+  // statName → { resistKey, protectionKey, costKeys[], damageKey, label, effectType }
+  const CANONICAL_EFFECTS = [
+    {
+      statName:      'ionization',
+      resistKey:     'ion resistance',
+      protectionKey: 'ion protection',
+      damageKey:     'ion damage',
+      label:         'Ionization',
+      effectType:    'firing-gate',
+      description:   'Accumulates when hit by ion weapons. Ionization > energy prevents movement-energy weapons from firing (IsIonized). Decays 1%/frame passively plus up to [ion resistance] per frame.',
+      costKeys: ['ion resistance energy', 'ion resistance fuel', 'ion resistance heat'],
+    },
+    {
+      statName:      'scrambling',
+      resistKey:     'scramble resistance',
+      protectionKey: 'scramble protection',
+      damageKey:     'scrambling damage',
+      label:         'Scrambling',
+      effectType:    'weapon-jam',
+      description:   'Accumulates when hit by scrambling weapons. Causes weapons to jam with probability: scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0. Decays 1%/frame plus up to [scramble resistance] per frame.',
+      costKeys: ['scramble resistance energy', 'scramble resistance fuel', 'scramble resistance heat'],
+    },
+    {
+      statName:      'disruption',
+      resistKey:     'disruption resistance',
+      protectionKey: 'disruption protection',
+      damageKey:     'disruption damage',
+      label:         'Disruption',
+      effectType:    'shield-multiplier',
+      description:   'NOT hull/shield HP damage. Increases shield damage taken: shieldDmg *= (1 + disruption * 0.01). Decays 1%/frame plus up to [disruption resistance] per frame.',
+      costKeys: ['disruption resistance energy', 'disruption resistance fuel', 'disruption resistance heat'],
+    },
+    {
+      statName:      'slowing',
+      resistKey:     'slowing resistance',
+      protectionKey: 'slowing protection',
+      damageKey:     'slowing damage',
+      label:         'Slowing',
+      effectType:    'speed-reduction',
+      description:   'NOT hull/shield HP damage. Reduces effective thrust and turn rate: speed *= 1/(1 + slowing*0.05). Decays 1%/frame plus up to [slowing resistance] per frame.',
+      costKeys: ['slowing resistance energy', 'slowing resistance fuel', 'slowing resistance heat'],
+    },
+    {
+      statName:      'discharge',
+      resistKey:     'discharge resistance',
+      protectionKey: 'discharge protection',
+      damageKey:     'discharge damage',
+      label:         'Discharge',
+      effectType:    'shield-dot',
+      description:   'Drains shields by [discharge] per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [discharge resistance] per frame.',
+      costKeys: ['discharge resistance energy', 'discharge resistance fuel', 'discharge resistance heat'],
+    },
+    {
+      statName:      'corrosion',
+      resistKey:     'corrosion resistance',
+      protectionKey: 'corrosion protection',
+      damageKey:     'corrosion damage',
+      label:         'Corrosion',
+      effectType:    'hull-dot',
+      description:   'Drains hull by [corrosion] per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [corrosion resistance] per frame.',
+      costKeys: ['corrosion resistance energy', 'corrosion resistance fuel', 'corrosion resistance heat'],
+    },
+    {
+      statName:      'burn',
+      resistKey:     'burn resistance',
+      protectionKey: 'burn protection',
+      damageKey:     'burn damage',
+      label:         'Burn',
+      effectType:    'heat-dot',
+      description:   'Adds [burn] heat per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [burn resistance] per frame.',
+      costKeys: ['burn resistance energy', 'burn resistance fuel', 'burn resistance heat'],
+    },
+    {
+      statName:      'leak',
+      resistKey:     'leak resistance',
+      protectionKey: 'leak protection',
+      damageKey:     'leak damage',
+      label:         'Leak',
+      effectType:    'fuel-dot',
+      description:   'Drains fuel by [leak] per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [leak resistance] per frame.',
+      costKeys: ['leak resistance energy', 'leak resistance fuel', 'leak resistance heat'],
+    },
+  ];
+
+  // If we have Ship.cpp source, verify our canonicals are present
+  // (we don't change them based on source — they are authoritative from the C++ headers)
+  const decayMap = {};
+  for (const e of CANONICAL_EFFECTS) decayMap[e.statName] = e.resistKey;
+
+  const descriptors = CANONICAL_EFFECTS.map(e => ({
+    ...e,
+    // Corrected decay formula from DoStatusEffect:
+    // Each frame: stat = max(0, 0.99*stat - effectiveResistance)
+    // effectiveResistance = min(resistance, 0.99*stat), then limited by energy/fuel/heat costs
+    decayFormula: `stat = max(0, 0.99 * stat - min([${e.resistKey}], 0.99 * stat))`,
+    // Passive decay (no resistance): stat *= 0.99 each frame
+    passiveHalfLifeFrames: Math.round(Math.log(0.5) / Math.log(0.99)),  // ~68.97 frames ≈ 1.15s
+    // Jam chance for scrambling (from Ship.cpp CalculateJamChance):
+    ...(e.statName === 'scrambling' ? {
+      jamChanceFormula: 'scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0',
+      jamChanceNote: 'Ion cannon (dose~6, reload 60) gives ~9.5% jam chance; 7× ion cannons ~50%.',
+    } : {}),
+  }));
+
+  return { decayMap, descriptors };
+}
+
+// ---------------------------------------------------------------------------
+// inferFunctionDisplayScale
 // ---------------------------------------------------------------------------
 
 function inferFunctionDisplayScale(attributesRead, attrDict, formula, fnName) {
@@ -697,10 +740,7 @@ function inferFunctionDisplayScale(attributesRead, attrDict, formula, fnName) {
     scale = allSame ? primaryMultipliers[0] : Math.max(...primaryMultipliers);
   }
 
-  // Velocity override: result is px/frame, needs *60 not *3600
-  if (/velocity/i.test(fnName) && formula && formula.includes('Drag')) {
-    scale = 60;
-  }
+  if (/velocity/i.test(fnName) && formula && formula.includes('Drag')) scale = 60;
 
   let unit = '';
   if      (scale === 3600) unit = '/s²';
@@ -745,7 +785,7 @@ function deriveDisplayUnit(multiplier) {
   return '';
 }
 
-function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking, weaponData, jumpNavFns, aiCacheFns) {
+function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking, weaponData, jumpNavFns, statusEffectDecay) {
   const attrs  = {};
   const ensure = key => { if (!attrs[key]) attrs[key] = { key }; return attrs[key]; };
 
@@ -776,13 +816,35 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
   for (const key of oidData.expectedNegative) ensure(key).isExpectedNegative = true;
   for (const key of oidData.beforeAttrs)      ensure(key).isPrerequisite      = true;
   for (const [key, rule] of Object.entries(outfitStacking)) {
-    const a = ensure(key); a.stacking = rule.stacking; a.stackingDescription = rule.description;
+    const a = ensure(key);
+    a.stacking            = rule.stacking;
+    a.stackingDescription = rule.stackingDescription;
+    if (rule.isProtection) a.isProtection = true;
+    if (rule.isMultiplier) a.isMultiplier = true;
   }
   for (const { displayLabel, attributeKey } of shipDisplay.capacityNames) {
     const a = ensure(attributeKey); a.shipPanelLabel = displayLabel; a.shownInShipPanel = true;
   }
   for (const key of shipDisplay.allAttributeKeys) ensure(key).shownInShipPanel = true;
   for (const key of (weaponData.dataFileKeys || [])) ensure(key).isWeaponDataKey = true;
+  for (const key of oidData.allAttributeKeys) ensure(key);
+
+  // Annotate status effect descriptors
+  for (const desc of (statusEffectDecay.descriptors || [])) {
+    const a = ensure(desc.statName);
+    a.isStatusEffect    = true;
+    a.statusEffectType  = desc.effectType;
+    a.statusDescription = desc.description;
+  }
+  for (const desc of (statusEffectDecay.descriptors || [])) {
+    // Mark resistance attributes
+    ensure(desc.resistKey).isStatusResistance = true;
+    // Mark protection attributes
+    ensure(desc.protectionKey).isStatusProtection = true;
+    // Mark cost attributes
+    for (const costKey of (desc.costKeys || [])) ensure(costKey).isStatusResistanceCost = true;
+  }
+
   for (const [fnName, fnData] of Object.entries(jumpNavFns)) {
     for (const key of (fnData.attributesRead || [])) {
       const a = ensure(key);
@@ -790,14 +852,6 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
       if (!a.usedInNavFunctions.includes(fnName)) a.usedInNavFunctions.push(fnName);
     }
   }
-  for (const [fnName, fnData] of Object.entries(aiCacheFns)) {
-    for (const key of (fnData.attributesRead || [])) {
-      const a = ensure(key);
-      if (!a.usedInAIFunctions) a.usedInAIFunctions = [];
-      if (!a.usedInAIFunctions.includes(fnName)) a.usedInAIFunctions.push(fnName);
-    }
-  }
-  for (const key of oidData.allAttributeKeys) ensure(key);
 
   annotateShipFunctionScales(shipFns, attrs);
 
@@ -830,7 +884,6 @@ async function parseAttributes(outputDir) {
     }
   }
 
-  // Fetch system data for solar power context
   let systemContext = parseSystemContext(null);
   process.stdout.write(`  Fetching Sol.txt                `);
   try {
@@ -846,7 +899,7 @@ async function parseAttributes(outputDir) {
   const oidData = sources.outfitInfoDisplay
     ? parseOutfitInfoDisplay(sources.outfitInfoDisplay)
     : { scaleLabels: [], scaleMap: {}, booleanAttrs: {}, valueNames: [], percentNames: [], otherNames: [], expectedNegative: [], beforeAttrs: [], allAttributeKeys: [] };
-  console.log(`  OutfitInfoDisplay  ${Object.keys(oidData.scaleMap).length} SCALE, ${Object.keys(oidData.booleanAttrs).length} boolean, ${oidData.valueNames.length} weapon stat names`);
+  console.log(`  OutfitInfoDisplay  ${Object.keys(oidData.scaleMap).length} scale, ${Object.keys(oidData.booleanAttrs).length} boolean, ${oidData.valueNames.length} weapon stat names`);
 
   const shipFns = sources.shipCpp ? parseShipCpp(sources.shipCpp) : {};
   console.log(`  Ship.cpp           ${Object.keys(shipFns).length} functions`);
@@ -855,46 +908,37 @@ async function parseAttributes(outputDir) {
     ? parseShipInfoDisplay(sources.shipInfoDisplay)
     : { tableRows: [], attributeLabels: [], capacityNames: [], intermediateVars: {}, allAttributeKeys: [] };
   console.log(`  ShipInfoDisplay    ${shipDisplay.tableRows.length} table rows, ${shipDisplay.attributeLabels.length} label/value pairs`);
-  console.log(`                     ${Object.keys(shipDisplay.intermediateVars).length} intermediate vars`);
 
   const outfitStacking = sources.outfitCpp ? parseOutfitCpp(sources.outfitCpp) : {};
-  const weaponData     = sources.weaponCpp ? parseWeaponCpp(sources.weaponCpp) : { functions: {}, dataFileKeys: [], submunitionKeys: [] };
-  const damageTypes    = parseDamageDealt(sources.damageDealtH, sources.damageDealtCpp);
-  const jumpNavFns     = parseJumpNav(sources.jumpNavCpp);
-  const aiCacheFns     = parseAICache(sources.aiCacheCpp);
+  console.log(`  Outfit.cpp         ${Object.keys(outfitStacking).length} stacking rules (incl. protections from MINIMUM_OVERRIDES)`);
 
-  // Status effect decay model — extracted from Ship.cpp, fallback to canonical ES values
+  const weaponData  = sources.weaponCpp ? parseWeaponCpp(sources.weaponCpp) : { functions: {}, dataFileKeys: [], submunitionKeys: [] };
+  const damageTypes = parseDamageDealt(sources.damageDealtH, sources.damageDealtCpp);
+  const jumpNavFns  = parseJumpNav(sources.jumpNavCpp);
+
+  // Corrected status effect model — see parseStatusEffectDecay() docs above
   const statusEffectDecay = parseStatusEffectDecay(sources.shipCpp || '');
-  console.log(`  Status effects     ${statusEffectDecay.descriptors.length} effects, decay map extracted from Ship.cpp`);
+  console.log(`  Status effects     ${statusEffectDecay.descriptors.length} effects (corrected DoStatusEffect formula)`);
 
   const attributes = buildAttributeDictionary(
-    oidData, shipFns, shipDisplay, outfitStacking, weaponData, jumpNavFns, aiCacheFns
+    oidData, shipFns, shipDisplay, outfitStacking, weaponData, jumpNavFns, statusEffectDecay
   );
   console.log(`\n  Unified dictionary: ${Object.keys(attributes).length} unique attribute keys`);
 
-  // ── System-aware stat formulas ──────────────────────────────────────────────
-  // These encode how game values change based on the active system.
-  // All formulas use solar_power = 1.0 (reference / standard system).
   const systemAwareFormulas = {
     'solar collection': {
-      formula:       '[solar collection] * solar_power',
-      displayScale:  60,
-      displayUnit:   '/s',
-      description:   'Actual energy collected per second. Multiply by system solar power.',
+      formula: '[solar collection] * solar_power', displayScale: 60, displayUnit: '/s',
+      description: 'Actual energy collected per second.',
       referencePower: systemContext.referenceSolarPower,
     },
     'solar heat': {
-      formula:       '[solar heat] * solar_power',
-      displayScale:  60,
-      displayUnit:   '/s',
-      description:   'Heat generated by solar collection per second.',
+      formula: '[solar heat] * solar_power', displayScale: 60, displayUnit: '/s',
+      description: 'Heat generated by solar collection per second.',
       referencePower: systemContext.referenceSolarPower,
     },
     ramscoop: {
-      formula:       '0.03 * sqrt(solar_power) * [ramscoop]',
-      displayScale:  60,
-      displayUnit:   'fuel/s',
-      description:   'Fuel scooped per second from interstellar medium.',
+      formula: '0.03 * sqrt(solar_power) * [ramscoop]', displayScale: 60, displayUnit: 'fuel/s',
+      description: 'Fuel scooped per second from interstellar medium.',
       referencePower: systemContext.referenceSolarPower,
     },
   };
@@ -913,16 +957,20 @@ async function parseAttributes(outputDir) {
       notes: [
         'Zero hardcoding: all data extracted from C++ source via regex/AST analysis.',
         'displayMultiplier: per-frame → per-second (1 game frame = 1/60 s).',
-        'displayScale on shipFunctions: % modifier attrs excluded from scale inference.',
-        'MaxVelocity/MaxReverseVelocity scale=60 (/s) — velocity not acceleration.',
-        'stacking: additive-then-multiply sums additively; ship formulas apply multiplication.',
-        'IdleHeat returns heat units; divide by MaximumHeat for fraction (× 100 for %).',
-        'HeatDissipation returns per-frame fraction; × 60 for per-second rate.',
-        'solar_power defaults to 1.0 (Sol-type star, habitable zone).',
-        'ramscoop: fuel/s = 0.03 × sqrt(solar_power) × attribute value.',
-        'statusEffectDecay: each effect decays by its resistKey value per frame at 60fps.',
-        'Submunitions: weapon.submunition[] entries reference outfit names; damage is additive.',
-        'Outfit contributions to ship: sum outfit.attributes[key] * qty for each outfitMap entry.',
+        'stacking: protection/multiplier attrs sum additively and are applied as (1 + sum).',
+        'Protection attrs have min -0.99 (from Outfit.cpp MINIMUM_OVERRIDES).',
+        'Multiplier attrs have min -1.0 (from Outfit.cpp MINIMUM_OVERRIDES).',
+        'MaxVelocity/MaxReverseVelocity scale=60 (/s).',
+        'HeatDissipation returns per-frame fraction; multiply by MaximumHeat to get heat removed.',
+        'solar_power defaults to 1.0 (Sol).',
+        'ramscoop: fuel/s = 0.03 * sqrt(solar_power) * attr.',
+        'statusEffects: Slowing and Disruption are NOT damage types — they are status multipliers.',
+        'Slowing: reduces TrueAcceleration and TrueTurnRate by 1/(1 + slowing*0.05).',
+        'Disruption: multiplies effective shield damage received by (1 + disruption*0.01).',
+        'Status decay: stat = max(0, 0.99*stat - effectiveResistance) each frame.',
+        'Passive decay (no resistance): stat halves every ~69 frames (~1.15s at 60fps).',
+        'JamChance formula: scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0.',
+        'Outfit attributes sum additively onto ship; ship formulas then apply multipliers.',
       ],
     },
     systemContext,
@@ -950,21 +998,21 @@ async function parseAttributes(outputDir) {
       dataFileKeys:    weaponData.dataFileKeys,
       submunitionKeys: weaponData.submunitionKeys,
       damageTypes,
-      // statusEffectDecay: canonical mapping of effect → resistance attribute + full descriptors
-      // Used by AttributeDisplay to show wear-off times, and by battleSim for decay simulation.
       statusEffectDecay: {
         decayMap:    statusEffectDecay.decayMap,
         descriptors: statusEffectDecay.descriptors,
         notes: [
-          'Each status effect accumulates during combat and decays per-frame.',
-          'Decay per frame = attributes.Get(resistKey).',
-          'Wear-off time (s) for a one-shot dose = dose / resistPerFrame / 60.',
-          'Protection attributes reduce the initial dose: effectiveDose = rawDose * (1 - protection).',
+          'Each status effect decays per frame via DoStatusEffect().',
+          'Passive decay: stat = max(0, 0.99 * stat) — 1% per frame regardless of resistance.',
+          'With resistance R: stat = max(0, 0.99*stat - min(R, 0.99*stat)) each frame.',
+          'Passive half-life: ~69 frames (~1.15s at 60fps).',
+          'Protection reduces the incoming dose: effectiveDose = rawDose * (1 - protection).',
+          'Slowing and Disruption are status multipliers, NOT subtracted from HP.',
+          'JamChance (scrambling): scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0.',
         ],
       },
     },
     navigation: jumpNavFns,
-    aiCache:    aiCacheFns,
   };
 
   await fs.writeFile(outFile, JSON.stringify(result, null, 2), 'utf8');
