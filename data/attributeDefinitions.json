@@ -13,10 +13,9 @@
       "damageDealtCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/DamageDealt.cpp",
       "damageDealtH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/DamageDealt.h",
       "jumpNavCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.cpp",
-      "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
-      "aiCacheCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipAICache.cpp"
+      "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h"
     },
-    "generatedAt": "2026-03-28T09:25:10.816Z",
+    "generatedAt": "2026-03-30T07:45:15.426Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls in formulas refer to other ship functions resolved by ComputedStats.",
@@ -26,16 +25,20 @@
     "notes": [
       "Zero hardcoding: all data extracted from C++ source via regex/AST analysis.",
       "displayMultiplier: per-frame → per-second (1 game frame = 1/60 s).",
-      "displayScale on shipFunctions: % modifier attrs excluded from scale inference.",
-      "MaxVelocity/MaxReverseVelocity scale=60 (/s) — velocity not acceleration.",
-      "stacking: additive-then-multiply sums additively; ship formulas apply multiplication.",
-      "IdleHeat returns heat units; divide by MaximumHeat for fraction (× 100 for %).",
-      "HeatDissipation returns per-frame fraction; × 60 for per-second rate.",
-      "solar_power defaults to 1.0 (Sol-type star, habitable zone).",
-      "ramscoop: fuel/s = 0.03 × sqrt(solar_power) × attribute value.",
-      "statusEffectDecay: each effect decays by its resistKey value per frame at 60fps.",
-      "Submunitions: weapon.submunition[] entries reference outfit names; damage is additive.",
-      "Outfit contributions to ship: sum outfit.attributes[key] * qty for each outfitMap entry."
+      "stacking: protection/multiplier attrs sum additively and are applied as (1 + sum).",
+      "Protection attrs have min -0.99 (from Outfit.cpp MINIMUM_OVERRIDES).",
+      "Multiplier attrs have min -1.0 (from Outfit.cpp MINIMUM_OVERRIDES).",
+      "MaxVelocity/MaxReverseVelocity scale=60 (/s).",
+      "HeatDissipation returns per-frame fraction; multiply by MaximumHeat to get heat removed.",
+      "solar_power defaults to 1.0 (Sol).",
+      "ramscoop: fuel/s = 0.03 * sqrt(solar_power) * attr.",
+      "statusEffects: Slowing and Disruption are NOT damage types — they are status multipliers.",
+      "Slowing: reduces TrueAcceleration and TrueTurnRate by 1/(1 + slowing*0.05).",
+      "Disruption: multiplies effective shield damage received by (1 + disruption*0.01).",
+      "Status decay: stat = max(0, 0.99*stat - effectiveResistance) each frame.",
+      "Passive decay (no resistance): stat halves every ~69 frames (~1.15s at 60fps).",
+      "JamChance formula: scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0.",
+      "Outfit attributes sum additively onto ship; ship formulas then apply multipliers."
     ]
   },
   "systemContext": {
@@ -52,7 +55,7 @@
       "formula": "[solar collection] * solar_power",
       "displayScale": 60,
       "displayUnit": "/s",
-      "description": "Actual energy collected per second. Multiply by system solar power.",
+      "description": "Actual energy collected per second.",
       "referencePower": 1
     },
     "solar heat": {
@@ -89,6 +92,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -99,6 +104,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -109,6 +116,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoMovement"
@@ -120,6 +129,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -130,6 +141,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoMovement"
@@ -141,6 +154,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -151,6 +167,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -161,6 +180,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -181,6 +203,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoCloakDecision"
       ]
@@ -191,6 +215,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoCloakDecision"
       ]
@@ -201,6 +227,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoCloakDecision"
       ]
@@ -211,6 +239,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoCloakDecision"
       ]
@@ -221,6 +251,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "Fire",
         "CannotAct"
@@ -244,6 +276,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -255,6 +289,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -265,6 +302,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -275,6 +315,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -285,6 +328,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -295,6 +341,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -305,6 +354,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -315,6 +367,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -325,6 +380,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -335,6 +393,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -345,6 +406,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
@@ -357,6 +420,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
@@ -371,6 +436,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "FlightCheck",
         "DoGeneration"
@@ -382,6 +449,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
@@ -395,6 +464,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "FlightCheck",
         "Recharge",
@@ -407,6 +478,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -418,6 +491,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "IdleHeat",
@@ -452,6 +527,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -463,6 +540,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -473,6 +552,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -527,6 +608,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -537,6 +621,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -547,6 +634,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -557,6 +647,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -567,6 +660,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -577,6 +673,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -597,6 +696,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -607,6 +709,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -617,6 +722,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -636,14 +744,18 @@
       "displayMultiplier": 60,
       "displayUnit": "/s",
       "scaleIndex": 0,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "reverse thrusting hull": {
       "key": "reverse thrusting hull",
       "displayMultiplier": 60,
       "displayUnit": "/s",
       "scaleIndex": 0,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "reverse thrusting energy": {
       "key": "reverse thrusting energy",
@@ -651,6 +763,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "IsIonized"
@@ -661,7 +775,9 @@
       "displayMultiplier": 60,
       "displayUnit": "/s",
       "scaleIndex": 0,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "reverse thrusting heat": {
       "key": "reverse thrusting heat",
@@ -669,6 +785,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true
     },
     "scram drive": {
@@ -704,6 +822,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -715,6 +835,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -725,6 +847,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -779,6 +903,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -789,6 +916,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -799,6 +929,9 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -832,14 +965,18 @@
       "displayMultiplier": 60,
       "displayUnit": "/s",
       "scaleIndex": 0,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting hull": {
       "key": "thrusting hull",
       "displayMultiplier": 60,
       "displayUnit": "/s",
       "scaleIndex": 0,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting energy": {
       "key": "thrusting energy",
@@ -847,6 +984,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
@@ -858,7 +997,9 @@
       "displayMultiplier": 60,
       "displayUnit": "/s",
       "scaleIndex": 0,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting heat": {
       "key": "thrusting heat",
@@ -866,6 +1007,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck"
@@ -890,6 +1033,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -900,6 +1045,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -910,6 +1057,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
@@ -923,6 +1072,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -933,6 +1084,8 @@
       "displayUnit": "/s",
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck",
@@ -985,6 +1138,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -995,6 +1150,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1005,6 +1162,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1025,6 +1184,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1035,6 +1196,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1045,6 +1208,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1055,6 +1220,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1064,21 +1231,27 @@
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "reverse thrusting corrosion": {
       "key": "reverse thrusting corrosion",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "reverse thrusting ion": {
       "key": "reverse thrusting ion",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "reverse thrusting scramble": {
       "key": "reverse thrusting scramble",
@@ -1092,49 +1265,63 @@
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "reverse thrusting burn": {
       "key": "reverse thrusting burn",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "reverse thrusting slowing": {
       "key": "reverse thrusting slowing",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "reverse thrusting disruption": {
       "key": "reverse thrusting disruption",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting discharge": {
       "key": "thrusting discharge",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting corrosion": {
       "key": "thrusting corrosion",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting ion": {
       "key": "thrusting ion",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting scramble": {
       "key": "thrusting scramble",
@@ -1148,28 +1335,36 @@
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting burn": {
       "key": "thrusting burn",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting slowing": {
       "key": "thrusting slowing",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "thrusting disruption": {
       "key": "thrusting disruption",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
     },
     "turning discharge": {
       "key": "turning discharge",
@@ -1177,6 +1372,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1187,6 +1384,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1197,6 +1396,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1217,6 +1418,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1227,6 +1430,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1237,6 +1442,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1247,6 +1454,8 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
       ]
@@ -1257,6 +1466,7 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1267,6 +1477,7 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1277,6 +1488,7 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1287,6 +1499,7 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1297,6 +1510,7 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1307,6 +1521,7 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1317,6 +1532,7 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1327,6 +1543,7 @@
       "displayUnit": "%/s",
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
+      "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1347,6 +1564,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "usedInShipFunctions": [
         "MaxShields"
       ]
@@ -1357,6 +1577,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "usedInShipFunctions": [
         "MaxHull"
       ]
@@ -1367,6 +1590,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -1378,6 +1604,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -1389,6 +1618,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1399,6 +1631,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -1417,6 +1652,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -1428,6 +1666,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -1439,6 +1680,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1449,6 +1693,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
@@ -1501,6 +1748,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1511,6 +1761,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "usedInShipFunctions": [
         "DoGeneration"
       ]
@@ -1521,6 +1774,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "Acceleration",
@@ -1534,6 +1790,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true,
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "TurnRate"
@@ -1544,35 +1803,54 @@
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
+      "isMultiplier": true
     },
     "burn protection": {
       "key": "burn protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
+      "isStatusProtection": true
     },
     "corrosion protection": {
       "key": "corrosion protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
+      "isStatusProtection": true
     },
     "discharge protection": {
       "key": "discharge protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
+      "isStatusProtection": true
     },
     "disruption protection": {
       "key": "disruption protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
+      "isStatusProtection": true
     },
     "drag reduction": {
       "key": "drag reduction",
@@ -1580,6 +1858,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
       "usedInShipFunctions": [
         "Drag",
         "DragForce"
@@ -1590,35 +1871,50 @@
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true
     },
     "force protection": {
       "key": "force protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true
     },
     "fuel protection": {
       "key": "fuel protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true
     },
     "heat protection": {
       "key": "heat protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true
     },
     "hull protection": {
       "key": "hull protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true
     },
     "inertia reduction": {
       "key": "inertia reduction",
@@ -1626,6 +1922,9 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "InertialMass"
@@ -1636,42 +1935,64 @@
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
+      "isStatusProtection": true
     },
     "scramble protection": {
       "key": "scramble protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
+      "isStatusProtection": true
     },
     "leak protection": {
       "key": "leak protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
+      "isStatusProtection": true
     },
     "piercing protection": {
       "key": "piercing protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true
     },
     "shield protection": {
       "key": "shield protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true
     },
     "slowing protection": {
       "key": "slowing protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
+      "isProtection": true,
+      "isStatusProtection": true
     },
     "cloak hull protection": {
       "key": "cloak hull protection",
@@ -1703,6 +2024,8 @@
       "displayUnit": "s",
       "scaleIndex": 5,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoCloakDecision"
       ]
@@ -1733,6 +2056,8 @@
       "displayUnit": "s",
       "scaleIndex": 5,
       "shownInOutfitPanel": true,
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoCloakDecision"
       ]
@@ -2206,6 +2531,35 @@
       "shipPanelLabel": "turret mounts free",
       "shownInShipPanel": true
     },
+    "hull threshold": {
+      "key": "hull threshold",
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "usedInShipFunctions": [
+        "MinimumHull"
+      ]
+    },
+    "flotsam chance": {
+      "key": "flotsam chance",
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits."
+    },
+    "crew equivalent": {
+      "key": "crew equivalent",
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "usedInShipFunctions": [
+        "CrewValue"
+      ]
+    },
+    "cloaking hull": {
+      "key": "cloaking hull",
+      "stacking": "additive",
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "usedInShipFunctions": [
+        "DoCloakDecision"
+      ]
+    },
     "automaton": {
       "key": "automaton",
       "stacking": "additive",
@@ -2546,6 +2900,54 @@
     "velocity override": {
       "key": "velocity override",
       "isWeaponDataKey": true
+    },
+    "ionization": {
+      "key": "ionization",
+      "isStatusEffect": true,
+      "statusEffectType": "firing-gate",
+      "statusDescription": "Accumulates when hit by ion weapons. Ionization > energy prevents movement-energy weapons from firing (IsIonized). Decays 1%/frame passively plus up to [ion resistance] per frame."
+    },
+    "scrambling": {
+      "key": "scrambling",
+      "isStatusEffect": true,
+      "statusEffectType": "weapon-jam",
+      "statusDescription": "Accumulates when hit by scrambling weapons. Causes weapons to jam with probability: scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0. Decays 1%/frame plus up to [scramble resistance] per frame."
+    },
+    "disruption": {
+      "key": "disruption",
+      "isStatusEffect": true,
+      "statusEffectType": "shield-multiplier",
+      "statusDescription": "NOT hull/shield HP damage. Increases shield damage taken: shieldDmg *= (1 + disruption * 0.01). Decays 1%/frame plus up to [disruption resistance] per frame."
+    },
+    "slowing": {
+      "key": "slowing",
+      "isStatusEffect": true,
+      "statusEffectType": "speed-reduction",
+      "statusDescription": "NOT hull/shield HP damage. Reduces effective thrust and turn rate: speed *= 1/(1 + slowing*0.05). Decays 1%/frame plus up to [slowing resistance] per frame."
+    },
+    "discharge": {
+      "key": "discharge",
+      "isStatusEffect": true,
+      "statusEffectType": "shield-dot",
+      "statusDescription": "Drains shields by [discharge] per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [discharge resistance] per frame."
+    },
+    "corrosion": {
+      "key": "corrosion",
+      "isStatusEffect": true,
+      "statusEffectType": "hull-dot",
+      "statusDescription": "Drains hull by [corrosion] per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [corrosion resistance] per frame."
+    },
+    "burn": {
+      "key": "burn",
+      "isStatusEffect": true,
+      "statusEffectType": "heat-dot",
+      "statusDescription": "Adds [burn] heat per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [burn resistance] per frame."
+    },
+    "leak": {
+      "key": "leak",
+      "isStatusEffect": true,
+      "statusEffectType": "fuel-dot",
+      "statusDescription": "Drains fuel by [leak] per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [leak resistance] per frame."
     },
     "jump mass cost": {
       "key": "jump mass cost",
@@ -6001,10 +6403,10 @@
       "velocity override"
     ],
     "submunitionKeys": [
+      "submunition",
       "ammo",
       "cluster",
-      "stream",
-      "submunition"
+      "stream"
     ],
     "damageTypes": [
       "Burn",
@@ -6014,6 +6416,7 @@
       "Energy",
       "Fuel",
       "Heat",
+      "HitForce",
       "Hull",
       "Ion",
       "Leak",
@@ -6028,90 +6431,151 @@
         "scrambling": "scramble resistance",
         "disruption": "disruption resistance",
         "slowing": "slowing resistance",
-        "burn": "burn resistance",
         "discharge": "discharge resistance",
         "corrosion": "corrosion resistance",
+        "burn": "burn resistance",
         "leak": "leak resistance"
       },
       "descriptors": [
         {
           "statName": "ionization",
           "resistKey": "ion resistance",
-          "damageKey": "ion damage",
           "protectionKey": "ion protection",
+          "damageKey": "ion damage",
           "label": "Ionization",
-          "wearOffFormula": "dose / [ion resistance] / 60",
-          "description": "Accumulated ionization decays by [ion resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+          "effectType": "firing-gate",
+          "description": "Accumulates when hit by ion weapons. Ionization > energy prevents movement-energy weapons from firing (IsIonized). Decays 1%/frame passively plus up to [ion resistance] per frame.",
+          "costKeys": [
+            "ion resistance energy",
+            "ion resistance fuel",
+            "ion resistance heat"
+          ],
+          "decayFormula": "stat = max(0, 0.99 * stat - min([ion resistance], 0.99 * stat))",
+          "passiveHalfLifeFrames": 69
         },
         {
           "statName": "scrambling",
           "resistKey": "scramble resistance",
-          "damageKey": "scrambling damage",
           "protectionKey": "scramble protection",
+          "damageKey": "scrambling damage",
           "label": "Scrambling",
-          "wearOffFormula": "dose / [scramble resistance] / 60",
-          "description": "Accumulated scrambling decays by [scramble resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+          "effectType": "weapon-jam",
+          "description": "Accumulates when hit by scrambling weapons. Causes weapons to jam with probability: scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0. Decays 1%/frame plus up to [scramble resistance] per frame.",
+          "costKeys": [
+            "scramble resistance energy",
+            "scramble resistance fuel",
+            "scramble resistance heat"
+          ],
+          "decayFormula": "stat = max(0, 0.99 * stat - min([scramble resistance], 0.99 * stat))",
+          "passiveHalfLifeFrames": 69,
+          "jamChanceFormula": "scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0",
+          "jamChanceNote": "Ion cannon (dose~6, reload 60) gives ~9.5% jam chance; 7× ion cannons ~50%."
         },
         {
           "statName": "disruption",
           "resistKey": "disruption resistance",
-          "damageKey": "disruption damage",
           "protectionKey": "disruption protection",
+          "damageKey": "disruption damage",
           "label": "Disruption",
-          "wearOffFormula": "dose / [disruption resistance] / 60",
-          "description": "Accumulated disruption decays by [disruption resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+          "effectType": "shield-multiplier",
+          "description": "NOT hull/shield HP damage. Increases shield damage taken: shieldDmg *= (1 + disruption * 0.01). Decays 1%/frame plus up to [disruption resistance] per frame.",
+          "costKeys": [
+            "disruption resistance energy",
+            "disruption resistance fuel",
+            "disruption resistance heat"
+          ],
+          "decayFormula": "stat = max(0, 0.99 * stat - min([disruption resistance], 0.99 * stat))",
+          "passiveHalfLifeFrames": 69
         },
         {
           "statName": "slowing",
           "resistKey": "slowing resistance",
-          "damageKey": "slowing damage",
           "protectionKey": "slowing protection",
+          "damageKey": "slowing damage",
           "label": "Slowing",
-          "wearOffFormula": "dose / [slowing resistance] / 60",
-          "description": "Accumulated slowing decays by [slowing resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
-        },
-        {
-          "statName": "burn",
-          "resistKey": "burn resistance",
-          "damageKey": "burn damage",
-          "protectionKey": "burn protection",
-          "label": "Burn",
-          "wearOffFormula": "dose / [burn resistance] / 60",
-          "description": "Accumulated burn decays by [burn resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+          "effectType": "speed-reduction",
+          "description": "NOT hull/shield HP damage. Reduces effective thrust and turn rate: speed *= 1/(1 + slowing*0.05). Decays 1%/frame plus up to [slowing resistance] per frame.",
+          "costKeys": [
+            "slowing resistance energy",
+            "slowing resistance fuel",
+            "slowing resistance heat"
+          ],
+          "decayFormula": "stat = max(0, 0.99 * stat - min([slowing resistance], 0.99 * stat))",
+          "passiveHalfLifeFrames": 69
         },
         {
           "statName": "discharge",
           "resistKey": "discharge resistance",
-          "damageKey": "discharge damage",
           "protectionKey": "discharge protection",
+          "damageKey": "discharge damage",
           "label": "Discharge",
-          "wearOffFormula": "dose / [discharge resistance] / 60",
-          "description": "Accumulated discharge decays by [discharge resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+          "effectType": "shield-dot",
+          "description": "Drains shields by [discharge] per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [discharge resistance] per frame.",
+          "costKeys": [
+            "discharge resistance energy",
+            "discharge resistance fuel",
+            "discharge resistance heat"
+          ],
+          "decayFormula": "stat = max(0, 0.99 * stat - min([discharge resistance], 0.99 * stat))",
+          "passiveHalfLifeFrames": 69
         },
         {
           "statName": "corrosion",
           "resistKey": "corrosion resistance",
-          "damageKey": "corrosion damage",
           "protectionKey": "corrosion protection",
+          "damageKey": "corrosion damage",
           "label": "Corrosion",
-          "wearOffFormula": "dose / [corrosion resistance] / 60",
-          "description": "Accumulated corrosion decays by [corrosion resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+          "effectType": "hull-dot",
+          "description": "Drains hull by [corrosion] per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [corrosion resistance] per frame.",
+          "costKeys": [
+            "corrosion resistance energy",
+            "corrosion resistance fuel",
+            "corrosion resistance heat"
+          ],
+          "decayFormula": "stat = max(0, 0.99 * stat - min([corrosion resistance], 0.99 * stat))",
+          "passiveHalfLifeFrames": 69
+        },
+        {
+          "statName": "burn",
+          "resistKey": "burn resistance",
+          "protectionKey": "burn protection",
+          "damageKey": "burn damage",
+          "label": "Burn",
+          "effectType": "heat-dot",
+          "description": "Adds [burn] heat per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [burn resistance] per frame.",
+          "costKeys": [
+            "burn resistance energy",
+            "burn resistance fuel",
+            "burn resistance heat"
+          ],
+          "decayFormula": "stat = max(0, 0.99 * stat - min([burn resistance], 0.99 * stat))",
+          "passiveHalfLifeFrames": 69
         },
         {
           "statName": "leak",
           "resistKey": "leak resistance",
-          "damageKey": "leak damage",
           "protectionKey": "leak protection",
+          "damageKey": "leak damage",
           "label": "Leak",
-          "wearOffFormula": "dose / [leak resistance] / 60",
-          "description": "Accumulated leak decays by [leak resistance] per frame. One-shot wear-off (s) = dose / resistance / 60."
+          "effectType": "fuel-dot",
+          "description": "Drains fuel by [leak] per frame (DoT). Protection reduces initial dose. Decays 1%/frame plus up to [leak resistance] per frame.",
+          "costKeys": [
+            "leak resistance energy",
+            "leak resistance fuel",
+            "leak resistance heat"
+          ],
+          "decayFormula": "stat = max(0, 0.99 * stat - min([leak resistance], 0.99 * stat))",
+          "passiveHalfLifeFrames": 69
         }
       ],
       "notes": [
-        "Each status effect accumulates during combat and decays per-frame.",
-        "Decay per frame = attributes.Get(resistKey).",
-        "Wear-off time (s) for a one-shot dose = dose / resistPerFrame / 60.",
-        "Protection attributes reduce the initial dose: effectiveDose = rawDose * (1 - protection)."
+        "Each status effect decays per frame via DoStatusEffect().",
+        "Passive decay: stat = max(0, 0.99 * stat) — 1% per frame regardless of resistance.",
+        "With resistance R: stat = max(0, 0.99*stat - min(R, 0.99*stat)) each frame.",
+        "Passive half-life: ~69 frames (~1.15s at 60fps).",
+        "Protection reduces the incoming dose: effectiveDose = rawDose * (1 - protection).",
+        "Slowing and Disruption are status multipliers, NOT subtracted from HP.",
+        "JamChance (scrambling): scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0."
       ]
     }
   },
@@ -6272,6 +6736,5 @@
         }
       ]
     }
-  },
-  "aiCache": {}
+  }
 }
