@@ -86,6 +86,10 @@ async function loadData() {
             _weaponDataKeys    = new Set(_attrDefs?.weapon?.dataFileKeys || []);
             if (typeof initComputedStats === 'function')
                 initComputedStats(_attrDefs, BASE_URL);
+            // Initialise the damage-type / protection / resistance reference module.
+            // damageTypes.js must be loaded before battleSim.js in the HTML.
+            if (typeof window.DamageTypes?.init === 'function')
+                window.DamageTypes.init(_attrDefs);
         }
     } catch (e) { console.warn('Failed to load attributeDefinitions.json', e); }
 
@@ -930,7 +934,12 @@ function hideResults() {
 function runSimulation() {
     const sA = _slots.A, sB = _slots.B;
     if (!sA || !sB) { setStatus('Select two ships first.', true); return; }
-    if (!_attrDefs) { setStatus('Attribute definitions not loaded — please wait.', true); return; }
+        if (!_attrDefs) {
+        setStatus('Attribute definitions not loaded — please wait.', true); return;
+    }
+    if (!window.DamageTypes?.getRegistry()) {
+        setStatus('Damage type registry not initialised — please wait.', true); return;
+    }
     const loadEl = document.getElementById('simLoading');
     const resEl  = document.getElementById('simResults');
     if (loadEl) { loadEl.style.display = 'block'; loadEl.classList.add('visible'); }
