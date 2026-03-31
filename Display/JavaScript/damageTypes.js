@@ -11,44 +11,37 @@
 //  runtime from the _attrDefs object (attributeDefinitions.json) which is built
 //  by attributeParser.js directly from the game's C++ source files.
 //
-//  Adding a new damage type, protection, or resistance to the game requires only
-//  an update to attributeParser.js — this file needs no changes.
-//
 //  REQUIRED SHAPE OF attributeDefinitions.json
 //  ────────────────────────────────────────────
-//  weapon.damageTypes[]
-//      Canonical PascalCase type names, e.g. ["Shield","Hull","Ion","Slowing",…]
+//  weapon.damageTypes[]           — PascalCase type names from DamageDealt.h
 //
-//  weapon.damageTypeDetails[]         ← NEW section, parsed by attributeParser.js
-//      One entry per type. Required fields:
-//        typeName          PascalCase, matches damageTypes[]
-//        category          'hp' | 'resource' | 'status'
-//        resourceKey       e.g. 'ion damage'
-//        relativeKey       e.g. '% shield damage'  (null if none)
-//        shieldInteraction 'full' | 'half' | 'blocked' | 'direct'
-//                          Parsed from Ship.cpp TakeDamage() per-type branches
-//        statusEffect      statName string (e.g. 'ionization') or null
-//        resistanceKey     attribute key string (e.g. 'ion resistance') or null
-//        protectionKey     attribute key string (e.g. 'ion protection') or null
-//        description       human-readable string derived from C++ comments/wiki
-//        applyFormula      pseudo-code using [attr key] notation
-//        notes[]           array of strings
+//  weapon.damageTypeDetails[]     — one entry per type, built by attributeParser.js
+//    typeName          PascalCase, matches damageTypes[]
+//    category          'hp' | 'resource' | 'status'
+//    resourceKey       e.g. 'ion damage'
+//    relativeKey       e.g. '% shield damage'  (null if none)
+//    shieldInteraction 'full' | 'half' | 'blocked' | 'direct'
+//    statusEffect      statName string (e.g. 'ionization') or null
+//    resistanceKey     attribute key string or null
+//    protectionKey     attribute key string or null
+//    description       string
+//    applyFormula      pseudo-code string
+//    notes[]
 //
-//  weapon.statusEffectDecay.decayMap   { statName → resistKey }
+//  weapon.statusEffectDecay.decayMap    { statName → resistKey }
 //  weapon.statusEffectDecay.descriptors[]
-//      Each descriptor must include: statName, resistKey, protectionKey,
-//      damageKey, label, effectType, description, decayFormula, costKeys[],
-//      passiveHalfLifeFrames, shieldInteraction.
-//      scrambling descriptor also needs: jamChanceFormula
+//    statName, resistKey, protectionKey, damageKey, label,
+//    effectType, description, decayFormula, costKeys[],
+//    passiveHalfLifeFrames
+//    (scrambling only: jamChanceFormula)
 //
 //  attributes.{key}.isProtection         true  → listed in protection registry
 //  attributes.{key}.isStatusResistance   true  → listed in resistance registry
-//  attributes.{key}.protectionAppliesTo  what the protection reduces
-//  attributes.{key}.protectionFormula    pseudo-code formula
-//  attributes.{key}.protectionNote       short note
-//  attributes.{key}.stackingDescription  stacking rule text
-//  attributes.{key}.clampRange           e.g. '[0, 1]'
-//  attributes.'piercing resistance'      also listed in protections (special)
+//  attributes.{key}.protectionAppliesTo
+//  attributes.{key}.protectionFormula
+//  attributes.{key}.protectionNote
+//  attributes.{key}.stackingDescription
+//  attributes.{key}.clampRange
 // ═══════════════════════════════════════════════════════════════════════════════
 
 let _ready     = false;
@@ -58,7 +51,7 @@ let _resistMap = {};   // statName / resistKey → entry
 let _registry  = null;
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  init
+//  initDamageTypes(attrDefs)
 // ─────────────────────────────────────────────────────────────────────────────
 function initDamageTypes(attrDefs) {
     _ready     = false;
@@ -72,13 +65,13 @@ function initDamageTypes(attrDefs) {
         return;
     }
 
-    const attrs       = attrDefs.attributes                               || {};
-    const typeNames   = attrDefs.weapon?.damageTypes                      || [];
-    const typeDetails = attrDefs.weapon?.damageTypeDetails                || [];
-    const decayMap    = attrDefs.weapon?.statusEffectDecay?.decayMap      || {};
-    const descriptors = attrDefs.weapon?.statusEffectDecay?.descriptors   || [];
+    const attrs       = attrDefs.attributes                             || {};
+    const typeNames   = attrDefs.weapon?.damageTypes                    || [];
+    const typeDetails = attrDefs.weapon?.damageTypeDetails              || [];
+    const decayMap    = attrDefs.weapon?.statusEffectDecay?.decayMap    || {};
+    const descriptors = attrDefs.weapon?.statusEffectDecay?.descriptors || [];
 
-    // index typeDetails by lowercase name for O(1) lookup
+    // Index typeDetails by lowercase typeName for O(1) lookup
     const detailsByName = {};
     for (const d of typeDetails)
         if (d.typeName) detailsByName[d.typeName.toLowerCase()] = d;
@@ -89,8 +82,8 @@ function initDamageTypes(attrDefs) {
         const d = detailsByName[typeName.toLowerCase()];
         if (!d) {
             console.warn(
-                `[damageTypes] Missing damageTypeDetails for "${typeName}". ` +
-                `attributeParser.js needs to parse this type from Ship.cpp.`
+                `[damageTypes] No damageTypeDetails for "${typeName}". ` +
+                `Run attributeParser.js to regenerate attributeDefinitions.json.`
             );
             continue;
         }
@@ -114,7 +107,6 @@ function initDamageTypes(attrDefs) {
     }
 
     // ── 2. Protections ────────────────────────────────────────────────────────
-    // Includes every attr with isProtection=true plus 'piercing resistance'
     const protections = [];
     const seenProt = new Set();
 
@@ -124,11 +116,11 @@ function initDamageTypes(attrDefs) {
         seenProt.add(key);
         const entry = {
             key,
-            appliesTo:    a.protectionAppliesTo  ?? (key.replace(' protection', '') + ' damage'),
-            formula:      a.protectionFormula    ?? `effectiveDose = rawDose * (1 - [${key}])`,
-            note:         a.protectionNote       ?? a.stackingDescription ?? '',
-            stackingNote: a.stackingDescription  ?? '',
-            clampRange:   a.clampRange           ?? '[0, 1]',
+            appliesTo:    a.protectionAppliesTo ?? (key.replace(' protection', '') + ' damage'),
+            formula:      a.protectionFormula   ?? `effectiveDose = rawDose * (1 - [${key}])`,
+            note:         a.protectionNote      ?? a.stackingDescription ?? '',
+            stackingNote: a.stackingDescription ?? '',
+            clampRange:   a.clampRange          ?? '[0, 1]',
         };
         protections.push(entry);
         _protMap[key] = entry;
@@ -181,9 +173,9 @@ function getAllDamageTypes() { return _registry?.damageTypes  ?? []; }
 function getAllProtections() { return _registry?.protections  ?? []; }
 function getAllResistances() { return _registry?.resistances  ?? []; }
 
-function getDamageType(typeName)    { return _typeMap  [(typeName    || '').toLowerCase()] ?? null; }
-function getProtection(key)         { return _protMap  [key]                               ?? null; }
-function getResistance(keyOrStat)   { return _resistMap[keyOrStat]                         ?? null; }
+function getDamageType(typeName)  { return _typeMap  [(typeName  || '').toLowerCase()] ?? null; }
+function getProtection(key)       { return _protMap  [key]                             ?? null; }
+function getResistance(keyOrStat) { return _resistMap[keyOrStat]                       ?? null; }
 
 function getShieldInteraction(typeName) {
     return getDamageType(typeName)?.shieldInteraction ?? 'half';
@@ -191,11 +183,13 @@ function getShieldInteraction(typeName) {
 
 /**
  * getShieldMultiplier(typeName, shieldsUp)
- * Numeric multiplier to apply to incoming damage/status dose.
- *   'full'    → 1.0 always  (e.g. Discharge — wiki: "always maximum effect")
- *   'half'    → 0.5 when up (e.g. Ion, Burn, Heat, Energy, Scrambling, Slowing, Disruption)
- *   'blocked' → 0.0 when up (e.g. Corrosion, Leak — wiki: "ignored when shields are up")
- *   'direct'  → 1.0 always  (Shield/Hull HP — gated differently in applyWeaponDamage)
+ * Returns the numeric multiplier (0 | 0.5 | 1.0) to apply to incoming
+ * damage/status dose, sourced entirely from shieldInteraction in attrDefs.
+ *
+ *   'full'    → 1.0 always  (Discharge — "always maximum effect" per wiki)
+ *   'half'    → 0.5 when up (Ion, Scrambling, Disruption, Slowing, Burn, Heat, Energy, Fuel)
+ *   'blocked' → 0.0 when up (Corrosion, Leak — "ignored when shields are up" per wiki)
+ *   'direct'  → 1.0 always  (Shield, Hull HP — handled separately in applyWeaponDamage)
  */
 function getShieldMultiplier(typeName, shieldsUp) {
     if (!shieldsUp) return 1.0;
