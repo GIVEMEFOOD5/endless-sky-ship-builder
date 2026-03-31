@@ -645,15 +645,25 @@ function applyWeaponDamage(w, defSt, defStats) {
     const shieldDmgApplied = shieldDmgTotal * (1 - effectivePiercing);
 
     if (defSt.shields > 0) {
+        // Apply shield damage first
         defSt.shields -= shieldDmgApplied;
-        defSt.hull    -= hullPiercedDmg + hullDmgAfterProt;
+
+        // Only apply piercing through shields
+        defSt.hull -= hullPiercedDmg;
+
+        // If shields break this frame, spillover happens
         if (defSt.shields < 0) {
-            const bleed = (rawHullDmg > 0) ? 1.0 : SHIELD_BLEED_FRACTION;
-            defSt.hull    += defSt.shields * bleed * (1 - defStats.hullProt);
-            defSt.shields  = 0;
-            defSt.depletedFlag = true;
+            const overflow = -defSt.shields;
+            defSt.shields = 0;
+
+            // Apply overflow to hull (respecting protection)
+            defSt.hull -= overflow * (1 - defStats.hullProt);
+
+            // NOW apply normal hull damage (since shields are gone)
+            defSt.hull -= hullDmgAfterProt;
         }
     } else {
+        // No shields → full damage
         defSt.hull -= hullDmgAfterProt + rawShieldDmg * (1 - defStats.shieldProt);
     }
 
