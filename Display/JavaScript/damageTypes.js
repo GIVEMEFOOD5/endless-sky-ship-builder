@@ -130,27 +130,51 @@ function initDamageTypes(attrDefs) {
     const resistances = [];
     const seenResist = new Set();
 
+    // Build from descriptors (existing behavior)
     for (const desc of descriptors) {
         const rk = desc.resistKey;
         if (!rk || seenResist.has(rk)) continue;
         seenResist.add(rk);
+
         const a = attrs[rk] || {};
+
         const entry = {
-            statName:              desc.statName,
-            resistKey:             rk,
-            decayFormula:          desc.decayFormula          ?? '',
-            costKeys:              desc.costKeys              ?? [],
-            note:                  desc.description           ?? '',
+            statName: desc.statName,
+            resistKey: rk,
+            decayFormula: desc.decayFormula ?? '',
+            costKeys: desc.costKeys ?? [],
+            note: desc.description ?? '',
             passiveHalfLifeFrames: desc.passiveHalfLifeFrames ?? null,
-            passiveHalfLifeSecs:   desc.passiveHalfLifeFrames != null
-                                       ? (desc.passiveHalfLifeFrames / 60).toFixed(2)
-                                       : null,
-            stackingNote:          a.stackingDescription      ?? '',
+            passiveHalfLifeSecs: desc.passiveHalfLifeFrames != null
+                ? (desc.passiveHalfLifeFrames / 60).toFixed(2)
+                : null,
+            stackingNote: a.stackingDescription ?? '',
             ...(desc.jamChanceFormula ? { jamChanceFormula: desc.jamChanceFormula } : {}),
         };
+
         resistances.push(entry);
         _resistMap[desc.statName] = entry;
-        _resistMap[rk]            = entry;
+        _resistMap[rk] = entry;
+    }
+
+    // Fallback: include any attribute marked as resistance
+    for (const [key, a] of Object.entries(attrs)) {
+        if (!a.isStatusResistance) continue;
+        if (seenResist.has(key)) continue;
+
+        const entry = {
+            statName: key.replace(' resistance', ''),
+            resistKey: key,
+            decayFormula: '',
+            costKeys: [],
+            note: a.description ?? '',
+            passiveHalfLifeFrames: null,
+            passiveHalfLifeSecs: null,
+            stackingNote: a.stackingDescription ?? '',
+        };
+
+        resistances.push(entry);
+        _resistMap[key] = entry;
     }
 
     _registry = { damageTypes, protections, resistances };
