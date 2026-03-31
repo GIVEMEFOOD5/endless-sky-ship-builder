@@ -58,6 +58,8 @@ async function loadData() {
             // FIX: call DamageTypes.init exactly once (was duplicated in previous version)
             if (typeof window.DamageTypes?.init === 'function')
                 window.DamageTypes.init(_attrDefs);
+
+            MunitionTypes.init(() => _outfitIndex, _attrDefs)
         }
     } catch (e) { console.warn('Failed to load attributeDefinitions.json', e); }
 
@@ -387,52 +389,83 @@ function resolveSubmunitionDamage(weapon, multiplier, visited, depth) {
 function analyzeWeapons(weapons) {
     const firingCostKeys = (_attrDefs?.outfitDisplay?.valueNames || [])
         .map(v => v.key).filter(k => k.startsWith('firing '));
+
     const totalDPS    = {};
     const totalFiring = {};
     for (const t of _damageTypes) totalDPS[t]    = 0;
     for (const k of firingCostKeys) totalFiring[k] = 0;
+
     const details = [];
 
     for (const w of weapons) {
+
+        // ✅ NEW: Munition analysis
+        const munitionInfo = MunitionTypes.analyseOutfit(w);
+
         const reload         = Math.max(1, w.reload || 1);
         const burstCount     = w['burst count']  || 1;
         const burstReload    = w['burst reload'] || reload;
         const framesPerCycle = (burstCount - 1) * burstReload + reload;
         const sps            = (burstCount / framesPerCycle) * FPS;
         const piercing       = Math.max(0, Math.min(1, w.piercing || 0));
+
         const visited        = new Set([w._name].filter(Boolean));
         const dmgPerShot     = resolveSubmunitionDamage(w, 1, visited, 0);
-        for (const t of _damageTypes) if (dmgPerShot[t] === undefined) dmgPerShot[t] = 0;
-        for (const t of _damageTypes) totalDPS[t] = (totalDPS[t] || 0) + dmgPerShot[t] * sps;
-        for (const k of firingCostKeys) totalFiring[k] = (totalFiring[k] || 0) + (w[k] || 0) * sps;
+
+        for (const t of _damageTypes)
+            if (dmgPerShot[t] === undefined) dmgPerShot[t] = 0;
+
+        for (const t of _damageTypes)
+            totalDPS[t] = (totalDPS[t] || 0) + dmgPerShot[t] * sps;
+
+        for (const k of firingCostKeys)
+            totalFiring[k] = (totalFiring[k] || 0) + (w[k] || 0) * sps;
 
         const detail = {
-            name: w._name || 'Unknown', reload, burstCount, burstReload, framesPerCycle,
-            sps: +sps.toFixed(3), piercing: +(piercing * 100).toFixed(0),
+            name: w._name || 'Unknown',
+
+            // ✅ attach it here so UI/debug can use it
+            munition: munitionInfo,
+
+            reload, burstCount, burstReload, framesPerCycle,
+            sps: +sps.toFixed(3),
+            piercing: +(piercing * 100).toFixed(0),
+
             range: (w.velocity && w.lifetime) ? w.velocity * w.lifetime : null,
-            homing: (w.homing || 0) > 0, antiMissile: (w['anti-missile'] || 0) > 0,
-            hasSubmunitions: !!(w.submunition), dmgPerShot,
+            homing: (w.homing || 0) > 0,
+            antiMissile: (w['anti-missile'] || 0) > 0,
+            hasSubmunitions: !!(w.submunition),
+
+            dmgPerShot,
+
             relShield: +((w['% shield damage'] || 0) * 100).toFixed(1),
             relHull:   +((w['% hull damage']   || 0) * 100).toFixed(1),
         };
+
         for (const t of _damageTypes)
             detail[t.toLowerCase() + 'DPS'] = +(dmgPerShot[t] * sps).toFixed(2);
+
         details.push(detail);
     }
 
     const result = { dps: totalDPS, weaponDetails: details };
-    for (const t of _damageTypes) result[t.toLowerCase() + 'DPS'] = totalDPS[t] || 0;
+
+    for (const t of _damageTypes)
+        result[t.toLowerCase() + 'DPS'] = totalDPS[t] || 0;
+
     result.shieldDPS     = totalDPS['Shield']     || 0;
     result.hullDPS       = totalDPS['Hull']       || 0;
     result.heatDPS       = totalDPS['Heat']       || 0;
     result.ionDPS        = totalDPS['Ion']        || 0;
     result.disruptionDPS = totalDPS['Disruption'] || 0;
     result.slowingDPS    = totalDPS['Slowing']    || 0;
+
     result.firingEnergyPerSec     = +(totalFiring['firing energy']  || 0).toFixed(3);
     result.firingHeatPerSec       = +(totalFiring['firing heat']    || 0).toFixed(3);
     result.firingFuelPerSec       = +(totalFiring['firing fuel']    || 0).toFixed(3);
     result.firingHullCostPerSec   = +(totalFiring['firing hull']    || 0).toFixed(3);
     result.firingShieldCostPerSec = +(totalFiring['firing shields'] || 0).toFixed(3);
+
     return result;
 }
 
