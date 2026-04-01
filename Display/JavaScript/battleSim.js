@@ -1236,18 +1236,56 @@ function buildTtkString(name, ttk, projectedTtk) {
     return `${n} survived · ~${fmtT(projectedTtk)} projected`;
 }
 
+function normalizeTimeline(tl, ship) {
+    if (!tl.length) return [];
+
+    // Ensure starting point at t=0
+    if (tl[0].t > 0) {
+        tl.unshift({
+            t: 0,
+            hull: ship.maxHull,
+            shields: ship.maxShields
+        });
+    }
+
+    // If only one point, duplicate it slightly forward
+    if (tl.length === 1) {
+        tl.push({
+            ...tl[0],
+            t: tl[0].t + 0.01
+        });
+    }
+
+    return tl;
+}
+
 function buildHpChart(sA, sB, result) {
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
     const tlA = result.timelineA || [], tlB = result.timelineB || [];
-    if (!tlA.length && !tlB.length) return '';
+    const normA = normalizeTimeline(tlA.map(p => ({...p})), sA);
+    const normB = normalizeTimeline(tlB.map(p => ({...p})), sB);
+    if (!normA.length && !normB.length) return '';
     const W=560, H=180, PL=44, PR=12, PT=14, PB=28, cW=W-PL-PR, cH=H-PT-PB;
-    const maxTime = Math.max(tlA.length?tlA[tlA.length-1].t:0, tlB.length?tlB[tlB.length-1].t:0, 1);
+    const maxTimeRaw = Math.max(
+        normA.length ? normA[normA.length - 1].t : 0,
+        normB.length ? normB[normB.length - 1].t : 0
+    );
+    const maxTime = Math.max(maxTimeRaw, 0.1); // avoid compression
     const maxHP   = Math.max(sA.maxShields+sA.maxHull, sB.maxShields+sB.maxHull, 1);
-    const px = t  => PL + (t/maxTime)*cW;
-    const py = hp => PT + cH - (hp/maxHP)*cH;
-    const pathAH = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
-    const pathBH = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
-    const pathAS = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
-    const pathBS = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
+    const px = t => {
+        const tt = clamp(t, 0, maxTime);
+        return PL + (tt / maxTime) * cW;
+    };
+    const py = hp => {
+        const h = clamp(hp, 0, maxHP);
+        return PT + cH - (h / maxHP) * cH;
+    };
+    const totalHP = p => clamp(p.hull + p.shields, 0, maxHP);
+    const hullHP = p => clamp(p.hull, 0, maxHP);
+    const pathAH = normA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
+    const pathBH = normB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
+    const pathAS = normA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');
+    const pathBS = normB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');    
     const yTicks = [0,0.5,1].map(f=>{const v=maxHP*f,y=py(v).toFixed(1),lb=v>=1000?(v/1000).toFixed(1)+'k':Math.round(v).toString();
         return `<line x1="${PL}" y1="${y}" x2="${PL+cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
                 <text x="${PL-4}" y="${+y+4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;}).join('');
