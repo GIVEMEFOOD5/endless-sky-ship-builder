@@ -566,122 +566,132 @@ function consumeFiringCosts(w, st) {
 //  WEAPON SUSTAIN — per-frame stall / resume / ammo-out event detection
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * createSustainState(weaponCount)  →  SustainState
- *
- * Tracks per-weapon stall reasons across frames so we only emit events on
- * transitions (not every frame).
- *
- *   prevReason[i]     null   = was firing last frame
- *                     string = blocking reason last frame
- *   ammoExhausted     Set of '<weaponName>::<ammoName>' already reported
- *                     (ammo is permanent — cannot be recovered mid-combat)
- */
-function createSustainState(weaponCount) {
-    return {
-        prevReason:    new Array(weaponCount).fill(null),
-        ammoExhausted: new Set(),
-    };
-}
-
 function _isAmmoReason(r) { return typeof r === 'string' && r.startsWith('ammo:'); }
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Hysteresis thresholds.
+//
+//  A resource stall is only REPORTED after it has blocked at least one weapon
+//  for STALL_CONFIRM_FRAMES consecutive frames.  A resume is only reported
+//  after the resource has been clear for RESUME_CONFIRM_FRAMES frames.
+//
+//  This prevents energy/shield oscillation (fire → dip → regen → fire…) from
+//  flooding the log.  2 s to confirm a stall, 1 s to confirm recovery.
+// ─────────────────────────────────────────────────────────────────────────────
+const STALL_CONFIRM_FRAMES  = 2 * 60;
+const RESUME_CONFIRM_FRAMES = 1 * 60;
+
+/**
+ * createSustainState(stats)
+ *
+ * Tracking is per-RESOURCE-TYPE across all weapons — at most one stall event
+ * and one resume event per resource per ship per fight.
+ *
+ *   resourceState[key].reported       — stall event has been emitted (not yet resumed)
+ *   resourceState[key].stallFrames    — consecutive frames >= 1 weapon blocked
+ *   resourceState[key].resumeFrames   — consecutive frames all weapons clear
+ *   resourceState[key].reportedNames  — weapon names captured at stall-report time
+ *   ammoExhausted                     — Set<'name::ammo'>, permanent, emitted once
+ */
+function createSustainState(stats) {
+    const resourceState = {};
+    for (const key of FIRING_RESOURCE_KEYS) {
+        resourceState[key] = {
+            reported:      false,
+            stallFrames:   0,
+            resumeFrames:  0,
+            reportedNames: [],
+        };
+    }
+    return { resourceState, ammoExhausted: new Set() };
+}
 
 /**
  * checkWeaponSustainEvents(st, stats, side, t, sus, phases)
  *
- * Called once per simulation frame, BEFORE shootFrame, so events fire on
- * the exact frame the resource first runs out (not a frame later).
+ * Called once per frame BEFORE shootFrame.
  *
- * For each weapon:
- *   • Compute block reason with canWeaponFire().
- *   • Ammo exhaustion  → emit permanent 📦 event (once; ammo never recovers).
- *   • null → reason    → stall  ⚠️  (recoverable; grouped by reason).
- *   • reason → null    → resume 🔄  (grouped by prev reason).
- *   • reason → diff    → treated as a new stall on the new reason.
- *
- * Multiple weapons with the same reason are grouped into one phase entry.
- *
- * Recovery notes (no hardcoding — follows actual sim state):
- *   energy  recovers via energyGenPerFrame each frame
- *   fuel    recovers via fuelRegenPerFrame  (ramscoop + fuel generation)
- *   hull    recovers via hullRepairPerFrame + delayedHullRepairPerFrame
- *   shields recovers via shieldRegenPerFrame + delayedShieldPerFrame
+ * Ammo:     emitted immediately, once per weapon x ammo type, permanent.
+ * Resource: per-resource hysteresis —
+ *   blocked >= STALL_CONFIRM_FRAMES  → emit one grouped stall ⚠️
+ *   clear   >= RESUME_CONFIRM_FRAMES → emit one grouped resume 🔄
  */
 function checkWeaponSustainEvents(st, stats, side, t, sus, phases) {
     const weapons = stats.weapons;
     if (!weapons.length) return;
 
-    // Accumulate per-frame transitions
-    const stallsByReason  = {};  // reason  → [weaponName]
-    const resumesByReason = {};  // prevReason → [weaponName]
-
+    // ── Ammo exhaustion (immediate, permanent, once per weapon×ammo) ──────
     for (let i = 0; i < weapons.length; i++) {
         const w      = weapons[i];
-        const name   = w._name || ('Weapon ' + (i + 1));
-        const prev   = sus.prevReason[i];
         const reason = canWeaponFire(w, st, stats);
-
-        if (reason !== null) {
-            // ── blocked ────────────────────────────────────────────────────
-            if (_isAmmoReason(reason)) {
-                const ammoName = reason.slice(5);
-                const key      = name + '::' + ammoName;
-                if (!sus.ammoExhausted.has(key)) {
-                    sus.ammoExhausted.add(key);
-                    phases.push({
-                        time: t, type: side, icon: '📦',
-                        text: `<strong>${escHtml(stats.name)}</strong>'s ` +
-                              `<em>${escHtml(name)}</em> ran out of ` +
-                              `<em>${escHtml(ammoName)}</em> ammo at ${fmtT(t)} ` +
-                              `— permanently offline`,
-                    });
-                }
-                sus.prevReason[i] = reason;
-                continue;
-            }
-
-            // Non-ammo stall: only emit on reason transition
-            if (prev !== reason && !_isAmmoReason(prev)) {
-                if (!stallsByReason[reason]) stallsByReason[reason] = [];
-                stallsByReason[reason].push(name);
-            }
-            sus.prevReason[i] = reason;
-
-        } else {
-            // ── can fire ───────────────────────────────────────────────────
-            if (prev !== null && !_isAmmoReason(prev)) {
-                if (!resumesByReason[prev]) resumesByReason[prev] = [];
-                resumesByReason[prev].push(name);
-            }
-            sus.prevReason[i] = null;
+        if (!_isAmmoReason(reason)) continue;
+        const name     = w._name || ('Weapon ' + (i + 1));
+        const ammoName = reason.slice(5);
+        const key      = name + '::' + ammoName;
+        if (!sus.ammoExhausted.has(key)) {
+            sus.ammoExhausted.add(key);
+            phases.push({
+                time: t, type: side, icon: '📦',
+                text: `<strong>${escHtml(stats.name)}</strong>'s ` +
+                      `<em>${escHtml(name)}</em> ran out of ` +
+                      `<em>${escHtml(ammoName)}</em> ammo at ${fmtT(t)} ` +
+                      `\u2014 permanently offline`,
+            });
         }
     }
 
-    // ── Emit stall events (grouped) ────────────────────────────────────────
-    for (const [reason, names] of Object.entries(stallsByReason)) {
-        const label   = resourceLabel(reason);
-        const nameStr = names.map(n => `<em>${escHtml(n)}</em>`).join(', ');
-        const verb    = names.length === 1 ? 'is' : 'are';
-        phases.push({
-            time: t, type: side, icon: '⚠️',
-            text: `<strong>${escHtml(stats.name)}</strong>'s ${nameStr} ` +
-                  `${verb} starved of <em>${escHtml(label)}</em> at ${fmtT(t)} ` +
-                  `— cannot fire (may recover)`,
-        });
-    }
+    // ── Per-resource hysteresis ────────────────────────────────────────────
+    for (const key of FIRING_RESOURCE_KEYS) {
+        const rs = sus.resourceState[key];
 
-    // ── Emit resume events (grouped) ──────────────────────────────────────
-    for (const [prevReason, names] of Object.entries(resumesByReason)) {
-        const label   = resourceLabel(prevReason);
-        const nameStr = names.map(n => `<em>${escHtml(n)}</em>`).join(', ');
-        const verb    = names.length === 1 ? 'has' : 'have';
-        phases.push({
-            time: t, type: side, icon: '🔄',
-            text: `<strong>${escHtml(stats.name)}</strong>'s ${nameStr} ` +
-                  `${verb} resumed firing — <em>${escHtml(label)}</em> restored at ${fmtT(t)}`,
-        });
+        // Weapons that use this resource AND are currently blocked by it
+        const blocked = [];
+        for (let i = 0; i < weapons.length; i++) {
+            const w = weapons[i];
+            if ((w[key] || 0) === 0) continue;           // doesn't use this resource
+            if (canWeaponFire(w, st, stats) === key)
+                blocked.push(w._name || ('Weapon ' + (i + 1)));
+        }
+
+        if (blocked.length > 0) {
+            rs.stallFrames++;
+            rs.resumeFrames = 0;
+
+            if (!rs.reported && rs.stallFrames === STALL_CONFIRM_FRAMES) {
+                rs.reported      = true;
+                rs.reportedNames = [...new Set(blocked)];   // deduplicate names
+                const label   = resourceLabel(key);
+                const nameStr = rs.reportedNames.map(n => `<em>${escHtml(n)}</em>`).join(', ');
+                const verb    = rs.reportedNames.length === 1 ? 'is' : 'are';
+                phases.push({
+                    time: t, type: side, icon: '\u26a0\ufe0f',
+                    text: `<strong>${escHtml(stats.name)}</strong>'s ${nameStr} ` +
+                          `${verb} unable to sustain fire \u2014 ` +
+                          `<em>${escHtml(label)}</em> insufficient at ${fmtT(t)} ` +
+                          `(may recover)`,
+                });
+            }
+        } else {
+            rs.resumeFrames++;
+            rs.stallFrames = 0;
+
+            if (rs.reported && rs.resumeFrames === RESUME_CONFIRM_FRAMES) {
+                rs.reported = false;
+                const label   = resourceLabel(key);
+                const nameStr = rs.reportedNames.map(n => `<em>${escHtml(n)}</em>`).join(', ');
+                const verb    = rs.reportedNames.length === 1 ? 'has' : 'have';
+                phases.push({
+                    time: t, type: side, icon: '\ud83d\udd04',
+                    text: `<strong>${escHtml(stats.name)}</strong>'s ${nameStr} ` +
+                          `${verb} resumed firing \u2014 ` +
+                          `<em>${escHtml(label)}</em> restored at ${fmtT(t)}`,
+                });
+                rs.reportedNames = [];
+            }
+        }
     }
 }
+
 
 // ═══════════════════════════════════════════════════════════════════════════════
 //  COMBAT SIMULATION
@@ -723,8 +733,8 @@ function simulateBattle(sA, sB) {
     const stB = createCombatantState(sB);
 
     // Sustain tracking — lives outside combatant state so it doesn't interfere
-    const susA = createSustainState(sA.weapons.length);
-    const susB = createSustainState(sB.weapons.length);
+    const susA = createSustainState(sA);
+    const susB = createSustainState(sB);
 
     const milestones = {
         A: { shieldsBroken: false, halfHull: false, disabled: false,
