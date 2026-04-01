@@ -1258,7 +1258,44 @@ function normalizeTimeline(tl, ship) {
 
     return tl;
 }
+    
+function getDeathTime(tl, ship) {
+    for (let i = 0; i < tl.length; i++) {
+        if (tl[i].hull <= ship.minHull) {
+            return tl[i].t;
+        }
+    }
+    return Infinity; // never dies
+}
 
+function clipTimeline(tl, endTime) {
+    const out = [];
+
+    for (let i = 0; i < tl.length; i++) {
+        const p = tl[i];
+
+        if (p.t <= endTime) {
+            out.push(p);
+        } else {
+            // interpolate final point for smooth cutoff
+            const prev = tl[i - 1];
+            if (prev) {
+                const dt = p.t - prev.t;
+                const ratio = dt > 0 ? (endTime - prev.t) / dt : 0;
+
+                out.push({
+                    t: endTime,
+                    hull: prev.hull + (p.hull - prev.hull) * ratio,
+                    shields: prev.shields + (p.shields - prev.shields) * ratio
+                });
+            }
+            break;
+        }
+    }
+
+    return out;
+}
+    
 function buildHpChart(sA, sB, result) {
     const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
     const tlA = result.timelineA || [], tlB = result.timelineB || [];
@@ -1266,11 +1303,18 @@ function buildHpChart(sA, sB, result) {
     const normB = normalizeTimeline(tlB.map(p => ({...p})), sB);
     if (!normA.length && !normB.length) return '';
     const W=560, H=180, PL=44, PR=12, PT=14, PB=28, cW=W-PL-PR, cH=H-PT-PB;
-    const maxTimeRaw = Math.max(
-        normA.length ? normA[normA.length - 1].t : 0,
-        normB.length ? normB[normB.length - 1].t : 0
-    );
+    const deathA = getDeathTime(normA, sA);
+    const deathB = getDeathTime(normB, sB);
+    const firstDeath = Math.min(deathA, deathB);
+    const maxTimeRaw = isFinite(firstDeath)
+        ? firstDeath
+        : Math.max(
+            normA.length ? normA[normA.length - 1].t : 0,
+            normB.length ? normB[normB.length - 1].t : 0
+        );
     const maxTime = Math.max(maxTimeRaw, 0.1); // avoid compression
+    const clippedA = clipTimeline(normA, maxTime);
+    const clippedB = clipTimeline(normB, maxTime);
     const maxHP   = Math.max(sA.maxShields+sA.maxHull, sB.maxShields+sB.maxHull, 1);
     const px = t => {
         const tt = clamp(t, 0, maxTime);
@@ -1282,10 +1326,10 @@ function buildHpChart(sA, sB, result) {
     };
     const totalHP = p => clamp(p.hull + p.shields, 0, maxHP);
     const hullHP = p => clamp(p.hull, 0, maxHP);
-    const pathAH = normA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
-    const pathBH = normB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
-    const pathAS = normA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');
-    const pathBS = normB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');    
+    const pathAH = clippedA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
+    const pathBH = clippedB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
+    const pathAS = clippedA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');
+    const pathBS = clippedB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');    
     const yTicks = [0,0.5,1].map(f=>{const v=maxHP*f,y=py(v).toFixed(1),lb=v>=1000?(v/1000).toFixed(1)+'k':Math.round(v).toString();
         return `<line x1="${PL}" y1="${y}" x2="${PL+cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
                 <text x="${PL-4}" y="${+y+4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;}).join('');
