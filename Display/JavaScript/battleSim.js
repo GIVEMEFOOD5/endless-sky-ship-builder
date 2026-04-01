@@ -9,7 +9,7 @@ const FPS          = 60;
 const MAX_SIM_SECS = 600;
 const MAX_FRAMES   = MAX_SIM_SECS * FPS;
 const SOLAR_POWER  = 1.0;
-const SHIELD_BLEED_FRACTION = 0.5;  // from Ship.cpp TakeDamage
+const SHIELD_BLEED_FRACTION = 0.5;
 
 const REPO_URL = 'GIVEMEFOOD5/endless-sky-ship-builder';
 const BASE_URL = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
@@ -35,6 +35,19 @@ const FIRING_STATUS_MAP = {
     slowing:    'firing slowing',
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+//  Firing-cost resource keys — these are the only ones that gate weapon firing.
+//  'firing heat' is intentionally absent: it adds heat but never directly
+//  prevents a weapon from firing (overheat gates ALL weapons via isOverheated).
+//
+//  The label shown in phase messages is derived from the key itself, so no
+//  separate label table is needed.
+// ─────────────────────────────────────────────────────────────────────────────
+const FIRING_RESOURCE_KEYS = ['firing energy', 'firing fuel', 'firing hull', 'firing shields'];
+
+// Strip 'firing ' prefix for human-readable labels in phase messages.
+function resourceLabel(key) { return key.replace(/^firing\s+/, ''); }
+
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 async function init() {
     const resEl = document.getElementById('simResults');
@@ -55,11 +68,10 @@ async function loadData() {
             _weaponDataKeys    = new Set(_attrDefs?.weapon?.dataFileKeys || []);
             if (typeof initComputedStats === 'function')
                 initComputedStats(_attrDefs, BASE_URL);
-            // FIX: call DamageTypes.init exactly once (was duplicated in previous version)
             if (typeof window.DamageTypes?.init === 'function')
                 window.DamageTypes.init(_attrDefs);
-
-            MunitionTypes.init(() => _outfitIndex, _attrDefs)
+            if (typeof window.MunitionTypes?.init === 'function')
+                window.MunitionTypes.init(() => _outfitIndex, _attrDefs);
         }
     } catch (e) { console.warn('Failed to load attributeDefinitions.json', e); }
 
@@ -331,6 +343,37 @@ function resolveShipStats(ship) {
     const movingHeatPerFrame        = Math.max(a('thrusting heat'), a('reverse thrusting heat'))
                                     + a('turning heat');
 
+    // ── Fuel recovery ────────────────────────────────────────────────────────
+    // From attributeParser.js systemAwareFormulas / ramscoop formula:
+    //   ramscoop fuel/s = 0.03 * sqrt(solarPower) * [ramscoop]
+    // Plus 'fuel generation' attribute (fuel/s, convert to per-frame).
+    const fuelCap          = a('fuel capacity') || 0;
+    const fuelRegenPerFrame = (
+        0.03 * Math.sqrt(SOLAR_POWER) * a('ramscoop') + a('fuel generation')
+    ) / FPS;
+
+    // ── Initial ammo inventory ───────────────────────────────────────────────
+    // Each ammo outfit contributes storage.
+    // Two conventions used in ES data files:
+    //   (a) outfit.ammoStored field (compiled by ship-builder)
+    //   (b) attribute key matching the outfit's own name (e.g. "Javelin" = N)
+    const ammoInventory = {};
+    for (const [outfitName, qty] of Object.entries(ship.outfitMap || {})) {
+        const outfit = _outfitIndex[outfitName];
+        if (!outfit) continue;
+        if (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) {
+            ammoInventory[outfitName] =
+                (ammoInventory[outfitName] || 0) + outfit.ammoStored * qty;
+        }
+        const attrs = extractOutfitAttributes(outfit);
+        if (typeof attrs[outfitName] === 'number' && attrs[outfitName] > 0) {
+            ammoInventory[outfitName] = Math.max(
+                ammoInventory[outfitName] || 0,
+                attrs[outfitName] * qty
+            );
+        }
+    }
+
     const thrustForVel = a('thrust') || a('afterburner thrust');
     const maxVelocity  = drag > 0 ? thrustForVel / drag : 0;
     const acceleration = inertialMass > 0
@@ -352,9 +395,11 @@ function resolveShipStats(ship) {
         movingEnergyPerFrame, coolingEnergyPerFrame,
         maxHeat, heatDissipFrac, coolingPerFrame, coolingPerSec: coolingPerFrame * FPS,
         heatGenIdlePerFrame, movingHeatPerFrame, coolEff,
+        fuelCap, fuelRegenPerFrame,
         rawMass, inertialMass, drag,
         maxVelocity: maxVelocity * FPS,
         acceleration: acceleration * FPS * FPS,
+        ammoInventory,
         ...analyzeWeapons(weapons),
     };
 }
@@ -389,18 +434,14 @@ function resolveSubmunitionDamage(weapon, multiplier, visited, depth) {
 function analyzeWeapons(weapons) {
     const firingCostKeys = (_attrDefs?.outfitDisplay?.valueNames || [])
         .map(v => v.key).filter(k => k.startsWith('firing '));
-
     const totalDPS    = {};
     const totalFiring = {};
     for (const t of _damageTypes) totalDPS[t]    = 0;
     for (const k of firingCostKeys) totalFiring[k] = 0;
-
     const details = [];
 
     for (const w of weapons) {
-
-        // ✅ NEW: Munition analysis
-        const munitionInfo = MunitionTypes.analyseOutfit(w);
+        const munitionInfo = window.MunitionTypes?.analyseWeapon?.(w, w._name) ?? null;
 
         const reload         = Math.max(1, w.reload || 1);
         const burstCount     = w['burst count']  || 1;
@@ -408,65 +449,238 @@ function analyzeWeapons(weapons) {
         const framesPerCycle = (burstCount - 1) * burstReload + reload;
         const sps            = (burstCount / framesPerCycle) * FPS;
         const piercing       = Math.max(0, Math.min(1, w.piercing || 0));
-
         const visited        = new Set([w._name].filter(Boolean));
         const dmgPerShot     = resolveSubmunitionDamage(w, 1, visited, 0);
-
-        for (const t of _damageTypes)
-            if (dmgPerShot[t] === undefined) dmgPerShot[t] = 0;
-
-        for (const t of _damageTypes)
-            totalDPS[t] = (totalDPS[t] || 0) + dmgPerShot[t] * sps;
-
-        for (const k of firingCostKeys)
-            totalFiring[k] = (totalFiring[k] || 0) + (w[k] || 0) * sps;
+        for (const t of _damageTypes) if (dmgPerShot[t] === undefined) dmgPerShot[t] = 0;
+        for (const t of _damageTypes) totalDPS[t] = (totalDPS[t] || 0) + dmgPerShot[t] * sps;
+        for (const k of firingCostKeys) totalFiring[k] = (totalFiring[k] || 0) + (w[k] || 0) * sps;
 
         const detail = {
             name: w._name || 'Unknown',
-
-            // ✅ attach it here so UI/debug can use it
             munition: munitionInfo,
-
             reload, burstCount, burstReload, framesPerCycle,
-            sps: +sps.toFixed(3),
-            piercing: +(piercing * 100).toFixed(0),
-
+            sps: +sps.toFixed(3), piercing: +(piercing * 100).toFixed(0),
             range: (w.velocity && w.lifetime) ? w.velocity * w.lifetime : null,
-            homing: (w.homing || 0) > 0,
-            antiMissile: (w['anti-missile'] || 0) > 0,
-            hasSubmunitions: !!(w.submunition),
-
-            dmgPerShot,
-
+            homing: (w.homing || 0) > 0, antiMissile: (w['anti-missile'] || 0) > 0,
+            hasSubmunitions: !!(w.submunition), dmgPerShot,
             relShield: +((w['% shield damage'] || 0) * 100).toFixed(1),
             relHull:   +((w['% hull damage']   || 0) * 100).toFixed(1),
         };
-
         for (const t of _damageTypes)
             detail[t.toLowerCase() + 'DPS'] = +(dmgPerShot[t] * sps).toFixed(2);
-
         details.push(detail);
     }
 
     const result = { dps: totalDPS, weaponDetails: details };
-
-    for (const t of _damageTypes)
-        result[t.toLowerCase() + 'DPS'] = totalDPS[t] || 0;
-
+    for (const t of _damageTypes) result[t.toLowerCase() + 'DPS'] = totalDPS[t] || 0;
     result.shieldDPS     = totalDPS['Shield']     || 0;
     result.hullDPS       = totalDPS['Hull']       || 0;
     result.heatDPS       = totalDPS['Heat']       || 0;
     result.ionDPS        = totalDPS['Ion']        || 0;
     result.disruptionDPS = totalDPS['Disruption'] || 0;
     result.slowingDPS    = totalDPS['Slowing']    || 0;
-
     result.firingEnergyPerSec     = +(totalFiring['firing energy']  || 0).toFixed(3);
     result.firingHeatPerSec       = +(totalFiring['firing heat']    || 0).toFixed(3);
     result.firingFuelPerSec       = +(totalFiring['firing fuel']    || 0).toFixed(3);
     result.firingHullCostPerSec   = +(totalFiring['firing hull']    || 0).toFixed(3);
     result.firingShieldCostPerSec = +(totalFiring['firing shields'] || 0).toFixed(3);
-
     return result;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  WEAPON SUSTAIN — resource gate check and cost consumption
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * resolveAmmoRef(w)  →  { ammoName: string, ammoCount: number } | null
+ *
+ * Parses a weapon's 'ammo' field, which the ES data format allows as either
+ * a bare string or an object with { name, count }.
+ */
+function resolveAmmoRef(w) {
+    const raw = w.ammo;
+    if (raw == null) return null;
+    if (typeof raw === 'string')  return { ammoName: raw,                ammoCount: 1           };
+    if (typeof raw === 'object')  return { ammoName: raw.name ?? null,   ammoCount: raw.count ?? 1 };
+    return null;
+}
+
+/**
+ * canWeaponFire(w, st, stats)  →  string | null
+ *
+ * Returns the FIRST reason the weapon is blocked, or null if it can fire.
+ *
+ * Possible return values:
+ *   null                  — can fire
+ *   'firing energy'       — insufficient energy (or ionized while energy-gated)
+ *   'firing fuel'         — insufficient fuel
+ *   'firing hull'         — firing would push hull below disable threshold
+ *   'firing shields'      — insufficient shields
+ *   'ammo:<OutfitName>'   — that ammo outfit is exhausted
+ *
+ * A weapon with zero cost for a resource is NEVER blocked by that resource.
+ * Firing heat is never a gate here — overheat shuts ALL weapons via isOverheated.
+ */
+function canWeaponFire(w, st, stats) {
+    const fe = w['firing energy'] || 0;
+    if (fe > 0) {
+        if (st.isIonized || st.energy < fe) return 'firing energy';
+    }
+
+    const ff = w['firing fuel'] || 0;
+    if (ff > 0 && st.fuel < ff) return 'firing fuel';
+
+    const fh = w['firing hull'] || 0;
+    if (fh > 0 && st.hull - fh < stats.minHull) return 'firing hull';
+
+    const fs = w['firing shields'] || 0;
+    if (fs > 0 && st.shields < fs) return 'firing shields';
+
+    const ammoRef = resolveAmmoRef(w);
+    if (ammoRef && ammoRef.ammoName) {
+        const have = st.ammoInventory[ammoRef.ammoName] ?? 0;
+        if (have < ammoRef.ammoCount) return 'ammo:' + ammoRef.ammoName;
+    }
+
+    return null;
+}
+
+/**
+ * consumeFiringCosts(w, st)
+ * Deducts all per-shot resource costs.  Only call when canWeaponFire returns null.
+ */
+function consumeFiringCosts(w, st) {
+    st.energy  -= (w['firing energy']  || 0);
+    st.fuel    -= (w['firing fuel']    || 0);
+    st.hull    -= (w['firing hull']    || 0);
+    st.shields -= (w['firing shields'] || 0);
+    st.heat    += (w['firing heat']    || 0);
+
+    const ammoRef = resolveAmmoRef(w);
+    if (ammoRef?.ammoName && st.ammoInventory[ammoRef.ammoName] != null)
+        st.ammoInventory[ammoRef.ammoName] =
+            Math.max(0, st.ammoInventory[ammoRef.ammoName] - ammoRef.ammoCount);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  WEAPON SUSTAIN — per-frame stall / resume / ammo-out event detection
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * createSustainState(weaponCount)  →  SustainState
+ *
+ * Tracks per-weapon stall reasons across frames so we only emit events on
+ * transitions (not every frame).
+ *
+ *   prevReason[i]     null   = was firing last frame
+ *                     string = blocking reason last frame
+ *   ammoExhausted     Set of '<weaponName>::<ammoName>' already reported
+ *                     (ammo is permanent — cannot be recovered mid-combat)
+ */
+function createSustainState(weaponCount) {
+    return {
+        prevReason:    new Array(weaponCount).fill(null),
+        ammoExhausted: new Set(),
+    };
+}
+
+function _isAmmoReason(r) { return typeof r === 'string' && r.startsWith('ammo:'); }
+
+/**
+ * checkWeaponSustainEvents(st, stats, side, t, sus, phases)
+ *
+ * Called once per simulation frame, BEFORE shootFrame, so events fire on
+ * the exact frame the resource first runs out (not a frame later).
+ *
+ * For each weapon:
+ *   • Compute block reason with canWeaponFire().
+ *   • Ammo exhaustion  → emit permanent 📦 event (once; ammo never recovers).
+ *   • null → reason    → stall  ⚠️  (recoverable; grouped by reason).
+ *   • reason → null    → resume 🔄  (grouped by prev reason).
+ *   • reason → diff    → treated as a new stall on the new reason.
+ *
+ * Multiple weapons with the same reason are grouped into one phase entry.
+ *
+ * Recovery notes (no hardcoding — follows actual sim state):
+ *   energy  recovers via energyGenPerFrame each frame
+ *   fuel    recovers via fuelRegenPerFrame  (ramscoop + fuel generation)
+ *   hull    recovers via hullRepairPerFrame + delayedHullRepairPerFrame
+ *   shields recovers via shieldRegenPerFrame + delayedShieldPerFrame
+ */
+function checkWeaponSustainEvents(st, stats, side, t, sus, phases) {
+    const weapons = stats.weapons;
+    if (!weapons.length) return;
+
+    // Accumulate per-frame transitions
+    const stallsByReason  = {};  // reason  → [weaponName]
+    const resumesByReason = {};  // prevReason → [weaponName]
+
+    for (let i = 0; i < weapons.length; i++) {
+        const w      = weapons[i];
+        const name   = w._name || ('Weapon ' + (i + 1));
+        const prev   = sus.prevReason[i];
+        const reason = canWeaponFire(w, st, stats);
+
+        if (reason !== null) {
+            // ── blocked ────────────────────────────────────────────────────
+            if (_isAmmoReason(reason)) {
+                const ammoName = reason.slice(5);
+                const key      = name + '::' + ammoName;
+                if (!sus.ammoExhausted.has(key)) {
+                    sus.ammoExhausted.add(key);
+                    phases.push({
+                        time: t, type: side, icon: '📦',
+                        text: `<strong>${escHtml(stats.name)}</strong>'s ` +
+                              `<em>${escHtml(name)}</em> ran out of ` +
+                              `<em>${escHtml(ammoName)}</em> ammo at ${fmtT(t)} ` +
+                              `— permanently offline`,
+                    });
+                }
+                sus.prevReason[i] = reason;
+                continue;
+            }
+
+            // Non-ammo stall: only emit on reason transition
+            if (prev !== reason && !_isAmmoReason(prev)) {
+                if (!stallsByReason[reason]) stallsByReason[reason] = [];
+                stallsByReason[reason].push(name);
+            }
+            sus.prevReason[i] = reason;
+
+        } else {
+            // ── can fire ───────────────────────────────────────────────────
+            if (prev !== null && !_isAmmoReason(prev)) {
+                if (!resumesByReason[prev]) resumesByReason[prev] = [];
+                resumesByReason[prev].push(name);
+            }
+            sus.prevReason[i] = null;
+        }
+    }
+
+    // ── Emit stall events (grouped) ────────────────────────────────────────
+    for (const [reason, names] of Object.entries(stallsByReason)) {
+        const label   = resourceLabel(reason);
+        const nameStr = names.map(n => `<em>${escHtml(n)}</em>`).join(', ');
+        const verb    = names.length === 1 ? 'is' : 'are';
+        phases.push({
+            time: t, type: side, icon: '⚠️',
+            text: `<strong>${escHtml(stats.name)}</strong>'s ${nameStr} ` +
+                  `${verb} starved of <em>${escHtml(label)}</em> at ${fmtT(t)} ` +
+                  `— cannot fire (may recover)`,
+        });
+    }
+
+    // ── Emit resume events (grouped) ──────────────────────────────────────
+    for (const [prevReason, names] of Object.entries(resumesByReason)) {
+        const label   = resourceLabel(prevReason);
+        const nameStr = names.map(n => `<em>${escHtml(n)}</em>`).join(', ');
+        const verb    = names.length === 1 ? 'has' : 'have';
+        phases.push({
+            time: t, type: side, icon: '🔄',
+            text: `<strong>${escHtml(stats.name)}</strong>'s ${nameStr} ` +
+                  `${verb} resumed firing — <em>${escHtml(label)}</em> restored at ${fmtT(t)}`,
+        });
+    }
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -482,7 +696,8 @@ function createCombatantState(stats) {
         hull:    stats.maxHull,
         energy:  stats.energyCap,
         heat:    0,
-        fuel:    1000,
+        fuel:    stats.fuelCap > 0 ? stats.fuelCap : 0,
+        ammoInventory: { ...(stats.ammoInventory || {}) },
         statusEffects,
         shieldDelayCounter: 0,
         repairDelayCounter: 0,
@@ -506,6 +721,11 @@ function simulateBattle(sA, sB) {
     };
     const stA = createCombatantState(sA);
     const stB = createCombatantState(sB);
+
+    // Sustain tracking — lives outside combatant state so it doesn't interfere
+    const susA = createSustainState(sA.weapons.length);
+    const susB = createSustainState(sB.weapons.length);
+
     const milestones = {
         A: { shieldsBroken: false, halfHull: false, disabled: false,
              energyBlackout: false, overheated: false, heavilySlowed: false },
@@ -521,6 +741,12 @@ function simulateBattle(sA, sB) {
             timelineA.push({ t, shields: stA.shields, hull: stA.hull, energy: stA.energy, heat: stA.heat });
             timelineB.push({ t, shields: stB.shields, hull: stB.hull, energy: stB.energy, heat: stB.heat });
         }
+
+        // Sustain checks run BEFORE shooting so events fire on the correct frame
+        if (!stA.disabled && !stA.destroyed)
+            checkWeaponSustainEvents(stA, sA, 'A', t, susA, result.phases);
+        if (!stB.disabled && !stB.destroyed)
+            checkWeaponSustainEvents(stB, sB, 'B', t, susB, result.phases);
 
         const preShieldsA = stA.shields, preHullA = stA.hull;
         const preShieldsB = stB.shields, preHullB = stB.hull;
@@ -548,6 +774,8 @@ function simulateBattle(sA, sB) {
         stB.energy  = Math.max(0, Math.min(sB.energyCap,  stB.energy));
         stA.heat    = Math.max(0, stA.heat);
         stB.heat    = Math.max(0, stB.heat);
+        if (sA.fuelCap > 0) stA.fuel = Math.max(0, Math.min(sA.fuelCap, stA.fuel));
+        if (sB.fuelCap > 0) stB.fuel = Math.max(0, Math.min(sB.fuelCap, stB.fuel));
 
         checkMilestones(stA, sA, 'A', t, milestones.A, result.phases);
         checkMilestones(stB, sB, 'B', t, milestones.B, result.phases);
@@ -616,9 +844,11 @@ function shootFrame(attSt, defSt, attStats) {
         const burstCount  = w['burst count']  || 1;
         const burstReload = w['burst reload'] || reload;
 
-        const firingEnergy = w['firing energy'] || 0;
-        if (firingEnergy > 0 && attSt.energy < firingEnergy) continue;
-        if (attSt.isIonized && firingEnergy > 0) continue;
+        // Unified gate: energy, fuel, hull, shields, ammo
+        if (canWeaponFire(w, attSt, attStats) !== null) {
+            advanceBurst(attSt, i, burstCount, burstReload, reload);
+            continue;
+        }
 
         const scrambling = attSt.statusEffects.scrambling || 0;
         if (scrambling > 0.1) {
@@ -628,11 +858,7 @@ function shootFrame(attSt, defSt, attStats) {
             }
         }
 
-        attSt.energy  -= firingEnergy;
-        attSt.fuel    -= (w['firing fuel']    || 0);
-        attSt.hull    -= (w['firing hull']    || 0);
-        attSt.shields -= (w['firing shields'] || 0);
-        attSt.heat    += (w['firing heat']    || 0);
+        consumeFiringCosts(w, attSt);
 
         for (const [statName, firingKey] of Object.entries(FIRING_STATUS_MAP)) {
             const val = w[firingKey] || 0;
@@ -678,25 +904,15 @@ function applyWeaponDamage(w, defSt, defStats) {
     const shieldDmgApplied = shieldDmgTotal * (1 - effectivePiercing);
 
     if (defSt.shields > 0) {
-        // Apply shield damage first
         defSt.shields -= shieldDmgApplied;
-
-        // Only apply piercing through shields
-        defSt.hull -= hullPiercedDmg;
-
-        // If shields break this frame, spillover happens
+        defSt.hull    -= hullPiercedDmg;
         if (defSt.shields < 0) {
             const overflow = -defSt.shields;
             defSt.shields = 0;
-
-            // Apply overflow to hull (respecting protection)
             defSt.hull -= overflow * (1 - defStats.hullProt);
-
-            // NOW apply normal hull damage (since shields are gone)
             defSt.hull -= hullDmgAfterProt;
         }
     } else {
-        // No shields → full damage
         defSt.hull -= hullDmgAfterProt + rawShieldDmg * (1 - defStats.shieldProt);
     }
 
@@ -705,12 +921,6 @@ function applyWeaponDamage(w, defSt, defStats) {
     if (defSt.depletedFlag)
         defSt.shieldDelayCounter = Math.max(defSt.shieldDelayCounter, defStats.depletedDelay || 0);
 
-    // FIX: apply shield-interaction multiplier for each non-HP damage type.
-    // shieldInteraction comes from DamageTypes (parsed from Ship.cpp TakeDamage):
-    //   'full'    → always 1.0  (Discharge)
-    //   'half'    → 0.5 when shields up  (Ion, Burn, Heat, Energy, etc.)
-    //   'blocked' → 0.0 when shields up  (Corrosion, Leak)
-    //   'direct'  → handled above for Shield/Hull
     const shieldsUp = defSt.shields > 0;
     for (const typeName of _damageTypes) {
         if (typeName === 'Shield' || typeName === 'Hull') continue;
@@ -752,6 +962,10 @@ function doGeneration(st, stats) {
                + stats.movingHeatPerFrame
                - stats.coolingPerFrame;
     st.heat   -= st.heat * stats.heatDissipFrac;
+
+    // Fuel recovery: ramscoop (0.03*sqrt(solar)*attr/FPS) + fuel generation attr/FPS
+    if (stats.fuelRegenPerFrame > 0) st.fuel += stats.fuelRegenPerFrame;
+
     if ((st.statusEffects.discharge || 0) > 0) st.shields -= st.statusEffects.discharge;
     if ((st.statusEffects.corrosion || 0) > 0) st.hull    -= st.statusEffects.corrosion;
     if ((st.statusEffects.burn      || 0) > 0) st.heat    += st.statusEffects.burn;
