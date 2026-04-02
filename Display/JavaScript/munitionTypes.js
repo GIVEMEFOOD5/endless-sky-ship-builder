@@ -78,7 +78,7 @@ const ANTI_MISSILE_KEY = 'anti-missile';
 const MISSILE_STRENGTH_KEY = 'missile strength';
 
 // Ammo consumption key in the weapon block
-const AMMO_CONSUMED_KEY = 'ammo';
+// Ammo detection uses dual-format scan — see _buildAmmoProfile
 
 // Firing-cost keys that represent consumable expenditure (not outfit attributes)
 const FIRING_COST_KEYS = [
@@ -256,7 +256,7 @@ function analyseWeapon(weapon, outfitName) {
     const effectiveRange = velocity * lifetime;
 
     // ── Tags ─────────────────────────────────────────────────────────────────
-    const tags = _buildTags(w, antiMissile, tracking, missileStrength, submunitions, burstCount);
+    const tags = _buildTags(w, antiMissile, tracking, missileStrength, submunitions, burstCount, ammo);
 
     return {
         outfitName:    name,
@@ -457,44 +457,77 @@ function _buildMissileStrengthProfile(w) {
 //  'ammoStored' on the outfit record is the compiled storage amount.
 // ─────────────────────────────────────────────────────────────────────────────
 function _buildAmmoProfile(w, outfitName) {
-    // 'ammo' in the weapon block can be:
-    //   string  — name of the ammo outfit (1 consumed per shot)
-    //   object  — { name: string, count: number }
-    const rawAmmo = w[AMMO_CONSUMED_KEY];
-    const hasAmmo = rawAmmo != null;
+    // In the ES data-file / ship-builder JSON there are two ammo formats:
+    //
+    // FORMAT A — single ammo, 1 per shot:
+    //   weapon: { ammo: "Javelin" }
+    //   The key is literally "ammo" and the value is the outfit name string.
+    //
+    // FORMAT B — explicit count:
+    //   weapon: { "Javelin": 2 }
+    //   The ammo outfit name IS the key; the value is the per-shot count (number).
+    //   value === true also means 1 (boolean from some parsers).
+    //
+    // We check FORMAT A first, then scan all keys for FORMAT B.
 
-    let ammoOutfitName  = null;
-    let ammoPerShot     = 1;
+    const index = _getOutfitIndex();
+
+    let ammoOutfitName    = null;
+    let ammoPerShot       = 1;
     let ammoOutfitDetails = null;
     let storageCapacityKey = null;
 
-    if (hasAmmo) {
-        if (typeof rawAmmo === 'string') {
-            ammoOutfitName = rawAmmo;
-            ammoPerShot    = 1;
-        } else if (typeof rawAmmo === 'object' && rawAmmo !== null) {
-            ammoOutfitName = rawAmmo.name || String(rawAmmo);
-            ammoPerShot    = rawAmmo.count || 1;
-        }
+    // ── FORMAT A: weapon.ammo = "OutfitName" ─────────────────────────────────
+    const rawAmmoField = w['ammo'];
+    if (typeof rawAmmoField === 'string' && rawAmmoField.length > 0) {
+        ammoOutfitName    = rawAmmoField;
+        ammoPerShot       = 1;
+        ammoOutfitDetails = index[ammoOutfitName] || null;
+    }
 
-        // Resolve the ammo outfit from the index
-        if (ammoOutfitName) {
-            const index = _getOutfitIndex();
-            ammoOutfitDetails = index[ammoOutfitName] || null;
+    // ── FORMAT B: weapon["OutfitName"] = count|true ──────────────────────────
+    // Only run if FORMAT A didn't match.
+    if (!ammoOutfitName) {
+        for (const key of Object.keys(w)) {
+            if (key === 'ammo') continue;          // already checked above
+            const val = w[key];
+            if (val === false || val === 0 || val === null || val === undefined) continue;
+            if (typeof val !== 'number' && val !== true) continue;
 
-            // The storage capacity attribute is usually named after the ammo outfit
-            // e.g. outfit "Javelin" provides attribute "Javelin" = N per unit installed.
-            // Some ammo outfits have an explicit 'ammoStored' field on the compiled record.
-            if (ammoOutfitDetails) {
-                if (typeof ammoOutfitDetails.ammoStored === 'number') {
-                    storageCapacityKey = 'ammoStored';
-                } else {
-                    // Common convention: the outfit name is the attribute key
-                    storageCapacityKey = ammoOutfitName;
-                }
-            }
+            const candidate = index[key];
+            if (!candidate) continue;
+
+            // Confirm it is an ammo outfit via any of the three conventions:
+            //   (a) explicit ammoStored field
+            //   (b) category === 'Ammunition'
+            //   (c) own-name attribute (e.g. outfit "Javelin" has attribute "Javelin" = N)
+            const isAmmo =
+                (typeof candidate.ammoStored === 'number' && candidate.ammoStored > 0)
+             || candidate.category === 'Ammunition'
+             || (typeof candidate.attributes?.[key] === 'number' && candidate.attributes[key] > 0);
+            if (!isAmmo) continue;
+
+            ammoOutfitName    = key;
+            ammoPerShot       = val === true ? 1 : Math.max(1, Math.round(val));
+            ammoOutfitDetails = candidate;
+            break;   // weapons never reference more than one ammo type
         }
     }
+
+    // Resolve storage details if we found an ammo outfit
+    if (ammoOutfitName && !ammoOutfitDetails)
+        ammoOutfitDetails = index[ammoOutfitName] || null;
+
+    if (ammoOutfitDetails) {
+        if (typeof ammoOutfitDetails.ammoStored === 'number' && ammoOutfitDetails.ammoStored > 0)
+            storageCapacityKey = 'ammoStored';
+        else if (ammoOutfitDetails.attributes?.[ammoOutfitName] > 0)
+            storageCapacityKey = ammoOutfitName;
+        else
+            storageCapacityKey = ammoOutfitName;
+    }
+
+    const hasAmmo = ammoOutfitName !== null;
 
     // Firing costs
     const firingCosts = {};
@@ -503,31 +536,20 @@ function _buildAmmoProfile(w, outfitName) {
         if (val) firingCosts[key] = val;
     }
 
-    // Firing status injections (applied to the ATTACKER, not the target)
+    // Firing status injections (applied to the attacker, not the target)
     const firingStatusInj = {};
     for (const key of FIRING_STATUS_KEYS) {
         const val = w[key] || 0;
         if (val) firingStatusInj[key] = val;
     }
 
-    // Derive the ammo storage key name (the attribute that holds the ammo count)
-    // from attrDefs if available — fallback to the outfit name itself
-    let ammoStorageKey = ammoOutfitName;
-    if (_attrDefs && ammoOutfitName) {
-        // If the attribute exists in the dictionary, use it; otherwise keep the name
-        const dictKey = ammoOutfitName.toLowerCase();
-        const found   = Object.keys(_attrDefs.attributes || {})
-            .find(k => k.toLowerCase() === dictKey);
-        if (found) ammoStorageKey = found;
-    }
-
     return {
         hasAmmo,
         ammoOutfitName,
-        ammoStorageKey,
+        ammoStorageKey:  storageCapacityKey,
         ammoPerShot,
-        firingCosts:      Object.keys(firingCosts).length      ? firingCosts      : null,
-        firingStatusInj:  Object.keys(firingStatusInj).length  ? firingStatusInj  : null,
+        firingCosts:     Object.keys(firingCosts).length     ? firingCosts     : null,
+        firingStatusInj: Object.keys(firingStatusInj).length ? firingStatusInj : null,
         ammoOutfitDetails,
         storageCapacityKey,
         notes: _buildAmmoNotes(hasAmmo, ammoOutfitName, ammoPerShot, firingCosts, ammoOutfitDetails),
@@ -589,6 +611,57 @@ function _buildAmmoNotes(hasAmmo, ammoOutfitName, ammoPerShot, firingCosts, ammo
 
 const MAX_SUBMUNITION_DEPTH = 12;
 
+/**
+ * _resolveSubmunitionRefs(w)  →  Array<{ subName, subCount }>
+ *
+ * Dual-format submunition parsing (internal to munitionTypes):
+ *
+ * FORMAT A: w.submunition = "Name" | { name, count } | array of those
+ * FORMAT B: w["OutfitName"] = count | true  (outfit name as key)
+ *
+ * Returns array of { subName, subCount } pairs.
+ */
+function _resolveSubmunitionRefs(w) {
+    const results = [];
+
+    // FORMAT A
+    const rawSub = w.submunition;
+    if (rawSub != null) {
+        const entries = Array.isArray(rawSub) ? rawSub : [rawSub];
+        for (const entry of entries) {
+            const subName  = typeof entry === 'string' ? entry
+                           : typeof entry === 'object' ? (entry?.name ?? null) : null;
+            const subCount = typeof entry === 'object' && entry !== null
+                           ? (entry.count ?? 1) : 1;
+            if (subName) results.push({ subName, subCount });
+        }
+        if (results.length > 0) return results;
+    }
+
+    // FORMAT B: outfit name as key, count as value
+    const index = _getOutfitIndex();
+    for (const key of Object.keys(w)) {
+        if (key === 'submunition') continue;
+        const val = w[key];
+        if (val === false || val === 0 || val === null || val === undefined) continue;
+        if (typeof val !== 'number' && val !== true) continue;
+
+        const outfit = index[key];
+        if (!outfit?.weapon) continue;
+
+        // Exclude ammo outfits
+        const isAmmo =
+            (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
+         || outfit.category === 'Ammunition'
+         || (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0);
+        if (isAmmo) continue;
+
+        results.push({ subName: key, subCount: val === true ? 1 : Math.max(1, Math.round(val)) });
+    }
+
+    return results;
+}
+
 function resolveSubmunitionTree(weapon, rootName, _visited, _depth, _multiplier) {
     const visited    = _visited    || new Set([rootName].filter(Boolean));
     const depth      = _depth      || 0;
@@ -596,17 +669,12 @@ function resolveSubmunitionTree(weapon, rootName, _visited, _depth, _multiplier)
 
     if (!weapon || depth > MAX_SUBMUNITION_DEPTH) return null;
 
-    const rawSubs = weapon.submunition;
-    if (!rawSubs) return { name: rootName, count: 1, depth, weapon, children: [], leaf: true, multiplier };
+    const subRefs = _resolveSubmunitionRefs(weapon);
+    if (!subRefs.length) return { name: rootName, count: 1, depth, weapon, children: [], leaf: true, multiplier };
 
-    const subEntries = Array.isArray(rawSubs) ? rawSubs : [rawSubs];
-    const children   = [];
+    const children = [];
 
-    for (const entry of subEntries) {
-        const subName  = typeof entry === 'string' ? entry
-                       : typeof entry === 'object'  ? (entry?.name ?? String(entry))
-                       : String(entry);
-        const subCount = typeof entry === 'object'  ? (entry?.count  ?? 1) : 1;
+    for (const { subName, subCount: subCount } of subRefs) {
 
         if (!subName) continue;
         if (visited.has(subName)) {
@@ -657,8 +725,7 @@ function _flattenTree(node, out) {
 function _buildSubmunitionProfile(w, outfitName) {
     const isCluster = !!(w.cluster);
     const isStream  = !!(w.stream);
-    const rawSubs   = w.submunition;
-    const hasSubmunitions = rawSubs != null;
+    const hasSubmunitions = _resolveSubmunitionRefs(w).length > 0;
 
     if (!hasSubmunitions) {
         return {
@@ -720,7 +787,7 @@ function _buildSubmunitionNotes(isCluster, isStream, maxDepth, leafCount, tree) 
 // ─────────────────────────────────────────────────────────────────────────────
 //  _buildTags
 // ─────────────────────────────────────────────────────────────────────────────
-function _buildTags(w, antiMissile, tracking, missileStrength, submunitions, burstCount) {
+function _buildTags(w, antiMissile, tracking, missileStrength, submunitions, burstCount, ammo) {
     const tags = [];
     if (antiMissile.isAntiMissile)        tags.push('anti-missile');
     if (tracking.isHoming)                tags.push('homing');
@@ -735,7 +802,7 @@ function _buildTags(w, antiMissile, tracking, missileStrength, submunitions, bur
     if ((w.piercing || 0) > 0)            tags.push('piercing');
     if (w['safe range'] > 0)             tags.push('safe-range');
     if ((w['trigger radius'] || 0) > 0)  tags.push('proximity-fused');
-    if (w[AMMO_CONSUMED_KEY] != null)     tags.push('ammo');
+    if (ammo && ammo.hasAmmo)              tags.push('ammo');
     return tags;
 }
 
