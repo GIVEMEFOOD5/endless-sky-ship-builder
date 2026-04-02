@@ -1379,104 +1379,77 @@ function runSimulation() {
 //  RESULTS RENDERING
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function renderResults(sA, sB, result) {
-    const resEl = document.getElementById('simResults');
-    if (!resEl) return;
-
-    const winnerNameEl = document.getElementById('resultWinnerName');
-    const subtitleEl   = document.getElementById('resultSubtitle');
-    if (winnerNameEl) {
-        winnerNameEl.className = result.winner === 'A' ? 'result-winner-name result-winner-a'
-                               : result.winner === 'B' ? 'result-winner-name result-winner-b'
-                               : 'result-winner-name result-winner-draw';
-        winnerNameEl.textContent = result.winner === 'A' ? sA.name
-                                 : result.winner === 'B' ? sB.name : 'Draw';
-    }
-    if (subtitleEl)
-        subtitleEl.innerHTML = `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
-
-    const effA = isFinite(result.ttkA) ? result.ttkA
-        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? result.projectedTtkA : MAX_SIM_SECS;
-    const effB = isFinite(result.ttkB) ? result.ttkB
-        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? result.projectedTtkB : MAX_SIM_SECS;
-    const maxT = Math.max(effA, effB, 1);
-
-    const barA = document.getElementById('timelineBarA');
-    const barB = document.getElementById('timelineBarB');
-    const lblA = document.getElementById('timelineLabelA');
-    const lblB = document.getElementById('timelineLabelB');
-    if (barA) barA.style.width = Math.round(Math.min((effA / maxT) * 50, 50)) + '%';
-    if (barB) barB.style.width = Math.round(Math.min((effB / maxT) * 50, 50)) + '%';
-    if (lblA) lblA.textContent = isFinite(result.ttkA) ? fmtT(result.ttkA)
-        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? '~' + fmtT(result.projectedTtkA) : '∞';
-    if (lblB) lblB.textContent = isFinite(result.ttkB) ? fmtT(result.ttkB)
-        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? '~' + fmtT(result.projectedTtkB) : '∞';
-
-    const chartEl = document.getElementById('hpChartContainer');
-    if (chartEl) chartEl.innerHTML = buildHpChart(sA, sB, result);
-
-    const compareEl = document.getElementById('compareGrid');
-    if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
-
-    const weaponsEl = document.getElementById('weaponsGrid');
-    if (weaponsEl)
-        weaponsEl.innerHTML =
-            `<div><div class="weapons-col-title weapons-col-title-a">${escHtml(sA.name)}</div>${buildWeaponsList(sA.weaponDetails)}</div>
-             <div><div class="weapons-col-title weapons-col-title-b">${escHtml(sB.name)}</div>${buildWeaponsList(sB.weaponDetails)}</div>`;
-
-    const phaseEl = document.getElementById('phaseList');
-    if (phaseEl) {
-        const phases = [...result.phases];
-        if (result.winner === 'A' && result.projectedTtkA != null) {
-            const pttk = result.projectedTtkA;
-            phases.push({ time: result.ttkB + (isFinite(pttk) ? pttk : 0), type: 'A', icon: '📊',
-                text: isFinite(pttk)
-                    ? `<strong>${escHtml(sA.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
-                    : `<strong>${escHtml(sA.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
+function getDeathTime(tl, ship) {
+    for (let i = 0; i < tl.length; i++) {
+        if (tl[i].hull <= ship.minHull) {
+            return tl[i].t;
         }
-        if (result.winner === 'B' && result.projectedTtkB != null) {
-            const pttk = result.projectedTtkB;
-            phases.push({ time: result.ttkA + (isFinite(pttk) ? pttk : 0), type: 'B', icon: '📊',
-                text: isFinite(pttk)
-                    ? `<strong>${escHtml(sB.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
-                    : `<strong>${escHtml(sB.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
-        }
-        phaseEl.innerHTML = phases.length
-            ? phases.map(ph => {
-                const cls = ph.type === 'A' ? 'phase-A' : ph.type === 'B' ? 'phase-B' : 'phase-neutral';
-                return `<div class="phase-item ${cls}">
-                    <span class="phase-icon">${ph.icon}</span>
-                    <span class="phase-time">${fmtT(ph.time)}</span>
-                    <span class="phase-text">${ph.text}</span>
-                </div>`;
-              }).join('')
-            : '<div class="phase-item phase-neutral">No notable events recorded.</div>';
     }
-
-    resEl.style.display = 'block';
-    resEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return Infinity; // never dies
 }
 
-function buildTtkString(name, ttk, projectedTtk) {
-    const n = escHtml(name);
-    if (isFinite(ttk)) return `${n} disabled in ${fmtT(ttk)}`;
-    if (projectedTtk == null) return `${n} survived`;
-    if (!isFinite(projectedTtk)) return `${n} survived (regen &gt; damage)`;
-    return `${n} survived · ~${fmtT(projectedTtk)} projected`;
-}
+function clipTimeline(tl, endTime) {
+    const out = [];
 
+    for (let i = 0; i < tl.length; i++) {
+        const p = tl[i];
+
+        if (p.t <= endTime) {
+            out.push(p);
+        } else {
+            // interpolate final point for smooth cutoff
+            const prev = tl[i - 1];
+            if (prev) {
+                const dt = p.t - prev.t;
+                const ratio = dt > 0 ? (endTime - prev.t) / dt : 0;
+
+                out.push({
+                    t: endTime,
+                    hull: prev.hull + (p.hull - prev.hull) * ratio,
+                    shields: prev.shields + (p.shields - prev.shields) * ratio
+                });
+            }
+            break;
+        }
+    }
+
+    return out;
+}
+    
 function buildHpChart(sA, sB, result) {
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
     const tlA = result.timelineA || [], tlB = result.timelineB || [];
-    if (!tlA.length && !tlB.length) return '';
+    const normA = normalizeTimeline(tlA.map(p => ({...p})), sA);
+    const normB = normalizeTimeline(tlB.map(p => ({...p})), sB);
+    if (!normA.length && !normB.length) return '';
     const W=560, H=180, PL=44, PR=12, PT=14, PB=28, cW=W-PL-PR, cH=H-PT-PB;
-    const maxTime = Math.max(tlA.length?tlA[tlA.length-1].t:0, tlB.length?tlB[tlB.length-1].t:0, 1);
+    const deathA = getDeathTime(normA, sA);
+    const deathB = getDeathTime(normB, sB);
+    const firstDeath = Math.min(deathA, deathB);
+    const maxTimeRaw = isFinite(firstDeath)
+        ? firstDeath
+        : Math.max(
+            normA.length ? normA[normA.length - 1].t : 0,
+            normB.length ? normB[normB.length - 1].t : 0
+        );
+    const maxTime = Math.max(maxTimeRaw, 0.1); // avoid compression
+    const clippedA = clipTimeline(normA, maxTime);
+    const clippedB = clipTimeline(normB, maxTime);
     const maxHP   = Math.max(sA.maxShields+sA.maxHull, sB.maxShields+sB.maxHull, 1);
-    const px = t  => PL + (t/maxTime)*cW;
-    const py = hp => PT + cH - (hp/maxHP)*cH;
-    const pathAH = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
-    const pathBH = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
-    const pathAS = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
-    const pathBS = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
+    const px = t => {
+        const tt = clamp(t, 0, maxTime);
+        return PL + (tt / maxTime) * cW;
+    };
+    const py = hp => {
+        const h = clamp(hp, 0, maxHP);
+        return PT + cH - (h / maxHP) * cH;
+    };
+    const totalHP = p => clamp(p.hull + p.shields, 0, maxHP);
+    const hullHP = p => clamp(p.hull, 0, maxHP);
+    const pathAH = clippedA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
+    const pathBH = clippedB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
+    const pathAS = clippedA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');
+    const pathBS = clippedB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');    
     const yTicks = [0,0.5,1].map(f=>{const v=maxHP*f,y=py(v).toFixed(1),lb=v>=1000?(v/1000).toFixed(1)+'k':Math.round(v).toString();
         return `<line x1="${PL}" y1="${y}" x2="${PL+cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
                 <text x="${PL-4}" y="${+y+4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;}).join('');
