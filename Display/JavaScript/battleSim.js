@@ -1423,7 +1423,7 @@ function renderResults(sA, sB, result) {
     const compareEl = document.getElementById('compareGrid');
     if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
 
-    compareEl.innerHTML = compareProfiles(pA, nameA, pB, nameB
+    compareEl.innerHTML = compareProfiles(pA, nameA, pB, nameB);
 
     const weaponsEl = document.getElementById('weaponsGrid');
     if (weaponsEl)
