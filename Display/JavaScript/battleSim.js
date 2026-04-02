@@ -1644,7 +1644,7 @@ function buildCompareGrid(sA, sB, result) {
             ['Firing Heat/s',   fmt(sA.firingHeatPerSec), fmt(sB.firingHeatPerSec)],
             ['Cool Efficiency', sA.coolEff.toFixed(3),    sB.coolEff.toFixed(3)],
         ]],
-        sections.push(...extraSections);
+        sections.push(...extraSections)
     ];
 
     return sections.map(([section, items]) => {
