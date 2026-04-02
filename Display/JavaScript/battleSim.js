@@ -353,25 +353,41 @@ function resolveShipStats(ship) {
     ) / FPS;
 
     // ── Initial ammo inventory ───────────────────────────────────────────────
-    // Each ammo outfit contributes storage.
-    // Two conventions used in ES data files:
-    //   (a) outfit.ammoStored field (compiled by ship-builder)
-    //   (b) attribute key matching the outfit's own name (e.g. "Javelin" = N)
+    // We want: ammoInventory[ammoOutfitName] = total rounds available at battle start.
+    //
+    // ES ammo storage conventions (any one or more may apply to an outfit):
+    //   (a) outfit.ammoStored > 0   — compiled field from ship-builder
+    //   (b) outfit.category === 'Ammunition'   — category flag
+    //   (c) outfit.attributes[outfitName] > 0  — attribute named after the outfit itself
+    //   (d) extractOutfitAttributes()[outfitName] > 0  — same, via top-level attrs
+    //
+    // All are additive: 3 × "Javelin Rack" each giving 40 = 120 total.
     const ammoInventory = {};
     for (const [outfitName, qty] of Object.entries(ship.outfitMap || {})) {
         const outfit = _outfitIndex[outfitName];
         if (!outfit) continue;
-        if (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) {
-            ammoInventory[outfitName] =
-                (ammoInventory[outfitName] || 0) + outfit.ammoStored * qty;
+
+        let roundsPerUnit = 0;
+
+        // (a) explicit ammoStored field
+        if (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
+            roundsPerUnit = outfit.ammoStored;
+
+        // (b/c) attributes object contains a key matching the outfit name
+        if (roundsPerUnit === 0 && outfit.attributes &&
+                typeof outfit.attributes[outfitName] === 'number' &&
+                outfit.attributes[outfitName] > 0)
+            roundsPerUnit = outfit.attributes[outfitName];
+
+        // (d) top-level numeric fields (via extractOutfitAttributes)
+        if (roundsPerUnit === 0) {
+            const attrs = extractOutfitAttributes(outfit);
+            if (typeof attrs[outfitName] === 'number' && attrs[outfitName] > 0)
+                roundsPerUnit = attrs[outfitName];
         }
-        const attrs = extractOutfitAttributes(outfit);
-        if (typeof attrs[outfitName] === 'number' && attrs[outfitName] > 0) {
-            ammoInventory[outfitName] = Math.max(
-                ammoInventory[outfitName] || 0,
-                attrs[outfitName] * qty
-            );
-        }
+
+        if (roundsPerUnit > 0)
+            ammoInventory[outfitName] = (ammoInventory[outfitName] || 0) + roundsPerUnit * qty;
     }
 
     const thrustForVel = a('thrust') || a('afterburner thrust');
@@ -408,6 +424,112 @@ function resolveShipStats(ship) {
 //  WEAPON ANALYSIS
 // ═══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * resolveSubmunitionRefs(w)  →  Array<{ subName: string, subCount: number }>
+ *
+ * Submunitions follow the same two-format convention as ammo:
+ *
+ * FORMAT A — single submunition (count implicit):
+ *   weapon: { submunition: "Proton Fragment" }   → 1 copy
+ *
+ * FORMAT B — explicit count, outfit name is the key:
+ *   weapon: { "Proton Fragment": 3 }             → 3 copies
+ *   weapon: { "Proton Fragment": true }           → 1 copy
+ *
+ * Both formats can coexist in different outfits.  We check Format A first,
+ * then scan all keys for Format B (any key whose value is a number/true and
+ * whose name matches a weapon-bearing outfit in the index).
+ *
+ * Returns an array (may be multiple submunition types from Format A arrays).
+ */
+function resolveSubmunitionRefs(w) {
+    const results = [];
+
+    // FORMAT A: w.submunition = string | object | array
+    const rawSub = w.submunition;
+    if (rawSub != null) {
+        const entries = Array.isArray(rawSub) ? rawSub : [rawSub];
+        for (const entry of entries) {
+            const subName  = typeof entry === 'string' ? entry
+                           : typeof entry === 'object' ? (entry?.name ?? null)
+                           : null;
+            const subCount = typeof entry === 'object' && entry !== null
+                           ? (entry.count ?? 1) : 1;
+            if (subName) results.push({ subName, subCount });
+        }
+        if (results.length > 0) return results;
+    }
+
+    // FORMAT B: weapon["OutfitName"] = count | true
+    // The outfit must have a weapon block to be a submunition (not ammo/engine/etc.)
+    for (const key of Object.keys(w)) {
+        if (key === 'submunition') continue;
+        const val = w[key];
+        if (val === false || val === 0 || val === null || val === undefined) continue;
+        if (typeof val !== 'number' && val !== true) continue;
+
+        const outfit = _outfitIndex[key];
+        if (!outfit?.weapon) continue;   // must have a weapon block
+
+        // Exclude ammo outfits (they don't fire, they're consumed)
+        const isAmmo =
+            (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
+         || outfit.category === 'Ammunition'
+         || (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0);
+        if (isAmmo) continue;
+
+        const subCount = val === true ? 1 : Math.max(1, Math.round(val));
+        results.push({ subName: key, subCount });
+    }
+
+    return results;
+}
+
+/**
+ * resolveEffectiveRange(w, visited, depth)
+ *
+ * Calculates the true effective range of a weapon including submunition travel.
+ *
+ * In Endless Sky a submunition is spawned at the point where the parent
+ * projectile detonates, then travels for its own lifetime at its own velocity.
+ * Effective range = parent_velocity * parent_lifetime
+ *                 + max(submunition effective ranges)
+ *
+ * We take the MAX of submunition chains (not sum) because only one path
+ * determines the furthest-reaching fragment.
+ *
+ * Returns null if the weapon has no velocity/lifetime data.
+ */
+function resolveEffectiveRange(w, visited, depth) {
+    if (depth > 8) return null;
+
+    const vel      = w.velocity  || 0;
+    const life     = w.lifetime  || 0;
+    const ownRange = vel * life;
+
+    const subs = resolveSubmunitionRefs(w);
+    if (!subs.length) return ownRange > 0 ? ownRange : null;
+
+    let maxSubRange = 0;
+    let anySubHasRange = false;
+
+    for (const { subName } of subs) {
+        if (visited && visited.has(subName)) continue;
+        const subOutfit = _outfitIndex[subName];
+        if (!subOutfit?.weapon) continue;
+        const nv = new Set(visited || []);
+        nv.add(subName);
+        const subRange = resolveEffectiveRange(subOutfit.weapon, nv, depth + 1);
+        if (subRange !== null) {
+            anySubHasRange = true;
+            if (subRange > maxSubRange) maxSubRange = subRange;
+        }
+    }
+
+    const total = ownRange + maxSubRange;
+    return (total > 0 || anySubHasRange) ? total : null;
+}
+
 function resolveSubmunitionDamage(weapon, multiplier, visited, depth) {
     if (depth > 8) return {};
     const totals = {};
@@ -415,12 +537,8 @@ function resolveSubmunitionDamage(weapon, multiplier, visited, depth) {
         const val = weapon[dmgKey(typeName)] || 0;
         if (val) totals[typeName] = (totals[typeName] || 0) + val * multiplier;
     }
-    const subs = weapon.submunition;
-    if (!subs) return totals;
-    for (const entry of (Array.isArray(subs) ? subs : [subs])) {
-        const subName  = typeof entry === 'string' ? entry : (entry?.name ?? String(entry));
-        const subCount = typeof entry === 'object'  ? (entry?.count ?? 1) : 1;
-        if (!subName || visited.has(subName)) continue;
+    for (const { subName, subCount } of resolveSubmunitionRefs(weapon)) {
+        if (visited.has(subName)) continue;
         const nv = new Set(visited); nv.add(subName);
         const sub = _outfitIndex[subName];
         if (!sub?.weapon) continue;
@@ -460,9 +578,9 @@ function analyzeWeapons(weapons) {
             munition: munitionInfo,
             reload, burstCount, burstReload, framesPerCycle,
             sps: +sps.toFixed(3), piercing: +(piercing * 100).toFixed(0),
-            range: (w.velocity && w.lifetime) ? w.velocity * w.lifetime : null,
+            range: resolveEffectiveRange(w, new Set([w._name].filter(Boolean)), 0),
             homing: (w.homing || 0) > 0, antiMissile: (w['anti-missile'] || 0) > 0,
-            hasSubmunitions: !!(w.submunition), dmgPerShot,
+            hasSubmunitions: resolveSubmunitionRefs(w).length > 0, dmgPerShot,
             relShield: +((w['% shield damage'] || 0) * 100).toFixed(1),
             relHull:   +((w['% hull damage']   || 0) * 100).toFixed(1),
         };
@@ -494,14 +612,47 @@ function analyzeWeapons(weapons) {
 /**
  * resolveAmmoRef(w)  →  { ammoName: string, ammoCount: number } | null
  *
- * Parses a weapon's 'ammo' field, which the ES data format allows as either
- * a bare string or an object with { name, count }.
+ * Two formats exist in the ship-builder JSON:
+ *
+ * FORMAT A — 1 ammo per shot (weapon.ammo is a string):
+ *   weapon: { ammo: "Javelin" }
+ *
+ * FORMAT B — explicit count (ammo outfit name is the key):
+ *   weapon: { "Javelin": 2 }     ← 2 per shot
+ *   weapon: { "Javelin": true }  ← 1 per shot (boolean from some parsers)
+ *
+ * We try FORMAT A first, then scan keys for FORMAT B.
+ * Ammo outfits are identified by: ammoStored > 0, category "Ammunition",
+ * or own-name attribute > 0.
  */
 function resolveAmmoRef(w) {
-    const raw = w.ammo;
-    if (raw == null) return null;
-    if (typeof raw === 'string')  return { ammoName: raw,                ammoCount: 1           };
-    if (typeof raw === 'object')  return { ammoName: raw.name ?? null,   ammoCount: raw.count ?? 1 };
+    // FORMAT A: weapon.ammo = "OutfitName"
+    const rawAmmoField = w['ammo'];
+    if (typeof rawAmmoField === 'string' && rawAmmoField.length > 0) {
+        const outfit = _outfitIndex[rawAmmoField];
+        // Accept even if not in index — the name is explicit
+        return { ammoName: rawAmmoField, ammoCount: 1 };
+    }
+
+    // FORMAT B: weapon["OutfitName"] = count | true
+    for (const key of Object.keys(w)) {
+        if (key === 'ammo') continue;
+        const val = w[key];
+        if (val === false || val === 0 || val === null || val === undefined) continue;
+        if (typeof val !== 'number' && val !== true) continue;
+
+        const outfit = _outfitIndex[key];
+        if (!outfit) continue;
+
+        const isAmmo =
+            (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
+         || outfit.category === 'Ammunition'
+         || (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0);
+        if (!isAmmo) continue;
+
+        const ammoCount = val === true ? 1 : Math.max(1, Math.round(val));
+        return { ammoName: key, ammoCount };
+    }
     return null;
 }
 
@@ -1236,100 +1387,18 @@ function buildTtkString(name, ttk, projectedTtk) {
     return `${n} survived · ~${fmtT(projectedTtk)} projected`;
 }
 
-function normalizeTimeline(tl, ship) {
-    if (!tl.length) return [];
-
-    // Ensure starting point at t=0
-    if (tl[0].t > 0) {
-        tl.unshift({
-            t: 0,
-            hull: ship.maxHull,
-            shields: ship.maxShields
-        });
-    }
-
-    // If only one point, duplicate it slightly forward
-    if (tl.length === 1) {
-        tl.push({
-            ...tl[0],
-            t: tl[0].t + 0.01
-        });
-    }
-
-    return tl;
-}
-    
-function getDeathTime(tl, ship) {
-    for (let i = 0; i < tl.length; i++) {
-        if (tl[i].hull <= ship.minHull) {
-            return tl[i].t;
-        }
-    }
-    return Infinity; // never dies
-}
-
-function clipTimeline(tl, endTime) {
-    const out = [];
-
-    for (let i = 0; i < tl.length; i++) {
-        const p = tl[i];
-
-        if (p.t <= endTime) {
-            out.push(p);
-        } else {
-            // interpolate final point for smooth cutoff
-            const prev = tl[i - 1];
-            if (prev) {
-                const dt = p.t - prev.t;
-                const ratio = dt > 0 ? (endTime - prev.t) / dt : 0;
-
-                out.push({
-                    t: endTime,
-                    hull: prev.hull + (p.hull - prev.hull) * ratio,
-                    shields: prev.shields + (p.shields - prev.shields) * ratio
-                });
-            }
-            break;
-        }
-    }
-
-    return out;
-}
-    
 function buildHpChart(sA, sB, result) {
-    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
     const tlA = result.timelineA || [], tlB = result.timelineB || [];
-    const normA = normalizeTimeline(tlA.map(p => ({...p})), sA);
-    const normB = normalizeTimeline(tlB.map(p => ({...p})), sB);
-    if (!normA.length && !normB.length) return '';
+    if (!tlA.length && !tlB.length) return '';
     const W=560, H=180, PL=44, PR=12, PT=14, PB=28, cW=W-PL-PR, cH=H-PT-PB;
-    const deathA = getDeathTime(normA, sA);
-    const deathB = getDeathTime(normB, sB);
-    const firstDeath = Math.min(deathA, deathB);
-    const maxTimeRaw = isFinite(firstDeath)
-        ? firstDeath
-        : Math.max(
-            normA.length ? normA[normA.length - 1].t : 0,
-            normB.length ? normB[normB.length - 1].t : 0
-        );
-    const maxTime = Math.max(maxTimeRaw, 0.1); // avoid compression
-    const clippedA = clipTimeline(normA, maxTime);
-    const clippedB = clipTimeline(normB, maxTime);
+    const maxTime = Math.max(tlA.length?tlA[tlA.length-1].t:0, tlB.length?tlB[tlB.length-1].t:0, 1);
     const maxHP   = Math.max(sA.maxShields+sA.maxHull, sB.maxShields+sB.maxHull, 1);
-    const px = t => {
-        const tt = clamp(t, 0, maxTime);
-        return PL + (tt / maxTime) * cW;
-    };
-    const py = hp => {
-        const h = clamp(hp, 0, maxHP);
-        return PT + cH - (h / maxHP) * cH;
-    };
-    const totalHP = p => clamp(p.hull + p.shields, 0, maxHP);
-    const hullHP = p => clamp(p.hull, 0, maxHP);
-    const pathAH = clippedA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
-    const pathBH = clippedB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
-    const pathAS = clippedA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');
-    const pathBS = clippedB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');    
+    const px = t  => PL + (t/maxTime)*cW;
+    const py = hp => PT + cH - (hp/maxHP)*cH;
+    const pathAH = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
+    const pathBH = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
+    const pathAS = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
+    const pathBS = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
     const yTicks = [0,0.5,1].map(f=>{const v=maxHP*f,y=py(v).toFixed(1),lb=v>=1000?(v/1000).toFixed(1)+'k':Math.round(v).toString();
         return `<line x1="${PL}" y1="${y}" x2="${PL+cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
                 <text x="${PL-4}" y="${+y+4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;}).join('');
