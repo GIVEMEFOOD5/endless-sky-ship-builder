@@ -1423,8 +1423,6 @@ function renderResults(sA, sB, result) {
     const compareEl = document.getElementById('compareGrid');
     if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
 
-    //compareEl.innerHTML = MovementStats.compareProfiles(pA, nameA, pB, nameB);
-
     const weaponsEl = document.getElementById('weaponsGrid');
     if (weaponsEl)
         weaponsEl.innerHTML =
@@ -1603,6 +1601,25 @@ function buildCompareGrid(sA, sB, result) {
         protRows.push([key.replace(/\b\w/g, l => l.toUpperCase()), fmtPct(va), fmtPct(vb)]);
     }
 
+    const cmp = compareProfiles(profileA, nameA, profileB, nameB);
+
+    const extraSections = [];
+    let currentSection = null;
+
+    cmp.rows.forEach(r => {
+        if (r.section) {
+            // Start a new section
+            currentSection = [r.section, []];
+            extraSections.push(currentSection);
+        } else if (currentSection) {
+            currentSection[1].push([
+                r.label,
+                r.valueA,
+                r.valueB
+            ]);
+        }
+    });
+    
     const sections = [
         ['Combat', [
             ['Time to Disable',   ttkStrA, ttkStrB],
@@ -1627,11 +1644,7 @@ function buildCompareGrid(sA, sB, result) {
             ['Firing Heat/s',   fmt(sA.firingHeatPerSec), fmt(sB.firingHeatPerSec)],
             ['Cool Efficiency', sA.coolEff.toFixed(3),    sB.coolEff.toFixed(3)],
         ]],
-        ['Navigation', [
-            ['Mass',          fmt(sA.rawMass)+' t',      fmt(sB.rawMass)+' t'],
-            ['Inertial Mass', fmt(sA.inertialMass)+' t', fmt(sB.inertialMass)+' t'],
-            ['Max Velocity',  fmt(sA.maxVelocity)+' px/s', fmt(sB.maxVelocity)+' px/s'],
-        ]],
+        sections.push(...extraSections);
     ];
 
     return sections.map(([section, items]) => {
