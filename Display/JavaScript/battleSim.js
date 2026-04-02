@@ -149,6 +149,8 @@ async function loadData() {
                 window.DamageTypes.init(_attrDefs);
             if (typeof window.MunitionTypes?.init === 'function')
                 window.MunitionTypes.init(() => _outfitIndex, _attrDefs);
+            if (typeof window.MovementStats?.init === 'function')
+                window.MovementStats.init(_attrDefs);
         }
     } catch (e) { console.warn('Failed to load attributeDefinitions.json:', e.message); }
 
@@ -273,6 +275,9 @@ async function selectShip(slot, ship) {
     document.getElementById('dropdown' + slot).classList.remove('open');
     document.getElementById('search'   + slot).value = ship.name;
     const resolved = resolveShipStats(ship);
+
+    resolved.movementProfile = MovementStats.compute(resolved.combined);
+    
     _slots[slot]   = resolved;
     await renderSlotPreview(slot, ship, resolved);
     updateFightButton();
@@ -1417,6 +1422,8 @@ function renderResults(sA, sB, result) {
 
     const compareEl = document.getElementById('compareGrid');
     if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
+
+    compareEl.innerHTML = compareProfiles(pA, nameA, pB, nameB
 
     const weaponsEl = document.getElementById('weaponsGrid');
     if (weaponsEl)
