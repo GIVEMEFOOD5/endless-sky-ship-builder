@@ -55,12 +55,89 @@ async function init() {
     await loadData();
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+//  Fetch with sessionStorage cache + exponential-backoff retry on 429.
+//
+//  GitHub raw content rate-limits aggressive clients (HTTP 429).  We cache
+//  every successful JSON response in sessionStorage so reloads within the same
+//  browser tab never re-request data that was already fetched.
+//
+//  Cache keys are prefixed with the repo URL so they never collide with other
+//  apps sharing the same origin.
+//
+//  Backoff: 429 → wait 2^attempt * 500 ms, up to MAX_FETCH_RETRIES attempts.
+// ─────────────────────────────────────────────────────────────────────────────
+const CACHE_PREFIX     = `es-sim:${REPO_URL}:`;
+const MAX_FETCH_RETRIES = 4;
+
+async function cachedFetchJSON(url) {
+    const cacheKey = CACHE_PREFIX + url;
+
+    // ── Return from sessionStorage if available ───────────────────────────
+    try {
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) return JSON.parse(cached);
+    } catch (_) { /* sessionStorage unavailable or parse error — fall through */ }
+
+    // ── Fetch with retry on 429 ───────────────────────────────────────────
+    let lastErr;
+    for (let attempt = 0; attempt <= MAX_FETCH_RETRIES; attempt++) {
+        if (attempt > 0) {
+            const delay = Math.pow(2, attempt) * 500;   // 1s, 2s, 4s, 8s
+            setStatus(`Rate limited by GitHub — retrying in ${(delay / 1000).toFixed(1)} s… (attempt ${attempt}/${MAX_FETCH_RETRIES})`);
+            await new Promise(r => setTimeout(r, delay));
+        }
+        try {
+            const res = await fetch(url);
+            if (res.status === 429) { lastErr = new Error('429 Too Many Requests'); continue; }
+            if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
+            const data = await res.json();
+            // Cache the result
+            try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch (_) {}
+            return data;
+        } catch (err) {
+            lastErr = err;
+            if (!err.message.includes('429')) throw err;   // non-429 errors are fatal
+        }
+    }
+    throw lastErr ?? new Error(`Failed to fetch ${url} after ${MAX_FETCH_RETRIES} retries`);
+}
+
+/**
+ * cachedFetchJSONSoft(url)
+ * Like cachedFetchJSON but returns null instead of throwing — used for
+ * optional per-plugin files that may legitimately not exist (404).
+ */
+async function cachedFetchJSONSoft(url) {
+    const cacheKey = CACHE_PREFIX + url;
+    try {
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) return JSON.parse(cached);
+    } catch (_) {}
+    for (let attempt = 0; attempt <= MAX_FETCH_RETRIES; attempt++) {
+        if (attempt > 0)
+            await new Promise(r => setTimeout(r, Math.pow(2, attempt) * 500));
+        try {
+            const res = await fetch(url);
+            if (res.status === 429) continue;
+            if (res.status === 404) return null;         // legitimately missing
+            if (!res.ok) return null;
+            const data = await res.json();
+            try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch (_) {}
+            return data;
+        } catch (_) { return null; }
+    }
+    return null;
+}
+
 async function loadData() {
     setStatus('Loading plugin data…');
+
+    // ── attributeDefinitions.json ─────────────────────────────────────────
     try {
-        const res = await fetch(`${BASE_URL}/attributeDefinitions.json`);
-        if (res.ok) {
-            _attrDefs          = await res.json();
+        const attrDefs = await cachedFetchJSON(`${BASE_URL}/attributeDefinitions.json`);
+        if (attrDefs) {
+            _attrDefs          = attrDefs;
             _damageTypes       = _attrDefs?.weapon?.damageTypes || [];
             const sed          = _attrDefs?.weapon?.statusEffectDecay;
             _statusDecayMap    = sed?.decayMap    || {};
@@ -73,13 +150,12 @@ async function loadData() {
             if (typeof window.MunitionTypes?.init === 'function')
                 window.MunitionTypes.init(() => _outfitIndex, _attrDefs);
         }
-    } catch (e) { console.warn('Failed to load attributeDefinitions.json', e); }
+    } catch (e) { console.warn('Failed to load attributeDefinitions.json:', e.message); }
 
+    // ── index.json ────────────────────────────────────────────────────────
     let dataIndex;
     try {
-        const res = await fetch(`${BASE_URL}/index.json`);
-        if (!res.ok) throw new Error('Could not fetch index.json');
-        dataIndex = await res.json();
+        dataIndex = await cachedFetchJSON(`${BASE_URL}/index.json`);
     } catch (err) { setStatus(`Error: ${err.message}`, true); return; }
 
     window._indexPluginOrder = [];
@@ -87,21 +163,23 @@ async function loadData() {
         for (const { outputName } of pluginList)
             window._indexPluginOrder.push(outputName);
 
+    // ── Per-plugin data files ─────────────────────────────────────────────
     window.allData = {};
     for (const [, pluginList] of Object.entries(dataIndex)) {
         for (const { outputName, displayName, sourceName } of pluginList) {
             const pluginData = { sourceName, displayName, outputName,
                                  ships: [], variants: [], outfits: [] };
             try {
-                const [shipsRes, variantsRes, outfitsRes] = await Promise.all([
-                    fetch(`${BASE_URL}/${outputName}/dataFiles/ships.json`),
-                    fetch(`${BASE_URL}/${outputName}/dataFiles/variants.json`),
-                    fetch(`${BASE_URL}/${outputName}/dataFiles/outfits.json`),
+                const base = `${BASE_URL}/${outputName}/dataFiles`;
+                const [ships, variants, outfits] = await Promise.all([
+                    cachedFetchJSONSoft(`${base}/ships.json`),
+                    cachedFetchJSONSoft(`${base}/variants.json`),
+                    cachedFetchJSONSoft(`${base}/outfits.json`),
                 ]);
                 let loaded = false;
-                if (shipsRes.ok)    { pluginData.ships    = await shipsRes.json();    loaded = true; }
-                if (variantsRes.ok) { pluginData.variants = await variantsRes.json(); loaded = true; }
-                if (outfitsRes.ok)  { pluginData.outfits  = await outfitsRes.json();  loaded = true; }
+                if (ships)    { pluginData.ships    = ships;    loaded = true; }
+                if (variants) { pluginData.variants = variants; loaded = true; }
+                if (outfits)  { pluginData.outfits  = outfits;  loaded = true; }
                 if (loaded) window.allData[outputName] = pluginData;
             } catch (err) { console.warn(`Failed loading plugin ${outputName}:`, err); }
         }
