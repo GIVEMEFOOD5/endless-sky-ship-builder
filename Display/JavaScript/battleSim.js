@@ -1379,6 +1379,115 @@ function runSimulation() {
 //  RESULTS RENDERING
 // ═══════════════════════════════════════════════════════════════════════════════
 
+function renderResults(sA, sB, result) {
+    const resEl = document.getElementById('simResults');
+    if (!resEl) return;
+
+    const winnerNameEl = document.getElementById('resultWinnerName');
+    const subtitleEl   = document.getElementById('resultSubtitle');
+    if (winnerNameEl) {
+        winnerNameEl.className = result.winner === 'A' ? 'result-winner-name result-winner-a'
+                               : result.winner === 'B' ? 'result-winner-name result-winner-b'
+                               : 'result-winner-name result-winner-draw';
+        winnerNameEl.textContent = result.winner === 'A' ? sA.name
+                                 : result.winner === 'B' ? sB.name : 'Draw';
+    }
+    if (subtitleEl)
+        subtitleEl.innerHTML = `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
+
+    const effA = isFinite(result.ttkA) ? result.ttkA
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? result.projectedTtkA : MAX_SIM_SECS;
+    const effB = isFinite(result.ttkB) ? result.ttkB
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? result.projectedTtkB : MAX_SIM_SECS;
+    const maxT = Math.max(effA, effB, 1);
+
+    const barA = document.getElementById('timelineBarA');
+    const barB = document.getElementById('timelineBarB');
+    const lblA = document.getElementById('timelineLabelA');
+    const lblB = document.getElementById('timelineLabelB');
+    if (barA) barA.style.width = Math.round(Math.min((effA / maxT) * 50, 50)) + '%';
+    if (barB) barB.style.width = Math.round(Math.min((effB / maxT) * 50, 50)) + '%';
+    if (lblA) lblA.textContent = isFinite(result.ttkA) ? fmtT(result.ttkA)
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? '~' + fmtT(result.projectedTtkA) : '∞';
+    if (lblB) lblB.textContent = isFinite(result.ttkB) ? fmtT(result.ttkB)
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? '~' + fmtT(result.projectedTtkB) : '∞';
+
+    const chartEl = document.getElementById('hpChartContainer');
+    if (chartEl) chartEl.innerHTML = buildHpChart(sA, sB, result);
+
+    const compareEl = document.getElementById('compareGrid');
+    if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
+
+    const weaponsEl = document.getElementById('weaponsGrid');
+    if (weaponsEl)
+        weaponsEl.innerHTML =
+            `<div><div class="weapons-col-title weapons-col-title-a">${escHtml(sA.name)}</div>${buildWeaponsList(sA.weaponDetails)}</div>
+             <div><div class="weapons-col-title weapons-col-title-b">${escHtml(sB.name)}</div>${buildWeaponsList(sB.weaponDetails)}</div>`;
+
+    const phaseEl = document.getElementById('phaseList');
+    if (phaseEl) {
+        const phases = [...result.phases];
+        if (result.winner === 'A' && result.projectedTtkA != null) {
+            const pttk = result.projectedTtkA;
+            phases.push({ time: result.ttkB + (isFinite(pttk) ? pttk : 0), type: 'A', icon: '📊',
+                text: isFinite(pttk)
+                    ? `<strong>${escHtml(sA.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
+                    : `<strong>${escHtml(sA.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
+        }
+        if (result.winner === 'B' && result.projectedTtkB != null) {
+            const pttk = result.projectedTtkB;
+            phases.push({ time: result.ttkA + (isFinite(pttk) ? pttk : 0), type: 'B', icon: '📊',
+                text: isFinite(pttk)
+                    ? `<strong>${escHtml(sB.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
+                    : `<strong>${escHtml(sB.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
+        }
+        phaseEl.innerHTML = phases.length
+            ? phases.map(ph => {
+                const cls = ph.type === 'A' ? 'phase-A' : ph.type === 'B' ? 'phase-B' : 'phase-neutral';
+                return `<div class="phase-item ${cls}">
+                    <span class="phase-icon">${ph.icon}</span>
+                    <span class="phase-time">${fmtT(ph.time)}</span>
+                    <span class="phase-text">${ph.text}</span>
+                </div>`;
+              }).join('')
+            : '<div class="phase-item phase-neutral">No notable events recorded.</div>';
+    }
+
+    resEl.style.display = 'block';
+    resEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function buildTtkString(name, ttk, projectedTtk) {
+    const n = escHtml(name);
+    if (isFinite(ttk)) return `${n} disabled in ${fmtT(ttk)}`;
+    if (projectedTtk == null) return `${n} survived`;
+    if (!isFinite(projectedTtk)) return `${n} survived (regen &gt; damage)`;
+    return `${n} survived · ~${fmtT(projectedTtk)} projected`;
+}
+
+function normalizeTimeline(tl, ship) {
+    if (!tl.length) return [];
+
+    // Ensure starting point at t=0
+    if (tl[0].t > 0) {
+        tl.unshift({
+            t: 0,
+            hull: ship.maxHull,
+            shields: ship.maxShields
+        });
+    }
+
+    // If only one point, duplicate it slightly forward
+    if (tl.length === 1) {
+        tl.push({
+            ...tl[0],
+            t: tl[0].t + 0.01
+        });
+    }
+
+    return tl;
+}
+    
 function getDeathTime(tl, ship) {
     for (let i = 0; i < tl.length; i++) {
         if (tl[i].hull <= ship.minHull) {
