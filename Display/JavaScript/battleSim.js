@@ -6,7 +6,7 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const FPS          = 60;
-const MAX_SIM_SECS = 600;
+const MAX_SIM_SECS = 6000;
 const MAX_FRAMES   = MAX_SIM_SECS * FPS;
 const SOLAR_POWER  = 1.0;
 const SHIELD_BLEED_FRACTION = 0.5;
@@ -979,7 +979,7 @@ function simulateBattle(sA, sB) {
 
     while (frame < MAX_FRAMES) {
         const t = frame / FPS;
-        if (frame % 60 === 0) {
+        if (frame % 6 === 0) {
             timelineA.push({ t, shields: stA.shields, hull: stA.hull, energy: stA.energy, heat: stA.heat });
             timelineB.push({ t, shields: stB.shields, hull: stB.hull, energy: stB.energy, heat: stB.heat });
         }
@@ -1468,38 +1468,164 @@ function buildTtkString(name, ttk, projectedTtk) {
     return `${n} survived · ~${fmtT(projectedTtk)} projected`;
 }
 
+function normalizeTimeline(tl, ship) {
+    if (!tl.length) return [];
+
+    // Ensure starting point at t=0
+    if (tl[0].t > 0) {
+        tl.unshift({
+            t: 0,
+            hull: ship.maxHull,
+            shields: ship.maxShields
+        });
+    }
+
+    // If only one point, duplicate it slightly forward
+    if (tl.length === 1) {
+        tl.push({
+            ...tl[0],
+            t: tl[0].t + 0.01
+        });
+    }
+
+    return tl;
+}
+    
+function getDeathTime(tl, ship) {
+    for (let i = 0; i < tl.length; i++) {
+        if (tl[i].hull <= ship.minHull) {
+            return tl[i].t;
+        }
+    }
+    return Infinity; // never dies
+}
+
+function clipTimeline(tl, endTime) {
+    const out = [];
+
+    for (let i = 0; i < tl.length; i++) {
+        const p = tl[i];
+
+        if (p.t <= endTime) {
+            out.push(p);
+        } else {
+            // interpolate final point for smooth cutoff
+            const prev = tl[i - 1];
+            if (prev) {
+                const dt = p.t - prev.t;
+                const ratio = dt > 0 ? (endTime - prev.t) / dt : 0;
+
+                out.push({
+                    t: endTime,
+                    hull: prev.hull + (p.hull - prev.hull) * ratio,
+                    shields: prev.shields + (p.shields - prev.shields) * ratio
+                });
+            }
+            break;
+        }
+    }
+
+    return out;
+}
+    
 function buildHpChart(sA, sB, result) {
-    const tlA = result.timelineA || [], tlB = result.timelineB || [];
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const tlA = (result.timelineA || []).map(p => ({...p}));
+    const tlB = (result.timelineB || []).map(p => ({...p}));
     if (!tlA.length && !tlB.length) return '';
-    const W=560, H=180, PL=44, PR=12, PT=14, PB=28, cW=W-PL-PR, cH=H-PT-PB;
-    const maxTime = Math.max(tlA.length?tlA[tlA.length-1].t:0, tlB.length?tlB[tlB.length-1].t:0, 1);
-    const maxHP   = Math.max(sA.maxShields+sA.maxHull, sB.maxShields+sB.maxHull, 1);
-    const px = t  => PL + (t/maxTime)*cW;
-    const py = hp => PT + cH - (hp/maxHP)*cH;
-    const pathAH = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
-    const pathBH = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
-    const pathAS = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
-    const pathBS = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
-    const yTicks = [0,0.5,1].map(f=>{const v=maxHP*f,y=py(v).toFixed(1),lb=v>=1000?(v/1000).toFixed(1)+'k':Math.round(v).toString();
-        return `<line x1="${PL}" y1="${y}" x2="${PL+cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
-                <text x="${PL-4}" y="${+y+4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;}).join('');
-    const xTicks = [0,0.5,1].map(f=>{const t=maxTime*f,x=px(t).toFixed(1);
-        return `<text x="${x}" y="${PT+cH+14}" fill="#64748b" font-size="10" text-anchor="middle">${t.toFixed(1)}s</text>`;}).join('');
-    const threshA = sA.minHull>0?`<line x1="${PL}" y1="${py(sA.minHull).toFixed(1)}" x2="${PL+cW}" y2="${py(sA.minHull).toFixed(1)}" stroke="rgba(59,130,246,0.4)" stroke-width="1" stroke-dasharray="4,3"/>`:'' ;
-    const threshB = sB.minHull>0?`<line x1="${PL}" y1="${py(sB.minHull).toFixed(1)}" x2="${PL+cW}" y2="${py(sB.minHull).toFixed(1)}" stroke="rgba(239,68,68,0.4)" stroke-width="1" stroke-dasharray="4,3"/>`:'' ;
-    const trunc=(s,n)=>s.length>n?s.slice(0,n-1)+'…':s, lx=PL+cW-4;
-    const legend=`<rect x="${lx-80}" y="${PT+4}" width="8" height="3" fill="#3b82f6" rx="1"/>
-        <text x="${lx-68}" y="${PT+9}" fill="#93c5fd" font-size="10" text-anchor="start">${escHtml(trunc(sA.name,18))}</text>
-        <rect x="${lx-80}" y="${PT+16}" width="8" height="3" fill="#ef4444" rx="1"/>
-        <text x="${lx-68}" y="${PT+21}" fill="#fca5a5" font-size="10" text-anchor="start">${escHtml(trunc(sB.name,18))}</text>`;
-    return `<div class="hp-chart-wrap"><svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:auto;">
-        <rect x="${PL}" y="${PT}" width="${cW}" height="${cH}" fill="rgba(15,23,42,0.5)" rx="4"/>
-        ${yTicks}${xTicks}${threshA}${threshB}
-        <path d="${pathAS}" fill="none" stroke="rgba(59,130,246,0.35)" stroke-width="1.5"/>
-        <path d="${pathAH}" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
-        <path d="${pathBS}" fill="none" stroke="rgba(239,68,68,0.35)" stroke-width="1.5"/>
-        <path d="${pathBH}" fill="none" stroke="#ef4444" stroke-width="2.5"/>
-        ${legend}</svg></div>`;
+ 
+    const W=560, H=200, PL=48, PR=12, PT=14, PB=28;
+    const cW = W-PL-PR, cH = H-PT-PB;
+ 
+    const deathA = isFinite(result.ttkA) ? result.ttkA : Infinity;
+    const deathB = isFinite(result.ttkB) ? result.ttkB : Infinity;
+    const firstDeath = Math.min(deathA, deathB);
+    const lastPoint  = tl => tl.length ? tl[tl.length-1].t : 0;
+    const maxTime = Math.max(
+        isFinite(firstDeath) ? firstDeath : Math.max(lastPoint(tlA), lastPoint(tlB)),
+        0.1
+    );
+ 
+    const maxHP = Math.max(sA.maxShields + sA.maxHull, sB.maxShields + sB.maxHull, 1);
+ 
+    const px = t  => PL + clamp(t,  0, maxTime) / maxTime * cW;
+    const py = hp => PT + cH - clamp(hp, 0, maxHP) / maxHP * cH;
+ 
+    function clip(tl) {
+        const out = [];
+        if (!tl.length) return out;
+        if (tl[0].t > 0) out.push({ t: 0, shields: tl[0].shields, hull: tl[0].hull });
+        for (let i = 0; i < tl.length; i++) {
+            const p = tl[i];
+            if (p.t <= maxTime) { out.push(p); continue; }
+            const prev = tl[i-1] || out[out.length-1];
+            if (prev) {
+                const dt = p.t - prev.t, r = dt > 0 ? (maxTime - prev.t) / dt : 0;
+                out.push({
+                    t:       maxTime,
+                    shields: prev.shields + (p.shields - prev.shields) * r,
+                    hull:    prev.hull    + (p.hull    - prev.hull)    * r,
+                });
+            }
+            break;
+        }
+        return out;
+    }
+ 
+    const cA = clip(tlA), cB = clip(tlB);
+    if (!cA.length && !cB.length) return '';
+ 
+    function makePaths(tl) {
+        if (!tl.length) return { total: '', hull: '' };
+        const total = tl.map((p, i) =>
+            `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(p.hull + p.shields).toFixed(1)}`
+        ).join(' ');
+        const hull = tl.map((p, i) =>
+            `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`
+        ).join(' ');
+        return { total, hull };
+    }
+ 
+    const pA = makePaths(cA), pB = makePaths(cB);
+ 
+    const yTicks = [0, 0.5, 1].map(f => {
+        const v = maxHP * f, y = py(v).toFixed(1);
+        const lb = v >= 1000 ? (v / 1000).toFixed(1) + 'k' : Math.round(v).toString();
+        return `<line x1="${PL}" y1="${y}" x2="${PL+cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>` +
+               `<text x="${PL-4}" y="${+y+4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;
+    }).join('');
+ 
+    const xTicks = [0, 0.5, 1].map(f => {
+        const t = maxTime * f, x = px(t).toFixed(1);
+        return `<text x="${x}" y="${PT+cH+14}" fill="#64748b" font-size="10" text-anchor="middle">${t.toFixed(1)}s</text>`;
+    }).join('');
+ 
+    const threshLine = (minHull, color) => minHull > 0
+        ? `<line x1="${PL}" y1="${py(minHull).toFixed(1)}" x2="${PL+cW}" y2="${py(minHull).toFixed(1)}" stroke="${color}" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>`
+        : '';
+ 
+    const trunc = (s, n) => s.length > n ? s.slice(0, n-1) + '…' : s;
+    const lx = PL + cW - 4;
+    const legend =
+        `<rect x="${lx-82}" y="${PT+2}" width="8" height="3" fill="#3b82f6" rx="1"/>` +
+        `<text x="${lx-70}" y="${PT+8}" fill="#93c5fd" font-size="10" text-anchor="start">${escHtml(trunc(sA.name, 18))}</text>` +
+        `<rect x="${lx-82}" y="${PT+16}" width="8" height="3" fill="#ef4444" rx="1"/>` +
+        `<text x="${lx-70}" y="${PT+22}" fill="#fca5a5" font-size="10" text-anchor="start">${escHtml(trunc(sB.name, 18))}</text>`;
+ 
+    return `<div class="hp-chart-wrap">` +
+        `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:auto;">` +
+            `<rect x="${PL}" y="${PT}" width="${cW}" height="${cH}" fill="rgba(15,23,42,0.5)" rx="4"/>` +
+            yTicks +
+            xTicks +
+            threshLine(sA.minHull, 'rgba(59,130,246,0.5)') +
+            threshLine(sB.minHull, 'rgba(239,68,68,0.5)') +
+            (pA.total ? `<path d="${pA.total}" fill="none" stroke="rgba(59,130,246,0.25)" stroke-width="1.5"/>` : '') +
+            (pA.hull  ? `<path d="${pA.hull}"  fill="none" stroke="#3b82f6" stroke-width="2.5"/>` : '') +
+            (pB.total ? `<path d="${pB.total}" fill="none" stroke="rgba(239,68,68,0.25)" stroke-width="1.5"/>` : '') +
+            (pB.hull  ? `<path d="${pB.hull}"  fill="none" stroke="#ef4444" stroke-width="2.5"/>` : '') +
+            legend +
+        `</svg>` +
+    `</div>`;
 }
 
 function buildCompareGrid(sA, sB, result) {
