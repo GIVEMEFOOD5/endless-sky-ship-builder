@@ -55,8 +55,12 @@
 //
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const FPS         = 60;
-const SOLAR_POWER = 1.0;   // standard Sol-equivalent (attributeParser referenceSolarPower)
+const FPS = 60;
+
+// SOLAR_POWER is read from attrDefs.systemContext.referenceSolarPower at init time.
+// Defaults to 1.0 (standard Sol-equivalent) if attrDefs is unavailable.
+// This value is set by attributeParser.js from the Sol.txt system data file.
+let SOLAR_POWER = 1.0;
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Internal state
@@ -310,10 +314,13 @@ function _buildKeyRegistry(attrDefs) {
 
 function init(attrDefs) {
     _attrDefs = attrDefs || null;
+    // Read solar power reference from attributeParser's parsed system context.
+    // This is the solar power value of the Sol system, used to normalise ramscoop output.
+    SOLAR_POWER = _attrDefs?.systemContext?.referenceSolarPower ?? 1.0;
     _keys     = _attrDefs ? _buildKeyRegistry(_attrDefs) : null;
     _ready    = !!_keys;
     if (_ready)
-        console.log('[MovementStats] Ready — key registry built from attrDefs.');
+        console.log(`[MovementStats] Ready — solar power: ${SOLAR_POWER}, key registry built from attrDefs.`);
     else
         console.warn('[MovementStats] init called without attrDefs — will use fallback keys.');
 }
@@ -791,11 +798,6 @@ function compareProfiles(profileA, nameA, profileB, nameB) {
             row('Energy/s',              scA.energyPerSec,   scB.energyPerSec,   '',        false),
             row('Heat/s',                scA.heatPerSec,     scB.heatPerSec,     '',        false),
             row('Fuel/s',                scA.fuelPerSec,     scB.fuelPerSec,     '',        false),
-            { section: 'Jump' },
-            row('Fuel per Jump',         A.jumpFuelPerJump,  B.jumpFuelPerJump,  '',        false),
-            row('Fuel Capacity',         A.fuelCapacity,     B.fuelCapacity),
-            row('Jumps (full tank)',      A.jumpsOnFullTank,  B.jumpsOnFullTank),
-            row('Fuel Regen/s',          A.fuelRegenPerSec,  B.fuelRegenPerSec),
         ],
     };
 }

@@ -149,8 +149,6 @@ async function loadData() {
                 window.DamageTypes.init(_attrDefs);
             if (typeof window.MunitionTypes?.init === 'function')
                 window.MunitionTypes.init(() => _outfitIndex, _attrDefs);
-            if (typeof window.MovementStats?.init === 'function')
-                window.MovementStats.init(_attrDefs);
         }
     } catch (e) { console.warn('Failed to load attributeDefinitions.json:', e.message); }
 
@@ -275,9 +273,9 @@ async function selectShip(slot, ship) {
     document.getElementById('dropdown' + slot).classList.remove('open');
     document.getElementById('search'   + slot).value = ship.name;
     const resolved = resolveShipStats(ship);
-
-    resolved.movementProfile = MovementStats.compute(resolved.combined);
-    
+    // Attach movement profile so buildCompareGrid can use it without re-computing
+    if (typeof window.MovementStats?.compute === 'function')
+        resolved.movementProfile = window.MovementStats.compute(resolved.combined);
     _slots[slot]   = resolved;
     await renderSlotPreview(slot, ship, resolved);
     updateFightButton();
@@ -1470,100 +1468,18 @@ function buildTtkString(name, ttk, projectedTtk) {
     return `${n} survived · ~${fmtT(projectedTtk)} projected`;
 }
 
-function normalizeTimeline(tl, ship) {
-    if (!tl.length) return [];
-
-    // Ensure starting point at t=0
-    if (tl[0].t > 0) {
-        tl.unshift({
-            t: 0,
-            hull: ship.maxHull,
-            shields: ship.maxShields
-        });
-    }
-
-    // If only one point, duplicate it slightly forward
-    if (tl.length === 1) {
-        tl.push({
-            ...tl[0],
-            t: tl[0].t + 0.01
-        });
-    }
-
-    return tl;
-}
-    
-function getDeathTime(tl, ship) {
-    for (let i = 0; i < tl.length; i++) {
-        if (tl[i].hull <= ship.minHull) {
-            return tl[i].t;
-        }
-    }
-    return Infinity; // never dies
-}
-
-function clipTimeline(tl, endTime) {
-    const out = [];
-
-    for (let i = 0; i < tl.length; i++) {
-        const p = tl[i];
-
-        if (p.t <= endTime) {
-            out.push(p);
-        } else {
-            // interpolate final point for smooth cutoff
-            const prev = tl[i - 1];
-            if (prev) {
-                const dt = p.t - prev.t;
-                const ratio = dt > 0 ? (endTime - prev.t) / dt : 0;
-
-                out.push({
-                    t: endTime,
-                    hull: prev.hull + (p.hull - prev.hull) * ratio,
-                    shields: prev.shields + (p.shields - prev.shields) * ratio
-                });
-            }
-            break;
-        }
-    }
-
-    return out;
-}
-    
 function buildHpChart(sA, sB, result) {
-    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
     const tlA = result.timelineA || [], tlB = result.timelineB || [];
-    const normA = normalizeTimeline(tlA.map(p => ({...p})), sA);
-    const normB = normalizeTimeline(tlB.map(p => ({...p})), sB);
-    if (!normA.length && !normB.length) return '';
+    if (!tlA.length && !tlB.length) return '';
     const W=560, H=180, PL=44, PR=12, PT=14, PB=28, cW=W-PL-PR, cH=H-PT-PB;
-    const deathA = getDeathTime(normA, sA);
-    const deathB = getDeathTime(normB, sB);
-    const firstDeath = Math.min(deathA, deathB);
-    const maxTimeRaw = isFinite(firstDeath)
-        ? firstDeath
-        : Math.max(
-            normA.length ? normA[normA.length - 1].t : 0,
-            normB.length ? normB[normB.length - 1].t : 0
-        );
-    const maxTime = Math.max(maxTimeRaw, 0.1); // avoid compression
-    const clippedA = clipTimeline(normA, maxTime);
-    const clippedB = clipTimeline(normB, maxTime);
+    const maxTime = Math.max(tlA.length?tlA[tlA.length-1].t:0, tlB.length?tlB[tlB.length-1].t:0, 1);
     const maxHP   = Math.max(sA.maxShields+sA.maxHull, sB.maxShields+sB.maxHull, 1);
-    const px = t => {
-        const tt = clamp(t, 0, maxTime);
-        return PL + (tt / maxTime) * cW;
-    };
-    const py = hp => {
-        const h = clamp(hp, 0, maxHP);
-        return PT + cH - (h / maxHP) * cH;
-    };
-    const totalHP = p => clamp(p.hull + p.shields, 0, maxHP);
-    const hullHP = p => clamp(p.hull, 0, maxHP);
-    const pathAH = clippedA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
-    const pathBH = clippedB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(hullHP(p)).toFixed(1)}`).join(' ');
-    const pathAS = clippedA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');
-    const pathBS = clippedB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(totalHP(p)).toFixed(1)}`).join(' ');    
+    const px = t  => PL + (t/maxTime)*cW;
+    const py = hp => PT + cH - (hp/maxHP)*cH;
+    const pathAH = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
+    const pathBH = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`).join(' ');
+    const pathAS = tlA.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
+    const pathBS = tlB.map((p,i)=>`${i?'L':'M'}${px(p.t).toFixed(1)},${py(p.hull+p.shields).toFixed(1)}`).join(' ');
     const yTicks = [0,0.5,1].map(f=>{const v=maxHP*f,y=py(v).toFixed(1),lb=v>=1000?(v/1000).toFixed(1)+'k':Math.round(v).toString();
         return `<line x1="${PL}" y1="${y}" x2="${PL+cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
                 <text x="${PL-4}" y="${+y+4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;}).join('');
@@ -1601,25 +1517,6 @@ function buildCompareGrid(sA, sB, result) {
         protRows.push([key.replace(/\b\w/g, l => l.toUpperCase()), fmtPct(va), fmtPct(vb)]);
     }
 
-    const cmp = compareProfiles(profileA, nameA, profileB, nameB);
-
-    const extraSections = [];
-    let currentSection = null;
-
-    cmp.rows.forEach(r => {
-        if (r.section) {
-            // Start a new section
-            currentSection = [r.section, []];
-            extraSections.push(currentSection);
-        } else if (currentSection) {
-            currentSection[1].push([
-                r.label,
-                r.valueA,
-                r.valueB
-            ]);
-        }
-    });
-    
     const sections = [
         ['Combat', [
             ['Time to Disable',   ttkStrA, ttkStrB],
@@ -1644,8 +1541,26 @@ function buildCompareGrid(sA, sB, result) {
             ['Firing Heat/s',   fmt(sA.firingHeatPerSec), fmt(sB.firingHeatPerSec)],
             ['Cool Efficiency', sA.coolEff.toFixed(3),    sB.coolEff.toFixed(3)],
         ]],
-        sections.push(...extraSections)
     ];
+
+    // ── Movement stats comparison (from MovementStats.compareProfiles) ─────────
+    // Appended as extra sections after the core ones.
+    // sA/sB.movementProfile is attached in selectShip() if MovementStats is loaded.
+    // compareProfiles returns { rows: [ {section} | {label,valueA,valueB} ] }
+    // We convert those rows into the same [label, valueA, valueB] triple format.
+    const movA = sA.movementProfile, movB = sB.movementProfile;
+    if (movA && movB && typeof window.MovementStats?.compareProfiles === 'function') {
+        const cmp = window.MovementStats.compareProfiles(movA, sA.name, movB, sB.name);
+        let currentItems = null;
+        for (const r of (cmp?.rows || [])) {
+            if (r.section) {
+                currentItems = [];
+                sections.push([r.section, currentItems]);
+            } else if (currentItems) {
+                currentItems.push([r.label, r.valueA, r.valueB]);
+            }
+        }
+    }
 
     return sections.map(([section, items]) => {
         const colA      = items.map(([,va])   => `<div class="res-row"><div class="res-row-value">${va}</div></div>`).join('');
