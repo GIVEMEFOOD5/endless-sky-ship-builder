@@ -37,15 +37,9 @@ const FIRING_STATUS_MAP = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Firing-cost resource keys — these are the only ones that gate weapon firing.
-//  'firing heat' is intentionally absent: it adds heat but never directly
-//  prevents a weapon from firing (overheat gates ALL weapons via isOverheated).
-//
-//  The label shown in phase messages is derived from the key itself, so no
-//  separate label table is needed.
 // ─────────────────────────────────────────────────────────────────────────────
 const FIRING_RESOURCE_KEYS = ['firing energy', 'firing fuel', 'firing hull', 'firing shields'];
 
-// Strip 'firing ' prefix for human-readable labels in phase messages.
 function resourceLabel(key) { return key.replace(/^firing\s+/, ''); }
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
@@ -57,33 +51,21 @@ async function init() {
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Fetch with sessionStorage cache + exponential-backoff retry on 429.
-//
-//  GitHub raw content rate-limits aggressive clients (HTTP 429).  We cache
-//  every successful JSON response in sessionStorage so reloads within the same
-//  browser tab never re-request data that was already fetched.
-//
-//  Cache keys are prefixed with the repo URL so they never collide with other
-//  apps sharing the same origin.
-//
-//  Backoff: 429 → wait 2^attempt * 500 ms, up to MAX_FETCH_RETRIES attempts.
 // ─────────────────────────────────────────────────────────────────────────────
 const CACHE_PREFIX     = `es-sim:${REPO_URL}:`;
 const MAX_FETCH_RETRIES = 4;
 
 async function cachedFetchJSON(url) {
     const cacheKey = CACHE_PREFIX + url;
-
-    // ── Return from sessionStorage if available ───────────────────────────
     try {
         const cached = sessionStorage.getItem(cacheKey);
         if (cached) return JSON.parse(cached);
-    } catch (_) { /* sessionStorage unavailable or parse error — fall through */ }
+    } catch (_) {}
 
-    // ── Fetch with retry on 429 ───────────────────────────────────────────
     let lastErr;
     for (let attempt = 0; attempt <= MAX_FETCH_RETRIES; attempt++) {
         if (attempt > 0) {
-            const delay = Math.pow(2, attempt) * 500;   // 1s, 2s, 4s, 8s
+            const delay = Math.pow(2, attempt) * 500;
             setStatus(`Rate limited by GitHub — retrying in ${(delay / 1000).toFixed(1)} s… (attempt ${attempt}/${MAX_FETCH_RETRIES})`);
             await new Promise(r => setTimeout(r, delay));
         }
@@ -92,22 +74,16 @@ async function cachedFetchJSON(url) {
             if (res.status === 429) { lastErr = new Error('429 Too Many Requests'); continue; }
             if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
             const data = await res.json();
-            // Cache the result
             try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch (_) {}
             return data;
         } catch (err) {
             lastErr = err;
-            if (!err.message.includes('429')) throw err;   // non-429 errors are fatal
+            if (!err.message.includes('429')) throw err;
         }
     }
     throw lastErr ?? new Error(`Failed to fetch ${url} after ${MAX_FETCH_RETRIES} retries`);
 }
 
-/**
- * cachedFetchJSONSoft(url)
- * Like cachedFetchJSON but returns null instead of throwing — used for
- * optional per-plugin files that may legitimately not exist (404).
- */
 async function cachedFetchJSONSoft(url) {
     const cacheKey = CACHE_PREFIX + url;
     try {
@@ -120,7 +96,7 @@ async function cachedFetchJSONSoft(url) {
         try {
             const res = await fetch(url);
             if (res.status === 429) continue;
-            if (res.status === 404) return null;         // legitimately missing
+            if (res.status === 404) return null;
             if (!res.ok) return null;
             const data = await res.json();
             try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch (_) {}
@@ -133,7 +109,6 @@ async function cachedFetchJSONSoft(url) {
 async function loadData() {
     setStatus('Loading plugin data…');
 
-    // ── attributeDefinitions.json ─────────────────────────────────────────
     try {
         const attrDefs = await cachedFetchJSON(`${BASE_URL}/attributeDefinitions.json`);
         if (attrDefs) {
@@ -152,7 +127,6 @@ async function loadData() {
         }
     } catch (e) { console.warn('Failed to load attributeDefinitions.json:', e.message); }
 
-    // ── index.json ────────────────────────────────────────────────────────
     let dataIndex;
     try {
         dataIndex = await cachedFetchJSON(`${BASE_URL}/index.json`);
@@ -163,7 +137,6 @@ async function loadData() {
         for (const { outputName } of pluginList)
             window._indexPluginOrder.push(outputName);
 
-    // ── Per-plugin data files ─────────────────────────────────────────────
     window.allData = {};
     for (const [, pluginList] of Object.entries(dataIndex)) {
         for (const { outputName, displayName, sourceName } of pluginList) {
@@ -273,7 +246,6 @@ async function selectShip(slot, ship) {
     document.getElementById('dropdown' + slot).classList.remove('open');
     document.getElementById('search'   + slot).value = ship.name;
     const resolved = resolveShipStats(ship);
-    // Attach movement profile so buildCompareGrid can use it without re-computing
     if (typeof window.MovementStats?.compute === 'function')
         resolved.movementProfile = window.MovementStats.compute(resolved.combined);
     _slots[slot]   = resolved;
@@ -424,25 +396,11 @@ function resolveShipStats(ship) {
     const movingHeatPerFrame        = Math.max(a('thrusting heat'), a('reverse thrusting heat'))
                                     + a('turning heat');
 
-    // ── Fuel recovery ────────────────────────────────────────────────────────
-    // From attributeParser.js systemAwareFormulas / ramscoop formula:
-    //   ramscoop fuel/s = 0.03 * sqrt(solarPower) * [ramscoop]
-    // Plus 'fuel generation' attribute (fuel/s, convert to per-frame).
     const fuelCap          = a('fuel capacity') || 0;
     const fuelRegenPerFrame = (
         0.03 * Math.sqrt(SOLAR_POWER) * a('ramscoop') + a('fuel generation')
     ) / FPS;
 
-    // ── Initial ammo inventory ───────────────────────────────────────────────
-    // We want: ammoInventory[ammoOutfitName] = total rounds available at battle start.
-    //
-    // ES ammo storage conventions (any one or more may apply to an outfit):
-    //   (a) outfit.ammoStored > 0   — compiled field from ship-builder
-    //   (b) outfit.category === 'Ammunition'   — category flag
-    //   (c) outfit.attributes[outfitName] > 0  — attribute named after the outfit itself
-    //   (d) extractOutfitAttributes()[outfitName] > 0  — same, via top-level attrs
-    //
-    // All are additive: 3 × "Javelin Rack" each giving 40 = 120 total.
     const ammoInventory = {};
     for (const [outfitName, qty] of Object.entries(ship.outfitMap || {})) {
         const outfit = _outfitIndex[outfitName];
@@ -450,17 +408,14 @@ function resolveShipStats(ship) {
 
         let roundsPerUnit = 0;
 
-        // (a) explicit ammoStored field
         if (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
             roundsPerUnit = outfit.ammoStored;
 
-        // (b/c) attributes object contains a key matching the outfit name
         if (roundsPerUnit === 0 && outfit.attributes &&
                 typeof outfit.attributes[outfitName] === 'number' &&
                 outfit.attributes[outfitName] > 0)
             roundsPerUnit = outfit.attributes[outfitName];
 
-        // (d) top-level numeric fields (via extractOutfitAttributes)
         if (roundsPerUnit === 0) {
             const attrs = extractOutfitAttributes(outfit);
             if (typeof attrs[outfitName] === 'number' && attrs[outfitName] > 0)
@@ -505,28 +460,9 @@ function resolveShipStats(ship) {
 //  WEAPON ANALYSIS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * resolveSubmunitionRefs(w)  →  Array<{ subName: string, subCount: number }>
- *
- * Submunitions follow the same two-format convention as ammo:
- *
- * FORMAT A — single submunition (count implicit):
- *   weapon: { submunition: "Proton Fragment" }   → 1 copy
- *
- * FORMAT B — explicit count, outfit name is the key:
- *   weapon: { "Proton Fragment": 3 }             → 3 copies
- *   weapon: { "Proton Fragment": true }           → 1 copy
- *
- * Both formats can coexist in different outfits.  We check Format A first,
- * then scan all keys for Format B (any key whose value is a number/true and
- * whose name matches a weapon-bearing outfit in the index).
- *
- * Returns an array (may be multiple submunition types from Format A arrays).
- */
 function resolveSubmunitionRefs(w) {
     const results = [];
 
-    // FORMAT A: w.submunition = string | object | array
     const rawSub = w.submunition;
     if (rawSub != null) {
         const entries = Array.isArray(rawSub) ? rawSub : [rawSub];
@@ -541,8 +477,6 @@ function resolveSubmunitionRefs(w) {
         if (results.length > 0) return results;
     }
 
-    // FORMAT B: weapon["OutfitName"] = count | true
-    // The outfit must have a weapon block to be a submunition (not ammo/engine/etc.)
     for (const key of Object.keys(w)) {
         if (key === 'submunition') continue;
         const val = w[key];
@@ -550,9 +484,8 @@ function resolveSubmunitionRefs(w) {
         if (typeof val !== 'number' && val !== true) continue;
 
         const outfit = _outfitIndex[key];
-        if (!outfit?.weapon) continue;   // must have a weapon block
+        if (!outfit?.weapon) continue;
 
-        // Exclude ammo outfits (they don't fire, they're consumed)
         const isAmmo =
             (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
          || outfit.category === 'Ammunition'
@@ -567,24 +500,22 @@ function resolveSubmunitionRefs(w) {
 }
 
 /**
- * resolveEffectiveRange(w, visited, depth)
+ * resolveEffectiveRange(w, visited, depth, inheritedVelocity)
  *
- * Calculates the true effective range of a weapon including submunition travel.
+ * FIX: submunitions with velocity=0 inherit the parent projectile's velocity
+ * so their effective range is correctly calculated as:
+ *   parentRange + (inheritedVelocity * subLifetime)
  *
- * In Endless Sky a submunition is spawned at the point where the parent
- * projectile detonates, then travels for its own lifetime at its own velocity.
- * Effective range = parent_velocity * parent_lifetime
- *                 + max(submunition effective ranges)
- *
- * We take the MAX of submunition chains (not sum) because only one path
- * determines the furthest-reaching fragment.
- *
- * Returns null if the weapon has no velocity/lifetime data.
+ * @param {Object} w                  - weapon block
+ * @param {Set}    visited            - cycle guard
+ * @param {number} depth              - recursion depth
+ * @param {number} inheritedVelocity  - velocity inherited from parent projectile
  */
-function resolveEffectiveRange(w, visited, depth) {
+function resolveEffectiveRange(w, visited, depth, inheritedVelocity) {
     if (depth > 8) return null;
 
-    const vel      = w.velocity  || 0;
+    // Use own velocity if non-zero, otherwise inherit from parent
+    const vel      = (w.velocity || 0) > 0 ? (w.velocity || 0) : (inheritedVelocity || 0);
     const life     = w.lifetime  || 0;
     const ownRange = vel * life;
 
@@ -600,7 +531,8 @@ function resolveEffectiveRange(w, visited, depth) {
         if (!subOutfit?.weapon) continue;
         const nv = new Set(visited || []);
         nv.add(subName);
-        const subRange = resolveEffectiveRange(subOutfit.weapon, nv, depth + 1);
+        // Pass current effective velocity down so subs with velocity=0 inherit it
+        const subRange = resolveEffectiveRange(subOutfit.weapon, nv, depth + 1, vel);
         if (subRange !== null) {
             anySubHasRange = true;
             if (subRange > maxSubRange) maxSubRange = subRange;
@@ -659,7 +591,7 @@ function analyzeWeapons(weapons) {
             munition: munitionInfo,
             reload, burstCount, burstReload, framesPerCycle,
             sps: +sps.toFixed(3), piercing: +(piercing * 100).toFixed(0),
-            range: resolveEffectiveRange(w, new Set([w._name].filter(Boolean)), 0),
+            range: resolveEffectiveRange(w, new Set([w._name].filter(Boolean)), 0, 0),
             homing: (w.homing || 0) > 0, antiMissile: (w['anti-missile'] || 0) > 0,
             hasSubmunitions: resolveSubmunitionRefs(w).length > 0, dmgPerShot,
             relShield: +((w['% shield damage'] || 0) * 100).toFixed(1),
@@ -690,32 +622,12 @@ function analyzeWeapons(weapons) {
 //  WEAPON SUSTAIN — resource gate check and cost consumption
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * resolveAmmoRef(w)  →  { ammoName: string, ammoCount: number } | null
- *
- * Two formats exist in the ship-builder JSON:
- *
- * FORMAT A — 1 ammo per shot (weapon.ammo is a string):
- *   weapon: { ammo: "Javelin" }
- *
- * FORMAT B — explicit count (ammo outfit name is the key):
- *   weapon: { "Javelin": 2 }     ← 2 per shot
- *   weapon: { "Javelin": true }  ← 1 per shot (boolean from some parsers)
- *
- * We try FORMAT A first, then scan keys for FORMAT B.
- * Ammo outfits are identified by: ammoStored > 0, category "Ammunition",
- * or own-name attribute > 0.
- */
 function resolveAmmoRef(w) {
-    // FORMAT A: weapon.ammo = "OutfitName"
     const rawAmmoField = w['ammo'];
     if (typeof rawAmmoField === 'string' && rawAmmoField.length > 0) {
-        const outfit = _outfitIndex[rawAmmoField];
-        // Accept even if not in index — the name is explicit
         return { ammoName: rawAmmoField, ammoCount: 1 };
     }
 
-    // FORMAT B: weapon["OutfitName"] = count | true
     for (const key of Object.keys(w)) {
         if (key === 'ammo') continue;
         const val = w[key];
@@ -737,22 +649,6 @@ function resolveAmmoRef(w) {
     return null;
 }
 
-/**
- * canWeaponFire(w, st, stats)  →  string | null
- *
- * Returns the FIRST reason the weapon is blocked, or null if it can fire.
- *
- * Possible return values:
- *   null                  — can fire
- *   'firing energy'       — insufficient energy (or ionized while energy-gated)
- *   'firing fuel'         — insufficient fuel
- *   'firing hull'         — firing would push hull below disable threshold
- *   'firing shields'      — insufficient shields
- *   'ammo:<OutfitName>'   — that ammo outfit is exhausted
- *
- * A weapon with zero cost for a resource is NEVER blocked by that resource.
- * Firing heat is never a gate here — overheat shuts ALL weapons via isOverheated.
- */
 function canWeaponFire(w, st, stats) {
     const fe = w['firing energy'] || 0;
     if (fe > 0) {
@@ -777,10 +673,6 @@ function canWeaponFire(w, st, stats) {
     return null;
 }
 
-/**
- * consumeFiringCosts(w, st)
- * Deducts all per-shot resource costs.  Only call when canWeaponFire returns null.
- */
 function consumeFiringCosts(w, st) {
     st.energy  -= (w['firing energy']  || 0);
     st.fuel    -= (w['firing fuel']    || 0);
@@ -800,31 +692,9 @@ function consumeFiringCosts(w, st) {
 
 function _isAmmoReason(r) { return typeof r === 'string' && r.startsWith('ammo:'); }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  Hysteresis thresholds.
-//
-//  A resource stall is only REPORTED after it has blocked at least one weapon
-//  for STALL_CONFIRM_FRAMES consecutive frames.  A resume is only reported
-//  after the resource has been clear for RESUME_CONFIRM_FRAMES frames.
-//
-//  This prevents energy/shield oscillation (fire → dip → regen → fire…) from
-//  flooding the log.  2 s to confirm a stall, 1 s to confirm recovery.
-// ─────────────────────────────────────────────────────────────────────────────
 const STALL_CONFIRM_FRAMES  = 2 * 60;
 const RESUME_CONFIRM_FRAMES = 1 * 60;
 
-/**
- * createSustainState(stats)
- *
- * Tracking is per-RESOURCE-TYPE across all weapons — at most one stall event
- * and one resume event per resource per ship per fight.
- *
- *   resourceState[key].reported       — stall event has been emitted (not yet resumed)
- *   resourceState[key].stallFrames    — consecutive frames >= 1 weapon blocked
- *   resourceState[key].resumeFrames   — consecutive frames all weapons clear
- *   resourceState[key].reportedNames  — weapon names captured at stall-report time
- *   ammoExhausted                     — Set<'name::ammo'>, permanent, emitted once
- */
 function createSustainState(stats) {
     const resourceState = {};
     for (const key of FIRING_RESOURCE_KEYS) {
@@ -838,21 +708,10 @@ function createSustainState(stats) {
     return { resourceState, ammoExhausted: new Set() };
 }
 
-/**
- * checkWeaponSustainEvents(st, stats, side, t, sus, phases)
- *
- * Called once per frame BEFORE shootFrame.
- *
- * Ammo:     emitted immediately, once per weapon x ammo type, permanent.
- * Resource: per-resource hysteresis —
- *   blocked >= STALL_CONFIRM_FRAMES  → emit one grouped stall ⚠️
- *   clear   >= RESUME_CONFIRM_FRAMES → emit one grouped resume 🔄
- */
 function checkWeaponSustainEvents(st, stats, side, t, sus, phases) {
     const weapons = stats.weapons;
     if (!weapons.length) return;
 
-    // ── Ammo exhaustion (immediate, permanent, once per weapon×ammo) ──────
     for (let i = 0; i < weapons.length; i++) {
         const w      = weapons[i];
         const reason = canWeaponFire(w, st, stats);
@@ -872,15 +731,13 @@ function checkWeaponSustainEvents(st, stats, side, t, sus, phases) {
         }
     }
 
-    // ── Per-resource hysteresis ────────────────────────────────────────────
     for (const key of FIRING_RESOURCE_KEYS) {
         const rs = sus.resourceState[key];
 
-        // Weapons that use this resource AND are currently blocked by it
         const blocked = [];
         for (let i = 0; i < weapons.length; i++) {
             const w = weapons[i];
-            if ((w[key] || 0) === 0) continue;           // doesn't use this resource
+            if ((w[key] || 0) === 0) continue;
             if (canWeaponFire(w, st, stats) === key)
                 blocked.push(w._name || ('Weapon ' + (i + 1)));
         }
@@ -891,7 +748,7 @@ function checkWeaponSustainEvents(st, stats, side, t, sus, phases) {
 
             if (!rs.reported && rs.stallFrames === STALL_CONFIRM_FRAMES) {
                 rs.reported      = true;
-                rs.reportedNames = [...new Set(blocked)];   // deduplicate names
+                rs.reportedNames = [...new Set(blocked)];
                 const label   = resourceLabel(key);
                 const nameStr = rs.reportedNames.map(n => `<em>${escHtml(n)}</em>`).join(', ');
                 const verb    = rs.reportedNames.length === 1 ? 'is' : 'are';
@@ -964,7 +821,6 @@ function simulateBattle(sA, sB) {
     const stA = createCombatantState(sA);
     const stB = createCombatantState(sB);
 
-    // Sustain tracking — lives outside combatant state so it doesn't interfere
     const susA = createSustainState(sA);
     const susB = createSustainState(sB);
 
@@ -984,7 +840,6 @@ function simulateBattle(sA, sB) {
             timelineB.push({ t, shields: stB.shields, hull: stB.hull, energy: stB.energy, heat: stB.heat });
         }
 
-        // Sustain checks run BEFORE shooting so events fire on the correct frame
         if (!stA.disabled && !stA.destroyed)
             checkWeaponSustainEvents(stA, sA, 'A', t, susA, result.phases);
         if (!stB.disabled && !stB.destroyed)
@@ -1086,7 +941,6 @@ function shootFrame(attSt, defSt, attStats) {
         const burstCount  = w['burst count']  || 1;
         const burstReload = w['burst reload'] || reload;
 
-        // Unified gate: energy, fuel, hull, shields, ammo
         if (canWeaponFire(w, attSt, attStats) !== null) {
             advanceBurst(attSt, i, burstCount, burstReload, reload);
             continue;
@@ -1205,7 +1059,6 @@ function doGeneration(st, stats) {
                - stats.coolingPerFrame;
     st.heat   -= st.heat * stats.heatDissipFrac;
 
-    // Fuel recovery: ramscoop (0.03*sqrt(solar)*attr/FPS) + fuel generation attr/FPS
     if (stats.fuelRegenPerFrame > 0) st.fuel += stats.fuelRegenPerFrame;
 
     if ((st.statusEffects.discharge || 0) > 0) st.shields -= st.statusEffects.discharge;
@@ -1468,142 +1321,121 @@ function buildTtkString(name, ttk, projectedTtk) {
     return `${n} survived · ~${fmtT(projectedTtk)} projected`;
 }
 
-function normalizeTimeline(tl, ship) {
-    if (!tl.length) return [];
-
-    // Ensure starting point at t=0
-    if (tl[0].t > 0) {
-        tl.unshift({
-            t: 0,
-            hull: ship.maxHull,
-            shields: ship.maxShields
-        });
-    }
-
-    // If only one point, duplicate it slightly forward
-    if (tl.length === 1) {
-        tl.push({
-            ...tl[0],
-            t: tl[0].t + 0.01
-        });
-    }
-
-    return tl;
-}
-    
-function getDeathTime(tl, ship) {
-    for (let i = 0; i < tl.length; i++) {
-        if (tl[i].hull <= ship.minHull) {
-            return tl[i].t;
-        }
-    }
-    return Infinity; // never dies
-}
-
-function clipTimeline(tl, endTime) {
-    const out = [];
-
-    for (let i = 0; i < tl.length; i++) {
-        const p = tl[i];
-
-        if (p.t <= endTime) {
-            out.push(p);
-        } else {
-            // interpolate final point for smooth cutoff
-            const prev = tl[i - 1];
-            if (prev) {
-                const dt = p.t - prev.t;
-                const ratio = dt > 0 ? (endTime - prev.t) / dt : 0;
-
-                out.push({
-                    t: endTime,
-                    hull: prev.hull + (p.hull - prev.hull) * ratio,
-                    shields: prev.shields + (p.shields - prev.shields) * ratio
-                });
-            }
-            break;
-        }
-    }
-
-    return out;
-}
-    
+// ─────────────────────────────────────────────────────────────────────────────
+//  HP CHART — fixed to correctly render shields+hull stacked line
+//  Uses explicit maxTime clipping with proper t=0 origin.
+// ─────────────────────────────────────────────────────────────────────────────
 function buildHpChart(sA, sB, result) {
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+    // Deep copy timelines so we don't mutate originals
     const tlA = (result.timelineA || []).map(p => ({...p}));
     const tlB = (result.timelineB || []).map(p => ({...p}));
     if (!tlA.length && !tlB.length) return '';
- 
+
     const W=560, H=200, PL=48, PR=12, PT=14, PB=28;
     const cW = W-PL-PR, cH = H-PT-PB;
- 
+
     const deathA = isFinite(result.ttkA) ? result.ttkA : Infinity;
     const deathB = isFinite(result.ttkB) ? result.ttkB : Infinity;
     const firstDeath = Math.min(deathA, deathB);
     const lastPoint  = tl => tl.length ? tl[tl.length-1].t : 0;
+
+    // maxTime: up to first death, or full timeline if no deaths
     const maxTime = Math.max(
-        isFinite(firstDeath) ? firstDeath : Math.max(lastPoint(tlA), lastPoint(tlB)),
+        isFinite(firstDeath)
+            ? firstDeath
+            : Math.max(lastPoint(tlA), lastPoint(tlB)),
         0.1
     );
- 
-    const maxHP = Math.max(sA.maxShields + sA.maxHull, sB.maxShields + sB.maxHull, 1);
- 
+
+    // Max HP for Y axis: shields + hull stacked
+    const maxHP = Math.max(
+        sA.maxShields + sA.maxHull,
+        sB.maxShields + sB.maxHull,
+        1
+    );
+
     const px = t  => PL + clamp(t,  0, maxTime) / maxTime * cW;
     const py = hp => PT + cH - clamp(hp, 0, maxHP) / maxHP * cH;
- 
+
+    // Clip timeline to maxTime, ensure t=0 anchor exists
     function clip(tl) {
+        if (!tl.length) return [];
         const out = [];
-        if (!tl.length) return out;
-        if (tl[0].t > 0) out.push({ t: 0, shields: tl[0].shields, hull: tl[0].hull });
+
+        // Ensure we start at t=0
+        if (tl[0].t > 0) {
+            out.push({ t: 0, shields: tl[0].shields, hull: tl[0].hull });
+        }
+
         for (let i = 0; i < tl.length; i++) {
             const p = tl[i];
-            if (p.t <= maxTime) { out.push(p); continue; }
-            const prev = tl[i-1] || out[out.length-1];
-            if (prev) {
-                const dt = p.t - prev.t, r = dt > 0 ? (maxTime - prev.t) / dt : 0;
-                out.push({
-                    t:       maxTime,
-                    shields: prev.shields + (p.shields - prev.shields) * r,
-                    hull:    prev.hull    + (p.hull    - prev.hull)    * r,
-                });
+            if (p.t <= maxTime) {
+                out.push(p);
+            } else {
+                // Interpolate final point at maxTime
+                const prev = tl[i-1] || out[out.length-1];
+                if (prev && prev.t < maxTime) {
+                    const dt = p.t - prev.t;
+                    const r  = dt > 0 ? (maxTime - prev.t) / dt : 0;
+                    out.push({
+                        t:       maxTime,
+                        shields: prev.shields + (p.shields - prev.shields) * r,
+                        hull:    prev.hull    + (p.hull    - prev.hull)    * r,
+                    });
+                }
+                break;
             }
-            break;
+        }
+
+        // Ensure at least 2 points for a valid path
+        if (out.length === 1) {
+            out.push({ ...out[0], t: out[0].t + 0.001 });
         }
         return out;
     }
- 
+
     const cA = clip(tlA), cB = clip(tlB);
     if (!cA.length && !cB.length) return '';
- 
+
+    // Build SVG path strings
+    // total line = hull + shields (stacked)
+    // hull line  = hull only
     function makePaths(tl) {
         if (!tl.length) return { total: '', hull: '' };
-        const total = tl.map((p, i) =>
-            `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(p.hull + p.shields).toFixed(1)}`
-        ).join(' ');
+        const total = tl.map((p, i) => {
+            const totalHP = Math.max(0, p.hull) + Math.max(0, p.shields);
+            return `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(totalHP).toFixed(1)}`;
+        }).join(' ');
         const hull = tl.map((p, i) =>
-            `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(p.hull).toFixed(1)}`
+            `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(Math.max(0, p.hull)).toFixed(1)}`
         ).join(' ');
         return { total, hull };
     }
- 
+
     const pA = makePaths(cA), pB = makePaths(cB);
- 
+
+    // Y-axis ticks
     const yTicks = [0, 0.5, 1].map(f => {
         const v = maxHP * f, y = py(v).toFixed(1);
         const lb = v >= 1000 ? (v / 1000).toFixed(1) + 'k' : Math.round(v).toString();
         return `<line x1="${PL}" y1="${y}" x2="${PL+cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>` +
                `<text x="${PL-4}" y="${+y+4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;
     }).join('');
- 
+
+    // X-axis ticks
     const xTicks = [0, 0.5, 1].map(f => {
         const t = maxTime * f, x = px(t).toFixed(1);
         return `<text x="${x}" y="${PT+cH+14}" fill="#64748b" font-size="10" text-anchor="middle">${t.toFixed(1)}s</text>`;
     }).join('');
- 
+
+    // Disable threshold lines
     const threshLine = (minHull, color) => minHull > 0
         ? `<line x1="${PL}" y1="${py(minHull).toFixed(1)}" x2="${PL+cW}" y2="${py(minHull).toFixed(1)}" stroke="${color}" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>`
         : '';
- 
+
+    // Legend
     const trunc = (s, n) => s.length > n ? s.slice(0, n-1) + '…' : s;
     const lx = PL + cW - 4;
     const legend =
@@ -1611,7 +1443,7 @@ function buildHpChart(sA, sB, result) {
         `<text x="${lx-70}" y="${PT+8}" fill="#93c5fd" font-size="10" text-anchor="start">${escHtml(trunc(sA.name, 18))}</text>` +
         `<rect x="${lx-82}" y="${PT+16}" width="8" height="3" fill="#ef4444" rx="1"/>` +
         `<text x="${lx-70}" y="${PT+22}" fill="#fca5a5" font-size="10" text-anchor="start">${escHtml(trunc(sB.name, 18))}</text>`;
- 
+
     return `<div class="hp-chart-wrap">` +
         `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:auto;">` +
             `<rect x="${PL}" y="${PT}" width="${cW}" height="${cH}" fill="rgba(15,23,42,0.5)" rx="4"/>` +
@@ -1619,8 +1451,10 @@ function buildHpChart(sA, sB, result) {
             xTicks +
             threshLine(sA.minHull, 'rgba(59,130,246,0.5)') +
             threshLine(sB.minHull, 'rgba(239,68,68,0.5)') +
+            // Ship A: faint total (shields+hull), solid hull
             (pA.total ? `<path d="${pA.total}" fill="none" stroke="rgba(59,130,246,0.25)" stroke-width="1.5"/>` : '') +
             (pA.hull  ? `<path d="${pA.hull}"  fill="none" stroke="#3b82f6" stroke-width="2.5"/>` : '') +
+            // Ship B: faint total, solid hull
             (pB.total ? `<path d="${pB.total}" fill="none" stroke="rgba(239,68,68,0.25)" stroke-width="1.5"/>` : '') +
             (pB.hull  ? `<path d="${pB.hull}"  fill="none" stroke="#ef4444" stroke-width="2.5"/>` : '') +
             legend +
@@ -1628,6 +1462,14 @@ function buildHpChart(sA, sB, result) {
     `</div>`;
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+//  COMPARE GRID
+//
+//  FIX 1: Energy/Fuel shared usage — shows movement costs alongside firing costs
+//         so players can see total demand vs generation.
+//  FIX 2: Movement section now correctly renders turn rate and 180° time rows
+//         by handling the { section } sentinel rows from MovementStats.compareProfiles.
+// ─────────────────────────────────────────────────────────────────────────────
 function buildCompareGrid(sA, sB, result) {
     const ttkStrA = isFinite(result.ttkA) ? fmtTTK(result.ttkA)
         : result.projectedTtkA != null ? (isFinite(result.projectedTtkA) ? `~${fmtT(result.projectedTtkA)} (proj.)` : '∞ (regen wins)') : '∞ (survived)';
@@ -1643,6 +1485,56 @@ function buildCompareGrid(sA, sB, result) {
         protRows.push([key.replace(/\b\w/g, l => l.toUpperCase()), fmtPct(va), fmtPct(vb)]);
     }
 
+    // ── Shared Energy/Fuel budget section ────────────────────────────────────
+    // Shows: generation, idle consumption, movement cost, firing cost, net.
+    // This makes it easy to see if a ship will run out during combat.
+    const energyGenA = sA.energyGenPerFrame * FPS;
+    const energyGenB = sB.energyGenPerFrame * FPS;
+    const idleConsumeA = (sA.energyConsumeIdlePerFrame + sA.coolingEnergyPerFrame) * FPS;
+    const idleConsumeB = (sB.energyConsumeIdlePerFrame + sB.coolingEnergyPerFrame) * FPS;
+    const moveEnergyA  = sA.movingEnergyPerFrame * FPS;
+    const moveEnergyB  = sB.movingEnergyPerFrame * FPS;
+    const fireEnergyA  = sA.firingEnergyPerSec;
+    const fireEnergyB  = sB.firingEnergyPerSec;
+    const netCombatEnergyA = energyGenA - idleConsumeA - moveEnergyA - fireEnergyA;
+    const netCombatEnergyB = energyGenB - idleConsumeB - moveEnergyB - fireEnergyB;
+
+    // Fuel budget (ramscoop + fuel gen vs firing fuel + movement fuel)
+    const fuelGenA     = sA.fuelRegenPerFrame * FPS;
+    const fuelGenB     = sB.fuelRegenPerFrame * FPS;
+    const fireFuelA    = sA.firingFuelPerSec;
+    const fireFuelB    = sB.firingFuelPerSec;
+    // Movement fuel from MovementStats profile if available, else 0
+    const moveFuelA    = (sA.movementProfile?.sustainedCombat?.fuelPerSec) ?? 0;
+    const moveFuelB    = (sB.movementProfile?.sustainedCombat?.fuelPerSec) ?? 0;
+    const netFuelA     = fuelGenA - fireFuelA - moveFuelA;
+    const netFuelB     = fuelGenB - fireFuelB - moveFuelB;
+
+    const hasFuelA = sA.fuelCap > 0;
+    const hasFuelB = sB.fuelCap > 0;
+    const showFuel = hasFuelA || hasFuelB || fireFuelA > 0 || fireFuelB > 0 || moveFuelA > 0 || moveFuelB > 0;
+
+    const energySection = [
+        ['Energy Cap.',          fmt(sA.energyCap),              fmt(sB.energyCap)],
+        ['Energy Gen/s',         fmt(energyGenA),                fmt(energyGenB)],
+        ['Idle Consume/s',       fmt(-idleConsumeA),             fmt(-idleConsumeB)],
+        ['Move Energy/s',        fmt(-moveEnergyA),              fmt(-moveEnergyB)],
+        ['Firing Energy/s',      fmt(-fireEnergyA),              fmt(-fireEnergyB)],
+        ['Net (combat) /s',      fmtNet(netCombatEnergyA),       fmtNet(netCombatEnergyB)],
+        ['Heat Capacity',        fmt(sA.maxHeat),                fmt(sB.maxHeat)],
+        ['Cooling/s',            fmt(sA.coolingPerSec),          fmt(sB.coolingPerSec)],
+        ['Firing Heat/s',        fmt(sA.firingHeatPerSec),       fmt(sB.firingHeatPerSec)],
+        ['Cool Efficiency',      sA.coolEff.toFixed(3),          sB.coolEff.toFixed(3)],
+    ];
+
+    // Only add firing hull/shields cost rows if non-zero for either ship
+    if (sA.firingHullCostPerSec > 0 || sB.firingHullCostPerSec > 0) {
+        energySection.push(['Firing Hull Cost/s', fmt(sA.firingHullCostPerSec), fmt(sB.firingHullCostPerSec)]);
+    }
+    if (sA.firingShieldCostPerSec > 0 || sB.firingShieldCostPerSec > 0) {
+        energySection.push(['Firing Shield Cost/s', fmt(sA.firingShieldCostPerSec), fmt(sB.firingShieldCostPerSec)]);
+    }
+
     const sections = [
         ['Combat', [
             ['Time to Disable',   ttkStrA, ttkStrB],
@@ -1655,40 +1547,46 @@ function buildCompareGrid(sA, sB, result) {
             ['Hull Repair/s',     fmt(sA.hullRepairPerSec),  fmt(sB.hullRepairPerSec)],
             ...protRows,
         ]],
-        ['Energy & Heat', [
-            ['Energy Cap.',     fmt(sA.energyCap),             fmt(sB.energyCap)],
-            ['Energy Gen/s',    fmt(sA.energyGenPerFrame*FPS), fmt(sB.energyGenPerFrame*FPS)],
-            ['Firing Energy/s', fmt(sA.firingEnergyPerSec),    fmt(sB.firingEnergyPerSec)],
-            ['Net Energy/s',
-                fmtNet((sA.energyGenPerFrame-sA.energyConsumeIdlePerFrame-sA.movingEnergyPerFrame-sA.coolingEnergyPerFrame-sA.firingEnergyPerSec/FPS)*FPS),
-                fmtNet((sB.energyGenPerFrame-sB.energyConsumeIdlePerFrame-sB.movingEnergyPerFrame-sB.coolingEnergyPerFrame-sB.firingEnergyPerSec/FPS)*FPS)],
-            ['Heat Capacity',   fmt(sA.maxHeat),          fmt(sB.maxHeat)],
-            ['Cooling/s',       fmt(sA.coolingPerSec),    fmt(sB.coolingPerSec)],
-            ['Firing Heat/s',   fmt(sA.firingHeatPerSec), fmt(sB.firingHeatPerSec)],
-            ['Cool Efficiency', sA.coolEff.toFixed(3),    sB.coolEff.toFixed(3)],
-        ]],
+        ['Energy & Heat', energySection],
     ];
 
-    // ── Movement stats comparison (from MovementStats.compareProfiles) ─────────
-    // Appended as extra sections after the core ones.
-    // sA/sB.movementProfile is attached in selectShip() if MovementStats is loaded.
-    // compareProfiles returns { rows: [ {section} | {label,valueA,valueB} ] }
-    // We convert those rows into the same [label, valueA, valueB] triple format.
+    // Fuel section — only if relevant
+    if (showFuel) {
+        const fuelRows = [
+            ['Fuel Capacity',   fmt(sA.fuelCap),   fmt(sB.fuelCap)],
+            ['Fuel Regen/s',    fmt(fuelGenA),      fmt(fuelGenB)],
+        ];
+        if (moveFuelA > 0 || moveFuelB > 0)
+            fuelRows.push(['Move Fuel/s', fmt(-moveFuelA), fmt(-moveFuelB)]);
+        if (fireFuelA > 0 || fireFuelB > 0)
+            fuelRows.push(['Firing Fuel/s', fmt(-fireFuelA), fmt(-fireFuelB)]);
+        fuelRows.push(['Net Fuel/s', fmtNet(netFuelA), fmtNet(netFuelB)]);
+        sections.push(['Fuel', fuelRows]);
+    }
+
+    // ── Movement stats comparison ────────────────────────────────────────────
+    // FIX: The original code checked for section sentinel rows but the
+    // compareProfiles() output uses { section: string } objects as dividers.
+    // We now correctly handle those and always push label/value rows to the
+    // current section array, ensuring turn rate and 180° time always appear.
     const movA = sA.movementProfile, movB = sB.movementProfile;
     if (movA && movB && typeof window.MovementStats?.compareProfiles === 'function') {
         const cmp = window.MovementStats.compareProfiles(movA, sA.name, movB, sB.name);
         let currentItems = null;
         for (const r of (cmp?.rows || [])) {
             if (r.section) {
+                // Start a new movement sub-section
                 currentItems = [];
                 sections.push([r.section, currentItems]);
-            } else if (currentItems) {
+            } else if (currentItems && r.label != null && r.valueA != null && r.valueB != null) {
+                // Push the data row — this now correctly includes turn rate & 180° time
                 currentItems.push([r.label, r.valueA, r.valueB]);
             }
         }
     }
 
     return sections.map(([section, items]) => {
+        if (!items || items.length === 0) return '';
         const colA      = items.map(([,va])   => `<div class="res-row"><div class="res-row-value">${va}</div></div>`).join('');
         const colDiv    = items.map(([label]) => `<div class="res-divider-item">${label}</div>`).join('');
         const colB      = items.map(([,,vb])  => `<div class="res-row"><div class="res-row-value">${vb}</div></div>`).join('');
@@ -1738,6 +1636,19 @@ function buildWeaponsList(details) {
     }).join('');
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+//  FORMATTING HELPERS
+//
+//  FIX: fmtPct — protection values in ES data files follow this convention:
+//    1.0  = 100% protection  (maximum, clamped)
+//    0.5  = 50% protection
+//    0.1  = 10% protection
+//    0.01 = 1% protection
+//
+//  The old fmtPct had a broken branch that showed "1" as "1.0%" instead of
+//  "100%". The correct behaviour: multiply by 100 and show as percentage.
+//  We never need special-casing — just always multiply by 100.
+// ─────────────────────────────────────────────────────────────────────────────
 function fmt(n) {
     if (n===null||n===undefined) return '—';
     if (!isFinite(n)) return '∞';
@@ -1749,7 +1660,28 @@ function fmt(n) {
 }
 function fmtT(t)   { return isFinite(t) ? t.toFixed(1)+'s' : '∞'; }
 function fmtTTK(t) { return isFinite(t) ? fmtT(t) : '∞ (never)'; }
-function fmtPct(v, dp=1) { if (!v) return '0%'; return (v*(dp===1&&v<1?100:1)).toFixed(dp)+'%'; }
+
+/**
+ * fmtPct(v, dp)
+ *
+ * Formats a protection/resistance fraction as a percentage string.
+ * ES data file values: 1.0 = 100%, 0.5 = 50%, 0.1 = 10%, 0.01 = 1%
+ *
+ * Always multiplies by 100. Strips trailing zeros for clean display.
+ *   fmtPct(1)    → "100%"
+ *   fmtPct(0.5)  → "50%"
+ *   fmtPct(0.1)  → "10%"
+ *   fmtPct(0.01) → "1%"
+ *   fmtPct(0)    → "0%"
+ */
+function fmtPct(v) {
+    if (!v) return '0%';
+    const pct = v * 100;
+    // Use up to 2 decimal places but strip trailing zeros
+    const s = pct.toFixed(2).replace(/\.?0+$/, '');
+    return s + '%';
+}
+
 function fmtNet(v) { if (!isFinite(v)||v===0) return '0'; return (v>0?'+':'')+fmt(v); }
 function escHtml(s) {
     return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
