@@ -1437,15 +1437,27 @@ function buildHpChart(sA, sB, result) {
     // total line = hull + shields (stacked)
     // hull line  = hull only
     function makePaths(tl) {
-        if (!tl.length) return { total: '', hull: '' };
-        const total = tl.map((p, i) => {
+        if (!tl.length) return { total: '', hull: '', shieldArea: '' };
+    
+        // Forward pass for shield area top edge (total HP)
+        const fwd = tl.map((p, i) => {
             const totalHP = Math.max(0, p.hull) + Math.max(0, p.shields);
             return `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(totalHP).toFixed(1)}`;
         }).join(' ');
+    
+        // Reverse pass for shield area bottom edge (hull line)
+        const rev = [...tl].reverse().map((p, i) => {
+            return `L${px(p.t).toFixed(1)},${py(Math.max(0, p.hull)).toFixed(1)}`;
+        }).join(' ');
+    
+        const shieldArea = fwd + ' ' + rev + ' Z';
+    
+        const total = fwd; // reuse
         const hull = tl.map((p, i) =>
             `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(Math.max(0, p.hull)).toFixed(1)}`
         ).join(' ');
-        return { total, hull };
+    
+        return { total, hull, shieldArea };
     }
 
     const pA = makePaths(cA), pB = makePaths(cB);
@@ -1485,12 +1497,13 @@ function buildHpChart(sA, sB, result) {
             xTicks +
             threshLine(sA.minHull, 'rgba(59,130,246,0.5)') +
             threshLine(sB.minHull, 'rgba(239,68,68,0.5)') +
-            // Ship A: faint total (shields+hull), solid hull
-            (pA.total ? `<path d="${pA.total}" fill="none" stroke="rgba(59,130,246,0.25)" stroke-width="1.5"/>` : '') +
-            (pA.hull  ? `<path d="${pA.hull}"  fill="none" stroke="#3b82f6" stroke-width="2.5"/>` : '') +
-            // Ship B: faint total, solid hull
-            (pB.total ? `<path d="${pB.total}" fill="none" stroke="rgba(239,68,68,0.25)" stroke-width="1.5"/>` : '') +
-            (pB.hull  ? `<path d="${pB.hull}"  fill="none" stroke="#ef4444" stroke-width="2.5"/>` : '') +
+            // Ship A: filled shield band + solid hull line
+            (pA.shieldArea ? `<path d="${pA.shieldArea}" fill="rgba(59,130,246,0.12)" stroke="none"/>` : '') +
+            (pA.hull       ? `<path d="${pA.hull}"  fill="none" stroke="#3b82f6" stroke-width="2.5"/>` : '') +
+
+            // Ship B: filled shield band + solid hull line  
+            (pB.shieldArea ? `<path d="${pB.shieldArea}" fill="rgba(239,68,68,0.12)" stroke="none"/>` : '') +
+            (pB.hull       ? `<path d="${pB.hull}"  fill="none" stroke="#ef4444" stroke-width="2.5"/>` : '') +
             legend +
         `</svg>` +
     `</div>`;
