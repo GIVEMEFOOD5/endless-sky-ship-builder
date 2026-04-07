@@ -662,7 +662,7 @@ function _resolveSubmunitionRefs(w) {
         if (val === false || val === 0 || val === null || val === undefined) continue;
         if (typeof val !== 'number' && val !== true) continue;
 
-        const outfit = _outfitIndex[key];
+        const outfit = index[key];
         if (!outfit?.weapon) continue;
 
         const isAmmo =
