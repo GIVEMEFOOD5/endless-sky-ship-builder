@@ -463,6 +463,7 @@ function resolveShipStats(ship) {
 function resolveSubmunitionRefs(w) {
     const results = [];
 
+    // FORMAT A: w.submunition = "Name" | {name, count} | array
     const rawSub = w.submunition;
     if (rawSub != null) {
         const entries = Array.isArray(rawSub) ? rawSub : [rawSub];
@@ -477,8 +478,25 @@ function resolveSubmunitionRefs(w) {
         if (results.length > 0) return results;
     }
 
+    // FORMAT A2: "submunition <OutfitName>" key with array of offset objects
+    // e.g. "submunition Speck": [{"offset": -3}, {"offset": 3}]
+    for (const key of Object.keys(w)) {
+        if (!key.startsWith('submunition ')) continue;
+        const subName = key.slice('submunition '.length).trim();
+        if (!subName) continue;
+        const val = w[key];
+        // val is an array of offset objects — count = array length
+        const subCount = Array.isArray(val) ? val.length
+                       : typeof val === 'number' ? Math.max(1, val)
+                       : 1;
+        results.push({ subName, subCount });
+    }
+    if (results.length > 0) return results;
+
+    // FORMAT B: outfit name as key with numeric count
     for (const key of Object.keys(w)) {
         if (key === 'submunition') continue;
+        if (key.startsWith('submunition ')) continue; // already handled above
         const val = w[key];
         if (val === false || val === 0 || val === null || val === undefined) continue;
         if (typeof val !== 'number' && val !== true) continue;
@@ -498,7 +516,6 @@ function resolveSubmunitionRefs(w) {
 
     return results;
 }
-
 /**
  * resolveEffectiveRange(w, visited, depth, inheritedVelocity)
  *
@@ -623,11 +640,13 @@ function analyzeWeapons(weapons) {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function resolveAmmoRef(w) {
+    // FORMAT A: weapon.ammo = "OutfitName"
     const rawAmmoField = w['ammo'];
     if (typeof rawAmmoField === 'string' && rawAmmoField.length > 0) {
         return { ammoName: rawAmmoField, ammoCount: 1 };
     }
 
+    // FORMAT B: weapon["OutfitName"] = count|true
     for (const key of Object.keys(w)) {
         if (key === 'ammo') continue;
         const val = w[key];
@@ -635,20 +654,35 @@ function resolveAmmoRef(w) {
         if (typeof val !== 'number' && val !== true) continue;
 
         const outfit = _outfitIndex[key];
-        if (!outfit) continue;
 
-        const isAmmo =
-            (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
-         || outfit.category === 'Ammunition'
-         || (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0);
-        if (!isAmmo) continue;
+        // Check outfit-index first (full validation)
+        if (outfit) {
+            const isAmmo =
+                (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
+             || outfit.category === 'Ammunition'
+             || (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0);
+            if (!isAmmo) continue;
+            const ammoCount = val === true ? 1 : Math.max(1, Math.round(val));
+            return { ammoName: key, ammoCount };
+        }
 
-        const ammoCount = val === true ? 1 : Math.max(1, Math.round(val));
-        return { ammoName: key, ammoCount };
+        // FALLBACK: outfit not in index — check if ship already has this as ammo inventory
+        // This handles ammo packs defined in other data files that didn't load
+        // We trust it's ammo if the key appears in the ship's ammoInventory
+        // (populated during resolveShipStats from ammoStored)
+        // We can't check here without access to the ship state, so we defer:
+        // return a tentative ref — canWeaponFire will gate on inventory presence
+        if (typeof val === 'number' && val >= 1) {
+            // Only treat as ammo if the key doesn't look like a weapon data key
+            // (weapon data keys like 'shield damage' won't appear as outfit names)
+            if (!_weaponDataKeys.has(key)) {
+                const ammoCount = Math.max(1, Math.round(val));
+                return { ammoName: key, ammoCount };
+            }
+        }
     }
     return null;
 }
-
 function canWeaponFire(w, st, stats) {
     const fe = w['firing energy'] || 0;
     if (fe > 0) {
