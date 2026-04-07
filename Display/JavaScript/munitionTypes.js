@@ -638,25 +638,41 @@ function _resolveSubmunitionRefs(w) {
         if (results.length > 0) return results;
     }
 
-    // FORMAT B: outfit name as key, count as value
+    // FORMAT A2: "submunition <OutfitName>" key with array of offset objects
+    // e.g. "submunition Speck": [{"offset": -3}, {"offset": 3}]
+    for (const key of Object.keys(w)) {
+        if (!key.startsWith('submunition ')) continue;
+        const subName = key.slice('submunition '.length).trim();
+        if (!subName) continue;
+        const val = w[key];
+        // val is an array of offset objects — count = array length
+        const subCount = Array.isArray(val) ? val.length
+                       : typeof val === 'number' ? Math.max(1, val)
+                       : 1;
+        results.push({ subName, subCount });
+    }
+    if (results.length > 0) return results;
+
+    // FORMAT B: outfit name as key with numeric count
     const index = _getOutfitIndex();
     for (const key of Object.keys(w)) {
         if (key === 'submunition') continue;
+        if (key.startsWith('submunition ')) continue; // already handled above
         const val = w[key];
         if (val === false || val === 0 || val === null || val === undefined) continue;
         if (typeof val !== 'number' && val !== true) continue;
 
-        const outfit = index[key];
+        const outfit = _outfitIndex[key];
         if (!outfit?.weapon) continue;
 
-        // Exclude ammo outfits
         const isAmmo =
             (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
          || outfit.category === 'Ammunition'
          || (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0);
         if (isAmmo) continue;
 
-        results.push({ subName: key, subCount: val === true ? 1 : Math.max(1, Math.round(val)) });
+        const subCount = val === true ? 1 : Math.max(1, Math.round(val));
+        results.push({ subName: key, subCount });
     }
 
     return results;
