@@ -401,31 +401,43 @@ function resolveShipStats(ship) {
         0.03 * Math.sqrt(SOLAR_POWER) * a('ramscoop') + a('fuel generation')
     ) / FPS;
 
+    // NEW — handles all three ES ammo conventions
     const ammoInventory = {};
     for (const [outfitName, qty] of Object.entries(ship.outfitMap || {})) {
         const outfit = _outfitIndex[outfitName];
         if (!outfit) continue;
 
+    // Only process outfits that are ammunition
+            const isAmmoOutfit =
+            outfit.category === 'Ammunition' ||
+            (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) ||
+            (typeof outfit.attributes?.[outfitName] === 'number' && outfit.attributes[outfitName] > 0);
+
+        if (!isAmmoOutfit) continue;
+
+        // Convention 1: explicit ammoStored field (e.g. "ammoStored": 100)
+        // One outfit unit provides N rounds of storage
         let roundsPerUnit = 0;
-
-        if (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
+        if (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) {
             roundsPerUnit = outfit.ammoStored;
+        }
 
-        if (roundsPerUnit === 0 && outfit.attributes &&
-                typeof outfit.attributes[outfitName] === 'number' &&
-                outfit.attributes[outfitName] > 0)
-            roundsPerUnit = outfit.attributes[outfitName];
-
+        // Convention 2: self-named attribute (e.g. outfit "Javelin" has attribute "Javelin": 100)
         if (roundsPerUnit === 0) {
             const attrs = extractOutfitAttributes(outfit);
             if (typeof attrs[outfitName] === 'number' && attrs[outfitName] > 0)
                 roundsPerUnit = attrs[outfitName];
         }
 
-        if (roundsPerUnit > 0)
-            ammoInventory[outfitName] = (ammoInventory[outfitName] || 0) + roundsPerUnit * qty;
-    }
+        // Convention 3: negative-capacity ammo (e.g. "finisher capacity": -1)
+        // Each installed copy of the ammo outfit IS one round — qty directly = rounds
+        if (roundsPerUnit === 0) {
+            roundsPerUnit = 1;
+        }
 
+        ammoInventory[outfitName] = (ammoInventory[outfitName] || 0) + roundsPerUnit * qty;
+    }
+    
     const thrustForVel = a('thrust') || a('afterburner thrust');
     const maxVelocity  = drag > 0 ? thrustForVel / drag : 0;
     const acceleration = inertialMass > 0
@@ -639,6 +651,24 @@ function analyzeWeapons(weapons) {
 //  WEAPON SUSTAIN — resource gate check and cost consumption
 // ═══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * _isNegativeCapacityAmmo(outfit, outfitName)
+ *
+ * Returns true if the outfit looks like ES "negative capacity" ammo —
+ * i.e. it has exactly one negative numeric attribute that ends in " capacity"
+ * and the value is -1 (consuming one slot per unit).
+ *
+ * Example: "Finisher Torpedo" has "finisher capacity": -1
+ */
+function _isNegativeCapacityAmmo(outfit, outfitName) {
+    const attrs = extractOutfitAttributes(outfit);
+    for (const [key, val] of Object.entries(attrs)) {
+        if (key.endsWith(' capacity') && typeof val === 'number' && val < 0)
+            return true;
+    }
+    return false;
+}
+    
 function resolveAmmoRef(w) {
     // FORMAT A: weapon.ammo = "OutfitName"
     const rawAmmoField = w['ammo'];
@@ -657,10 +687,12 @@ function resolveAmmoRef(w) {
 
         // Check outfit-index first (full validation)
         if (outfit) {
+            // NEW — also accepts negative-capacity outfits as ammo
             const isAmmo =
-                (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
-             || outfit.category === 'Ammunition'
-             || (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0);
+                outfit.category === 'Ammunition' ||
+                (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) ||
+                (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0) ||
+                _isNegativeCapacityAmmo(outfit, key);
             if (!isAmmo) continue;
             const ammoCount = val === true ? 1 : Math.max(1, Math.round(val));
             return { ammoName: key, ammoCount };
