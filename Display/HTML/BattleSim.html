@@ -14,92 +14,39 @@
 <div class="container">
     <header class="panel">
         <h1>⚔️ Battle Simulator</h1>
-        <p class="subtitle">Analytical combat prediction — select two ships and see who wins</p>
+        <p class="subtitle">Multi-team analytical combat — add unlimited teams and ships, then simulate</p>
     </header>
 
-    <!-- Plugin selector (mirrors DataViewer) -->
+    <!-- Plugin selector -->
     <div class="panel search-section" id="pluginSelectorPanel">
-        <h2 class="section-title" style="font-size:1.1rem;margin-bottom:10px;">
-            Active Plugins
-        </h2>
+        <h2 class="section-title" style="font-size:1.1rem;margin-bottom:10px;">Active Plugins</h2>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
             <button class="btn-action" onclick="openPluginPicker()">☰ Select Plugins</button>
-            <span style="font-size:0.82rem;color:#64748b;font-style:italic;">
-                First plugin = primary for image/outfit lookup
-            </span>
+            <span style="font-size:0.82rem;color:#64748b;font-style:italic;">First plugin = primary for image/outfit lookup</span>
         </div>
-        <div id="activePluginList">
-            <span class="sorter-empty">Loading…</span>
-        </div>
+        <div id="activePluginList"><span class="sorter-empty">Loading…</span></div>
         <div id="simStatus" style="margin-top:10px;font-size:0.88rem;display:none;"></div>
     </div>
 
     <!-- Main sim area -->
     <div class="panel" id="simPanel" style="display:none;">
 
-        <!-- Ship selectors -->
-        <div class="sim-layout">
-
-            <!-- Slot A -->
-            <div class="ship-slot slot-a" id="slotA">
-                <div class="slot-title">⚔ Attacker A</div>
-
-                <div class="ship-search-wrap">
-                    <input type="text" id="searchA" placeholder="🔍 Search ships…"
-                           autocomplete="off" oninput="searchShips('A', this.value)"
-                           onfocus="openDropdown('A')" onblur="blurDropdown('A')">
-                    <div class="ship-dropdown" id="dropdownA"></div>
-                </div>
-
-                <div class="selected-ship" id="selectedA">
-                    <img class="selected-ship-img" id="imgA" src="" alt="">
-                    <div class="selected-ship-info">
-                        <div class="selected-ship-name" id="nameA"></div>
-                        <div class="selected-ship-meta" id="metaA"></div>
-                        <button class="selected-ship-clear" onclick="clearSlot('A')" title="Clear">✕</button>
-                    </div>
-                </div>
-
-                <div class="slot-stats" id="statsA" style="display:none;"></div>
-            </div>
-
-            <div class="sim-vs">VS</div>
-
-            <!-- Slot B -->
-            <div class="ship-slot slot-b" id="slotB">
-                <div class="slot-title">⚔ Attacker B</div>
-
-                <div class="ship-search-wrap">
-                    <input type="text" id="searchB" placeholder="🔍 Search ships…"
-                           autocomplete="off" oninput="searchShips('B', this.value)"
-                           onfocus="openDropdown('B')" onblur="blurDropdown('B')">
-                    <div class="ship-dropdown" id="dropdownB"></div>
-                </div>
-
-                <div class="selected-ship" id="selectedB">
-                    <img class="selected-ship-img" id="imgB" src="" alt="">
-                    <div class="selected-ship-info">
-                        <div class="selected-ship-name" id="nameB"></div>
-                        <div class="selected-ship-meta" id="metaB"></div>
-                        <button class="selected-ship-clear" onclick="clearSlot('B')" title="Clear">✕</button>
-                    </div>
-                </div>
-
-                <div class="slot-stats" id="statsB" style="display:none;"></div>
-            </div>
+        <!-- Teams -->
+        <div style="margin-bottom:8px;">
+            <div class="timeline-label">Teams</div>
+            <div id="teamsContainer"></div>
+            <button id="addTeamBtn" onclick="addNewTeam()">＋ Add Team</button>
         </div>
 
         <!-- Fight button -->
         <div class="fight-btn-wrap">
-            <button class="fight-btn" id="fightBtn" onclick="runSimulation()" disabled>
-                ⚔ SIMULATE BATTLE
-            </button>
+            <button class="fight-btn" id="fightBtn" disabled>⚔ SIMULATE BATTLE</button>
         </div>
 
         <div class="sim-loading" id="simLoading">Computing battle…</div>
 
         <!-- Results -->
-        <div id="simResults">
+        <div id="simResults" style="display:none;">
 
             <div class="result-header">
                 <div class="result-winner-label">🏆 Winner</div>
@@ -107,8 +54,8 @@
                 <div class="result-subtitle" id="resultSubtitle"></div>
             </div>
 
-            <!-- Timeline bar -->
-            <div class="timeline-section">
+            <!-- 2-team timeline (hidden for N>2) -->
+            <div id="timelineSection">
                 <div class="timeline-label">Survival Timeline</div>
                 <div class="timeline-track">
                     <div class="timeline-bar-a" id="timelineBarA">
@@ -121,13 +68,17 @@
                 </div>
             </div>
 
+            <!-- HP chart (2-team only) -->
             <div id="hpChartContainer"></div>
-            
-            <!-- Stats comparison -->
+
+            <!-- Stats comparison (2-team only) -->
             <div id="compareGrid"></div>
 
-            <!-- Weapon breakdown -->
-            <div style="margin-bottom:8px;">
+            <!-- N-team matrix (hidden for 2-team) -->
+            <div id="matrixSection" style="display:none;"></div>
+
+            <!-- Weapon breakdown (2-team only) -->
+            <div style="margin-bottom:8px;" id="weaponsSection">
                 <div class="timeline-label">Weapon Analysis</div>
                 <div class="weapons-grid" id="weaponsGrid"></div>
             </div>
@@ -138,7 +89,7 @@
                 <div class="phase-list" id="phaseList"></div>
             </div>
 
-        </div><!-- /#resultsPanel -->
+        </div><!-- /#simResults -->
 
     </div><!-- /#simPanel -->
 
@@ -149,10 +100,8 @@
                 <span class="picker-header__title">Select Plugins</span>
                 <button class="btn-close btn-close--sm" onclick="closePluginPicker()">✕</button>
             </div>
-            <input class="text-input picker-search" type="text"
-                   id="pluginPickerSearch"
-                   placeholder="🔍 Search plugins…"
-                   oninput="renderPluginPickerList(this.value)">
+            <input class="text-input picker-search" type="text" id="pluginPickerSearch"
+                   placeholder="🔍 Search plugins…" oninput="renderPluginPickerList(this.value)">
             <div class="picker-list" id="pluginPickerList"></div>
             <div class="picker-footer">
                 <button class="btn btn-secondary" onclick="closePluginPicker()">Cancel</button>
