@@ -1830,12 +1830,20 @@ function buildAmmoSummary(stats) {
     if (!rows.length) return '';
 
     const items = rows.map(r => {
-        const sustain = r.sustainSecs != null ? ` · ${r.sustainSecs.toFixed(1)}s sustained` : '';
-        return `` + `${escHtml(r.ammoName)}` + `${r.stock} rounds${sustain}` + ``;
+        const sustain = r.sustainSecs != null
+            ? `<span class="weapon-stat">⏱ <span>${r.sustainSecs.toFixed(1)}s</span></span>`
+            : '';
+
+        return `
+            <div class="weapon-ammo">
+                <span class="weapon-stat ammo-name">${escHtml(r.ammoName)}</span>
+                <span class="weapon-stat">Stock:<span>${r.stock}</span></span>
+                ${sustain}
+            </div>
+        `;
     }).join('');
     
-    return ``+ `Ammunition` + items + ``;
-
+    return items;
 }
     
 function buildWeaponsList(details) {
