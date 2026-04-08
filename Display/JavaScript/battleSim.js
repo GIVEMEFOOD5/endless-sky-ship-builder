@@ -1343,8 +1343,16 @@ function renderResults(sA, sB, result) {
     const weaponsEl = document.getElementById('weaponsGrid');
     if (weaponsEl)
         weaponsEl.innerHTML =
-            `<div><div class="weapons-col-title weapons-col-title-a">${escHtml(sA.name)}</div>${buildWeaponsList(sA.weaponDetails)}</div>
-             <div><div class="weapons-col-title weapons-col-title-b">${escHtml(sB.name)}</div>${buildWeaponsList(sB.weaponDetails)}</div>`;
+            `<div>`
+            + `<div class="weapons-col-title weapons-col-title-a">${escHtml(sA.name)}</div>`
+            + buildWeaponsList(sA.weaponDetails)
+            + buildAmmoSummary(sA)
+            + `</div>`
+            + `<div>`
+            + `<div class="weapons-col-title weapons-col-title-b">${escHtml(sB.name)}</div>`
+            + buildWeaponsList(sB.weaponDetails)
+            + buildAmmoSummary(sB)
+            + `</div>`;
 
     const phaseEl = document.getElementById('phaseList');
     if (phaseEl) {
@@ -1426,13 +1434,14 @@ function buildHpChart(sA, sB, result) {
     const py = hp => PT + cH - clamp(hp, 0, maxHP) / maxHP * cH;
 
     // Clip timeline to maxTime, ensure t=0 anchor exists
-    function clip(tl) {
+    function clip(tl, initialShields, initialHull) {
         if (!tl.length) return [];
         const out = [];
 
-        // Ensure we start at t=0
+        // Ensure we start at t=0 using the INITIAL state (before any damage)
+        // tl[0] may already reflect damage dealt on frame 0
         if (tl[0].t > 0) {
-            out.push({ t: 0, shields: tl[0].shields, hull: tl[0].hull });
+            out.push({ t: 0, shields: initialShields, hull: initialHull });
         }
 
         for (let i = 0; i < tl.length; i++) {
@@ -1462,34 +1471,44 @@ function buildHpChart(sA, sB, result) {
         return out;
     }
 
-    const cA = clip(tlA), cB = clip(tlB);
+    const cA = clip(tlA, sA.maxShields, sA.maxHull)
+    const cB = clip(tlB, sB.maxShields, sB.maxHull);
+    
     if (!cA.length && !cB.length) return '';
 
     // Build SVG path strings
     // total line = hull + shields (stacked)
     // hull line  = hull only
     function makePaths(tl) {
+
         if (!tl.length) return { total: '', hull: '', shieldArea: '' };
     
-        // Forward pass for shield area top edge (total HP)
-        const fwd = tl.map((p, i) => {
-            const totalHP = Math.max(0, p.hull) + Math.max(0, p.shields);
-            return `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(totalHP).toFixed(1)}`;
-        }).join(' ');
-    
-        // Reverse pass for shield area bottom edge (hull line)
-        const rev = [...tl].reverse().map((p, i) => {
-            return `L${px(p.t).toFixed(1)},${py(Math.max(0, p.hull)).toFixed(1)}`;
-        }).join(' ');
-    
-        const shieldArea = fwd + ' ' + rev + ' Z';
-    
-        const total = fwd; // reuse
+        // Hull line: solid line showing hull HP over time
         const hull = tl.map((p, i) =>
             `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(Math.max(0, p.hull)).toFixed(1)}`
         ).join(' ');
+
+        // Shield area: filled band between (hull) and (hull+shields)
+        // Forward along top edge (hull+shields), backward along bottom edge (hull)
+        // Only render if any shields exist at any point
+        const hasShields = tl.some(p => p.shields > 0);
     
-        return { total, hull, shieldArea };
+        let shieldArea = '';
+    
+        if (hasShields) {
+            const fwd = tl.map((p, i) => {
+                const y = py(Math.max(0, p.hull) + Math.max(0, p.shields));
+                return `${i === 0 ? 'M' : 'L'}${px(p.t).toFixed(1)},${y.toFixed(1)}`;
+            }).join(' ');
+
+            // Reverse: walk backwards along the hull line to close the polygon
+            const rev = [...tl].reverse().map(p => {
+                return `L${px(p.t).toFixed(1)},${py(Math.max(0, p.hull)).toFixed(1)}`;
+            }).join(' ');
+            shieldArea = `${fwd} ${rev} Z`;
+        }
+
+        return { hull, shieldArea };
     }
 
     const pA = makePaths(cA), pB = makePaths(cB);
@@ -1681,6 +1700,144 @@ function buildCompareGrid(sA, sB, result) {
     }).join('');
 }
 
+/**
+
+ * buildAmmoSummary(stats)
+
+ *
+
+ * For each weapon that consumes ammo, resolves the ammo outfit, finds
+
+ * which capacity key it uses (e.g. "finisher capacity": -1), then sums
+
+ * all positive contributions of that key from the ship's installed outfits
+
+ * to determine total stock. Falls back to ammoInventory if available.
+
+ *
+
+ * Returns HTML string, or '' if no ammo weapons.
+
+ */
+
+function buildAmmoSummary(stats) {
+
+    const outfitMap = stats.rawShip?.outfitMap || {};
+    const seen = new Set();
+    const rows = [];
+
+    for (const w of stats.weapons) {
+        const ammoRef = resolveAmmoRef(w);
+        if (!ammoRef?.ammoName) continue;
+        const ammoName = ammoRef.ammoName;
+        if (seen.has(ammoName)) continue;
+        seen.add(ammoName);
+
+
+        // Find the capacity key this ammo consumes
+        // Convention: ammo outfit has a "* capacity": -N attribute
+        const ammoOutfit = _outfitIndex[ammoName];
+        let capacityKey = null;
+        let ammoPerUnit = 1; // how many rounds per installed ammo outfit
+
+        if (ammoOutfit) {
+            // Check top-level keys first (data file format)
+            for (const [k, v] of Object.entries(ammoOutfit)) {
+                if (k.endsWith(' capacity') && typeof v === 'number' && v < 0) {
+                    capacityKey = k;
+                    ammoPerUnit = Math.abs(v); // e.g. -1 means 1 round per outfit
+                    break;
+                }
+            }
+
+            // Also check .attributes sub-object
+            if (!capacityKey && ammoOutfit.attributes) {
+                for (const [k, v] of Object.entries(ammoOutfit.attributes)) {
+                    if (k.endsWith(' capacity') && typeof v === 'number' && v < 0) {
+                        capacityKey = k;
+                        ammoPerUnit = Math.abs(v);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Sum total capacity from all installed outfits that provide it
+        let totalCapacity = 0;
+        let installedAmmoCount = 0;
+
+        for (const [outfitName, qty] of Object.entries(outfitMap)) {
+
+            const outfit = _outfitIndex[outfitName];
+
+            if (!outfit) continue;
+
+            if (capacityKey) {
+
+                // Sum positive contributions of the capacity key
+                // (weapon outfits provide +N, ammo outfits provide -N)
+                const topLevel = typeof outfit[capacityKey] === 'number'
+                    ? outfit[capacityKey] : 0;
+                
+                const attrLevel = typeof outfit.attributes?.[capacityKey] === 'number'
+                    ? outfit.attributes[capacityKey] : 0;
+                
+                const perUnit = topLevel + attrLevel;
+                if (perUnit > 0) totalCapacity += perUnit * qty;
+            }
+
+            // Count directly installed ammo outfits
+            if (outfitName === ammoName) installedAmmoCount += qty;
+        }
+
+        // Best stock estimate:
+        // 1. If we found a capacity key: total capacity / cost per ammo = max rounds
+        // 2. Else use ammoInventory from resolveShipStats
+        // 3. Else use raw installed count
+        let stock = 0;
+        
+        if (capacityKey && totalCapacity > 0) {
+            stock = Math.round(totalCapacity / ammoPerUnit);
+        } else if ((stats.ammoInventory?.[ammoName] ?? 0) > 0) {
+            stock = stats.ammoInventory[ammoName];
+        } else {
+            stock = installedAmmoCount;
+        }
+
+        // Find which weapon(s) use this ammo
+        const weaponNames = stats.weapons
+            .filter(w2 => resolveAmmoRef(w2)?.ammoName === ammoName)
+            .map(w2 => w2._name || 'Unknown')
+            .filter((n, i, a) => a.indexOf(n) === i);
+
+        // Shots per second for this ammo's weapon(s) combined
+        let totalSps = 0;
+        
+        for (const w2 of stats.weapons) {
+            if (resolveAmmoRef(w2)?.ammoName !== ammoName) continue;
+            
+            const reload      = Math.max(1, w2.reload || 1);
+            const burstCount  = w2['burst count'] || 1;
+            const burstReload = w2['burst reload'] || reload;
+            
+            totalSps += (burstCount / ((burstCount - 1) * burstReload + reload)) * 60;
+        }
+
+        const sustainSecs = totalSps > 0 ? stock / totalSps : null;
+        rows.push({ ammoName, weaponNames, stock, sustainSecs, capacityKey });
+    }
+
+    if (!rows.length) return '';
+
+    const items = rows.map(r => {
+        const sustain = r.sustainSecs != null ? ` · ${r.sustainSecs.toFixed(1)}s sustained` : '';
+        return `` + `${escHtml(r.ammoName)}` + `${r.stock} rounds${sustain}` + ``;
+    }).join('');
+    
+    return ``+ `Ammunition` + items + ``;
+
+}
+    
 function buildWeaponsList(details) {
     if (!details?.length)
         return '<div class="weapon-item" style="color:var(--c-text-muted);font-style:italic;padding:8px 0;">No weapons</div>';
