@@ -1027,7 +1027,9 @@ function shootFrame(attSt, defSt, attStats) {
             if (val > 0) attSt.statusEffects[statName] = (attSt.statusEffects[statName] || 0) + val;
         }
 
-        applyWeaponDamage(w, defSt, defSt.stats);
+        const visited = new Set([w._name].filter(Boolean));
+
+        applyWeaponDamage(w, defSt,  defSt.stats, 1, visited, 0);
         advanceBurst(attSt, i, burstCount, burstReload, reload);
     }
 }
@@ -1046,19 +1048,101 @@ function advanceBurst(attSt, i, burstCount, burstReload, reload) {
     }
 }
 
-// ── applyWeaponDamage ─────────────────────────────────────────────────────────
-function applyWeaponDamage(w, defSt, defStats) {
-    const disruptMult      = 1 + (defSt.statusEffects.disruption || 0) * 0.01;
+/**
+
+ * applyWeaponDamage(w, defSt, defStats, multiplier, visited, depth)
+
+ *
+
+ * Applies damage from weapon block w to defSt, then recurses into every
+
+ * submunition, scaling damage by subCount at each level.
+
+ *
+
+ * This mirrors resolveSubmunitionDamage (used for DPS preview) so the sim
+
+ * and the stats panel always agree on how much damage a weapon deals.
+
+ *
+
+ * multiplier — cumulative spawn count from parent levels (starts at 1)
+
+ * visited    — cycle guard Set of outfit names already in this call stack
+
+ * depth      — recursion depth guard (max 8, matching resolveSubmunitionDamage)
+
+ */
+
+function applyWeaponDamage(w, defSt, defStats, multiplier, visited, depth) {
+
+    multiplier = multiplier || 1;
+    depth      = depth      || 0;
+    if (depth > 8) return;
+
+    // ── Apply this weapon block's own direct damage ───────────────────────
+    _applyDirectDamage(w, defSt, defStats, multiplier);
+
+    // ── Recurse into submunitions ─────────────────────────────────────────
+    const subRefs = resolveSubmunitionRefs(w);
+    if (!subRefs.length) return;
+
+    for (const { subName, subCount } of subRefs) {
+        if (!subName) continue;
+        if (visited && visited.has(subName)) continue;  // cycle guard
+
+        const subOutfit = _outfitIndex[subName];
+        if (!subOutfit?.weapon) continue;
+        const nv = new Set(visited || []);
+        nv.add(subName);
+
+        applyWeaponDamage(
+            subOutfit.weapon,
+            defSt,
+            defStats,
+            multiplier * subCount,
+            nv,
+            depth + 1
+        );
+    }
+}
+
+
+/**
+
+ * _applyDirectDamage(w, defSt, defStats, multiplier)
+
+ *
+
+ * Applies only the damage keys present directly on weapon block w,
+
+ * scaled by multiplier. Called by applyWeaponDamage at each tree level.
+
+ * Shield/hull overflow, piercing, disruption, and protections all apply.
+
+ */
+
+function _applyDirectDamage(w, defSt, defStats, multiplier) {
+    const disruptMult       = 1 + (defSt.statusEffects.disruption || 0) * 0.01;
     const effectivePiercing = Math.max(0, Math.min(1, w.piercing || 0))
                             * (1 - defStats.piercingRes);
 
+    // Relative damage scales off current HP at the moment of impact
     const relShieldDmg = (w['% shield damage'] || 0)
-                       * Math.min(Math.max(0, defSt.shields), defStats.maxShields);
-    const relHullDmg   = (w['% hull damage']   || 0)
-                       * Math.min(Math.max(0, defSt.hull),    defStats.maxHull);
+                       * Math.min(Math.max(0, defSt.shields), defStats.maxShields)
+                       * multiplier;
+    const relHullDmg   = (w['% hull damage'] || 0)
+                       * Math.min(Math.max(0, defSt.hull), defStats.maxHull)
+                       * multiplier;
 
-    const rawShieldDmg = (w['shield damage'] || 0) + relShieldDmg;
-    const rawHullDmg   = (w['hull damage']   || 0) + relHullDmg;
+    const rawShieldDmg = (w['shield damage'] || 0) * multiplier + relShieldDmg;
+    const rawHullDmg   = (w['hull damage']   || 0) * multiplier + relHullDmg;
+
+    // Both are 0 and no other damage types? Skip entirely (saves work for
+    // launcher-only weapon blocks like Finisher Pod's top level).
+    const hasAnyDmg = rawShieldDmg > 0 || rawHullDmg > 0
+        || _damageTypes.some(t => (w[dmgKey(t)] || 0) + (w[relDmgKey(t)] || 0) > 0);
+    if (!hasAnyDmg) return;
 
     const shieldDmgTotal   = rawShieldDmg * (1 - defStats.shieldProt) * disruptMult;
     const hullDmgAfterProt = rawHullDmg   * (1 - defStats.hullProt);
@@ -1070,24 +1154,26 @@ function applyWeaponDamage(w, defSt, defStats) {
         defSt.hull    -= hullPiercedDmg;
         if (defSt.shields < 0) {
             const overflow = -defSt.shields;
-            defSt.shields = 0;
-            defSt.hull -= overflow * (1 - defStats.hullProt);
-            defSt.hull -= hullDmgAfterProt;
+            defSt.shields  = 0;
+            defSt.hull    -= overflow * (1 - defStats.hullProt);
+            defSt.hull    -= hullDmgAfterProt;
         }
     } else {
         defSt.hull -= hullDmgAfterProt + rawShieldDmg * (1 - defStats.shieldProt);
     }
 
-    defSt.shieldDelayCounter = Math.max(defSt.shieldDelayCounter, defStats.shieldDelay   || 0);
-    defSt.repairDelayCounter = Math.max(defSt.repairDelayCounter, defStats.repairDelay   || 0);
+    // i.e. multiplier === 1, to avoid resetting them for every submunition)
+    // Set regen delay counters on any hit that actually dealt damage
+    defSt.shieldDelayCounter = Math.max(defSt.shieldDelayCounter, defStats.shieldDelay  || 0);
+    defSt.repairDelayCounter = Math.max(defSt.repairDelayCounter, defStats.repairDelay  || 0);
     if (defSt.depletedFlag)
         defSt.shieldDelayCounter = Math.max(defSt.shieldDelayCounter, defStats.depletedDelay || 0);
 
     const shieldsUp = defSt.shields > 0;
     for (const typeName of _damageTypes) {
         if (typeName === 'Shield' || typeName === 'Hull') continue;
-        const raw      = w[dmgKey(typeName)]    || 0;
-        const rel      = w[relDmgKey(typeName)] || 0;
+        const raw      = (w[dmgKey(typeName)]    || 0) * multiplier;
+        const rel      = (w[relDmgKey(typeName)] || 0) * multiplier;
         const totalDmg = raw + rel;
         if (!totalDmg) continue;
         const prot         = defStats.protections[protKey(typeName)] || 0;
@@ -1831,14 +1917,16 @@ function buildAmmoSummary(stats) {
 
     const items = rows.map(r => {
         const sustain = r.sustainSecs != null
-            ? `<span class="weapon-stat">⏱ <span>${r.sustainSecs.toFixed(1)}s</span></span>`
+            ? `<span class="weapon-stat">Until Empty: <span>${r.sustainSecs.toFixed(1)}s</span></span>`
             : '';
 
         return `
-            <div class="weapon-ammo">
-                <span class="weapon-stat ammo-name">${escHtml(r.ammoName)}</span>
-                <span class="weapon-stat">Stock:<span>${r.stock}</span></span>
-                ${sustain}
+            <div class="weapon-item">
+                <div class="weapon-item-name">${escHtml(r.ammoName)}</div>
+                <div class="weapon-item-stats">
+                    <span class="weapon-stat">Stock:<span>${r.stock}</span></span>
+                    ${sustain}
+                </div>
             </div>
         `;
     }).join('');
