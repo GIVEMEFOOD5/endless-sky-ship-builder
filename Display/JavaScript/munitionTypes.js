@@ -501,10 +501,21 @@ function _buildAmmoProfile(w, outfitName) {
             //   (a) explicit ammoStored field
             //   (b) category === 'Ammunition'
             //   (c) own-name attribute (e.g. outfit "Javelin" has attribute "Javelin" = N)
+            // NEW — add negative-capacity check:
             const isAmmo =
-                (typeof candidate.ammoStored === 'number' && candidate.ammoStored > 0)
-             || candidate.category === 'Ammunition'
-             || (typeof candidate.attributes?.[key] === 'number' && candidate.attributes[key] > 0);
+                candidate.category === 'Ammunition' ||
+                (typeof candidate.ammoStored === 'number' && candidate.ammoStored > 0) ||
+                (typeof candidate.attributes?.[key] === 'number' && candidate.attributes[key] > 0) ||
+                (() => {
+                    // negative-capacity ammo: has a "* capacity": -1 attribute
+                    const entries = Object.entries(candidate.attributes || {});
+                    return entries.some(([k, v]) => k.endsWith(' capacity') && typeof v === 'number' && v < 0) ||
+                           Object.keys(candidate).some(k =>
+                               !['name','category','cost','mass','thumbnail','description',
+                                 'weapon','attributes','_pluginId','series','index'].includes(k) &&
+                               k.endsWith(' capacity') && typeof candidate[k] === 'number' && candidate[k] < 0
+                           );
+                })();
             if (!isAmmo) continue;
 
             ammoOutfitName    = key;
