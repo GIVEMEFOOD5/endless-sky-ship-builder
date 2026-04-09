@@ -2813,43 +2813,6 @@ h1 {
 .ranking-wins { color: #94a3b8; white-space: nowrap; }
 .ranking-dps, .ranking-ehp { color: #64748b; font-size: 0.78rem; white-space: nowrap; }
 
-/* ── MISC ───────────────────────────────────────────────────────────── */
-.sim-loading { display: none; text-align: center; padding: 16px; color: #60a5fa; font-style: italic; }
-.sim-loading.visible { display: block; }
-.timeline-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 8px; font-weight: 600; }
-.timeline-track { display: flex; height: 28px; background: rgba(0,0,0,0.3); border-radius: 6px; overflow: hidden; position: relative; margin: 0 0 16px; }
-.timeline-bar-a, .timeline-bar-b { height: 100%; display: flex; align-items: center; justify-content: center; transition: width 0.4s; position: relative; }
-.timeline-bar-a { background: #3b82f6; }
-.timeline-bar-b { background: #ef4444; }
-.timeline-bar-label { font-size: 0.75rem; font-weight: 600; color: #fff; padding: 0 8px; white-space: nowrap; overflow: hidden; }
-.timeline-midline { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.2); }
-.hp-chart-wrap { margin: 10px 0 16px; border-radius: 8px; overflow: hidden; }
-.weapons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.weapon-item { padding: 6px 0; border-bottom: 1px solid rgba(51,65,85,0.5); }
-.weapon-item:last-child { border-bottom: none; }
-.weapon-item-name { font-size: 0.84rem; font-weight: 500; color: #e2e8f0; margin-bottom: 3px; }
-.weapon-item-stats { display: flex; flex-wrap: wrap; gap: 5px; }
-.weapon-stat { font-size: 0.72rem; color: #64748b; background: rgba(0,0,0,0.2); padding: 1px 5px; border-radius: 3px; }
-.weapon-stat span { color: #94a3b8; margin-left: 3px; }
-.weapons-col-title { font-weight: 600; font-size: 0.88rem; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid var(--c-border, #334155); }
-.phase-list { display: flex; flex-direction: column; gap: 4px; }
-.phase-item { display: flex; align-items: baseline; gap: 8px; font-size: 0.82rem; padding: 5px 10px; border-left: 3px solid #475569; border-radius: 3px; }
-.phase-neutral { border-color: #475569 !important; }
-.phase-icon { flex-shrink: 0; }
-.phase-time { color: #64748b; white-space: nowrap; min-width: 42px; flex-shrink: 0; }
-.phase-text { color: #94a3b8; }
-.res-section-title { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #64748b; margin: 14px 0 4px; font-weight: 600; }
-.results-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; margin-bottom: 4px; }
-.res-divider { display: flex; flex-direction: column; }
-.res-divider-item { font-size: 0.78rem; color: #64748b; padding: 3px 10px; text-align: center; border-top: 1px solid rgba(51,65,85,0.4); }
-.res-divider-item:first-child { border-top: none; }
-.res-row { border-top: 1px solid rgba(51,65,85,0.4); padding: 3px 8px; }
-.res-row:first-child { border-top: none; }
-.res-row-value { font-size: 0.82rem; color: #cbd5e1; }
-.res-col-a .res-row-value { color: #93c5fd; }
-.res-col-b .res-row-value { color: #fca5a5; }
-.res-row-mobile { display: none; }
-
 @media (max-width: 600px) {
     .results-compare { display: none; }
     .res-row-mobile { display: flex; gap: 8px; padding: 3px 0; font-size: 0.8rem; border-bottom: 1px solid rgba(51,65,85,0.3); }
