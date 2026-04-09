@@ -1,0 +1,961 @@
+;(function () {
+'use strict';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  battleSimStatsDisplay.js  —  Endless Sky Battle Simulator  ·  Display Module
+//
+//  Owns ALL results rendering for both 2-team and N-team battles.
+//  Consumed by battleSim.js; expects window.BattleSimDisplay to be populated
+//  before renderResults() is called.
+//
+//  PUBLIC API
+//  ──────────
+//  window.BattleSimDisplay.renderResults(payload)
+//      payload = {
+//          mode:       '2team' | 'nteam',
+//          teamStats:  [mergedStatsObj, ...],          // one per valid team
+//          results:    ResultObj | ResultObj[][],       // see below
+//          damageTypes: string[],
+//          outfitIndex: { [name]: outfitObj },
+//          attrDefs:   attributeDefinitionsObj,
+//      }
+//
+//  For mode '2team':   results = simulateBattle(A, B)   (one ResultObj)
+//  For mode 'nteam':   results = matrix[i][j]            (n×n array, null on diagonal)
+//
+//  window.BattleSimDisplay.fmt(n)       — number formatter (exported for battleSim use)
+//  window.BattleSimDisplay.fmtT(t)      — time formatter
+//  window.BattleSimDisplay.escHtml(s)   — HTML escape
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const FPS           = 60;
+const MAX_SIM_SECS  = 6000;
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  FORMATTING UTILITIES
+// ─────────────────────────────────────────────────────────────────────────────
+
+function fmt(n) {
+    if (n === null || n === undefined) return '—';
+    if (!isFinite(n)) return '∞';
+    if (Math.abs(n) >= 100000) return (n / 1000).toFixed(1) + 'k';
+    if (Math.abs(n) >= 10000)  return Math.round(n).toLocaleString();
+    if (Math.abs(n) < 0.01 && n !== 0) return n.toExponential(2);
+    if (Number.isInteger(n)) return n.toString();
+    return parseFloat(n.toPrecision(4)).toString();
+}
+function fmtT(t)   { return isFinite(t) ? t.toFixed(1) + 's' : '∞'; }
+function fmtTTK(t) { return isFinite(t) ? fmtT(t) : '∞ (never)'; }
+function fmtPct(v) {
+    if (!v) return '0%';
+    return (v * 100).toFixed(2).replace(/\.?0+$/, '') + '%';
+}
+function fmtNet(v) {
+    if (!isFinite(v) || v === 0) return '0';
+    return (v > 0 ? '+' : '') + fmt(v);
+}
+function escHtml(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r},${g},${b},${alpha})`;
+}
+function buildTtkString(name, ttk, projectedTtk) {
+    const n = escHtml(name);
+    if (isFinite(ttk)) return `${n} disabled in ${fmtT(ttk)}`;
+    if (projectedTtk == null) return `${n} survived`;
+    if (!isFinite(projectedTtk)) return `${n} survived (regen &gt; damage)`;
+    return `${n} survived · ~${fmtT(projectedTtk)} projected`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  MODULE-LEVEL REFERENCES  (set on each renderResults call)
+// ─────────────────────────────────────────────────────────────────────────────
+
+let _damageTypes  = [];
+let _outfitIndex  = {};
+let _attrDefs     = null;
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  AMMO HELPERS  (copied verbatim from battleSim.js so display module is
+//  self-contained for the ammo summary; battleSim.js can keep its own copies)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function _isNegativeCapacityAmmo(outfit) {
+    const check = obj => {
+        for (const [k, v] of Object.entries(obj || {}))
+            if (k.endsWith(' capacity') && typeof v === 'number' && v < 0) return true;
+        return false;
+    };
+    return check(outfit) || check(outfit.attributes);
+}
+
+function resolveAmmoRef(w) {
+    const raw = w['ammo'];
+    if (typeof raw === 'string' && raw.length > 0) return { ammoName: raw, ammoCount: 1 };
+    for (const key of Object.keys(w)) {
+        if (key === 'ammo') continue;
+        const val = w[key];
+        if (!val && val !== 0) continue;
+        if (typeof val !== 'number' && val !== true) continue;
+        const outfit = _outfitIndex[key];
+        if (outfit) {
+            const isAmmo =
+                outfit.category === 'Ammunition' ||
+                (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) ||
+                (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0) ||
+                _isNegativeCapacityAmmo(outfit);
+            if (!isAmmo) continue;
+            return { ammoName: key, ammoCount: val === true ? 1 : Math.max(1, Math.round(val)) };
+        }
+    }
+    return null;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  HP CHART  (SVG, works for any pair A / B with arbitrary team colors)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildHpChart(sA, sB, result) {
+    const clamp  = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const tlA    = (result.timelineA || []).map(p => ({ ...p }));
+    const tlB    = (result.timelineB || []).map(p => ({ ...p }));
+    if (!tlA.length && !tlB.length) return '';
+
+    const W = 560, H = 200, PL = 48, PR = 12, PT = 14, PB = 28;
+    const cW = W - PL - PR, cH = H - PT - PB;
+
+    const deathA     = isFinite(result.ttkA) ? result.ttkA : Infinity;
+    const deathB     = isFinite(result.ttkB) ? result.ttkB : Infinity;
+    const firstDeath = Math.min(deathA, deathB);
+    const lastPoint  = tl => tl.length ? tl[tl.length - 1].t : 0;
+    const maxTime    = Math.max(
+        isFinite(firstDeath) ? firstDeath : Math.max(lastPoint(tlA), lastPoint(tlB)),
+        0.1
+    );
+    const maxHP = Math.max(sA.maxShields + sA.maxHull, sB.maxShields + sB.maxHull, 1);
+    const px    = t  => PL + clamp(t,  0, maxTime) / maxTime * cW;
+    const py    = hp => PT + cH - clamp(hp, 0, maxHP) / maxHP * cH;
+
+    function clip(tl, iS, iH) {
+        if (!tl.length) return [];
+        const out = [];
+        if (tl[0].t > 0) out.push({ t: 0, shields: iS, hull: iH });
+        for (let i = 0; i < tl.length; i++) {
+            const p = tl[i];
+            if (p.t <= maxTime) {
+                out.push(p);
+            } else {
+                const prev = tl[i - 1] || out[out.length - 1];
+                if (prev && prev.t < maxTime) {
+                    const dt = p.t - prev.t, r = dt > 0 ? (maxTime - prev.t) / dt : 0;
+                    out.push({ t: maxTime, shields: prev.shields + (p.shields - prev.shields) * r, hull: prev.hull + (p.hull - prev.hull) * r });
+                }
+                break;
+            }
+        }
+        if (out.length === 1) out.push({ ...out[0], t: out[0].t + 0.001 });
+        return out;
+    }
+
+    const cA = clip(tlA, sA.maxShields, sA.maxHull);
+    const cB = clip(tlB, sB.maxShields, sB.maxHull);
+    if (!cA.length && !cB.length) return '';
+
+    function makePaths(tl) {
+        if (!tl.length) return { hull: '', shieldArea: '' };
+        const hull = tl.map((p, i) =>
+            `${i ? 'L' : 'M'}${px(p.t).toFixed(1)},${py(Math.max(0, p.hull)).toFixed(1)}`
+        ).join(' ');
+        const hasShields = tl.some(p => p.shields > 0);
+        let shieldArea = '';
+        if (hasShields) {
+            const fwd = tl.map((p, i) =>
+                `${i === 0 ? 'M' : 'L'}${px(p.t).toFixed(1)},${py(Math.max(0, p.hull) + Math.max(0, p.shields)).toFixed(1)}`
+            ).join(' ');
+            const rev = [...tl].reverse().map(p =>
+                `L${px(p.t).toFixed(1)},${py(Math.max(0, p.hull)).toFixed(1)}`
+            ).join(' ');
+            shieldArea = `${fwd} ${rev} Z`;
+        }
+        return { hull, shieldArea };
+    }
+
+    const pA     = makePaths(cA), pB = makePaths(cB);
+    const colorA = sA.color || '#3b82f6';
+    const colorB = sB.color || '#ef4444';
+
+    const yTicks = [0, 0.5, 1].map(f => {
+        const v = maxHP * f, y = py(v).toFixed(1);
+        const lb = v >= 1000 ? (v / 1000).toFixed(1) + 'k' : Math.round(v).toString();
+        return `<line x1="${PL}" y1="${y}" x2="${PL + cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>` +
+               `<text x="${PL - 4}" y="${+y + 4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;
+    }).join('');
+
+    const xTicks = [0, 0.5, 1].map(f => {
+        const t = maxTime * f, x = px(t).toFixed(1);
+        return `<text x="${x}" y="${PT + cH + 14}" fill="#64748b" font-size="10" text-anchor="middle">${t.toFixed(1)}s</text>`;
+    }).join('');
+
+    const threshLine = (minHull, color) => minHull > 0
+        ? `<line x1="${PL}" y1="${py(minHull).toFixed(1)}" x2="${PL + cW}" y2="${py(minHull).toFixed(1)}" stroke="${color}" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>`
+        : '';
+
+    const trunc  = (s, n) => s.length > n ? s.slice(0, n - 1) + '…' : s;
+    const lx     = PL + cW - 4;
+    const legend =
+        `<rect x="${lx - 82}" y="${PT + 2}"  width="8" height="3" fill="${colorA}" rx="1"/>` +
+        `<text x="${lx - 70}" y="${PT + 8}"  fill="${colorA}" font-size="10">${escHtml(trunc(sA.name, 18))}</text>` +
+        `<rect x="${lx - 82}" y="${PT + 16}" width="8" height="3" fill="${colorB}" rx="1"/>` +
+        `<text x="${lx - 70}" y="${PT + 22}" fill="${colorB}" font-size="10">${escHtml(trunc(sB.name, 18))}</text>`;
+
+    return `<div class="hp-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:auto;">
+            <rect x="${PL}" y="${PT}" width="${cW}" height="${cH}" fill="rgba(15,23,42,0.5)" rx="4"/>
+            ${yTicks}${xTicks}
+            ${threshLine(sA.minHull, hexToRgba(colorA, 0.5))}
+            ${threshLine(sB.minHull, hexToRgba(colorB, 0.5))}
+            ${pA.shieldArea ? `<path d="${pA.shieldArea}" fill="${hexToRgba(colorA, 0.12)}" stroke="none"/>` : ''}
+            ${pA.hull       ? `<path d="${pA.hull}"       fill="none" stroke="${colorA}" stroke-width="2.5"/>` : ''}
+            ${pB.shieldArea ? `<path d="${pB.shieldArea}" fill="${hexToRgba(colorB, 0.12)}" stroke="none"/>` : ''}
+            ${pB.hull       ? `<path d="${pB.hull}"       fill="none" stroke="${colorB}" stroke-width="2.5"/>` : ''}
+            ${legend}
+        </svg>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  COMPARE GRID  (works for any pair A / B)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildCompareGrid(sA, sB, result) {
+    const ttkStrA = isFinite(result.ttkA) ? fmtTTK(result.ttkA)
+        : result.projectedTtkA != null
+            ? (isFinite(result.projectedTtkA) ? `~${fmtT(result.projectedTtkA)} (proj.)` : '∞ (regen wins)')
+            : '∞ (survived)';
+    const ttkStrB = isFinite(result.ttkB) ? fmtTTK(result.ttkB)
+        : result.projectedTtkB != null
+            ? (isFinite(result.projectedTtkB) ? `~${fmtT(result.projectedTtkB)} (proj.)` : '∞ (regen wins)')
+            : '∞ (survived)';
+
+    const allProtKeys = new Set([
+        ...Object.keys(sA.protections || {}),
+        ...Object.keys(sB.protections || {}),
+        'piercing resistance',
+    ]);
+    const protRows = [];
+    for (const key of [...allProtKeys].sort()) {
+        const va = key === 'piercing resistance' ? sA.piercingRes : (sA.protections?.[key] || 0);
+        const vb = key === 'piercing resistance' ? sB.piercingRes : (sB.protections?.[key] || 0);
+        if (va === 0 && vb === 0) continue;
+        protRows.push([key.replace(/\b\w/g, l => l.toUpperCase()), fmtPct(va), fmtPct(vb)]);
+    }
+
+    const energyGenA    = (sA.energyGenPerFrame || 0) * FPS;
+    const energyGenB    = (sB.energyGenPerFrame || 0) * FPS;
+    const idleConsumeA  = ((sA.energyConsumeIdlePerFrame || 0) + (sA.coolingEnergyPerFrame || 0)) * FPS;
+    const idleConsumeB  = ((sB.energyConsumeIdlePerFrame || 0) + (sB.coolingEnergyPerFrame || 0)) * FPS;
+    const moveEnergyA   = (sA.movingEnergyPerFrame || 0) * FPS;
+    const moveEnergyB   = (sB.movingEnergyPerFrame || 0) * FPS;
+    const fireEnergyA   = sA.firingEnergyPerSec || 0;
+    const fireEnergyB   = sB.firingEnergyPerSec || 0;
+    const netA          = energyGenA - idleConsumeA - moveEnergyA - fireEnergyA;
+    const netB          = energyGenB - idleConsumeB - moveEnergyB - fireEnergyB;
+    const fuelGenA      = (sA.fuelRegenPerFrame || 0) * FPS;
+    const fuelGenB      = (sB.fuelRegenPerFrame || 0) * FPS;
+    const fireFuelA     = sA.firingFuelPerSec || 0;
+    const fireFuelB     = sB.firingFuelPerSec || 0;
+    const moveFuelA     = (sA.movementProfile?.sustainedCombat?.fuelPerSec) ?? 0;
+    const moveFuelB     = (sB.movementProfile?.sustainedCombat?.fuelPerSec) ?? 0;
+    const netFuelA      = fuelGenA - fireFuelA - moveFuelA;
+    const netFuelB      = fuelGenB - fireFuelB - moveFuelB;
+    const showFuel      =
+        (sA.fuelCap || 0) > 0 || (sB.fuelCap || 0) > 0 ||
+        fireFuelA > 0 || fireFuelB > 0 || moveFuelA > 0 || moveFuelB > 0;
+
+    const energySection = [
+        ['Energy Cap.',     fmt(sA.energyCap),        fmt(sB.energyCap)],
+        ['Energy Gen/s',    fmt(energyGenA),           fmt(energyGenB)],
+        ['Idle Consume/s',  fmt(-idleConsumeA),        fmt(-idleConsumeB)],
+        ['Move Energy/s',   fmt(-moveEnergyA),         fmt(-moveEnergyB)],
+        ['Firing Energy/s', fmt(-fireEnergyA),         fmt(-fireEnergyB)],
+        ['Net (combat) /s', fmtNet(netA),              fmtNet(netB)],
+        ['Heat Capacity',   fmt(sA.maxHeat),           fmt(sB.maxHeat)],
+        ['Cooling/s',       fmt(sA.coolingPerSec),     fmt(sB.coolingPerSec)],
+        ['Firing Heat/s',   fmt(sA.firingHeatPerSec),  fmt(sB.firingHeatPerSec)],
+        ['Cool Efficiency', (sA.coolEff || 0).toFixed(3), (sB.coolEff || 0).toFixed(3)],
+    ];
+    if ((sA.firingHullCostPerSec || 0) > 0 || (sB.firingHullCostPerSec || 0) > 0)
+        energySection.push(['Firing Hull Cost/s', fmt(sA.firingHullCostPerSec), fmt(sB.firingHullCostPerSec)]);
+    if ((sA.firingShieldCostPerSec || 0) > 0 || (sB.firingShieldCostPerSec || 0) > 0)
+        energySection.push(['Firing Shield Cost/s', fmt(sA.firingShieldCostPerSec), fmt(sB.firingShieldCostPerSec)]);
+
+    const sections = [
+        ['Combat', [
+            ['Time to Disable', ttkStrA,            ttkStrB],
+            ['Max Shields',     fmt(sA.maxShields), fmt(sB.maxShields)],
+            ['Max Hull',        fmt(sA.maxHull),    fmt(sB.maxHull)],
+            ['Disable Thresh',  fmt(sA.minHull),    fmt(sB.minHull)],
+            ['Shield DPS',      fmt(sA.shieldDPS),  fmt(sB.shieldDPS)],
+            ['Hull DPS',        fmt(sA.hullDPS),    fmt(sB.hullDPS)],
+            ['Shield Regen/s',  fmt(sA.shieldRegenPerSec), fmt(sB.shieldRegenPerSec)],
+            ['Hull Repair/s',   fmt(sA.hullRepairPerSec),  fmt(sB.hullRepairPerSec)],
+            ...protRows,
+        ]],
+        ['Energy & Heat', energySection],
+    ];
+
+    if (showFuel) {
+        const fuelRows = [
+            ['Fuel Capacity', fmt(sA.fuelCap), fmt(sB.fuelCap)],
+            ['Fuel Regen/s',  fmt(fuelGenA),   fmt(fuelGenB)],
+        ];
+        if (moveFuelA > 0 || moveFuelB > 0) fuelRows.push(['Move Fuel/s',   fmt(-moveFuelA), fmt(-moveFuelB)]);
+        if (fireFuelA > 0 || fireFuelB > 0) fuelRows.push(['Firing Fuel/s', fmt(-fireFuelA), fmt(-fireFuelB)]);
+        fuelRows.push(['Net Fuel/s', fmtNet(netFuelA), fmtNet(netFuelB)]);
+        sections.push(['Fuel', fuelRows]);
+    }
+
+    const colorA = sA.color || '#3b82f6';
+    const colorB = sB.color || '#ef4444';
+
+    return sections.map(([section, items]) => {
+        if (!items?.length) return '';
+        const colA      = items.map(([, va]) => `<div class="res-row"><div class="res-row-value">${va}</div></div>`).join('');
+        const colDiv    = items.map(([label]) => `<div class="res-divider-item">${label}</div>`).join('');
+        const colB      = items.map(([,, vb]) => `<div class="res-row"><div class="res-row-value">${vb}</div></div>`).join('');
+        const mobileRows = items.map(([label, va, vb]) =>
+            `<div class="res-row-mobile">
+                <span class="res-row-mobile__label">${label}</span>
+                <span class="res-row-mobile__val-a" style="color:${colorA}">${va}</span>
+                <span class="res-row-mobile__val-b" style="color:${colorB}">${vb}</span>
+            </div>`
+        ).join('');
+        return `<div class="res-section-title">${section}</div>
+        <div class="results-compare">
+            <div class="res-col res-col-a" style="--col-a:${colorA}">${colA}</div>
+            <div class="res-divider">${colDiv}</div>
+            <div class="res-col res-col-b" style="--col-b:${colorB}">${colB}</div>
+            ${mobileRows}
+        </div>`;
+    }).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  WEAPON LIST  (unchanged logic)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildWeaponsList(details) {
+    if (!details?.length)
+        return '<div class="weapon-item" style="color:var(--c-text-muted);font-style:italic;padding:8px 0;">No weapons</div>';
+    return details.map(w => {
+        const extra = [];
+        for (const typeName of _damageTypes) {
+            if (typeName === 'Shield' || typeName === 'Hull') continue;
+            const dps = w[typeName.toLowerCase() + 'DPS'] || 0;
+            if (dps > 0.001) {
+                const typeEntry = window.DamageTypes?.getDamageType(typeName);
+                const isStatusOnly = typeEntry?.category === 'status' && typeEntry?.shieldInteraction !== 'direct';
+                extra.push(`${typeName}: ${fmt(dps)}/s${isStatusOnly ? ' ⚡' : ''}`);
+            }
+        }
+        if (w.relShield > 0) extra.push(`%Shld: ${w.relShield}%/hit`);
+        if (w.relHull   > 0) extra.push(`%Hull: ${w.relHull}%/hit`);
+        return `<div class="weapon-item">
+            <div class="weapon-item-name">${escHtml(w.name)}${
+                w.hasSubmunitions
+                    ? `<span style="color:var(--c-accent-text);font-size:0.7em;margin-left:4px;">⚡sub</span>`
+                    : ''
+            }</div>
+            <div class="weapon-item-stats">
+                <span class="weapon-stat">Rate:<span>${w.sps}/s</span></span>
+                <span class="weapon-stat">Shld:<span>${fmt(w.shieldDPS)}/s</span></span>
+                <span class="weapon-stat">Hull:<span>${fmt(w.hullDPS)}/s</span></span>
+                ${w.piercing  ? `<span class="weapon-stat">Pierce:<span>${w.piercing}%</span></span>` : ''}
+                ${w.range     ? `<span class="weapon-stat">Range:<span>${w.range}px</span></span>`   : ''}
+                ${w.burstCount > 1 ? `<span class="weapon-stat">Burst:<span>${w.burstCount}×</span></span>` : ''}
+                ${w.homing    ? `<span class="weapon-stat">🎯 Homing</span>` : ''}
+                ${w.antiMissile ? `<span class="weapon-stat">🛡 A-M</span>` : ''}
+                ${extra.map(s => `<span class="weapon-stat">${escHtml(s)}</span>`).join('')}
+            </div>
+        </div>`;
+    }).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  AMMO SUMMARY
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildAmmoSummary(stats) {
+    const outfitMap = stats.rawShip?.outfitMap || {};
+    const seen = new Set(), rows = [];
+
+    for (const w of stats.weapons) {
+        const ammoRef = resolveAmmoRef(w);
+        if (!ammoRef?.ammoName) continue;
+        const ammoName = ammoRef.ammoName;
+        if (seen.has(ammoName)) continue;
+        seen.add(ammoName);
+
+        const ammoOutfit = _outfitIndex[ammoName];
+        let capacityKey = null, ammoPerUnit = 1;
+        if (ammoOutfit) {
+            const checkObj = obj => {
+                for (const [k, v] of Object.entries(obj || {}))
+                    if (k.endsWith(' capacity') && typeof v === 'number' && v < 0)
+                        return { k, v };
+                return null;
+            };
+            const hit = checkObj(ammoOutfit) || checkObj(ammoOutfit.attributes);
+            if (hit) { capacityKey = hit.k; ammoPerUnit = Math.abs(hit.v); }
+        }
+
+        let totalCapacity = 0;
+        for (const [outfitName, qty] of Object.entries(outfitMap)) {
+            const outfit = _outfitIndex[outfitName];
+            if (!outfit || !capacityKey) continue;
+            const tl = typeof outfit[capacityKey] === 'number' ? outfit[capacityKey] : 0;
+            const al = typeof outfit.attributes?.[capacityKey] === 'number' ? outfit.attributes[capacityKey] : 0;
+            const perUnit = tl + al;
+            if (perUnit > 0) totalCapacity += perUnit * qty;
+        }
+
+        let stock = 0;
+        if (capacityKey && totalCapacity > 0) stock = Math.round(totalCapacity / ammoPerUnit);
+        else if ((stats.ammoInventory?.[ammoName] ?? 0) > 0) stock = stats.ammoInventory[ammoName];
+
+        let totalSps = 0;
+        for (const w2 of stats.weapons) {
+            if (resolveAmmoRef(w2)?.ammoName !== ammoName) continue;
+            const reload      = Math.max(1, w2.reload || 1);
+            const burstCount  = w2['burst count']  || 1;
+            const burstReload = w2['burst reload'] || reload;
+            totalSps += (burstCount / ((burstCount - 1) * burstReload + reload)) * FPS;
+        }
+
+        const sustainSecs = totalSps > 0 ? stock / totalSps : null;
+        rows.push({ ammoName, stock, sustainSecs });
+    }
+
+    if (!rows.length) return '';
+    return rows.map(r => `
+        <div class="weapon-item">
+            <div class="weapon-item-name">${escHtml(r.ammoName)}</div>
+            <div class="weapon-item-stats">
+                <span class="weapon-stat">Stock:<span>${r.stock}</span></span>
+                ${r.sustainSecs != null
+                    ? `<span class="weapon-stat">Until Empty: <span>${r.sustainSecs.toFixed(1)}s</span></span>`
+                    : ''}
+            </div>
+        </div>`).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  PHASE LIST  (works for any result)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildPhaseList(result, sA, sB) {
+    const phases = [...(result.phases || [])];
+
+    if (result.winner === 'A' && result.projectedTtkA != null) {
+        const pttk = result.projectedTtkA;
+        phases.push({ time: (result.ttkB || 0) + (isFinite(pttk) ? pttk : 0), type: 'A', icon: '📊',
+            text: isFinite(pttk)
+                ? `<strong>${escHtml(sA.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
+                : `<strong>${escHtml(sA.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
+    }
+    if (result.winner === 'B' && result.projectedTtkB != null) {
+        const pttk = result.projectedTtkB;
+        phases.push({ time: (result.ttkA || 0) + (isFinite(pttk) ? pttk : 0), type: 'B', icon: '📊',
+            text: isFinite(pttk)
+                ? `<strong>${escHtml(sB.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
+                : `<strong>${escHtml(sB.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
+    }
+
+    if (!phases.length) return '<div class="phase-item phase-neutral">No notable events recorded.</div>';
+
+    const colorA = sA.color || '#3b82f6';
+    const colorB = sB.color || '#ef4444';
+
+    return phases.map(ph => {
+        const color = ph.type === 'A' ? colorA : ph.type === 'B' ? colorB : '#94a3b8';
+        return `<div class="phase-item" style="border-left-color:${color}">
+            <span class="phase-icon">${ph.icon}</span>
+            <span class="phase-time">${fmtT(ph.time)}</span>
+            <span class="phase-text">${ph.text}</span>
+        </div>`;
+    }).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  TIMELINE BAR + SUBTITLE  (shared between 2-team and per-matchup views)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildTimelineBarHTML(sA, sB, result) {
+    const effA = isFinite(result.ttkA) ? result.ttkA
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? result.projectedTtkA : MAX_SIM_SECS;
+    const effB = isFinite(result.ttkB) ? result.ttkB
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? result.projectedTtkB : MAX_SIM_SECS;
+    const maxT = Math.max(effA, effB, 1);
+
+    const pctA = Math.round(Math.min((effA / maxT) * 50, 50));
+    const pctB = Math.round(Math.min((effB / maxT) * 50, 50));
+
+    const lblA = isFinite(result.ttkA) ? fmtT(result.ttkA)
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? '~' + fmtT(result.projectedTtkA) : '∞';
+    const lblB = isFinite(result.ttkB) ? fmtT(result.ttkB)
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? '~' + fmtT(result.projectedTtkB) : '∞';
+
+    const colorA = sA.color || '#3b82f6';
+    const colorB = sB.color || '#ef4444';
+
+    return `<div class="timeline-track">
+        <div class="timeline-bar-a" style="width:${pctA}%;background:${colorA}">
+            <span class="timeline-bar-label">${lblA}</span>
+        </div>
+        <div class="timeline-bar-b" style="width:${pctB}%;background:${colorB}">
+            <span class="timeline-bar-label">${lblB}</span>
+        </div>
+        <div class="timeline-midline"></div>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  FULL MATCHUP BLOCK  (reused for both 2-team detail and each N-team pairing)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildMatchupBlock(sA, sB, result, { collapsed = false } = {}) {
+    const colorA   = sA.color || '#3b82f6';
+    const colorB   = sB.color || '#ef4444';
+    const winnerName = result.winner === 'A' ? sA.name
+                     : result.winner === 'B' ? sB.name
+                     : 'Draw';
+    const winnerColor = result.winner === 'A' ? colorA
+                      : result.winner === 'B' ? colorB
+                      : '#94a3b8';
+
+    const subtitle = `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
+
+    const id = `matchup_${Math.random().toString(36).slice(2)}`;
+
+    return `
+    <div class="matchup-block" id="${id}">
+        <div class="matchup-header ${collapsed ? 'matchup-header--collapsed' : ''}" onclick="BattleSimDisplay._toggleMatchup('${id}')">
+            <div class="matchup-header-teams">
+                <span class="matchup-team-dot" style="background:${colorA}"></span>
+                <span class="matchup-team-name" style="color:${colorA}">${escHtml(sA.name)}</span>
+                <span class="matchup-vs">vs</span>
+                <span class="matchup-team-dot" style="background:${colorB}"></span>
+                <span class="matchup-team-name" style="color:${colorB}">${escHtml(sB.name)}</span>
+            </div>
+            <div class="matchup-header-winner">
+                🏆 <span style="color:${winnerColor};font-weight:700">${escHtml(winnerName)}</span>
+            </div>
+            <div class="matchup-header-chevron">${collapsed ? '▶' : '▼'}</div>
+        </div>
+
+        <div class="matchup-body" style="display:${collapsed ? 'none' : 'block'}">
+            <!-- Subtitle -->
+            <div class="result-subtitle" style="margin:8px 0 12px;">${subtitle}</div>
+
+            <!-- Timeline bar -->
+            <div class="timeline-label">Survival Timeline</div>
+            ${buildTimelineBarHTML(sA, sB, result)}
+
+            <!-- HP chart -->
+            <div style="margin:14px 0 10px;">
+                ${buildHpChart(sA, sB, result)}
+            </div>
+
+            <!-- Stats compare -->
+            <div style="margin-bottom:10px;">
+                ${buildCompareGrid(sA, sB, result)}
+            </div>
+
+            <!-- Weapon analysis -->
+            <div class="timeline-label">Weapon Analysis</div>
+            <div class="weapons-grid">
+                <div>
+                    <div class="weapons-col-title" style="color:${colorA}">${escHtml(sA.name)}</div>
+                    ${buildWeaponsList(sA.weaponDetails)}
+                    ${buildAmmoSummary(sA)}
+                </div>
+                <div>
+                    <div class="weapons-col-title" style="color:${colorB}">${escHtml(sB.name)}</div>
+                    ${buildWeaponsList(sB.weaponDetails)}
+                    ${buildAmmoSummary(sB)}
+                </div>
+            </div>
+
+            <!-- Combat phases -->
+            <div style="margin-top:14px;">
+                <div class="timeline-label">Combat Phases</div>
+                <div class="phase-list">${buildPhaseList(result, sA, sB)}</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  MATRIX RANKING PANEL
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildRankingPanel(teamStats, matrix, ranked) {
+    const n = teamStats.length;
+    let html = `<div class="timeline-label" style="margin-top:16px">1v1 Match Matrix</div>
+    <div class="matrix-scroll"><table class="battle-matrix">
+    <thead><tr><th></th>`;
+    for (const ts of teamStats) html += `<th style="color:${ts.color}">${escHtml(ts.name)}</th>`;
+    html += `</tr></thead><tbody>`;
+
+    for (let i = 0; i < n; i++) {
+        html += `<tr><td class="matrix-row-label" style="color:${teamStats[i].color}">${escHtml(teamStats[i].name)}</td>`;
+        for (let j = 0; j < n; j++) {
+            if (i === j) { html += `<td class="matrix-self">—</td>`; continue; }
+            const r   = matrix[i][j];
+            const won  = r.winner === 'A';
+            const draw = r.winner === 'draw';
+            const ttk  = won || draw
+                ? (isFinite(r.ttkB) ? fmtT(r.ttkB) : '∞')
+                : (isFinite(r.ttkA) ? fmtT(r.ttkA) : '∞');
+            const anchor = `#matchup_${i}_${j}`;
+            html += `<td class="matrix-cell ${won ? 'matrix-win' : draw ? 'matrix-draw' : 'matrix-loss'}"
+                        title="${escHtml(teamStats[i].name)} vs ${escHtml(teamStats[j].name)}"
+                        onclick="document.querySelector('[data-matchup-pair=\\'${i}-${j}\\']')?.scrollIntoView({behavior:'smooth',block:'start'});"
+                        style="cursor:pointer">
+                <span class="matrix-result">${won ? '✓' : draw ? '~' : '✗'}</span>
+                <span class="matrix-ttk">${ttk}</span>
+            </td>`;
+        }
+        html += `</tr>`;
+    }
+    html += `</tbody></table></div>`;
+
+    html += `<div class="timeline-label" style="margin-top:18px">Rankings</div><div class="ranking-list">`;
+    for (const r of ranked) {
+        const pos = ranked.indexOf(r);
+        html += `<div class="ranking-item">
+            <span class="ranking-pos">#${pos + 1}</span>
+            <span class="ranking-color-dot" style="background:${r.ts.color}"></span>
+            <span class="ranking-name" style="color:${r.ts.color}">${escHtml(r.ts.name)}</span>
+            <span class="ranking-wins">${r.wins}/${n - 1} wins</span>
+            <span class="ranking-dps">sDPS ${fmt(r.ts.shieldDPS)} · hDPS ${fmt(r.ts.hullDPS)}</span>
+            <span class="ranking-ehp">Shld ${fmt(r.ts.maxShields)} · Hull ${fmt(r.ts.maxHull)}</span>
+        </div>`;
+    }
+    html += `</div>`;
+    return html;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  MAIN ENTRY POINTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+function renderResults2Team(payload) {
+    const { teamStats, results: result } = payload;
+    const sA  = teamStats[0], sB = teamStats[1];
+    const resEl = document.getElementById('simResults');
+    if (!resEl) return;
+
+    // Top winner banner
+    const colorA     = sA.color || '#3b82f6';
+    const colorB     = sB.color || '#ef4444';
+    const winnerColor = result.winner === 'A' ? colorA : result.winner === 'B' ? colorB : '#94a3b8';
+
+    document.getElementById('resultWinnerName').style.color = winnerColor;
+    document.getElementById('resultWinnerName').textContent =
+        result.winner === 'A' ? sA.name : result.winner === 'B' ? sB.name : 'Draw';
+    document.getElementById('resultSubtitle').innerHTML =
+        `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
+
+    // Timeline bar (legacy element IDs, kept for CSS compatibility)
+    const effA = isFinite(result.ttkA) ? result.ttkA
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? result.projectedTtkA : MAX_SIM_SECS;
+    const effB = isFinite(result.ttkB) ? result.ttkB
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? result.projectedTtkB : MAX_SIM_SECS;
+    const maxT = Math.max(effA, effB, 1);
+
+    const barA = document.getElementById('timelineBarA');
+    const barB = document.getElementById('timelineBarB');
+    if (barA) { barA.style.width = Math.round(Math.min((effA / maxT) * 50, 50)) + '%'; barA.style.background = colorA; }
+    if (barB) { barB.style.width = Math.round(Math.min((effB / maxT) * 50, 50)) + '%'; barB.style.background = colorB; }
+
+    const lblA = document.getElementById('timelineLabelA');
+    const lblB = document.getElementById('timelineLabelB');
+    if (lblA) lblA.textContent = isFinite(result.ttkA) ? fmtT(result.ttkA)
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? '~' + fmtT(result.projectedTtkA) : '∞';
+    if (lblB) lblB.textContent = isFinite(result.ttkB) ? fmtT(result.ttkB)
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? '~' + fmtT(result.projectedTtkB) : '∞';
+
+    // HP chart
+    const chartEl = document.getElementById('hpChartContainer');
+    if (chartEl) chartEl.innerHTML = buildHpChart(sA, sB, result);
+
+    // Compare grid
+    const compareEl = document.getElementById('compareGrid');
+    if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
+
+    // Weapons
+    const weaponsEl = document.getElementById('weaponsGrid');
+    if (weaponsEl) weaponsEl.innerHTML =
+        `<div>
+            <div class="weapons-col-title" style="color:${colorA}">${escHtml(sA.name)}</div>
+            ${buildWeaponsList(sA.weaponDetails)}
+            ${buildAmmoSummary(sA)}
+        </div>
+        <div>
+            <div class="weapons-col-title" style="color:${colorB}">${escHtml(sB.name)}</div>
+            ${buildWeaponsList(sB.weaponDetails)}
+            ${buildAmmoSummary(sB)}
+        </div>`;
+
+    // Phases
+    const phaseEl = document.getElementById('phaseList');
+    if (phaseEl) phaseEl.innerHTML = buildPhaseList(result, sA, sB);
+
+    // Show N-team panels hidden
+    const matEl = document.getElementById('matrixSection');
+    if (matEl) { matEl.style.display = 'none'; matEl.innerHTML = ''; }
+    document.getElementById('timelineSection').style.display = '';
+    document.getElementById('weaponsSection').style.display  = '';
+
+    resEl.style.display = 'block';
+    resEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderResultsNTeam(payload) {
+    const { teamStats, results: matrix } = payload;
+    const n      = teamStats.length;
+    const resEl  = document.getElementById('simResults');
+    if (!resEl) return;
+
+    // Compute wins
+    const wins = teamStats.map(() => 0);
+    for (let i = 0; i < n; i++)
+        for (let j = 0; j < n; j++)
+            if (i !== j && matrix[i][j].winner === 'A') wins[i]++;
+
+    const ranked = teamStats.map((ts, i) => ({ ts, wins: wins[i], idx: i }))
+        .sort((a, b) => b.wins - a.wins);
+
+    // Winner banner
+    const top = ranked[0];
+    const winnerNameEl = document.getElementById('resultWinnerName');
+    const subtitleEl   = document.getElementById('resultSubtitle');
+    if (winnerNameEl) {
+        winnerNameEl.className   = 'result-winner-name';
+        winnerNameEl.style.color = top.ts.color;
+        winnerNameEl.textContent = top.ts.name;
+    }
+    if (subtitleEl)
+        subtitleEl.innerHTML = ranked.map((r, pos) =>
+            `<span style="color:${r.ts.color};font-weight:${pos === 0 ? 'bold' : 'normal'}">` +
+            `${pos + 1}. ${escHtml(r.ts.name)} — ${r.wins}/${n - 1} wins</span>`
+        ).join('&nbsp;&nbsp;·&nbsp;&nbsp;');
+
+    // Matrix section — ranking table + all matchup blocks
+    const matEl = document.getElementById('matrixSection');
+    if (matEl) {
+        let html = buildRankingPanel(teamStats, matrix, ranked);
+
+        // Per-matchup full detail blocks (upper triangle only, A vs B and B vs A use same result)
+        html += `<div class="timeline-label" style="margin-top:24px">All Matchups — Full Detail</div>`;
+        for (let i = 0; i < n; i++) {
+            for (let j = i + 1; j < n; j++) {
+                const sA = teamStats[i], sB = teamStats[j];
+                const r  = matrix[i][j];   // team[i] is always "A" in this result
+                const blockHtml = buildMatchupBlock(sA, sB, r, { collapsed: true })
+                    .replace(`<div class="matchup-block"`, `<div class="matchup-block" data-matchup-pair="${i}-${j}"`);
+                html += blockHtml;
+            }
+        }
+
+        matEl.innerHTML = html;
+        matEl.style.display = '';
+    }
+
+    // Hide 2-team-only sections
+    document.getElementById('timelineSection').style.display = 'none';
+    document.getElementById('hpChartContainer').innerHTML    = '';
+    document.getElementById('compareGrid').innerHTML         = '';
+    document.getElementById('weaponsGrid').innerHTML         = '';
+    document.getElementById('weaponsSection').style.display  = 'none';
+
+    // Combined phases (for all matchups, shown in the global phase list)
+    const allPhases = [];
+    for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+            const r = matrix[i][j];
+            for (const ph of (r.phases || [])) {
+                allPhases.push({
+                    ...ph,
+                    matchup: `${teamStats[i].name} vs ${teamStats[j].name}`,
+                    color: ph.type === 'A' ? teamStats[i].color
+                         : ph.type === 'B' ? teamStats[j].color
+                         : '#94a3b8',
+                });
+            }
+        }
+    }
+    allPhases.sort((a, b) => a.time - b.time);
+
+    const phaseEl = document.getElementById('phaseList');
+    if (phaseEl) {
+        phaseEl.innerHTML = allPhases.length
+            ? allPhases.slice(0, 60).map(ph =>
+                `<div class="phase-item" style="border-left-color:${ph.color}">
+                    <span class="phase-icon">${ph.icon}</span>
+                    <span class="phase-time">${fmtT(ph.time)}</span>
+                    <span class="phase-text">
+                        <em style="font-size:0.8em;color:#64748b">[${escHtml(ph.matchup)}]</em> ${ph.text}
+                    </span>
+                </div>`
+              ).join('')
+            : '<div class="phase-item phase-neutral">No notable events.</div>';
+    }
+
+    resEl.style.display = 'block';
+    resEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  COLLAPSE / EXPAND TOGGLE  (used by onclick in matchup headers)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function _toggleMatchup(blockId) {
+    const block  = document.getElementById(blockId);
+    if (!block) return;
+    const header = block.querySelector('.matchup-header');
+    const body   = block.querySelector('.matchup-body');
+    const chev   = block.querySelector('.matchup-header-chevron');
+    if (!body) return;
+    const isCollapsed = body.style.display === 'none';
+    body.style.display = isCollapsed ? 'block' : 'none';
+    if (header) header.classList.toggle('matchup-header--collapsed', !isCollapsed);
+    if (chev)   chev.textContent = isCollapsed ? '▼' : '▶';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  PUBLIC renderResults DISPATCHER
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * renderResults(payload)
+ *
+ * payload: {
+ *   mode:        '2team' | 'nteam',
+ *   teamStats:   array of merged stats objects (one per team),
+ *   results:     ResultObj (2team) | ResultObj[][] (nteam),
+ *   damageTypes: string[],
+ *   outfitIndex: object,
+ *   attrDefs:    object,
+ * }
+ */
+function renderResults(payload) {
+    _damageTypes = payload.damageTypes || _damageTypes;
+    _outfitIndex = payload.outfitIndex || _outfitIndex;
+    _attrDefs    = payload.attrDefs    || _attrDefs;
+
+    if (payload.mode === '2team') {
+        renderResults2Team(payload);
+    } else {
+        renderResultsNTeam(payload);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  CSS INJECTION  — matchup block + collapse styles not in main.css
+// ─────────────────────────────────────────────────────────────────────────────
+
+(function injectStyles() {
+    if (document.getElementById('bssd-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'bssd-styles';
+    style.textContent = `
+        /* ── Matchup block ─────────────────────────────────── */
+        .matchup-block {
+            border: 1px solid rgba(148,163,184,0.13);
+            border-radius: 10px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            background: rgba(15,23,42,0.35);
+        }
+        .matchup-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            cursor: pointer;
+            background: rgba(30,41,59,0.55);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .matchup-header:hover { background: rgba(51,65,85,0.65); }
+        .matchup-header--collapsed { opacity: 0.85; }
+        .matchup-header-teams {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex: 1;
+            flex-wrap: wrap;
+        }
+        .matchup-team-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .matchup-team-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .matchup-vs {
+            color: #64748b;
+            font-size: 0.78rem;
+            font-style: italic;
+        }
+        .matchup-header-winner {
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+        .matchup-header-chevron {
+            color: #64748b;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+        .matchup-body {
+            padding: 14px 16px 18px;
+            border-top: 1px solid rgba(148,163,184,0.1);
+        }
+
+        /* ── Timeline bar dynamic colours ─────────────────── */
+        .timeline-bar-a, .timeline-bar-b {
+            transition: width 0.4s ease;
+        }
+    `;
+    document.head.appendChild(style);
+})();
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  EXPORT
+// ─────────────────────────────────────────────────────────────────────────────
+
+window.BattleSimDisplay = {
+    renderResults,
+    // Utility exports so battleSim.js can share the same formatters
+    fmt,
+    fmtT,
+    fmtTTK,
+    fmtPct,
+    fmtNet,
+    escHtml,
+    buildTtkString,
+    // Collapse toggle called from generated HTML
+    _toggleMatchup,
+};
+
+})();
