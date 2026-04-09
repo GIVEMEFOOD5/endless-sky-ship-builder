@@ -229,6 +229,203 @@ function buildHpChart(sA, sB, result) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+//  MOVEMENT DISPLAY  —  renders a movementProfile object as compare-grid rows
+//
+//  buildMovementCompareRows(pA, pB)
+//      Returns an array of [label, valueA, valueB] triples (plus null sentinels
+//      for section dividers) ready to be passed through buildCompareGrid's
+//      existing row-rendering pipeline.
+//
+//  buildMovementSection(sA, sB)
+//      Full HTML block — section title + compare grid — for insertion into a
+//      matchup block or the 2-team results panel.  Safe to call when either
+//      or both movementProfile values are missing; returns '' in that case.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function _fmtMov(v, unit) {
+    if (v == null || v === 0) return '—';
+    return fmt(v) + (unit || '');
+}
+
+function _movRow(label, vA, vB, unit) {
+    return [label, _fmtMov(vA, unit), _fmtMov(vB, unit)];
+}
+
+function buildMovementCompareRows(pA, pB) {
+    // pA / pB may be null if a team has no movement data
+    const a = pA || {};
+    const b = pB || {};
+
+    // Helper: only emit a row if at least one side has a non-zero value
+    const row = (label, kA, kB, unit) => {
+        const vA = a[kA] ?? null;
+        const vB = b[kB] ?? null;
+        if (!vA && !vB) return null;
+        return _movRow(label, vA, vB, unit);
+    };
+
+    // Sub-object row helper (e.g. sustainedCombat.energyPerSec)
+    const subRow = (label, subKey, valKey, unit) => {
+        const vA = a[subKey]?.[valKey] ?? null;
+        const vB = b[subKey]?.[valKey] ?? null;
+        if (!vA && !vB) return null;
+        return _movRow(label, vA, vB, unit);
+    };
+
+    const rows = [];
+
+    // ── Speed ────────────────────────────────────────────────────────────────
+    rows.push(
+        row('Max Velocity',          'maxVelocity',          'maxVelocity',          ' px/s'),
+        row('Acceleration',          'acceleration',         'acceleration',         ' px/s²'),
+        row('Time to ~63% Vel',      'timeToMaxVelocitySecs','timeToMaxVelocitySecs',' s'),
+    );
+
+    const eitherHasAB = (a.hasAfterburner || b.hasAfterburner);
+    if (eitherHasAB) {
+        rows.push(
+            _movRow('AB Max Velocity',
+                a.hasAfterburner ? a.maxVelocityAfterburner : null,
+                b.hasAfterburner ? b.maxVelocityAfterburner : null, ' px/s'),
+            _movRow('AB Acceleration',
+                a.hasAfterburner ? a.accelerationAfterburner : null,
+                b.hasAfterburner ? b.accelerationAfterburner : null, ' px/s²'),
+        );
+    }
+
+    const eitherHasRev = (a.hasReverseThrust || b.hasReverseThrust);
+    if (eitherHasRev) {
+        rows.push(
+            _movRow('Reverse Max Vel',
+                a.hasReverseThrust ? a.maxVelocityReverse : null,
+                b.hasReverseThrust ? b.maxVelocityReverse : null, ' px/s'),
+        );
+    }
+
+    // ── Turning ───────────────────────────────────────────────────────────────
+    rows.push(
+        row('Turn Rate',             'turnRateDegPerSec',    'turnRateDegPerSec',    ' °/s'),
+        row('Time for 180°',         'timeFor180Secs',       'timeFor180Secs',       ' s'),
+        row('Stopping Distance',     'stoppingDistancePx',   'stoppingDistancePx',   ' px'),
+    );
+
+    // ── Movement costs ────────────────────────────────────────────────────────
+    rows.push(
+        subRow('Thrust Energy/s',    'thrustCostsPerSec',    'energy',               '/s'),
+        subRow('Thrust Heat/s',      'thrustCostsPerSec',    'heat',                 '/s'),
+        subRow('Thrust Fuel/s',      'thrustCostsPerSec',    'fuel',                 '/s'),
+        subRow('Turn Energy/s',      'turningCostsPerSec',   'energy',               '/s'),
+        subRow('Turn Heat/s',        'turningCostsPerSec',   'heat',                 '/s'),
+        subRow('Turn Fuel/s',        'turningCostsPerSec',   'fuel',                 '/s'),
+    );
+
+    if (eitherHasAB) {
+        rows.push(
+            _movRow('AB Energy/s',
+                a.afterburnerCostsPerSec?.energy ?? null,
+                b.afterburnerCostsPerSec?.energy ?? null, '/s'),
+            _movRow('AB Heat/s',
+                a.afterburnerCostsPerSec?.heat ?? null,
+                b.afterburnerCostsPerSec?.heat ?? null, '/s'),
+            _movRow('AB Fuel/s',
+                a.afterburnerCostsPerSec?.fuel ?? null,
+                b.afterburnerCostsPerSec?.fuel ?? null, '/s'),
+            _movRow('AB Shield Cost/s',
+                a.afterburnerCostsPerSec?.shields || null,
+                b.afterburnerCostsPerSec?.shields || null, '/s'),
+        );
+    }
+
+    // ── Sustained combat ──────────────────────────────────────────────────────
+    rows.push(
+        subRow('Sustained Energy/s',  'sustainedCombat',     'energyPerSec',         '/s'),
+        subRow('Sustained Heat/s',    'sustainedCombat',     'heatPerSec',           '/s'),
+        subRow('Sustained Fuel/s',    'sustainedCombat',     'fuelPerSec',           '/s'),
+    );
+
+    // ── Jump / fuel ───────────────────────────────────────────────────────────
+    const eitherCanJump = (a.canJump || b.canJump);
+    if (eitherCanJump) {
+        rows.push(
+            _movRow('Fuel/Jump',
+                a.canJump ? a.jumpFuelPerJump : null,
+                b.canJump ? b.jumpFuelPerJump : null),
+            row('Fuel Capacity',     'fuelCapacity',         'fuelCapacity',         ''),
+            _movRow('Jumps (full tank)',
+                a.canJump ? a.jumpsOnFullTank : null,
+                b.canJump ? b.jumpsOnFullTank : null),
+            _movRow('Jump Range',
+                a.jumpRange || null, b.jumpRange || null),
+            row('Fuel Regen/s',      'fuelRegenPerSec',      'fuelRegenPerSec',      '/s'),
+            _movRow('Refuel for Jump',
+                a.refuelForJumpSecs ?? null,
+                b.refuelForJumpSecs ?? null, ' s'),
+        );
+    }
+
+    // ── Cloaking ──────────────────────────────────────────────────────────────
+    const eitherCanCloak = (a.canCloak || b.canCloak);
+    if (eitherCanCloak) {
+        rows.push(
+            _movRow('Time to Full Cloak',
+                a.canCloak ? a.timeToFullCloakSecs : null,
+                b.canCloak ? b.timeToFullCloakSecs : null, ' s'),
+        );
+        // Cloak costs — union of all cost keys from both sides
+        const cloakKeys = new Set([
+            ...Object.keys(a.cloakCostsPerSec || {}),
+            ...Object.keys(b.cloakCostsPerSec || {}),
+        ]);
+        for (const k of cloakKeys) {
+            rows.push(_movRow(
+                `Cloak ${k}/s`,
+                a.cloakCostsPerSec?.[k] ?? null,
+                b.cloakCostsPerSec?.[k] ?? null, '/s',
+            ));
+        }
+    }
+
+    // Filter out null sentinels from optional rows
+    return rows.filter(Boolean);
+}
+
+/**
+ * buildMovementSection(sA, sB, colorA, colorB)
+ * Returns an HTML string with the Movement section of the compare grid.
+ * Returns '' if neither team has a movementProfile.
+ */
+function buildMovementSection(sA, sB, colorA, colorB) {
+    const pA = sA.movementProfile || null;
+    const pB = sB.movementProfile || null;
+    if (!pA && !pB) return '';
+
+    const items = buildMovementCompareRows(pA, pB);
+    if (!items.length) return '';
+
+    const cA = colorA || sA.color || '#3b82f6';
+    const cB = colorB || sB.color || '#ef4444';
+
+    const colA       = items.map(([, va])      => `<div class="res-row"><div class="res-row-value">${va}</div></div>`).join('');
+    const colDiv     = items.map(([label])     => `<div class="res-divider-item">${label}</div>`).join('');
+    const colB       = items.map(([,, vb])     => `<div class="res-row"><div class="res-row-value">${vb}</div></div>`).join('');
+    const mobileRows = items.map(([label, va, vb]) =>
+        `<div class="res-row-mobile">
+            <span class="res-row-mobile__label">${label}</span>
+            <span class="res-row-mobile__val-a" style="color:${cA}">${va}</span>
+            <span class="res-row-mobile__val-b" style="color:${cB}">${vb}</span>
+        </div>`
+    ).join('');
+
+    return `<div class="res-section-title">Movement</div>
+    <div class="results-compare">
+        <div class="res-col res-col-a" style="--col-a:${cA}">${colA}</div>
+        <div class="res-divider">${colDiv}</div>
+        <div class="res-col res-col-b" style="--col-b:${cB}">${colB}</div>
+        ${mobileRows}
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 //  COMPARE GRID  (works for any pair A / B)
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -277,6 +474,8 @@ function buildCompareGrid(sA, sB, result) {
         (sA.fuelCap || 0) > 0 || (sB.fuelCap || 0) > 0 ||
         fireFuelA > 0 || fireFuelB > 0 || moveFuelA > 0 || moveFuelB > 0;
 
+    const movProfile = MovementStats.compareProfiles(sA.movementProfile, sA.name, sB.movementProfile, sB.name);
+
     const energySection = [
         ['Energy Cap.',     fmt(sA.energyCap),        fmt(sB.energyCap)],
         ['Energy Gen/s',    fmt(energyGenA),           fmt(energyGenB)],
@@ -323,7 +522,7 @@ function buildCompareGrid(sA, sB, result) {
     const colorA = sA.color || '#3b82f6';
     const colorB = sB.color || '#ef4444';
 
-    return sections.map(([section, items]) => {
+    let html = sections.map(([section, items]) => {
         if (!items?.length) return '';
         const colA      = items.map(([, va]) => `<div class="res-row"><div class="res-row-value">${va}</div></div>`).join('');
         const colDiv    = items.map(([label]) => `<div class="res-divider-item">${label}</div>`).join('');
@@ -343,6 +542,11 @@ function buildCompareGrid(sA, sB, result) {
             ${mobileRows}
         </div>`;
     }).join('');
+
+    // Append movement section after the standard sections
+    html += buildMovementSection(sA, sB, colorA, colorB);
+
+    return html;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -571,7 +775,7 @@ function buildMatchupBlock(sA, sB, result, { collapsed = false } = {}) {
                 ${buildHpChart(sA, sB, result)}
             </div>
 
-            <!-- Stats compare -->
+            <!-- Stats compare (combat + energy + fuel + movement) -->
             <div style="margin-bottom:10px;">
                 ${buildCompareGrid(sA, sB, result)}
             </div>
@@ -622,7 +826,6 @@ function buildRankingPanel(teamStats, matrix, ranked) {
             const ttk  = won || draw
                 ? (isFinite(r.ttkB) ? fmtT(r.ttkB) : '∞')
                 : (isFinite(r.ttkA) ? fmtT(r.ttkA) : '∞');
-            const anchor = `#matchup_${i}_${j}`;
             html += `<td class="matrix-cell ${won ? 'matrix-win' : draw ? 'matrix-draw' : 'matrix-loss'}"
                         title="${escHtml(teamStats[i].name)} vs ${escHtml(teamStats[j].name)}"
                         onclick="document.querySelector('[data-matchup-pair=\\'${i}-${j}\\']')?.scrollIntoView({behavior:'smooth',block:'start'});"
@@ -695,7 +898,7 @@ function renderResults2Team(payload) {
     const chartEl = document.getElementById('hpChartContainer');
     if (chartEl) chartEl.innerHTML = buildHpChart(sA, sB, result);
 
-    // Compare grid
+    // Compare grid (combat + energy + fuel + movement)
     const compareEl = document.getElementById('compareGrid');
     if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
 
@@ -762,12 +965,12 @@ function renderResultsNTeam(payload) {
     if (matEl) {
         let html = buildRankingPanel(teamStats, matrix, ranked);
 
-        // Per-matchup full detail blocks (upper triangle only, A vs B and B vs A use same result)
+        // Per-matchup full detail blocks (upper triangle only)
         html += `<div class="timeline-label" style="margin-top:24px">All Matchups — Full Detail</div>`;
         for (let i = 0; i < n; i++) {
             for (let j = i + 1; j < n; j++) {
                 const sA = teamStats[i], sB = teamStats[j];
-                const r  = matrix[i][j];   // team[i] is always "A" in this result
+                const r  = matrix[i][j];
                 const blockHtml = buildMatchupBlock(sA, sB, r, { collapsed: true })
                     .replace(`<div class="matchup-block"`, `<div class="matchup-block" data-matchup-pair="${i}-${j}"`);
                 html += blockHtml;
@@ -785,7 +988,7 @@ function renderResultsNTeam(payload) {
     document.getElementById('weaponsGrid').innerHTML         = '';
     document.getElementById('weaponsSection').style.display  = 'none';
 
-    // Combined phases (for all matchups, shown in the global phase list)
+    // Combined phases
     const allPhases = [];
     for (let i = 0; i < n; i++) {
         for (let j = i + 1; j < n; j++) {
@@ -868,79 +1071,6 @@ function renderResults(payload) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  CSS INJECTION  — matchup block + collapse styles not in main.css
-// ─────────────────────────────────────────────────────────────────────────────
-
-(function injectStyles() {
-    if (document.getElementById('bssd-styles')) return;
-    const style = document.createElement('style');
-    style.id = 'bssd-styles';
-    style.textContent = `
-        /* ── Matchup block ─────────────────────────────────── */
-        .matchup-block {
-            border: 1px solid rgba(148,163,184,0.13);
-            border-radius: 10px;
-            margin-bottom: 14px;
-            overflow: hidden;
-            background: rgba(15,23,42,0.35);
-        }
-        .matchup-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 11px 14px;
-            cursor: pointer;
-            background: rgba(30,41,59,0.55);
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .matchup-header:hover { background: rgba(51,65,85,0.65); }
-        .matchup-header--collapsed { opacity: 0.85; }
-        .matchup-header-teams {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            flex: 1;
-            flex-wrap: wrap;
-        }
-        .matchup-team-dot {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-            flex-shrink: 0;
-        }
-        .matchup-team-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .matchup-vs {
-            color: #64748b;
-            font-size: 0.78rem;
-            font-style: italic;
-        }
-        .matchup-header-winner {
-            font-size: 0.82rem;
-            white-space: nowrap;
-        }
-        .matchup-header-chevron {
-            color: #64748b;
-            font-size: 0.7rem;
-            flex-shrink: 0;
-        }
-        .matchup-body {
-            padding: 14px 16px 18px;
-            border-top: 1px solid rgba(148,163,184,0.1);
-        }
-
-        /* ── Timeline bar dynamic colours ─────────────────── */
-        .timeline-bar-a, .timeline-bar-b {
-            transition: width 0.4s ease;
-        }
-    `;
-    document.head.appendChild(style);
-})();
-
-// ─────────────────────────────────────────────────────────────────────────────
 //  EXPORT
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -954,6 +1084,9 @@ window.BattleSimDisplay = {
     fmtNet,
     escHtml,
     buildTtkString,
+    // Movement section — callable standalone if needed by other modules
+    buildMovementSection,
+    buildMovementCompareRows,
     // Collapse toggle called from generated HTML
     _toggleMatchup,
 };

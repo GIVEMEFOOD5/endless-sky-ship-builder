@@ -2821,6 +2821,82 @@ h1 {
     .weapons-grid { grid-template-columns: 1fr; }
 }
 
+/* ── Matchup block ─────────────────────────────────────────────────────────── */
+.matchup-block {
+    border: 1px solid rgba(148, 163, 184, 0.13);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.35);
+}
+ 
+.matchup-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    cursor: pointer;
+    background: rgba(30, 41, 59, 0.55);
+    transition: background 0.15s;
+    user-select: none;
+}
+ 
+.matchup-header:hover {
+    background: rgba(51, 65, 85, 0.65);
+}
+ 
+.matchup-header--collapsed {
+    opacity: 0.85;
+}
+ 
+.matchup-header-teams {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex: 1;
+    flex-wrap: wrap;
+}
+ 
+.matchup-team-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+ 
+.matchup-team-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+ 
+.matchup-vs {
+    color: #64748b;
+    font-size: 0.78rem;
+    font-style: italic;
+}
+ 
+.matchup-header-winner {
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+ 
+.matchup-header-chevron {
+    color: #64748b;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+ 
+.matchup-body {
+    padding: 14px 16px 18px;
+    border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+ 
+/* ── Timeline bar dynamic colours ─────────────────────────────────────────── */
+.timeline-bar-a,
+.timeline-bar-b {
+    transition: width 0.4s ease;
+}
 
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 600px) {
