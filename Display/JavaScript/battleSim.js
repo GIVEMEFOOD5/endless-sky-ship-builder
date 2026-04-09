@@ -4,20 +4,14 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 //  battleSim.js  —  Endless Sky Battle Simulator  (Multi-Team Edition)
 //
-//  ARCHITECTURE OVERVIEW
-//  ─────────────────────
-//  Teams are stored in _teams[], each team has:
-//    { id, name, color, ships: [ { shipData, count, resolved } ] }
+//  This file owns: data loading, team management, ship stat resolution,
+//  combat simulation, and result orchestration.
 //
-//  When simulating, each team's ships are merged into a single composite
-//  "super-combatant" (stats scaled by count) and teams fight each other.
-//
-//  For 2-team battles the full timeline/chart is generated.
-//  For N-team (N>2) battles a round-robin matrix is computed and displayed.
+//  All rendering is delegated to battleSimStatsDisplay.js via:
+//      window.BattleSimDisplay.renderResults(payload)
 //
 //  ZERO HARDCODING POLICY — all damage types, protection keys, resistance keys
-//  and status effect names are read from attributeDefinitions.json via
-//  _attrDefs exactly as the original battleSim.js did.
+//  and status effect names are read from attributeDefinitions.json via _attrDefs.
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const FPS          = 60;
@@ -38,11 +32,9 @@ let _statusDescriptors = [];
 let _weaponDataKeys    = new Set();
 
 // ── TEAM STATE ─────────────────────────────────────────────────────────────────
-// Each team: { id:string, name:string, color:string, ships:[{shipData,count,resolved}] }
 let _teams = [];
 let _nextTeamId = 1;
 
-// Palette of colours for teams — extended to 30 entries
 const TEAM_PALETTE = [
     '#3b82f6','#ef4444','#22c55e','#f59e0b','#a855f7',
     '#06b6d4','#f43f5e','#84cc16','#fb923c','#8b5cf6',
@@ -52,10 +44,6 @@ const TEAM_PALETTE = [
     '#4f46e5','#9333ea','#0284c7','#b91c1c','#15803d',
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  FIRING_STATUS_MAP — built from _attrDefs if possible, fallback list kept
-//  purely as a key-mapping reference that is only used in shootFrame.
-// ─────────────────────────────────────────────────────────────────────────────
 const FIRING_STATUS_MAP = {
     ionization: 'firing ion',
     scrambling: 'firing scramble',
@@ -70,6 +58,11 @@ const FIRING_STATUS_MAP = {
 const FIRING_RESOURCE_KEYS = ['firing energy', 'firing fuel', 'firing hull', 'firing shields'];
 function resourceLabel(key) { return key.replace(/^firing\s+/, ''); }
 
+// ── Formatting shims (delegate to display module when available) ───────────────
+const fmt       = (...a) => window.BattleSimDisplay?.fmt(...a)       ?? String(a[0] ?? '—');
+const fmtT      = (...a) => window.BattleSimDisplay?.fmtT(...a)      ?? String(a[0] ?? '—');
+const escHtml   = (...a) => window.BattleSimDisplay?.escHtml(...a)   ?? String(a[0] ?? '');
+
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 async function init() {
     hideResults();
@@ -77,7 +70,7 @@ async function init() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Fetch helpers (unchanged from original)
+//  Fetch helpers
 // ─────────────────────────────────────────────────────────────────────────────
 const CACHE_PREFIX      = `es-sim:${REPO_URL}:`;
 const MAX_FETCH_RETRIES = 4;
@@ -213,7 +206,7 @@ async function onPluginsChanged() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  ATTRIBUTE HELPERS  (identical to original)
+//  ATTRIBUTE HELPERS
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function getStacking(key) { return (_attrDefs?.attributes?.[key]?.stacking) || 'additive'; }
@@ -231,7 +224,7 @@ const protKey   = t => t.toLowerCase() + ' protection';
 const relDmgKey = t => '% ' + t.toLowerCase() + ' damage';
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  OUTFIT ATTRIBUTE EXTRACTION  (identical to original)
+//  OUTFIT ATTRIBUTE EXTRACTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const OUTFIT_META_KEYS = new Set([
@@ -256,7 +249,7 @@ function extractOutfitAttributes(outfit) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  STAT RESOLUTION  (identical to original)
+//  STAT RESOLUTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function resolveShipStats(ship) {
@@ -374,23 +367,13 @@ function resolveShipStats(ship) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  COMPOSITE STATS — merges N copies of a ship (or N different ships) into one
+//  COMPOSITE STATS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * mergeTeamStats(teamShipEntries)
- * teamShipEntries: [{ resolved: shipStats, count: number }, ...]
- *
- * Returns a combined stats object where all numeric totals are scaled by count.
- * Protection/resistance values are NOT simply summed — they are averaged weighted
- * by count (since they are fractions, not additive buffs).
- * The name is the team name, set by the caller.
- */
 function mergeTeamStats(entries) {
     if (!entries.length) return null;
     const totalCount = entries.reduce((s, e) => s + e.count, 0);
 
-    // Additive fields — sum × count
     const addFields = [
         'maxShields','maxHull','minHull','hullToDisable',
         'shieldRegenPerFrame','delayedShieldPerFrame',
@@ -406,83 +389,64 @@ function mergeTeamStats(entries) {
         'firingEnergyPerSec','firingHeatPerSec','firingFuelPerSec',
         'firingHullCostPerSec','firingShieldCostPerSec',
     ];
-
-    // Protection / resistance — weighted average by count
     const protFields = ['shieldProt','hullProt','piercingRes'];
 
-    // Build merged
     const merged = {};
-    for (const f of addFields) {
+    for (const f of addFields)
         merged[f] = entries.reduce((s, e) => s + (e.resolved[f] || 0) * e.count, 0);
-    }
-    for (const f of protFields) {
+    for (const f of protFields)
         merged[f] = entries.reduce((s, e) => s + (e.resolved[f] || 0) * e.count, 0) / totalCount;
-    }
 
-    // Protections map — weighted average
     const allProtKeys = new Set();
     for (const e of entries) for (const k of Object.keys(e.resolved.protections || {})) allProtKeys.add(k);
     merged.protections = {};
-    for (const k of allProtKeys) {
+    for (const k of allProtKeys)
         merged.protections[k] = entries.reduce((s, e) => s + (e.resolved.protections?.[k] || 0) * e.count, 0) / totalCount;
-    }
 
-    // Status resistances — weighted average
     merged.statusResist = {};
     const allStatNames = new Set();
     for (const e of entries) for (const k of Object.keys(e.resolved.statusResist || {})) allStatNames.add(k);
-    for (const k of allStatNames) {
+    for (const k of allStatNames)
         merged.statusResist[k] = entries.reduce((s, e) => s + (e.resolved.statusResist?.[k] || 0) * e.count, 0) / totalCount;
-    }
 
-    // Weapons — replicate × count for each ship entry
     merged.weapons = [];
     for (const e of entries)
         for (let c = 0; c < e.count; c++)
             for (const w of e.resolved.weapons) merged.weapons.push(w);
 
-    // Weapon details (for display) — also replicated
     merged.weaponDetails = [];
     for (const e of entries)
         for (let c = 0; c < e.count; c++)
             for (const wd of (e.resolved.weaponDetails || [])) merged.weaponDetails.push(wd);
 
-    // Ammo inventory — sum × count
     merged.ammoInventory = {};
-    for (const e of entries) {
+    for (const e of entries)
         for (const [k, v] of Object.entries(e.resolved.ammoInventory || {}))
             merged.ammoInventory[k] = (merged.ammoInventory[k] || 0) + v * e.count;
-    }
 
-    // Timing fields — take worst-case (max) so defences are correctly modelled
-    merged.shieldDelay    = entries.reduce((m, e) => Math.max(m, e.resolved.shieldDelay    || 0), 0);
-    merged.repairDelay    = entries.reduce((m, e) => Math.max(m, e.resolved.repairDelay    || 0), 0);
-    merged.depletedDelay  = entries.reduce((m, e) => Math.max(m, e.resolved.depletedDelay  || 0), 0);
+    merged.shieldDelay   = entries.reduce((m, e) => Math.max(m, e.resolved.shieldDelay   || 0), 0);
+    merged.repairDelay   = entries.reduce((m, e) => Math.max(m, e.resolved.repairDelay   || 0), 0);
+    merged.depletedDelay = entries.reduce((m, e) => Math.max(m, e.resolved.depletedDelay || 0), 0);
 
-    // Heat dissipation fraction — weighted average
     merged.heatDissipFrac = entries.reduce((s, e) => s + (e.resolved.heatDissipFrac || 0) * e.count, 0) / totalCount;
     merged.coolEff        = entries.reduce((s, e) => s + (e.resolved.coolEff        || 0) * e.count, 0) / totalCount;
 
-    // DPS map
     merged.dps = {};
     for (const t of _damageTypes)
         merged.dps[t] = entries.reduce((s, e) => s + (e.resolved.dps?.[t] || 0) * e.count, 0);
-
-    // Per-type DPS convenience fields
     for (const t of _damageTypes)
         merged[t.toLowerCase() + 'DPS'] = merged.dps[t] || 0;
 
-    // Name set by caller
-    merged.name        = '?';
-    merged.pluginId    = null;
-    merged.rawShip     = entries[0].resolved.rawShip;   // for ammo display only
-    merged._teamShips  = entries;                        // reference for display
+    merged.name       = '?';
+    merged.pluginId   = null;
+    merged.rawShip    = entries[0].resolved.rawShip;
+    merged._teamShips = entries;
 
     return merged;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  WEAPON HELPERS  (unchanged from original)
+//  WEAPON HELPERS
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function resolveSubmunitionRefs(w) {
@@ -617,7 +581,7 @@ function analyzeWeapons(weapons) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  AMMO / FIRING HELPERS  (unchanged)
+//  AMMO / FIRING HELPERS
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function _isNegativeCapacityAmmo(outfit, outfitName) {
@@ -682,7 +646,7 @@ function consumeFiringCosts(w, st) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  SUSTAIN EVENT TRACKING  (unchanged)
+//  SUSTAIN EVENT TRACKING
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function _isAmmoReason(r) { return typeof r === 'string' && r.startsWith('ammo:'); }
@@ -690,11 +654,10 @@ function _isAmmoReason(r) { return typeof r === 'string' && r.startsWith('ammo:'
 const STALL_CONFIRM_FRAMES  = 2 * 60;
 const RESUME_CONFIRM_FRAMES = 1 * 60;
 
-function createSustainState(stats) {
+function createSustainState() {
     const resourceState = {};
-    for (const key of FIRING_RESOURCE_KEYS) {
+    for (const key of FIRING_RESOURCE_KEYS)
         resourceState[key] = { reported:false, stallFrames:0, resumeFrames:0, reportedNames:[] };
-    }
     return { resourceState, ammoExhausted: new Set() };
 }
 
@@ -751,7 +714,7 @@ function checkWeaponSustainEvents(st, stats, side, t, sus, phases) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  COMBAT SIMULATION CORE  (2-team, unchanged logic)
+//  COMBAT SIMULATION CORE
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function createCombatantState(stats) {
@@ -1067,12 +1030,12 @@ function projectSurvival(stats, finalState, avgShieldDps, avgHullDps) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  TEAM MANAGEMENT  (new)
+//  TEAM MANAGEMENT
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function createTeam(name) {
-    const idx  = _teams.length;
-    const id   = 'team_' + (_nextTeamId++);
+    const idx   = _teams.length;
+    const id    = 'team_' + (_nextTeamId++);
     const color = TEAM_PALETTE[idx % TEAM_PALETTE.length];
     const team  = { id, name, color, ships: [] };
     _teams.push(team);
@@ -1121,7 +1084,7 @@ function renameTeam(teamId, newName) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  SHIP SEARCH  (adapted for team-based targeting)
+//  SHIP SEARCH
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const _blurTimers = {};
@@ -1168,7 +1131,7 @@ function blurTeamDropdown(teamId) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  RENDERING — TEAM CARDS  (new)
+//  RENDERING — TEAM CARDS
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function renderAllTeams() {
@@ -1198,12 +1161,11 @@ function createTeamCardElement(team) {
 
     const totalShips = team.ships.reduce((s, e) => s + e.count, 0);
 
-    // Header
     const header = document.createElement('div');
     header.className = 'team-card-header';
     header.innerHTML = `
         <div class="team-color-dot" style="background:${team.color}"></div>
-        <input class="team-name-input" value="${escHtml(team.name)}" 
+        <input class="team-name-input" value="${escHtml(team.name)}"
                placeholder="Team name"
                onchange="renameTeam('${team.id}', this.value)">
         <span class="team-ship-count">${totalShips} ship${totalShips !== 1 ? 's' : ''}</span>
@@ -1211,7 +1173,6 @@ function createTeamCardElement(team) {
     `;
     el.appendChild(header);
 
-    // Ship list
     const shipList = document.createElement('div');
     shipList.className = 'team-ship-list';
     if (team.ships.length === 0) {
@@ -1244,7 +1205,6 @@ function createTeamCardElement(team) {
     }
     el.appendChild(shipList);
 
-    // Add ship search
     const addSection = document.createElement('div');
     addSection.className = 'team-add-section';
     addSection.innerHTML = `
@@ -1266,7 +1226,7 @@ function createTeamCardElement(team) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  SIMULATION RUNNER  (multi-team)
+//  SIMULATION RUNNER  — delegates all rendering to BattleSimDisplay
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function updateSimButton() {
@@ -1308,14 +1268,37 @@ function runSimulation() {
                 return merged;
             });
 
+            const payload = {
+                damageTypes: _damageTypes,
+                outfitIndex: _outfitIndex,
+                attrDefs:    _attrDefs,
+                teamStats,
+            };
+
             if (teamStats.length === 2) {
-                // Full detail 1v1 battle
-                const result = simulateBattle(teamStats[0], teamStats[1]);
-                renderResults2Team(teamStats[0], teamStats[1], result);
+                payload.mode    = '2team';
+                payload.results = simulateBattle(teamStats[0], teamStats[1]);
             } else {
-                // Round-robin matrix for N teams
-                renderResultsMatrix(teamStats);
+                // Round-robin matrix
+                const n      = teamStats.length;
+                const matrix = [];
+                for (let i = 0; i < n; i++) {
+                    matrix[i] = [];
+                    for (let j = 0; j < n; j++) {
+                        matrix[i][j] = (i === j) ? null : simulateBattle(teamStats[i], teamStats[j]);
+                    }
+                }
+                payload.mode    = 'nteam';
+                payload.results = matrix;
             }
+
+            if (typeof window.BattleSimDisplay?.renderResults === 'function') {
+                window.BattleSimDisplay.renderResults(payload);
+            } else {
+                console.error('BattleSimDisplay not loaded — cannot render results.');
+                setStatus('Display module missing. Ensure battleSimStatsDisplay.js is loaded.', true);
+            }
+
         } catch (err) {
             console.error('runSimulation error:', err);
             setStatus('Simulation error: ' + err.message, true);
@@ -1323,621 +1306,6 @@ function runSimulation() {
             if (loadEl) { loadEl.style.display = 'none'; loadEl.classList.remove('visible'); }
         }
     }, 30);
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-//  RESULTS RENDERING — 2-TEAM  (adapted from original)
-// ═══════════════════════════════════════════════════════════════════════════════
-
-function renderResults2Team(sA, sB, result) {
-    const resEl = document.getElementById('simResults');
-    if (!resEl) return;
-
-    const winnerNameEl = document.getElementById('resultWinnerName');
-    const subtitleEl   = document.getElementById('resultSubtitle');
-    if (winnerNameEl) {
-        winnerNameEl.className = result.winner === 'A' ? 'result-winner-name result-winner-a'
-                               : result.winner === 'B' ? 'result-winner-name result-winner-b'
-                               : 'result-winner-name result-winner-draw';
-        winnerNameEl.textContent = result.winner === 'A' ? sA.name
-                                 : result.winner === 'B' ? sB.name : 'Draw';
-    }
-    if (subtitleEl)
-        subtitleEl.innerHTML = `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
-
-    const effA = isFinite(result.ttkA) ? result.ttkA
-        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? result.projectedTtkA : MAX_SIM_SECS;
-    const effB = isFinite(result.ttkB) ? result.ttkB
-        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? result.projectedTtkB : MAX_SIM_SECS;
-    const maxT = Math.max(effA, effB, 1);
-
-    const barA = document.getElementById('timelineBarA');
-    const barB = document.getElementById('timelineBarB');
-    const lblA = document.getElementById('timelineLabelA');
-    const lblB = document.getElementById('timelineLabelB');
-    if (barA) barA.style.width = Math.round(Math.min((effA / maxT) * 50, 50)) + '%';
-    if (barB) barB.style.width = Math.round(Math.min((effB / maxT) * 50, 50)) + '%';
-    if (lblA) lblA.textContent = isFinite(result.ttkA) ? fmtT(result.ttkA)
-        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? '~' + fmtT(result.projectedTtkA) : '∞';
-    if (lblB) lblB.textContent = isFinite(result.ttkB) ? fmtT(result.ttkB)
-        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? '~' + fmtT(result.projectedTtkB) : '∞';
-
-    const chartEl = document.getElementById('hpChartContainer');
-    if (chartEl) chartEl.innerHTML = buildHpChart(sA, sB, result);
-
-    const compareEl = document.getElementById('compareGrid');
-    if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
-
-    const weaponsEl = document.getElementById('weaponsGrid');
-    if (weaponsEl)
-        weaponsEl.innerHTML =
-            `<div>`
-            + `<div class="weapons-col-title weapons-col-title-a">${escHtml(sA.name)}</div>`
-            + buildWeaponsList(sA.weaponDetails)
-            + buildAmmoSummary(sA)
-            + `</div>`
-            + `<div>`
-            + `<div class="weapons-col-title weapons-col-title-b">${escHtml(sB.name)}</div>`
-            + buildWeaponsList(sB.weaponDetails)
-            + buildAmmoSummary(sB)
-            + `</div>`;
-
-    const phaseEl = document.getElementById('phaseList');
-    if (phaseEl) {
-        const phases = [...result.phases];
-        if (result.winner === 'A' && result.projectedTtkA != null) {
-            const pttk = result.projectedTtkA;
-            phases.push({ time: result.ttkB + (isFinite(pttk) ? pttk : 0), type: 'A', icon: '📊',
-                text: isFinite(pttk)
-                    ? `<strong>${escHtml(sA.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
-                    : `<strong>${escHtml(sA.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
-        }
-        if (result.winner === 'B' && result.projectedTtkB != null) {
-            const pttk = result.projectedTtkB;
-            phases.push({ time: result.ttkA + (isFinite(pttk) ? pttk : 0), type: 'B', icon: '📊',
-                text: isFinite(pttk)
-                    ? `<strong>${escHtml(sB.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
-                    : `<strong>${escHtml(sB.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
-        }
-        phaseEl.innerHTML = phases.length
-            ? phases.map(ph => {
-                const cls = ph.type === 'A' ? 'phase-A' : ph.type === 'B' ? 'phase-B' : 'phase-neutral';
-                return `<div class="phase-item ${cls}">
-                    <span class="phase-icon">${ph.icon}</span>
-                    <span class="phase-time">${fmtT(ph.time)}</span>
-                    <span class="phase-text">${ph.text}</span>
-                </div>`;
-              }).join('')
-            : '<div class="phase-item phase-neutral">No notable events recorded.</div>';
-    }
-
-    resEl.style.display = 'block';
-    resEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-    
-// ═══════════════════════════════════════════════════════════════════════════════
-//  RESULTS RENDERING — N-TEAM MATRIX
-// ═══════════════════════════════════════════════════════════════════════════════
-
-function renderResultsMatrix(teamStats) {
-    const resEl = document.getElementById('simResults');
-    if (!resEl) return;
-
-    // Run all pair-wise battles
-    const n = teamStats.length;
-    const matrix = []; // matrix[i][j] = result of team[i] vs team[j]
-    for (let i = 0; i < n; i++) {
-        matrix[i] = [];
-        for (let j = 0; j < n; j++) {
-            if (i === j) { matrix[i][j] = null; continue; }
-            matrix[i][j] = simulateBattle(teamStats[i], teamStats[j]);
-        }
-    }
-
-    // Compute win counts
-    const wins = teamStats.map(() => 0);
-    for (let i = 0; i < n; i++) {
-        for (let j = 0; j < n; j++) {
-            if (i === j) continue;
-            const r = matrix[i][j];
-            if (r.winner === 'A') wins[i]++;
-        }
-    }
-
-    // Sort by wins desc
-    const ranked = teamStats.map((ts, i) => ({ ts, wins: wins[i], idx: i }))
-        .sort((a, b) => b.wins - a.wins);
-
-    // Winner display
-    const winnerNameEl = document.getElementById('resultWinnerName');
-    const subtitleEl   = document.getElementById('resultSubtitle');
-    const top = ranked[0];
-    if (winnerNameEl) {
-        winnerNameEl.className    = 'result-winner-name';
-        winnerNameEl.style.color  = top.ts.color;
-        winnerNameEl.textContent  = top.ts.name;
-    }
-    if (subtitleEl)
-        subtitleEl.innerHTML = ranked.map((r, pos) =>
-            `<span style="color:${r.ts.color}; font-weight:${pos===0?'bold':'normal'}">${pos+1}. ${escHtml(r.ts.name)} — ${r.wins}/${n-1} wins</span>`
-        ).join('&nbsp;&nbsp;·&nbsp;&nbsp;');
-
-    // Matrix table
-    const matEl = document.getElementById('matrixSection');
-    if (matEl) {
-        let html = `<div class="timeline-label" style="margin-top:16px">1v1 Match Matrix</div>
-        <div class="matrix-scroll"><table class="battle-matrix">
-        <thead><tr><th></th>`;
-        for (const ts of teamStats) html += `<th style="color:${ts.color}">${escHtml(ts.name)}</th>`;
-        html += `</tr></thead><tbody>`;
-        for (let i = 0; i < n; i++) {
-            html += `<tr><td class="matrix-row-label" style="color:${teamStats[i].color}">${escHtml(teamStats[i].name)}</td>`;
-            for (let j = 0; j < n; j++) {
-                if (i === j) { html += `<td class="matrix-self">—</td>`; continue; }
-                const r = matrix[i][j];
-                const won = r.winner === 'A';
-                const draw = r.winner === 'draw';
-                const ttk  = isFinite(r.ttkB) ? fmtT(r.ttkB) : '∞';
-                html += `<td class="matrix-cell ${won?'matrix-win':draw?'matrix-draw':'matrix-loss'}" title="${escHtml(teamStats[i].name)} vs ${escHtml(teamStats[j].name)}">
-                    <span class="matrix-result">${won?'✓':draw?'~':'✗'}</span>
-                    <span class="matrix-ttk">${won||draw?ttk:fmtT(r.ttkA)}</span>
-                </td>`;
-            }
-            html += `</tr>`;
-        }
-        html += `</tbody></table></div>`;
-
-        // Rankings
-        html += `<div class="timeline-label" style="margin-top:18px">Rankings</div><div class="ranking-list">`;
-        for (const r of ranked) {
-            html += `<div class="ranking-item">
-                <span class="ranking-pos">#${ranked.indexOf(r)+1}</span>
-                <span class="ranking-color-dot" style="background:${r.ts.color}"></span>
-                <span class="ranking-name" style="color:${r.ts.color}">${escHtml(r.ts.name)}</span>
-                <span class="ranking-wins">${r.wins}/${n-1} wins</span>
-                <span class="ranking-dps">sDPS ${fmt(r.ts.shieldDPS)} · hDPS ${fmt(r.ts.hullDPS)}</span>
-                <span class="ranking-ehp">Shld ${fmt(r.ts.maxShields)} · Hull ${fmt(r.ts.maxHull)}</span>
-            </div>`;
-        }
-        html += `</div>`;
-        matEl.innerHTML = html;
-        matEl.style.display = '';
-    }
-
-    // Combat phases (merged from all matchups)
-    const allPhases = [];
-    for (let i = 0; i < n; i++) {
-        for (let j = i+1; j < n; j++) {
-            const r = matrix[i][j];
-            for (const ph of r.phases) {
-                allPhases.push({
-                    ...ph,
-                    matchup: `${teamStats[i].name} vs ${teamStats[j].name}`,
-                    color: ph.type==='A' ? teamStats[i].color : ph.type==='B' ? teamStats[j].color : '#94a3b8',
-                });
-            }
-        }
-    }
-    allPhases.sort((a, b) => a.time - b.time);
-
-    const phaseEl = document.getElementById('phaseList');
-    if (phaseEl) {
-        phaseEl.innerHTML = allPhases.length
-            ? allPhases.slice(0, 60).map(ph =>
-                `<div class="phase-item" style="border-left-color:${ph.color}">
-                    <span class="phase-icon">${ph.icon}</span>
-                    <span class="phase-time">${fmtT(ph.time)}</span>
-                    <span class="phase-text"><em style="font-size:0.8em;color:#64748b">[${escHtml(ph.matchup)}]</em> ${ph.text}</span>
-                </div>`
-              ).join('')
-            : '<div class="phase-item phase-neutral">No notable events.</div>';
-    }
-
-    document.getElementById('timelineSection').style.display = 'none';
-    document.getElementById('hpChartContainer').innerHTML    = '';
-    document.getElementById('compareGrid').innerHTML         = '';
-    document.getElementById('weaponsGrid').innerHTML         = '';
-    document.getElementById('matrixSection').style.display   = '';
-
-    resEl.style.display = 'block';
-    resEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-//  HP CHART  (unchanged logic, adapted for dynamic colours)
-// ═══════════════════════════════════════════════════════════════════════════════
-
-function buildHpChart(sA, sB, result) {
-    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-    const tlA = (result.timelineA || []).map(p => ({...p}));
-    const tlB = (result.timelineB || []).map(p => ({...p}));
-    if (!tlA.length && !tlB.length) return '';
-
-    const W=560, H=200, PL=48, PR=12, PT=14, PB=28;
-    const cW=W-PL-PR, cH=H-PT-PB;
-    const deathA=isFinite(result.ttkA)?result.ttkA:Infinity;
-    const deathB=isFinite(result.ttkB)?result.ttkB:Infinity;
-    const firstDeath=Math.min(deathA,deathB);
-    const lastPoint  = tl => tl.length ? tl[tl.length-1].t : 0;
-    const maxTime = Math.max(isFinite(firstDeath)?firstDeath:Math.max(lastPoint(tlA),lastPoint(tlB)), 0.1);
-    const maxHP = Math.max(sA.maxShields+sA.maxHull, sB.maxShields+sB.maxHull, 1);
-    const px = t  => PL + clamp(t,  0, maxTime) / maxTime * cW;
-    const py = hp => PT + cH - clamp(hp, 0, maxHP) / maxHP * cH;
-
-    function clip(tl, iS, iH) {
-        if (!tl.length) return [];
-        const out=[];
-        if (tl[0].t>0) out.push({ t:0, shields:iS, hull:iH });
-        for (let i=0; i<tl.length; i++) {
-            const p=tl[i];
-            if (p.t<=maxTime) { out.push(p); }
-            else {
-                const prev=tl[i-1]||out[out.length-1];
-                if (prev && prev.t<maxTime) {
-                    const dt=p.t-prev.t; const r=dt>0?(maxTime-prev.t)/dt:0;
-                    out.push({ t:maxTime, shields:prev.shields+(p.shields-prev.shields)*r, hull:prev.hull+(p.hull-prev.hull)*r });
-                }
-                break;
-            }
-        }
-        if (out.length===1) out.push({...out[0],t:out[0].t+0.001});
-        return out;
-    }
-
-    const cA=clip(tlA,sA.maxShields,sA.maxHull);
-    const cB=clip(tlB,sB.maxShields,sB.maxHull);
-    if (!cA.length && !cB.length) return '';
-
-    function makePaths(tl) {
-        if (!tl.length) return { hull:'', shieldArea:'' };
-        const hull = tl.map((p,i) => `${i?'L':'M'}${px(p.t).toFixed(1)},${py(Math.max(0,p.hull)).toFixed(1)}`).join(' ');
-        const hasShields = tl.some(p=>p.shields>0);
-        let shieldArea='';
-        if (hasShields) {
-            const fwd=tl.map((p,i)=>`${i===0?'M':'L'}${px(p.t).toFixed(1)},${py(Math.max(0,p.hull)+Math.max(0,p.shields)).toFixed(1)}`).join(' ');
-            const rev=[...tl].reverse().map(p=>`L${px(p.t).toFixed(1)},${py(Math.max(0,p.hull)).toFixed(1)}`).join(' ');
-            shieldArea=`${fwd} ${rev} Z`;
-        }
-        return { hull, shieldArea };
-    }
-
-    const pA=makePaths(cA), pB=makePaths(cB);
-
-    // Parse hex color to rgba
-    function hexToRgba(hex, alpha) {
-        const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
-        return `rgba(${r},${g},${b},${alpha})`;
-    }
-    const colorA = sA.color || '#3b82f6';
-    const colorB = sB.color || '#ef4444';
-
-    const yTicks=[0,0.5,1].map(f=>{
-        const v=maxHP*f, y=py(v).toFixed(1);
-        const lb=v>=1000?(v/1000).toFixed(1)+'k':Math.round(v).toString();
-        return `<line x1="${PL}" y1="${y}" x2="${PL+cW}" y2="${y}" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>` +
-               `<text x="${PL-4}" y="${+y+4}" fill="#64748b" font-size="10" text-anchor="end">${lb}</text>`;
-    }).join('');
-    const xTicks=[0,0.5,1].map(f=>{
-        const t=maxTime*f, x=px(t).toFixed(1);
-        return `<text x="${x}" y="${PT+cH+14}" fill="#64748b" font-size="10" text-anchor="middle">${t.toFixed(1)}s</text>`;
-    }).join('');
-    const threshLine=(minHull,color)=>minHull>0
-        ?`<line x1="${PL}" y1="${py(minHull).toFixed(1)}" x2="${PL+cW}" y2="${py(minHull).toFixed(1)}" stroke="${color}" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>`:
-        '';
-    const trunc=(s,n)=>s.length>n?s.slice(0,n-1)+'…':s;
-    const lx=PL+cW-4;
-    const legend=
-        `<rect x="${lx-82}" y="${PT+2}" width="8" height="3" fill="${colorA}" rx="1"/>` +
-        `<text x="${lx-70}" y="${PT+8}" fill="${colorA}" font-size="10">${escHtml(trunc(sA.name,18))}</text>` +
-        `<rect x="${lx-82}" y="${PT+16}" width="8" height="3" fill="${colorB}" rx="1"/>` +
-        `<text x="${lx-70}" y="${PT+22}" fill="${colorB}" font-size="10">${escHtml(trunc(sB.name,18))}</text>`;
-
-    return `<div class="hp-chart-wrap">
-        <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:auto;">
-            <rect x="${PL}" y="${PT}" width="${cW}" height="${cH}" fill="rgba(15,23,42,0.5)" rx="4"/>
-            ${yTicks}${xTicks}
-            ${threshLine(sA.minHull, hexToRgba(colorA, 0.5))}
-            ${threshLine(sB.minHull, hexToRgba(colorB, 0.5))}
-            ${pA.shieldArea ? `<path d="${pA.shieldArea}" fill="${hexToRgba(colorA,0.12)}" stroke="none"/>` : ''}
-            ${pA.hull       ? `<path d="${pA.hull}"  fill="none" stroke="${colorA}" stroke-width="2.5"/>` : ''}
-            ${pB.shieldArea ? `<path d="${pB.shieldArea}" fill="${hexToRgba(colorB,0.12)}" stroke="none"/>` : ''}
-            ${pB.hull       ? `<path d="${pB.hull}"  fill="none" stroke="${colorB}" stroke-width="2.5"/>` : ''}
-            ${legend}
-        </svg>
-    </div>`;
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-//  COMPARE GRID  (adapted for dynamic colors)
-// ═══════════════════════════════════════════════════════════════════════════════
-
-function buildCompareGrid(sA, sB, result) {
-    const ttkStrA = isFinite(result.ttkA) ? fmtTTK(result.ttkA)
-        : result.projectedTtkA != null ? (isFinite(result.projectedTtkA) ? `~${fmtT(result.projectedTtkA)} (proj.)` : '∞ (regen wins)') : '∞ (survived)';
-    const ttkStrB = isFinite(result.ttkB) ? fmtTTK(result.ttkB)
-        : result.projectedTtkB != null ? (isFinite(result.projectedTtkB) ? `~${fmtT(result.projectedTtkB)} (proj.)` : '∞ (regen wins)') : '∞ (survived)';
-
-    const allProtKeys = new Set([...Object.keys(sA.protections), ...Object.keys(sB.protections), 'piercing resistance']);
-    const protRows = [];
-    for (const key of [...allProtKeys].sort()) {
-        const va = key==='piercing resistance' ? sA.piercingRes : (sA.protections[key]||0);
-        const vb = key==='piercing resistance' ? sB.piercingRes : (sB.protections[key]||0);
-        if (va===0 && vb===0) continue;
-        protRows.push([key.replace(/\b\w/g,l=>l.toUpperCase()), fmtPct(va), fmtPct(vb)]);
-    }
-
-    const energyGenA=(sA.energyGenPerFrame||0)*FPS, energyGenB=(sB.energyGenPerFrame||0)*FPS;
-    const idleConsumeA=((sA.energyConsumeIdlePerFrame||0)+(sA.coolingEnergyPerFrame||0))*FPS;
-    const idleConsumeB=((sB.energyConsumeIdlePerFrame||0)+(sB.coolingEnergyPerFrame||0))*FPS;
-    const moveEnergyA=(sA.movingEnergyPerFrame||0)*FPS, moveEnergyB=(sB.movingEnergyPerFrame||0)*FPS;
-    const fireEnergyA=sA.firingEnergyPerSec||0, fireEnergyB=sB.firingEnergyPerSec||0;
-    const netA=energyGenA-idleConsumeA-moveEnergyA-fireEnergyA;
-    const netB=energyGenB-idleConsumeB-moveEnergyB-fireEnergyB;
-    const fuelGenA=(sA.fuelRegenPerFrame||0)*FPS, fuelGenB=(sB.fuelRegenPerFrame||0)*FPS;
-    const fireFuelA=sA.firingFuelPerSec||0, fireFuelB=sB.firingFuelPerSec||0;
-    const moveFuelA=(sA.movementProfile?.sustainedCombat?.fuelPerSec)??0;
-    const moveFuelB=(sB.movementProfile?.sustainedCombat?.fuelPerSec)??0;
-    const netFuelA=fuelGenA-fireFuelA-moveFuelA, netFuelB=fuelGenB-fireFuelB-moveFuelB;
-    const showFuel=(sA.fuelCap||0)>0||(sB.fuelCap||0)>0||fireFuelA>0||fireFuelB>0||moveFuelA>0||moveFuelB>0;
-
-    const energySection=[
-        ['Energy Cap.',     fmt(sA.energyCap),        fmt(sB.energyCap)],
-        ['Energy Gen/s',    fmt(energyGenA),           fmt(energyGenB)],
-        ['Idle Consume/s',  fmt(-idleConsumeA),        fmt(-idleConsumeB)],
-        ['Move Energy/s',   fmt(-moveEnergyA),         fmt(-moveEnergyB)],
-        ['Firing Energy/s', fmt(-fireEnergyA),         fmt(-fireEnergyB)],
-        ['Net (combat) /s', fmtNet(netA),              fmtNet(netB)],
-        ['Heat Capacity',   fmt(sA.maxHeat),           fmt(sB.maxHeat)],
-        ['Cooling/s',       fmt(sA.coolingPerSec),     fmt(sB.coolingPerSec)],
-        ['Firing Heat/s',   fmt(sA.firingHeatPerSec),  fmt(sB.firingHeatPerSec)],
-        ['Cool Efficiency', (sA.coolEff||0).toFixed(3),(sB.coolEff||0).toFixed(3)],
-    ];
-    if ((sA.firingHullCostPerSec||0)>0||(sB.firingHullCostPerSec||0)>0)
-        energySection.push(['Firing Hull Cost/s',fmt(sA.firingHullCostPerSec),fmt(sB.firingHullCostPerSec)]);
-    if ((sA.firingShieldCostPerSec||0)>0||(sB.firingShieldCostPerSec||0)>0)
-        energySection.push(['Firing Shield Cost/s',fmt(sA.firingShieldCostPerSec),fmt(sB.firingShieldCostPerSec)]);
-
-    const sections=[
-        ['Combat', [
-            ['Time to Disable',fmt(result.ttkA),fmt(result.ttkB)],
-            ['Max Shields',    fmt(sA.maxShields), fmt(sB.maxShields)],
-            ['Max Hull',       fmt(sA.maxHull),    fmt(sB.maxHull)],
-            ['Disable Thresh', fmt(sA.minHull),    fmt(sB.minHull)],
-            ['Shield DPS',     fmt(sA.shieldDPS),  fmt(sB.shieldDPS)],
-            ['Hull DPS',       fmt(sA.hullDPS),    fmt(sB.hullDPS)],
-            ['Shield Regen/s', fmt(sA.shieldRegenPerSec), fmt(sB.shieldRegenPerSec)],
-            ['Hull Repair/s',  fmt(sA.hullRepairPerSec),  fmt(sB.hullRepairPerSec)],
-            ...protRows,
-        ]],
-        ['Energy & Heat', energySection],
-    ];
-
-    if (showFuel) {
-        const fuelRows=[
-            ['Fuel Capacity',fmt(sA.fuelCap),fmt(sB.fuelCap)],
-            ['Fuel Regen/s', fmt(fuelGenA),  fmt(fuelGenB)],
-        ];
-        if (moveFuelA>0||moveFuelB>0) fuelRows.push(['Move Fuel/s',fmt(-moveFuelA),fmt(-moveFuelB)]);
-        if (fireFuelA>0||fireFuelB>0) fuelRows.push(['Firing Fuel/s',fmt(-fireFuelA),fmt(-fireFuelB)]);
-        fuelRows.push(['Net Fuel/s',fmtNet(netFuelA),fmtNet(netFuelB)]);
-        sections.push(['Fuel',fuelRows]);
-    }
-
-    const colorA = sA.color || '#3b82f6';
-    const colorB = sB.color || '#ef4444';
-
-    return sections.map(([section, items]) => {
-        if (!items?.length) return '';
-        const colA   = items.map(([,va])  => `<div class="res-row"><div class="res-row-value">${va}</div></div>`).join('');
-        const colDiv = items.map(([label])=> `<div class="res-divider-item">${label}</div>`).join('');
-        const colB   = items.map(([,,vb]) => `<div class="res-row"><div class="res-row-value">${vb}</div></div>`).join('');
-        const mobileRows=items.map(([label,va,vb])=>
-            `<div class="res-row-mobile"><span class="res-row-mobile__label">${label}</span><span class="res-row-mobile__val-a" style="color:${colorA}">${va}</span><span class="res-row-mobile__val-b" style="color:${colorB}">${vb}</span></div>`).join('');
-        return `<div class="res-section-title">${section}</div>
-        <div class="results-compare">
-            <div class="res-col res-col-a" style="--col-a:${colorA}">${colA}</div>
-            <div class="res-divider">${colDiv}</div>
-            <div class="res-col res-col-b" style="--col-b:${colorB}">${colB}</div>
-            ${mobileRows}
-        </div>`;
-    }).join('');
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-//  WEAPON DISPLAY HELPERS  (unchanged)
-// ═══════════════════════════════════════════════════════════════════════════════
-
-function buildAmmoSummary(stats) {
-
-    const outfitMap = stats.rawShip?.outfitMap || {};
-    const seen = new Set();
-    const rows = [];
-
-    for (const w of stats.weapons) {
-        const ammoRef = resolveAmmoRef(w);
-        if (!ammoRef?.ammoName) continue;
-        const ammoName = ammoRef.ammoName;
-        if (seen.has(ammoName)) continue;
-        seen.add(ammoName);
-
-
-        // Find the capacity key this ammo consumes
-        // Convention: ammo outfit has a "* capacity": -N attribute
-        const ammoOutfit = _outfitIndex[ammoName];
-        let capacityKey = null;
-        let ammoPerUnit = 1; // how many rounds per installed ammo outfit
-
-        if (ammoOutfit) {
-            // Check top-level keys first (data file format)
-            for (const [k, v] of Object.entries(ammoOutfit)) {
-                if (k.endsWith(' capacity') && typeof v === 'number' && v < 0) {
-                    capacityKey = k;
-                    ammoPerUnit = Math.abs(v); // e.g. -1 means 1 round per outfit
-                    break;
-                }
-            }
-
-            // Also check .attributes sub-object
-            if (!capacityKey && ammoOutfit.attributes) {
-                for (const [k, v] of Object.entries(ammoOutfit.attributes)) {
-                    if (k.endsWith(' capacity') && typeof v === 'number' && v < 0) {
-                        capacityKey = k;
-                        ammoPerUnit = Math.abs(v);
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Sum total capacity from all installed outfits that provide it
-        let totalCapacity = 0;
-        let installedAmmoCount = 0;
-
-        for (const [outfitName, qty] of Object.entries(outfitMap)) {
-
-            const outfit = _outfitIndex[outfitName];
-
-            if (!outfit) continue;
-
-            if (capacityKey) {
-
-                // Sum positive contributions of the capacity key
-                // (weapon outfits provide +N, ammo outfits provide -N)
-                const topLevel = typeof outfit[capacityKey] === 'number'
-                    ? outfit[capacityKey] : 0;
-                
-                const attrLevel = typeof outfit.attributes?.[capacityKey] === 'number'
-                    ? outfit.attributes[capacityKey] : 0;
-                
-                const perUnit = topLevel + attrLevel;
-                if (perUnit > 0) totalCapacity += perUnit * qty;
-            }
-
-            // Count directly installed ammo outfits
-            if (outfitName === ammoName) installedAmmoCount += qty;
-        }
-
-        // Best stock estimate:
-        // 1. If we found a capacity key: total capacity / cost per ammo = max rounds
-        // 2. Else use ammoInventory from resolveShipStats
-        // 3. Else use raw installed count
-        let stock = 0;
-        
-        if (capacityKey && totalCapacity > 0) {
-            stock = Math.round(totalCapacity / ammoPerUnit);
-        } else if ((stats.ammoInventory?.[ammoName] ?? 0) > 0) {
-            stock = stats.ammoInventory[ammoName];
-        } else {
-            stock = installedAmmoCount;
-        }
-
-        // Find which weapon(s) use this ammo
-        const weaponNames = stats.weapons
-            .filter(w2 => resolveAmmoRef(w2)?.ammoName === ammoName)
-            .map(w2 => w2._name || 'Unknown')
-            .filter((n, i, a) => a.indexOf(n) === i);
-
-        // Shots per second for this ammo's weapon(s) combined
-        let totalSps = 0;
-        
-        for (const w2 of stats.weapons) {
-            if (resolveAmmoRef(w2)?.ammoName !== ammoName) continue;
-            
-            const reload      = Math.max(1, w2.reload || 1);
-            const burstCount  = w2['burst count'] || 1;
-            const burstReload = w2['burst reload'] || reload;
-            
-            totalSps += (burstCount / ((burstCount - 1) * burstReload + reload)) * 60;
-        }
-
-        const sustainSecs = totalSps > 0 ? stock / totalSps : null;
-        rows.push({ ammoName, weaponNames, stock, sustainSecs, capacityKey });
-    }
-
-    if (!rows.length) return '';
-
-    const items = rows.map(r => {
-        const sustain = r.sustainSecs != null
-            ? `<span class="weapon-stat">Until Empty: <span>${r.sustainSecs.toFixed(1)}s</span></span>`
-            : '';
-
-        return `
-            <div class="weapon-item">
-                <div class="weapon-item-name">${escHtml(r.ammoName)}</div>
-                <div class="weapon-item-stats">
-                    <span class="weapon-stat">Stock:<span>${r.stock}</span></span>
-                    ${sustain}
-                </div>
-            </div>
-        `;
-    }).join('');
-    
-    return items;
-}
-
-function buildWeaponsList(details) {
-    if (!details?.length) return '<div class="weapon-item" style="color:var(--c-text-muted);font-style:italic;padding:8px 0;">No weapons</div>';
-    return details.map(w => {
-        const extra = [];
-        for (const typeName of _damageTypes) {
-            if (typeName==='Shield'||typeName==='Hull') continue;
-            const dps=w[typeName.toLowerCase()+'DPS']||0;
-            if (dps>0.001) {
-                const typeEntry=window.DamageTypes?.getDamageType(typeName);
-                const isStatusOnly=typeEntry?.category==='status'&&typeEntry?.shieldInteraction!=='direct';
-                extra.push(`${typeName}: ${fmt(dps)}/s${isStatusOnly?' ⚡':''}`);
-            }
-        }
-        if (w.relShield>0) extra.push(`%Shld: ${w.relShield}%/hit`);
-        if (w.relHull>0)   extra.push(`%Hull: ${w.relHull}%/hit`);
-        return `<div class="weapon-item">
-            <div class="weapon-item-name">${escHtml(w.name)}${w.hasSubmunitions?`<span style="color:var(--c-accent-text);font-size:0.7em;margin-left:4px;">⚡sub</span>`:''}</div>
-            <div class="weapon-item-stats">
-                <span class="weapon-stat">Rate:<span>${w.sps}/s</span></span>
-                <span class="weapon-stat">Shld:<span>${fmt(w.shieldDPS)}/s</span></span>
-                <span class="weapon-stat">Hull:<span>${fmt(w.hullDPS)}/s</span></span>
-                ${w.piercing?`<span class="weapon-stat">Pierce:<span>${w.piercing}%</span></span>`:''}
-                ${w.range?`<span class="weapon-stat">Range:<span>${w.range}px</span></span>`:''}
-                ${w.burstCount>1?`<span class="weapon-stat">Burst:<span>${w.burstCount}×</span></span>`:''}
-                ${w.homing?`<span class="weapon-stat">🎯 Homing</span>`:''}
-                ${w.antiMissile?`<span class="weapon-stat">🛡 A-M</span>`:''}
-                ${extra.map(s=>`<span class="weapon-stat">${escHtml(s)}</span>`).join('')}
-            </div>
-        </div>`;
-    }).join('');
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-//  FORMATTING HELPERS  (unchanged)
-// ═══════════════════════════════════════════════════════════════════════════════
-
-function fmt(n) {
-    if (n===null||n===undefined) return '—';
-    if (!isFinite(n)) return '∞';
-    if (Math.abs(n)>=100000) return (n/1000).toFixed(1)+'k';
-    if (Math.abs(n)>=10000)  return Math.round(n).toLocaleString();
-    if (Math.abs(n)<0.01&&n!==0) return n.toExponential(2);
-    if (Number.isInteger(n)) return n.toString();
-    return parseFloat(n.toPrecision(4)).toString();
-}
-function fmtT(t)   { return isFinite(t) ? t.toFixed(1)+'s' : '∞'; }
-function fmtTTK(t) { return isFinite(t) ? fmtT(t) : '∞ (never)'; }
-function fmtPct(v) {
-    if (!v) return '0%';
-    const s=(v*100).toFixed(2).replace(/\.?0+$/,'');
-    return s+'%';
-}
-function fmtNet(v) { if (!isFinite(v)||v===0) return '0'; return (v>0?'+':'')+fmt(v); }
-function escHtml(s) {
-    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-function buildTtkString(name, ttk, projectedTtk) {
-    const n=escHtml(name);
-    if (isFinite(ttk)) return `${n} disabled in ${fmtT(ttk)}`;
-    if (projectedTtk==null) return `${n} survived`;
-    if (!isFinite(projectedTtk)) return `${n} survived (regen &gt; damage)`;
-    return `${n} survived · ~${fmtT(projectedTtk)} projected`;
 }
 
 // ── Public API ─────────────────────────────────────────────────────────────────
@@ -1951,15 +1319,13 @@ window.renameTeam          = renameTeam;
 window.runSimulation       = runSimulation;
 
 window.addNewTeam = function() {
-    let teamNumber = _teams.length + 1;
-    let teamName = "Team " + teamNumber;
-    createTeam(teamName);
+    const teamNumber = _teams.length + 1;
+    createTeam('Team ' + teamNumber);
     renderAllTeams();
     updateSimButton();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialise with 2 teams by default
     createTeam('Team 1');
     createTeam('Team 2');
     renderAllTeams();
