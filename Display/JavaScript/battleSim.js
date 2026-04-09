@@ -1232,12 +1232,11 @@ function createTeamCardElement(team) {
                     </div>
                 </div>
                 <div class="team-ship-controls">
-                    <label class="team-count-label">×</label>
                     <input class="team-count-input" type="number" min="1" max="9999"
                            value="${entry.count}"
                            onchange="updateShipCount('${team.id}', ${idx}, this.value)"
                            oninput="updateShipCount('${team.id}', ${idx}, this.value)">
-                    <button class="team-ship-remove" title="Remove" onclick="removeShipFromTeam('${team.id}', ${idx})">🗑</button>
+                    <button class="team-remove-btn" title="Remove" onclick="removeShipFromTeam('${team.id}', ${idx})">✕</button>
                 </div>
             `;
             shipList.appendChild(row);
@@ -1258,7 +1257,6 @@ function createTeamCardElement(team) {
                        onblur="blurTeamDropdown('${team.id}')">
                 <div class="ship-dropdown" id="dropdown_${team.id}"></div>
             </div>
-            <label class="team-count-label" style="margin:0 4px;">×</label>
             <input class="team-count-input" id="addCount_${team.id}" type="number" min="1" max="9999" value="1" style="width:60px;">
         </div>
     `;
