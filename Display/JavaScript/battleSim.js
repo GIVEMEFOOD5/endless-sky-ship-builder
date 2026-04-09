@@ -1336,30 +1336,31 @@ function renderResults2Team(sA, sB, result) {
     const winnerNameEl = document.getElementById('resultWinnerName');
     const subtitleEl   = document.getElementById('resultSubtitle');
     if (winnerNameEl) {
-        winnerNameEl.className = 'result-winner-name';
-        winnerNameEl.style.color = result.winner === 'A' ? sA.color
-                                 : result.winner === 'B' ? sB.color : '#94a3b8';
+        winnerNameEl.className = result.winner === 'A' ? 'result-winner-name result-winner-a'
+                               : result.winner === 'B' ? 'result-winner-name result-winner-b'
+                               : 'result-winner-name result-winner-draw';
         winnerNameEl.textContent = result.winner === 'A' ? sA.name
                                  : result.winner === 'B' ? sB.name : 'Draw';
     }
     if (subtitleEl)
-        subtitleEl.innerHTML =
-            `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
+        subtitleEl.innerHTML = `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
 
-    const effA = isFinite(result.ttkA) ? result.ttkA : (result.projectedTtkA ?? MAX_SIM_SECS);
-    const effB = isFinite(result.ttkB) ? result.ttkB : (result.projectedTtkB ?? MAX_SIM_SECS);
+    const effA = isFinite(result.ttkA) ? result.ttkA
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? result.projectedTtkA : MAX_SIM_SECS;
+    const effB = isFinite(result.ttkB) ? result.ttkB
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? result.projectedTtkB : MAX_SIM_SECS;
     const maxT = Math.max(effA, effB, 1);
 
     const barA = document.getElementById('timelineBarA');
     const barB = document.getElementById('timelineBarB');
     const lblA = document.getElementById('timelineLabelA');
     const lblB = document.getElementById('timelineLabelB');
-    if (barA) { barA.style.width = Math.round(Math.min((effA/maxT)*50,50))+'%'; barA.style.background = sA.color; }
-    if (barB) { barB.style.width = Math.round(Math.min((effB/maxT)*50,50))+'%'; barB.style.background = sB.color; }
+    if (barA) barA.style.width = Math.round(Math.min((effA / maxT) * 50, 50)) + '%';
+    if (barB) barB.style.width = Math.round(Math.min((effB / maxT) * 50, 50)) + '%';
     if (lblA) lblA.textContent = isFinite(result.ttkA) ? fmtT(result.ttkA)
-        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? '~'+fmtT(result.projectedTtkA) : '∞';
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? '~' + fmtT(result.projectedTtkA) : '∞';
     if (lblB) lblB.textContent = isFinite(result.ttkB) ? fmtT(result.ttkB)
-        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? '~'+fmtT(result.projectedTtkB) : '∞';
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? '~' + fmtT(result.projectedTtkB) : '∞';
 
     const chartEl = document.getElementById('hpChartContainer');
     if (chartEl) chartEl.innerHTML = buildHpChart(sA, sB, result);
@@ -1368,38 +1369,40 @@ function renderResults2Team(sA, sB, result) {
     if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
 
     const weaponsEl = document.getElementById('weaponsGrid');
-    if (weaponsEl) weaponsEl.innerHTML =
-        `<div>
-            <div class="weapons-col-title" style="color:${sA.color}">${escHtml(sA.name)}</div>
-            ${buildWeaponsList(sA.weaponDetails)}
-        </div>
-        <div>
-            <div class="weapons-col-title" style="color:${sB.color}">${escHtml(sB.name)}</div>
-            ${buildWeaponsList(sB.weaponDetails)}
-        </div>`;
+    if (weaponsEl)
+        weaponsEl.innerHTML =
+            `<div>`
+            + `<div class="weapons-col-title weapons-col-title-a">${escHtml(sA.name)}</div>`
+            + buildWeaponsList(sA.weaponDetails)
+            + buildAmmoSummary(sA)
+            + `</div>`
+            + `<div>`
+            + `<div class="weapons-col-title weapons-col-title-b">${escHtml(sB.name)}</div>`
+            + buildWeaponsList(sB.weaponDetails)
+            + buildAmmoSummary(sB)
+            + `</div>`;
 
     const phaseEl = document.getElementById('phaseList');
     if (phaseEl) {
         const phases = [...result.phases];
-        if (result.winner==='A' && result.projectedTtkA != null) {
-            const p=result.projectedTtkA;
-            phases.push({ time:result.ttkB+(isFinite(p)?p:0), type:'A', icon:'📊',
-                text: isFinite(p)
-                    ? `<strong>${escHtml(sA.name)}</strong> projected ~${fmtT(p)} more survival`
-                    : `<strong>${escHtml(sA.name)}</strong> — regen outpaces continued damage` });
+        if (result.winner === 'A' && result.projectedTtkA != null) {
+            const pttk = result.projectedTtkA;
+            phases.push({ time: result.ttkB + (isFinite(pttk) ? pttk : 0), type: 'A', icon: '📊',
+                text: isFinite(pttk)
+                    ? `<strong>${escHtml(sA.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
+                    : `<strong>${escHtml(sA.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
         }
-        if (result.winner==='B' && result.projectedTtkB != null) {
-            const p=result.projectedTtkB;
-            phases.push({ time:result.ttkA+(isFinite(p)?p:0), type:'B', icon:'📊',
-                text: isFinite(p)
-                    ? `<strong>${escHtml(sB.name)}</strong> projected ~${fmtT(p)} more survival`
-                    : `<strong>${escHtml(sB.name)}</strong> — regen outpaces continued damage` });
+        if (result.winner === 'B' && result.projectedTtkB != null) {
+            const pttk = result.projectedTtkB;
+            phases.push({ time: result.ttkA + (isFinite(pttk) ? pttk : 0), type: 'B', icon: '📊',
+                text: isFinite(pttk)
+                    ? `<strong>${escHtml(sB.name)}</strong> projected to survive ~${fmtT(pttk)} more under continued fire`
+                    : `<strong>${escHtml(sB.name)}</strong> projected to outlast continued fire — regen outpaces damage` });
         }
-        phases.sort((a, b) => a.time - b.time);
         phaseEl.innerHTML = phases.length
             ? phases.map(ph => {
-                const teamColor = ph.type==='A' ? sA.color : ph.type==='B' ? sB.color : '#94a3b8';
-                return `<div class="phase-item" style="border-left-color:${teamColor}">
+                const cls = ph.type === 'A' ? 'phase-A' : ph.type === 'B' ? 'phase-B' : 'phase-neutral';
+                return `<div class="phase-item ${cls}">
                     <span class="phase-icon">${ph.icon}</span>
                     <span class="phase-time">${fmtT(ph.time)}</span>
                     <span class="phase-text">${ph.text}</span>
@@ -1408,14 +1411,10 @@ function renderResults2Team(sA, sB, result) {
             : '<div class="phase-item phase-neutral">No notable events recorded.</div>';
     }
 
-    // Show the 2-team timeline section, hide matrix
-    document.getElementById('timelineSection').style.display = '';
-    document.getElementById('matrixSection').style.display   = 'none';
-
     resEl.style.display = 'block';
     resEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
+    
 // ═══════════════════════════════════════════════════════════════════════════════
 //  RESULTS RENDERING — N-TEAM MATRIX
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1747,6 +1746,134 @@ function buildCompareGrid(sA, sB, result) {
 // ═══════════════════════════════════════════════════════════════════════════════
 //  WEAPON DISPLAY HELPERS  (unchanged)
 // ═══════════════════════════════════════════════════════════════════════════════
+
+function buildAmmoSummary(stats) {
+
+    const outfitMap = stats.rawShip?.outfitMap || {};
+    const seen = new Set();
+    const rows = [];
+
+    for (const w of stats.weapons) {
+        const ammoRef = resolveAmmoRef(w);
+        if (!ammoRef?.ammoName) continue;
+        const ammoName = ammoRef.ammoName;
+        if (seen.has(ammoName)) continue;
+        seen.add(ammoName);
+
+
+        // Find the capacity key this ammo consumes
+        // Convention: ammo outfit has a "* capacity": -N attribute
+        const ammoOutfit = _outfitIndex[ammoName];
+        let capacityKey = null;
+        let ammoPerUnit = 1; // how many rounds per installed ammo outfit
+
+        if (ammoOutfit) {
+            // Check top-level keys first (data file format)
+            for (const [k, v] of Object.entries(ammoOutfit)) {
+                if (k.endsWith(' capacity') && typeof v === 'number' && v < 0) {
+                    capacityKey = k;
+                    ammoPerUnit = Math.abs(v); // e.g. -1 means 1 round per outfit
+                    break;
+                }
+            }
+
+            // Also check .attributes sub-object
+            if (!capacityKey && ammoOutfit.attributes) {
+                for (const [k, v] of Object.entries(ammoOutfit.attributes)) {
+                    if (k.endsWith(' capacity') && typeof v === 'number' && v < 0) {
+                        capacityKey = k;
+                        ammoPerUnit = Math.abs(v);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Sum total capacity from all installed outfits that provide it
+        let totalCapacity = 0;
+        let installedAmmoCount = 0;
+
+        for (const [outfitName, qty] of Object.entries(outfitMap)) {
+
+            const outfit = _outfitIndex[outfitName];
+
+            if (!outfit) continue;
+
+            if (capacityKey) {
+
+                // Sum positive contributions of the capacity key
+                // (weapon outfits provide +N, ammo outfits provide -N)
+                const topLevel = typeof outfit[capacityKey] === 'number'
+                    ? outfit[capacityKey] : 0;
+                
+                const attrLevel = typeof outfit.attributes?.[capacityKey] === 'number'
+                    ? outfit.attributes[capacityKey] : 0;
+                
+                const perUnit = topLevel + attrLevel;
+                if (perUnit > 0) totalCapacity += perUnit * qty;
+            }
+
+            // Count directly installed ammo outfits
+            if (outfitName === ammoName) installedAmmoCount += qty;
+        }
+
+        // Best stock estimate:
+        // 1. If we found a capacity key: total capacity / cost per ammo = max rounds
+        // 2. Else use ammoInventory from resolveShipStats
+        // 3. Else use raw installed count
+        let stock = 0;
+        
+        if (capacityKey && totalCapacity > 0) {
+            stock = Math.round(totalCapacity / ammoPerUnit);
+        } else if ((stats.ammoInventory?.[ammoName] ?? 0) > 0) {
+            stock = stats.ammoInventory[ammoName];
+        } else {
+            stock = installedAmmoCount;
+        }
+
+        // Find which weapon(s) use this ammo
+        const weaponNames = stats.weapons
+            .filter(w2 => resolveAmmoRef(w2)?.ammoName === ammoName)
+            .map(w2 => w2._name || 'Unknown')
+            .filter((n, i, a) => a.indexOf(n) === i);
+
+        // Shots per second for this ammo's weapon(s) combined
+        let totalSps = 0;
+        
+        for (const w2 of stats.weapons) {
+            if (resolveAmmoRef(w2)?.ammoName !== ammoName) continue;
+            
+            const reload      = Math.max(1, w2.reload || 1);
+            const burstCount  = w2['burst count'] || 1;
+            const burstReload = w2['burst reload'] || reload;
+            
+            totalSps += (burstCount / ((burstCount - 1) * burstReload + reload)) * 60;
+        }
+
+        const sustainSecs = totalSps > 0 ? stock / totalSps : null;
+        rows.push({ ammoName, weaponNames, stock, sustainSecs, capacityKey });
+    }
+
+    if (!rows.length) return '';
+
+    const items = rows.map(r => {
+        const sustain = r.sustainSecs != null
+            ? `<span class="weapon-stat">Until Empty: <span>${r.sustainSecs.toFixed(1)}s</span></span>`
+            : '';
+
+        return `
+            <div class="weapon-item">
+                <div class="weapon-item-name">${escHtml(r.ammoName)}</div>
+                <div class="weapon-item-stats">
+                    <span class="weapon-stat">Stock:<span>${r.stock}</span></span>
+                    ${sustain}
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    return items;
+}
 
 function buildWeaponsList(details) {
     if (!details?.length) return '<div class="weapon-item" style="color:var(--c-text-muted);font-style:italic;padding:8px 0;">No weapons</div>';
