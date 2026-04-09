@@ -3,29 +3,6 @@
 
 // ═══════════════════════════════════════════════════════════════════════════════
 //  battleSimStatsDisplay.js  —  Endless Sky Battle Simulator  ·  Display Module
-//
-//  Owns ALL results rendering for both 2-team and N-team battles.
-//  Consumed by battleSim.js; expects window.BattleSimDisplay to be populated
-//  before renderResults() is called.
-//
-//  PUBLIC API
-//  ──────────
-//  window.BattleSimDisplay.renderResults(payload)
-//      payload = {
-//          mode:       '2team' | 'nteam',
-//          teamStats:  [mergedStatsObj, ...],          // one per valid team
-//          results:    ResultObj | ResultObj[][],       // see below
-//          damageTypes: string[],
-//          outfitIndex: { [name]: outfitObj },
-//          attrDefs:   attributeDefinitionsObj,
-//      }
-//
-//  For mode '2team':   results = simulateBattle(A, B)   (one ResultObj)
-//  For mode 'nteam':   results = matrix[i][j]            (n×n array, null on diagonal)
-//
-//  window.BattleSimDisplay.fmt(n)       — number formatter (exported for battleSim use)
-//  window.BattleSimDisplay.fmtT(t)      — time formatter
-//  window.BattleSimDisplay.escHtml(s)   — HTML escape
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const FPS           = 60;
@@ -73,7 +50,7 @@ function buildTtkString(name, ttk, projectedTtk) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  MODULE-LEVEL REFERENCES  (set on each renderResults call)
+//  MODULE-LEVEL REFERENCES
 // ─────────────────────────────────────────────────────────────────────────────
 
 let _damageTypes  = [];
@@ -81,8 +58,7 @@ let _outfitIndex  = {};
 let _attrDefs     = null;
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  AMMO HELPERS  (copied verbatim from battleSim.js so display module is
-//  self-contained for the ammo summary; battleSim.js can keep its own copies)
+//  AMMO HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
 
 function _isNegativeCapacityAmmo(outfit) {
@@ -117,7 +93,7 @@ function resolveAmmoRef(w) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  HP CHART  (SVG, works for any pair A / B with arbitrary team colors)
+//  HP CHART
 // ─────────────────────────────────────────────────────────────────────────────
 
 function buildHpChart(sA, sB, result) {
@@ -229,7 +205,7 @@ function buildHpChart(sA, sB, result) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  COMPARE GRID  (works for any pair A / B)
+//  COMPARE GRID  (overview — unchanged)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function buildCompareGrid(sA, sB, result) {
@@ -346,48 +322,45 @@ function buildCompareGrid(sA, sB, result) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  WEAPON LIST  (unchanged logic)
+//  WEAPON ITEM  (single weapon row inside a ship accordion)
 // ─────────────────────────────────────────────────────────────────────────────
 
-function buildWeaponsList(details) {
-    if (!details?.length)
-        return '<div class="weapon-item" style="color:var(--c-text-muted);font-style:italic;padding:8px 0;">No weapons</div>';
-    return details.map(w => {
-        const extra = [];
-        for (const typeName of _damageTypes) {
-            if (typeName === 'Shield' || typeName === 'Hull') continue;
-            const dps = w[typeName.toLowerCase() + 'DPS'] || 0;
-            if (dps > 0.001) {
-                const typeEntry = window.DamageTypes?.getDamageType(typeName);
-                const isStatusOnly = typeEntry?.category === 'status' && typeEntry?.shieldInteraction !== 'direct';
-                extra.push(`${typeName}: ${fmt(dps)}/s${isStatusOnly ? ' ⚡' : ''}`);
-            }
+function buildWeaponItem(w) {
+    const extra = [];
+    for (const typeName of _damageTypes) {
+        if (typeName === 'Shield' || typeName === 'Hull') continue;
+        const dps = w[typeName.toLowerCase() + 'DPS'] || 0;
+        if (dps > 0.001) {
+            const typeEntry = window.DamageTypes?.getDamageType(typeName);
+            const isStatusOnly = typeEntry?.category === 'status' && typeEntry?.shieldInteraction !== 'direct';
+            extra.push(`${typeName}: ${fmt(dps)}/s${isStatusOnly ? ' ⚡' : ''}`);
         }
-        if (w.relShield > 0) extra.push(`%Shld: ${w.relShield}%/hit`);
-        if (w.relHull   > 0) extra.push(`%Hull: ${w.relHull}%/hit`);
-        return `<div class="weapon-item">
-            <div class="weapon-item-name">${escHtml(w.name)}${
-                w.hasSubmunitions
-                    ? `<span style="color:var(--c-accent-text);font-size:0.7em;margin-left:4px;">⚡sub</span>`
-                    : ''
-            }</div>
-            <div class="weapon-item-stats">
-                <span class="weapon-stat">Rate:<span>${w.sps}/s</span></span>
-                <span class="weapon-stat">Shld:<span>${fmt(w.shieldDPS)}/s</span></span>
-                <span class="weapon-stat">Hull:<span>${fmt(w.hullDPS)}/s</span></span>
-                ${w.piercing  ? `<span class="weapon-stat">Pierce:<span>${w.piercing}%</span></span>` : ''}
-                ${w.range     ? `<span class="weapon-stat">Range:<span>${w.range}px</span></span>`   : ''}
-                ${w.burstCount > 1 ? `<span class="weapon-stat">Burst:<span>${w.burstCount}×</span></span>` : ''}
-                ${w.homing    ? `<span class="weapon-stat">🎯 Homing</span>` : ''}
-                ${w.antiMissile ? `<span class="weapon-stat">🛡 A-M</span>` : ''}
-                ${extra.map(s => `<span class="weapon-stat">${escHtml(s)}</span>`).join('')}
-            </div>
-        </div>`;
-    }).join('');
+    }
+    if (w.relShield > 0) extra.push(`%Shld: ${w.relShield}%/hit`);
+    if (w.relHull   > 0) extra.push(`%Hull: ${w.relHull}%/hit`);
+
+    return `<div class="weapon-item">
+        <div class="weapon-item-name">${escHtml(w.name)}${
+            w.hasSubmunitions
+                ? `<span style="color:var(--c-accent-text);font-size:0.7em;margin-left:4px;">⚡sub</span>`
+                : ''
+        }</div>
+        <div class="weapon-item-stats">
+            <span class="weapon-stat">Rate:<span>${w.sps}/s</span></span>
+            <span class="weapon-stat">Shld:<span>${fmt(w.shieldDPS)}/s</span></span>
+            <span class="weapon-stat">Hull:<span>${fmt(w.hullDPS)}/s</span></span>
+            ${w.piercing  ? `<span class="weapon-stat">Pierce:<span>${w.piercing}%</span></span>` : ''}
+            ${w.range     ? `<span class="weapon-stat">Range:<span>${w.range}px</span></span>`   : ''}
+            ${w.burstCount > 1 ? `<span class="weapon-stat">Burst:<span>${w.burstCount}×</span></span>` : ''}
+            ${w.homing    ? `<span class="weapon-stat">🎯 Homing</span>` : ''}
+            ${w.antiMissile ? `<span class="weapon-stat">🛡 A-M</span>` : ''}
+            ${extra.map(s => `<span class="weapon-stat">${escHtml(s)}</span>`).join('')}
+        </div>
+    </div>`;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  AMMO SUMMARY
+//  AMMO SUMMARY  (per-stats-object)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function buildAmmoSummary(stats) {
@@ -442,20 +415,166 @@ function buildAmmoSummary(stats) {
     }
 
     if (!rows.length) return '';
-    return rows.map(r => `
+
+    return `<div class="ship-accordion-subsection-title">Ammo</div>` +
+        rows.map(r => `
         <div class="weapon-item">
             <div class="weapon-item-name">${escHtml(r.ammoName)}</div>
             <div class="weapon-item-stats">
                 <span class="weapon-stat">Stock:<span>${r.stock}</span></span>
                 ${r.sustainSecs != null
-                    ? `<span class="weapon-stat">Until Empty: <span>${r.sustainSecs.toFixed(1)}s</span></span>`
+                    ? `<span class="weapon-stat">Until Empty:<span>${r.sustainSecs.toFixed(1)}s</span></span>`
                     : ''}
             </div>
         </div>`).join('');
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  PHASE LIST  (works for any result)
+//  MOVEMENT SUMMARY  (per resolved-stats object, using movementProfile)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildMovementSummary(stats) {
+    const mp = stats.movementProfile;
+    if (!mp) return '';
+
+    const rows = [];
+
+    if (mp.maxVelocity > 0)
+        rows.push(['Max Velocity', fmt(mp.maxVelocity) + ' px/s']);
+    if (mp.acceleration > 0)
+        rows.push(['Acceleration', fmt(mp.acceleration) + ' px/s²']);
+    if (mp.turnRateDegPerSec > 0)
+        rows.push(['Turn Rate', fmt(mp.turnRateDegPerSec) + ' °/s']);
+    if (mp.timeFor180Secs != null)
+        rows.push(['Time for 180°', fmtT(mp.timeFor180Secs)]);
+    if (mp.hasReverseThrust && mp.maxVelocityReverse > 0)
+        rows.push(['Reverse Velocity', fmt(mp.maxVelocityReverse) + ' px/s']);
+    if (mp.hasAfterburner && mp.maxVelocityAfterburner > 0)
+        rows.push(['Afterburner Velocity', fmt(mp.maxVelocityAfterburner) + ' px/s']);
+    if (mp.stoppingDistancePx > 0)
+        rows.push(['Stopping Distance', fmt(mp.stoppingDistancePx) + ' px']);
+
+    const sc = mp.sustainedCombat;
+    if (sc) {
+        if (sc.energyPerSec > 0) rows.push(['Move Energy/s', fmt(sc.energyPerSec)]);
+        if (sc.heatPerSec > 0)   rows.push(['Move Heat/s',   fmt(sc.heatPerSec)]);
+        if (sc.fuelPerSec > 0)   rows.push(['Move Fuel/s',   fmt(sc.fuelPerSec)]);
+    }
+
+    if (mp.canJump) {
+        rows.push(['Fuel per Jump', fmt(mp.jumpFuelPerJump)]);
+        rows.push(['Jumps (full tank)', String(mp.jumpsOnFullTank)]);
+        if (mp.fuelRegenPerSec > 0)
+            rows.push(['Fuel Regen/s', fmt(mp.fuelRegenPerSec)]);
+    }
+
+    if (mp.canCloak && mp.timeToFullCloakSecs != null)
+        rows.push(['Cloak Time', fmtT(mp.timeToFullCloakSecs)]);
+
+    if (!rows.length) return '';
+
+    return `<div class="ship-accordion-subsection-title">Movement</div>` +
+        rows.map(([label, value]) =>
+            `<div class="ship-accordion-stat-row">
+                <span class="ship-accordion-stat-label">${label}</span>
+                <span class="ship-accordion-stat-value">${value}</span>
+            </div>`
+        ).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  SHIP ACCORDION  (per individual ship entry within a team's merged stats)
+//
+//  Each ship in the team gets its own collapsible block showing:
+//    · Weapons list
+//    · Ammo summary
+//    · Movement stats
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildShipAccordion(teamStats, teamColor) {
+    const entries = teamStats._teamShips;
+    if (!entries || !entries.length) {
+        // Fallback: treat merged stats as a single virtual ship
+        return buildSingleShipPanel(teamStats, teamStats.name, teamColor, 1);
+    }
+
+    return entries.map((entry, idx) => {
+        const resolved = entry.resolved;
+        const count    = entry.count;
+        const shipName = resolved.rawShip?.name || resolved.name || `Ship ${idx + 1}`;
+        return buildSingleShipPanel(resolved, shipName, teamColor, count);
+    }).join('');
+}
+
+function buildSingleShipPanel(resolved, shipName, teamColor, count) {
+    const panelId = `ship_panel_${Math.random().toString(36).slice(2)}`;
+
+    const weaponDetails = resolved.weaponDetails || [];
+    const hasWeapons    = weaponDetails.length > 0;
+
+    const weaponsHtml = hasWeapons
+        ? `<div class="ship-accordion-subsection-title">Weapons</div>` +
+          weaponDetails.map(w => buildWeaponItem(w)).join('')
+        : `<div class="ship-accordion-no-weapons">No weapons</div>`;
+
+    const ammoHtml     = buildAmmoSummary(resolved);
+    const movementHtml = buildMovementSummary(resolved);
+
+    const countBadge = count > 1
+        ? `<span class="ship-accordion-count-badge">×${count}</span>`
+        : '';
+
+    // Quick stat summary for the header
+    const headerStats = [
+        resolved.shieldDPS  > 0 ? `sDPS ${fmt(resolved.shieldDPS)}`  : '',
+        resolved.hullDPS    > 0 ? `hDPS ${fmt(resolved.hullDPS)}`    : '',
+        resolved.maxShields > 0 ? `Shld ${fmt(resolved.maxShields)}` : '',
+        `Hull ${fmt(resolved.maxHull)}`,
+    ].filter(Boolean).join(' · ');
+
+    return `
+    <div class="ship-accordion" id="${panelId}">
+        <div class="ship-accordion-header" onclick="BattleSimDisplay._toggleShipPanel('${panelId}')">
+            <span class="ship-accordion-dot" style="background:${escHtml(teamColor)}"></span>
+            <div class="ship-accordion-header-text">
+                <span class="ship-accordion-name">${escHtml(shipName)}${countBadge}</span>
+                <span class="ship-accordion-quick-stats">${escHtml(headerStats)}</span>
+            </div>
+            <span class="ship-accordion-chevron">▶</span>
+        </div>
+        <div class="ship-accordion-body" style="display:none;">
+            ${weaponsHtml}
+            ${ammoHtml}
+            ${movementHtml}
+        </div>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  TEAM WEAPONS SECTION  (replaces the old two-column weapons grid)
+//
+//  For 2-team mode each team gets a labelled column of ship accordions.
+//  For N-team mode the same pattern applies inside each matchup block.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildTeamWeaponsSection(sA, sB) {
+    const colorA = sA.color || '#3b82f6';
+    const colorB = sB.color || '#ef4444';
+
+    return `<div class="weapons-grid">
+        <div>
+            <div class="weapons-col-title" style="color:${colorA}">${escHtml(sA.name)}</div>
+            ${buildShipAccordion(sA, colorA)}
+        </div>
+        <div>
+            <div class="weapons-col-title" style="color:${colorB}">${escHtml(sB.name)}</div>
+            ${buildShipAccordion(sB, colorB)}
+        </div>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  PHASE LIST
 // ─────────────────────────────────────────────────────────────────────────────
 
 function buildPhaseList(result, sA, sB) {
@@ -492,7 +611,7 @@ function buildPhaseList(result, sA, sB) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  TIMELINE BAR + SUBTITLE  (shared between 2-team and per-matchup views)
+//  TIMELINE BAR
 // ─────────────────────────────────────────────────────────────────────────────
 
 function buildTimelineBarHTML(sA, sB, result) {
@@ -525,7 +644,7 @@ function buildTimelineBarHTML(sA, sB, result) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  FULL MATCHUP BLOCK  (reused for both 2-team detail and each N-team pairing)
+//  FULL MATCHUP BLOCK  (used in N-team detail view)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function buildMatchupBlock(sA, sB, result, { collapsed = false } = {}) {
@@ -559,39 +678,22 @@ function buildMatchupBlock(sA, sB, result, { collapsed = false } = {}) {
         </div>
 
         <div class="matchup-body" style="display:${collapsed ? 'none' : 'block'}">
-            <!-- Subtitle -->
             <div class="result-subtitle" style="margin:8px 0 12px;">${subtitle}</div>
 
-            <!-- Timeline bar -->
             <div class="timeline-label">Survival Timeline</div>
             ${buildTimelineBarHTML(sA, sB, result)}
 
-            <!-- HP chart -->
             <div style="margin:14px 0 10px;">
                 ${buildHpChart(sA, sB, result)}
             </div>
 
-            <!-- Stats compare -->
             <div style="margin-bottom:10px;">
                 ${buildCompareGrid(sA, sB, result)}
             </div>
 
-            <!-- Weapon analysis -->
-            <div class="timeline-label">Weapon Analysis</div>
-            <div class="weapons-grid">
-                <div>
-                    <div class="weapons-col-title" style="color:${colorA}">${escHtml(sA.name)}</div>
-                    ${buildWeaponsList(sA.weaponDetails)}
-                    ${buildAmmoSummary(sA)}
-                </div>
-                <div>
-                    <div class="weapons-col-title" style="color:${colorB}">${escHtml(sB.name)}</div>
-                    ${buildWeaponsList(sB.weaponDetails)}
-                    ${buildAmmoSummary(sB)}
-                </div>
-            </div>
+            <div class="timeline-label">Ship Analysis</div>
+            ${buildTeamWeaponsSection(sA, sB)}
 
-            <!-- Combat phases -->
             <div style="margin-top:14px;">
                 <div class="timeline-label">Combat Phases</div>
                 <div class="phase-list">${buildPhaseList(result, sA, sB)}</div>
@@ -622,7 +724,6 @@ function buildRankingPanel(teamStats, matrix, ranked) {
             const ttk  = won || draw
                 ? (isFinite(r.ttkB) ? fmtT(r.ttkB) : '∞')
                 : (isFinite(r.ttkA) ? fmtT(r.ttkA) : '∞');
-            const anchor = `#matchup_${i}_${j}`;
             html += `<td class="matrix-cell ${won ? 'matrix-win' : draw ? 'matrix-draw' : 'matrix-loss'}"
                         title="${escHtml(teamStats[i].name)} vs ${escHtml(teamStats[j].name)}"
                         onclick="document.querySelector('[data-matchup-pair=\\'${i}-${j}\\']')?.scrollIntoView({behavior:'smooth',block:'start'});"
@@ -661,7 +762,6 @@ function renderResults2Team(payload) {
     const resEl = document.getElementById('simResults');
     if (!resEl) return;
 
-    // Top winner banner
     const colorA     = sA.color || '#3b82f6';
     const colorB     = sB.color || '#ef4444';
     const winnerColor = result.winner === 'A' ? colorA : result.winner === 'B' ? colorB : '#94a3b8';
@@ -672,7 +772,6 @@ function renderResults2Team(payload) {
     document.getElementById('resultSubtitle').innerHTML =
         `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
 
-    // Timeline bar (legacy element IDs, kept for CSS compatibility)
     const effA = isFinite(result.ttkA) ? result.ttkA
         : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? result.projectedTtkA : MAX_SIM_SECS;
     const effB = isFinite(result.ttkB) ? result.ttkB
@@ -691,33 +790,27 @@ function renderResults2Team(payload) {
     if (lblB) lblB.textContent = isFinite(result.ttkB) ? fmtT(result.ttkB)
         : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? '~' + fmtT(result.projectedTtkB) : '∞';
 
-    // HP chart
     const chartEl = document.getElementById('hpChartContainer');
     if (chartEl) chartEl.innerHTML = buildHpChart(sA, sB, result);
 
-    // Compare grid
     const compareEl = document.getElementById('compareGrid');
     if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
 
-    // Weapons
+    // ── Weapons: now per-ship accordions ──────────────────────────────────────
     const weaponsEl = document.getElementById('weaponsGrid');
     if (weaponsEl) weaponsEl.innerHTML =
         `<div>
             <div class="weapons-col-title" style="color:${colorA}">${escHtml(sA.name)}</div>
-            ${buildWeaponsList(sA.weaponDetails)}
-            ${buildAmmoSummary(sA)}
+            ${buildShipAccordion(sA, colorA)}
         </div>
         <div>
             <div class="weapons-col-title" style="color:${colorB}">${escHtml(sB.name)}</div>
-            ${buildWeaponsList(sB.weaponDetails)}
-            ${buildAmmoSummary(sB)}
+            ${buildShipAccordion(sB, colorB)}
         </div>`;
 
-    // Phases
     const phaseEl = document.getElementById('phaseList');
     if (phaseEl) phaseEl.innerHTML = buildPhaseList(result, sA, sB);
 
-    // Show N-team panels hidden
     const matEl = document.getElementById('matrixSection');
     if (matEl) { matEl.style.display = 'none'; matEl.innerHTML = ''; }
     document.getElementById('timelineSection').style.display = '';
@@ -733,7 +826,6 @@ function renderResultsNTeam(payload) {
     const resEl  = document.getElementById('simResults');
     if (!resEl) return;
 
-    // Compute wins
     const wins = teamStats.map(() => 0);
     for (let i = 0; i < n; i++)
         for (let j = 0; j < n; j++)
@@ -742,7 +834,6 @@ function renderResultsNTeam(payload) {
     const ranked = teamStats.map((ts, i) => ({ ts, wins: wins[i], idx: i }))
         .sort((a, b) => b.wins - a.wins);
 
-    // Winner banner
     const top = ranked[0];
     const winnerNameEl = document.getElementById('resultWinnerName');
     const subtitleEl   = document.getElementById('resultSubtitle');
@@ -757,35 +848,29 @@ function renderResultsNTeam(payload) {
             `${pos + 1}. ${escHtml(r.ts.name)} — ${r.wins}/${n - 1} wins</span>`
         ).join('&nbsp;&nbsp;·&nbsp;&nbsp;');
 
-    // Matrix section — ranking table + all matchup blocks
     const matEl = document.getElementById('matrixSection');
     if (matEl) {
         let html = buildRankingPanel(teamStats, matrix, ranked);
-
-        // Per-matchup full detail blocks (upper triangle only, A vs B and B vs A use same result)
         html += `<div class="timeline-label" style="margin-top:24px">All Matchups — Full Detail</div>`;
         for (let i = 0; i < n; i++) {
             for (let j = i + 1; j < n; j++) {
                 const sA = teamStats[i], sB = teamStats[j];
-                const r  = matrix[i][j];   // team[i] is always "A" in this result
+                const r  = matrix[i][j];
                 const blockHtml = buildMatchupBlock(sA, sB, r, { collapsed: true })
                     .replace(`<div class="matchup-block"`, `<div class="matchup-block" data-matchup-pair="${i}-${j}"`);
                 html += blockHtml;
             }
         }
-
         matEl.innerHTML = html;
         matEl.style.display = '';
     }
 
-    // Hide 2-team-only sections
     document.getElementById('timelineSection').style.display = 'none';
     document.getElementById('hpChartContainer').innerHTML    = '';
     document.getElementById('compareGrid').innerHTML         = '';
     document.getElementById('weaponsGrid').innerHTML         = '';
     document.getElementById('weaponsSection').style.display  = 'none';
 
-    // Combined phases (for all matchups, shown in the global phase list)
     const allPhases = [];
     for (let i = 0; i < n; i++) {
         for (let j = i + 1; j < n; j++) {
@@ -823,7 +908,7 @@ function renderResultsNTeam(payload) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  COLLAPSE / EXPAND TOGGLE  (used by onclick in matchup headers)
+//  TOGGLE HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
 
 function _toggleMatchup(blockId) {
@@ -839,22 +924,22 @@ function _toggleMatchup(blockId) {
     if (chev)   chev.textContent = isCollapsed ? '▼' : '▶';
 }
 
+function _toggleShipPanel(panelId) {
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    const body  = panel.querySelector('.ship-accordion-body');
+    const chev  = panel.querySelector('.ship-accordion-chevron');
+    if (!body) return;
+    const isCollapsed = body.style.display === 'none';
+    body.style.display = isCollapsed ? 'block' : 'none';
+    if (chev) chev.textContent = isCollapsed ? '▼' : '▶';
+    panel.classList.toggle('ship-accordion--open', isCollapsed);
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
-//  PUBLIC renderResults DISPATCHER
+//  DISPATCHER
 // ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * renderResults(payload)
- *
- * payload: {
- *   mode:        '2team' | 'nteam',
- *   teamStats:   array of merged stats objects (one per team),
- *   results:     ResultObj (2team) | ResultObj[][] (nteam),
- *   damageTypes: string[],
- *   outfitIndex: object,
- *   attrDefs:    object,
- * }
- */
 function renderResults(payload) {
     _damageTypes = payload.damageTypes || _damageTypes;
     _outfitIndex = payload.outfitIndex || _outfitIndex;
@@ -868,7 +953,7 @@ function renderResults(payload) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  CSS INJECTION  — matchup block + collapse styles not in main.css
+//  CSS INJECTION
 // ─────────────────────────────────────────────────────────────────────────────
 
 (function injectStyles() {
@@ -909,32 +994,135 @@ function renderResults(payload) {
             display: inline-block;
             flex-shrink: 0;
         }
-        .matchup-team-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .matchup-vs {
-            color: #64748b;
-            font-size: 0.78rem;
-            font-style: italic;
-        }
-        .matchup-header-winner {
-            font-size: 0.82rem;
-            white-space: nowrap;
-        }
-        .matchup-header-chevron {
-            color: #64748b;
-            font-size: 0.7rem;
-            flex-shrink: 0;
-        }
+        .matchup-team-name { font-weight: 600; font-size: 0.9rem; }
+        .matchup-vs { color: #64748b; font-size: 0.78rem; font-style: italic; }
+        .matchup-header-winner { font-size: 0.82rem; white-space: nowrap; }
+        .matchup-header-chevron { color: #64748b; font-size: 0.7rem; flex-shrink: 0; }
         .matchup-body {
             padding: 14px 16px 18px;
             border-top: 1px solid rgba(148,163,184,0.1);
         }
+        .timeline-bar-a, .timeline-bar-b { transition: width 0.4s ease; }
 
-        /* ── Timeline bar dynamic colours ─────────────────── */
-        .timeline-bar-a, .timeline-bar-b {
-            transition: width 0.4s ease;
+        /* ── Ship accordion ────────────────────────────────── */
+        .ship-accordion {
+            border: 1px solid rgba(148,163,184,0.13);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            background: rgba(15,23,42,0.28);
+        }
+        .ship-accordion--open {
+            border-color: rgba(148,163,184,0.22);
+        }
+        .ship-accordion-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 12px;
+            cursor: pointer;
+            background: rgba(30,41,59,0.45);
+            user-select: none;
+            transition: background 0.15s;
+        }
+        .ship-accordion-header:hover { background: rgba(51,65,85,0.55); }
+        .ship-accordion-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .ship-accordion-header-text {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+            gap: 2px;
+        }
+        .ship-accordion-name {
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: var(--c-text, #e2e8f0);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .ship-accordion-quick-stats {
+            font-size: 0.71rem;
+            color: var(--c-text-muted, #94a3b8);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .ship-accordion-count-badge {
+            display: inline-block;
+            margin-left: 5px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 1px 5px;
+            border-radius: 10px;
+            background: rgba(59,130,246,0.18);
+            color: var(--c-accent-text, #93c5fd);
+            border: 1px solid rgba(59,130,246,0.25);
+            vertical-align: middle;
+        }
+        .ship-accordion-chevron {
+            color: #64748b;
+            font-size: 0.65rem;
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+        .ship-accordion-body {
+            padding: 10px 12px 14px;
+            border-top: 1px solid rgba(148,163,184,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        /* ── Subsection titles inside accordion body ───────── */
+        .ship-accordion-subsection-title {
+            font-size: 0.67rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #63b3ed;
+            padding: 10px 0 5px;
+            border-bottom: 1px solid rgba(99,179,237,0.15);
+            margin-bottom: 4px;
+        }
+        .ship-accordion-subsection-title:first-child {
+            padding-top: 0;
+        }
+
+        /* ── Movement stat rows ────────────────────────────── */
+        .ship-accordion-stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(15,23,42,0.3);
+            margin-bottom: 2px;
+        }
+        .ship-accordion-stat-row:hover { background: rgba(30,58,138,0.2); }
+        .ship-accordion-stat-label {
+            font-size: 0.76rem;
+            color: var(--c-text-muted, #94a3b8);
+        }
+        .ship-accordion-stat-value {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--c-text, #e2e8f0);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        /* ── No weapons fallback ───────────────────────────── */
+        .ship-accordion-no-weapons {
+            color: var(--c-text-muted, #94a3b8);
+            font-style: italic;
+            font-size: 0.82rem;
+            padding: 6px 0;
         }
     `;
     document.head.appendChild(style);
@@ -946,7 +1134,6 @@ function renderResults(payload) {
 
 window.BattleSimDisplay = {
     renderResults,
-    // Utility exports so battleSim.js can share the same formatters
     fmt,
     fmtT,
     fmtTTK,
@@ -954,8 +1141,8 @@ window.BattleSimDisplay = {
     fmtNet,
     escHtml,
     buildTtkString,
-    // Collapse toggle called from generated HTML
     _toggleMatchup,
+    _toggleShipPanel,
 };
 
 })();
