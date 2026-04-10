@@ -587,10 +587,7 @@ function buildMovementSummary(stats) {
     }
 
     if (mp.canJump) {
-        rows.push(['Fuel per Jump', fmt(mp.jumpFuelPerJump)]);
         rows.push(['Jumps (full tank)', String(mp.jumpsOnFullTank)]);
-        if (mp.fuelRegenPerSec > 0)
-            rows.push(['Fuel Regen/s', fmt(mp.fuelRegenPerSec)]);
     }
 
     if (mp.canCloak && mp.timeToFullCloakSecs != null)
