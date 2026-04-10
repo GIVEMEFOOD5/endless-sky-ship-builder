@@ -430,6 +430,131 @@ function buildAmmoSummary(stats) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+//  HEALTH SUMMARY  (shields, hull, protections, resistances)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildHealthSummary(resolved) {
+    const rows = [];
+
+    // Shields
+    if (resolved.maxShields > 0) {
+        rows.push(['Max Shields', fmt(resolved.maxShields)]);
+        if ((resolved.shieldRegenPerSec || 0) > 0)
+            rows.push(['Shield Regen/s', fmt(resolved.shieldRegenPerSec)]);
+        if ((resolved.shieldProt || 0) > 0)
+            rows.push(['Shield Protection', fmtPct(resolved.shieldProt)]);
+    }
+
+    // Hull
+    rows.push(['Max Hull', fmt(resolved.maxHull)]);
+    if ((resolved.minHull || 0) > 0)
+        rows.push(['Disable Thresh', fmt(resolved.minHull)]);
+    if ((resolved.hullRepairPerSec || 0) > 0)
+        rows.push(['Hull Repair/s', fmt(resolved.hullRepairPerSec)]);
+    if ((resolved.hullProt || 0) > 0)
+        rows.push(['Hull Protection', fmtPct(resolved.hullProt)]);
+
+    // Piercing resistance
+    if ((resolved.piercingRes || 0) > 0)
+        rows.push(['Piercing Resist', fmtPct(resolved.piercingRes)]);
+
+    // Other protections (damage-type specific, e.g. ion protection, burn protection)
+    for (const [key, val] of Object.entries(resolved.protections || {})) {
+        if (key === 'shield protection' || key === 'hull protection') continue;
+        if (!val || val <= 0) continue;
+        const label = key.replace(/\b\w/g, l => l.toUpperCase()).replace(' Protection', ' Prot.');
+        rows.push([label, fmtPct(val)]);
+    }
+
+    // Status resistances
+    for (const [statName, val] of Object.entries(resolved.statusResist || {})) {
+        if (!val || val <= 0) continue;
+        const label = statName.charAt(0).toUpperCase() + statName.slice(1) + ' Resist';
+        rows.push([label, fmt(val) + '/s']);
+    }
+
+    if (!rows.length) return '';
+
+    return `<div class="ship-accordion-subsection-title">Health</div>` +
+        rows.map(([label, value]) =>
+            `<div class="ship-accordion-stat-row">
+                <span class="ship-accordion-stat-label">${label}</span>
+                <span class="ship-accordion-stat-value">${value}</span>
+            </div>`
+        ).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  ENERGY & HEAT SUMMARY  (mirrors the Energy & Heat section in buildCompareGrid)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildEnergyHeatSummary(resolved) {
+    const rows = [];
+
+    const energyGen   = (resolved.energyGenPerFrame   || 0) * FPS;
+    const idleConsume = ((resolved.energyConsumeIdlePerFrame || 0) + (resolved.coolingEnergyPerFrame || 0)) * FPS;
+    const moveEnergy  = (resolved.movingEnergyPerFrame || 0) * FPS;
+    const fireEnergy  = resolved.firingEnergyPerSec   || 0;
+    const net         = energyGen - idleConsume - moveEnergy - fireEnergy;
+
+    if ((resolved.energyCap || 0) > 0)
+        rows.push(['Energy Cap.', fmt(resolved.energyCap)]);
+    if (energyGen > 0)
+        rows.push(['Energy Gen/s', fmt(energyGen)]);
+    if (idleConsume > 0)
+        rows.push(['Idle Consume/s', fmt(-idleConsume)]);
+    if (moveEnergy > 0)
+        rows.push(['Move Energy/s', fmt(-moveEnergy)]);
+    if (fireEnergy > 0)
+        rows.push(['Firing Energy/s', fmt(-fireEnergy)]);
+    if (energyGen > 0 || fireEnergy > 0)
+        rows.push(['Net (combat) /s', fmtNet(net)]);
+
+    if ((resolved.maxHeat || 0) > 0)
+        rows.push(['Heat Capacity', fmt(resolved.maxHeat)]);
+    if ((resolved.coolingPerSec || 0) > 0)
+        rows.push(['Cooling/s', fmt(resolved.coolingPerSec)]);
+    if ((resolved.firingHeatPerSec || 0) > 0)
+        rows.push(['Firing Heat/s', fmt(resolved.firingHeatPerSec)]);
+    if ((resolved.coolEff || 0) !== 0)
+        rows.push(['Cool Efficiency', (resolved.coolEff || 0).toFixed(3)]);
+
+    if ((resolved.firingHullCostPerSec || 0) > 0)
+        rows.push(['Firing Hull Cost/s', fmt(resolved.firingHullCostPerSec)]);
+    if ((resolved.firingShieldCostPerSec || 0) > 0)
+        rows.push(['Firing Shield Cost/s', fmt(resolved.firingShieldCostPerSec)]);
+
+    // Fuel
+    const fuelGen  = (resolved.fuelRegenPerFrame || 0) * FPS;
+    const fireFuel = resolved.firingFuelPerSec || 0;
+    const moveFuel = (resolved.movementProfile?.sustainedCombat?.fuelPerSec) ?? 0;
+    const showFuel = (resolved.fuelCap || 0) > 0 || fuelGen > 0 || fireFuel > 0 || moveFuel > 0;
+
+    if (showFuel) {
+        if ((resolved.fuelCap || 0) > 0)
+            rows.push(['Fuel Capacity', fmt(resolved.fuelCap)]);
+        if (fuelGen > 0)
+            rows.push(['Fuel Regen/s', fmt(fuelGen)]);
+        if (moveFuel > 0)
+            rows.push(['Move Fuel/s', fmt(-moveFuel)]);
+        if (fireFuel > 0)
+            rows.push(['Firing Fuel/s', fmt(-fireFuel)]);
+        if (fuelGen > 0 || fireFuel > 0 || moveFuel > 0)
+            rows.push(['Net Fuel/s', fmtNet(fuelGen - fireFuel - moveFuel)]);
+    }
+
+    if (!rows.length) return '';
+
+    return `<div class="ship-accordion-subsection-title">Energy &amp; Heat</div>` +
+        rows.map(([label, value]) =>
+            `<div class="ship-accordion-stat-row">
+                <span class="ship-accordion-stat-label">${label}</span>
+                <span class="ship-accordion-stat-value">${value}</span>
+            </div>`
+        ).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 //  MOVEMENT SUMMARY  (per resolved-stats object, using movementProfile)
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -517,8 +642,10 @@ function buildSingleShipPanel(resolved, shipName, teamColor, count) {
           weaponDetails.map(w => buildWeaponItem(w)).join('')
         : `<div class="ship-accordion-no-weapons">No weapons</div>`;
 
-    const ammoHtml     = buildAmmoSummary(resolved);
-    const movementHtml = buildMovementSummary(resolved);
+    const ammoHtml       = buildAmmoSummary(resolved);
+    const healthHtml     = buildHealthSummary(resolved);
+    const energyHeatHtml = buildEnergyHeatSummary(resolved);
+    const movementHtml   = buildMovementSummary(resolved);
 
     const countBadge = count > 1
         ? `<span class="ship-accordion-count-badge">×${count}</span>`
@@ -545,6 +672,8 @@ function buildSingleShipPanel(resolved, shipName, teamColor, count) {
         <div class="ship-accordion-body" style="display:none;">
             ${weaponsHtml}
             ${ammoHtml}
+            ${healthHtml}
+            ${energyHeatHtml}
             ${movementHtml}
         </div>
     </div>`;
