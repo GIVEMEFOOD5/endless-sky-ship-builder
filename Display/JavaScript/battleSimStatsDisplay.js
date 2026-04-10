@@ -1100,6 +1100,98 @@ function renderResults(payload) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+//  SIMULATION PROGRESS MODAL
+// ─────────────────────────────────────────────────────────────────────────────
+
+function _ensureProgressModal() {
+    if (document.getElementById('simProgressOverlay')) return;
+    const el = document.createElement('div');
+    el.id = 'simProgressOverlay';
+    el.style.cssText = `
+        display:none; position:fixed; inset:0;
+        background:rgba(0,0,0,0.75); backdrop-filter:blur(4px);
+        z-index:2000; align-items:center; justify-content:center;
+    `;
+    el.innerHTML = `
+        <div style="
+            background:var(--c-surface,#1e293b);
+            border:1px solid rgba(59,130,246,0.4);
+            border-radius:14px;
+            padding:28px 32px;
+            width:min(440px,90vw);
+            box-shadow:0 20px 60px rgba(0,0,0,0.6);
+        ">
+            <div style="font-size:1rem;font-weight:700;color:#93c5fd;margin-bottom:20px;letter-spacing:0.03em;">
+                ⚔ Simulating Battle…
+            </div>
+
+            <div style="margin-bottom:16px;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
+                    <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;">Overall Progress</span>
+                    <span id="simProgressOverallPct" style="font-size:0.72rem;font-weight:700;color:#64748b;font-variant-numeric:tabular-nums;">0%</span>
+                </div>
+                <div style="background:rgba(15,23,42,0.7);border:1px solid rgba(59,130,246,0.2);border-radius:8px;height:12px;overflow:hidden;">
+                    <div id="simProgressOverallBar" style="
+                        height:100%;width:0%;
+                        background:linear-gradient(90deg,#3b82f6,#7c3aed);
+                        border-radius:8px;
+                        transition:width 0.25s ease;
+                    "></div>
+                </div>
+                <div id="simProgressOverallLabel" style="font-size:0.78rem;color:#94a3b8;margin-top:6px;min-height:1.2em;"></div>
+            </div>
+
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
+                    <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;">Current Fight</span>
+                    <span id="simProgressFightPct" style="font-size:0.72rem;font-weight:700;color:#64748b;font-variant-numeric:tabular-nums;">0%</span>
+                </div>
+                <div style="background:rgba(15,23,42,0.7);border:1px solid rgba(59,130,246,0.2);border-radius:8px;height:12px;overflow:hidden;">
+                    <div id="simProgressFightBar" style="
+                        height:100%;width:0%;
+                        background:linear-gradient(90deg,#22c55e,#0ea5e9);
+                        border-radius:8px;
+                        transition:width 0.2s ease;
+                    "></div>
+                </div>
+                <div id="simProgressFightLabel" style="font-size:0.78rem;color:#94a3b8;margin-top:6px;min-height:1.2em;"></div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(el);
+}
+
+function showProgressModal() {
+    _ensureProgressModal();
+    const el = document.getElementById('simProgressOverlay');
+    if (el) { el.style.display = 'flex'; }
+    updateProgressModal(0, 'Preparing simulation…', 0, '');
+}
+
+function hideProgressModal() {
+    const el = document.getElementById('simProgressOverlay');
+    if (el) el.style.display = 'none';
+}
+
+function updateProgressModal(overallPct, overallLabel, fightPct, fightLabel) {
+    const ob = document.getElementById('simProgressOverallBar');
+    const op = document.getElementById('simProgressOverallPct');
+    const ol = document.getElementById('simProgressOverallLabel');
+    const fb = document.getElementById('simProgressFightBar');
+    const fp = document.getElementById('simProgressFightPct');
+    const fl = document.getElementById('simProgressFightLabel');
+    const clamp = v => Math.max(0, Math.min(100, Math.round(v)));
+    const oPct = clamp(overallPct);
+    const fPct = clamp(fightPct);
+    if (ob) ob.style.width = oPct + '%';
+    if (op) op.textContent = oPct + '%';
+    if (ol) ol.textContent = overallLabel || '';
+    if (fb) fb.style.width = fPct + '%';
+    if (fp) fp.textContent = fPct + '%';
+    if (fl) fl.textContent = fightLabel || '';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 //  EXPORT
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -1114,6 +1206,10 @@ window.BattleSimDisplay = {
     buildTtkString,
     _toggleMatchup,
     _toggleShipPanel,
+    renderResults,
+    showProgressModal,
+    hideProgressModal,
+    updateProgressModal,
 };
 
 })();
