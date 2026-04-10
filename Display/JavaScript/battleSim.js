@@ -128,6 +128,7 @@ async function loadData() {
             if (typeof initComputedStats === 'function') initComputedStats(_attrDefs, BASE_URL);
             if (typeof window.DamageTypes?.init === 'function') window.DamageTypes.init(_attrDefs);
             if (typeof window.MunitionTypes?.init === 'function') window.MunitionTypes.init(() => _outfitIndex, _attrDefs);
+            if (typeof window.MovementStats?.init === 'function') window.MovementStats.init(_attrDefs);
         }
     } catch (e) { console.warn('Failed to load attributeDefinitions.json:', e.message); }
 
@@ -442,6 +443,8 @@ function mergeTeamStats(entries) {
     merged.rawShip    = entries[0].resolved.rawShip;
     merged._teamShips = entries;
 
+    merged.movementProfile = entries[0]?.resolved?.movementProfile ?? null;
+    
     return merged;
 }
 
