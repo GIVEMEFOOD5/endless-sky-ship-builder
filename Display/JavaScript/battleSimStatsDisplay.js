@@ -568,10 +568,28 @@ function buildMovementSummary(stats) {
         rows.push(['Max Velocity', fmt(mp.maxVelocity) + ' px/s']);
     if (mp.acceleration > 0)
         rows.push(['Acceleration', fmt(mp.acceleration) + ' px/s²']);
-    if (mp.turnRateDegPerSec > 0)
-        rows.push(['Turn Rate', fmt(mp.turnRateDegPerSec) + ' °/s']);
-    if (mp.timeFor180Secs != null)
-        rows.push(['Time for 180°', fmtT(mp.timeFor180Secs)]);
+
+    // Turn rate: prefer movementProfile, fall back to computing from
+    // resolved.combined directly in case MovementStats wasn't initialised
+    // with attrDefs before the ship was added (key registry missing).
+    let turnRate = mp.turnRateDegPerSec || 0;
+    let time180  = mp.timeFor180Secs   ?? null;
+    if (turnRate <= 0 && stats.combined) {
+        const c     = stats.combined;
+        const mass  = c['mass'] || 0;
+        const inRed = c['inertia reduction'] || 0;
+        const iMass = mass > 0 ? mass / (1 + inRed) : 0;
+        const turn  = c['turn'] || c['turning'] || 0;  // attribute is 'turn' in ES data
+        const tMult = c['turn multiplier'] || 0;
+        if (iMass > 0 && turn > 0) {
+            turnRate = (turn / iMass) * (1 + tMult) * FPS;
+            time180  = turnRate > 0 ? 180 / turnRate : null;
+        }
+    }
+    if (turnRate > 0)
+        rows.push(['Turn Rate', fmt(+turnRate.toFixed(2)) + ' °/s']);
+    if (time180 != null && isFinite(time180))
+        rows.push(['Time for 180°', fmtT(time180)]);
     if (mp.hasReverseThrust && mp.maxVelocityReverse > 0)
         rows.push(['Reverse Velocity', fmt(mp.maxVelocityReverse) + ' px/s']);
     if (mp.hasAfterburner && mp.maxVelocityAfterburner > 0)
@@ -587,7 +605,10 @@ function buildMovementSummary(stats) {
     }
 
     if (mp.canJump) {
+        rows.push(['Fuel per Jump', fmt(mp.jumpFuelPerJump)]);
         rows.push(['Jumps (full tank)', String(mp.jumpsOnFullTank)]);
+        if (mp.fuelRegenPerSec > 0)
+            rows.push(['Fuel Regen/s', fmt(mp.fuelRegenPerSec)]);
     }
 
     if (mp.canCloak && mp.timeToFullCloakSecs != null)
