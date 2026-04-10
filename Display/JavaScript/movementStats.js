@@ -59,7 +59,7 @@ function _buildKeyRegistry(attrDefs) {
     for (const [fnName, fnData] of Object.entries(shipFns)) {
         const reads = fnData.attributesRead || [];
         const isDragFn = reads.some(k => k.toLowerCase().includes('drag'));
-        const isTurnFn = reads.some(k => k.toLowerCase().includes('turning'));
+        const isTurnFn = reads.some(k => k.toLowerCase().includes('turn'));
         if (isDragFn || isTurnFn) {
             for (const k of reads) movementFnAttrs.add(k);
         }
@@ -123,7 +123,7 @@ function _buildKeyRegistry(attrDefs) {
         afterburnerFuel:     find('afterburner fuel'),
         afterburnerShields:  find('afterburner shields'),
 
-        turning:           find('turning'),
+        turning:           find('turn'),
         turningEnergy:     find('turning energy'),
         turningHeat:       find('turning heat'),
         turningFuel:       find('turning fuel'),
@@ -177,7 +177,7 @@ function _fallbackKeys() {
         afterburnerHeat: 'afterburner heat',
         afterburnerFuel: 'afterburner fuel',
         afterburnerShields: 'afterburner shields',
-        turning: 'turning', turningEnergy: 'turning energy',
+        turning: 'turn', turningEnergy: 'turning energy',
         turningHeat: 'turning heat', turningFuel: 'turning fuel',
         jumpFuel: 'jump fuel', jumpFuelMult: 'jump fuel multiplier',
         jumpRange: 'jump range', fuelCapacity: 'fuel capacity',
