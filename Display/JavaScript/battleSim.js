@@ -740,7 +740,7 @@ function createCombatantState(stats) {
     };
 }
 
-function simulateBattle(sA, sB) {
+function simulateBattle(sA, sB, onProgress) {
     const result = { winner:null, ttkA:Infinity, ttkB:Infinity,
         projectedTtkA:null, projectedTtkB:null, phases:[], warnings:[] };
     const stA = createCombatantState(sA);
