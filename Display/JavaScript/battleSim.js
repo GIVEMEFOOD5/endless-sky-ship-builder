@@ -31,6 +31,8 @@ let _statusDecayMap    = {};
 let _statusDescriptors = [];
 let _weaponDataKeys    = new Set();
 
+let _simCancelled = false;
+
 // ── TEAM STATE ─────────────────────────────────────────────────────────────────
 let _teams = [];
 let _nextTeamId = 1;
@@ -759,10 +761,10 @@ async function simulateBattle(sA, sB, onProgress) {
         const t = frame / FPS;
 
         if (frame % YIELD_EVERY === 0) {
+            if (_simCancelled) throw new Error('CANCELLED');
             const pct = (frame / MAX_FRAMES) * 100;
             const elapsed = (frame / FPS).toFixed(0);
             if (onProgress) onProgress(pct, `${elapsed}s simulated`);
-            // Yield to browser so the progress bar can repaint
             await new Promise(r => setTimeout(r, 0));
         }
         
@@ -1271,7 +1273,7 @@ async function runSimulation() {
     if (resEl) resEl.style.display = 'none';
 
     if (typeof window.BattleSimDisplay?.showProgressModal === 'function')
-        window.BattleSimDisplay.showProgressModal();
+        window.BattleSimDisplay.showProgressModal(cancelSimulation);  // pass cancel callback
 
     // Yield once so the modal actually renders before we start
     await new Promise(r => setTimeout(r, 30));
@@ -1341,12 +1343,20 @@ async function runSimulation() {
         }
 
     } catch (err) {
-        console.error('runSimulation error:', err);
-        setStatus('Simulation error: ' + err.message, true);
+        if (err.message === 'CANCELLED') {
+            setStatus('Simulation cancelled.', false);
+        } else {
+            console.error('runSimulation error:', err);
+            setStatus('Simulation error: ' + err.message, true);
+        }
     } finally {
         if (typeof window.BattleSimDisplay?.hideProgressModal === 'function')
             window.BattleSimDisplay.hideProgressModal();
     }
+}
+
+function cancelSimulation() {
+    _simCancelled = true;
 }
     
 // ── Public API ─────────────────────────────────────────────────────────────────
@@ -1358,6 +1368,7 @@ window.removeShipFromTeam  = removeShipFromTeam;
 window.updateShipCount     = updateShipCount;
 window.renameTeam          = renameTeam;
 window.runSimulation       = runSimulation;
+window.cancelSimulation    = cancelSimulation;
 
 window.addNewTeam = function() {
     const teamNumber = _teams.length + 1;
