@@ -836,10 +836,13 @@ async function simulateBattle(sA, sB, onProgress) {
         result.winner = 'draw';
         result.phases.push({ time:finalT, type:'neutral', icon:'🤝', text:'Neither side could disable the other — draw.' });
     } else if (aKilled && bKilled) {
-    if (Math.abs(result.ttkA - result.ttkB) < (1 / FPS)) {
-        result.winner = 'draw';
+        if (Math.abs(result.ttkA - result.ttkB) < (1 / FPS)) {
+            result.winner = 'draw';
+        } else {
+            result.winner = result.ttkB < result.ttkA ? 'A' : 'B';
+        }
     } else {
-        result.winner = result.ttkB < result.ttkA ? 'A' : 'B';
+        result.winner = bKilled ? 'A' : 'B';
     }
 
     if (aKilled && !bKilled && result.ttkA > 0) {
