@@ -1141,7 +1141,7 @@ function _ensureProgressModal() {
                 <div id="simProgressOverallLabel" style="font-size:0.78rem;color:#94a3b8;margin-top:6px;min-height:1.2em;"></div>
             </div>
 
-            <div>
+            <div style="margin-bottom:20px;">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
                     <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;">Current Fight</span>
                     <span id="simProgressFightPct" style="font-size:0.72rem;font-weight:700;color:#64748b;font-variant-numeric:tabular-nums;">0%</span>
@@ -1156,18 +1156,50 @@ function _ensureProgressModal() {
                 </div>
                 <div id="simProgressFightLabel" style="font-size:0.78rem;color:#94a3b8;margin-top:6px;min-height:1.2em;"></div>
             </div>
+
+            <div style="text-align:center;">
+                <button id="simCancelBtn" style="
+                    background:rgba(239,68,68,0.15);
+                    border:1px solid rgba(239,68,68,0.35);
+                    border-radius:8px;
+                    color:#fca5a5;
+                    font-size:0.85rem;
+                    font-weight:600;
+                    padding:8px 24px;
+                    cursor:pointer;
+                    transition:background 0.15s, border-color 0.15s;
+                " onmouseover="this.style.background='rgba(239,68,68,0.28)';this.style.borderColor='rgba(239,68,68,0.6)'"
+                   onmouseout="this.style.background='rgba(239,68,68,0.15)';this.style.borderColor='rgba(239,68,68,0.35)'">
+                    ✕ Cancel
+                </button>
+            </div>
         </div>
     `;
     document.body.appendChild(el);
 }
 
-function showProgressModal() {
+function showProgressModal(onCancel) {
     _ensureProgressModal();
-    const el = document.getElementById('simProgressOverlay');
-    if (el) { el.style.display = 'flex'; }
+    const el  = document.getElementById('simProgressOverlay');
+    const btn = document.getElementById('simCancelBtn');
+    if (el) el.style.display = 'flex';
+    if (btn) {
+        // Re-wire the cancel callback each time in case it changed
+        btn.onclick = () => {
+            if (typeof onCancel === 'function') onCancel();
+            // Visual feedback — dim the button so the user knows it registered
+            btn.textContent    = '⏳ Cancelling…';
+            btn.style.opacity  = '0.5';
+            btn.style.cursor   = 'not-allowed';
+            btn.onclick        = null;
+        };
+        btn.textContent   = '✕ Cancel';
+        btn.style.opacity = '1';
+        btn.style.cursor  = 'pointer';
+    }
     updateProgressModal(0, 'Preparing simulation…', 0, '');
 }
-
+    
 function hideProgressModal() {
     const el = document.getElementById('simProgressOverlay');
     if (el) el.style.display = 'none';
