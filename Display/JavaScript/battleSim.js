@@ -740,7 +740,7 @@ function createCombatantState(stats) {
     };
 }
 
-function simulateBattle(sA, sB, onProgress) {
+async function simulateBattle(sA, sB, onProgress) {
     const result = { winner:null, ttkA:Infinity, ttkB:Infinity,
         projectedTtkA:null, projectedTtkB:null, phases:[], warnings:[] };
     const stA = createCombatantState(sA);
@@ -753,14 +753,17 @@ function simulateBattle(sA, sB, onProgress) {
     const timelineA = [], timelineB = [];
     let frame = 0;
 
+    const YIELD_EVERY = 600; // yield every 10s of sim time — tune lower for smoother UI
+
     while (frame < MAX_FRAMES) {
         const t = frame / FPS;
 
-        // Fire progress every ~10 seconds of sim time (600 frames)
-        if (onProgress && frame % 90 === 0) {
+        if (frame % YIELD_EVERY === 0) {
             const pct = (frame / MAX_FRAMES) * 100;
             const elapsed = (frame / FPS).toFixed(0);
-            onProgress(pct, `Frame ${frame.toLocaleString()} · ${elapsed}s simulated`);
+            if (onProgress) onProgress(pct, `${elapsed}s simulated`);
+            // Yield to browser so the progress bar can repaint
+            await new Promise(r => setTimeout(r, 0));
         }
         
         if (frame % 6 === 0) {
@@ -1257,101 +1260,95 @@ function hideResults() {
     if (el) el.style.display = 'none';
 }
 
-function runSimulation() {
+async function runSimulation() {
     if (!_attrDefs) { setStatus('Attribute definitions not loaded — please wait.', true); return; }
     if (!window.DamageTypes?.isReady()) { setStatus('Damage type registry not ready — please wait.', true); return; }
 
     const validTeams = _teams.filter(t => t.ships.length > 0 && t.ships.some(e => e.count > 0));
     if (validTeams.length < 2) { setStatus('Add ships to at least 2 teams first.', true); return; }
 
-    const loadEl = document.getElementById('simLoading');
-    const resEl  = document.getElementById('simResults');
-    if (loadEl) { loadEl.style.display = 'none'; }
-    if (resEl)  resEl.style.display = 'none';
+    const resEl = document.getElementById('simResults');
+    if (resEl) resEl.style.display = 'none';
 
     if (typeof window.BattleSimDisplay?.showProgressModal === 'function')
         window.BattleSimDisplay.showProgressModal();
 
-    setTimeout(() => {
-        try {
-            const teamStats = validTeams.map(team => {
-                const entries = team.ships.filter(e => e.count > 0).map(e => ({ resolved: e.resolved, count: e.count }));
-                const merged  = mergeTeamStats(entries);
-                merged.name   = team.name;
-                merged.color  = team.color;
-                merged._team  = team;
-                return merged;
+    // Yield once so the modal actually renders before we start
+    await new Promise(r => setTimeout(r, 30));
+
+    try {
+        const teamStats = validTeams.map(team => {
+            const entries = team.ships.filter(e => e.count > 0).map(e => ({ resolved: e.resolved, count: e.count }));
+            const merged  = mergeTeamStats(entries);
+            merged.name   = team.name;
+            merged.color  = team.color;
+            merged._team  = team;
+            return merged;
+        });
+
+        const payload = {
+            damageTypes: _damageTypes,
+            outfitIndex: _outfitIndex,
+            attrDefs:    _attrDefs,
+            teamStats,
+        };
+
+        const updateProgress = typeof window.BattleSimDisplay?.updateProgressModal === 'function'
+            ? window.BattleSimDisplay.updateProgressModal
+            : () => {};
+
+        if (teamStats.length === 2) {
+            const nameA = teamStats[0].name, nameB = teamStats[1].name;
+            updateProgress(0, `Fight 1 of 1: ${nameA} vs ${nameB}`, 0, 'Starting…');
+            payload.mode    = '2team';
+            payload.results = await simulateBattle(teamStats[0], teamStats[1], (fightPct, fightLabel) => {
+                updateProgress(fightPct, `Fight 1 of 1: ${nameA} vs ${nameB}`, fightPct, fightLabel);
             });
+            updateProgress(100, `Fight 1 of 1: ${nameA} vs ${nameB}`, 100, 'Done');
+        } else {
+            const n = teamStats.length;
+            let totalFights = 0;
+            for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) totalFights++;
+            let fightsDone = 0;
 
-            const payload = {
-                damageTypes: _damageTypes,
-                outfitIndex: _outfitIndex,
-                attrDefs:    _attrDefs,
-                teamStats,
-            };
-
-            const updateProgress = typeof window.BattleSimDisplay?.updateProgressModal === 'function'
-                ? window.BattleSimDisplay.updateProgressModal
-                : () => {};
-
-            if (teamStats.length === 2) {
-                const nameA = teamStats[0].name, nameB = teamStats[1].name;
-                updateProgress(0, `Fight 1 of 1: ${nameA} vs ${nameB}`, 0, 'Starting…');
-                payload.mode    = '2team';
-                payload.results = simulateBattle(teamStats[0], teamStats[1], (fightPct, fightLabel) => {
-                    updateProgress(fightPct, `Fight 1 of 1: ${nameA} vs ${nameB}`, fightPct, fightLabel);
-                });
-                updateProgress(100, `Fight 1 of 1: ${nameA} vs ${nameB}`, 100, 'Done');
-            } else {
-                const n = teamStats.length;
-                const pairs = [];
-                for (let i = 0; i < n; i++)
-                    for (let j = 0; j < n; j++)
-                        if (i !== j) pairs.push([i, j]);
-                const totalFights = pairs.filter(([i,j]) => i < j).length;
-                let fightsDone = 0;
-
-                const matrix = [];
-                for (let i = 0; i < n; i++) {
-                    matrix[i] = [];
-                    for (let j = 0; j < n; j++) {
-                        if (i === j) { matrix[i][j] = null; continue; }
-                        if (j < i)   { matrix[i][j] = matrix[j][i]; continue; }
-                        const nameA = teamStats[i].name, nameB = teamStats[j].name;
-                        const overallLabel = `Fight ${fightsDone + 1} of ${totalFights}: ${nameA} vs ${nameB}`;
-                        const overallPct   = (fightsDone / totalFights) * 100;
-                        updateProgress(overallPct, overallLabel, 0, 'Starting…');
-                        matrix[i][j] = simulateBattle(teamStats[i], teamStats[j], (fightPct, fightLabel) => {
-                            updateProgress(
-                                (fightsDone / totalFights) * 100 + fightPct / totalFights,
-                                overallLabel, fightPct, fightLabel
-                            );
-                        });
-                        fightsDone++;
-                    }
+            const matrix = [];
+            for (let i = 0; i < n; i++) {
+                matrix[i] = [];
+                for (let j = 0; j < n; j++) {
+                    if (i === j) { matrix[i][j] = null; continue; }
+                    if (j < i)   { matrix[i][j] = matrix[j][i]; continue; }
+                    const nameA = teamStats[i].name, nameB = teamStats[j].name;
+                    const overallLabel = `Fight ${fightsDone + 1} of ${totalFights}: ${nameA} vs ${nameB}`;
+                    updateProgress((fightsDone / totalFights) * 100, overallLabel, 0, 'Starting…');
+                    matrix[i][j] = await simulateBattle(teamStats[i], teamStats[j], (fightPct, fightLabel) => {
+                        updateProgress(
+                            (fightsDone / totalFights) * 100 + fightPct / totalFights,
+                            overallLabel, fightPct, fightLabel
+                        );
+                    });
+                    fightsDone++;
                 }
-                updateProgress(100, `All ${totalFights} fights complete`, 100, 'Done');
-                payload.mode    = 'nteam';
-                payload.results = matrix;
             }
-
-            if (typeof window.BattleSimDisplay?.renderResults === 'function') {
-                window.BattleSimDisplay.renderResults(payload);
-            } else {
-                console.error('BattleSimDisplay not loaded — cannot render results.');
-                setStatus('Display module missing.', true);
-            }
-
-        } catch (err) {
-            console.error('runSimulation error:', err);
-            setStatus('Simulation error: ' + err.message, true);
-        } finally {
-            if (typeof window.BattleSimDisplay?.hideProgressModal === 'function')
-                window.BattleSimDisplay.hideProgressModal();
+            updateProgress(100, `All ${totalFights} fights complete`, 100, 'Done');
+            payload.mode    = 'nteam';
+            payload.results = matrix;
         }
-    }, 30);
-}
 
+        if (typeof window.BattleSimDisplay?.renderResults === 'function') {
+            window.BattleSimDisplay.renderResults(payload);
+        } else {
+            setStatus('Display module missing.', true);
+        }
+
+    } catch (err) {
+        console.error('runSimulation error:', err);
+        setStatus('Simulation error: ' + err.message, true);
+    } finally {
+        if (typeof window.BattleSimDisplay?.hideProgressModal === 'function')
+            window.BattleSimDisplay.hideProgressModal();
+    }
+}
+    
 // ── Public API ─────────────────────────────────────────────────────────────────
 window.searchShipsForTeam  = searchShipsForTeam;
 window.openTeamDropdown    = openTeamDropdown;
