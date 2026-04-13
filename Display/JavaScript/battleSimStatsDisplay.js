@@ -907,6 +907,70 @@ function buildRankingPanel(teamStats, matrix, ranked, getResult) {
 //  MAIN ENTRY POINTS
 // ─────────────────────────────────────────────────────────────────────────────
 
+function renderResults2Team(payload) {
+    const { teamStats, results: result } = payload;
+    const sA  = teamStats[0], sB = teamStats[1];
+    const resEl = document.getElementById('simResults');
+    if (!resEl) return;
+
+    const colorA     = sA.color || '#3b82f6';
+    const colorB     = sB.color || '#ef4444';
+    const winnerColor = result.winner === 'A' ? colorA : result.winner === 'B' ? colorB : '#94a3b8';
+
+    document.getElementById('resultWinnerName').style.color = winnerColor;
+    document.getElementById('resultWinnerName').textContent =
+        result.winner === 'A' ? sA.name : result.winner === 'B' ? sB.name : 'Draw';
+    document.getElementById('resultSubtitle').innerHTML =
+        `${buildTtkString(sA.name, result.ttkA, result.projectedTtkA)}&nbsp;&nbsp;·&nbsp;&nbsp;${buildTtkString(sB.name, result.ttkB, result.projectedTtkB)}`;
+
+    const effA = isFinite(result.ttkA) ? result.ttkA
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? result.projectedTtkA : MAX_SIM_SECS;
+    const effB = isFinite(result.ttkB) ? result.ttkB
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? result.projectedTtkB : MAX_SIM_SECS;
+    const maxT = Math.max(effA, effB, 1);
+
+    const barA = document.getElementById('timelineBarA');
+    const barB = document.getElementById('timelineBarB');
+    if (barA) { barA.style.width = Math.round(Math.min((effA / maxT) * 50, 50)) + '%'; barA.style.background = colorA; }
+    if (barB) { barB.style.width = Math.round(Math.min((effB / maxT) * 50, 50)) + '%'; barB.style.background = colorB; }
+
+    const lblA = document.getElementById('timelineLabelA');
+    const lblB = document.getElementById('timelineLabelB');
+    if (lblA) lblA.textContent = isFinite(result.ttkA) ? fmtT(result.ttkA)
+        : (result.projectedTtkA != null && isFinite(result.projectedTtkA)) ? '~' + fmtT(result.projectedTtkA) : '∞';
+    if (lblB) lblB.textContent = isFinite(result.ttkB) ? fmtT(result.ttkB)
+        : (result.projectedTtkB != null && isFinite(result.projectedTtkB)) ? '~' + fmtT(result.projectedTtkB) : '∞';
+
+    const chartEl = document.getElementById('hpChartContainer');
+    if (chartEl) chartEl.innerHTML = buildHpChart(sA, sB, result);
+
+    const compareEl = document.getElementById('compareGrid');
+    if (compareEl) compareEl.innerHTML = buildCompareGrid(sA, sB, result);
+
+    // ── Weapons: now per-ship accordions ──────────────────────────────────────
+    const weaponsEl = document.getElementById('weaponsGrid');
+    if (weaponsEl) weaponsEl.innerHTML =
+        `<div>
+            <div class="weapons-col-title" style="color:${colorA}">${escHtml(sA.name)}</div>
+            ${buildShipAccordion(sA, colorA)}
+        </div>
+        <div>
+            <div class="weapons-col-title" style="color:${colorB}">${escHtml(sB.name)}</div>
+            ${buildShipAccordion(sB, colorB)}
+        </div>`;
+
+    const phaseEl = document.getElementById('phaseList');
+    if (phaseEl) phaseEl.innerHTML = buildPhaseList(result, sA, sB);
+
+    const matEl = document.getElementById('matrixSection');
+    if (matEl) { matEl.style.display = 'none'; matEl.innerHTML = ''; }
+    document.getElementById('timelineSection').style.display = '';
+    document.getElementById('weaponsSection').style.display  = '';
+
+    resEl.style.display = 'block';
+    resEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+    
 function renderResultsNTeam(payload) {
     const { teamStats, results: matrix } = payload;
     const n     = teamStats.length;
