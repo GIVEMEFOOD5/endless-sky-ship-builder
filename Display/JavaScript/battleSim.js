@@ -1314,20 +1314,20 @@ async function runSimulation() {
             let fightsDone = 0;
 
             const matrix = [];
+            for (let i = 0; i < n; i++) matrix[i] = new Array(n).fill(null);
+
             for (let i = 0; i < n; i++) {
-                matrix[i] = [];
-                for (let j = 0; j < n; j++) {
-                    if (i === j) { matrix[i][j] = null; continue; }
-                    if (j < i)   { matrix[i][j] = matrix[j][i]; continue; }
+                for (let j = i + 1; j < n; j++) {
                     const nameA = teamStats[i].name, nameB = teamStats[j].name;
                     const overallLabel = `Fight ${fightsDone + 1} of ${totalFights}: ${nameA} vs ${nameB}`;
                     updateProgress((fightsDone / totalFights) * 100, overallLabel, 0, 'Starting…');
-                    matrix[i][j] = await simulateBattle(teamStats[i], teamStats[j], (fightPct, fightLabel) => {
+                    const result = await simulateBattle(teamStats[i], teamStats[j], (fightPct, fightLabel) => {
                         updateProgress(
                             (fightsDone / totalFights) * 100 + fightPct / totalFights,
                             overallLabel, fightPct, fightLabel
                         );
                     });
+                    matrix[i][j] = result;   // i vs j: winner 'A' means team i won
                     fightsDone++;
                 }
             }
