@@ -144,9 +144,9 @@ async function loadData() {
             window._indexPluginOrder.push(outputName);
 
     window.allData = {};
-    for (const [, pluginList] of Object.entries(dataIndex)) {
+    for (const [groupName, pluginList] of Object.entries(dataIndex)) {
         for (const { outputName, displayName, sourceName } of pluginList) {
-            const pluginData = { sourceName, displayName, outputName, ships:[], variants:[], outfits:[] };
+            const pluginData = { sourceName: sourceName ?? groupName, displayName, outputName, ships:[], variants:[], outfits:[] };
             try {
                 const base = `${BASE_URL}/${outputName}/dataFiles`;
                 const [ships, variants, outfits] = await Promise.all([
