@@ -348,7 +348,9 @@ class LocationResolver {
 
     const out = {};
     for (const [pluginId, categories] of Object.entries(result)) {
-      const key = pluginId === '__unknown__' ? (pluginName ?? '__unknown__') : pluginId;
+      // Strip "sourceName/" prefix — keep only the folder name after the slash
+      const rawKey = pluginId === '__unknown__' ? (pluginName ?? '__unknown__') : pluginId;
+      const key = rawKey.includes('/') ? rawKey.split('/').slice(1).join('/') : rawKey;
       if (!out[key]) out[key] = {};
       for (const [cat, values] of Object.entries(categories)) {
         if (values instanceof Set) {
@@ -360,7 +362,7 @@ class LocationResolver {
     }
     return out;
   }
-
+  
   // ── Public API ───────────────────────────────────────────────────────────────
 
   attachLocations(ships, variants, outfits, pluginName) {
