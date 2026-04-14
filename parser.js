@@ -466,9 +466,7 @@ class EndlessSkyParser {
       // Always use the sourceName (from plugins.json) as the pluginId namespace
       // so it matches what the user writes in the "overrides" field.
       // For multi-plugin repos, append the probe name to keep them distinct.
-      const pluginId = probePlugins.length === 1
-        ? (sourceName || probe.name)
-        : `${sourceName || probe.name}/${probe.name}`;
+      const pluginId = `${sourceName}/${probe.name}`;
 
       const root           = probe.pluginRootInRepo;
       const dataPath       = root === '.' ? 'data'   : `${root}/data`;
@@ -561,7 +559,7 @@ class EndlessSkyParser {
         console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
 
         const isSinglePlugin = probePlugins.length === 1;
-        const outputName = isSinglePlugin ? (sourceName || meta.name) : meta.name;
+        const outputName = meta.name;
 
         const destImagesDir = path.join(process.cwd(), 'data', outputName, 'images');
         await this.copyImagesForPlugin(meta.imagesDir, destImagesDir, pluginShips, pluginVariants, pluginOutfits, pluginEffects);
