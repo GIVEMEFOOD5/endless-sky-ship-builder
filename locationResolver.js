@@ -348,8 +348,6 @@ class LocationResolver {
   
     const out = {};
     for (const [pluginId, categories] of Object.entries(result)) {
-      // Use the full pluginId (sourceName/folderName) as-is.
-      // Only substitute if it was stored as __unknown__ (came from a null pluginId).
       const key = pluginId === '__unknown__' ? (pluginName ?? '__unknown__') : pluginId;
       if (!out[key]) out[key] = {};
       for (const [cat, values] of Object.entries(categories)) {
