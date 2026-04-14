@@ -1125,7 +1125,7 @@ function searchShipsForTeam(teamId, query) {
         for (const ship of hits) {
             const row = document.createElement('div');
             row.className = 'ship-dropdown-item';
-            const pl = (window.allData?.[ship._pluginId] || window.allData?.[ship._pluginId]?.sourceName) || '';
+            const pl = (window.allData?.[ship._pluginId].displayName || window.allData?.[ship._pluginId]?.sourceName) || '';
             row.innerHTML = `<span>${escHtml(ship.name)}</span><span class="sdi-plugin">${escHtml(pl)}</span>`;
             row.onmousedown = () => {
                 const countEl = document.getElementById('addCount_' + teamId);
