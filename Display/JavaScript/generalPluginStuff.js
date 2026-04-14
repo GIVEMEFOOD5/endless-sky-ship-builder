@@ -11,6 +11,7 @@
 //   - Merging items from all active plugins into a single array (with _pluginId
 //     tag on every item so ComputedStats / Sorter can still work per-item)
 //   - Notifying Plugin_Script.js when the active set changes
+//   - Self-injecting the plugin picker overlay into the DOM (no HTML duplication)
 //
 // Dependencies (must be loaded before this file):
 //   Plugin_Script.js  — provides allData, renderCards(), updateStats(),
@@ -36,6 +37,48 @@ function _label(outputName) {
     const d = _allData()[outputName];
     if (!d) return outputName;
     return d.sourceName === d.displayName ? d.sourceName : `${d.sourceName} › ${d.displayName}`;
+}
+
+// ── DOM injection ─────────────────────────────────────────────────────────
+//
+// Injects the plugin picker overlay into the page if it isn't already present.
+// Called at DOMContentLoaded so every page that loads this script gets the
+// picker for free — no need to copy-paste the markup into each HTML file.
+
+function _injectPickerOverlay() {
+    if (document.getElementById('pluginPickerOverlay')) return; // already present
+
+    const overlay = document.createElement('div');
+    overlay.id        = 'pluginPickerOverlay';
+    overlay.innerHTML = `
+        <div class="modal-box modal-box--picker">
+            <div class="picker-header">
+                <span class="picker-header__title">Select Plugins</span>
+                <button class="btn-close btn-close--sm" id="pluginPickerCloseBtn">✕</button>
+            </div>
+            <input class="text-input picker-search" type="text"
+                   id="pluginPickerSearch"
+                   placeholder="🔍 Search plugins…">
+            <div class="picker-list" id="pluginPickerList"></div>
+            <div class="picker-footer">
+                <button class="btn btn-secondary" id="pluginPickerCancelBtn">Cancel</button>
+                <button class="btn btn-primary"   id="pluginPickerConfirmBtn">Done</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    // Wire up events on the injected elements
+    overlay.addEventListener('click', e => {
+        if (e.target === overlay) closePluginPicker();
+    });
+    document.getElementById('pluginPickerCloseBtn')  .addEventListener('click', closePluginPicker);
+    document.getElementById('pluginPickerCancelBtn') .addEventListener('click', closePluginPicker);
+    document.getElementById('pluginPickerConfirmBtn').addEventListener('click', confirmPluginPicker);
+    document.getElementById('pluginPickerSearch')    .addEventListener('input', e => {
+        _renderPluginPickerList(e.target.value);
+    });
 }
 
 // ── Public API ─────────────────────────────────────────────────────────────
@@ -102,8 +145,8 @@ async function initDefaultPlugin() {
     _activePlugins = [keys[0]];
     // First load: reset to ships tab
     const primary = getPrimaryPlugin();
-    if (typeof window.setCurrentPlugin === 'function') window.setCurrentPlugin(primary);
-    if (typeof window.setEffectPlugin  === 'function') window.setEffectPlugin(primary);
+    if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primary);
+    if (typeof window.setEffectPlugin   === 'function') window.setEffectPlugin(primary);
     if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
     if (typeof window.clearComputedCache === 'function') window.clearComputedCache();
     _renderActiveList();
@@ -118,8 +161,8 @@ async function _notifyChange() {
     if (!primary) return;
 
     // Image / effect grabbers use the primary plugin for index priority
-    if (typeof window.setCurrentPlugin === 'function') window.setCurrentPlugin(primary);
-    if (typeof window.setEffectPlugin  === 'function') window.setEffectPlugin(primary);
+    if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primary);
+    if (typeof window.setEffectPlugin   === 'function') window.setEffectPlugin(primary);
 
     // Sorter: primary plugin used when no per-item _pluginId available
     if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
@@ -369,6 +412,14 @@ async function confirmPluginPicker() {
     await _notifyChange();
 }
 
+// ── Initialise overlay on DOM ready ───────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', _injectPickerOverlay);
+
+// Also expose as a global so pages that call this before DOMContentLoaded
+// can trigger injection manually (e.g. inside their own DOMContentLoaded).
+function ensurePickerOverlay() { _injectPickerOverlay(); }
+
 // ── Expose globals ────────────────────────────────────────────────────────
 
 window.PluginManager = {
@@ -381,12 +432,13 @@ window.PluginManager = {
     closePluginPicker,
     confirmPluginPicker,
     renderActiveList: _renderActiveList,
+    ensurePickerOverlay,
 };
 
 // Also expose picker functions directly for onclick= attributes in HTML
-window.openPluginPicker    = openPluginPicker;
-window.closePluginPicker   = closePluginPicker;
-window.confirmPluginPicker = confirmPluginPicker;
+window.openPluginPicker       = openPluginPicker;
+window.closePluginPicker      = closePluginPicker;
+window.confirmPluginPicker    = confirmPluginPicker;
 window.renderPluginPickerList = _renderPluginPickerList;
 
 })();
