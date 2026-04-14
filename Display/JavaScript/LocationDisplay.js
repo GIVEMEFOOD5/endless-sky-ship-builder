@@ -242,21 +242,25 @@ function renderLocationsTab(container, item, pluginId) {
     }
 
     const activePlugins = _getActivePluginSet();
-    const frag          = document.createDocumentFragment();
 
-    // ── Sort: active plugins first, then inactive, both alphabetically ────────
-    const entries = Object.entries(locations).sort(([a], [b]) => {
-        const aActive = activePlugins.has(a);
-        const bActive = activePlugins.has(b);
-        if (aActive !== bActive) return aActive ? -1 : 1;
-        return _pluginLabel(a).localeCompare(_pluginLabel(b));
-    });
+    // ── Only keep entries whose plugin is currently active ────────────────
+    const entries = Object.entries(locations)
+        .filter(([outputName]) => activePlugins.has(outputName))
+        .sort(([a], [b]) => _pluginLabel(a).localeCompare(_pluginLabel(b)));
+
+    if (entries.length === 0) {
+        const empty = document.createElement('p');
+        empty.className = 'ld-empty';
+        empty.textContent = 'No location data available for any active plugin.';
+        container.appendChild(empty);
+        return;
+    }
+
+    const frag = document.createDocumentFragment();
 
     for (const [outputName, pluginData] of entries) {
-        const isActive     = activePlugins.has(outputName);
-        // Auto-expand active plugin blocks, collapse inactive ones
-        const startExpanded = isActive;
-        frag.appendChild(_buildPluginBlock(outputName, pluginData, isActive, startExpanded));
+        // All shown blocks are active, always start expanded
+        frag.appendChild(_buildPluginBlock(outputName, pluginData, true, true));
     }
 
     container.appendChild(frag);
