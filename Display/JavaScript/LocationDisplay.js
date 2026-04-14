@@ -244,11 +244,16 @@ function renderLocationsTab(container, item, pluginId) {
     const activePlugins = _getActivePluginSet();
 
     // ── Only keep entries whose plugin is currently active ────────────────
-    const entries = Object.entries(locations)
-        .filter(([outputName]) => activePlugins.has(outputName))
-        .sort(([a], [b]) => _pluginLabel(a).localeCompare(_pluginLabel(b)));
+    // Fall back to showing all entries if active set is empty (e.g. PluginManager not ready)
+    const allEntries = Object.entries(locations);
+    const filteredEntries = activePlugins.size > 0
+        ? allEntries.filter(([outputName]) => activePlugins.has(outputName))
+        : allEntries;
 
-    if (entries.length === 0) {
+    // Sort alphabetically
+    filteredEntries.sort(([a], [b]) => _pluginLabel(a).localeCompare(_pluginLabel(b)));
+
+    if (filteredEntries.length === 0) {
         const empty = document.createElement('p');
         empty.className = 'ld-empty';
         empty.textContent = 'No location data available for any active plugin.';
@@ -258,9 +263,10 @@ function renderLocationsTab(container, item, pluginId) {
 
     const frag = document.createDocumentFragment();
 
-    for (const [outputName, pluginData] of entries) {
-        // All shown blocks are active, always start expanded
-        frag.appendChild(_buildPluginBlock(outputName, pluginData, true, true));
+    for (const [outputName, pluginData] of filteredEntries) {
+        const isActive = activePlugins.has(outputName);
+        // Expand active blocks, collapse inactive ones
+        frag.appendChild(_buildPluginBlock(outputName, pluginData, isActive, isActive));
     }
 
     container.appendChild(frag);
