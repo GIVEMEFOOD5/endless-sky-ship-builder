@@ -48,20 +48,41 @@ const CATEGORY_KEY_SET = new Set(LOCATION_CATEGORIES.map(c => c.key));
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 /**
- * Returns the Set of currently active plugin output-names, or null if
- * PluginManager is not available / has no active plugins yet.
+ * Returns the Set of all location-key strings that correspond to currently
+ * active plugins, or null if PluginManager is not available / has no active
+ * plugins yet.
  *
- * Returning null (rather than falling back to allData keys) lets the caller
- * decide to show a "not ready" message instead of silently showing everything.
+ * Location keys in the data are stored as "sourceName/outputName"
+ * (e.g. "official-game/endless-sky"), but PluginManager tracks plugins by
+ * outputName alone (e.g. "endless-sky").  We therefore build the set to
+ * include every form a key might take:
+ *   • the raw outputName itself          ("endless-sky")
+ *   • "sourceName/outputName"            ("official-game/endless-sky")
+ *
+ * This is derived by looking up each active outputName in allData where the
+ * sourceName is stored.
  */
 function _getActivePluginSet() {
-    if (window.PluginManager?.getActivePlugins) {
-        const active = window.PluginManager.getActivePlugins();
-        if (Array.isArray(active) && active.length > 0) {
-            return new Set(active);
+    if (!window.PluginManager?.getActivePlugins) return null;
+
+    const active = window.PluginManager.getActivePlugins();
+    if (!Array.isArray(active) || active.length === 0) return null;
+
+    const keys = new Set();
+    const allData = window.allData || {};
+
+    for (const outputName of active) {
+        // Always include the bare outputName
+        keys.add(outputName);
+
+        // Also include "sourceName/outputName" if we can look it up
+        const sourceName = allData[outputName]?.sourceName;
+        if (sourceName) {
+            keys.add(`${sourceName}/${outputName}`);
         }
     }
-    return null;
+
+    return keys;
 }
 
 /**
