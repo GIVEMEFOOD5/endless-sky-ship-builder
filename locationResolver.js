@@ -345,9 +345,11 @@ class LocationResolver {
       const key = pluginName ?? '__unknown__';
       return { [key]: { '_deprecated/unused': true } };
     }
-  
+
     const out = {};
     for (const [pluginId, categories] of Object.entries(result)) {
+      // Keep the full pluginId (sourceName/folderName) exactly as stored.
+      // Only substitute __unknown__ entries with the pluginName fallback.
       const key = pluginId === '__unknown__' ? (pluginName ?? '__unknown__') : pluginId;
       if (!out[key]) out[key] = {};
       for (const [cat, values] of Object.entries(categories)) {
