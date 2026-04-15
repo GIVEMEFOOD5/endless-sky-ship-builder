@@ -18,8 +18,10 @@
 //     }
 //   }
 //
-// The active plugin list from PluginManager is used to decide which plugin
-// blocks to show. Blocks from inactive plugins are collapsed by default.
+// Only location blocks whose plugin key matches an entry in the currently
+// active plugin list (from PluginManager) are shown.  If PluginManager is
+// not yet ready the tab shows a "not ready" notice instead of falling back
+// to showing everything — this prevents stale / wrong data appearing.
 //
 // ─── Performance notes ───────────────────────────────────────────────────────
 //  • All rendering is done via DocumentFragment + createElement — no
@@ -31,15 +33,14 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ─── Category display config ──────────────────────────────────────────────────
-// Defines the label, icon, and order for each category key.
 
 const LOCATION_CATEGORIES = [
-    { key: 'Planets',         label: 'Planets',          icon: '🌍' },
-    { key: 'Systems',         label: 'Systems',          icon: '✨' },
-    { key: 'Missions',        label: 'Missions',         icon: '📋' },
-    { key: 'Outfitters',      label: 'Outfitters',       icon: '🛒' },
+    { key: 'Planets',         label: 'Planets',           icon: '🌍' },
+    { key: 'Systems',         label: 'Systems',           icon: '✨' },
+    { key: 'Missions',        label: 'Missions',          icon: '📋' },
+    { key: 'Outfitters',      label: 'Outfitters',        icon: '🛒' },
     { key: 'Ships',           label: 'Ships with Outfit', icon: '🚀' },
-    { key: 'ShipyardPlanets', label: 'Shipyard Planets', icon: '🏭' },
+    { key: 'ShipyardPlanets', label: 'Shipyard Planets',  icon: '🏭' },
 ];
 
 const CATEGORY_KEY_SET = new Set(LOCATION_CATEGORIES.map(c => c.key));
@@ -47,19 +48,24 @@ const CATEGORY_KEY_SET = new Set(LOCATION_CATEGORIES.map(c => c.key));
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 /**
- * Returns the set of currently active plugin output-names.
- * Falls back to all known plugins if PluginManager is unavailable.
+ * Returns the Set of currently active plugin output-names, or null if
+ * PluginManager is not available / has no active plugins yet.
+ *
+ * Returning null (rather than falling back to allData keys) lets the caller
+ * decide to show a "not ready" message instead of silently showing everything.
  */
 function _getActivePluginSet() {
     if (window.PluginManager?.getActivePlugins) {
-        return new Set(window.PluginManager.getActivePlugins());
+        const active = window.PluginManager.getActivePlugins();
+        if (Array.isArray(active) && active.length > 0) {
+            return new Set(active);
+        }
     }
-    return new Set(Object.keys(window.allData || {}));
+    return null;
 }
 
 /**
  * Friendly display name for a plugin output-name.
- * Looks up allData for a displayName, falls back to the raw key.
  */
 function _pluginLabel(outputName) {
     return window.allData?.[outputName]?.displayName || outputName;
@@ -88,7 +94,6 @@ function _buildCategorySection(cfg, values) {
 
     const pills = document.createElement('div');
     pills.className = 'ld-pills';
-    // DocumentFragment keeps DOM writes batched
     const frag = document.createDocumentFragment();
     for (const v of values) frag.appendChild(_makePill(v));
     pills.appendChild(frag);
@@ -105,7 +110,6 @@ function _buildPluginContent(pluginData) {
     const content = document.createElement('div');
     content.className = 'ld-plugin-content';
 
-    // Unused / deprecated marker
     if (pluginData['_deprecated/unused']) {
         const badge = document.createElement('div');
         badge.className = 'ld-unused';
@@ -144,10 +148,12 @@ function _buildPluginContent(pluginData) {
 /**
  * Build a collapsible plugin block.
  * Content is built lazily on first expand.
+ * Since we only ever call this for active plugins now, isActive is always
+ * true — the parameter is kept for API compatibility.
  */
-function _buildPluginBlock(outputName, pluginData, isActive, startExpanded) {
+function _buildPluginBlock(outputName, pluginData, startExpanded) {
     const block = document.createElement('div');
-    block.className = 'ld-plugin-block' + (isActive ? ' ld-plugin-active' : ' ld-plugin-inactive');
+    block.className = 'ld-plugin-block ld-plugin-active';
 
     // ── Header (clickable toggle) ─────────────────────────────────────────────
     const header = document.createElement('div');
@@ -162,7 +168,7 @@ function _buildPluginBlock(outputName, pluginData, isActive, startExpanded) {
 
     const activeBadge = document.createElement('span');
     activeBadge.className = 'ld-plugin-badge';
-    activeBadge.textContent = isActive ? 'Active' : 'Inactive';
+    activeBadge.textContent = 'Active';
 
     const arrow = document.createElement('span');
     arrow.className = 'ld-arrow';
@@ -197,13 +203,11 @@ function _buildPluginBlock(outputName, pluginData, isActive, startExpanded) {
         header.setAttribute('aria-expanded', 'false');
     }
 
-    // Build content immediately if starting expanded
     if (startExpanded) {
         contentWrapper.appendChild(_buildPluginContent(pluginData));
         contentBuilt = true;
     }
 
-    // Toggle on click or keyboard
     header.addEventListener('click', () => {
         const expanded = contentWrapper.style.display !== 'none';
         expanded ? collapse() : expand();
@@ -241,19 +245,24 @@ function renderLocationsTab(container, item, pluginId) {
         return;
     }
 
+    // ── Require PluginManager to be ready ─────────────────────────────────────
+    // We deliberately do NOT fall back to showing all plugins — that would show
+    // location data for plugins the user has not activated.
     const activePlugins = _getActivePluginSet();
 
-    // ── Only keep entries whose plugin is currently active ────────────────
-    // Fall back to showing all entries if active set is empty (e.g. PluginManager not ready)
-    const allEntries = Object.entries(locations);
-    const filteredEntries = activePlugins.size > 0
-        ? allEntries.filter(([outputName]) => activePlugins.has(outputName))
-        : allEntries;
+    if (!activePlugins) {
+        const notice = document.createElement('p');
+        notice.className = 'ld-empty';
+        notice.textContent = 'Plugin list not ready. Please wait and reopen this tab.';
+        container.appendChild(notice);
+        return;
+    }
 
-    // Sort alphabetically
-    filteredEntries.sort(([a], [b]) => _pluginLabel(a).localeCompare(_pluginLabel(b)));
+    // ── Filter: only keep location entries whose key is an active plugin ──────
+    const activeEntries = Object.entries(locations)
+        .filter(([outputName]) => activePlugins.has(outputName));
 
-    if (filteredEntries.length === 0) {
+    if (activeEntries.length === 0) {
         const empty = document.createElement('p');
         empty.className = 'ld-empty';
         empty.textContent = 'No location data available for any active plugin.';
@@ -261,14 +270,17 @@ function renderLocationsTab(container, item, pluginId) {
         return;
     }
 
+    // Sort alphabetically by display label
+    activeEntries.sort(([a], [b]) => _pluginLabel(a).localeCompare(_pluginLabel(b)));
+
+    // ── Render one block per active plugin that has location data ─────────────
+    // If there is only one entry, start it expanded automatically.
+    const autoExpand = activeEntries.length === 1;
+
     const frag = document.createDocumentFragment();
-
-    for (const [outputName, pluginData] of filteredEntries) {
-        const isActive = activePlugins.has(outputName);
-        // Expand active blocks, collapse inactive ones
-        frag.appendChild(_buildPluginBlock(outputName, pluginData, isActive, isActive));
+    for (const [outputName, pluginData] of activeEntries) {
+        frag.appendChild(_buildPluginBlock(outputName, pluginData, autoExpand));
     }
-
     container.appendChild(frag);
 }
 
