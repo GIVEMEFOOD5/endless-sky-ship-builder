@@ -908,8 +908,7 @@ function shootFrame(attSt, defSt, attStats, missileQueue) {
 }
 
 function createCombatantState(stats) {
-    return { stats, // ← already present, used in resolveAntiMissile above
-    shields: stats.maxShields, hull: stats.maxHull, ... };
+    return { stats, shields: stats.maxShields, hull: stats.maxHull, ... };
 }
     
 function advanceBurst(attSt, i, burstCount, burstReload, reload) {
