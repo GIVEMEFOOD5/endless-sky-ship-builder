@@ -18,11 +18,16 @@ function getGovernmentsForItem(item) {
         if (!isActive) continue;
 
         for (const govName of Object.keys(govMap)) {
-            if (govName.trim()) governments.add(govName.trim());
+            const normalized = normalizeGovernmentName(govName.trim());
+            if (normalized) governments.add(normalized);
         }
     }
 
     return [...governments];
+}
+
+function normalizeGovernmentName(name) {
+    return name.replace(/\s*\(.*?\)\s*$/, '').trim();
 }
 
 function extractGovernments(data) {
@@ -108,7 +113,7 @@ function itemMatchesGovernmentFilter(item, selected) {
 
     const activePlugins = new Set(window.PluginManager ? window.PluginManager.getActivePlugins() : []);
 
-    return selected.some(govName => {
+    return selected.some(selectedGov => {
         for (const [govKey, govMap] of Object.entries(item.governments)) {
             if (typeof govMap !== 'object') continue;
 
@@ -117,7 +122,10 @@ function itemMatchesGovernmentFilter(item, selected) {
             );
 
             if (!isActive) continue;
-            if (govMap[govName] === true) return true;
+
+            for (const rawGovName of Object.keys(govMap)) {
+                if (govMap[rawGovName] === true && normalizeGovernmentName(rawGovName.trim()) === selectedGov) return true;
+            }
         }
         return false;
     });
