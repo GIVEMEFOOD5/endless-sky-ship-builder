@@ -567,6 +567,7 @@ class EndlessSkyParser {
         results.push({
           name:       meta.name,
           outputName,
+          pluginId:   meta.pluginId,
           repository: repoUrl,
           ships:      pluginShips,
           variants:   pluginVariants,
@@ -1691,7 +1692,7 @@ async function main() {
         plugin.ships,
         plugin.variants,
         plugin.outfits,
-        plugin.outputName
+        plugin.pluginId
       );
     }
 
