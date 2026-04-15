@@ -65,6 +65,8 @@ const fmt       = (...a) => window.BattleSimDisplay?.fmt(...a)       ?? String(a
 const fmtT      = (...a) => window.BattleSimDisplay?.fmtT(...a)      ?? String(a[0] ?? '—');
 const escHtml   = (...a) => window.BattleSimDisplay?.escHtml(...a)   ?? String(a[0] ?? '');
 
+function createMissileQueue() { return []; }
+    
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 async function init() {
     hideResults();
@@ -761,6 +763,9 @@ async function simulateBattle(sA, sB, onProgress) {
     while (frame < MAX_FRAMES) {
         const t = frame / FPS;
 
+        const missilesVsB = []; // missiles A fired at B this frame
+        const missilesVsA = []; // missiles B fired at A this frame
+
         if (frame % YIELD_EVERY === 0) {
             if (_simCancelled) throw new Error('CANCELLED');
             const pct = (frame / MAX_FRAMES) * 100;
@@ -778,8 +783,12 @@ async function simulateBattle(sA, sB, onProgress) {
 
         const preShieldsA=stA.shields, preHullA=stA.hull;
         const preShieldsB=stB.shields, preHullB=stB.hull;
-        if (!stA.disabled && !stA.destroyed) shootFrame(stA, stB, sA);
-        if (!stB.disabled && !stB.destroyed) shootFrame(stB, stA, sB);
+        if (!stA.disabled && !stA.destroyed) shootFrame(stA, stB, sA, missilesVsB);
+        if (!stB.disabled && !stB.destroyed) shootFrame(stB, stA, sB, missilesVsA);
+        resolveAntiMissile(stB, sB, missilesVsB);
+        resolveAntiMissile(stA, sA, missilesVsA);
+        applyQueuedMissiles(missilesVsB, stB);
+        applyQueuedMissiles(missilesVsA, stA);
         stA.totalShieldDamageReceived += Math.max(0, preShieldsA - stA.shields);
         stA.totalHullDamageReceived   += Math.max(0, preHullA   - stA.hull);
         stB.totalShieldDamageReceived += Math.max(0, preShieldsB - stB.shields);
@@ -860,12 +869,19 @@ async function simulateBattle(sA, sB, onProgress) {
     result.phases.sort((a, b) => a.time - b.time);
     return result;
 }
-
-function shootFrame(attSt, defSt, attStats) {
+    
+function shootFrame(attSt, defSt, attStats, missileQueue) {
     if (attSt.isOverheated) return;
     for (let i = 0; i < attStats.weapons.length; i++) {
         const w = attStats.weapons[i];
         if (attSt.weaponReloadCounters[i] > 0) { attSt.weaponReloadCounters[i]--; continue; }
+        if ((w['anti-missile'] || 0) > 0) {
+            // Tick reload counter even though it fires reactively,
+            // so it isn't always "ready" — respects its own reload cycle.
+            if (attSt.weaponReloadCounters[i] > 0) attSt.weaponReloadCounters[i]--;
+            continue;
+        }
+        // ^ AM weapons fire reactively, not in the offensive loop
         const reload = Math.max(1, w.reload || 1);
         const burstCount  = w['burst count']  || 1;
         const burstReload = w['burst reload'] || reload;
@@ -880,11 +896,22 @@ function shootFrame(attSt, defSt, attStats) {
             if (val > 0) attSt.statusEffects[statName] = (attSt.statusEffects[statName] || 0) + val;
         }
         const visited = new Set([w._name].filter(Boolean));
-        applyWeaponDamage(w, defSt, defSt.stats, 1, visited, 0);
+        const isMissile = (w.homing || 0) > 0 || (w['missile strength'] || 0) > 0;
+        if (isMissile && missileQueue) {
+            missileQueue.push({ weapon: w, multiplier: 1,
+            visited: new Set([w._name].filter(Boolean)), depth: 0 });
+        } else {
+            applyWeaponDamage(w, defSt, defSt.stats, 1, visited, 0);
+        }
         advanceBurst(attSt, i, burstCount, burstReload, reload);
     }
 }
 
+function createCombatantState(stats) {
+    return { stats, // ← already present, used in resolveAntiMissile above
+    shields: stats.maxShields, hull: stats.maxHull, ... };
+}
+    
 function advanceBurst(attSt, i, burstCount, burstReload, reload) {
     if (burstCount > 1) {
         attSt.weaponBurstCounters[i]++;
@@ -978,6 +1005,28 @@ function applyStatusOrInstantDamage(defSt, typeName, dmg) {
     }
 }
 
+function resolveAntiMissile(defenderSt, defenderStats, missileQueue) {
+    if (!missileQueue.length) return;
+    const amWeapons = defenderStats.weapons.filter(w => (w['anti-missile'] || 0) > 0);
+    if (!amWeapons.length) return;
+    for (const entry of missileQueue) {
+        const ms = entry.weapon['missile strength'] || 0;
+        for (const amW of amWeapons) {
+            const amStr = amW['anti-missile'];
+            const p = amStr / (amStr + ms); // game formula
+            if (Math.random() < p) { entry.intercepted = true; break;}
+        }
+    }
+}
+    
+function applyQueuedMissiles(missileQueue, defSt) {
+    for (const entry of missileQueue) {
+        if (entry.intercepted) continue;
+        applyWeaponDamage(entry.weapon, defSt, defSt.stats,
+        entry.multiplier, entry.visited, entry.depth);
+    }
+}
+    
 function doGeneration(st, stats) {
     st.energy += stats.energyGenPerFrame - stats.energyConsumeIdlePerFrame
                - stats.movingEnergyPerFrame - stats.coolingEnergyPerFrame;
