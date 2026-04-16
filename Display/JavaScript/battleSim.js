@@ -743,7 +743,10 @@ function createCombatantState(stats) {
 
 async function simulateBattle(sA, sB, onProgress) {
     const result = { winner:null, ttkA:Infinity, ttkB:Infinity,
-        projectedTtkA:null, projectedTtkB:null, phases:[], warnings:[] };
+        projectedTtkA:null, projectedTtkB:null, phases:[], warnings:[],
+        interceptsA: 0,  // missiles fired at A that were intercepted by A's AM
+        interceptsB: 0,  // missiles fired at B that were intercepted by B's AM
+    };
     const stA = createCombatantState(sA);
     const stB = createCombatantState(sB);
     const susA = createSustainState(sA), susB = createSustainState(sB);
@@ -786,8 +789,8 @@ async function simulateBattle(sA, sB, onProgress) {
         if (!stB.disabled && !stB.destroyed) shootFrame(stB, stA, sB, missilesVsA);
 
         // Anti-missile resolution: defenders attempt to intercept queued missiles
-        if (!stB.disabled && !stB.destroyed) resolveAntiMissile(stB, sB, missilesVsB);
-        if (!stA.disabled && !stA.destroyed) resolveAntiMissile(stA, sA, missilesVsA);
+        if (!stB.disabled && !stB.destroyed) resolveAntiMissile(stB, sB, missilesVsB, result, 'B');
+        if (!stA.disabled && !stA.destroyed) resolveAntiMissile(stA, sA, missilesVsA, result, 'A');
 
         // Apply surviving missiles
         applyQueuedMissiles(missilesVsB, stB);
@@ -871,6 +874,31 @@ async function simulateBattle(sA, sB, onProgress) {
     }
 
     result.phases.sort((a, b) => a.time - b.time);
+
+    // Missile intercept summary — only shown when relevant
+    const defenderHasAM  = s => s.weapons.some(w => (w['anti-missile'] || 0) > 0);
+    const attackerHasMsl = s => s.weapons.some(w =>
+        (w.homing || 0) > 0 ||
+        (typeof window.AntiMissileAnalysis?.resolveEffectiveMissileStrength === 'function'
+            ? window.AntiMissileAnalysis.resolveEffectiveMissileStrength(w)
+            : (w['missile strength'] || 0)) > 0
+    );
+
+    if (defenderHasAM(sA) && attackerHasMsl(sB) && result.interceptsA > 0) {
+        result.phases.push({
+            time: Infinity, type: 'A', icon: '🛡',
+            text: `<strong>${escHtml(sA.name)}</strong> intercepted <strong>${result.interceptsA}</strong> missile${result.interceptsA !== 1 ? 's' : ''} during the battle`,
+        });
+    }
+    if (defenderHasAM(sB) && attackerHasMsl(sA) && result.interceptsB > 0) {
+        result.phases.push({
+            time: Infinity, type: 'B', icon: '🛡',
+            text: `<strong>${escHtml(sB.name)}</strong> intercepted <strong>${result.interceptsB}</strong> missile${result.interceptsB !== 1 ? 's' : ''} during the battle`,
+        });
+    }
+
+    result.phases.sort((a, b) => a.time - b.time);
+    
     return result;
 }
 
@@ -946,7 +974,7 @@ function shootFrame(attSt, defSt, attStats, missileQueue) {
 //  which walks the submunition tree — because the strength lives on the projectile
 //  (e.g. Active Finisher), not the launcher (e.g. Finisher Maegrolain).
 // ─────────────────────────────────────────────────────────────────────────────
-function resolveAntiMissile(defenderSt, defenderStats, missileQueue) {
+function resolveAntiMissile(defenderSt, defenderStats, missileQueue, result, side) {
     if (!missileQueue || missileQueue.length === 0) return;
 
     const weapons = defenderStats.weapons;
@@ -974,6 +1002,7 @@ function resolveAntiMissile(defenderSt, defenderStats, missileQueue) {
             const p = amStr / (amStr + ms);
             if (Math.random() < p) {
                 entry.intercepted = true;
+                if (result && side) result['intercepts' + side]++;
                 consumeFiringCosts(w, defenderSt);
                 // Advance AM weapon's reload so it can't fire again this frame
                 const reload      = Math.max(1, w.reload || 1);
