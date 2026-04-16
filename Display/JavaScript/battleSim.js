@@ -54,7 +54,8 @@ const FIRING_STATUS_MAP = {
     slowing:    'firing slowing',
 };
 
-const FIRING_RESOURCE_KEYS = ['firing energy', 'firing fuel', 'firing hull', 'firing shields'];
+const FIRING_RESOURCE_KEYS  = ['firing energy', 'firing fuel', 'firing hull', 'firing shields'];
+const MISSILE_STRENGTH_KEY  = 'missile strength';  // fallback if AntiMissileAnalysis not ready
 function resourceLabel(key) { return key.replace(/^firing\s+/, ''); }
 
 // ── Formatting shims (delegate to display module when available) ───────────────
@@ -937,6 +938,10 @@ function shootFrame(attSt, defSt, attStats, missileQueue) {
 //  For each queued missile, every AM weapon on the defender that is off cooldown
 //  gets one independent intercept roll.  First success destroys the missile.
 //  Respects reload/burst cycles — AM weapons that just fired are on cooldown.
+//
+//  Missile strength is resolved via AntiMissileAnalysis.resolveEffectiveMissileStrength
+//  which walks the submunition tree — because the strength lives on the projectile
+//  (e.g. Active Finisher), not the launcher (e.g. Finisher Maegrolain).
 // ─────────────────────────────────────────────────────────────────────────────
 function resolveAntiMissile(defenderSt, defenderStats, missileQueue) {
     if (!missileQueue || missileQueue.length === 0) return;
@@ -946,7 +951,10 @@ function resolveAntiMissile(defenderSt, defenderStats, missileQueue) {
     for (const entry of missileQueue) {
         if (entry.intercepted) continue;
 
-        const ms = Math.max(0, entry.weapon['missile strength'] || 0);
+        // Resolve missile strength from the projectile/submunition tree, not the launcher
+        const ms = typeof window.AntiMissileAnalysis?.resolveEffectiveMissileStrength === 'function'
+            ? Math.max(0, window.AntiMissileAnalysis.resolveEffectiveMissileStrength(entry.weapon))
+            : Math.max(0, entry.weapon[MISSILE_STRENGTH_KEY] || 0);
 
         for (let i = 0; i < weapons.length; i++) {
             const w = weapons[i];
