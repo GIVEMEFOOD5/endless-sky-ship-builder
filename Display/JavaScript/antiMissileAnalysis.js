@@ -34,11 +34,20 @@
 //  with reload=10 can only fire once every 10 frames.  The module models sustained
 //  fire by computing shots-per-second for each weapon independently.
 //
+//  MISSILE STRENGTH RESOLUTION
+//  ───────────────────────────
+//  missile strength lives on the PROJECTILE, not always on the launcher.
+//  For weapons with submunitions (e.g. Finisher Maegrolain → Active Finisher),
+//  the effective missile strength is read from the deepest projectile that actually
+//  carries it — resolveEffectiveMissileStrength() walks the submunition tree.
+//
 //  NO HARDCODING POLICY
 //  All attribute key names are read from attrDefs (attributeDefinitions.json) or
 //  from the weapon block itself at runtime.  The only compile-time string literals
 //  are the canonical weapon-block keys from Weapon.cpp Load() that are part of the
 //  game's persistent save format and cannot change without breaking saves.
+//  Default intercept-table strength benchmarks are derived dynamically from the
+//  actual missile strengths present in the outfit index — never hardcoded.
 //
 //  DEPENDENCIES
 //  ────────────
@@ -65,6 +74,15 @@
 //  AntiMissileAnalysis.buildInterceptTable(weaponProfiles, missileStrengths)  → InterceptTable
 //      Returns a table of P(intercept) for every supplied missile strength value.
 //
+//  AntiMissileAnalysis.deriveStrengthBenchmarks()  → number[]
+//      Scans the outfit index and returns sorted unique missile strength values
+//      present across all weapons/submunitions, padded with 0 and sensible
+//      intermediate steps.  Never hardcodes values.
+//
+//  AntiMissileAnalysis.resolveEffectiveMissileStrength(weapon)  → number
+//      Walks a weapon's submunition tree to find the missile strength that actually
+//      applies at interception time (i.e. on the deepest homing projectile).
+//
 //  AntiMissileAnalysis.formatProfile(shipAMProfile)  → string
 //      Human-readable summary for debugging / display.
 //
@@ -78,11 +96,11 @@ let _attrDefs       = null;
 let _ready          = false;
 
 const FPS = 60;
+const MAX_SUBMUNITION_DEPTH = 12;
 
 // ── Canonical weapon-block key for anti-missile (from Weapon.cpp Load) ─────────
-//  We read this from attrDefs.attributes if available, otherwise fall back to the
-//  data-file format string that is part of the ES save format.
 const ANTI_MISSILE_KEY_FALLBACK = 'anti-missile';
+const MISSILE_STRENGTH_KEY      = 'missile strength';
 const VELOCITY_KEY              = 'velocity';
 const RELOAD_KEY                = 'reload';
 const FIRING_ENERGY_KEY         = 'firing energy';
@@ -94,20 +112,16 @@ const BURST_RELOAD_KEY          = 'burst reload';
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
 function _antiMissileKey() {
-    // Read from attrDefs if possible so the key is not hardcoded in logic
     if (_attrDefs?.attributes?.['anti-missile']) return 'anti-missile';
     return ANTI_MISSILE_KEY_FALLBACK;
 }
 
 function _firingCostKeys() {
-    // Derive all firing-cost key names from attrDefs.outfitDisplay.valueNames
-    // so we never hardcode the list
     if (_attrDefs?.outfitDisplay?.valueNames) {
         return _attrDefs.outfitDisplay.valueNames
             .map(v => v.key)
             .filter(k => typeof k === 'string' && k.startsWith('firing '));
     }
-    // Fallback to the canonical set from the data-file format
     return [FIRING_ENERGY_KEY, FIRING_HEAT_KEY, FIRING_FUEL_KEY,
             'firing hull', 'firing shields'];
 }
@@ -116,12 +130,6 @@ function _firingCostKeys() {
 //  INIT
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * init(getOutfitIndex, attrDefs)
- *
- * @param {() => Object} getOutfitIndex  — live outfit index getter (same as MunitionTypes)
- * @param {Object|null}  attrDefs        — attributeDefinitions.json parsed object
- */
 function init(getOutfitIndex, attrDefs) {
     if (typeof getOutfitIndex !== 'function')
         throw new Error('[AntiMissileAnalysis] init: getOutfitIndex must be a function');
@@ -134,40 +142,123 @@ function init(getOutfitIndex, attrDefs) {
 function isReady() { return _ready; }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+//  MISSILE STRENGTH RESOLUTION
+//  missile strength lives on the projectile, not always on the launcher.
+//  For a launcher with submunitions (e.g. Finisher Maegrolain → Active Finisher),
+//  the interceptable object IS the submunition, so its missile strength is what
+//  the AM roll is made against.
+//
+//  Resolution rules (mirrors Ship.cpp behaviour):
+//    1. If the weapon itself has missile strength > 0, use that.
+//    2. Otherwise recurse into submunitions and return the first non-zero value
+//       found depth-first (the first actual projectile the AM weapon would face).
+//    3. If nothing is found, return 0 (any AM weapon intercepts with 100%).
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function resolveEffectiveMissileStrength(weapon, _visited, _depth) {
+    if (!weapon) return 0;
+    const visited = _visited || new Set([weapon._name].filter(Boolean));
+    const depth   = _depth   || 0;
+    if (depth > MAX_SUBMUNITION_DEPTH) return 0;
+
+    // Own missile strength takes priority
+    const own = weapon[MISSILE_STRENGTH_KEY] || 0;
+    if (own > 0) return own;
+
+    // Walk submunitions depth-first
+    const index = _getOutfitIndex();
+    const subRefs = _resolveSubmunitionRefs(weapon);
+    for (const { subName } of subRefs) {
+        if (!subName || visited.has(subName)) continue;
+        const subOutfit = index[subName];
+        if (!subOutfit?.weapon) continue;
+        const nv = new Set(visited); nv.add(subName);
+        const subStr = resolveEffectiveMissileStrength(subOutfit.weapon, nv, depth + 1);
+        if (subStr > 0) return subStr;
+    }
+    return 0;
+}
+
+// ── Lightweight submunition reference resolver (mirrors battleSim.js) ──────────
+function _resolveSubmunitionRefs(w) {
+    const results = [];
+    const rawSub = w.submunition;
+    if (rawSub != null) {
+        const entries = Array.isArray(rawSub) ? rawSub : [rawSub];
+        for (const entry of entries) {
+            const subName  = typeof entry === 'string' ? entry
+                           : typeof entry === 'object' ? (entry?.name ?? null) : null;
+            const subCount = typeof entry === 'object' && entry !== null ? (entry.count ?? 1) : 1;
+            if (subName) results.push({ subName, subCount });
+        }
+        if (results.length > 0) return results;
+    }
+    for (const key of Object.keys(w)) {
+        if (!key.startsWith('submunition ')) continue;
+        const subName = key.slice('submunition '.length).trim();
+        if (!subName) continue;
+        const val = w[key];
+        const subCount = Array.isArray(val) ? val.length
+                       : typeof val === 'number' ? Math.max(1, val) : 1;
+        results.push({ subName, subCount });
+    }
+    if (results.length > 0) return results;
+    const index = _getOutfitIndex();
+    for (const key of Object.keys(w)) {
+        if (key === 'submunition' || key.startsWith('submunition ')) continue;
+        const val = w[key];
+        if (val === false || val === 0 || val === null || val === undefined) continue;
+        if (typeof val !== 'number' && val !== true) continue;
+        const outfit = index[key];
+        if (!outfit?.weapon) continue;
+        const isAmmo =
+            (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0)
+         || outfit.category === 'Ammunition'
+         || (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0);
+        if (isAmmo) continue;
+        results.push({ subName: key, subCount: val === true ? 1 : Math.max(1, Math.round(val)) });
+    }
+    return results;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  DYNAMIC BENCHMARK DERIVATION
+//  Scans the full outfit index to collect every missile strength value actually
+//  present in the data, then builds a sorted, deduplicated list of benchmarks.
+//  Adds 0 (guaranteed intercept) and fills gaps so the table is useful.
+//  NEVER hardcodes strength values.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function deriveStrengthBenchmarks() {
+    const index  = _getOutfitIndex();
+    const found  = new Set();
+
+    for (const outfit of Object.values(index)) {
+        if (!outfit?.weapon) continue;
+        const ms = resolveEffectiveMissileStrength(outfit.weapon);
+        if (ms > 0) found.add(ms);
+    }
+
+    // Always include 0 (100% intercept baseline)
+    found.add(0);
+
+    // Build sorted array
+    const sorted = [...found].sort((a, b) => a - b);
+    const max    = sorted[sorted.length - 1] || 100;
+
+    // Fill in intermediate steps so no gap is larger than ~10% of the max range
+    // This keeps the table readable without hardcoding any specific values.
+    const step     = Math.max(1, Math.round(max / 20));
+    const enriched = new Set(sorted);
+    for (let v = 0; v <= max + step; v += step) enriched.add(Math.round(v));
+
+    return [...enriched].sort((a, b) => a - b);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 //  SINGLE-WEAPON ANALYSIS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * WeaponAMProfile shape:
- * {
- *   outfitName:   string,
- *   isAntiMissile: true,
- *
- *   strength:      number,   // anti-missile stat value
- *   range:         number,   // velocity * lifetime (pixels) — the engagement bubble
- *   reload:        number,   // frames between shots
- *   burstCount:    number,
- *   burstReload:   number,
- *   shotsPerSecond: number,  // sustained (accounting for burst cycle)
- *
- *   // Per-shot resource costs (derived from attrDefs, not hardcoded)
- *   firingCosts: { [key: string]: number },
- *
- *   // Per-second resource costs at sustained fire rate
- *   firingCostsPerSecond: { [key: string]: number },
- *
- *   // Intercept probabilities vs common missile strength benchmarks
- *   interceptVs: {
- *     strength0:   1.0,   // guaranteed vs unstrengthened missile
- *     strengthEq:  0.5,   // vs missile strength equal to this weapon
- *     strength3x:  number, // vs missile strength 3× this weapon
- *     strength10:  number, // vs MS=10 baseline
- *     strength20:  number, // vs MS=20 baseline
- *   },
- *
- *   notes: string[],
- * }
- */
 function analyseWeapon(weapon, outfitName) {
     if (!weapon || typeof weapon !== 'object') return null;
 
@@ -179,18 +270,15 @@ function analyseWeapon(weapon, outfitName) {
     const burstCount  = Math.max(1, weapon[BURST_COUNT_KEY]  || 1);
     const burstReload = Math.max(1, weapon[BURST_RELOAD_KEY] || reload);
 
-    // Sustained shots per second over a full burst cycle
     const framesPerCycle = burstCount > 1
         ? (burstCount - 1) * burstReload + reload
         : reload;
     const shotsPerSecond = (burstCount / framesPerCycle) * FPS;
 
-    // Range = velocity × lifetime  (the AM projectile's travel distance)
     const velocity = weapon[VELOCITY_KEY] || 0;
     const lifetime = weapon.lifetime      || 0;
     const range    = velocity * lifetime;
 
-    // Firing costs — read from attrDefs so the key list is not hardcoded
     const costKeys   = _firingCostKeys();
     const firingCosts = {};
     const firingCostsPerSecond = {};
@@ -202,16 +290,19 @@ function analyseWeapon(weapon, outfitName) {
         }
     }
 
-    // Intercept probability helper (the game's formula, derived once)
     const pIntercept = (ms) => calcInterceptChance(strength, ms);
 
-    const interceptVs = {
-        strength0:   1.0,
-        strengthEq:  pIntercept(strength),
-        strength3x:  +pIntercept(strength * 3).toFixed(4),
-        strength10:  +pIntercept(10).toFixed(4),
-        strength20:  +pIntercept(20).toFixed(4),
-    };
+    // Intercept probabilities use real missile strength values from the index
+    // rather than hardcoded benchmarks — derive them dynamically
+    const benchmarks   = deriveStrengthBenchmarks();
+    const interceptVs  = {};
+    // Always include a few key relative values regardless of benchmarks
+    interceptVs['strength0']  = 1.0;
+    interceptVs['strengthEq'] = pIntercept(strength);
+    for (const ms of benchmarks) {
+        const key = `strength${ms}`;
+        if (!(key in interceptVs)) interceptVs[key] = +pIntercept(ms).toFixed(4);
+    }
 
     const notes = [
         `Engages missiles within ~${range > 0 ? range.toFixed(0) : '?'} px.`,
@@ -219,7 +310,6 @@ function analyseWeapon(weapon, outfitName) {
         `P(intercept) = ${strength} / (${strength} + missileStrength)`,
         `vs MS=0:  100.0%  (guaranteed)`,
         `vs MS=${strength}:  50.0%  (even match)`,
-        `vs MS=${strength * 3}:  ${(interceptVs.strength3x * 100).toFixed(1)}%`,
         Object.keys(firingCosts).length > 0
             ? `Per-shot costs: ${Object.entries(firingCosts).map(([k, v]) => `${k.replace('firing ', '')} ${v}`).join(', ')}.`
             : `No per-shot resource costs.`,
@@ -245,19 +335,6 @@ function analyseWeapon(weapon, outfitName) {
 //  MULTI-WEAPON COMBINED INTERCEPT
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * combinedInterceptChance(weaponProfiles, missileStrength)
- *
- * Models a single engagement frame where ALL anti-missile weapons that are
- * ready to fire attempt to intercept the same missile simultaneously.
- *
- * P(missile survives) = ∏ (1 - Pᵢ(missileStrength))
- * P(missile destroyed) = 1 - ∏ (1 - Pᵢ)
- *
- * @param {WeaponAMProfile[]} weaponProfiles
- * @param {number}            missileStrength
- * @returns {number}  probability in [0, 1]
- */
 function combinedInterceptChance(weaponProfiles, missileStrength) {
     if (!weaponProfiles || weaponProfiles.length === 0) return 0;
     const ms = Math.max(0, missileStrength || 0);
@@ -273,44 +350,10 @@ function combinedInterceptChance(weaponProfiles, missileStrength) {
 //  SHIP-LEVEL PROFILE
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * ShipAMProfile shape:
- * {
- *   shipName:        string,
- *   hasAntiMissile:  boolean,
- *   weaponProfiles:  WeaponAMProfile[],   // one per AM weapon instance
- *   weaponCount:     number,              // total AM weapon instances
- *   distinctWeapons: { outfitName, count, profile }[],
- *
- *   // Combined stats
- *   totalStrength:   number,              // sum of all AM strengths
- *   maxStrength:     number,              // highest single-weapon strength
- *   totalShotsPerSecond: number,          // sum of all AM sps values
- *
- *   // Combined intercept table at a default set of missile strength values
- *   interceptTable: InterceptTable,
- *
- *   // Per-second resource budget for all AM weapons firing at full rate
- *   totalFiringCostsPerSecond: { [key]: number },
- *
- *   // Single-shot combined P (all weapons ready simultaneously, same frame)
- *   combinedInterceptVs: {
- *     strength0:  number,
- *     strength5:  number,
- *     strength10: number,
- *     strength20: number,
- *     strength40: number,
- *     strength80: number,
- *   },
- *
- *   notes: string[],
- * }
- */
 function analyseShip(resolvedShipStats) {
     const name    = resolvedShipStats?.name || '(unknown)';
     const weapons = resolvedShipStats?.weapons || [];
 
-    // Collect all AM weapon instances (each installed copy counted separately)
     const weaponProfiles = [];
     for (const w of weapons) {
         const profile = analyseWeapon(w, w._name);
@@ -334,7 +377,6 @@ function analyseShip(resolvedShipStats) {
         };
     }
 
-    // Aggregate distinct weapon types for reporting
     const distinctMap = {};
     for (const wp of weaponProfiles) {
         const key = wp.outfitName;
@@ -345,12 +387,10 @@ function analyseShip(resolvedShipStats) {
     }
     const distinctWeapons = Object.values(distinctMap);
 
-    // Combined totals
     const totalStrength      = weaponProfiles.reduce((s, p) => s + p.strength, 0);
     const maxStrength        = Math.max(...weaponProfiles.map(p => p.strength));
     const totalShotsPerSecond = +weaponProfiles.reduce((s, p) => s + p.shotsPerSecond, 0).toFixed(3);
 
-    // Combined per-second firing costs (summed across all weapons)
     const totalFiringCostsPerSecond = {};
     for (const wp of weaponProfiles) {
         for (const [key, val] of Object.entries(wp.firingCostsPerSecond || {})) {
@@ -358,17 +398,16 @@ function analyseShip(resolvedShipStats) {
         }
     }
 
-    // Intercept table at the default benchmark strengths
-    const defaultStrengths = [0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 25, 30, 40, 50, 60, 80, 100];
-    const interceptTable   = buildInterceptTable(weaponProfiles, defaultStrengths);
+    // Derive benchmarks dynamically from the actual outfit index
+    const benchmarkStrengths = deriveStrengthBenchmarks();
+    const interceptTable     = buildInterceptTable(weaponProfiles, benchmarkStrengths);
 
-    // Single-shot combined intercept at a handful of key values
+    // Combined intercept at all benchmark values
     const combinedInterceptVs = {};
-    for (const ms of [0, 5, 10, 20, 40, 80]) {
+    for (const ms of benchmarkStrengths) {
         combinedInterceptVs[`strength${ms}`] = +combinedInterceptChance(weaponProfiles, ms).toFixed(4);
     }
 
-    // Notes
     const notes = [];
     if (weaponProfiles.length === 1) {
         notes.push(`1 anti-missile weapon: ${weaponProfiles[0].outfitName} (strength ${weaponProfiles[0].strength}).`);
@@ -376,8 +415,10 @@ function analyseShip(resolvedShipStats) {
         const summary = distinctWeapons.map(d => `${d.count}× ${d.outfitName} (strength ${d.profile.strength})`).join(', ');
         notes.push(`${weaponProfiles.length} anti-missile weapons: ${summary}.`);
         notes.push(`Combined single-frame intercept (all weapons fire simultaneously):`);
-        for (const [ms, p] of Object.entries(combinedInterceptVs))
-            notes.push(`  vs ${ms.replace('strength', 'MS=')}: ${(p * 100).toFixed(1)}%`);
+        for (const ms of benchmarkStrengths) {
+            const p = combinedInterceptVs[`strength${ms}`];
+            if (p !== undefined) notes.push(`  vs MS=${ms}: ${(p * 100).toFixed(1)}%`);
+        }
     }
     notes.push(`Total anti-missile shots/s: ${totalShotsPerSecond}.`);
     if (Object.keys(totalFiringCostsPerSecond).length > 0) {
@@ -406,21 +447,6 @@ function analyseShip(resolvedShipStats) {
 //  INTERCEPT TABLE
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * InterceptTable shape:
- * {
- *   missileStrengths: number[],
- *   perWeapon: {
- *     outfitName: string,
- *     probabilities: number[],   // one per missileStrengths entry
- *   }[],
- *   combined: number[],          // combined intercept per missileStrengths entry
- * }
- *
- * @param {WeaponAMProfile[]} weaponProfiles
- * @param {number[]}          missileStrengths  — list of MS values to evaluate
- * @returns {InterceptTable}
- */
 function buildInterceptTable(weaponProfiles, missileStrengths) {
     const strengths = (missileStrengths || []).map(v => Math.max(0, v));
 
@@ -439,16 +465,6 @@ function buildInterceptTable(weaponProfiles, missileStrengths) {
 //  UTILITY — INTERCEPT CHANCE
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * calcInterceptChance(antiMissileStrength, missileStrength)
- *
- * Game formula from Ship.cpp:
- *   P = antiMissile / (antiMissile + missileStrength)
- *
- * @param {number} antiMissileStrength
- * @param {number} missileStrength
- * @returns {number}  probability in [0, 1]
- */
 function calcInterceptChance(antiMissileStrength, missileStrength) {
     const am = Math.max(0, antiMissileStrength || 0);
     const ms = Math.max(0, missileStrength     || 0);
@@ -461,9 +477,6 @@ function calcInterceptChance(antiMissileStrength, missileStrength) {
 //  FORMATTING
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * formatProfile(shipAMProfile)  → human-readable string
- */
 function formatProfile(profile) {
     if (!profile) return '(null profile)';
 
@@ -499,16 +512,13 @@ function formatProfile(profile) {
 
     if (profile.interceptTable) {
         const t = profile.interceptTable;
-        // Print a compact table
         const headerParts = t.perWeapon.map(pw => pw.outfitName.slice(0, 14).padEnd(14));
         if (profile.weaponCount > 1) headerParts.push('Combined'.padEnd(10));
         lines.push(`║    ${'MS'.padEnd(6)} ${headerParts.join('  ')}`);
         lines.push(`║    ${'──────'.padEnd(6)} ${headerParts.map(() => '──────────────').join('  ')}`);
 
-        // Print a representative subset of rows
-        const showIndices = [0, 4, 6, 8, 10, 13, 15, 17, 18]; // roughly MS 0,5,8,10,12,20,30,50,80,100
-        for (const idx of showIndices) {
-            if (idx >= t.missileStrengths.length) break;
+        // Print every row — no hardcoded index selection
+        for (let idx = 0; idx < t.missileStrengths.length; idx++) {
             const ms   = t.missileStrengths[idx];
             const cols = t.perWeapon.map(pw => `${(pw.probabilities[idx] * 100).toFixed(1)}%`.padEnd(14));
             if (profile.weaponCount > 1) cols.push(`${(t.combined[idx] * 100).toFixed(1)}%`.padEnd(10));
@@ -538,6 +548,12 @@ window.AntiMissileAnalysis = {
     // Multi-weapon helpers
     combinedInterceptChance,
     buildInterceptTable,
+
+    // Missile strength resolution
+    resolveEffectiveMissileStrength,
+
+    // Dynamic benchmark derivation
+    deriveStrengthBenchmarks,
 
     // Formatting
     formatProfile,
