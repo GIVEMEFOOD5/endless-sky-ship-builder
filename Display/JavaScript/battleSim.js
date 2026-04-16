@@ -915,7 +915,10 @@ function shootFrame(attSt, defSt, attStats, missileQueue) {
         }
 
         // Route homing/missile-strength weapons to the intercept queue
-        const isMissile = (w.homing || 0) > 0 || (w['missile strength'] || 0) > 0;
+        const resolvedMS = typeof window.AntiMissileAnalysis?.resolveEffectiveMissileStrength === 'function'
+            ? window.AntiMissileAnalysis.resolveEffectiveMissileStrength(w)
+            : (w['missile strength'] || 0);
+        const isMissile = (w.homing || 0) > 0 || resolvedMS > 0;
         if (isMissile && missileQueue) {
             missileQueue.push({
                 weapon:     w,
