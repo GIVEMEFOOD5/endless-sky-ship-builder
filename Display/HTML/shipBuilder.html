@@ -1,415 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Endless Sky Ship Builder</title>
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-    --c-bg:          #0f172a;
-    --c-bg-mid:      #1e3a8a;
-    --c-surface:     rgba(15, 23, 42, 0.60);
-    --c-surface-2:   rgba(30, 41, 59, 0.80);
-    --c-surface-3:   rgba(30, 41, 59, 0.50);
-    --c-border:      rgba(59, 130, 246, 0.30);
-    --c-border-hi:   rgba(59, 130, 246, 0.45);
-    --c-border-2:    rgba(100, 116, 139, 0.25);
-    --c-accent:      #3b82f6;
-    --c-accent-dark: #2563eb;
-    --c-accent-text: #93c5fd;
-    --c-text:        #e2e8f0;
-    --c-text-mid:    #cbd5e1;
-    --c-text-muted:  #94a3b8;
-    --c-text-dim:    #64748b;
-    --c-danger:      rgba(239, 68, 68, 0.20);
-    --c-danger-hi:   #ef4444;
-    --c-danger-text: #fca5a5;
-    --c-success:     rgba(34, 197, 94, 0.20);
-    --c-success-text:#86efac;
-    --c-warn:        rgba(120, 90, 20, 0.20);
-    --c-warn-text:   #fde68a;
-    --r-sm:  6px; --r-md:  8px; --r-lg:  12px; --r-xl:  16px;
-    --shadow-sm:  0 4px 16px rgba(0,0,0,.20);
-    --shadow-md:  0 8px 32px rgba(0,0,0,.30);
-    --shadow-lg:  0 16px 48px rgba(0,0,0,.50);
-    --t-fast:  0.15s ease; --t-base:  0.30s ease;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, var(--c-bg) 0%, var(--c-bg-mid) 50%, var(--c-bg) 100%);
-    min-height: 100vh;
-    color: var(--c-text);
-}
-
-label { display: block; margin-bottom: 8px; color: var(--c-text-mid); font-weight: 500; }
-.hidden { display: none !important; }
-
-.panel {
-    background: var(--c-surface);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--c-border);
-    border-radius: var(--r-lg);
-    padding: 20px;
-    box-shadow: var(--shadow-md);
-}
-
-.section-title { color: var(--c-accent-text); font-size: 1.3rem; margin-bottom: 15px; font-weight: 600; }
-
-.text-input, .select-input {
-    width: 100%;
-    padding: 10px 12px;
-    background: var(--c-surface-2);
-    border: 1px solid rgba(59,130,246,0.40);
-    border-radius: var(--r-md);
-    color: var(--c-text);
-    font-size: 0.95rem;
-    transition: border-color var(--t-fast), box-shadow var(--t-fast);
-    font-family: inherit;
-}
-.text-input:focus, .select-input:focus {
-    outline: none;
-    border-color: var(--c-accent);
-    box-shadow: 0 0 0 3px rgba(59,130,246,0.20);
-}
-.select-input option { background: #1e293b; }
-
-textarea.text-input { resize: vertical; min-height: 80px; }
-
-.btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: var(--r-md);
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background var(--t-base), transform var(--t-base), box-shadow var(--t-base);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    line-height: 1;
-    font-family: inherit;
-}
-.btn-primary { background: linear-gradient(135deg, var(--c-accent), var(--c-accent-dark)); color: #fff; }
-.btn-primary:hover { background: linear-gradient(135deg, var(--c-accent-dark), #1d4ed8); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59,130,246,0.40); }
-.btn-secondary { background: rgba(71,85,105,0.80); color: #fff; }
-.btn-secondary:hover { background: rgba(71,85,105,1); }
-.btn-danger { background: var(--c-danger); color: var(--c-danger-text); border: 1px solid rgba(239,68,68,0.30); }
-.btn-danger:hover { background: rgba(239,68,68,0.35); border-color: var(--c-danger-hi); color: var(--c-danger-hi); }
-.btn-sm { padding: 5px 12px; font-size: 0.82rem; }
-.btn-xs { padding: 3px 8px; font-size: 0.78rem; }
-.btn-success { background: var(--c-success); color: var(--c-success-text); border: 1px solid rgba(34,197,94,0.30); }
-.btn-success:hover { background: rgba(34,197,94,0.35); }
-
-/* ── Nav ── */
-.es-nav {
-    position: sticky; top: 0; z-index: 900;
-    width: 100%; height: 56px;
-    background: rgba(10,18,38,0.92);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(59,130,246,0.25);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
-    display: flex; align-items: center; padding: 0 20px; gap: 12px;
-}
-.es-nav__brand {
-    display: flex; align-items: center; gap: 8px;
-    color: #93c5fd; font-size: 1.1rem; font-weight: 700;
-    text-decoration: none; white-space: nowrap;
-}
-.es-nav__brand-icon { font-size: 1.4rem; }
-.es-nav__divider { width: 1px; height: 28px; background: rgba(59,130,246,0.25); margin: 0 4px; }
-.es-nav__links { display: flex; gap: 4px; list-style: none; flex: 1; }
-.nav-btn {
-    padding: 6px 14px; border-radius: var(--r-md);
-    color: #cbd5e1; font-size: 0.9rem; font-weight: 500;
-    cursor: pointer; transition: background 0.18s, color 0.18s;
-    border: 1px solid transparent; background: none; font-family: inherit;
-    white-space: nowrap;
-}
-.nav-btn:hover { background: rgba(59,130,246,0.12); color: #93c5fd; border-color: rgba(59,130,246,0.20); }
-.nav-btn.active { background: rgba(59,130,246,0.22); color: #93c5fd; border-color: rgba(59,130,246,0.35); }
-
-/* ── Layout ── */
-.container { max-width: 1400px; margin: 0 auto; padding: 24px 20px; }
-.page { display: none; }
-.page.active { display: block; }
-
-.page-header { margin-bottom: 24px; }
-.page-header h1 { font-size: 2rem; color: var(--c-accent-text); margin-bottom: 6px; }
-.page-header p { color: var(--c-text-muted); font-size: 1rem; }
-
-/* ── Fleet List ── */
-.fleet-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 16px; margin-top: 16px;
-}
-.fleet-card {
-    background: rgba(15,23,42,0.70);
-    border: 1px solid var(--c-border);
-    border-radius: var(--r-lg);
-    padding: 18px;
-    cursor: pointer;
-    transition: transform var(--t-base), box-shadow var(--t-base), border-color var(--t-base);
-}
-.fleet-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(59,130,246,0.25); border-color: var(--c-accent); }
-.fleet-card__name { font-size: 1.2rem; color: var(--c-accent-text); font-weight: 700; margin-bottom: 4px; }
-.fleet-card__variant { font-size: 0.82rem; color: var(--c-text-muted); margin-bottom: 12px; }
-.fleet-card__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.fleet-card__stat { background: var(--c-surface-3); border-radius: var(--r-sm); padding: 6px 10px; }
-.fleet-card__stat-label { font-size: 0.72rem; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-.fleet-card__stat-value { font-size: 0.95rem; color: var(--c-text); font-weight: 600; font-variant-numeric: tabular-nums; }
-.fleet-card__actions { display: flex; gap: 8px; margin-top: 14px; }
-.fleet-empty {
-    text-align: center; padding: 60px 20px;
-    color: var(--c-text-muted); font-size: 1rem;
-    border: 2px dashed var(--c-border); border-radius: var(--r-lg);
-    margin-top: 16px;
-}
-.fleet-empty__icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.4; }
-
-/* ── Builder ── */
-.builder-layout {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 20px;
-    align-items: start;
-}
-@media (max-width: 900px) { .builder-layout { grid-template-columns: 1fr; } }
-
-.builder-sidebar { display: flex; flex-direction: column; gap: 16px; }
-
-.input-group { margin-bottom: 14px; }
-.input-group label { margin-bottom: 6px; font-size: 0.88rem; }
-.input-row { display: flex; gap: 8px; }
-.input-row .text-input { flex: 1; }
-
-/* ── Attributes panel ── */
-.attr-section { margin-bottom: 20px; }
-.attr-section-title {
-    color: #63b3ed; font-size: 11px; font-weight: 700;
-    letter-spacing: .12em; text-transform: uppercase;
-    margin-bottom: 8px; padding-bottom: 5px;
-    border-bottom: 1px solid rgba(99,179,237,.20);
-    display: flex; align-items: center; justify-content: space-between;
-}
-.attr-row {
-    display: flex; align-items: center; gap: 6px;
-    padding: 5px 8px; border-radius: var(--r-sm);
-    background: var(--c-surface-3);
-    margin-bottom: 4px;
-    transition: background var(--t-fast);
-}
-.attr-row:hover { background: rgba(51,65,85,.70); }
-.attr-key { font-size: 12px; color: var(--c-text-muted); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.attr-val { font-size: 12px; color: var(--c-text); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.attr-val-input {
-    width: 90px; padding: 2px 6px;
-    background: rgba(15,23,42,0.60);
-    border: 1px solid rgba(59,130,246,0.35);
-    border-radius: 4px; color: var(--c-text);
-    font-size: 12px; font-family: inherit;
-    font-variant-numeric: tabular-nums;
-    text-align: right;
-}
-.attr-val-input:focus { outline: none; border-color: var(--c-accent); }
-
-/* ── Outfits list ── */
-.outfit-section { margin-bottom: 14px; }
-.outfit-section-title {
-    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--c-text-muted);
-    margin-bottom: 8px; padding-bottom: 4px;
-    border-bottom: 1px solid var(--c-border-2);
-    display: flex; align-items: center; justify-content: space-between;
-}
-.outfit-item {
-    display: flex; align-items: center; gap: 8px;
-    padding: 6px 10px; border-radius: var(--r-sm);
-    background: rgba(15,23,42,0.40); border: 1px solid var(--c-border);
-    margin-bottom: 4px;
-    transition: background var(--t-fast);
-}
-.outfit-item:hover { background: rgba(59,130,246,0.10); }
-.outfit-item__name { flex: 1; font-size: 0.88rem; color: var(--c-text-mid); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.outfit-item__count {
-    width: 52px; padding: 2px 6px; text-align: center;
-    background: rgba(15,23,42,0.60); border: 1px solid var(--c-border);
-    border-radius: 4px; color: var(--c-text); font-size: 0.85rem;
-    font-family: inherit;
-}
-.outfit-item__count:focus { outline: none; border-color: var(--c-accent); }
-
-/* ── Add outfit form ── */
-.add-outfit-form {
-    display: flex; gap: 6px; margin-top: 8px;
-}
-.add-outfit-form .text-input { padding: 6px 10px; font-size: 0.88rem; }
-
-/* ── Description ── */
-.description-section { margin-bottom: 14px; }
-
-/* ── Tabs in builder ── */
-.builder-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-.builder-tab {
-    padding: 8px 16px; background: rgba(30,41,59,0.60);
-    border: 1px solid var(--c-border);
-    border-radius: var(--r-md) var(--r-md) 0 0;
-    cursor: pointer; color: var(--c-text-muted);
-    font-size: 0.88rem; font-family: inherit;
-    transition: background var(--t-base), color var(--t-base);
-}
-.builder-tab.active { background: rgba(59,130,246,0.30); color: var(--c-accent-text); border-bottom-color: transparent; }
-.builder-tab:hover { background: rgba(59,130,246,0.20); }
-.builder-tab-content { display: none; }
-.builder-tab-content.active { display: block; }
-
-/* ── Output panel ── */
-.output-box {
-    background: rgba(10,18,38,0.95);
-    border: 1px solid var(--c-border);
-    border-radius: var(--r-md);
-    padding: 16px;
-    font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 0.82rem;
-    color: #93c5fd;
-    line-height: 1.6;
-    white-space: pre;
-    overflow-x: auto;
-    max-height: 520px;
-    overflow-y: auto;
-    tab-size: 4;
-}
-.output-box::-webkit-scrollbar { width: 6px; height: 6px; }
-.output-box::-webkit-scrollbar-track { background: rgba(15,23,42,0.40); }
-.output-box::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.40); border-radius: 3px; }
-
-/* ── Modal ── */
-.modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.80); backdrop-filter: blur(5px);
-    z-index: 1000; align-items: center; justify-content: center; padding: 20px;
-}
-.modal-overlay.active { display: flex; }
-.modal-box {
-    background: linear-gradient(135deg, rgba(15,23,42,0.97), rgba(30,41,59,0.97));
-    border: 2px solid rgba(59,130,246,0.50);
-    border-radius: var(--r-xl);
-    box-shadow: var(--shadow-lg);
-    width: min(520px, 96vw);
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 28px;
-}
-.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--c-border); }
-.modal-title { font-size: 1.3rem; color: var(--c-accent-text); font-weight: 600; }
-.modal-close { background: none; border: none; color: var(--c-text-muted); font-size: 1.5rem; cursor: pointer; line-height: 1; padding: 2px 6px; border-radius: var(--r-sm); transition: color var(--t-fast), background var(--t-fast); }
-.modal-close:hover { color: var(--c-danger-hi); background: rgba(239,68,68,0.20); }
-
-/* ── Import modal ── */
-.import-area { min-height: 200px; font-family: monospace; font-size: 0.82rem; }
-
-/* ── Toast ── */
-.toast {
-    position: fixed; bottom: 24px; right: 24px; z-index: 2000;
-    background: rgba(30,41,59,0.98); border: 1px solid var(--c-border-hi);
-    border-radius: var(--r-md); padding: 12px 20px;
-    color: var(--c-text); font-size: 0.9rem;
-    box-shadow: var(--shadow-md);
-    transform: translateY(80px); opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    pointer-events: none;
-}
-.toast.show { transform: translateY(0); opacity: 1; }
-.toast.success { border-color: rgba(34,197,94,0.50); color: var(--c-success-text); }
-.toast.danger { border-color: rgba(239,68,68,0.50); color: var(--c-danger-text); }
-
-/* ── Autocomplete ── */
-.autocomplete-wrap { position: relative; flex: 1; }
-.autocomplete-dropdown {
-    position: absolute; top: calc(100% + 2px); left: 0; right: 0;
-    background: rgba(10,18,38,0.98); border: 1px solid var(--c-border);
-    border-radius: var(--r-md); max-height: 200px; overflow-y: auto;
-    z-index: 500; display: none;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-}
-.autocomplete-dropdown.open { display: block; }
-.ac-item { padding: 7px 12px; font-size: 0.85rem; color: var(--c-text-mid); cursor: pointer; border-bottom: 1px solid rgba(59,130,246,0.07); transition: background var(--t-fast); }
-.ac-item:hover, .ac-item.selected { background: rgba(59,130,246,0.15); color: var(--c-text); }
-
-/* ── Badge ── */
-.badge { display: inline-block; font-size: 0.72rem; padding: 2px 7px; border-radius: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; flex-shrink: 0; }
-.badge-blue { background: rgba(59,130,246,0.20); color: var(--c-accent-text); border: 1px solid rgba(59,130,246,0.35); }
-.badge-green { background: var(--c-success); color: var(--c-success-text); border: 1px solid rgba(34,197,94,0.35); }
-
-/* ── Confirm ── */
-.confirm-text { color: var(--c-text-mid); margin-bottom: 20px; line-height: 1.6; }
-
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: rgba(15,23,42,0.40); }
-::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.40); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(59,130,246,0.70); }
-
-/* ── Buttons group ── */
-.btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-.btn-group-right { justify-content: flex-end; }
-
-/* ── Add attr form ── */
-.add-attr-form { display: flex; gap: 6px; margin-top: 8px; }
-.add-attr-form .text-input { padding: 5px 8px; font-size: 0.82rem; }
-
-/* ── Quick stats bar ── */
-.quick-stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); gap: 10px; margin-bottom: 16px; }
-.qs-card { background: var(--c-surface-3); border: 1px solid var(--c-border); border-radius: var(--r-md); padding: 10px 14px; }
-.qs-label { font-size: 0.72rem; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-.qs-value { font-size: 1.3rem; color: var(--c-accent-text); font-weight: 700; font-variant-numeric: tabular-nums; }
-
-.divider { border: none; border-top: 1px solid var(--c-border); margin: 16px 0; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ship Builder — Endless Sky Data Viewer</title>
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="es-nav">
-  <a class="es-nav__brand">
-    <span class="es-nav__brand-icon">🚀</span>
-    <span>ES Ship Builder</span>
-  </a>
-  <div class="es-nav__divider"></div>
-  <ul class="es-nav__links">
-    <li><button class="nav-btn active" data-page="fleet">Fleet</button></li>
-    <li><button class="nav-btn" data-page="builder">Builder</button></li>
-    <li><button class="nav-btn" data-page="output">Export</button></li>
-  </ul>
-</nav>
+<div class="container">
 
-<!-- FLEET PAGE -->
-<div id="page-fleet" class="page active">
-  <div class="container">
-    <div class="page-header">
-      <h1>⚓ My Fleet</h1>
-      <p>Manage your saved ship configurations. Click a ship to edit it.</p>
+  <!-- ══════════════════════════════════════════════════════
+       FLEET VIEW  (shown by default)
+  ═══════════════════════════════════════════════════════ -->
+  <div id="fleet-view">
+    <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h1>⚓ Ship Builder</h1>
+        <p>Create, edit and export Endless Sky ship definitions.</p>
+      </div>
+      <div class="btn-group" style="margin:0;">
+        <button class="btn btn-primary" onclick="newShip()">+ New Ship</button>
+        <button class="btn btn-secondary" onclick="openImport()">↑ Import ES Data</button>
+        <button class="btn btn-secondary" onclick="exportAll()">↓ Export All</button>
+      </div>
     </div>
-    <div class="btn-group">
-      <button class="btn btn-primary" onclick="newShip()">+ New Ship</button>
-      <button class="btn btn-secondary" onclick="openImport()">↑ Import ES Data</button>
-      <button class="btn btn-secondary" onclick="exportAll()">↓ Export All</button>
-    </div>
+
     <div id="fleet-grid" class="fleet-grid">
       <div class="fleet-empty">
         <div class="fleet-empty__icon">🛸</div>
         <p>No ships yet. Create your first ship or import from Endless Sky data files.</p>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- BUILDER PAGE -->
-<div id="page-builder" class="page">
-  <div class="container">
+    <!-- ── Export section ── -->
+    <div class="panel" style="margin-top:30px;" id="export-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+        <div class="section-title" style="margin:0;">Export Ships</div>
+        <div class="btn-group" style="margin:0;">
+          <button class="btn btn-primary btn-sm" onclick="generateExport()">Generate Output</button>
+          <button class="btn btn-secondary btn-sm" onclick="copyExport()">⧉ Copy</button>
+          <button class="btn btn-success btn-sm" onclick="downloadExport()">↓ Download .txt</button>
+        </div>
+      </div>
+      <div id="export-checklist" style="margin-bottom:14px;"></div>
+      <pre id="export-output" class="output-box">Select ships above and click Generate Output.</pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       BUILDER VIEW  (hidden until editing a ship)
+  ═══════════════════════════════════════════════════════ -->
+  <div id="builder-view" class="hidden">
+
     <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
       <div>
         <h1 id="builder-page-title">✏️ New Ship</h1>
@@ -417,13 +60,14 @@ textarea.text-input { resize: vertical; min-height: 80px; }
       </div>
       <div class="btn-group" style="margin:0;">
         <button class="btn btn-primary" onclick="saveShip()">💾 Save Ship</button>
-        <button class="btn btn-secondary" onclick="showPage('fleet')">← Back to Fleet</button>
+        <button class="btn btn-secondary" onclick="showFleetView()">← Back to Fleet</button>
       </div>
     </div>
 
     <div class="quick-stats" id="quick-stats"></div>
 
     <div class="builder-layout">
+
       <!-- SIDEBAR -->
       <div class="builder-sidebar">
         <div class="panel">
@@ -442,11 +86,11 @@ textarea.text-input { resize: vertical; min-height: 80px; }
           </div>
           <div class="input-group">
             <label>Sprite Path</label>
-            <input id="ship-sprite" class="text-input" type="text" placeholder='e.g. ship/hawk' oninput="onBuilderChange()">
+            <input id="ship-sprite" class="text-input" type="text" placeholder="e.g. ship/hawk" oninput="onBuilderChange()">
           </div>
           <div class="input-group" style="margin-bottom:0;">
             <label>Thumbnail Path</label>
-            <input id="ship-thumbnail" class="text-input" type="text" placeholder='e.g. thumbnail/hawk' oninput="onBuilderChange()">
+            <input id="ship-thumbnail" class="text-input" type="text" placeholder="e.g. thumbnail/hawk" oninput="onBuilderChange()">
           </div>
         </div>
 
@@ -461,7 +105,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
         <div class="builder-tabs">
           <button class="builder-tab active" data-tab="attributes">Attributes</button>
           <button class="builder-tab" data-tab="outfits">Outfits</button>
-          <button class="builder-tab" data-tab="guns">Guns & Turrets</button>
+          <button class="builder-tab" data-tab="guns">Guns &amp; Turrets</button>
           <button class="builder-tab" data-tab="explode">Explosions</button>
           <button class="builder-tab" data-tab="raw">Raw Edit</button>
         </div>
@@ -536,7 +180,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
           </div>
         </div>
 
-        <!-- EXPLODE TAB -->
+        <!-- EXPLOSIONS TAB -->
         <div id="tab-explode" class="builder-tab-content panel">
           <div class="section-title">Explosion Effects</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
@@ -557,11 +201,11 @@ textarea.text-input { resize: vertical; min-height: 80px; }
           </div>
           <hr class="divider">
           <div class="input-group">
-            <label style="font-size:0.82rem;">Drag (0–1, higher = slower)</label>
-            <input id="ship-drag" class="text-input" type="number" step="0.01" min="0" max="1" placeholder="e.g. 2.0" oninput="onBuilderChange()">
+            <label style="font-size:0.82rem;">Drag</label>
+            <input id="ship-drag" class="text-input" type="number" step="0.01" min="0" placeholder="e.g. 2.0" oninput="onBuilderChange()">
           </div>
           <div class="input-group">
-            <label style="font-size:0.82rem;">Mass Adjust</label>
+            <label style="font-size:0.82rem;">Mass</label>
             <input id="ship-mass" class="text-input" type="number" step="0.1" placeholder="e.g. 70" oninput="onBuilderChange()">
           </div>
         </div>
@@ -571,44 +215,23 @@ textarea.text-input { resize: vertical; min-height: 80px; }
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
             <div class="section-title" style="margin:0;">Raw ES Format</div>
             <div class="btn-group" style="margin:0;">
-              <button class="btn btn-secondary btn-sm" onclick="importRaw()">↑ Parse & Import</button>
+              <button class="btn btn-secondary btn-sm" onclick="importRaw()">↑ Parse &amp; Import</button>
               <button class="btn btn-primary btn-sm" onclick="copyOutput()">⧉ Copy</button>
             </div>
           </div>
           <textarea id="raw-output" class="text-input" style="font-family:monospace;font-size:0.8rem;min-height:420px;" spellcheck="false" oninput="onRawEdit()"></textarea>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- EXPORT PAGE -->
-<div id="page-output" class="page">
-  <div class="container">
-    <div class="page-header">
-      <h1>📤 Export Ships</h1>
-      <p>Generate Endless Sky formatted ship data files.</p>
-    </div>
-    <div class="panel" style="margin-bottom:16px;">
-      <div class="section-title">Select Ships to Export</div>
-      <div id="export-checklist"></div>
-      <div class="btn-group" style="margin-top:16px;">
-        <button class="btn btn-primary" onclick="generateExport()">Generate Output</button>
-        <button class="btn btn-secondary" onclick="copyExport()">⧉ Copy All</button>
-        <button class="btn btn-success" onclick="downloadExport()">↓ Download .txt</button>
-      </div>
-    </div>
-    <div class="panel">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-        <div class="section-title" style="margin:0;">Output</div>
-        <button class="btn btn-secondary btn-sm" onclick="copyExport()">⧉ Copy</button>
-      </div>
-      <pre id="export-output" class="output-box">Select ships above and click Generate Output.</pre>
-    </div>
-  </div>
-</div>
+      </div><!-- /main area -->
+    </div><!-- /builder-layout -->
+  </div><!-- /builder-view -->
 
-<!-- MODALS -->
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════════════════
+     MODALS
+═══════════════════════════════════════════════════════ -->
+
 <!-- Add Attribute -->
 <div id="modal-add-attr" class="modal-overlay">
   <div class="modal-box">
@@ -656,7 +279,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
   </div>
 </div>
 
-<!-- Import -->
+<!-- Import ES Data -->
 <div id="modal-import" class="modal-overlay">
   <div class="modal-box" style="width:min(700px,96vw);">
     <div class="modal-header">
@@ -666,10 +289,12 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     <p style="color:var(--c-text-muted);font-size:0.88rem;margin-bottom:12px;">
       Paste Endless Sky ship definition(s) from a data file. Multiple ships can be pasted at once.
     </p>
-    <textarea id="import-text" class="text-input import-area" style="min-height:280px;font-family:monospace;font-size:0.8rem;" spellcheck="false" placeholder='ship "Hawk"&#10;	sprite "ship/hawk"&#10;	attributes&#10;		category "Light Warship"&#10;		shields 400&#10;		hull 100&#10;	outfits&#10;		"Blaster" 2&#10;	gun -10 10&#10;	gun 10 10&#10;	explode "tiny explosion" 10'></textarea>
+    <textarea id="import-text" class="text-input import-area"
+      style="min-height:280px;font-family:monospace;font-size:0.8rem;" spellcheck="false"
+      placeholder='ship "Hawk"&#10;&#9;sprite "ship/hawk"&#10;&#9;attributes&#10;&#9;&#9;category "Light Warship"&#10;&#9;&#9;shields 400&#10;&#9;&#9;hull 100&#10;&#9;outfits&#10;&#9;&#9;"Blaster" 2&#10;&#9;gun -10 10&#10;&#9;gun 10 10&#10;&#9;explode "tiny explosion" 10'></textarea>
     <div class="btn-group btn-group-right" style="margin-top:12px;">
       <button class="btn btn-secondary" onclick="closeModal('modal-import')">Cancel</button>
-      <button class="btn btn-primary" onclick="doImport()">Parse & Import</button>
+      <button class="btn btn-primary" onclick="doImport()">Parse &amp; Import</button>
     </div>
   </div>
 </div>
@@ -689,9 +314,9 @@ textarea.text-input { resize: vertical; min-height: 80px; }
   </div>
 </div>
 
-<!-- Toast -->
+<!-- Toast notification -->
 <div id="toast" class="toast"></div>
 
-<script src="../JavaScript/shipBuilder.js"></script>
+<script src="shipBuilder.js"></script>
 </body>
 </html>
