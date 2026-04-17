@@ -3,9 +3,9 @@
 // ═══════════════════════════════════════════════════════════
 const STORAGE_KEY = 'es_ship_builder_v3';
 
-let fleet = [];    // array of ship objects
-let editIdx = -1;  // index of ship being edited (-1 = new)
-let currentShip = null; // working copy
+let fleet = [];
+let editIdx = -1;
+let currentShip = null;
 
 // ═══════════════════════════════════════════════════════════
 //  SHIP STRUCTURE
@@ -21,16 +21,16 @@ function blankShip() {
     description: '',
     drag: '',
     mass: '',
-    attributes: {},       // key -> value (string)
-    outfits: [],          // [{name, count}]
-    guns: [],             // [{x,y,over}]  over = outfit name or ''
+    attributes: {},
+    outfits: [],
+    guns: [],
     turrets: [],
     drones: [],
     fighters: [],
-    leaks: [],            // raw strings
-    explode: [],          // [{name, count}]
+    leaks: [],
+    explode: [],
     finalExplode: [],
-    extraLines: [],       // unrecognised raw lines
+    extraLines: [],
   };
 }
 
@@ -48,26 +48,11 @@ function load() {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  NAVIGATION
-// ═══════════════════════════════════════════════════════════
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.page === name);
-  });
-  if (name === 'fleet') renderFleet();
-  if (name === 'output') renderExportPage();
-}
-document.querySelectorAll('.nav-btn').forEach(b => {
-  b.addEventListener('click', () => showPage(b.dataset.page));
-});
-
-// ═══════════════════════════════════════════════════════════
 //  FLEET PAGE
 // ═══════════════════════════════════════════════════════════
 function renderFleet() {
   const grid = document.getElementById('fleet-grid');
+  if (!grid) return;
   if (!fleet.length) {
     grid.innerHTML = `<div class="fleet-empty"><div class="fleet-empty__icon">🛸</div><p>No ships yet. Create your first ship or import from Endless Sky data files.</p></div>`;
     return;
@@ -96,13 +81,13 @@ function newShip() {
   editIdx = -1;
   currentShip = blankShip();
   populateBuilder();
-  showPage('builder');
+  showBuilderView();
 }
 function editShip(i) {
   editIdx = i;
   currentShip = JSON.parse(JSON.stringify(fleet[i]));
   populateBuilder();
-  showPage('builder');
+  showBuilderView();
 }
 function duplicateShip(i) {
   const copy = JSON.parse(JSON.stringify(fleet[i]));
@@ -115,8 +100,29 @@ function duplicateShip(i) {
 }
 function confirmDelete(i) {
   document.getElementById('confirm-text').textContent = `Delete "${fleet[i].name || 'Unnamed Ship'}"? This cannot be undone.`;
-  document.getElementById('confirm-ok-btn').onclick = () => { fleet.splice(i,1); save(); closeModal('modal-confirm'); renderFleet(); toast('Ship deleted.', 'danger'); };
+  document.getElementById('confirm-ok-btn').onclick = () => {
+    fleet.splice(i, 1);
+    save();
+    closeModal('modal-confirm');
+    renderFleet();
+    toast('Ship deleted.', 'danger');
+  };
   openModal('modal-confirm');
+}
+
+// ── View switching (builder vs fleet within the page) ──
+function showBuilderView() {
+  const fleetView = document.getElementById('fleet-view');
+  const builderView = document.getElementById('builder-view');
+  if (fleetView) fleetView.classList.add('hidden');
+  if (builderView) builderView.classList.remove('hidden');
+}
+function showFleetView() {
+  const fleetView = document.getElementById('fleet-view');
+  const builderView = document.getElementById('builder-view');
+  if (builderView) builderView.classList.add('hidden');
+  if (fleetView) fleetView.classList.remove('hidden');
+  renderFleet();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -124,7 +130,8 @@ function confirmDelete(i) {
 // ═══════════════════════════════════════════════════════════
 function populateBuilder() {
   const s = currentShip;
-  document.getElementById('builder-page-title').textContent = editIdx === -1 ? '✏️ New Ship' : `✏️ Editing: ${s.name||'Ship'}`;
+  const titleEl = document.getElementById('builder-page-title');
+  if (titleEl) titleEl.textContent = editIdx === -1 ? '✏️ New Ship' : `✏️ Editing: ${s.name||'Ship'}`;
   document.getElementById('ship-name').value = s.name||'';
   document.getElementById('ship-variant').value = s.variant||'';
   document.getElementById('ship-plural').value = s.plural||'';
@@ -137,16 +144,20 @@ function populateBuilder() {
   renderOutfitsList();
   renderGunsTurrets();
   renderExplodeLists();
+  rawEditDirty = false;
   renderRawOutput();
   updateQuickStats();
   // reset tabs
   document.querySelectorAll('.builder-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.builder-tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelector('.builder-tab[data-tab="attributes"]').classList.add('active');
-  document.getElementById('tab-attributes').classList.add('active');
+  const firstTab = document.querySelector('.builder-tab[data-tab="attributes"]');
+  if (firstTab) firstTab.classList.add('active');
+  const firstContent = document.getElementById('tab-attributes');
+  if (firstContent) firstContent.classList.add('active');
 }
 
 function onBuilderChange() {
+  if (!currentShip) return;
   const s = currentShip;
   s.name = document.getElementById('ship-name').value.trim();
   s.variant = document.getElementById('ship-variant').value.trim();
@@ -156,37 +167,42 @@ function onBuilderChange() {
   s.description = document.getElementById('ship-description').value;
   s.drag = document.getElementById('ship-drag').value.trim();
   s.mass = document.getElementById('ship-mass').value.trim();
-  document.getElementById('builder-page-title').textContent = editIdx === -1 ? '✏️ New Ship' : `✏️ Editing: ${s.name||'Ship'}`;
+  const titleEl = document.getElementById('builder-page-title');
+  if (titleEl) titleEl.textContent = editIdx === -1 ? '✏️ New Ship' : `✏️ Editing: ${s.name||'Ship'}`;
   updateQuickStats();
   renderRawOutput();
 }
 
 function updateQuickStats() {
+  const el = document.getElementById('quick-stats');
+  if (!el || !currentShip) return;
   const s = currentShip;
   const a = s.attributes||{};
   const qs = [
     {label:'Shields', value: a.shields||'—'},
     {label:'Hull', value: a.hull||'—'},
-    {label:'Mass', value: a.mass || a['mass']||'—'},
+    {label:'Mass', value: s.mass || a['mass']||'—'},
     {label:'Engines', value: a['engine capacity']||'—'},
     {label:'Weapons', value: a['weapon capacity']||'—'},
     {label:'Outfits', value: (s.outfits||[]).reduce((acc,o)=>acc+parseInt(o.count||1),0)},
   ];
-  document.getElementById('quick-stats').innerHTML = qs.map(q =>
+  el.innerHTML = qs.map(q =>
     `<div class="qs-card"><div class="qs-label">${q.label}</div><div class="qs-value">${q.value}</div></div>`
   ).join('');
 }
 
 // ── TABS ──
-document.querySelectorAll('.builder-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.builder-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.builder-tab-content').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-    if (btn.dataset.tab === 'raw') renderRawOutput();
+function initBuilderTabs() {
+  document.querySelectorAll('.builder-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.builder-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.builder-tab-content').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      if (btn.dataset.tab === 'raw') renderRawOutput();
+    });
   });
-});
+}
 
 // ═══════════════════════════════════════════════════════════
 //  ATTRIBUTES
@@ -202,25 +218,21 @@ const ATTR_GROUPS = {
 const ALL_ATTR_KEYS = [...new Set(Object.values(ATTR_GROUPS).flat())];
 
 function renderAttrList() {
-  const s = currentShip;
-  const attrs = s.attributes||{};
+  const el = document.getElementById('attr-list');
+  if (!el || !currentShip) return;
+  const attrs = currentShip.attributes||{};
   const keys = Object.keys(attrs);
   if (!keys.length) {
-    document.getElementById('attr-list').innerHTML = '<div style="color:var(--c-text-muted);font-size:0.88rem;font-style:italic;padding:10px 0;">No attributes. Click "+ Add Attribute" to add one.</div>';
+    el.innerHTML = '<div style="color:var(--c-text-muted);font-size:0.88rem;font-style:italic;padding:10px 0;">No attributes. Click "+ Add Attribute" to add one.</div>';
     return;
   }
-  // group known, then unknown
   const assigned = new Set();
   let html = '';
   for (const [group, gkeys] of Object.entries(ATTR_GROUPS)) {
     const present = gkeys.filter(k => k in attrs);
     if (!present.length) continue;
-    html += `<div class="attr-section">
-      <div class="attr-section-title">${group}<span></span></div>`;
-    for (const k of present) {
-      assigned.add(k);
-      html += attrRowHtml(k, attrs[k]);
-    }
+    html += `<div class="attr-section"><div class="attr-section-title">${group}<span></span></div>`;
+    for (const k of present) { assigned.add(k); html += attrRowHtml(k, attrs[k]); }
     html += '</div>';
   }
   const other = keys.filter(k => !assigned.has(k));
@@ -229,7 +241,7 @@ function renderAttrList() {
     for (const k of other) html += attrRowHtml(k, attrs[k]);
     html += '</div>';
   }
-  document.getElementById('attr-list').innerHTML = html;
+  el.innerHTML = html;
 }
 
 function attrRowHtml(k, v) {
@@ -252,7 +264,6 @@ function removeAttr(k) {
 let addingAttrType = 'attribute';
 function openAddAttr(type) {
   addingAttrType = type;
-  document.getElementById('add-attr-title').textContent = type === 'attribute' ? 'Add Attribute' : 'Add Attribute';
   document.getElementById('new-attr-key').value = '';
   document.getElementById('new-attr-val').value = '';
   document.getElementById('attr-key-ac').classList.remove('open');
@@ -279,20 +290,17 @@ function selectAttrKey(k) {
   document.getElementById('attr-key-ac').classList.remove('open');
   document.getElementById('new-attr-val').focus();
 }
-document.getElementById('new-attr-key').addEventListener('keydown', e => {
-  if (e.key === 'Enter') { confirmAddAttr(); }
-});
-document.getElementById('new-attr-val').addEventListener('keydown', e => {
-  if (e.key === 'Enter') { confirmAddAttr(); }
-});
 
 // ═══════════════════════════════════════════════════════════
 //  OUTFITS
 // ═══════════════════════════════════════════════════════════
 function renderOutfitsList() {
   const outfits = currentShip.outfits||[];
-  document.getElementById('outfits-empty').style.display = outfits.length ? 'none' : 'block';
-  document.getElementById('outfits-list').innerHTML = outfits.map((o, i) =>
+  const emptyEl = document.getElementById('outfits-empty');
+  if (emptyEl) emptyEl.style.display = outfits.length ? 'none' : 'block';
+  const el = document.getElementById('outfits-list');
+  if (!el) return;
+  el.innerHTML = outfits.map((o, i) =>
     `<div class="outfit-item">
       <span class="outfit-item__name" title="${esc(o.name)}">${esc(o.name)}</span>
       <input class="outfit-item__count" type="number" min="1" value="${esc(String(o.count||1))}" onchange="updateOutfitCount(${i},this.value)">
@@ -335,8 +343,10 @@ function renderGunsTurrets() {
   renderLeaksList();
 }
 function renderHardpointList(field, elId, label) {
+  const el = document.getElementById(elId);
+  if (!el) return;
   const items = currentShip[field]||[];
-  document.getElementById(elId).innerHTML = items.length ? items.map((g,i) =>
+  el.innerHTML = items.length ? items.map((g,i) =>
     `<div class="outfit-item" style="gap:4px;">
       <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.coords||'')}" placeholder="x y" onchange="updateHardpoint('${field}',${i},'coords',this.value)">
       <input class="text-input" style="width:130px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.over||'')}" placeholder='outfit "Name"' onchange="updateHardpoint('${field}',${i},'over',this.value)">
@@ -357,8 +367,10 @@ function removeHardpoint(field, i) {
   currentShip[field].splice(i,1); renderGunsTurrets(); renderRawOutput();
 }
 function renderLeaksList() {
+  const el = document.getElementById('leaks-list');
+  if (!el) return;
   const leaks = currentShip.leaks||[];
-  document.getElementById('leaks-list').innerHTML = leaks.map((l,i) =>
+  el.innerHTML = leaks.map((l,i) =>
     `<div class="outfit-item">
       <span class="outfit-item__name">${esc(l)}</span>
       <button class="btn btn-danger btn-xs" onclick="removeLeak(${i})">✕</button>
@@ -383,8 +395,10 @@ function renderExplodeLists() {
   renderExplodeList('finalExplode', 'final-explode-list');
 }
 function renderExplodeList(field, elId) {
+  const el = document.getElementById(elId);
+  if (!el) return;
   const items = currentShip[field]||[];
-  document.getElementById(elId).innerHTML = items.length ? items.map((e,i) =>
+  el.innerHTML = items.length ? items.map((e,i) =>
     `<div class="outfit-item">
       <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.82rem;" type="text" value="${esc(e.name||'')}" placeholder='"tiny explosion"' onchange="updateExplode('${field}',${i},'name',this.value)">
       <input class="text-input" style="width:60px;padding:4px 6px;font-size:0.82rem;" type="number" min="1" value="${esc(String(e.count||1))}" onchange="updateExplode('${field}',${i},'count',this.value)">
@@ -408,10 +422,9 @@ function removeExplode(field, i) { currentShip[field].splice(i,1); renderExplode
 //  ES FORMAT GENERATOR
 // ═══════════════════════════════════════════════════════════
 function generateES(s) {
-  const T = '\t';  // tab
+  const T = '\t';
   let lines = [];
 
-  // Header
   const namePart = `"${s.name||'Unnamed'}"`;
   const variantPart = s.variant ? ` ${s.variant}` : '';
   lines.push(`ship ${namePart}${variantPart}`);
@@ -420,27 +433,22 @@ function generateES(s) {
   if (s.sprite) lines.push(`${T}sprite "${s.sprite}"`);
   if (s.thumbnail) lines.push(`${T}thumbnail "${s.thumbnail}"`);
 
-  // Attributes block
   const attrs = s.attributes||{};
   const attrKeys = Object.keys(attrs);
   if (attrKeys.length || s.mass || s.drag) {
     lines.push(`${T}attributes`);
-    // category first if present
     if (attrs.category !== undefined) lines.push(`${T}${T}category "${attrs.category}"`);
-    // mass
     if (s.mass) lines.push(`${T}${T}mass ${s.mass}`);
     if (s.drag) lines.push(`${T}${T}drag ${s.drag}`);
     for (const k of attrKeys) {
       if (k === 'category') continue;
       const v = attrs[k];
       if (v === '' || v === undefined) continue;
-      // quote value only if it contains spaces or non-numeric
       const needsQuote = /[^0-9.\-]/.test(String(v)) && !/^-?[0-9]+(\.[0-9]+)?$/.test(String(v));
       lines.push(`${T}${T}${k} ${needsQuote ? `"${v}"` : v}`);
     }
   }
 
-  // Outfits block
   const outfits = s.outfits||[];
   if (outfits.length) {
     lines.push(`${T}outfits`);
@@ -450,7 +458,6 @@ function generateES(s) {
     }
   }
 
-  // Guns
   for (const g of (s.guns||[])) {
     const overPart = g.over ? ` ${g.over}` : '';
     lines.push(`${T}gun ${g.coords||'0 0'}${overPart}`);
@@ -462,10 +469,8 @@ function generateES(s) {
   for (const g of (s.drones||[])) lines.push(`${T}drone`);
   for (const g of (s.fighters||[])) lines.push(`${T}fighter`);
 
-  // Leaks
   for (const l of (s.leaks||[])) lines.push(`${T}leak ${l}`);
 
-  // Explode
   for (const e of (s.explode||[])) {
     const cPart = e.count > 1 ? ` ${e.count}` : '';
     lines.push(`${T}explode ${e.name}${cPart}`);
@@ -475,13 +480,11 @@ function generateES(s) {
     lines.push(`${T}"final explode" ${e.name}${cPart}`);
   }
 
-  // Description
   if (s.description) {
     const desc = s.description.replace(/\n/g, `\n${T}description `);
     lines.push(`${T}description "${desc}"`);
   }
 
-  // Extra lines
   for (const l of (s.extraLines||[])) lines.push(l);
 
   return lines.join('\n');
@@ -493,15 +496,16 @@ function generateES(s) {
 let rawEditDirty = false;
 function renderRawOutput() {
   if (rawEditDirty) return;
-  document.getElementById('raw-output').value = generateES(currentShip);
+  const el = document.getElementById('raw-output');
+  if (!el || !currentShip) return;
+  el.value = generateES(currentShip);
 }
 function onRawEdit() { rawEditDirty = true; }
 function importRaw() {
   const text = document.getElementById('raw-output').value;
   const parsed = parseES(text);
   if (!parsed.length) { toast('Could not parse ship data.', 'danger'); return; }
-  const p = parsed[0];
-  Object.assign(currentShip, p);
+  Object.assign(currentShip, parsed[0]);
   rawEditDirty = false;
   populateBuilder();
   toast('Imported from raw text.', 'success');
@@ -513,7 +517,7 @@ function importRaw() {
 function parseES(text) {
   const lines = text.split('\n');
   const ships = [];
-  let cur = null, block = null, subblock = null;
+  let cur = null, block = null;
 
   function flushShip() { if (cur) ships.push(cur); }
 
@@ -524,7 +528,6 @@ function parseES(text) {
 
     const indent = line.length - line.trimStart().length;
 
-    // Top-level: ship declaration
     if (indent === 0) {
       const m = trimmed.match(/^ship\s+("([^"]+)"|(\S+))\s*(.*)$/);
       if (m) {
@@ -532,7 +535,7 @@ function parseES(text) {
         cur = blankShip();
         cur.name = m[2]||m[3]||'';
         cur.variant = m[4]||'';
-        block = null; subblock = null;
+        block = null;
         continue;
       }
       flushShip(); cur = null; continue;
@@ -541,21 +544,20 @@ function parseES(text) {
     if (!cur) continue;
 
     if (indent === 1) {
-      subblock = null;
-      if (trimmed.startsWith('sprite ')) { cur.sprite = stripQ(trimmed.slice(7)); continue; }
-      if (trimmed.startsWith('thumbnail ')) { cur.thumbnail = stripQ(trimmed.slice(10)); continue; }
-      if (trimmed.startsWith('plural ')) { cur.plural = stripQ(trimmed.slice(7)); continue; }
-      if (trimmed.startsWith('description ')) { cur.description = (cur.description ? cur.description+'\n':'')+stripQ(trimmed.slice(12)); continue; }
-      if (trimmed === 'attributes') { block = 'attributes'; continue; }
-      if (trimmed === 'outfits') { block = 'outfits'; continue; }
-      if (trimmed.startsWith('gun ')) { parseHardpoint(cur, 'guns', trimmed.slice(4)); continue; }
-      if (trimmed.startsWith('turret ')) { parseHardpoint(cur, 'turrets', trimmed.slice(7)); continue; }
-      if (trimmed.startsWith('drone')) { cur.drones.push({coords:'',over:''}); continue; }
-      if (trimmed.startsWith('fighter')) { cur.fighters.push({coords:'',over:''}); continue; }
-      if (trimmed.startsWith('leak ')) { cur.leaks.push(trimmed.slice(5)); continue; }
-      if (trimmed.startsWith('explode ')) { parseExplode(cur, 'explode', trimmed.slice(8)); continue; }
-      if (trimmed.startsWith('"final explode" ')) { parseExplode(cur, 'finalExplode', trimmed.slice(16)); continue; }
       block = null;
+      if (trimmed.startsWith('sprite '))      { cur.sprite = stripQ(trimmed.slice(7)); continue; }
+      if (trimmed.startsWith('thumbnail '))   { cur.thumbnail = stripQ(trimmed.slice(10)); continue; }
+      if (trimmed.startsWith('plural '))      { cur.plural = stripQ(trimmed.slice(7)); continue; }
+      if (trimmed.startsWith('description ')) { cur.description = (cur.description ? cur.description+'\n':'')+stripQ(trimmed.slice(12)); continue; }
+      if (trimmed === 'attributes')           { block = 'attributes'; continue; }
+      if (trimmed === 'outfits')              { block = 'outfits'; continue; }
+      if (trimmed.startsWith('gun '))         { parseHardpointLine(cur, 'guns', trimmed.slice(4)); continue; }
+      if (trimmed.startsWith('turret '))      { parseHardpointLine(cur, 'turrets', trimmed.slice(7)); continue; }
+      if (trimmed.startsWith('drone'))        { cur.drones.push({coords:'',over:''}); continue; }
+      if (trimmed.startsWith('fighter'))      { cur.fighters.push({coords:'',over:''}); continue; }
+      if (trimmed.startsWith('leak '))        { cur.leaks.push(trimmed.slice(5)); continue; }
+      if (trimmed.startsWith('explode '))     { parseExplodeLine(cur, 'explode', trimmed.slice(8)); continue; }
+      if (trimmed.startsWith('"final explode" ')) { parseExplodeLine(cur, 'finalExplode', trimmed.slice(16)); continue; }
       cur.extraLines.push(line);
       continue;
     }
@@ -563,17 +565,14 @@ function parseES(text) {
     if (indent >= 2 && block === 'attributes') {
       const parts = tokenise(trimmed);
       if (!parts.length) continue;
-      const key = parts[0];
-      const val = parts.slice(1).join(' ');
-      cur.attributes[key] = val;
+      cur.attributes[parts[0]] = parts.slice(1).join(' ');
       continue;
     }
     if (indent >= 2 && block === 'outfits') {
       const parts = tokenise(trimmed);
       if (!parts.length) continue;
       const name = parts[0].startsWith('"') ? parts[0] : `"${parts[0]}"`;
-      const count = parseInt(parts[1])||1;
-      cur.outfits.push({name, count});
+      cur.outfits.push({name, count: parseInt(parts[1])||1});
       continue;
     }
     cur.extraLines.push(line);
@@ -582,18 +581,14 @@ function parseES(text) {
   return ships;
 }
 
-function parseHardpoint(cur, field, rest) {
+function parseHardpointLine(cur, field, rest) {
   const parts = tokenise(rest);
-  const coords = parts.slice(0,2).join(' ');
-  const over = parts.slice(2).join(' ');
-  cur[field].push({coords, over});
+  cur[field].push({coords: parts.slice(0,2).join(' '), over: parts.slice(2).join(' ')});
 }
-function parseExplode(cur, field, rest) {
+function parseExplodeLine(cur, field, rest) {
   const parts = tokenise(rest);
-  const name = parts[0]||'"tiny explosion"';
-  const count = parseInt(parts[1])||1;
   if (!cur[field]) cur[field] = [];
-  cur[field].push({name, count});
+  cur[field].push({name: parts[0]||'"tiny explosion"', count: parseInt(parts[1])||1});
 }
 function tokenise(str) {
   const tokens = [];
@@ -632,15 +627,17 @@ function saveShip() {
     fleet[editIdx] = JSON.parse(JSON.stringify(currentShip));
   }
   save();
-  document.getElementById('builder-page-title').textContent = `✏️ Editing: ${currentShip.name}`;
+  const titleEl = document.getElementById('builder-page-title');
+  if (titleEl) titleEl.textContent = `✏️ Editing: ${currentShip.name}`;
   toast('Ship saved!', 'success');
 }
 
 // ═══════════════════════════════════════════════════════════
-//  EXPORT PAGE
+//  EXPORT
 // ═══════════════════════════════════════════════════════════
-function renderExportPage() {
+function renderExportChecklist() {
   const cl = document.getElementById('export-checklist');
+  if (!cl) return;
   if (!fleet.length) { cl.innerHTML = '<div style="color:var(--c-text-muted);font-style:italic;">No ships in fleet.</div>'; return; }
   cl.innerHTML = fleet.map((s, i) =>
     `<label style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--r-sm);background:var(--c-surface-3);margin-bottom:6px;cursor:pointer;">
@@ -653,27 +650,33 @@ function getExportText() {
   return fleet.filter((_,i) => document.getElementById(`export-chk-${i}`)?.checked)
     .map(s => generateES(s)).join('\n\n');
 }
-function generateExport() { document.getElementById('export-output').textContent = getExportText() || '(No ships selected)'; }
-function copyExport() { const t = getExportText(); if(!t){toast('Nothing to copy.','danger');return;} navigator.clipboard.writeText(t).then(()=>toast('Copied!','success')).catch(()=>toast('Copy failed.','danger')); }
+function generateExport() {
+  const el = document.getElementById('export-output');
+  if (el) el.textContent = getExportText() || '(No ships selected)';
+}
+function copyExport() {
+  const t = getExportText();
+  if (!t) { toast('Nothing to copy.', 'danger'); return; }
+  navigator.clipboard.writeText(t).then(()=>toast('Copied!','success')).catch(()=>toast('Copy failed.','danger'));
+}
 function downloadExport() {
   const t = getExportText();
   if (!t) { toast('Nothing to export.', 'danger'); return; }
-  const blob = new Blob([t], {type:'text/plain'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'ships.txt'; a.click();
-  URL.revokeObjectURL(url);
+  downloadText(t, 'ships.txt');
   toast('Downloaded ships.txt', 'success');
 }
 function exportAll() {
   const t = fleet.map(s => generateES(s)).join('\n\n');
   if (!t) { toast('No ships to export.', 'danger'); return; }
-  const blob = new Blob([t], {type:'text/plain'});
+  downloadText(t, 'fleet.txt');
+  toast('Downloaded fleet.txt', 'success');
+}
+function downloadText(text, filename) {
+  const blob = new Blob([text], {type:'text/plain'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = 'fleet.txt'; a.click();
+  a.href = url; a.download = filename; a.click();
   URL.revokeObjectURL(url);
-  toast('Downloaded fleet.txt', 'success');
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -698,7 +701,7 @@ function doImport() {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  COPY
+//  COPY RAW OUTPUT
 // ═══════════════════════════════════════════════════════════
 function copyOutput() {
   const text = document.getElementById('raw-output').value;
@@ -710,14 +713,6 @@ function copyOutput() {
 // ═══════════════════════════════════════════════════════════
 function openModal(id) { document.getElementById(id).classList.add('active'); }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal-overlay.active').forEach(o => closeModal(o.id));
-  }
-});
 
 // ═══════════════════════════════════════════════════════════
 //  TOAST
@@ -725,6 +720,7 @@ document.addEventListener('keydown', e => {
 let toastTimer = null;
 function toast(msg, type='') {
   const el = document.getElementById('toast');
+  if (!el) return;
   el.textContent = msg;
   el.className = 'toast show' + (type ? ' '+type : '');
   clearTimeout(toastTimer);
@@ -741,5 +737,30 @@ function esc(s) {
 // ═══════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════
-load();
-renderFleet();
+document.addEventListener('DOMContentLoaded', () => {
+  load();
+  renderFleet();
+  initBuilderTabs();
+
+  // Modal close on backdrop click
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
+  });
+
+  // Escape closes modals
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(o => closeModal(o.id));
+    }
+  });
+
+  // Attr modal enter key
+  const attrKeyEl = document.getElementById('new-attr-key');
+  const attrValEl = document.getElementById('new-attr-val');
+  if (attrKeyEl) attrKeyEl.addEventListener('keydown', e => { if (e.key === 'Enter') confirmAddAttr(); });
+  if (attrValEl) attrValEl.addEventListener('keydown', e => { if (e.key === 'Enter') confirmAddAttr(); });
+
+  // Export page: populate checklist when visible
+  const exportChecklist = document.getElementById('export-checklist');
+  if (exportChecklist) renderExportChecklist();
+});
