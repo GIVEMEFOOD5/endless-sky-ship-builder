@@ -2420,6 +2420,10 @@ h1 {
     .phase-text { min-width: 0; flex: 1 1 160px; }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   Ship Builder — additional styles (append to main.css)
+   ═══════════════════════════════════════════════════════════════ */
+
 /* ── Shared: text-input & select ─────────────────────────────── */
 .text-input, .select-input {
     width: 100%;
@@ -2679,6 +2683,117 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .page-header { margin-bottom: 24px; }
 .page-header h1 { font-size: 2rem; color: var(--c-accent-text); margin-bottom: 6px; }
 .page-header p  { color: var(--c-text-muted); font-size: 1rem; }
+
+/* ── Ship / Outfit picker rows ────────────────────────────── */
+.sb-picker-group { margin-bottom: 4px; }
+.sb-picker-group-label {
+    color: #63b3ed;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 10px 10px 4px;
+    border-top: 1px solid var(--c-border);
+    user-select: none;
+}
+.sb-picker-group-label:first-child { border-top: none; padding-top: 4px; }
+.sb-picker-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: background var(--t-fast);
+    background: rgba(15,23,42,0.30);
+    margin: 1px 4px;
+}
+.sb-picker-row:hover { background: rgba(59,130,246,0.15); }
+.sb-picker-name { font-size: 0.88rem; color: var(--c-text-mid); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sb-picker-meta { font-size: 0.76rem; color: var(--c-text-dim); white-space: nowrap; flex-shrink: 0; }
+
+/* ── Mode badge ───────────────────────────────────────────── */
+.badge-purple {
+    background: rgba(139, 92, 246, 0.20);
+    color: #c4b5fd;
+    border: 1px solid rgba(139, 92, 246, 0.35);
+}
+
+/* ── Outfit space bar ─────────────────────────────────────── */
+.sb-space-bar-track {
+    height: 8px;
+    background: rgba(15,23,42,0.60);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--c-border);
+}
+.sb-space-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease, background 0.3s ease;
+    min-width: 2px;
+}
+.qs-card--wide { grid-column: 1 / -1; }
+
+/* ── Outfit size badge in list ────────────────────────────── */
+.sb-outfit-size {
+    font-size: 0.72rem;
+    color: var(--c-text-dim);
+    background: rgba(15,23,42,0.60);
+    border: 1px solid var(--c-border-2);
+    border-radius: 4px;
+    padding: 1px 6px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+}
+
+/* ── Picker outfit size badge ─────────────────────────────── */
+.sb-picker-size {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 1px 5px;
+    background: rgba(59,130,246,0.15);
+    border: 1px solid rgba(59,130,246,0.30);
+    border-radius: 4px;
+    color: var(--c-accent-text);
+    margin-left: 6px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+.sb-picker-size--over {
+    background: rgba(239,68,68,0.15);
+    border-color: rgba(239,68,68,0.30);
+    color: var(--c-danger-text);
+}
+.sb-picker-row--over { opacity: 0.55; }
+.sb-picker-row--over:hover { opacity: 1; }
+
+/* ── Hardpoint index badge ────────────────────────────────── */
+.sb-hp-idx {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--c-surface-3);
+    border: 1px solid var(--c-border-2);
+    font-size: 0.68rem;
+    color: var(--c-text-dim);
+    flex-shrink: 0;
+}
+.sb-hp-count-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--c-accent-text);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 0 8px;
+    border-bottom: 1px solid var(--c-border-2);
+    margin-bottom: 8px;
+}
 
 /* ── ≤640px: further compacting ─────────────────────────────── */
 @media (max-width: 690px) {

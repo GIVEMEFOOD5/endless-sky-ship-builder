@@ -10,40 +10,38 @@
 
 <div id="navbar-mount" data-src="NavBar.html"></div>
 <script src="../JavaScript/navLoader.js"></script>
-  
+
 <div class="container">
 
   <!-- ══════════════════════════════════════════════════════
-       FLEET VIEW  (shown by default)
+       FLEET VIEW
   ═══════════════════════════════════════════════════════ -->
   <div id="fleet-view">
     <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
       <div>
         <h1>⚓ Ship Builder</h1>
-        <p>Create, edit and export Endless Sky ship definitions.</p>
+        <p>Create, outfit, and export Endless Sky ship definitions.</p>
       </div>
+      <!-- Three mode buttons + import/export -->
       <div class="btn-group" style="margin:0;">
-        <button class="btn btn-primary" onclick="newShip()">+ New Ship</button>
-        <button class="btn btn-secondary" onclick="openImport()">↑ Import ES Data</button>
-        <button class="btn btn-secondary" onclick="exportAll()">↓ Export All</button>
+        <button class="btn btn-primary"   onclick="newShip()"            title="Create a ship from scratch">+ New Ship</button>
+        <button class="btn btn-secondary" onclick="openOutfitExisting()" title="Add/remove outfits on an existing parsed ship">🔧 Outfit Existing</button>
+        <button class="btn btn-secondary" onclick="openEditExisting()"   title="Edit attributes of an existing parsed ship">✏️ Edit Existing</button>
+        <button class="btn btn-secondary" onclick="openImport()"         title="Paste raw ES ship data">↑ Import ES Data</button>
+        <button class="btn btn-secondary" onclick="exportAll()"          title="Download all saved ships">↓ Export All</button>
       </div>
     </div>
 
-    <div id="fleet-grid" class="fleet-grid">
-      <div class="fleet-empty">
-        <div class="fleet-empty__icon">🛸</div>
-        <p>No ships yet. Create your first ship or import from Endless Sky data files.</p>
-      </div>
-    </div>
+    <div id="fleet-grid" class="fleet-grid"></div>
 
-    <!-- ── Export section ── -->
-    <div class="panel" style="margin-top:30px;" id="export-panel">
+    <!-- Export panel -->
+    <div class="panel" style="margin-top:30px;">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
         <div class="section-title" style="margin:0;">Export Ships</div>
         <div class="btn-group" style="margin:0;">
-          <button class="btn btn-primary btn-sm" onclick="generateExport()">Generate Output</button>
+          <button class="btn btn-primary btn-sm"   onclick="generateExport()">Generate Output</button>
           <button class="btn btn-secondary btn-sm" onclick="copyExport()">⧉ Copy</button>
-          <button class="btn btn-success btn-sm" onclick="downloadExport()">↓ Download .txt</button>
+          <button class="btn btn-success btn-sm"   onclick="downloadExport()">↓ Download .txt</button>
         </div>
       </div>
       <div id="export-checklist" style="margin-bottom:14px;"></div>
@@ -52,17 +50,20 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════
-       BUILDER VIEW  (hidden until editing a ship)
+       BUILDER VIEW
   ═══════════════════════════════════════════════════════ -->
   <div id="builder-view" class="hidden">
 
     <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <div>
-        <h1 id="builder-page-title">✏️ New Ship</h1>
-        <p>Configure ship attributes, outfits, and metadata.</p>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div>
+          <h1 id="builder-page-title">✏️ New Ship</h1>
+          <p id="builder-page-subtitle">Define your ship from scratch.</p>
+        </div>
+        <span id="sb-mode-badge" class="badge badge-blue" style="display:none;">NEW</span>
       </div>
       <div class="btn-group" style="margin:0;">
-        <button class="btn btn-primary" onclick="saveShip()">💾 Save Ship</button>
+        <button class="btn btn-primary"   onclick="saveShip()">💾 Save Ship</button>
         <button class="btn btn-secondary" onclick="showFleetView()">← Back to Fleet</button>
       </div>
     </div>
@@ -73,7 +74,7 @@
 
       <!-- SIDEBAR -->
       <div class="builder-sidebar">
-        <div class="panel">
+        <div class="panel" id="sidebar-identity">
           <div class="section-title">Identity</div>
           <div class="input-group">
             <label>Ship Name <span style="color:var(--c-danger-hi)">*</span></label>
@@ -85,7 +86,7 @@
           </div>
           <div class="input-group">
             <label>Plural Name</label>
-            <input id="ship-plural" class="text-input" type="text" placeholder="e.g. Hawks (leave blank for default)" oninput="onBuilderChange()">
+            <input id="ship-plural" class="text-input" type="text" placeholder="e.g. Hawks" oninput="onBuilderChange()">
           </div>
           <div class="input-group">
             <label>Sprite Path</label>
@@ -97,9 +98,10 @@
           </div>
         </div>
 
-        <div class="panel">
+        <div class="panel" id="sidebar-description">
           <div class="section-title">Description</div>
-          <textarea id="ship-description" class="text-input" rows="4" placeholder="In-game description text..." oninput="onBuilderChange()"></textarea>
+          <textarea id="ship-description" class="text-input" rows="4"
+            placeholder="In-game description text..." oninput="onBuilderChange()"></textarea>
         </div>
       </div>
 
@@ -107,17 +109,17 @@
       <div>
         <div class="builder-tabs">
           <button class="builder-tab active" data-tab="attributes">Attributes</button>
-          <button class="builder-tab" data-tab="outfits">Outfits</button>
-          <button class="builder-tab" data-tab="guns">Guns &amp; Turrets</button>
-          <button class="builder-tab" data-tab="explode">Explosions</button>
-          <button class="builder-tab" data-tab="raw">Raw Edit</button>
+          <button class="builder-tab"        data-tab="outfits">Outfits</button>
+          <button class="builder-tab"        data-tab="guns">Guns &amp; Turrets</button>
+          <button class="builder-tab"        data-tab="explode">Explosions</button>
+          <button class="builder-tab"        data-tab="raw">Raw Edit</button>
         </div>
 
         <!-- ATTRIBUTES TAB -->
         <div id="tab-attributes" class="builder-tab-content active panel">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
             <div class="section-title" style="margin:0;">Ship Attributes</div>
-            <button class="btn btn-secondary btn-sm" onclick="openAddAttr('attribute')">+ Add Attribute</button>
+            <button class="btn btn-secondary btn-sm" onclick="openAddAttr()">+ Add Attribute</button>
           </div>
           <div id="attr-list"></div>
         </div>
@@ -128,6 +130,8 @@
             <div class="section-title" style="margin:0;">Outfits</div>
             <button class="btn btn-secondary btn-sm" onclick="openAddOutfit()">+ Add Outfit</button>
           </div>
+          <!-- Outfit space bar — shown when ship has outfit space defined -->
+          <div id="outfit-space-bar-wrap" style="margin-bottom:14px;padding:12px;background:var(--c-surface-3);border-radius:var(--r-md);border:1px solid var(--c-border);"></div>
           <div id="outfits-list"></div>
           <div class="fleet-empty" style="margin-top:0;padding:24px;" id="outfits-empty">
             No outfits added yet.
@@ -141,15 +145,13 @@
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
             <div>
-              <div class="outfit-section-title">
-                Gun Ports
+              <div class="outfit-section-title">Gun Ports
                 <button class="btn btn-xs btn-secondary" onclick="addGunTurret('gun')">+ Add</button>
               </div>
               <div id="guns-list"></div>
             </div>
             <div>
-              <div class="outfit-section-title">
-                Turrets
+              <div class="outfit-section-title">Turrets
                 <button class="btn btn-xs btn-secondary" onclick="addGunTurret('turret')">+ Add</button>
               </div>
               <div id="turrets-list"></div>
@@ -158,19 +160,24 @@
           <hr class="divider">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
             <div>
-              <div class="outfit-section-title">
-                Drone Bays
+              <div class="outfit-section-title">Drone Bays
                 <button class="btn btn-xs btn-secondary" onclick="addGunTurret('drone')">+ Add</button>
               </div>
               <div id="drones-list"></div>
             </div>
             <div>
-              <div class="outfit-section-title">
-                Fighter Bays
+              <div class="outfit-section-title">Fighter Bays
                 <button class="btn btn-xs btn-secondary" onclick="addGunTurret('fighter')">+ Add</button>
               </div>
               <div id="fighters-list"></div>
             </div>
+          </div>
+          <hr class="divider">
+          <div>
+            <div class="outfit-section-title">Engine Points
+              <button class="btn btn-xs btn-secondary" onclick="addGunTurret('engine')">+ Add</button>
+            </div>
+            <div id="engines-list"></div>
           </div>
           <hr class="divider">
           <div>
@@ -188,15 +195,13 @@
           <div class="section-title">Explosion Effects</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
             <div>
-              <div class="outfit-section-title">
-                Explode Effects
+              <div class="outfit-section-title">Explode Effects
                 <button class="btn btn-xs btn-secondary" onclick="addExplodeEffect('explode')">+ Add</button>
               </div>
               <div id="explode-list"></div>
             </div>
             <div>
-              <div class="outfit-section-title">
-                Final Explode Effects
+              <div class="outfit-section-title">Final Explode Effects
                 <button class="btn btn-xs btn-secondary" onclick="addExplodeEffect('final explode')">+ Add</button>
               </div>
               <div id="final-explode-list"></div>
@@ -219,10 +224,12 @@
             <div class="section-title" style="margin:0;">Raw ES Format</div>
             <div class="btn-group" style="margin:0;">
               <button class="btn btn-secondary btn-sm" onclick="importRaw()">↑ Parse &amp; Import</button>
-              <button class="btn btn-primary btn-sm" onclick="copyOutput()">⧉ Copy</button>
+              <button class="btn btn-primary btn-sm"   onclick="copyOutput()">⧉ Copy</button>
             </div>
           </div>
-          <textarea id="raw-output" class="text-input" style="font-family:monospace;font-size:0.8rem;min-height:420px;" spellcheck="false" oninput="onRawEdit()"></textarea>
+          <textarea id="raw-output" class="text-input"
+            style="font-family:monospace;font-size:0.8rem;min-height:420px;"
+            spellcheck="false" oninput="onRawEdit()"></textarea>
         </div>
 
       </div><!-- /main area -->
@@ -235,17 +242,54 @@
      MODALS
 ═══════════════════════════════════════════════════════ -->
 
+<!-- Ship Picker (outfit or edit existing) -->
+<div id="modal-sb-ship-picker" class="modal-overlay">
+  <div class="modal-box" style="width:min(580px,96vw);max-height:85vh;display:flex;flex-direction:column;padding:0;overflow:hidden;">
+    <div class="picker-header">
+      <div class="picker-header__title" id="sb-ship-picker-title">Choose a Ship</div>
+      <button class="modal-close" onclick="closeModal('modal-sb-ship-picker')">×</button>
+    </div>
+    <input id="sb-ship-picker-search" class="text-input picker-search"
+      type="text" placeholder="Search ships…" oninput="sbFilterShipPicker(this.value)">
+    <div id="sb-ship-picker-list" class="picker-list"></div>
+    <div class="picker-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-sb-ship-picker')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Outfit Picker (live data) -->
+<div id="modal-sb-outfit-picker" class="modal-overlay">
+  <div class="modal-box" style="width:min(580px,96vw);max-height:85vh;display:flex;flex-direction:column;padding:0;overflow:hidden;">
+    <div class="picker-header">
+      <div class="picker-header__title">Add Outfit</div>
+      <button class="modal-close" onclick="closeModal('modal-sb-outfit-picker')">×</button>
+    </div>
+    <input id="sb-outfit-picker-search" class="text-input picker-search"
+      type="text" placeholder="Search outfits…" oninput="sbFilterOutfitPicker(this.value)">
+    <div id="sb-outfit-picker-space" style="font-size:0.82rem;padding:4px 16px 0;display:none;"></div>
+    <div id="sb-outfit-picker-list" class="picker-list"></div>
+    <div class="picker-footer" style="align-items:center;">
+      <label style="margin:0;font-size:0.88rem;color:var(--c-text-muted);">Count:</label>
+      <input id="sb-outfit-count-input" class="text-input" type="number" min="1" value="1"
+        style="width:70px;padding:6px 8px;">
+      <button class="btn btn-secondary" onclick="closeModal('modal-sb-outfit-picker')">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <!-- Add Attribute -->
 <div id="modal-add-attr" class="modal-overlay">
   <div class="modal-box">
     <div class="modal-header">
-      <div class="modal-title" id="add-attr-title">Add Attribute</div>
+      <div class="modal-title">Add Attribute</div>
       <button class="modal-close" onclick="closeModal('modal-add-attr')">×</button>
     </div>
     <div class="input-group">
       <label>Attribute Key</label>
       <div class="autocomplete-wrap">
-        <input id="new-attr-key" class="text-input" type="text" placeholder="e.g. shields" oninput="attrKeyAc(this.value)">
+        <input id="new-attr-key" class="text-input" type="text"
+          placeholder="e.g. shields" oninput="attrKeyAc(this.value)">
         <div id="attr-key-ac" class="autocomplete-dropdown"></div>
       </div>
     </div>
@@ -255,16 +299,16 @@
     </div>
     <div class="btn-group btn-group-right">
       <button class="btn btn-secondary" onclick="closeModal('modal-add-attr')">Cancel</button>
-      <button class="btn btn-primary" onclick="confirmAddAttr()">Add</button>
+      <button class="btn btn-primary"   onclick="confirmAddAttr()">Add</button>
     </div>
   </div>
 </div>
 
-<!-- Add Outfit -->
+<!-- Add Outfit (manual fallback when no live data) -->
 <div id="modal-add-outfit" class="modal-overlay">
   <div class="modal-box">
     <div class="modal-header">
-      <div class="modal-title">Add Outfit</div>
+      <div class="modal-title">Add Outfit (Manual)</div>
       <button class="modal-close" onclick="closeModal('modal-add-outfit')">×</button>
     </div>
     <div class="input-group">
@@ -277,7 +321,7 @@
     </div>
     <div class="btn-group btn-group-right">
       <button class="btn btn-secondary" onclick="closeModal('modal-add-outfit')">Cancel</button>
-      <button class="btn btn-primary" onclick="confirmAddOutfit()">Add</button>
+      <button class="btn btn-primary"   onclick="confirmAddOutfit()">Add</button>
     </div>
   </div>
 </div>
@@ -290,14 +334,14 @@
       <button class="modal-close" onclick="closeModal('modal-import')">×</button>
     </div>
     <p style="color:var(--c-text-muted);font-size:0.88rem;margin-bottom:12px;">
-      Paste Endless Sky ship definition(s) from a data file. Multiple ships can be pasted at once.
+      Paste one or more Endless Sky ship definitions. They will be added to your fleet.
     </p>
     <textarea id="import-text" class="text-input import-area"
       style="min-height:280px;font-family:monospace;font-size:0.8rem;" spellcheck="false"
       placeholder='ship "Hawk"&#10;&#9;sprite "ship/hawk"&#10;&#9;attributes&#10;&#9;&#9;category "Light Warship"&#10;&#9;&#9;shields 400&#10;&#9;&#9;hull 100&#10;&#9;outfits&#10;&#9;&#9;"Blaster" 2&#10;&#9;gun -10 10&#10;&#9;gun 10 10&#10;&#9;explode "tiny explosion" 10'></textarea>
     <div class="btn-group btn-group-right" style="margin-top:12px;">
       <button class="btn btn-secondary" onclick="closeModal('modal-import')">Cancel</button>
-      <button class="btn btn-primary" onclick="doImport()">Parse &amp; Import</button>
+      <button class="btn btn-primary"   onclick="doImport()">Parse &amp; Import</button>
     </div>
   </div>
 </div>
@@ -312,14 +356,15 @@
     <p class="confirm-text" id="confirm-text">Are you sure?</p>
     <div class="btn-group btn-group-right">
       <button class="btn btn-secondary" onclick="closeModal('modal-confirm')">Cancel</button>
-      <button class="btn btn-danger" id="confirm-ok-btn">Delete</button>
+      <button class="btn btn-danger"    id="confirm-ok-btn">Delete</button>
     </div>
   </div>
 </div>
 
-<!-- Toast notification -->
+<!-- Toast -->
 <div id="toast" class="toast"></div>
 
+<script src="../JavaScript/dataLoader.js"></script>
 <script src="../JavaScript/shipBuilder.js"></script>
 </body>
 </html>
