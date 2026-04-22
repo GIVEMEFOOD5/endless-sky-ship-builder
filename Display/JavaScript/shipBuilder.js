@@ -959,21 +959,66 @@ function sbUpdateOutfitCount(i, v) {
   const newCount = parseInt(v) || 1;
   const oldCount = parseInt(sbCurrentShip.outfits[i].count) || 1;
   const diff     = newCount - oldCount;
+  const rawName  = sbCurrentShip.outfits[i].name.replace(/^"|"$/g, '');
+
   if (diff > 0) {
-    // Use raw (unquoted) name for lookup
-    const rawName = sbCurrentShip.outfits[i].name.replace(/^"|"$/g, '');
     if (!sbCheckOutfitSpace(rawName, diff)) {
       const inputs = document.querySelectorAll('.outfit-item__count');
       if (inputs[i]) inputs[i].value = oldCount;
       return;
     }
+    // Slot the extra copies into empty ports
+    const outfitObj = sbFindOutfit(rawName);
+    sbAutoSlotWeapons(rawName, diff, outfitObj);
+  } else if (diff < 0) {
+    // Un-slot the removed copies from ports, keeping hardpoint positions
+    _sbUnslotWeapons(rawName, Math.abs(diff));
   }
+
   sbCurrentShip.outfits[i].count = newCount;
-  sbRenderOutfitsList(); sbUpdateQuickStats(); sbRenderRaw();
+  sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
 }
+
 function sbRemoveOutfit(i) {
+  const outfit   = sbCurrentShip.outfits[i];
+  const rawName  = outfit.name.replace(/^"|"$/g, '');
+  const count    = parseInt(outfit.count) || 1;
+
+  // Clear this weapon from gun/turret ports (keep the hardpoint, just blank the over)
+  _sbUnslotWeapons(rawName, count);
+
   sbCurrentShip.outfits.splice(i, 1);
-  sbRenderOutfitsList(); sbUpdateQuickStats(); sbRenderRaw();
+  sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
+}
+
+/**
+ * Remove `count` assignments of `outfitName` from gun/turret hardpoints,
+ * working from the LAST match backwards so the most recently assigned
+ * ports are freed first. The hardpoint position is kept — only `over` is cleared.
+ */
+function _sbUnslotWeapons(outfitName, count) {
+  const quoted = outfitName.startsWith('"') ? outfitName : `"${outfitName}"`;
+  let remaining = count;
+
+  // Clear from guns (last-in first-out)
+  const guns = sbCurrentShip.guns || [];
+  for (let i = guns.length - 1; i >= 0 && remaining > 0; i--) {
+    const over = (guns[i].over || '').trim();
+    if (over === quoted || over === outfitName) {
+      guns[i].over = '';
+      remaining--;
+    }
+  }
+
+  // Clear from turrets if still any remaining
+  const turrets = sbCurrentShip.turrets || [];
+  for (let i = turrets.length - 1; i >= 0 && remaining > 0; i--) {
+    const over = (turrets[i].over || '').trim();
+    if (over === quoted || over === outfitName) {
+      turrets[i].over = '';
+      remaining--;
+    }
+  }
 }
 
 /**
