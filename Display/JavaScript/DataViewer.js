@@ -2,10 +2,13 @@
 
 // ─── DataViewer.js ─────────────────────────────────────────────────────────
 //
-// Top-level orchestrator: data loading, tab switching, card rendering,
-// modal display, and utility helpers.
+// Top-level orchestrator: tab switching, card rendering, modal display,
+// and utility helpers.
+//
+// Data loading is fully delegated to dataLoader.js via window.DataLoader.
 //
 // Dependencies (loaded before this file):
+//   dataLoader.js          — DataLoader, window.allData, window.attrDefs
 //   generalPluginStuff.js  — PluginManager
 //   generalFilterStuff.js  — filterItems, _filterGeneration
 //   CheckBoxFilter.js      — getSelectedCategories, savedCategoryFilterState
@@ -17,95 +20,69 @@
 //   ComputedStats.js       — initComputedStats
 // ─────────────────────────────────────────────────────────────────────────────
 
-let allData        = {};
-let currentPlugin  = null;
-let currentTab     = 'ships';
-let filteredData   = [];
+let currentPlugin   = null;
+let currentTab      = 'ships';
+let filteredData    = [];
 let currentModalTab = 'attributes';
-let attrDefs       = null;
+let attrDefs        = null;
 
 // ── Card → item reference (avoids JSON round-trips) ──────────────────────────
 const _cardItemMap = new WeakMap();
 
-// ─── Data loading ─────────────────────────────────────────────────────────────
+// ─── Data loading — delegated to DataLoader ───────────────────────────────────
 
-async function loadData() {
-    const repoUrl = 'GIVEMEFOOD5/endless-sky-ship-builder';
-    const baseUrl = `https://raw.githubusercontent.com/${repoUrl}/main/data`;
-
+function loadData() {
     const loadingEl = document.getElementById('loadingIndicator');
     const errorEl   = document.getElementById('errorContainer');
     const mainEl    = document.getElementById('mainContent');
 
-    loadingEl.style.display = 'block';
-    errorEl.innerHTML       = '';
-    mainEl.style.display    = 'none';
+    if (loadingEl) loadingEl.style.display = 'block';
+    if (errorEl)   errorEl.innerHTML       = '';
+    if (mainEl)    mainEl.style.display    = 'none';
 
     if (typeof initImageIndex === 'function') initImageIndex();
 
-    try {
-        const attrDefsRes = await fetch(`${baseUrl}/attributeDefinitions.json`);
-        if (attrDefsRes.ok) {
-            attrDefs = await attrDefsRes.json();
-            if (typeof setSorterAttrDefs  === 'function') setSorterAttrDefs(attrDefs);
-            if (typeof initComputedStats  === 'function') initComputedStats(attrDefs, baseUrl);
-        }
-    } catch (_) {}
+    if (!window.DataLoader) {
+        if (loadingEl) loadingEl.style.display = 'none';
+        showError('Error: dataLoader.js must be loaded before DataViewer.js');
+        return;
+    }
 
-    try {
-        const indexRes = await fetch(`${baseUrl}/index.json`);
-        if (!indexRes.ok) throw new Error('Could not find data/index.json in repository');
-        const dataIndex = await indexRes.json();
+    window.DataLoader.onReady((loadedData) => {
+        // Pull globals populated by DataLoader
+        window.allData = loadedData;
+        attrDefs = window.attrDefs || null;
 
-        allData = {};
-
-        for (const [sourceName, pluginList] of Object.entries(dataIndex)) {
-            for (const { outputName, displayName } of pluginList) {
-                const pluginData = {
-                    sourceName, displayName, outputName,
-                    ships: [], variants: [], outfits: [], effects: []
-                };
-                let loadedSomething = false;
-
-                try {
-                    const [shipsRes, variantsRes, outfitsRes, effectsRes] = await Promise.all([
-                        fetch(`${baseUrl}/${outputName}/dataFiles/ships.json`),
-                        fetch(`${baseUrl}/${outputName}/dataFiles/variants.json`),
-                        fetch(`${baseUrl}/${outputName}/dataFiles/outfits.json`),
-                        fetch(`${baseUrl}/${outputName}/dataFiles/effects.json`),
-                    ]);
-
-                    if (shipsRes.ok)    { pluginData.ships    = await shipsRes.json();    loadedSomething = true; }
-                    if (variantsRes.ok) { pluginData.variants = await variantsRes.json(); loadedSomething = true; }
-                    if (outfitsRes.ok)  { pluginData.outfits  = await outfitsRes.json();  loadedSomething = true; }
-                    if (effectsRes.ok)  { pluginData.effects  = await effectsRes.json();  loadedSomething = true; }
-
-                    if (loadedSomething) allData[outputName] = pluginData;
-                    else console.warn(`${outputName}: no data files found, skipping`);
-                } catch (err) {
-                    console.warn(`Failed loading plugin ${outputName}:`, err);
-                }
+        if (attrDefs) {
+            if (typeof setSorterAttrDefs === 'function') setSorterAttrDefs(attrDefs);
+            if (typeof initComputedStats === 'function') {
+                const REPO_URL = 'GIVEMEFOOD5/endless-sky-ship-builder';
+                initComputedStats(attrDefs, `https://raw.githubusercontent.com/${REPO_URL}/main/data`);
             }
         }
 
-        const hasAnyData = Object.values(allData).some(p =>
-            p.ships.length > 0 || p.variants.length > 0 || p.outfits.length > 0
-        );
-        if (!hasAnyData) throw new Error('No plugin data files could be loaded');
+        if (typeof initImageIndex  === 'function') initImageIndex();
+        if (typeof setEffectPlugin === 'function')
+            Object.keys(loadedData).forEach(n => setEffectPlugin(n));
 
-        loadingEl.style.display = 'none';
-        mainEl.style.display    = 'block';
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (mainEl)    mainEl.style.display    = 'block';
 
-        window.allData = allData;
-        if (typeof initImageIndex    === 'function') initImageIndex();
-        if (typeof setEffectPlugin   === 'function') Object.keys(allData).forEach(n => setEffectPlugin(n));
+        // PluginManager.initDefaultPlugin fires pluginsChanged → _renderCardsFromManager
+        window.PluginManager.initDefaultPlugin();
+    });
 
-        await window.PluginManager.initDefaultPlugin();
+    // Handle load errors
+    document.addEventListener('dataLoadError', (e) => {
+        if (loadingEl) loadingEl.style.display = 'none';
+        showError(`Error loading data: ${e.detail?.message || 'Unknown error'}`);
+    }, { once: true });
 
-    } catch (error) {
-        loadingEl.style.display = 'none';
-        showError(`Error loading data: ${error.message}`);
-    }
+    // Kick off the load (no-op if already loading or ready)
+    window.DataLoader.load().catch(err => {
+        if (loadingEl) loadingEl.style.display = 'none';
+        showError(`Error loading data: ${err.message}`);
+    });
 }
 
 // ─── Plugin selection ─────────────────────────────────────────────────────────
@@ -114,7 +91,7 @@ async function selectPlugin(outputName) {
     await window.PluginManager.setActivePlugins([outputName]);
 }
 
-// ─── Hook called by PluginManager ─────────────────────────────────────────────
+// ─── Hook called by PluginManager after active plugins change ─────────────────
 
 window._renderCardsFromManager = async function (resetTab = false) {
     currentPlugin = window.PluginManager.getPrimaryPlugin();
@@ -149,10 +126,10 @@ async function renderCards() {
         : [];
 
     filteredData = items;
-    if (typeof getFilterData            === 'function') getFilterData(items);
-    if (typeof populateCategoryFilters  === 'function') populateCategoryFilters(items);
+    if (typeof getFilterData             === 'function') getFilterData(items);
+    if (typeof populateCategoryFilters   === 'function') populateCategoryFilters(items);
     if (typeof populateGovernmentFilters === 'function') populateGovernmentFilters(items);
-    if (typeof filterItems              === 'function') await filterItems();
+    if (typeof filterItems               === 'function') await filterItems();
 }
 
 // ─── Stats ────────────────────────────────────────────────────────────────────
@@ -160,6 +137,7 @@ async function renderCards() {
 function updateStats() {
     if (!window.PluginManager) return;
     const activePlugins = window.PluginManager.getActivePlugins();
+    const allData = window.allData || {};
     let ships = 0, variants = 0, outfits = 0;
     for (const n of activePlugins) {
         const d = allData[n];
@@ -187,12 +165,10 @@ function createCardPlaceholder(item) {
     _cardItemMap.set(card, item);
     card.onclick = () => showDetails(item);
 
-    // Image slot
     const imgWrap = document.createElement('div');
     imgWrap.className = 'card-image card-image--placeholder';
     imgWrap.innerHTML = '<div style="width:100%;height:100%;background:rgba(15,23,42,0.5);border-radius:4px;"></div>';
 
-    // Content
     const content = document.createElement('div');
     content.className = 'card-content';
 
@@ -366,7 +342,6 @@ async function showDetails(item) {
         modalBody.appendChild(desc);
     }
 
-    // Store item as a property on the element (no JSON round-trip)
     modalBody._item = item;
     modal.classList.add('active');
     await switchModalTab(currentModalTab);
@@ -430,8 +405,8 @@ async function renderImageTab(spritePath, altText, spriteParams) {
     const element = await window.fetchSprite(spritePath, spriteParams || {});
     if (!element) {
         const p = document.createElement('p');
-        p.style.color  = '#ef4444';
-        p.textContent  = 'Failed to load: ' + (altText || 'Image');
+        p.style.color = '#ef4444';
+        p.textContent = 'Failed to load: ' + (altText || 'Image');
         return p;
     }
     const wrap = document.createElement('div');
@@ -510,7 +485,6 @@ function closeModal() {
     document.querySelectorAll('.modal-tab-content').forEach(c => { c.innerHTML = ''; });
     const modal = document.getElementById('detailModal');
     modal.classList.remove('active');
-    // Clear stored item reference
     const modalBody = document.getElementById('modalBody');
     if (modalBody) delete modalBody._item;
 }
@@ -527,14 +501,17 @@ function formatValue(value) {
 }
 
 function showError(message) {
-    document.getElementById('errorContainer').innerHTML = `<div class="error">${message}</div>`;
+    const el = document.getElementById('errorContainer');
+    if (el) el.innerHTML = `<div class="error">${message}</div>`;
 }
 
 function clearData() {
-    document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('errorContainer').innerHTML  = '';
-    allData       = {};
-    currentPlugin = null;
+    const mainEl = document.getElementById('mainContent');
+    if (mainEl) mainEl.style.display = 'none';
+    const errorEl = document.getElementById('errorContainer');
+    if (errorEl) errorEl.innerHTML = '';
+    window.allData = {};
+    currentPlugin  = null;
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
@@ -557,12 +534,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Kick off loading via DataLoader — no direct fetching here
     loadData();
 });
 
 // ─── Global exports ───────────────────────────────────────────────────────────
 
-window.allData        = allData;
 window.loadData       = loadData;
 window.clearData      = clearData;
 window.switchTab      = switchTab;
