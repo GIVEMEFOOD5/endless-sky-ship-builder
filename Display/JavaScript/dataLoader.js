@@ -1,226 +1,354 @@
 'use strict';
 
 // ═══════════════════════════════════════════════════════════
-//  dataLoader.js
+//  dataLoader.js  —  Endless Sky Ship Builder
 //
-//  Standalone data loader for the Endless Sky Data Viewer.
-//  Fetches all plugin data from GitHub and exposes it via:
+//  Loads all plugin data from GitHub, manages active plugin
+//  selection, and synthesises a "Local Builds" pseudo-plugin
+//  from localStorage saved ships.
 //
-//    window.allData    — { [outputName]: { displayName, ships, variants, outfits, effects } }
-//    window.attrDefs   — parsed attributeDefinitions.json
+//  Public API on window.DataLoader:
+//    .load()                      → Promise — start/await loading
+//    .onReady(fn)                 → register ready callback
+//    .isReady()                   → boolean
+//    .getPlugins()                → all loaded plugins
+//    .getActivePlugins()          → ordered active outputNames
+//    .setActivePlugins(arr)       → set active set, fires 'pluginsChanged'
+//    .initDefaultPlugins()        → activate default (endless-sky) + local
+//    .getAllShips()                → ships from active plugins + local builds
+//    .getAllOutfits()              → outfits from active plugins
+//    .getAllEffects()              → effects from active plugins
+//    .getAttrKeys()               → sorted attribute keys from attrDefs
+//    .getAttrDef(key)             → single attribute definition
+//    .getAttrHint(key)            → "unit · stacking" string
+//    .refreshLocalBuilds()        → re-read localStorage fleet into pseudo-plugin
 //
-//  Usage:
-//    <script src="../JavaScript/dataLoader.js"></script>
-//
-//  Then call:
-//    window.DataLoader.load()           — starts loading, returns a Promise
-//    window.DataLoader.onReady(fn)      — register a callback for when data is ready
-//    window.DataLoader.isReady()        — returns true if data has loaded
-//    window.DataLoader.getAllShips()    — flat array of all ships + variants across all plugins
-//    window.DataLoader.getAllOutfits()  — flat array of all outfits across all plugins
-//    window.DataLoader.getPlugins()     — array of { outputName, displayName, sourceName }
-//
-//  The loader fires a CustomEvent 'dataLoaded' on document when complete,
-//  and 'dataLoadError' on failure.
+//  Custom events fired on document:
+//    'dataLoaded'      — all remote data fetched
+//    'dataLoadError'   — fetch failed
+//    'pluginsChanged'  — active plugin selection changed
 // ═══════════════════════════════════════════════════════════
 
 (function () {
 
-    const REPO_URL = 'GIVEMEFOOD5/endless-sky-ship-builder';
-    const BASE_URL = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
+const REPO_URL   = 'GIVEMEFOOD5/endless-sky-ship-builder';
+const BASE_URL   = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
+const LOCAL_KEY  = 'es_ship_builder_v4';   // same as shipBuilder.js
+const LOCAL_PLUGIN_ID = '__local_builds__';
+const DEFAULT_PLUGIN  = 'official-game/endless-sky';
 
-    let _ready     = false;
-    let _loading   = false;
-    let _callbacks = [];
+// ── Internal state ─────────────────────────────────────────
+let _ready     = false;
+let _loading   = false;
+let _callbacks = [];
+let _activePlugins = []; // ordered outputNames
 
-    // ── Internal state ───────────────────────────────────────
-    window.allData  = window.allData  || {};
-    window.attrDefs = window.attrDefs || null;
+window.allData  = window.allData  || {};
+window.attrDefs = window.attrDefs || null;
 
-    // ── Public API ───────────────────────────────────────────
-    window.DataLoader = {
+// ── Local builds pseudo-plugin ─────────────────────────────
+function _buildLocalPlugin() {
+    let fleet = [];
+    try {
+        const raw = localStorage.getItem(LOCAL_KEY);
+        if (raw) fleet = JSON.parse(raw);
+    } catch (_) {}
 
-        /**
-         * Start loading all data. Safe to call multiple times — only
-         * loads once. Returns a Promise that resolves when complete.
-         */
-        load() {
-            if (_ready)   return Promise.resolve(window.allData);
-            if (_loading) return new Promise(resolve => _callbacks.push(() => resolve(window.allData)));
-            return _doLoad();
-        },
+    // Convert saved ship objects into a shape that matches the parsed data format
+    // so the ship picker can display them.
+    const ships = fleet.map(s => ({
+        name:        s.name || 'Unnamed',
+        variant:     s.variant || '',
+        sprite:      s.sprite || '',
+        thumbnail:   s.thumbnail || '',
+        description: s.description || '',
+        attributes:  Object.assign({}, s.attributes || {}, {
+            mass: s.mass || undefined,
+            drag: s.drag || undefined,
+        }),
+        outfitMap:  Object.fromEntries((s.outfits || []).map(o => [o.name.replace(/^"|"$/g,''), o.count])),
+        guns:       (s.guns    || []).map(g => ({ x: parseFloat((g.coords||'0').split(' ')[0])||0, y: parseFloat((g.coords||'0').split(' ')[1])||0, gun: g.over||'' })),
+        turrets:    (s.turrets || []).map(g => ({ x: parseFloat((g.coords||'0').split(' ')[0])||0, y: parseFloat((g.coords||'0').split(' ')[1])||0, turret: g.over||'' })),
+        bays:       [
+            ...(s.drones   || []).map(b => ({ type:'Drone',   x: parseFloat((b.coords||'0').split(' ')[0])||0, y: parseFloat((b.coords||'0').split(' ')[1])||0, 'launch effect': b.launchEffect||'' })),
+            ...(s.fighters || []).map(b => ({ type:'Fighter', x: parseFloat((b.coords||'0').split(' ')[0])||0, y: parseFloat((b.coords||'0').split(' ')[1])||0, 'launch effect': b.launchEffect||'' })),
+        ],
+        _isLocalBuild: true,
+        _localId: s.id,
+    }));
 
-        /**
-         * Register a callback that fires as soon as data is ready.
-         * If data is already loaded, fires immediately.
-         */
-        onReady(fn) {
-            if (_ready) { fn(window.allData); return; }
-            _callbacks.push(fn);
-            // Auto-trigger load if not started
-            if (!_loading) _doLoad();
-        },
+    return {
+        sourceName:  'Local Builds',
+        displayName: 'Local Builds',
+        outputName:  LOCAL_PLUGIN_ID,
+        ships,
+        variants: [],
+        outfits:  [],
+        effects:  [],
+        _isLocal: true,
+    };
+}
 
-        /** Returns true if data has finished loading. */
-        isReady() { return _ready; },
+function _refreshLocalPlugin() {
+    window.allData[LOCAL_PLUGIN_ID] = _buildLocalPlugin();
+}
 
-        /** Flat array of every ship and variant across all active plugins. */
-        getAllShips() {
-            const ships = [];
-            for (const [outputName, plugin] of Object.entries(window.allData)) {
-                for (const s of (plugin.ships || [])) {
-                    ships.push({ ...s, _pluginName: outputName, _pluginDisplay: plugin.displayName || outputName });
-                }
-                for (const s of (plugin.variants || [])) {
-                    ships.push({ ...s, _pluginName: outputName, _pluginDisplay: plugin.displayName || outputName, _isVariant: true });
-                }
-            }
-            return ships;
-        },
+// ── Helpers ─────────────────────────────────────────────────
+function _activeData() {
+    // Always respect ordering; Local Builds always reads fresh
+    const result = {};
+    for (const id of _activePlugins) {
+        if (id === LOCAL_PLUGIN_ID) {
+            result[id] = _buildLocalPlugin();
+        } else if (window.allData[id]) {
+            result[id] = window.allData[id];
+        }
+    }
+    return result;
+}
 
-        /** Flat array of every outfit across all active plugins. */
-        getAllOutfits() {
-            const outfits = [];
-            for (const [outputName, plugin] of Object.entries(window.allData)) {
-                for (const o of (plugin.outfits || [])) {
-                    outfits.push({ ...o, _pluginName: outputName, _pluginDisplay: plugin.displayName || outputName });
-                }
-            }
-            return outfits;
-        },
+function _fireEvent(name, detail = {}) {
+    document.dispatchEvent(new CustomEvent(name, { detail, bubbles: true }));
+}
 
-        /** Flat array of every effect across all active plugins. */
-        getAllEffects() {
-            const effects = [];
-            for (const [outputName, plugin] of Object.entries(window.allData)) {
-                for (const e of (plugin.effects || [])) {
-                    effects.push({ ...e, _pluginName: outputName, _pluginDisplay: plugin.displayName || outputName });
-                }
-            }
-            return effects;
-        },
+// ── Public API ──────────────────────────────────────────────
+window.DataLoader = {
 
-        /** List of loaded plugins. */
-        getPlugins() {
-            return Object.entries(window.allData).map(([outputName, p]) => ({
-                outputName,
-                displayName: p.displayName || outputName,
-                sourceName:  p.sourceName  || outputName,
+    load() {
+        if (_ready)   return Promise.resolve(window.allData);
+        if (_loading) return new Promise(resolve => _callbacks.push(() => resolve(window.allData)));
+        return _doLoad();
+    },
+
+    onReady(fn) {
+        if (_ready) { fn(window.allData); return; }
+        _callbacks.push(fn);
+        if (!_loading) _doLoad();
+    },
+
+    isReady() { return _ready; },
+
+    // ── Plugin management ──────────────────────────────
+    getPlugins() {
+        // Local Builds always first, then remote plugins
+        const local = window.allData[LOCAL_PLUGIN_ID] || _buildLocalPlugin();
+        const remote = Object.entries(window.allData)
+            .filter(([id]) => id !== LOCAL_PLUGIN_ID)
+            .map(([id, p]) => ({
+                outputName:  id,
+                displayName: p.displayName || id,
+                sourceName:  p.sourceName  || id,
                 shipCount:    (p.ships    || []).length,
                 variantCount: (p.variants || []).length,
                 outfitCount:  (p.outfits  || []).length,
                 effectCount:  (p.effects  || []).length,
+                isDefault:    id === DEFAULT_PLUGIN,
+                isLocal:      false,
             }));
-        },
+        return [
+            {
+                outputName:  LOCAL_PLUGIN_ID,
+                displayName: 'Local Builds',
+                sourceName:  'Local Builds',
+                shipCount:   local.ships.length,
+                variantCount:0,
+                outfitCount: 0,
+                effectCount: 0,
+                isLocal:     true,
+                isDefault:   false,
+            },
+            ...remote,
+        ];
+    },
 
-        /** All attribute definition keys as a sorted array. */
-        getAttrKeys() {
-            if (!window.attrDefs || !window.attrDefs.attributes) return [];
-            return Object.keys(window.attrDefs.attributes).sort();
-        },
+    getActivePlugins() { return [..._activePlugins]; },
 
-        /** Get a single attribute definition object by key. */
-        getAttrDef(key) {
-            if (!window.attrDefs || !window.attrDefs.attributes) return null;
-            return window.attrDefs.attributes[key] || null;
-        },
+    setActivePlugins(arr) {
+        // Local Builds is always in the list if it has ships
+        const local = _buildLocalPlugin();
+        const withLocal = arr.includes(LOCAL_PLUGIN_ID) ? arr : [LOCAL_PLUGIN_ID, ...arr];
+        _activePlugins = withLocal.filter(id =>
+            id === LOCAL_PLUGIN_ID || window.allData[id]
+        );
+        _saveActivePlugins();
+        _fireEvent('pluginsChanged', { active: [..._activePlugins] });
+    },
 
-        /** Get a short hint string for an attribute key (unit + stacking). */
-        getAttrHint(key) {
-            const def = this.getAttrDef(key);
-            if (!def) return '';
-            const parts = [];
-            if (def.displayUnit) parts.push(def.displayUnit);
-            if (def.stacking)    parts.push(def.stacking);
-            return parts.join(' · ');
-        },
-    };
-
-    // ── Internal load function ───────────────────────────────
-    async function _doLoad() {
-        _loading = true;
-        _fireEvent('dataLoadStart');
-
-        try {
-            // 1 — Attribute definitions
-            try {
-                const res = await fetch(`${BASE_URL}/attributeDefinitions.json`);
-                if (res.ok) window.attrDefs = await res.json();
-            } catch (_) {
-                console.warn('[DataLoader] Could not load attributeDefinitions.json');
+    initDefaultPlugins() {
+        const saved = _loadActivePlugins();
+        if (saved && saved.length > 0) {
+            // Restore saved selection, filtering out any that didn't load
+            const valid = saved.filter(id => id === LOCAL_PLUGIN_ID || window.allData[id]);
+            if (valid.length > 0) {
+                _activePlugins = valid;
+                _fireEvent('pluginsChanged', { active: [..._activePlugins] });
+                return;
             }
+        }
+        // Default: local builds + official game
+        const defaultRemote = window.allData[DEFAULT_PLUGIN] ? DEFAULT_PLUGIN : Object.keys(window.allData).find(k => k !== LOCAL_PLUGIN_ID);
+        _activePlugins = defaultRemote
+            ? [LOCAL_PLUGIN_ID, defaultRemote]
+            : [LOCAL_PLUGIN_ID];
+        _saveActivePlugins();
+        _fireEvent('pluginsChanged', { active: [..._activePlugins] });
+    },
 
-            // 2 — Index
-            const indexRes = await fetch(`${BASE_URL}/index.json`);
-            if (!indexRes.ok) throw new Error('Could not load data/index.json');
-            const dataIndex = await indexRes.json();
+    // ── Data accessors (active plugins only) ──────────
+    getAllShips() {
+        const ships = [];
+        for (const [id, plugin] of Object.entries(_activeData())) {
+            const display = plugin.displayName || id;
+            const isLocal = id === LOCAL_PLUGIN_ID;
+            for (const s of (plugin.ships || [])) {
+                ships.push({ ...s, _pluginName: id, _pluginDisplay: display, _isLocal: isLocal });
+            }
+            for (const s of (plugin.variants || [])) {
+                ships.push({ ...s, _pluginName: id, _pluginDisplay: display, _isVariant: true, _isLocal: isLocal });
+            }
+        }
+        return ships;
+    },
 
-            window.allData = {};
+    getAllOutfits() {
+        const outfits = [];
+        for (const [id, plugin] of Object.entries(_activeData())) {
+            if (id === LOCAL_PLUGIN_ID) continue; // local builds have no outfit defs
+            const display = plugin.displayName || id;
+            for (const o of (plugin.outfits || [])) {
+                outfits.push({ ...o, _pluginName: id, _pluginDisplay: display });
+            }
+        }
+        return outfits;
+    },
 
-            // 3 — Load each plugin
-            for (const [sourceName, pluginList] of Object.entries(dataIndex)) {
-                for (const { outputName, displayName } of pluginList) {
-                    const plugin = {
-                        sourceName,
-                        displayName: displayName || outputName,
-                        outputName,
-                        ships: [], variants: [], outfits: [], effects: [],
-                    };
-                    let loaded = false;
+    getAllEffects() {
+        const effects = [];
+        for (const [id, plugin] of Object.entries(_activeData())) {
+            if (id === LOCAL_PLUGIN_ID) continue;
+            const display = plugin.displayName || id;
+            for (const e of (plugin.effects || [])) {
+                effects.push({ ...e, _pluginName: id, _pluginDisplay: display });
+            }
+        }
+        return effects;
+    },
 
-                    try {
-                        const base = `${BASE_URL}/${outputName}/dataFiles`;
-                        const [shipsRes, variantsRes, outfitsRes, effectsRes] = await Promise.all([
-                            fetch(`${base}/ships.json`),
-                            fetch(`${base}/variants.json`),
-                            fetch(`${base}/outfits.json`),
-                            fetch(`${base}/effects.json`),
-                        ]);
+    refreshLocalBuilds() {
+        _refreshLocalPlugin();
+        _fireEvent('pluginsChanged', { active: [..._activePlugins] });
+    },
 
-                        if (shipsRes.ok)    { plugin.ships    = await shipsRes.json();    loaded = true; }
-                        if (variantsRes.ok) { plugin.variants = await variantsRes.json(); loaded = true; }
-                        if (outfitsRes.ok)  { plugin.outfits  = await outfitsRes.json();  loaded = true; }
-                        if (effectsRes.ok)  { plugin.effects  = await effectsRes.json();  loaded = true; }
+    // ── Attribute helpers ──────────────────────────────
+    getAttrKeys() {
+        if (!window.attrDefs || !window.attrDefs.attributes) return [];
+        return Object.keys(window.attrDefs.attributes).sort();
+    },
 
-                        if (loaded) {
-                            window.allData[outputName] = plugin;
-                        } else {
-                            console.warn(`[DataLoader] ${outputName}: no data files found, skipping`);
-                        }
-                    } catch (err) {
-                        console.warn(`[DataLoader] Failed loading plugin "${outputName}":`, err);
-                    }
+    getAttrDef(key) {
+        if (!window.attrDefs || !window.attrDefs.attributes) return null;
+        return window.attrDefs.attributes[key] || null;
+    },
+
+    getAttrHint(key) {
+        const def = this.getAttrDef(key);
+        if (!def) return '';
+        const parts = [];
+        if (def.displayUnit) parts.push(def.displayUnit);
+        if (def.stacking)    parts.push(def.stacking);
+        return parts.join(' · ');
+    },
+
+    LOCAL_PLUGIN_ID,
+    DEFAULT_PLUGIN,
+};
+
+// ── Persistence for active plugin selection ─────────────────
+const _ACTIVE_KEY = 'es_sb_active_plugins';
+function _saveActivePlugins() {
+    try { localStorage.setItem(_ACTIVE_KEY, JSON.stringify(_activePlugins)); } catch(_) {}
+}
+function _loadActivePlugins() {
+    try { return JSON.parse(localStorage.getItem(_ACTIVE_KEY)); } catch(_) { return null; }
+}
+
+// ── Remote data loader ───────────────────────────────────────
+async function _doLoad() {
+    _loading = true;
+    _fireEvent('dataLoadStart');
+
+    // Seed local builds immediately so the local pseudo-plugin is always available
+    _refreshLocalPlugin();
+
+    try {
+        // 1 — Attribute definitions
+        try {
+            const res = await fetch(`${BASE_URL}/attributeDefinitions.json`);
+            if (res.ok) window.attrDefs = await res.json();
+        } catch (_) {
+            console.warn('[DataLoader] Could not load attributeDefinitions.json');
+        }
+
+        // 2 — Index
+        const indexRes = await fetch(`${BASE_URL}/index.json`);
+        if (!indexRes.ok) throw new Error('Could not load data/index.json');
+        const dataIndex = await indexRes.json();
+
+        // 3 — Load each plugin in parallel per source
+        for (const [sourceName, pluginList] of Object.entries(dataIndex)) {
+            for (const { outputName, displayName } of pluginList) {
+                const plugin = {
+                    sourceName,
+                    displayName: displayName || outputName,
+                    outputName,
+                    ships: [], variants: [], outfits: [], effects: [],
+                };
+                let loaded = false;
+                try {
+                    const base = `${BASE_URL}/${outputName}/dataFiles`;
+                    const [shipsRes, variantsRes, outfitsRes, effectsRes] = await Promise.all([
+                        fetch(`${base}/ships.json`),
+                        fetch(`${base}/variants.json`),
+                        fetch(`${base}/outfits.json`),
+                        fetch(`${base}/effects.json`),
+                    ]);
+                    if (shipsRes.ok)    { plugin.ships    = await shipsRes.json();    loaded = true; }
+                    if (variantsRes.ok) { plugin.variants = await variantsRes.json(); loaded = true; }
+                    if (outfitsRes.ok)  { plugin.outfits  = await outfitsRes.json();  loaded = true; }
+                    if (effectsRes.ok)  { plugin.effects  = await effectsRes.json();  loaded = true; }
+                    if (loaded) window.allData[outputName] = plugin;
+                    else console.warn(`[DataLoader] ${outputName}: no data files, skipping`);
+                } catch (err) {
+                    console.warn(`[DataLoader] Failed loading "${outputName}":`, err);
                 }
             }
-
-            const hasData = Object.values(window.allData).some(p =>
-                p.ships.length > 0 || p.variants.length > 0 || p.outfits.length > 0
-            );
-            if (!hasData) throw new Error('No data could be loaded from any plugin');
-
-            _ready = true;
-            _loading = false;
-
-            // Notify all registered callbacks
-            for (const fn of _callbacks) {
-                try { fn(window.allData); } catch(e) { console.error('[DataLoader] callback error:', e); }
-            }
-            _callbacks = [];
-
-            _fireEvent('dataLoaded', { allData: window.allData, attrDefs: window.attrDefs });
-
-            return window.allData;
-
-        } catch (error) {
-            _loading = false;
-            console.error('[DataLoader] Load failed:', error);
-            _fireEvent('dataLoadError', { message: error.message });
-            throw error;
         }
-    }
 
-    function _fireEvent(name, detail = {}) {
-        document.dispatchEvent(new CustomEvent(name, { detail, bubbles: true }));
+        const hasData = Object.values(window.allData).some(p =>
+            p.ships.length > 0 || p.variants.length > 0 || p.outfits.length > 0
+        );
+        if (!hasData) throw new Error('No data could be loaded from any plugin');
+
+        _ready   = true;
+        _loading = false;
+
+        // Initialise active plugins (restore saved or default)
+        window.DataLoader.initDefaultPlugins();
+
+        for (const fn of _callbacks) {
+            try { fn(window.allData); } catch(e) { console.error('[DataLoader] callback error:', e); }
+        }
+        _callbacks = [];
+
+        _fireEvent('dataLoaded', { allData: window.allData, attrDefs: window.attrDefs });
+        return window.allData;
+
+    } catch (error) {
+        _loading = false;
+        console.error('[DataLoader] Load failed:', error);
+        _fireEvent('dataLoadError', { message: error.message });
+        throw error;
     }
+}
 
 })();
