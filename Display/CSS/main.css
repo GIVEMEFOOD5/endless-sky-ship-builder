@@ -2420,10 +2420,6 @@ h1 {
     .phase-text { min-width: 0; flex: 1 1 160px; }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   Ship Builder — additional styles (append to main.css)
-   ═══════════════════════════════════════════════════════════════ */
-
 /* ── Shared: text-input & select ─────────────────────────────── */
 .text-input, .select-input {
     width: 100%;
@@ -2443,7 +2439,7 @@ h1 {
 }
 .select-input option { background: #1e293b; }
 textarea.text-input { resize: vertical; min-height: 80px; }
-
+ 
 /* ── Shared: extra button variants ───────────────────────────── */
 .btn-success {
     background: var(--c-success);
@@ -2452,14 +2448,14 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 }
 .btn-success:hover { background: rgba(34,197,94,0.35); }
 .btn-xs { padding: 3px 8px; font-size: 0.78rem; }
-
+ 
 /* ── Shared: button groups ────────────────────────────────────── */
 .btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 .btn-group-right { justify-content: flex-end; }
-
+ 
 /* ── Shared: divider ──────────────────────────────────────────── */
 .divider { border: none; border-top: 1px solid var(--c-border); margin: 16px 0; }
-
+ 
 /* ── Shared: modal overlay ────────────────────────────────────── */
 .modal-overlay {
     display: none; position: fixed; inset: 0;
@@ -2491,7 +2487,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .modal-close:hover { color: var(--c-danger-hi); background: rgba(239,68,68,0.20); }
 .confirm-text { color: var(--c-text-mid); margin-bottom: 20px; line-height: 1.6; }
 .import-area { min-height: 200px; font-family: monospace; font-size: 0.82rem; }
-
+ 
 /* ── Toast ────────────────────────────────────────────────────── */
 .toast {
     position: fixed; bottom: 24px; right: 24px; z-index: 2000;
@@ -2506,7 +2502,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .toast.show { transform: translateY(0); opacity: 1; }
 .toast.success { border-color: rgba(34,197,94,0.50); color: var(--c-success-text); }
 .toast.danger  { border-color: rgba(239,68,68,0.50);  color: var(--c-danger-text); }
-
+ 
 /* ── Autocomplete ─────────────────────────────────────────────── */
 .autocomplete-wrap { position: relative; flex: 1; }
 .autocomplete-dropdown {
@@ -2523,7 +2519,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     transition: background var(--t-fast);
 }
 .ac-item:hover, .ac-item.selected { background: rgba(59,130,246,0.15); color: var(--c-text); }
-
+ 
 /* ── Fleet grid & cards ───────────────────────────────────────── */
 .fleet-grid {
     display: grid;
@@ -2557,7 +2553,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     margin-top: 16px;
 }
 .fleet-empty__icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.4; }
-
+ 
 /* ── Builder layout ───────────────────────────────────────────── */
 .builder-layout {
     display: grid;
@@ -2567,12 +2563,12 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 }
 @media (max-width: 900px) { .builder-layout { grid-template-columns: 1fr; } }
 .builder-sidebar { display: flex; flex-direction: column; gap: 16px; }
-
+ 
 .input-group { margin-bottom: 14px; }
 .input-group label { margin-bottom: 6px; font-size: 0.88rem; }
 .input-row { display: flex; gap: 8px; }
 .input-row .text-input { flex: 1; }
-
+ 
 /* ── Attributes panel ─────────────────────────────────────────── */
 .attr-section { margin-bottom: 20px; }
 .attr-section-title {
@@ -2603,7 +2599,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     font-variant-numeric: tabular-nums; text-align: right;
 }
 .attr-val-input:focus { outline: none; border-color: var(--c-accent); }
-
+ 
 /* ── Outfits list ─────────────────────────────────────────────── */
 .outfit-section { margin-bottom: 14px; }
 .outfit-section-title {
@@ -2633,7 +2629,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .outfit-item__count:focus { outline: none; border-color: var(--c-accent); }
 .add-outfit-form { display: flex; gap: 6px; margin-top: 8px; }
 .add-outfit-form .text-input { padding: 6px 10px; font-size: 0.88rem; }
-
+ 
 /* ── Builder tabs ─────────────────────────────────────────────── */
 .builder-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
 .builder-tab {
@@ -2648,7 +2644,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .builder-tab:hover  { background: rgba(59,130,246,0.20); }
 .builder-tab-content { display: none; }
 .builder-tab-content.active { display: block; }
-
+ 
 /* ── Output / raw code box ────────────────────────────────────── */
 .output-box {
     background: rgba(10,18,38,0.95);
@@ -2668,7 +2664,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .output-box::-webkit-scrollbar { width: 6px; height: 6px; }
 .output-box::-webkit-scrollbar-track { background: rgba(15,23,42,0.40); }
 .output-box::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.40); border-radius: 3px; }
-
+ 
 /* ── Quick stats strip ────────────────────────────────────────── */
 .quick-stats {
     display: grid;
@@ -2678,12 +2674,12 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .qs-card { background: var(--c-surface-3); border: 1px solid var(--c-border); border-radius: var(--r-md); padding: 10px 14px; }
 .qs-label { font-size: 0.72rem; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
 .qs-value { font-size: 1.3rem; color: var(--c-accent-text); font-weight: 700; font-variant-numeric: tabular-nums; }
-
+ 
 /* ── Page header (builder pages) ─────────────────────────────── */
 .page-header { margin-bottom: 24px; }
 .page-header h1 { font-size: 2rem; color: var(--c-accent-text); margin-bottom: 6px; }
 .page-header p  { color: var(--c-text-muted); font-size: 1rem; }
-
+ 
 /* ── Ship / Outfit picker rows ────────────────────────────── */
 .sb-picker-group { margin-bottom: 4px; }
 .sb-picker-group-label {
@@ -2712,14 +2708,14 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .sb-picker-row:hover { background: rgba(59,130,246,0.15); }
 .sb-picker-name { font-size: 0.88rem; color: var(--c-text-mid); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sb-picker-meta { font-size: 0.76rem; color: var(--c-text-dim); white-space: nowrap; flex-shrink: 0; }
-
+ 
 /* ── Mode badge ───────────────────────────────────────────── */
 .badge-purple {
     background: rgba(139, 92, 246, 0.20);
     color: #c4b5fd;
     border: 1px solid rgba(139, 92, 246, 0.35);
 }
-
+ 
 /* ── Outfit space bar ─────────────────────────────────────── */
 .sb-space-bar-track {
     height: 8px;
@@ -2735,7 +2731,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     min-width: 2px;
 }
 .qs-card--wide { grid-column: 1 / -1; }
-
+ 
 /* ── Outfit size badge in list ────────────────────────────── */
 .sb-outfit-size {
     font-size: 0.72rem;
@@ -2748,7 +2744,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
 }
-
+ 
 /* ── Picker outfit size badge ─────────────────────────────── */
 .sb-picker-size {
     display: inline-block;
@@ -2769,7 +2765,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 }
 .sb-picker-row--over { opacity: 0.55; }
 .sb-picker-row--over:hover { opacity: 1; }
-
+ 
 /* ── Hardpoint index badge ────────────────────────────────── */
 .sb-hp-idx {
     display: inline-flex;
@@ -2793,6 +2789,51 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     padding: 4px 0 8px;
     border-bottom: 1px solid var(--c-border-2);
     margin-bottom: 8px;
+}
+ 
+/* ── Plugin picker rows ───────────────────────────────────── */
+.sb-pp-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: var(--r-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background var(--t-fast), border-color var(--t-fast);
+    background: rgba(15,23,42,0.30);
+    margin: 1px 4px;
+}
+.sb-pp-row:hover { background: rgba(59,130,246,0.12); }
+.sb-pp-row.active {
+    background: rgba(59,130,246,0.18);
+    border-color: var(--c-border-hi);
+}
+.sb-pp-row input[type="checkbox"]:disabled { opacity: 0.5; cursor: default; }
+ 
+/* ── Active plugin strip ──────────────────────────────────── */
+.sb-plugin-strip {
+    background: var(--c-surface-3);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    padding: 8px 14px;
+    margin-bottom: 16px;
+}
+.sb-active-plugin-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+    background: rgba(59,130,246,0.15);
+    border: 1px solid rgba(59,130,246,0.35);
+    color: var(--c-accent-text);
+    white-space: nowrap;
+}
+.sb-active-plugin-badge--local {
+    background: rgba(34,197,94,0.15);
+    border-color: rgba(34,197,94,0.35);
+    color: var(--c-success-text);
 }
 
 /* ── ≤640px: further compacting ─────────────────────────────── */
