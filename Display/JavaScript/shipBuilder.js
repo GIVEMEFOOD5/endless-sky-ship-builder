@@ -338,6 +338,12 @@ function sbShipFromParsed(src) {
     }
   }
 
+  // Auto-slot all outfits into empty gun/turret ports.
+  // For ships loaded from parsed data, the guns/turrets arrays already have
+  // coordinates but their `over` field may be blank if the parser stored
+  // weapons only in outfitMap. This fills any remaining empty ports in order.
+  sbAutoSlotAllOutfits(s);
+
   return s;
 }
 
@@ -971,20 +977,52 @@ function sbRemoveOutfit(i) {
 }
 
 /**
- * Check whether adding `count` of `outfitName` fits within all capacity limits.
- * Returns true if ok to proceed, false if any capacity would be exceeded.
+ * Called when a ship is first loaded from parsed data.
+ * Walks every outfit and slots weapons into any EMPTY gun/turret ports,
+ * respecting the number of ports each outfit needs and skipping ports
+ * already occupied from the parsed hardpoint data.
+ */
+function sbAutoSlotAllOutfits(s) {
+  // We need sbAllOutfits to be populated for lookups.
+  // If it's empty (data not loaded yet), we skip — the user can re-open the ship later.
+  if (!sbAllOutfits.length) return;
+
+  for (const o of (s.outfits || [])) {
+    const rawName  = o.name.replace(/^"|"$/g, '');
+    const outfitObj = sbFindOutfit(rawName);
+    if (!outfitObj) continue;
+    const count = parseInt(o.count) || 1;
+    const gunCost    = _sbGetPortCost(outfitObj, 'gun ports');
+    const turretCost = _sbGetPortCost(outfitObj, 'turret mounts');
+    if (gunCost    > 0) _sbFillEmptyPorts(s.guns,    rawName, gunCost    * count);
+    if (turretCost > 0) _sbFillEmptyPorts(s.turrets, rawName, turretCost * count);
+  }
+}
+
+/** Count how many empty slots exist in a hardpoint array. */
+function _sbEmptyPortCount(hardpoints) {
+  return (hardpoints || []).filter(hp => !hp.over || hp.over.trim() === '').length;
+}
+
+/**
+ * Check whether adding `count` of `outfitName` fits within:
+ *   1. All capacity limits (outfit space, engine capacity, weapon capacity, cargo space)
+ *   2. Available gun ports  (if outfit uses gun ports)
+ *   3. Available turret mounts (if outfit uses turret mounts)
+ * Returns true if ok, false if blocked (shows a toast).
  */
 function sbCheckOutfitSpace(outfitName, count) {
-  const checks = [
+  // ── Capacity checks ─────────────────────────────────────
+  const capacityChecks = [
     { key: 'outfit space',    label: 'Outfit space',    max: sbMaxOutfitSpace(),    used: sbUsedOutfitSpace() },
     { key: 'engine capacity', label: 'Engine capacity', max: sbMaxEngineCapacity(), used: sbUsedEngineCapacity() },
     { key: 'weapon capacity', label: 'Weapon capacity', max: sbMaxWeaponCapacity(), used: sbUsedWeaponCapacity() },
     { key: 'cargo space',     label: 'Cargo space',     max: sbMaxCargoSpace(),     used: sbUsedCargoSpace() },
   ];
-  for (const c of checks) {
-    if (c.max <= 0) continue; // capacity not defined on this ship — skip
+  for (const c of capacityChecks) {
+    if (c.max <= 0) continue;
     const cost = sbGetOutfitCapacityCost(outfitName, c.key);
-    if (cost <= 0) continue;  // outfit doesn't use this capacity
+    if (cost <= 0) continue;
     const adding  = cost * count;
     const newUsed = c.used + adding;
     if (newUsed > c.max) {
@@ -993,6 +1031,38 @@ function sbCheckOutfitSpace(outfitName, count) {
       return false;
     }
   }
+
+  // ── Port checks ──────────────────────────────────────────
+  const outfitObj = sbFindOutfit(outfitName);
+  if (outfitObj) {
+    const gunCost    = _sbGetPortCost(outfitObj, 'gun ports');
+    const turretCost = _sbGetPortCost(outfitObj, 'turret mounts');
+
+    if (gunCost > 0) {
+      const needed    = gunCost * count;
+      const freeGuns  = _sbEmptyPortCount(sbCurrentShip.guns);
+      if (freeGuns < needed) {
+        sbToast(
+          `Not enough gun ports. Need ${needed} empty port${needed > 1 ? 's' : ''}, only ${freeGuns} available.`,
+          'danger'
+        );
+        return false;
+      }
+    }
+
+    if (turretCost > 0) {
+      const needed       = turretCost * count;
+      const freeTurrets  = _sbEmptyPortCount(sbCurrentShip.turrets);
+      if (freeTurrets < needed) {
+        sbToast(
+          `Not enough turret mounts. Need ${needed} empty mount${needed > 1 ? 's' : ''}, only ${freeTurrets} available.`,
+          'danger'
+        );
+        return false;
+      }
+    }
+  }
+
   return true;
 }
 
@@ -1016,6 +1086,11 @@ function sbOpenOutfitPicker() {
     if (sbMaxEngineCapacity() > 0) lines.push(`Engine: ${caps['engine capacity']} free`);
     if (sbMaxWeaponCapacity() > 0) lines.push(`Weapon: ${caps['weapon capacity']} free`);
     if (sbMaxCargoSpace()     > 0) lines.push(`Cargo: ${caps['cargo space']} free`);
+    // Port counts — always show if ship has any ports at all
+    const freeGuns    = _sbEmptyPortCount(sbCurrentShip.guns);
+    const freeTurrets = _sbEmptyPortCount(sbCurrentShip.turrets);
+    if ((sbCurrentShip.guns    || []).length > 0) lines.push(`Guns: ${freeGuns} port${freeGuns !== 1 ? 's' : ''} free`);
+    if ((sbCurrentShip.turrets || []).length > 0) lines.push(`Turrets: ${freeTurrets} mount${freeTurrets !== 1 ? 's' : ''} free`);
     if (lines.length) {
       spaceInfoEl.textContent = lines.join('  ·  ');
       spaceInfoEl.style.display = '';
@@ -1030,6 +1105,12 @@ function sbOpenOutfitPicker() {
     (byPlugin[key] = byPlugin[key] || []).push(o);
   }
 
+  // Pre-compute available ports for blocking display
+  const freeGunsForPicker    = _sbEmptyPortCount(sbCurrentShip.guns);
+  const freeTurretsForPicker = _sbEmptyPortCount(sbCurrentShip.turrets);
+  const hasGunPorts    = (sbCurrentShip.guns    || []).length > 0;
+  const hasTurretPorts = (sbCurrentShip.turrets || []).length > 0;
+
   list.innerHTML = Object.entries(byPlugin).map(([plugin, outfits]) => `
     <div class="sb-picker-group">
       <div class="sb-picker-group-label">${esc(plugin)}</div>
@@ -1041,6 +1122,8 @@ function sbOpenOutfitPicker() {
         // Build capacity cost badges
         const costBadges = [];
         let wouldBlock = false;
+
+        // Capacity badges (outfit space, engine, weapon, cargo)
         for (const [capKey, free] of Object.entries(caps)) {
           const capCost = sbGetOutfitCapacityCost(name, capKey);
           if (capCost <= 0) continue;
@@ -1054,6 +1137,24 @@ function sbOpenOutfitPicker() {
           };
           costBadges.push(
             `<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${capCost} ${shortLabels[capKey]||capKey}</span>`
+          );
+        }
+
+        // Port badges (gun ports, turret mounts)
+        const gunCost    = _sbGetPortCost(o, 'gun ports');
+        const turretCost = _sbGetPortCost(o, 'turret mounts');
+        if (gunCost > 0 && hasGunPorts) {
+          const over = gunCost > freeGunsForPicker;
+          if (over) wouldBlock = true;
+          costBadges.push(
+            `<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${gunCost} gun${gunCost > 1 ? 's' : ''}</span>`
+          );
+        }
+        if (turretCost > 0 && hasTurretPorts) {
+          const over = turretCost > freeTurretsForPicker;
+          if (over) wouldBlock = true;
+          costBadges.push(
+            `<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${turretCost} turret${turretCost > 1 ? 's' : ''}</span>`
           );
         }
 
