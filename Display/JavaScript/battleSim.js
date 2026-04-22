@@ -7,6 +7,8 @@
 //  All rendering is delegated to battleSimStatsDisplay.js via:
 //      window.BattleSimDisplay.renderResults(payload)
 //
+//  Data loading is fully delegated to dataLoader.js via window.DataLoader.
+//
 //  ZERO HARDCODING POLICY — all damage types, protection keys, resistance keys
 //  and status effect names are read from attributeDefinitions.json via _attrDefs.
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -16,9 +18,6 @@ const MAX_SIM_SECS = 6000;
 const MAX_FRAMES   = MAX_SIM_SECS * FPS;
 const SOLAR_POWER  = 1.0;
 const SHIELD_BLEED_FRACTION = 0.5;
-
-const REPO_URL = 'GIVEMEFOOD5/endless-sky-ship-builder';
-const BASE_URL = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
 
 let _allShips          = [];
 let _outfitIndex       = {};
@@ -55,117 +54,61 @@ const FIRING_STATUS_MAP = {
 };
 
 const FIRING_RESOURCE_KEYS  = ['firing energy', 'firing fuel', 'firing hull', 'firing shields'];
-const MISSILE_STRENGTH_KEY  = 'missile strength';  // fallback if AntiMissileAnalysis not ready
+const MISSILE_STRENGTH_KEY  = 'missile strength';
 function resourceLabel(key) { return key.replace(/^firing\s+/, ''); }
 
 // ── Formatting shims (delegate to display module when available) ───────────────
-const fmt       = (...a) => window.BattleSimDisplay?.fmt(...a)       ?? String(a[0] ?? '—');
-const fmtT      = (...a) => window.BattleSimDisplay?.fmtT(...a)      ?? String(a[0] ?? '—');
-const escHtml   = (...a) => window.BattleSimDisplay?.escHtml(...a)   ?? String(a[0] ?? '');
+const fmt       = (...a) => window.BattleSimDisplay?.fmt(...a)     ?? String(a[0] ?? '—');
+const fmtT      = (...a) => window.BattleSimDisplay?.fmtT(...a)    ?? String(a[0] ?? '—');
+const escHtml   = (...a) => window.BattleSimDisplay?.escHtml(...a) ?? String(a[0] ?? '');
 
-// ── Bootstrap ─────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
+//  BOOTSTRAP — delegate to DataLoader
+// ═══════════════════════════════════════════════════════════════════════════════
+
 async function init() {
     hideResults();
-    await loadData();
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-//  Fetch helpers
-// ─────────────────────────────────────────────────────────────────────────────
-const CACHE_PREFIX      = `es-sim:${REPO_URL}:`;
-const MAX_FETCH_RETRIES = 4;
-
-async function cachedFetchJSON(url) {
-    const cacheKey = CACHE_PREFIX + url;
-    try { const c = sessionStorage.getItem(cacheKey); if (c) return JSON.parse(c); } catch (_) {}
-    let lastErr;
-    for (let attempt = 0; attempt <= MAX_FETCH_RETRIES; attempt++) {
-        if (attempt > 0) {
-            const delay = Math.pow(2, attempt) * 500;
-            setStatus(`Rate limited — retrying in ${(delay/1000).toFixed(1)}s… (${attempt}/${MAX_FETCH_RETRIES})`);
-            await new Promise(r => setTimeout(r, delay));
-        }
-        try {
-            const res = await fetch(url);
-            if (res.status === 429) { lastErr = new Error('429'); continue; }
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
-            try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch (_) {}
-            return data;
-        } catch (err) { lastErr = err; if (!err.message.includes('429')) throw err; }
-    }
-    throw lastErr ?? new Error(`Failed to fetch ${url}`);
-}
-
-async function cachedFetchJSONSoft(url) {
-    const cacheKey = CACHE_PREFIX + url;
-    try { const c = sessionStorage.getItem(cacheKey); if (c) return JSON.parse(c); } catch (_) {}
-    for (let attempt = 0; attempt <= MAX_FETCH_RETRIES; attempt++) {
-        if (attempt > 0) await new Promise(r => setTimeout(r, Math.pow(2, attempt) * 500));
-        try {
-            const res = await fetch(url);
-            if (res.status === 429) continue;
-            if (res.status === 404 || !res.ok) return null;
-            const data = await res.json();
-            try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch (_) {}
-            return data;
-        } catch (_) { return null; }
-    }
-    return null;
-}
-
-async function loadData() {
     setStatus('Loading plugin data…');
-    try {
-        const attrDefs = await cachedFetchJSON(`${BASE_URL}/attributeDefinitions.json`);
-        if (attrDefs) {
-            _attrDefs          = attrDefs;
+
+    // DataLoader handles all fetching, caching and localStorage plugin management.
+    // We register a ready callback so we can pull _attrDefs and wire up the rest.
+    if (!window.DataLoader) {
+        setStatus('Error: dataLoader.js must be loaded before battleSim.js', true);
+        return;
+    }
+
+    window.DataLoader.onReady(() => {
+        // Pull attribute definitions that DataLoader already fetched
+        _attrDefs = window.attrDefs || null;
+        if (_attrDefs) {
             _damageTypes       = _attrDefs?.weapon?.damageTypes || [];
             const sed          = _attrDefs?.weapon?.statusEffectDecay;
             _statusDecayMap    = sed?.decayMap    || {};
             _statusDescriptors = sed?.descriptors || [];
             _weaponDataKeys    = new Set(_attrDefs?.weapon?.dataFileKeys || []);
-            if (typeof initComputedStats === 'function') initComputedStats(_attrDefs, BASE_URL);
-            if (typeof window.DamageTypes?.init === 'function') window.DamageTypes.init(_attrDefs);
-            if (typeof window.MunitionTypes?.init === 'function') window.MunitionTypes.init(() => _outfitIndex, _attrDefs);
+
+            if (typeof initComputedStats       === 'function') initComputedStats(_attrDefs, _baseUrl());
+            if (typeof window.DamageTypes?.init       === 'function') window.DamageTypes.init(_attrDefs);
+            if (typeof window.MunitionTypes?.init     === 'function') window.MunitionTypes.init(() => _outfitIndex, _attrDefs);
             if (typeof window.AntiMissileAnalysis?.init === 'function') window.AntiMissileAnalysis.init(() => _outfitIndex, _attrDefs);
-            if (typeof window.MovementStats?.init === 'function') window.MovementStats.init(_attrDefs);
+            if (typeof window.MovementStats?.init     === 'function') window.MovementStats.init(_attrDefs);
         }
-    } catch (e) { console.warn('Failed to load attributeDefinitions.json:', e.message); }
 
-    let dataIndex;
-    try { dataIndex = await cachedFetchJSON(`${BASE_URL}/index.json`); }
-    catch (err) { setStatus(`Error: ${err.message}`, true); return; }
+        setStatus('');
+        // Wire PluginManager hook so team ships rebuild when active plugins change
+        window._renderCardsFromManager = async () => { await onPluginsChanged(); };
+        // initDefaultPlugin fires pluginsChanged → onPluginsChanged via the hook above
+        window.PluginManager.initDefaultPlugin();
+    });
 
-    window._indexPluginOrder = [];
-    for (const pluginList of Object.values(dataIndex))
-        for (const { outputName } of pluginList)
-            window._indexPluginOrder.push(outputName);
+    // Also rebuild ships/outfits whenever the active plugin set changes
+    document.addEventListener('pluginsChanged', () => onPluginsChanged());
+}
 
-    window.allData = {};
-    for (const [groupName, pluginList] of Object.entries(dataIndex)) {
-        for (const { outputName, displayName, sourceName } of pluginList) {
-            const pluginData = { sourceName: sourceName ?? groupName, displayName, outputName, ships:[], variants:[], outfits:[] };
-            try {
-                const base = `${BASE_URL}/${outputName}/dataFiles`;
-                const [ships, variants, outfits] = await Promise.all([
-                    cachedFetchJSONSoft(`${base}/ships.json`),
-                    cachedFetchJSONSoft(`${base}/variants.json`),
-                    cachedFetchJSONSoft(`${base}/outfits.json`),
-                ]);
-                let loaded = false;
-                if (ships)    { pluginData.ships    = ships;    loaded = true; }
-                if (variants) { pluginData.variants = variants; loaded = true; }
-                if (outfits)  { pluginData.outfits  = outfits;  loaded = true; }
-                if (loaded) window.allData[outputName] = pluginData;
-            } catch (err) { console.warn(`Failed loading plugin ${outputName}:`, err); }
-        }
-    }
-
-    if (!Object.keys(window.allData).length) { setStatus('Error: no plugin data loaded.', true); return; }
-    setStatus('');
-    window._renderCardsFromManager = async () => { await onPluginsChanged(); };
-    await PluginManager.initDefaultPlugin();
+/** Returns the GitHub raw base URL that DataLoader uses — kept in one place. */
+function _baseUrl() {
+    const REPO_URL = 'GIVEMEFOOD5/endless-sky-ship-builder';
+    return `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
 }
 
 function setStatus(msg, isError = false) {
@@ -176,32 +119,46 @@ function setStatus(msg, isError = false) {
     el.style.display = msg ? 'block' : 'none';
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+//  onPluginsChanged — rebuild _allShips and _outfitIndex from DataLoader data
+// ─────────────────────────────────────────────────────────────────────────────
+
 async function onPluginsChanged() {
-    _allShips = []; _outfitIndex = {};
-    const activePlugins = PluginManager.getActivePlugins();
+    _allShips    = [];
+    _outfitIndex = {};
+
+    const activePlugins = window.PluginManager.getActivePlugins();
     const allData       = window.allData || {};
-    const indexOrder    = window._indexPluginOrder || [];
-    const searchOrder   = [
+
+    // Build outfit index: active plugins take priority for name resolution,
+    // then fall back to every other loaded plugin so cross-plugin submunitions work.
+    const indexOrder = window._indexPluginOrder || [];
+    const searchOrder = [
         ...activePlugins,
         ...indexOrder.filter(id => !activePlugins.includes(id) && allData[id]),
         ...Object.keys(allData).filter(id => !activePlugins.includes(id) && !indexOrder.includes(id)),
     ];
+
     for (const pid of searchOrder) {
         const d = allData[pid]; if (!d) continue;
         for (const outfit of (d.outfits || []))
             if (outfit.name && !_outfitIndex[outfit.name])
                 _outfitIndex[outfit.name] = { ...outfit, _pluginId: pid };
     }
+
+    // Ships come only from active plugins (including Local Builds)
     for (const pid of activePlugins) {
         const d = allData[pid]; if (!d) continue;
         for (const ship of [...(d.ships || []), ...(d.variants || [])])
             _allShips.push({ ...ship, _pluginId: pid });
     }
-    const primaryPlugin = activePlugins[0] || null;
+
+    const primaryPlugin = window.PluginManager.getPrimaryPlugin();
     if (primaryPlugin) {
-        if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primaryPlugin);
-        if (typeof window.initImageIndex    === 'function') await window.initImageIndex(primaryPlugin);
+        if (typeof window.setCurrentPlugin === 'function') window.setCurrentPlugin(primaryPlugin);
+        if (typeof window.initImageIndex   === 'function') await window.initImageIndex(primaryPlugin);
     }
+
     document.getElementById('simPanel').style.display = 'block';
     renderAllTeams();
     updateSimButton();
@@ -585,7 +542,7 @@ function analyzeWeapons(weapons) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  AMMO / FIRING HELPERS
+//  AMMO / FIRING HELPERS  (unchanged from original)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function _isNegativeCapacityAmmo(outfit, outfitName) {
@@ -650,7 +607,7 @@ function consumeFiringCosts(w, st) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  SUSTAIN EVENT TRACKING
+//  SUSTAIN EVENT TRACKING  (unchanged)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function _isAmmoReason(r) { return typeof r === 'string' && r.startsWith('ammo:'); }
@@ -718,7 +675,7 @@ function checkWeaponSustainEvents(st, stats, side, t, sus, phases) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  COMBAT SIMULATION CORE
+//  COMBAT SIMULATION CORE  (unchanged)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function createCombatantState(stats) {
@@ -744,8 +701,7 @@ function createCombatantState(stats) {
 async function simulateBattle(sA, sB, onProgress) {
     const result = { winner:null, ttkA:Infinity, ttkB:Infinity,
         projectedTtkA:null, projectedTtkB:null, phases:[], warnings:[],
-        interceptsA: 0,  // missiles fired at A that were intercepted by A's AM
-        interceptsB: 0,  // missiles fired at B that were intercepted by B's AM
+        interceptsA: 0, interceptsB: 0,
     };
     const stA = createCombatantState(sA);
     const stB = createCombatantState(sB);
@@ -777,22 +733,18 @@ async function simulateBattle(sA, sB, onProgress) {
         if (!stA.disabled && !stA.destroyed) checkWeaponSustainEvents(stA, sA, 'A', t, susA, result.phases);
         if (!stB.disabled && !stB.destroyed) checkWeaponSustainEvents(stB, sB, 'B', t, susB, result.phases);
 
-        // Per-frame missile queues: A fires at B, B fires at A
         const missilesVsB = [];
         const missilesVsA = [];
 
         const preShieldsA = stA.shields, preHullA = stA.hull;
         const preShieldsB = stB.shields, preHullB = stB.hull;
 
-        // Offensive fire: missiles go to queues, direct weapons hit immediately
         if (!stA.disabled && !stA.destroyed) shootFrame(stA, stB, sA, missilesVsB);
         if (!stB.disabled && !stB.destroyed) shootFrame(stB, stA, sB, missilesVsA);
 
-        // Anti-missile resolution: defenders attempt to intercept queued missiles
         if (!stB.disabled && !stB.destroyed) resolveAntiMissile(stB, sB, missilesVsB, result, 'B');
         if (!stA.disabled && !stA.destroyed) resolveAntiMissile(stA, sA, missilesVsA, result, 'A');
 
-        // Apply surviving missiles
         applyQueuedMissiles(missilesVsB, stB);
         applyQueuedMissiles(missilesVsA, stA);
 
@@ -853,11 +805,8 @@ async function simulateBattle(sA, sB, onProgress) {
         result.winner = 'draw';
         result.phases.push({ time:finalT, type:'neutral', icon:'🤝', text:'Neither side could disable the other — draw.' });
     } else if (aKilled && bKilled) {
-        if (Math.abs(result.ttkA - result.ttkB) < (1 / FPS)) {
-            result.winner = 'draw';
-        } else {
-            result.winner = result.ttkB < result.ttkA ? 'A' : 'B';
-        }
+        result.winner = Math.abs(result.ttkA - result.ttkB) < (1 / FPS) ? 'draw'
+            : result.ttkB < result.ttkA ? 'A' : 'B';
     } else {
         result.winner = bKilled ? 'A' : 'B';
     }
@@ -875,7 +824,6 @@ async function simulateBattle(sA, sB, onProgress) {
 
     result.phases.sort((a, b) => a.time - b.time);
 
-    // Missile intercept summary — only shown when relevant
     const defenderHasAM  = s => s.weapons.some(w => (w['anti-missile'] || 0) > 0);
     const attackerHasMsl = s => s.weapons.some(w =>
         (w.homing || 0) > 0 ||
@@ -885,146 +833,80 @@ async function simulateBattle(sA, sB, onProgress) {
     );
 
     if (defenderHasAM(sA) && attackerHasMsl(sB) && result.interceptsA > 0) {
-        result.phases.push({
-            time: Infinity, type: 'A', icon: '🛡',
-            text: `<strong>${escHtml(sA.name)}</strong> intercepted <strong>${result.interceptsA}</strong> missile${result.interceptsA !== 1 ? 's' : ''} during the battle`,
-        });
+        result.phases.push({ time: Infinity, type: 'A', icon: '🛡',
+            text: `<strong>${escHtml(sA.name)}</strong> intercepted <strong>${result.interceptsA}</strong> missile${result.interceptsA !== 1 ? 's' : ''} during the battle` });
     }
     if (defenderHasAM(sB) && attackerHasMsl(sA) && result.interceptsB > 0) {
-        result.phases.push({
-            time: Infinity, type: 'B', icon: '🛡',
-            text: `<strong>${escHtml(sB.name)}</strong> intercepted <strong>${result.interceptsB}</strong> missile${result.interceptsB !== 1 ? 's' : ''} during the battle`,
-        });
+        result.phases.push({ time: Infinity, type: 'B', icon: '🛡',
+            text: `<strong>${escHtml(sB.name)}</strong> intercepted <strong>${result.interceptsB}</strong> missile${result.interceptsB !== 1 ? 's' : ''} during the battle` });
     }
 
     result.phases.sort((a, b) => a.time - b.time);
-    
     return result;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  shootFrame — offensive weapons only; AM weapons tick their reload here
-//               but fire reactively in resolveAntiMissile instead.
-//               Missile-type weapons (homing or missile strength > 0) go into
-//               missileQueue so they can be intercepted before dealing damage.
-// ─────────────────────────────────────────────────────────────────────────────
 function shootFrame(attSt, defSt, attStats, missileQueue) {
     if (attSt.isOverheated) return;
     for (let i = 0; i < attStats.weapons.length; i++) {
         const w = attStats.weapons[i];
-
-        // Anti-missile weapons are handled reactively — just tick their reload
         if ((w['anti-missile'] || 0) > 0) {
             if (attSt.weaponReloadCounters[i] > 0) attSt.weaponReloadCounters[i]--;
             continue;
         }
-
         if (attSt.weaponReloadCounters[i] > 0) { attSt.weaponReloadCounters[i]--; continue; }
-
         const reload      = Math.max(1, w.reload || 1);
         const burstCount  = w['burst count']  || 1;
         const burstReload = w['burst reload'] || reload;
-
-        if (canWeaponFire(w, attSt, attStats) !== null) {
-            advanceBurst(attSt, i, burstCount, burstReload, reload);
-            continue;
-        }
-
+        if (canWeaponFire(w, attSt, attStats) !== null) { advanceBurst(attSt, i, burstCount, burstReload, reload); continue; }
         const scrambling = attSt.statusEffects.scrambling || 0;
-        if (scrambling > 0.1 && Math.random() < (1 - Math.pow(2, -scrambling / 70))) {
-            advanceBurst(attSt, i, burstCount, burstReload, reload);
-            continue;
-        }
-
+        if (scrambling > 0.1 && Math.random() < (1 - Math.pow(2, -scrambling / 70))) { advanceBurst(attSt, i, burstCount, burstReload, reload); continue; }
         consumeFiringCosts(w, attSt);
         for (const [statName, firingKey] of Object.entries(FIRING_STATUS_MAP)) {
             const val = w[firingKey] || 0;
             if (val > 0) attSt.statusEffects[statName] = (attSt.statusEffects[statName] || 0) + val;
         }
-
-        // Route homing/missile-strength weapons to the intercept queue
         const resolvedMS = typeof window.AntiMissileAnalysis?.resolveEffectiveMissileStrength === 'function'
             ? window.AntiMissileAnalysis.resolveEffectiveMissileStrength(w)
             : (w['missile strength'] || 0);
         const isMissile = (w.homing || 0) > 0 || resolvedMS > 0;
         if (isMissile && missileQueue) {
-            missileQueue.push({
-                weapon:     w,
-                multiplier: 1,
-                visited:    new Set([w._name].filter(Boolean)),
-                depth:      0,
-                intercepted: false,
-            });
+            missileQueue.push({ weapon: w, multiplier: 1, visited: new Set([w._name].filter(Boolean)), depth: 0, intercepted: false });
         } else {
-            const visited = new Set([w._name].filter(Boolean));
-            applyWeaponDamage(w, defSt, defSt.stats, 1, visited, 0);
+            applyWeaponDamage(w, defSt, defSt.stats, 1, new Set([w._name].filter(Boolean)), 0);
         }
-
         advanceBurst(attSt, i, burstCount, burstReload, reload);
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  resolveAntiMissile
-//  For each queued missile, every AM weapon on the defender that is off cooldown
-//  gets one independent intercept roll.  First success destroys the missile.
-//  Respects reload/burst cycles — AM weapons that just fired are on cooldown.
-//
-//  Missile strength is resolved via AntiMissileAnalysis.resolveEffectiveMissileStrength
-//  which walks the submunition tree — because the strength lives on the projectile
-//  (e.g. Active Finisher), not the launcher (e.g. Finisher Maegrolain).
-// ─────────────────────────────────────────────────────────────────────────────
 function resolveAntiMissile(defenderSt, defenderStats, missileQueue, result, side) {
     if (!missileQueue || missileQueue.length === 0) return;
-
     const weapons = defenderStats.weapons;
-
     for (const entry of missileQueue) {
         if (entry.intercepted) continue;
-
-        // Resolve missile strength from the projectile/submunition tree, not the launcher
         const ms = typeof window.AntiMissileAnalysis?.resolveEffectiveMissileStrength === 'function'
             ? Math.max(0, window.AntiMissileAnalysis.resolveEffectiveMissileStrength(entry.weapon))
             : Math.max(0, entry.weapon[MISSILE_STRENGTH_KEY] || 0);
-
         for (let i = 0; i < weapons.length; i++) {
             const w = weapons[i];
             const amStr = w['anti-missile'] || 0;
             if (amStr <= 0) continue;
-
-            // Only fire if this AM weapon's reload counter has reached zero
             if (defenderSt.weaponReloadCounters[i] > 0) continue;
-
-            // Check the defender can actually power this shot
             if (canWeaponFire(w, defenderSt, defenderStats) !== null) continue;
-
-            // Intercept roll: P = amStr / (amStr + missileStrength)
             const p = amStr / (amStr + ms);
             if (Math.random() < p) {
                 entry.intercepted = true;
                 if (result && side) result['intercepts' + side]++;
                 consumeFiringCosts(w, defenderSt);
-                // Advance AM weapon's reload so it can't fire again this frame
-                const reload      = Math.max(1, w.reload || 1);
-                const burstCount  = w['burst count']  || 1;
-                const burstReload = w['burst reload'] || reload;
-                advanceBurst(defenderSt, i, burstCount, burstReload, reload);
+                advanceBurst(defenderSt, i, w['burst count'] || 1, w['burst reload'] || Math.max(1, w.reload || 1), Math.max(1, w.reload || 1));
                 break;
             } else {
-                // Missed — still consume the shot and enter cooldown
                 consumeFiringCosts(w, defenderSt);
-                const reload      = Math.max(1, w.reload || 1);
-                const burstCount  = w['burst count']  || 1;
-                const burstReload = w['burst reload'] || reload;
-                advanceBurst(defenderSt, i, burstCount, burstReload, reload);
+                advanceBurst(defenderSt, i, w['burst count'] || 1, w['burst reload'] || Math.max(1, w.reload || 1), Math.max(1, w.reload || 1));
             }
         }
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  applyQueuedMissiles — apply damage for every missile that survived AM
-// ─────────────────────────────────────────────────────────────────────────────
 function applyQueuedMissiles(missileQueue, defSt) {
     for (const entry of missileQueue) {
         if (entry.intercepted) continue;
@@ -1050,9 +932,7 @@ function applyWeaponDamage(w, defSt, defStats, multiplier, visited, depth) {
     multiplier = multiplier || 1; depth = depth || 0;
     if (depth > 8) return;
     _applyDirectDamage(w, defSt, defStats, multiplier);
-    const subRefs = resolveSubmunitionRefs(w);
-    if (!subRefs.length) return;
-    for (const { subName, subCount } of subRefs) {
+    for (const { subName, subCount } of resolveSubmunitionRefs(w)) {
         if (!subName || (visited && visited.has(subName))) continue;
         const subOutfit = _outfitIndex[subName];
         if (!subOutfit?.weapon) continue;
@@ -1200,7 +1080,7 @@ function projectSurvival(stats, finalState, avgShieldDps, avgHullDps) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  TEAM MANAGEMENT
+//  TEAM MANAGEMENT  (unchanged)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function createTeam(name) {
@@ -1254,7 +1134,7 @@ function renameTeam(teamId, newName) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  SHIP SEARCH
+//  SHIP SEARCH  (unchanged)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const _blurTimers = {};
@@ -1273,7 +1153,7 @@ function searchShipsForTeam(teamId, query) {
         for (const ship of hits) {
             const row = document.createElement('div');
             row.className = 'ship-dropdown-item';
-            const pl = (window.allData?.[ship._pluginId].displayName || window.allData?.[ship._pluginId]?.sourceName) || '';
+            const pl = (window.allData?.[ship._pluginId]?.displayName || window.allData?.[ship._pluginId]?.sourceName) || '';
             row.innerHTML = `<span>${escHtml(ship.name)}</span><span class="sdi-plugin">${escHtml(pl)}</span>`;
             row.onmousedown = () => {
                 const countEl = document.getElementById('addCount_' + teamId);
@@ -1301,17 +1181,14 @@ function blurTeamDropdown(teamId) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  RENDERING — TEAM CARDS
+//  RENDERING — TEAM CARDS  (unchanged)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function renderAllTeams() {
     const container = document.getElementById('teamsContainer');
     if (!container) return;
     container.innerHTML = '';
-    for (const team of _teams) {
-        const card = createTeamCardElement(team);
-        container.appendChild(card);
-    }
+    for (const team of _teams) container.appendChild(createTeamCardElement(team));
     const addBtn = document.getElementById('addTeamBtn');
     if (addBtn) addBtn.style.display = _teams.length >= 30 ? 'none' : '';
 }
@@ -1319,8 +1196,7 @@ function renderAllTeams() {
 function renderTeamCard(team) {
     const existing = document.getElementById('teamCard_' + team.id);
     if (!existing) { renderAllTeams(); return; }
-    const fresh = createTeamCardElement(team);
-    existing.replaceWith(fresh);
+    existing.replaceWith(createTeamCardElement(team));
 }
 
 function createTeamCardElement(team) {
@@ -1396,7 +1272,7 @@ function createTeamCardElement(team) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  SIMULATION RUNNER  — delegates all rendering to BattleSimDisplay
+//  SIMULATION RUNNER  (unchanged)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function updateSimButton() {
@@ -1428,7 +1304,6 @@ async function runSimulation() {
         window.BattleSimDisplay.showProgressModal(cancelSimulation);
 
     await new Promise(r => setTimeout(r, 30));
-
     _simCancelled = false;
 
     try {
@@ -1441,16 +1316,9 @@ async function runSimulation() {
             return merged;
         });
 
-        const payload = {
-            damageTypes: _damageTypes,
-            outfitIndex: _outfitIndex,
-            attrDefs:    _attrDefs,
-            teamStats,
-        };
-
+        const payload = { damageTypes: _damageTypes, outfitIndex: _outfitIndex, attrDefs: _attrDefs, teamStats };
         const updateProgress = typeof window.BattleSimDisplay?.updateProgressModal === 'function'
-            ? window.BattleSimDisplay.updateProgressModal
-            : () => {};
+            ? window.BattleSimDisplay.updateProgressModal : () => {};
 
         if (teamStats.length === 2) {
             const nameA = teamStats[0].name, nameB = teamStats[1].name;
@@ -1465,22 +1333,16 @@ async function runSimulation() {
             let totalFights = 0;
             for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) totalFights++;
             let fightsDone = 0;
-
             const matrix = [];
             for (let i = 0; i < n; i++) matrix[i] = new Array(n).fill(null);
-
             for (let i = 0; i < n; i++) {
                 for (let j = i + 1; j < n; j++) {
                     const nameA = teamStats[i].name, nameB = teamStats[j].name;
                     const overallLabel = `Fight ${fightsDone + 1} of ${totalFights}: ${nameA} vs ${nameB}`;
                     updateProgress((fightsDone / totalFights) * 100, overallLabel, 0, 'Starting…');
-                    const result = await simulateBattle(teamStats[i], teamStats[j], (fightPct, fightLabel) => {
-                        updateProgress(
-                            (fightsDone / totalFights) * 100 + fightPct / totalFights,
-                            overallLabel, fightPct, fightLabel
-                        );
+                    matrix[i][j] = await simulateBattle(teamStats[i], teamStats[j], (fightPct, fightLabel) => {
+                        updateProgress((fightsDone / totalFights) * 100 + fightPct / totalFights, overallLabel, fightPct, fightLabel);
                     });
-                    matrix[i][j] = result;
                     fightsDone++;
                 }
             }
@@ -1489,28 +1351,21 @@ async function runSimulation() {
             payload.results = matrix;
         }
 
-        if (typeof window.BattleSimDisplay?.renderResults === 'function') {
+        if (typeof window.BattleSimDisplay?.renderResults === 'function')
             window.BattleSimDisplay.renderResults(payload);
-        } else {
+        else
             setStatus('Display module missing.', true);
-        }
 
     } catch (err) {
-        if (err.message === 'CANCELLED') {
-            setStatus('Simulation cancelled.', false);
-        } else {
-            console.error('runSimulation error:', err);
-            setStatus('Simulation error: ' + err.message, true);
-        }
+        if (err.message === 'CANCELLED') setStatus('Simulation cancelled.', false);
+        else { console.error('runSimulation error:', err); setStatus('Simulation error: ' + err.message, true); }
     } finally {
         if (typeof window.BattleSimDisplay?.hideProgressModal === 'function')
             window.BattleSimDisplay.hideProgressModal();
     }
 }
 
-function cancelSimulation() {
-    _simCancelled = true;
-}
+function cancelSimulation() { _simCancelled = true; }
 
 // ── Public API ─────────────────────────────────────────────────────────────────
 window.searchShipsForTeam  = searchShipsForTeam;
@@ -1524,8 +1379,7 @@ window.runSimulation       = runSimulation;
 window.cancelSimulation    = cancelSimulation;
 
 window.addNewTeam = function() {
-    const teamNumber = _teams.length + 1;
-    createTeam('Team ' + teamNumber);
+    createTeam('Team ' + (_teams.length + 1));
     renderAllTeams();
     updateSimButton();
 };
@@ -1537,6 +1391,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btn = document.getElementById('fightBtn');
     if (btn) btn.addEventListener('click', runSimulation);
+
+    // DataLoader must be loaded first — it seeds window.allData and window.attrDefs
     init();
 });
 
