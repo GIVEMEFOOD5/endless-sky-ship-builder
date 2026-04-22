@@ -2853,6 +2853,41 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     .sim-vs    { font-size: 1.8rem; padding: 6px 0; }
 }
 
+/* Group header for Local Builds — slightly different colour to stand out */
+.plugin-picker-group-header--local {
+    background: linear-gradient(90deg, rgba(59,130,246,0.18) 0%, transparent 100%);
+    color: #93c5fd;
+    border-left: 3px solid #3b82f6;
+    padding-left: 9px;
+}
+ 
+/* Row highlight for Local Builds entry */
+.plugin-picker-row--local {
+    border-left: 2px solid #3b82f6;
+}
+ 
+/* ── Local Builds — active plugin list ────────────────────────────────── */
+ 
+/* Slightly tinted row so it's visually distinct from remote plugins */
+.sorter-row--local {
+    background: rgba(59, 130, 246, 0.08);
+    border-left: 3px solid #3b82f6;
+    padding-left: 9px;
+}
+ 
+/* "📌 pinned first" badge */
+.sorter-pin-badge {
+    font-size: 0.72rem;
+    color: #60a5fa;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-left: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
 /* ── ≤600px: small phone ─────────────────────────────────────── */
 @media (max-width: 600px) {
     .list-row__label { min-width: 90px; font-size: 0.85rem; }
