@@ -40,12 +40,12 @@ function sbRefreshLiveData() {
   _sbOutfitLookup = null; // clear lookup cache
   const DL = window.DataLoader;
   if (DL && DL.isReady()) {
+    // getAllShips / getAllOutfits already filter to active plugins
     sbAllShips   = DL.getAllShips().map(s => ({ ...s, _pn: s._pluginName, _pd: s._pluginDisplay }));
     sbAllOutfits = DL.getAllOutfits().map(o => ({ ...o, _pn: o._pluginName, _pd: o._pluginDisplay }));
     const defKeys = DL.getAttrKeys();
     sbAttrKeys   = [...new Set([..._SB_ATTR_FALLBACK, ...defKeys])].sort();
   } else {
-    // DataLoader not ready yet — use fallback keys, empty ship/outfit lists
     sbAllShips   = [];
     sbAllOutfits = [];
     sbAttrKeys   = [..._SB_ATTR_FALLBACK].sort();
@@ -1736,6 +1736,10 @@ function saveShip() {
   if (sbEditIdx === -1) { sbFleet.push(JSON.parse(JSON.stringify(sbCurrentShip))); sbEditIdx = sbFleet.length - 1; }
   else sbFleet[sbEditIdx] = JSON.parse(JSON.stringify(sbCurrentShip));
   sbSave();
+  // Keep local builds pseudo-plugin in sync
+  if (window.DataLoader && window.DataLoader.refreshLocalBuilds) {
+    window.DataLoader.refreshLocalBuilds();
+  }
   const titleEl = document.getElementById('builder-page-title');
   if (titleEl) titleEl.textContent = `✏️ Editing: ${sbCurrentShip.name}`;
   sbToast('Ship saved!', 'success');
@@ -1820,11 +1824,12 @@ document.addEventListener('DOMContentLoaded', () => {
       sbToast('Game data loaded — ship & outfit pickers ready.', 'success');
     });
   } else {
-    // DataLoader not present on this page — silently fall back to empty lists
     console.warn('[shipBuilder] dataLoader.js not loaded — outfit/ship pickers will be empty.');
   }
 
-  // Also refresh on the custom event in case DataLoader was already ready
-  // before this listener registered
-  document.addEventListener('dataLoaded', () => sbRefreshLiveData());
+  // Refresh when active plugins change (user toggled plugin picker)
+  document.addEventListener('pluginsChanged', () => sbRefreshLiveData());
+
+  // Refresh when remote data fully loads
+  document.addEventListener('dataLoaded',    () => sbRefreshLiveData());
 });
