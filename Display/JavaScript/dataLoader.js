@@ -100,11 +100,16 @@ function _buildLocalPlugin() {
             thumbnail:   s.thumbnail || '',
             description: s.description || '',
             attributes,
-            // outfitMap: keys are outfit names, values are counts (integers)
+            // outfitMap: keys are outfit names (unquoted),
+            // values are { count, pluginId } so battleSim can find the outfit
+            // data even when that plugin isn't currently active.
             outfitMap: Object.fromEntries(
                 (s.outfits || []).map(o => [
                     o.name.replace(/^"|"$/g, ''),
-                    parseInt(o.count) || 1,
+                    {
+                        count:    parseInt(o.count)    || 1,
+                        pluginId: o.pluginId           || null,
+                    },
                 ])
             ),
             guns: (s.guns || []).map(g => ({
