@@ -212,7 +212,19 @@ function extractOutfitAttributes(outfit) {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function resolveShipStats(ship) {
-    const combined            = { ...(ship.attributes || {}) };
+    // Coerce all attribute values to numbers up-front.
+    // shipBuilder.js stores attributes as strings in localStorage (e.g. "400"),
+    // so local-build ships arrive here with string values. Any string that is a
+    // valid finite number becomes a number; genuine strings (e.g. category) stay.
+    const rawAttrs = ship.attributes || {};
+    const combined = {};
+    for (const [k, v] of Object.entries(rawAttrs)) {
+        if (v === null || v === undefined) continue;
+        if (typeof v === 'object') { combined[k] = v; continue; }
+        const n = Number(v);
+        combined[k] = (String(v).trim() !== '' && isFinite(n)) ? n : v;
+    }
+
     const weapons             = [];
     const outfitContributions = {};
 
@@ -235,6 +247,15 @@ function resolveShipStats(ship) {
                 outfitContributions[key].sources.push({ name: outfitName, qty, perUnit: rawVal });
             }
         }
+    }
+
+    // Also pick up mass/drag stored at the ship top level (shipBuilder stores them
+    // separately from attributes; older local builds may not have them in combined yet).
+    if (combined['mass'] == null && ship.mass != null && ship.mass !== '') {
+        const n = Number(ship.mass); if (isFinite(n)) combined['mass'] = n;
+    }
+    if (combined['drag'] == null && ship.drag != null && ship.drag !== '') {
+        const n = Number(ship.drag); if (isFinite(n)) combined['drag'] = n;
     }
 
     const a = k => combined[k] || 0;
