@@ -46,6 +46,34 @@ let _activePlugins = []; // ordered outputNames
 window.allData  = window.allData  || {};
 window.attrDefs = window.attrDefs || null;
 
+// ── Attribute value coercion ───────────────────────────────
+//
+// shipBuilder.js stores ALL attribute values as strings in localStorage
+// (e.g. shields: "400", not shields: 400). battleSim.js and other consumers
+// expect numbers. This helper converts a flat attributes object so every
+// value that looks like a plain number becomes one, while genuine string
+// values (e.g. category: "Light Warship") stay as strings.
+// Nested objects (licenses, weapon) are left untouched.
+
+function _coerceAttrs(attrs) {
+    if (!attrs || typeof attrs !== 'object') return {};
+    const out = {};
+    for (const [k, v] of Object.entries(attrs)) {
+        if (v === null || v === undefined) continue;
+        if (typeof v === 'object') {
+            // Preserve nested objects (licenses, weapon sub-block) as-is
+            out[k] = v;
+            continue;
+        }
+        const str = String(v).trim();
+        const n   = Number(str);
+        // Only coerce if the whole string is a valid finite number
+        // (avoids turning "Light Warship" → NaN)
+        out[k] = (str !== '' && isFinite(n)) ? n : str;
+    }
+    return out;
+}
+
 // ── Local builds pseudo-plugin ─────────────────────────────
 function _buildLocalPlugin() {
     let fleet = [];
@@ -54,28 +82,59 @@ function _buildLocalPlugin() {
         if (raw) fleet = JSON.parse(raw);
     } catch (_) {}
 
-    // Convert saved ship objects into a shape that matches the parsed data format
-    // so the ship picker can display them.
-    const ships = fleet.map(s => ({
-        name:        s.name || 'Unnamed',
-        variant:     s.variant || '',
-        sprite:      s.sprite || '',
-        thumbnail:   s.thumbnail || '',
-        description: s.description || '',
-        attributes:  Object.assign({}, s.attributes || {}, {
-            mass: s.mass || undefined,
-            drag: s.drag || undefined,
-        }),
-        outfitMap:  Object.fromEntries((s.outfits || []).map(o => [o.name.replace(/^"|"$/g,''), o.count])),
-        guns:       (s.guns    || []).map(g => ({ x: parseFloat((g.coords||'0').split(' ')[0])||0, y: parseFloat((g.coords||'0').split(' ')[1])||0, gun: g.over||'' })),
-        turrets:    (s.turrets || []).map(g => ({ x: parseFloat((g.coords||'0').split(' ')[0])||0, y: parseFloat((g.coords||'0').split(' ')[1])||0, turret: g.over||'' })),
-        bays:       [
-            ...(s.drones   || []).map(b => ({ type:'Drone',   x: parseFloat((b.coords||'0').split(' ')[0])||0, y: parseFloat((b.coords||'0').split(' ')[1])||0, 'launch effect': b.launchEffect||'' })),
-            ...(s.fighters || []).map(b => ({ type:'Fighter', x: parseFloat((b.coords||'0').split(' ')[0])||0, y: parseFloat((b.coords||'0').split(' ')[1])||0, 'launch effect': b.launchEffect||'' })),
-        ],
-        _isLocalBuild: true,
-        _localId: s.id,
-    }));
+    const ships = fleet.map(s => {
+        // Coerce all attribute strings to numbers so consumers (battleSim, etc.)
+        // don't receive string values where numbers are expected.
+        const rawAttrs = Object.assign({}, s.attributes || {});
+
+        // mass / drag are stored at the top level in shipBuilder, not in attributes
+        if (s.mass != null && s.mass !== '') rawAttrs.mass = s.mass;
+        if (s.drag != null && s.drag !== '') rawAttrs.drag = s.drag;
+
+        const attributes = _coerceAttrs(rawAttrs);
+
+        return {
+            name:        s.name || 'Unnamed',
+            variant:     s.variant || '',
+            sprite:      s.sprite || '',
+            thumbnail:   s.thumbnail || '',
+            description: s.description || '',
+            attributes,
+            // outfitMap: keys are outfit names, values are counts (integers)
+            outfitMap: Object.fromEntries(
+                (s.outfits || []).map(o => [
+                    o.name.replace(/^"|"$/g, ''),
+                    parseInt(o.count) || 1,
+                ])
+            ),
+            guns: (s.guns || []).map(g => ({
+                x:   parseFloat((g.coords || '0').split(' ')[0]) || 0,
+                y:   parseFloat((g.coords || '0').split(' ')[1]) || 0,
+                gun: g.over || '',
+            })),
+            turrets: (s.turrets || []).map(g => ({
+                x:      parseFloat((g.coords || '0').split(' ')[0]) || 0,
+                y:      parseFloat((g.coords || '0').split(' ')[1]) || 0,
+                turret: g.over || '',
+            })),
+            bays: [
+                ...(s.drones || []).map(b => ({
+                    type:            'Drone',
+                    x:               parseFloat((b.coords || '0').split(' ')[0]) || 0,
+                    y:               parseFloat((b.coords || '0').split(' ')[1]) || 0,
+                    'launch effect': b.launchEffect || '',
+                })),
+                ...(s.fighters || []).map(b => ({
+                    type:            'Fighter',
+                    x:               parseFloat((b.coords || '0').split(' ')[0]) || 0,
+                    y:               parseFloat((b.coords || '0').split(' ')[1]) || 0,
+                    'launch effect': b.launchEffect || '',
+                })),
+            ],
+            _isLocalBuild: true,
+            _localId: s.id,
+        };
+    });
 
     return {
         sourceName:  'Local Builds',
@@ -135,9 +194,9 @@ window.DataLoader = {
         const remote = Object.entries(window.allData)
             .filter(([id]) => id !== LOCAL_PLUGIN_ID)
             .map(([id, p]) => ({
-                outputName:  id,
-                displayName: p.displayName || id,
-                sourceName:  p.sourceName  || id,
+                outputName:   id,
+                displayName:  p.displayName || id,
+                sourceName:   p.sourceName  || id,
                 shipCount:    (p.ships    || []).length,
                 variantCount: (p.variants || []).length,
                 outfitCount:  (p.outfits  || []).length,
@@ -147,15 +206,15 @@ window.DataLoader = {
             }));
         return [
             {
-                outputName:  LOCAL_PLUGIN_ID,
-                displayName: 'Local Builds',
-                sourceName:  'Local Builds',
-                shipCount:   local.ships.length,
-                variantCount:0,
-                outfitCount: 0,
-                effectCount: 0,
-                isLocal:     true,
-                isDefault:   false,
+                outputName:   LOCAL_PLUGIN_ID,
+                displayName:  'Local Builds',
+                sourceName:   'Local Builds',
+                shipCount:    local.ships.length,
+                variantCount: 0,
+                outfitCount:  0,
+                effectCount:  0,
+                isLocal:      true,
+                isDefault:    false,
             },
             ...remote,
         ];
@@ -165,7 +224,6 @@ window.DataLoader = {
 
     setActivePlugins(arr) {
         // Local Builds is always in the list if it has ships
-        const local = _buildLocalPlugin();
         const withLocal = arr.includes(LOCAL_PLUGIN_ID) ? arr : [LOCAL_PLUGIN_ID, ...arr];
         _activePlugins = withLocal.filter(id =>
             id === LOCAL_PLUGIN_ID || window.allData[id]
@@ -177,7 +235,6 @@ window.DataLoader = {
     initDefaultPlugins() {
         const saved = _loadActivePlugins();
         if (saved && saved.length > 0) {
-            // Restore saved selection, filtering out any that didn't load
             const valid = saved.filter(id => id === LOCAL_PLUGIN_ID || window.allData[id]);
             if (valid.length > 0) {
                 _activePlugins = valid;
@@ -186,7 +243,9 @@ window.DataLoader = {
             }
         }
         // Default: local builds + official game
-        const defaultRemote = window.allData[DEFAULT_PLUGIN] ? DEFAULT_PLUGIN : Object.keys(window.allData).find(k => k !== LOCAL_PLUGIN_ID);
+        const defaultRemote = window.allData[DEFAULT_PLUGIN]
+            ? DEFAULT_PLUGIN
+            : Object.keys(window.allData).find(k => k !== LOCAL_PLUGIN_ID);
         _activePlugins = defaultRemote
             ? [LOCAL_PLUGIN_ID, defaultRemote]
             : [LOCAL_PLUGIN_ID];
@@ -200,12 +259,10 @@ window.DataLoader = {
         for (const [id, plugin] of Object.entries(_activeData())) {
             const display = plugin.displayName || id;
             const isLocal = id === LOCAL_PLUGIN_ID;
-            for (const s of (plugin.ships || [])) {
+            for (const s of (plugin.ships || []))
                 ships.push({ ...s, _pluginName: id, _pluginDisplay: display, _isLocal: isLocal });
-            }
-            for (const s of (plugin.variants || [])) {
+            for (const s of (plugin.variants || []))
                 ships.push({ ...s, _pluginName: id, _pluginDisplay: display, _isVariant: true, _isLocal: isLocal });
-            }
         }
         return ships;
     },
@@ -215,9 +272,8 @@ window.DataLoader = {
         for (const [id, plugin] of Object.entries(_activeData())) {
             if (id === LOCAL_PLUGIN_ID) continue; // local builds have no outfit defs
             const display = plugin.displayName || id;
-            for (const o of (plugin.outfits || [])) {
+            for (const o of (plugin.outfits || []))
                 outfits.push({ ...o, _pluginName: id, _pluginDisplay: display });
-            }
         }
         return outfits;
     },
@@ -227,9 +283,8 @@ window.DataLoader = {
         for (const [id, plugin] of Object.entries(_activeData())) {
             if (id === LOCAL_PLUGIN_ID) continue;
             const display = plugin.displayName || id;
-            for (const e of (plugin.effects || [])) {
+            for (const e of (plugin.effects || []))
                 effects.push({ ...e, _pluginName: id, _pluginDisplay: display });
-            }
         }
         return effects;
     },
@@ -294,7 +349,7 @@ async function _doLoad() {
         if (!indexRes.ok) throw new Error('Could not load data/index.json');
         const dataIndex = await indexRes.json();
 
-        // 3 — Load each plugin in parallel per source
+        // 3 — Load each plugin
         for (const [sourceName, pluginList] of Object.entries(dataIndex)) {
             for (const { outputName, displayName } of pluginList) {
                 const plugin = {
