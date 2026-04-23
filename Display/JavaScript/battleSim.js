@@ -228,9 +228,24 @@ function resolveShipStats(ship) {
     const weapons             = [];
     const outfitContributions = {};
 
-    for (const [outfitName, qty] of Object.entries(ship.outfitMap || {})) {
-        const outfit = _outfitIndex[outfitName];
+    for (const [outfitName, outfitEntry] of Object.entries(ship.outfitMap || {})) {
+        // outfitMap values may be:
+        //   - plain integer (remote plugin ships from parsed JSON)
+        //   - { count, pluginId } (local-build ships saved by shipBuilder.js)
+        const qty      = typeof outfitEntry === 'object' ? (outfitEntry.count    || 1) : (outfitEntry || 1);
+        const pluginId = typeof outfitEntry === 'object' ? (outfitEntry.pluginId || null) : null;
+
+        // Primary lookup: by name in the global outfit index (covers all loaded plugins)
+        let outfit = _outfitIndex[outfitName];
+
+        // Fallback: if not found by name (e.g. plugin not loaded), try direct plugin lookup
+        if (!outfit && pluginId && window.allData?.[pluginId]) {
+            outfit = (window.allData[pluginId].outfits || []).find(o => o.name === outfitName) ?? null;
+            if (outfit) outfit = { ...outfit, _pluginId: pluginId };
+        }
+
         if (!outfit) continue;
+
         if (outfit.weapon)
             for (let i = 0; i < qty; i++) weapons.push({ _name: outfitName, ...outfit.weapon });
         const attrs = extractOutfitAttributes(outfit);
@@ -299,9 +314,15 @@ function resolveShipStats(ship) {
     const fuelRegenPerFrame      = a('fuel generation') + a('ram scoop') * 0;
 
     const ammoInventory = {};
-    for (const [outfitName, qty] of Object.entries(ship.outfitMap || {})) {
-        const outfit = _outfitIndex[outfitName];
+    for (const [outfitName, outfitEntry] of Object.entries(ship.outfitMap || {})) {
+        const qty      = typeof outfitEntry === 'object' ? (outfitEntry.count    || 1) : (outfitEntry || 1);
+        const pluginId = typeof outfitEntry === 'object' ? (outfitEntry.pluginId || null) : null;
+
+        let outfit = _outfitIndex[outfitName];
+        if (!outfit && pluginId && window.allData?.[pluginId])
+            outfit = (window.allData[pluginId].outfits || []).find(o => o.name === outfitName) ?? null;
         if (!outfit) continue;
+
         const isAmmoOutfit =
             outfit.category === 'Ammunition' ||
             (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) ||
