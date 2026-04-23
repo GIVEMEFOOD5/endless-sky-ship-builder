@@ -294,6 +294,13 @@ window.DataLoader = {
         _fireEvent('pluginsChanged', { active: [..._activePlugins] });
     },
 
+    // Silent version — rebuilds window.allData[LOCAL_PLUGIN_ID] with full
+    // coercion but does NOT fire pluginsChanged. Used by generalPluginStuff.js
+    // to avoid infinite event loops when it needs a fresh local copy.
+    _refreshLocalOnly() {
+        _refreshLocalPlugin();
+    },
+
     // ── Attribute helpers ──────────────────────────────
     getAttrKeys() {
         if (!window.attrDefs || !window.attrDefs.attributes) return [];
