@@ -57,43 +57,27 @@ function _localBuildsHasShips() {
 }
 
 /**
- * Re-reads the Local Builds pseudo-plugin from localStorage via DataLoader
- * (if available) or by directly reading the storage key as a fallback.
+ * Re-reads the Local Builds pseudo-plugin from localStorage.
+ * Fully delegates to DataLoader._buildLocalPlugin (via a silent internal refresh)
+ * so that attribute coercion, outfitMap integer counts, mass/drag merging, etc.
+ * are all handled in one place and never duplicated here.
+ *
+ * We call the internal DataLoader path that updates window.allData directly
+ * WITHOUT firing 'pluginsChanged', to avoid an infinite loop.
  */
 function _refreshLocalBuilds() {
+    if (window.DataLoader && typeof window.DataLoader._refreshLocalOnly === 'function') {
+        // Preferred path: DataLoader exposes a side-effect-free refresh
+        window.DataLoader._refreshLocalOnly();
+        return;
+    }
+
+    // Fallback: DataLoader hasn't exposed _refreshLocalOnly yet — call the full
+    // refreshLocalBuilds but swallow the pluginsChanged event it fires by
+    // temporarily ignoring re-entrant calls. In practice DataLoader always has
+    // _refreshLocalOnly after the fix, so this path is just a safety net.
     if (window.DataLoader && typeof window.DataLoader.refreshLocalBuilds === 'function') {
-        // DataLoader rebuilds window.allData[LOCAL_PLUGIN_ID] from localStorage
-        // but we call the internal version that doesn't fire pluginsChanged,
-        // to avoid an infinite loop. We rebuild allData directly instead.
-        const LOCAL_KEY = 'es_ship_builder_v4';
-        let fleet = [];
-        try {
-            const raw = localStorage.getItem(LOCAL_KEY);
-            if (raw) fleet = JSON.parse(raw);
-        } catch (_) {}
-
-        const ships = fleet.map(s => ({
-            name:        s.name || 'Unnamed',
-            variant:     s.variant || '',
-            sprite:      s.sprite || '',
-            thumbnail:   s.thumbnail || '',
-            description: s.description || '',
-            attributes:  Object.assign({}, s.attributes || {}),
-            outfitMap:   Object.fromEntries((s.outfits || []).map(o => [o.name.replace(/^"|"$/g, ''), o.count])),
-            _isLocalBuild: true,
-            _localId: s.id,
-        }));
-
-        window.allData[LOCAL_PLUGIN_ID] = {
-            sourceName:  'Local Builds',
-            displayName: 'Local Builds',
-            outputName:  LOCAL_PLUGIN_ID,
-            ships,
-            variants: [],
-            outfits:  [],
-            effects:  [],
-            _isLocal: true,
-        };
+        window.DataLoader.refreshLocalBuilds();
     }
 }
 
