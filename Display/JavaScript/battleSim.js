@@ -212,10 +212,6 @@ function extractOutfitAttributes(outfit) {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function resolveShipStats(ship) {
-    // Coerce all attribute values to numbers up-front.
-    // shipBuilder.js stores attributes as strings in localStorage (e.g. "400"),
-    // so local-build ships arrive here with string values. Any string that is a
-    // valid finite number becomes a number; genuine strings (e.g. category) stay.
     const rawAttrs = ship.attributes || {};
     const combined = {};
     for (const [k, v] of Object.entries(rawAttrs)) {
@@ -228,26 +224,36 @@ function resolveShipStats(ship) {
     const weapons             = [];
     const outfitContributions = {};
 
-    for (const [outfitName, outfitEntry] of Object.entries(ship.outfitMap || {})) {
-        // outfitMap values may be:
-        //   - plain integer (remote plugin ships from parsed JSON)
-        //   - { count, pluginId } (local-build ships saved by shipBuilder.js)
-        const qty      = typeof outfitEntry === 'object' ? (outfitEntry.count    || 1) : (outfitEntry || 1);
-        const pluginId = typeof outfitEntry === 'object' ? (outfitEntry.pluginId || null) : null;
+    // ── Build unified outfit entries from whichever format is present ──────────
+    const outfitEntries = [];
+    if (ship.outfitMap && typeof ship.outfitMap === 'object' && !Array.isArray(ship.outfitMap)) {
+        for (const [name, val] of Object.entries(ship.outfitMap)) {
+            const cleanName = name.replace(/^"|"$/g, '');
+            const qty       = typeof val === 'object' ? (val.count    || 1) : (val || 1);
+            const pluginId  = typeof val === 'object' ? (val.pluginId || null) : null;
+            outfitEntries.push({ name: cleanName, count: qty, pluginId });
+        }
+    } else if (Array.isArray(ship.outfits)) {
+        for (const o of ship.outfits) {
+            const cleanName = (typeof o === 'string' ? o : (o.name || '')).replace(/^"|"$/g, '');
+            const qty       = typeof o === 'object' ? (o.count    || 1) : 1;
+            const pluginId  = typeof o === 'object' ? (o.pluginId || null) : null;
+            if (cleanName) outfitEntries.push({ name: cleanName, count: qty, pluginId });
+        }
+    }
 
-        // Primary lookup: by name in the global outfit index (covers all loaded plugins)
+    // ── Process weapons and attributes ────────────────────────────────────────
+    for (const { name: outfitName, count: qty, pluginId } of outfitEntries) {
         let outfit = _outfitIndex[outfitName];
-
-        // Fallback: if not found by name (e.g. plugin not loaded), try direct plugin lookup
         if (!outfit && pluginId && window.allData?.[pluginId]) {
             outfit = (window.allData[pluginId].outfits || []).find(o => o.name === outfitName) ?? null;
             if (outfit) outfit = { ...outfit, _pluginId: pluginId };
         }
-
         if (!outfit) continue;
 
         if (outfit.weapon)
             for (let i = 0; i < qty; i++) weapons.push({ _name: outfitName, ...outfit.weapon });
+
         const attrs = extractOutfitAttributes(outfit);
         for (const [key, rawVal] of Object.entries(attrs)) {
             const contrib = rawVal * qty;
@@ -264,8 +270,7 @@ function resolveShipStats(ship) {
         }
     }
 
-    // Also pick up mass/drag stored at the ship top level (shipBuilder stores them
-    // separately from attributes; older local builds may not have them in combined yet).
+    // ── Mass / drag top-level fallback ────────────────────────────────────────
     if (combined['mass'] == null && ship.mass != null && ship.mass !== '') {
         const n = Number(ship.mass); if (isFinite(n)) combined['mass'] = n;
     }
@@ -284,15 +289,15 @@ function resolveShipStats(ship) {
         ? absThresh
         : Math.max(0, Math.floor(a('threshold percentage') * maxHull + a('hull threshold')));
 
-    const x           = a('cooling inefficiency');
-    const coolEff     = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
-    const maxHeat     = 100 * (rawMass + a('heat capacity'));
-    const heatDissipFrac     = 0.001 * a('heat dissipation');
-    const coolingPerFrame    = coolEff * (a('cooling') + a('active cooling'));
-    const shieldRegenPerFrame   = a('shield generation')         * (1 + a('shield generation multiplier'));
-    const delayedShieldPerFrame = a('delayed shield generation') * (1 + a('shield generation multiplier'));
-    const hullRepairPerFrame    = a('hull repair rate')          * (1 + a('hull repair multiplier'));
-    const delayedHullPerFrame   = a('delayed hull repair rate')  * (1 + a('hull repair multiplier'));
+    const x                      = a('cooling inefficiency');
+    const coolEff                = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
+    const maxHeat                = 100 * (rawMass + a('heat capacity'));
+    const heatDissipFrac         = 0.001 * a('heat dissipation');
+    const coolingPerFrame        = coolEff * (a('cooling') + a('active cooling'));
+    const shieldRegenPerFrame    = a('shield generation')         * (1 + a('shield generation multiplier'));
+    const delayedShieldPerFrame  = a('delayed shield generation') * (1 + a('shield generation multiplier'));
+    const hullRepairPerFrame     = a('hull repair rate')          * (1 + a('hull repair multiplier'));
+    const delayedHullPerFrame    = a('delayed hull repair rate')  * (1 + a('hull repair multiplier'));
 
     const protections = {};
     for (const key of getProtectionKeys()) protections[key] = Math.max(0, Math.min(1, a(key)));
@@ -303,21 +308,19 @@ function resolveShipStats(ship) {
     for (const [statName, resistKey] of Object.entries(_statusDecayMap))
         statusResist[statName] = Math.max(0, a(resistKey));
 
-    const energyCap              = a('energy capacity');
-    const energyGenPerFrame      = a('energy generation') + a('solar collection') * SOLAR_POWER + a('ram scoop');
+    const energyCap                 = a('energy capacity');
+    const energyGenPerFrame         = a('energy generation') + a('solar collection') * SOLAR_POWER + a('ram scoop');
     const energyConsumeIdlePerFrame = a('energy consumption');
-    const movingEnergyPerFrame   = a('thrusting energy') + a('turning energy') + a('afterburner energy');
-    const coolingEnergyPerFrame  = a('cooling energy');
-    const heatGenIdlePerFrame    = a('heat generation');
-    const movingHeatPerFrame     = a('thrusting heat') + a('turning heat') + a('afterburner heat');
-    const fuelCap                = a('fuel capacity');
-    const fuelRegenPerFrame      = a('fuel generation') + a('ram scoop') * 0;
+    const movingEnergyPerFrame      = a('thrusting energy') + a('turning energy') + a('afterburner energy');
+    const coolingEnergyPerFrame     = a('cooling energy');
+    const heatGenIdlePerFrame       = a('heat generation');
+    const movingHeatPerFrame        = a('thrusting heat') + a('turning heat') + a('afterburner heat');
+    const fuelCap                   = a('fuel capacity');
+    const fuelRegenPerFrame         = a('fuel generation') + a('ram scoop') * 0;
 
+    // ── Ammo inventory (reuses the same outfitEntries) ────────────────────────
     const ammoInventory = {};
-    for (const [outfitName, outfitEntry] of Object.entries(ship.outfitMap || {})) {
-        const qty      = typeof outfitEntry === 'object' ? (outfitEntry.count    || 1) : (outfitEntry || 1);
-        const pluginId = typeof outfitEntry === 'object' ? (outfitEntry.pluginId || null) : null;
-
+    for (const { name: outfitName, count: qty, pluginId } of outfitEntries) {
         let outfit = _outfitIndex[outfitName];
         if (!outfit && pluginId && window.allData?.[pluginId])
             outfit = (window.allData[pluginId].outfits || []).find(o => o.name === outfitName) ?? null;
@@ -328,6 +331,7 @@ function resolveShipStats(ship) {
             (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) ||
             (typeof outfit.attributes?.[outfitName] === 'number' && outfit.attributes[outfitName] > 0);
         if (!isAmmoOutfit) continue;
+
         let roundsPerUnit = 0;
         if (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) roundsPerUnit = outfit.ammoStored;
         if (roundsPerUnit === 0) {
