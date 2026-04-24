@@ -52,6 +52,30 @@ function hashShip(ship) {
 }
 
 // ---------------------------------------------------------------------------
+// Convert the internal outfitMap { name: { count, pluginId } | count }
+// into the array format expected by shipBuilder.js:
+//   [ { name: '"Blaster"', count: 2, pluginId: "Endless Sky/Endless Sky" }, ... ]
+// ---------------------------------------------------------------------------
+function outfitMapToArray(outfitMap) {
+  if (!outfitMap || typeof outfitMap !== 'object') return [];
+  return Object.entries(outfitMap).map(([name, val]) => {
+    if (typeof val === 'object' && val !== null) {
+      return {
+        name:     name.startsWith('"') ? name : `"${name}"`,
+        count:    val.count    ?? 1,
+        pluginId: val.pluginId ?? null,
+      };
+    }
+    // Legacy scalar form (shouldn't appear after this refactor, but kept for safety)
+    return {
+      name:     name.startsWith('"') ? name : `"${name}"`,
+      count:    Number(val) || 1,
+      pluginId: null,
+    };
+  });
+}
+
+// ---------------------------------------------------------------------------
 class EndlessSkyParser {
   constructor() {
     // Flat array of all parsed ships — used for slicing per-plugin output.
@@ -66,6 +90,11 @@ class EndlessSkyParser {
     // shipsByName: displayName → [ ship, ... ]  (multiple = name collision)
     this.shipById    = new Map();
     this.shipsByName = new Map();
+
+    // ── Global outfit registry ────────────────────────────────────────────────
+    // outfitsByName: outfitName → [ { pluginId, outfit }, ... ]
+    // Built up as each plugin is parsed; used for cross-plugin outfit resolution.
+    this.outfitsByName = new Map();
 
     // Source priority order: pluginId → numeric index (lower = higher priority).
     // Populated by main() before parsing starts.
@@ -93,10 +122,6 @@ class EndlessSkyParser {
 
   // ── Configuration helpers (called from main before parsing) ───────────────
 
-  /**
-   * Register source priority order from the plugins.json array.
-   * Sources listed earlier have higher priority (lower index = wins collision).
-   */
   setSourcePriority(sources) {
     this._sourcePriority.clear();
     sources.forEach((source, index) => {
@@ -104,16 +129,6 @@ class EndlessSkyParser {
     });
   }
 
-  /**
-   * Register explicit override declarations from plugins.json.
-   * Each source may have an optional `overrides` array of source names.
-   *
-   * Example plugins.json entry:
-   *   { "name": "My Plugin", "repository": "...", "overrides": ["Endless Sky"] }
-   *
-   * This means "My Plugin"'s ships take priority over "Endless Sky"'s ships
-   * when resolving variant base ships.
-   */
   setOverrides(sources) {
     this._overrides.clear();
     for (const source of sources) {
@@ -141,56 +156,71 @@ class EndlessSkyParser {
     return internalId;
   }
 
+  // ── Outfit registry helpers ───────────────────────────────────────────────
+
   /**
-   * Resolve a base ship for a variant using a three-tier strategy:
-   *
-   * Tier 1 — Same plugin namespace (pluginId::shipName).
-   *           Always wins. No ambiguity possible.
-   *
-   * Tier 2 — Explicit override declaration in plugins.json.
-   *           If the variant's plugin declares it overrides another plugin,
-   *           and exactly one of the candidates belongs to that overridden plugin,
-   *           use that candidate. This is intentional and explicit.
-   *
-   * Tier 3 — Source order priority (position in plugins.json).
-   *           If multiple candidates exist but none is covered by an explicit
-   *           override, pick the one whose plugin has the lowest source index
-   *           (i.e. listed earliest in plugins.json). Log a warning so the
-   *           user knows a collision was resolved silently.
-   *
-   * If all candidates share the same structural hash they are identical —
-   * pick any (first) without warning.
-   *
-   * Returns { baseShip, error } where error is a string or null.
+   * Register a parsed outfit into the global name→entries map.
+   * Called immediately after parseOutfit() returns a result.
    */
+  _registerOutfit(outfit, pluginId) {
+    outfit._pluginId = pluginId;
+    const name = outfit.name;
+    if (!this.outfitsByName.has(name)) {
+      this.outfitsByName.set(name, []);
+    }
+    this.outfitsByName.get(name).push({ pluginId, outfit });
+  }
+
+  /**
+   * Find which pluginId defines an outfit with the given name.
+   *
+   * Resolution order:
+   *   1. preferPluginId — if that plugin has this outfit, use it (same-plugin first).
+   *   2. Walk all registered plugins in source-priority order.
+   *   3. Return null if not found anywhere.
+   */
+  _resolveOutfitPluginId(outfitName, preferPluginId) {
+    const entries = this.outfitsByName.get(outfitName);
+    if (!entries || entries.length === 0) return null;
+
+    // Tier 1: same plugin
+    if (preferPluginId) {
+      const local = entries.find(e => e.pluginId === preferPluginId);
+      if (local) return local.pluginId;
+    }
+
+    // Tier 2: source-priority order
+    const sorted = [...entries].sort((a, b) => {
+      const pa = this._sourcePriority.get(a.pluginId) ?? Infinity;
+      const pb = this._sourcePriority.get(b.pluginId) ?? Infinity;
+      return pa - pb;
+    });
+
+    return sorted[0].pluginId;
+  }
+
+  // ── Base-ship resolution ──────────────────────────────────────────────────
+
   _resolveBaseShip(baseName, variantPluginId) {
-    // Tier 1: same-plugin lookup — always authoritative
     const localId   = `${variantPluginId}::${baseName}`;
     const localShip = this.shipById.get(localId);
     if (localShip) return { baseShip: localShip, error: null };
 
-    // Global candidates
     const candidates = this.shipsByName.get(baseName) ?? [];
 
     if (candidates.length === 0) {
-      return {
-        baseShip: null,
-        error: `no base ship found for "${baseName}"`
-      };
+      return { baseShip: null, error: `no base ship found for "${baseName}"` };
     }
 
     if (candidates.length === 1) {
       return { baseShip: candidates[0], error: null };
     }
 
-    // Multiple candidates — check if all identical (same hash → safe unification)
     const hashes = new Set(candidates.map(s => s._hash));
     if (hashes.size === 1) {
       return { baseShip: candidates[0], error: null };
     }
 
-    // True collision — differing ships share the same display name.
-    // Tier 2: check explicit overrides declared by the variant's plugin.
     const variantOverrides = this._overrides.get(variantPluginId);
     if (variantOverrides?.size) {
       const overriddenCandidates = candidates.filter(s => variantOverrides.has(s._pluginId));
@@ -198,10 +228,8 @@ class EndlessSkyParser {
         console.log(`    ↳ Collision on "${baseName}" resolved via override: using ${overriddenCandidates[0]._pluginId}`);
         return { baseShip: overriddenCandidates[0], error: null };
       }
-      // Override matched multiple or zero — fall through to tier 3
     }
 
-    // Tier 3: source order priority — pick earliest in plugins.json
     const ranked = [...candidates].sort((a, b) => {
       const pa = this._sourcePriority.get(a._pluginId) ?? Infinity;
       const pb = this._sourcePriority.get(b._pluginId) ?? Infinity;
@@ -463,9 +491,6 @@ class EndlessSkyParser {
     for (const probe of probePlugins) {
       console.log(`\n  ── Plugin: ${probe.name} ──`);
 
-      // Always use the sourceName (from plugins.json) as the pluginId namespace
-      // so it matches what the user writes in the "overrides" field.
-      // For multi-plugin repos, append the probe name to keep them distinct.
       const pluginId = `${sourceName}/${probe.name}`;
 
       const root           = probe.pluginRootInRepo;
@@ -540,9 +565,6 @@ class EndlessSkyParser {
         const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
 
         const pluginShipNames  = new Set(pluginShips.map(s => s.name));
-        // Only include variants whose definition came from THIS plugin (matched by pluginId),
-        // plus variants whose base ship is defined in this plugin's ship range.
-        // This prevents every plugin in a multi-plugin repo getting all variants.
         const pluginVariants = this.variants.filter(v =>
           pluginShipNames.has(v.baseShip) ||
           (v._variantPluginId === meta.pluginId)
@@ -598,14 +620,15 @@ class EndlessSkyParser {
           const [d, ni] = this.parseShip(lines, i);
           if (d) {
             this._registerShip(d, this._currentPluginId);
-            // Only include in output if it has a description.
-            // Description-less ships are hull templates used only for variant resolution.
             if (d.description != null) this.ships.push(d);
           }
           i = ni; continue;
         } else if (trimmed.startsWith('outfit ')) {
           const [d, ni] = this.parseOutfit(lines, i);
-          if (d) this.outfits.push(d);
+          if (d) {
+            this._registerOutfit(d, this._currentPluginId);
+            this.outfits.push(d);
+          }
           i = ni; continue;
         } else if (trimmed.startsWith('effect ')) {
           const [d, ni] = this.parseExtraEffect(lines, i);
@@ -634,7 +657,6 @@ class EndlessSkyParser {
   // ── Resolution block parsers ───────────────────────────────────────────────
 
   parseFleetBlock(lines, i) {
-    // Capture the fleet name from the header line BEFORE advancing i
     const headerLine = lines[i].trim();
     const nameMatch = headerLine.match(/^fleet\s+"([^"]+)"/) ||
                       headerLine.match(/^fleet\s+`([^`]+)`/);
@@ -677,15 +699,11 @@ class EndlessSkyParser {
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
 
-      // NPC blocks (may be nested inside on enter/accept/complete etc.)
       if (stripped === 'npc' || stripped.startsWith('npc ')) {
         i = this._parseMissionNpcBlock(lines, i, missionName);
         continue;
       }
 
-      // "give outfit" lines — bare or inside action blocks
-      // Endless Sky syntax:  give outfit "Item Name" [count]
-      //                 or:  outfit "Item Name" [count]   (legacy top-level form)
       if (missionName && (
         stripped.startsWith('give outfit "') || stripped.startsWith('give outfit `') ||
         stripped.startsWith('outfit "')      || stripped.startsWith('outfit `')
@@ -703,9 +721,6 @@ class EndlessSkyParser {
         }
       }
 
-      // "give ship" lines — bare or inside action blocks
-      // Endless Sky syntax:  give ship "Type"  or  give ship "Type" "Instance Name"
-      //                 or:  ship "Type"            (legacy top-level form)
       if (missionName && (
         stripped.startsWith('give ship "') || stripped.startsWith('give ship `') ||
         stripped.startsWith('ship "')      || stripped.startsWith('ship `')
@@ -725,7 +740,6 @@ class EndlessSkyParser {
     return i;
   }
 
-  // Like parseNpcBlock but also records missionName
   _parseMissionNpcBlock(lines, i, missionName) {
     let government = null;
     const shipNames = [];
@@ -835,6 +849,48 @@ class EndlessSkyParser {
       this.speciesResolver.collectNpcRef(government, shipName, this._currentPluginId);
     }
     return i;
+  }
+
+  /**
+   * Parse an outfits block.
+   *
+   * Returns outfitMap as { name: { count, pluginId } } where pluginId is
+   * resolved immediately if the outfit is already registered, otherwise
+   * stored as null for deferred resolution later.
+   */
+  parseOutfitsBlock(lines, i, speciesShipName = null, variantShipName = null) {
+    const outfitMap = {};
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent <= 1 && line.trim()) break;
+      if (indent >= 2) {
+        const m = line.trim().match(/^"([^"]+)"(?:\s+(\d+))?/) ||
+                  line.trim().match(/^`([^`]+)`(?:\s+(\d+))?/);
+        if (m) {
+          const name     = m[1];
+          const count    = m[2] ? Math.max(1, parseInt(m[2], 10)) : 1;
+          // Resolve pluginId immediately if possible, else null (deferred)
+          const pluginId = this._resolveOutfitPluginId(name, this._currentPluginId);
+          outfitMap[name] = { count, pluginId };
+        }
+      }
+      i++;
+    }
+    if (speciesShipName && Object.keys(outfitMap).length) {
+      this.speciesResolver.collectShipOutfits(
+        speciesShipName,
+        Object.keys(outfitMap),
+        this._currentPluginId,
+        variantShipName
+      );
+      const locName = variantShipName ?? speciesShipName;
+      for (const outfitName of Object.keys(outfitMap)) {
+        this.locationResolver.collectShipOutfit(locName, outfitName, this._currentPluginId);
+      }
+    }
+    return [outfitMap, i];
   }
 
   parseShipyardBlock(lines, i) {
@@ -947,7 +1003,6 @@ class EndlessSkyParser {
   }
 
   parseEventBlock(lines, i) {
-    // Events can add/modify fleets, planets, and npc blocks mid-game.
     i++;
     while (i < lines.length) {
       const line   = lines[i];
@@ -974,46 +1029,6 @@ class EndlessSkyParser {
       i++;
     }
     return i;
-  }
-
-  /**
-   * Parse an outfits block.
-   *
-   * speciesShipName  — base ship name, passed to speciesResolver unchanged.
-   * variantShipName  — full variant name when parsing a variant's outfits, or
-   *                    null for base ships. Passed to both resolvers so outfit
-   *                    refs are stored under the variant's own name.
-   */
-  parseOutfitsBlock(lines, i, speciesShipName = null, variantShipName = null) {
-    const outfitMap = {};
-    i++;
-    while (i < lines.length) {
-      const line   = lines[i];
-      const indent = line.length - line.replace(/^\t+/, '').length;
-      if (indent <= 1 && line.trim()) break;
-      if (indent >= 2) {
-        const m = line.trim().match(/^"([^"]+)"(?:\s+(\d+))?/) ||
-                  line.trim().match(/^`([^`]+)`(?:\s+(\d+))?/);
-        if (m) outfitMap[m[1]] = m[2] ? Math.max(1, parseInt(m[2], 10)) : 1;
-      }
-      i++;
-    }
-    if (speciesShipName && Object.keys(outfitMap).length) {
-      // speciesResolver: always use base ship name, but pass variantShipName so
-      // it can store the entry under the variant's own key when appropriate.
-      this.speciesResolver.collectShipOutfits(
-        speciesShipName,
-        Object.keys(outfitMap),
-        this._currentPluginId,
-        variantShipName
-      );
-      // locationResolver: use variant name if provided, otherwise base ship name.
-      const locName = variantShipName ?? speciesShipName;
-      for (const outfitName of Object.keys(outfitMap)) {
-        this.locationResolver.collectShipOutfit(locName, outfitName, this._currentPluginId);
-      }
-    }
-    return [outfitMap, i];
   }
 
   parseBlock(lines, startIdx, options = {}) {
@@ -1294,9 +1309,10 @@ class EndlessSkyParser {
     const aKeys = Object.keys(a || {});
     const bKeys = Object.keys(b || {});
     if (aKeys.length !== bKeys.length) return false;
-    const norm = v => (v === true ? 1 : (v ?? 1));
+    // Compare only counts, not pluginIds (pluginId is metadata, not structural)
+    const getCount = v => typeof v === 'object' ? (v.count ?? 1) : (v === true ? 1 : (v ?? 1));
     for (const k of aKeys) {
-      if (norm(a[k]) !== norm(b[k])) return false;
+      if (getCount(a[k]) !== getCount(b[k])) return false;
     }
     return true;
   }
@@ -1347,7 +1363,6 @@ class EndlessSkyParser {
       const stripped = line.trim();
 
       if (stripped === 'outfits') {
-        // Base ship — no variantShipName needed
         const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName, null);
         shipData.outfitMap = outfitMap;
         i = ni;
@@ -1427,9 +1442,6 @@ class EndlessSkyParser {
     if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return null;
 
     const v = JSON.parse(JSON.stringify(baseShip));
-    // If variantName already contains the base name (e.g. "Carrier (Alpha)" as the
-    // variant identifier for base "Carrier"), use it directly to avoid double-wrapping
-    // into "Carrier (Carrier (Alpha))".
     v.name             = variantInfo.variantName.startsWith(variantInfo.baseName)
       ? variantInfo.variantName
       : `${variantInfo.baseName} (${variantInfo.variantName})`;
@@ -1456,21 +1468,21 @@ class EndlessSkyParser {
       if (inlineOutfitMatch && indent === 1) {
         const outfitName = inlineOutfitMatch[1];
         const count = inlineOutfitMatch[2] ? Math.max(1, parseInt(inlineOutfitMatch[2], 10)) : 1;
+        const pluginId = this._resolveOutfitPluginId(outfitName, variantInfo.variantPluginId);
 
         if (!inlineOutfitsStarted) {
           v.outfitMap = {};
           inlineOutfitsStarted = true;
         }
 
-        v.outfitMap[outfitName] = count;
-        // speciesResolver: base ship name for government chain, variant name as storage key
+        v.outfitMap[outfitName] = { count, pluginId };
+
         this.speciesResolver.collectShipOutfits(
           variantInfo.baseName,
           [outfitName],
           this._currentPluginId,
           v.name
         );
-        // locationResolver: variant name only
         this.locationResolver.collectShipOutfit(v.name, outfitName, this._currentPluginId);
         changed = true;
         i++;
@@ -1478,7 +1490,6 @@ class EndlessSkyParser {
       }
 
       if (stripped === 'outfits') {
-        // Pass v.name as variantShipName so both resolvers store under the variant
         const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, variantInfo.baseName, v.name);
         if (!this._outfitMapsEqual(outfitMap, baseShip.outfitMap || {})) {
           v.outfitMap = outfitMap;
@@ -1602,6 +1613,7 @@ class EndlessSkyParser {
     const data = { name };
     const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
     Object.assign(data, parsed);
+    // _pluginId is attached by _registerOutfit() immediately after this returns
     return [(data.description || data.weapon) ? data : null, ni];
   }
 
@@ -1621,6 +1633,43 @@ class EndlessSkyParser {
     const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
     Object.assign(data, parsed);
     return [data, ni];
+  }
+
+  // ── Post-parse outfit-pluginId resolution ─────────────────────────────────
+
+  /**
+   * Walk every ship and variant and fill in any outfit pluginId entries that
+   * were null at parse time (because the outfit's plugin hadn't been parsed yet).
+   * Called once after ALL plugins have been fully parsed.
+   */
+  resolveAllOutfitPluginIds() {
+    let resolved = 0;
+    let stillMissing = 0;
+
+    const resolveMap = (outfitMap, ownerPluginId) => {
+      if (!outfitMap || typeof outfitMap !== 'object') return;
+      for (const [name, val] of Object.entries(outfitMap)) {
+        if (typeof val === 'object' && val.pluginId === null) {
+          const found = this._resolveOutfitPluginId(name, ownerPluginId);
+          if (found) {
+            val.pluginId = found;
+            resolved++;
+          } else {
+            stillMissing++;
+            console.warn(`    ⚠ Outfit not found in any plugin: "${name}"`);
+          }
+        }
+      }
+    };
+
+    for (const ship of this.ships) {
+      resolveMap(ship.outfitMap, ship._pluginId);
+    }
+    for (const variant of this.variants) {
+      resolveMap(variant.outfitMap, variant._variantPluginId);
+    }
+
+    console.log(`  Outfit pluginId resolution: ${resolved} resolved, ${stillMissing} still missing`);
   }
 }
 
@@ -1672,7 +1721,16 @@ async function main() {
       }
     }
 
-    // Pass 2: attach species and locations now that all plugins have been parsed
+    // ── Deferred outfit resolution ──────────────────────────────────────────
+    // Now that every plugin has been parsed, fill in any outfit pluginIds that
+    // were null because the outfit's plugin came after the ship's plugin in the
+    // parse order.
+    console.log(`\n${'='.repeat(60)}`);
+    console.log(`Resolving deferred outfit pluginIds across all plugins...`);
+    console.log('='.repeat(60));
+    sharedParser.resolveAllOutfitPluginIds();
+
+    // Pass 2: attach species and locations
     console.log(`\n${'='.repeat(60)}`);
     console.log(`Resolving governments across all ${allResults.length} plugin(s)...`);
     console.log(`  Known governments: ${sharedParser.speciesResolver.knownGovernments.size}`);
@@ -1704,21 +1762,41 @@ async function main() {
       const dataFilesDir = path.join(pluginDir, 'dataFiles');
       await fs.mkdir(dataFilesDir, { recursive: true });
 
-      await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(plugin.ships,    null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(plugin.variants, null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(plugin.outfits,  null, 2));
+      // Convert outfitMap (internal { name: { count, pluginId } }) to the
+      // shipBuilder-compatible array format before writing JSON.
+      const shipsOut    = plugin.ships.map(s => ({
+        ...s,
+        outfits:   outfitMapToArray(s.outfitMap),
+        outfitMap: undefined,   // omit the internal map from output
+      }));
+      const variantsOut = plugin.variants.map(v => ({
+        ...v,
+        outfits:   outfitMapToArray(v.outfitMap),
+        outfitMap: undefined,
+      }));
+
+      // Outfits get _pluginId attached as pluginId at the top level for clarity
+      const outfitsOut = plugin.outfits.map(o => ({
+        ...o,
+        pluginId: o._pluginId ?? null,
+        _pluginId: undefined,
+      }));
+
+      await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(shipsOut,    null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(variantsOut, null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(outfitsOut,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(plugin.effects,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
         plugin:     plugin.name,
         repository: source.repository,
-        ships:      plugin.ships,
-        variants:   plugin.variants,
-        outfits:    plugin.outfits,
+        ships:      shipsOut,
+        variants:   variantsOut,
+        outfits:    outfitsOut,
         effects:    plugin.effects,
         parsedAt:   new Date().toISOString()
       }, null, 2));
 
-      console.log(`  ✓ ${plugin.ships.length} ships | ${plugin.variants.length} variants | ${plugin.outfits.length} outfits | ${plugin.effects.length} effects`);
+      console.log(`  ✓ ${shipsOut.length} ships | ${variantsOut.length} variants | ${outfitsOut.length} outfits | ${plugin.effects.length} effects`);
 
       if (!dataIndex[source.name]) dataIndex[source.name] = [];
       dataIndex[source.name].push({
