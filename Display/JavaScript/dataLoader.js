@@ -1,7 +1,7 @@
 'use strict';
 
 // ═══════════════════════════════════════════════════════════
-//  dataLoader.js  —  Endless Sky Ship Builder
+//  dataLoader.js  —  Endless Sky Ship Builder / Data Viewer
 //
 //  Loads all plugin data from GitHub, manages active plugin
 //  selection, and synthesises a "Local Builds" pseudo-plugin
@@ -15,13 +15,14 @@
 //    .getActivePlugins()          → ordered active outputNames
 //    .setActivePlugins(arr)       → set active set, fires 'pluginsChanged'
 //    .initDefaultPlugins()        → activate default (endless-sky) + local
-//    .getAllShips()                → ships from active plugins + local builds
-//    .getAllOutfits()              → outfits from active plugins
-//    .getAllEffects()              → effects from active plugins
-//    .getAttrKeys()               → sorted attribute keys from attrDefs
-//    .getAttrDef(key)             → single attribute definition
-//    .getAttrHint(key)            → "unit · stacking" string
-//    .refreshLocalBuilds()        → re-read localStorage fleet into pseudo-plugin
+//    .getAllShips()               → ships from active plugins + local builds
+//    .getAllOutfits()             → outfits from active plugins
+//    .getAllEffects()             → effects from active plugins
+//    .getAttrKeys()              → sorted attribute keys from attrDefs
+//    .getAttrDef(key)            → single attribute definition
+//    .getAttrHint(key)           → "unit · stacking" string
+//    .refreshLocalBuilds()       → re-read localStorage fleet + fire pluginsChanged
+//    ._refreshLocalOnly()        → re-read localStorage fleet silently (no event)
 //
 //  Custom events fired on document:
 //    'dataLoaded'      — all remote data fetched
@@ -33,15 +34,15 @@
 
 const REPO_URL   = 'GIVEMEFOOD5/endless-sky-ship-builder';
 const BASE_URL   = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
-const LOCAL_KEY  = 'es_ship_builder_v4';   // same as shipBuilder.js
+const LOCAL_KEY  = 'es_ship_builder_v4';
 const LOCAL_PLUGIN_ID = '__local_builds__';
 const DEFAULT_PLUGIN  = 'official-game/endless-sky';
 
 // ── Internal state ─────────────────────────────────────────
-let _ready     = false;
-let _loading   = false;
-let _callbacks = [];
-let _activePlugins = []; // ordered outputNames
+let _ready          = false;
+let _loading        = false;
+let _callbacks      = [];
+let _activePlugins  = [];
 
 window.allData  = window.allData  || {};
 window.attrDefs = window.attrDefs || null;
@@ -68,7 +69,6 @@ function _coerceAttrs(attrs) {
         const str = String(v).trim();
         const n   = Number(str);
         // Only coerce if the whole string is a valid finite number
-        // (avoids turning "Light Warship" → NaN)
         out[k] = (str !== '' && isFinite(n)) ? n : str;
     }
     return out;
@@ -83,8 +83,8 @@ function _buildLocalPlugin() {
     } catch (_) {}
 
     const ships = fleet.map(s => {
-        // Coerce all attribute strings to numbers so consumers (battleSim, etc.)
-        // don't receive string values where numbers are expected.
+        // Coerce all attribute strings to numbers so battleSim etc. receive
+        // numbers, not strings, for all numeric attributes.
         const rawAttrs = Object.assign({}, s.attributes || {});
 
         // mass / drag are stored at the top level in shipBuilder, not in attributes
@@ -100,42 +100,47 @@ function _buildLocalPlugin() {
             thumbnail:   s.thumbnail || '',
             description: s.description || '',
             attributes,
-            // outfitMap: keys are outfit names (unquoted),
-            // values are { count, pluginId } so battleSim can find the outfit
-            // data even when that plugin isn't currently active.
+            // outfitMap keys are unquoted outfit names (matching _outfitIndex keys).
+            // Values are { count, pluginId } so battleSim can do a plugin-specific
+            // fallback lookup when the outfit isn't in the global index.
             outfitMap: Object.fromEntries(
                 (s.outfits || []).map(o => [
                     o.name.replace(/^"|"$/g, ''),
                     {
-                        count:    parseInt(o.count)    || 1,
-                        pluginId: o.pluginId           || null,
+                        count:    parseInt(o.count) || 1,
+                        pluginId: o.pluginId || null,
                     },
                 ])
             ),
             guns: (s.guns || []).map(g => ({
-                x:   parseFloat((g.coords || '0').split(' ')[0]) || 0,
-                y:   parseFloat((g.coords || '0').split(' ')[1]) || 0,
+                x:   parseFloat((g.coords || '0 0').split(' ')[0]) || 0,
+                y:   parseFloat((g.coords || '0 0').split(' ')[1]) || 0,
                 gun: g.over || '',
             })),
             turrets: (s.turrets || []).map(g => ({
-                x:      parseFloat((g.coords || '0').split(' ')[0]) || 0,
-                y:      parseFloat((g.coords || '0').split(' ')[1]) || 0,
+                x:      parseFloat((g.coords || '0 0').split(' ')[0]) || 0,
+                y:      parseFloat((g.coords || '0 0').split(' ')[1]) || 0,
                 turret: g.over || '',
             })),
             bays: [
                 ...(s.drones || []).map(b => ({
                     type:            'Drone',
-                    x:               parseFloat((b.coords || '0').split(' ')[0]) || 0,
-                    y:               parseFloat((b.coords || '0').split(' ')[1]) || 0,
+                    x:               parseFloat((b.coords || '0 0').split(' ')[0]) || 0,
+                    y:               parseFloat((b.coords || '0 0').split(' ')[1]) || 0,
                     'launch effect': b.launchEffect || '',
                 })),
                 ...(s.fighters || []).map(b => ({
                     type:            'Fighter',
-                    x:               parseFloat((b.coords || '0').split(' ')[0]) || 0,
-                    y:               parseFloat((b.coords || '0').split(' ')[1]) || 0,
+                    x:               parseFloat((b.coords || '0 0').split(' ')[0]) || 0,
+                    y:               parseFloat((b.coords || '0 0').split(' ')[1]) || 0,
                     'launch effect': b.launchEffect || '',
                 })),
             ],
+            engines: (s.engines || []).map(e => ({
+                x:    parseFloat((e.coords || '0 0').split(' ')[0]) || 0,
+                y:    parseFloat((e.coords || '0 0').split(' ')[1]) || 0,
+                zoom: parseFloat(e.zoom) || 1,
+            })),
             _isLocalBuild: true,
             _localId: s.id,
         };
@@ -159,11 +164,10 @@ function _refreshLocalPlugin() {
 
 // ── Helpers ─────────────────────────────────────────────────
 function _activeData() {
-    // Always respect ordering; Local Builds always reads fresh
     const result = {};
     for (const id of _activePlugins) {
         if (id === LOCAL_PLUGIN_ID) {
-            result[id] = _buildLocalPlugin();
+            result[id] = _buildLocalPlugin(); // always fresh
         } else if (window.allData[id]) {
             result[id] = window.allData[id];
         }
@@ -192,10 +196,9 @@ window.DataLoader = {
 
     isReady() { return _ready; },
 
-    // ── Plugin management ──────────────────────────────
+    // ── Plugin management ──────────────────────────────────
     getPlugins() {
-        // Local Builds always first, then remote plugins
-        const local = window.allData[LOCAL_PLUGIN_ID] || _buildLocalPlugin();
+        const local = _buildLocalPlugin();
         const remote = Object.entries(window.allData)
             .filter(([id]) => id !== LOCAL_PLUGIN_ID)
             .map(([id, p]) => ({
@@ -228,7 +231,6 @@ window.DataLoader = {
     getActivePlugins() { return [..._activePlugins]; },
 
     setActivePlugins(arr) {
-        // Local Builds is always in the list if it has ships
         const withLocal = arr.includes(LOCAL_PLUGIN_ID) ? arr : [LOCAL_PLUGIN_ID, ...arr];
         _activePlugins = withLocal.filter(id =>
             id === LOCAL_PLUGIN_ID || window.allData[id]
@@ -247,7 +249,6 @@ window.DataLoader = {
                 return;
             }
         }
-        // Default: local builds + official game
         const defaultRemote = window.allData[DEFAULT_PLUGIN]
             ? DEFAULT_PLUGIN
             : Object.keys(window.allData).find(k => k !== LOCAL_PLUGIN_ID);
@@ -258,7 +259,7 @@ window.DataLoader = {
         _fireEvent('pluginsChanged', { active: [..._activePlugins] });
     },
 
-    // ── Data accessors (active plugins only) ──────────
+    // ── Data accessors (active plugins only) ──────────────
     getAllShips() {
         const ships = [];
         for (const [id, plugin] of Object.entries(_activeData())) {
@@ -275,7 +276,7 @@ window.DataLoader = {
     getAllOutfits() {
         const outfits = [];
         for (const [id, plugin] of Object.entries(_activeData())) {
-            if (id === LOCAL_PLUGIN_ID) continue; // local builds have no outfit defs
+            if (id === LOCAL_PLUGIN_ID) continue;
             const display = plugin.displayName || id;
             for (const o of (plugin.outfits || []))
                 outfits.push({ ...o, _pluginName: id, _pluginDisplay: display });
@@ -294,19 +295,19 @@ window.DataLoader = {
         return effects;
     },
 
+    // Fire pluginsChanged so all listeners (generalPluginStuff, shipBuilder) refresh
     refreshLocalBuilds() {
         _refreshLocalPlugin();
         _fireEvent('pluginsChanged', { active: [..._activePlugins] });
     },
 
-    // Silent version — rebuilds window.allData[LOCAL_PLUGIN_ID] with full
-    // coercion but does NOT fire pluginsChanged. Used by generalPluginStuff.js
-    // to avoid infinite event loops when it needs a fresh local copy.
+    // Silent refresh — updates window.allData[LOCAL_PLUGIN_ID] WITHOUT firing
+    // pluginsChanged. Used by generalPluginStuff.js to avoid infinite event loops.
     _refreshLocalOnly() {
         _refreshLocalPlugin();
     },
 
-    // ── Attribute helpers ──────────────────────────────
+    // ── Attribute helpers ──────────────────────────────────
     getAttrKeys() {
         if (!window.attrDefs || !window.attrDefs.attributes) return [];
         return Object.keys(window.attrDefs.attributes).sort();
@@ -344,7 +345,7 @@ async function _doLoad() {
     _loading = true;
     _fireEvent('dataLoadStart');
 
-    // Seed local builds immediately so the local pseudo-plugin is always available
+    // Seed local builds immediately so it's always available
     _refreshLocalPlugin();
 
     try {
@@ -392,14 +393,13 @@ async function _doLoad() {
         }
 
         const hasData = Object.values(window.allData).some(p =>
-            p.ships.length > 0 || p.variants.length > 0 || p.outfits.length > 0
+            (p.ships?.length > 0) || (p.variants?.length > 0) || (p.outfits?.length > 0)
         );
         if (!hasData) throw new Error('No data could be loaded from any plugin');
 
         _ready   = true;
         _loading = false;
 
-        // Initialise active plugins (restore saved or default)
         window.DataLoader.initDefaultPlugins();
 
         for (const fn of _callbacks) {
