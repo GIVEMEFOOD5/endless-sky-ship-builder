@@ -266,24 +266,26 @@ function sbShipFromParsed(src) {
   // The source plugin ID is stored on each outfit so battleSim can do a
   // plugin-specific fallback lookup when the outfit isn't in the global index.
   const sourcePluginId = src._pn || src._pluginName || null;
+// outfits array (new parser format: name is unquoted)
   const outfitSource = src.outfitMap || src.outfits;
   if (outfitSource && typeof outfitSource === 'object' && !Array.isArray(outfitSource)) {
     for (const [n, c] of Object.entries(outfitSource)) {
-      const count    = typeof c === 'object' ? (parseInt(c.count) || 1)    : (Number(c) || 1);
+      const cleanName = n.replace(/^"|"$/g, '');
+      const count    = typeof c === 'object' ? (parseInt(c.count) || 1)      : (Number(c) || 1);
       const pluginId = typeof c === 'object' ? (c.pluginId || sourcePluginId) : sourcePluginId;
-      s.outfits.push({ name: n.startsWith('"') ? n : `"${n}"`, count, pluginId });
+      s.outfits.push({ name: cleanName, count, pluginId });
     }
   } else if (Array.isArray(outfitSource)) {
     const map = {};
     for (const o of outfitSource) {
-      const n  = typeof o === 'string' ? o : (o.name || '');
-      const c  = typeof o === 'object' && o.count ? o.count : 1;
+      const n   = (typeof o === 'string' ? o : (o.name || '')).replace(/^"|"$/g, '');
+      const c   = typeof o === 'object' && o.count ? o.count : 1;
       const pid = typeof o === 'object' && o.pluginId ? o.pluginId : sourcePluginId;
       if (!map[n]) map[n] = { count: 0, pluginId: pid };
       map[n].count += Number(c);
     }
     for (const [n, { count, pluginId }] of Object.entries(map)) {
-      s.outfits.push({ name: n.startsWith('"') ? n : `"${n}"`, count, pluginId });
+      s.outfits.push({ name: n, count, pluginId });
     }
   }
 
@@ -442,35 +444,17 @@ let _sbOutfitLookup = null;
 function sbGetOutfitLookup() {
   if (_sbOutfitLookup) return _sbOutfitLookup;
   _sbOutfitLookup = {};
-  let count = 0;
   for (const o of sbAllOutfits) {
-    const rawName = (o.name || o.displayName || '').trim();
-    if (!rawName) continue;
-    const stripped = rawName.replace(/^"|"$/g, '');
-    _sbOutfitLookup[stripped]          = o;
-    _sbOutfitLookup[`"${stripped}"`]   = o;
-    count++;
-  }
-  console.log(`[ShipBuilder] Outfit lookup built: ${count} outfits indexed.`);
-  // Debug: log sample outfit to check property structure
-  if (sbAllOutfits.length > 0) {
-    const sample = sbAllOutfits[0];
-    console.log('[ShipBuilder] Sample outfit structure:', {
-      name: sample.name,
-      'outfit space (flat)': sample['outfit space'],
-      'engine capacity (flat)': sample['engine capacity'],
-      'weapon capacity (flat)': sample['weapon capacity'],
-      'attributes obj': sample.attributes,
-    });
+    const name = (o.name || o.displayName || '').trim().replace(/^"|"$/g, '');
+    if (!name) continue;
+    _sbOutfitLookup[name] = o;
   }
   return _sbOutfitLookup;
 }
 
-/** Get an outfit object by name (handles quoted / unquoted). Returns null if not found. */
 function sbFindOutfit(outfitName) {
   const lookup = sbGetOutfitLookup();
-  const raw    = String(outfitName).trim();
-  return lookup[raw] || lookup[raw.replace(/^"|"$/g, '')] || null;
+  return lookup[outfitName.replace(/^"|"$/g, '')] || null;
 }
 
 /**
@@ -696,12 +680,12 @@ function _sbGetPortCost(outfitObj, portKey) {
  */
 function _sbFillEmptyPorts(hardpoints, outfitName, needed) {
   if (!hardpoints || needed <= 0) return;
-  const quoted = outfitName.startsWith('"') ? outfitName : `"${outfitName}"`;
+  const clean = outfitName.replace(/^"|"$/g, '');
   let filled = 0;
   for (const hp of hardpoints) {
     if (filled >= needed) break;
     if (!hp.over || hp.over.trim() === '') {
-      hp.over = quoted;
+      hp.over = clean;
       filled++;
     }
   }
@@ -918,7 +902,7 @@ function sbRenderOutfitsList() {
     ];
     const costTags = capDefs
       .map(c => {
-        const cost = sbGetOutfitCapacityCost(o.name, c.key);
+        const cost = sbGetOutfitCapacityCost(rawName, c.key);
         if (cost <= 0) return '';
         const total = cost * count;
         return `<span class="sb-outfit-size" title="${c.key} cost">${cost}${count > 1 ? `×${count}=${total}` : ''} ${c.label}</span>`;
@@ -927,7 +911,7 @@ function sbRenderOutfitsList() {
       .join('');
 
     return `<div class="outfit-item">
-      <span class="outfit-item__name" title="${esc(o.name)}">${esc(o.name)}</span>
+      <span class="outfit-item__name" title="${esc(rawName)}">${esc(rawName)}</span>
       ${costTags}
       <input class="outfit-item__count" type="number" min="1" value="${esc(String(count))}"
         onchange="sbUpdateOutfitCount(${i},this.value)">
@@ -949,19 +933,19 @@ function openAddOutfit() {
     setTimeout(() => document.getElementById('new-outfit-name').focus(), 80);
   }
 }
+
 function confirmAddOutfit() {
-  const name  = document.getElementById('new-outfit-name').value.trim();
-  const count = parseInt(document.getElementById('new-outfit-count').value) || 1;
-  if (!name) { sbToast('Please enter an outfit name.', 'danger'); return; }
-  const quoted  = name.startsWith('"') ? name : `"${name}"`;
-  const rawName = quoted.replace(/^"|"$/g, '');
+  const rawName = document.getElementById('new-outfit-name').value.trim().replace(/^"|"$/g, '');
+  const count   = parseInt(document.getElementById('new-outfit-count').value) || 1;
+  if (!rawName) { sbToast('Please enter an outfit name.', 'danger'); return; }
   if (!sbCheckOutfitSpace(rawName, count)) return;
-  sbCurrentShip.outfits.push({ name: quoted, count, pluginId: null });
+  sbCurrentShip.outfits.push({ name: rawName, count, pluginId: null });
   const outfitObj = sbFindOutfit(rawName);
   sbAutoSlotWeapons(rawName, count, outfitObj);
   closeModal('modal-add-outfit');
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
 }
+
 function sbUpdateOutfitCount(i, v) {
   const newCount = parseInt(v) || 1;
   const oldCount = parseInt(sbCurrentShip.outfits[i].count) || 1;
@@ -1004,26 +988,14 @@ function sbRemoveOutfit(i) {
  * ports are freed first. The hardpoint position is kept — only `over` is cleared.
  */
 function _sbUnslotWeapons(outfitName, count) {
-  const quoted = outfitName.startsWith('"') ? outfitName : `"${outfitName}"`;
+  const clean = outfitName.replace(/^"|"$/g, '');
   let remaining = count;
-
-  // Clear from guns (last-in first-out)
-  const guns = sbCurrentShip.guns || [];
-  for (let i = guns.length - 1; i >= 0 && remaining > 0; i--) {
-    const over = (guns[i].over || '').trim();
-    if (over === quoted || over === outfitName) {
-      guns[i].over = '';
-      remaining--;
-    }
-  }
-
-  // Clear from turrets if still any remaining
-  const turrets = sbCurrentShip.turrets || [];
-  for (let i = turrets.length - 1; i >= 0 && remaining > 0; i--) {
-    const over = (turrets[i].over || '').trim();
-    if (over === quoted || over === outfitName) {
-      turrets[i].over = '';
-      remaining--;
+  for (const arr of [sbCurrentShip.guns, sbCurrentShip.turrets]) {
+    for (let i = (arr||[]).length - 1; i >= 0 && remaining > 0; i--) {
+      if ((arr[i].over || '').replace(/^"|"$/g, '').trim() === clean) {
+        arr[i].over = '';
+        remaining--;
+      }
     }
   }
 }
@@ -1238,17 +1210,16 @@ function sbFilterOutfitPicker(val) {
 }
 function sbAddOutfitFromPicker(encoded) {
   const payload  = JSON.parse(decodeURIComponent(escape(atob(encoded))));
-  const rawName  = payload.name;
+  const rawName  = payload.name.replace(/^"|"$/g, '');
   const pluginId = payload.pluginId || null;
   const count    = parseInt(document.getElementById('sb-outfit-count-input').value) || 1;
-  const quoted   = rawName.startsWith('"') ? rawName : `"${rawName}"`;
   if (!sbCheckOutfitSpace(rawName, count)) return;
-  const existing = sbCurrentShip.outfits.find(o => o.name === quoted);
+  const existing = sbCurrentShip.outfits.find(o => o.name === rawName);
   if (existing) {
     existing.count += count;
     if (!existing.pluginId && pluginId) existing.pluginId = pluginId;
   } else {
-    sbCurrentShip.outfits.push({ name: quoted, count, pluginId });
+    sbCurrentShip.outfits.push({ name: rawName, count, pluginId });
   }
   const outfitObj = sbFindOutfit(rawName);
   sbAutoSlotWeapons(rawName, count, outfitObj);
@@ -1470,12 +1441,12 @@ function sbGenerateES(s) {
   }
 
   // ── Outfits block ────────────────────────────────────────
-  if ((s.outfits || []).length) {
+if ((s.outfits || []).length) {
     L.push(`${T}outfits`);
     for (const o of s.outfits) {
-      const count = parseInt(o.count) || 1;
-      // name is stored with quotes already e.g. "Blaster"
-      L.push(`${TT}${o.name}${count > 1 ? ' ' + count : ''}`);
+      const count    = parseInt(o.count) || 1;
+      const quoted   = o.name.startsWith('"') ? o.name : `"${o.name}"`;
+      L.push(`${TT}${quoted}${count > 1 ? ' ' + count : ''}`);
     }
   }
 
@@ -1491,14 +1462,16 @@ function sbGenerateES(s) {
   // ── Guns ─────────────────────────────────────────────────
   // format: gun x y ["Weapon Name"]
   for (const g of (s.guns || [])) {
-    const over = (g.over || '').trim();
-    L.push(`${T}gun ${g.coords || '0 0'}${over ? ' ' + over : ''}`);
+    const raw  = (g.over || '').trim().replace(/^"|"$/g, '');
+    const over = raw ? ` "${raw}"` : '';
+    L.push(`${T}gun ${g.coords || '0 0'}${over}`);
   }
 
   // ── Turrets ───────────────────────────────────────────────
   for (const g of (s.turrets || [])) {
-    const over = (g.over || '').trim();
-    L.push(`${T}turret ${g.coords || '0 0'}${over ? ' ' + over : ''}`);
+    const raw  = (g.over || '').trim().replace(/^"|"$/g, '');
+    const over = raw ? ` "${raw}"` : '';
+    L.push(`${T}turret ${g.coords || '0 0'}${over}`);
   }
 
   // ── Bays (Drone / Fighter) ────────────────────────────────
