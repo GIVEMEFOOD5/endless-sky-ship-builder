@@ -59,16 +59,17 @@ function hashShip(ship) {
 function outfitMapToArray(outfitMap) {
   if (!outfitMap || typeof outfitMap !== 'object') return [];
   return Object.entries(outfitMap).map(([name, val]) => {
+    // Strip any embedded quotes from the name
+    const cleanName = name.replace(/^"|"$/g, '');
     if (typeof val === 'object' && val !== null) {
       return {
-        name:     name.startsWith('"') ? name : `"${name}"`,
+        name:     cleanName,
         count:    val.count    ?? 1,
         pluginId: val.pluginId ?? null,
       };
     }
-    // Legacy scalar form (shouldn't appear after this refactor, but kept for safety)
     return {
-      name:     name.startsWith('"') ? name : `"${name}"`,
+      name:     cleanName,
       count:    Number(val) || 1,
       pluginId: null,
     };
