@@ -446,7 +446,10 @@ function computeOutfitContributions(item, pluginId) {
     const outfitMap = item.outfitMap || {};
     const contributions = {};
 
-    for (const [outfitName, qty] of Object.entries(outfitMap)) {
+    for (const [outfitName, qtyVal] of Object.entries(outfitMap)) {
+        // Support new map format { count, pluginId } and legacy plain number
+        const qty = typeof qtyVal === 'object' ? (parseInt(qtyVal.count) || 1) : (Number(qtyVal) || 1);
+
         const outfit = lookupOutfit(outfitName, pluginId);
         if (!outfit) continue;
         const outfitAttrs = (outfit.attributes && Object.keys(outfit.attributes).length)
@@ -461,7 +464,6 @@ function computeOutfitContributions(item, pluginId) {
     }
     return contributions;
 }
-
 /**
  * Render outfit contributions section for a ship.
  * Groups contributions by section and lists which outfits provide each attribute.
@@ -752,7 +754,12 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
         if (hpRows.length) html += buildSection('Hardpoints', hpRows);
 
         if (item.outfitMap && Object.keys(item.outfitMap).length) {
-            const outfitRows = Object.entries(item.outfitMap).sort((a, b) => a[0].localeCompare(b[0])).map(([name, count]) => attrRow(name, count > 1 ? `×${count}` : '✓', '', ''));
+            const outfitRows = Object.entries(item.outfitMap)
+                .sort((a, b) => a[0].localeCompare(b[0]))
+                .map(([name, qtyVal]) => {
+                    const count = typeof qtyVal === 'object' ? (parseInt(qtyVal.count) || 1) : (Number(qtyVal) || 1);
+                    return attrRow(name, count > 0 ? `×${count}` : '✓', '', '');
+                });
             html += buildSection('Outfits', outfitRows);
 
             // Show what each outfit contributes to the ship's attributes

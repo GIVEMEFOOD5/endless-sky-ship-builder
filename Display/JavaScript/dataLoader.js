@@ -107,9 +107,9 @@ function _buildLocalPlugin() {
                 Object.entries(s.outfits || {}).map(([name, val]) => [
                     name.replace(/^"|"$/g, ''),
                     {
-                        count:    parseInt(val.count)  || 1,
-                        pluginId: val.pluginId         || null,
-                    }
+                        count:    typeof val === 'object' ? (parseInt(val.count) || 1)    : (Number(val) || 1),
+                        pluginId: typeof val === 'object' ? (val.pluginId        || null)  : null,
+                    },
                 ])
             ),
             guns: (s.guns || []).map(g => ({

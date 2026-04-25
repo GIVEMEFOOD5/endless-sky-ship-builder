@@ -339,7 +339,10 @@ function accumulateOutfits(baseAttrs, outfitMap, outfitIdx) {
   for (const [key, val] of Object.entries(baseAttrs)) {
     if (typeof val === 'number') result[key] = val;
   }
-  for (const [outfitName, qty] of Object.entries(outfitMap || {})) {
+  for (const [outfitName, qtyVal] of Object.entries(outfitMap || {})) {
+    // Support both new map format { count, pluginId } and legacy plain number
+    const qty = typeof qtyVal === 'object' ? (parseInt(qtyVal.count) || 1) : (Number(qtyVal) || 1);
+
     const outfit = outfitIdx[outfitName];
     if (!outfit) continue;
     const outfitAttrs = (
@@ -364,7 +367,10 @@ function accumulateOutfits(baseAttrs, outfitMap, outfitIdx) {
     if (typeof outfit.mass === 'number')
       result['_outfitMass'] = (result['_outfitMass'] || 0) + outfit.mass * qty;
   }
-  result['_totalOutfits'] = Object.values(outfitMap || {}).reduce((s, q) => s + q, 0);
+  // Sum counts correctly from new format
+  result['_totalOutfits'] = Object.values(outfitMap || {}).reduce((s, q) =>
+    s + (typeof q === 'object' ? (parseInt(q.count) || 1) : (Number(q) || 1)), 0
+  );
   return result;
 }
 
