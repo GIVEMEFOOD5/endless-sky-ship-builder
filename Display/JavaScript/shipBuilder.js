@@ -76,11 +76,35 @@ function sbBlank() {
 //  PERSISTENCE
 // ═══════════════════════════════════════════════════════════
 function sbSave() {
-  try { localStorage.setItem(SB_STORAGE_KEY, JSON.stringify(sbFleet)); } catch(e) {}
+  const toStore = sbFleet.map(ship => ({
+    ...ship,
+    outfits: Object.fromEntries(
+      (ship.outfits || []).map(o => [
+        o.name,
+        { count: o.count ?? 1, pluginId: o.pluginId ?? null }
+      ])
+    )
+  }));
+  try { localStorage.setItem(SB_STORAGE_KEY, JSON.stringify(toStore)); } catch(e) {}
 }
+
 function sbLoad() {
-  try { const d = localStorage.getItem(SB_STORAGE_KEY); if (d) sbFleet = JSON.parse(d); }
-  catch(e) { sbFleet = []; }
+  try {
+    const d = localStorage.getItem(SB_STORAGE_KEY);
+    if (d) {
+      const raw = JSON.parse(d);
+      sbFleet = raw.map(ship => ({
+        ...ship,
+        outfits: typeof ship.outfits === 'object' && !Array.isArray(ship.outfits)
+          ? Object.entries(ship.outfits).map(([name, val]) => ({
+              name,
+              count:    typeof val === 'object' ? (val.count    ?? 1)    : (Number(val) || 1),
+              pluginId: typeof val === 'object' ? (val.pluginId ?? null) : null,
+            }))
+          : (ship.outfits || [])  // graceful fallback for old saves
+      }));
+    }
+  } catch(e) { sbFleet = []; }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -266,26 +290,14 @@ function sbShipFromParsed(src) {
   // The source plugin ID is stored on each outfit so battleSim can do a
   // plugin-specific fallback lookup when the outfit isn't in the global index.
   const sourcePluginId = src._pn || src._pluginName || null;
-// outfits array (new parser format: name is unquoted)
-  const outfitSource = src.outfitMap || src.outfits;
+  // outfits array (new parser format: name is unquoted)
+  const outfitSource = src.outfits || src.outfitMap;
   if (outfitSource && typeof outfitSource === 'object' && !Array.isArray(outfitSource)) {
-    for (const [n, c] of Object.entries(outfitSource)) {
+    for (const [n, val] of Object.entries(outfitSource)) {
       const cleanName = n.replace(/^"|"$/g, '');
-      const count    = typeof c === 'object' ? (parseInt(c.count) || 1)      : (Number(c) || 1);
-      const pluginId = typeof c === 'object' ? (c.pluginId || sourcePluginId) : sourcePluginId;
+      const count    = typeof val === 'object' ? (parseInt(val.count) || 1)       : (Number(val) || 1);
+      const pluginId = typeof val === 'object' ? (val.pluginId || sourcePluginId)  : sourcePluginId;
       s.outfits.push({ name: cleanName, count, pluginId });
-    }
-  } else if (Array.isArray(outfitSource)) {
-    const map = {};
-    for (const o of outfitSource) {
-      const n   = (typeof o === 'string' ? o : (o.name || '')).replace(/^"|"$/g, '');
-      const c   = typeof o === 'object' && o.count ? o.count : 1;
-      const pid = typeof o === 'object' && o.pluginId ? o.pluginId : sourcePluginId;
-      if (!map[n]) map[n] = { count: 0, pluginId: pid };
-      map[n].count += Number(c);
-    }
-    for (const [n, { count, pluginId }] of Object.entries(map)) {
-      s.outfits.push({ name: n, count, pluginId });
     }
   }
 

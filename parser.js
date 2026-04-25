@@ -56,24 +56,18 @@ function hashShip(ship) {
 // into the array format expected by shipBuilder.js:
 //   [ { name: '"Blaster"', count: 2, pluginId: "Endless Sky/Endless Sky" }, ... ]
 // ---------------------------------------------------------------------------
-function outfitMapToArray(outfitMap) {
-  if (!outfitMap || typeof outfitMap !== 'object') return [];
-  return Object.entries(outfitMap).map(([name, val]) => {
-    // Strip any embedded quotes from the name
+function outfitMapToOutputFormat(outfitMap) {
+  if (!outfitMap || typeof outfitMap !== 'object') return {};
+  const result = {};
+  for (const [name, val] of Object.entries(outfitMap)) {
     const cleanName = name.replace(/^"|"$/g, '');
     if (typeof val === 'object' && val !== null) {
-      return {
-        name:     cleanName,
-        count:    val.count    ?? 1,
-        pluginId: val.pluginId ?? null,
-      };
+      result[cleanName] = { count: val.count ?? 1, pluginId: val.pluginId ?? null };
+    } else {
+      result[cleanName] = { count: Number(val) || 1, pluginId: null };
     }
-    return {
-      name:     cleanName,
-      count:    Number(val) || 1,
-      pluginId: null,
-    };
-  });
+  }
+  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -1765,14 +1759,14 @@ async function main() {
 
       // Convert outfitMap (internal { name: { count, pluginId } }) to the
       // shipBuilder-compatible array format before writing JSON.
-      const shipsOut    = plugin.ships.map(s => ({
+      const shipsOut = plugin.ships.map(s => ({
         ...s,
-        outfits:   outfitMapToArray(s.outfitMap),
-        outfitMap: undefined,   // omit the internal map from output
+        outfits:   outfitMapToOutputFormat(s.outfitMap),
+        outfitMap: undefined,
       }));
       const variantsOut = plugin.variants.map(v => ({
         ...v,
-        outfits:   outfitMapToArray(v.outfitMap),
+        outfits:   outfitMapToOutputFormat(v.outfitMap),
         outfitMap: undefined,
       }));
 

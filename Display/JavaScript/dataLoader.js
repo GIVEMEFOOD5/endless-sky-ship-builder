@@ -104,12 +104,12 @@ function _buildLocalPlugin() {
             // Values are { count, pluginId } so battleSim can do a plugin-specific
             // fallback lookup when the outfit isn't in the global index.
             outfitMap: Object.fromEntries(
-                (s.outfits || []).map(o => [
-                    o.name.replace(/^"|"$/g, ''),
+                Object.entries(s.outfits || {}).map(([name, val]) => [
+                    name.replace(/^"|"$/g, ''),
                     {
-                        count:    parseInt(o.count) || 1,
-                        pluginId: o.pluginId || null,
-                    },
+                        count:    parseInt(val.count)  || 1,
+                        pluginId: val.pluginId         || null,
+                    }
                 ])
             ),
             guns: (s.guns || []).map(g => ({
