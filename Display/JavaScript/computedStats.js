@@ -535,8 +535,8 @@ function getComputedStats(ship, pluginId, options) {
                   ?? 1.0;
   const baseAttrs = ship.attributes || {};
   const outfitIdx = getOutfitIndex(pluginId);
-  const result    = accumulateOutfits(baseAttrs, ship.outfitMap || {}, outfitIdx);
-
+  const result = accumulateOutfits(baseAttrs, ship.outfitMap || ship.outfits || {}, outfitIdx);
+  
   // Merge top-level numeric ship props that aren't already in result
   for (const [key, val] of Object.entries(ship)) {
     if (typeof val === 'number' && !key.startsWith('_') && !(key in result)) result[key] = val;

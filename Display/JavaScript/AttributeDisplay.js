@@ -443,7 +443,7 @@ function lookupOutfit(name, pluginId) {
  * Returns: { [attrKey]: { total, sources: [{name, qty, perUnit}] } }
  */
 function computeOutfitContributions(item, pluginId) {
-    const outfitMap = item.outfitMap || {};
+    const outfitMap = item.outfitMap || item.outfits || {};
     const contributions = {};
 
     for (const [outfitName, qtyVal] of Object.entries(outfitMap)) {
@@ -753,16 +753,15 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
         }
         if (hpRows.length) html += buildSection('Hardpoints', hpRows);
 
-        if (item.outfitMap && Object.keys(item.outfitMap).length) {
-            const outfitRows = Object.entries(item.outfitMap)
+        const outfitMap = item.outfitMap || item.outfits || {};
+        if (Object.keys(outfitMap).length) {
+            const outfitRows = Object.entries(outfitMap)
                 .sort((a, b) => a[0].localeCompare(b[0]))
                 .map(([name, qtyVal]) => {
                     const count = typeof qtyVal === 'object' ? (parseInt(qtyVal.count) || 1) : (Number(qtyVal) || 1);
                     return attrRow(name, count > 0 ? `×${count}` : '✓', '', '');
                 });
             html += buildSection('Outfits', outfitRows);
-
-            // Show what each outfit contributes to the ship's attributes
             html += renderOutfitContributions(attrDefs, item, pluginId);
         }
 

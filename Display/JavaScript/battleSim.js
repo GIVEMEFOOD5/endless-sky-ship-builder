@@ -124,46 +124,54 @@ function setStatus(msg, isError = false) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 async function onPluginsChanged() {
-    _allShips    = [];
-    _outfitIndex = {};
+    try {
+        _allShips    = [];
+        _outfitIndex = {};
 
-    const activePlugins = window.PluginManager.getActivePlugins();
-    const allData       = window.allData || {};
+        const activePlugins = window.PluginManager.getActivePlugins();
+        const allData       = window.allData || {};
 
-    // Build outfit index: active plugins take priority for name resolution,
-    // then fall back to every other loaded plugin so cross-plugin submunitions work.
-    const indexOrder = window._indexPluginOrder || [];
-    const searchOrder = [
-        ...activePlugins,
-        ...indexOrder.filter(id => !activePlugins.includes(id) && allData[id]),
-        ...Object.keys(allData).filter(id => !activePlugins.includes(id) && !indexOrder.includes(id)),
-    ];
+        const indexOrder = window._indexPluginOrder || [];
+        const searchOrder = [
+            ...activePlugins,
+            ...indexOrder.filter(id => !activePlugins.includes(id) && allData[id]),
+            ...Object.keys(allData).filter(id => !activePlugins.includes(id) && !indexOrder.includes(id)),
+        ];
 
-    for (const pid of searchOrder) {
-        const d = allData[pid]; if (!d) continue;
-        for (const outfit of (d.outfits || []))
-            if (outfit.name && !_outfitIndex[outfit.name])
-                _outfitIndex[outfit.name] = { ...outfit, _pluginId: pid };
+        // Handle both array and map formats for outfits
+        for (const pid of searchOrder) {
+            const d = allData[pid]; if (!d) continue;
+            const outfitsRaw = d.outfits || [];
+            const outfitsArr = Array.isArray(outfitsRaw)
+                ? outfitsRaw
+                : Object.values(outfitsRaw);
+            for (const outfit of outfitsArr)
+                if (outfit.name && !_outfitIndex[outfit.name])
+                    _outfitIndex[outfit.name] = { ...outfit, _pluginId: pid };
+        }
+
+        for (const pid of activePlugins) {
+            const d = allData[pid]; if (!d) continue;
+            for (const ship of [...(d.ships || []), ...(d.variants || [])])
+                _allShips.push({ ...ship, _pluginId: pid });
+        }
+
+        console.log(`[battleSim] onPluginsChanged: ${Object.keys(_outfitIndex).length} outfits indexed, ${_allShips.length} ships loaded`);
+
+        const primaryPlugin = window.PluginManager.getPrimaryPlugin();
+        if (primaryPlugin) {
+            if (typeof window.setCurrentPlugin === 'function') window.setCurrentPlugin(primaryPlugin);
+            if (typeof window.initImageIndex   === 'function') await window.initImageIndex(primaryPlugin);
+        }
+
+        document.getElementById('simPanel').style.display = 'block';
+        renderAllTeams();
+        updateSimButton();
+
+    } catch (err) {
+        console.error('[battleSim] onPluginsChanged failed:', err);
     }
-
-    // Ships come only from active plugins (including Local Builds)
-    for (const pid of activePlugins) {
-        const d = allData[pid]; if (!d) continue;
-        for (const ship of [...(d.ships || []), ...(d.variants || [])])
-            _allShips.push({ ...ship, _pluginId: pid });
-    }
-
-    const primaryPlugin = window.PluginManager.getPrimaryPlugin();
-    if (primaryPlugin) {
-        if (typeof window.setCurrentPlugin === 'function') window.setCurrentPlugin(primaryPlugin);
-        if (typeof window.initImageIndex   === 'function') await window.initImageIndex(primaryPlugin);
-    }
-
-    document.getElementById('simPanel').style.display = 'block';
-    renderAllTeams();
-    updateSimButton();
 }
-
 // ═══════════════════════════════════════════════════════════════════════════════
 //  ATTRIBUTE HELPERS
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -211,6 +219,29 @@ function extractOutfitAttributes(outfit) {
 //  STAT RESOLUTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
+function _lookupOutfit(outfitName, pluginId) {
+    // Tier 1: direct lookup in the outfit's own plugin
+    if (pluginId && window.allData?.[pluginId]) {
+        const raw = window.allData[pluginId].outfits || [];
+        const arr = Array.isArray(raw) ? raw : Object.values(raw);
+        const found = arr.find(o => o.name === outfitName);
+        if (found) return { ...found, _pluginId: pluginId };
+    }
+
+    // Tier 2: pre-built index (fast path for remote ships)
+    if (_outfitIndex[outfitName]) return _outfitIndex[outfitName];
+
+    // Tier 3: brute-force search all loaded plugins
+    for (const [pid, pluginData] of Object.entries(window.allData || {})) {
+        const raw = pluginData.outfits || [];
+        const arr = Array.isArray(raw) ? raw : Object.values(raw);
+        const found = arr.find(o => o.name === outfitName);
+        if (found) return { ...found, _pluginId: pid };
+    }
+
+    return null;
+}
+
 function resolveShipStats(ship) {
     const rawAttrs = ship.attributes || {};
     const combined = {};
@@ -226,29 +257,29 @@ function resolveShipStats(ship) {
 
     // ── Build unified outfit entries from whichever format is present ──────────
     const outfitEntries = [];
-    if (ship.outfitMap && typeof ship.outfitMap === 'object' && !Array.isArray(ship.outfitMap)) {
-        for (const [name, val] of Object.entries(ship.outfitMap)) {
+    const outfitSource = ship.outfits || ship.outfitMap;
+
+    if (outfitSource && typeof outfitSource === 'object' && !Array.isArray(outfitSource)) {
+        // Map format (both 'outfits' and 'outfitMap' keys use same { count, pluginId } structure)
+        for (const [name, val] of Object.entries(outfitSource)) {
             const cleanName = name.replace(/^"|"$/g, '');
-            const qty       = typeof val === 'object' ? (val.count    || 1) : (val || 1);
-            const pluginId  = typeof val === 'object' ? (val.pluginId || null) : null;
-            outfitEntries.push({ name: cleanName, count: qty, pluginId });
+            const qty       = typeof val === 'object' ? (parseInt(val.count)  || 1) : (Number(val) || 1);
+            const pluginId  = typeof val === 'object' ? (val.pluginId || null)       : null;
+            if (cleanName) outfitEntries.push({ name: cleanName, count: qty, pluginId });
         }
-    } else if (Array.isArray(ship.outfits)) {
-        for (const o of ship.outfits) {
+    } else if (Array.isArray(outfitSource)) {
+        // Legacy array format — kept as fallback for any old cached data
+        for (const o of outfitSource) {
             const cleanName = (typeof o === 'string' ? o : (o.name || '')).replace(/^"|"$/g, '');
-            const qty       = typeof o === 'object' ? (o.count    || 1) : 1;
-            const pluginId  = typeof o === 'object' ? (o.pluginId || null) : null;
+            const qty       = typeof o === 'object' ? (parseInt(o.count)  || 1) : 1;
+            const pluginId  = typeof o === 'object' ? (o.pluginId || null)       : null;
             if (cleanName) outfitEntries.push({ name: cleanName, count: qty, pluginId });
         }
     }
 
     // ── Process weapons and attributes ────────────────────────────────────────
     for (const { name: outfitName, count: qty, pluginId } of outfitEntries) {
-        let outfit = _outfitIndex[outfitName];
-        if (!outfit && pluginId && window.allData?.[pluginId]) {
-            outfit = (window.allData[pluginId].outfits || []).find(o => o.name === outfitName) ?? null;
-            if (outfit) outfit = { ...outfit, _pluginId: pluginId };
-        }
+        const outfit = _lookupOutfit(outfitName, pluginId);
         if (!outfit) continue;
 
         if (outfit.weapon)
@@ -321,9 +352,7 @@ function resolveShipStats(ship) {
     // ── Ammo inventory (reuses the same outfitEntries) ────────────────────────
     const ammoInventory = {};
     for (const { name: outfitName, count: qty, pluginId } of outfitEntries) {
-        let outfit = _outfitIndex[outfitName];
-        if (!outfit && pluginId && window.allData?.[pluginId])
-            outfit = (window.allData[pluginId].outfits || []).find(o => o.name === outfitName) ?? null;
+        const outfit = _lookupOutfit(outfitName, pluginId);
         if (!outfit) continue;
 
         const isAmmoOutfit =
@@ -345,7 +374,7 @@ function resolveShipStats(ship) {
     const thrustForVel = a('thrust') || a('afterburner thrust');
     const maxVelocity  = drag > 0 ? thrustForVel / drag : 0;
     const acceleration = inertialMass > 0 ? (a('thrust') / inertialMass) * (1 + a('acceleration multiplier')) : 0;
-
+    
     return {
         name: ship.name, pluginId: ship._pluginId, rawShip: ship,
         combined, weapons, outfitContributions, protections,

@@ -75,36 +75,38 @@ function sbBlank() {
 // ═══════════════════════════════════════════════════════════
 //  PERSISTENCE
 // ═══════════════════════════════════════════════════════════
+// sbSave() — convert internal array to map format before writing
 function sbSave() {
-  const toStore = sbFleet.map(ship => ({
-    ...ship,
-    outfits: Object.fromEntries(
-      (ship.outfits || []).map(o => [
-        o.name,
-        { count: o.count ?? 1, pluginId: o.pluginId ?? null }
-      ])
-    )
-  }));
-  try { localStorage.setItem(SB_STORAGE_KEY, JSON.stringify(toStore)); } catch(e) {}
+    const toStore = sbFleet.map(ship => ({
+        ...ship,
+        outfits: Object.fromEntries(
+            (ship.outfits || []).map(o => [
+                o.name.replace(/^"|"$/g, ''),
+                { count: o.count ?? 1, pluginId: o.pluginId ?? null }
+            ])
+        )
+    }));
+    try { localStorage.setItem(SB_STORAGE_KEY, JSON.stringify(toStore)); } catch(e) {}
 }
 
+// sbLoad() — convert map format back to internal array on load
 function sbLoad() {
-  try {
-    const d = localStorage.getItem(SB_STORAGE_KEY);
-    if (d) {
-      const raw = JSON.parse(d);
-      sbFleet = raw.map(ship => ({
-        ...ship,
-        outfits: typeof ship.outfits === 'object' && !Array.isArray(ship.outfits)
-          ? Object.entries(ship.outfits).map(([name, val]) => ({
-              name,
-              count:    typeof val === 'object' ? (val.count    ?? 1)    : (Number(val) || 1),
-              pluginId: typeof val === 'object' ? (val.pluginId ?? null) : null,
-            }))
-          : (ship.outfits || [])  // graceful fallback for old saves
-      }));
-    }
-  } catch(e) { sbFleet = []; }
+    try {
+        const d = localStorage.getItem(SB_STORAGE_KEY);
+        if (d) {
+            const raw = JSON.parse(d);
+            sbFleet = raw.map(ship => ({
+                ...ship,
+                outfits: typeof ship.outfits === 'object' && !Array.isArray(ship.outfits)
+                    ? Object.entries(ship.outfits).map(([name, val]) => ({
+                        name,
+                        count:    typeof val === 'object' ? (val.count    ?? 1)    : (Number(val) || 1),
+                        pluginId: typeof val === 'object' ? (val.pluginId ?? null) : null,
+                    }))
+                    : (ship.outfits || [])  // graceful fallback for old array-format saves
+            }));
+        }
+    } catch(e) { sbFleet = []; }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -282,15 +284,13 @@ function sbShipFromParsed(src) {
     }
   }
   // drag / mass may also live at top-level in some parser outputs
-  if (src.drag != null) s.drag = String(src.drag);
-  if (src.mass != null) s.mass = String(src.mass);
+  const rawMass = src.mass ?? src.attributes?.mass;
+  const rawDrag = src.drag ?? src.attributes?.drag;
+  if (rawMass != null && rawMass !== '') s.mass = String(rawMass);
+  if (rawDrag != null && rawDrag !== '') s.drag = String(rawDrag);
 
   // ── Outfits ───────────────────────────────────────────────
-  // Handle: outfitMap { "Name": count|{count,pluginId} }, outfits (array or object)
-  // The source plugin ID is stored on each outfit so battleSim can do a
-  // plugin-specific fallback lookup when the outfit isn't in the global index.
   const sourcePluginId = src._pn || src._pluginName || null;
-  // outfits array (new parser format: name is unquoted)
   const outfitSource = src.outfits || src.outfitMap;
   if (outfitSource && typeof outfitSource === 'object' && !Array.isArray(outfitSource)) {
     for (const [n, val] of Object.entries(outfitSource)) {
@@ -302,7 +302,6 @@ function sbShipFromParsed(src) {
   }
 
   // ── Guns ─────────────────────────────────────────────────
-  // gun key may be "gun", "over", or "weapon" depending on parser
   for (const g of (src.guns || [])) {
     const coords = [g.x, g.y].filter(v => v != null).join(' ') || '0 0';
     const over   = g.gun || g.over || g.weapon || '';
@@ -337,7 +336,6 @@ function sbShipFromParsed(src) {
   }
 
   // ── Explode ───────────────────────────────────────────────
-  // Handle both array form and scalar "small explosion": 40 form
   const explodeSrc = src.explode || [];
   for (const e of explodeSrc) {
     s.explode.push({
@@ -345,7 +343,6 @@ function sbShipFromParsed(src) {
       count: e.count || 1,
     });
   }
-  // Also pick up named explosion scalars at top level e.g. "small explosion": 40
   for (const key of ['small explosion','medium explosion','large explosion','huge explosion']) {
     if (src[key] != null) s.explode.push({ name: `"${key}"`, count: Number(src[key]) });
   }
@@ -360,9 +357,6 @@ function sbShipFromParsed(src) {
   }
 
   // Auto-slot all outfits into empty gun/turret ports.
-  // For ships loaded from parsed data, the guns/turrets arrays already have
-  // coordinates but their `over` field may be blank if the parser stored
-  // weapons only in outfitMap. This fills any remaining empty ports in order.
   sbAutoSlotAllOutfits(s);
 
   return s;
@@ -437,15 +431,33 @@ function onBuilderChange() {
 
 // ═══════════════════════════════════════════════════════════
 //  CAPACITY TRACKING
-//  Outfits contribute negative values to capacity attributes.
-//  e.g. an outfit with "outfit space" -45 uses 45 outfit space.
-//  We track: outfit space, engine capacity, weapon capacity, cargo space.
+//
+//  FIXED: Outfits can both CONSUME and GRANT capacity.
+//    - Negative attr value on an outfit = consumes that much capacity from the ship
+//    - Positive attr value on an outfit = grants that much capacity to the ship
+//      (e.g. a Cargo Expansion has "cargo space" +50, a Large Outfit Space has
+//       "outfit space" +70, etc.)
+//
+//  sbGetOutfitCapacityEffect(name, key)
+//    Returns the SIGNED net effect of ONE unit of the outfit on the named capacity.
+//    Negative → consumes capacity (e.g. -45 outfit space used by an engine)
+//    Positive → grants capacity  (e.g. +50 cargo space added by a cargo bay)
+//    Zero     → outfit doesn't affect this capacity at all
+//
+//  sbUsedCapacity(key)
+//    Returns NET units consumed across all installed outfits.
+//    outfits that grant space REDUCE the consumed total.
+//    Result is clamped to 0 minimum (can't use negative space).
+//
+//  sbEffectiveMaxCapacity(key)
+//    Ship base attribute value.  Outfit grants are already reflected in
+//    sbUsedCapacity (they reduce "used"), so the max stays as the ship's
+//    own attribute — this matches how ES itself works.
 // ═══════════════════════════════════════════════════════════
 
-// Attributes whose value on an OUTFIT subtracts from the ship's CAPACITY.
-// The outfit value is negative (e.g. -45), so we negate to get "used".
+// Attributes whose value on an OUTFIT affects ship capacity.
 const SB_CAPACITY_ATTRS = {
-  'outfit space':    'outfit space',     // ship attr → outfit attr (same key)
+  'outfit space':    'outfit space',
   'engine capacity': 'engine capacity',
   'weapon capacity': 'weapon capacity',
   'cargo space':     'cargo space',
@@ -470,16 +482,16 @@ function sbFindOutfit(outfitName) {
 }
 
 /**
- * Get the amount of a capacity attribute consumed by one unit of an outfit.
+ * FIX: Returns the SIGNED capacity effect of one unit of an outfit.
  *
- * Outfits in the parsed data store capacity costs in one of two places:
- *   1. Flat on the object:   o['outfit space'] = -45  (most common from ES parser)
- *   2. Nested:               o.attributes['outfit space'] = -45
+ *   Negative value → outfit CONSUMES this capacity (e.g. -45 outfit space)
+ *   Positive value → outfit GRANTS  this capacity (e.g. +50 cargo space)
+ *   Zero           → outfit has no effect on this capacity
  *
- * The value is NEGATIVE when the outfit consumes that capacity.
- * We return the positive cost (how much it uses), or 0 if it doesn't use this capacity.
+ * Previously this returned only the absolute value of negative numbers,
+ * silently ignoring outfits that add cargo/outfit/engine/weapon space.
  */
-function sbGetOutfitCapacityCost(outfitName, capacityKey) {
+function sbGetOutfitCapacityEffect(outfitName, capacityKey) {
   const o = sbFindOutfit(outfitName);
   if (!o) return 0;
 
@@ -490,24 +502,43 @@ function sbGetOutfitCapacityCost(outfitName, capacityKey) {
 
   const n = Number(val);
   if (isNaN(n) || n === 0) return 0;
-
-  // Negative value = outfit consumes this capacity from the ship
-  // Positive value = outfit provides this capacity (e.g. a cargo expansion grants cargo space)
-  // We only care about consumption here
-  return n < 0 ? Math.abs(n) : 0;
+  return n; // signed: negative = consumes, positive = grants
 }
 
-/** Convenience: outfit space cost for one unit */
+/**
+ * Legacy alias — old callers that expected a positive cost still work.
+ * Returns the positive consumption cost, 0 if the outfit grants (not consumes) this capacity.
+ */
+function sbGetOutfitCapacityCost(outfitName, capacityKey) {
+  const effect = sbGetOutfitCapacityEffect(outfitName, capacityKey);
+  return effect < 0 ? Math.abs(effect) : 0;
+}
+
+/** Convenience: outfit space cost for one unit (positive consumption only) */
 function sbGetOutfitSize(outfitName) {
   return sbGetOutfitCapacityCost(outfitName, 'outfit space');
 }
 
-/** Total used for a given capacity key across all installed outfits. */
+/**
+ * FIX: Net capacity consumed across all installed outfits for a given key.
+ *
+ * Outfits that GRANT space (positive effect) reduce the consumed total.
+ * Result is clamped to ≥ 0 (can't have negative consumption in the bar display).
+ *
+ * Example: ship has 2200 outfit space.
+ *   Engine (-45 × 8)   = -360
+ *   Cargo Bay (+50 × 2) = +100  ← reduces consumed total
+ *   Net consumed = 360 - 100 = 260 outfit space used
+ */
 function sbUsedCapacity(capacityKey) {
   if (!sbCurrentShip) return 0;
-  return (sbCurrentShip.outfits || []).reduce((total, o) => {
-    return total + sbGetOutfitCapacityCost(o.name, capacityKey) * (parseInt(o.count) || 1);
+  const net = (sbCurrentShip.outfits || []).reduce((total, o) => {
+    const effect = sbGetOutfitCapacityEffect(o.name, capacityKey);
+    // Negative effect = consumes capacity (adds to used)
+    // Positive effect = grants capacity (subtracts from used)
+    return total + (-(effect)) * (parseInt(o.count) || 1);
   }, 0);
+  return Math.max(0, net);
 }
 
 /** Convenience wrappers */
@@ -516,7 +547,7 @@ function sbUsedEngineCapacity() { return sbUsedCapacity('engine capacity'); }
 function sbUsedWeaponCapacity() { return sbUsedCapacity('weapon capacity'); }
 function sbUsedCargoSpace()     { return sbUsedCapacity('cargo space'); }
 
-/** Max of a capacity key from the ship's own attributes. */
+/** Max capacity from the ship's own base attributes. */
 function sbShipCapacity(key) {
   if (!sbCurrentShip) return 0;
   return Number((sbCurrentShip.attributes || {})[key]) || 0;
@@ -525,9 +556,6 @@ function sbMaxOutfitSpace()    { return sbShipCapacity('outfit space'); }
 function sbMaxEngineCapacity() { return sbShipCapacity('engine capacity'); }
 function sbMaxWeaponCapacity() { return sbShipCapacity('weapon capacity'); }
 function sbMaxCargoSpace()     { return sbShipCapacity('cargo space'); }
-
-// Invalidate lookup whenever live data refreshes
-const _origRefresh = typeof sbRefreshLiveData === 'function' ? sbRefreshLiveData : null;
 
 // ── Capacity bar HTML helper ──────────────────────────────
 function sbCapacityBarHTML(label, used, max) {
@@ -573,18 +601,13 @@ function sbRenderOutfitSpaceBar() {
 
 // ═══════════════════════════════════════════════════════════
 //  ATTRIBUTE VALIDATION
-//  Most numeric attributes must be ≥ 0.
-//  A set of "signed" attributes may legitimately be negative.
 // ═══════════════════════════════════════════════════════════
 
-// These attributes are allowed to go negative.
 const SB_SIGNED_ATTRS = new Set([
-  // Protection / resistance multipliers (1 = full, 0 = none, negative = vulnerability)
   'shield protection','hull protection','energy protection','fuel protection',
   'heat protection','force protection','piercing protection',
   'shield permeability','high shield permeability','low shield permeability',
   'cloaked shield permeability',
-  // Damage multipliers on weapons
   'shield damage','hull damage','energy damage','fuel damage','heat damage',
   'ion damage','scrambling damage','slowing damage','disruption damage',
   'discharge damage','corrosion damage','burn damage','leak damage',
@@ -592,32 +615,21 @@ const SB_SIGNED_ATTRS = new Set([
   'relative fuel damage','relative heat damage','relative minable damage',
   '% shield damage','% hull damage','% energy damage','% fuel damage',
   '% heat damage','% minable damage',
-  // Firing costs that reduce something (negative generation = consumption)
   'firing energy','firing fuel','firing heat','firing shields','firing hull',
   'relative firing energy','relative firing fuel','relative firing heat',
   'relative firing shields','relative firing hull',
-  // Outfit capacity contributions (outfits use negative values)
   'outfit space','engine capacity','weapon capacity','cargo space',
   'gun ports','turret mounts',
-  // Drag reduction, inertia reduction (these reduce, so often stored as negative delta)
   'drag reduction','inertia reduction','acceleration multiplier',
   'turn multiplier','hull multiplier','shield multiplier',
   'hull repair multiplier','shield generation multiplier',
-  // Misc signed
-  'mass','drag',  // mass/drag are always positive but kept here so they pass freely
+  'mass','drag',
 ]);
 
-/**
- * Validate an attribute value being set.
- * Returns { ok: true } or { ok: false, message: string }.
- */
 function sbValidateAttrValue(key, rawValue) {
   const v = parseFloat(rawValue);
-  // Not a number at all — allow (could be a string value like category)
   if (isNaN(v)) return { ok: true };
-  // If signed attr, any number is fine
   if (SB_SIGNED_ATTRS.has(key)) return { ok: true };
-  // All other numeric attributes must be ≥ 0
   if (v < 0) {
     return {
       ok: false,
@@ -627,20 +639,15 @@ function sbValidateAttrValue(key, rawValue) {
   return { ok: true };
 }
 
-// Keys that map to hardpoint arrays — when you set the count, auto-add hardpoints
+// Keys that map to hardpoint arrays
 const SB_HARDPOINT_KEYS = {
   'gun ports':     { field: 'guns',    label: 'gun' },
   'turret mounts': { field: 'turrets', label: 'turret' },
 };
 
-/**
- * Sync hardpoint array to match the new attribute value.
- * Adds blank entries at "0 0" if the new count exceeds current array length.
- * Never removes existing entries.
- */
 function sbSyncHardpoints(key, newVal) {
   const hp = SB_HARDPOINT_KEYS[key];
-  if (!hp) return false; // returns false = no change made
+  if (!hp) return false;
   const target  = parseInt(newVal) || 0;
   const current = (sbCurrentShip[hp.field] || []).length;
   if (target > current) {
@@ -656,40 +663,22 @@ function sbSyncHardpoints(key, newVal) {
   return false;
 }
 
-/**
- * After adding outfits, look at how many of each weapon type were just added
- * and slot them into empty gun/turret ports in order.
- *
- * gunDelta / turretDelta = how many weapons of each type were just added.
- */
 function sbAutoSlotWeapons(outfitName, count, outfitObj) {
   if (!outfitObj) return;
-
-  // Check how many gun ports / turret mounts this outfit consumes
   const gunCost     = _sbGetPortCost(outfitObj, 'gun ports');
   const turretCost  = _sbGetPortCost(outfitObj, 'turret mounts');
-
-  if (gunCost > 0) {
-    _sbFillEmptyPorts(sbCurrentShip.guns, outfitName, gunCost * count);
-  }
-  if (turretCost > 0) {
-    _sbFillEmptyPorts(sbCurrentShip.turrets, outfitName, turretCost * count);
-  }
+  if (gunCost > 0)    _sbFillEmptyPorts(sbCurrentShip.guns,    outfitName, gunCost * count);
+  if (turretCost > 0) _sbFillEmptyPorts(sbCurrentShip.turrets, outfitName, turretCost * count);
 }
 
-/** Get how many ports of a type one unit of an outfit consumes (positive integer). */
 function _sbGetPortCost(outfitObj, portKey) {
   let val = outfitObj[portKey];
   if (val == null && outfitObj.attributes) val = outfitObj.attributes[portKey];
   if (val == null) return 0;
   const n = Number(val);
-  return n < 0 ? Math.abs(n) : 0; // negative means it consumes a port
+  return n < 0 ? Math.abs(n) : 0;
 }
 
-/**
- * Fill `needed` empty slots in the hardpoint array with `outfitName`.
- * An empty slot has over === '' or over == null.
- */
 function _sbFillEmptyPorts(hardpoints, outfitName, needed) {
   if (!hardpoints || needed <= 0) return;
   const clean = outfitName.replace(/^"|"$/g, '');
@@ -703,25 +692,64 @@ function _sbFillEmptyPorts(hardpoints, outfitName, needed) {
   }
 }
 
+/**
+ * FIX: sbUpdateAttrVal now handles 'mass' and 'drag' as special keys
+ * that write to s.mass / s.drag instead of s.attributes.
+ * This means editing those rows in the attr list updates the top bar correctly.
+ */
 function sbUpdateAttrVal(inp) {
   const key = inp.dataset.key;
   const val = inp.value;
   const check = sbValidateAttrValue(key, val);
   if (!check.ok) {
     sbToast(check.message, 'danger');
-    inp.value = String(sbCurrentShip.attributes[key] ?? '');
+    // Restore previous value depending on where it's stored
+    if (key === 'mass') inp.value = String(sbCurrentShip.mass ?? '');
+    else if (key === 'drag') inp.value = String(sbCurrentShip.drag ?? '');
+    else inp.value = String(sbCurrentShip.attributes[key] ?? '');
     inp.style.borderColor = 'var(--c-danger-hi)';
     setTimeout(() => { inp.style.borderColor = ''; }, 1500);
     return;
   }
   inp.style.borderColor = '';
-  sbCurrentShip.attributes[key] = val;
-  const changed = sbSyncHardpoints(key, val);
-  // Re-render attr list to reflect the saved value (also updates the field display)
-  if (changed) sbRenderAttrList();
+
+  // FIX: mass and drag live on the ship object directly, not in attributes
+  if (key === 'mass') {
+    sbCurrentShip.mass = val;
+    // Keep sidebar field in sync
+    const massEl = document.getElementById('ship-mass');
+    if (massEl && massEl !== inp) massEl.value = val;
+  } else if (key === 'drag') {
+    sbCurrentShip.drag = val;
+    const dragEl = document.getElementById('ship-drag');
+    if (dragEl && dragEl !== inp) dragEl.value = val;
+  } else {
+    sbCurrentShip.attributes[key] = val;
+    const changed = sbSyncHardpoints(key, val);
+    if (changed) sbRenderAttrList();
+  }
+
   sbUpdateQuickStats();
   sbRenderOutfitSpaceBar();
   sbRenderRaw();
+}
+
+/**
+ * FIX: sbRemoveAttr handles 'mass' and 'drag' by clearing those dedicated fields.
+ */
+function sbRemoveAttr(k) {
+  if (k === 'mass') {
+    sbCurrentShip.mass = '';
+    const massEl = document.getElementById('ship-mass');
+    if (massEl) massEl.value = '';
+  } else if (k === 'drag') {
+    sbCurrentShip.drag = '';
+    const dragEl = document.getElementById('ship-drag');
+    if (dragEl) dragEl.value = '';
+  } else {
+    delete sbCurrentShip.attributes[k];
+  }
+  sbRenderAttrList(); sbUpdateQuickStats(); sbRenderRaw();
 }
 
 function sbUpdateQuickStats() {
@@ -730,7 +758,6 @@ function sbUpdateQuickStats() {
   const s  = sbCurrentShip;
   const a  = s.attributes || {};
 
-  // Per-capacity used/max for quick display
   const oUsed = sbUsedOutfitSpace(),    oMax = sbMaxOutfitSpace();
   const eUsed = sbUsedEngineCapacity(), eMax = sbMaxEngineCapacity();
   const wUsed = sbUsedWeaponCapacity(), wMax = sbMaxWeaponCapacity();
@@ -762,7 +789,6 @@ function sbUpdateQuickStats() {
     `<div class="qs-card"><div class="qs-label">${q.label}</div><div class="qs-value">${q.value}</div></div>`
   ).join('');
 
-  // Refresh bars in outfits tab too
   sbRenderOutfitSpaceBar();
 }
 
@@ -796,25 +822,53 @@ const SB_ATTR_GROUPS = {
   'Cloaking':  ['cloak','cloaking energy','cloaking fuel','cloaking heat'],
 };
 
+/**
+ * FIX: Render mass and drag as synthetic attribute rows in the Identity group.
+ *
+ * mass and drag are stored on s.mass / s.drag (not in s.attributes) so the
+ * ES generator can emit them in the correct position inside the attributes
+ * block without the ship-level fields conflicting.  However they must appear
+ * in the attribute list so the user can edit them in-place — and changes must
+ * propagate back to s.mass / s.drag AND to the top-bar quick-stats.
+ *
+ * We inject them as regular attr-row elements but with data-key="mass" /
+ * data-key="drag".  sbUpdateAttrVal() already handles those keys specially.
+ */
 function sbRenderAttrList() {
   const el = document.getElementById('attr-list');
   if (!el || !sbCurrentShip) return;
-  const attrs = sbCurrentShip.attributes || {};
+  const s     = sbCurrentShip;
+  const attrs = s.attributes || {};
   const keys  = Object.keys(attrs);
-  if (!keys.length) {
+
+  // Build a synthetic attrs view that includes mass/drag for group rendering
+  const syntheticAttrs = { ...attrs };
+  if (s.mass && s.mass !== '') syntheticAttrs['mass'] = s.mass;
+  if (s.drag && s.drag !== '') syntheticAttrs['drag'] = s.drag;
+
+  const allKeys = Object.keys(syntheticAttrs);
+  if (!allKeys.length) {
     el.innerHTML = '<div style="color:var(--c-text-muted);font-size:0.88rem;font-style:italic;padding:10px 0;">No attributes. Click "+ Add Attribute" to add one.</div>';
     return;
   }
+
   const assigned = new Set();
   let html = '';
   for (const [group, gkeys] of Object.entries(SB_ATTR_GROUPS)) {
-    const present = gkeys.filter(k => k in attrs);
+    const present = gkeys.filter(k => k in syntheticAttrs);
     if (!present.length) continue;
     html += `<div class="attr-section"><div class="attr-section-title">${group}</div>`;
-    for (const k of present) { assigned.add(k); html += sbAttrRow(k, attrs[k]); }
+    for (const k of present) {
+      assigned.add(k);
+      // For mass/drag, value comes from s.mass/s.drag; for all others from attrs
+      const v = (k === 'mass') ? s.mass : (k === 'drag') ? s.drag : attrs[k];
+      html += sbAttrRow(k, v);
+    }
     html += '</div>';
   }
-  const other = keys.filter(k => !assigned.has(k));
+
+  // Other keys (not in any group, excluding mass/drag which are handled above)
+  const other = allKeys.filter(k => !assigned.has(k) && k !== 'mass' && k !== 'drag');
   if (other.length) {
     html += '<div class="attr-section"><div class="attr-section-title">Other</div>';
     for (const k of other) html += sbAttrRow(k, attrs[k]);
@@ -822,8 +876,9 @@ function sbRenderAttrList() {
   }
   el.innerHTML = html;
 }
+
 function sbAttrRow(k, v) {
-  const sk = esc(k), sv = esc(String(v));
+  const sk = esc(k), sv = esc(String(v ?? ''));
   const hint = sbAttrHint(k);
   const tip  = hint ? ` title="${esc(hint)}"` : '';
   return `<div class="attr-row">
@@ -833,10 +888,7 @@ function sbAttrRow(k, v) {
     <button class="btn btn-danger btn-xs" onclick="sbRemoveAttr('${sk.replace(/'/g,"\\'")}')">✕</button>
   </div>`;
 }
-function sbRemoveAttr(k) {
-  delete sbCurrentShip.attributes[k];
-  sbRenderAttrList(); sbUpdateQuickStats(); sbRenderRaw();
-}
+
 function openAddAttr() {
   document.getElementById('new-attr-key').value = '';
   document.getElementById('new-attr-val').value = '';
@@ -850,8 +902,21 @@ function confirmAddAttr() {
   if (!k) { sbToast('Please enter a key.', 'danger'); return; }
   const check = sbValidateAttrValue(k, v);
   if (!check.ok) { sbToast(check.message, 'danger'); return; }
-  sbCurrentShip.attributes[k] = v;
-  sbSyncHardpoints(k, v);
+
+  // FIX: intercept mass/drag and store on dedicated fields
+  if (k === 'mass') {
+    sbCurrentShip.mass = v;
+    const massEl = document.getElementById('ship-mass');
+    if (massEl) massEl.value = v;
+  } else if (k === 'drag') {
+    sbCurrentShip.drag = v;
+    const dragEl = document.getElementById('ship-drag');
+    if (dragEl) dragEl.value = v;
+  } else {
+    sbCurrentShip.attributes[k] = v;
+    sbSyncHardpoints(k, v);
+  }
+
   closeModal('modal-add-attr');
   sbRenderAttrList(); sbUpdateQuickStats(); sbRenderRaw();
 }
@@ -877,23 +942,6 @@ function sbSelectAttrKey(k) {
 //  OUTFITS
 // ═══════════════════════════════════════════════════════════
 
-/** Render all capacity bars in the outfits tab header */
-function sbRenderOutfitSpaceBar() {
-  const el = document.getElementById('outfit-space-bar-wrap');
-  if (!el || !sbCurrentShip) return;
-
-  const bars = [
-    { label: 'Outfit Space',    used: sbUsedOutfitSpace(),    max: sbMaxOutfitSpace() },
-    { label: 'Engine Capacity', used: sbUsedEngineCapacity(), max: sbMaxEngineCapacity() },
-    { label: 'Weapon Capacity', used: sbUsedWeaponCapacity(), max: sbMaxWeaponCapacity() },
-    { label: 'Cargo Space',     used: sbUsedCargoSpace(),     max: sbMaxCargoSpace() },
-  ].filter(b => b.max > 0);
-
-  if (!bars.length) { el.style.display = 'none'; return; }
-  el.style.display = '';
-  el.innerHTML = bars.map(b => sbCapacityBarHTML(b.label, b.used, b.max)).join('');
-}
-
 function sbRenderOutfitsList() {
   const outfits = sbCurrentShip.outfits || [];
   const emptyEl = document.getElementById('outfits-empty');
@@ -905,7 +953,7 @@ function sbRenderOutfitsList() {
     const count   = parseInt(o.count) || 1;
     const rawName = o.name.replace(/^"|"$/g, '');
 
-    // Build cost tags for each capacity this outfit uses
+    // FIX: Show BOTH consuming and granting capacity effects
     const capDefs = [
       { key: 'outfit space',    label: 'sp' },
       { key: 'engine capacity', label: 'eng' },
@@ -914,10 +962,16 @@ function sbRenderOutfitsList() {
     ];
     const costTags = capDefs
       .map(c => {
-        const cost = sbGetOutfitCapacityCost(rawName, c.key);
-        if (cost <= 0) return '';
-        const total = cost * count;
-        return `<span class="sb-outfit-size" title="${c.key} cost">${cost}${count > 1 ? `×${count}=${total}` : ''} ${c.label}</span>`;
+        const effect = sbGetOutfitCapacityEffect(rawName, c.key);
+        if (effect === 0) return '';
+        const total = Math.abs(effect) * count;
+        const isGrant = effect > 0;
+        // Grants shown in green with a + prefix, consumption shown normally
+        const style = isGrant
+          ? 'background:rgba(72,187,120,0.15);color:#68d391;border-color:rgba(72,187,120,0.3);'
+          : '';
+        const prefix = isGrant ? '+' : '';
+        return `<span class="sb-outfit-size" title="${isGrant ? 'grants' : 'uses'} ${c.key}" style="${style}">${prefix}${Math.abs(effect)}${count > 1 ? `×${count}=${prefix}${total}` : ''} ${c.label}</span>`;
       })
       .filter(Boolean)
       .join('');
@@ -970,11 +1024,9 @@ function sbUpdateOutfitCount(i, v) {
       if (inputs[i]) inputs[i].value = oldCount;
       return;
     }
-    // Slot the extra copies into empty ports
     const outfitObj = sbFindOutfit(rawName);
     sbAutoSlotWeapons(rawName, diff, outfitObj);
   } else if (diff < 0) {
-    // Un-slot the removed copies from ports, keeping hardpoint positions
     _sbUnslotWeapons(rawName, Math.abs(diff));
   }
 
@@ -986,19 +1038,11 @@ function sbRemoveOutfit(i) {
   const outfit   = sbCurrentShip.outfits[i];
   const rawName  = outfit.name.replace(/^"|"$/g, '');
   const count    = parseInt(outfit.count) || 1;
-
-  // Clear this weapon from gun/turret ports (keep the hardpoint, just blank the over)
   _sbUnslotWeapons(rawName, count);
-
   sbCurrentShip.outfits.splice(i, 1);
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
 }
 
-/**
- * Remove `count` assignments of `outfitName` from gun/turret hardpoints,
- * working from the LAST match backwards so the most recently assigned
- * ports are freed first. The hardpoint position is kept — only `over` is cleared.
- */
 function _sbUnslotWeapons(outfitName, count) {
   const clean = outfitName.replace(/^"|"$/g, '');
   let remaining = count;
@@ -1012,17 +1056,8 @@ function _sbUnslotWeapons(outfitName, count) {
   }
 }
 
-/**
- * Called when a ship is first loaded from parsed data.
- * Walks every outfit and slots weapons into any EMPTY gun/turret ports,
- * respecting the number of ports each outfit needs and skipping ports
- * already occupied from the parsed hardpoint data.
- */
 function sbAutoSlotAllOutfits(s) {
-  // We need sbAllOutfits to be populated for lookups.
-  // If it's empty (data not loaded yet), we skip — the user can re-open the ship later.
   if (!sbAllOutfits.length) return;
-
   for (const o of (s.outfits || [])) {
     const rawName  = o.name.replace(/^"|"$/g, '');
     const outfitObj = sbFindOutfit(rawName);
@@ -1035,20 +1070,16 @@ function sbAutoSlotAllOutfits(s) {
   }
 }
 
-/** Count how many empty slots exist in a hardpoint array. */
 function _sbEmptyPortCount(hardpoints) {
   return (hardpoints || []).filter(hp => !hp.over || hp.over.trim() === '').length;
 }
 
 /**
- * Check whether adding `count` of `outfitName` fits within:
- *   1. All capacity limits (outfit space, engine capacity, weapon capacity, cargo space)
- *   2. Available gun ports  (if outfit uses gun ports)
- *   3. Available turret mounts (if outfit uses turret mounts)
- * Returns true if ok, false if blocked (shows a toast).
+ * FIX: sbCheckOutfitSpace now uses sbGetOutfitCapacityEffect (signed) so that
+ * an outfit which grants space is never incorrectly blocked.
+ * Only outfits with a negative effect (consumption) are checked against capacity.
  */
 function sbCheckOutfitSpace(outfitName, count) {
-  // ── Capacity checks ─────────────────────────────────────
   const capacityChecks = [
     { key: 'outfit space',    label: 'Outfit space',    max: sbMaxOutfitSpace(),    used: sbUsedOutfitSpace() },
     { key: 'engine capacity', label: 'Engine capacity', max: sbMaxEngineCapacity(), used: sbUsedEngineCapacity() },
@@ -1057,8 +1088,9 @@ function sbCheckOutfitSpace(outfitName, count) {
   ];
   for (const c of capacityChecks) {
     if (c.max <= 0) continue;
-    const cost = sbGetOutfitCapacityCost(outfitName, c.key);
-    if (cost <= 0) continue;
+    const effect = sbGetOutfitCapacityEffect(outfitName, c.key);
+    if (effect >= 0) continue; // grants space or neutral — always allowed
+    const cost    = Math.abs(effect);
     const adding  = cost * count;
     const newUsed = c.used + adding;
     if (newUsed > c.max) {
@@ -1106,7 +1138,6 @@ function sbCheckOutfitSpace(outfitName, count) {
 function sbOpenOutfitPicker() {
   const list = document.getElementById('sb-outfit-picker-list');
 
-  // Current free capacity for each tracked key
   const caps = {
     'outfit space':    sbMaxOutfitSpace()    - sbUsedOutfitSpace(),
     'engine capacity': sbMaxEngineCapacity() - sbUsedEngineCapacity(),
@@ -1114,7 +1145,6 @@ function sbOpenOutfitPicker() {
     'cargo space':     sbMaxCargoSpace()     - sbUsedCargoSpace(),
   };
 
-  // Update space summary in picker header
   const spaceInfoEl = document.getElementById('sb-outfit-picker-space');
   if (spaceInfoEl) {
     const lines = [];
@@ -1122,7 +1152,6 @@ function sbOpenOutfitPicker() {
     if (sbMaxEngineCapacity() > 0) lines.push(`Engine: ${caps['engine capacity']} free`);
     if (sbMaxWeaponCapacity() > 0) lines.push(`Weapon: ${caps['weapon capacity']} free`);
     if (sbMaxCargoSpace()     > 0) lines.push(`Cargo: ${caps['cargo space']} free`);
-    // Port counts — always show if ship has any ports at all
     const freeGuns    = _sbEmptyPortCount(sbCurrentShip.guns);
     const freeTurrets = _sbEmptyPortCount(sbCurrentShip.turrets);
     if ((sbCurrentShip.guns    || []).length > 0) lines.push(`Guns: ${freeGuns} port${freeGuns !== 1 ? 's' : ''} free`);
@@ -1141,7 +1170,6 @@ function sbOpenOutfitPicker() {
     (byPlugin[key] = byPlugin[key] || []).push(o);
   }
 
-  // Pre-compute available ports for blocking display
   const freeGunsForPicker    = _sbEmptyPortCount(sbCurrentShip.guns);
   const freeTurretsForPicker = _sbEmptyPortCount(sbCurrentShip.turrets);
   const hasGunPorts    = (sbCurrentShip.guns    || []).length > 0;
@@ -1155,28 +1183,37 @@ function sbOpenOutfitPicker() {
         const cat   = o.category || '';
         const cost  = o.cost ? `${Number(o.cost).toLocaleString()} cr` : '';
 
-        // Build capacity cost badges
         const costBadges = [];
         let wouldBlock = false;
 
-        // Capacity badges (outfit space, engine, weapon, cargo)
+        // FIX: Use signed effect — granting outfits never block, never show as "over"
         for (const [capKey, free] of Object.entries(caps)) {
-          const capCost = sbGetOutfitCapacityCost(name, capKey);
-          if (capCost <= 0) continue;
+          const effect  = sbGetOutfitCapacityEffect(name, capKey);
+          if (effect === 0) continue;
           const maxVal  = sbShipCapacity(capKey);
           if (maxVal <= 0) continue;
-          const over = capCost > free;
-          if (over) wouldBlock = true;
+
           const shortLabels = {
             'outfit space':'sp','engine capacity':'eng',
             'weapon capacity':'wpn','cargo space':'cargo'
           };
-          costBadges.push(
-            `<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${capCost} ${shortLabels[capKey]||capKey}</span>`
-          );
+
+          if (effect < 0) {
+            // Consumes capacity — check if it would exceed available space
+            const capCost = Math.abs(effect);
+            const over = capCost > free;
+            if (over) wouldBlock = true;
+            costBadges.push(
+              `<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${capCost} ${shortLabels[capKey]||capKey}</span>`
+            );
+          } else {
+            // Grants capacity — show in green, never blocks
+            costBadges.push(
+              `<span class="sb-picker-size" style="background:rgba(72,187,120,0.15);color:#68d391;border-color:rgba(72,187,120,0.3);">+${effect} ${shortLabels[capKey]||capKey}</span>`
+            );
+          }
         }
 
-        // Port badges (gun ports, turret mounts)
         const gunCost    = _sbGetPortCost(o, 'gun ports');
         const turretCost = _sbGetPortCost(o, 'turret mounts');
         if (gunCost > 0 && hasGunPorts) {
@@ -1272,7 +1309,6 @@ function sbRenderHP(field, elId, label, showOver) {
   ).join('') : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No ${label}s defined.</div>`);
 }
 
-/** Bays show coords + launchEffect (read-only label), no weapon override */
 function sbRenderBays(field, elId, label) {
   const el = document.getElementById(elId); if (!el) return;
   const items = sbCurrentShip[field] || [];
@@ -1390,17 +1426,15 @@ function sbRemoveExplode(f, i) { sbCurrentShip[f].splice(i,1); sbRenderExplodeLi
 //  ES GENERATOR  — produces output exactly matching ES format
 // ═══════════════════════════════════════════════════════════
 function sbGenerateES(s) {
-  const T  = '\t';   // one tab
-  const TT = '\t\t'; // two tabs
+  const T  = '\t';
+  const TT = '\t\t';
   const L  = [];
 
-  // ── Header ──────────────────────────────────────────────
   L.push(`ship "${s.name || 'Unnamed'}"${s.variant ? ' ' + s.variant : ''}`);
   if (s.plural)    L.push(`${T}plural "${s.plural}"`);
   if (s.sprite)    L.push(`${T}sprite "${s.sprite}"`);
   if (s.thumbnail) L.push(`${T}thumbnail "${s.thumbnail}"`);
 
-  // ── Attributes block ─────────────────────────────────────
   const attrs    = s.attributes || {};
   const attrKeys = Object.keys(attrs);
   const hasMass  = s.mass && s.mass !== '';
@@ -1409,12 +1443,10 @@ function sbGenerateES(s) {
   if (attrKeys.length || hasMass || hasDrag) {
     L.push(`${T}attributes`);
 
-    // category always first, unquoted key, quoted value
     if (attrs.category != null) {
       L.push(`${TT}category "${attrs.category}"`);
     }
 
-    // licenses sub-block (value stored as "licenses": {"Name": true} object)
     if (attrs.licenses && typeof attrs.licenses === 'object') {
       const licKeys = Object.keys(attrs.licenses);
       if (licKeys.length) {
@@ -1423,24 +1455,20 @@ function sbGenerateES(s) {
       }
     }
 
-    // mass / drag — stored separately so they don't conflict with attrs
     if (hasMass) L.push(`${TT}mass ${s.mass}`);
     if (hasDrag) L.push(`${TT}drag ${s.drag}`);
 
-    // All other attributes — quoted key, unquoted numeric value
     const SKIP = new Set(['category', 'licenses', 'mass', 'drag', 'weapon']);
     for (const k of attrKeys) {
       if (SKIP.has(k)) continue;
       const v = attrs[k];
       if (v === '' || v == null) continue;
-      // Never double-quote: if v is a number string, write bare; otherwise quote
       const vStr   = String(v);
       const isNum  = /^-?[0-9]*\.?[0-9]+$/.test(vStr);
       const valOut = isNum ? vStr : `"${vStr}"`;
       L.push(`${TT}"${k}" ${valOut}`);
     }
 
-    // weapon sub-block (stored as attrs.weapon object)
     if (attrs.weapon && typeof attrs.weapon === 'object') {
       L.push(`${TT}weapon`);
       for (const [wk, wv] of Object.entries(attrs.weapon)) {
@@ -1452,8 +1480,7 @@ function sbGenerateES(s) {
     }
   }
 
-  // ── Outfits block ────────────────────────────────────────
-if ((s.outfits || []).length) {
+  if ((s.outfits || []).length) {
     L.push(`${T}outfits`);
     for (const o of s.outfits) {
       const count    = parseInt(o.count) || 1;
@@ -1462,8 +1489,6 @@ if ((s.outfits || []).length) {
     }
   }
 
-  // ── Engines ───────────────────────────────────────────────
-  // format: engine x y [zoom]
   for (const e of (s.engines || [])) {
     const parts = (e.coords || '0 0').split(/\s+/);
     const x = parts[0] || '0', y = parts[1] || '0';
@@ -1471,25 +1496,18 @@ if ((s.outfits || []).length) {
     L.push(`${T}engine ${x} ${y}${zoom}`);
   }
 
-  // ── Guns ─────────────────────────────────────────────────
-  // format: gun x y ["Weapon Name"]
   for (const g of (s.guns || [])) {
     const raw  = (g.over || '').trim().replace(/^"|"$/g, '');
     const over = raw ? ` "${raw}"` : '';
     L.push(`${T}gun ${g.coords || '0 0'}${over}`);
   }
 
-  // ── Turrets ───────────────────────────────────────────────
   for (const g of (s.turrets || [])) {
     const raw  = (g.over || '').trim().replace(/^"|"$/g, '');
     const over = raw ? ` "${raw}"` : '';
     L.push(`${T}turret ${g.coords || '0 0'}${over}`);
   }
 
-  // ── Bays (Drone / Fighter) ────────────────────────────────
-  // format:
-  //   bay "Type" x y
-  //     "launch effect" "effect name"
   for (const d of (s.drones || [])) {
     const parts = (d.coords || '0 0').split(/\s+/);
     L.push(`${T}bay "Drone" ${parts[0] || '0'} ${parts[1] || '0'}`);
@@ -1501,25 +1519,17 @@ if ((s.outfits || []).length) {
     if (f.launchEffect) L.push(`${TT}"launch effect" "${f.launchEffect}"`);
   }
 
-  // ── Leaks ─────────────────────────────────────────────────
   for (const l of (s.leaks || [])) L.push(`${T}leak ${l}`);
 
-  // ── Explode ───────────────────────────────────────────────
-  // format: explode "effect name" count
   for (const e of (s.explode || [])) {
     const count = parseInt(e.count) || 1;
     L.push(`${T}explode ${e.name}${count > 1 ? ' ' + count : ''}`);
   }
 
-  // ── Final explode ─────────────────────────────────────────
   for (const e of (s.finalExplode || [])) {
     L.push(`${T}"final explode" ${e.name}`);
   }
 
-  // ── Description ───────────────────────────────────────────
-  // Each paragraph stored as a separate element in s.descriptions array,
-  // or as a single string with \n separating paragraphs.
-  // Output as one `description "..."` line per paragraph.
   if (s.description) {
     const paras = s.description.split(/\n/);
     for (const para of paras) {
@@ -1527,20 +1537,19 @@ if ((s.outfits || []).length) {
     }
   }
 
-  // ── Extra (unparsed) lines ────────────────────────────────
   for (const l of (s.extraLines || [])) L.push(l);
 
   return L.join('\n');
 }
 
 // ═══════════════════════════════════════════════════════════
-//  ES PARSER  — reads the official ES format back in
+//  ES PARSER
 // ═══════════════════════════════════════════════════════════
 function sbParseES(text) {
   const ships = []; let cur = null;
-  let block = null;      // 'attributes' | 'outfits' | null
-  let subblock = null;   // 'licenses' | 'weapon' | null
-  let lastBay = null;    // { field, idx } — for reading "launch effect" child
+  let block = null;
+  let subblock = null;
+  let lastBay = null;
 
   const flush = () => { if (cur) ships.push(cur); };
 
@@ -1549,7 +1558,6 @@ function sbParseES(text) {
     if (!t || t.startsWith('#')) continue;
     const indent = raw.length - raw.trimStart().length;
 
-    // ── Top-level: new ship ──────────────────────────────
     if (indent === 0) {
       const m = t.match(/^ship\s+("([^"]+)"|(\S+))\s*(.*)$/);
       if (m) {
@@ -1564,7 +1572,6 @@ function sbParseES(text) {
     }
     if (!cur) continue;
 
-    // ── Indent 1: direct ship children ──────────────────
     if (indent === 1) {
       block = null; subblock = null; lastBay = null;
 
@@ -1574,14 +1581,12 @@ function sbParseES(text) {
       if (t === 'attributes')                { block = 'attributes'; continue; }
       if (t === 'outfits')                   { block = 'outfits';    continue; }
 
-      // description — accumulate paragraphs with \n
       if (t.startsWith('description ')) {
         const para = sbStripQ(t.slice(12));
         cur.description = cur.description ? cur.description + '\n' + para : para;
         continue;
       }
 
-      // engine x y [zoom]
       if (t.startsWith('engine ')) {
         const p = sbTok(t.slice(7));
         cur.engines.push({
@@ -1592,19 +1597,9 @@ function sbParseES(text) {
         continue;
       }
 
-      // gun x y ["Weapon"]
-      if (t.startsWith('gun ')) {
-        sbPHP(cur, 'guns', t.slice(4));
-        continue;
-      }
+      if (t.startsWith('gun '))    { sbPHP(cur, 'guns',    t.slice(4)); continue; }
+      if (t.startsWith('turret ')) { sbPHP(cur, 'turrets', t.slice(7)); continue; }
 
-      // turret x y ["Weapon"]
-      if (t.startsWith('turret ')) {
-        sbPHP(cur, 'turrets', t.slice(7));
-        continue;
-      }
-
-      // bay "Type" x y
       if (t.startsWith('bay ')) {
         const p    = sbTok(t.slice(4));
         const type = sbStripQ(p[0] || '');
@@ -1619,7 +1614,6 @@ function sbParseES(text) {
         continue;
       }
 
-      // drone / fighter (old single-keyword form)
       if (t === 'drone')   { cur.drones.push({ coords: '', launchEffect: '' }); continue; }
       if (t === 'fighter') { cur.fighters.push({ coords: '', launchEffect: '' }); continue; }
 
@@ -1630,9 +1624,7 @@ function sbParseES(text) {
       cur.extraLines.push(raw); continue;
     }
 
-    // ── Indent 2: inside blocks ──────────────────────────
     if (indent === 2) {
-      // "launch effect" child of a bay
       if (lastBay && t.startsWith('"launch effect"')) {
         const p   = sbTok(t);
         const val = sbStripQ(p[1] || '');
@@ -1649,7 +1641,6 @@ function sbParseES(text) {
         if (key === 'weapon')   { subblock = 'weapon';   cur.attributes.weapon = {}; continue; }
 
         const val = p.slice(1).join(' ');
-        // Store mass/drag both in attributes AND dedicated field so generator can use them
         if (key === 'mass') { cur.mass = val; continue; }
         if (key === 'drag') { cur.drag = val; continue; }
         cur.attributes[key] = val;
@@ -1668,7 +1659,6 @@ function sbParseES(text) {
       cur.extraLines.push(raw); continue;
     }
 
-    // ── Indent 3: sub-blocks inside attributes ───────────
     if (indent === 3 && block === 'attributes') {
       const p   = sbTok(t);
       const key = sbStripQ(p[0] || '');
@@ -1727,14 +1717,12 @@ function copyOutput() {
     .then(() => sbToast('Copied!', 'success')).catch(() => sbToast('Copy failed.', 'danger'));
 }
 
-
 function saveShip() {
   onBuilderChange();
   if (!sbCurrentShip.name) { sbToast('Ship must have a name.', 'danger'); document.getElementById('ship-name').focus(); return; }
   if (sbEditIdx === -1) { sbFleet.push(JSON.parse(JSON.stringify(sbCurrentShip))); sbEditIdx = sbFleet.length - 1; }
   else sbFleet[sbEditIdx] = JSON.parse(JSON.stringify(sbCurrentShip));
   sbSave();
-  // Keep local builds pseudo-plugin in sync
   if (window.DataLoader && window.DataLoader.refreshLocalBuilds) {
     window.DataLoader.refreshLocalBuilds();
   }
@@ -1815,7 +1803,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (akEl) akEl.addEventListener('keydown', e => { if (e.key==='Enter') confirmAddAttr(); });
   if (avEl) avEl.addEventListener('keydown', e => { if (e.key==='Enter') confirmAddAttr(); });
 
-  // Use DataLoader to get live data — triggers load if not already running
   if (window.DataLoader) {
     window.DataLoader.onReady(() => {
       sbRefreshLiveData();
@@ -1825,9 +1812,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('[shipBuilder] dataLoader.js not loaded — outfit/ship pickers will be empty.');
   }
 
-  // Refresh when active plugins change (user toggled plugin picker)
   document.addEventListener('pluginsChanged', () => sbRefreshLiveData());
-
-  // Refresh when remote data fully loads
   document.addEventListener('dataLoaded',    () => sbRefreshLiveData());
 });

@@ -83,15 +83,21 @@ function _buildLocalPlugin() {
     } catch (_) {}
 
     const ships = fleet.map(s => {
-        // Coerce all attribute strings to numbers so battleSim etc. receive
-        // numbers, not strings, for all numeric attributes.
         const rawAttrs = Object.assign({}, s.attributes || {});
-
-        // mass / drag are stored at the top level in shipBuilder, not in attributes
         if (s.mass != null && s.mass !== '') rawAttrs.mass = s.mass;
         if (s.drag != null && s.drag !== '') rawAttrs.drag = s.drag;
-
         const attributes = _coerceAttrs(rawAttrs);
+
+        // Build the outfits map once and assign to both keys explicitly
+        const outfitsMap = Object.fromEntries(
+            Object.entries(s.outfits || {}).map(([name, val]) => [
+                name.replace(/^"|"$/g, ''),
+                {
+                    count:    typeof val === 'object' ? (parseInt(val.count) || 1)   : (Number(val) || 1),
+                    pluginId: typeof val === 'object' ? (val.pluginId        || null) : null,
+                },
+            ])
+        );
 
         return {
             name:        s.name || 'Unnamed',
@@ -100,18 +106,8 @@ function _buildLocalPlugin() {
             thumbnail:   s.thumbnail || '',
             description: s.description || '',
             attributes,
-            // outfitMap keys are unquoted outfit names (matching _outfitIndex keys).
-            // Values are { count, pluginId } so battleSim can do a plugin-specific
-            // fallback lookup when the outfit isn't in the global index.
-            outfitMap: Object.fromEntries(
-                Object.entries(s.outfits || {}).map(([name, val]) => [
-                    name.replace(/^"|"$/g, ''),
-                    {
-                        count:    typeof val === 'object' ? (parseInt(val.count) || 1)    : (Number(val) || 1),
-                        pluginId: typeof val === 'object' ? (val.pluginId        || null)  : null,
-                    },
-                ])
-            ),
+            outfits:   outfitsMap,   // matches remote plugin JSON key
+            outfitMap: outfitsMap,   // alias — survives object spread unlike a getter
             guns: (s.guns || []).map(g => ({
                 x:   parseFloat((g.coords || '0 0').split(' ')[0]) || 0,
                 y:   parseFloat((g.coords || '0 0').split(' ')[1]) || 0,
