@@ -21,6 +21,288 @@ let sbAllOutfits = [];
 let sbAttrKeys   = [];  // sorted list of all known attribute keys
 
 // ═══════════════════════════════════════════════════════════
+//  PLUGIN SELECTOR
+//  Self-contained implementation using DataLoader's API.
+//  Mirrors the pattern in generalPluginStuff.js but is
+//  scoped to the Ship Builder page only.
+// ═══════════════════════════════════════════════════════════
+
+// Snapshot taken when the picker opens — restored on Cancel
+let _sbPluginPickerSnapshot = [];
+
+/**
+ * Render the active plugin list in #activePluginList.
+ * Matches the sorter-row style used by generalPluginStuff.js.
+ */
+function sbRenderActivePluginList() {
+  const box = document.getElementById('activePluginList');
+  if (!box || !window.DataLoader) return;
+
+  const active = window.DataLoader.getActivePlugins();
+  const LOCAL  = window.DataLoader.LOCAL_PLUGIN_ID;
+
+  if (!active.length) {
+    box.innerHTML = '<span class="sorter-empty">No plugins selected.</span>';
+    return;
+  }
+
+  box.innerHTML = '';
+
+  active.forEach((outputName, idx) => {
+    const isLocal = outputName === LOCAL;
+    const allData = window.allData || {};
+    const d       = allData[outputName];
+    let label;
+    if (isLocal) {
+      label = '📦 Local Builds';
+    } else if (d) {
+      label = d.sourceName === d.displayName ? d.sourceName : `${d.sourceName} › ${d.displayName}`;
+    } else {
+      label = outputName;
+    }
+
+    const row = document.createElement('div');
+    row.className = 'sorter-row' + (isLocal ? ' sorter-row--local' : '');
+    row.dataset.plugin = outputName;
+
+    const labelEl = document.createElement('span');
+    labelEl.className   = 'sorter-label';
+    labelEl.textContent = label;
+
+    // Local Builds is always pinned first — no reorder/remove
+    if (isLocal) {
+      const pin = document.createElement('span');
+      pin.className   = 'sorter-pin-badge';
+      pin.textContent = '📌 pinned first';
+      pin.title       = 'Local Builds always appears first';
+      row.appendChild(labelEl);
+      row.appendChild(pin);
+      box.appendChild(row);
+      return;
+    }
+
+    const localOffset     = active.includes(LOCAL) ? 1 : 0;
+    const isFirstNonLocal = idx === localOffset;
+    const isLastNonLocal  = idx === active.length - 1;
+
+    const upBtn = document.createElement('button');
+    upBtn.className   = 'sorter-move-btn';
+    upBtn.textContent = '▲';
+    upBtn.title       = 'Move up (higher priority)';
+    upBtn.disabled    = isFirstNonLocal;
+    upBtn.onclick = () => {
+      const cur = [...window.DataLoader.getActivePlugins()];
+      [cur[idx - 1], cur[idx]] = [cur[idx], cur[idx - 1]];
+      window.DataLoader.setActivePlugins(cur);
+    };
+
+    const downBtn = document.createElement('button');
+    downBtn.className   = 'sorter-move-btn';
+    downBtn.textContent = '▼';
+    downBtn.title       = 'Move down (lower priority)';
+    downBtn.disabled    = isLastNonLocal;
+    downBtn.onclick = () => {
+      const cur = [...window.DataLoader.getActivePlugins()];
+      [cur[idx], cur[idx + 1]] = [cur[idx + 1], cur[idx]];
+      window.DataLoader.setActivePlugins(cur);
+    };
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className   = 'sorter-remove-btn';
+    removeBtn.textContent = '✕';
+    removeBtn.title       = 'Remove plugin';
+    removeBtn.onclick = () => {
+      const cur      = [...window.DataLoader.getActivePlugins()];
+      const nonLocal = cur.filter(p => p !== LOCAL);
+      if (nonLocal.length <= 1) {
+        sbToast('At least one plugin must remain active.', 'danger');
+        return;
+      }
+      const next = cur.filter(p => p !== outputName);
+      window.DataLoader.setActivePlugins(next);
+    };
+
+    row.appendChild(labelEl);
+    row.appendChild(upBtn);
+    row.appendChild(downBtn);
+    row.appendChild(removeBtn);
+    box.appendChild(row);
+  });
+}
+
+/**
+ * Open the plugin picker modal.
+ * Takes a snapshot so Cancel can restore the previous selection.
+ */
+function sbOpenPluginPicker() {
+  if (!window.DataLoader) { sbToast('Data not loaded yet.', 'danger'); return; }
+  _sbPluginPickerSnapshot = [...window.DataLoader.getActivePlugins()];
+  sbRenderPluginPickerList('');
+  document.getElementById('sb-plugin-picker-search').value = '';
+  openModal('modal-sb-plugin-picker');
+  setTimeout(() => document.getElementById('sb-plugin-picker-search').focus(), 80);
+}
+
+function sbCancelPluginPicker() {
+  // Restore snapshot
+  if (_sbPluginPickerSnapshot.length) {
+    window.DataLoader.setActivePlugins([..._sbPluginPickerSnapshot]);
+  }
+  _sbPluginPickerSnapshot = [];
+  closeModal('modal-sb-plugin-picker');
+}
+
+function sbConfirmPluginPicker() {
+  _sbPluginPickerSnapshot = [];
+  closeModal('modal-sb-plugin-picker');
+  // setActivePlugins fires pluginsChanged which triggers sbRefreshLiveData + re-render
+}
+
+/**
+ * Render the grouped plugin list inside the picker modal.
+ * Mirrors the layout of generalPluginStuff.js _renderPluginPickerList.
+ */
+function sbRenderPluginPickerList(query) {
+  const list = document.getElementById('sb-plugin-picker-list');
+  if (!list || !window.DataLoader) return;
+  list.innerHTML = '';
+
+  const lq     = (query || '').toLowerCase().trim();
+  const active = window.DataLoader.getActivePlugins();
+  const LOCAL  = window.DataLoader.LOCAL_PLUGIN_ID;
+  const allData = window.allData || {};
+
+  // ── Local Builds section ───────────────────────────────────────────────────
+  const localPlugin = allData[LOCAL];
+  const localMatchesQuery = !lq || 'local builds'.includes(lq);
+  if (localPlugin && (localPlugin.ships || []).length > 0 && localMatchesQuery) {
+    const header = document.createElement('div');
+    header.className   = 'plugin-picker-group-header plugin-picker-group-header--local';
+    header.textContent = '📦 Local Builds';
+    list.appendChild(header);
+
+    const isActive  = active.includes(LOCAL);
+    const shipCount = (localPlugin.ships || []).length;
+
+    const row = document.createElement('div');
+    row.className   = 'plugin-picker-row plugin-picker-row--local' + (isActive ? ' active' : '');
+    row.dataset.plugin = LOCAL;
+
+    const cb = document.createElement('input');
+    cb.type    = 'checkbox';
+    cb.checked = isActive;
+    cb.style.cssText = 'cursor:pointer;accent-color:#3b82f6;width:16px;height:16px;flex-shrink:0;';
+    cb.onclick  = e => e.stopPropagation();
+    cb.onchange = () => {
+      const cur = [...window.DataLoader.getActivePlugins()];
+      if (cb.checked) {
+        if (!cur.includes(LOCAL)) cur.unshift(LOCAL);
+      } else {
+        const idx = cur.indexOf(LOCAL);
+        if (idx !== -1) cur.splice(idx, 1);
+      }
+      window.DataLoader.setActivePlugins(cur);
+      row.classList.toggle('active', window.DataLoader.getActivePlugins().includes(LOCAL));
+    };
+
+    const dot = document.createElement('span');
+    dot.className = 'plugin-picker-active-dot';
+
+    const lbl = document.createElement('span');
+    lbl.className   = 'plugin-picker-row-label';
+    lbl.textContent = `Local Builds (${shipCount} ship${shipCount !== 1 ? 's' : ''})`;
+
+    row.appendChild(cb);
+    row.appendChild(dot);
+    row.appendChild(lbl);
+    row.onclick = () => cb.click();
+    list.appendChild(row);
+  }
+
+  // ── Remote plugin groups ───────────────────────────────────────────────────
+  const groups = {};
+  for (const [outputName, data] of Object.entries(allData)) {
+    if (outputName === LOCAL) continue;
+    const src = data.sourceName || outputName;
+    (groups[src] = groups[src] || []).push({ outputName, data });
+  }
+
+  let anyRemoteVisible = false;
+  for (const [sourceName, plugins] of Object.entries(groups)) {
+    const visible = lq
+      ? plugins.filter(p =>
+          p.data.displayName.toLowerCase().includes(lq) ||
+          sourceName.toLowerCase().includes(lq))
+      : plugins;
+    if (!visible.length) continue;
+    anyRemoteVisible = true;
+
+    const header = document.createElement('div');
+    header.className   = 'plugin-picker-group-header';
+    header.textContent = sourceName;
+    list.appendChild(header);
+
+    for (const { outputName, data } of visible) {
+      const isActive = active.includes(outputName);
+
+      const row = document.createElement('div');
+      row.className   = 'plugin-picker-row' + (isActive ? ' active' : '');
+      row.dataset.plugin = outputName;
+
+      const cb = document.createElement('input');
+      cb.type    = 'checkbox';
+      cb.checked = isActive;
+      cb.style.cssText = 'cursor:pointer;accent-color:#3b82f6;width:16px;height:16px;flex-shrink:0;';
+      cb.onclick  = e => e.stopPropagation();
+      cb.onchange = () => {
+        const cur      = [...window.DataLoader.getActivePlugins()];
+        const nonLocal = cur.filter(p => p !== LOCAL);
+        if (!cb.checked) {
+          if (nonLocal.length <= 1 && nonLocal[0] === outputName) {
+            // Must keep at least one remote plugin
+            cb.checked = true;
+            row.classList.add('active');
+            sbToast('At least one plugin must remain active.', 'danger');
+            return;
+          }
+          const idx = cur.indexOf(outputName);
+          if (idx !== -1) cur.splice(idx, 1);
+        } else {
+          if (!cur.includes(outputName)) cur.push(outputName);
+        }
+        window.DataLoader.setActivePlugins(cur);
+        row.classList.toggle('active', window.DataLoader.getActivePlugins().includes(outputName));
+      };
+
+      const dot = document.createElement('span');
+      dot.className = 'plugin-picker-active-dot';
+
+      const lbl = document.createElement('span');
+      lbl.className   = 'plugin-picker-row-label';
+      lbl.textContent = plugins.length === 1 ? sourceName : data.displayName;
+
+      row.appendChild(cb);
+      row.appendChild(dot);
+      row.appendChild(lbl);
+      row.onclick = () => cb.click();
+      list.appendChild(row);
+    }
+  }
+
+  const localRendered = localPlugin && (localPlugin.ships || []).length > 0 && localMatchesQuery;
+  if (!localRendered && !anyRemoteVisible) {
+    const empty = document.createElement('p');
+    empty.style.cssText = 'color:#94a3b8;font-style:italic;font-size:0.9rem;padding:12px 10px;';
+    empty.textContent   = 'No matching plugins.';
+    list.appendChild(empty);
+  }
+}
+
+function sbFilterPluginPicker(val) {
+  sbRenderPluginPickerList(val);
+}
+
+// ═══════════════════════════════════════════════════════════
 //  DATA BRIDGE
 // ═══════════════════════════════════════════════════════════
 // Fallback attr keys used before/if attrDefs fails to load
@@ -431,28 +713,6 @@ function onBuilderChange() {
 
 // ═══════════════════════════════════════════════════════════
 //  CAPACITY TRACKING
-//
-//  FIXED: Outfits can both CONSUME and GRANT capacity.
-//    - Negative attr value on an outfit = consumes that much capacity from the ship
-//    - Positive attr value on an outfit = grants that much capacity to the ship
-//      (e.g. a Cargo Expansion has "cargo space" +50, a Large Outfit Space has
-//       "outfit space" +70, etc.)
-//
-//  sbGetOutfitCapacityEffect(name, key)
-//    Returns the SIGNED net effect of ONE unit of the outfit on the named capacity.
-//    Negative → consumes capacity (e.g. -45 outfit space used by an engine)
-//    Positive → grants capacity  (e.g. +50 cargo space added by a cargo bay)
-//    Zero     → outfit doesn't affect this capacity at all
-//
-//  sbUsedCapacity(key)
-//    Returns NET units consumed across all installed outfits.
-//    outfits that grant space REDUCE the consumed total.
-//    Result is clamped to 0 minimum (can't use negative space).
-//
-//  sbEffectiveMaxCapacity(key)
-//    Ship base attribute value.  Outfit grants are already reflected in
-//    sbUsedCapacity (they reduce "used"), so the max stays as the ship's
-//    own attribute — this matches how ES itself works.
 // ═══════════════════════════════════════════════════════════
 
 // Attributes whose value on an OUTFIT affects ship capacity.
@@ -481,73 +741,40 @@ function sbFindOutfit(outfitName) {
   return lookup[outfitName.replace(/^"|"$/g, '')] || null;
 }
 
-/**
- * FIX: Returns the SIGNED capacity effect of one unit of an outfit.
- *
- *   Negative value → outfit CONSUMES this capacity (e.g. -45 outfit space)
- *   Positive value → outfit GRANTS  this capacity (e.g. +50 cargo space)
- *   Zero           → outfit has no effect on this capacity
- *
- * Previously this returned only the absolute value of negative numbers,
- * silently ignoring outfits that add cargo/outfit/engine/weapon space.
- */
 function sbGetOutfitCapacityEffect(outfitName, capacityKey) {
   const o = sbFindOutfit(outfitName);
   if (!o) return 0;
-
-  // Try flat first, then nested under .attributes
   let val = o[capacityKey];
   if (val == null && o.attributes) val = o.attributes[capacityKey];
   if (val == null) return 0;
-
   const n = Number(val);
   if (isNaN(n) || n === 0) return 0;
-  return n; // signed: negative = consumes, positive = grants
+  return n;
 }
 
-/**
- * Legacy alias — old callers that expected a positive cost still work.
- * Returns the positive consumption cost, 0 if the outfit grants (not consumes) this capacity.
- */
 function sbGetOutfitCapacityCost(outfitName, capacityKey) {
   const effect = sbGetOutfitCapacityEffect(outfitName, capacityKey);
   return effect < 0 ? Math.abs(effect) : 0;
 }
 
-/** Convenience: outfit space cost for one unit (positive consumption only) */
 function sbGetOutfitSize(outfitName) {
   return sbGetOutfitCapacityCost(outfitName, 'outfit space');
 }
 
-/**
- * FIX: Net capacity consumed across all installed outfits for a given key.
- *
- * Outfits that GRANT space (positive effect) reduce the consumed total.
- * Result is clamped to ≥ 0 (can't have negative consumption in the bar display).
- *
- * Example: ship has 2200 outfit space.
- *   Engine (-45 × 8)   = -360
- *   Cargo Bay (+50 × 2) = +100  ← reduces consumed total
- *   Net consumed = 360 - 100 = 260 outfit space used
- */
 function sbUsedCapacity(capacityKey) {
   if (!sbCurrentShip) return 0;
   const net = (sbCurrentShip.outfits || []).reduce((total, o) => {
     const effect = sbGetOutfitCapacityEffect(o.name, capacityKey);
-    // Negative effect = consumes capacity (adds to used)
-    // Positive effect = grants capacity (subtracts from used)
     return total + (-(effect)) * (parseInt(o.count) || 1);
   }, 0);
   return Math.max(0, net);
 }
 
-/** Convenience wrappers */
 function sbUsedOutfitSpace()    { return sbUsedCapacity('outfit space'); }
 function sbUsedEngineCapacity() { return sbUsedCapacity('engine capacity'); }
 function sbUsedWeaponCapacity() { return sbUsedCapacity('weapon capacity'); }
 function sbUsedCargoSpace()     { return sbUsedCapacity('cargo space'); }
 
-/** Max capacity from the ship's own base attributes. */
 function sbShipCapacity(key) {
   if (!sbCurrentShip) return 0;
   return Number((sbCurrentShip.attributes || {})[key]) || 0;
@@ -557,7 +784,6 @@ function sbMaxEngineCapacity() { return sbShipCapacity('engine capacity'); }
 function sbMaxWeaponCapacity() { return sbShipCapacity('weapon capacity'); }
 function sbMaxCargoSpace()     { return sbShipCapacity('cargo space'); }
 
-// ── Capacity bar HTML helper ──────────────────────────────
 function sbCapacityBarHTML(label, used, max) {
   if (max <= 0) return '';
   const remaining = max - used;
@@ -582,7 +808,6 @@ function sbCapacityBarHTML(label, used, max) {
     </div>`;
 }
 
-// ── Render all capacity bars in the outfits tab ───────────
 function sbRenderOutfitSpaceBar() {
   const el = document.getElementById('outfit-space-bar-wrap');
   if (!el || !sbCurrentShip) return;
@@ -639,7 +864,6 @@ function sbValidateAttrValue(key, rawValue) {
   return { ok: true };
 }
 
-// Keys that map to hardpoint arrays
 const SB_HARDPOINT_KEYS = {
   'gun ports':     { field: 'guns',    label: 'gun' },
   'turret mounts': { field: 'turrets', label: 'turret' },
@@ -692,18 +916,12 @@ function _sbFillEmptyPorts(hardpoints, outfitName, needed) {
   }
 }
 
-/**
- * FIX: sbUpdateAttrVal now handles 'mass' and 'drag' as special keys
- * that write to s.mass / s.drag instead of s.attributes.
- * This means editing those rows in the attr list updates the top bar correctly.
- */
 function sbUpdateAttrVal(inp) {
   const key = inp.dataset.key;
   const val = inp.value;
   const check = sbValidateAttrValue(key, val);
   if (!check.ok) {
     sbToast(check.message, 'danger');
-    // Restore previous value depending on where it's stored
     if (key === 'mass') inp.value = String(sbCurrentShip.mass ?? '');
     else if (key === 'drag') inp.value = String(sbCurrentShip.drag ?? '');
     else inp.value = String(sbCurrentShip.attributes[key] ?? '');
@@ -713,10 +931,8 @@ function sbUpdateAttrVal(inp) {
   }
   inp.style.borderColor = '';
 
-  // FIX: mass and drag live on the ship object directly, not in attributes
   if (key === 'mass') {
     sbCurrentShip.mass = val;
-    // Keep sidebar field in sync
     const massEl = document.getElementById('ship-mass');
     if (massEl && massEl !== inp) massEl.value = val;
   } else if (key === 'drag') {
@@ -734,9 +950,6 @@ function sbUpdateAttrVal(inp) {
   sbRenderRaw();
 }
 
-/**
- * FIX: sbRemoveAttr handles 'mass' and 'drag' by clearing those dedicated fields.
- */
 function sbRemoveAttr(k) {
   if (k === 'mass') {
     sbCurrentShip.mass = '';
@@ -822,26 +1035,12 @@ const SB_ATTR_GROUPS = {
   'Cloaking':  ['cloak','cloaking energy','cloaking fuel','cloaking heat'],
 };
 
-/**
- * FIX: Render mass and drag as synthetic attribute rows in the Identity group.
- *
- * mass and drag are stored on s.mass / s.drag (not in s.attributes) so the
- * ES generator can emit them in the correct position inside the attributes
- * block without the ship-level fields conflicting.  However they must appear
- * in the attribute list so the user can edit them in-place — and changes must
- * propagate back to s.mass / s.drag AND to the top-bar quick-stats.
- *
- * We inject them as regular attr-row elements but with data-key="mass" /
- * data-key="drag".  sbUpdateAttrVal() already handles those keys specially.
- */
 function sbRenderAttrList() {
   const el = document.getElementById('attr-list');
   if (!el || !sbCurrentShip) return;
   const s     = sbCurrentShip;
   const attrs = s.attributes || {};
-  const keys  = Object.keys(attrs);
 
-  // Build a synthetic attrs view that includes mass/drag for group rendering
   const syntheticAttrs = { ...attrs };
   if (s.mass && s.mass !== '') syntheticAttrs['mass'] = s.mass;
   if (s.drag && s.drag !== '') syntheticAttrs['drag'] = s.drag;
@@ -860,14 +1059,12 @@ function sbRenderAttrList() {
     html += `<div class="attr-section"><div class="attr-section-title">${group}</div>`;
     for (const k of present) {
       assigned.add(k);
-      // For mass/drag, value comes from s.mass/s.drag; for all others from attrs
       const v = (k === 'mass') ? s.mass : (k === 'drag') ? s.drag : attrs[k];
       html += sbAttrRow(k, v);
     }
     html += '</div>';
   }
 
-  // Other keys (not in any group, excluding mass/drag which are handled above)
   const other = allKeys.filter(k => !assigned.has(k) && k !== 'mass' && k !== 'drag');
   if (other.length) {
     html += '<div class="attr-section"><div class="attr-section-title">Other</div>';
@@ -903,7 +1100,6 @@ function confirmAddAttr() {
   const check = sbValidateAttrValue(k, v);
   if (!check.ok) { sbToast(check.message, 'danger'); return; }
 
-  // FIX: intercept mass/drag and store on dedicated fields
   if (k === 'mass') {
     sbCurrentShip.mass = v;
     const massEl = document.getElementById('ship-mass');
@@ -953,7 +1149,6 @@ function sbRenderOutfitsList() {
     const count   = parseInt(o.count) || 1;
     const rawName = o.name.replace(/^"|"$/g, '');
 
-    // FIX: Show BOTH consuming and granting capacity effects
     const capDefs = [
       { key: 'outfit space',    label: 'sp' },
       { key: 'engine capacity', label: 'eng' },
@@ -966,7 +1161,6 @@ function sbRenderOutfitsList() {
         if (effect === 0) return '';
         const total = Math.abs(effect) * count;
         const isGrant = effect > 0;
-        // Grants shown in green with a + prefix, consumption shown normally
         const style = isGrant
           ? 'background:rgba(72,187,120,0.15);color:#68d391;border-color:rgba(72,187,120,0.3);'
           : '';
@@ -1074,11 +1268,6 @@ function _sbEmptyPortCount(hardpoints) {
   return (hardpoints || []).filter(hp => !hp.over || hp.over.trim() === '').length;
 }
 
-/**
- * FIX: sbCheckOutfitSpace now uses sbGetOutfitCapacityEffect (signed) so that
- * an outfit which grants space is never incorrectly blocked.
- * Only outfits with a negative effect (consumption) are checked against capacity.
- */
 function sbCheckOutfitSpace(outfitName, count) {
   const capacityChecks = [
     { key: 'outfit space',    label: 'Outfit space',    max: sbMaxOutfitSpace(),    used: sbUsedOutfitSpace() },
@@ -1089,7 +1278,7 @@ function sbCheckOutfitSpace(outfitName, count) {
   for (const c of capacityChecks) {
     if (c.max <= 0) continue;
     const effect = sbGetOutfitCapacityEffect(outfitName, c.key);
-    if (effect >= 0) continue; // grants space or neutral — always allowed
+    if (effect >= 0) continue;
     const cost    = Math.abs(effect);
     const adding  = cost * count;
     const newUsed = c.used + adding;
@@ -1100,7 +1289,6 @@ function sbCheckOutfitSpace(outfitName, count) {
     }
   }
 
-  // ── Port checks ──────────────────────────────────────────
   const outfitObj = sbFindOutfit(outfitName);
   if (outfitObj) {
     const gunCost    = _sbGetPortCost(outfitObj, 'gun ports');
@@ -1186,7 +1374,6 @@ function sbOpenOutfitPicker() {
         const costBadges = [];
         let wouldBlock = false;
 
-        // FIX: Use signed effect — granting outfits never block, never show as "over"
         for (const [capKey, free] of Object.entries(caps)) {
           const effect  = sbGetOutfitCapacityEffect(name, capKey);
           if (effect === 0) continue;
@@ -1199,7 +1386,6 @@ function sbOpenOutfitPicker() {
           };
 
           if (effect < 0) {
-            // Consumes capacity — check if it would exceed available space
             const capCost = Math.abs(effect);
             const over = capCost > free;
             if (over) wouldBlock = true;
@@ -1207,7 +1393,6 @@ function sbOpenOutfitPicker() {
               `<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${capCost} ${shortLabels[capKey]||capKey}</span>`
             );
           } else {
-            // Grants capacity — show in green, never blocks
             costBadges.push(
               `<span class="sb-picker-size" style="background:rgba(72,187,120,0.15);color:#68d391;border-color:rgba(72,187,120,0.3);">+${effect} ${shortLabels[capKey]||capKey}</span>`
             );
@@ -1423,7 +1608,7 @@ function sbUpdateExplode(f, i, p, v) {
 function sbRemoveExplode(f, i) { sbCurrentShip[f].splice(i,1); sbRenderExplodeLists(); sbRenderRaw(); }
 
 // ═══════════════════════════════════════════════════════════
-//  ES GENERATOR  — produces output exactly matching ES format
+//  ES GENERATOR
 // ═══════════════════════════════════════════════════════════
 function sbGenerateES(s) {
   const T  = '\t';
@@ -1806,12 +1991,32 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.DataLoader) {
     window.DataLoader.onReady(() => {
       sbRefreshLiveData();
+      sbRenderActivePluginList();
       sbToast('Game data loaded — ship & outfit pickers ready.', 'success');
     });
   } else {
     console.warn('[shipBuilder] dataLoader.js not loaded — outfit/ship pickers will be empty.');
   }
 
-  document.addEventListener('pluginsChanged', () => sbRefreshLiveData());
-  document.addEventListener('dataLoaded',    () => sbRefreshLiveData());
+  // Re-render plugin list and live data whenever the active plugin set changes.
+  // This fires when:
+  //   - DataLoader.initDefaultPlugins() selects the default on first load
+  //   - User confirms the plugin picker
+  //   - User reorders or removes a plugin via the sorter rows
+  //   - A ship is saved (pluginsChanged is fired to refresh Local Builds)
+  document.addEventListener('pluginsChanged', () => {
+    sbRefreshLiveData();
+    sbRenderActivePluginList();
+    // Re-render plugin picker list if it's currently open so checkboxes stay in sync
+    const pickerOpen = document.getElementById('modal-sb-plugin-picker')?.classList.contains('active');
+    if (pickerOpen) {
+      const searchVal = document.getElementById('sb-plugin-picker-search')?.value || '';
+      sbRenderPluginPickerList(searchVal);
+    }
+  });
+
+  document.addEventListener('dataLoaded', () => {
+    sbRefreshLiveData();
+    sbRenderActivePluginList();
+  });
 });
