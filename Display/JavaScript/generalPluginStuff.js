@@ -577,6 +577,20 @@ document.addEventListener('pluginsChanged', () => {
     }
 });
 
+document.addEventListener('dataLoaded', async () => {
+    _refreshLocalBuilds();
+
+    // If no remote plugin is active yet, add the first available one
+    const hasRemote = _activePlugins.some(p => p !== LOCAL_PLUGIN_ID);
+    if (!hasRemote) {
+        const firstRemote = Object.keys(_allData()).find(k => k !== LOCAL_PLUGIN_ID);
+        if (firstRemote) {
+            _activePlugins.push(firstRemote);
+            await _notifyChange();
+        }
+    }
+});
+
 // ── Initialise overlay on DOM ready ───────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', _injectPickerOverlay);
