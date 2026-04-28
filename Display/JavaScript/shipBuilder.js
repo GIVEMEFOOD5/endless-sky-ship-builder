@@ -411,9 +411,6 @@ function sbPopulateBuilder() {
   document.getElementById('ship-sprite').value      = s.sprite      || '';
   document.getElementById('ship-thumbnail').value   = s.thumbnail   || '';
   document.getElementById('ship-description').value = s.description || '';
-  document.getElementById('ship-drag').value        = s.drag        || '';
-  document.getElementById('ship-mass').value        = s.mass        || '';
-
   sbRenderAttrList();
   sbRenderOutfitsList();
   sbRenderGunsTurrets();
@@ -433,8 +430,6 @@ function onBuilderChange() {
   s.sprite      = document.getElementById('ship-sprite').value.trim();
   s.thumbnail   = document.getElementById('ship-thumbnail').value.trim();
   s.description = document.getElementById('ship-description').value;
-  s.drag        = document.getElementById('ship-drag').value.trim();
-  s.mass        = document.getElementById('ship-mass').value.trim();
   const titleEl = document.getElementById('builder-page-title');
   const modeLabel = { new: '✏️ New Ship', edit: '✏️ Edit Ship', outfit: '🔧 Outfit Ship' }[sbMode] || '';
   if (titleEl) titleEl.textContent = s.name ? `${modeLabel}: ${s.name}` : modeLabel;
@@ -664,12 +659,8 @@ function sbUpdateAttrVal(inp) {
 
   if (key === 'mass') {
     sbCurrentShip.mass = val;
-    const massEl = document.getElementById('ship-mass');
-    if (massEl && massEl !== inp) massEl.value = val;
   } else if (key === 'drag') {
     sbCurrentShip.drag = val;
-    const dragEl = document.getElementById('ship-drag');
-    if (dragEl && dragEl !== inp) dragEl.value = val;
   } else {
     sbCurrentShip.attributes[key] = val;
     const changed = sbSyncHardpoints(key, val);
@@ -684,12 +675,8 @@ function sbUpdateAttrVal(inp) {
 function sbRemoveAttr(k) {
   if (k === 'mass') {
     sbCurrentShip.mass = '';
-    const massEl = document.getElementById('ship-mass');
-    if (massEl) massEl.value = '';
   } else if (k === 'drag') {
     sbCurrentShip.drag = '';
-    const dragEl = document.getElementById('ship-drag');
-    if (dragEl) dragEl.value = '';
   } else {
     delete sbCurrentShip.attributes[k];
   }
@@ -833,12 +820,8 @@ function confirmAddAttr() {
 
   if (k === 'mass') {
     sbCurrentShip.mass = v;
-    const massEl = document.getElementById('ship-mass');
-    if (massEl) massEl.value = v;
   } else if (k === 'drag') {
     sbCurrentShip.drag = v;
-    const dragEl = document.getElementById('ship-drag');
-    if (dragEl) dragEl.value = v;
   } else {
     sbCurrentShip.attributes[k] = v;
     sbSyncHardpoints(k, v);
