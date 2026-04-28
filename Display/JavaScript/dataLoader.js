@@ -323,6 +323,11 @@ window.DataLoader = {
         return parts.join(' · ');
     },
 
+    _setActivePluginsSilent(arr) {
+        _activePlugins = arr.filter(id => id === LOCAL_PLUGIN_ID || window.allData[id]);
+        _saveActivePlugins();
+    },
+
     LOCAL_PLUGIN_ID,
     DEFAULT_PLUGIN,
 };
