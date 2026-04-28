@@ -1,0 +1,34 @@
+{
+  "plugin": "galactic.capital.investment",
+  "repository": "https://github.com/zuckung/endless-sky-plugins",
+  "ships": [],
+  "variants": [],
+  "outfits": [
+    {
+      "name": "Golden Figurine",
+      "category": "Unique",
+      "unique": 1,
+      "unplunderable": 1,
+      "series": "Non-Functional Unique",
+      "index": 1200,
+      "thumbnail": "outfit/gci_gold_figur",
+      "cost": 50000,
+      "description": "A gift by Warren Goulding from Galactic Capital Investment, to celebrate the success of your colonization project.",
+      "governments": {
+        "galactic.capital.investment": {
+          "galactic.capital.investment": true
+        }
+      },
+      "locations": {
+        "Zuckungs list/galactic.capital.investment": {
+          "Missions": [
+            "Galactic Capital Colonize 9"
+          ]
+        }
+      },
+      "pluginId": "Zuckungs list/galactic.capital.investment"
+    }
+  ],
+  "effects": [],
+  "parsedAt": "2026-04-28T07:53:22.042Z"
+}
