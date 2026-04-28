@@ -206,19 +206,20 @@ async function initDefaultPlugin() {
     _refreshLocalBuilds();
 
     const keys = Object.keys(_allData()).filter(k => k !== LOCAL_PLUGIN_ID);
-    if (keys.length === 0 && !_localBuildsHasShips()) return;
 
     _activePlugins = [];
 
-    // Local Builds goes first if it has ships
     if (_localBuildsHasShips()) {
         _activePlugins.push(LOCAL_PLUGIN_ID);
     }
 
-    // Then the first remote plugin
+    // Only add a remote plugin if one is actually loaded already
     if (keys.length > 0) {
         _activePlugins.push(keys[0]);
     }
+
+    // If no remote plugins yet, dataLoaded listener above will handle it
+    if (_activePlugins.length === 0) return;
 
     const primary = getPrimaryPlugin();
     if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primary);
@@ -227,9 +228,9 @@ async function initDefaultPlugin() {
     if (typeof window.clearComputedCache === 'function') window.clearComputedCache();
     _renderActiveList();
     _updateMergedStats();
-    await _renderMergedCards(true); // true = reset to ships tab
+    await _renderMergedCards(true);
 }
-
+    
 // ── Internal: notify the rest of the app ──────────────────────────────────
 
 async function _notifyChange() {
