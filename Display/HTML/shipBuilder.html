@@ -195,21 +195,24 @@
             </div>
             <div id="engines-list"></div>
           </div>
-          <hr class="divider">
-          <div>
-            <div class="outfit-section-title">Leak Particles</div>
-            <div id="leaks-list"></div>
-            <div class="add-outfit-form" style="margin-top:6px;">
-              <input id="leak-input" class="text-input" type="text" placeholder='e.g. "smoke" 50 0'>
-              <button class="btn btn-secondary btn-sm" onclick="addLeak()">Add Leak</button>
-            </div>
-          </div>
         </div>
 
         <!-- EXPLOSIONS TAB -->
         <div id="tab-explode" class="builder-tab-content panel">
-          <div class="section-title">Explosion Effects</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="section-title">Explosions &amp; Weapon</div>
+
+          <!-- Weapon sub-block -->
+          <div style="margin-bottom:18px;">
+            <div class="outfit-section-title" style="margin-bottom:8px;">Ship Weapon Sub-block
+              <span style="font-size:0.74rem;color:var(--c-text-dim);font-weight:400;margin-left:8px;">e.g. ramming damage; zero values are omitted from output</span>
+            </div>
+            <div id="weapon-block"></div>
+          </div>
+
+          <hr class="divider">
+
+          <!-- Explode effects grid -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:18px;">
             <div>
               <div class="outfit-section-title">Explode Effects
                 <button class="btn btn-xs btn-secondary" onclick="addExplodeEffect('explode')">+ Add</button>
@@ -222,6 +225,16 @@
               </div>
               <div id="final-explode-list"></div>
             </div>
+          </div>
+
+          <hr class="divider">
+
+          <!-- Leak effects -->
+          <div>
+            <div class="outfit-section-title">Leak Effects
+              <button class="btn btn-xs btn-secondary" onclick="addLeakEffect()">+ Add</button>
+            </div>
+            <div id="leaks-list"></div>
           </div>
         </div>
 
@@ -249,6 +262,25 @@
      MODALS
 ═══════════════════════════════════════════════════════ -->
 
+
+<!-- Effect Picker (for leaks, explode, final explode) -->
+<div id="modal-sb-effect-picker" class="modal-overlay">
+  <div class="modal-box" style="width:min(500px,96vw);max-height:85vh;display:flex;flex-direction:column;padding:0;overflow:hidden;">
+    <div class="picker-header">
+      <div class="picker-header__title" id="sb-effect-picker-title">Add Effect</div>
+      <button class="modal-close" onclick="closeModal('modal-sb-effect-picker')">×</button>
+    </div>
+    <input id="sb-effect-picker-search" class="text-input picker-search"
+      type="text" placeholder="Search effects…" oninput="sbFilterEffectPicker(this.value)">
+    <div id="sb-effect-picker-list" class="picker-list"></div>
+    <div class="picker-footer" style="align-items:center;">
+      <label style="margin:0;font-size:0.88rem;color:var(--c-text-muted);">Count:</label>
+      <input id="sb-effect-count-input" class="text-input" type="number" min="1" value="1"
+        style="width:70px;padding:6px 8px;">
+      <button class="btn btn-secondary" onclick="closeModal('modal-sb-effect-picker')">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <!-- Ship Picker (outfit or edit existing) -->
 <div id="modal-sb-ship-picker" class="modal-overlay">
