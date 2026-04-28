@@ -10,6 +10,7 @@ async function filterItems() {
     const filtered = filteredData.filter(item => {
         const matchesSearch = !searchTerm || (item.name && item.name.toLowerCase().includes(searchTerm));
         const itemCategory = item.category || item.attributes?.category;
+        const effectiveCategory = itemCategory || 'N/A';
         const matchesCategory = selectedCategories.length === 0 || !itemCategory || selectedCategories.includes(itemCategory);
         return matchesSearch && matchesCategory && itemMatchesGovernmentFilter(item, selectedGovts);
     });
