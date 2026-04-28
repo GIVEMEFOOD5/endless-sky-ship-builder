@@ -18,6 +18,7 @@ let sbMode        = 'new';
 // Live data mirrors from DataViewer
 let sbAllShips   = [];
 let sbAllOutfits = [];
+let sbAllEffects = [];
 let sbAttrKeys   = [];  // sorted list of all known attribute keys
 
 // ═══════════════════════════════════════════════════════════
@@ -56,11 +57,13 @@ function sbRefreshLiveData() {
     // getAllShips / getAllOutfits already filter to active plugins
     sbAllShips   = DL.getAllShips().map(s => ({ ...s, _pn: s._pluginName, _pd: s._pluginDisplay }));
     sbAllOutfits = DL.getAllOutfits().map(o => ({ ...o, _pn: o._pluginName, _pd: o._pluginDisplay }));
+    sbAllEffects = DL.getAllEffects().map(e => ({ ...e, _pn: e._pluginName, _pd: e._pluginDisplay }));
     const defKeys = DL.getAttrKeys();
     sbAttrKeys   = [...new Set([..._SB_ATTR_FALLBACK, ...defKeys])].sort();
   } else {
     sbAllShips   = [];
     sbAllOutfits = [];
+    sbAllEffects = [];
     sbAttrKeys   = [..._SB_ATTR_FALLBACK].sort();
   }
 }
@@ -78,7 +81,9 @@ function sbBlank() {
     id: Date.now() + Math.random(),
     name: '', variant: '', plural: '', sprite: '', thumbnail: '',
     description: '', drag: '', mass: '',
-    attributes: {}, outfits: [],
+    attributes: {},
+    weapon: { 'blast radius': 0, 'shield damage': 0, 'hull damage': 0, 'hit force': 0 },
+    outfits: [],
     guns: [], turrets: [], drones: [], fighters: [], engines: [],
     leaks: [], explode: [], finalExplode: [], extraLines: [],
     _sourceShip: null, _sourcePlugin: null,
@@ -284,17 +289,29 @@ function sbShipFromParsed(src) {
   s._sourceShip   = src.name || null;
   s._sourcePlugin = src._pn  || null;
 
-  // Attributes — keep nested objects for licenses and weapon sub-blocks
+  // Attributes — keep nested objects for licenses; extract weapon separately
   if (src.attributes && typeof src.attributes === 'object') {
     for (const [k, v] of Object.entries(src.attributes)) {
       if (k === 'mass' || k === 'drag') continue; // handled separately below
-      // Preserve licenses and weapon as objects
-      if ((k === 'licenses' || k === 'weapon') && typeof v === 'object') {
+      if (k === 'weapon') continue; // handled separately below
+      if (k === 'licenses' && typeof v === 'object') {
         s.attributes[k] = v;
       } else if (typeof v !== 'object') {
         s.attributes[k] = String(v);
       }
     }
+  }
+
+  // ── Weapon sub-block ──────────────────────────────────────
+  // Stored on s.weapon, NOT in s.attributes
+  const weaponSrc = src.attributes?.weapon || src.weapon || null;
+  if (weaponSrc && typeof weaponSrc === 'object') {
+    s.weapon = {
+      'blast radius':  Number(weaponSrc['blast radius']  ?? 0) || 0,
+      'shield damage': Number(weaponSrc['shield damage'] ?? 0) || 0,
+      'hull damage':   Number(weaponSrc['hull damage']   ?? 0) || 0,
+      'hit force':     Number(weaponSrc['hit force']     ?? 0) || 0,
+    };
   }
   // drag / mass may also live at top-level in some parser outputs
   const rawMass = src.mass ?? src.attributes?.mass;
@@ -348,24 +365,39 @@ function sbShipFromParsed(src) {
     }
   }
 
+  // ── Leaks ─────────────────────────────────────────────────
+  // Stored as { name, count } objects matching explode style.
+  // Source ships store leaks as raw strings like '"smoke" 50 0'
+  for (const l of (src.leaks || [])) {
+    if (typeof l === 'string') {
+      // Raw string — extract name token
+      const tok = l.trim().match(/^("([^"]+)"|(\S+))/);
+      const rawName = tok ? (tok[2] || tok[3] || tok[0]).replace(/^"|"$/g, '') : l;
+      const countMatch = l.match(/\d+/);
+      s.leaks.push({ name: rawName, count: countMatch ? parseInt(countMatch[0]) : 1 });
+    } else if (l && typeof l === 'object') {
+      s.leaks.push({ name: l.name || '', count: l.count || 1 });
+    }
+  }
+
   // ── Explode ───────────────────────────────────────────────
   const explodeSrc = src.explode || [];
   for (const e of explodeSrc) {
     s.explode.push({
-      name:  typeof e === 'string' ? `"${e}"` : `"${e.name || 'tiny explosion'}"`,
+      name:  typeof e === 'string' ? e : (e.name || 'tiny explosion'),
       count: e.count || 1,
     });
   }
-  for (const key of ['small explosion','medium explosion','large explosion','huge explosion']) {
-    if (src[key] != null) s.explode.push({ name: `"${key}"`, count: Number(src[key]) });
+  for (const key of ['tiny explosion','small explosion','medium explosion','large explosion','huge explosion']) {
+    if (src[key] != null) s.explode.push({ name: key, count: Number(src[key]) });
   }
 
   const finalSrc = src.finalExplode || src['final explode'] || [];
   if (typeof finalSrc === 'string') {
-    s.finalExplode.push({ name: `"${finalSrc}"`, count: 1 });
+    s.finalExplode.push({ name: finalSrc.replace(/^"|"$/g, ''), count: 1 });
   } else {
     for (const e of (Array.isArray(finalSrc) ? finalSrc : [])) {
-      s.finalExplode.push({ name: typeof e === 'string' ? `"${e}"` : `"${e.name || 'final explosion large'}"`, count: e.count || 1 });
+      s.finalExplode.push({ name: typeof e === 'string' ? e.replace(/^"|"$/g, '') : (e.name || 'final explosion large'), count: e.count || 1 });
     }
   }
 
@@ -415,6 +447,7 @@ function sbPopulateBuilder() {
   sbRenderOutfitsList();
   sbRenderGunsTurrets();
   sbRenderExplodeLists();
+  sbRenderWeaponBlock();
   sbRawDirty = false;
   sbRenderRaw();
   sbUpdateQuickStats();
@@ -783,7 +816,7 @@ function sbRenderAttrList() {
     html += '</div>';
   }
 
-  const other = allKeys.filter(k => !assigned.has(k) && k !== 'mass' && k !== 'drag');
+  const other = allKeys.filter(k => !assigned.has(k) && k !== 'mass' && k !== 'drag' && k !== 'weapon');
   if (other.length) {
     html += '<div class="attr-section"><div class="attr-section-title">Other</div>';
     for (const k of other) html += sbAttrRow(k, attrs[k]);
@@ -1184,7 +1217,6 @@ function sbRenderGunsTurrets() {
   sbRenderBays('drones',   'drones-list',   'drone');
   sbRenderBays('fighters', 'fighters-list', 'fighter');
   sbRenderEngines();
-  sbRenderLeaks();
 }
 
 function sbRenderHP(field, elId, label, showOver) {
@@ -1271,23 +1303,124 @@ function sbRemoveHP(f, i) {
   sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
 }
 
-function sbRenderLeaks() {
+// ═══════════════════════════════════════════════════════════
+//  LEAKS  (picker-style, same pattern as explode)
+// ═══════════════════════════════════════════════════════════
+
+function sbRenderLeaksList() {
   const el = document.getElementById('leaks-list'); if (!el) return;
   const leaks = sbCurrentShip.leaks || [];
-  el.innerHTML = leaks.map((l,i) =>
-    `<div class="outfit-item">
-      <span class="outfit-item__name">${esc(l)}</span>
+  el.innerHTML = leaks.length ? leaks.map((l, i) => `
+    <div class="outfit-item">
+      <span class="outfit-item__name">${esc(l.name || '')}</span>
+      <input class="outfit-item__count" type="number" min="1" value="${esc(String(l.count || 1))}"
+        onchange="sbUpdateLeak(${i}, this.value)">
       <button class="btn btn-danger btn-xs" onclick="sbRemoveLeak(${i})">✕</button>
-    </div>`
-  ).join('') || '<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:4px 0;">No leaks.</div>';
+    </div>`).join('')
+  : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No leak effects.</div>`;
 }
-function addLeak() {
-  const v = document.getElementById('leak-input').value.trim(); if (!v) return;
-  (sbCurrentShip.leaks = sbCurrentShip.leaks || []).push(v);
-  document.getElementById('leak-input').value = '';
-  sbRenderLeaks(); sbRenderRaw();
+
+function sbUpdateLeak(i, v) {
+  sbCurrentShip.leaks[i].count = parseInt(v) || 1;
+  sbRenderLeaksList(); sbRenderRaw();
 }
-function sbRemoveLeak(i) { sbCurrentShip.leaks.splice(i,1); sbRenderLeaks(); sbRenderRaw(); }
+
+function sbRemoveLeak(i) {
+  sbCurrentShip.leaks.splice(i, 1);
+  sbRenderLeaksList(); sbRenderRaw();
+}
+
+function sbOpenEffectPicker(targetField) {
+  sbRefreshLiveData();
+  const list = document.getElementById('sb-effect-picker-list');
+  const titleEl = document.getElementById('sb-effect-picker-title');
+  if (titleEl) titleEl.textContent = targetField === 'leaks' ? 'Add Leak Effect' : 'Add Effect';
+
+  const byPlugin = {};
+  for (const e of sbAllEffects) {
+    const key = e._pd || e._pn || 'Unknown';
+    (byPlugin[key] = byPlugin[key] || []).push(e);
+  }
+
+  if (!sbAllEffects.length) {
+    list.innerHTML = '<div style="color:var(--c-text-dim);font-size:0.88rem;padding:12px;">No effects loaded yet.</div>';
+  } else {
+    list.innerHTML = Object.entries(byPlugin).map(([plugin, effects]) => `
+      <div class="sb-picker-group">
+        <div class="sb-picker-group-label">${esc(plugin)}</div>
+        ${effects.map(e => {
+          const name = e.name || '';
+          return `<div class="sb-picker-row" onclick="sbAddEffectFromPicker(${JSON.stringify(JSON.stringify(name))}, '${esc(targetField)}')">
+            <span class="sb-picker-name">${esc(name)}</span>
+          </div>`;
+        }).join('')}
+      </div>`).join('');
+  }
+
+  document.getElementById('sb-effect-picker-search').value = '';
+  document.getElementById('sb-effect-count-input').value   = '1';
+  document.getElementById('modal-sb-effect-picker').dataset.targetField = targetField;
+  openModal('modal-sb-effect-picker');
+}
+
+function sbFilterEffectPicker(val) {
+  const q = val.toLowerCase();
+  document.querySelectorAll('#sb-effect-picker-list .sb-picker-row').forEach(r => {
+    r.style.display = r.querySelector('.sb-picker-name').textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('#sb-effect-picker-list .sb-picker-group').forEach(g => {
+    g.style.display = [...g.querySelectorAll('.sb-picker-row')].some(r => r.style.display !== 'none') ? '' : 'none';
+  });
+}
+
+function sbAddEffectFromPicker(nameJson, targetField) {
+  const name  = JSON.parse(nameJson);
+  const count = parseInt(document.getElementById('sb-effect-count-input').value) || 1;
+  const field = document.getElementById('modal-sb-effect-picker').dataset.targetField || targetField;
+
+  if (field === 'leaks') {
+    const existing = (sbCurrentShip.leaks || []).find(l => l.name === name);
+    if (existing) { existing.count += count; }
+    else { (sbCurrentShip.leaks = sbCurrentShip.leaks || []).push({ name, count }); }
+    closeModal('modal-sb-effect-picker');
+    sbRenderLeaksList(); sbRenderRaw();
+  } else if (field === 'explode') {
+    const existing = (sbCurrentShip.explode || []).find(e => e.name === name);
+    if (existing) { existing.count += count; }
+    else { (sbCurrentShip.explode = sbCurrentShip.explode || []).push({ name, count }); }
+    closeModal('modal-sb-effect-picker');
+    sbRenderExplodeLists(); sbRenderRaw();
+  } else if (field === 'finalExplode') {
+    const existing = (sbCurrentShip.finalExplode || []).find(e => e.name === name);
+    if (existing) { existing.count += count; }
+    else { (sbCurrentShip.finalExplode = sbCurrentShip.finalExplode || []).push({ name, count }); }
+    closeModal('modal-sb-effect-picker');
+    sbRenderExplodeLists(); sbRenderRaw();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  WEAPON SUB-BLOCK  (ship-level weapon, e.g. Chigiriki)
+// ═══════════════════════════════════════════════════════════
+
+const SB_WEAPON_FIELDS = ['blast radius', 'shield damage', 'hull damage', 'hit force'];
+
+function sbRenderWeaponBlock() {
+  const el = document.getElementById('weapon-block'); if (!el) return;
+  const w = sbCurrentShip.weapon || {};
+  el.innerHTML = SB_WEAPON_FIELDS.map(k => `
+    <div class="attr-row">
+      <span class="attr-key">${esc(k)}</span>
+      <input class="attr-val-input" type="number" step="1" value="${esc(String(w[k] ?? 0))}"
+        data-wkey="${esc(k)}" onchange="sbUpdateWeaponField(this)" onblur="sbUpdateWeaponField(this)">
+    </div>`).join('');
+}
+
+function sbUpdateWeaponField(inp) {
+  if (!sbCurrentShip.weapon) sbCurrentShip.weapon = {};
+  sbCurrentShip.weapon[inp.dataset.wkey] = parseFloat(inp.value) || 0;
+  sbRenderRaw();
+}
 
 // ═══════════════════════════════════════════════════════════
 //  EXPLODE
@@ -1295,31 +1428,30 @@ function sbRemoveLeak(i) { sbCurrentShip.leaks.splice(i,1); sbRenderLeaks(); sbR
 function sbRenderExplodeLists() {
   sbRenderExplodeList('explode',      'explode-list');
   sbRenderExplodeList('finalExplode', 'final-explode-list');
+  sbRenderLeaksList();
 }
 function sbRenderExplodeList(field, elId) {
   const el = document.getElementById(elId); if (!el) return;
   const items = sbCurrentShip[field] || [];
-  el.innerHTML = items.length ? items.map((e,i) =>
+  el.innerHTML = items.length ? items.map((e, i) =>
     `<div class="outfit-item">
-      <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.82rem;"
-        type="text" value="${esc(e.name||'')}" placeholder='"tiny explosion"'
-        onchange="sbUpdateExplode('${field}',${i},'name',this.value)">
-      <input class="text-input" style="width:60px;padding:4px 6px;font-size:0.82rem;"
-        type="number" min="1" value="${esc(String(e.count||1))}"
+      <span class="outfit-item__name">${esc(e.name || '')}</span>
+      <input class="outfit-item__count" type="number" min="1" value="${esc(String(e.count || 1))}"
         onchange="sbUpdateExplode('${field}',${i},'count',this.value)">
       <button class="btn btn-danger btn-xs" onclick="sbRemoveExplode('${field}',${i})">✕</button>
     </div>`
   ).join('') : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">None.</div>`;
 }
 function addExplodeEffect(type) {
-  const field = type === 'explode' ? 'explode' : 'finalExplode';
-  (sbCurrentShip[field] = sbCurrentShip[field] || []).push({ name:'"tiny explosion"', count:1 });
-  sbRenderExplodeLists(); sbRenderRaw();
+  sbOpenEffectPicker(type === 'explode' ? 'explode' : 'finalExplode');
+}
+function addLeakEffect() {
+  sbOpenEffectPicker('leaks');
 }
 function sbUpdateExplode(f, i, p, v) {
-  sbCurrentShip[f][i][p] = p==='count' ? (parseInt(v)||1) : v; sbRenderRaw();
+  sbCurrentShip[f][i][p] = p === 'count' ? (parseInt(v) || 1) : v; sbRenderRaw();
 }
-function sbRemoveExplode(f, i) { sbCurrentShip[f].splice(i,1); sbRenderExplodeLists(); sbRenderRaw(); }
+function sbRemoveExplode(f, i) { sbCurrentShip[f].splice(i, 1); sbRenderExplodeLists(); sbRenderRaw(); }
 
 // ═══════════════════════════════════════════════════════════
 //  ES GENERATOR
@@ -1368,13 +1500,15 @@ function sbGenerateES(s) {
       L.push(`${TT}"${k}" ${valOut}`);
     }
 
-    if (attrs.weapon && typeof attrs.weapon === 'object') {
+    // weapon sub-block — from s.weapon, not s.attributes
+    const w = s.weapon || {};
+    const hasWeapon = Object.values(w).some(v => Number(v) !== 0);
+    if (hasWeapon) {
       L.push(`${TT}weapon`);
-      for (const [wk, wv] of Object.entries(attrs.weapon)) {
-        if (wv === '' || wv == null) continue;
-        const wvStr  = String(wv);
-        const wIsNum = /^-?[0-9]*\.?[0-9]+$/.test(wvStr);
-        L.push(`${TT}${T}"${wk}" ${wIsNum ? wvStr : `"${wvStr}"`}`);
+      for (const wk of SB_WEAPON_FIELDS) {
+        const wv = w[wk];
+        if (wv == null || Number(wv) === 0) continue;
+        L.push(`${TT}\t"${wk}" ${wv}`);
       }
     }
   }
@@ -1418,15 +1552,18 @@ function sbGenerateES(s) {
     if (f.launchEffect) L.push(`${TT}"launch effect" "${f.launchEffect}"`);
   }
 
-  for (const l of (s.leaks || [])) L.push(`${T}leak ${l}`);
+  for (const l of (s.leaks || [])) {
+    const count = parseInt(l.count) || 1;
+    L.push(`${T}leak "${l.name}"${count > 1 ? ' ' + count : ''}`);
+  }
 
   for (const e of (s.explode || [])) {
     const count = parseInt(e.count) || 1;
-    L.push(`${T}explode ${e.name}${count > 1 ? ' ' + count : ''}`);
+    L.push(`${T}explode "${e.name}"${count > 1 ? ' ' + count : ''}`);
   }
 
   for (const e of (s.finalExplode || [])) {
-    L.push(`${T}"final explode" ${e.name}`);
+    L.push(`${T}"final explode" "${e.name}"`);
   }
 
   if (s.description) {
@@ -1516,7 +1653,13 @@ function sbParseES(text) {
       if (t === 'drone')   { cur.drones.push({ coords: '', launchEffect: '' }); continue; }
       if (t === 'fighter') { cur.fighters.push({ coords: '', launchEffect: '' }); continue; }
 
-      if (t.startsWith('leak '))             { cur.leaks.push(t.slice(5)); continue; }
+      if (t.startsWith('leak '))             {
+        const p = sbTok(t.slice(5));
+        const name = sbStripQ(p[0] || '');
+        const count = parseInt(p[1]) || 1;
+        cur.leaks.push({ name, count });
+        continue;
+      }
       if (t.startsWith('explode '))          { sbPEx(cur, 'explode',      t.slice(8));  continue; }
       if (t.startsWith('"final explode" '))  { sbPEx(cur, 'finalExplode', t.slice(16)); continue; }
 
@@ -1537,7 +1680,7 @@ function sbParseES(text) {
         const key = sbStripQ(p[0]);
 
         if (key === 'licenses') { subblock = 'licenses'; continue; }
-        if (key === 'weapon')   { subblock = 'weapon';   cur.attributes.weapon = {}; continue; }
+        if (key === 'weapon')   { subblock = 'weapon';   cur.weapon = cur.weapon || {}; continue; }
 
         const val = p.slice(1).join(' ');
         if (key === 'mass') { cur.mass = val; continue; }
@@ -1569,8 +1712,8 @@ function sbParseES(text) {
         continue;
       }
       if (subblock === 'weapon') {
-        cur.attributes.weapon = cur.attributes.weapon || {};
-        cur.attributes.weapon[key] = val;
+        cur.weapon = cur.weapon || {};
+        cur.weapon[key] = parseFloat(val) || 0;
         continue;
       }
     }
@@ -1581,7 +1724,7 @@ function sbParseES(text) {
   return ships;
 }
 function sbPHP(cur, f, rest) { const p=sbTok(rest); cur[f].push({coords:p.slice(0,2).join(' '),over:p.slice(2).join(' ')}); }
-function sbPEx(cur, f, rest) { const p=sbTok(rest); (cur[f]=cur[f]||[]).push({name:p[0]||'"tiny explosion"',count:parseInt(p[1])||1}); }
+function sbPEx(cur, f, rest) { const p=sbTok(rest); const name=sbStripQ(p[0]||'tiny explosion'); (cur[f]=cur[f]||[]).push({name, count:parseInt(p[1])||1}); }
 function sbTok(str) {
   const t=[]; let i=0;
   while(i<str.length){
