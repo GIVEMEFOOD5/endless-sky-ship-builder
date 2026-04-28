@@ -515,7 +515,7 @@ class EndlessSkyParser {
         const txtFiles = await this.findTxtFiles(clonedPlugin.dataDir);
         console.log(`  Parsing ${txtFiles.length} data files...`);
         for (const f of txtFiles) {
-          this.parseFileContent(await fs.readFile(f, 'utf8'), f, clonedPlugin.dataDir);
+          this.Content(await fs.readFile(f, 'utf8'), f, clonedPlugin.dataDir);
         }
 
         console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length - repoPendingBefore} variants pending for this repo)`);
@@ -627,7 +627,10 @@ class EndlessSkyParser {
           i = ni; continue;
         } else if (trimmed.startsWith('effect ')) {
           const [d, ni] = this.parseExtraEffect(lines, i);
-          if (d) this.effects.push(d);
+          if (d) { 
+            d._pluginId = this._currentPluginId;
+            this.effects.push(d); 
+          }
           i = ni; continue;
         } else if (trimmed.startsWith('fleet ')) {
           i = this.parseFleetBlock(lines, i); continue;
@@ -1777,6 +1780,12 @@ async function main() {
         _pluginId: undefined,
       }));
 
+      const effectsOut = plugin.effects.map(e => ({ 
+        ...e, 
+        pluginId: e._pluginId ?? null, 
+        _pluginId: undefined 
+      }))
+      
       await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(shipsOut,    null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(variantsOut, null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(outfitsOut,  null, 2));
