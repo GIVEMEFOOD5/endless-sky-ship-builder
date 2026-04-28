@@ -515,7 +515,7 @@ class EndlessSkyParser {
         const txtFiles = await this.findTxtFiles(clonedPlugin.dataDir);
         console.log(`  Parsing ${txtFiles.length} data files...`);
         for (const f of txtFiles) {
-          this.Content(await fs.readFile(f, 'utf8'), f, clonedPlugin.dataDir);
+          this.parseFileContent(await fs.readFile(f, 'utf8'), f, clonedPlugin.dataDir);
         }
 
         console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length - repoPendingBefore} variants pending for this repo)`);
@@ -1790,6 +1790,7 @@ async function main() {
       await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(variantsOut, null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(outfitsOut,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(plugin.effects,  null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'effects.json'), JSON.stringify(effectsOut, null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
         plugin:     plugin.name,
         repository: source.repository,
@@ -1797,7 +1798,8 @@ async function main() {
         variants:   variantsOut,
         outfits:    outfitsOut,
         effects:    plugin.effects,
-        parsedAt:   new Date().toISOString()
+        parsedAt:   new Date().toISOString(),
+        effects:    effectsOut,
       }, null, 2));
 
       console.log(`  ✓ ${shipsOut.length} ships | ${variantsOut.length} variants | ${outfitsOut.length} outfits | ${plugin.effects.length} effects`);
