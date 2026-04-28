@@ -19,6 +19,11 @@ function extractCategories(data) {
         });
     }
 
+    const hasUncategorised = Array.isArray(data)
+        ? data.some(item => !item.category && !item.attributes?.category)
+        : Object.values(data).some(item => item && !item.category && !item.attributes?.category);
+    if (hasUncategorised) categories.add('N/A');
+    
     return Array.from(categories).sort();
 }
 
