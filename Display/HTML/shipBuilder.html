@@ -36,7 +36,7 @@
     <div class="panel search-section" id="sb-plugin-panel">
       <h2 class="section-title" id="pluginSelectorTitle">Plugin ▼</h2>
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-        <button class="btn-action" onclick="sbOpenPluginPicker()">
+        <button class="btn-action" onclick="openPluginPicker()">
           ☰ Select Plugins
         </button>
         <span style="font-size:0.82rem;color:#64748b;font-style:italic;">
@@ -249,23 +249,6 @@
      MODALS
 ═══════════════════════════════════════════════════════ -->
 
-<!-- Plugin Picker -->
-<div id="modal-sb-plugin-picker" class="modal-overlay">
-  <div class="modal-box modal-box--picker">
-    <div class="picker-header">
-      <div class="picker-header__title">Select Plugins</div>
-      <button class="modal-close" onclick="closeModal('modal-sb-plugin-picker')">×</button>
-    </div>
-    <input id="sb-plugin-picker-search" class="text-input picker-search"
-      type="text" placeholder="🔍 Search plugins…"
-      oninput="sbFilterPluginPicker(this.value)">
-    <div id="sb-plugin-picker-list" class="picker-list"></div>
-    <div class="picker-footer">
-      <button class="btn btn-secondary" onclick="sbCancelPluginPicker()">Cancel</button>
-      <button class="btn btn-primary"   onclick="sbConfirmPluginPicker()">Done</button>
-    </div>
-  </div>
-</div>
 
 <!-- Ship Picker (outfit or edit existing) -->
 <div id="modal-sb-ship-picker" class="modal-overlay">
@@ -390,6 +373,7 @@
 <div id="toast" class="toast"></div>
 
 <script src="../JavaScript/dataLoader.js"></script>
+<script src="../JavaScript/generalPluginStuff.js"></script>
 <script src="../JavaScript/shipBuilder.js"></script>
 </body>
 </html>
