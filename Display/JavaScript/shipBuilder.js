@@ -22,285 +22,16 @@ let sbAttrKeys   = [];  // sorted list of all known attribute keys
 
 // ═══════════════════════════════════════════════════════════
 //  PLUGIN SELECTOR
-//  Self-contained implementation using DataLoader's API.
-//  Mirrors the pattern in generalPluginStuff.js but is
-//  scoped to the Ship Builder page only.
+//  Delegates entirely to generalPluginStuff.js (PluginManager).
+//  generalPluginStuff.js must be loaded before shipBuilder.js.
+//
+//  openPluginPicker / closePluginPicker / confirmPluginPicker
+//  are already on window via generalPluginStuff.js.
+//
+//  PluginManager.renderActiveList() re-renders #activePluginList.
+//  It is called here on dataLoaded / pluginsChanged so the panel
+//  on the fleet view always reflects the current selection.
 // ═══════════════════════════════════════════════════════════
-
-// Snapshot taken when the picker opens — restored on Cancel
-let _sbPluginPickerSnapshot = [];
-
-/**
- * Render the active plugin list in #activePluginList.
- * Matches the sorter-row style used by generalPluginStuff.js.
- */
-function sbRenderActivePluginList() {
-  const box = document.getElementById('activePluginList');
-  if (!box || !window.DataLoader) return;
-
-  const active = window.DataLoader.getActivePlugins();
-  const LOCAL  = window.DataLoader.LOCAL_PLUGIN_ID;
-
-  if (!active.length) {
-    box.innerHTML = '<span class="sorter-empty">No plugins selected.</span>';
-    return;
-  }
-
-  box.innerHTML = '';
-
-  active.forEach((outputName, idx) => {
-    const isLocal = outputName === LOCAL;
-    const allData = window.allData || {};
-    const d       = allData[outputName];
-    let label;
-    if (isLocal) {
-      label = '📦 Local Builds';
-    } else if (d) {
-      label = d.sourceName === d.displayName ? d.sourceName : `${d.sourceName} › ${d.displayName}`;
-    } else {
-      label = outputName;
-    }
-
-    const row = document.createElement('div');
-    row.className = 'sorter-row' + (isLocal ? ' sorter-row--local' : '');
-    row.dataset.plugin = outputName;
-
-    const labelEl = document.createElement('span');
-    labelEl.className   = 'sorter-label';
-    labelEl.textContent = label;
-
-    // Local Builds is always pinned first — no reorder/remove
-    if (isLocal) {
-      const pin = document.createElement('span');
-      pin.className   = 'sorter-pin-badge';
-      pin.textContent = '📌 pinned first';
-      pin.title       = 'Local Builds always appears first';
-      row.appendChild(labelEl);
-      row.appendChild(pin);
-      box.appendChild(row);
-      return;
-    }
-
-    const localOffset     = active.includes(LOCAL) ? 1 : 0;
-    const isFirstNonLocal = idx === localOffset;
-    const isLastNonLocal  = idx === active.length - 1;
-
-    const upBtn = document.createElement('button');
-    upBtn.className   = 'sorter-move-btn';
-    upBtn.textContent = '▲';
-    upBtn.title       = 'Move up (higher priority)';
-    upBtn.disabled    = isFirstNonLocal;
-    upBtn.onclick = () => {
-      const cur = [...window.DataLoader.getActivePlugins()];
-      [cur[idx - 1], cur[idx]] = [cur[idx], cur[idx - 1]];
-      window.DataLoader.setActivePlugins(cur);
-    };
-
-    const downBtn = document.createElement('button');
-    downBtn.className   = 'sorter-move-btn';
-    downBtn.textContent = '▼';
-    downBtn.title       = 'Move down (lower priority)';
-    downBtn.disabled    = isLastNonLocal;
-    downBtn.onclick = () => {
-      const cur = [...window.DataLoader.getActivePlugins()];
-      [cur[idx], cur[idx + 1]] = [cur[idx + 1], cur[idx]];
-      window.DataLoader.setActivePlugins(cur);
-    };
-
-    const removeBtn = document.createElement('button');
-    removeBtn.className   = 'sorter-remove-btn';
-    removeBtn.textContent = '✕';
-    removeBtn.title       = 'Remove plugin';
-    removeBtn.onclick = () => {
-      const cur      = [...window.DataLoader.getActivePlugins()];
-      const nonLocal = cur.filter(p => p !== LOCAL);
-      if (nonLocal.length <= 1) {
-        sbToast('At least one plugin must remain active.', 'danger');
-        return;
-      }
-      const next = cur.filter(p => p !== outputName);
-      window.DataLoader.setActivePlugins(next);
-    };
-
-    row.appendChild(labelEl);
-    row.appendChild(upBtn);
-    row.appendChild(downBtn);
-    row.appendChild(removeBtn);
-    box.appendChild(row);
-  });
-}
-
-/**
- * Open the plugin picker modal.
- * Takes a snapshot so Cancel can restore the previous selection.
- */
-function sbOpenPluginPicker() {
-  if (!window.DataLoader) { sbToast('Data not loaded yet.', 'danger'); return; }
-  _sbPluginPickerSnapshot = [...window.DataLoader.getActivePlugins()];
-  sbRenderPluginPickerList('');
-  document.getElementById('sb-plugin-picker-search').value = '';
-  openModal('modal-sb-plugin-picker');
-  setTimeout(() => document.getElementById('sb-plugin-picker-search').focus(), 80);
-}
-
-function sbCancelPluginPicker() {
-  // Restore snapshot
-  if (_sbPluginPickerSnapshot.length) {
-    window.DataLoader.setActivePlugins([..._sbPluginPickerSnapshot]);
-  }
-  _sbPluginPickerSnapshot = [];
-  closeModal('modal-sb-plugin-picker');
-}
-
-function sbConfirmPluginPicker() {
-  _sbPluginPickerSnapshot = [];
-  closeModal('modal-sb-plugin-picker');
-  // setActivePlugins fires pluginsChanged which triggers sbRefreshLiveData + re-render
-}
-
-/**
- * Render the grouped plugin list inside the picker modal.
- * Mirrors the layout of generalPluginStuff.js _renderPluginPickerList.
- */
-function sbRenderPluginPickerList(query) {
-  const list = document.getElementById('sb-plugin-picker-list');
-  if (!list || !window.DataLoader) return;
-  list.innerHTML = '';
-
-  const lq     = (query || '').toLowerCase().trim();
-  const active = window.DataLoader.getActivePlugins();
-  const LOCAL  = window.DataLoader.LOCAL_PLUGIN_ID;
-  const allData = window.allData || {};
-
-  // ── Local Builds section ───────────────────────────────────────────────────
-  const localPlugin = allData[LOCAL];
-  const localMatchesQuery = !lq || 'local builds'.includes(lq);
-  if (localPlugin && (localPlugin.ships || []).length > 0 && localMatchesQuery) {
-    const header = document.createElement('div');
-    header.className   = 'plugin-picker-group-header plugin-picker-group-header--local';
-    header.textContent = '📦 Local Builds';
-    list.appendChild(header);
-
-    const isActive  = active.includes(LOCAL);
-    const shipCount = (localPlugin.ships || []).length;
-
-    const row = document.createElement('div');
-    row.className   = 'plugin-picker-row plugin-picker-row--local' + (isActive ? ' active' : '');
-    row.dataset.plugin = LOCAL;
-
-    const cb = document.createElement('input');
-    cb.type    = 'checkbox';
-    cb.checked = isActive;
-    cb.style.cssText = 'cursor:pointer;accent-color:#3b82f6;width:16px;height:16px;flex-shrink:0;';
-    cb.onclick  = e => e.stopPropagation();
-    cb.onchange = () => {
-      const cur = [...window.DataLoader.getActivePlugins()];
-      if (cb.checked) {
-        if (!cur.includes(LOCAL)) cur.unshift(LOCAL);
-      } else {
-        const idx = cur.indexOf(LOCAL);
-        if (idx !== -1) cur.splice(idx, 1);
-      }
-      window.DataLoader.setActivePlugins(cur);
-      row.classList.toggle('active', window.DataLoader.getActivePlugins().includes(LOCAL));
-    };
-
-    const dot = document.createElement('span');
-    dot.className = 'plugin-picker-active-dot';
-
-    const lbl = document.createElement('span');
-    lbl.className   = 'plugin-picker-row-label';
-    lbl.textContent = `Local Builds (${shipCount} ship${shipCount !== 1 ? 's' : ''})`;
-
-    row.appendChild(cb);
-    row.appendChild(dot);
-    row.appendChild(lbl);
-    row.onclick = () => cb.click();
-    list.appendChild(row);
-  }
-
-  // ── Remote plugin groups ───────────────────────────────────────────────────
-  const groups = {};
-  for (const [outputName, data] of Object.entries(allData)) {
-    if (outputName === LOCAL) continue;
-    const src = data.sourceName || outputName;
-    (groups[src] = groups[src] || []).push({ outputName, data });
-  }
-
-  let anyRemoteVisible = false;
-  for (const [sourceName, plugins] of Object.entries(groups)) {
-    const visible = lq
-      ? plugins.filter(p =>
-          p.data.displayName.toLowerCase().includes(lq) ||
-          sourceName.toLowerCase().includes(lq))
-      : plugins;
-    if (!visible.length) continue;
-    anyRemoteVisible = true;
-
-    const header = document.createElement('div');
-    header.className   = 'plugin-picker-group-header';
-    header.textContent = sourceName;
-    list.appendChild(header);
-
-    for (const { outputName, data } of visible) {
-      const isActive = active.includes(outputName);
-
-      const row = document.createElement('div');
-      row.className   = 'plugin-picker-row' + (isActive ? ' active' : '');
-      row.dataset.plugin = outputName;
-
-      const cb = document.createElement('input');
-      cb.type    = 'checkbox';
-      cb.checked = isActive;
-      cb.style.cssText = 'cursor:pointer;accent-color:#3b82f6;width:16px;height:16px;flex-shrink:0;';
-      cb.onclick  = e => e.stopPropagation();
-      cb.onchange = () => {
-        const cur      = [...window.DataLoader.getActivePlugins()];
-        const nonLocal = cur.filter(p => p !== LOCAL);
-        if (!cb.checked) {
-          if (nonLocal.length <= 1 && nonLocal[0] === outputName) {
-            // Must keep at least one remote plugin
-            cb.checked = true;
-            row.classList.add('active');
-            sbToast('At least one plugin must remain active.', 'danger');
-            return;
-          }
-          const idx = cur.indexOf(outputName);
-          if (idx !== -1) cur.splice(idx, 1);
-        } else {
-          if (!cur.includes(outputName)) cur.push(outputName);
-        }
-        window.DataLoader.setActivePlugins(cur);
-        row.classList.toggle('active', window.DataLoader.getActivePlugins().includes(outputName));
-      };
-
-      const dot = document.createElement('span');
-      dot.className = 'plugin-picker-active-dot';
-
-      const lbl = document.createElement('span');
-      lbl.className   = 'plugin-picker-row-label';
-      lbl.textContent = plugins.length === 1 ? sourceName : data.displayName;
-
-      row.appendChild(cb);
-      row.appendChild(dot);
-      row.appendChild(lbl);
-      row.onclick = () => cb.click();
-      list.appendChild(row);
-    }
-  }
-
-  const localRendered = localPlugin && (localPlugin.ships || []).length > 0 && localMatchesQuery;
-  if (!localRendered && !anyRemoteVisible) {
-    const empty = document.createElement('p');
-    empty.style.cssText = 'color:#94a3b8;font-style:italic;font-size:0.9rem;padding:12px 10px;';
-    empty.textContent   = 'No matching plugins.';
-    list.appendChild(empty);
-  }
-}
-
-function sbFilterPluginPicker(val) {
-  sbRenderPluginPickerList(val);
-}
 
 // ═══════════════════════════════════════════════════════════
 //  DATA BRIDGE
@@ -680,6 +411,8 @@ function sbPopulateBuilder() {
   document.getElementById('ship-sprite').value      = s.sprite      || '';
   document.getElementById('ship-thumbnail').value   = s.thumbnail   || '';
   document.getElementById('ship-description').value = s.description || '';
+  document.getElementById('ship-drag').value        = s.drag        || '';
+  document.getElementById('ship-mass').value        = s.mass        || '';
 
   sbRenderAttrList();
   sbRenderOutfitsList();
@@ -700,6 +433,8 @@ function onBuilderChange() {
   s.sprite      = document.getElementById('ship-sprite').value.trim();
   s.thumbnail   = document.getElementById('ship-thumbnail').value.trim();
   s.description = document.getElementById('ship-description').value;
+  s.drag        = document.getElementById('ship-drag').value.trim();
+  s.mass        = document.getElementById('ship-mass').value.trim();
   const titleEl = document.getElementById('builder-page-title');
   const modeLabel = { new: '✏️ New Ship', edit: '✏️ Edit Ship', outfit: '🔧 Outfit Ship' }[sbMode] || '';
   if (titleEl) titleEl.textContent = s.name ? `${modeLabel}: ${s.name}` : modeLabel;
@@ -927,10 +662,19 @@ function sbUpdateAttrVal(inp) {
   }
   inp.style.borderColor = '';
 
-  sbCurrentShip.attributes[key] = val;
-  const changed = sbSyncHardpoints(key, val);
-  if (changed) sbRenderAttrList();
-
+  if (key === 'mass') {
+    sbCurrentShip.mass = val;
+    const massEl = document.getElementById('ship-mass');
+    if (massEl && massEl !== inp) massEl.value = val;
+  } else if (key === 'drag') {
+    sbCurrentShip.drag = val;
+    const dragEl = document.getElementById('ship-drag');
+    if (dragEl && dragEl !== inp) dragEl.value = val;
+  } else {
+    sbCurrentShip.attributes[key] = val;
+    const changed = sbSyncHardpoints(key, val);
+    if (changed) sbRenderAttrList();
+  }
 
   sbUpdateQuickStats();
   sbRenderOutfitSpaceBar();
@@ -938,9 +682,17 @@ function sbUpdateAttrVal(inp) {
 }
 
 function sbRemoveAttr(k) {
-
-  delete sbCurrentShip.attributes[k];
-
+  if (k === 'mass') {
+    sbCurrentShip.mass = '';
+    const massEl = document.getElementById('ship-mass');
+    if (massEl) massEl.value = '';
+  } else if (k === 'drag') {
+    sbCurrentShip.drag = '';
+    const dragEl = document.getElementById('ship-drag');
+    if (dragEl) dragEl.value = '';
+  } else {
+    delete sbCurrentShip.attributes[k];
+  }
   sbRenderAttrList(); sbUpdateQuickStats(); sbRenderRaw();
 }
 
@@ -1079,8 +831,18 @@ function confirmAddAttr() {
   const check = sbValidateAttrValue(k, v);
   if (!check.ok) { sbToast(check.message, 'danger'); return; }
 
-  sbCurrentShip.attributes[k] = v;
-  sbSyncHardpoints(k, v);
+  if (k === 'mass') {
+    sbCurrentShip.mass = v;
+    const massEl = document.getElementById('ship-mass');
+    if (massEl) massEl.value = v;
+  } else if (k === 'drag') {
+    sbCurrentShip.drag = v;
+    const dragEl = document.getElementById('ship-drag');
+    if (dragEl) dragEl.value = v;
+  } else {
+    sbCurrentShip.attributes[k] = v;
+    sbSyncHardpoints(k, v);
+  }
 
   closeModal('modal-add-attr');
   sbRenderAttrList(); sbUpdateQuickStats(); sbRenderRaw();
@@ -1960,32 +1722,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.DataLoader) {
     window.DataLoader.onReady(() => {
       sbRefreshLiveData();
-      sbRenderActivePluginList();
+      // PluginManager (generalPluginStuff.js) owns #activePluginList rendering.
+      // Calling renderActiveList() here ensures the panel is populated as soon
+      // as data is ready, even if pluginsChanged already fired before DOMContentLoaded.
+      if (window.PluginManager) window.PluginManager.renderActiveList();
       sbToast('Game data loaded — ship & outfit pickers ready.', 'success');
     });
   } else {
     console.warn('[shipBuilder] dataLoader.js not loaded — outfit/ship pickers will be empty.');
   }
 
-  // Re-render plugin list and live data whenever the active plugin set changes.
-  // This fires when:
-  //   - DataLoader.initDefaultPlugins() selects the default on first load
-  //   - User confirms the plugin picker
-  //   - User reorders or removes a plugin via the sorter rows
-  //   - A ship is saved (pluginsChanged is fired to refresh Local Builds)
+  // pluginsChanged fires whenever the active plugin set changes:
+  //   - DataLoader.initDefaultPlugins() on first load
+  //   - User confirms/cancels the plugin picker (from generalPluginStuff.js)
+  //   - User reorders or removes via the sorter rows
+  //   - A ship is saved (refreshLocalBuilds fires pluginsChanged)
+  // We only need to refresh live data here; PluginManager already re-renders
+  // #activePluginList itself in response to this same event.
   document.addEventListener('pluginsChanged', () => {
     sbRefreshLiveData();
-    sbRenderActivePluginList();
-    // Re-render plugin picker list if it's currently open so checkboxes stay in sync
-    const pickerOpen = document.getElementById('modal-sb-plugin-picker')?.classList.contains('active');
-    if (pickerOpen) {
-      const searchVal = document.getElementById('sb-plugin-picker-search')?.value || '';
-      sbRenderPluginPickerList(searchVal);
-    }
   });
 
   document.addEventListener('dataLoaded', () => {
     sbRefreshLiveData();
-    sbRenderActivePluginList();
   });
 });
