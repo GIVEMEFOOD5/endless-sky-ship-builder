@@ -236,6 +236,12 @@ async function _notifyChange() {
     const primary = getPrimaryPlugin();
     if (!primary) return;
 
+    if (window.DataLoader && typeof window.DataLoader.setActivePlugins === 'function') {
+        // Use internal sync to avoid firing pluginsChanged again
+        window.DataLoader._setActivePluginsSilent?.(_activePlugins) 
+            ?? window.DataLoader.setActivePlugins(_activePlugins);
+    }
+    
     if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primary);
     if (typeof window.setEffectPlugin   === 'function') window.setEffectPlugin(primary);
     if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
