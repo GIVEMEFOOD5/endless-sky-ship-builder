@@ -1,20 +1,48 @@
 // Sorter.js
-// Builds sortable field lists from data actually present in:
-//   ships.json    — ship base attributes (item.attributes.*)
-//   variants.json — same structure as ships
-//   outfits.json  — top-level numeric fields only (no attributes sub-object)
 //
-// Three sources of fields:
-//   1. STATIC_FIELDS_SHIPS  — every numeric key that appears in item.attributes
-//                             across all ships/variants in the real data
-//   2. STATIC_FIELDS_OUTFITS — every top-level numeric key in outfits
-//   3. HARDPOINT_FIELDS     — gun/turret/bay/engine port counts (ships/variants)
+// Builds sortable field lists by scanning ONLY the items currently on screen.
+// No attribute names are hardcoded anywhere. Every field offered in the picker
+// was found on at least one currently-visible item.
 //
-// Computed fields (getComputedStats) are kept for ship/variant tabs because
-// ComputedStats.js accumulates installed outfits and derives effective stats.
+// ── Data layout (from the actual JSON files) ────────────────────────────────
 //
-// Multi-plugin: items carry _pluginId set by PluginManager.getMergedItems.
-// getFieldValue() uses item._pluginId when calling getComputedStats.
+//   ships / variants
+//     Numeric stats live under  item.attributes.*
+//     Outfit list lives at      item.outfits  (key→ {count, pluginId})
+//     Plugin identity lives at  item._pluginId  (always set in source JSON)
+//     Stable cache key at       item._internalId
+//
+//   outfits
+//     Numeric stats live at     item.*  (top-level — NO .attributes sub-object)
+//     Weapon sub-stats live at  item.weapon.*  (present on ~40% of outfits)
+//
+//   effects / other
+//     Numeric stats live at     item.*  (top-level)
+//
+// ── Computed fields (ships / variants only) ──────────────────────────────────
+//
+//   ComputedStats.getComputedStats(ship, pluginId) accumulates installed
+//   outfits and runs the ship-function formulas from attributeDefinitions.json.
+//   Results are keyed  _fn_*, _derived_*, _sys_*  and exposed via
+//   getComputedSorterFields() which returns  { id, key, label, isComputed:true }.
+//
+//   getFieldValue() resolves these by calling getComputedStats with the item's
+//   own _pluginId so multi-plugin setups work correctly.
+//
+// ── Accumulated attribute fields (ships / variants only) ─────────────────────
+//
+//   accumulateOutfits() in ComputedStats.js produces a flat numeric map of all
+//   base attributes + outfit contributions stacked together. Any key that is
+//   numeric in that result (and not a _fn_/_derived_/_sys_ computed key) is
+//   offered as an "Accumulated (with outfits)" field.  These are discovered by
+//   calling getComputedStats() on each visible ship and scanning the result —
+//   so the list is always driven entirely by what is on screen.
+//
+// ── Field cache ──────────────────────────────────────────────────────────────
+//
+//   The field list for each tab is cached keyed by tab name.
+//   setSorterItems() deletes the current tab's cache entry so the next
+//   getFieldsForTab() call re-scans from the fresh item set.
 
 'use strict';
 
@@ -25,9 +53,41 @@
 let activeSorters       = [];
 let sorterCurrentTab    = 'ships';
 let sorterPickerPending = [];
-let _sorterItems        = [];
+let _sorterItems        = [];   // post-filter items currently on screen
 let _sorterAttrDefs     = null;
-let _sorterPluginId     = null;
+let _sorterPluginId     = null; // fallback when item has no own _pluginId
+
+// ---------------------------------------------------------------------------
+// Skip sets — structural / metadata keys that are never sortable.
+// Intentionally minimal: the typeof === 'number' guard handles everything
+// else; these exist only to avoid iterating into known object-valued keys.
+// ---------------------------------------------------------------------------
+
+const SKIP_TOP_LEVEL = new Set([
+    'name', 'description', 'category', 'thumbnail', 'sprite',
+    'display name', 'plural', 'series',
+    'flare sprite', 'flare sprite data', 'flare sound',
+    'reverse flare sprite', 'reverse flare sprite data', 'reverse flare sound',
+    'steering flare sprite', 'steering flare sprite data', 'steering flare sound',
+    'flotsam sprite', 'afterburner effect', 'jump effect',
+    'governments', 'locations', 'licenses', 'linked',
+    'pluginId', '_pluginId', '_internalId', '_hash',
+    'weapon', 'ammo',
+]);
+
+const SKIP_WEAPON = new Set([
+    'sprite', 'sprite data', 'hardpoint sprite', 'icon',
+    'hit effect', 'fire effect', 'die effect', 'live effect', 'target effect',
+    'sound', 'stream', 'cluster', 'submunition', 'ammo',
+]);
+
+// Prefixes that mark keys produced by ComputedStats derived/fn/sys resolution.
+// Accumulated attribute keys from accumulateOutfits() never start with these.
+const COMPUTED_PREFIXES = ['_fn_', '_derived_', '_sys_'];
+
+function isComputedKey(key) {
+    return COMPUTED_PREFIXES.some(p => key.startsWith(p));
+}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -42,399 +102,233 @@ function toTitleCase(str) {
 }
 
 // ---------------------------------------------------------------------------
-// Static field definitions — derived from scanning the actual JSON data files.
+// Dynamic field scanner
 //
-// SHIPS / VARIANTS: all numeric keys found under item.attributes across
-// every ship and variant in ships.json + variants.json.
+// Iterates the current on-screen items and collects every numeric key as a
+// sortable field descriptor. Nothing is predeclared.
 //
-// OUTFITS: all top-level numeric keys found in outfits.json (outfits do NOT
-// have an attributes sub-object; their stats live directly on the item).
+// For ships/variants this now also scans getComputedStats() output (the
+// accumulated result including outfits) to discover "accumulated attribute"
+// fields — keys that exist in the post-outfit-stacking attribute map but are
+// NOT _fn_/_derived_/_sys_ computed keys.  These are labelled "(with outfits)"
+// to distinguish them from the raw base-only "(base)" fields.
+//
+// Returns arrays (all sorted alphabetically by label):
+//   shipBaseFields  — from item.attributes.* (ships/variants, base only)
+//   shipAccumFields — from getComputedStats() accumulated attrs (with outfits)
+//   outfitFields    — from item.*            (outfits, top-level)
+//   weaponFields    — from item.weapon.*     (outfits with a weapon sub-object)
+//   effectFields    — from item.*            (effects / other tabs)
 // ---------------------------------------------------------------------------
 
-const SHIP_ATTRIBUTE_KEYS = [
-    'active cooling',
-    'anchor point',
-    'asteroid mount',
-    'asteroid mount am',
-    'asteroid mount jd',
-    'asteroid scan power',
-    'atmosphere scan',
-    'atmospheric scan',
-    'automaton',
-    'bunks',
-    'burn protection',
-    'cargo capacity',
-    'cargo scan efficiency',
-    'cargo scan power',
-    'cargo space',
-    'cloak',
-    'cloak phasing',
-    'cloaked communication',
-    'cloaked firing',
-    'cloaked regen multiplier',
-    'cloaked repair multiplier',
-    'cloaked scanning',
-    'cloaked shield permeability',
-    'cloaking energy',
-    'cloaking fuel',
-    'cooling',
-    'cooling energy',
-    'core crystal',
-    'corrosion protection',
-    'corrosion resistance',
-    'cost',
-    'crew equivalent',
-    'crystal projector',
-    'delayed hull repair rate',
-    'discharge protection',
-    'disruption protection',
-    'disruption resistance',
-    'disruption resistance energy',
-    'disruption resistance heat',
-    'drag',
-    'drill lock',
-    'drill port',
-    'drill spar',
-    'energy capacity',
-    'energy generation',
-    'energy protection',
-    'engine capacity',
-    'force protection',
-    'fuel capacity',
-    'fuel generation',
-    'fuel protection',
-    'gaslining',
-    'heat dissipation',
-    'heat generation',
-    'heat protection',
-    'hull',
-    'hull energy',
-    'hull heat',
-    'hull protection',
-    'hull repair',
-    'hull repair energy',
-    'hull repair rate',
-    'hyperdrive',
-    'inscrutable',
-    'ion protection',
-    'ion resistance',
-    'jump drive',
-    'jump fuel',
-    'jump speed',
-    "ka'sei",
-    'leak protection',
-    'mass',
-    'multimodal armor',
-    'outfit scan efficiency',
-    'outfit scan opacity',
-    'outfit scan power',
-    'outfit space',
-    'overheat damage rate',
-    'overheat damage threshold',
-    'piercing protection',
-    'quantum keystone',
-    'radar jamming',
-    'ramscoop',
-    'remnant node',
-    'repair delay',
-    'required crew',
-    'reverse thrust',
-    'reverse thrusting energy',
-    'reverse thrusting heat',
-    'scan interference',
-    'scram drive',
-    'scramble protection',
-    'scramble resistance',
-    'scrambling resistance',
-    'self destruct',
-    'shield energy',
-    'shield generation',
-    'shield heat',
-    'shield protection',
-    'shields',
-    'shooting star',
-    'silent jumps',
-    'slowing protection',
-    'slowing resistance',
-    'solar collection',
-    'solar heat',
-    'spinal mount',
-    'tactical scan power',
-    'threshold percentage',
-    'thrust',
-    'thrusting energy',
-    'thrusting heat',
-    'turn',
-    'turning energy',
-    'turning heat',
-    'waterlining',
-    'weapon capacity',
-];
+function scanFieldsFromItems(tab, items) {
+    const isShipLike = tab === 'ships' || tab === 'variants';
+    const isOutfits  = tab === 'outfits';
 
-const OUTFIT_KEYS = [
-    'active cooling',
-    'afterburner energy',
-    'afterburner fuel',
-    'afterburner heat',
-    'afterburner shields',
-    'afterburner thrust',
-    'anchor point',
-    'asteroid mount',
-    'asteroid mount 2',
-    'asteroid mount 3',
-    'asteroid mount 4',
-    'asteroid mount am',
-    'asteroid mount jd',
-    'asteroid mount small',
-    'asteroid scan power',
-    'atmosphere scan',
-    'automaton',
-    'bunks',
-    'capture attack',
-    'capture defense',
-    'cargo scan efficiency',
-    'cargo scan opacity',
-    'cargo scan power',
-    'cargo space',
-    'cloak',
-    'cloaked regen multiplier',
-    'cloaked repair multiplier',
-    'cloaking energy',
-    'cloaking fuel',
-    'cooling',
-    'cooling energy',
-    'cooling inefficiency',
-    'core crystal',
-    'corrosion protection',
-    'cost',
-    'crystal projector',
-    'delayed shield energy',
-    'delayed shield generation',
-    'delayed shield heat',
-    'depleted shield delay',
-    'disruption protection',
-    'drag',
-    'drag reduction',
-    'drill lock',
-    'drill port',
-    'drill spar',
-    'emp torpedo capacity',
-    'energy capacity',
-    'energy consumption',
-    'energy generation',
-    'engine capacity',
-    'finisher capacity',
-    'firelight missile capacity',
-    'firestorm torpedo capacity',
-    'flotsam chance',
-    'force protection',
-    'fuel capacity',
-    'fuel generation',
-    'fuel protection',
-    'gatling round capacity',
-    'gun ports',
-    'heat capacity',
-    'heat dissipation',
-    'heat generation',
-    'holographic entertainment',
-    'hull energy',
-    'hull energy multiplier',
-    'hull heat',
-    'hull protection',
-    'hull repair multiplier',
-    'hull repair rate',
-    'hyperdrive',
-    'illegal',
-    'inertia reduction',
-    'inscrutable',
-    'ion protection',
-    'ion resistance',
-    'javelin capacity',
-    'jump drive',
-    'jump fuel',
-    'jump range',
-    'jump speed',
-    'lasing power',
-    'magnetic nozzle',
-    'mass',
-    'meteor capacity',
-    'minelayer capacity',
-    'multimodal armor',
-    'nanite upgrades',
-    'nettle capacity',
-    'operating costs',
-    'ophrys capacity',
-    'optical jamming',
-    'orchid capacity',
-    'outfit scan efficiency',
-    'outfit scan opacity',
-    'outfit scan power',
-    'outfit space',
-    'overheat damage rate',
-    'piercer capacity',
-    'piercing protection',
-    'quantum keystone',
-    'radar jamming',
-    'railgun slug capacity',
-    'ramscoop',
-    'reactor upgrades',
-    'relay upgrades',
-    'required crew',
-    'reverse thrust',
-    'reverse thrusting energy',
-    'reverse thrusting heat',
-    'rocket capacity',
-    'scan brightness',
-    'scan interference',
-    'scram drive',
-    'scramble resistance',
-    'shield connection point',
-    'shield delay',
-    'shield energy',
-    'shield energy multiplier',
-    'shield fuel',
-    'shield generation',
-    'shield generation multiplier',
-    'shield heat',
-    'shield protection',
-    'shooting star',
-    'sidewinder capacity',
-    'slowing protection',
-    'slowing resistance',
-    'solar cell',
-    'solar collection',
-    'solar heat',
-    'speck capacity',
-    'spike capacity',
-    'spinal mount',
-    'star tail capacity',
-    'swarm capacity',
-    'tactical scan power',
-    'teciimach canister capacity',
-    'thrust',
-    'thrusting energy',
-    'thrusting fuel',
-    'thrusting heat',
-    'thunderhead capacity',
-    'torpedo capacity',
-    'tracker capacity',
-    'turn',
-    'turning energy',
-    'turning heat',
-    'turret mounts',
-    'typhoon capacity',
-    'unique',
-    'unplunderable',
-    'weapon capacity',
-];
+    const shipBaseSeen   = new Set();
+    const shipAccumSeen  = new Set();
+    const outfitSeen     = new Set();
+    const weaponSeen     = new Set();
+    const effectSeen     = new Set();
+
+    const shipBaseFields  = [];
+    const shipAccumFields = [];
+    const outfitFields    = [];
+    const weaponFields    = [];
+    const effectFields    = [];
+
+    for (const item of (items || [])) {
+
+        if (isShipLike) {
+            // ── Raw base attributes (item.attributes.*) ───────────────────────
+            const attrs = item.attributes;
+            if (attrs && typeof attrs === 'object') {
+                for (const [key, val] of Object.entries(attrs)) {
+                    if (typeof val !== 'number') continue;
+                    const id = 'raw_attr_' + keyToId(key);
+                    if (shipBaseSeen.has(id)) continue;
+                    shipBaseSeen.add(id);
+                    shipBaseFields.push({
+                        id,
+                        key,
+                        label: toTitleCase(key) + ' (base)',
+                        path:  ['attributes', key],
+                        raw:   true,
+                        group: 'shipBase',
+                    });
+                }
+            }
+
+            // ── Accumulated attributes (via getComputedStats) ─────────────────
+            // getComputedStats returns base attrs + outfit contributions stacked,
+            // plus _fn_/_derived_/_sys_ keys. We only want the plain attr keys here.
+            if (typeof getComputedStats === 'function') {
+                const pluginId = item._pluginId || _sorterPluginId;
+                if (pluginId) {
+                    const computed = getComputedStats(item, pluginId);
+                    if (computed && typeof computed === 'object') {
+                        for (const [key, val] of Object.entries(computed)) {
+                            if (typeof val !== 'number')   continue;
+                            if (key.startsWith('_'))        continue; // all internal/computed keys start with _
+                            if (isComputedKey(key))         continue; // belt-and-braces
+                            const id = 'accum_attr_' + keyToId(key);
+                            if (shipAccumSeen.has(id))      continue;
+                            shipAccumSeen.add(id);
+                            shipAccumFields.push({
+                                id,
+                                key,
+                                label: toTitleCase(key) + ' (with outfits)',
+                                // No path — resolved via getComputedStats at sort time
+                                path:        null,
+                                useAccum:    true,
+                                raw:         false,
+                                group:       'shipAccum',
+                            });
+                        }
+                    }
+                }
+            }
+
+        } else if (isOutfits) {
+            // ── Top-level numeric outfit fields ──────────────────────────────
+            for (const [key, val] of Object.entries(item)) {
+                if (SKIP_TOP_LEVEL.has(key)) continue;
+                if (typeof val !== 'number')  continue;
+                if (key.startsWith('_'))       continue;
+                const id = 'raw_' + keyToId(key);
+                if (outfitSeen.has(id)) continue;
+                outfitSeen.add(id);
+                outfitFields.push({
+                    id,
+                    key,
+                    label: toTitleCase(key),
+                    path:  [key],
+                    raw:   true,
+                    group: 'outfit',
+                });
+            }
+
+            // ── Numeric fields inside item.weapon ────────────────────────────
+            if (item.weapon && typeof item.weapon === 'object') {
+                for (const [key, val] of Object.entries(item.weapon)) {
+                    if (SKIP_WEAPON.has(key))    continue;
+                    if (typeof val !== 'number') continue;
+                    // PascalCase keys are outfit-name ammo-count references, not stats
+                    if (/^[A-Z]/.test(key))      continue;
+                    const id = 'weapon_' + keyToId(key);
+                    if (weaponSeen.has(id)) continue;
+                    weaponSeen.add(id);
+                    weaponFields.push({
+                        id,
+                        key,
+                        label: toTitleCase(key),
+                        path:  ['weapon', key],
+                        raw:   true,
+                        group: 'weapon',
+                    });
+                }
+            }
+
+        } else {
+            // ── Top-level numeric fields for effects / other tabs ────────────
+            for (const [key, val] of Object.entries(item)) {
+                if (typeof val !== 'number') continue;
+                if (key.startsWith('_'))      continue;
+                const id = 'raw_' + keyToId(key);
+                if (effectSeen.has(id)) continue;
+                effectSeen.add(id);
+                effectFields.push({
+                    id,
+                    key,
+                    label: toTitleCase(key),
+                    path:  [key],
+                    raw:   true,
+                    group: 'effect',
+                });
+            }
+        }
+    }
+
+    const alpha = (a, b) => a.label.localeCompare(b.label);
+    return {
+        shipBaseFields:  shipBaseFields.sort(alpha),
+        shipAccumFields: shipAccumFields.sort(alpha),
+        outfitFields:    outfitFields.sort(alpha),
+        weaponFields:    weaponFields.sort(alpha),
+        effectFields:    effectFields.sort(alpha),
+    };
+}
 
 // ---------------------------------------------------------------------------
-// Hardpoint counts — ships/variants only, derived from array lengths
+// Computed fields (ships / variants only)
+//
+// getComputedSorterFields() (from ComputedStats.js) returns descriptors like:
+//   { id: '_fn_MaxShields', key: '_fn_MaxShields', label: '...', isComputed: true }
+//
+// We spread useComputed: true onto each so getFieldValue can detect them with
+// either flag — isComputed (from ComputedStats) or useComputed (set here).
 // ---------------------------------------------------------------------------
 
-const HARDPOINT_FIELDS = [
-    { id: '_gunCount',            label: 'Gun Ports',          fn: i => (i.guns            || []).length },
-    { id: '_turretCount',         label: 'Turret Ports',       fn: i => (i.turrets         || []).length },
-    { id: '_bayCount',            label: 'Bay Count',          fn: i => (i.bays            || []).length },
-    { id: '_engineCount',         label: 'Engine Points',      fn: i => (i.engines         || []).length },
-    { id: '_reverseEngineCount',  label: 'Reverse Eng. Points',fn: i => (i.reverseEngines  || []).length },
-    { id: '_steeringEngineCount', label: 'Steering Eng. Points',fn: i => (i.steeringEngines || []).length },
-];
-
-// ---------------------------------------------------------------------------
-// Field building
-// ---------------------------------------------------------------------------
-
-/**
- * Build computed fields from ComputedStats.js (ship/variant tabs only).
- * These call getComputedStats() and reflect installed outfits.
- */
 function buildComputedFields() {
     if (typeof getComputedSorterFields !== 'function') return [];
     return getComputedSorterFields().map(f => ({ ...f, useComputed: true }));
 }
 
-/**
- * Master field builder for a given tab.
- *
- * Ships / Variants:
- *   - Base attribute fields from SHIP_ATTRIBUTE_KEYS  (path: ['attributes', key])
- *   - Computed fields from getComputedSorterFields()
- *   - Hardpoint count pseudo-fields
- *
- * Outfits:
- *   - Top-level numeric fields from OUTFIT_KEYS  (path: [key])
- *   No computed fields — ComputedStats only models ships.
- *
- * Effects:
- *   - Scanned dynamically from the live item list (effects have no fixed schema).
- */
+// ---------------------------------------------------------------------------
+// Hardpoint count pseudo-fields (ships / variants only)
+//
+// These use an inline computed fn rather than a path lookup.
+// They carry { computed: fn } but NOT isComputed / useComputed, so they are
+// cleanly separated from ComputedStats-derived fields in the picker grouping.
+// ---------------------------------------------------------------------------
+
+const HARDPOINT_FIELDS = [
+    { id: '_gunCount',            label: 'Gun Ports',            fn: i => (i.guns            || []).length },
+    { id: '_turretCount',         label: 'Turret Ports',         fn: i => (i.turrets         || []).length },
+    { id: '_bayCount',            label: 'Bay Count',            fn: i => (i.bays            || []).length },
+    { id: '_engineCount',         label: 'Engine Points',        fn: i => (i.engines         || []).length },
+    { id: '_reverseEngineCount',  label: 'Reverse Eng. Points',  fn: i => (i.reverseEngines  || []).length },
+    { id: '_steeringEngineCount', label: 'Steering Eng. Points', fn: i => (i.steeringEngines || []).length },
+];
+
+// ---------------------------------------------------------------------------
+// Master field list for a tab
+// ---------------------------------------------------------------------------
+
 function buildFieldsForTab(tab, items) {
     const isShipLike = tab === 'ships' || tab === 'variants';
-    const allFields  = [];
-    const seenIds    = new Set();
+    const isOutfits  = tab === 'outfits';
 
-    const addField = (f) => {
-        if (!seenIds.has(f.id)) {
-            allFields.push(f);
-            seenIds.add(f.id);
-        }
-    };
+    const { shipBaseFields, shipAccumFields, outfitFields, weaponFields, effectFields } =
+        scanFieldsFromItems(tab, items);
+
+    const all    = [];
+    const seenId = new Set();
+    const add    = f => { if (!seenId.has(f.id)) { all.push(f); seenId.add(f.id); } };
 
     if (isShipLike) {
-        // ── Base attributes (item.attributes.key) ────────────────────────────
-        for (const key of SHIP_ATTRIBUTE_KEYS) {
-            const id    = 'raw_attr_' + keyToId(key);
-            const label = toTitleCase(key) + ' (base)';
-            addField({ id, key, label, path: ['attributes', key], raw: true });
-        }
-
-        // ── Computed fields (with outfit accumulation) ───────────────────────
-        for (const f of buildComputedFields()) {
-            addField(f);
-        }
-
-        // ── Hardpoint counts ─────────────────────────────────────────────────
+        // Order: physics-computed first, then accumulated attrs, then base-only, then hardpoints
+        for (const f of buildComputedFields())      add(f);
+        for (const f of shipAccumFields)            add(f);
+        for (const f of shipBaseFields)             add(f);
         for (const { id, label, fn } of HARDPOINT_FIELDS) {
-            addField({ id, key: id, label, computed: fn });
+            add({ id, key: id, label, computed: fn });
         }
 
-    } else if (tab === 'outfits') {
-        // ── Top-level outfit fields (item.key) ───────────────────────────────
-        for (const key of OUTFIT_KEYS) {
-            const id    = 'raw_' + keyToId(key);
-            const label = toTitleCase(key);
-            addField({ id, key, label, path: [key], raw: true });
-        }
+    } else if (isOutfits) {
+        // Order: outfit attributes first, then weapon stats
+        for (const f of outfitFields) add(f);
+        for (const f of weaponFields) add(f);
 
     } else {
-        // ── Effects or unknown tab: scan the live items ──────────────────────
-        if (items && items.length > 0) {
-            for (const item of items) {
-                for (const [key, val] of Object.entries(item)) {
-                    if (typeof val !== 'number') continue;
-                    if (key.startsWith('_'))     continue;
-                    const id = 'raw_' + keyToId(key);
-                    if (seenIds.has(id)) continue;
-                    addField({ id, key, label: toTitleCase(key), path: [key], raw: true });
-                }
-            }
-        }
+        for (const f of effectFields) add(f);
     }
 
-    // Sort: computed fields first (grouped), then alphabetical within each group
-    allFields.sort((a, b) => {
-        const aComp = !!(a.isComputed || a.computed);
-        const bComp = !!(b.isComputed || b.computed);
-        if (aComp !== bComp) return aComp ? -1 : 1;
-        return a.label.localeCompare(b.label);
-    });
-
-    return allFields;
+    return all;
 }
 
 // ---------------------------------------------------------------------------
-// Field cache
+// Field cache — per tab, rebuilt when items change
 // ---------------------------------------------------------------------------
 
 const _fieldCache = {};
@@ -465,40 +359,54 @@ function setSorterPluginId(pluginId) {
     if (typeof clearComputedCache === 'function') clearComputedCache();
 }
 
+/**
+ * Called by filterItems() with the post-filter visible items.
+ * Deletes the current tab's field cache so the picker rebuilds from
+ * exactly what is on screen right now.
+ */
 function setSorterItems(items) {
     _sorterItems = items || [];
-    // Invalidate the effects cache only — ships/outfits use static lists
-    if (sorterCurrentTab !== 'ships' && sorterCurrentTab !== 'variants' && sorterCurrentTab !== 'outfits') {
-        delete _fieldCache[sorterCurrentTab];
-    }
+    delete _fieldCache[sorterCurrentTab];
     renderSorterBox();
 }
 
 // ---------------------------------------------------------------------------
 // Value extraction
+//
+// Resolution order:
+//   1. field.computed(item)                  — hardpoint count lambda
+//   2. getComputedStats(item, pluginId)[key] — _fn_/_derived_/_sys_ physics stats
+//   3. getComputedStats(item, pluginId)[key] — accumulated attr (with outfits)
+//      flagged by field.useAccum === true
+//   4. Walk field.path on the raw item       — base attributes or top-level
 // ---------------------------------------------------------------------------
 
-/**
- * Resolution order:
- *  1. field.computed(item)              — hardpoint count lambdas
- *  2. getComputedStats(item, pluginId)  — derived/fn stats with outfit accumulation
- *  3. Walk field.path on raw item       — base attributes or top-level keys
- */
 function getFieldValue(item, field) {
-    // 1. Inline computed (port counts etc.)
+    // 1. Inline computed (hardpoint counts)
     if (field.computed) return field.computed(item);
 
-    // 2. Computed stats (uses getComputedStats with outfit accumulation)
+    // 2. ComputedStats — _fn_/_derived_/_sys_ physics stats from ship functions.
     if ((field.isComputed || field.useComputed) && typeof getComputedStats === 'function') {
         const pluginId = item._pluginId || _sorterPluginId;
         if (pluginId) {
             const stats = getComputedStats(item, pluginId);
             const val   = stats?.[field.key];
-            if (val !== undefined && val !== null) return val;
+            if (val != null) return val;
         }
     }
 
-    // 3. Walk the path on the raw item
+    // 3. Accumulated attribute (base + outfit contributions stacked).
+    //    useAccum fields have path: null so they must be resolved here.
+    if (field.useAccum && typeof getComputedStats === 'function') {
+        const pluginId = item._pluginId || _sorterPluginId;
+        if (pluginId) {
+            const stats = getComputedStats(item, pluginId);
+            const val   = stats?.[field.key];
+            if (val != null) return val;
+        }
+    }
+
+    // 4. Walk path on the raw item (handles both ['attributes','key'] and ['key'])
     if (field.path && field.path.length > 0) {
         let obj = item;
         for (const k of field.path) {
@@ -542,7 +450,7 @@ function applySorters(items) {
             const bMissing = bv == null || (typeof bv === 'number' && isNaN(bv));
 
             if (aMissing && bMissing) continue;
-            if (aMissing) return 1;
+            if (aMissing) return 1;   // items without this field sink to bottom
             if (bMissing) return -1;
 
             const diff = sorter.dir === 'asc' ? av - bv : bv - av;
@@ -553,7 +461,7 @@ function applySorters(items) {
 }
 
 // ---------------------------------------------------------------------------
-// Average calculation
+// Average calculation (over currently visible items)
 // ---------------------------------------------------------------------------
 
 function computeAverage(sorter) {
@@ -571,7 +479,7 @@ function computeAverage(sorter) {
 }
 
 // ---------------------------------------------------------------------------
-// Render active sorter box
+// Render active sorter pills
 // ---------------------------------------------------------------------------
 
 async function renderSorterBox() {
@@ -674,6 +582,7 @@ function closeSorterPicker() {
 async function confirmSorterPicker() {
     const fields = getFieldsForTab(sorterCurrentTab);
 
+    // Add newly ticked fields (preserving all properties needed by getFieldValue)
     for (const id of sorterPickerPending) {
         if (!activeSorters.find(s => s.id === id)) {
             const field = fields.find(f => f.id === id);
@@ -682,22 +591,40 @@ async function confirmSorterPicker() {
                     id:          field.id,
                     key:         field.key,
                     label:       field.label,
-                    path:        field.path     || null,
-                    computed:    field.computed  || null,
-                    useComputed: field.useComputed || false,
-                    isComputed:  field.isComputed  || false,
+                    path:        field.path        || null,
+                    computed:    field.computed     || null,
+                    useComputed: field.useComputed  || false,
+                    isComputed:  field.isComputed   || false,
+                    useAccum:    field.useAccum     || false,   // ← new
                     dir:         'desc',
                 });
             }
         }
     }
 
+    // Remove unticked fields
     activeSorters = activeSorters.filter(s => sorterPickerPending.includes(s.id));
 
     closeSorterPicker();
     renderSorterBox();
     await _triggerFilterItems();
 }
+
+// ---------------------------------------------------------------------------
+// Picker list renderer
+//
+// Groups for ships / variants:
+//   ⚡ Computed (physics, with outfits) — isComputed || useComputed
+//   Accumulated Attributes (with outfits) — useAccum === true (plain numerics)
+//   Base Attributes (hull only)          — raw scanned fields from item.attributes
+//   Hardpoints                           — inline computed fns (f.computed, not isComputed)
+//
+// Groups for outfits:
+//   Outfit Attributes          — top-level numeric fields
+//   Weapon Stats               — item.weapon.* numeric fields
+//
+// Effects / other: ungrouped.
+// ---------------------------------------------------------------------------
 
 function renderPickerList(query) {
     const list = document.getElementById('sorterPickerList');
@@ -722,11 +649,37 @@ function renderPickerList(query) {
         return;
     }
 
-    const computedFields = filtered.filter(f => f.isComputed || f.computed);
-    const rawFields      = filtered.filter(f => !f.isComputed && !f.computed);
+    let groups;
 
-    const renderGroup = (groupFields, groupLabel) => {
-        if (groupFields.length === 0) return;
+    if (sorterCurrentTab === 'ships' || sorterCurrentTab === 'variants') {
+        // Physics computed = ComputedStats _fn_/_derived_/_sys_ keys
+        const computed  = filtered.filter(f => f.isComputed || f.useComputed);
+        // Accumulated attribute = base + outfits stacked, plain numeric key
+        const accum     = filtered.filter(f => f.useAccum && !f.isComputed && !f.useComputed);
+        // Hardpoint = has f.computed fn but is NOT a ComputedStats field
+        const hardpoint = filtered.filter(f => f.computed && !f.isComputed && !f.useComputed && !f.useAccum);
+        // Base-only = raw item.attributes scan, no outfit stacking
+        const base      = filtered.filter(f => !f.isComputed && !f.useComputed && !f.computed && !f.useAccum);
+
+        groups = [
+            { label: '⚡ Computed — Physics (with outfits)',    fields: computed  },
+            { label: '📦 Accumulated Attributes (with outfits)', fields: accum     },
+            { label: '🔩 Base Attributes (hull only)',           fields: base      },
+            { label: '🎯 Hardpoints',                           fields: hardpoint },
+        ];
+
+    } else if (sorterCurrentTab === 'outfits') {
+        groups = [
+            { label: 'Outfit Attributes', fields: filtered.filter(f => f.group === 'outfit') },
+            { label: 'Weapon Stats',      fields: filtered.filter(f => f.group === 'weapon') },
+        ];
+
+    } else {
+        groups = [{ label: null, fields: filtered }];
+    }
+
+    for (const { label: groupLabel, fields: groupFields } of groups) {
+        if (groupFields.length === 0) continue;
 
         if (groupLabel) {
             const header = document.createElement('div');
@@ -748,7 +701,8 @@ function renderPickerList(query) {
             checkbox.checked  = sorterPickerPending.includes(field.id);
             checkbox.onchange = () => {
                 if (checkbox.checked) {
-                    if (!sorterPickerPending.includes(field.id)) sorterPickerPending.push(field.id);
+                    if (!sorterPickerPending.includes(field.id))
+                        sorterPickerPending.push(field.id);
                 } else {
                     sorterPickerPending = sorterPickerPending.filter(id => id !== field.id);
                 }
@@ -758,24 +712,22 @@ function renderPickerList(query) {
             lbl.htmlFor     = `sp-${field.id}`;
             lbl.textContent = field.label;
 
-            row.onclick = (e) => { if (e.target !== checkbox) checkbox.click(); };
+            row.onclick = e => { if (e.target !== checkbox) checkbox.click(); };
             row.appendChild(checkbox);
             row.appendChild(lbl);
             list.appendChild(row);
         }
-    };
-
-    renderGroup(computedFields, computedFields.length > 0 ? '⚡ Computed (with outfits)' : null);
-    renderGroup(rawFields,      rawFields.length > 0      ? 'Base / Raw Attributes'      : null);
+    }
 }
 
 // ---------------------------------------------------------------------------
-// Tab change
+// Tab change — clear active sorters and invalidate field cache for new tab
 // ---------------------------------------------------------------------------
 
 function onSorterTabChange(tab) {
     sorterCurrentTab = tab;
     activeSorters    = [];
+    delete _fieldCache[tab]; // will rescan when new tab's items arrive
     renderSorterBox();
 }
 
