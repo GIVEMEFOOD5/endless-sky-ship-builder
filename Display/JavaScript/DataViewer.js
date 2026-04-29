@@ -164,21 +164,35 @@ function createCardPlaceholder(item) {
     card.dataset.spriteLoaded = 'false';
     _cardItemMap.set(card, item);
     card.onclick = () => showDetails(item);
-
+ 
     const imgWrap = document.createElement('div');
     imgWrap.className = 'card-image card-image--placeholder';
     imgWrap.innerHTML = '<div style="width:100%;height:100%;background:rgba(15,23,42,0.5);border-radius:4px;"></div>';
-
+ 
     const content = document.createElement('div');
     content.className = 'card-content';
-
+ 
+    // ── Title block ──────────────────────────────────────────────────────────
+    // If a "display name" exists, show it large and the internal name smaller.
+    const displayName = item['display name'];
+    const internalName = item.name || 'Unknown';
+ 
     const title = document.createElement('div');
     title.className   = 'card-title';
-    title.textContent = item.name || 'Unknown';
-
+    title.textContent = displayName || internalName;
+    content.appendChild(title);
+ 
+    if (displayName) {
+        const subtitle = document.createElement('div');
+        subtitle.className   = 'internal-name';
+        subtitle.textContent = internalName;
+        content.appendChild(subtitle);
+    }
+    // ── End title block ──────────────────────────────────────────────────────
+ 
     const details = document.createElement('div');
     details.className = 'card-details';
-
+ 
     if (currentTab === 'ships' || currentTab === 'variants') {
         details.innerHTML = `
             <div class="detail-item"><div class="detail-label">Category</div><div class="detail-value">${item.attributes?.category || 'N/A'}</div></div>
@@ -194,8 +208,7 @@ function createCardPlaceholder(item) {
             <div class="detail-item"><div class="detail-label">Outfit Space</div><div class="detail-value">${item['outfit space'] || 'N/A'}</div></div>
         `;
     }
-
-    content.appendChild(title);
+ 
     content.appendChild(details);
     card.appendChild(imgWrap);
     card.appendChild(content);
