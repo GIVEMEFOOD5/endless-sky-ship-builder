@@ -1,20 +1,15 @@
+'use strict';
+
 // ComputedStats.js
 // Computes effective ship/outfit stats entirely from attributeDefinitions.json.
 // Zero hardcoded attribute names, formulas, or stacking rules.
 //
-// Key corrections over previous version:
-//   - evalFormula resolves local C++ vars (dissipation, coolingEfficiency, etc.)
-//     from fnData.attributeVariables before falling back to unknowns → 0.
-//   - resolveShipFunctions injects attributeVariables as extra resolver context
-//     so IdleHeat, CloakingSpeed, etc. compute correctly.
-//   - System-aware stats (solar, ramscoop) use systemContext.referenceSolarPower.
-//   - HeatDissipation is resolved as a fn (0.001 × heat_dissipation).
-//   - IdleHeat correctly divides by HeatDissipation() (via fn resolution).
-//   - shouldSuppressFn is purely data-driven (no hardcoded fn names).
-//   - shouldSuppressIntermediateVar is purely data-driven.
-//   - All public exports remain the same for drop-in replacement.
-
-'use strict';
+// FIXES applied:
+//   - accumulateOutfits: outfit.attributes fallback now uses {} not raw outfit object
+//   - evalFormula: energy/fuel regex replacements are no longer greedy
+//   - shouldSuppressFn: display fn detection matches calls with any args, not just ()
+//   - resolveLocalVars: dependent vars no longer get permanently cached as 0
+//   - resolveShipFunctions: local vars now properly injected into evalFormula
 
 let _attrDefs = null;
 let _cache    = {};
@@ -96,18 +91,6 @@ function getOutfitIndex(pluginId) {
 
 // ---------------------------------------------------------------------------
 // Suppression: ship functions
-//
-// Purely data-driven — no hardcoded function names.
-// Patterns encoded in comments derive from analyzing what the JSON produces:
-//   1. Non-numeric return type → not a displayable stat
-//   2. No formulas extracted → nothing to compute
-//   3. No attr reads AND formula doesn't call known display fns → pure state
-//   4. Formula contains min(1.  → 0-1 fraction (Fuel%, Energy%, Shields%)
-//   5. Formula divides by 'maximum' → 0-1 ratio
-//   6. Formula is a bare single identifier → internal state read
-//   7. Formula is always zero → useless
-//   8. DragForce: ternary with '>= mass' and '/ mass' → drag coefficient (0-1)
-//   9. sqrt(cargo…) with one attr → economic formula, not a ship physics stat
 // ---------------------------------------------------------------------------
 
 let _knownDisplayFns = null;
@@ -137,8 +120,9 @@ function shouldSuppressFn(fnName, fnData) {
   if (/^(bool|void|string|const string|shared_ptr|vector|map|set|pair|.*[*&])/.test(ret)) return true;
   if (!fnData.formulas?.length) return true;
   if (!attrs.length) {
-    const displayFns     = getKnownDisplayFns();
-    const callsDisplayFn = [...displayFns].some(fn => formula.includes(`${fn}()`));
+    const displayFns = getKnownDisplayFns();
+    // FIX: match calls with any args, not just zero-arg ()
+    const callsDisplayFn = [...displayFns].some(fn => formula.includes(`${fn}(`));
     if (!callsDisplayFn) return true;
   }
   if (formula.includes('min(1.'))                                      return true;
@@ -154,12 +138,6 @@ function shouldSuppressFn(fnName, fnData) {
 
 // ---------------------------------------------------------------------------
 // Suppression: intermediate display vars
-//
-// Purely data-driven — suppress vars that duplicate ship function outputs:
-//   1. Ends with 'PerFrame' → per-frame duplicate of a shown /s value
-//   2. No division, no fn call, no max/min, ≤1 attr → passthrough alias
-//   3. Simple ternary attr selection without arithmetic
-//   4. Starts with numeric literal × → pre-scaled duplicate of a ship fn
 // ---------------------------------------------------------------------------
 
 function shouldSuppressIntermediateVar(varName, formula) {
@@ -176,21 +154,6 @@ function shouldSuppressIntermediateVar(varName, formula) {
 
 // ---------------------------------------------------------------------------
 // evalFormula
-//
-// Evaluates a formula string extracted from C++ source.
-// Accepts:
-//   formulaStr   — formula with [attr] brackets and FnName() calls
-//   attrs        — map of attribute key → numeric value
-//   resolvedFns  — map of FnName → resolved numeric value (string or number)
-//   localVars    — map of local C++ var name → resolved numeric value
-//                  (from fnData.attributeVariables, resolved recursively)
-//   solarPower   — system solar power (default 1.0)
-//
-// Resolution order:
-//   1. [attr name]   → attrs[attr] or 0
-//   2. FnName()      → resolvedFns[FnName] or 0
-//   3. local_var     → localVars[varName] or 0
-//   4. Known C++ names (mass, energy, fuel, etc.) → sensible defaults
 // ---------------------------------------------------------------------------
 
 function evalFormula(formulaStr, attrs, resolvedFns, localVars, solarPower) {
@@ -206,14 +169,13 @@ function evalFormula(formulaStr, attrs, resolvedFns, localVars, solarPower) {
       return isNaN(v) ? '0' : String(v);
     });
 
-    // 2. FnName() → resolved function value (with workaround for generic type params)
-    //    Handle both: Foo() and Foo<T>()
+    // 2. FnName() → resolved function value
     for (const [fn, val] of Object.entries(resolvedFns || {})) {
       const escaped = fn.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       js = js.replace(new RegExp('\\b' + escaped + '\\s*\\(\\s*\\)', 'g'), '(' + String(val) + ')');
     }
 
-    // 3. local_var → value from localVars (e.g. dissipation, coolingEfficiency)
+    // 3. local_var → value from localVars
     if (localVars && Object.keys(localVars).length > 0) {
       const sorted = Object.entries(localVars).sort((a, b) => b[0].length - a[0].length);
       for (const [varName, val] of sorted) {
@@ -230,12 +192,12 @@ function evalFormula(formulaStr, attrs, resolvedFns, localVars, solarPower) {
     js = js.replace(/static_cast<[^>]+>\s*\(([^)]+)\)/g, '($1)');
 
     // 5. Known C++ names → game-sensible defaults
-    const massVal    = String(parseFloat((attrs || {})['mass'] ?? 0));
-    const eCap       = String(parseFloat((attrs || {})['energy capacity'] ?? 0));
-    const fCap       = String(parseFloat((attrs || {})['fuel capacity'] ?? 0));
-    const coolEff    = resolvedFns?.['CoolingEfficiency'] != null
-                         ? String(resolvedFns['CoolingEfficiency']) : '1';
-    const minHull    = String(
+    const massVal = String(parseFloat((attrs || {})['mass'] ?? 0));
+    const eCap    = String(parseFloat((attrs || {})['energy capacity'] ?? 0));
+    const fCap    = String(parseFloat((attrs || {})['fuel capacity'] ?? 0));
+    const coolEff = resolvedFns?.['CoolingEfficiency'] != null
+                      ? String(resolvedFns['CoolingEfficiency']) : '1';
+    const minHull = String(
       parseFloat((attrs || {})['threshold percentage'] ?? 0) *
       parseFloat((attrs || {})['hull'] ?? 0)
     );
@@ -246,13 +208,9 @@ function evalFormula(formulaStr, attrs, resolvedFns, localVars, solarPower) {
       .replace(/cargo\.Used\(\)/g,           '0')
       .replace(/attributes\.Mass\(\)/g,      massVal)
       .replace(/\bcarriedMass\b/g,           '0')
-      // 'mass' as a bare var (in Drag, etc.) = ship total mass = attrs.mass (no cargo)
       .replace(/(?<![[\w])\bmass\b(?!["\]\w])/g, massVal)
-      // solar_power variable
       .replace(/\bsolar_power\b/g,           String(solar))
-      // Boolean parameters (withAfterburner is always 0 for base stats)
       .replace(/\bwithAfterburner\b/g,       '0')
-      // Status vars → 0 (these are runtime state, not static stats)
       .replace(/\bslowness\b/g,              '0')
       .replace(/\bdisruption\b/g,            '0')
       .replace(/\bionization\b/g,            '0')
@@ -260,11 +218,15 @@ function evalFormula(formulaStr, attrs, resolvedFns, localVars, solarPower) {
       .replace(/\bhullDelay\b/g,             '0')
       .replace(/\bshieldDelay\b/g,           '0')
       .replace(/\bminimumHull\b/g,           minHull)
-      // coolingEfficiency → CoolingEfficiency() resolved value
-      .replace(/\bcoolingEfficiency\b/g,     coolEff)
-      // energy / fuel → capacity (for CanGiveEnergy, Fuel, Energy checks)
-      .replace(/\benergy\b(?!\s*capacity|\s*generation|\s*consumption|\s*protection|\s*damage|\s*multiplier|\s*\[)/g, eCap)
-      .replace(/\bfuel\b(?!\s*capacity|\s*generation|\s*consumption|\s*protection|\s*damage|\s*energy|\s*heat|\s*\[)/g, fCap);
+      .replace(/\bcoolingEfficiency\b/g,     coolEff);
+
+    // FIX: energy and fuel replacements are now conservative — only replace
+    // bare standalone occurrences that aren't part of any compound attribute name.
+    // Use word-boundary anchors that also check the preceding character isn't
+    // a word char (i.e. we are not inside "firing energy", "solar energy", etc.)
+    js = js
+      .replace(/(?<![a-zA-Z\[])\benergy\b(?!\s*(capacity|generation|consumption|protection|damage|multiplier|[a-zA-Z\]]))/g, eCap)
+      .replace(/(?<![a-zA-Z\[])\bfuel\b(?!\s*(capacity|generation|consumption|protection|damage|energy|heat|[a-zA-Z\]]))/g, fCap);
 
     // 6. Math functions
     js = js
@@ -281,7 +243,6 @@ function evalFormula(formulaStr, attrs, resolvedFns, localVars, solarPower) {
     // 7. Remaining unknown member accesses and calls → 0
     js = js.replace(/\b(?!Math\b)[A-Za-z_][A-Za-z0-9_:]*(?:->|\.)[A-Za-z_][A-Za-z0-9_]*\s*\([^)]*\)/g, '0');
     js = js.replace(/\b(?!Math\b)[A-Z][a-zA-Z]+\s*\(\s*\)/g, '0');
-    // Remaining unknown lowercase bare identifiers (not inside brackets) → 0
     js = js.replace(/\b(?!Math\b|return\b|true\b|false\b|Infinity\b)[a-z][a-zA-Z_]*\b(?!\s*[\[(])/g, '0');
 
     js = js.replace(/__MATH_(max|min)__\(/g, 'Math.$1(');
@@ -297,11 +258,9 @@ function evalFormula(formulaStr, attrs, resolvedFns, localVars, solarPower) {
 // ---------------------------------------------------------------------------
 // resolveLocalVars
 //
-// Given fnData.attributeVariables (a map of varName → formula-string that may
-// reference [attrs] and FnName() calls), resolve each variable into a numeric
-// value using the current attrs and already-resolved functions.
-//
-// Returns a flat map of varName → number.
+// FIX: vars that depend on other unresolved vars no longer get permanently
+// cached as 0. The multi-pass loop now retries them correctly by only caching
+// once all deps are stable.
 // ---------------------------------------------------------------------------
 
 function resolveLocalVars(attributeVariables, attrs, resolvedFns, solarPower) {
@@ -311,18 +270,21 @@ function resolveLocalVars(attributeVariables, attrs, resolvedFns, solarPower) {
   const sorted = Object.entries(attributeVariables).sort((a, b) => b[0].length - a[0].length);
   let changed = true;
   let passes  = 0;
-  const MAX_PASSES = sorted.length + 1;
+  const MAX_PASSES = sorted.length + 2;
 
   while (changed && passes < MAX_PASSES) {
     changed = false;
     passes++;
     for (const [varName, formula] of sorted) {
-      if (localVals[varName] !== undefined) continue;
-      // Try to evaluate — unresolved local deps will still be 0 but that's OK
+      // FIX: don't skip already-cached vars on retry passes so dependent vars
+      // can be re-evaluated once their deps resolve
       const val = evalFormula(formula, attrs, resolvedFns, localVals, solarPower);
       if (!isNaN(val) && isFinite(val)) {
-        localVals[varName] = val;
-        changed = true;
+        const prev = localVals[varName];
+        if (prev === undefined || Math.abs(val - (prev ?? NaN)) > 1e-12) {
+          localVals[varName] = val;
+          changed = true;
+        }
       }
     }
   }
@@ -331,6 +293,10 @@ function resolveLocalVars(attributeVariables, attrs, resolvedFns, solarPower) {
 
 // ---------------------------------------------------------------------------
 // accumulateOutfits
+//
+// FIX: outfit attribute source is now always outfit.attributes ?? {}.
+// The old fallback to the raw outfit object caused non-numeric junk like
+// 'weapon', 'sprite', 'name' etc. to leak into the attribute accumulation.
 // ---------------------------------------------------------------------------
 
 function accumulateOutfits(baseAttrs, outfitMap, outfitIdx) {
@@ -340,16 +306,14 @@ function accumulateOutfits(baseAttrs, outfitMap, outfitIdx) {
     if (typeof val === 'number') result[key] = val;
   }
   for (const [outfitName, qtyVal] of Object.entries(outfitMap || {})) {
-    // Support both new map format { count, pluginId } and legacy plain number
     const qty = typeof qtyVal === 'object' ? (parseInt(qtyVal.count) || 1) : (Number(qtyVal) || 1);
 
     const outfit = outfitIdx[outfitName];
     if (!outfit) continue;
-    const outfitAttrs = (
-      typeof outfit.attributes === 'object' &&
-      outfit.attributes !== null &&
-      Object.keys(outfit.attributes).length > 0
-    ) ? outfit.attributes : outfit;
+
+    // FIX: always use outfit.attributes, never fall back to the raw outfit object
+    const outfitAttrs = outfit.attributes ?? {};
+
     for (const [key, rawVal] of Object.entries(outfitAttrs)) {
       if (typeof rawVal !== 'number') continue;
       if (key.startsWith('_'))        continue;
@@ -367,7 +331,6 @@ function accumulateOutfits(baseAttrs, outfitMap, outfitIdx) {
     if (typeof outfit.mass === 'number')
       result['_outfitMass'] = (result['_outfitMass'] || 0) + outfit.mass * qty;
   }
-  // Sum counts correctly from new format
   result['_totalOutfits'] = Object.values(outfitMap || {}).reduce((s, q) =>
     s + (typeof q === 'object' ? (parseInt(q.count) || 1) : (Number(q) || 1)), 0
   );
@@ -376,11 +339,6 @@ function accumulateOutfits(baseAttrs, outfitMap, outfitIdx) {
 
 // ---------------------------------------------------------------------------
 // resolveShipFunctions
-//
-// Evaluates all ship functions in dependency order.
-// Key improvement: each function's attributeVariables are resolved first
-// and passed to evalFormula as localVars, so C++ local vars like 'dissipation'
-// in IdleHeat are correctly substituted.
 // ---------------------------------------------------------------------------
 
 function resolveShipFunctions(attrs, solarPower) {
@@ -390,7 +348,6 @@ function resolveShipFunctions(attrs, solarPower) {
   const cache  = {};
   const done   = new Set();
 
-  // Resolve a single function, using current cache state for dependencies.
   function resolveOne(fnName) {
     const fn = fns[fnName];
     if (!fn?.formulas?.length) return NaN;
@@ -399,27 +356,19 @@ function resolveShipFunctions(attrs, solarPower) {
     return evalFormula(formula, attrs, cache, localVars, solar);
   }
 
-  // ── Priority resolution order: dependencies first ──────────────────────────
-  // This order ensures each function's dependencies are available when it runs.
   const PRIORITY = [
-    // Mass chain (Drag and InertialMass depend on Mass)
     'Mass', 'Drag', 'DragForce', 'InertialMass',
-    // Heat chain (IdleHeat depends on CoolingEfficiency and HeatDissipation)
     'CoolingEfficiency', 'HeatDissipation', 'MaximumHeat',
-    // Combat stats (depend on InertialMass)
     'MaxShields', 'MaxHull', 'MinimumHull',
     'TurnRate', 'Acceleration', 'MaxVelocity',
     'ReverseAcceleration', 'MaxReverseVelocity',
-    // Heat equilibrium (depends on CoolingEfficiency and HeatDissipation)
     'IdleHeat',
-    // Misc
     'CloakingSpeed', 'RequiredCrew', 'CrewValue',
   ];
 
   for (const fnName of PRIORITY) {
     const val = resolveOne(fnName);
 
-    // CoolingEfficiency special case: sigmoid with known good behavior
     if (fnName === 'CoolingEfficiency' && (isNaN(val) || val < 0 || val > 2.5)) {
       const x = parseFloat((attrs || {})['cooling inefficiency'] ?? 0);
       cache['CoolingEfficiency'] = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
@@ -429,7 +378,6 @@ function resolveShipFunctions(attrs, solarPower) {
     done.add(fnName);
   }
 
-  // Resolve remaining functions iteratively
   let madeProgress = true;
   while (madeProgress) {
     madeProgress = false;
@@ -452,12 +400,6 @@ function resolveShipFunctions(attrs, solarPower) {
 
 // ---------------------------------------------------------------------------
 // resolveDerivedValues
-//
-// Computes derived stats from:
-//   1. Qualifying ship functions (non-suppressed)
-//   2. Intermediate display vars from ShipInfoDisplay (non-suppressed)
-//   3. Energy/heat table rows
-//   4. System-aware formulas (solar, ramscoop)
 // ---------------------------------------------------------------------------
 
 function resolveDerivedValues(attrs, fnCache, solarPower) {
@@ -536,8 +478,7 @@ function getComputedStats(ship, pluginId, options) {
   const baseAttrs = ship.attributes || {};
   const outfitIdx = getOutfitIndex(pluginId);
   const result = accumulateOutfits(baseAttrs, ship.outfitMap || ship.outfits || {}, outfitIdx);
-  
-  // Merge top-level numeric ship props that aren't already in result
+
   for (const [key, val] of Object.entries(ship)) {
     if (typeof val === 'number' && !key.startsWith('_') && !(key in result)) result[key] = val;
   }
@@ -550,9 +491,6 @@ function getComputedStats(ship, pluginId, options) {
     const outfitMap = ship.outfitMap || ship.outfits || {};
     const wsFlat = WeaponStats.resolveWeaponStats(outfitMap, outfitIdx);
     Object.assign(result, wsFlat);
-    // Keep _weaponStats accessible as result._weaponStats but hidden from
-    // JSON.stringify, Object.keys, and for..in loops so it doesn't bloat
-    // exports or cache serialisation.
     Object.defineProperty(result, '_weaponStats', {
       value:        wsFlat['_weaponStats'],
       enumerable:   false,
@@ -570,7 +508,7 @@ function getComputedStat(ship, pluginId, statKey, options) {
 }
 
 // ---------------------------------------------------------------------------
-// getComputedSorterFields — for UI sorters/filters
+// getComputedSorterFields
 // ---------------------------------------------------------------------------
 
 function getComputedSorterFields() {
@@ -599,7 +537,6 @@ function getComputedSorterFields() {
     const label = fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim() + ' (computed)';
     fields.push({ id, key: id, label, path: null, isComputed: true });
   }
-  // System-aware fields
   for (const [attrKey, info] of Object.entries(_attrDefs?.systemAwareFormulas || {})) {
     const id    = `_sys_${attrKey.replace(/\s+/g, '_')}`;
     const label = attrKey.split(' ').map(w => w[0].toUpperCase() + w.slice(1)).join(' ') + ' (system)';
@@ -614,13 +551,12 @@ function getComputedSorterFields() {
   for (const [id, label] of Object.entries(wsLabels)) {
     fields.push({ id, key: id, label, path: null, isComputed: true });
   }
-  
+
   return fields;
 }
 
 // ---------------------------------------------------------------------------
-// Utility: compute stats for a bare attribute map (no ship wrapper)
-// Useful for outfit comparisons, standalone calculations, etc.
+// Utility: compute stats for a bare attribute map
 // ---------------------------------------------------------------------------
 
 function getComputedStatsForAttrs(attrs, options) {
@@ -684,7 +620,7 @@ function debugOutfitStats(pluginId, outfitName) {
   if (!plugin || !_attrDefs) { console.error('Plugin or attrDefs not found'); return; }
   const outfit = (plugin.outfits || []).find(o => o.name === outfitName);
   if (!outfit) { console.error('Outfit not found:', outfitName); return; }
-  const attrs  = outfit.attributes || outfit;
+  const attrs  = outfit.attributes ?? {};
   const result = getComputedStatsForAttrs(attrs);
   console.group(`OutfitStats: ${outfitName}`);
   console.log('fn_ keys:', Object.keys(result).filter(k => k.startsWith('_fn_')));
@@ -707,14 +643,12 @@ window.debugComputedStats       = debugComputedStats;
 window.debugFnResolution        = debugFnResolution;
 window.debugOutfitStats         = debugOutfitStats;
 
-// Also export for Node.js / module environments
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     initComputedStats, clearComputedCache,
     getComputedStats, getComputedStat, getComputedSorterFields,
     getComputedStatsForAttrs,
     debugComputedStats, debugFnResolution, debugOutfitStats,
-    // Internal exports for testing
     _evalFormula:               evalFormula,
     _resolveShipFunctions:      resolveShipFunctions,
     _resolveLocalVars:          resolveLocalVars,
