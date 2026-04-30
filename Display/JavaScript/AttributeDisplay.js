@@ -221,13 +221,14 @@ function computedKeyToLabel(key) {
 // ─── calcDerivedStats ─────────────────────────────────────────────────────────
 
 function calcDerivedStats(attrDefs, item, pluginId) {
-    const attrs      = item?.attributes || item || {};
-    const fns        = attrDefs?.shipFunctions       || {};
-    const tableRows  = attrDefs?.shipDisplay?.energyHeatTable   || [];
-    const labelPairs = attrDefs?.shipDisplay?.labelValuePairs   || [];
-    const intVars    = attrDefs?.shipDisplay?.intermediateVars  || {};
-    const results    = [];
-    const seen       = new Set();
+    const attrs          = item?.attributes || item || {};
+    const fns            = attrDefs?.shipFunctions       || {};
+    const tableRows      = attrDefs?.shipDisplay?.energyHeatTable   || [];
+    const labelPairs     = attrDefs?.shipDisplay?.labelValuePairs   || [];
+    const intVars        = attrDefs?.shipDisplay?.intermediateVars  || {};
+    const results        = [];
+    const seen           = new Set();
+    const renderedFnKeys = new Set();
 
     const fnCache         = buildFnResolver(attrDefs, attrs);
     const fnResolver      = Object.fromEntries(Object.entries(fnCache).map(([k, v]) => [k, String(v)]));
@@ -261,11 +262,12 @@ function calcDerivedStats(attrDefs, item, pluginId) {
                 const heatPct = rawVal / maxHeat * 100;
                 push('Idle Heat %', heatPct, 1, '%', formula);
             }
-            push(label, rawVal, scale, unit, formula);
+            push(label, rawVal, scale, '', formula);
             continue;
         }
 
-        push(label, rawVal, scale, unit, formula);
+        push(label, rawVal, scale, '', formula);
+        renderedFnKeys.add(`_fn_${fnName}`);
     }
 
     // ── 2. Energy/heat table rows ─────────────────────────────────────────────
@@ -273,8 +275,8 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         if (!row.label) continue;
         const eVal = evalFormulaDisplay(row.energyFormula, attrs, fnResolver);
         const hVal = evalFormulaDisplay(row.heatFormula,   attrs, fnResolver);
-        if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy/s`, eVal, 1, 'energy/s', row.energyFormula);
-        if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat/s`,   hVal, 1, 'heat/s',   row.heatFormula);
+        if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy`, eVal, 1, '/s', row.energyFormula);
+        if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat`,   hVal, 1, '/s', row.heatFormula);
     }
 
     // ── 3. Label/value pairs from ShipInfoDisplay ─────────────────────────────
@@ -328,7 +330,7 @@ function calcDerivedStats(attrDefs, item, pluginId) {
             if (val == null || (typeof val === 'number' && (isNaN(val) || val === 0))) continue;
 
             let displayVal = val;
-            if (statKey.startsWith('_fn_')) {
+            if (statKey.startsWith('_fn_') && renderedFnKeys.has(statKey)) {
                 const fnName = statKey.slice(4);
                 const fnData = fns[fnName];
                 if (fnData && shouldSuppressFn(fnName, fnData, knownDisplayFns)) continue;
@@ -479,7 +481,7 @@ function renderOutfitContributions(attrDefs, item, pluginId) {
         const mult   = rec?.displayMultiplier ?? 1;
         const unit   = rec?.displayUnit ?? '';
         const label  = getLabel(key);
-        const total  = fmtNum(info.total * mult) + (unit ? ' ' + unit : '');
+        const total  = fmtNum(info.total * mult);
         // Build a compact source list: "NameA ×2 (+val), NameB ×1 (+val)"
         const sourceStr = info.sources.map(s => {
             const perDisplay = fmtNum(s.perUnit * mult * s.qty) + (unit ? ' ' + unit : '');

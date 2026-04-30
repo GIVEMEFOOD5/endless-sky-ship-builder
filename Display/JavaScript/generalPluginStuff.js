@@ -146,10 +146,10 @@ function getPrimaryPlugin() {
  * Each item gets a `_pluginId` property so ComputedStats can resolve outfits.
  */
 function getMergedItems(tab) {
-    const allData = _allData();
-
     // Ensure local builds data is fresh before merging
     _refreshLocalBuilds();
+
+    const allData = _allData();
 
     // Build ordered list: local first (if active), then others
     const ordered = [
@@ -162,8 +162,8 @@ function getMergedItems(tab) {
         const pluginData = allData[outputName];
         if (!pluginData) continue;
 
-        if (outputName === LOCAL_PLUGIN_ID && (tab !== 'ships' || tab !== 'variants')) continue;
-
+        if (outputName === LOCAL_PLUGIN_ID && tab !== 'ships' && tab !== 'variants') continue;
+        
         let items = [];
         if      (tab === 'ships')    items = pluginData.ships    || [];
         else if (tab === 'variants') items = pluginData.variants || [];
