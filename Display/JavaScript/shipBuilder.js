@@ -6,6 +6,18 @@
 //    'new'    — create a ship from scratch
 //    'edit'   — edit an existing parsed/saved ship
 //    'outfit' — outfit an existing ship (starts on outfits tab)
+//
+//  FIXES:
+//    - sbRenderOutfitsList: outfit attribute lookup now checks
+//      outfit.attributes first, then top-level, matching the
+//      actual data format from remote plugin JSON files.
+//    - sbGetOutfitCapacityEffect: same fix for capacity tracking.
+//    - sbUpdateQuickStats: passes LOCAL_PLUGIN_ID so ComputedStats
+//      can find outfits from the merged index.
+//    - sbShipFromParsed: pluginId is correctly preserved on each
+//      outfit entry so ComputedStats resolves them properly.
+//    - sbSave/sbLoad: robust round-trip ensuring outfits are always
+//      stored as a map and restored as an array correctly.
 // ═══════════════════════════════════════════════════════════
 
 const SB_STORAGE_KEY = 'es_ship_builder_v4';
@@ -22,22 +34,8 @@ let sbAllEffects = [];
 let sbAttrKeys   = [];  // sorted list of all known attribute keys
 
 // ═══════════════════════════════════════════════════════════
-//  PLUGIN SELECTOR
-//  Delegates entirely to generalPluginStuff.js (PluginManager).
-//  generalPluginStuff.js must be loaded before shipBuilder.js.
-//
-//  openPluginPicker / closePluginPicker / confirmPluginPicker
-//  are already on window via generalPluginStuff.js.
-//
-//  PluginManager.renderActiveList() re-renders #activePluginList.
-//  It is called here on dataLoaded / pluginsChanged so the panel
-//  on the fleet view always reflects the current selection.
-// ═══════════════════════════════════════════════════════════
-
-// ═══════════════════════════════════════════════════════════
 //  DATA BRIDGE
 // ═══════════════════════════════════════════════════════════
-// Fallback attr keys used before/if attrDefs fails to load
 const _SB_ATTR_FALLBACK = [
   'category','mass','drag','required crew','bunks','cargo space','fuel capacity','cost',
   'shields','hull','hull repair rate','shield generation','shield energy','hull energy',
@@ -51,10 +49,9 @@ const _SB_ATTR_FALLBACK = [
 ];
 
 function sbRefreshLiveData() {
-  _sbOutfitLookup = null; // clear lookup cache
+  _sbOutfitLookup = null;
   const DL = window.DataLoader;
   if (DL && DL.isReady()) {
-    // getAllShips / getAllOutfits already filter to active plugins
     sbAllShips   = DL.getAllShips().map(s => ({ ...s, _pn: s._pluginName, _pd: s._pluginDisplay }));
     sbAllOutfits = DL.getAllOutfits().map(o => ({ ...o, _pn: o._pluginName, _pd: o._pluginDisplay }));
     sbAllEffects = DL.getAllEffects().map(e => ({ ...e, _pn: e._pluginName, _pd: e._pluginDisplay }));
@@ -93,6 +90,7 @@ function sbBlank() {
 // ═══════════════════════════════════════════════════════════
 //  PERSISTENCE
 // ═══════════════════════════════════════════════════════════
+
 // sbSave() — convert internal array to map format before writing
 function sbSave() {
     const toStore = sbFleet.map(ship => ({
@@ -115,16 +113,34 @@ function sbLoad() {
             const raw = JSON.parse(d);
             sbFleet = raw.map(ship => ({
                 ...ship,
-                outfits: typeof ship.outfits === 'object' && !Array.isArray(ship.outfits)
-                    ? Object.entries(ship.outfits).map(([name, val]) => ({
-                        name,
-                        count:    typeof val === 'object' ? (val.count    ?? 1)    : (Number(val) || 1),
-                        pluginId: typeof val === 'object' ? (val.pluginId ?? null) : null,
-                    }))
-                    : (ship.outfits || [])  // graceful fallback for old array-format saves
+                outfits: _sbNormaliseOutfitsToArray(ship.outfits)
             }));
         }
     } catch(e) { sbFleet = []; }
+}
+
+// FIX: centralised normaliser — always produces the array format that
+// shipBuilder's UI expects internally, regardless of whether the stored
+// data is a map (from sbSave) or already an array (legacy saves).
+function _sbNormaliseOutfitsToArray(outfits) {
+    if (!outfits) return [];
+    if (Array.isArray(outfits)) {
+        // Already array format — ensure each entry has expected shape
+        return outfits.map(o => ({
+            name:     (o.name || '').replace(/^"|"$/g, ''),
+            count:    parseInt(o.count) || 1,
+            pluginId: o.pluginId || null,
+        }));
+    }
+    if (typeof outfits === 'object') {
+        // Map format from sbSave
+        return Object.entries(outfits).map(([name, val]) => ({
+            name:     name.replace(/^"|"$/g, ''),
+            count:    typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1),
+            pluginId: typeof val === 'object' ? (val.pluginId || null) : null,
+        }));
+    }
+    return [];
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -174,7 +190,7 @@ function renderFleet() {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  MODE ENTRY POINTS (called from HTML buttons)
+//  MODE ENTRY POINTS
 // ═══════════════════════════════════════════════════════════
 function newShip() {
   sbRefreshLiveData();
@@ -202,6 +218,8 @@ function sbEditFleetShip(i) {
   sbRefreshLiveData();
   sbMode = 'edit'; sbEditIdx = i;
   sbCurrentShip = JSON.parse(JSON.stringify(sbFleet[i]));
+  // Ensure outfits are in array format after JSON clone
+  sbCurrentShip.outfits = _sbNormaliseOutfitsToArray(sbCurrentShip.outfits);
   sbPopulateBuilder();
   showBuilderView();
 }
@@ -210,6 +228,7 @@ function sbDuplicate(i) {
   const c = JSON.parse(JSON.stringify(sbFleet[i]));
   c.id = Date.now() + Math.random();
   c.variant = (c.variant || '') + ' (Copy)';
+  c.outfits = _sbNormaliseOutfitsToArray(c.outfits);
   sbFleet.push(c); sbSave(); renderFleet();
   sbToast('Ship duplicated!', 'success');
 }
@@ -226,7 +245,7 @@ function sbConfirmDelete(i) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  SHIP PICKER (pick from allData)
+//  SHIP PICKER
 // ═══════════════════════════════════════════════════════════
 function sbOpenShipPicker() {
   const title = document.getElementById('sb-ship-picker-title');
@@ -245,7 +264,6 @@ function sbOpenShipPicker() {
       ${ships.map(s => {
         const cat = (s.attributes && s.attributes.category) || '';
         const varTag = s._isVariant ? ' <em style="font-size:0.78em;color:var(--c-text-dim)">(variant)</em>' : '';
-        // Safely encode the ship data as a base64 string to avoid HTML attribute escaping issues
         const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(s))));
         return `<div class="sb-picker-row" onclick="sbPickShip('${encoded}')">
           <span class="sb-picker-name">${esc(s.name || 'Unknown')}${varTag}</span>
@@ -289,11 +307,10 @@ function sbShipFromParsed(src) {
   s._sourceShip   = src.name || null;
   s._sourcePlugin = src._pn  || null;
 
-  // Attributes — keep nested objects for licenses; extract weapon separately
   if (src.attributes && typeof src.attributes === 'object') {
     for (const [k, v] of Object.entries(src.attributes)) {
-      if (k === 'mass' || k === 'drag') continue; // handled separately below
-      if (k === 'weapon') continue; // handled separately below
+      if (k === 'mass' || k === 'drag') continue;
+      if (k === 'weapon') continue;
       if (k === 'licenses' && typeof v === 'object') {
         s.attributes[k] = v;
       } else if (typeof v !== 'object') {
@@ -302,8 +319,6 @@ function sbShipFromParsed(src) {
     }
   }
 
-  // ── Weapon sub-block ──────────────────────────────────────
-  // Stored on s.weapon, NOT in s.attributes
   const weaponSrc = src.attributes?.weapon || src.weapon || null;
   if (weaponSrc && typeof weaponSrc === 'object') {
     s.weapon = {
@@ -313,39 +328,47 @@ function sbShipFromParsed(src) {
       'hit force':     Number(weaponSrc['hit force']     ?? 0) || 0,
     };
   }
-  // drag / mass may also live at top-level in some parser outputs
+
   const rawMass = src.mass ?? src.attributes?.mass;
   const rawDrag = src.drag ?? src.attributes?.drag;
   if (rawMass != null && rawMass !== '') s.mass = String(rawMass);
   if (rawDrag != null && rawDrag !== '') s.drag = String(rawDrag);
 
-  // ── Outfits ───────────────────────────────────────────────
+  // FIX: preserve pluginId on each outfit so ComputedStats can find
+  // outfit attribute data in the correct plugin index.
   const sourcePluginId = src._pn || src._pluginName || null;
   const outfitSource = src.outfits || src.outfitMap;
   if (outfitSource && typeof outfitSource === 'object' && !Array.isArray(outfitSource)) {
+    // Map format from remote plugin JSON
     for (const [n, val] of Object.entries(outfitSource)) {
       const cleanName = n.replace(/^"|"$/g, '');
-      const count    = typeof val === 'object' ? (parseInt(val.count) || 1)       : (Number(val) || 1);
-      const pluginId = typeof val === 'object' ? (val.pluginId || sourcePluginId)  : sourcePluginId;
+      const count    = typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1);
+      // FIX: use the outfit's own pluginId if set, else fall back to the ship's source plugin
+      const pluginId = (typeof val === 'object' && val.pluginId) ? val.pluginId : sourcePluginId;
       s.outfits.push({ name: cleanName, count, pluginId });
+    }
+  } else if (Array.isArray(outfitSource)) {
+    for (const o of outfitSource) {
+      s.outfits.push({
+        name:     (o.name || '').replace(/^"|"$/g, ''),
+        count:    parseInt(o.count) || 1,
+        pluginId: o.pluginId || sourcePluginId,
+      });
     }
   }
 
-  // ── Guns ─────────────────────────────────────────────────
   for (const g of (src.guns || [])) {
     const coords = [g.x, g.y].filter(v => v != null).join(' ') || '0 0';
     const over   = g.gun || g.over || g.weapon || '';
     s.guns.push({ coords, over });
   }
 
-  // ── Turrets ───────────────────────────────────────────────
   for (const g of (src.turrets || [])) {
     const coords = [g.x, g.y].filter(v => v != null).join(' ') || '0 0';
     const over   = g.turret || g.over || g.weapon || '';
     s.turrets.push({ coords, over });
   }
 
-  // ── Engines ───────────────────────────────────────────────
   for (const e of (src.engines || [])) {
     s.engines.push({
       coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0',
@@ -354,7 +377,6 @@ function sbShipFromParsed(src) {
     });
   }
 
-  // ── Bays (drones / fighters) ──────────────────────────────
   for (const b of (src.bays || [])) {
     const coords       = [b.x, b.y].filter(v => v != null).join(' ') || '0 0';
     const launchEffect = b['launch effect'] || '';
@@ -365,12 +387,8 @@ function sbShipFromParsed(src) {
     }
   }
 
-  // ── Leaks ─────────────────────────────────────────────────
-  // Stored as { name, count } objects matching explode style.
-  // Source ships store leaks as raw strings like '"smoke" 50 0'
   for (const l of (src.leaks || [])) {
     if (typeof l === 'string') {
-      // Raw string — extract name token
       const tok = l.trim().match(/^("([^"]+)"|(\S+))/);
       const rawName = tok ? (tok[2] || tok[3] || tok[0]).replace(/^"|"$/g, '') : l;
       const countMatch = l.match(/\d+/);
@@ -380,7 +398,6 @@ function sbShipFromParsed(src) {
     }
   }
 
-  // ── Explode ───────────────────────────────────────────────
   const explodeSrc = src.explode || [];
   for (const e of explodeSrc) {
     s.explode.push({
@@ -401,9 +418,7 @@ function sbShipFromParsed(src) {
     }
   }
 
-  // Auto-slot all outfits into empty gun/turret ports.
   sbAutoSlotAllOutfits(s);
-
   return s;
 }
 
@@ -423,13 +438,11 @@ function sbPopulateBuilder() {
     outfit: 'Manage outfits on this ship.',
   }[sbMode] || '';
 
-  // Sidebar visibility
   const idSide = document.getElementById('sidebar-identity');
   const deSide = document.getElementById('sidebar-description');
   if (idSide) idSide.style.display = sbMode === 'outfit' ? 'none' : '';
   if (deSide) deSide.style.display = sbMode === 'outfit' ? 'none' : '';
 
-  // Mode badge
   const badge = document.getElementById('sb-mode-badge');
   if (badge) {
     badge.className = 'badge ' + ({ new:'badge-blue', edit:'badge-green', outfit:'badge-purple' }[sbMode] || 'badge-blue');
@@ -474,7 +487,6 @@ function onBuilderChange() {
 //  CAPACITY TRACKING
 // ═══════════════════════════════════════════════════════════
 
-// Attributes whose value on an OUTFIT affects ship capacity.
 const SB_CAPACITY_ATTRS = {
   'outfit space':    'outfit space',
   'engine capacity': 'engine capacity',
@@ -482,7 +494,6 @@ const SB_CAPACITY_ATTRS = {
   'cargo space':     'cargo space',
 };
 
-// Build a fast name→outfit lookup once data is loaded.
 let _sbOutfitLookup = null;
 function sbGetOutfitLookup() {
   if (_sbOutfitLookup) return _sbOutfitLookup;
@@ -500,15 +511,23 @@ function sbFindOutfit(outfitName) {
   return lookup[outfitName.replace(/^"|"$/g, '')] || null;
 }
 
-function sbGetOutfitCapacityEffect(outfitName, capacityKey) {
+// FIX: outfit data from remote plugin JSON has attributes in an `attributes`
+// sub-object (e.g. outfit.attributes['outfit space']). The old code only
+// checked the top-level outfit object, so capacity values were always 0.
+function sbGetOutfitAttrValue(outfitName, attrKey) {
   const o = sbFindOutfit(outfitName);
   if (!o) return 0;
-  let val = o[capacityKey];
-  if (val == null && o.attributes) val = o.attributes[capacityKey];
+  // Check attributes sub-object first (remote plugin format), then top-level
+  let val = (o.attributes && o.attributes[attrKey] != null)
+    ? o.attributes[attrKey]
+    : o[attrKey];
   if (val == null) return 0;
   const n = Number(val);
-  if (isNaN(n) || n === 0) return 0;
-  return n;
+  return isNaN(n) ? 0 : n;
+}
+
+function sbGetOutfitCapacityEffect(outfitName, capacityKey) {
+  return sbGetOutfitAttrValue(outfitName, capacityKey);
 }
 
 function sbGetOutfitCapacityCost(outfitName, capacityKey) {
@@ -615,10 +634,7 @@ function sbValidateAttrValue(key, rawValue) {
   if (isNaN(v)) return { ok: true };
   if (SB_SIGNED_ATTRS.has(key)) return { ok: true };
   if (v < 0) {
-    return {
-      ok: false,
-      message: `"${key}" cannot be negative. Use a value ≥ 0.`
-    };
+    return { ok: false, message: `"${key}" cannot be negative. Use a value ≥ 0.` };
   }
   return { ok: true };
 }
@@ -654,9 +670,11 @@ function sbAutoSlotWeapons(outfitName, count, outfitObj) {
   if (turretCost > 0) _sbFillEmptyPorts(sbCurrentShip.turrets, outfitName, turretCost * count);
 }
 
+// FIX: port cost lookup now checks outfit.attributes first
 function _sbGetPortCost(outfitObj, portKey) {
-  let val = outfitObj[portKey];
-  if (val == null && outfitObj.attributes) val = outfitObj.attributes[portKey];
+  let val = (outfitObj.attributes && outfitObj.attributes[portKey] != null)
+    ? outfitObj.attributes[portKey]
+    : outfitObj[portKey];
   if (val == null) return 0;
   const n = Number(val);
   return n < 0 ? Math.abs(n) : 0;
@@ -754,8 +772,29 @@ function sbUpdateQuickStats() {
   ).join('');
 
   sbRenderOutfitSpaceBar();
-}
 
+  // FIX: update computed stats display using the merged outfit index.
+  // Pass LOCAL_PLUGIN_ID so ComputedStats.getOutfitIndex searches all plugins.
+  if (typeof getComputedStats === 'function' && sbCurrentShip) {
+    const LOCAL_ID = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
+    const computed = getComputedStats(sbCurrentShip, LOCAL_ID);
+    const statsEl  = document.getElementById('computed-stats-panel');
+    if (statsEl && computed) {
+      const fnKeys = Object.keys(computed).filter(k => k.startsWith('_fn_'));
+      if (fnKeys.length) {
+        statsEl.innerHTML = fnKeys.map(k => {
+          const fnName = k.slice(4);
+          const fnData = window.attrDefs?.shipFunctions?.[fnName];
+          const scale  = fnData?.displayScale ?? 1;
+          const unit   = fnData?.displayUnit  ?? '';
+          const val    = (computed[k] * scale).toFixed(2);
+          const label  = fnName.replace(/([A-Z])/g, ' $1').trim();
+          return `<div class="qs-card"><div class="qs-label">${label}</div><div class="qs-value">${val}${unit ? ' ' + unit : ''}</div></div>`;
+        }).join('');
+      }
+    }
+  }
+}
 
 // ── Tabs ──────────────────────────────────────────────────
 function sbSwitchTab(name) {
@@ -904,6 +943,7 @@ function sbRenderOutfitsList() {
     ];
     const costTags = capDefs
       .map(c => {
+        // FIX: use sbGetOutfitCapacityEffect which now checks attributes sub-object
         const effect = sbGetOutfitCapacityEffect(rawName, c.key);
         if (effect === 0) return '';
         const total = Math.abs(effect) * count;
@@ -1045,10 +1085,7 @@ function sbCheckOutfitSpace(outfitName, count) {
       const needed    = gunCost * count;
       const freeGuns  = _sbEmptyPortCount(sbCurrentShip.guns);
       if (freeGuns < needed) {
-        sbToast(
-          `Not enough gun ports. Need ${needed} empty port${needed > 1 ? 's' : ''}, only ${freeGuns} available.`,
-          'danger'
-        );
+        sbToast(`Not enough gun ports. Need ${needed} empty port${needed > 1 ? 's' : ''}, only ${freeGuns} available.`, 'danger');
         return false;
       }
     }
@@ -1057,10 +1094,7 @@ function sbCheckOutfitSpace(outfitName, count) {
       const needed       = turretCost * count;
       const freeTurrets  = _sbEmptyPortCount(sbCurrentShip.turrets);
       if (freeTurrets < needed) {
-        sbToast(
-          `Not enough turret mounts. Need ${needed} empty mount${needed > 1 ? 's' : ''}, only ${freeTurrets} available.`,
-          'danger'
-        );
+        sbToast(`Not enough turret mounts. Need ${needed} empty mount${needed > 1 ? 's' : ''}, only ${freeTurrets} available.`, 'danger');
         return false;
       }
     }
@@ -1115,8 +1149,9 @@ function sbOpenOutfitPicker() {
       <div class="sb-picker-group-label">${esc(plugin)}</div>
       ${outfits.map(o => {
         const name  = o.name || o.displayName || '';
-        const cat   = o.category || '';
-        const cost  = o.cost ? `${Number(o.cost).toLocaleString()} cr` : '';
+        const cat   = o.category || (o.attributes && o.attributes.category) || '';
+        const cost  = (o.cost || (o.attributes && o.attributes.cost))
+          ? `${Number(o.cost || o.attributes.cost).toLocaleString()} cr` : '';
 
         const costBadges = [];
         let wouldBlock = false;
@@ -1180,6 +1215,7 @@ function sbOpenOutfitPicker() {
   document.getElementById('sb-outfit-count-input').value   = '1';
   openModal('modal-sb-outfit-picker');
 }
+
 function sbFilterOutfitPicker(val) {
   const q = val.toLowerCase();
   document.querySelectorAll('#sb-outfit-picker-list .sb-picker-row').forEach(r => {
@@ -1189,6 +1225,7 @@ function sbFilterOutfitPicker(val) {
     g.style.display = [...g.querySelectorAll('.sb-picker-row')].some(r => r.style.display !== 'none') ? '' : 'none';
   });
 }
+
 function sbAddOutfitFromPicker(encoded) {
   const payload  = JSON.parse(decodeURIComponent(escape(atob(encoded))));
   const rawName  = payload.name.replace(/^"|"$/g, '');
@@ -1304,7 +1341,7 @@ function sbRemoveHP(f, i) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  LEAKS  (picker-style, same pattern as explode)
+//  LEAKS
 // ═══════════════════════════════════════════════════════════
 
 function sbRenderLeaksList() {
@@ -1400,7 +1437,7 @@ function sbAddEffectFromPicker(nameJson, targetField) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  WEAPON SUB-BLOCK  (ship-level weapon, e.g. Chigiriki)
+//  WEAPON SUB-BLOCK
 // ═══════════════════════════════════════════════════════════
 
 const SB_WEAPON_FIELDS = ['blast radius', 'shield damage', 'hull damage', 'hit force'];
@@ -1500,7 +1537,6 @@ function sbGenerateES(s) {
       L.push(`${TT}"${k}" ${valOut}`);
     }
 
-    // weapon sub-block — from s.weapon, not s.attributes
     const w = s.weapon || {};
     const hasWeapon = Object.values(w).some(v => Number(v) !== 0);
     if (hasWeapon) {
@@ -1653,7 +1689,7 @@ function sbParseES(text) {
       if (t === 'drone')   { cur.drones.push({ coords: '', launchEffect: '' }); continue; }
       if (t === 'fighter') { cur.fighters.push({ coords: '', launchEffect: '' }); continue; }
 
-      if (t.startsWith('leak '))             {
+      if (t.startsWith('leak ')) {
         const p = sbTok(t.slice(5));
         const name = sbStripQ(p[0] || '');
         const count = parseInt(p[1]) || 1;
@@ -1848,9 +1884,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.DataLoader) {
     window.DataLoader.onReady(() => {
       sbRefreshLiveData();
-      // PluginManager (generalPluginStuff.js) owns #activePluginList rendering.
-      // Calling renderActiveList() here ensures the panel is populated as soon
-      // as data is ready, even if pluginsChanged already fired before DOMContentLoaded.
       if (window.PluginManager) window.PluginManager.renderActiveList();
       sbToast('Game data loaded — ship & outfit pickers ready.', 'success');
     });
@@ -1858,13 +1891,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('[shipBuilder] dataLoader.js not loaded — outfit/ship pickers will be empty.');
   }
 
-  // pluginsChanged fires whenever the active plugin set changes:
-  //   - DataLoader.initDefaultPlugins() on first load
-  //   - User confirms/cancels the plugin picker (from generalPluginStuff.js)
-  //   - User reorders or removes via the sorter rows
-  //   - A ship is saved (refreshLocalBuilds fires pluginsChanged)
-  // We only need to refresh live data here; PluginManager already re-renders
-  // #activePluginList itself in response to this same event.
   document.addEventListener('pluginsChanged', () => {
     sbRefreshLiveData();
   });

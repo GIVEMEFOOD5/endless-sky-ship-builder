@@ -74,7 +74,58 @@ function _coerceAttrs(attrs) {
     return out;
 }
 
+// ── Parse outfit map from raw localStorage ship data ───────
+//
+// sbSave() always writes outfits as a plain object (map):
+//   { "Hyperdrive": { count: 1, pluginId: "..." }, ... }
+// sbLoad() converts this back to an array for shipBuilder's UI.
+// _buildLocalPlugin reads directly from localStorage, so it always
+// sees the map format. This helper normalises both formats into a
+// consistent { name → { count, pluginId } } map object.
+
+function _normaliseOutfitMap(outfits) {
+    if (!outfits) return {};
+
+    // Array format (e.g. loaded from sbFleet): [{ name, count, pluginId }]
+    if (Array.isArray(outfits)) {
+        const map = {};
+        for (const o of outfits) {
+            const name = (o.name || '').replace(/^"|"$/g, '');
+            if (!name) continue;
+            map[name] = {
+                count:    parseInt(o.count)   || 1,
+                pluginId: o.pluginId          || null,
+            };
+        }
+        return map;
+    }
+
+    // Map format (direct from localStorage JSON):
+    // { "Name": { count, pluginId } } or legacy { "Name": number }
+    if (typeof outfits === 'object') {
+        const map = {};
+        for (const [rawName, val] of Object.entries(outfits)) {
+            const name = rawName.replace(/^"|"$/g, '');
+            if (!name) continue;
+            map[name] = typeof val === 'object'
+                ? { count: parseInt(val.count) || 1, pluginId: val.pluginId || null }
+                : { count: Number(val) || 1,          pluginId: null };
+        }
+        return map;
+    }
+
+    return {};
+}
+
 // ── Local builds pseudo-plugin ─────────────────────────────
+//
+// FIX: The local plugin now carries an `outfits` index populated from
+// the outfit maps of all active remote plugins. This means
+// ComputedStats.getOutfitIndex(LOCAL_PLUGIN_ID) can find outfit
+// attribute data when accumulating stats for local ships.
+// Without this, every outfit lookup returned undefined and all
+// computed stats were zero.
+
 function _buildLocalPlugin() {
     let fleet = [];
     try {
@@ -88,16 +139,9 @@ function _buildLocalPlugin() {
         if (s.drag != null && s.drag !== '') rawAttrs.drag = s.drag;
         const attributes = _coerceAttrs(rawAttrs);
 
-        // Build the outfits map once and assign to both keys explicitly
-        const outfitsMap = Object.fromEntries(
-            Object.entries(s.outfits || {}).map(([name, val]) => [
-                name.replace(/^"|"$/g, ''),
-                {
-                    count:    typeof val === 'object' ? (parseInt(val.count) || 1)   : (Number(val) || 1),
-                    pluginId: typeof val === 'object' ? (val.pluginId        || null) : null,
-                },
-            ])
-        );
+        // FIX: normalise outfits into a consistent map regardless of
+        // whether localStorage holds map or array format.
+        const outfitsMap = _normaliseOutfitMap(s.outfits);
 
         return {
             name:        s.name || 'Unnamed',
@@ -106,8 +150,9 @@ function _buildLocalPlugin() {
             thumbnail:   s.thumbnail || '',
             description: s.description || '',
             attributes,
-            outfits:   outfitsMap,   // matches remote plugin JSON key
-            outfitMap: outfitsMap,   // alias — survives object spread unlike a getter
+            // FIX: provide both keys; ComputedStats uses outfitMap || outfits
+            outfits:   outfitsMap,
+            outfitMap: outfitsMap,
             guns: (s.guns || []).map(g => ({
                 x:   parseFloat((g.coords || '0 0').split(' ')[0]) || 0,
                 y:   parseFloat((g.coords || '0 0').split(' ')[1]) || 0,
@@ -142,13 +187,25 @@ function _buildLocalPlugin() {
         };
     });
 
+    // FIX: populate the local plugin's outfits array from ALL active remote
+    // plugins so ComputedStats.getOutfitIndex can find outfit attribute data.
+    // This is only needed for the outfit index lookup — not for display.
+    const remoteOutfits = [];
+    for (const [id, plugin] of Object.entries(window.allData)) {
+        if (id === LOCAL_PLUGIN_ID) continue;
+        for (const o of (plugin.outfits || [])) {
+            remoteOutfits.push(o);
+        }
+    }
+
     return {
         sourceName:  'Local Builds',
         displayName: 'Local Builds',
         outputName:  LOCAL_PLUGIN_ID,
         ships,
         variants: [],
-        outfits:  [],
+        // FIX: include remote outfits so the outfit index is populated
+        outfits:  remoteOutfits,
         effects:  [],
         _isLocal: true,
     };
@@ -400,6 +457,10 @@ async function _doLoad() {
 
         _ready   = true;
         _loading = false;
+
+        // FIX: rebuild local plugin now that remote outfits are loaded,
+        // so the local plugin's outfit index is populated for ComputedStats.
+        _refreshLocalPlugin();
 
         window.DataLoader.initDefaultPlugins();
 

@@ -8,7 +8,10 @@ async function filterItems() {
     const container = document.getElementById('cardsContainer');
 
     const filtered = filteredData.filter(item => {
-        const matchesSearch = !searchTerm || (item.name && item.name.toLowerCase().includes(searchTerm));
+        const matchesSearch = !searchTerm || (
+            (item.name && item.name.toLowerCase().includes(searchTerm)) ||
+            (item["display name"] && item["display name"].toLowerCase().includes(searchTerm))
+        )
         const itemCategory = (item.category || item.attributes?.category) || null;
         const effectiveCategory = itemCategory ? itemCategory : 'N/A';
         const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(effectiveCategory);
