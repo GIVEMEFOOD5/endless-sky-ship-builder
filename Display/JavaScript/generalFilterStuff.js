@@ -91,7 +91,11 @@ async function _runFilter() {
     const hasGov    = selectedGovts.length > 0;
 
     const filtered = filteredData.filter(item => {
-        if (hasSearch && !(item.name && item.name.toLowerCase().includes(searchTerm))) return false;
+        if (hasSearch) {
+            const nameMatch = item.name && item.name.toLowerCase().includes(searchTerm);
+            const displayMatch = item['display name'] && item['display name'].toLowerCase().includes(searchTerm);
+            if (!nameMatch && !displayMatch) return false;
+        }
         if (hasCat) {
             const raw = item.category ?? item.attributes?.category;
             const cat = (raw && raw !== '') ? raw : 'N/A';

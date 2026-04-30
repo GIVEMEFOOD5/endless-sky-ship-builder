@@ -37,6 +37,9 @@ function populateCategoryFilters(data) {
         filterSection.classList.add("hidden");
         filterSection.classList.remove("shown");
         return;
+    } else {
+        filterSection.classList.remove("hidden");
+        filterSection.classList.add("shown");
     }
 
     if (!categoryFilterExpanded) {

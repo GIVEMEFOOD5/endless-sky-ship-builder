@@ -162,6 +162,8 @@ function getMergedItems(tab) {
         const pluginData = allData[outputName];
         if (!pluginData) continue;
 
+        if (outputName === LOCAL_PLUGIN_ID && (tab !== 'ships' || tab !== 'variants')) continue;
+
         let items = [];
         if      (tab === 'ships')    items = pluginData.ships    || [];
         else if (tab === 'variants') items = pluginData.variants || [];
@@ -170,9 +172,7 @@ function getMergedItems(tab) {
 
         // Tag each item with its source plugin (don't mutate originals)
         for (const item of items) {
-            merged.push(Object.assign(Object.create(Object.getPrototypeOf(item)), item, {
-                _pluginId: outputName
-            }));
+            merged.push({ ...item, _pluginId: outputName });
         }
     }
     return merged;
