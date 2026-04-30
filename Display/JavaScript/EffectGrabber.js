@@ -28,6 +28,7 @@ const EFFECTS_BASE_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-
 // Per-plugin effect maps: outputName → { map: { name → effect }, ready: bool }
 const _pluginEffects  = {};
 const _pluginLoading  = {}; // outputName → Promise while loading
+const LOCAL_PLUGIN_ID = '__local_builds__';
 
 let _currentPlugin = null;
 
@@ -66,7 +67,7 @@ async function _loadPluginEffects(outputName) {
 
 function setEffectPlugin(outputName) {
     _currentPlugin = outputName;
-    if (outputName) _loadPluginEffects(outputName);
+    if (outputName && outputName !== LOCAL_PLUGIN_ID) _loadPluginEffects(outputName);
 }
 
 
@@ -107,7 +108,7 @@ async function fetchEffectByName(effectName, spriteParams) {
     const knownPlugins = window.allData ? Object.keys(window.allData) : [];
     await Promise.all(
         knownPlugins
-            .filter(name => !_pluginEffects[name]?.ready && !_pluginLoading[name])
+            .filter(name => name !== LOCAL_PLUGIN_ID && !_pluginEffects[name]?.ready && !_pluginLoading[name])
             .map(name => _loadPluginEffects(name))
     );
 
