@@ -546,6 +546,11 @@ function getComputedStats(ship, pluginId, options) {
   const derived = resolveDerivedValues(result, fnCache, solar);
   Object.assign(result, derived);
 
+  if (typeof WeaponStats !== 'undefined') {
+    const outfitMap = ship.outfitMap || ship.outfits || {};
+    const wsFlat = WeaponStats.resolveWeaponStats(outfitMap, outfitIdx);
+    Object.assign(result, wsFlat);
+  }
   _cache[cacheKey] = result;
   return result;
 }
