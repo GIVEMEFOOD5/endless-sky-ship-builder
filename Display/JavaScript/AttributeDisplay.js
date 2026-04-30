@@ -570,28 +570,17 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
         const { weapon: w, outfit: o, title, multiplier, depth } = queue.shift();
         sections.push({ weapon: w, outfit: o, title, multiplier });
         mergeInto(totalDamage, collectDamage(w, multiplier));
-        if (w.submunition && depth < 8) {
-            const subs = Array.isArray(w.submunition)
-                ? w.submunition
-                : [{ name: String(w.submunition), count: 1 }];
-            for (const entry of subs) {
-                const subName  = typeof entry === 'string' ? entry : (entry?.name ?? String(entry));
-                const subCount = typeof entry === 'object' ? (entry?.count ?? 1) : 1;
-                if (!subName || visited.has(subName)) continue;
-                visited.add(subName);
-                const sub = lookupOutfit(subName, pluginId);
-                if (sub?.weapon) {
-                    const countLabel = subCount > 1 ? ` ×${subCount}` : '';
-                    queue.push({
-                        weapon:     sub.weapon,
-                        outfit:     sub,
-                        title:      `Submunition: ${subName}${countLabel}`,
-                        multiplier: multiplier * subCount,
-                        depth:      depth + 1,
-                    });
-                }
-            }
+        // Replace the submunition block in renderWeaponChain:
+        const refs = [];
+        if (typeof w.submunition === 'string') refs.push({ name: w.submunition, count: 1 });
+        for (const key of Object.keys(w)) {
+            if (!key.startsWith('submunition ')) continue;
+            const subName = key.slice('submunition '.length).trim();
+            const val = w[key];
+            const count = Array.isArray(val) ? val.length : (typeof val === 'number' ? val : 1);
+            refs.push({ name: subName, count });
         }
+        
         if (w.ammo && typeof w.ammo === 'string' && depth < 8 && !visited.has(w.ammo)) {
             visited.add(w.ammo);
             const ammo = lookupOutfit(w.ammo, pluginId);
