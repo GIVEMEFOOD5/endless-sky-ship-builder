@@ -550,6 +550,16 @@ function getComputedStats(ship, pluginId, options) {
     const outfitMap = ship.outfitMap || ship.outfits || {};
     const wsFlat = WeaponStats.resolveWeaponStats(outfitMap, outfitIdx);
     Object.assign(result, wsFlat);
+    // Keep _weaponStats accessible as result._weaponStats but hidden from
+    // JSON.stringify, Object.keys, and for..in loops so it doesn't bloat
+    // exports or cache serialisation.
+    Object.defineProperty(result, '_weaponStats', {
+      value:        wsFlat['_weaponStats'],
+      enumerable:   false,
+      writable:     true,
+      configurable: true,
+    });
+    delete result['_weaponStats'];
   }
   _cache[cacheKey] = result;
   return result;
@@ -595,6 +605,16 @@ function getComputedSorterFields() {
     const label = attrKey.split(' ').map(w => w[0].toUpperCase() + w.slice(1)).join(' ') + ' (system)';
     fields.push({ id, key: id, label, path: null, isComputed: true, isSystemAware: true });
   }
+  const wsLabels = {
+    '_ws_totalDps':    'Total DPS (computed)',
+    '_ws_shieldDps':   'Shield DPS (computed)',
+    '_ws_hullDps':     'Hull DPS (computed)',
+    '_ws_weaponCount': 'Weapon Types (computed)',
+  };
+  for (const [id, label] of Object.entries(wsLabels)) {
+    fields.push({ id, key: id, label, path: null, isComputed: true });
+  }
+  
   return fields;
 }
 
