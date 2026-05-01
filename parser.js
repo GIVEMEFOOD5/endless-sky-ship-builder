@@ -28,7 +28,6 @@ async function sparseClone(repoGitUrl, branch, targetDir, folders) {
 
 // ---------------------------------------------------------------------------
 // Compute a deterministic structural hash of a ship's data for duplicate detection.
-// Only structural fields are hashed — not name, governments, or plugin metadata.
 // ---------------------------------------------------------------------------
 function hashShip(ship) {
   const relevant = {
@@ -54,7 +53,7 @@ function hashShip(ship) {
 // ---------------------------------------------------------------------------
 // Convert the internal outfitMap { name: { count, pluginId } | count }
 // into the array format expected by shipBuilder.js:
-//   [ { name: '"Blaster"', count: 2, pluginId: "Endless Sky/Endless Sky" }, ... ]
+//   { "Blaster": { count: 2, pluginId: "Endless Sky/Endless Sky" }, ... }
 // ---------------------------------------------------------------------------
 function outfitMapToOutputFormat(outfitMap) {
   if (!outfitMap || typeof outfitMap !== 'object') return {};
@@ -71,51 +70,157 @@ function outfitMapToOutputFormat(outfitMap) {
 }
 
 // ---------------------------------------------------------------------------
+// normaliseWeaponBlock
+//
+// After a weapon block is parsed generically by parseBlock(), this function
+// rewrites it so that submunitions and ammo are stored in a single,
+// consistent format regardless of which data-file syntax was used.
+//
+// OUTPUT FORMATS
+// ──────────────
+// Submunitions → weapon.submunitions: Array<{ type: string, count: number }>
+//   Every spawn entry is one object. Multiple "submunition" lines or a
+//   "submunition X" count each produce one entry per distinct outfit name.
+//
+// Ammo         → weapon.ammunition: Array<{ type: string, count: number }>
+//   Normally a single entry (weapons only consume one ammo type), but the
+//   array wrapper keeps the schema consistent.
+//
+// INPUT FORMS HANDLED
+// ───────────────────
+//  Submunitions:
+//   (a) weapon.submunition = "OutfitName"           → count 1
+//   (b) weapon.submunition = ["OutfitA","OutfitB"]  → count 1 each
+//   (c) weapon["submunition OutfitName"] = [{offset},{offset}]  → count = array length
+//   (d) weapon["submunition OutfitName"] = 3        → count = 3
+//   (e) weapon["OutfitName"] = count  where the outfit has a weapon block
+//       (Format B from MunitionTypes — also covers legacy numeric-key submunitions)
+//
+//  Ammo:
+//   (a) weapon.ammo = "OutfitName"                  → count 1
+//   (b) weapon["OutfitName"] = count  where outfit is Ammunition category
+//       (detected here by presence of the key in outfitsByName if known,
+//        otherwise left as-is for runtime resolution — see note below)
+//
+// NOTE: Format B ammo/submunition detection at parse time is best-effort.
+// The runtime modules (battleSim, WeaponStats) retain their own resolution
+// logic as a fallback for outfits that weren't yet registered at parse time.
+// ---------------------------------------------------------------------------
+function normaliseWeaponBlock(weapon, outfitsByName) {
+  if (!weapon || typeof weapon !== 'object') return weapon;
+
+  const submunitions = [];  // { type, count }
+  const ammunition   = [];  // { type, count }
+  const keysToDelete = [];
+
+  // ── 1. weapon.ammo = "OutfitName" ─────────────────────────────────────────
+  if (typeof weapon.ammo === 'string' && weapon.ammo.length > 0) {
+    ammunition.push({ type: weapon.ammo, count: 1 });
+    keysToDelete.push('ammo');
+  }
+
+  // ── 2. weapon.submunition = string | object | array ───────────────────────
+  if (weapon.submunition != null) {
+    const raw     = weapon.submunition;
+    const entries = Array.isArray(raw) ? raw : [raw];
+    for (const entry of entries) {
+      if (typeof entry === 'string' && entry.length > 0) {
+        submunitions.push({ type: entry, count: 1 });
+      } else if (typeof entry === 'object' && entry !== null) {
+        // Parsed as a sub-block: { name: "X", count: N } or just { name: "X" }
+        const subName  = entry.name ?? entry.type ?? null;
+        const subCount = typeof entry.count === 'number' ? entry.count : 1;
+        if (subName) submunitions.push({ type: subName, count: subCount });
+      }
+    }
+    keysToDelete.push('submunition');
+  }
+
+  // ── 3. "submunition OutfitName" prefixed keys ─────────────────────────────
+  for (const key of Object.keys(weapon)) {
+    if (!key.startsWith('submunition ')) continue;
+    const subName = key.slice('submunition '.length).trim();
+    if (!subName) continue;
+    const val = weapon[key];
+    let count = 1;
+    if (Array.isArray(val))                                count = val.length;
+    else if (typeof val === 'number' && val > 0)           count = Math.round(val);
+    else if (typeof val === 'object' && val !== null)      count = 1;
+    submunitions.push({ type: subName, count });
+    keysToDelete.push(key);
+  }
+
+  // ── 4. Loose numeric keys — best-effort ammo / submunition detection ───────
+  // At parse time we can check outfitsByName (the global registry built so far).
+  // Outfits not yet registered are left alone; runtime modules handle them.
+  for (const key of Object.keys(weapon)) {
+    // Skip keys we've already processed or that are known weapon attributes
+    if (keysToDelete.includes(key)) continue;
+    if (key === 'ammo' || key === 'submunition') continue;
+
+    const val = weapon[key];
+    if (val === false || val === 0 || val === null || val === undefined) continue;
+    if (typeof val !== 'number' && val !== true) continue;
+
+    const entries = outfitsByName ? outfitsByName.get(key) : null;
+    if (!entries || entries.length === 0) continue; // unknown outfit — leave for runtime
+
+    const outfit = entries[0]?.outfit;
+    if (!outfit) continue;
+
+    const isAmmo =
+      outfit.category === 'Ammunition' ||
+      (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) ||
+      (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0) ||
+      Object.entries(outfit.attributes || {}).some(([k, v]) => k.endsWith(' capacity') && typeof v === 'number' && v < 0);
+
+    const isSubmunition = !isAmmo && !!outfit.weapon;
+
+    if (isAmmo) {
+      const count = val === true ? 1 : Math.max(1, Math.round(val));
+      ammunition.push({ type: key, count });
+      keysToDelete.push(key);
+    } else if (isSubmunition) {
+      const count = val === true ? 1 : Math.max(1, Math.round(val));
+      submunitions.push({ type: key, count });
+      keysToDelete.push(key);
+    }
+    // else: leave it — it's a genuine weapon attribute (e.g. "missile strength 2")
+  }
+
+  // ── Apply deletions and write normalised arrays ────────────────────────────
+  for (const k of keysToDelete) delete weapon[k];
+
+  if (submunitions.length > 0) weapon.submunitions = submunitions;
+  if (ammunition.length   > 0) weapon.ammunition   = ammunition;
+
+  return weapon;
+}
+
+// ---------------------------------------------------------------------------
 class EndlessSkyParser {
   constructor() {
-    // Flat array of all parsed ships — used for slicing per-plugin output.
     this.ships           = [];
     this.variants        = [];
     this.outfits         = [];
     this.effects         = [];
     this.pendingVariants = [];
 
-    // ── Ship registries ──────────────────────────────────────────────────────
-    // shipById:    internalId (pluginID::shipName) → ship object
-    // shipsByName: displayName → [ ship, ... ]  (multiple = name collision)
     this.shipById    = new Map();
     this.shipsByName = new Map();
 
-    // ── Global outfit registry ────────────────────────────────────────────────
-    // outfitsByName: outfitName → [ { pluginId, outfit }, ... ]
-    // Built up as each plugin is parsed; used for cross-plugin outfit resolution.
     this.outfitsByName = new Map();
 
-    // Source priority order: pluginId → numeric index (lower = higher priority).
-    // Populated by main() before parsing starts.
-    // Used as tiebreaker when no explicit override covers a collision.
     this._sourcePriority = new Map();
-
-    // Explicit override map: pluginId → Set of pluginIds it overrides.
-    // Populated from plugins.json `overrides` field by main().
-    // If PluginB overrides PluginA, PluginB's ship wins in a collision.
-    this._overrides = new Map();
-
-    // Plugin ID currently being parsed.
+    this._overrides      = new Map();
     this._currentPluginId = null;
 
-    // Repo-level ship watermarks.
     this._currentRepoShipsBefore = 0;
     this._currentRepoShipsAfter  = 0;
 
-    // Species resolution
-    this.speciesResolver = new SpeciesResolver();
-
-    // Location resolution
+    this.speciesResolver  = new SpeciesResolver();
     this.locationResolver = new LocationResolver();
   }
-
-  // ── Configuration helpers (called from main before parsing) ───────────────
 
   setSourcePriority(sources) {
     this._sourcePriority.clear();
@@ -133,8 +238,6 @@ class EndlessSkyParser {
     }
   }
 
-  // ── Ship registry helpers ──────────────────────────────────────────────────
-
   _registerShip(ship, pluginId) {
     const internalId = `${pluginId}::${ship.name}`;
     ship._internalId = internalId;
@@ -142,59 +245,32 @@ class EndlessSkyParser {
     ship._hash       = hashShip(ship);
 
     this.shipById.set(internalId, ship);
-
-    if (!this.shipsByName.has(ship.name)) {
-      this.shipsByName.set(ship.name, []);
-    }
+    if (!this.shipsByName.has(ship.name)) this.shipsByName.set(ship.name, []);
     this.shipsByName.get(ship.name).push(ship);
-
     return internalId;
   }
 
-  // ── Outfit registry helpers ───────────────────────────────────────────────
-
-  /**
-   * Register a parsed outfit into the global name→entries map.
-   * Called immediately after parseOutfit() returns a result.
-   */
   _registerOutfit(outfit, pluginId) {
     outfit._pluginId = pluginId;
     const name = outfit.name;
-    if (!this.outfitsByName.has(name)) {
-      this.outfitsByName.set(name, []);
-    }
+    if (!this.outfitsByName.has(name)) this.outfitsByName.set(name, []);
     this.outfitsByName.get(name).push({ pluginId, outfit });
   }
 
-  /**
-   * Find which pluginId defines an outfit with the given name.
-   *
-   * Resolution order:
-   *   1. preferPluginId — if that plugin has this outfit, use it (same-plugin first).
-   *   2. Walk all registered plugins in source-priority order.
-   *   3. Return null if not found anywhere.
-   */
   _resolveOutfitPluginId(outfitName, preferPluginId) {
     const entries = this.outfitsByName.get(outfitName);
     if (!entries || entries.length === 0) return null;
-
-    // Tier 1: same plugin
     if (preferPluginId) {
       const local = entries.find(e => e.pluginId === preferPluginId);
       if (local) return local.pluginId;
     }
-
-    // Tier 2: source-priority order
     const sorted = [...entries].sort((a, b) => {
       const pa = this._sourcePriority.get(a.pluginId) ?? Infinity;
       const pb = this._sourcePriority.get(b.pluginId) ?? Infinity;
       return pa - pb;
     });
-
     return sorted[0].pluginId;
   }
-
-  // ── Base-ship resolution ──────────────────────────────────────────────────
 
   _resolveBaseShip(baseName, variantPluginId) {
     const localId   = `${variantPluginId}::${baseName}`;
@@ -202,19 +278,11 @@ class EndlessSkyParser {
     if (localShip) return { baseShip: localShip, error: null };
 
     const candidates = this.shipsByName.get(baseName) ?? [];
-
-    if (candidates.length === 0) {
-      return { baseShip: null, error: `no base ship found for "${baseName}"` };
-    }
-
-    if (candidates.length === 1) {
-      return { baseShip: candidates[0], error: null };
-    }
+    if (candidates.length === 0) return { baseShip: null, error: `no base ship found for "${baseName}"` };
+    if (candidates.length === 1) return { baseShip: candidates[0], error: null };
 
     const hashes = new Set(candidates.map(s => s._hash));
-    if (hashes.size === 1) {
-      return { baseShip: candidates[0], error: null };
-    }
+    if (hashes.size === 1) return { baseShip: candidates[0], error: null };
 
     const variantOverrides = this._overrides.get(variantPluginId);
     if (variantOverrides?.size) {
@@ -230,7 +298,6 @@ class EndlessSkyParser {
       const pb = this._sourcePriority.get(b._pluginId) ?? Infinity;
       return pa - pb;
     });
-
     const winner = ranked[0];
     const losers = ranked.slice(1).map(s => s._pluginId).join(', ');
     console.warn(
@@ -241,8 +308,6 @@ class EndlessSkyParser {
     );
     return { baseShip: winner, error: null };
   }
-
-  // ── Utilities ──────────────────────────────────────────────────────────────
 
   fetchUrl(url) {
     return new Promise((resolve, reject) => {
@@ -286,28 +351,21 @@ class EndlessSkyParser {
     try {
       await fs.mkdir(tmpDir, { recursive: true });
       await exec(`git clone --filter=blob:none --no-checkout --depth 1 --single-branch --branch ${branch} ${repoGitUrl} "${tmpDir}"`);
-
       const { stdout } = await exec(`git -C "${tmpDir}" ls-tree -r --name-only -t HEAD`);
       const allPaths = stdout.trim().split('\n').filter(Boolean);
-
       const plugins = [];
       for (const p of allPaths) {
         const basename = path.basename(p);
         if (basename !== 'data') continue;
-
         const hasTxt = allPaths.some(f => f.startsWith(p + '/') && f.endsWith('.txt'));
         if (!hasTxt) continue;
-
         const parentDir = path.dirname(p);
         const pluginRootInRepo = (parentDir === '.' || parentDir === '') ? '.' : parentDir;
         const pluginName = pluginRootInRepo === '.' ? repoName : path.basename(pluginRootInRepo);
-
         const imagesPath = pluginRootInRepo === '.' ? 'images' : `${pluginRootInRepo}/images`;
         const hasImages = allPaths.includes(imagesPath);
-
         plugins.push({ name: pluginName, pluginRootInRepo, hasImages });
       }
-
       return plugins;
     } finally {
       await fs.rm(tmpDir, { recursive: true, force: true });
@@ -316,49 +374,33 @@ class EndlessSkyParser {
 
   async detectPlugins(cloneDir, repoName) {
     const plugins = [];
-
     const walk = async (dir) => {
       let entries;
       try { entries = await fs.readdir(dir, { withFileTypes: true }); }
       catch { return; }
-
       for (const e of entries) {
         if (!e.isDirectory()) continue;
         if (e.name.startsWith('.') || e.name === 'node_modules') continue;
-
         const fullPath = path.join(dir, e.name);
-
         if (e.name === 'data') {
           const files  = await fs.readdir(fullPath);
           const hasTxt = files.some(f => f.endsWith('.txt'));
           if (!hasTxt) continue;
-
           const pluginRoot = dir;
           const pluginName = pluginRoot === cloneDir ? repoName : path.basename(pluginRoot);
           const pluginRootInRepo = path.relative(cloneDir, pluginRoot) || '.';
-
           const imagesDir = path.join(pluginRoot, 'images');
           let hasImages = false;
           try { await fs.access(imagesDir); hasImages = true; } catch {}
-
-          plugins.push({
-            name:            pluginName,
-            dataDir:         fullPath,
-            imagesDir:       hasImages ? imagesDir : null,
-            pluginRootInRepo
-          });
+          plugins.push({ name: pluginName, dataDir: fullPath, imagesDir: hasImages ? imagesDir : null, pluginRootInRepo });
           continue;
         }
-
         await walk(fullPath);
       }
     };
-
     await walk(cloneDir);
     return plugins;
   }
-
-  // ── Image helpers ──────────────────────────────────────────────────────────
 
   async copyMatchingImages(sourceDir, destDir, imagePath) {
     const norm      = imagePath.replace(/\\/g, '/');
@@ -366,17 +408,14 @@ class EndlessSkyParser {
     const basename  = parts[parts.length - 1];
     const parentDir = parts.slice(0, -1).join('/');
     const escaped   = basename.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
     const searchPaths = [
       { dir: path.join(sourceDir, parentDir), relative: parentDir },
       { dir: path.join(sourceDir, norm),      relative: norm      }
     ];
-
     for (const sp of searchPaths) {
       try {
         const stat = await fs.stat(sp.dir);
         if (!stat.isDirectory()) continue;
-
         const files    = await fs.readdir(sp.dir);
         const patterns = [
           new RegExp(`^${escaped}$`),
@@ -389,13 +428,11 @@ class EndlessSkyParser {
           new RegExp(`^${escaped}.+$`)
         ];
         const validExts = new Set(['.png','.jpg','.jpeg','.gif','.avif','.webp']);
-
         const matches = files.filter(f => {
           const ext  = path.extname(f).toLowerCase();
           const base = path.basename(f, ext);
           return validExts.has(ext) && patterns.some(p => p.test(base));
         });
-
         if (matches.length > 0) {
           const outDir = path.join(destDir, sp.relative);
           await fs.mkdir(outDir, { recursive: true });
@@ -413,10 +450,8 @@ class EndlessSkyParser {
   async copyImagesForPlugin(sourceImagesDir, destImagesDir, ships, variants, outfits, effects) {
     if (!sourceImagesDir) { console.log('  No images folder, skipping.'); return; }
     await fs.mkdir(destImagesDir, { recursive: true });
-
     const paths = new Set();
     const add = p => { if (p) paths.add(p); };
-
     for (const s of ships) {
       add(s.sprite); add(s.thumbnail);
       add(s['flare sprite']); add(s['steering flare sprite']); add(s['reverse flare sprite']);
@@ -433,13 +468,10 @@ class EndlessSkyParser {
       if (o.weapon) { add(o.weapon['hardpoint sprite']); add(o.weapon.sprite); }
     }
     for (const e of effects) { add(e.sprite); }
-
     console.log(`  Copying images (${paths.size} paths referenced)...`);
     for (const p of paths) await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
     console.log('  ✓ Images done');
   }
-
-  // ── Main repository entry point ────────────────────────────────────────────
 
   async parseRepository(repoUrl, sourceName = null) {
     const urlMatch = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
@@ -485,9 +517,7 @@ class EndlessSkyParser {
 
     for (const probe of probePlugins) {
       console.log(`\n  ── Plugin: ${probe.name} ──`);
-
-      const pluginId = `${sourceName}/${probe.name}`;
-
+      const pluginId       = `${sourceName}/${probe.name}`;
       const root           = probe.pluginRootInRepo;
       const dataPath       = root === '.' ? 'data'   : `${root}/data`;
       const imagesPath     = root === '.' ? 'images' : `${root}/images`;
@@ -559,10 +589,9 @@ class EndlessSkyParser {
         const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
         const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
 
-        const pluginShipNames  = new Set(pluginShips.map(s => s.name));
-        const pluginVariants = this.variants.filter(v =>
-          pluginShipNames.has(v.baseShip) ||
-          (v._variantPluginId === meta.pluginId)
+        const pluginShipNames = new Set(pluginShips.map(s => s.name));
+        const pluginVariants  = this.variants.filter(v =>
+          pluginShipNames.has(v.baseShip) || (v._variantPluginId === meta.pluginId)
         );
 
         const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
@@ -575,15 +604,12 @@ class EndlessSkyParser {
 
         console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
 
-        const isSinglePlugin = probePlugins.length === 1;
-        const outputName = meta.name;
-
-        const destImagesDir = path.join(process.cwd(), 'data', outputName, 'images');
+        const destImagesDir = path.join(process.cwd(), 'data', meta.name, 'images');
         await this.copyImagesForPlugin(meta.imagesDir, destImagesDir, pluginShips, pluginVariants, pluginOutfits, pluginEffects);
 
         results.push({
           name:       meta.name,
-          outputName,
+          outputName: meta.name,
           pluginId:   meta.pluginId,
           repository: repoUrl,
           ships:      pluginShips,
@@ -600,8 +626,6 @@ class EndlessSkyParser {
 
     return results;
   }
-
-  // ── Parsing methods ────────────────────────────────────────────────────────
 
   parseFileContent(content, filePath, dataDir) {
     const lines = content.split('\n');
@@ -627,9 +651,9 @@ class EndlessSkyParser {
           i = ni; continue;
         } else if (trimmed.startsWith('effect ')) {
           const [d, ni] = this.parseExtraEffect(lines, i);
-          if (d) { 
+          if (d) {
             d._pluginId = this._currentPluginId;
-            this.effects.push(d); 
+            this.effects.push(d);
           }
           i = ni; continue;
         } else if (trimmed.startsWith('fleet ')) {
@@ -652,14 +676,11 @@ class EndlessSkyParser {
     }
   }
 
-  // ── Resolution block parsers ───────────────────────────────────────────────
-
   parseFleetBlock(lines, i) {
     const headerLine = lines[i].trim();
     const nameMatch = headerLine.match(/^fleet\s+"([^"]+)"/) ||
                       headerLine.match(/^fleet\s+`([^`]+)`/);
     const fleetName = nameMatch ? nameMatch[1] : null;
-
     let government = null;
     const shipNames = [];
     i++;
@@ -689,19 +710,15 @@ class EndlessSkyParser {
     const nameMatch = headerLine.match(/^mission\s+"([^"]+)"/) ||
                       headerLine.match(/^mission\s+`([^`]+)`/);
     const missionName = nameMatch ? nameMatch[1] : null;
-
     i++;
     while (i < lines.length) {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
-
       if (stripped === 'npc' || stripped.startsWith('npc ')) {
-        i = this._parseMissionNpcBlock(lines, i, missionName);
-        continue;
+        i = this._parseMissionNpcBlock(lines, i, missionName); continue;
       }
-
       if (missionName && (
         stripped.startsWith('give outfit "') || stripped.startsWith('give outfit `') ||
         stripped.startsWith('outfit "')      || stripped.startsWith('outfit `')
@@ -718,7 +735,6 @@ class EndlessSkyParser {
           }
         }
       }
-
       if (missionName && (
         stripped.startsWith('give ship "') || stripped.startsWith('give ship `') ||
         stripped.startsWith('ship "')      || stripped.startsWith('ship `')
@@ -732,7 +748,6 @@ class EndlessSkyParser {
           this.locationResolver.collectMissionGiveShip(missionName, sm[1], this._currentPluginId);
         }
       }
-
       i++;
     }
     return i;
@@ -748,7 +763,6 @@ class EndlessSkyParser {
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent <= npcIndent && line.trim()) break;
       const stripped = line.trim();
-
       if (indent === npcIndent + 1) {
         const govMatch = stripped.match(/^government\s+"([^"]+)"/) ||
                          stripped.match(/^government\s+`([^`]+)`/);
@@ -757,14 +771,12 @@ class EndlessSkyParser {
           this.speciesResolver.knownGovernments.add(government);
           i++; continue;
         }
-
         const shipTwoArg = stripped.match(/^ship\s+"([^"]+)"\s+"[^"]*"/) ||
                            stripped.match(/^ship\s+`([^`]+)`\s+`[^`]*`/);
         const shipOneArg = stripped.match(/^ship\s+"([^"]+)"$/) ||
                            stripped.match(/^ship\s+`([^`]+)`$/);
         if (shipTwoArg) { shipNames.push(shipTwoArg[1]); i++; continue; }
         if (shipOneArg) { shipNames.push(shipOneArg[1]); i++; continue; }
-
         if (stripped === 'fleet' || stripped.startsWith('fleet ')) {
           const fleetIndent = indent;
           i++;
@@ -772,10 +784,9 @@ class EndlessSkyParser {
             const fl = lines[i];
             const fi = fl.length - fl.replace(/^\t+/, '').length;
             if (fi <= fleetIndent && fl.trim()) break;
-            const fs = fl.trim();
+            const fs2 = fl.trim();
             if (fi > fleetIndent + 1) {
-              const fm = fs.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
-                         fs.match(/^`([^`]+)`(?:\s+\d+)?$/);
+              const fm = fs2.match(/^"([^"]+)"(?:\s+\d+)?$/) || fs2.match(/^`([^`]+)`(?:\s+\d+)?$/);
               if (fm) shipNames.push(fm[1]);
             }
             i++;
@@ -785,12 +796,9 @@ class EndlessSkyParser {
       }
       i++;
     }
-
     for (const shipName of shipNames) {
       this.speciesResolver.collectNpcRef(government, shipName, this._currentPluginId);
-      if (missionName) {
-        this.locationResolver.collectMissionNpcShip(missionName, shipName, this._currentPluginId);
-      }
+      if (missionName) this.locationResolver.collectMissionNpcShip(missionName, shipName, this._currentPluginId);
     }
     return i;
   }
@@ -805,7 +813,6 @@ class EndlessSkyParser {
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent <= npcIndent && line.trim()) break;
       const stripped = line.trim();
-
       if (indent === npcIndent + 1) {
         const govMatch = stripped.match(/^government\s+"([^"]+)"/) ||
                          stripped.match(/^government\s+`([^`]+)`/);
@@ -814,15 +821,12 @@ class EndlessSkyParser {
           this.speciesResolver.knownGovernments.add(government);
           i++; continue;
         }
-
         const shipTwoArg = stripped.match(/^ship\s+"([^"]+)"\s+"[^"]*"/) ||
                            stripped.match(/^ship\s+`([^`]+)`\s+`[^`]*`/);
         const shipOneArg = stripped.match(/^ship\s+"([^"]+)"$/) ||
                            stripped.match(/^ship\s+`([^`]+)`$/);
-
         if (shipTwoArg) { shipNames.push(shipTwoArg[1]); i++; continue; }
         if (shipOneArg) { shipNames.push(shipOneArg[1]); i++; continue; }
-
         if (stripped === 'fleet' || stripped.startsWith('fleet ')) {
           const fleetIndent = indent;
           i++;
@@ -830,10 +834,9 @@ class EndlessSkyParser {
             const fl = lines[i];
             const fi = fl.length - fl.replace(/^\t+/, '').length;
             if (fi <= fleetIndent && fl.trim()) break;
-            const fs = fl.trim();
+            const fs2 = fl.trim();
             if (fi > fleetIndent + 1) {
-              const fm = fs.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
-                         fs.match(/^`([^`]+)`(?:\s+\d+)?$/);
+              const fm = fs2.match(/^"([^"]+)"(?:\s+\d+)?$/) || fs2.match(/^`([^`]+)`(?:\s+\d+)?$/);
               if (fm) shipNames.push(fm[1]);
             }
             i++;
@@ -849,13 +852,6 @@ class EndlessSkyParser {
     return i;
   }
 
-  /**
-   * Parse an outfits block.
-   *
-   * Returns outfitMap as { name: { count, pluginId } } where pluginId is
-   * resolved immediately if the outfit is already registered, otherwise
-   * stored as null for deferred resolution later.
-   */
   parseOutfitsBlock(lines, i, speciesShipName = null, variantShipName = null) {
     const outfitMap = {};
     i++;
@@ -869,7 +865,6 @@ class EndlessSkyParser {
         if (m) {
           const name     = m[1];
           const count    = m[2] ? Math.max(1, parseInt(m[2], 10)) : 1;
-          // Resolve pluginId immediately if possible, else null (deferred)
           const pluginId = this._resolveOutfitPluginId(name, this._currentPluginId);
           outfitMap[name] = { count, pluginId };
         }
@@ -878,10 +873,7 @@ class EndlessSkyParser {
     }
     if (speciesShipName && Object.keys(outfitMap).length) {
       this.speciesResolver.collectShipOutfits(
-        speciesShipName,
-        Object.keys(outfitMap),
-        this._currentPluginId,
-        variantShipName
+        speciesShipName, Object.keys(outfitMap), this._currentPluginId, variantShipName
       );
       const locName = variantShipName ?? speciesShipName;
       for (const outfitName of Object.keys(outfitMap)) {
@@ -948,9 +940,9 @@ class EndlessSkyParser {
       const syMatch    = stripped.match(/^shipyard\s+"([^"]+)"/) || stripped.match(/^shipyard\s+`([^`]+)`/);
       const addSyMatch = stripped.match(/^add\s+shipyard\s+"([^"]+)"/) || stripped.match(/^add\s+shipyard\s+`([^`]+)`/);
       const ofMatch    = stripped.match(/^outfitter\s+"([^"]+)"/) || stripped.match(/^outfitter\s+`([^`]+)`/);
-      if (govMatch) government = govMatch[1];
-      if (syMatch)  shipyards.push(syMatch[1]);
-      if (ofMatch)  outfitters.push(ofMatch[1]);
+      if (govMatch)   government = govMatch[1];
+      if (syMatch)    shipyards.push(syMatch[1]);
+      if (ofMatch)    outfitters.push(ofMatch[1]);
       if (addSyMatch) {
         shipyards.push(addSyMatch[1]);
         this.locationResolver.collectEventPlanetShipyardAdd(planetName, addSyMatch[1], this._currentPluginId);
@@ -969,32 +961,25 @@ class EndlessSkyParser {
                       headerLine.match(/^system\s+(\S+)/);
     const systemName = nameMatch ? nameMatch[1] : null;
     if (!systemName) return i + 1;
-
     i++;
     while (i < lines.length) {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
-
       if (indent === 1) {
-        const fleetMatch = stripped.match(/^fleet\s+"([^"]+)"/) ||
-                           stripped.match(/^fleet\s+`([^`]+)`/);
+        const fleetMatch = stripped.match(/^fleet\s+"([^"]+)"/) || stripped.match(/^fleet\s+`([^`]+)`/);
         if (fleetMatch) {
           this.locationResolver.collectFleetInSystem(fleetMatch[1], systemName, this._currentPluginId);
           i++; continue;
         }
       }
-
       if (stripped.startsWith('planet ') || stripped === 'planet') {
         const pm = stripped.match(/^planet\s+"([^"]+)"/) ||
                    stripped.match(/^planet\s+`([^`]+)`/)  ||
                    stripped.match(/^planet\s+(\S+)/);
-        if (pm) {
-          this.locationResolver.collectPlanetInSystem(pm[1], systemName, this._currentPluginId);
-        }
+        if (pm) this.locationResolver.collectPlanetInSystem(pm[1], systemName, this._currentPluginId);
       }
-
       i++;
     }
     return i;
@@ -1008,21 +993,11 @@ class EndlessSkyParser {
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
       if (indent >= 1) {
-        if (stripped.startsWith('fleet ') || stripped === 'fleet') {
-          i = this.parseFleetBlock(lines, i); continue;
-        }
-        if (stripped.startsWith('planet ') || stripped.startsWith('"planet"')) {
-          i = this.parsePlanetBlock(lines, i); continue;
-        }
-        if (stripped.startsWith('shipyard ')) {
-          i = this.parseShipyardBlock(lines, i); continue;
-        }
-        if (stripped.startsWith('outfitter ')) {
-          i = this.parseOutfitterBlock(lines, i); continue;
-        }
-        if (stripped === 'npc' || stripped.startsWith('npc ')) {
-          i = this.parseNpcBlock(lines, i); continue;
-        }
+        if (stripped.startsWith('fleet ') || stripped === 'fleet') { i = this.parseFleetBlock(lines, i); continue; }
+        if (stripped.startsWith('planet ') || stripped.startsWith('"planet"')) { i = this.parsePlanetBlock(lines, i); continue; }
+        if (stripped.startsWith('shipyard ')) { i = this.parseShipyardBlock(lines, i); continue; }
+        if (stripped.startsWith('outfitter ')) { i = this.parseOutfitterBlock(lines, i); continue; }
+        if (stripped === 'npc' || stripped.startsWith('npc ')) { i = this.parseNpcBlock(lines, i); continue; }
       }
       i++;
     }
@@ -1039,13 +1014,10 @@ class EndlessSkyParser {
       const line = lines[i];
       if (!line.trim()) { i++; continue; }
       if (line.trim().startsWith('#')) { i++; continue; }
-
       const currentIndent = line.length - line.replace(/^\t+/, '').length;
       if (currentIndent < baseIndent) break;
-
       if (currentIndent === baseIndent) {
         const stripped = line.trim();
-
         if (options.parseHardpoints) {
           const hr = this.parseHardpoint(stripped, lines, i, currentIndent);
           if (hr) {
@@ -1055,17 +1027,14 @@ class EndlessSkyParser {
             i = ni; continue;
           }
         }
-
         if (options.skipBlocks && options.skipBlocks.includes(stripped)) {
           i = this.skipIndentedBlock(lines, i, currentIndent); continue;
         }
-
         if (stripped === 'description' || stripped.startsWith('description ')) {
           const [desc, ni] = this.parseDescription(lines, i, currentIndent);
           if (desc) descriptionLines.push(...desc);
           i = ni; continue;
         }
-
         if (stripped.startsWith('sprite ') || stripped.startsWith('"flare sprite"') ||
             stripped.startsWith('"steering flare sprite"') || stripped.startsWith('"reverse flare sprite"') ||
             stripped.startsWith('"afterburner effect"')) {
@@ -1073,7 +1042,6 @@ class EndlessSkyParser {
           Object.assign(data, sd);
           i = ni; continue;
         }
-
         if (i + 1 < lines.length) {
           const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
           if (nextIndent > currentIndent) {
@@ -1086,7 +1054,6 @@ class EndlessSkyParser {
             i = ni; continue;
           }
         }
-
         const kv = this.parseKeyValue(stripped);
         if (kv) {
           const [k, v] = kv;
@@ -1096,12 +1063,10 @@ class EndlessSkyParser {
           } else { data[k] = v; }
           i++; continue;
         }
-
         descriptionLines.push(stripped);
       }
       i++;
     }
-
     if (descriptionLines.length > 0) data.description = descriptionLines.join(' ');
     return [data, i];
   }
@@ -1118,7 +1083,6 @@ class EndlessSkyParser {
       { regex: /^(\S+)\s+`([^`]+)`$/,          ki: 1, vi: 2, str: true  },
       { regex: /^(\S+)\s+(.+)$/,               ki: 1, vi: 2, str: false, noQ: true }
     ];
-
     for (const p of patterns) {
       if (p.noQ && (stripped.includes('"') || stripped.includes('`'))) continue;
       const m = stripped.match(p.regex);
@@ -1129,7 +1093,6 @@ class EndlessSkyParser {
         return [k, v];
       }
     }
-
     const qk = stripped.match(/^["'`]([^"'`]+)["'`]$/);
     if (qk) return [qk[1], true];
     if (!stripped.includes(' ') && !stripped.includes('"') && !stripped.includes('`')) return [stripped, true];
@@ -1139,11 +1102,9 @@ class EndlessSkyParser {
   parseDescription(lines, i, baseIndent) {
     const stripped = lines[i].trim();
     const descLines = [];
-
     const single = stripped.match(/^description\s+"([^"]*)"$/) ||
                    stripped.match(/^description\s+`([^`]*)`$/);
     if (single) return [[single[1]], i + 1];
-
     const start = stripped.match(/^description\s+"(.*)$/) ||
                   stripped.match(/^description\s+`(.*)$/);
     if (start) {
@@ -1164,7 +1125,6 @@ class EndlessSkyParser {
       }
       return [descLines, i];
     }
-
     i++;
     while (i < lines.length) {
       const dl = lines[i];
@@ -1178,7 +1138,6 @@ class EndlessSkyParser {
 
   parseSpriteWithData(lines, i, baseIndent) {
     const stripped = lines[i].trim();
-
     const FIELDS = [
       { key: 'sprite'               },
       { key: 'thumbnail'            },
@@ -1191,25 +1150,19 @@ class EndlessSkyParser {
       { key: 'afterburner effect'    },
       { key: 'afterburner sound',     noSubBlock: true },
     ];
-
-    const esc      = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const kwPat    = (key) => `(?:"${esc(key)}"|` + '`' + `${esc(key)}` + '`' + `|'${esc(key)}'|${esc(key)})`;
-    const pathPat  = `(?:"([^"]+)"|` + '`([^`]+)`' + `|'([^']+)'|(\\S+))`;
+    const esc     = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const kwPat   = (key) => `(?:"${esc(key)}"|` + '`' + `${esc(key)}` + '`' + `|'${esc(key)}'|${esc(key)})`;
+    const pathPat = `(?:"([^"]+)"|` + '`([^`]+)`' + `|'([^']+)'|(\\S+))`;
     const extractPath = (m) => m[1] ?? m[2] ?? m[3] ?? m[4] ?? null;
-
     for (const f of FIELDS) {
       if (!f.re) f.re = new RegExp(`^${kwPat(f.key)}\\s+${pathPat}`);
     }
-
     for (const cfg of FIELDS) {
       const m = stripped.match(cfg.re);
       if (!m) continue;
-
       const pathValue = extractPath(m);
       if (!pathValue) continue;
-
       const result = { [cfg.key]: pathValue };
-
       if (!cfg.noSubBlock && i + 1 < lines.length) {
         const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
         if (nextIndent > baseIndent) {
@@ -1218,10 +1171,8 @@ class EndlessSkyParser {
           return [result, nextIdx];
         }
       }
-
       return [result, i + 1];
     }
-
     return [{}, i + 1];
   }
 
@@ -1281,8 +1232,8 @@ class EndlessSkyParser {
       if (ni > baseIndent) {
         i++;
         while (i < lines.length) {
-          const pl = lines[i], pi = pl.length - pl.replace(/^\t+/, '').length;
-          if (pi <= baseIndent) break;
+          const pl = lines[i], pi2 = pl.length - pl.replace(/^\t+/, '').length;
+          if (pi2 <= baseIndent) break;
           if (pl.trim()) data[prop] = pl.trim();
           i++;
         }
@@ -1307,7 +1258,6 @@ class EndlessSkyParser {
     const aKeys = Object.keys(a || {});
     const bKeys = Object.keys(b || {});
     if (aKeys.length !== bKeys.length) return false;
-    // Compare only counts, not pluginIds (pluginId is metadata, not structural)
     const getCount = v => typeof v === 'object' ? (v.count ?? 1) : (v === true ? 1 : (v ?? 1));
     for (const k of aKeys) {
       if (getCount(a[k]) !== getCount(b[k])) return false;
@@ -1321,21 +1271,15 @@ class EndlessSkyParser {
                   line.match(/^ship\s+`([^`]+)`(?:\s+`([^`]+)`)?/) ||
                   line.match(/^ship\s+'([^']+)'(?:\s+'([^']+)')?/);
     if (!match) return [null, startIdx + 1];
-
     const [, baseName, variantName] = match;
     if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
-
     const nextLine = lines[startIdx + 1];
     if (nextLine.trim() && (nextLine.length - nextLine.replace(/^\t+/, '').length) === 0) {
       return [null, startIdx + 1];
     }
-
     if (variantName) {
       this.pendingVariants.push({
-        baseName,
-        variantName,
-        startIdx,
-        lines,
+        baseName, variantName, startIdx, lines,
         variantPluginId: this._currentPluginId,
         repoShipsBefore: this._currentRepoShipsBefore,
         repoShipsAfter:  null
@@ -1349,38 +1293,28 @@ class EndlessSkyParser {
       guns: [], turrets: [], bays: [],
       outfitMap: {}
     };
-
     let i = startIdx + 1;
-
     while (i < lines.length) {
-      const line   = lines[i];
-      if (!line.trim() || line.trim().startsWith('#')) { i++; continue; }
-      const indent = line.length - line.replace(/^\t+/, '').length;
+      const line2 = lines[i];
+      if (!line2.trim() || line2.trim().startsWith('#')) { i++; continue; }
+      const indent = line2.length - line2.replace(/^\t+/, '').length;
       if (indent < 1) break;
-
-      const stripped = line.trim();
-
+      const stripped = line2.trim();
       if (stripped === 'outfits') {
         const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName, null);
         shipData.outfitMap = outfitMap;
-        i = ni;
-        continue;
+        i = ni; continue;
       }
-
       if (stripped === 'add attributes') {
-        i = this.skipIndentedBlock(lines, i, indent);
-        continue;
+        i = this.skipIndentedBlock(lines, i, indent); continue;
       }
-
       const hr = this.parseHardpoint(stripped, lines, i, indent);
       if (hr) {
         const [type, hdata, ni] = hr;
         if (!shipData[type]) shipData[type] = [];
         shipData[type].push(hdata);
-        i = ni;
-        continue;
+        i = ni; continue;
       }
-
       if (stripped === 'description' || stripped.startsWith('description ')) {
         const [desc, ni] = this.parseDescription(lines, i, indent);
         if (desc) {
@@ -1388,10 +1322,8 @@ class EndlessSkyParser {
             ? shipData.description + ' ' + desc.join(' ')
             : desc.join(' ');
         }
-        i = ni;
-        continue;
+        i = ni; continue;
       }
-
       if (stripped.startsWith('sprite ') ||
           stripped.startsWith('"thumbnail"') || stripped.startsWith('thumbnail ') ||
           stripped.startsWith('"flare sprite"') || stripped.startsWith('"flare sound"') ||
@@ -1400,40 +1332,32 @@ class EndlessSkyParser {
           stripped.startsWith('"afterburner effect"') || stripped.startsWith('"afterburner sound"')) {
         const [sd, ni] = this.parseSpriteWithData(lines, i, indent);
         Object.assign(shipData, sd);
-        i = ni;
-        continue;
+        i = ni; continue;
       }
-
       if (i + 1 < lines.length) {
         const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
         if (nextIndent > indent) {
           const key = stripped.replace(/^["'`]([^"'`]+)["'`]$/, '$1');
           const [nd, ni] = this.parseBlock(lines, i + 1, { parseHardpoints: false });
           shipData[key] = nd;
-          i = ni;
-          continue;
+          i = ni; continue;
         }
       }
-
       const kv = this.parseKeyValue(stripped);
       if (kv) shipData[kv[0]] = kv[1];
       i++;
     }
-
     return [shipData, i];
   }
 
   parseShipVariant(variantInfo) {
     const { baseShip, error } = this._resolveBaseShip(
-      variantInfo.baseName,
-      variantInfo.variantPluginId
+      variantInfo.baseName, variantInfo.variantPluginId
     );
-
     if (error) {
       console.warn(`  Skipping variant "${variantInfo.baseName} (${variantInfo.variantName})": ${error}`);
       return null;
     }
-
     const { startIdx, lines } = variantInfo;
     if (startIdx + 1 >= lines.length) return null;
     const nl = lines[startIdx + 1];
@@ -1452,49 +1376,33 @@ class EndlessSkyParser {
 
     let i = startIdx + 1;
     while (i < lines.length) {
-      const line   = lines[i];
-      if (!line.trim() || line.trim().startsWith('#')) { i++; continue; }
-      const indent = line.length - line.replace(/^\t+/, '').length;
+      const line2 = lines[i];
+      if (!line2.trim() || line2.trim().startsWith('#')) { i++; continue; }
+      const indent = line2.length - line2.replace(/^\t+/, '').length;
       if (indent < 1) break;
-
-      const stripped = line.trim();
+      const stripped = line2.trim();
 
       const inlineOutfitMatch =
         stripped.match(/^"([^"]+)"(?:\s+(\d+))?$/) ||
         stripped.match(/^`([^`]+)`(?:\s+(\d+))?$/);
-
       if (inlineOutfitMatch && indent === 1) {
         const outfitName = inlineOutfitMatch[1];
-        const count = inlineOutfitMatch[2] ? Math.max(1, parseInt(inlineOutfitMatch[2], 10)) : 1;
+        const count  = inlineOutfitMatch[2] ? Math.max(1, parseInt(inlineOutfitMatch[2], 10)) : 1;
         const pluginId = this._resolveOutfitPluginId(outfitName, variantInfo.variantPluginId);
-
-        if (!inlineOutfitsStarted) {
-          v.outfitMap = {};
-          inlineOutfitsStarted = true;
-        }
-
+        if (!inlineOutfitsStarted) { v.outfitMap = {}; inlineOutfitsStarted = true; }
         v.outfitMap[outfitName] = { count, pluginId };
-
-        this.speciesResolver.collectShipOutfits(
-          variantInfo.baseName,
-          [outfitName],
-          this._currentPluginId,
-          v.name
-        );
+        this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName], this._currentPluginId, v.name);
         this.locationResolver.collectShipOutfit(v.name, outfitName, this._currentPluginId);
         changed = true;
-        i++;
-        continue;
+        i++; continue;
       }
 
       if (stripped === 'outfits') {
         const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, variantInfo.baseName, v.name);
         if (!this._outfitMapsEqual(outfitMap, baseShip.outfitMap || {})) {
-          v.outfitMap = outfitMap;
-          changed = true;
+          v.outfitMap = outfitMap; changed = true;
         }
-        i = ni;
-        continue;
+        i = ni; continue;
       }
 
       if (stripped === 'add attributes') {
@@ -1505,9 +1413,7 @@ class EndlessSkyParser {
             v.attributes[k] += val;
           else v.attributes[k] = val;
         }
-        changed = true;
-        i = ni;
-        continue;
+        changed = true; i = ni; continue;
       }
 
       if (stripped.startsWith('sprite ') ||
@@ -1520,12 +1426,10 @@ class EndlessSkyParser {
         for (const [k, val] of Object.entries(sd)) {
           if (val !== baseShip[k]) { v[k] = val; changed = true; }
         }
-        i = ni;
-        continue;
+        i = ni; continue;
       }
 
       const [parsed, ni] = this.parseBlock(lines, i, { parseHardpoints: true });
-
       if (parsed.displayName) { v.displayName = parsed.displayName; changed = true; }
       if (parsed.sprite && parsed.sprite !== baseShip.sprite) {
         v.sprite = parsed.sprite;
@@ -1533,13 +1437,11 @@ class EndlessSkyParser {
         changed = true;
       }
       if (parsed.thumbnail && parsed.thumbnail !== baseShip.thumbnail) {
-        v.thumbnail = parsed.thumbnail;
-        changed = true;
+        v.thumbnail = parsed.thumbnail; changed = true;
       }
       for (const t of ['engines','reverseEngines','steeringEngines','guns','turrets','bays']) {
         if (parsed[t]?.length > 0) { v[t] = parsed[t]; changed = true; }
       }
-
       i = ni;
     }
 
@@ -1550,25 +1452,17 @@ class EndlessSkyParser {
     if (a.baseShip !== b.baseShip) return false;
     if (a.sprite    !== b.sprite)    return false;
     if (a.thumbnail !== b.thumbnail) return false;
-
     for (const t of ['engines','reverseEngines','steeringEngines','guns','turrets','bays']) {
-      const aList = a[t] || [];
-      const bList = b[t] || [];
+      const aList = a[t] || [], bList = b[t] || [];
       if (aList.length !== bList.length) return false;
       for (let i = 0; i < aList.length; i++) {
         if (aList[i].x !== bList[i].x || aList[i].y !== bList[i].y) return false;
       }
     }
-
-    const aAttr = a.attributes || {};
-    const bAttr = b.attributes || {};
+    const aAttr = a.attributes || {}, bAttr = b.attributes || {};
     const allKeys = new Set([...Object.keys(aAttr), ...Object.keys(bAttr)]);
-    for (const k of allKeys) {
-      if (aAttr[k] !== bAttr[k]) return false;
-    }
-
+    for (const k of allKeys) { if (aAttr[k] !== bAttr[k]) return false; }
     if (!this._outfitMapsEqual(a.outfitMap || {}, b.outfitMap || {})) return false;
-
     return true;
   }
 
@@ -1576,23 +1470,18 @@ class EndlessSkyParser {
     const toProcess = pendingSlice ?? this.pendingVariants;
     console.log(`  Processing ${toProcess.length} variants...`);
     let kept = 0, skippedNoChange = 0, skippedDuplicate = 0;
-
     for (const vi of toProcess) {
       const v = this.parseShipVariant(vi);
       if (!v) { skippedNoChange++; continue; }
-
       const isDuplicate = this.variants.some(existing => this.shipsAreIdentical(existing, v));
       if (isDuplicate) {
         console.log(`    ~ Skipped duplicate variant: ${v.name}`);
-        skippedDuplicate++;
-        continue;
+        skippedDuplicate++; continue;
       }
-
       this.variants.push(v);
       console.log(`    + ${v.name}`);
       kept++;
     }
-
     console.log(`  Variants: ${kept} kept, ${skippedNoChange} skipped, ${skippedDuplicate} duplicates removed`);
   }
 
@@ -1602,16 +1491,19 @@ class EndlessSkyParser {
                   line.match(/^outfit\s+`([^`]+)`\s*$/) ||
                   line.match(/^outfit\s+'([^']+)'\s*$/);
     if (!match) return [null, startIdx + 1];
-
     const name = match[1];
     if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
     const nl = lines[startIdx + 1];
     if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return [null, startIdx + 1];
-
     const data = { name };
     const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
     Object.assign(data, parsed);
-    // _pluginId is attached by _registerOutfit() immediately after this returns
+
+    // Normalise weapon block submunitions and ammo into canonical arrays
+    if (data.weapon && typeof data.weapon === 'object') {
+      data.weapon = normaliseWeaponBlock(data.weapon, this.outfitsByName);
+    }
+
     return [(data.description || data.weapon) ? data : null, ni];
   }
 
@@ -1621,52 +1513,30 @@ class EndlessSkyParser {
                   line.match(/^effect\s+`([^`]+)`\s*$/) ||
                   line.match(/^effect\s+'([^']+)'\s*$/);
     if (!match) return [null, startIdx + 1];
-
     const name = match[1];
     if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
     const nl = lines[startIdx + 1];
     if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return [null, startIdx + 1];
-
     const data = { name };
     const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
     Object.assign(data, parsed);
     return [data, ni];
   }
 
-  // ── Post-parse outfit-pluginId resolution ─────────────────────────────────
-
-  /**
-   * Walk every ship and variant and fill in any outfit pluginId entries that
-   * were null at parse time (because the outfit's plugin hadn't been parsed yet).
-   * Called once after ALL plugins have been fully parsed.
-   */
   resolveAllOutfitPluginIds() {
-    let resolved = 0;
-    let stillMissing = 0;
-
+    let resolved = 0, stillMissing = 0;
     const resolveMap = (outfitMap, ownerPluginId) => {
       if (!outfitMap || typeof outfitMap !== 'object') return;
       for (const [name, val] of Object.entries(outfitMap)) {
         if (typeof val === 'object' && val.pluginId === null) {
           const found = this._resolveOutfitPluginId(name, ownerPluginId);
-          if (found) {
-            val.pluginId = found;
-            resolved++;
-          } else {
-            stillMissing++;
-            console.warn(`    ⚠ Outfit not found in any plugin: "${name}"`);
-          }
+          if (found) { val.pluginId = found; resolved++; }
+          else { stillMissing++; console.warn(`    ⚠ Outfit not found in any plugin: "${name}"`); }
         }
       }
     };
-
-    for (const ship of this.ships) {
-      resolveMap(ship.outfitMap, ship._pluginId);
-    }
-    for (const variant of this.variants) {
-      resolveMap(variant.outfitMap, variant._variantPluginId);
-    }
-
+    for (const ship of this.ships)       resolveMap(ship.outfitMap, ship._pluginId);
+    for (const variant of this.variants) resolveMap(variant.outfitMap, variant._variantPluginId);
     console.log(`  Outfit pluginId resolution: ${resolved} resolved, ${stillMissing} still missing`);
   }
 }
@@ -1679,10 +1549,8 @@ async function main() {
     const config = JSON.parse(await fs.readFile(path.join(process.cwd(), 'plugins.json'), 'utf8'));
     console.log(`Found ${config.plugins.length} repository source(s)\n`);
 
-    const dataIndex = {};
-
+    const dataIndex  = {};
     const sharedParser = new EndlessSkyParser();
-
     sharedParser.setSourcePriority(config.plugins);
     sharedParser.setOverrides(config.plugins);
 
@@ -1692,13 +1560,11 @@ async function main() {
       }
     }
 
-    // Pass 1: parse every source
     const allResults = [];
     for (const source of config.plugins) {
       console.log(`\n${'='.repeat(60)}`);
       console.log(`Source: ${source.name}  |  ${source.repository}`);
       console.log('='.repeat(60));
-
       let results;
       try {
         results = await sharedParser.parseRepository(source.repository, source.name);
@@ -1708,27 +1574,15 @@ async function main() {
         console.error(`  Skipping and continuing with next source...`);
         continue;
       }
-
-      if (results.length === 0) {
-        console.log('No plugins found, skipping.');
-        continue;
-      }
-
-      for (const plugin of results) {
-        allResults.push({ source, plugin });
-      }
+      if (results.length === 0) { console.log('No plugins found, skipping.'); continue; }
+      for (const plugin of results) allResults.push({ source, plugin });
     }
 
-    // ── Deferred outfit resolution ──────────────────────────────────────────
-    // Now that every plugin has been parsed, fill in any outfit pluginIds that
-    // were null because the outfit's plugin came after the ship's plugin in the
-    // parse order.
     console.log(`\n${'='.repeat(60)}`);
     console.log(`Resolving deferred outfit pluginIds across all plugins...`);
     console.log('='.repeat(60));
     sharedParser.resolveAllOutfitPluginIds();
 
-    // Pass 2: attach species and locations
     console.log(`\n${'='.repeat(60)}`);
     console.log(`Resolving governments across all ${allResults.length} plugin(s)...`);
     console.log(`  Known governments: ${sharedParser.speciesResolver.knownGovernments.size}`);
@@ -1738,77 +1592,50 @@ async function main() {
 
     for (const { plugin } of allResults) {
       sharedParser.speciesResolver.attachSpecies(
-        plugin.ships,
-        plugin.variants,
-        plugin.outfits,
-        plugin.outputName
+        plugin.ships, plugin.variants, plugin.outfits, plugin.outputName
       );
-
       sharedParser.locationResolver.attachLocations(
-        plugin.ships,
-        plugin.variants,
-        plugin.outfits,
-        plugin.pluginId
+        plugin.ships, plugin.variants, plugin.outfits, plugin.pluginId
       );
     }
 
-    // Pass 3: write output files
     for (const { source, plugin } of allResults) {
       console.log(`\nSaving → data/${plugin.outputName}/`);
-
       const pluginDir    = path.join(process.cwd(), 'data', plugin.outputName);
       const dataFilesDir = path.join(pluginDir, 'dataFiles');
       await fs.mkdir(dataFilesDir, { recursive: true });
 
-      // Convert outfitMap (internal { name: { count, pluginId } }) to the
-      // shipBuilder-compatible array format before writing JSON.
       const shipsOut = plugin.ships.map(s => ({
-        ...s,
-        outfits:   outfitMapToOutputFormat(s.outfitMap),
-        outfitMap: undefined,
+        ...s, outfits: outfitMapToOutputFormat(s.outfitMap), outfitMap: undefined,
       }));
       const variantsOut = plugin.variants.map(v => ({
-        ...v,
-        outfits:   outfitMapToOutputFormat(v.outfitMap),
-        outfitMap: undefined,
+        ...v, outfits: outfitMapToOutputFormat(v.outfitMap), outfitMap: undefined,
       }));
-
-      // Outfits get _pluginId attached as pluginId at the top level for clarity
       const outfitsOut = plugin.outfits.map(o => ({
-        ...o,
-        pluginId: o._pluginId ?? null,
-        _pluginId: undefined,
+        ...o, pluginId: o._pluginId ?? null, _pluginId: undefined,
+      }));
+      const effectsOut = plugin.effects.map(e => ({
+        ...e, pluginId: e._pluginId ?? null, _pluginId: undefined,
       }));
 
-      const effectsOut = plugin.effects.map(e => ({ 
-        ...e, 
-        pluginId: e._pluginId ?? null, 
-        _pluginId: undefined 
-      }))
-      
       await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(shipsOut,    null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(variantsOut, null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(outfitsOut,  null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(plugin.effects,  null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'effects.json'), JSON.stringify(effectsOut, null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(effectsOut,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
         plugin:     plugin.name,
         repository: source.repository,
         ships:      shipsOut,
         variants:   variantsOut,
         outfits:    outfitsOut,
-        effects:    plugin.effects,
-        parsedAt:   new Date().toISOString(),
         effects:    effectsOut,
+        parsedAt:   new Date().toISOString(),
       }, null, 2));
 
-      console.log(`  ✓ ${shipsOut.length} ships | ${variantsOut.length} variants | ${outfitsOut.length} outfits | ${plugin.effects.length} effects`);
+      console.log(`  ✓ ${shipsOut.length} ships | ${variantsOut.length} variants | ${outfitsOut.length} outfits | ${effectsOut.length} effects`);
 
       if (!dataIndex[source.name]) dataIndex[source.name] = [];
-      dataIndex[source.name].push({
-        outputName:  plugin.outputName,
-        displayName: plugin.name
-      });
+      dataIndex[source.name].push({ outputName: plugin.outputName, displayName: plugin.name });
     }
 
     const indexPath = path.join(process.cwd(), 'data', 'index.json');
