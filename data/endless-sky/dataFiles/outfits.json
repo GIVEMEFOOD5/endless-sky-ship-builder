@@ -773,7 +773,6 @@
         "random start frame": true
       },
       "sound": "piercer",
-      "ammo": "Korath Piercer",
       "icon": "icon/piercer",
       "fire effect": "piercer fire",
       "hit effect": [
@@ -800,7 +799,13 @@
       "piercing": 0.2,
       "hit force": 450,
       "missile strength": 73,
-      "stream": true
+      "stream": true,
+      "ammunition": [
+        {
+          "type": "Korath Piercer",
+          "count": 1
+        }
+      ]
     },
     "description": "Korath Piercer Missiles carry a pair of warheads. The first, a smaller one in the very tip of the missile, explodes on impact to blast a hole in the ship's shields to allow some of the subsequent, larger explosion to pierce through.",
     "governments": {
@@ -899,12 +904,10 @@
         "no repeat": true
       },
       "sound": "minelayer",
-      "ammo": "Korath Mine",
       "icon": "icon/minelayer",
       "fire effect": "minelayer fire",
       "hit effect": "huge explosion",
       "die effect": "minelayer split",
-      "submunition": "Korath Mine Submunition",
       "inaccuracy": 10,
       "velocity": 3,
       "lifetime": 100,
@@ -923,7 +926,19 @@
       "shield damage": -3200,
       "hull damage": -2400,
       "hit force": -225,
-      "stream": true
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "Korath Mine Submunition",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Korath Mine",
+          "count": 1
+        }
+      ]
     },
     "description": "This launcher fires cluster munitions that split into a cloud of stationary mines that each do a considerable amount of damage if a ship crashes into them. However, if a ship hits the mine before it has a chance to deploy, the damage is considerably reduced.",
     "governments": {
@@ -7079,7 +7094,6 @@
     "speck capacity": 900,
     "weapon": {
       "sound": "speckle",
-      "ammo": "Speck Round",
       "fire effect": "speckle fire",
       "inaccuracy": 0.9,
       "velocity override": 30,
@@ -7090,7 +7104,18 @@
       "firing energy": 36,
       "firing heat": 30,
       "firing force": 12,
-      "submunition": "Speck"
+      "submunitions": [
+        {
+          "type": "Speck",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Speck Round",
+          "count": 1
+        }
+      ]
     },
     "description": "This compact coilgun fires a stream of hypervelocity projectiles, accelerating them on a traveling wave of magnetic energy as capacitors are discharged through a series of coils. Designed primarily for drones and smaller ships, the Speckle is a deadly albeit relatively unsophisticated weapon. \tDue to its limited range, the Speckle shines when a ship can sneak close enough to an enemy to bring it to bear, where it can begin tearing through armor and hull. However, its effectiveness is much more limited against shields, which shrug off its mass driver rounds with relative ease. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -7253,7 +7278,6 @@
     "speck capacity": 1800,
     "weapon": {
       "sound": "speckle",
-      "Speck Round": 2,
       "hardpoint sprite": "hardpoint/speckle turret",
       "hardpoint offset": 9,
       "fire effect": "speckle fire",
@@ -7267,12 +7291,16 @@
       "firing energy": 72,
       "firing heat": 60,
       "firing force": 24,
-      "submunition Speck": [
+      "submunitions": [
         {
-          "offset": -3
-        },
+          "type": "Speck",
+          "count": 2
+        }
+      ],
+      "ammunition": [
         {
-          "offset": 3
+          "type": "Speck Round",
+          "count": 2
         }
       ]
     },
@@ -8278,7 +8306,12 @@
       },
       "velocity override": 300,
       "piercing": 0.3,
-      "submunition": "TeV Electron Bunch"
+      "submunitions": [
+        {
+          "type": "TeV Electron Bunch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -8354,7 +8387,12 @@
       },
       "velocity override": 300,
       "piercing": 0.15,
-      "submunition": "GeV Electron Bunch"
+      "submunitions": [
+        {
+          "type": "GeV Electron Bunch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "official-game/endless-sky": {
@@ -8446,7 +8484,12 @@
       "homing": true,
       "optical tracking": 0.72,
       "range override": 600,
-      "submunition": "Ophrys Terminal"
+      "submunitions": [
+        {
+          "type": "Ophrys Terminal",
+          "count": 1
+        }
+      ]
     },
     "description": "This pylon externally mounts a single torpedo, employing a small electromagnetic catapult to fling its payload towards a nearby target.",
     "governments": {
@@ -8518,7 +8561,12 @@
       },
       "missile strength": 18,
       "stream": true,
-      "submunition": "Orchid Active"
+      "submunitions": [
+        {
+          "type": "Orchid Active",
+          "count": 1
+        }
+      ]
     },
     "description": "This is a large launcher capable of carrying and deploying large torch-driven missiles and torpedoes. With a standardized design, it is compatible with a wide range of Avgi torch missiles. A coilgun-based ejection system allows missiles to be deployed with considerable initial velocity.",
     "governments": {
@@ -8614,7 +8662,12 @@
         "throttle control": true
       },
       "missile strength": 9,
-      "submunition": "Nettle Active"
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ]
     },
     "description": "This tiny vertical launch system contains nine independent launch cells, each occupying one ton of outfit space. Compatible with small-to-medium Avgi missiles, the cells' contents can be easily swapped to suit a given mission. This array's compact footprint makes it suitable for drones and fighters, though the system still requires a turret mount. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -8785,7 +8838,12 @@
         "throttle control": true
       },
       "missile strength": 9,
-      "submunition": "Nettle Active"
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ]
     },
     "description": "This small vertical launch system contains 18 independent launch cells in a rectangular array. Designed for flexibility, the system can employ a variety of small or medium-sized missiles. Owing to its large surface footprint, a turret mount is required for the launcher to deploy missiles safely. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -8929,7 +8987,12 @@
         "throttle control": true
       },
       "missile strength": 9,
-      "submunition": "Nettle Active"
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ]
     },
     "description": "This medium vertical launch system contains 36 independent launch cells arrayed in parallel. A wide variety of small to mid-sized Avgi missiles are compatible with the launch cells, which can be easily interchanged. Designed for swift vertical cold-launch, the system needs an open space comparable to a turret mount to function properly. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -9248,7 +9311,12 @@
       "shield damage": -81,
       "hull damage": -108,
       "missile strength": 12,
-      "submunition": "Nettle Flecks"
+      "submunitions": [
+        {
+          "type": "Nettle Flecks",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -9377,8 +9445,13 @@
       "turn": 3,
       "homing": true,
       "radar tracking": 0.9,
-      "submunition": "Orchid Boost",
-      "missile strength": 36
+      "missile strength": 36,
+      "submunitions": [
+        {
+          "type": "Orchid Boost",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -9417,11 +9490,17 @@
       },
       "radar tracking": 0.9,
       "split range": 300,
-      "submunition": [
-        "Orchid Coast",
-        "Orchid Boost Stage Expended"
-      ],
-      "missile strength": 36
+      "missile strength": 36,
+      "submunitions": [
+        {
+          "type": "Orchid Coast",
+          "count": 1
+        },
+        {
+          "type": "Orchid Boost Stage Expended",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -9458,8 +9537,13 @@
       },
       "radar tracking": 0.9,
       "split range": 1200,
-      "submunition": "Orchid Divert",
-      "missile strength": 24
+      "missile strength": 24,
+      "submunitions": [
+        {
+          "type": "Orchid Divert",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -9498,11 +9582,17 @@
       },
       "radar tracking": 0.9,
       "split range": 600,
-      "submunition": [
-        "Orchid Terminal",
-        "Orchid Divert Stage Expended"
-      ],
-      "missile strength": 24
+      "missile strength": 24,
+      "submunitions": [
+        {
+          "type": "Orchid Terminal",
+          "count": 1
+        },
+        {
+          "type": "Orchid Divert Stage Expended",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -12935,7 +13025,6 @@
         "frame rate": 0.01
       },
       "sound": "swarm missile",
-      "ammo": "Swarm Missile",
       "icon": "icon/swarm",
       "die effect": "missile death",
       "hit effect": "particle impact",
@@ -12955,7 +13044,13 @@
       "shield damage": 46,
       "hull damage": 24,
       "missile strength": 8,
-      "stream": true
+      "stream": true,
+      "ammunition": [
+        {
+          "type": "Swarm Missile",
+          "count": 1
+        }
+      ]
     },
     "description": "The Swarm Pod proved to be an effective weapon in early conflicts with the Korath by overpowering early Korath anti-missile defenses. But just as the Bunrodea developed technology to combat Korath weaponry, the Korath did the same, prompting them to create their own rapid-fire anti-missile turret that limited the usefulness of the Swarm Pod against some Korath targets. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -19214,7 +19309,6 @@
         "no repeat": true
       },
       "sound": "finisher",
-      "ammo": "Finisher Torpedo",
       "icon": "icon/finisher",
       "fire effect": "finisher sparks",
       "hit effect": [
@@ -19234,7 +19328,18 @@
       "homing": true,
       "radar tracking": 0.8,
       "missile strength": 50,
-      "submunition": "Active Finisher"
+      "submunitions": [
+        {
+          "type": "Active Finisher",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Finisher Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Finisher Torpedoes are one of the Heliarchs' most dreaded weapons. In fact, in one way or another most of their other weapons merely exist to hold a ship in place for long enough for a barrage of Finishers to destroy it. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -19353,7 +19458,6 @@
         "no repeat": true
       },
       "sound": "finisher",
-      "ammo": "Finisher Torpedo",
       "icon": "icon/finisher",
       "fire effect": "finisher sparks",
       "hit effect": [
@@ -19375,7 +19479,18 @@
       "homing": true,
       "radar tracking": 0.8,
       "missile strength": 50,
-      "submunition": "Active Finisher"
+      "submunitions": [
+        {
+          "type": "Active Finisher",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Finisher Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Baptized with the Saryd word for \"furious thunderstorm,\" this enormous launcher is not meant for prolonged fights nor for use by lighter craft, but for delivering a few quick, devastating bursts of Finisher Torpedoes. It has much greater damage potential than its smaller counterpart. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -19804,7 +19919,12 @@
       "burst count": 5,
       "firing energy": 48,
       "firing heat": 24,
-      "submunition": "ion hail"
+      "submunitions": [
+        {
+          "type": "ion hail",
+          "count": 1
+        }
+      ]
     },
     "description": "Instead of just placing an Ion Rain Gun on a turret mount, the Heliarch tweaked the cycles of shots, having each shot be significantly more effective and seeing an overall increase to the weapon's range, but at the cost of a reload period.",
     "governments": {
@@ -20446,7 +20566,6 @@
       "inaccuracy": 0,
       "velocity": 20,
       "lifetime": 1,
-      "submunition": "Drak Antimatter Fragment",
       "hit effect": [
         "antimatter dust",
         "nuke explosion"
@@ -20456,7 +20575,13 @@
       "firing energy": 5610,
       "firing heat": 1870,
       "blast radius": 100,
-      "hit force": 1500
+      "hit force": 1500,
+      "submunitions": [
+        {
+          "type": "Drak Antimatter Fragment",
+          "count": 1
+        }
+      ]
     },
     "description": "This is the most powerful weapon that the Archons deign to utilize in the presence of the younger races.",
     "governments": {
@@ -20491,7 +20616,6 @@
       "inaccuracy": 0,
       "velocity": 20,
       "lifetime": 1,
-      "submunition": "Drak Antimatter Fragment (Augmented)",
       "hit effect": [
         "antimatter dust",
         "nuke explosion"
@@ -20501,7 +20625,13 @@
       "firing energy": 5610,
       "firing heat": 1870,
       "blast radius": 250,
-      "hit force": 1500
+      "hit force": 1500,
+      "submunitions": [
+        {
+          "type": "Drak Antimatter Fragment (Augmented)",
+          "count": 1
+        }
+      ]
     },
     "description": "This is the most powerful weapon that the Archons deign to utilize in the presence of the younger races. Hitherto unknown as Archons are rarely pushed to the point of needing to use more than their minimum abilities, the Antimatter Cannon is capable of far more damage than originally thought.",
     "governments": {
@@ -27357,7 +27487,6 @@
       "sprite data": {
         "frame rate": 30
       },
-      "ammo": "Railgun Slug",
       "icon": "icon/rail gun",
       "sound": "ion impact",
       "fire effect": "rail sparks",
@@ -27371,7 +27500,18 @@
       "firing heat": 7.2,
       "firing force": 105,
       "stream": true,
-      "submunition": "rslug"
+      "submunitions": [
+        {
+          "type": "rslug",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Railgun Slug",
+          "count": 1
+        }
+      ]
     },
     "description": "The Hai designed this weapon to best complement their Flea drones. Each Skipper Railgun provides a significant amount of force upon firing, pushing the Flea drone backwards and therefore forcing it to keep its distance from its target. \tFlea drone pilots joke that they provide more thrust than engines of similar size, so Unfettered should be using them at the back of their ships. There's probably a cultural component to the joke that many miss, because it's told quite often and the Hai laugh hysterically about it - every time. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -27798,7 +27938,6 @@
         "random start frame": true
       },
       "sound": "tracker",
-      "ammo": "Hai Tracker",
       "icon": "icon/tracker",
       "fire effect": "tracker fire",
       "hit effect": [
@@ -27824,7 +27963,13 @@
       "shield damage": 200,
       "hull damage": 160,
       "hit force": 525,
-      "missile strength": 16
+      "missile strength": 16,
+      "ammunition": [
+        {
+          "type": "Hai Tracker",
+          "count": 1
+        }
+      ]
     },
     "description": "Trackers are fast and accurate homing weapons. Although not as powerful as most human missiles, Trackers boast a significant hit force, helping to prevent the escape of whoever is unfortunate enough to be on the receiving end. Their only weakness is their large turning radius: if a Tracker misses its target, it takes a long time to turn around. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -72461,16 +72606,6 @@
     "gun ports": -1,
     "weapon": {
       "sound": "blaster",
-      "submunition Blaster Submunition": [
-        {
-          "offset": 1,
-          "facing": 0.3
-        },
-        {
-          "offset": -1,
-          "facing": -0.3
-        }
-      ],
       "hit effect": "blaster impact",
       "inaccuracy": 3,
       "lifetime": 1,
@@ -72478,7 +72613,13 @@
       "range override": 510,
       "reload": 12,
       "firing energy": 11.6,
-      "firing heat": 36
+      "firing heat": 36,
+      "submunitions": [
+        {
+          "type": "Blaster Submunition",
+          "count": 2
+        }
+      ]
     },
     "description": "The Energy Blaster's ubiquity, low price, and stable performance have made it irresistible to tinkerers from the day it was first introduced. These blasters have been bolted together to fit within a single gun port, offering twice the damage of a single blaster at the cost of twice the heat and power consumption, along with some additional mass.",
     "governments": {
@@ -74099,16 +74240,6 @@
     "gun ports": -1,
     "weapon": {
       "sound": "mod blaster",
-      "submunition Modified Blaster Submunition": [
-        {
-          "offset": 1,
-          "facing": 0.45
-        },
-        {
-          "offset": -1,
-          "facing": -0.45
-        }
-      ],
       "hit effect": "blaster impact",
       "inaccuracy": 4,
       "lifetime": 0,
@@ -74116,7 +74247,13 @@
       "range override": 480,
       "reload": 12,
       "firing energy": 13,
-      "firing heat": 50.4
+      "firing heat": 50.4,
+      "submunitions": [
+        {
+          "type": "Modified Blaster Submunition",
+          "count": 2
+        }
+      ]
     },
     "description": "An enterprising engineer, presumably having decided that the Modified Blaster's already-frightening lack of safety control was insufficient, has taken two of the weapons and shoved them together in the same gun port, crudely welded together with fervid enthusiasm. Whether or not this weapon will destroy the target before it melts its own components is anyone's guess; perhaps the intent was that the twin barrels would intimidate enemies into submission before the weapon would have to be fired.",
     "governments": {
@@ -79211,13 +79348,18 @@
       "sound": "proton",
       "hit effect": "proton impact",
       "inaccuracy": 4,
-      "submunition": "Proton Fragment",
       "velocity": 24,
       "lifetime": 2,
       "reload": 8,
       "firing energy": 15,
       "firing force": 3,
-      "firing heat": 60
+      "firing heat": 60,
+      "submunitions": [
+        {
+          "type": "Proton Fragment",
+          "count": 1
+        }
+      ]
     },
     "description": "The Proton Gun started out as the Syndicate's attempt to reverse engineer and mass-produce a cheap competitor for the Particle Cannon. Unfortunately, they were unable to find a reliable way to keep the beam coherent, but the resulting weapon is still popular with some captains, particularly as an anti-fighter gun.",
     "governments": {
@@ -79542,13 +79684,18 @@
       "hit effect": "proton impact",
       "inaccuracy": 4,
       "turret turn": 2.4,
-      "submunition": "Proton Fragment",
       "velocity": 24,
       "lifetime": 2,
       "reload": 8,
       "firing energy": 15,
       "firing force": 3,
-      "firing heat": 60
+      "firing heat": 60,
+      "submunitions": [
+        {
+          "type": "Proton Fragment",
+          "count": 1
+        }
+      ]
     },
     "description": "The Syndicate Proton Turret is a relatively new product designed to compete with Deep Sky's perennially popular Laser Turrets in the anti-fighter defense market. Though cruder than its competition, the Proton Turret maintains a loyal following among captains dissatisfied with laser weapons' short range.",
     "governments": {
@@ -80429,14 +80576,19 @@
       },
       "sound": "flamethrower",
       "icon": "icon/flamethrower",
-      "submunition": "Flamethrower Projectile",
       "inaccuracy": 12,
       "velocity": 9,
       "lifetime": 5,
       "reload": 1,
       "firing energy": 0.1,
       "firing fuel": 0.4,
-      "firing heat": 4
+      "firing heat": 4,
+      "submunitions": [
+        {
+          "type": "Flamethrower Projectile",
+          "count": 1
+        }
+      ]
     },
     "description": "A crude but impressive-looking weapon, the Flamethrower ignites your hyperspace fuel and directs a stream of it towards your adversaries. The damage it does is relatively minor, but it can be useful for causing a target that is already operating near its thermal capacity to overheat, temporarily taking it out of the fight.",
     "governments": {
@@ -81470,7 +81622,6 @@
         "frame rate": 0.25
       },
       "sound": "meteor",
-      "ammo": "Meteor Missile",
       "icon": "icon/meteor",
       "fire effect": "meteor fire",
       "die effect": "missile death",
@@ -81491,7 +81642,13 @@
       "shield damage": 360,
       "hull damage": 220,
       "hit force": 330,
-      "missile strength": 6
+      "missile strength": 6,
+      "ammunition": [
+        {
+          "type": "Meteor Missile",
+          "count": 1
+        }
+      ]
     },
     "description": "The Meteor Missile is the cheapest and simplest homing weapon available in human space. Meteors are quickly destroyed by anti-missile systems, and their infrared tracking systems have trouble homing in on targets with low heat levels. Nevertheless, their large warheads can spell doom for poorly-defended targets when the missiles are fired in great numbers. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -81994,7 +82151,6 @@
         "frame rate": 0.25
       },
       "sound": "meteor",
-      "ammo": "Meteor Missile",
       "icon": "icon/meteor",
       "fire effect": "meteor fire",
       "die effect": "missile death",
@@ -82017,7 +82173,13 @@
       "shield damage": 360,
       "hull damage": 220,
       "hit force": 330,
-      "missile strength": 6
+      "missile strength": 6,
+      "ammunition": [
+        {
+          "type": "Meteor Missile",
+          "count": 1
+        }
+      ]
     },
     "description": "The Meteor Missile is the cheapest and simplest homing weapon available in human space. Meteors are quickly destroyed by anti-missile systems, and their infrared tracking systems have trouble homing in on targets with low heat levels. Nevertheless, their large warheads can spell doom for poorly-defended targets when the missiles are fired in great numbers. \tPods enable fighters and other light craft to carry small quantities of missiles into battle while retaining enough space for other weapons. Large ships are better off with full-size launchers. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -83280,7 +83442,6 @@
         "frame rate": 0.25
       },
       "sound": "sidewinder",
-      "ammo": "Sidewinder Missile",
       "icon": "icon/sidewinder",
       "fire effect": "sidewinder fire",
       "die effect": "missile death",
@@ -83302,7 +83463,13 @@
       "shield damage": 260,
       "hull damage": 180,
       "hit force": 255,
-      "missile strength": 18
+      "missile strength": 18,
+      "ammunition": [
+        {
+          "type": "Sidewinder Missile",
+          "count": 1
+        }
+      ]
     },
     "description": "The Sidewinder Missile is designed by Lovelace Labs, which is ironically also the designer of the Anti-Missile Turret. Rumors say that the two engineering teams at Lovelace who make the missiles and the anti-missiles are locked in furious competition with each other: the result has been generation after generation of smarter missiles and then smarter turrets to fend them off. \tAlthough not as powerful or cheap as the popular Meteor Missiles, Sidewinders have several advantages, including their superior maneuverability, better tracking systems, and protective casings that make them much harder for anti-missile systems to destroy. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -83792,7 +83959,6 @@
         "frame rate": 0.25
       },
       "sound": "sidewinder",
-      "ammo": "Sidewinder Missile",
       "icon": "icon/sidewinder",
       "fire effect": "sidewinder fire",
       "die effect": "missile death",
@@ -83816,7 +83982,13 @@
       "shield damage": 260,
       "hull damage": 180,
       "hit force": 255,
-      "missile strength": 18
+      "missile strength": 18,
+      "ammunition": [
+        {
+          "type": "Sidewinder Missile",
+          "count": 1
+        }
+      ]
     },
     "description": "The Sidewinder Missile is designed by Lovelace Labs, which is ironically also the designer of the Anti-Missile Turret. Rumors say that the two engineering teams at Lovelace who make the missiles and the anti-missiles are locked in furious competition with each other: the result has been generation after generation of smarter missiles and then smarter turrets to fend them off. \tAlthough not as powerful or cheap as the popular Meteor Missiles, Sidewinders have several advantages, including their superior maneuverability, better tracking systems, and protective casings that make them much harder for anti-missile systems to destroy. \tPods enable fighters and other light craft to carry small quantities of missiles into battle while retaining enough space for other weapons. Large ships are better off with full-size launchers. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -84739,7 +84911,6 @@
     "weapon": {
       "sprite": "projectile/javelin",
       "sound": "javelin",
-      "ammo": "Javelin",
       "icon": "icon/javelin",
       "hit effect": "tiny explosion",
       "inaccuracy": 1,
@@ -84751,7 +84922,13 @@
       "shield damage": 48,
       "hull damage": 26,
       "hit force": 75,
-      "missile strength": 3
+      "missile strength": 3,
+      "ammunition": [
+        {
+          "type": "Javelin",
+          "count": 1
+        }
+      ]
     },
     "description": "The Javelin Pod fires a rapid stream of unguided missiles. A Javelin Pod does far more damage than any gun of a comparable size, and has a longer range as well, but once a ship has expended all of its ammunition it must leave combat and find a planet where it can buy more, which makes Javelins less useful in protracted battles. \tThe weapon's high rate of fire also makes it useful for saturating well-protected ships' anti-missile defenses so that more dangerous projectiles fired by allied ships can sneak through. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -85004,7 +85181,6 @@
     "weapon": {
       "sprite": "projectile/javelin",
       "sound": "javelin",
-      "ammo": "Javelin",
       "icon": "icon/javelin",
       "hit effect": "tiny explosion",
       "inaccuracy": 1,
@@ -85018,7 +85194,13 @@
       "shield damage": 48,
       "hull damage": 26,
       "hit force": 75,
-      "missile strength": 3
+      "missile strength": 3,
+      "ammunition": [
+        {
+          "type": "Javelin",
+          "count": 1
+        }
+      ]
     },
     "description": "The Javelin Pod fires a rapid stream of unguided missiles. A Javelin Pod does far more damage than any gun of a comparable size, and has a longer range as well, but once a ship has expended all of its ammunition it must leave combat and find a planet where it can buy more, which makes Javelins less useful in protracted battles. \tThe weapon's high rate of fire also makes it useful for saturating well-protected ships' anti-missile defenses so that more dangerous projectiles fired by allied ships can sneak through. \tMini pods enable fighters and other light craft to carry small quantities of Javelins into battle while retaining enough space for other weapons. Large ships are better off with full-size pods. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -85387,7 +85569,6 @@
       "hardpoint sprite": "hardpoint/javelin turret",
       "hardpoint offset": 9,
       "sound": "javelin",
-      "ammo": "Javelin",
       "icon": "icon/javelin turret",
       "hit effect": "tiny explosion",
       "inaccuracy": 4,
@@ -85400,7 +85581,13 @@
       "shield damage": 48,
       "hull damage": 26,
       "hit force": 75,
-      "missile strength": 3
+      "missile strength": 3,
+      "ammunition": [
+        {
+          "type": "Javelin",
+          "count": 1
+        }
+      ]
     },
     "description": "Mounting not one but two Javelin Pods, the Javelin Turret delivers a torrential downpour of unguided missiles that deal noticeably more damage than other turreted weapons of the same size, at the expense of using a prodigious amount of ammo due to its high fire rate. For that reason, these turrets are commonly paired with Javelin Storage Crates and weapons that don't require the use of ammunition to fall back on once all of the missiles are expended. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -86264,7 +86451,6 @@
         "random start frame": true
       },
       "sound": "torpedo",
-      "ammo": "Torpedo",
       "icon": "icon/torpedo",
       "fire effect": "torpedo fire",
       "hit effect": "torpedo hit",
@@ -86286,7 +86472,13 @@
       "shield damage": 820,
       "hull damage": 820,
       "hit force": 450,
-      "missile strength": 30
+      "missile strength": 30,
+      "ammunition": [
+        {
+          "type": "Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Torpedoes are the most powerful homing weapon, but they move slowly enough that fast ships can simply outrun them, making them most useful against large targets or against small ships at times when they are too distracted to dodge. Torpedo launchers are also much larger than other missile systems, so they are most often found in capital ships. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -86719,7 +86911,6 @@
         "random start frame": true
       },
       "sound": "torpedo",
-      "ammo": "Torpedo",
       "icon": "icon/torpedo",
       "fire effect": "torpedo fire",
       "hit effect": "torpedo hit",
@@ -86743,7 +86934,13 @@
       "shield damage": 820,
       "hull damage": 820,
       "hit force": 450,
-      "missile strength": 30
+      "missile strength": 30,
+      "ammunition": [
+        {
+          "type": "Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Torpedoes are the most powerful homing weapon, but they move slowly enough that fast ships can simply outrun them, making them most useful against large targets or against small ships at times when they are too distracted to dodge. \tPods enable fighters and other light craft to carry small quantities of Torpedoes into battle while retaining enough space for other weapons. Large ships are better off with full-size launchers. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -87171,7 +87368,6 @@
         "random start frame": true
       },
       "sound": "typhoon",
-      "ammo": "Typhoon Torpedo",
       "icon": "icon/typhoon",
       "fire effect": "typhoon fire",
       "hit effect": "torpedo hit",
@@ -87193,7 +87389,13 @@
       "shield damage": 1050,
       "hull damage": 1050,
       "hit force": 675,
-      "missile strength": 40
+      "missile strength": 40,
+      "ammunition": [
+        {
+          "type": "Typhoon Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Typhoon Torpedoes are an improved torpedo technology; they do considerably more damage than ordinary torpedoes. However, they are also much slower, because they are intended mostly for use against large and slow-moving capital ships. As a result, sufficiently skilled pilots can often dodge around them. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -87303,7 +87505,6 @@
         "random start frame": true
       },
       "sound": "typhoon",
-      "ammo": "Typhoon Torpedo",
       "icon": "icon/typhoon",
       "fire effect": "typhoon fire",
       "hit effect": "torpedo hit",
@@ -87327,7 +87528,13 @@
       "shield damage": 1050,
       "hull damage": 1050,
       "hit force": 675,
-      "missile strength": 40
+      "missile strength": 40,
+      "ammunition": [
+        {
+          "type": "Typhoon Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Typhoon Torpedoes are an improved torpedo technology; they do considerably more damage than ordinary torpedoes. However, they are also much slower, because they are intended mostly for use against large and slow-moving capital ships. As a result, sufficiently skilled pilots can often dodge around them. \tPods enable fighters and other light craft to carry small quantities of Typhoon Torpedoes into battle while retaining enough space for other weapons. Large ships are better off with full-size launchers. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -87837,7 +88044,6 @@
         "frame rate": 4
       },
       "sound": "rocket",
-      "ammo": "Heavy Rocket",
       "stream": true,
       "icon": "icon/rocket",
       "hit effect": "heavy rocket hit",
@@ -87855,7 +88061,13 @@
       "shield damage": 790,
       "hull damage": 670,
       "hit force": 900,
-      "missile strength": 24
+      "missile strength": 24,
+      "ammunition": [
+        {
+          "type": "Heavy Rocket",
+          "count": 1
+        }
+      ]
     },
     "description": "Heavy Rockets are one of the most powerful missile weapons available, but at a price: instead of having a homing system, they simply fire straight forward and rely on a proximity trigger to set them off. Once triggered, however, they damage all ships within their blast radius, making them highly effective against clusters of fighters. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -88106,7 +88318,6 @@
         "frame rate": 4
       },
       "sound": "rocket",
-      "ammo": "Heavy Rocket",
       "icon": "icon/rocket",
       "hit effect": "heavy rocket hit",
       "die effect": "small explosion",
@@ -88125,7 +88336,13 @@
       "shield damage": 790,
       "hull damage": 670,
       "hit force": 900,
-      "missile strength": 24
+      "missile strength": 24,
+      "ammunition": [
+        {
+          "type": "Heavy Rocket",
+          "count": 1
+        }
+      ]
     },
     "description": "Heavy Rockets are one of the most powerful missile weapons available, but at a price: instead of having a homing system, they simply fire straight forward and rely on a proximity trigger to set them off. Once triggered, however, they damage all ships within their blast radius, making them highly effective against clusters of fighters. \tPods enable fighters and other light craft to carry small quantities of rockets into battle while retaining enough space for other weapons. Large ships are better off with full-size launchers. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -88373,7 +88590,6 @@
       },
       "hardpoint sprite": "hardpoint/nuke",
       "sound": "nuke",
-      "ammo": "Nuclear Missile",
       "stream": true,
       "icon": "icon/nuke",
       "hit effect": [
@@ -88403,7 +88619,13 @@
       "hull damage": 7000,
       "hit force": 6000,
       "missile strength": 200,
-      "triggers nuke alert": true
+      "triggers nuke alert": true,
+      "ammunition": [
+        {
+          "type": "Nuclear Missile",
+          "count": 1
+        }
+      ]
     },
     "description": "It has been centuries since the last nuclear war was fought, and until very recently, most people in the galaxy assumed that that era of chaos and destruction was forever behind us... \t[Nuclear missiles are a one-shot weapon: each missile occupies a gun slot, and after it is fired, the slot it was in is left empty.]",
     "governments": {
@@ -88859,7 +89081,6 @@
         "random start frame": true
       },
       "sound": "gatling",
-      "ammo": "Gatling Gun Ammo",
       "icon": "icon/gat",
       "inaccuracy": 2,
       "velocity": 16,
@@ -88869,9 +89090,20 @@
       "burst reload": 1,
       "firing energy": 0.03,
       "firing heat": 2.5,
-      "submunition": "gbullet",
       "cluster": true,
-      "hit effect": "bullet impact"
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 1
+        }
+      ]
     },
     "description": "When Dr. Richard J. Gatling invented the rapid-fire gun bearing his name in the 19th century, he hoped that its destructiveness would lead to the end of war itself. Over a millennium later, this modern incarnation of the Gatling Gun sees action in the stars, a testament to its fundamentally robust design - and Dr. Gatling's naivete. While capable of a high fire rate, this gun needs to cool down for twice as long as it fires, and can only sustain a maximum of three seconds of continuous fire. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -89121,17 +89353,6 @@
         "random start frame": true
       },
       "hardpoint sprite": "hardpoint/gat turret hardpoint",
-      "submunition gbullet": [
-        {
-          "offset": 1.5,
-          "facing": 0.3
-        },
-        {
-          "offset": -1.5,
-          "facing": -0.3
-        }
-      ],
-      "Gatling Gun Ammo": 2,
       "icon": "icon/gat turret",
       "inaccuracy": 2,
       "turret turn": 3.6,
@@ -89143,7 +89364,19 @@
       "firing energy": 0.06,
       "firing heat": 5,
       "cluster": true,
-      "hit effect": "bullet impact"
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 2
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 2
+        }
+      ]
     },
     "description": "In an act that would make Dr. Richard J. Gatling spin in his grave with the ferocity of the barrels of his invention, the Gatling Turret was born when a resourceful pirate thought to replace the Energy Blasters on a Blaster Turret with a pair of Gatling Guns. Ever since, the dominion of the Gatling Turret has spread across the Southern Rim, terrorizing merchants and law enforcement alike with its unparalleled ability to tear apart the hulls of ships. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -89305,7 +89538,6 @@
       "sprite": "projectile/plasma discharge",
       "sound": "plasma discharger",
       "hit effect": "blaster impact",
-      "submunition": "plasma particle",
       "inaccuracy": 8,
       "velocity": 10,
       "lifetime": 64,
@@ -89315,7 +89547,13 @@
       "firing heat": 30,
       "shield damage": 33,
       "hull damage": 39,
-      "minable damage": 90
+      "minable damage": 90,
+      "submunitions": [
+        {
+          "type": "plasma particle",
+          "count": 1
+        }
+      ]
     },
     "description": "The Incipias started to mine asteroids long before they began intrasystem travel due to the proximity of their home world's atmosphere to its rings. As a result this mining tool seems to be more advanced than their general technology, yet it is still not comparable to the efficiency of human weapons. \tThe discharger itself shoots bolts of high density plasma that split up into small particles after some time. Because of the plasma infuser the fire rate is exceptional, but the energy usage is severe.",
     "governments": {
@@ -89519,8 +89757,18 @@
       },
       "optical tracking": 1,
       "turn": 0.5,
-      "ammo": "Star Tail Cell",
-      "submunition": "Star Tail Projectile"
+      "submunitions": [
+        {
+          "type": "Star Tail Projectile",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Star Tail Cell",
+          "count": 1
+        }
+      ]
     },
     "description": "Little to no information about this weapon has ever been made public. Rumors are that it shoots highly volatile plasma chunks. \tCaptains that have used this weapon say that its projectiles could change direction mid-flight, and were able to follow their targets despite attempts by their victims to dodge the shots. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -91377,7 +91625,6 @@
       "sound": "magic am",
       "hit effect": "large explosion",
       "inaccuracy": 0.5,
-      "submunition": "Asteroid Circle Submunition",
       "velocity": 4,
       "lifetime": 100,
       "reload": 60,
@@ -91386,7 +91633,13 @@
       "hit force": 3900,
       "hull damage": 600,
       "slowing damage": -28,
-      "blast radius": 20
+      "blast radius": 20,
+      "submunitions": [
+        {
+          "type": "Asteroid Circle Submunition",
+          "count": 1
+        }
+      ]
     },
     "description": "Similar in appearance to the anti-missile used by some of these ships, this weapon was created with two functions in mind: slowing down an opponent until it gets close enough, and then eliminating it with heavy, direct damage to the hull.",
     "governments": {
@@ -91473,8 +91726,13 @@
       "turn": 16,
       "hit effect": "seeker impact",
       "lifetime": 20,
-      "submunition": "creeper1 print",
-      "reload": 100
+      "reload": 100,
+      "submunitions": [
+        {
+          "type": "creeper1 print",
+          "count": 1
+        }
+      ]
     },
     "description": "By creating a circle of energy-based mines and then converting them into missiles at the same time, this weapon is capable of breaking through anti-missile defenses better than most.",
     "governments": {
@@ -91516,9 +91774,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper1 static",
-        "creeper2 print"
+      "submunitions": [
+        {
+          "type": "creeper1 static",
+          "count": 1
+        },
+        {
+          "type": "creeper2 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -91545,8 +91809,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 75,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -91574,9 +91843,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper2 static",
-        "creeper3 print"
+      "submunitions": [
+        {
+          "type": "creeper2 static",
+          "count": 1
+        },
+        {
+          "type": "creeper3 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -91603,8 +91878,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 70,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -91632,9 +91912,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper3 static",
-        "creeper4 print"
+      "submunitions": [
+        {
+          "type": "creeper3 static",
+          "count": 1
+        },
+        {
+          "type": "creeper4 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -91661,8 +91947,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 65,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -91690,9 +91981,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper4 static",
-        "creeper5 print"
+      "submunitions": [
+        {
+          "type": "creeper4 static",
+          "count": 1
+        },
+        {
+          "type": "creeper5 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -91719,8 +92016,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 60,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -91748,9 +92050,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper5 static",
-        "creeper6 print"
+      "submunitions": [
+        {
+          "type": "creeper5 static",
+          "count": 1
+        },
+        {
+          "type": "creeper6 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -91777,8 +92085,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 55,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -91806,9 +92119,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper6 static",
-        "creeper7 print"
+      "submunitions": [
+        {
+          "type": "creeper6 static",
+          "count": 1
+        },
+        {
+          "type": "creeper7 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -91835,8 +92154,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 50,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -91864,9 +92188,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper7 static",
-        "creeper8 print"
+      "submunitions": [
+        {
+          "type": "creeper7 static",
+          "count": 1
+        },
+        {
+          "type": "creeper8 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -91893,8 +92223,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 45,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -91922,9 +92257,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper8 static",
-        "creeper9 print"
+      "submunitions": [
+        {
+          "type": "creeper8 static",
+          "count": 1
+        },
+        {
+          "type": "creeper9 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -91951,8 +92292,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 40,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -91980,9 +92326,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper9 static",
-        "creeper10 print"
+      "submunitions": [
+        {
+          "type": "creeper9 static",
+          "count": 1
+        },
+        {
+          "type": "creeper10 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92009,8 +92361,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 35,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92038,9 +92395,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper10 static",
-        "creeper11 print"
+      "submunitions": [
+        {
+          "type": "creeper10 static",
+          "count": 1
+        },
+        {
+          "type": "creeper11 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92067,8 +92430,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 30,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92096,9 +92464,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper11 static",
-        "creeper12 print"
+      "submunitions": [
+        {
+          "type": "creeper11 static",
+          "count": 1
+        },
+        {
+          "type": "creeper12 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92125,8 +92499,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 25,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92154,9 +92533,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper12 static",
-        "creeper13 print"
+      "submunitions": [
+        {
+          "type": "creeper12 static",
+          "count": 1
+        },
+        {
+          "type": "creeper13 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92183,8 +92568,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 20,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92212,9 +92602,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper13 static",
-        "creeper14 print"
+      "submunitions": [
+        {
+          "type": "creeper13 static",
+          "count": 1
+        },
+        {
+          "type": "creeper14 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92241,8 +92637,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 15,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92270,9 +92671,15 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": [
-        "creeper14 static",
-        "creeper15 print"
+      "submunitions": [
+        {
+          "type": "creeper14 static",
+          "count": 1
+        },
+        {
+          "type": "creeper15 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92299,8 +92706,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 10,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92328,7 +92740,12 @@
       "turn": -8,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": "creeper15 static"
+      "submunitions": [
+        {
+          "type": "creeper15 static",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92354,8 +92771,13 @@
       "drag": 1,
       "hit effect": "seeker impact",
       "lifetime": 5,
-      "submunition": "asteroid launch",
-      "hull damage": 60
+      "hull damage": 60,
+      "submunitions": [
+        {
+          "type": "asteroid launch",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92419,17 +92841,24 @@
       "drag": 0.1,
       "acceleration": 1,
       "lifetime": 2000,
-      "submunition asteroid laser 1": {
-        "offset": 0
-      },
-      "submunition": [
-        "spin1 print right",
-        "spin1 print left"
-      ],
       "fire effect": "asteroid glow",
       "split range": 400,
       "reload": 150,
-      "firing heat": 5
+      "firing heat": 5,
+      "submunitions": [
+        {
+          "type": "spin1 print right",
+          "count": 1
+        },
+        {
+          "type": "spin1 print left",
+          "count": 1
+        },
+        {
+          "type": "asteroid laser 1",
+          "count": 1
+        }
+      ]
     },
     "description": "This very peculiar weapon overwhelms its target by creating an array of short-living, laser-armed entities. However, the precision it requires, as well as its low raw damage output, limits its potential.",
     "governments": {
@@ -92473,9 +92902,15 @@
       "drag": 0.1,
       "turn": -5,
       "lifetime": 40,
-      "submunition": [
-        "track1 print right",
-        "spin2 print left"
+      "submunitions": [
+        {
+          "type": "track1 print right",
+          "count": 1
+        },
+        {
+          "type": "spin2 print left",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92506,9 +92941,15 @@
       "drag": 0.1,
       "turn": 5,
       "lifetime": 40,
-      "submunition": [
-        "track1 print left",
-        "spin2 print right"
+      "submunitions": [
+        {
+          "type": "track1 print left",
+          "count": 1
+        },
+        {
+          "type": "spin2 print right",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92542,12 +92983,19 @@
       "lifetime": 550,
       "inaccuracy": 5,
       "split range": 180,
-      "submunition asteroid laser 1": {
-        "offset": 0
-      },
-      "submunition": [
-        "spin2 print right",
-        "spin2 print left"
+      "submunitions": [
+        {
+          "type": "spin2 print right",
+          "count": 1
+        },
+        {
+          "type": "spin2 print left",
+          "count": 1
+        },
+        {
+          "type": "asteroid laser 1",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92581,12 +93029,19 @@
       "lifetime": 550,
       "inaccuracy": 5,
       "split range": 180,
-      "submunition asteroid laser 1": {
-        "offset": 0
-      },
-      "submunition": [
-        "spin2 print right",
-        "spin2 print left"
+      "submunitions": [
+        {
+          "type": "spin2 print right",
+          "count": 1
+        },
+        {
+          "type": "spin2 print left",
+          "count": 1
+        },
+        {
+          "type": "asteroid laser 1",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92617,9 +93072,15 @@
       "drag": 0.1,
       "turn": -5,
       "lifetime": 40,
-      "submunition": [
-        "track2 print right",
-        "spin3 print left"
+      "submunitions": [
+        {
+          "type": "track2 print right",
+          "count": 1
+        },
+        {
+          "type": "spin3 print left",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92650,9 +93111,15 @@
       "drag": 0.1,
       "turn": 5,
       "lifetime": 40,
-      "submunition": [
-        "track2 print left",
-        "spin3 print right"
+      "submunitions": [
+        {
+          "type": "track2 print left",
+          "count": 1
+        },
+        {
+          "type": "spin3 print right",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92686,12 +93153,19 @@
       "lifetime": 550,
       "inaccuracy": 5,
       "split range": 180,
-      "submunition asteroid laser 1": {
-        "offset": 0
-      },
-      "submunition": [
-        "spin3 print right",
-        "spin3 print left"
+      "submunitions": [
+        {
+          "type": "spin3 print right",
+          "count": 1
+        },
+        {
+          "type": "spin3 print left",
+          "count": 1
+        },
+        {
+          "type": "asteroid laser 1",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92725,12 +93199,19 @@
       "lifetime": 550,
       "inaccuracy": 5,
       "split range": 180,
-      "submunition asteroid laser 1": {
-        "offset": 0
-      },
-      "submunition": [
-        "spin3 print right",
-        "spin3 print left"
+      "submunitions": [
+        {
+          "type": "spin3 print right",
+          "count": 1
+        },
+        {
+          "type": "spin3 print left",
+          "count": 1
+        },
+        {
+          "type": "asteroid laser 1",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92761,9 +93242,15 @@
       "drag": 0.1,
       "turn": -5,
       "lifetime": 40,
-      "submunition": [
-        "track3 print right",
-        "spin4 print left"
+      "submunitions": [
+        {
+          "type": "track3 print right",
+          "count": 1
+        },
+        {
+          "type": "spin4 print left",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92794,9 +93281,15 @@
       "drag": 0.1,
       "turn": 5,
       "lifetime": 40,
-      "submunition": [
-        "track3 print left",
-        "spin4 print right"
+      "submunitions": [
+        {
+          "type": "track3 print left",
+          "count": 1
+        },
+        {
+          "type": "spin4 print right",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92830,12 +93323,19 @@
       "lifetime": 550,
       "inaccuracy": 5,
       "split range": 180,
-      "submunition asteroid laser 1": {
-        "offset": 0
-      },
-      "submunition": [
-        "spin4 print right",
-        "spin4 print left"
+      "submunitions": [
+        {
+          "type": "spin4 print right",
+          "count": 1
+        },
+        {
+          "type": "spin4 print left",
+          "count": 1
+        },
+        {
+          "type": "asteroid laser 1",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92869,12 +93369,19 @@
       "lifetime": 550,
       "inaccuracy": 5,
       "split range": 180,
-      "submunition asteroid laser 1": {
-        "offset": 0
-      },
-      "submunition": [
-        "spin4 print right",
-        "spin4 print left"
+      "submunitions": [
+        {
+          "type": "spin4 print right",
+          "count": 1
+        },
+        {
+          "type": "spin4 print left",
+          "count": 1
+        },
+        {
+          "type": "asteroid laser 1",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -92905,7 +93412,12 @@
       "drag": 0.1,
       "turn": -5,
       "lifetime": 40,
-      "submunition": "track4 print right"
+      "submunitions": [
+        {
+          "type": "track4 print right",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92935,7 +93447,12 @@
       "drag": 0.1,
       "turn": 5,
       "lifetime": 40,
-      "submunition": "track4 print left"
+      "submunitions": [
+        {
+          "type": "track4 print left",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -92968,9 +93485,12 @@
       "lifetime": 550,
       "inaccuracy": 5,
       "split range": 180,
-      "submunition asteroid laser 1": {
-        "offset": 0
-      }
+      "submunitions": [
+        {
+          "type": "asteroid laser 1",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -93003,9 +93523,12 @@
       "lifetime": 550,
       "inaccuracy": 5,
       "split range": 180,
-      "submunition asteroid laser 1": {
-        "offset": 0
-      }
+      "submunitions": [
+        {
+          "type": "asteroid laser 1",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -93071,15 +93594,6 @@
       "drag": 0.1,
       "acceleration": 1,
       "lifetime": 30,
-      "submunition asteroid missile": [
-        {
-          "facing": 30
-        },
-        {
-          "facing": -30
-        }
-      ],
-      "submunition": "magic deployer1",
       "homing": {
         "blindspot": true
       },
@@ -93087,7 +93601,17 @@
       "turn": 0,
       "split range": 180,
       "reload": 100,
-      "firing heat": 5
+      "firing heat": 5,
+      "submunitions": [
+        {
+          "type": "magic deployer1",
+          "count": 1
+        },
+        {
+          "type": "asteroid missile",
+          "count": 2
+        }
+      ]
     },
     "description": "While it may be technically described as a missile, its specifics differ from the average rocket launcher. The heap of energy created by this weapon's fire continuously releases projectiles which home in onto enemies, until finally exploding and breaking up into an enormous barrage of similar projectiles. These attributes make it very good at overwhelming anti-missiles enough to render them useless, then impacting a fair share of damage while they are down.",
     "governments": {
@@ -93163,15 +93687,16 @@
       "acceleration": 1,
       "hit effect": "seeker impact",
       "lifetime": 30,
-      "submunition asteroid missile": [
+      "submunitions": [
         {
-          "facing": 30
+          "type": "magic deployer2",
+          "count": 1
         },
         {
-          "facing": -30
+          "type": "asteroid missile",
+          "count": 2
         }
-      ],
-      "submunition": "magic deployer2"
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -93197,15 +93722,16 @@
       "acceleration": 1,
       "hit effect": "seeker impact",
       "lifetime": 30,
-      "submunition asteroid missile": [
+      "submunitions": [
         {
-          "facing": 30
+          "type": "magic deployer3",
+          "count": 1
         },
         {
-          "facing": -30
+          "type": "asteroid missile",
+          "count": 2
         }
-      ],
-      "submunition": "magic deployer3"
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -93231,15 +93757,16 @@
       "acceleration": 1,
       "hit effect": "seeker impact",
       "lifetime": 30,
-      "submunition asteroid missile": [
+      "submunitions": [
         {
-          "facing": 30
+          "type": "magic deployer4",
+          "count": 1
         },
         {
-          "facing": -30
+          "type": "asteroid missile",
+          "count": 2
         }
-      ],
-      "submunition": "magic deployer4"
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -93265,15 +93792,16 @@
       "acceleration": 1,
       "hit effect": "seeker impact",
       "lifetime": 30,
-      "submunition asteroid missile": [
+      "submunitions": [
         {
-          "facing": 30
+          "type": "magic deployer5",
+          "count": 1
         },
         {
-          "facing": -30
+          "type": "asteroid missile",
+          "count": 2
         }
-      ],
-      "submunition": "magic deployer5"
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -93299,15 +93827,16 @@
       "acceleration": 1,
       "hit effect": "seeker impact",
       "lifetime": 30,
-      "submunition asteroid missile": [
+      "submunitions": [
         {
-          "facing": 30
+          "type": "magic deployer6",
+          "count": 1
         },
         {
-          "facing": -30
+          "type": "asteroid missile",
+          "count": 2
         }
-      ],
-      "submunition": "magic deployer6"
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -93333,12 +93862,10 @@
       "acceleration": 1,
       "hit effect": "seeker impact",
       "lifetime": 30,
-      "submunition asteroid missile 15": [
+      "submunitions": [
         {
-          "facing": 30
-        },
-        {
-          "facing": -30
+          "type": "asteroid missile 15",
+          "count": 2
         }
       ]
     },
@@ -93376,13 +93903,16 @@
       "acceleration": 1,
       "lifetime": 20,
       "turn": -6,
-      "submunition wep1 print 2": {
-        "facing": 15
-      },
       "reload": 130,
       "burst count": 7,
       "burst reload": 1,
-      "firing heat": 5
+      "firing heat": 5,
+      "submunitions": [
+        {
+          "type": "wep1 print 2",
+          "count": 1
+        }
+      ]
     },
     "description": "An impressive defensive weapon, fending off even the mightiest attackers by projecting enormous bubble-shaped minefields all around itself. Though not a rapid-fire weapon by any means, it is able to maintain one of those fields continuously without issue.",
     "governments": {
@@ -93428,9 +93958,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep2 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep2 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93463,9 +93999,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep3 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep3 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93498,9 +94040,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep4 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep4 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93533,9 +94081,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep5 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep5 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93568,9 +94122,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep6 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep6 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93603,9 +94163,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep7 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep7 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93638,9 +94204,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep8 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep8 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93673,9 +94245,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep9 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep9 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93708,9 +94286,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep10 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep10 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93743,9 +94327,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep11 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep11 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93778,9 +94368,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep12 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep12 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93813,9 +94409,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep13 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep13 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93848,9 +94450,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep14 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep14 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93883,9 +94491,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep15 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep15 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93918,9 +94532,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep16 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep16 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93953,9 +94573,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep17 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep17 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -93988,9 +94614,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep18 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep18 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94023,9 +94655,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep19 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep19 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94058,9 +94696,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep20 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep20 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94093,9 +94737,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep21 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep21 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94128,9 +94778,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep22 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep22 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94163,9 +94819,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep23 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep23 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94198,9 +94860,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep24 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep24 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94233,9 +94901,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep25 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep25 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94268,9 +94942,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep26 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep26 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94303,9 +94983,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep27 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep27 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94338,9 +95024,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep28 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep28 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94373,9 +95065,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep29 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep29 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94408,9 +95106,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep30 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep30 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94443,9 +95147,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep31 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep31 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94478,9 +95188,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep32 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep32 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94513,9 +95229,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep33 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep33 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94548,9 +95270,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep34 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep34 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94583,9 +95311,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep35 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep35 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94618,9 +95352,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep36 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep36 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94653,9 +95393,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep37 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep37 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94688,9 +95434,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep38 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep38 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94723,9 +95475,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep39 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep39 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94758,9 +95516,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep40 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep40 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94793,9 +95557,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep41 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep41 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94828,9 +95598,15 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": [
-        "wep static",
-        "wep42 print"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        },
+        {
+          "type": "wep42 print",
+          "count": 1
+        }
       ]
     },
     "governments": {
@@ -94863,7 +95639,12 @@
       "corrosion damage": -1.4,
       "hull damage": -50,
       "slowing damage": -9,
-      "submunition": "wep static"
+      "submunitions": [
+        {
+          "type": "wep static",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -95024,14 +95805,19 @@
     "weapon capacity": -1,
     "gun ports": -1,
     "weapon": {
-      "submunition": "asteroid fragment",
       "inaccuracy": 1,
       "velocity": 70,
       "lifetime": 2,
       "reload": 360,
       "safe": true,
       "split range": 300,
-      "blast radius": 400
+      "blast radius": 400,
+      "submunitions": [
+        {
+          "type": "asteroid fragment",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "official-game/endless-sky": {
@@ -95050,10 +95836,6 @@
   {
     "name": "asteroid fragment",
     "weapon": {
-      "submunition": [
-        "spin1 print right",
-        "spin1 print left"
-      ],
       "inaccuracy": 360,
       "velocity": -65,
       "random velocity": 20,
@@ -95064,7 +95846,17 @@
       "ion damage": 3,
       "safe": true,
       "hit force": 100,
-      "blast radius": 200
+      "blast radius": 200,
+      "submunitions": [
+        {
+          "type": "spin1 print right",
+          "count": 1
+        },
+        {
+          "type": "spin1 print left",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -95648,7 +96440,12 @@
       "reload": 10,
       "firing energy": 62,
       "firing heat": 16,
-      "submunition": "Annihilator Projectile"
+      "submunitions": [
+        {
+          "type": "Annihilator Projectile",
+          "count": 1
+        }
+      ]
     },
     "description": "The Builders mounted two Annihilators on this turret, making it highly efficient against enemy shields.",
     "governments": {
@@ -95750,7 +96547,6 @@
         "no repeat": true
       },
       "sound": "torpedo",
-      "ammo": "EMP Torpedo",
       "stream": true,
       "icon": "icon/emp",
       "fire effect": "emp torpedo fire",
@@ -95781,7 +96577,13 @@
       "ion damage": 48,
       "scrambling damage": 48,
       "hit force": 135,
-      "missile strength": 80
+      "missile strength": 80,
+      "ammunition": [
+        {
+          "type": "EMP Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Eons ago, the Builders were attacked by alien ships which used weapons that ignored their hull and damaged their reactors. Although they never did recover any of these weapons, after years of research they managed to replicate their effects. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -95840,7 +96642,6 @@
         "frame rate": 2
       },
       "sound": "rocket",
-      "ammo": "Ka'het MHD Generator",
       "icon": "icon/mhd",
       "hit effect": [
         "mhd explosion",
@@ -95862,7 +96663,13 @@
       "hull damage": 9060,
       "heat damage": 4920,
       "hit force": 2400,
-      "missile strength": 280
+      "missile strength": 280,
+      "ammunition": [
+        {
+          "type": "Ka'het MHD Generator",
+          "count": 1
+        }
+      ]
     },
     "description": "Most drones the Builders possessed were completely unarmed, making them very vulnerable to enemy attacks. Since installing weapons would have greatly reduced its cargo capacity, they instead decided to dissuade possible hijackers by developing these Emergency Deployers: they work by activating a series of reactions inside the ship's MHD generator and then ejecting it towards the enemy, resulting in a large scale detonation as soon as it hits something.",
     "governments": {
@@ -107321,7 +108128,6 @@
         "random start frame": true
       },
       "sound": "piercer",
-      "ammo": "Piercer Missile",
       "icon": "icon/piercer",
       "fire effect": "piercer fire",
       "hit effect": [
@@ -107340,7 +108146,13 @@
       "piercing": 0.2,
       "hit force": 144,
       "missile strength": 23,
-      "stream": true
+      "stream": true,
+      "ammunition": [
+        {
+          "type": "Piercer Missile",
+          "count": 1
+        }
+      ]
     },
     "description": "Korath Piercer Missiles carry a pair of warheads. The first, a smaller one in the very tip of the missile, explodes on impact to blast a hole in the ship's shields to allow some of the subsequent, larger explosion to pierce through. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -107899,12 +108711,10 @@
         "no repeat": true
       },
       "sound": "minelayer",
-      "ammo": "Cluster Mine",
       "icon": "icon/minelayer",
       "fire effect": "minelayer fire",
       "hit effect": "huge explosion",
       "die effect": "minelayer split",
-      "submunition": "Korath Mine Submunition",
       "inaccuracy": 10,
       "velocity": 3,
       "lifetime": 100,
@@ -107923,7 +108733,19 @@
       "shield damage": -3200,
       "hull damage": -2400,
       "hit force": -225,
-      "stream": true
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "Korath Mine Submunition",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Cluster Mine",
+          "count": 1
+        }
+      ]
     },
     "description": "This launcher fires cluster munitions that split into a cloud of stationary mines that each do a considerable amount of damage if a ship crashes into them. However, if a ship hits the mine before it has a chance to deploy, the damage is considerably reduced. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -109372,7 +110194,6 @@
     "weapon": {
       "sprite": "projectile/firelight",
       "sound": "firelight",
-      "ammo": "Firelight Missile",
       "icon": "icon/firelight",
       "hit effect": "firelight ring",
       "die effect": "piercer fire",
@@ -109392,8 +110213,19 @@
       },
       "hit force": 150,
       "missile strength": 33,
-      "submunition": "Firelight Turning",
-      "stream": true
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "Firelight Turning",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Firelight Missile",
+          "count": 1
+        }
+      ]
     },
     "description": "As the Firestorm Torpedo does not require full reactor shielding or safety interlocks, Korath engineers were able to create the Firelight by further scaling down the reactor element to fit in a missile casing for use on and against smaller vessels. \tRather than rely on traditional reaction engines attached to the missile for launch, this rapid-fire missile bank appears to operate on the same principles as a Banisher. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -109558,7 +110390,12 @@
       "optical tracking": 0.9,
       "hit force": 90,
       "missile strength": 30,
-      "submunition": "Firelight Activated"
+      "submunitions": [
+        {
+          "type": "Firelight Activated",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -109818,7 +110655,6 @@
       },
       "hardpoint sprite": "hardpoint/firestorm battery",
       "sound": "firestorm",
-      "ammo": "Firestorm Torpedo",
       "turret turn": 2.6,
       "icon": "icon/firestorm torpedo",
       "hit effect": "firestorm ring",
@@ -109846,7 +110682,13 @@
       "heat damage": 5320,
       "burn damage": 40,
       "hit force": 6000,
-      "missile strength": 115
+      "missile strength": 115,
+      "ammunition": [
+        {
+          "type": "Firestorm Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Though not as refined as the newer Firelight version, this torpedo contains an augmented Korath Plasma Core reactor element completely stripped of its protective casing and safety interlocks. When activated, it generates a tremendous explosion of heat and force that pushes ships away and will even melt their hulls. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -113548,7 +114390,12 @@
       "burst count": 19,
       "firing energy": 80,
       "firing heat": 5,
-      "submunition": "ribault unguided"
+      "submunitions": [
+        {
+          "type": "ribault unguided",
+          "count": 1
+        }
+      ]
     },
     "description": "The rapid flurries shot by this turret cover a wide area at a long range, firing a storm of negative energy particles. Attractive forces guide these particles towards their target, dealing very high damage to enemies within the immediate vicinity while keeping those that flee within the Quarg's reach.",
     "governments": {
@@ -113630,7 +114477,12 @@
       "hit effect": "ribault impact",
       "inaccuracy": 11,
       "lifetime": 20,
-      "submunition": "ribault guided"
+      "submunitions": [
+        {
+          "type": "ribault guided",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -114890,7 +115742,6 @@
         "no repeat": true
       },
       "sound": "torpedo",
-      "ammo": "EMP Torpedo",
       "icon": "icon/emp",
       "fire effect": "emp torpedo fire",
       "hit effect": [
@@ -114921,7 +115772,13 @@
       "ion damage": 48,
       "scrambling damage": 48,
       "hit force": 135,
-      "missile strength": 80
+      "missile strength": 80,
+      "ammunition": [
+        {
+          "type": "EMP Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Electromagnetic pulse weapons were developed by the Remnant during the early days of their colony, when they were living in fear that the Alphas would overrun human space and expand beyond it. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -115003,7 +115860,6 @@
         "no repeat": true
       },
       "sound": "torpedo",
-      "ammo": "EMP Torpedo",
       "icon": "icon/emp",
       "fire effect": "emp torpedo fire",
       "hit effect": [
@@ -115035,7 +115891,13 @@
       "ion damage": 48,
       "scrambling damage": 48,
       "hit force": 135,
-      "missile strength": 80
+      "missile strength": 80,
+      "ammunition": [
+        {
+          "type": "EMP Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "Electromagnetic pulse weapons were originally developed by the Remnant during the early days of their colony, when they were living in fear that the Alphas would overrun human space and expand beyond it. \tThe newest revision of the EMP Torpedo Bay, the \"Teciimach,\" contains two major improvements. The first is a mechanism on the launcher that alters each torpedoes' energy to ignore allies, letting Teciimachs be deployed without risk of ionizing yourself or the rest of your fleet. \tThe second is a significant reduction in the size of the launcher hardware, allowing space for a clip that is a third larger. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -115109,7 +115971,6 @@
         "no repeat": true
       },
       "sound": "torpedo",
-      "ammo": "EMP Torpedo",
       "icon": "icon/emp",
       "fire effect": "emp torpedo fire",
       "hit effect": [
@@ -115142,7 +116003,13 @@
       "ion damage": 48,
       "scrambling damage": 48,
       "hit force": 135,
-      "missile strength": 80
+      "missile strength": 80,
+      "ammunition": [
+        {
+          "type": "EMP Torpedo",
+          "count": 1
+        }
+      ]
     },
     "description": "While originally developed as a heavy weapon to paralyze enemy capital ships, the Remnant have utilized on-the-spot assembly techniques to support their use on smaller ships. These pods sacrifice multiple assembly systems in order to fit them onto interceptor-class vessels. \tTo better fit the hit-and-run tactics used on interceptors and light warships, Teciimach Pods launch all ready torpedoes at once instead of in sequence, maximizing the ion damage dealt in a single moment. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -118235,7 +119102,12 @@
       "optical tracking": 1,
       "cluster": true,
       "safe": true,
-      "submunition": "Fate Sealer Activated"
+      "submunitions": [
+        {
+          "type": "Fate Sealer Activated",
+          "count": 1
+        }
+      ]
     },
     "description": "An energy particle weapon that intensifies a blast to a single location after a brief duration. The after-effect of the explosion pulls the target closer to the origin of the blast.",
     "governments": {
@@ -118321,7 +119193,12 @@
       "optical tracking": 1,
       "cluster": true,
       "safe": true,
-      "submunition": "Fate Divider Activated"
+      "submunitions": [
+        {
+          "type": "Fate Divider Activated",
+          "count": 1
+        }
+      ]
     },
     "description": "An energy particle weapon that intensifies a blast to a single location after a brief duration. The after-effect of the explosion pushes the target farther from the origin of the blast.",
     "governments": {
@@ -118455,7 +119332,12 @@
       "reload": 100,
       "blast radius": 10,
       "split range": 200,
-      "submunition": "Timer Submunition"
+      "submunitions": [
+        {
+          "type": "Timer Submunition",
+          "count": 1
+        }
+      ]
     },
     "governments": {
       "official-game/endless-sky": {
@@ -119067,7 +119949,6 @@
       "icon": "icon/shard",
       "fire effect": "basic launch",
       "hit effect": "shard impact",
-      "submunition": "Shard inactive",
       "inaccuracy": 80,
       "velocity": 15,
       "lifetime": 40,
@@ -119086,7 +119967,13 @@
         "throttle control": true
       },
       "radar tracking": 0.8,
-      "missile strength": 1
+      "missile strength": 1,
+      "submunitions": [
+        {
+          "type": "Shard inactive",
+          "count": 1
+        }
+      ]
     },
     "description": "To reduce reliance on supply chains during prolonged war time, this outfit contains specialized fabricators that produce simple kinetic missiles from stock materials and a small amount of stored fuel; their guidance system merely receives data from the shipboard radar. The missiles are fired in volleys of six at a time from each launcher, making them very effective at overwhelming point defenses despite their fragility. However, the low amount of fuel they carry means they can only home in on the target for about a second before they turn into unguided ammunition. Because they are manufactured on the spot, it takes a long time to reload.",
     "governments": {
@@ -119164,13 +120051,18 @@
       },
       "sound": "hion",
       "hit effect": "proton impact",
-      "submunition": "Heavy Ion Fragment",
       "velocity": 28,
       "lifetime": 1,
       "reload": 1,
       "firing energy": 2.9,
       "firing heat": 12.2,
-      "firing force": 13.5
+      "firing force": 13.5,
+      "submunitions": [
+        {
+          "type": "Heavy Ion Fragment",
+          "count": 1
+        }
+      ]
     },
     "description": "The main weapon of the Sheragi fighters is a particle accelerator not unlike the ones used by the Republic Navy and the Syndicate. However, this one produces a dense stream of heavy metal ions instead of bursts of lighter ones, resulting in high damage with intense recoil. Because the particle accelerator itself can be mounted elsewhere, it saves on weapon space.",
     "governments": {
@@ -122393,7 +123285,12 @@
       "hull damage": 93,
       "hit force": 120,
       "cluster": true,
-      "submunition": "Bimodal Switch"
+      "submunitions": [
+        {
+          "type": "Bimodal Switch",
+          "count": 1
+        }
+      ]
     },
     "description": "Precise and deadly, the Ojet Bimodal Coilgun has been the High Houses' armament of choice since long before humans ever took to the stars. It was designed quite simply as a perfect weapon; it is said that by the time the empire of the Predecessors fell, they had seen no need to install any other weapon on their ships for over a thousand years. \tThe Ojet fires hyperdense packets of charged particles that disperse as they travel: up close the concentrated bolt pierces armor, while at a distance the ionic spray destabilizes shielding. Together, a ship equipped with these weapons can adjust its damage profile just by changing its engagement range, allowing it to be highly effective against any foe.",
     "governments": {
@@ -122530,7 +123427,12 @@
       "hull damage": 93,
       "hit force": 120,
       "cluster": true,
-      "submunition": "Bimodal Switch"
+      "submunitions": [
+        {
+          "type": "Bimodal Switch",
+          "count": 1
+        }
+      ]
     },
     "description": "Successor warships have traditionally relied on fixed weaponry to deal with their foes, but the High Houses do produce a turreted platform for the Ojet Coilgun so that their larger and slower vessels can maintain their combat effectiveness against more maneuverable targets. It mounts two of the weapons side by side, rigged to fire double the amount of shots per burst to keep them in sync with the fixed hardpoints.",
     "governments": {
@@ -122636,7 +123538,12 @@
       "firing energy": 30,
       "firing heat": 55,
       "cluster": true,
-      "submunition": "Drag Projectile"
+      "submunitions": [
+        {
+          "type": "Drag Projectile",
+          "count": 1
+        }
+      ]
     },
     "description": "The Successors have a historical affinity for projectile weaponry which persists to the modern day. The Drag Cannon fires a short-ranged, highly inaccurate blast of projectiles that not only deal substantial damage but also temporarily disrupt the target's engines. \tWhile it is an inelegant design in comparison to the time-tested Ojet Coilgun, and consequently less appreciated, the Drag Cannon has found a place on the Successors' fast attack craft primarily as a tool for slowing down enemy vessels so that they can be engaged by a larger fleet.",
     "governments": {
@@ -123087,7 +123994,6 @@
         "random start frame": true
       },
       "sound": "sjeja lance",
-      "ammo": "High-Velocity Spike",
       "icon": "icon/hv spike",
       "fire effect": [
         "moonbeam fleck",
@@ -123106,7 +124012,13 @@
       "hull damage": 1920,
       "piercing": 0.15,
       "hit force": 800,
-      "penetration count": 5
+      "penetration count": 5,
+      "ammunition": [
+        {
+          "type": "High-Velocity Spike",
+          "count": 1
+        }
+      ]
     },
     "description": "The largest and most powerful of the Successors' modern weapons, this massive superconducting coilgun is elegant in its simplicity, cleanly perforating targets at extreme range. Although the weapon requires a substantial burst of power in order to fire, it is capable of storing some of this within the coils themselves, allowing it to be fired without additional battery banks at the cost of inflicting a lingering power draw on the ship's systems. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {
@@ -124115,9 +125027,7 @@
         "frame rate": 0.1
       },
       "sound": "thunderhead",
-      "ammo": "Thunderhead Missile",
       "icon": "icon/thunderhead",
-      "submunition": "Thunderhead",
       "split range": 600,
       "fire effect": "meteor fire",
       "die effect": "missile death",
@@ -124137,7 +125047,19 @@
       },
       "infrared tracking": 1,
       "radar tracking": 0.3,
-      "missile strength": 12
+      "missile strength": 12,
+      "submunitions": [
+        {
+          "type": "Thunderhead",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Thunderhead Missile",
+          "count": 1
+        }
+      ]
     },
     "description": "A prime example of Wanderer ingenuity, Thunderhead Missiles each carry five submunitions that are capable of independent tracking. Even if the target is able to shoot down or evade a few of them, the remaining missile fragments will still find their mark. \tAmmunition for this weapon can be restocked at any outfitter.",
     "governments": {

@@ -567,7 +567,6 @@
         "random start frame": true
       },
       "sound": "explosion tiny",
-      "ammo": "Gatling Gun Ammo",
       "icon": "icon/gat",
       "inaccuracy": 1.2,
       "velocity": 16,
@@ -577,9 +576,20 @@
       "burst reload": 1,
       "firing energy": 0.05,
       "firing heat": 3.5,
-      "submunition": "gbullet",
       "cluster": true,
-      "hit effect": "bullet impact"
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 1
+        }
+      ]
     },
     "description": "Many decades ago, Kraz Cybernetics started a project to upgrade the ancient Gatling Gun design with newer designing technics. While they actually could increase its accuracy and make it maintain substained fire for a longer time, their weapon, the so-called Accurate Gatling Blaster, also requires more energy and more time to completely cool down, not to mention the higher cost and the bullets capacity reduced to little more than half.",
     "governments": {
