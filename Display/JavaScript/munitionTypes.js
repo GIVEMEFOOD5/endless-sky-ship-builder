@@ -457,19 +457,6 @@ function _buildMissileStrengthProfile(w) {
 //  'ammoStored' on the outfit record is the compiled storage amount.
 // ─────────────────────────────────────────────────────────────────────────────
 function _buildAmmoProfile(w, outfitName) {
-    // In the ES data-file / ship-builder JSON there are two ammo formats:
-    //
-    // FORMAT A — single ammo, 1 per shot:
-    //   weapon: { ammo: "Javelin" }
-    //   The key is literally "ammo" and the value is the outfit name string.
-    //
-    // FORMAT B — explicit count:
-    //   weapon: { "Javelin": 2 }
-    //   The ammo outfit name IS the key; the value is the per-shot count (number).
-    //   value === true also means 1 (boolean from some parsers).
-    //
-    // We check FORMAT A first, then scan all keys for FORMAT B.
-
     const index = _getOutfitIndex();
 
     let ammoOutfitName    = null;
@@ -477,19 +464,29 @@ function _buildAmmoProfile(w, outfitName) {
     let ammoOutfitDetails = null;
     let storageCapacityKey = null;
 
-    // ── FORMAT A: weapon.ammo = "OutfitName" ─────────────────────────────────
-    const rawAmmoField = w['ammo'];
-    if (typeof rawAmmoField === 'string' && rawAmmoField.length > 0) {
-        ammoOutfitName    = rawAmmoField;
-        ammoPerShot       = 1;
-        ammoOutfitDetails = index[ammoOutfitName] || null;
+    // ── NEW FORMAT: w.ammunition = [{type, count}, …] ────────────────────────
+    if (Array.isArray(w.ammunition) && w.ammunition.length > 0) {
+        const first    = w.ammunition[0];
+        ammoOutfitName = first?.type  ?? null;
+        ammoPerShot    = first?.count ?? 1;
+        if (ammoOutfitName)
+            ammoOutfitDetails = index[ammoOutfitName] || null;
     }
 
-    // ── FORMAT B: weapon["OutfitName"] = count|true ──────────────────────────
-    // Only run if FORMAT A didn't match.
+    // ── LEGACY FORMAT A: weapon.ammo = "OutfitName" ──────────────────────────
+    if (!ammoOutfitName) {
+        const rawAmmoField = w['ammo'];
+        if (typeof rawAmmoField === 'string' && rawAmmoField.length > 0) {
+            ammoOutfitName    = rawAmmoField;
+            ammoPerShot       = 1;
+            ammoOutfitDetails = index[ammoOutfitName] || null;
+        }
+    }
+
+    // ── LEGACY FORMAT B: weapon["OutfitName"] = count|true ───────────────────
     if (!ammoOutfitName) {
         for (const key of Object.keys(w)) {
-            if (key === 'ammo') continue;          // already checked above
+            if (key === 'ammo' || key === 'ammunition') continue;
             const val = w[key];
             if (val === false || val === 0 || val === null || val === undefined) continue;
             if (typeof val !== 'number' && val !== true) continue;
@@ -497,17 +494,11 @@ function _buildAmmoProfile(w, outfitName) {
             const candidate = index[key];
             if (!candidate) continue;
 
-            // Confirm it is an ammo outfit via any of the three conventions:
-            //   (a) explicit ammoStored field
-            //   (b) category === 'Ammunition'
-            //   (c) own-name attribute (e.g. outfit "Javelin" has attribute "Javelin" = N)
-            // NEW — add negative-capacity check:
             const isAmmo =
                 candidate.category === 'Ammunition' ||
                 (typeof candidate.ammoStored === 'number' && candidate.ammoStored > 0) ||
                 (typeof candidate.attributes?.[key] === 'number' && candidate.attributes[key] > 0) ||
                 (() => {
-                    // negative-capacity ammo: has a "* capacity": -1 attribute
                     const entries = Object.entries(candidate.attributes || {});
                     return entries.some(([k, v]) => k.endsWith(' capacity') && typeof v === 'number' && v < 0) ||
                            Object.keys(candidate).some(k =>
@@ -521,11 +512,11 @@ function _buildAmmoProfile(w, outfitName) {
             ammoOutfitName    = key;
             ammoPerShot       = val === true ? 1 : Math.max(1, Math.round(val));
             ammoOutfitDetails = candidate;
-            break;   // weapons never reference more than one ammo type
+            break;
         }
     }
 
-    // Resolve storage details if we found an ammo outfit
+    // Resolve storage details
     if (ammoOutfitName && !ammoOutfitDetails)
         ammoOutfitDetails = index[ammoOutfitName] || null;
 
@@ -540,14 +531,12 @@ function _buildAmmoProfile(w, outfitName) {
 
     const hasAmmo = ammoOutfitName !== null;
 
-    // Firing costs
     const firingCosts = {};
     for (const key of FIRING_COST_KEYS) {
         const val = w[key] || 0;
         if (val) firingCosts[key] = val;
     }
 
-    // Firing status injections (applied to the attacker, not the target)
     const firingStatusInj = {};
     for (const key of FIRING_STATUS_KEYS) {
         const val = w[key] || 0;
@@ -635,7 +624,17 @@ const MAX_SUBMUNITION_DEPTH = 12;
 function _resolveSubmunitionRefs(w) {
     const results = [];
 
-    // FORMAT A
+    // ── NEW FORMAT: w.submunitions = [{type, count}, …] ──────────────────────
+    if (Array.isArray(w.submunitions)) {
+        for (const entry of w.submunitions) {
+            const subName  = entry?.type  ?? null;
+            const subCount = entry?.count ?? 1;
+            if (subName) results.push({ subName, subCount });
+        }
+        if (results.length > 0) return results;
+    }
+
+    // ── LEGACY FORMAT A: w.submunition = "Name" | {name,count} | array ───────
     const rawSub = w.submunition;
     if (rawSub != null) {
         const entries = Array.isArray(rawSub) ? rawSub : [rawSub];
@@ -649,14 +648,12 @@ function _resolveSubmunitionRefs(w) {
         if (results.length > 0) return results;
     }
 
-    // FORMAT A2: "submunition <OutfitName>" key with array of offset objects
-    // e.g. "submunition Speck": [{"offset": -3}, {"offset": 3}]
+    // ── LEGACY FORMAT A2: "submunition OutfitName" key ────────────────────────
     for (const key of Object.keys(w)) {
         if (!key.startsWith('submunition ')) continue;
         const subName = key.slice('submunition '.length).trim();
         if (!subName) continue;
         const val = w[key];
-        // val is an array of offset objects — count = array length
         const subCount = Array.isArray(val) ? val.length
                        : typeof val === 'number' ? Math.max(1, val)
                        : 1;
@@ -664,11 +661,11 @@ function _resolveSubmunitionRefs(w) {
     }
     if (results.length > 0) return results;
 
-    // FORMAT B: outfit name as key with numeric count
+    // ── LEGACY FORMAT B: outfit name as key with numeric count ────────────────
     const index = _getOutfitIndex();
     for (const key of Object.keys(w)) {
-        if (key === 'submunition') continue;
-        if (key.startsWith('submunition ')) continue; // already handled above
+        if (key === 'submunition' || key === 'submunitions') continue;
+        if (key.startsWith('submunition ')) continue;
         const val = w[key];
         if (val === false || val === 0 || val === null || val === undefined) continue;
         if (typeof val !== 'number' && val !== true) continue;

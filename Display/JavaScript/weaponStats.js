@@ -23,37 +23,74 @@ const FPS = 60;
 //  Handles all three formats present in the compiled data.
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ─────────────────────────────────────────────────────────────────────────────
+//  INDEX FALLBACK
+//  When callers don't pass an outfitIndex (e.g. outfit detail page),
+//  WeaponStats falls back to the global outfit index that battleSim maintains.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function _resolveOutfitIndex(outfitIndex) {
+    if (outfitIndex && Object.keys(outfitIndex).length > 0) return outfitIndex;
+
+    // Fallback 1: battleSim's live index (most complete — includes no-category submunition outfits)
+    if (window._outfitIndex && Object.keys(window._outfitIndex).length > 0)
+        return window._outfitIndex;
+
+    // Fallback 2: build from allData on the fly
+    const allData = window.allData || {};
+    const merged = {};
+    for (const pluginData of Object.values(allData)) {
+        const outfitsRaw = pluginData.outfits || [];
+        const outfitsArr = Array.isArray(outfitsRaw) ? outfitsRaw : Object.values(outfitsRaw);
+        for (const o of outfitsArr)
+            if (o.name && !merged[o.name]) merged[o.name] = o;
+    }
+    return merged;
+}
+
 function _getSubmunitionRefs(w, outfitIndex) {
     const results = [];
 
-    // Format A: weapon.submunition = string | {name,count} | array thereof
+    // NEW FORMAT: submunitions: [{type, count}]
+    if (Array.isArray(w.submunitions)) {
+        for (const entry of w.submunitions) {
+            const subName  = entry?.type  ?? null;
+            const subCount = entry?.count ?? 1;
+            if (subName) results.push({ subName, subCount });
+        }
+        if (results.length > 0) return results;
+    }
+
+    // LEGACY A: w.submunition = string | {name,count} | array
     const rawSub = w.submunition;
     if (rawSub != null) {
         const entries = Array.isArray(rawSub) ? rawSub : [rawSub];
         for (const entry of entries) {
             const subName  = typeof entry === 'string' ? entry
                            : typeof entry === 'object' ? (entry?.name ?? null) : null;
-            const subCount = typeof entry === 'object' && entry !== null ? (entry.count ?? 1) : 1;
+            const subCount = typeof entry === 'object' && entry !== null
+                           ? (entry.count ?? 1) : 1;
             if (subName) results.push({ subName, subCount });
         }
         if (results.length > 0) return results;
     }
 
-    // Format A2: "submunition OutfitName" prefixed keys
+    // LEGACY A2: "submunition OutfitName" prefixed keys
     for (const key of Object.keys(w)) {
         if (!key.startsWith('submunition ')) continue;
-        const subName = key.slice('submunition '.length).trim();
+        const subName  = key.slice('submunition '.length).trim();
         if (!subName) continue;
-        const val = w[key];
+        const val      = w[key];
         const subCount = Array.isArray(val) ? val.length
                        : typeof val === 'number' ? Math.max(1, val) : 1;
         results.push({ subName, subCount });
     }
     if (results.length > 0) return results;
 
-    // Format B: outfit name as key with numeric count
+    // LEGACY B: outfit name as key with numeric count
     for (const key of Object.keys(w)) {
-        if (key === 'submunition' || key.startsWith('submunition ')) continue;
+        if (key === 'submunition' || key === 'submunitions') continue;
+        if (key.startsWith('submunition ')) continue;
         const val = w[key];
         if (val === false || val === 0 || val === null || val === undefined) continue;
         if (typeof val !== 'number' && val !== true) continue;
@@ -70,20 +107,21 @@ function _getSubmunitionRefs(w, outfitIndex) {
     return results;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  AMMO RESOLUTION
-//  Exact copy of battleSim.resolveAmmoRef (kept private in battleSim).
-// ─────────────────────────────────────────────────────────────────────────────
-
 function _resolveAmmoRef(w, outfitIndex) {
-    // Format A
+    // NEW FORMAT: ammunition: [{type, count}]
+    if (Array.isArray(w.ammunition) && w.ammunition.length > 0) {
+        const first = w.ammunition[0];
+        if (first?.type) return { ammoName: first.type, ammoCount: first.count ?? 1 };
+    }
+
+    // LEGACY A: w.ammo = "OutfitName"
     const rawAmmoField = w['ammo'];
     if (typeof rawAmmoField === 'string' && rawAmmoField.length > 0)
         return { ammoName: rawAmmoField, ammoCount: 1 };
 
-    // Format B
+    // LEGACY B: outfit name as key
     for (const key of Object.keys(w)) {
-        if (key === 'ammo') continue;
+        if (key === 'ammo' || key === 'ammunition') continue;
         const val = w[key];
         if (val === false || val === 0 || val === null || val === undefined) continue;
         if (typeof val !== 'number' && val !== true) continue;
@@ -102,13 +140,6 @@ function _resolveAmmoRef(w, outfitIndex) {
     return null;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  DAMAGE ACCUMULATION ACROSS SUBMUNITION TREE
-//  Same recursion as battleSim.resolveSubmunitionDamage but returns a map
-//  keyed by the raw damage attribute name (e.g. 'shield damage', 'hull damage')
-//  so the caller can build dpsBreakdown directly.
-// ─────────────────────────────────────────────────────────────────────────────
-
 function _resolveSubmunitionDamage(weapon, outfitIndex, visited, depth) {
     visited = visited || new Set();
     depth   = depth   || 0;
@@ -116,7 +147,7 @@ function _resolveSubmunitionDamage(weapon, outfitIndex, visited, depth) {
     const totals = {};
     if (!weapon || depth > 8) return totals;
 
-    // Own damage at this node
+    // Own damage keys at this node
     for (const [key, val] of Object.entries(weapon)) {
         if (typeof val !== 'number') continue;
         if (!key.endsWith(' damage'))  continue;
@@ -124,7 +155,7 @@ function _resolveSubmunitionDamage(weapon, outfitIndex, visited, depth) {
         totals[key] = (totals[key] || 0) + val;
     }
 
-    // Recurse into submunitions, scaling by spawn count
+    // Recurse into submunitions
     for (const { subName, subCount } of _getSubmunitionRefs(weapon, outfitIndex)) {
         if (visited.has(subName)) continue;
         const subOutfit = outfitIndex[subName];
@@ -139,13 +170,9 @@ function _resolveSubmunitionDamage(weapon, outfitIndex, visited, depth) {
     return totals;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  EFFECTIVE RANGE
-//  Same logic as battleSim.resolveEffectiveRange.
-// ─────────────────────────────────────────────────────────────────────────────
-
 function _resolveEffectiveRange(w, outfitIndex, visited, depth, inheritedVelocity) {
     if (depth > 8) return null;
+    // Use own velocity if set, otherwise inherit from parent
     const vel      = (w.velocity || 0) > 0 ? (w.velocity || 0) : (inheritedVelocity || 0);
     const ownRange = vel * (w.lifetime || 0);
     const subs     = _getSubmunitionRefs(w, outfitIndex);

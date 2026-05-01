@@ -72,129 +72,146 @@ function outfitMapToOutputFormat(outfitMap) {
 // ---------------------------------------------------------------------------
 // normaliseWeaponBlock
 //
-// After a weapon block is parsed generically by parseBlock(), this function
-// rewrites it so that submunitions and ammo are stored in a single,
-// consistent format regardless of which data-file syntax was used.
+// Rewrites the weapon block so submunitions and ammo are stored as canonical
+// arrays regardless of which data-file syntax was used.
 //
 // OUTPUT FORMATS
 // ──────────────
-// Submunitions → weapon.submunitions: Array<{ type: string, count: number }>
-//   Every spawn entry is one object. Multiple "submunition" lines or a
-//   "submunition X" count each produce one entry per distinct outfit name.
-//
-// Ammo         → weapon.ammunition: Array<{ type: string, count: number }>
-//   Normally a single entry (weapons only consume one ammo type), but the
-//   array wrapper keeps the schema consistent.
+// weapon.submunitions: Array<{ type: string, count: number }>
+// weapon.ammunition:   Array<{ type: string, count: number }>
 //
 // INPUT FORMS HANDLED
 // ───────────────────
-//  Submunitions:
-//   (a) weapon.submunition = "OutfitName"           → count 1
-//   (b) weapon.submunition = ["OutfitA","OutfitB"]  → count 1 each
-//   (c) weapon["submunition OutfitName"] = [{offset},{offset}]  → count = array length
-//   (d) weapon["submunition OutfitName"] = 3        → count = 3
-//   (e) weapon["OutfitName"] = count  where the outfit has a weapon block
-//       (Format B from MunitionTypes — also covers legacy numeric-key submunitions)
+// Submunitions:
+//   (a) submunition "OutfitName"           → count 1
+//   (b) submunition "OutfitName" 3         → count 3
+//   (c) "submunition" "OutfitName" 1       → count 1 (parseKeyValue strips the quotes off key)
+//   (d) submunition "OutfitName" (array)   → one entry per element
+//   (e) "submunition OutfitName" prefixed keys (with offset arrays or numeric counts)
+//   (f) loose numeric outfit-name keys where the outfit has a weapon block
 //
-//  Ammo:
-//   (a) weapon.ammo = "OutfitName"                  → count 1
-//   (b) weapon["OutfitName"] = count  where outfit is Ammunition category
-//       (detected here by presence of the key in outfitsByName if known,
-//        otherwise left as-is for runtime resolution — see note below)
-//
-// NOTE: Format B ammo/submunition detection at parse time is best-effort.
-// The runtime modules (battleSim, WeaponStats) retain their own resolution
-// logic as a fallback for outfits that weren't yet registered at parse time.
+// Ammo:
+//   (a) ammo "OutfitName"                  → count 1
+//   (b) ammo "OutfitName" 3               → count 3
+//   (c) loose numeric outfit-name keys where the outfit is Ammunition category
 // ---------------------------------------------------------------------------
+
+/**
+ * Parse a raw string value that may be:
+ *   "OutfitName"          → { name: "OutfitName", count: 1 }
+ *   "OutfitName" 3        → { name: "OutfitName", count: 3 }
+ *   OutfitName            → { name: "OutfitName", count: 1 }
+ *   OutfitName 2          → { name: "OutfitName", count: 2 }
+ */
+function parseNameCount(raw) {
+    if (typeof raw !== 'string') return null;
+    raw = raw.trim();
+    // Quoted name with optional trailing integer: "OutfitName" 3
+    const quotedMatch = raw.match(/^["'`]([^"'`]+)["'`](?:\s+(\d+))?$/);
+    if (quotedMatch) {
+        return { name: quotedMatch[1], count: quotedMatch[2] ? parseInt(quotedMatch[2], 10) : 1 };
+    }
+    // Unquoted name with trailing integer: OutfitName 2
+    const unquotedCountMatch = raw.match(/^(.+?)\s+(\d+)$/);
+    if (unquotedCountMatch) {
+        return { name: unquotedCountMatch[1].trim(), count: parseInt(unquotedCountMatch[2], 10) };
+    }
+    // Plain name, no count
+    return { name: raw, count: 1 };
+}
+
 function normaliseWeaponBlock(weapon, outfitsByName) {
-  if (!weapon || typeof weapon !== 'object') return weapon;
+    if (!weapon || typeof weapon !== 'object') return weapon;
 
-  const submunitions = [];  // { type, count }
-  const ammunition   = [];  // { type, count }
-  const keysToDelete = [];
+    const submunitions = [];  // { type, count }
+    const ammunition   = [];  // { type, count }
+    const keysToDelete = [];
 
-  // ── 1. weapon.ammo = "OutfitName" ─────────────────────────────────────────
-  if (typeof weapon.ammo === 'string' && weapon.ammo.length > 0) {
-    ammunition.push({ type: weapon.ammo, count: 1 });
-    keysToDelete.push('ammo');
-  }
-
-  // ── 2. weapon.submunition = string | object | array ───────────────────────
-  if (weapon.submunition != null) {
-    const raw     = weapon.submunition;
-    const entries = Array.isArray(raw) ? raw : [raw];
-    for (const entry of entries) {
-      if (typeof entry === 'string' && entry.length > 0) {
-        submunitions.push({ type: entry, count: 1 });
-      } else if (typeof entry === 'object' && entry !== null) {
-        // Parsed as a sub-block: { name: "X", count: N } or just { name: "X" }
-        const subName  = entry.name ?? entry.type ?? null;
-        const subCount = typeof entry.count === 'number' ? entry.count : 1;
-        if (subName) submunitions.push({ type: subName, count: subCount });
-      }
+    // ── 1. weapon.ammo = "OutfitName" | "OutfitName 3" | "\"OutfitName\" 3" ──
+    if (weapon.ammo != null) {
+        if (typeof weapon.ammo === 'string' && weapon.ammo.length > 0) {
+            const parsed = parseNameCount(weapon.ammo);
+            if (parsed) ammunition.push({ type: parsed.name, count: parsed.count });
+        }
+        keysToDelete.push('ammo');
     }
-    keysToDelete.push('submunition');
-  }
 
-  // ── 3. "submunition OutfitName" prefixed keys ─────────────────────────────
-  for (const key of Object.keys(weapon)) {
-    if (!key.startsWith('submunition ')) continue;
-    const subName = key.slice('submunition '.length).trim();
-    if (!subName) continue;
-    const val = weapon[key];
-    let count = 1;
-    if (Array.isArray(val))                                count = val.length;
-    else if (typeof val === 'number' && val > 0)           count = Math.round(val);
-    else if (typeof val === 'object' && val !== null)      count = 1;
-    submunitions.push({ type: subName, count });
-    keysToDelete.push(key);
-  }
-
-  // ── 4. Loose numeric keys — best-effort ammo / submunition detection ───────
-  // At parse time we can check outfitsByName (the global registry built so far).
-  // Outfits not yet registered are left alone; runtime modules handle them.
-  for (const key of Object.keys(weapon)) {
-    // Skip keys we've already processed or that are known weapon attributes
-    if (keysToDelete.includes(key)) continue;
-    if (key === 'ammo' || key === 'submunition') continue;
-
-    const val = weapon[key];
-    if (val === false || val === 0 || val === null || val === undefined) continue;
-    if (typeof val !== 'number' && val !== true) continue;
-
-    const entries = outfitsByName ? outfitsByName.get(key) : null;
-    if (!entries || entries.length === 0) continue; // unknown outfit — leave for runtime
-
-    const outfit = entries[0]?.outfit;
-    if (!outfit) continue;
-
-    const isAmmo =
-      outfit.category === 'Ammunition' ||
-      (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) ||
-      (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0) ||
-      Object.entries(outfit.attributes || {}).some(([k, v]) => k.endsWith(' capacity') && typeof v === 'number' && v < 0);
-
-    const isSubmunition = !isAmmo && !!outfit.weapon;
-
-    if (isAmmo) {
-      const count = val === true ? 1 : Math.max(1, Math.round(val));
-      ammunition.push({ type: key, count });
-      keysToDelete.push(key);
-    } else if (isSubmunition) {
-      const count = val === true ? 1 : Math.max(1, Math.round(val));
-      submunitions.push({ type: key, count });
-      keysToDelete.push(key);
+    // ── 2. weapon.submunition = string | object | array ───────────────────────
+    if (weapon.submunition != null) {
+        const raw     = weapon.submunition;
+        const entries = Array.isArray(raw) ? raw : [raw];
+        for (const entry of entries) {
+            if (typeof entry === 'string' && entry.length > 0) {
+                // May be "OutfitName", "OutfitName 2", or '"OutfitName" 2'
+                const parsed = parseNameCount(entry);
+                if (parsed) submunitions.push({ type: parsed.name, count: parsed.count });
+            } else if (typeof entry === 'object' && entry !== null) {
+                // Already a sub-block: { name: "X", count: N }
+                const subName  = entry.name ?? entry.type ?? null;
+                const subCount = typeof entry.count === 'number' ? entry.count : 1;
+                if (subName) submunitions.push({ type: subName, count: subCount });
+            }
+        }
+        keysToDelete.push('submunition');
     }
-    // else: leave it — it's a genuine weapon attribute (e.g. "missile strength 2")
-  }
 
-  // ── Apply deletions and write normalised arrays ────────────────────────────
-  for (const k of keysToDelete) delete weapon[k];
+    // ── 3. "submunition OutfitName" prefixed keys ─────────────────────────────
+    for (const key of Object.keys(weapon)) {
+        if (!key.startsWith('submunition ')) continue;
+        const subName = key.slice('submunition '.length).trim();
+        if (!subName) continue;
+        const val = weapon[key];
+        let count = 1;
+        if (Array.isArray(val))                           count = val.length;
+        else if (typeof val === 'number' && val > 0)      count = Math.round(val);
+        else if (typeof val === 'object' && val !== null) count = 1;
+        submunitions.push({ type: subName, count });
+        keysToDelete.push(key);
+    }
 
-  if (submunitions.length > 0) weapon.submunitions = submunitions;
-  if (ammunition.length   > 0) weapon.ammunition   = ammunition;
+    // ── 4. Loose numeric keys — best-effort ammo / submunition detection ───────
+    for (const key of Object.keys(weapon)) {
+        if (keysToDelete.includes(key)) continue;
+        if (key === 'ammo' || key === 'submunition') continue;
 
-  return weapon;
+        const val = weapon[key];
+        if (val === false || val === 0 || val === null || val === undefined) continue;
+        if (typeof val !== 'number' && val !== true) continue;
+
+        const entries = outfitsByName ? outfitsByName.get(key) : null;
+        if (!entries || entries.length === 0) continue;
+
+        const outfit = entries[0]?.outfit;
+        if (!outfit) continue;
+
+        const isAmmo =
+            outfit.category === 'Ammunition' ||
+            (typeof outfit.ammoStored === 'number' && outfit.ammoStored > 0) ||
+            (typeof outfit.attributes?.[key] === 'number' && outfit.attributes[key] > 0) ||
+            Object.entries(outfit.attributes || {}).some(
+                ([k, v]) => k.endsWith(' capacity') && typeof v === 'number' && v < 0
+            );
+
+        const isSubmunition = !isAmmo && !!outfit.weapon;
+
+        if (isAmmo) {
+            const count = val === true ? 1 : Math.max(1, Math.round(val));
+            ammunition.push({ type: key, count });
+            keysToDelete.push(key);
+        } else if (isSubmunition) {
+            const count = val === true ? 1 : Math.max(1, Math.round(val));
+            submunitions.push({ type: key, count });
+            keysToDelete.push(key);
+        }
+    }
+
+    // ── Apply deletions and write normalised arrays ────────────────────────────
+    for (const k of keysToDelete) delete weapon[k];
+
+    if (submunitions.length > 0) weapon.submunitions = submunitions;
+    if (ammunition.length   > 0) weapon.ammunition   = ammunition;
+
+    return weapon;
 }
 
 // ---------------------------------------------------------------------------

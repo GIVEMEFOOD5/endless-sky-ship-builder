@@ -499,8 +499,8 @@ function renderOutfitContributions(attrDefs, item, pluginId) {
 
 // ─── Weapon chain renderer ───────────────────────────────────────────────────
 
-function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext) {
-    const excludeWeapon = new Set(['sprite','spriteData','sound','hit effect','fire effect','die effect','live effect','submunition','ammo','stream','cluster','hardpoint sprite','hardpoint offset','icon']);
+function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext, pluginId, rootReload) {
+    const excludeWeapon = new Set(['sprite','spriteData','sound','hit effect','fire effect','die effect','live effect','submunition','submunitions','ammunition','ammo','stream','cluster','hardpoint sprite','hardpoint offset','icon']);
     const excludeOutfit = new Set(['name','weapon','sprite','spriteData','thumbnail','description','flare sprite','steering flare sprite','reverse flare sprite','afterburner effect']);
     let html = '';
     const wRows = [];
@@ -539,7 +539,10 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext) {
     }
 
     if (wRows.length) html += buildSection(sectionTitle, wRows);
-    const wDerived = calcWeaponDerived(attrDefs, weapon);
+
+    // Pass rootReload so DPS uses the firing weapon's reload, not the submunition's
+    const effectiveReload = rootReload || (parseFloat(weapon.reload ?? 1) || 1);
+    const wDerived = calcWeaponDerived(attrDefs, weapon, pluginId, effectiveReload);
     if (wDerived.length) html += buildSection(`${sectionTitle} — Derived`, wDerived.map(d => attrRow(d.label, d.value, d.unit, '', 'derived')));
     return html;
 }
@@ -565,6 +568,16 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     if (!weapon) return '';
     let html = '';
     const totalDamage = {}, visited = new Set();
+
+    // Root reload drives DPS for the entire chain
+    const rootReload = (parseFloat(weapon.reload ?? 1) || 1);
+    const burstCount  = parseFloat(weapon['burst count']  ?? 1) || 1;
+    const burstReload = parseFloat(weapon['burst reload']  ?? rootReload) || rootReload;
+    const framesPerCycle = burstCount > 1
+        ? (burstCount - 1) * burstReload + rootReload
+        : rootReload;
+    const rootSps = (burstCount / framesPerCycle) * 60;
+
     const queue = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
     const sections = [];
 
@@ -572,81 +585,187 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
         const { weapon: w, outfit: o, title, multiplier, depth } = queue.shift();
         sections.push({ weapon: w, outfit: o, title, multiplier });
         mergeInto(totalDamage, collectDamage(w, multiplier));
-        // Replace the submunition block in renderWeaponChain:
+
+        if (depth >= 8) continue;
+
+        // ── Submunition refs — all three formats ──────────────────────────────
         const refs = [];
-        if (typeof w.submunition === 'string') refs.push({ name: w.submunition, count: 1 });
-        for (const key of Object.keys(w)) {
-            if (!key.startsWith('submunition ')) continue;
-            const subName = key.slice('submunition '.length).trim();
-            const val = w[key];
-            const count = Array.isArray(val) ? val.length : (typeof val === 'number' ? val : 1);
-            refs.push({ name: subName, count });
+
+        // NEW FORMAT: submunitions: [{type, count}]
+        if (Array.isArray(w.submunitions)) {
+            for (const entry of w.submunitions) {
+                const name  = entry?.type  ?? null;
+                const count = entry?.count ?? 1;
+                if (name) refs.push({ name, count });
+            }
         }
-        
-        if (w.ammo && typeof w.ammo === 'string' && depth < 8 && !visited.has(w.ammo)) {
-            visited.add(w.ammo);
-            const ammo = lookupOutfit(w.ammo, pluginId);
-            if (ammo?.weapon) queue.push({ weapon: ammo.weapon, outfit: ammo, title: `Ammo: ${w.ammo}`, multiplier, depth: depth + 1 });
+
+        // LEGACY FORMAT A: submunition: "Name" | {name,count} | array
+        if (!refs.length && w.submunition != null) {
+            const entries = Array.isArray(w.submunition) ? w.submunition : [w.submunition];
+            for (const entry of entries) {
+                const name  = typeof entry === 'string' ? entry
+                            : typeof entry === 'object' ? (entry?.name ?? null) : null;
+                const count = typeof entry === 'object' && entry !== null ? (entry.count ?? 1) : 1;
+                if (name) refs.push({ name, count });
+            }
+        }
+
+        // LEGACY FORMAT A2: "submunition OutfitName" prefixed keys
+        if (!refs.length) {
+            for (const key of Object.keys(w)) {
+                if (!key.startsWith('submunition ')) continue;
+                const name  = key.slice('submunition '.length).trim();
+                const val   = w[key];
+                const count = Array.isArray(val) ? val.length
+                            : typeof val === 'number' ? Math.max(1, val) : 1;
+                if (name) refs.push({ name, count });
+            }
+        }
+
+        for (const { name, count } of refs) {
+            if (visited.has(name)) continue;
+            visited.add(name);
+            const subOutfit = lookupOutfit(name, pluginId);
+            if (!subOutfit?.weapon) continue;
+            queue.push({
+                weapon:     subOutfit.weapon,
+                outfit:     subOutfit,
+                title:      `Submunition: ${name}${count > 1 ? ` ×${count}` : ''}`,
+                multiplier: multiplier * count,
+                depth:      depth + 1,
+            });
+        }
+
+        // ── Ammo ─────────────────────────────────────────────────────────────
+        let ammoName = null;
+        if (Array.isArray(w.ammunition) && w.ammunition.length > 0)
+            ammoName = w.ammunition[0]?.type ?? null;
+        if (!ammoName && typeof w.ammo === 'string' && w.ammo.length > 0)
+            ammoName = w.ammo;
+        if (ammoName && !visited.has(ammoName)) {
+            visited.add(ammoName);
+            const ammo = lookupOutfit(ammoName, pluginId);
+            if (ammo?.weapon)
+                queue.push({ weapon: ammo.weapon, outfit: ammo, title: `Ammo: ${ammoName}`, multiplier, depth: depth + 1 });
         }
     }
 
-    for (const { weapon: w, outfit: o, title } of sections) html += renderWeaponStats(attrDefs, w, title, o);
+    // Render each section — pass rootReload so submunition DPS is correct
+    for (const { weapon: w, outfit: o, title } of sections)
+        html += renderWeaponStats(attrDefs, w, title, o, pluginId, rootReload);
 
-    // Combined totals across the full chain
+    // ── Per-shot total damage across full chain ───────────────────────────────
     if (sections.length > 1 && Object.keys(totalDamage).length > 0) {
-        const rows = Object.entries(totalDamage).filter(([, v]) => v !== 0).map(([k, v]) => attrRow(getLabel(k), fmtNum(v), '', ''));
-        if (rows.length) html += buildSection('Total Damage (full chain)', rows);
+        const perShotRows = Object.entries(totalDamage)
+            .filter(([, v]) => v !== 0)
+            .map(([k, v]) => attrRow(getLabel(k), fmtNum(v), 'per shot', ''));
+        if (perShotRows.length)
+            html += buildSection('Total Damage Per Shot (full chain)', perShotRows);
+
+        // ── Total DPS across full chain ───────────────────────────────────────
+        const dpsRows = Object.entries(totalDamage)
+            .filter(([, v]) => v !== 0)
+            .map(([k, v]) => attrRow(
+                getLabel(k).replace(/ Damage$/, '') + ' DPS',
+                fmtNum(v * rootSps),
+                'dmg/s',
+                ''
+            ));
+        if (dpsRows.length)
+            html += buildSection(`Total DPS (${fmtNum(rootSps)} shots/s)`, dpsRows);
     }
 
     return html;
 }
 
-function calcWeaponDerived(attrDefs, weapon) {
+function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
     if (!weapon) return [];
     const results = [], seen = new Set();
     function push(label, value, unit) {
         if (isNaN(value) || value === 0 || seen.has(label)) return;
         seen.add(label); results.push({ label, value: fmtNum(value), unit: unit || '' });
     }
-    const reload = parseFloat(weapon.reload ?? 1) || 1;
-    const vel    = parseFloat(weapon.velocity ?? 0);
-    const life   = parseFloat(weapon.lifetime ?? 0);
-    if (vel && life) push('Range', vel * life, 'px');
-    push('Fire Rate', 60 / reload, 'shots/s');
 
-    // Burst-adjusted fire rate
+    // Use provided rootReload (from firing weapon), fall back to own reload only for root weapons
+    const reload      = rootReload || (parseFloat(weapon.reload ?? 1) || 1);
     const burstCount  = parseFloat(weapon['burst count']  ?? 1) || 1;
     const burstReload = parseFloat(weapon['burst reload']  ?? reload) || reload;
-    if (burstCount > 1) {
-        const framesPerCycle = (burstCount - 1) * burstReload + reload;
-        push('Sustained Rate', (burstCount / framesPerCycle) * 60, 'shots/s');
+
+    // ── Range: walk submunition tree inheriting velocity ─────────────────────
+    function resolveRange(w, inheritedVel, visited, depth) {
+        if (depth > 8) return 0;
+        const vel      = (parseFloat(w.velocity ?? 0) || 0) > 0
+                       ? parseFloat(w.velocity) : (inheritedVel || 0);
+        const ownRange = vel * (parseFloat(w.lifetime ?? 0) || 0);
+        const refs = [];
+        if (Array.isArray(w.submunitions))
+            for (const e of w.submunitions) { if (e?.type) refs.push(e.type); }
+        if (!refs.length && w.submunition != null) {
+            const arr = Array.isArray(w.submunition) ? w.submunition : [w.submunition];
+            for (const e of arr) {
+                const n = typeof e === 'string' ? e : (typeof e === 'object' ? e?.name : null);
+                if (n) refs.push(n);
+            }
+        }
+        if (!refs.length)
+            for (const key of Object.keys(w))
+                if (key.startsWith('submunition ')) refs.push(key.slice('submunition '.length).trim());
+
+        let maxSubRange = 0;
+        for (const name of refs) {
+            if (!name || visited.has(name)) continue;
+            const subOutfit = pluginId ? lookupOutfit(name, pluginId) : null;
+            if (!subOutfit?.weapon) continue;
+            const nv = new Set(visited); nv.add(name);
+            const sr = resolveRange(subOutfit.weapon, vel, nv, depth + 1);
+            if (sr > maxSubRange) maxSubRange = sr;
+        }
+        return ownRange + maxSubRange;
     }
 
+    const range = resolveRange(weapon, 0, new Set(), 0);
+    if (range > 0) push('Range', range, 'px');
+
+    // ── Fire rate (only meaningful on root weapon which has reload) ───────────
+    if (weapon.reload != null) {
+        push('Fire Rate', 60 / reload, 'shots/s');
+        if (burstCount > 1) {
+            const framesPerCycle = (burstCount - 1) * burstReload + reload;
+            push('Sustained Rate', (burstCount / framesPerCycle) * 60, 'shots/s');
+        }
+    }
+
+    // ── Per-shot damage on THIS node (not DPS — chain totals shown separately)
     const damageTypes = attrDefs?.weapon?.damageTypes?.length
         ? attrDefs.weapon.damageTypes
         : Object.keys(weapon).filter(k => k.endsWith(' damage')).map(k => k.replace(/ damage$/, ''));
-    for (const dtype of damageTypes) {
-        const dmgKey = dtype.endsWith(' damage') ? dtype : `${dtype} damage`;
-        const searchKey = [dmgKey, dmgKey.toLowerCase(), dtype.toLowerCase() + ' damage'].find(k => weapon[k] !== undefined);
-        const val = searchKey !== undefined ? parseFloat(weapon[searchKey] ?? 0) : 0;
-        if (val) push(getLabel(dmgKey.replace(/ damage$/i, '')) + ' DPS', val / reload * 60, 'dmg/s');
-    }
-    const am = parseFloat(weapon['anti-missile'] ?? 0);
-    if (am) { const ms = parseFloat(weapon['missile strength'] ?? 1) || 1; push('Intercept Chance', am / (am + ms) * 100, `% vs str ${ms}`); }
 
-    // Effect duration (vs a no-resistance target and vs a target that has some)
+    for (const dtype of damageTypes) {
+        const dmgKey    = dtype.endsWith(' damage') ? dtype : `${dtype} damage`;
+        const searchKey = [dmgKey, dmgKey.toLowerCase(), dtype.toLowerCase() + ' damage']
+                            .find(k => weapon[k] !== undefined);
+        const val = searchKey !== undefined ? parseFloat(weapon[searchKey] ?? 0) : 0;
+        if (val) push(getLabel(dmgKey.replace(/ damage$/i, '')) + ' (per shot)', val, 'dmg');
+    }
+
+    // ── Anti-missile ──────────────────────────────────────────────────────────
+    const am = parseFloat(weapon['anti-missile'] ?? 0);
+    if (am) {
+        const ms = parseFloat(weapon['missile strength'] ?? 1) || 1;
+        push('Intercept Chance', am / (am + ms) * 100, `% vs str ${ms}`);
+    }
+
+    // ── Status effect doses ───────────────────────────────────────────────────
     for (const { damageKey, label } of STATUS_EFFECT_DECAY) {
         const dose = parseFloat(weapon[damageKey] ?? 0);
-        if (!dose) continue;
-        // Show the raw dose for reference — wear-off time depends on target's resistance
-        push(`${label} dose/shot`, dose, 'units');
+        if (dose) push(`${label} dose/shot`, dose, 'units');
     }
 
     return results;
 }
 
 // ─── Number formatting ────────────────────────────────────────────────────────
-
 function fmtNum(v) {
     if (v === undefined || v === null) return '—';
     if (typeof v !== 'number') { const n = parseFloat(v); if (isNaN(n)) return String(v); v = n; }

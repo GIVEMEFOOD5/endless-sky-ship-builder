@@ -487,6 +487,18 @@ function mergeTeamStats(entries) {
 
 function resolveSubmunitionRefs(w) {
     const results = [];
+
+    // ── NEW FORMAT: w.submunitions = [{type, count}, …] ──────────────────────
+    if (Array.isArray(w.submunitions)) {
+        for (const entry of w.submunitions) {
+            const subName  = entry?.type  ?? null;
+            const subCount = entry?.count ?? 1;
+            if (subName) results.push({ subName, subCount });
+        }
+        if (results.length > 0) return results;
+    }
+
+    // ── LEGACY FORMAT A ───────────────────────────────────────────────────────
     const rawSub = w.submunition;
     if (rawSub != null) {
         const entries = Array.isArray(rawSub) ? rawSub : [rawSub];
@@ -498,6 +510,8 @@ function resolveSubmunitionRefs(w) {
         }
         if (results.length > 0) return results;
     }
+
+    // ── LEGACY FORMAT A2 ──────────────────────────────────────────────────────
     for (const key of Object.keys(w)) {
         if (!key.startsWith('submunition ')) continue;
         const subName = key.slice('submunition '.length).trim();
@@ -507,8 +521,11 @@ function resolveSubmunitionRefs(w) {
         results.push({ subName, subCount });
     }
     if (results.length > 0) return results;
+
+    // ── LEGACY FORMAT B ───────────────────────────────────────────────────────
     for (const key of Object.keys(w)) {
-        if (key === 'submunition' || key.startsWith('submunition ')) continue;
+        if (key === 'submunition' || key === 'submunitions') continue;
+        if (key.startsWith('submunition ')) continue;
         const val = w[key];
         if (val === false || val === 0 || val === null || val === undefined) continue;
         if (typeof val !== 'number' && val !== true) continue;
@@ -628,11 +645,20 @@ function _isNegativeCapacityAmmo(outfit, outfitName) {
 }
 
 function resolveAmmoRef(w) {
+    // ── NEW FORMAT: w.ammunition = [{type, count}, …] ────────────────────────
+    if (Array.isArray(w.ammunition) && w.ammunition.length > 0) {
+        const first = w.ammunition[0];
+        if (first?.type) return { ammoName: first.type, ammoCount: first.count ?? 1 };
+    }
+
+    // ── LEGACY FORMAT A: weapon.ammo = "OutfitName" ──────────────────────────
     const rawAmmoField = w['ammo'];
     if (typeof rawAmmoField === 'string' && rawAmmoField.length > 0)
         return { ammoName: rawAmmoField, ammoCount: 1 };
+
+    // ── LEGACY FORMAT B: outfit name as key ──────────────────────────────────
     for (const key of Object.keys(w)) {
-        if (key === 'ammo') continue;
+        if (key === 'ammo' || key === 'ammunition') continue;
         const val = w[key];
         if (val === false || val === 0 || val === null || val === undefined) continue;
         if (typeof val !== 'number' && val !== true) continue;
