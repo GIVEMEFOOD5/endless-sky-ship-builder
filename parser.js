@@ -1071,6 +1071,22 @@ class EndlessSkyParser {
             i = ni; continue;
           }
         }
+        const subAmmoMatch =
+            stripped.match(/^(?:"submunition"|submunition)\s+"([^"]+)"\s+(\d+)$/) ||
+            stripped.match(/^(?:"submunition"|submunition)\s+`([^`]+)`\s+(\d+)$/) ||
+            stripped.match(/^(?:"ammo"|ammo)\s+"([^"]+)"\s+(\d+)$/)               ||
+            stripped.match(/^(?:"ammo"|ammo)\s+`([^`]+)`\s+(\d+)$/);
+        if (subAmmoMatch) {
+            const isAmmo  = stripped.trimStart().replace(/^"/, '').startsWith('ammo');
+            const key     = isAmmo ? 'ammo' : 'submunition';
+            const val     = `"${subAmmoMatch[1]}" ${subAmmoMatch[2]}`;  // preserve for parseNameCount
+            if (key in data) {
+                if (!Array.isArray(data[key])) data[key] = [data[key]];
+                data[key].push(val);
+            } else { data[key] = val; }
+            i++; continue;
+        }
+
         const kv = this.parseKeyValue(stripped);
         if (kv) {
           const [k, v] = kv;
