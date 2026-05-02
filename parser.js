@@ -1629,7 +1629,23 @@ class EndlessSkyParser {
           if (ammunition.length   > 0) data.weapon.ammunition   = ammunition;
       }
 
-      return [(data.description || data.weapon) ? data : null, ni];
+    return [(data.description || data.weapon) ? data : null, ni];
+  }
+
+  parseExtraEffect(lines, startIdx) {
+    const line = lines[startIdx].trim();
+    const match = line.match(/^effect\s+"([^"]+)"\s*$/) ||
+                  line.match(/^effect\s+`([^`]+)`\s*$/) ||
+                  line.match(/^effect\s+'([^']+)'\s*$/);
+    if (!match) return [null, startIdx + 1];
+    const name = match[1];
+    if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
+    const nl = lines[startIdx + 1];
+    if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return [null, startIdx + 1];
+    const data = { name };
+    const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
+    Object.assign(data, parsed);
+    return [data, ni];
   }
 
   resolveAllOutfitPluginIds() {
