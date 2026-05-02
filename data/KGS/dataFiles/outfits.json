@@ -1,0 +1,5753 @@
+[
+  {
+    "name": "KGS 1x1 VLS",
+    "display name": "Vertical Launch Cell",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7030,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 6000,
+    "thumbnail": "outfit/kgs_1x1_vls",
+    "mass": 0.333333,
+    "outfit space": -1,
+    "weapon capacity": -1,
+    "turret mounts": -1,
+    "nettle capacity": 3,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_1x1_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 540,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "Although the 9, 18, and 36 cell variants of the Avgi's Vertical Launch Array are by far the most common, their modular nature allows them to be easily made in all manner of odd sizes. This is the cell that all Avgi vertical launch systems are built from. Compatible with small-to-medium Avgi missiles, the cell's contents can be easily swapped to suit a given mission. This cell's negligible footprint makes it suitable for stuffing into nooks and crannies left over from other weapons. Sadly, the system still requires a turret mount. \tThese tiny vertical launch cells enable versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ergastirio Station",
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Militia Surplus",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 1x2 VLS",
+    "display name": "Vertical Launch Array (2)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7030,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 12000,
+    "thumbnail": "outfit/kgs_1x2_vls",
+    "mass": 0.666666,
+    "outfit space": -2,
+    "weapon capacity": -2,
+    "turret mounts": -1,
+    "nettle capacity": 6,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_1x2_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 270,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This extremely tiny vertical launch system contains two independent launch cells, each occupying one ton of outfit space. Compatible with small-to-medium Avgi missiles, the cells' contents can be easily swapped to suit a given mission. This array's extremely compact footprint makes it even more suitable for drones and fighters than the four cell version, though the system still requires a turret mount. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ergastirio Station",
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Militia Surplus",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 2x2 VLS",
+    "display name": "Vertical Launch Array (4)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7030,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 24000,
+    "thumbnail": "outfit/kgs_2x2_vls",
+    "mass": 1.333333,
+    "outfit space": -4,
+    "weapon capacity": -4,
+    "turret mounts": -1,
+    "nettle capacity": 12,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_2x2_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 135,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This very tiny vertical launch system contains four independent launch cells, each occupying one ton of outfit space. Compatible with small-to-medium Avgi missiles, the cells' contents can be easily swapped to suit a given mission. This array's very compact footprint makes it even more suitable for drones and fighters than the six cell version, though the system still requires a turret mount. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ergastirio Station",
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Militia Surplus",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 2x3 VLS",
+    "display name": "Vertical Launch Array (6)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7030,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 36000,
+    "thumbnail": "outfit/kgs_2x3_vls",
+    "mass": 2,
+    "outfit space": -6,
+    "weapon capacity": -6,
+    "turret mounts": -1,
+    "nettle capacity": 18,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_2x3_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 90,
+      "burst reload": 9,
+      "burst count": 2,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This tiny vertical launch system contains six independent launch cells, each occupying one ton of outfit space. Compatible with small-to-medium Avgi missiles, the cells' contents can be easily swapped to suit a given mission. This array's compact footprint makes it even more suitable for drones and fighters than the nine cell version, though the system still requires a turret mount. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ergastirio Station",
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Militia Surplus",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 3x4 VLS",
+    "display name": "Vertical Launch Array (12)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7030,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 72000,
+    "thumbnail": "outfit/kgs_3x4_vls",
+    "mass": 4,
+    "outfit space": -12,
+    "weapon capacity": -12,
+    "turret mounts": -1,
+    "nettle capacity": 36,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_3x4_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 45,
+      "burst reload": 9,
+      "burst count": 4,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This tiny vertical launch system contains twelve independent launch cells, each occupying one ton of outfit space. Compatible with small-to-medium Avgi missiles, the cells' contents can be easily swapped to suit a given mission. This array's compact footprint makes it suitable for drones and fighters, though the system still requires a turret mount. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ergastirio Station",
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Militia Surplus",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 3x5 VLS",
+    "display name": "Vertical Launch Array (15)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7030,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 90000,
+    "thumbnail": "outfit/kgs_3x5_vls",
+    "mass": 5,
+    "outfit space": -15,
+    "weapon capacity": -15,
+    "turret mounts": -1,
+    "nettle capacity": 45,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_3x5_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 36,
+      "burst reload": 9,
+      "burst count": 5,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This tiny vertical launch system contains fifteen independent launch cells, each occupying one ton of outfit space. Compatible with small-to-medium Avgi missiles, the cells' contents can be easily swapped to suit a given mission. This array's compact footprint makes it suitable for drones and fighters, though the system still requires a turret mount. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ergastirio Station",
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Militia Surplus",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 4x6 VLS",
+    "display name": "Vertical Launch Array (24)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7031,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 144000,
+    "thumbnail": "outfit/kgs_4x6_vls",
+    "mass": 8,
+    "outfit space": -24,
+    "weapon capacity": -24,
+    "turret mounts": -1,
+    "nettle capacity": 72,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_4x6_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 22.5,
+      "burst reload": 9,
+      "burst count": 8,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This small vertical launch system contains 24 independent launch cells in a rectangular array. Designed for flexibility, the system can employ a variety of small or medium-sized missiles. Owing to its large surface footprint, a turret mount is required for the launcher to deploy missiles safely. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 5x6 VLS",
+    "display name": "Vertical Launch Array (30)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7031,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 180000,
+    "thumbnail": "outfit/kgs_5x6_vls",
+    "mass": 10,
+    "outfit space": -30,
+    "weapon capacity": -30,
+    "turret mounts": -1,
+    "nettle capacity": 90,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_5x6_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 18,
+      "burst reload": 9,
+      "burst count": 10,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This small vertical launch system contains 30 independent launch cells in a rectangular array. Designed for flexibility, the system can employ a variety of small or medium-sized missiles. Owing to its large surface footprint, a turret mount is required for the launcher to deploy missiles safely. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 6x8 VLS",
+    "display name": "Vertical Launch Array (48)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7032,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 288000,
+    "thumbnail": "outfit/kgs_6x8_vls",
+    "mass": 16,
+    "outfit space": -48,
+    "weapon capacity": -48,
+    "turret mounts": -1,
+    "nettle capacity": 144,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_6x8_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 11.25,
+      "burst reload": 9,
+      "burst count": 16,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This medium vertical launch system contains 48 independent launch cells arrayed in parallel. A wide variety of small to mid-sized Avgi missiles are compatible with the launch cells, which can be easily interchanged. Designed for swift vertical cold-launch, the system needs an open space comparable to a turret mount to function properly. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 6x10 VLS",
+    "display name": "Vertical Launch Array (60)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7032,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 360000,
+    "thumbnail": "outfit/kgs_6x10_vls",
+    "mass": 20,
+    "outfit space": -60,
+    "weapon capacity": -60,
+    "turret mounts": -1,
+    "nettle capacity": 180,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_6x10_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 9,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This medium vertical launch system contains 60 independent launch cells arrayed in parallel. A wide variety of small to mid-sized Avgi missiles are compatible with the launch cells, which can be easily interchanged. Designed for swift vertical cold-launch, the system needs an open space comparable to a turret mount to function properly. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 6x12 VLS",
+    "display name": "Vertical Launch Array (72)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7033,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 432000,
+    "thumbnail": "outfit/kgs_6x12_vls",
+    "mass": 24,
+    "outfit space": -72,
+    "weapon capacity": -72,
+    "turret mounts": -1,
+    "nettle capacity": 216,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_6x12_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 7.5,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This large vertical launch system contains 72 independent launch cells in a rectangular formation. A variety of small and mid-sized Avgi missiles are compatible with the interchangeable launch cells. Designed for quick vertical launch, this system needs a turret mount for the required open space to function properly. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 9x12 VLS",
+    "display name": "Vertical Launch Array (108)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7033,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 648000,
+    "thumbnail": "outfit/kgs_9x12_vls",
+    "mass": 36,
+    "outfit space": -108,
+    "weapon capacity": -108,
+    "turret mounts": -1,
+    "nettle capacity": 324,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_9x12_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 5,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This large vertical launch system contains 108 independent launch cells in a rectangular formation. A variety of small and mid-sized Avgi missiles are compatible with the interchangeable launch cells. Designed for quick vertical launch, this system needs a turret mount for the required open space to function properly. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 12x12 VLS",
+    "display name": "Vertical Launch Array (144)",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 7034,
+    "licenses": {
+      "Twilight Guard": true
+    },
+    "cost": 648000,
+    "thumbnail": "outfit/kgs_12x12_vls",
+    "mass": 48,
+    "outfit space": -144,
+    "weapon capacity": -144,
+    "turret mounts": -1,
+    "nettle capacity": 432,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/kgs_12x12_vls",
+      "sprite": "projectile/nettle",
+      "sprite data": {
+        "scale": 0.5
+      },
+      "sound": "bounce",
+      "Nettle": "KKV",
+      "icon": "icon/nettle",
+      "fire effect": "sidewinder fire",
+      "inaccuracy": 360,
+      "velocity": 3,
+      "lifetime": 30,
+      "range override": 3600,
+      "reload": 3.75,
+      "turret turn": 0.000001,
+      "firing energy": 3,
+      "firing heat": 1.5,
+      "drag": 0.024,
+      "infrared tracking": 0.6,
+      "optical tracking": 0.6,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "missile strength": 9,
+      "submunitions": [
+        {
+          "type": "Nettle Active",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "\"Nettle\" KKV",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This huge vertical launch system contains 144 independent launch cells in a rectangular formation. The interchangeable launch cells are compatible with a variety of small and mid-sized Avgi missiles. Designed for speedy vertical launch, this system requires a large turret mount to function properly. \tVertical launch systems enable rapid and versatile missile deployment, but as dual launchers and magazines, no separate missile storage is available. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Avgi (Twilight Guard)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Feo Platform",
+          "Navigeo Yards",
+          "Outpost Enka",
+          "Outpost Tekis"
+        ],
+        "Outfitters": [
+          "Avgi Dissonance Smuggling",
+          "Avgi Twilight Guard"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Twin Mandible Cannon",
+    "display name": "Twin Mandible Cannon",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 10020,
+    "cost": 2500000,
+    "thumbnail": "outfit/kgs_twin_mandible_cannon",
+    "mass": 62,
+    "outfit space": -62,
+    "weapon capacity": -62,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/mandible cannon",
+      "sprite data": {
+        "frame rate": 10,
+        "random start frame": true
+      },
+      "sound": "mandible cannon",
+      "hit effect": "proton impact",
+      "inaccuracy": 0.1,
+      "velocity": 34,
+      "lifetime": 25,
+      "reload": 15,
+      "burst reload": 5,
+      "burst count": 2,
+      "firing energy": 111,
+      "firing force": 30,
+      "firing heat": 60,
+      "hit force": 210,
+      "shield damage": 152,
+      "hull damage": 98
+    },
+    "description": "These two Mandible Cannons have been bolted together, creating a devastating long range weapon.",
+    "governments": {
+      "Zuckungs list/bunrodea.missions": {
+        "Bunrodea": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Illbo Avo",
+          "Illbo Elo"
+        ],
+        "Outfitters": [
+          "Bunrodea Advanced"
+        ],
+        "Systems": [
+          "Avo Chigo",
+          "Bosuno Le",
+          "Bunri Lemeta",
+          "Elabi Choati",
+          "Elo Chigo",
+          "Eneva Katta",
+          "Era Natta",
+          "Erabu Lemeta",
+          "Eragaru Le",
+          "Genta Bo",
+          "Gento Ah",
+          "Jentu Centi",
+          "Jentu Le",
+          "Kifrana Terberah",
+          "Mego Faro",
+          "Mego Inito",
+          "Mego Seo",
+          "Paru Paru",
+          "Piadenli",
+          "Ravu Kon",
+          "Sera Natta",
+          "Shini Bori",
+          "Thshybo Le",
+          "Urba Pest",
+          "Xutluno Fali",
+          "Xutluno Rees"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Chigiriki (KGS Twin Mandible Cannon)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Hyperpulse Cannon",
+    "display name": "Hyperpulse Cannon",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 2010,
+    "cost": 210000,
+    "thumbnail": "outfit/kgs_hyperpulse_cannon",
+    "mass": 20,
+    "outfit space": -20,
+    "weapon capacity": -20,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/kgs_hyperpulse",
+      "sound": "pulse",
+      "hit effect": "kgs hyperpulse impact",
+      "inaccuracy": 0.5,
+      "velocity": 25,
+      "lifetime": 22,
+      "reload": 30,
+      "firing energy": 64,
+      "firing heat": 170,
+      "firing force": 18,
+      "shield damage": 100,
+      "hull damage": 72
+    },
+    "description": "The Hyperpulse Cannon is a more recent development of the Hai, a Pulse Cannon adapted to fire projectiles with much higher velocity, accuracy, and damage.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "Ships": [
+          "Grasshopper (KGS Hyperpulse Cannon)",
+          "Shield Beetle (KGS Hyperpulse Cannon)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Bore Fah",
+          "Bote Asu",
+          "Da Ent",
+          "Da Lest",
+          "Due Yoot",
+          "Fah Root",
+          "Fah Soom",
+          "Heia Due",
+          "Hevru Hai",
+          "Imo Dep",
+          "Io Lowe",
+          "Io Mann",
+          "Lom Tahr",
+          "Mei Yohn",
+          "Rati Cal",
+          "Ula Mon",
+          "Uwa Fahn",
+          "Wah Ki",
+          "Wah Oh",
+          "Waypoint",
+          "Ya Hai",
+          "Zuba Zub"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Bipulse Ripper",
+    "display name": "Bipulse Ripper",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 2010,
+    "cost": 300000,
+    "thumbnail": "outfit/kgs_bipulse_ripper",
+    "mass": 28,
+    "outfit space": -28,
+    "weapon capacity": -28,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/pulse",
+      "sound": "pulse",
+      "hit effect": "pulse impact",
+      "inaccuracy": 1,
+      "velocity": 15,
+      "lifetime": 30,
+      "reload": 10,
+      "firing energy": 24,
+      "firing heat": 70,
+      "shield damage": 45,
+      "hull damage": 34
+    },
+    "description": "The Unfettered have joined two Pulse Cannons, resulting in an effective and efficient weapon.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "Ships": [
+          "Sea Scorpion (KGS Bipulse Ripper)",
+          "Shield Beetle (KGS Bipulse Ripper)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ehma Ti",
+          "Hi Yahr",
+          "Wah Ki",
+          "Wah Yoot"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Twin Railgun",
+    "display name": "Twin Skipper Railgun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 2020,
+    "cost": 45000,
+    "thumbnail": "outfit/kgs_twin_railgun",
+    "mass": 3,
+    "outfit space": -9,
+    "weapon capacity": -9,
+    "gun ports": -1,
+    "railgun slug capacity": 2000,
+    "weapon": {
+      "sprite": "projectile/rail slug",
+      "sprite data": {
+        "frame rate": 30
+      },
+      "icon": "icon/rail gun",
+      "sound": "ion impact",
+      "fire effect": "rail sparks",
+      "hit effect": "bullet impact",
+      "inaccuracy": 3,
+      "velocity": 44,
+      "lifetime": 1,
+      "range override": 2100,
+      "reload": 6,
+      "firing energy": 3.5,
+      "firing heat": 7.2,
+      "firing force": 105,
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "rslug",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Railgun Slug",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The twin Skipper Railgun is favored by pilots who appreciate the ion and scrambling damage of the regular Skipper Railgun, but find it too small for use on ships larger than a drone. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Triple Railgun",
+    "display name": "Triple Skipper Railgun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 2020,
+    "cost": 70000,
+    "thumbnail": "outfit/kgs_triple_railgun",
+    "mass": 4,
+    "outfit space": -13,
+    "weapon capacity": -13,
+    "gun ports": -1,
+    "railgun slug capacity": 3000,
+    "weapon": {
+      "sprite": "projectile/rail slug",
+      "sprite data": {
+        "frame rate": 30
+      },
+      "icon": "icon/rail gun",
+      "sound": "ion impact",
+      "fire effect": "rail sparks",
+      "hit effect": "bullet impact",
+      "inaccuracy": 3,
+      "velocity": 44,
+      "lifetime": 1,
+      "range override": 2100,
+      "reload": 4,
+      "firing energy": 3.5,
+      "firing heat": 7.2,
+      "firing force": 105,
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "rslug",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Railgun Slug",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This weapon is, quite simply, the internals of three Skipper Railguns in a larger frame. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Quad Railgun",
+    "display name": "Quad Skipper Railgun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 2020,
+    "cost": 100000,
+    "thumbnail": "outfit/kgs_quad_railgun",
+    "mass": 6,
+    "outfit space": -18,
+    "weapon capacity": -18,
+    "gun ports": -1,
+    "railgun slug capacity": 4000,
+    "weapon": {
+      "sprite": "projectile/rail slug",
+      "sprite data": {
+        "frame rate": 30
+      },
+      "icon": "icon/rail gun",
+      "sound": "ion impact",
+      "fire effect": "rail sparks",
+      "hit effect": "bullet impact",
+      "inaccuracy": 3,
+      "velocity": 44,
+      "lifetime": 1,
+      "range override": 2100,
+      "reload": 3,
+      "firing energy": 3.5,
+      "firing heat": 7.2,
+      "firing force": 105,
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "rslug",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Railgun Slug",
+          "count": 1
+        }
+      ]
+    },
+    "description": "Many captains have seen the power of the Skipper Railgun, and wanted a version fit for use on larger ships. This is the result - four Skipper Railguns in a larger housing. The recoil is intense. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 2x3 Railgun",
+    "display name": "2x3 Skipper Railgun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 2020,
+    "cost": 150000,
+    "thumbnail": "outfit/kgs_2x3_railgun",
+    "mass": 9,
+    "outfit space": -27,
+    "weapon capacity": -27,
+    "gun ports": -1,
+    "railgun slug capacity": 6000,
+    "weapon": {
+      "sprite": "projectile/rail slug",
+      "sprite data": {
+        "frame rate": 30
+      },
+      "icon": "icon/rail gun",
+      "sound": "ion impact",
+      "fire effect": "rail sparks",
+      "hit effect": "bullet impact",
+      "inaccuracy": 3,
+      "velocity": 44,
+      "lifetime": 1,
+      "range override": 2100,
+      "reload": 2,
+      "firing energy": 3.5,
+      "firing heat": 7.2,
+      "firing force": 105,
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "rslug",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Railgun Slug",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The recoil from this weapon probably renders reverse thrusters unnecessary. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 3x3 Railgun",
+    "display name": "3x3 Skipper Railgun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 2020,
+    "cost": 225000,
+    "thumbnail": "outfit/kgs_3x3_railgun",
+    "mass": 13,
+    "outfit space": -40,
+    "weapon capacity": -40,
+    "gun ports": -1,
+    "railgun slug capacity": 9000,
+    "weapon": {
+      "sprite": "projectile/rail slug",
+      "sprite data": {
+        "frame rate": 30
+      },
+      "icon": "icon/rail gun",
+      "sound": "ion impact",
+      "fire effect": "rail sparks",
+      "hit effect": "bullet impact",
+      "inaccuracy": 3,
+      "velocity": 44,
+      "lifetime": 1,
+      "range override": 2100,
+      "reload": 1.333333,
+      "firing energy": 3.5,
+      "firing heat": 7.2,
+      "firing force": 105,
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "rslug",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Railgun Slug",
+          "count": 1
+        }
+      ]
+    },
+    "description": "Only the most deranged of captains use these. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 3x4 Railgun",
+    "display name": "3x4 Skipper Railgun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 2020,
+    "cost": 300000,
+    "thumbnail": "outfit/kgs_3x4_railgun",
+    "mass": 16,
+    "outfit space": -52,
+    "weapon capacity": -52,
+    "gun ports": -1,
+    "railgun slug capacity": 12000,
+    "weapon": {
+      "sprite": "projectile/rail slug",
+      "sprite data": {
+        "frame rate": 30
+      },
+      "icon": "icon/rail gun",
+      "sound": "ion impact",
+      "fire effect": "rail sparks",
+      "hit effect": "bullet impact",
+      "inaccuracy": 3,
+      "velocity": 44,
+      "lifetime": 1,
+      "range override": 2100,
+      "reload": 1,
+      "firing energy": 3.5,
+      "firing heat": 7.2,
+      "firing force": 105,
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "rslug",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Railgun Slug",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The few captains who use these swear that flying backwards with them make engines unnecessary. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 4x4 Railgun",
+    "display name": "4x4 Skipper Railgun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 2020,
+    "cost": 300000,
+    "thumbnail": "outfit/kgs_4x4_railgun",
+    "mass": 21,
+    "outfit space": -69,
+    "weapon capacity": -69,
+    "gun ports": -1,
+    "railgun slug capacity": 16000,
+    "weapon": {
+      "sprite": "projectile/rail slug",
+      "sprite data": {
+        "frame rate": 30
+      },
+      "icon": "icon/rail gun",
+      "sound": "ion impact",
+      "fire effect": "rail sparks",
+      "hit effect": "bullet impact",
+      "inaccuracy": 3,
+      "velocity": 44,
+      "lifetime": 1,
+      "range override": 2100,
+      "reload": 1.5,
+      "firing energy": 3.5,
+      "firing heat": 7.2,
+      "firing force": 105,
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "rslug",
+          "count": 2
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Railgun Slug",
+          "count": 2
+        }
+      ]
+    },
+    "description": "The creator was drunk on acorn liquor when this was designed... \tDue to the huge fire rate, it was impossible to synchronize the firing of this weapon. As a result, it fires twice every shot. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 4x5 Railgun",
+    "display name": "4x5 Skipper Railgun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 2020,
+    "cost": 300000,
+    "thumbnail": "outfit/kgs_4x5_railgun",
+    "mass": 26,
+    "outfit space": -86,
+    "weapon capacity": -86,
+    "gun ports": -1,
+    "railgun slug capacity": 20000,
+    "weapon": {
+      "sprite": "projectile/rail slug",
+      "sprite data": {
+        "frame rate": 30
+      },
+      "icon": "icon/rail gun",
+      "sound": "ion impact",
+      "fire effect": "rail sparks",
+      "hit effect": "bullet impact",
+      "inaccuracy": 3,
+      "velocity": 44,
+      "lifetime": 1,
+      "range override": 2100,
+      "reload": 1.2,
+      "firing energy": 3.5,
+      "firing heat": 7.2,
+      "firing force": 105,
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "rslug",
+          "count": 2
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Railgun Slug",
+          "count": 2
+        }
+      ]
+    },
+    "description": "Why not? \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Mini Blaster",
+    "display name": "Mini Blaster",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1010,
+    "cost": 9000,
+    "thumbnail": "outfit/kgs_mini_blaster",
+    "mass": 3,
+    "outfit space": -3,
+    "weapon capacity": -3,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/kgs_mini_blaster",
+      "sound": "blaster",
+      "hit effect": "kgs mini blaster impact",
+      "inaccuracy": 4.5,
+      "velocity": 10,
+      "lifetime": 40,
+      "reload": 15,
+      "firing energy": 4.5,
+      "firing heat": 14,
+      "shield damage": 6.6,
+      "hull damage": 4
+    },
+    "description": "The Energy Blaster has long been popular for its small size, allowing it to be stuffed almost anywhere. The Mini Blaster is an attempt to capitalize on this, featuring an even smaller footprint, but even more disappointing performance. \tAs with the Energy Blaster, it is decently effective in large numbers.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Merchant": true,
+        "Syndicate": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Buccaneer Bay",
+          "Geminus",
+          "Greenwater",
+          "New Argentina",
+          "New Boston",
+          "New Britain",
+          "New China",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Basic Outfits",
+          "Common Outfits"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Adhara",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Aldebaran",
+          "Alderamin",
+          "Aldhibain",
+          "Algieba",
+          "Algol",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Alioth",
+          "Alkaid",
+          "Alnair",
+          "Alnasl",
+          "Alnitak",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alphecca",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Arcturus",
+          "Ascella",
+          "Aspidiske",
+          "Atria",
+          "Avior",
+          "Bellatrix",
+          "Beta Lupi",
+          "Betelgeuse",
+          "Boral",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Danoa",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Denebola",
+          "Diphda",
+          "Dschubba",
+          "Dubhe",
+          "Eber",
+          "Elnath",
+          "Eltanin",
+          "Enif",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Fomalhaut",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Gomeisa",
+          "Gorvi",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hassaleh",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Kursa",
+          "Lesath",
+          "Limen",
+          "Lolami",
+          "Lurata",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mimosa",
+          "Minkar",
+          "Mintaka",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naos",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phact",
+          "Phecda",
+          "Pherkad",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rasalhague",
+          "Rastaban",
+          "Regor",
+          "Regulus",
+          "Rigel",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Saiph",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Spica",
+          "Suhail",
+          "Tais",
+          "Talita",
+          "Tania Australis",
+          "Tarazed",
+          "Tejat",
+          "Tortor",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vega",
+          "Vindemiatrix",
+          "Volax",
+          "Wazn",
+          "Wei",
+          "Wezen",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zosma",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits",
+          "Common Outfits"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Dropship (KGS Mini Blaster)",
+          "Shuttle (KGS Mini Blaster)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Particle Carronade",
+    "display name": "Particle Carronade",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1090,
+    "cost": 140000,
+    "thumbnail": "outfit/kgs_particle_carronade",
+    "mass": 18,
+    "outfit space": -18,
+    "weapon capacity": -18,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/kgs_particle_carronade_beam",
+      "sound": "particle",
+      "hit effect": "kgs particle carronade impact",
+      "inaccuracy": 1.5,
+      "velocity": 32,
+      "lifetime": 18,
+      "reload": 15,
+      "firing energy": 16,
+      "firing force": 6,
+      "firing heat": 60,
+      "hit force": 50,
+      "shield damage": 36,
+      "hull damage": 34
+    },
+    "description": "The Particle Carronade is a miniaturized Particle Cannon that fires smaller particle bolts, tuned for higher damage and a more rapid fire rate. Range and accuracy are reduced, but the small bolts allow for excellent velocity, and is thus a popular anti-fighter weapon.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Merchant": true,
+        "Republic": true,
+        "Pirate": true,
+        "Deep Security": true,
+        "Navy (Oathkeeper)": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      },
+      "Zuckungs list/uniques": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Geminus",
+          "Greenwater",
+          "New China",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Lovelace Advanced",
+          "Lovelace Basics"
+        ],
+        "ShipyardPlanets": [
+          "Geminus"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Adhara",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Aldebaran",
+          "Alderamin",
+          "Aldhibain",
+          "Algieba",
+          "Algol",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Alioth",
+          "Alkaid",
+          "Almaaz",
+          "Alnair",
+          "Alnasl",
+          "Alnilam",
+          "Alnitak",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alphecca",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Arcturus",
+          "Arneb",
+          "Ascella",
+          "Aspidiske",
+          "Atria",
+          "Avior",
+          "Bellatrix",
+          "Beta Lupi",
+          "Betelgeuse",
+          "Boral",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Danoa",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Denebola",
+          "Diphda",
+          "Dschubba",
+          "Dubhe",
+          "Eber",
+          "Elnath",
+          "Eltanin",
+          "Enif",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Fomalhaut",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Gomeisa",
+          "Gorvi",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hassaleh",
+          "Hatysa",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Kursa",
+          "Lesath",
+          "Limen",
+          "Lolami",
+          "Lurata",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Men",
+          "Menkalinan",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mimosa",
+          "Minkar",
+          "Mintaka",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naos",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phact",
+          "Phecda",
+          "Pherkad",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rajak",
+          "Rasalhague",
+          "Rastaban",
+          "Regor",
+          "Regulus",
+          "Rigel",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Saiph",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Shaula",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Spica",
+          "Suhail",
+          "Sumar",
+          "Tais",
+          "Talita",
+          "Tania Australis",
+          "Tarazed",
+          "Tejat",
+          "Tortor",
+          "Turais",
+          "Umbral",
+          "Unagi",
+          "Unukalhai",
+          "Vega",
+          "Vindemiatrix",
+          "Volax",
+          "Wazn",
+          "Wei",
+          "Wezen",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zosma",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Headhunter (KGS Particle Carronade)",
+          "KGS Maker (Mark II Old Weapons)",
+          "Lance (KGS Particle Carronade)",
+          "Raven (KGS Particle Carronade)",
+          "Scout (KGS Particle Carronade)"
+        ]
+      },
+      "Zuckungs list/boss.loot": {
+        "Systems": [
+          "Adhile"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Particle Howitzer",
+    "display name": "Particle Howitzer",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1090,
+    "cost": 400000,
+    "thumbnail": "outfit/kgs_particle_howitzer",
+    "mass": 48,
+    "outfit space": -48,
+    "weapon capacity": -48,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/kgs_particle_howitzer_beam",
+      "sound": "particle",
+      "hit effect": "kgs particle howitzer impact",
+      "inaccuracy": 0.3,
+      "velocity": 35,
+      "lifetime": 32,
+      "reload": 30,
+      "firing energy": 90,
+      "firing force": 33,
+      "firing heat": 280,
+      "hit force": 270,
+      "shield damage": 135,
+      "hull damage": 125
+    },
+    "description": "The Particle Howitzer is a scaled-up Particle Cannon, firing larger particle bursts with higher velocity. It has better range and damage than the Particle Cannon, but fires more slowly, and is also much larger.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Republic": true,
+        "Navy (Oathkeeper)": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Geminus"
+        ],
+        "Outfitters": [
+          "Lovelace Advanced"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Al Dhanab",
+          "Aldebaran",
+          "Algieba",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Almaaz",
+          "Alnilam",
+          "Alnitak",
+          "Alpha Centauri",
+          "Alphard",
+          "Altair",
+          "Arneb",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Cardax",
+          "Castor",
+          "Cor Caroli",
+          "Danoa",
+          "Delta Velorum",
+          "Denebola",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Fomalhaut",
+          "Gacrux",
+          "Gomeisa",
+          "Gorvi",
+          "Hassaleh",
+          "Hatysa",
+          "Kugel",
+          "Kursa",
+          "Lolami",
+          "Markab",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mintaka",
+          "Mirzam",
+          "Mora",
+          "Muphrid",
+          "Nihal",
+          "Nocte",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regulus",
+          "Rigel",
+          "Saiph",
+          "Scheat",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Sumar",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Tortor",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Zosma"
+        ],
+        "ShipyardPlanets": [
+          "Geminus"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Cruiser (KGS Raindrop Mark II)",
+          "Cruiser (KGS Raindrop)",
+          "Frigate (KGS Particle Howitzer Mark II)",
+          "Frigate (KGS Particle Howitzer)"
+        ]
+      },
+      "Zuckungs list/boss.loot": {
+        "Systems": [
+          "Adhile"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Particle Burster",
+    "display name": "Particle Burster",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1090,
+    "cost": 500000,
+    "thumbnail": "outfit/kgs_particle_burster",
+    "mass": 44,
+    "outfit space": -44,
+    "weapon capacity": -44,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/kgs_particle_burster_beam",
+      "sound": "particle",
+      "hit effect": "kgs particle burster impact",
+      "inaccuracy": 3,
+      "velocity": 24,
+      "random velocity": 8,
+      "lifetime": 20,
+      "reload": 6,
+      "burst count": 20,
+      "burst reload": 2,
+      "firing energy": 27,
+      "firing force": 5,
+      "firing heat": 130,
+      "hit force": 40,
+      "shield damage": 42,
+      "hull damage": 38,
+      "cluster": true
+    },
+    "description": "The pinnacle of pirate technology, the Particle Burster is a hodgepodge of two Particle Carronades and some Proton Gun components, among other various odds and ends. As its name suggests, it fires particle bolts in bursts, and is commonly found equipped on the flagships of various pirate warlords, for facing off with other gangs or the authorities. The bolts fired by this weapon are of lower accuracy and velocity than the Particle Carronade's, but are modified for more damage.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Pirate": true,
+        "Alpha": true,
+        "Merchant (Hostile)": true,
+        "Merchant": true,
+        "Republic": true
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Buccaneer Bay",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Pirate Advanced"
+        ],
+        "Systems": [
+          "Alheka",
+          "Almaaz",
+          "Alnilam",
+          "Alnitak",
+          "Arneb",
+          "Betelgeuse",
+          "Cardax",
+          "Danoa",
+          "Dubhe",
+          "Elnath",
+          "Fala",
+          "Gorvi",
+          "Hassaleh",
+          "Hatysa",
+          "Kursa",
+          "Lolami",
+          "Markeb",
+          "Mebsuta",
+          "Men",
+          "Mintaka",
+          "Mirzam",
+          "Nihal",
+          "Phact",
+          "Rajak",
+          "Rigel",
+          "Saiph",
+          "Shaula",
+          "Sospi",
+          "Suhail",
+          "Sumar",
+          "Tania Australis",
+          "Tortor",
+          "Unagi",
+          "Volax",
+          "Zosma"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Leviathan (KGS Particle Burster)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Dual Particle Cannon",
+    "display name": "Dual Particle Cannon",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1090,
+    "cost": 500000,
+    "thumbnail": "outfit/kgs_dual_particle_cannon",
+    "mass": 55,
+    "outfit space": -55,
+    "weapon capacity": -55,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/particle beam",
+      "sound": "particle",
+      "hit effect": "particle impact",
+      "inaccuracy": 1.5,
+      "velocity": 30,
+      "lifetime": 25,
+      "reload": 10,
+      "firing energy": 56,
+      "firing force": 15,
+      "firing heat": 270,
+      "hit force": 120,
+      "shield damage": 65,
+      "hull damage": 62
+    },
+    "description": "The Dual Particle Cannon is incredibly space-efficient for its firepower. However, it is less accurate, consumes more energy and creates quite a lot more heat than two Particle Cannons.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Deep Security": true,
+        "Republic": true,
+        "Pirate": true,
+        "Navy (Oathkeeper)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Geminus"
+        ],
+        "Outfitters": [
+          "Lovelace Advanced"
+        ],
+        "Systems": [
+          "Acamar",
+          "Adhara",
+          "Aldebaran",
+          "Algieba",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Almaaz",
+          "Alnilam",
+          "Alnitak",
+          "Alpha Centauri",
+          "Alphard",
+          "Altair",
+          "Aludra",
+          "Arneb",
+          "Aspidiske",
+          "Avior",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Cardax",
+          "Castor",
+          "Cor Caroli",
+          "Danoa",
+          "Delta Velorum",
+          "Denebola",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Gacrux",
+          "Gomeisa",
+          "Gorvi",
+          "Hassaleh",
+          "Hatysa",
+          "Kugel",
+          "Kursa",
+          "Lolami",
+          "Markeb",
+          "Mebsuta",
+          "Men",
+          "Menkalinan",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mintaka",
+          "Mirzam",
+          "Mora",
+          "Muphrid",
+          "Naos",
+          "Nihal",
+          "Nocte",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rajak",
+          "Regor",
+          "Regulus",
+          "Rigel",
+          "Saiph",
+          "Shaula",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Sumar",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Tortor",
+          "Unagi",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zosma"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Aerie (KGS Dual Particle Cannon)",
+          "Cruiser (KGS Dual Particle Cannon Mark II)",
+          "Cruiser (KGS Dual Particle Cannon)",
+          "KGS Eyrie (KGS Dual Particle Cannon)"
+        ]
+      },
+      "Zuckungs list/boss.loot": {
+        "Systems": [
+          "Adhile"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Plasma Assault Repeater",
+    "display name": "Plasma Assault Repeater",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1120,
+    "cost": 310000,
+    "thumbnail": "outfit/kgs_plasma_assault_repeater",
+    "mass": 37,
+    "outfit space": -37,
+    "weapon capacity": -37,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/plasma",
+      "sprite data": {
+        "frame rate": 3
+      },
+      "sound": "plasma",
+      "hit effect": "plasma explosion",
+      "lifetime": 38,
+      "velocity": 12,
+      "inaccuracy": 6,
+      "reload": 6,
+      "burst count": 15,
+      "burst reload": 2,
+      "firing energy": 16,
+      "firing heat": 150,
+      "shield damage": 33,
+      "hull damage": 13,
+      "heat damage": 144,
+      "hit force": 28.5,
+      "cluster": true
+    },
+    "description": "The new main weapon of the Kingfisher fast heavy warship, the Plasma Assault Repeater is a Plasma Repeater adapted to fire in bursts. The modifications resulted in slightly increased overall damage, at the cost of increased energy use and heat generation.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "Ships": [
+          "KGS Kingfisher (II)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Particle Turret",
+    "display name": "Particle Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 1080,
+    "cost": 900000,
+    "thumbnail": "outfit/kgs_particle_turret",
+    "mass": 72,
+    "outfit space": -72,
+    "weapon capacity": -72,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/particle beam",
+      "hardpoint sprite": "hardpoint/kgs_particle_turret",
+      "hardpoint offset": 18,
+      "sound": "particle",
+      "hit effect": "particle impact",
+      "inaccuracy": 0.5,
+      "turret turn": 1.5,
+      "velocity": 30,
+      "lifetime": 25,
+      "reload": 10,
+      "firing energy": 35,
+      "firing force": 15,
+      "firing heat": 120,
+      "hit force": 120,
+      "shield damage": 65,
+      "hull damage": 62
+    },
+    "description": "The Lovelace Particle Turret is a new product designed for the heavy anti-capital role, mounting two powerful Particle Cannons on a rotating base. It has also become popular as an anti-fighter weapon for its excellent range and projectile velocity.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Merchant": true,
+        "Deep Security": true,
+        "Republic": true,
+        "Pirate": true,
+        "Navy (Oathkeeper)": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Geminus"
+        ],
+        "Outfitters": [
+          "Lovelace Advanced"
+        ],
+        "Systems": [
+          "Acamar",
+          "Adhara",
+          "Aldebaran",
+          "Algieba",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Almaaz",
+          "Alnilam",
+          "Alnitak",
+          "Alpha Centauri",
+          "Alphard",
+          "Altair",
+          "Aludra",
+          "Arneb",
+          "Aspidiske",
+          "Avior",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Cardax",
+          "Castor",
+          "Cor Caroli",
+          "Danoa",
+          "Delta Velorum",
+          "Denebola",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Gacrux",
+          "Gomeisa",
+          "Gorvi",
+          "Hassaleh",
+          "Hatysa",
+          "Kugel",
+          "Kursa",
+          "Lolami",
+          "Markeb",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mintaka",
+          "Mirzam",
+          "Mora",
+          "Muphrid",
+          "Naos",
+          "Nihal",
+          "Nocte",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Regulus",
+          "Rigel",
+          "Saiph",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Sumar",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Tortor",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zosma"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Bactrian (KGS Particle Turret)",
+          "Behemoth (KGS Particle Turret)",
+          "Carrier (KGS Particle Turret Mark II)",
+          "Carrier (KGS Particle Turret)",
+          "Cruiser (KGS Particle Turret Mark II)",
+          "Cruiser (KGS Particle Turret)"
+        ]
+      },
+      "Zuckungs list/boss.loot": {
+        "Systems": [
+          "Adhile"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Javelin Micro Pod",
+    "display name": "Javelin Micro Pod",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1010,
+    "cost": 2000,
+    "thumbnail": "outfit/kgs_javelin_micro_pod",
+    "mass": 0.5,
+    "outfit space": -1,
+    "weapon capacity": -1,
+    "gun ports": -1,
+    "javelin capacity": 7,
+    "weapon": {
+      "sprite": "projectile/javelin",
+      "sound": "javelin",
+      "icon": "icon/javelin",
+      "hit effect": "tiny explosion",
+      "inaccuracy": 1,
+      "velocity": 10,
+      "lifetime": 60,
+      "reload": 160,
+      "burst count": 7,
+      "burst reload": 20,
+      "firing energy": 0.2,
+      "firing heat": 12,
+      "shield damage": 48,
+      "hull damage": 26,
+      "hit force": 75,
+      "missile strength": 3,
+      "ammunition": [
+        {
+          "type": "Javelin",
+          "count": 1
+        }
+      ]
+    },
+    "description": "A Javelin Mini Pod cut down to just a single tube, the Javelin Micro Pod is so small it is almost useless. However, it can fit nearly anywhere. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Merchant": true,
+        "Syndicate": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Greenwater",
+          "New Britain",
+          "New Holland",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced",
+          "Delta V Basics",
+          "Syndicate Advanced"
+        ],
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Shuttle (KGS Javelin Micro Pod)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Javelin Launcher",
+    "display name": "Javelin Launcher",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1020,
+    "cost": 45000,
+    "thumbnail": "outfit/kgs_javelin_launcher",
+    "mass": 9,
+    "outfit space": -25,
+    "weapon capacity": -25,
+    "gun ports": -1,
+    "javelin capacity": 400,
+    "weapon": {
+      "sprite": "projectile/javelin",
+      "sound": "javelin",
+      "icon": "icon/javelin",
+      "hit effect": "tiny explosion",
+      "inaccuracy": 1,
+      "velocity": 10,
+      "lifetime": 60,
+      "reload": 7.5,
+      "firing energy": 0.2,
+      "firing heat": 12,
+      "shield damage": 48,
+      "hull damage": 26,
+      "hit force": 75,
+      "missile strength": 3,
+      "ammunition": [
+        {
+          "type": "Javelin",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This is simply two Javelin Pods welded together to fit in a single gun port. It is favored by captains who have sufficient space, but insufficient hardpoints to mount Javelin Pods. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Free Worlds": true,
+        "Pirate": true,
+        "Merchant": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Pirate": true
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Free Worlds": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Greenwater",
+          "New Britain",
+          "New Holland",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced",
+          "Delta V Basics",
+          "Syndicate Advanced"
+        ],
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Alpherg",
+          "Antares",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Men",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Shaula",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Hawk (KGS Javelin Launcher)",
+          "Modified Argosy (KGS Javelin Launcher)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Javelin Storm Pod",
+    "display name": "Javelin Storm Pod",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1010,
+    "cost": 15000,
+    "thumbnail": "outfit/kgs_javelin_storm_pod",
+    "mass": 6,
+    "outfit space": -9,
+    "weapon capacity": -9,
+    "gun ports": -1,
+    "javelin capacity": 60,
+    "weapon": {
+      "sprite": "projectile/kgs_javelin_storm",
+      "sound": "javelin",
+      "icon": "icon/kgs_javelin_storm",
+      "hit effect": "tiny explosion",
+      "inaccuracy": 3,
+      "velocity": 10,
+      "lifetime": 60,
+      "reload": 20,
+      "burst count": 8,
+      "burst reload": 1,
+      "firing energy": 0.4,
+      "firing heat": 18,
+      "shield damage": 48,
+      "hull damage": 26,
+      "hit force": 75,
+      "missile strength": 3,
+      "ammunition": [
+        {
+          "type": "Javelin",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The Javelin Mini Pod has long been a favorite of fighter pilots for its high damage and fire rate. The Javelin Storm Pod is a pair of Javelin Mini Pods welded together, but with a twist: it fires its eight tubes very, very rapidly, dealing great burst damage. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Lunarium (Hidden)": true,
+        "Free Worlds": true,
+        "Merchant": true,
+        "Bounty Hunter": true,
+        "Pirate": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ],
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Alpherg",
+          "Antares",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Men",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Shaula",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Clipper (KGS Storm)",
+          "Finch (KGS Javelin Storm Pod)",
+          "Fury (KGS Storm)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Javelin Storm Launcher",
+    "display name": "Javelin Storm Launcher",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1020,
+    "cost": 40000,
+    "thumbnail": "outfit/kgs_javelin_storm_launcher",
+    "mass": 9,
+    "outfit space": -20,
+    "weapon capacity": -20,
+    "gun ports": -1,
+    "javelin capacity": 270,
+    "weapon": {
+      "sprite": "projectile/kgs_javelin_storm",
+      "sound": "javelin",
+      "icon": "icon/kgs_javelin_storm",
+      "hit effect": "tiny explosion",
+      "inaccuracy": 3,
+      "velocity": 10,
+      "lifetime": 60,
+      "reload": 10,
+      "burst count": 24,
+      "burst reload": 1,
+      "firing energy": 0.4,
+      "firing heat": 18,
+      "shield damage": 48,
+      "hull damage": 26,
+      "hit force": 75,
+      "missile strength": 3,
+      "ammunition": [
+        {
+          "type": "Javelin",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The Javelin Storm Launcher, developed by Kraz Cybernetics for use on Tarazed's Kingfisher battlecruiser, fires all its 24 tubes very quickly, perfect for the Kingfisher's strike tactics. \tThe weapon's extremely concentrated burst fire makes it almost impossible for anti-missile systems to counter all the missiles, ensuring that at least some of them hit. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ],
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Antares",
+          "Beta Lupi",
+          "Dschubba",
+          "Eber",
+          "Gamma Corvi",
+          "Hadar",
+          "Han",
+          "Ildaria",
+          "Izar",
+          "Kornephoros",
+          "Kraz",
+          "Mimosa",
+          "Minkar",
+          "Pherkad",
+          "Sabik",
+          "Sargas",
+          "Shaula",
+          "Spica",
+          "Unukalhai",
+          "Wei",
+          "Yed Prior",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "KGS Kingfisher (II)",
+          "KGS Kingfisher (KGS Javelin Micro Pod Deployer)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Javelin Strike Pod",
+    "display name": "Javelin Strike Pod",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1010,
+    "cost": 7000,
+    "thumbnail": "outfit/kgs_javelin_strike_pod",
+    "mass": 2,
+    "outfit space": -4,
+    "weapon capacity": -4,
+    "gun ports": -1,
+    "kgs strike javelin capacity": 24,
+    "weapon": {
+      "sprite": "projectile/kgs_strike_javelin",
+      "sound": "javelin",
+      "icon": "icon/kgs_strike_javelin",
+      "hit effect": "tiny explosion",
+      "inaccuracy": 0.7,
+      "velocity": 15,
+      "lifetime": 80,
+      "reload": 60,
+      "burst count": 24,
+      "burst reload": 18,
+      "firing energy": 0.5,
+      "firing heat": 20,
+      "shield damage": 48,
+      "hull damage": 26,
+      "hit force": 75,
+      "missile strength": 4,
+      "ammunition": [
+        {
+          "type": "KGS Strike Javelin",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The Javelin Strike Pod is a Javelin Mini Pod adapted to fire modified Strike Javelins - regular Javelins with a much larger propellant section. \tUnfortunately, the systems that enable the three-shot burst fire on the full-size launcher couldn't fit on this pod. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Free Worlds": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ],
+        "ShipyardPlanets": [
+          "Glaze",
+          "New Britain"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Alderamin",
+          "Aldhibain",
+          "Algol",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnair",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Hydri",
+          "Alphecca",
+          "Alpheratz",
+          "Alpherg",
+          "Altair",
+          "Ankaa",
+          "Antares",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Bellatrix",
+          "Beta Lupi",
+          "Boral",
+          "Caph",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Diphda",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Fomalhaut",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Markab",
+          "Matar",
+          "Men",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mirach",
+          "Mirfak",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Polaris",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Shaula",
+          "Sheratan",
+          "Sol",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Finch (KGS Javelin Strike Pod)",
+          "KGS Dipper (Heavy)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Javelin Strike Launcher",
+    "display name": "Javelin Strike Launcher",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1020,
+    "cost": 30000,
+    "thumbnail": "outfit/kgs_javelin_strike_launcher",
+    "mass": 6,
+    "outfit space": -15,
+    "weapon capacity": -15,
+    "gun ports": -1,
+    "kgs strike javelin capacity": 120,
+    "weapon": {
+      "sprite": "projectile/kgs_strike_javelin",
+      "sound": "javelin",
+      "icon": "icon/kgs_strike_javelin",
+      "hit effect": "tiny explosion",
+      "inaccuracy": 0.7,
+      "velocity": 15,
+      "lifetime": 80,
+      "reload": 18,
+      "burst count": 3,
+      "burst reload": 6,
+      "firing energy": 0.5,
+      "firing heat": 20,
+      "shield damage": 48,
+      "hull damage": 26,
+      "hit force": 75,
+      "missile strength": 4,
+      "ammunition": [
+        {
+          "type": "KGS Strike Javelin",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The Javelin Strike Launcher is a Javelin Pod adapted to fire modified Strike Javelins - regular Javelins with a much larger propellant section. \tTo maximize the chance of a hit at long range, this weapon has been adapted to fire in bursts of three. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Lunarium (Hidden)": true,
+        "Free Worlds": true,
+        "Escort": true,
+        "Merchant": true,
+        "Bounty Hunter": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Alderamin",
+          "Aldhibain",
+          "Algol",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnair",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Hydri",
+          "Alphecca",
+          "Alpheratz",
+          "Alpherg",
+          "Altair",
+          "Ankaa",
+          "Antares",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Bellatrix",
+          "Beta Lupi",
+          "Boral",
+          "Caph",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Diphda",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Fomalhaut",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Markab",
+          "Matar",
+          "Men",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mirach",
+          "Mirfak",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Polaris",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Shaula",
+          "Sheratan",
+          "Sol",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Argosy (KGS Strike)",
+          "Clipper (KGS Strike)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Javelin Micro Pod Deployer",
+    "display name": "Javelin Micro Pod Deployer",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1021,
+    "cost": 100000,
+    "thumbnail": "outfit/kgs_javelin_micro_pod_deployer",
+    "mass": 20,
+    "outfit space": -65,
+    "weapon capacity": -65,
+    "gun ports": -1,
+    "kgs javelin mpod capacity": 60,
+    "weapon": {
+      "sprite": "projectile/kgs_javelin_micro_pod_package",
+      "sound": "javelin",
+      "icon": "icon/kgs_javelin_micro_pod_package",
+      "reload": 30,
+      "inaccuracy": 10,
+      "cluster": true,
+      "lifetime": 30,
+      "velocity": 1,
+      "firing energy": 12,
+      "firing heat": 4,
+      "homing": true,
+      "tracking": 1,
+      "no ship collisions": true,
+      "submunitions": [
+        {
+          "type": "kgs javelin micro pod 6",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "KGS Javelin Micro Pod Package",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The Javelin Pod's greatest strength is in its numbers, and thus this weapon exemplifies that further. Tiny Javelin Micro Pods, stripped down to the bare minimum loading magazine with small maneuvering thrusters for aiming correction, are launched in considerable number, providing a sustained fire rate equal to that of 6 Javelin Pods at the cost of massively increased tonnage overhead. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "KGS Kingfisher (KGS Javelin Micro Pod Deployer)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "kgs javelin missile",
+    "weapon": {
+      "sprite": "projectile/javelin",
+      "hit effect": "tiny explosion",
+      "velocity": 10,
+      "lifetime": 60,
+      "inaccuracy": 1,
+      "shield damage": 48,
+      "hull damage": 26,
+      "hit force": 75
+    },
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "kgs javelin micro pod 6",
+    "weapon": {
+      "sprite": "projectile/kgs_javelin_micro_pod_package",
+      "acceleration": 0.00001,
+      "lifetime": 25,
+      "turn": 5,
+      "drag": 0.05,
+      "homing": true,
+      "tracking": 1,
+      "no ship collisions": true,
+      "submunitions": [
+        {
+          "type": "kgs javelin missile",
+          "count": 1
+        },
+        {
+          "type": "kgs javelin micro pod 5",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "kgs javelin micro pod 5",
+    "weapon": {
+      "sprite": "projectile/kgs_javelin_micro_pod_package",
+      "acceleration": 0.00001,
+      "lifetime": 25,
+      "turn": 5,
+      "drag": 0.05,
+      "homing": true,
+      "tracking": 1,
+      "no ship collisions": true,
+      "submunitions": [
+        {
+          "type": "kgs javelin micro pod 4",
+          "count": 1
+        },
+        {
+          "type": "kgs javelin missile",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "kgs javelin micro pod 4",
+    "weapon": {
+      "sprite": "projectile/kgs_javelin_micro_pod_package",
+      "acceleration": 0.00001,
+      "lifetime": 25,
+      "turn": 5,
+      "drag": 0.05,
+      "homing": true,
+      "tracking": 1,
+      "no ship collisions": true,
+      "submunitions": [
+        {
+          "type": "kgs javelin micro pod 3",
+          "count": 1
+        },
+        {
+          "type": "kgs javelin missile",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "kgs javelin micro pod 3",
+    "weapon": {
+      "sprite": "projectile/kgs_javelin_micro_pod_package",
+      "acceleration": 0.00001,
+      "lifetime": 25,
+      "turn": 5,
+      "drag": 0.05,
+      "homing": true,
+      "tracking": 1,
+      "no ship collisions": true,
+      "submunitions": [
+        {
+          "type": "kgs javelin micro pod 2",
+          "count": 1
+        },
+        {
+          "type": "kgs javelin missile",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "kgs javelin micro pod 2",
+    "weapon": {
+      "sprite": "projectile/kgs_javelin_micro_pod_package",
+      "acceleration": 0.00001,
+      "lifetime": 25,
+      "turn": 5,
+      "drag": 0.05,
+      "homing": true,
+      "tracking": 1,
+      "no ship collisions": true,
+      "submunitions": [
+        {
+          "type": "kgs javelin micro pod 1",
+          "count": 1
+        },
+        {
+          "type": "kgs javelin missile",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "kgs javelin micro pod 1",
+    "weapon": {
+      "sprite": "projectile/kgs_javelin_micro_pod_package",
+      "acceleration": 0.00001,
+      "lifetime": 25,
+      "turn": 5,
+      "drag": 0.05,
+      "homing": true,
+      "tracking": 1,
+      "no ship collisions": true,
+      "submunitions": [
+        {
+          "type": "kgs javelin missile",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Twin Gatling",
+    "display name": "Twin Gatling",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1140,
+    "cost": 41000,
+    "thumbnail": "outfit/kgs_twin_gat",
+    "mass": 5,
+    "outfit space": -17,
+    "weapon capacity": -17,
+    "gun ports": -1,
+    "gatling round capacity": 6000,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "gatling",
+      "icon": "icon/gat",
+      "inaccuracy": 2,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 3,
+      "burst count": 180,
+      "burst reload": 1,
+      "firing energy": 0.03,
+      "firing heat": 2.5,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 2
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 2
+        }
+      ]
+    },
+    "description": "These two Gatling Guns have been crudely joined to fit into a single gun port, offering twice as much damage but twice the power consumption and heat, along with a little bit of extra mass. However, it still needs to cool down for twice as long as it fires, and can only sustain a maximum of three seconds of continuous fire. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Lunarium (Hidden)": true,
+        "Free Worlds": true,
+        "Escort": true,
+        "Merchant": true,
+        "Bounty Hunter": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Buccaneer Bay",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced",
+          "Pirate Advanced"
+        ],
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Alpherg",
+          "Antares",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ipsing",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Lesath",
+          "Limen",
+          "Men",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Shaula",
+          "Spica",
+          "Tais",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Argosy (KGS Twin Gatling)",
+          "Clipper (KGS Twin Gatling)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Staggered Twin Gatling",
+    "display name": "Staggered Twin Gatling",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1140,
+    "cost": 50000,
+    "thumbnail": "outfit/kgs_twin_gat_stag",
+    "mass": 5,
+    "outfit space": -17,
+    "weapon capacity": -17,
+    "gun ports": -1,
+    "gatling round capacity": 6000,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "gatling",
+      "icon": "icon/gat",
+      "inaccuracy": 2,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 1.5,
+      "burst count": 360,
+      "burst reload": 1,
+      "firing energy": 0.03,
+      "firing heat": 2.5,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "These two Gatling Guns have been crudely joined to fit into a single gun port, offering twice as much damage but twice the heat and power consumption, along with a little bit of extra mass. However, an intricate mechanism staggers the fire of the two guns. It needs to cool down for half as long as it fires, and can only sustain a maximum of six seconds of continuous fire. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Lunarium (Hidden)": true,
+        "Free Worlds": true,
+        "Escort": true,
+        "Merchant": true,
+        "Bounty Hunter": true,
+        "Pirate": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Buccaneer Bay",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced",
+          "Pirate Advanced"
+        ],
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Alpherg",
+          "Antares",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ipsing",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Lesath",
+          "Limen",
+          "Men",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Shaula",
+          "Spica",
+          "Tais",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Argosy (KGS Staggered Twin Gatling)",
+          "Clipper (KGS Staggered Twin Gatling)",
+          "Modified Argosy (KGS Pure Gatling)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Triple Gatling",
+    "display name": "Triple Gatling",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1140,
+    "cost": 75000,
+    "thumbnail": "outfit/kgs_triple_gat",
+    "mass": 7,
+    "outfit space": -25,
+    "weapon capacity": -25,
+    "gun ports": -1,
+    "gatling round capacity": 9000,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "gatling",
+      "icon": "icon/gat",
+      "inaccuracy": 2,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 0.03,
+      "firing heat": 2.5,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "These three Gatling Guns have been joined rather more nicely than the pirate-made Twin Gatling. An ingenious device staggers the fire of all three guns, allowing for sustained continuous fire. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Quad Gatling",
+    "display name": "Quad Gatling",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1140,
+    "cost": 110000,
+    "thumbnail": "outfit/kgs_quad_gat",
+    "mass": 10,
+    "outfit space": -34,
+    "weapon capacity": -34,
+    "gun ports": -1,
+    "gatling round capacity": 12000,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "gatling",
+      "icon": "icon/gat",
+      "inaccuracy": 2,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 1.5,
+      "burst count": 360,
+      "burst reload": 1,
+      "firing energy": 0.03,
+      "firing heat": 2.5,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 2
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 2
+        }
+      ]
+    },
+    "description": "This scary weapon has been cobbled together from 4 Gatling Guns. Barmy Edward took inspiration from the Staggered Gatling Gun made and used by pirates, and this is the result - a weapon with huge damage potential, large enough to be used by capital ships. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS 2x3 Gatling",
+    "display name": "2x3 Gatling",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1140,
+    "cost": 160000,
+    "thumbnail": "outfit/kgs_2x3_gat",
+    "mass": 14,
+    "outfit space": -50,
+    "weapon capacity": -50,
+    "gun ports": -1,
+    "gatling round capacity": 18000,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "gatling",
+      "icon": "icon/gat",
+      "inaccuracy": 2,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 0.03,
+      "firing heat": 2.5,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 2
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 2
+        }
+      ]
+    },
+    "description": "This absurd weapon was created by Barmy Edward. When asked why he designed it, he simply grins. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Quad Gatling Turret",
+    "display name": "Quad Gatling Turret",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1150,
+    "cost": 200000,
+    "thumbnail": "outfit/kgs_quad_gat_turret",
+    "mass": 18,
+    "outfit space": -42,
+    "weapon capacity": -42,
+    "turret mounts": -1,
+    "required crew": 1,
+    "gatling round capacity": 12000,
+    "weapon": {
+      "sound": "gatling",
+      "sprite": "projectile/kgs_4x_tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "hardpoint sprite": "hardpoint/kgs_quad_gat_turret",
+      "icon": "icon/gat turret",
+      "inaccuracy": 2,
+      "turret turn": 2.4,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 1.5,
+      "burst count": 360,
+      "burst reload": 1,
+      "firing energy": 0.06,
+      "firing heat": 5,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 1
+        },
+        {
+          "type": "gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 2
+        }
+      ]
+    },
+    "description": "A pirate warlord has had two Staggered Twin Gatling Guns attached to a turret mount. Needless to say, the result is a terror, with a much faster cooldown time in between bursts than the original Gatling Turret. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Pirate": true,
+        "Merchant": true,
+        "Lunarium (Hidden)": true,
+        "Free Worlds": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "Ships": [
+          "Bastion (KGS Brawler)",
+          "Modified Argosy (KGS Pure Gatling)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Alpherg",
+          "Antares",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ipsing",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Lesath",
+          "Limen",
+          "Men",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Shaula",
+          "Spica",
+          "Tais",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Gatling Snubnose",
+    "display name": "Gatling Snubnose",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1140,
+    "cost": 14000,
+    "thumbnail": "outfit/kgs_gat_snub",
+    "mass": 1,
+    "outfit space": -3,
+    "weapon capacity": -3,
+    "gun ports": -1,
+    "gatling round capacity": 1000,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "gatling",
+      "icon": "icon/gat",
+      "inaccuracy": 5,
+      "velocity": 16,
+      "lifetime": 1,
+      "range override": 136,
+      "reload": 7,
+      "burst count": 30,
+      "burst reload": 1,
+      "firing energy": 0.025,
+      "firing heat": 4,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "kgs_snub_gbullet",
+          "count": 2
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "A creative pirate has chopped off most of the barrel of a Gatling Gun, resulting in a much lighter and faster firing weapon. However, the downsides are much diminished range, accuracy, and muzzle velocity, combined with a lower thermal limit and a hefty cooldown time. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Free Worlds": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Buccaneer Bay",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Pirate Advanced"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Finch (KGS Gatling Snubnose)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "kgs_snub_gbullet",
+    "weapon": {
+      "sprite": "projectile/bullet",
+      "sprite data": {
+        "delay": 5,
+        "random start frame": true,
+        "frame rate": 0
+      },
+      "velocity": -8,
+      "random velocity": 4,
+      "lifetime": 10,
+      "random lifetime": 4,
+      "shield damage": 3,
+      "hull damage": 6,
+      "hit force": 1.5,
+      "hit effect": "bullet impact"
+    },
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS High Velocity Gatling Gun",
+    "display name": "High Velocity Gatling Gun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1140,
+    "cost": 30000,
+    "thumbnail": "outfit/kgs_long_gat",
+    "mass": 6,
+    "outfit space": -14,
+    "weapon capacity": -14,
+    "gun ports": -1,
+    "gatling round capacity": 4000,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "gatling",
+      "icon": "icon/gat",
+      "inaccuracy": 1.1,
+      "velocity": 16,
+      "lifetime": 1,
+      "range override": 736,
+      "reload": 2,
+      "firing energy": 0.04,
+      "firing heat": 2.3,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "kgs_hi_v_gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "A creative pirate has gone in the opposite direction of the Gatling Snubnose, and has instead lengthened the barrel of the Gatling Gun, resulting in higher muzzle velocity and accuracy. The longer barrel also results in a higher thermal limit and more effective cooling, allowing it to fire continuously, though at a lower rate because of the increased barrel weight. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Lunarium (Hidden)": true,
+        "Free Worlds": true,
+        "Merchant": true,
+        "Bounty Hunter": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Buccaneer Bay",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Pirate Advanced"
+        ],
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Alpherg",
+          "Antares",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ipsing",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Lesath",
+          "Limen",
+          "Men",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Shaula",
+          "Spica",
+          "Tais",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Clipper (KGS Strike)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "kgs_hi_v_gbullet",
+    "weapon": {
+      "sprite": "projectile/bullet",
+      "sprite data": {
+        "delay": 5,
+        "random start frame": true,
+        "frame rate": 0
+      },
+      "velocity": 12,
+      "random velocity": 8,
+      "lifetime": 20,
+      "random lifetime": 5,
+      "shield damage": 3,
+      "hull damage": 6,
+      "hit force": 3,
+      "hit effect": "bullet impact"
+    },
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Twin Flamethrower",
+    "display name": "Twin Flamethrower",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1160,
+    "cost": 420000,
+    "thumbnail": "outfit/kgs_twin_flamethrower",
+    "mass": 20,
+    "outfit space": -20,
+    "weapon capacity": -20,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "effect/explosion/small",
+      "sprite data": {
+        "frame rate": 60,
+        "no repeat": true
+      },
+      "sound": "flamethrower",
+      "icon": "icon/flamethrower",
+      "inaccuracy": 12,
+      "velocity": 9,
+      "lifetime": 5,
+      "reload": 1,
+      "firing energy": 0.2,
+      "firing fuel": 0.7,
+      "firing heat": 10,
+      "submunitions": [
+        {
+          "type": "Flamethrower Projectile",
+          "count": 2
+        }
+      ]
+    },
+    "description": "The already-fearsome Flamethrower has been made doubly scary with this twinned version. Two Flamethrowers have been joined in a fashion that allows for slightly better fuel efficiency at the cost of heat.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Strike Javelin",
+    "display name": "Strike Javelin",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 1010,
+    "cost": 100,
+    "thumbnail": "outfit/kgs_strike_javelin",
+    "mass": 0.07,
+    "kgs strike javelin capacity": -1,
+    "description": "The Strike Javelin missile is ammunition for the Javelin Strike Launcher; without a launcher to store them in you cannot purchase or use Strike Javelins.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Lunarium (Hidden)": true,
+        "Free Worlds": true,
+        "Escort": true,
+        "Merchant": true,
+        "Bounty Hunter": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ],
+        "ShipyardPlanets": [
+          "Glaze",
+          "New Britain"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Alderamin",
+          "Aldhibain",
+          "Algol",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnair",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Hydri",
+          "Alphecca",
+          "Alpheratz",
+          "Alpherg",
+          "Altair",
+          "Ankaa",
+          "Antares",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Bellatrix",
+          "Beta Lupi",
+          "Boral",
+          "Caph",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Diphda",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Fomalhaut",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Markab",
+          "Matar",
+          "Men",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mirach",
+          "Mirfak",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Polaris",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Shaula",
+          "Sheratan",
+          "Sol",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Argosy (KGS Strike)",
+          "Clipper (KGS Strike)",
+          "Finch (KGS Javelin Strike Pod)",
+          "KGS Dipper (Heavy)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Strike Javelin Storage Crate",
+    "display name": "Strike Javelin Storage Crate",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 1011,
+    "cost": 7000,
+    "thumbnail": "outfit/kgs_strike_javelin_storage",
+    "mass": 3,
+    "outfit space": -8,
+    "kgs strike javelin capacity": 60,
+    "ammo": "KGS Strike Javelin",
+    "description": "The Strike Javelin Storage Crate is used to store extra ammunition for Javelin Strike Launchers.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Lunarium (Hidden)": true,
+        "Free Worlds": true,
+        "Merchant": true,
+        "Bounty Hunter": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ],
+        "ShipyardPlanets": [
+          "Glaze",
+          "New Britain"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Alderamin",
+          "Aldhibain",
+          "Algol",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnair",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Hydri",
+          "Alphecca",
+          "Alpheratz",
+          "Alpherg",
+          "Altair",
+          "Ankaa",
+          "Antares",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Bellatrix",
+          "Beta Lupi",
+          "Boral",
+          "Caph",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Diphda",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Fomalhaut",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Markab",
+          "Matar",
+          "Men",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mirach",
+          "Mirfak",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Polaris",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Shaula",
+          "Sheratan",
+          "Sol",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "Clipper (KGS Strike)",
+          "Finch (KGS Javelin Strike Pod)",
+          "KGS Dipper (Heavy)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Javelin Micro Pod Package",
+    "display name": "Javelin Micro Pod Package",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 1010,
+    "cost": 2500,
+    "thumbnail": "outfit/kgs_javelin_micro_pod_package",
+    "mass": 0.75,
+    "kgs javelin mpod capacity": -1,
+    "description": "This package is a stripped-down Javelin Micro Pod, with a minimized loading magazine holding 6 Javelins, and a few small chemical thrusters for aiming. The Javelin Micro Pod Package is ammunition for the Javelin Micro Pod Deployer; without a deployer to store them in you cannot purchase or use Javelin Micro Pod Packages.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "KGS Kingfisher (KGS Javelin Micro Pod Deployer)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Javelin Micro Pod Storage Rack",
+    "display name": "Javelin Micro Pod Storage Rack",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 1010,
+    "cost": 55000,
+    "thumbnail": "outfit/kgs_javelin_micro_pod_storage",
+    "mass": 2.5,
+    "outfit space": -25,
+    "kgs javelin mpod capacity": 30,
+    "ammo": "KGS Javelin Micro Pod Package",
+    "description": "The Javelin Micro Pod Storage Rack is used to store extra ammunition for Javelin Micro Pod Deployers.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "KGS Kingfisher (KGS Javelin Micro Pod Deployer)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Binary Repeater",
+    "display name": "Binary Repeater",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 4010,
+    "cost": 700000,
+    "thumbnail": "outfit/kgs_binary_repeater",
+    "mass": 23,
+    "outfit space": -23,
+    "weapon capacity": -23,
+    "energy capacity": 200,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/repeater",
+      "sprite data": {
+        "frame rate": 5
+      },
+      "sound": "repeater",
+      "hit effect": "repeater impact",
+      "inaccuracy": 4,
+      "velocity": 13,
+      "lifetime": 40,
+      "reload": 5,
+      "burst reload": 2,
+      "burst count": 6,
+      "cluster": true,
+      "firing energy": 24,
+      "firing heat": 108,
+      "shield damage": 26,
+      "hull damage": 22,
+      "heat damage": 33
+    },
+    "description": "Two Thermal Repeaters have been wired together, resulting in rather insane heat output.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Double Digger Mining Beam",
+    "display name": "Double Digger Mining Beam",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 4070,
+    "cost": 9400000,
+    "thumbnail": "outfit/kgs_double_digger",
+    "mass": 21,
+    "outfit space": -21,
+    "weapon capacity": -19,
+    "asteroid scan power": 25,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/kgs_double_digger_thin",
+      "sprite data": {
+        "frame rate": 20
+      },
+      "sound": "korath digger",
+      "hit effect": "korath digger hit",
+      "inaccuracy": 0.1,
+      "velocity": 480,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 4.5,
+      "firing heat": 9,
+      "shield damage": 1,
+      "hull damage": 2,
+      "minable damage": 12,
+      "prospecting": 10,
+      "disruption damage": 0.15
+    },
+    "description": "These two Digger Mining Beams have been stacked. Some clever engineering allows it to be slightly more effective than two separate beams, at the cost of a requiring little more energy and making a little more heat.",
+    "governments": {
+      "KGS": {
+        "KGS": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "Ships": [
+          "Lor'kas Ik 577 (KGS Double Digger)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Almach",
+          "Atik",
+          "Durax",
+          "Kor Ak'Mari",
+          "Kor En'lakfar",
+          "Kor Fel'tar",
+          "Kor Men",
+          "Kor Tar'bei",
+          "Misam"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Double Digger Mining Turret",
+    "display name": "Double Digger Mining Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 4090,
+    "cost": 1200000,
+    "thumbnail": "outfit/kgs_double_digger_turret",
+    "mass": 32,
+    "outfit space": -32,
+    "weapon capacity": -29,
+    "asteroid scan power": 40,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/kgs_double_digger",
+      "sprite data": {
+        "frame rate": 20
+      },
+      "hardpoint sprite": "hardpoint/digger turret",
+      "sound": "korath digger",
+      "hit effect": "korath digger hit",
+      "inaccuracy": 1.5,
+      "turret turn": 3.9,
+      "velocity": 480,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 6,
+      "firing heat": 12,
+      "shield damage": 2,
+      "hull damage": 3,
+      "minable damage": 14,
+      "prospecting": 12,
+      "disruption damage": 0.2
+    },
+    "description": "The complement to the Double Digger Mining Beam, this handy turret, originally meant for asteroid mining, is actually quite effective against ships due to its shield disruption capabilities.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Korath": true
+      },
+      "Zuckungs list/bunrodea.missions": {
+        "Korath": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "Ships": [
+          "Lor'kas Ik 577 (KGS Double Digger)",
+          "Rano'erek (KGS Double Digger)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Almach",
+          "Atik",
+          "Durax",
+          "Kor Ak'Mari",
+          "Kor En'lakfar",
+          "Kor Fel'tar",
+          "Kor Men",
+          "Kor Tar'bei",
+          "Misam"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Twinhibitor",
+    "display name": "Twinhibitor",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 3010,
+    "licenses": {
+      "Remnant": true
+    },
+    "cost": 1000000,
+    "thumbnail": "outfit/kgs_twinhibitor",
+    "mass": 34,
+    "outfit space": -34,
+    "weapon capacity": -34,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/inhibitor",
+      "sprite data": {
+        "frame rate": 10,
+        "no repeat": true
+      },
+      "sound": "inhibitor",
+      "hit effect": "inhibitor impact",
+      "inaccuracy": 0.5,
+      "velocity": 36,
+      "random velocity": 0.5,
+      "lifetime": 24,
+      "reload": 6.5,
+      "cluster": true,
+      "firing energy": 26,
+      "firing heat": 45.5,
+      "firing force": 19.5,
+      "shield damage": 26,
+      "hull damage": 19.5,
+      "hit force": 58.5,
+      "slowing damage": 0.5
+    },
+    "description": "Simply two Inhibitor Cannons in a single frame, this weapon is favored by Remnant captains trying to fit the maximum number of the long-range, slowing weapons as possible on their ship.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Remnant": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "Ships": [
+          "Albatross (KGS Sniper)",
+          "Albatross (KGS Twinhibitor)",
+          "Ibis (KGS Heavy)",
+          "Ibis (KGS Twinhibitor)",
+          "KGS Silver Albatross (KGS Sniper)",
+          "KGS Silver Albatross (KGS Twinhibitor)",
+          "KGS Silver Ibis (KGS Heavy)",
+          "KGS Silver Ibis (KGS Twinhibitor)",
+          "KGS Silver Merganser (KGS Bomber)",
+          "KGS Silver Merganser (KGS Hybrid)",
+          "KGS Silver Pelican (KGS Twinhibitor)",
+          "Merganser (KGS Bomber)",
+          "Merganser (KGS Hybrid)",
+          "Pelican (KGS Twinhibitor)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Bithrasher",
+    "display name": "Bithrasher",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 3020,
+    "licenses": {
+      "Remnant": true
+    },
+    "cost": 454000,
+    "thumbnail": "outfit/kgs_bithrasher",
+    "mass": 21,
+    "outfit space": -21,
+    "weapon capacity": -21,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/thrasher",
+      "sprite data": {
+        "frame rate": 10,
+        "random start frame": true,
+        "no repeat": true
+      },
+      "sound": "thrasher",
+      "hit effect": "thrasher impact",
+      "inaccuracy": 9,
+      "velocity": 10,
+      "lifetime": 36,
+      "reload": 10,
+      "firing energy": 36,
+      "firing heat": 27,
+      "shield damage": 38,
+      "hull damage": 46
+    },
+    "description": "The Bithrasher was created when several Remnant captains expressed dissatisfaction because filling their ships with Thrasher Cannons left a lot of weapon space free.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Remnant": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "Ships": [
+          "Albatross (KGS Bithrasher)",
+          "Albatross (KGS Trithrasher)",
+          "KGS Silver Albatross (KGS Bithrasher)",
+          "KGS Silver Albatross (KGS Trithrasher)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS Trithrasher",
+    "display name": "Trithrasher",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 3020,
+    "licenses": {
+      "Remnant": true
+    },
+    "cost": 700000,
+    "thumbnail": "outfit/kgs_trithrasher",
+    "mass": 32,
+    "outfit space": -32,
+    "weapon capacity": -32,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/thrasher",
+      "sprite data": {
+        "frame rate": 10,
+        "random start frame": true,
+        "no repeat": true
+      },
+      "sound": "thrasher",
+      "hit effect": "thrasher impact",
+      "inaccuracy": 9,
+      "velocity": 10,
+      "lifetime": 36,
+      "reload": 6.666666,
+      "firing energy": 36,
+      "firing heat": 27,
+      "shield damage": 38,
+      "hull damage": 46
+    },
+    "description": "The Trithrasher is for captains who want even more than the Twin Thrasher. It does incredible damage up close, especially against hull.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Remnant": true
+      }
+    },
+    "locations": {
+      "Kai's list/KGS": {
+        "Ships": [
+          "Albatross (KGS Trithrasher)",
+          "KGS Silver Albatross (KGS Trithrasher)"
+        ]
+      }
+    },
+    "pluginId": "Kai's list/KGS"
+  }
+]
