@@ -930,7 +930,7 @@
       "submunitions": [
         {
           "type": "Korath Mine Submunition",
-          "count": 1
+          "count": 11
         }
       ],
       "ammunition": [
@@ -8309,7 +8309,7 @@
       "submunitions": [
         {
           "type": "TeV Electron Bunch",
-          "count": 1
+          "count": 180
         }
       ]
     },
@@ -8390,7 +8390,7 @@
       "submunitions": [
         {
           "type": "GeV Electron Bunch",
-          "count": 1
+          "count": 180
         }
       ]
     },
@@ -9314,7 +9314,7 @@
       "submunitions": [
         {
           "type": "Nettle Flecks",
-          "count": 1
+          "count": 18
         }
       ]
     },
@@ -19922,7 +19922,7 @@
       "submunitions": [
         {
           "type": "ion hail",
-          "count": 1
+          "count": 4
         }
       ]
     },
@@ -20353,7 +20353,6 @@
     "turret mounts": -1,
     "energy capacity": 8400,
     "weapon": {
-      "Jump Drive": 0,
       "turret turn": 180,
       "velocity": 1,
       "lifetime": 1,
@@ -20370,7 +20369,13 @@
       "ion damage": 1,
       "scrambling damage": 1,
       "disruption damage": 2,
-      "safe": true
+      "safe": true,
+      "ammunition": [
+        {
+          "type": "Jump Drive",
+          "count": 0
+        }
+      ]
     },
     "description": "This device is the Archon's primary defensive tool: not only does it disrupt the shields and energy supplies of all hostile ships within it, it also exerts a powerful repelling force that keeps ships from closing in with the Archon. \tWhile normally kept at minimal strength, the Archons have demonstrated the ability to ramp up the field to be vastly stronger when faced with a serious threat.",
     "governments": {
@@ -20435,13 +20440,18 @@
     "turret mounts": -1,
     "energy capacity": 6600,
     "weapon": {
-      "Jump Drive": 0,
       "velocity": 400,
       "lifetime": 1,
       "reload": 1,
       "firing energy": 10,
       "firing heat": 1,
-      "anti-missile": 500
+      "anti-missile": 500,
+      "ammunition": [
+        {
+          "type": "Jump Drive",
+          "count": 0
+        }
+      ]
     },
     "description": "This device produces a field that destroys any missiles that come within it. \tThis level of anti-missile effectiveness is required only when dealing with the most powerful of threats.",
     "governments": {
@@ -20516,7 +20526,6 @@
     "turret mounts": -1,
     "energy capacity": 4800,
     "weapon": {
-      "Jump Drive": 0,
       "sprite": "projectile/drak bolt",
       "sprite data": {
         "frame rate": 13.318,
@@ -20532,7 +20541,13 @@
       "firing heat": 160,
       "shield damage": 2560,
       "hull damage": 2560,
-      "hit force": 180
+      "hit force": 180,
+      "ammunition": [
+        {
+          "type": "Jump Drive",
+          "count": 0
+        }
+      ]
     },
     "description": "This is a turret-based cannon with significant range and accuracy. \tAgainst most threats, Archons respond with their weapons set to very low levels. They are, however, more than capable of dealing much more damage when the situation requires it.",
     "governments": {
@@ -20579,7 +20594,7 @@
       "submunitions": [
         {
           "type": "Drak Antimatter Fragment",
-          "count": 1
+          "count": 3
         }
       ]
     },
@@ -20612,7 +20627,6 @@
     "energy capacity": 9600,
     "inscrutable": 1,
     "weapon": {
-      "Jump Drive": 0,
       "inaccuracy": 0,
       "velocity": 20,
       "lifetime": 1,
@@ -20629,7 +20643,13 @@
       "submunitions": [
         {
           "type": "Drak Antimatter Fragment (Augmented)",
-          "count": 1
+          "count": 5
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Jump Drive",
+          "count": 0
         }
       ]
     },
@@ -79357,7 +79377,7 @@
       "submunitions": [
         {
           "type": "Proton Fragment",
-          "count": 1
+          "count": 3
         }
       ]
     },
@@ -79693,7 +79713,7 @@
       "submunitions": [
         {
           "type": "Proton Fragment",
-          "count": 1
+          "count": 3
         }
       ]
     },
@@ -89551,7 +89571,7 @@
       "submunitions": [
         {
           "type": "plasma particle",
-          "count": 1
+          "count": 5
         }
       ]
     },
@@ -91637,7 +91657,7 @@
       "submunitions": [
         {
           "type": "Asteroid Circle Submunition",
-          "count": 1
+          "count": 7
         }
       ]
     },
@@ -95815,7 +95835,7 @@
       "submunitions": [
         {
           "type": "asteroid fragment",
-          "count": 1
+          "count": 180
         }
       ]
     },
@@ -96443,7 +96463,7 @@
       "submunitions": [
         {
           "type": "Annihilator Projectile",
-          "count": 1
+          "count": 2
         }
       ]
     },
@@ -108737,7 +108757,7 @@
       "submunitions": [
         {
           "type": "Korath Mine Submunition",
-          "count": 1
+          "count": 11
         }
       ],
       "ammunition": [
@@ -109710,7 +109730,12 @@
       "shield damage": -342,
       "hull damage": -342,
       "hit force": 5400,
-      "Heaver Shard": 20
+      "submunitions": [
+        {
+          "type": "Heaver Shard",
+          "count": 20
+        }
+      ]
     },
     "description": "Langrage Hyper-Heavers raise the use of improvised ammunition to a fine art. This turret converts scrap metal, nearby asteroids, compressed garbage, or other debris into a high speed debris field. The exact mechanism is unclear, but the internal workings bear some similarities to hyperdrives and Banishers. \tAt close range, the heaved langrage merely forces the enemy back. However, as the launch field collapses and the langrage returns fully to normal space, it is rent into a rapidly-expanding cloud of deadly projectiles.",
     "governments": {
@@ -109844,7 +109869,12 @@
       "lifetime": 20,
       "random lifetime": 7.5,
       "hit force": 30,
-      "Heaver Splinter": 3
+      "submunitions": [
+        {
+          "type": "Heaver Splinter",
+          "count": 3
+        }
+      ]
     },
     "governments": {
       "endless-sky": {
@@ -114393,7 +114423,7 @@
       "submunitions": [
         {
           "type": "ribault unguided",
-          "count": 1
+          "count": 2
         }
       ]
     },
@@ -119269,7 +119299,6 @@
     "gun ports": -1,
     "weapon": {
       "sound": "composer",
-      "Abyssal Composer": 0,
       "hit effect": [
         "composed",
         "drained"
@@ -119290,7 +119319,13 @@
       "hit force": -187.5,
       "slowing damage": 10,
       "energy damage": 100,
-      "piercing": 0.3
+      "piercing": 0.3,
+      "ammunition": [
+        {
+          "type": "Abyssal Composer",
+          "count": 0
+        }
+      ]
     },
     "description": "This is an extremely dangerous device that uses graviton technology to pull a target's mass and energy apart, and then feeds the materials to the firing ship's systems.",
     "governments": {
@@ -120060,7 +120095,7 @@
       "submunitions": [
         {
           "type": "Heavy Ion Fragment",
-          "count": 1
+          "count": 3
         }
       ]
     },
@@ -123288,7 +123323,7 @@
       "submunitions": [
         {
           "type": "Bimodal Switch",
-          "count": 1
+          "count": 3
         }
       ]
     },
@@ -123430,7 +123465,7 @@
       "submunitions": [
         {
           "type": "Bimodal Switch",
-          "count": 1
+          "count": 3
         }
       ]
     },
@@ -123541,7 +123576,7 @@
       "submunitions": [
         {
           "type": "Drag Projectile",
-          "count": 1
+          "count": 3
         }
       ]
     },
@@ -125051,7 +125086,7 @@
       "submunitions": [
         {
           "type": "Thunderhead",
-          "count": 1
+          "count": 5
         }
       ],
       "ammunition": [

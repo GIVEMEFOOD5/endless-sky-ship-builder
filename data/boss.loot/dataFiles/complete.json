@@ -2025,7 +2025,7 @@
         "submunitions": [
           {
             "type": "Drak Antimatter Fragment",
-            "count": 1
+            "count": 2
           }
         ]
       },
@@ -2562,7 +2562,7 @@
         "submunitions": [
           {
             "type": "Korath Mine Submunition(T1)",
-            "count": 1
+            "count": 11
           }
         ],
         "ammunition": [
@@ -3045,7 +3045,7 @@
         "submunitions": [
           {
             "type": "TeV Electron Bunch(T1)",
-            "count": 1
+            "count": 180
           }
         ]
       },
@@ -3128,7 +3128,7 @@
         "submunitions": [
           {
             "type": "GeV Electron Bunch(T1)",
-            "count": 1
+            "count": 180
           }
         ]
       },
@@ -3529,7 +3529,7 @@
         "submunitions": [
           {
             "type": "Nettle Flecks(T1)",
-            "count": 1
+            "count": 18
           }
         ]
       },
@@ -4553,7 +4553,7 @@
         "submunitions": [
           {
             "type": "ion hail(T1)",
-            "count": 1
+            "count": 4
           }
         ]
       },
@@ -4755,7 +4755,6 @@
       "turret mounts": -1,
       "energy capacity": 8400,
       "weapon": {
-        "Jump Drive": 0,
         "turret turn": 180,
         "velocity": 1,
         "lifetime": 1,
@@ -4772,7 +4771,13 @@
         "ion damage": 1.33,
         "scrambling damage": 1.33,
         "disruption damage": 2.66,
-        "safe": true
+        "safe": true,
+        "ammunition": [
+          {
+            "type": "Jump Drive",
+            "count": 0
+          }
+        ]
       },
       "description": "This device is the Archon's primary defensive tool: not only does it disrupt the shields and energy supplies of all hostile ships within it, it also exerts a powerful repelling force that keeps ships from closing in with the Archon. \tWhile normally kept at minimal strength, the Archons have demonstrated the ability to ramp up the field to be vastly stronger when faced with a serious threat.",
       "governments": {
@@ -4847,7 +4852,6 @@
       "turret mounts": -1,
       "energy capacity": 4800,
       "weapon": {
-        "Jump Drive": 0,
         "sprite": "projectile/drak bolt",
         "sprite data": {
           "frame rate": 13.318,
@@ -4863,7 +4867,13 @@
         "firing heat": 160,
         "shield damage": 3404.8,
         "hull damage": 3404.8,
-        "hit force": 180
+        "hit force": 180,
+        "ammunition": [
+          {
+            "type": "Jump Drive",
+            "count": 0
+          }
+        ]
       },
       "description": "This is a turret-based cannon with significant range and accuracy. \tAgainst most threats, Archons respond with their weapons set to very low levels. They are, however, more than capable of dealing much more damage when the situation requires it.",
       "governments": {
@@ -4910,7 +4920,7 @@
         "submunitions": [
           {
             "type": "Drak Antimatter Fragment(T1)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -4943,7 +4953,6 @@
       "energy capacity": 9600,
       "inscrutable": 1,
       "weapon": {
-        "Jump Drive": 0,
         "inaccuracy": 0,
         "velocity": 20,
         "lifetime": 1,
@@ -4960,7 +4969,13 @@
         "submunitions": [
           {
             "type": "Drak Antimatter Fragment (Augmented)(T1)",
-            "count": 1
+            "count": 5
+          }
+        ],
+        "ammunition": [
+          {
+            "type": "Jump Drive",
+            "count": 0
           }
         ]
       },
@@ -7022,7 +7037,7 @@
         "submunitions": [
           {
             "type": "Proton Fragment(T1)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -7097,7 +7112,7 @@
         "submunitions": [
           {
             "type": "Proton Fragment(T1)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -8352,7 +8367,7 @@
         "submunitions": [
           {
             "type": "plasma particle(T1)",
-            "count": 1
+            "count": 5
           }
         ]
       },
@@ -8719,7 +8734,7 @@
         "submunitions": [
           {
             "type": "Asteroid Circle Submunition(T1)",
-            "count": 1
+            "count": 7
           }
         ]
       },
@@ -12768,7 +12783,7 @@
         "submunitions": [
           {
             "type": "asteroid fragment(T1)",
-            "count": 1
+            "count": 180
           }
         ]
       },
@@ -13116,7 +13131,7 @@
         "submunitions": [
           {
             "type": "Annihilator Projectile(T1)",
-            "count": 1
+            "count": 2
           }
         ]
       },
@@ -13911,7 +13926,7 @@
         "submunitions": [
           {
             "type": "Korath Mine Submunition(T1)",
-            "count": 1
+            "count": 11
           }
         ],
         "ammunition": [
@@ -14944,7 +14959,7 @@
         "submunitions": [
           {
             "type": "ribault unguided(T1)",
-            "count": 1
+            "count": 2
           }
         ]
       },
@@ -15757,7 +15772,6 @@
       "gun ports": -1,
       "weapon": {
         "sound": "composer",
-        "Abyssal Composer": 0,
         "hit effect": [
           "composed",
           "drained"
@@ -15778,7 +15792,13 @@
         "hit force": -187.5,
         "slowing damage": 13.3,
         "energy damage": 133,
-        "piercing": 0.3
+        "piercing": 0.3,
+        "ammunition": [
+          {
+            "type": "Abyssal Composer",
+            "count": 0
+          }
+        ]
       },
       "description": "This is an extremely dangerous device that uses graviton technology to pull a target's mass and energy apart, and then feeds the materials to the firing ship's systems.",
       "governments": {
@@ -16072,7 +16092,7 @@
         "submunitions": [
           {
             "type": "Heavy Ion Fragment(T1)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -16162,7 +16182,7 @@
         "submunitions": [
           {
             "type": "Bimodal Switch(T1)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -16226,7 +16246,7 @@
         "submunitions": [
           {
             "type": "Bimodal Switch(T1)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -16304,7 +16324,7 @@
         "submunitions": [
           {
             "type": "Drag Projectile(T1)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -16980,7 +17000,7 @@
         "submunitions": [
           {
             "type": "Thunderhead(T1)",
-            "count": 1
+            "count": 5
           }
         ],
         "ammunition": [
@@ -17593,7 +17613,7 @@
         "submunitions": [
           {
             "type": "Korath Mine Submunition(T2)",
-            "count": 1
+            "count": 11
           }
         ],
         "ammunition": [
@@ -18076,7 +18096,7 @@
         "submunitions": [
           {
             "type": "TeV Electron Bunch(T2)",
-            "count": 1
+            "count": 180
           }
         ]
       },
@@ -18159,7 +18179,7 @@
         "submunitions": [
           {
             "type": "GeV Electron Bunch(T2)",
-            "count": 1
+            "count": 180
           }
         ]
       },
@@ -18560,7 +18580,7 @@
         "submunitions": [
           {
             "type": "Nettle Flecks(T2)",
-            "count": 1
+            "count": 18
           }
         ]
       },
@@ -19584,7 +19604,7 @@
         "submunitions": [
           {
             "type": "ion hail(T2)",
-            "count": 1
+            "count": 4
           }
         ]
       },
@@ -19786,7 +19806,6 @@
       "turret mounts": -1,
       "energy capacity": 8400,
       "weapon": {
-        "Jump Drive": 0,
         "turret turn": 180,
         "velocity": 1,
         "lifetime": 1,
@@ -19803,7 +19822,13 @@
         "ion damage": 1.66,
         "scrambling damage": 1.66,
         "disruption damage": 3.32,
-        "safe": true
+        "safe": true,
+        "ammunition": [
+          {
+            "type": "Jump Drive",
+            "count": 0
+          }
+        ]
       },
       "description": "This device is the Archon's primary defensive tool: not only does it disrupt the shields and energy supplies of all hostile ships within it, it also exerts a powerful repelling force that keeps ships from closing in with the Archon. \tWhile normally kept at minimal strength, the Archons have demonstrated the ability to ramp up the field to be vastly stronger when faced with a serious threat.",
       "governments": {
@@ -19878,7 +19903,6 @@
       "turret mounts": -1,
       "energy capacity": 4800,
       "weapon": {
-        "Jump Drive": 0,
         "sprite": "projectile/drak bolt",
         "sprite data": {
           "frame rate": 13.318,
@@ -19894,7 +19918,13 @@
         "firing heat": 160,
         "shield damage": 4249.6,
         "hull damage": 4249.6,
-        "hit force": 180
+        "hit force": 180,
+        "ammunition": [
+          {
+            "type": "Jump Drive",
+            "count": 0
+          }
+        ]
       },
       "description": "This is a turret-based cannon with significant range and accuracy. \tAgainst most threats, Archons respond with their weapons set to very low levels. They are, however, more than capable of dealing much more damage when the situation requires it.",
       "governments": {
@@ -19941,7 +19971,7 @@
         "submunitions": [
           {
             "type": "Drak Antimatter Fragment(T2)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -19974,7 +20004,6 @@
       "energy capacity": 9600,
       "inscrutable": 1,
       "weapon": {
-        "Jump Drive": 0,
         "inaccuracy": 0,
         "velocity": 20,
         "lifetime": 1,
@@ -19991,7 +20020,13 @@
         "submunitions": [
           {
             "type": "Drak Antimatter Fragment (Augmented)(T2)",
-            "count": 1
+            "count": 5
+          }
+        ],
+        "ammunition": [
+          {
+            "type": "Jump Drive",
+            "count": 0
           }
         ]
       },
@@ -22053,7 +22088,7 @@
         "submunitions": [
           {
             "type": "Proton Fragment(T2)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -22128,7 +22163,7 @@
         "submunitions": [
           {
             "type": "Proton Fragment(T2)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -23383,7 +23418,7 @@
         "submunitions": [
           {
             "type": "plasma particle(T2)",
-            "count": 1
+            "count": 5
           }
         ]
       },
@@ -23750,7 +23785,7 @@
         "submunitions": [
           {
             "type": "Asteroid Circle Submunition(T2)",
-            "count": 1
+            "count": 7
           }
         ]
       },
@@ -27799,7 +27834,7 @@
         "submunitions": [
           {
             "type": "asteroid fragment(T2)",
-            "count": 1
+            "count": 180
           }
         ]
       },
@@ -28147,7 +28182,7 @@
         "submunitions": [
           {
             "type": "Annihilator Projectile(T2)",
-            "count": 1
+            "count": 2
           }
         ]
       },
@@ -28942,7 +28977,7 @@
         "submunitions": [
           {
             "type": "Korath Mine Submunition(T2)",
-            "count": 1
+            "count": 11
           }
         ],
         "ammunition": [
@@ -29975,7 +30010,7 @@
         "submunitions": [
           {
             "type": "ribault unguided(T2)",
-            "count": 1
+            "count": 2
           }
         ]
       },
@@ -30788,7 +30823,6 @@
       "gun ports": -1,
       "weapon": {
         "sound": "composer",
-        "Abyssal Composer": 0,
         "hit effect": [
           "composed",
           "drained"
@@ -30809,7 +30843,13 @@
         "hit force": -187.5,
         "slowing damage": 16.6,
         "energy damage": 166,
-        "piercing": 0.3
+        "piercing": 0.3,
+        "ammunition": [
+          {
+            "type": "Abyssal Composer",
+            "count": 0
+          }
+        ]
       },
       "description": "This is an extremely dangerous device that uses graviton technology to pull a target's mass and energy apart, and then feeds the materials to the firing ship's systems.",
       "governments": {
@@ -31103,7 +31143,7 @@
         "submunitions": [
           {
             "type": "Heavy Ion Fragment(T2)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -31193,7 +31233,7 @@
         "submunitions": [
           {
             "type": "Bimodal Switch(T2)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -31257,7 +31297,7 @@
         "submunitions": [
           {
             "type": "Bimodal Switch(T2)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -31335,7 +31375,7 @@
         "submunitions": [
           {
             "type": "Drag Projectile(T2)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -32011,7 +32051,7 @@
         "submunitions": [
           {
             "type": "Thunderhead(T2)",
-            "count": 1
+            "count": 5
           }
         ],
         "ammunition": [
@@ -32624,7 +32664,7 @@
         "submunitions": [
           {
             "type": "Korath Mine Submunition(T3)",
-            "count": 1
+            "count": 11
           }
         ],
         "ammunition": [
@@ -33107,7 +33147,7 @@
         "submunitions": [
           {
             "type": "TeV Electron Bunch(T3)",
-            "count": 1
+            "count": 180
           }
         ]
       },
@@ -33190,7 +33230,7 @@
         "submunitions": [
           {
             "type": "GeV Electron Bunch(T3)",
-            "count": 1
+            "count": 180
           }
         ]
       },
@@ -33591,7 +33631,7 @@
         "submunitions": [
           {
             "type": "Nettle Flecks(T3)",
-            "count": 1
+            "count": 18
           }
         ]
       },
@@ -34615,7 +34655,7 @@
         "submunitions": [
           {
             "type": "ion hail(T3)",
-            "count": 1
+            "count": 4
           }
         ]
       },
@@ -34817,7 +34857,6 @@
       "turret mounts": -1,
       "energy capacity": 8400,
       "weapon": {
-        "Jump Drive": 0,
         "turret turn": 180,
         "velocity": 1,
         "lifetime": 1,
@@ -34834,7 +34873,13 @@
         "ion damage": 2,
         "scrambling damage": 2,
         "disruption damage": 4,
-        "safe": true
+        "safe": true,
+        "ammunition": [
+          {
+            "type": "Jump Drive",
+            "count": 0
+          }
+        ]
       },
       "description": "This device is the Archon's primary defensive tool: not only does it disrupt the shields and energy supplies of all hostile ships within it, it also exerts a powerful repelling force that keeps ships from closing in with the Archon. \tWhile normally kept at minimal strength, the Archons have demonstrated the ability to ramp up the field to be vastly stronger when faced with a serious threat.",
       "governments": {
@@ -34909,7 +34954,6 @@
       "turret mounts": -1,
       "energy capacity": 4800,
       "weapon": {
-        "Jump Drive": 0,
         "sprite": "projectile/drak bolt",
         "sprite data": {
           "frame rate": 13.318,
@@ -34925,7 +34969,13 @@
         "firing heat": 160,
         "shield damage": 5120,
         "hull damage": 5120,
-        "hit force": 180
+        "hit force": 180,
+        "ammunition": [
+          {
+            "type": "Jump Drive",
+            "count": 0
+          }
+        ]
       },
       "description": "This is a turret-based cannon with significant range and accuracy. \tAgainst most threats, Archons respond with their weapons set to very low levels. They are, however, more than capable of dealing much more damage when the situation requires it.",
       "governments": {
@@ -34972,7 +35022,7 @@
         "submunitions": [
           {
             "type": "Drak Antimatter Fragment(T3)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -35005,7 +35055,6 @@
       "energy capacity": 9600,
       "inscrutable": 1,
       "weapon": {
-        "Jump Drive": 0,
         "inaccuracy": 0,
         "velocity": 20,
         "lifetime": 1,
@@ -35022,7 +35071,13 @@
         "submunitions": [
           {
             "type": "Drak Antimatter Fragment (Augmented)(T3)",
-            "count": 1
+            "count": 5
+          }
+        ],
+        "ammunition": [
+          {
+            "type": "Jump Drive",
+            "count": 0
           }
         ]
       },
@@ -37084,7 +37139,7 @@
         "submunitions": [
           {
             "type": "Proton Fragment(T3)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -37159,7 +37214,7 @@
         "submunitions": [
           {
             "type": "Proton Fragment(T3)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -38414,7 +38469,7 @@
         "submunitions": [
           {
             "type": "plasma particle(T3)",
-            "count": 1
+            "count": 5
           }
         ]
       },
@@ -38781,7 +38836,7 @@
         "submunitions": [
           {
             "type": "Asteroid Circle Submunition(T3)",
-            "count": 1
+            "count": 7
           }
         ]
       },
@@ -42830,7 +42885,7 @@
         "submunitions": [
           {
             "type": "asteroid fragment(T3)",
-            "count": 1
+            "count": 180
           }
         ]
       },
@@ -43178,7 +43233,7 @@
         "submunitions": [
           {
             "type": "Annihilator Projectile(T3)",
-            "count": 1
+            "count": 2
           }
         ]
       },
@@ -43973,7 +44028,7 @@
         "submunitions": [
           {
             "type": "Korath Mine Submunition(T3)",
-            "count": 1
+            "count": 11
           }
         ],
         "ammunition": [
@@ -45006,7 +45061,7 @@
         "submunitions": [
           {
             "type": "ribault unguided(T3)",
-            "count": 1
+            "count": 2
           }
         ]
       },
@@ -45819,7 +45874,6 @@
       "gun ports": -1,
       "weapon": {
         "sound": "composer",
-        "Abyssal Composer": 0,
         "hit effect": [
           "composed",
           "drained"
@@ -45840,7 +45894,13 @@
         "hit force": -187.5,
         "slowing damage": 20,
         "energy damage": 200,
-        "piercing": 0.3
+        "piercing": 0.3,
+        "ammunition": [
+          {
+            "type": "Abyssal Composer",
+            "count": 0
+          }
+        ]
       },
       "description": "This is an extremely dangerous device that uses graviton technology to pull a target's mass and energy apart, and then feeds the materials to the firing ship's systems.",
       "governments": {
@@ -46134,7 +46194,7 @@
         "submunitions": [
           {
             "type": "Heavy Ion Fragment(T3)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -46224,7 +46284,7 @@
         "submunitions": [
           {
             "type": "Bimodal Switch(T3)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -46288,7 +46348,7 @@
         "submunitions": [
           {
             "type": "Bimodal Switch(T3)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -46366,7 +46426,7 @@
         "submunitions": [
           {
             "type": "Drag Projectile(T3)",
-            "count": 1
+            "count": 3
           }
         ]
       },
@@ -47042,7 +47102,7 @@
         "submunitions": [
           {
             "type": "Thunderhead(T3)",
-            "count": 1
+            "count": 5
           }
         ],
         "ammunition": [
@@ -47150,5 +47210,5 @@
       "pluginId": "Zuckungs list/boss.loot"
     }
   ],
-  "parsedAt": "2026-05-01T22:31:58.359Z"
+  "parsedAt": "2026-05-02T16:08:50.424Z"
 }
