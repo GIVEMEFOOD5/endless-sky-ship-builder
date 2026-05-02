@@ -1518,42 +1518,118 @@ class EndlessSkyParser {
     console.log(`  Variants: ${kept} kept, ${skippedNoChange} skipped, ${skippedDuplicate} duplicates removed`);
   }
 
-  parseOutfit(lines, startIdx) {
-    const line = lines[startIdx].trim();
-    const match = line.match(/^outfit\s+"([^"]+)"\s*$/) ||
-                  line.match(/^outfit\s+`([^`]+)`\s*$/) ||
-                  line.match(/^outfit\s+'([^']+)'\s*$/);
-    if (!match) return [null, startIdx + 1];
-    const name = match[1];
-    if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
-    const nl = lines[startIdx + 1];
-    if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return [null, startIdx + 1];
-    const data = { name };
-    const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
-    Object.assign(data, parsed);
+  /**
+   * Re-scans raw lines to correctly extract submunition and ammo entries
+   * from a weapon block, handling:
+   *   - "submunition" "Name"  (with optional indented offset sub-block)  → count 1 per line
+   *   - "submunition" "Name" N                                           → count N
+   *   - ammo "Name" N                                                    → count N
+   *   - ammo "Name"                                                      → count 1
+   *
+   * Returns { submunitions: [{type,count},...], ammunition: [{type,count},...] }
+   * to be merged into the weapon object after parseBlock runs.
+   */
+  _parseWeaponLines(lines, outfitStartIdx, outfitEndIdx) {
+      const submunitions = [];
+      const ammunition   = [];
 
-    // Normalise weapon block submunitions and ammo into canonical arrays
-    if (data.weapon && typeof data.weapon === 'object') {
-      data.weapon = normaliseWeaponBlock(data.weapon, this.outfitsByName);
-    }
+      // Find the weapon block start
+      let weaponIndent = -1;
+      let i = outfitStartIdx;
+      while (i < outfitEndIdx) {
+          const line    = lines[i];
+          const stripped = line.trim();
+          const indent   = line.length - line.replace(/^\t+/, '').length;
+          if (stripped === 'weapon' || stripped === '"weapon"') {
+              weaponIndent = indent;
+              i++;
+              break;
+          }
+          i++;
+      }
+      if (weaponIndent < 0) return { submunitions, ammunition };
 
-    return [(data.description || data.weapon) ? data : null, ni];
+      // Scan weapon block lines
+      while (i < outfitEndIdx) {
+          const line     = lines[i];
+          if (!line.trim()) { i++; continue; }
+          const indent   = line.length - line.replace(/^\t+/, '').length;
+          // Left weapon block
+          if (indent <= weaponIndent) break;
+
+          const stripped = line.trim();
+
+          // ── submunition "Name" [N] ────────────────────────────────────────────
+          // Matches: submunition "Name", "submunition" "Name", submunition "Name" 3
+          const subMatch =
+              stripped.match(/^(?:"submunition"|submunition)\s+"([^"]+)"(?:\s+(\d+))?$/) ||
+              stripped.match(/^(?:"submunition"|submunition)\s+`([^`]+)`(?:\s+(\d+))?$/);
+          if (subMatch) {
+              const type  = subMatch[1];
+              const count = subMatch[2] ? parseInt(subMatch[2], 10) : 1;
+              submunitions.push({ type, count });
+              // Skip any indented sub-block (offset data etc) — we don't need it
+              i++;
+              while (i < outfitEndIdx) {
+                  const nl      = lines[i];
+                  if (!nl.trim()) { i++; continue; }
+                  const nIndent = nl.length - nl.replace(/^\t+/, '').length;
+                  if (nIndent <= indent) break;
+                  i++;
+              }
+              continue;
+          }
+
+          // ── ammo "Name" [N] ───────────────────────────────────────────────────
+          const ammoMatch =
+              stripped.match(/^(?:"ammo"|ammo)\s+"([^"]+)"(?:\s+(\d+))?$/) ||
+              stripped.match(/^(?:"ammo"|ammo)\s+`([^`]+)`(?:\s+(\d+))?$/);
+          if (ammoMatch) {
+              const type  = ammoMatch[1];
+              const count = ammoMatch[2] ? parseInt(ammoMatch[2], 10) : 1;
+              // Only add if not already found (weapons have one ammo type)
+              if (!ammunition.some(a => a.type === type)) {
+                  ammunition.push({ type, count });
+              }
+              i++;
+              continue;
+          }
+
+          i++;
+      }
+
+      return { submunitions, ammunition };
   }
 
-  parseExtraEffect(lines, startIdx) {
-    const line = lines[startIdx].trim();
-    const match = line.match(/^effect\s+"([^"]+)"\s*$/) ||
-                  line.match(/^effect\s+`([^`]+)`\s*$/) ||
-                  line.match(/^effect\s+'([^']+)'\s*$/);
-    if (!match) return [null, startIdx + 1];
-    const name = match[1];
-    if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
-    const nl = lines[startIdx + 1];
-    if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return [null, startIdx + 1];
-    const data = { name };
-    const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
-    Object.assign(data, parsed);
-    return [data, ni];
+  parseOutfit(lines, startIdx) {
+      const line = lines[startIdx].trim();
+      const match = line.match(/^outfit\s+"([^"]+)"\s*$/) ||
+                    line.match(/^outfit\s+`([^`]+)`\s*$/) ||
+                    line.match(/^outfit\s+'([^']+)'\s*$/);
+      if (!match) return [null, startIdx + 1];
+      const name = match[1];
+      if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
+      const nl = lines[startIdx + 1];
+      if (nl.trim() && (nl.length - nl.replace(/^\t+/, '').length) === 0) return [null, startIdx + 1];
+      const data = { name };
+      const [parsed, ni] = this.parseBlock(lines, startIdx + 1, { parseHardpoints: false });
+      Object.assign(data, parsed);
+
+      if (data.weapon && typeof data.weapon === 'object') {
+          // First: extract submunitions and ammo directly from raw lines
+          // (parseBlock mangles repeated submunition keys and drops "Name" N forms)
+          const { submunitions, ammunition } = this._parseWeaponLines(lines, startIdx + 1, ni);
+
+          // Second: normalise everything else (handles legacy formats, loose keys)
+          data.weapon = normaliseWeaponBlock(data.weapon, this.outfitsByName);
+
+          // Third: override with the accurately raw-parsed values
+          // Raw parse is authoritative for submunitions and ammo
+          if (submunitions.length > 0) data.weapon.submunitions = submunitions;
+          if (ammunition.length   > 0) data.weapon.ammunition   = ammunition;
+      }
+
+      return [(data.description || data.weapon) ? data : null, ni];
   }
 
   resolveAllOutfitPluginIds() {
