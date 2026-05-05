@@ -571,12 +571,7 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
 
     // Root reload drives DPS for the entire chain
     const rootReload = (parseFloat(weapon.reload ?? 1) || 1);
-    const burstCount  = parseFloat(weapon['burst count']  ?? 1) || 1;
-    const burstReload = parseFloat(weapon['burst reload']  ?? rootReload) || rootReload;
-    const framesPerCycle = burstCount > 1
-        ? (burstCount - 1) * burstReload + rootReload
-        : rootReload;
-    const rootSps = (burstCount / framesPerCycle) * 60;
+    const rootSps = 60 / rootReload;
 
     const queue = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
     const sections = [];
