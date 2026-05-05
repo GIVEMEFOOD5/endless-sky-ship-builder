@@ -572,12 +572,12 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     // Root reload drives DPS for the entire chain
     const rootReload = (parseFloat(weapon.reload ?? 1) || 1);
     const rootSps = 60 / rootReload;
-
-    const effectiveSps = rootSps * totalSubCount;
     
     const totalSubCount = Array.isArray(weapon.submunitions) && weapon.submunitions.length > 0
     ? weapon.submunitions.reduce((s, e) => s + (e?.count ?? 1), 0)
     : 1;
+
+    const effectiveSps = rootSps * totalSubCount;
     
     const queue = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
     const sections = [];
