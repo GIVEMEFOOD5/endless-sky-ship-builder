@@ -674,7 +674,7 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
                 ''
             ));
         if (dpsRows.length)
-            html += buildSection(`Total DPS (${fmtNum(effectiveSps)} shots/s)`, dpsRows);
+            html += buildSection(`Total DPS (${fmtNum(rootSps)} shots/s)`, dpsRows);
     }
 
     return html;
