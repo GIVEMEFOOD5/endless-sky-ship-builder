@@ -573,6 +573,12 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     const rootReload = (parseFloat(weapon.reload ?? 1) || 1);
     const rootSps = 60 / rootReload;
 
+    const effectiveSps = rootSps * totalSubCount;
+    
+    const totalSubCount = Array.isArray(weapon.submunitions) && weapon.submunitions.length > 0
+    ? weapon.submunitions.reduce((s, e) => s + (e?.count ?? 1), 0)
+    : 1;
+    
     const queue = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
     const sections = [];
 
@@ -663,12 +669,12 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
             .filter(([, v]) => v !== 0)
             .map(([k, v]) => attrRow(
                 getLabel(k).replace(/ Damage$/, '') + ' DPS',
-                fmtNum(v * rootSps),
+                fmtNum(v * effectiveSps),
                 'dmg/s',
                 ''
             ));
         if (dpsRows.length)
-            html += buildSection(`Total DPS (${fmtNum(rootSps)} shots/s)`, dpsRows);
+            html += buildSection(`Total DPS (${fmtNum(effectiveSps)} shots/s)`, dpsRows);
     }
 
     return html;
