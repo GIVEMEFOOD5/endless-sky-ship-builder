@@ -3,173 +3,96 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 //  shipBuilderStats.js  —  Live Stats Panel for Ship Builder
 //
-//  Renders a live, updating stats panel at the bottom of the ship builder.
-//  Reads from:
-//    • ComputedStats.getComputedStats(ship, pluginId)  — all derived engine stats
-//    • WeaponStats.getShipWeaponStats(ship, outfitIndex) — DPS breakdown
-//    • sbCurrentShip directly for raw attribute quick-reads
+//  INTEGRATION
+//  ─────────────────────────────────────────────────────────────────────────────
+//  1. Add a mount point to shipBuilder.html, at the bottom of #builder-view
+//     (just before the closing </div><!-- /builder-view -->):
 //
-//  HOW TO INTEGRATE
-//  ─────────────────
-//  1. Drop this file next to shipBuilder.js and load it AFTER the other scripts:
-//       <script src="../JavaScript/weaponStats.js"></script>
-//       <script src="../JavaScript/computedStats.js"></script>
-//       <script src="../JavaScript/shipBuilderStats.js"></script>
+//         <div id="sbs-panel-mount"></div>
 //
-//  2. Add a mount point at the bottom of #builder-view in shipBuilder.html,
-//     just before the closing </div><!-- /builder-view -->:
-//       <div id="sbs-panel-mount"></div>
+//  2. Load scripts at the bottom of shipBuilder.html, AFTER the existing ones:
 //
-//  3. Call  SBS.refresh()  anywhere sbCurrentShip changes.  The easiest way is
-//     to append it to the existing sbUpdateQuickStats() in shipBuilder.js:
-//       function sbUpdateQuickStats() {
-//           … existing code …
-//           SBS.refresh();
-//       }
+//         <script src="../JavaScript/weaponStats.js"></script>
+//         <script src="../JavaScript/computedStats.js"></script>
+//         <script src="../JavaScript/shipBuilderStats.js"></script>
 //
-//  That's it.  The panel self-initialises on DOMContentLoaded.
+//  3. Add ONE call at the very END of the DOMContentLoaded block in
+//     shipBuilder.js (after the pluginsChanged / dataLoaded listeners):
+//
+//         SBS.hookIntoBuilder();
+//
+//  Done. The panel auto-mounts, auto-hooks every mutation point, and
+//  recomputes on every change.
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const SBS = (() => {
+    'use strict';
 
-    // ── Constants ──────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  STATE
+    // ─────────────────────────────────────────────────────────────────────────
 
-    const SECTIONS = [
-        {
-            id:    'combat',
-            label: '🛡 Combat',
-            icon:  '🛡',
-            rows: [
-                { label: 'Max Shields',       fn: 'MaxShields',    unit: 'hp',   raw: 'shields' },
-                { label: 'Max Hull',          fn: 'MaxHull',       unit: 'hp',   raw: 'hull' },
-                { label: 'Shield Regen',      derived: 'shieldRegen',   unit: '/s',  calc: a => (parseFloat(a['shield generation'] ?? 0) * 60) || null },
-                { label: 'Hull Repair',       derived: 'hullRepair',    unit: '/s',  calc: a => (parseFloat(a['hull repair rate'] ?? 0) * 60) || null },
-                { label: 'Heat Dissipation',  fn: 'HeatDissipation', unit: '' },
-                { label: 'Idle Heat',         fn: 'IdleHeat',      unit: '' },
-            ],
-        },
-        {
-            id:    'movement',
-            label: '🚀 Movement',
-            icon:  '🚀',
-            rows: [
-                { label: 'Max Velocity',      fn: 'MaxVelocity',        unit: '' },
-                { label: 'Acceleration',      fn: 'Acceleration',       unit: '' },
-                { label: 'Turn Rate',         fn: 'TurnRate',           unit: '°/s' },
-                { label: 'Rev. Velocity',     fn: 'MaxReverseVelocity', unit: '' },
-                { label: 'Rev. Accel.',       fn: 'ReverseAcceleration',unit: '' },
-                { label: 'Drag',              fn: 'Drag',               unit: '' },
-                { label: 'Mass',              fn: 'Mass',               unit: 't',  raw: 'mass' },
-            ],
-        },
-        {
-            id:    'power',
-            label: '⚡ Power',
-            icon:  '⚡',
-            rows: [
-                { label: 'Energy Cap.',       raw: 'energy capacity',   unit: 'J' },
-                { label: 'Generation',        derived: 'eGen',   unit: '/s', calc: a => (parseFloat(a['energy generation'] ?? 0) * 60) || null },
-                { label: 'Consumption',       derived: 'eCon',   unit: '/s', calc: a => (parseFloat(a['energy consumption'] ?? 0) * 60) || null },
-                { label: 'Fuel Cap.',         raw: 'fuel capacity',     unit: '' },
-                { label: 'Cooling',           derived: 'cooling', unit: '/s', calc: a => (parseFloat(a['cooling'] ?? 0) * 60) || null },
-                { label: 'Cooling Efficiency',fn: 'CoolingEfficiency',  unit: '' },
-            ],
-        },
-        {
-            id:    'weapons',
-            label: '🔫 Weapons',
-            icon:  '🔫',
-            rows: null, // dynamically built from WeaponStats
-        },
-        {
-            id:    'crew',
-            label: '👤 Crew & Misc',
-            icon:  '👤',
-            rows: [
-                { label: 'Required Crew',     fn: 'RequiredCrew',    unit: '',    raw: 'required crew' },
-                { label: 'Bunks',             raw: 'bunks',          unit: '' },
-                { label: 'Cargo',             raw: 'cargo space',    unit: 't' },
-                { label: 'Fuel Capacity',     raw: 'fuel capacity',  unit: '' },
-                { label: 'Cost',              raw: 'cost',           unit: 'cr' },
-            ],
-        },
-    ];
+    let _panel      = null;
+    let _activeTab  = 'combat';
+    let _rafPending = false;
+    let _hooked     = false;
 
-    // Mapping from ComputedStats _fn_ keys we want to display
-    const FN_MAP = new Map([
-        ['MaxShields',           { label: 'Max Shields',         unit: 'hp'  }],
-        ['MaxHull',              { label: 'Max Hull',            unit: 'hp'  }],
-        ['HeatDissipation',      { label: 'Heat Dissipation',    unit: ''    }],
-        ['IdleHeat',             { label: 'Idle Heat',           unit: ''    }],
-        ['MaximumHeat',          { label: 'Maximum Heat',        unit: ''    }],
-        ['MaxVelocity',          { label: 'Max Velocity',        unit: ''    }],
-        ['Acceleration',         { label: 'Acceleration',        unit: ''    }],
-        ['TurnRate',             { label: 'Turn Rate',           unit: '°/s' }],
-        ['MaxReverseVelocity',   { label: 'Rev. Velocity',       unit: ''    }],
-        ['ReverseAcceleration',  { label: 'Rev. Accel.',         unit: ''    }],
-        ['Drag',                 { label: 'Drag',                unit: ''    }],
-        ['Mass',                 { label: 'Mass',                unit: 't'   }],
-        ['InertialMass',         { label: 'Inertial Mass',       unit: ''    }],
-        ['CoolingEfficiency',    { label: 'Cooling Efficiency',  unit: ''    }],
-        ['RequiredCrew',         { label: 'Required Crew',       unit: ''    }],
-        ['CloakingSpeed',        { label: 'Cloak Speed',         unit: ''    }],
-    ]);
+    // ─────────────────────────────────────────────────────────────────────────
+    //  HOOK INTO BUILDER
+    //
+    //  Wraps every shipBuilder.js function that mutates sbCurrentShip so that
+    //  a refresh fires automatically after each change.
+    // ─────────────────────────────────────────────────────────────────────────
 
-    // ── State ──────────────────────────────────────────────────────────────────
+    function hookIntoBuilder() {
+        if (_hooked) return;
+        _hooked = true;
 
-    let _panel       = null;
-    let _activeTab   = 'combat';
-    let _rafPending  = false;
-    let _lastShipId  = null;
+        const TARGETS = [
+            // Attributes
+            'sbUpdateAttrVal', 'sbRemoveAttr', 'confirmAddAttr',
+            // Outfits
+            'sbUpdateOutfitCount', 'sbRemoveOutfit',
+            'sbAddOutfitFromPicker', 'confirmAddOutfit',
+            // Hardpoints / engines
+            'sbRemoveHP', 'addGunTurret', 'sbUpdateHP',
+            // Weapon sub-block
+            'sbUpdateWeaponField',
+            // Explosion / leak effects
+            'sbUpdateExplode', 'sbRemoveExplode',
+            'sbAddEffectFromPicker', 'sbUpdateLeak', 'sbRemoveLeak',
+            // Identity fields
+            'onBuilderChange',
+            // Ship-level load events
+            'importRaw', 'sbPickShip', 'sbEditFleetShip',
+            'newShip', 'openOutfitExisting', 'openEditExisting',
+        ];
 
-    // ── DOM Bootstrap ──────────────────────────────────────────────────────────
-
-    function _mount() {
-        const mount = document.getElementById('sbs-panel-mount');
-        if (!mount) {
-            console.warn('[SBS] Mount point #sbs-panel-mount not found. Add it to shipBuilder.html.');
-            return;
+        for (const fnName of TARGETS) {
+            if (typeof window[fnName] !== 'function') continue;
+            const orig = window[fnName];
+            window[fnName] = function (...args) {
+                const result = orig.apply(this, args);
+                // Use rAF so the original fully finishes mutating state first
+                requestAnimationFrame(() => refresh());
+                return result;
+            };
         }
-        mount.innerHTML = _panelShell();
-        _panel = document.getElementById('sbs-root');
-        _bindTabs();
-    }
 
-    function _panelShell() {
-        const tabs = SECTIONS.map(s =>
-            `<button class="sbs-tab${s.id === _activeTab ? ' sbs-tab--active' : ''}"
-                     data-sbs-tab="${s.id}">${s.label}</button>`
-        ).join('');
-
-        return `
-<div id="sbs-root" class="sbs-root">
-    <div class="sbs-header">
-        <span class="sbs-title">📊 Live Ship Stats</span>
-        <div class="sbs-tabs">${tabs}</div>
-        <button class="sbs-collapse-btn" id="sbs-collapse-btn" title="Toggle panel" onclick="SBS._toggleCollapse()">▲</button>
-    </div>
-    <div class="sbs-body" id="sbs-body">
-        <div class="sbs-content" id="sbs-content">
-            <div class="sbs-placeholder">Save or build a ship to see computed stats.</div>
-        </div>
-    </div>
-</div>
-<style>${_css()}</style>`;
-    }
-
-    function _bindTabs() {
-        if (!_panel) return;
-        _panel.querySelectorAll('.sbs-tab').forEach(btn => {
-            btn.addEventListener('click', () => {
-                _activeTab = btn.dataset.sbsTab;
-                _panel.querySelectorAll('.sbs-tab').forEach(b => b.classList.remove('sbs-tab--active'));
-                btn.classList.add('sbs-tab--active');
-                _renderContent();
-            });
+        // Also react to identity input fields immediately
+        document.addEventListener('input', e => {
+            const id = e.target?.id;
+            if (id === 'ship-name' || id === 'ship-variant' || id === 'ship-plural') {
+                requestAnimationFrame(() => refresh());
+            }
         });
+
+        console.log('[SBS] Hooked into builder — live stats active.');
     }
 
-    // ── Public: refresh ────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  REFRESH  — debounced via rAF; called after every mutation
+    // ─────────────────────────────────────────────────────────────────────────
 
     function refresh() {
         if (_rafPending) return;
@@ -178,678 +101,863 @@ const SBS = (() => {
             _rafPending = false;
             if (!_panel) _mount();
             if (!_panel) return;
-            if (typeof sbCurrentShip === 'undefined' || !sbCurrentShip) return;
-            _renderContent();
+
+            const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
+            const builderHidden = document.getElementById('builder-view')
+                                           ?.classList.contains('hidden');
+            if (!ship || builderHidden) return;
+
+            // Clear ComputedStats cache so the re-compute reflects latest state
+            if (typeof ComputedStats !== 'undefined') ComputedStats.clearCache();
+
+            _renderContent(ship);
         });
     }
 
-    // ── Collapse ───────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  OUTFIT INDEX  — merged across all loaded plugins
+    //
+    //  Remote plugin data stores outfit stats under outfit.attributes.
+    //  We flatten that sub-object to the top level so both ComputedStats
+    //  and our own accumulator can read the values uniformly.
+    // ─────────────────────────────────────────────────────────────────────────
 
-    function _toggleCollapse() {
-        const body = document.getElementById('sbs-body');
-        const btn  = document.getElementById('sbs-collapse-btn');
-        if (!body) return;
-        const collapsed = body.style.display === 'none';
-        body.style.display = collapsed ? '' : 'none';
-        if (btn) btn.textContent = collapsed ? '▲' : '▼';
-    }
+    function _buildOutfitIndex() {
+        const allData   = window.allData || {};
+        const sbOutfits = (typeof sbAllOutfits !== 'undefined') ? sbAllOutfits : [];
+        const merged    = {};
 
-    // ── Main render ────────────────────────────────────────────────────────────
+        const allOutfits = [
+            ...Object.values(allData).flatMap(p => p?.outfits || []),
+            ...sbOutfits,
+        ];
 
-    function _renderContent() {
-        const content = document.getElementById('sbs-content');
-        if (!content || typeof sbCurrentShip === 'undefined' || !sbCurrentShip) return;
+        for (const o of allOutfits) {
+            const name = (o.name || o.displayName || '').replace(/^"|"$/g, '').trim();
+            if (!name || name in merged) continue;
 
-        const ship = sbCurrentShip;
-
-        // Build effective attributes: base ship attrs + accumulated outfit attrs
-        const computed   = _getComputed(ship);
-        const weaponData = _getWeaponData(ship);
-
-        let html = '';
-
-        switch (_activeTab) {
-            case 'combat':   html = _renderCombat(computed, ship.attributes || {}); break;
-            case 'movement': html = _renderMovement(computed, ship.attributes || {}); break;
-            case 'power':    html = _renderPower(computed, ship.attributes || {}); break;
-            case 'weapons':  html = _renderWeapons(weaponData, ship); break;
-            case 'crew':     html = _renderCrew(computed, ship.attributes || {}); break;
-            default:         html = _renderAllFns(computed); break;
+            // Flatten attributes sub-object to top level
+            const flat = { ...o };
+            if (o.attributes && typeof o.attributes === 'object') {
+                for (const [k, v] of Object.entries(o.attributes)) {
+                    if (!(k in flat)) flat[k] = v;
+                }
+            }
+            flat.name = name;
+            merged[name] = flat;
         }
 
-        content.innerHTML = html || '<div class="sbs-placeholder">No data for this section yet.</div>';
+        return merged;
     }
 
-    // ── Computed stats helper ──────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  EFFECTIVE ATTRIBUTES
+    //
+    //  Produces a single flat attribute map: ship base attrs PLUS every
+    //  contribution from every installed outfit.  This is the input for both
+    //  ComputedStats formula evaluation and our direct stat reads.
+    // ─────────────────────────────────────────────────────────────────────────
 
-    function _getComputed(ship) {
-        if (typeof ComputedStats === 'undefined' || !ComputedStats.isReady()) {
-            return {};
+    const _META = new Set([
+        'name','category','series','index','cost','thumbnail','sprite',
+        'description','pluginId','weapon','governments','locations',
+        '_internalId','_pluginId','_hash','_pn','_pd','_isVariant',
+        'displayName','spriteData','attributes',
+    ]);
+
+    function _buildEffectiveAttrs(ship, outfitIdx) {
+        // Start with the ship's own base attributes
+        const eff = {};
+        for (const [k, v] of Object.entries(ship.attributes || {})) {
+            if (typeof v === 'number') eff[k] = v;
+            else if (typeof v === 'string') {
+                const n = parseFloat(v);
+                if (!isNaN(n)) eff[k] = n;
+            }
         }
-        try {
-            const pluginId = _resolvePluginId(ship);
-            return ComputedStats.getComputedStats(ship, pluginId) || {};
-        } catch (e) {
-            console.warn('[SBS] ComputedStats error:', e);
-            return {};
+        // mass and drag are stored separately on sbCurrentShip
+        if (ship.mass && ship.mass !== '') eff['mass'] = parseFloat(ship.mass) || 0;
+        if (ship.drag && ship.drag !== '') eff['drag'] = parseFloat(ship.drag) || 0;
+
+        // Accumulate outfit contributions
+        for (const entry of (ship.outfits || [])) {
+            const name  = (entry.name || '').replace(/^"|"$/g, '').trim();
+            const count = parseInt(entry.count) || 1;
+            const o = outfitIdx[name];
+            if (!o) continue;
+
+            for (const [key, rawVal] of Object.entries(o)) {
+                if (_META.has(key))              continue;
+                if (key.startsWith('_'))          continue;
+                if (typeof rawVal !== 'number')   continue;
+                if (rawVal === 0)                 continue;
+                eff[key] = (eff[key] || 0) + rawVal * count;
+            }
         }
+
+        return eff;
     }
 
-    function _resolvePluginId(ship) {
-        // Prefer the ship's own source plugin; fall back to local builds
-        if (ship._sourcePlugin) return ship._sourcePlugin;
-        if (window.DataLoader?.LOCAL_PLUGIN_ID) return window.DataLoader.LOCAL_PLUGIN_ID;
-        return '__local_builds__';
+    // ─────────────────────────────────────────────────────────────────────────
+    //  COMPUTED STATS
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _computeStats(ship, outfitIdx) {
+        const eff = _buildEffectiveAttrs(ship, outfitIdx);
+
+        if (typeof ComputedStats !== 'undefined' && ComputedStats.isReady()) {
+            try {
+                // getComputedStatsForAttrs takes a bare attr map — perfect here
+                // because we've already accumulated outfits ourselves.
+                const cs = ComputedStats.getComputedStatsForAttrs(eff);
+                // Merge so we keep raw keys too (cs might not expose all attrs)
+                return { ...eff, ...cs };
+            } catch (e) {
+                console.warn('[SBS] ComputedStats error:', e);
+            }
+        }
+        return eff;
     }
 
-    function _getWeaponData(ship) {
+    // ─────────────────────────────────────────────────────────────────────────
+    //  WEAPON STATS
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _computeWeaponStats(ship, outfitIdx) {
         if (typeof WeaponStats === 'undefined') return null;
         try {
-            const pluginId  = _resolvePluginId(ship);
-            const outfitIdx = _buildOutfitIndex(pluginId);
-
-            // WeaponStats.getShipWeaponStats expects outfits as a map of name→count
-            // Our internal format is an array of {name, count} — convert it
+            // Convert internal array outfits to the name→count map WeaponStats needs
             const outfitMap = {};
-            for (const o of (ship.outfits || [])) {
-                const n = (o.name || '').replace(/^"|"$/g, '');
-                if (n) outfitMap[n] = (outfitMap[n] || 0) + (parseInt(o.count) || 1);
+            for (const entry of (ship.outfits || [])) {
+                const name  = (entry.name || '').replace(/^"|"$/g, '').trim();
+                const count = parseInt(entry.count) || 1;
+                if (name) outfitMap[name] = (outfitMap[name] || 0) + count;
             }
-            const shipProxy = { outfits: outfitMap };
-            return WeaponStats.getShipWeaponStats(shipProxy, outfitIdx);
+            return WeaponStats.getShipWeaponStats({ outfits: outfitMap }, outfitIdx);
         } catch (e) {
             console.warn('[SBS] WeaponStats error:', e);
             return null;
         }
     }
 
-    function _buildOutfitIndex(pluginId) {
-        const allData = window.allData || {};
-        const merged  = {};
-        // Use pluginId-first ordering (same as ComputedStats._getOutfitIndex)
-        const order   = [pluginId, ...Object.keys(allData).filter(k => k !== pluginId)];
-        for (const pid of order) {
-            for (const o of (allData[pid]?.outfits || [])) {
-                if (o.name && !(o.name in merged)) merged[o.name] = o;
-            }
+    // ─────────────────────────────────────────────────────────────────────────
+    //  DOM MOUNT
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _mount() {
+        const mount = document.getElementById('sbs-panel-mount');
+        if (!mount) {
+            console.warn('[SBS] Mount point #sbs-panel-mount not found. Add it to shipBuilder.html.');
+            return;
         }
-        // Also include sbAllOutfits from shipBuilder (live mirror)
-        if (typeof sbAllOutfits !== 'undefined') {
-            for (const o of sbAllOutfits) {
-                const n = (o.name || '').replace(/^"|"$/g, '');
-                if (n && !(n in merged)) merged[n] = o;
-            }
-        }
-        return merged;
+
+        const tabDefs = [
+            { id: 'combat',   label: '🛡 Combat'  },
+            { id: 'movement', label: '🚀 Movement' },
+            { id: 'power',    label: '⚡ Power'    },
+            { id: 'weapons',  label: '🔫 Weapons'  },
+            { id: 'crew',     label: '👤 Misc'     },
+        ];
+        const tabsHtml = tabDefs.map(t =>
+            `<button class="sbs-tab${t.id === _activeTab ? ' sbs-tab--active' : ''}" data-sbs-tab="${t.id}">${t.label}</button>`
+        ).join('');
+
+        mount.innerHTML = `
+<div id="sbs-root" class="sbs-root">
+    <div class="sbs-header">
+        <span class="sbs-title">📊 Live Ship Stats</span>
+        <div class="sbs-tabs">${tabsHtml}</div>
+        <button class="sbs-collapse-btn" id="sbs-collapse-btn" title="Toggle stats panel">▲</button>
+    </div>
+    <div class="sbs-body" id="sbs-body">
+        <div id="sbs-content" class="sbs-content">
+            <div class="sbs-empty">Add attributes or outfits to see live stats.</div>
+        </div>
+    </div>
+</div>
+<style id="sbs-style">${_CSS}</style>`;
+
+        _panel = document.getElementById('sbs-root');
+
+        _panel.querySelectorAll('.sbs-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                _activeTab = btn.dataset.sbsTab;
+                _panel.querySelectorAll('.sbs-tab').forEach(b => b.classList.remove('sbs-tab--active'));
+                btn.classList.add('sbs-tab--active');
+                refresh();
+            });
+        });
+
+        document.getElementById('sbs-collapse-btn').addEventListener('click', () => {
+            const body = document.getElementById('sbs-body');
+            const btn  = document.getElementById('sbs-collapse-btn');
+            const isHidden = body.style.display === 'none';
+            body.style.display = isHidden ? '' : 'none';
+            btn.textContent    = isHidden ? '▲' : '▼';
+        });
     }
 
-    // ── Section renderers ──────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  RENDER
+    // ─────────────────────────────────────────────────────────────────────────
 
-    function _val(computed, fnKey, attrs, rawKey) {
-        // 1. Try computed _fn_ key first (most accurate — includes outfits)
-        const fnResult = computed[`_fn_${fnKey}`];
-        if (fnResult != null && !isNaN(fnResult) && fnResult !== 0) return fnResult;
-        // 2. Try raw attribute from ship base attrs
+    function _renderContent(ship) {
+        const el = document.getElementById('sbs-content');
+        if (!el) return;
+
+        const outfitIdx  = _buildOutfitIndex();
+        const computed   = _computeStats(ship, outfitIdx);
+        const weaponData = _computeWeaponStats(ship, outfitIdx);
+
+        let html = '';
+        switch (_activeTab) {
+            case 'combat':   html = _tabCombat(computed);              break;
+            case 'movement': html = _tabMovement(computed);            break;
+            case 'power':    html = _tabPower(computed);               break;
+            case 'weapons':  html = _tabWeapons(weaponData, computed); break;
+            case 'crew':     html = _tabCrew(computed);                break;
+        }
+
+        el.innerHTML = html || `<div class="sbs-empty">No data available for this section yet.</div>`;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  VALUE HELPERS
+    // ─────────────────────────────────────────────────────────────────────────
+
+    // Read a value — prefers _fn_ computed key, falls back to raw attr key
+    function _get(c, fnKey, rawKey) {
+        if (fnKey) {
+            const v = c[`_fn_${fnKey}`];
+            if (v != null && !isNaN(v) && v !== 0) return v;
+        }
         if (rawKey != null) {
-            const rv = parseFloat((attrs || {})[rawKey] ?? '');
-            if (!isNaN(rv) && rv !== 0) return rv;
+            const v = parseFloat(c[rawKey] ?? '');
+            if (!isNaN(v) && v !== 0) return v;
         }
         return null;
     }
 
-    function _fmtNum(v) {
-        if (v === null || v === undefined || isNaN(v)) return '—';
-        if (Number.isInteger(v) && Math.abs(v) >= 10000) return v.toLocaleString();
+    function _fmt(v) {
+        if (v === null || v === undefined || (typeof v === 'number' && isNaN(v))) return '—';
+        if (typeof v !== 'number') return String(v);
+        if (Number.isInteger(v) && Math.abs(v) >= 1000) return v.toLocaleString();
         return parseFloat(v.toPrecision(4)).toString();
     }
 
-    function _statCard(label, value, unit, highlight) {
-        const cls = highlight ? ' sbs-card--hi' : '';
-        const unitHtml = unit ? `<span class="sbs-card-unit">${unit}</span>` : '';
+    function _coloured(v, positiveIsGood) {
+        if (v === null || v === undefined || isNaN(v)) return '—';
+        const good  = positiveIsGood ? v >= 0 : v <= 0;
+        const color = good ? 'var(--sbs-pos)' : 'var(--sbs-neg)';
+        return `<span style="color:${color};font-weight:700">${_fmt(v)}</span>`;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  HTML HELPERS
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _card(label, value, unit, highlight) {
+        // Skip cards with no meaningful value
+        if (value === null || value === undefined) return '';
+        if (typeof value === 'number' && (isNaN(value) || value === 0)) return '';
+
+        const cls     = highlight ? ' sbs-card--hi' : '';
+        const unitTag = unit ? `<span class="sbs-unit">${_esc(unit)}</span>` : '';
+        const fmtVal  = typeof value === 'string' ? value : _fmt(value);
         return `<div class="sbs-card${cls}">
-    <div class="sbs-card-label">${label}</div>
-    <div class="sbs-card-value">${_fmtNum(value)}${unitHtml}</div>
+    <div class="sbs-label">${_esc(label)}</div>
+    <div class="sbs-value">${fmtVal}${unitTag}</div>
 </div>`;
     }
 
-    function _statCardRaw(label, value, unit) {
-        const unitHtml = unit ? `<span class="sbs-card-unit">${unit}</span>` : '';
-        return `<div class="sbs-card">
-    <div class="sbs-card-label">${label}</div>
-    <div class="sbs-card-value">${value}${unitHtml}</div>
-</div>`;
-    }
-
-    function _sectionWrap(title, cardsHtml) {
-        if (!cardsHtml) return '';
+    function _section(title, content) {
+        if (!content || !content.trim()) return '';
         return `<div class="sbs-section">
-    <div class="sbs-section-title">${title}</div>
-    <div class="sbs-cards">${cardsHtml}</div>
+    <div class="sbs-section-title">${_esc(title)}</div>
+    <div class="sbs-cards">${content}</div>
 </div>`;
     }
 
-    // ── Combat ──────────────────────────────────────────────────────────────────
+    function _tableSection(title, tableHtml) {
+        if (!tableHtml) return '';
+        return `<div class="sbs-section">
+    <div class="sbs-section-title">${_esc(title)}</div>
+    <div class="sbs-table-wrap">${tableHtml}</div>
+</div>`;
+    }
 
-    function _renderCombat(computed, attrs) {
-        const shields    = _val(computed, 'MaxShields',       attrs, 'shields');
-        const hull       = _val(computed, 'MaxHull',          attrs, 'hull');
-        const heatDiss   = _val(computed, 'HeatDissipation',  attrs, 'heat dissipation');
-        const idleHeat   = _val(computed, 'IdleHeat',         attrs);
-        const maxHeat    = _val(computed, 'MaximumHeat',      attrs);
-        const shieldRegen = (parseFloat(attrs['shield generation'] ?? 0) * 60) || null;
-        const hullRepair  = (parseFloat(attrs['hull repair rate']   ?? 0) * 60) || null;
+    // ─────────────────────────────────────────────────────────────────────────
+    //  TAB: COMBAT
+    // ─────────────────────────────────────────────────────────────────────────
 
-        // Time-to-full derived values
-        const ttfShields = (shields && shieldRegen) ? shields / shieldRegen : null;
-        const ttfHull    = (hull    && hullRepair)  ? hull    / hullRepair  : null;
+    function _tabCombat(c) {
+        const shields    = _get(c, 'MaxShields',      'shields');
+        const hull       = _get(c, 'MaxHull',         'hull');
+        const heatDiss   = _get(c, 'HeatDissipation', 'heat dissipation');
+        const idleHeat   = _get(c, 'IdleHeat',        null);
+        const maxHeat    = _get(c, 'MaximumHeat',     null);
+        const shRegen    = (parseFloat(c['shield generation'] ?? 0) * 60) || null;
+        const hullRepair = (parseFloat(c['hull repair rate']  ?? 0) * 60) || null;
+        const idlePct    = (idleHeat && maxHeat) ? idleHeat / maxHeat * 100  : null;
+        const ttfSh      = (shields && shRegen)  ? shields  / shRegen        : null;
+        const ttfHull    = (hull && hullRepair)  ? hull     / hullRepair     : null;
 
-        // Idle heat percentage
-        const idleHeatPct = (idleHeat && maxHeat) ? (idleHeat / maxHeat * 100) : null;
+        let main = '';
+        main += _card('Max Shields',      shields,    'hp',  !!shields);
+        main += _card('Max Hull',         hull,       'hp',  !!hull);
+        main += _card('Shield Regen',     shRegen,    '/s');
+        main += _card('Hull Repair',      hullRepair, '/s');
+        main += _card('Heat Dissipation', heatDiss,   '');
+        main += _card('Max Heat',         maxHeat,    '');
+        main += _card('Idle Heat',        idleHeat,   '');
+        if (idlePct  !== null) main += _card('Idle Heat %',   idlePct,   '%');
+        if (ttfSh    !== null) main += _card('TTF Shields',   ttfSh,     's');
+        if (ttfHull  !== null) main += _card('TTF Hull',      ttfHull,   's');
 
-        let cards = '';
-        cards += _statCard('Max Shields',      shields,      'hp',  shields > 0);
-        cards += _statCard('Max Hull',         hull,         'hp',  hull > 0);
-        cards += _statCard('Shield Regen',     shieldRegen,  '/s');
-        cards += _statCard('Hull Repair',      hullRepair,   '/s');
-        cards += _statCard('Heat Dissipation', heatDiss,     '');
-        cards += _statCard('Idle Heat',        idleHeat,     '');
-        if (idleHeatPct !== null) cards += _statCard('Idle Heat %',   idleHeatPct,  '%');
-        if (maxHeat     !== null) cards += _statCard('Maximum Heat',  maxHeat,      '');
-        if (ttfShields  !== null) cards += _statCard('TTF Shields',   ttfShields,   's');
-        if (ttfHull     !== null) cards += _statCard('TTF Hull',      ttfHull,      's');
+        // Shield/hull specific modifiers
+        const modKeys = [
+            ['shield delay',              'Shield Delay'],
+            ['depleted shield delay',     'Depleted Delay'],
+            ['repair delay',              'Repair Delay'],
+            ['disabled repair rate',      'Disabled Repair'],
+            ['hull multiplier',           'Hull Multiplier'],
+            ['shield multiplier',         'Shield Multiplier'],
+            ['hull repair multiplier',    'Hull Repair ×'],
+            ['shield generation multiplier', 'Shield Gen ×'],
+        ];
+        let modCards = '';
+        for (const [key, label] of modKeys) {
+            const v = parseFloat(c[key] ?? 0) || null;
+            if (v) modCards += _card(label, v, '');
+        }
+
+        // Damage protections
+        const protKeys = [
+            ['shield protection',       'Shield Prot.'],
+            ['hull protection',         'Hull Prot.'],
+            ['energy protection',       'Energy Prot.'],
+            ['fuel protection',         'Fuel Prot.'],
+            ['heat protection',         'Heat Prot.'],
+            ['force protection',        'Force Prot.'],
+            ['piercing protection',     'Piercing Prot.'],
+            ['disruption protection',   'Disruption Prot.'],
+        ];
+        let protCards = '';
+        for (const [key, label] of protKeys) {
+            const v = parseFloat(c[key] ?? 0) || null;
+            if (v) protCards += _card(label, v, '');
+        }
 
         // Status resistances
         const resistKeys = [
-            ['ion resistance',         'Ion Resist'],
-            ['scramble resistance',    'Scramble Resist'],
-            ['disruption resistance',  'Disruption Resist'],
-            ['slowing resistance',     'Slow Resist'],
-            ['burn resistance',        'Burn Resist'],
-            ['discharge resistance',   'Discharge Resist'],
-            ['corrosion resistance',   'Corrosion Resist'],
-            ['leak resistance',        'Leak Resist'],
+            ['ion resistance',        'Ion'],
+            ['scramble resistance',   'Scramble'],
+            ['disruption resistance', 'Disruption'],
+            ['slowing resistance',    'Slowing'],
+            ['burn resistance',       'Burn'],
+            ['discharge resistance',  'Discharge'],
+            ['corrosion resistance',  'Corrosion'],
+            ['leak resistance',       'Leak'],
         ];
         let resistCards = '';
         for (const [key, label] of resistKeys) {
-            const v = parseFloat(attrs[key] ?? 0);
-            if (v) resistCards += _statCard(label, v, '');
+            const v = parseFloat(c[key] ?? 0) || null;
+            if (v) resistCards += _card(label + ' Resist', v, '');
         }
 
-        let html = _sectionWrap('Combat Stats', cards);
-        if (resistCards) html += _sectionWrap('Status Resistances', resistCards);
-        return html;
+        return _section('Combat', main)
+             + (modCards    ? _section('Combat Modifiers', modCards)    : '')
+             + (protCards   ? _section('Damage Protection', protCards)  : '')
+             + (resistCards ? _section('Status Resistances', resistCards) : '');
     }
 
-    // ── Movement ───────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  TAB: MOVEMENT
+    // ─────────────────────────────────────────────────────────────────────────
 
-    function _renderMovement(computed, attrs) {
-        const maxVel   = _val(computed, 'MaxVelocity',         attrs);
-        const accel    = _val(computed, 'Acceleration',        attrs);
-        const turn     = _val(computed, 'TurnRate',            attrs);
-        const revVel   = _val(computed, 'MaxReverseVelocity',  attrs);
-        const revAcc   = _val(computed, 'ReverseAcceleration', attrs);
-        const drag     = _val(computed, 'Drag',                attrs, 'drag');
-        const mass     = _val(computed, 'Mass',                attrs, 'mass') || parseFloat(sbCurrentShip?.mass ?? 0) || null;
-        const inerMass = _val(computed, 'InertialMass',        attrs);
+    function _tabMovement(c) {
+        const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
 
-        let cards = '';
-        cards += _statCard('Max Velocity',   maxVel,   '',    maxVel  > 0);
-        cards += _statCard('Acceleration',   accel,    '',    accel   > 0);
-        cards += _statCard('Turn Rate',      turn,     '°/s', turn    > 0);
-        cards += _statCard('Rev. Velocity',  revVel,   '');
-        cards += _statCard('Rev. Accel.',    revAcc,   '');
-        cards += _statCard('Drag',           drag,     '');
-        cards += _statCard('Mass',           mass,     't',   mass    > 0);
-        cards += _statCard('Inertial Mass',  inerMass, '');
+        let main = '';
+        main += _card('Max Velocity',  _get(c, 'MaxVelocity',        null), '',    true);
+        main += _card('Acceleration',  _get(c, 'Acceleration',       null), '',    true);
+        main += _card('Turn Rate',     _get(c, 'TurnRate',           null), '°/s', true);
+        main += _card('Drag',          _get(c, 'Drag',               'drag'), '');
+        main += _card('Mass',
+            _get(c, 'Mass', 'mass') ?? (parseFloat(ship?.mass ?? 0) || null),
+            't');
+        main += _card('Inertial Mass', _get(c, 'InertialMass',       null), '');
+
+        // Raw forces — useful when formula evaluation not yet available
+        let rawCards = '';
+        const thr  = parseFloat(c['thrust']         ?? 0) || null;
+        const tur  = parseFloat(c['turn']            ?? 0) || null;
+        const revT = parseFloat(c['reverse thrust']  ?? 0) || null;
+        if (thr)  rawCards += _card('Thrust',         thr,  '');
+        if (tur)  rawCards += _card('Turn Force',     tur,  '');
+        if (revT) rawCards += _card('Reverse Thrust', revT, '');
+
+        // Reverse computed stats
+        let revCards = '';
+        revCards += _card('Rev. Max Vel.',  _get(c, 'MaxReverseVelocity',  null), '');
+        revCards += _card('Rev. Accel.',    _get(c, 'ReverseAcceleration', null), '');
 
         // Afterburner
-        const abThrust = parseFloat(attrs['afterburner thrust']  ?? 0) || null;
-        const abFuel   = parseFloat(attrs['afterburner fuel']    ?? 0) || null;
         let abCards = '';
-        if (abThrust) abCards += _statCard('AB Thrust', abThrust, '');
-        if (abFuel)   abCards += _statCard('AB Fuel/s', abFuel * 60, '/s');
+        const abThrust = parseFloat(c['afterburner thrust']  ?? 0) || null;
+        const abFuel   = parseFloat(c['afterburner fuel']    ?? 0) || null;
+        const abHeat   = parseFloat(c['afterburner heat']    ?? 0) || null;
+        const abEnergy = parseFloat(c['afterburner energy']  ?? 0) || null;
+        if (abThrust) abCards += _card('AB Thrust',    abThrust,       '');
+        if (abFuel)   abCards += _card('AB Fuel/s',    abFuel   * 60,  '/s');
+        if (abHeat)   abCards += _card('AB Heat/s',    abHeat   * 60,  '/s');
+        if (abEnergy) abCards += _card('AB Energy/s',  abEnergy * 60,  '/s');
 
-        let html = _sectionWrap('Movement Stats', cards);
-        if (abCards) html += _sectionWrap('Afterburner', abCards);
-        return html;
+        return _section('Movement', main)
+             + (rawCards.trim()  ? _section('Raw Forces (accumulated)',   rawCards)  : '')
+             + (revCards.trim()  ? _section('Reverse Thrust',             revCards)  : '')
+             + (abCards.trim()   ? _section('Afterburner',                abCards)   : '');
     }
 
-    // ── Power ──────────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  TAB: POWER
+    // ─────────────────────────────────────────────────────────────────────────
 
-    function _renderPower(computed, attrs) {
-        const eCap    = parseFloat(attrs['energy capacity']    ?? 0) || null;
-        const fCap    = parseFloat(attrs['fuel capacity']      ?? 0) || null;
-        const eGen    = (parseFloat(attrs['energy generation'] ?? 0) * 60) || null;
-        const eCon    = (parseFloat(attrs['energy consumption']?? 0) * 60) || null;
-        const solar   = (parseFloat(attrs['solar collection']  ?? 0) * 60) || null;
-        const ramscoop= parseFloat(attrs['ramscoop']           ?? 0) || null;
-        const cooling = (parseFloat(attrs['cooling']           ?? 0) * 60) || null;
-        const coolEff = _val(computed, 'CoolingEfficiency', attrs);
+    function _tabPower(c) {
+        const eCap    = parseFloat(c['energy capacity']     ?? 0) || null;
+        const fCap    = parseFloat(c['fuel capacity']       ?? 0) || null;
+        const eGen    = (parseFloat(c['energy generation']  ?? 0) * 60) || null;
+        const eCon    = (parseFloat(c['energy consumption'] ?? 0) * 60) || null;
+        const solar   = (parseFloat(c['solar collection']   ?? 0) * 60) || null;
+        const ramsco  = parseFloat(c['ramscoop']            ?? 0) || null;
+        const cooling = (parseFloat(c['cooling']            ?? 0) * 60) || null;
+        const coolEff = _get(c, 'CoolingEfficiency', null);
+        const eNet    = (eGen !== null || eCon !== null) ? ((eGen ?? 0) - (eCon ?? 0)) : null;
 
-        // Net energy: generation - consumption  (per second)
-        const eNet = ((eGen ?? 0) - (eCon ?? 0)) || null;
-
-        let cards = '';
-        cards += _statCard('Energy Cap.',     eCap,    'J',    eCap  > 0);
-        cards += _statCard('Generation',      eGen,    '/s',   eGen  > 0);
-        cards += _statCard('Consumption',     eCon,    '/s');
+        let main = '';
+        main += _card('Energy Cap.',       eCap,    'J',   !!eCap);
+        main += _card('Generation',        eGen,    '/s',  eGen  > 0);
+        main += _card('Consumption',       eCon,    '/s');
         if (eNet !== null) {
-            const isPositive = eNet >= 0;
-            cards += _statCardRaw(
-                'Net Energy/s',
-                `<span style="color:${isPositive ? 'var(--sbs-pos)' : 'var(--sbs-neg)'}">${_fmtNum(eNet)}</span>`,
-                '/s'
-            );
-        }
-        cards += _statCard('Fuel Cap.',       fCap,    '');
-        cards += _statCard('Solar',           solar,   '/s');
-        cards += _statCard('Ramscoop',        ramscoop,'');
-        cards += _statCard('Cooling',         cooling, '/s');
-        cards += _statCard('Cool. Efficiency',coolEff, '');
-
-        // Derived energy costs from intermediates
-        const derivedPower = [];
-        for (const [key, val] of Object.entries(computed)) {
-            if (!key.startsWith('_derived_energy_')) continue;
-            const label = key.replace('_derived_energy_', '').replace(/_/g, ' ');
-            if (val && !isNaN(val)) derivedPower.push({ label, val });
-        }
-        let derivedCards = '';
-        for (const { label, val } of derivedPower)
-            derivedCards += _statCard(_capFirst(label) + ' Energy', val, '/s');
-
-        let html = _sectionWrap('Power Stats', cards);
-        if (derivedCards) html += _sectionWrap('Energy Costs (computed)', derivedCards);
-        return html;
-    }
-
-    // ── Weapons ────────────────────────────────────────────────────────────────
-
-    function _renderWeapons(wData, ship) {
-        if (!wData || !wData.weaponCount) {
-            return `<div class="sbs-section">
-    <div class="sbs-section-title">Weapons</div>
-    <div class="sbs-placeholder">No weapons installed with calculable DPS.</div>
+            main += `<div class="sbs-card${eNet >= 0 ? ' sbs-card--hi' : ' sbs-card--warn'}">
+    <div class="sbs-label">Net Energy/s</div>
+    <div class="sbs-value">${_coloured(eNet, true)}<span class="sbs-unit">/s</span></div>
 </div>`;
         }
+        main += _card('Fuel Cap.',         fCap,    '');
+        main += _card('Solar Collect.',    solar,   '/s');
+        main += _card('Ramscoop',          ramsco,  '');
+        main += _card('Cooling',           cooling, '/s');
+        main += _card('Cool. Efficiency',  coolEff, '');
 
-        // Summary cards
-        let summaryCards = '';
-        summaryCards += _statCard('Total DPS',      wData.totalDps,   'dps', wData.totalDps  > 0);
-        summaryCards += _statCard('Shield DPS',     wData.shieldDps,  'dps', wData.shieldDps > 0);
-        summaryCards += _statCard('Hull DPS',       wData.hullDps,    'dps', wData.hullDps   > 0);
-        summaryCards += _statCard('Weapon Types',   wData.weaponCount,'');
-        summaryCards += _statCard('Total Mounts',   wData.totalWeaponMounts, '');
+        // Derived energy usage per action (from ComputedStats intermediate vars)
+        let dECards = '';
+        let dHCards = '';
+        for (const [key, val] of Object.entries(c)) {
+            if (!val || typeof val !== 'number' || isNaN(val) || val === 0) continue;
+            if (key.startsWith('_derived_energy_')) {
+                const label = key.slice('_derived_energy_'.length).replace(/_/g, ' ');
+                dECards += _card(_capWords(label) + ' Energy', val, '/s');
+            } else if (key.startsWith('_derived_heat_')) {
+                const label = key.slice('_derived_heat_'.length).replace(/_/g, ' ');
+                dHCards += _card(_capWords(label) + ' Heat', val, '/s');
+            }
+        }
 
-        // DPS by type breakdown
-        let dpsTypeCards = '';
+        return _section('Power', main)
+             + (dECards ? _section('Energy Usage (computed)', dECards) : '')
+             + (dHCards ? _section('Heat Generation (computed)', dHCards) : '');
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  TAB: WEAPONS
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _tabWeapons(wData, computed) {
+        // Capacity context at the top
+        const wCap = parseFloat(computed['weapon capacity'] ?? 0) || null;
+        const eCap = parseFloat(computed['engine capacity'] ?? 0) || null;
+        const oCap = parseFloat(computed['outfit space']    ?? 0) || null;
+        let capCards = '';
+        if (wCap) capCards += _card('Weapon Capacity', wCap, '');
+        if (eCap) capCards += _card('Engine Capacity', eCap, '');
+        if (oCap) capCards += _card('Outfit Space',    oCap, '');
+        const capSection = capCards ? _section('Installed Capacity', capCards) : '';
+
+        if (!wData || !wData.weaponCount) {
+            return capSection + `<div class="sbs-section"><div class="sbs-empty">No weapons installed, or weapon data not available yet.</div></div>`;
+        }
+
+        // Summary
+        let sumCards = '';
+        sumCards += _card('Total DPS',    wData.totalDps,          'dps', wData.totalDps  > 0);
+        sumCards += _card('Shield DPS',   wData.shieldDps,         'dps', wData.shieldDps > 0);
+        sumCards += _card('Hull DPS',     wData.hullDps,           'dps', wData.hullDps   > 0);
+        sumCards += _card('Weapon Types', wData.weaponCount,       '');
+        sumCards += _card('Total Mounts', wData.totalWeaponMounts, '');
+
+        // DPS by damage type
+        let typeCards = '';
         for (const [key, val] of Object.entries(wData.dpsByType || {})) {
             if (!val) continue;
-            const label = key.replace(/ damage$/, '').split(' ').map(_capFirst).join(' ') + ' DPS';
-            dpsTypeCards += _statCard(label, val, 'dps');
+            typeCards += _card(_capWords(key.replace(/ damage$/, '')) + ' DPS', val, 'dps');
         }
 
         // Per-weapon table
-        let weaponRows = wData.weapons.map(w => {
-            const rangeStr  = w.profile.effectiveRange ? _fmtNum(w.profile.effectiveRange) + ' px' : '—';
-            const homingBadge = w.profile.isHoming ? '<span class="sbs-badge sbs-badge--blue">HOMING</span>' : '';
-            const ammoBadge   = w.profile.hasAmmo   ? `<span class="sbs-badge sbs-badge--amber">AMMO</span>` : '';
-            const antiMBadge  = w.profile.isAntiMissile ? '<span class="sbs-badge sbs-badge--red">A-M</span>' : '';
+        const rows = (wData.weapons || []).map(w => {
+            const range   = w.profile.effectiveRange ? `${_fmt(w.profile.effectiveRange)} px` : '—';
+            const sps     = _fmt(w.profile.shotsPerSecond);
+            const badges  = [
+                w.profile.isHoming      ? `<span class="sbs-badge sbs-badge--blue">HOMING</span>`  : '',
+                w.profile.hasAmmo       ? `<span class="sbs-badge sbs-badge--amber">AMMO</span>`   : '',
+                w.profile.isAntiMissile ? `<span class="sbs-badge sbs-badge--red">A-M</span>`      : '',
+            ].join('');
+            const countTag = w.count > 1 ? `<span class="sbs-wt-count">×${w.count}</span>` : '';
             return `<tr>
-    <td class="sbs-wt-name">${w.outfitName}${w.count > 1 ? ` <span class="sbs-wt-count">×${w.count}</span>` : ''}
-        ${homingBadge}${ammoBadge}${antiMBadge}
-    </td>
-    <td class="sbs-wt-num">${_fmtNum(w.profile.shotsPerSecond)}</td>
-    <td class="sbs-wt-num">${rangeStr}</td>
-    <td class="sbs-wt-num sbs-wt-dps">${_fmtNum(w.scaledDps)}</td>
+    <td class="sbs-wt-name">${_esc(w.outfitName)} ${countTag}${badges}</td>
+    <td class="sbs-wt-num">${sps}/s</td>
+    <td class="sbs-wt-num">${range}</td>
+    <td class="sbs-wt-num sbs-wt-dps">${_fmt(w.scaledDps)}</td>
 </tr>`;
         }).join('');
 
-        const weaponTable = weaponRows ? `
-<div class="sbs-section">
-    <div class="sbs-section-title">Installed Weapons</div>
-    <table class="sbs-weapon-table">
-        <thead><tr>
-            <th>Weapon</th><th>Shots/s</th><th>Range</th><th>DPS</th>
-        </tr></thead>
-        <tbody>${weaponRows}</tbody>
-    </table>
-</div>` : '';
+        const weaponTable = `<table class="sbs-table">
+    <thead><tr>
+        <th>Weapon</th>
+        <th style="text-align:right">Shots/s</th>
+        <th style="text-align:right">Range</th>
+        <th style="text-align:right">DPS</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+</table>`;
 
         // Ammo requirements
-        let ammoHtml = '';
-        if (wData.hasAmmoWeapons && wData.ammoRequired?.length) {
-            const ammoCards = wData.ammoRequired.map(a =>
-                _statCard(`${a.ammoOutfitName}`, a.totalShotsPerSecond, 'shots/s consumed')
-            ).join('');
-            ammoHtml = _sectionWrap('⚠ Ammo Required', ammoCards);
+        let ammoCards = '';
+        if (wData.hasAmmoWeapons) {
+            for (const a of (wData.ammoRequired || [])) {
+                ammoCards += _card(
+                    _esc(a.ammoOutfitName),
+                    _fmt(a.totalShotsPerSecond),
+                    'rounds/s used'
+                );
+            }
         }
 
-        return _sectionWrap('Weapon Summary', summaryCards)
-             + (dpsTypeCards ? _sectionWrap('DPS by Type', dpsTypeCards) : '')
-             + weaponTable
-             + ammoHtml;
+        return capSection
+             + _section('DPS Summary', sumCards)
+             + (typeCards ? _section('DPS by Damage Type', typeCards) : '')
+             + _tableSection('Installed Weapons', weaponTable)
+             + (ammoCards ? _section('⚠ Ammo Consumed', ammoCards) : '');
     }
 
-    // ── Crew & Misc ────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  TAB: CREW & MISC
+    // ─────────────────────────────────────────────────────────────────────────
 
-    function _renderCrew(computed, attrs) {
-        const reqCrew  = _val(computed, 'RequiredCrew', attrs, 'required crew');
-        const bunks    = parseFloat(attrs['bunks']          ?? 0) || null;
-        const cargo    = parseFloat(attrs['cargo space']    ?? 0) || null;
-        const fuelCap  = parseFloat(attrs['fuel capacity']  ?? 0) || null;
-        const cost     = parseFloat(attrs['cost']           ?? 0) || null;
-        const cloakSpd = _val(computed, 'CloakingSpeed', attrs);
-        const jumpFuel = parseFloat(attrs['jump fuel']      ?? 0) || null;
-        const jumpRange= parseFloat(attrs['jump range']     ?? 0) || null;
+    function _tabCrew(c) {
+        let main = '';
+        main += _card('Required Crew', _get(c, 'RequiredCrew', 'required crew'), '');
+        main += _card('Bunks',         parseFloat(c['bunks']        ?? 0) || null, '');
+        main += _card('Cargo Space',   parseFloat(c['cargo space']  ?? 0) || null, 't');
+        main += _card('Fuel Cap.',     parseFloat(c['fuel capacity']?? 0) || null, '');
+        main += _card('Cost',          parseFloat(c['cost']         ?? 0) || null, 'cr');
+        main += _card('Cloak Speed',   _get(c, 'CloakingSpeed', null), '');
 
-        let cards = '';
-        cards += _statCard('Required Crew',   reqCrew,   '');
-        cards += _statCard('Bunks',           bunks,     '');
-        cards += _statCard('Cargo Space',     cargo,     't');
-        cards += _statCard('Fuel Capacity',   fuelCap,   '');
-        cards += _statCard('Cost',            cost,      'cr');
-        if (cloakSpd) cards += _statCard('Cloak Speed',  cloakSpd,  '');
+        // Cloaking energy/fuel
+        let cloakCards = '';
+        const cloakE = parseFloat(c['cloaking energy'] ?? 0) || null;
+        const cloakF = parseFloat(c['cloaking fuel']   ?? 0) || null;
+        const cloakH = parseFloat(c['cloaking heat']   ?? 0) || null;
+        if (cloakE) cloakCards += _card('Cloak Energy', cloakE, '/s');
+        if (cloakF) cloakCards += _card('Cloak Fuel',   cloakF, '/s');
+        if (cloakH) cloakCards += _card('Cloak Heat',   cloakH, '/s');
 
+        // Navigation
         let navCards = '';
-        if (jumpFuel)  navCards += _statCard('Jump Fuel',  jumpFuel,  '');
-        if (jumpRange) navCards += _statCard('Jump Range', jumpRange, '');
+        const jFuel  = parseFloat(c['jump fuel']  ?? 0) || null;
+        const jRange = parseFloat(c['jump range'] ?? 0) || null;
+        const hyp    = parseFloat(c['hyperdrive'] ?? 0) || null;
+        const jDrive = parseFloat(c['jump drive'] ?? 0) || null;
+        if (jFuel)  navCards += _card('Jump Fuel',   jFuel,  '');
+        if (jRange) navCards += _card('Jump Range',  jRange, '');
+        if (hyp)    navCards += _card('Hyperdrive',  hyp,    '');
+        if (jDrive) navCards += _card('Jump Drive',  jDrive, '');
 
-        // Any _fn_ keys we haven't covered in other tabs
-        const shownFns = new Set(['MaxShields','MaxHull','HeatDissipation','IdleHeat',
-            'MaximumHeat','MaxVelocity','Acceleration','TurnRate','MaxReverseVelocity',
-            'ReverseAcceleration','Drag','Mass','InertialMass','CoolingEfficiency',
-            'RequiredCrew','CloakingSpeed']);
+        // Scanning
+        let scanCards = '';
+        for (const key of ['cargo scan power','outfit scan power',
+                           'tactical scan power','asteroid scan power']) {
+            const v = parseFloat(c[key] ?? 0);
+            if (!v) continue;
+            scanCards += _card(_capWords(key.replace(' power', '')) + ' Range',
+                               100 * Math.sqrt(v), 'px');
+        }
+        const si = parseFloat(c['scan interference'] ?? 0);
+        if (si) scanCards += _card('Scan Evasion', si / (1 + si) * 100, '%');
+
+        // Any remaining _fn_ keys we haven't shown in other tabs
+        const SHOWN = new Set([
+            'MaxShields','MaxHull','HeatDissipation','IdleHeat','MaximumHeat',
+            'MaxVelocity','Acceleration','TurnRate','MaxReverseVelocity',
+            'ReverseAcceleration','Drag','Mass','InertialMass','DragForce',
+            'CoolingEfficiency','RequiredCrew','CloakingSpeed','MinimumHull',
+        ]);
         let extraCards = '';
-        for (const [key, val] of Object.entries(computed)) {
+        for (const [key, val] of Object.entries(c)) {
             if (!key.startsWith('_fn_')) continue;
             const fnName = key.slice(4);
-            if (shownFns.has(fnName)) continue;
+            if (SHOWN.has(fnName)) continue;
             if (!val || isNaN(val)) continue;
-            const info = FN_MAP.get(fnName);
-            const label = info?.label ?? fnName.replace(/([A-Z])/g, ' $1').trim();
-            const unit  = info?.unit  ?? '';
-            extraCards += _statCard(label, val, unit);
+            const label = fnName.replace(/([A-Z])/g, ' $1').trim();
+            extraCards += _card(label, val, '');
         }
 
-        let html = _sectionWrap('Crew & Misc', cards);
-        if (navCards)   html += _sectionWrap('Navigation', navCards);
-        if (extraCards) html += _sectionWrap('Other Computed', extraCards);
-        return html;
+        return _section('Crew & General', main)
+             + (cloakCards.trim() ? _section('Cloaking',       cloakCards) : '')
+             + (navCards.trim()   ? _section('Navigation',     navCards)   : '')
+             + (scanCards.trim()  ? _section('Scanning',       scanCards)  : '')
+             + (extraCards.trim() ? _section('Other Computed', extraCards) : '');
     }
 
-    // ── All fns fallback ───────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  UTILS
+    // ─────────────────────────────────────────────────────────────────────────
 
-    function _renderAllFns(computed) {
-        let cards = '';
-        for (const [key, val] of Object.entries(computed)) {
-            if (!key.startsWith('_fn_')) continue;
-            if (!val || isNaN(val)) continue;
-            const fnName = key.slice(4);
-            const info   = FN_MAP.get(fnName);
-            const label  = info?.label ?? fnName.replace(/([A-Z])/g, ' $1').trim();
-            cards += _statCard(label, val, info?.unit ?? '');
-        }
-        return _sectionWrap('All Computed Stats', cards);
+    function _capFirst(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+    function _capWords(s) { return s.split(' ').map(_capFirst).join(' '); }
+    function _esc(s)      {
+        return String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
     }
 
-    // ── Helpers ────────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  CSS (injected once into the page)
+    // ─────────────────────────────────────────────────────────────────────────
 
-    function _capFirst(s) {
-        return s.charAt(0).toUpperCase() + s.slice(1);
-    }
-
-    // ── CSS ────────────────────────────────────────────────────────────────────
-
-    function _css() {
-        return `
-/* ── SBS Panel ─────────────────────────────────────────────────────────────── */
-:root {
-    --sbs-bg:          #0f172a;
-    --sbs-surface:     #1e293b;
-    --sbs-surface2:    #263347;
-    --sbs-border:      rgba(99,179,237,0.18);
-    --sbs-accent:      #63b3ed;
-    --sbs-accent2:     #38bdf8;
-    --sbs-text:        #e2e8f0;
-    --sbs-muted:       #64748b;
-    --sbs-dim:         #475569;
-    --sbs-pos:         #4ade80;
-    --sbs-neg:         #f87171;
-    --sbs-warn:        #fbbf24;
-    --sbs-tab-active:  #1d4ed8;
-    --sbs-r:           8px;
-    --sbs-r-sm:        5px;
-}
-
-.sbs-root {
+    const _CSS = `
+/* ─── SBS Root ────────────────────────────────────────────────────────────── */
+#sbs-root {
+    --sbs-bg:      #0d1826;
+    --sbs-sur:     #162033;
+    --sbs-sur2:    #1d2d45;
+    --sbs-bdr:     rgba(99,179,237,0.16);
+    --sbs-acc:     #63b3ed;
+    --sbs-acc2:    #38bdf8;
+    --sbs-txt:     #e2e8f0;
+    --sbs-mut:     #64748b;
+    --sbs-dim:     #3d526b;
+    --sbs-pos:     #4ade80;
+    --sbs-neg:     #f87171;
+    --sbs-r:       8px;
+    --sbs-rsm:     5px;
     margin-top: 28px;
-    border: 1px solid var(--sbs-border);
+    border: 1px solid var(--sbs-bdr);
     border-radius: var(--sbs-r);
     background: var(--sbs-bg);
     overflow: hidden;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(99,179,237,0.08);
+    box-shadow: 0 6px 32px rgba(0,0,0,0.45),
+                inset 0 1px 0 rgba(99,179,237,0.06);
 }
 
-.sbs-header {
+/* ─── Header ──────────────────────────────────────────────────────────────── */
+#sbs-root .sbs-header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px 14px;
-    background: var(--sbs-surface);
-    border-bottom: 1px solid var(--sbs-border);
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--sbs-sur);
+    border-bottom: 1px solid var(--sbs-bdr);
     flex-wrap: wrap;
 }
-
-.sbs-title {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--sbs-accent);
+#sbs-root .sbs-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--sbs-acc);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     white-space: nowrap;
-    margin-right: 4px;
+    flex-shrink: 0;
 }
-
-.sbs-tabs {
+#sbs-root .sbs-tabs {
     display: flex;
     gap: 4px;
     flex-wrap: wrap;
     flex: 1;
+    min-width: 0;
 }
-
-.sbs-tab {
-    padding: 4px 11px;
-    border-radius: var(--sbs-r-sm);
-    border: 1px solid var(--sbs-border);
+#sbs-root .sbs-tab {
+    padding: 3px 10px;
+    border-radius: var(--sbs-rsm);
+    border: 1px solid var(--sbs-bdr);
     background: transparent;
-    color: var(--sbs-muted);
-    font-size: 0.75rem;
+    color: var(--sbs-mut);
+    font-size: 0.72rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: background .12s, color .12s, border-color .12s;
     white-space: nowrap;
 }
-
-.sbs-tab:hover {
-    background: var(--sbs-surface2);
-    color: var(--sbs-text);
-    border-color: var(--sbs-accent);
+#sbs-root .sbs-tab:hover {
+    background: var(--sbs-sur2);
+    color: var(--sbs-txt);
+    border-color: rgba(99,179,237,0.5);
 }
-
-.sbs-tab--active {
-    background: var(--sbs-tab-active);
+#sbs-root .sbs-tab--active {
+    background: #1d4ed8;
     color: #fff;
-    border-color: var(--sbs-tab-active);
+    border-color: #1d4ed8;
 }
-
-.sbs-collapse-btn {
+#sbs-root .sbs-collapse-btn {
     margin-left: auto;
     padding: 2px 8px;
-    border-radius: var(--sbs-r-sm);
-    border: 1px solid var(--sbs-border);
+    border-radius: var(--sbs-rsm);
+    border: 1px solid var(--sbs-bdr);
     background: transparent;
-    color: var(--sbs-muted);
+    color: var(--sbs-mut);
     font-size: 0.7rem;
     cursor: pointer;
     flex-shrink: 0;
+    transition: color .12s, border-color .12s;
 }
+#sbs-root .sbs-collapse-btn:hover { color: var(--sbs-txt); border-color: var(--sbs-acc); }
 
-.sbs-collapse-btn:hover { color: var(--sbs-text); border-color: var(--sbs-accent); }
-
-.sbs-body {
-    padding: 14px 16px 16px;
-    max-height: 420px;
+/* ─── Body ────────────────────────────────────────────────────────────────── */
+#sbs-root .sbs-body {
+    padding: 14px 14px 18px;
+    max-height: 400px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--sbs-dim) transparent;
 }
-
-.sbs-body::-webkit-scrollbar       { width: 5px; }
-.sbs-body::-webkit-scrollbar-track { background: transparent; }
-.sbs-body::-webkit-scrollbar-thumb { background: var(--sbs-dim); border-radius: 3px; }
-
-.sbs-content { display: flex; flex-direction: column; gap: 18px; }
-
-.sbs-placeholder {
-    color: var(--sbs-muted);
-    font-size: 0.84rem;
+#sbs-root .sbs-body::-webkit-scrollbar       { width: 5px; }
+#sbs-root .sbs-body::-webkit-scrollbar-track { background: transparent; }
+#sbs-root .sbs-body::-webkit-scrollbar-thumb { background: var(--sbs-dim); border-radius: 3px; }
+#sbs-root .sbs-content { display: flex; flex-direction: column; gap: 16px; }
+#sbs-root .sbs-empty {
+    color: var(--sbs-mut);
+    font-size: 0.82rem;
     font-style: italic;
-    padding: 16px 0;
+    padding: 14px 0;
     text-align: center;
 }
 
-/* ── Sections ──────────────────────────────────────────────────────────────── */
-
-.sbs-section { display: flex; flex-direction: column; gap: 8px; }
-
-.sbs-section-title {
-    font-size: 0.68rem;
+/* ─── Section ─────────────────────────────────────────────────────────────── */
+#sbs-root .sbs-section { display: flex; flex-direction: column; gap: 7px; }
+#sbs-root .sbs-section-title {
+    font-size: 0.63rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--sbs-accent);
-    border-bottom: 1px solid var(--sbs-border);
-    padding-bottom: 4px;
-    margin-bottom: 2px;
+    letter-spacing: 0.14em;
+    color: var(--sbs-acc);
+    border-bottom: 1px solid var(--sbs-bdr);
+    padding-bottom: 3px;
 }
+#sbs-root .sbs-cards { display: flex; flex-wrap: wrap; gap: 5px; }
 
-.sbs-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-/* ── Stat cards ────────────────────────────────────────────────────────────── */
-
-.sbs-card {
+/* ─── Stat cards ──────────────────────────────────────────────────────────── */
+#sbs-root .sbs-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    background: var(--sbs-surface);
-    border: 1px solid var(--sbs-border);
-    border-radius: var(--sbs-r-sm);
-    padding: 6px 10px;
-    min-width: 90px;
-    max-width: 160px;
-    transition: border-color 0.15s;
+    background: var(--sbs-sur);
+    border: 1px solid var(--sbs-bdr);
+    border-radius: var(--sbs-rsm);
+    padding: 5px 10px 6px;
+    min-width: 80px;
+    transition: border-color .12s, background .12s;
 }
-
-.sbs-card:hover { border-color: var(--sbs-accent); }
-
-.sbs-card--hi {
+#sbs-root .sbs-card:hover {
     border-color: rgba(99,179,237,0.4);
-    background: var(--sbs-surface2);
+    background: var(--sbs-sur2);
 }
-
-.sbs-card-label {
-    font-size: 0.62rem;
-    font-weight: 600;
+#sbs-root .sbs-card--hi {
+    border-color: rgba(99,179,237,0.35);
+    background: var(--sbs-sur2);
+}
+#sbs-root .sbs-card--warn {
+    border-color: rgba(248,113,113,0.35);
+}
+#sbs-root .sbs-label {
+    font-size: 0.58rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--sbs-muted);
-    margin-bottom: 2px;
+    letter-spacing: 0.07em;
+    color: var(--sbs-mut);
+    margin-bottom: 1px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 100%;
 }
-
-.sbs-card-value {
-    font-size: 0.92rem;
+#sbs-root .sbs-value {
+    font-size: 0.88rem;
     font-weight: 700;
-    color: var(--sbs-text);
+    color: var(--sbs-txt);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
 }
-
-.sbs-card-unit {
-    font-size: 0.65rem;
+#sbs-root .sbs-unit {
+    font-size: 0.6rem;
     font-weight: 400;
-    color: var(--sbs-muted);
-    margin-left: 3px;
+    color: var(--sbs-mut);
+    margin-left: 2px;
 }
 
-/* ── Weapon table ──────────────────────────────────────────────────────────── */
-
-.sbs-weapon-table {
+/* ─── Weapon table ────────────────────────────────────────────────────────── */
+#sbs-root .sbs-table-wrap { overflow-x: auto; }
+#sbs-root .sbs-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
 }
-
-.sbs-weapon-table th {
-    text-align: left;
-    color: var(--sbs-muted);
-    font-size: 0.64rem;
+#sbs-root .sbs-table th {
+    color: var(--sbs-mut);
+    font-size: 0.62rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     padding: 4px 8px;
-    border-bottom: 1px solid var(--sbs-border);
-    font-weight: 600;
+    border-bottom: 1px solid var(--sbs-bdr);
+    font-weight: 700;
+    white-space: nowrap;
 }
-
-.sbs-weapon-table td {
+#sbs-root .sbs-table td {
     padding: 5px 8px;
-    color: var(--sbs-text);
-    border-bottom: 1px solid rgba(99,179,237,0.07);
+    color: var(--sbs-txt);
+    border-bottom: 1px solid rgba(99,179,237,0.06);
     vertical-align: middle;
 }
+#sbs-root .sbs-table tbody tr:hover td { background: var(--sbs-sur2); }
+#sbs-root .sbs-wt-name  { font-weight: 600; }
+#sbs-root .sbs-wt-num   { text-align: right; font-variant-numeric: tabular-nums; color: var(--sbs-mut); }
+#sbs-root .sbs-wt-dps   { color: var(--sbs-acc2) !important; font-weight: 700; }
+#sbs-root .sbs-wt-count { font-size: 0.68rem; color: var(--sbs-mut); margin-left: 2px; }
 
-.sbs-weapon-table tbody tr:hover td { background: var(--sbs-surface2); }
-
-.sbs-wt-name { font-weight: 600; max-width: 220px; }
-.sbs-wt-num  { text-align: right; font-variant-numeric: tabular-nums; color: var(--sbs-muted); }
-.sbs-wt-dps  { color: var(--sbs-accent2) !important; font-weight: 700; }
-.sbs-wt-count { font-size: 0.7rem; color: var(--sbs-muted); margin-left: 3px; }
-
-/* ── Badges ────────────────────────────────────────────────────────────────── */
-
-.sbs-badge {
+/* ─── Badges ──────────────────────────────────────────────────────────────── */
+#sbs-root .sbs-badge {
     display: inline-block;
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    padding: 1px 5px;
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 1px 4px;
     border-radius: 3px;
     vertical-align: middle;
-    margin-left: 4px;
+    margin-left: 3px;
+    line-height: 1.4;
 }
-
-.sbs-badge--blue  { background: rgba(59,130,246,0.25); color: #93c5fd; border: 1px solid rgba(59,130,246,0.4); }
-.sbs-badge--amber { background: rgba(251,191,36,0.2);  color: #fcd34d; border: 1px solid rgba(251,191,36,0.4); }
-.sbs-badge--red   { background: rgba(239,68,68,0.2);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.4); }
+#sbs-root .sbs-badge--blue  { background:rgba(59,130,246,0.2);  color:#93c5fd; border:1px solid rgba(59,130,246,0.35); }
+#sbs-root .sbs-badge--amber { background:rgba(251,191,36,0.15); color:#fcd34d; border:1px solid rgba(251,191,36,0.35); }
+#sbs-root .sbs-badge--red   { background:rgba(239,68,68,0.15);  color:#fca5a5; border:1px solid rgba(239,68,68,0.35); }
 `;
-    }
 
-    // ── Public API ─────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    //  PUBLIC API
+    // ─────────────────────────────────────────────────────────────────────────
 
-    return { refresh, _toggleCollapse, _mount };
+    return { refresh, hookIntoBuilder, _mount };
 
 })();
 
-// ── Auto-init ──────────────────────────────────────────────────────────────────
-
+// ── Auto-mount on DOMContentLoaded ────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     SBS._mount();
 });
