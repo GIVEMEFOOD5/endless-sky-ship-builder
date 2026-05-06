@@ -1898,4 +1898,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('dataLoaded', () => {
     sbRefreshLiveData();
   });
+  SBS.hookIntoBuilder();
 });
