@@ -326,6 +326,61 @@ const SBS = (() => {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
+    //  DERIVED HEAT VALUES
+    //
+    //  All key lookups use substring matching — zero hardcoding.
+    //
+    //  heatCapAttr  = first key in eff whose lowercased form is exactly
+    //                 "heat capacity" (raw attribute, NOT computed max-heat).
+    //  heatDissAttr = first key in eff whose lowercased form contains
+    //                 "heat dissipation".
+    //
+    //  totalMass    = ship base mass  +  sum of (outfit.mass * count) for every
+    //                 installed outfit that has a numeric mass field.
+    //                 This is ship+outfit combined mass, NOT the physics
+    //                 inertial mass (which may be reduced by inertia reduction).
+    //
+    //  Derived:
+    //    totalHeatCapacity      = totalMass * MAX_TEMP
+    //
+    //    maxSustainableHeatProd = (totalMass + heatCapAttr) * heatDiss * 6
+    //        Maximum heat/s the ship can produce while staying in equilibrium.
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _computeHeatDerived(eff, ship, outfitIdx) {
+        // Ship base mass
+        const shipMass = parseFloat(ship.mass) || 0;
+
+        // Sum outfit masses (each outfit may carry a numeric 'mass' field)
+        let outfitMassSum = 0;
+        for (const entry of (ship.outfits || [])) {
+            const name  = (entry.name || '').replace(/^"|"$/g, '').trim();
+            const count = parseInt(entry.count) || 1;
+            const o = outfitIdx[name];
+            if (!o) continue;
+            // Find the mass key on the outfit object (case-insensitive exact match)
+            const massKey = Object.keys(o).find(k => k.toLowerCase() === 'mass');
+            if (massKey && typeof o[massKey] === 'number') outfitMassSum += o[massKey] * count;
+        }
+
+        const totalMass = shipMass + outfitMassSum;
+
+        // Heat capacity attribute (exact key name "heat capacity" in eff)
+        const heatCapKey  = Object.keys(eff).find(k => k.toLowerCase() === 'heat capacity');
+        const heatDissKey = Object.keys(eff).find(k => k.toLowerCase().includes('heat dissipation'));
+
+        const heatCap  = (heatCapKey  && typeof eff[heatCapKey]  === 'number') ? eff[heatCapKey]  : 0;
+        const heatDiss = (heatDissKey && typeof eff[heatDissKey] === 'number') ? eff[heatDissKey] : 0;
+
+        const totalHeatCapacity      = totalMass > 0 ? totalMass * MAX_TEMP : null;
+        const maxSustainableHeatProd = (heatDiss > 0 && (totalMass + heatCap) > 0)
+            ? (totalMass + heatCap) * heatDiss * 6
+            : null;
+
+        return { totalHeatCapacity, maxSustainableHeatProd };
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
     //  RENDER DISPATCH
     // ─────────────────────────────────────────────────────────────────────────
 
@@ -333,21 +388,22 @@ const SBS = (() => {
         const el = document.getElementById('sbs-content');
         if (!el) return;
 
-        const outfitIdx = _buildOutfitIndex();
-        const eff       = _buildEffectiveAttrs(ship, outfitIdx);
-        const wData     = _computeWeaponStats(ship, outfitIdx);
-        const ad        = window.attrDefs || null;
+        const outfitIdx  = _buildOutfitIndex();
+        const eff        = _buildEffectiveAttrs(ship, outfitIdx);
+        const wData      = _computeWeaponStats(ship, outfitIdx);
+        const ad         = window.attrDefs || null;
+        const heatDerived = _computeHeatDerived(eff, ship, outfitIdx);
 
         let html = '';
         if (_activeTab === 'other') {
             html = _tabOther(eff, ad, ship);
         } else if (_activeTab === 'everything') {
-            html = _tabEverything(eff, ad, ship, wData);
+            html = _tabEverything(eff, ad, ship, wData, heatDerived);
         } else if (_activeTab === 'weapons') {
             html = _tabWeapons(wData, eff, ad);
         } else {
             const tabDef = TAB_DEFS.find(t => t.id === _activeTab);
-            if (tabDef) html = _tabKeyword(eff, ad, tabDef);
+            if (tabDef) html = _tabKeyword(eff, ad, tabDef, heatDerived);
         }
 
         el.innerHTML = html || `<div class="sbs-empty">No data available.</div>`;
@@ -362,7 +418,11 @@ const SBS = (() => {
     //  present.  Show the sum of all matched values with their displayUnit.
     // ─────────────────────────────────────────────────────────────────────────
 
-    function _tabKeyword(eff, ad, tabDef) {
+    // Tokens that identify a section as heat-related — derived heat cards are
+    // appended to any section whose tokens overlap with this set.
+    const _HEAT_SECTION_TOKENS = new Set(['heat', 'cooling', 'temperature']);
+
+    function _tabKeyword(eff, ad, tabDef, heatDerived) {
         const attrMeta = ad?.attributes || {};
         let html = '';
 
@@ -374,8 +434,6 @@ const SBS = (() => {
                 const lk = key.toLowerCase();
                 return lowerTokens.some(tok => lk.includes(tok));
             });
-
-            if (!matchedKeys.length) continue;
 
             // Sort matched keys alphabetically
             matchedKeys.sort((a, b) => a.localeCompare(b));
@@ -389,6 +447,15 @@ const SBS = (() => {
                 const unit = meta.displayUnit        ?? '';
                 const val  = raw * mult;
                 cards += _card(_capWords(key), val, unit);
+            }
+
+            // Inject derived heat values into any heat/cooling/temperature section
+            const isHeatSection = lowerTokens.some(tok => _HEAT_SECTION_TOKENS.has(tok));
+            if (isHeatSection && heatDerived) {
+                if (heatDerived.totalHeatCapacity != null)
+                    cards += _card('Total Heat Capacity (calc)', heatDerived.totalHeatCapacity, '', true);
+                if (heatDerived.maxSustainableHeatProd != null)
+                    cards += _card('Max Sustainable Heat/s (calc)', heatDerived.maxSustainableHeatProd, '/s', true);
             }
 
             if (cards) html += _section(sec.title, cards);
@@ -517,7 +584,7 @@ const SBS = (() => {
     //  Internal keys (_*) are excluded.
     // ─────────────────────────────────────────────────────────────────────────
 
-    function _tabEverything(eff, ad, ship, wData) {
+    function _tabEverything(eff, ad, ship, wData, heatDerived) {
         const attrMeta = ad?.attributes || {};
 
         // All numeric keys sorted
@@ -553,10 +620,20 @@ const SBS = (() => {
                 if (val) wCards += _card(_capWords(key.replace(/ damage$/, '')) + ' DPS', val, 'dps');
         }
 
-        if (!cards && !wCards)
+        // Derived heat values
+        let hCards = '';
+        if (heatDerived) {
+            if (heatDerived.totalHeatCapacity != null)
+                hCards += _card('Total Heat Capacity (calc)', heatDerived.totalHeatCapacity, '', true);
+            if (heatDerived.maxSustainableHeatProd != null)
+                hCards += _card('Max Sustainable Heat/s (calc)', heatDerived.maxSustainableHeatProd, '/s', true);
+        }
+
+        if (!cards && !wCards && !hCards)
             return `<div class="sbs-empty">No attributes found.</div>`;
 
         return (cards  ? `<div class="sbs-section"><div class="sbs-section-title">🌐 All Attributes</div><div class="sbs-cards">${cards}</div></div>` : '')
+             + (hCards ? `<div class="sbs-section"><div class="sbs-section-title">🔥 Derived Heat</div><div class="sbs-cards">${hCards}</div></div>` : '')
              + (wCards ? `<div class="sbs-section"><div class="sbs-section-title">🔫 Weapon DPS</div><div class="sbs-cards">${wCards}</div></div>` : '');
     }
 
