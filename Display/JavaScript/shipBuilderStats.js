@@ -26,7 +26,8 @@
 const SBS = (() => {
     'use strict';
 
-    const FPS = 60;
+    const FPS            = 60;
+    const MAX_TEMP       = 100; // MAXIMUM_TEMPERATURE constant from Ship.cpp
 
     // ─────────────────────────────────────────────────────────────────────────
     //  STATE
@@ -36,14 +37,10 @@ const SBS = (() => {
     let _activeTab  = 'combat';
     let _rafPending = false;
     let _hooked     = false;
-    let _keyReg     = null; // resolved once from window.attrDefs
+    let _keyReg     = null;
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  KEY REGISTRY
-    //
-    //  Resolves every attribute key we need from window.attrDefs so nothing is
-    //  hardcoded.  Falls back to the canonical Endless Sky strings only when
-    //  attrDefs is not yet loaded (will re-resolve on next refresh).
+    //  KEY REGISTRY  — resolved from window.attrDefs, zero hardcoding
     // ─────────────────────────────────────────────────────────────────────────
 
     function _buildKeyRegistry() {
@@ -52,185 +49,198 @@ const SBS = (() => {
 
         const attrKeys = Object.keys(ad.attributes || {});
 
-        // Find the first key matching any of the given patterns (case-insensitive)
         const find = (...patterns) => {
             for (const pat of patterns) {
-                const lp = pat.toLowerCase();
+                const lp    = pat.toLowerCase();
                 const found = attrKeys.find(k => k.toLowerCase() === lp);
                 if (found) return found;
             }
-            // Fallback: return the first pattern as-is (keeps things working if
-            // attrDefs loaded but key not present under that exact casing)
-            return patterns[0];
+            return patterns[0]; // fallback to first pattern string
         };
 
-        // Collect every key that is used by any ship function — these are the
-        // "known / meaningful" keys and everything else goes into "Other"
-        const knownByFns = new Set();
-        for (const fnData of Object.values(ad.shipFunctions || {})) {
-            for (const k of (fnData.attributesRead || [])) knownByFns.add(k);
-        }
-        // Also mark keys shown in the outfit display panel as known
-        const outfitDisplay = ad.outfitDisplay || {};
-        for (const k of Object.keys(outfitDisplay.scaleMap   || {})) knownByFns.add(k);
-        for (const k of Object.keys(outfitDisplay.booleanAttributes || {})) knownByFns.add(k);
-        for (const { key } of (outfitDisplay.valueNames || [])) knownByFns.add(key);
-        for (const k of (outfitDisplay.percentNames  || [])) knownByFns.add(k);
-        for (const k of (outfitDisplay.otherNames    || [])) knownByFns.add(k);
-
-        // Status effect keys
-        const statusKeys = new Set();
-        for (const desc of (ad.weapon?.statusEffectDecay?.descriptors || [])) {
-            statusKeys.add(desc.damageKey);
-            statusKeys.add(desc.resistKey);
-            statusKeys.add(desc.protectionKey);
-            for (const ck of (desc.costKeys || [])) statusKeys.add(ck);
-        }
-
-        return {
+        const reg = {
             // ── Mass / inertia / drag ──────────────────────────────────────
-            mass:               find('mass'),
-            inertiaReduction:   find('inertia reduction'),
-            drag:               find('drag'),
-            dragReduction:      find('drag reduction'),
+            mass:                  find('mass'),
+            heatCapacity:          find('heat capacity'),
+            inertiaReduction:      find('inertia reduction'),
+            drag:                  find('drag'),
+            dragReduction:         find('drag reduction'),
 
             // ── Normal thrust ─────────────────────────────────────────────
-            thrust:             find('thrust'),
-            thrustEnergy:       find('thrusting energy'),
-            thrustHeat:         find('thrusting heat'),
-            thrustFuel:         find('thrusting fuel'),
+            thrust:                find('thrust'),
+            thrustEnergy:          find('thrusting energy'),
+            thrustHeat:            find('thrusting heat'),
+            thrustFuel:            find('thrusting fuel'),
 
             // ── Reverse thrust ────────────────────────────────────────────
-            reverseThrust:      find('reverse thrust'),
-            reverseEnergy:      find('reverse thrusting energy'),
-            reverseHeat:        find('reverse thrusting heat'),
+            reverseThrust:         find('reverse thrust'),
+            reverseEnergy:         find('reverse thrusting energy'),
+            reverseHeat:           find('reverse thrusting heat'),
+            reverseFuel:           find('reverse thrusting fuel'),
 
             // ── Afterburner ───────────────────────────────────────────────
-            abThrust:           find('afterburner thrust'),
-            abEnergy:           find('afterburner energy'),
-            abHeat:             find('afterburner heat'),
-            abFuel:             find('afterburner fuel'),
-            abShields:          find('afterburner shields'),
-            abHull:             find('afterburner hull'),
+            abThrust:              find('afterburner thrust'),
+            abEnergy:              find('afterburner energy'),
+            abHeat:                find('afterburner heat'),
+            abFuel:                find('afterburner fuel'),
+            abShields:             find('afterburner shields'),
+            abHull:                find('afterburner hull'),
 
             // ── Turning ───────────────────────────────────────────────────
-            turn:               find('turn'),
-            turnMultiplier:     find('turn multiplier'),
-            turningEnergy:      find('turning energy'),
-            turningHeat:        find('turning heat'),
-            turningFuel:        find('turning fuel'),
+            turn:                  find('turn'),
+            turnMultiplier:        find('turn multiplier'),
+            turningEnergy:         find('turning energy'),
+            turningHeat:           find('turning heat'),
+            turningFuel:           find('turning fuel'),
 
-            // ── Combat / shields / hull ───────────────────────────────────
-            shields:            find('shields'),
-            hull:               find('hull'),
-            shieldGen:          find('shield generation'),
-            hullRepair:         find('hull repair rate'),
-            heatDissipation:    find('heat dissipation'),
-            cooling:            find('cooling'),
-            hullMult:           find('hull multiplier'),
-            shieldMult:         find('shield multiplier'),
-            shieldGenMult:      find('shield generation multiplier'),
-            hullRepairMult:     find('hull repair multiplier'),
-            shieldDelay:        find('shield delay'),
-            depletedDelay:      find('depleted shield delay'),
-            repairDelay:        find('repair delay'),
-            disabledRepair:     find('disabled repair rate'),
-
-            // ── Power ─────────────────────────────────────────────────────
-            energyCap:          find('energy capacity'),
-            energyGen:          find('energy generation'),
-            energyCon:          find('energy consumption'),
-            fuelCap:            find('fuel capacity'),
-            solarCollection:    find('solar collection'),
-            ramscoop:           find('ramscoop'),
-            fuelGen:            find('fuel generation'),
-            coolingEff:         find('cooling inefficiency'),
-
-            // ── Capacity ──────────────────────────────────────────────────
-            outfitSpace:        find('outfit space'),
-            engineCap:          find('engine capacity'),
-            weaponCap:          find('weapon capacity'),
-            cargoSpace:         find('cargo space'),
-
-            // ── Crew / misc ───────────────────────────────────────────────
-            requiredCrew:       find('required crew'),
-            bunks:              find('bunks'),
-            cost:               find('cost'),
-            category:           find('category'),
-
-            // ── Jump / nav ────────────────────────────────────────────────
-            jumpFuel:           find('jump fuel'),
-            jumpRange:          find('jump range'),
-            jumpFuelMult:       find('jump fuel multiplier'),
-            hyperdrive:         find('hyperdrive'),
-            jumpDrive:          find('jump drive'),
-            scramDrive:         find('scram drive'),
-
-            // ── Cloaking ──────────────────────────────────────────────────
-            cloak:              find('cloak'),
-            cloakEnergy:        find('cloaking energy'),
-            cloakFuel:          find('cloaking fuel'),
-            cloakHeat:          find('cloaking heat'),
+            // ── Combat ────────────────────────────────────────────────────
+            shields:               find('shields'),
+            hull:                  find('hull'),
+            shieldGen:             find('shield generation'),
+            hullRepair:            find('hull repair rate'),
+            shieldEnergy:          find('shield energy'),
+            shieldHeat:            find('shield heat'),
+            shieldFuel:            find('shield fuel'),
+            hullEnergy:            find('hull energy'),
+            hullHeat:              find('hull heat'),
+            hullFuel:              find('hull fuel'),
+            heatDissipation:       find('heat dissipation'),
+            cooling:               find('cooling'),
+            coolingInefficiency:   find('cooling inefficiency'),
+            hullMult:              find('hull multiplier'),
+            shieldMult:            find('shield multiplier'),
+            shieldGenMult:         find('shield generation multiplier'),
+            hullRepairMult:        find('hull repair multiplier'),
+            shieldDelay:           find('shield delay'),
+            depletedDelay:         find('depleted shield delay'),
+            repairDelay:           find('repair delay'),
+            disabledRepair:        find('disabled repair rate'),
+            thresholdPct:          find('threshold percentage'),
+            absoluteThreshold:     find('absolute threshold'),
+            piercingResist:        find('piercing resistance'),
+            shieldProtection:      find('shield protection'),
+            hullProtection:        find('hull protection'),
+            energyProtection:      find('energy protection'),
+            fuelProtection:        find('fuel protection'),
+            heatProtection:        find('heat protection'),
+            forceProtection:       find('force protection'),
+            piercingProtection:    find('piercing protection'),
+            disruptionProtection:  find('disruption protection'),
 
             // ── Status resistances ────────────────────────────────────────
-            ionResist:          find('ion resistance'),
-            scrambleResist:     find('scramble resistance'),
-            disruptionResist:   find('disruption resistance'),
-            slowingResist:      find('slowing resistance'),
-            burnResist:         find('burn resistance'),
-            dischargeResist:    find('discharge resistance'),
-            corrosionResist:    find('corrosion resistance'),
-            leakResist:         find('leak resistance'),
+            ionResist:             find('ion resistance'),
+            scrambleResist:        find('scramble resistance'),
+            disruptionResist:      find('disruption resistance'),
+            slowingResist:         find('slowing resistance'),
+            burnResist:            find('burn resistance'),
+            dischargeResist:       find('discharge resistance'),
+            corrosionResist:       find('corrosion resistance'),
+            leakResist:            find('leak resistance'),
 
-            // ── Sets for "Other" section ──────────────────────────────────
-            // All keys considered "covered" by the explicit tabs
-            coveredKeys: new Set([
-                // Will be populated after the object is created
-            ]),
+            // ── Power ─────────────────────────────────────────────────────
+            energyCap:             find('energy capacity'),
+            energyGen:             find('energy generation'),
+            energyCon:             find('energy consumption'),
+            fuelCap:               find('fuel capacity'),
+            solarCollection:       find('solar collection'),
+            solarHeat:             find('solar heat'),
+            ramscoop:              find('ramscoop'),
+            fuelGen:               find('fuel generation'),
+            fuelCon:               find('fuel consumption'),
 
-            // All keys that attrDefs considers meaningful
-            knownByFns,
-            statusKeys,
+            // ── Capacity ──────────────────────────────────────────────────
+            outfitSpace:           find('outfit space'),
+            engineCap:             find('engine capacity'),
+            weaponCap:             find('weapon capacity'),
+            cargoSpace:            find('cargo space'),
+            gunPorts:              find('gun ports'),
+            turretMounts:          find('turret mounts'),
 
-            // The full attrDefs attributes map for display multipliers etc.
+            // ── Crew / misc ───────────────────────────────────────────────
+            requiredCrew:          find('required crew'),
+            bunks:                 find('bunks'),
+            cost:                  find('cost'),
+            category:              find('category'),
+            crewEquivalent:        find('crew equivalent'),
+            extraMass:             find('extra mass'),
+
+            // ── Jump / nav ────────────────────────────────────────────────
+            jumpFuel:              find('jump fuel'),
+            jumpRange:             find('jump range'),
+            jumpFuelMult:          find('jump fuel multiplier'),
+            hyperdrive:            find('hyperdrive'),
+            jumpDrive:             find('jump drive'),
+            scramDrive:            find('scram drive'),
+
+            // ── Cloaking ──────────────────────────────────────────────────
+            cloak:                 find('cloak'),
+            cloakEnergy:           find('cloaking energy'),
+            cloakFuel:             find('cloaking fuel'),
+            cloakHeat:             find('cloaking heat'),
+            cloakShields:          find('cloaking shields'),
+            cloakHull:             find('cloaking hull'),
+
+            // ── Scanning ──────────────────────────────────────────────────
+            cargoScan:             find('cargo scan power'),
+            outfitScan:            find('outfit scan power'),
+            tacticalScan:          find('tactical scan power'),
+            asteroidScan:          find('asteroid scan power'),
+            scanInterference:      find('scan interference'),
+
+            // The full attrDefs reference for display multipliers / units
             attrDefs: ad,
         };
+
+        // Build the set of all keys that are explicitly shown in named tabs
+        // so the Other tab can exclude them
+        reg.coveredKeys = new Set([
+            reg.mass, reg.heatCapacity, reg.inertiaReduction, reg.drag, reg.dragReduction,
+            reg.thrust, reg.thrustEnergy, reg.thrustHeat, reg.thrustFuel,
+            reg.reverseThrust, reg.reverseEnergy, reg.reverseHeat, reg.reverseFuel,
+            reg.abThrust, reg.abEnergy, reg.abHeat, reg.abFuel, reg.abShields, reg.abHull,
+            reg.turn, reg.turnMultiplier, reg.turningEnergy, reg.turningHeat, reg.turningFuel,
+            reg.shields, reg.hull, reg.shieldGen, reg.hullRepair,
+            reg.shieldEnergy, reg.shieldHeat, reg.shieldFuel,
+            reg.hullEnergy, reg.hullHeat, reg.hullFuel,
+            reg.heatDissipation, reg.cooling, reg.coolingInefficiency,
+            reg.hullMult, reg.shieldMult, reg.shieldGenMult, reg.hullRepairMult,
+            reg.shieldDelay, reg.depletedDelay, reg.repairDelay, reg.disabledRepair,
+            reg.thresholdPct, reg.absoluteThreshold,
+            reg.piercingResist,
+            reg.shieldProtection, reg.hullProtection, reg.energyProtection,
+            reg.fuelProtection, reg.heatProtection, reg.forceProtection,
+            reg.piercingProtection, reg.disruptionProtection,
+            reg.ionResist, reg.scrambleResist, reg.disruptionResist, reg.slowingResist,
+            reg.burnResist, reg.dischargeResist, reg.corrosionResist, reg.leakResist,
+            reg.energyCap, reg.energyGen, reg.energyCon,
+            reg.fuelCap, reg.solarCollection, reg.solarHeat, reg.ramscoop,
+            reg.fuelGen, reg.fuelCon,
+            reg.outfitSpace, reg.engineCap, reg.weaponCap, reg.cargoSpace,
+            reg.gunPorts, reg.turretMounts,
+            reg.requiredCrew, reg.bunks, reg.cost, reg.category,
+            reg.crewEquivalent, reg.extraMass,
+            reg.jumpFuel, reg.jumpRange, reg.jumpFuelMult,
+            reg.hyperdrive, reg.jumpDrive, reg.scramDrive,
+            reg.cloak, reg.cloakEnergy, reg.cloakFuel, reg.cloakHeat,
+            reg.cloakShields, reg.cloakHull,
+            reg.cargoScan, reg.outfitScan, reg.tacticalScan, reg.asteroidScan,
+            reg.scanInterference,
+        ]);
+
+        // Also cover all status effect descriptor keys
+        for (const desc of (ad.weapon?.statusEffectDecay?.descriptors || [])) {
+            reg.coveredKeys.add(desc.damageKey);
+            reg.coveredKeys.add(desc.resistKey);
+            reg.coveredKeys.add(desc.protectionKey);
+            for (const ck of (desc.costKeys || [])) reg.coveredKeys.add(ck);
+        }
+
+        return reg;
     }
 
     function _keys() {
-        if (!_keyReg) _keyReg = _buildKeyRegistry();
+        if (!_keyReg && window.attrDefs) _keyReg = _buildKeyRegistry();
         return _keyReg;
-    }
-
-    // Build the "covered" set lazily — everything shown in any non-Other tab
-    function _coveredKeys(k) {
-        if (k._coveredBuilt) return;
-        k._coveredBuilt = true;
-        const covered = [
-            k.mass, k.inertiaReduction, k.drag, k.dragReduction,
-            k.thrust, k.thrustEnergy, k.thrustHeat, k.thrustFuel,
-            k.reverseThrust, k.reverseEnergy, k.reverseHeat,
-            k.abThrust, k.abEnergy, k.abHeat, k.abFuel, k.abShields, k.abHull,
-            k.turn, k.turnMultiplier, k.turningEnergy, k.turningHeat, k.turningFuel,
-            k.shields, k.hull, k.shieldGen, k.hullRepair, k.heatDissipation,
-            k.cooling, k.hullMult, k.shieldMult, k.shieldGenMult, k.hullRepairMult,
-            k.shieldDelay, k.depletedDelay, k.repairDelay, k.disabledRepair,
-            k.energyCap, k.energyGen, k.energyCon, k.fuelCap,
-            k.solarCollection, k.ramscoop, k.fuelGen, k.coolingEff,
-            k.outfitSpace, k.engineCap, k.weaponCap, k.cargoSpace,
-            k.requiredCrew, k.bunks, k.cost, k.category,
-            k.jumpFuel, k.jumpRange, k.jumpFuelMult,
-            k.hyperdrive, k.jumpDrive, k.scramDrive,
-            k.cloak, k.cloakEnergy, k.cloakFuel, k.cloakHeat,
-            k.ionResist, k.scrambleResist, k.disruptionResist, k.slowingResist,
-            k.burnResist, k.dischargeResist, k.corrosionResist, k.leakResist,
-        ];
-        // Also cover protection/damage keys from status effect descriptors
-        for (const desc of (k.attrDefs?.weapon?.statusEffectDecay?.descriptors || [])) {
-            covered.push(desc.damageKey, desc.resistKey, desc.protectionKey);
-            for (const ck of (desc.costKeys || [])) covered.push(ck);
-        }
-        for (const key of covered) if (key) k.coveredKeys.add(key);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -282,31 +292,25 @@ const SBS = (() => {
         _rafPending = true;
         requestAnimationFrame(() => {
             _rafPending = false;
-            // Re-resolve key registry if attrDefs loaded since last refresh
             if (!_keyReg && window.attrDefs) _keyReg = _buildKeyRegistry();
-
             if (!_panel) _mount();
             if (!_panel) return;
-
             const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
             const builderHidden = document.getElementById('builder-view')?.classList.contains('hidden');
             if (!ship || builderHidden) return;
-
             if (typeof ComputedStats !== 'undefined') ComputedStats.clearCache();
-
             _renderContent(ship);
         });
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  OUTFIT INDEX  — flattens outfit.attributes to top level
+    //  OUTFIT INDEX
     // ─────────────────────────────────────────────────────────────────────────
 
     function _buildOutfitIndex() {
         const allData   = window.allData || {};
         const sbOutfits = (typeof sbAllOutfits !== 'undefined') ? sbAllOutfits : [];
         const merged    = {};
-
         for (const o of [
             ...Object.values(allData).flatMap(p => p?.outfits || []),
             ...sbOutfits,
@@ -314,10 +318,9 @@ const SBS = (() => {
             const name = (o.name || o.displayName || '').replace(/^"|"$/g, '').trim();
             if (!name || name in merged) continue;
             const flat = { ...o };
-            if (o.attributes && typeof o.attributes === 'object') {
+            if (o.attributes && typeof o.attributes === 'object')
                 for (const [k, v] of Object.entries(o.attributes))
                     if (!(k in flat)) flat[k] = v;
-            }
             flat.name = name;
             merged[name] = flat;
         }
@@ -325,7 +328,7 @@ const SBS = (() => {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  EFFECTIVE ATTRIBUTES  — base ship + all outfit contributions
+    //  EFFECTIVE ATTRIBUTES  — base ship attrs + all outfit contributions
     // ─────────────────────────────────────────────────────────────────────────
 
     const _META = new Set([
@@ -337,13 +340,9 @@ const SBS = (() => {
 
     function _buildEffectiveAttrs(ship, outfitIdx) {
         const eff = {};
-
         for (const [k, v] of Object.entries(ship.attributes || {})) {
             if (typeof v === 'number') eff[k] = v;
-            else if (typeof v === 'string') {
-                const n = parseFloat(v);
-                if (!isNaN(n)) eff[k] = n;
-            }
+            else if (typeof v === 'string') { const n = parseFloat(v); if (!isNaN(n)) eff[k] = n; }
         }
         if (ship.mass && ship.mass !== '') eff['mass'] = parseFloat(ship.mass) || 0;
         if (ship.drag && ship.drag !== '') eff['drag'] = parseFloat(ship.drag) || 0;
@@ -354,10 +353,8 @@ const SBS = (() => {
             const o = outfitIdx[name];
             if (!o) continue;
             for (const [key, rawVal] of Object.entries(o)) {
-                if (_META.has(key))            continue;
-                if (key.startsWith('_'))        continue;
-                if (typeof rawVal !== 'number') continue;
-                if (rawVal === 0)               continue;
+                if (_META.has(key) || key.startsWith('_')) continue;
+                if (typeof rawVal !== 'number' || rawVal === 0) continue;
                 eff[key] = (eff[key] || 0) + rawVal * count;
             }
         }
@@ -366,88 +363,51 @@ const SBS = (() => {
 
     // ─────────────────────────────────────────────────────────────────────────
     //  PHYSICS ENGINE
-    //
-    //  Three modes — only the thrust source changes.
-    //  Everything else (mass, drag, drag reduction, inertia reduction,
-    //  turning) is always included because it always applies.
-    //
-    //  All per-frame values are multiplied by FPS (60) to give per-second rates.
-    //
-    //  Max velocity  = thrustForce / effectiveDrag * FPS
-    //  Acceleration  = (thrustForce / inertialMass) * FPS²   (px/s per s)
-    //  Turn rate     = (turn / inertialMass) * (1 + turnMult) * FPS  (deg/s)
-    //  Time for 180° = 180 / turnRate
-    //  Stopping dist = (maxVelPerFrame) * (inertialMass / effectiveDrag) * FPS  px
     // ─────────────────────────────────────────────────────────────────────────
 
     function _physics(eff, k) {
-        const a = key => {
-            if (!key) return 0;
-            const v = eff[key];
-            return (typeof v === 'number' && isFinite(v)) ? v : 0;
-        };
+        const a = key => { if (!key) return 0; const v = eff[key]; return (typeof v === 'number' && isFinite(v)) ? v : 0; };
 
-        // ── Always-on values ──────────────────────────────────────────────
-        const mass            = a(k.mass);
-        const inertiaRed      = a(k.inertiaReduction);
-        const inertialMass    = mass > 0 ? mass / (1 + inertiaRed) : 0;
+        const mass          = a(k.mass);
+        const heatCap       = a(k.heatCapacity);
+        const maxHeat       = MAX_TEMP * (mass + heatCap);    // 100 × (mass + heatCapacity)
 
-        const dragRaw         = a(k.drag);
-        const dragRed         = a(k.dragReduction);
-        const effectiveDrag   = inertialMass > 0
+        const inertiaRed    = a(k.inertiaReduction);
+        const inertialMass  = mass > 0 ? mass / (1 + inertiaRed) : 0;
+
+        const dragRaw       = a(k.drag);
+        const dragRed       = a(k.dragReduction);
+        const effectiveDrag = inertialMass > 0
             ? Math.min(dragRaw / (1 + dragRed), inertialMass)
             : Math.max(0, dragRaw / (1 + dragRed));
 
-        const turnForce       = a(k.turn);
-        const turnMult        = a(k.turnMultiplier);
-        const turnRateDeg     = inertialMass > 0
-            ? (turnForce / inertialMass) * (1 + turnMult) * FPS
-            : 0;
-        const timeFor180      = turnRateDeg > 0 ? 180 / turnRateDeg : null;
+        const turnForce     = a(k.turn);
+        const turnMult      = a(k.turnMultiplier);
+        const turnRateDeg   = inertialMass > 0
+            ? (turnForce / inertialMass) * (1 + turnMult) * FPS : 0;
+        const timeFor180    = turnRateDeg > 0 ? 180 / turnRateDeg : null;
 
-        // ── Per-mode thrust calc ──────────────────────────────────────────
-        function _calcMode(thrustForce) {
-            const maxVel      = effectiveDrag > 0 ? (thrustForce / effectiveDrag) * FPS : 0;
-            const accel       = inertialMass  > 0 ? (thrustForce / inertialMass)  * FPS * FPS : 0;
-            const stopDist    = effectiveDrag > 0 && maxVel > 0
-                ? (maxVel / FPS) * (inertialMass / effectiveDrag) * FPS
-                : 0;
-            const ttMaxVel    = effectiveDrag > 0 && inertialMass > 0
-                ? (inertialMass / effectiveDrag) / FPS
-                : null; // time constant τ in seconds (63% of max vel)
+        function _mode(thrustForce) {
+            const maxVel   = effectiveDrag > 0 ? (thrustForce / effectiveDrag) * FPS    : 0;
+            const accel    = inertialMass  > 0 ? (thrustForce / inertialMass)  * FPS * FPS : 0;
+            const stopDist = effectiveDrag > 0 && maxVel > 0
+                ? (maxVel / FPS) * (inertialMass / effectiveDrag) * FPS : 0;
+            const ttMaxVel = effectiveDrag > 0 && inertialMass > 0
+                ? (inertialMass / effectiveDrag) / FPS : null;
             return { maxVel, accel, stopDist, ttMaxVel };
         }
 
         const thrustOnly = a(k.thrust);
         const abOnly     = a(k.abThrust);
         const combined   = thrustOnly + abOnly;
+        const revThrust  = a(k.reverseThrust);
 
-        // ── Costs per second (per-frame attr × 60) ────────────────────────
         const costs = {
-            thrust: {
-                energy:  a(k.thrustEnergy)  * FPS,
-                heat:    a(k.thrustHeat)    * FPS,
-                fuel:    a(k.thrustFuel)    * FPS,
-            },
-            ab: {
-                energy:  a(k.abEnergy)   * FPS,
-                heat:    a(k.abHeat)     * FPS,
-                fuel:    a(k.abFuel)     * FPS,
-                shields: a(k.abShields)  * FPS,
-                hull:    a(k.abHull)     * FPS,
-            },
-            turning: {
-                energy:  a(k.turningEnergy) * FPS,
-                heat:    a(k.turningHeat)   * FPS,
-                fuel:    a(k.turningFuel)   * FPS,
-            },
-            reverse: {
-                energy:  a(k.reverseEnergy) * FPS,
-                heat:    a(k.reverseHeat)   * FPS,
-            },
+            thrust:  { energy: a(k.thrustEnergy)  * FPS, heat: a(k.thrustHeat)  * FPS, fuel: a(k.thrustFuel)  * FPS },
+            ab:      { energy: a(k.abEnergy)       * FPS, heat: a(k.abHeat)      * FPS, fuel: a(k.abFuel)      * FPS, shields: a(k.abShields) * FPS, hull: a(k.abHull) * FPS },
+            turning: { energy: a(k.turningEnergy)  * FPS, heat: a(k.turningHeat) * FPS, fuel: a(k.turningFuel) * FPS },
+            reverse: { energy: a(k.reverseEnergy)  * FPS, heat: a(k.reverseHeat) * FPS, fuel: a(k.reverseFuel) * FPS },
         };
-
-        // Combined costs = thrust costs + ab costs (both active at same time)
         const costsCombined = {
             energy:  costs.thrust.energy  + costs.ab.energy,
             heat:    costs.thrust.heat    + costs.ab.heat,
@@ -456,21 +416,19 @@ const SBS = (() => {
             hull:    costs.ab.hull,
         };
 
-        const reverseThrust = a(k.reverseThrust);
-        const reverseMode   = reverseThrust > 0 ? _calcMode(reverseThrust) : null;
-
         return {
-            mass, inertiaRed, inertialMass,
+            mass, heatCap, maxHeat,
+            inertiaRed, inertialMass,
             dragRaw, dragRed, effectiveDrag,
             turnForce, turnMult, turnRateDeg, timeFor180,
-            thrustOnly: thrustOnly > 0 ? _calcMode(thrustOnly) : null,
-            abOnly:     abOnly     > 0 ? _calcMode(abOnly)     : null,
-            combined:   combined   > 0 ? _calcMode(combined)   : null,
-            reverse:    reverseMode,
-            costs, costsCombined,
+            thrustOnly: thrustOnly > 0 ? _mode(thrustOnly) : null,
+            abOnly:     abOnly     > 0 ? _mode(abOnly)     : null,
+            combined:   combined   > 0 ? _mode(combined)   : null,
+            reverse:    revThrust  > 0 ? _mode(revThrust)  : null,
             hasThrustOnly: thrustOnly > 0,
             hasAb:         abOnly     > 0,
-            reverseThrust,
+            hasReverse:    revThrust  > 0,
+            costs, costsCombined,
         };
     }
 
@@ -488,10 +446,7 @@ const SBS = (() => {
                 if (name) outfitMap[name] = (outfitMap[name] || 0) + count;
             }
             return WeaponStats.getShipWeaponStats({ outfits: outfitMap }, outfitIdx);
-        } catch (e) {
-            console.warn('[SBS] WeaponStats error:', e);
-            return null;
-        }
+        } catch (e) { console.warn('[SBS] WeaponStats error:', e); return null; }
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -500,29 +455,22 @@ const SBS = (() => {
 
     function _mount() {
         const mount = document.getElementById('sbs-panel-mount');
-        if (!mount) {
-            console.warn('[SBS] Mount point #sbs-panel-mount not found.');
-            return;
-        }
+        if (!mount) { console.warn('[SBS] Mount point #sbs-panel-mount not found.'); return; }
 
         const tabDefs = [
-            { id: 'combat',   label: '🛡 Combat'   },
-            { id: 'movement', label: '🚀 Movement'  },
-            { id: 'power',    label: '⚡ Power'     },
-            { id: 'weapons',  label: '🔫 Weapons'   },
-            { id: 'crew',     label: '👤 Misc'      },
-            { id: 'other',    label: '📋 Other'     },
+            { id: 'combat',   label: '🛡 Combat'  },
+            { id: 'movement', label: '🚀 Movement' },
+            { id: 'power',    label: '⚡ Power'    },
+            { id: 'weapons',  label: '🔫 Weapons'  },
+            { id: 'crew',     label: '👤 Misc'     },
+            { id: 'other',    label: '📋 Other'    },
         ];
-
-        const tabsHtml = tabDefs.map(t =>
-            `<button class="sbs-tab${t.id === _activeTab ? ' sbs-tab--active' : ''}" data-sbs-tab="${t.id}">${t.label}</button>`
-        ).join('');
 
         mount.innerHTML = `
 <div id="sbs-root" class="sbs-root">
     <div class="sbs-header">
         <span class="sbs-title">📊 Live Ship Stats</span>
-        <div class="sbs-tabs">${tabsHtml}</div>
+        <div class="sbs-tabs">${tabDefs.map(t => `<button class="sbs-tab${t.id === _activeTab ? ' sbs-tab--active' : ''}" data-sbs-tab="${t.id}">${t.label}</button>`).join('')}</div>
         <button class="sbs-collapse-btn" id="sbs-collapse-btn" title="Toggle stats panel">▲</button>
     </div>
     <div class="sbs-body" id="sbs-body">
@@ -531,7 +479,7 @@ const SBS = (() => {
         </div>
     </div>
 </div>
-<style id="sbs-style">${_CSS}</style>`;
+`;
 
         _panel = document.getElementById('sbs-root');
 
@@ -569,15 +517,15 @@ const SBS = (() => {
 
         let html = '';
         switch (_activeTab) {
-            case 'combat':   html = _tabCombat(eff, k);               break;
-            case 'movement': html = _tabMovement(eff, k, phys);       break;
-            case 'power':    html = _tabPower(eff, k);                 break;
-            case 'weapons':  html = _tabWeapons(wData, eff, k);       break;
-            case 'crew':     html = _tabCrew(eff, k);                  break;
-            case 'other':    html = _tabOther(eff, k, ship);           break;
+            case 'combat':   html = _tabCombat(eff, k, phys);           break;
+            case 'movement': html = _tabMovement(eff, k, phys);         break;
+            case 'power':    html = _tabPower(eff, k, phys);            break;
+            case 'weapons':  html = _tabWeapons(wData, eff, k);         break;
+            case 'crew':     html = _tabCrew(eff, k);                   break;
+            case 'other':    html = _tabOther(eff, k, ship);            break;
         }
 
-        el.innerHTML = html || `<div class="sbs-empty">No data available for this section yet.</div>`;
+        el.innerHTML = html || `<div class="sbs-empty">No data available.</div>`;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -590,6 +538,13 @@ const SBS = (() => {
         return (!isNaN(v) && v !== 0) ? v : null;
     }
 
+    // Return raw value even if 0 — for things like multipliers that are additive from 0
+    function _raw(eff, key) {
+        if (!key) return null;
+        const v = parseFloat(eff[key] ?? '');
+        return !isNaN(v) ? v : null;
+    }
+
     function _fmt(v, dp) {
         if (v === null || v === undefined || (typeof v === 'number' && isNaN(v))) return '—';
         if (typeof v !== 'number') return String(v);
@@ -598,10 +553,14 @@ const SBS = (() => {
         return parseFloat(v.toPrecision(4)).toString();
     }
 
+    function _pct(v) {
+        if (v === null || v === undefined || isNaN(v)) return '—';
+        return (v * 100).toFixed(1) + '%';
+    }
+
     function _coloured(v, positiveIsGood) {
         if (v === null || v === undefined || isNaN(v)) return '—';
-        const good  = positiveIsGood ? v >= 0 : v <= 0;
-        const color = good ? 'var(--sbs-pos)' : 'var(--sbs-neg)';
+        const color = (positiveIsGood ? v >= 0 : v <= 0) ? 'var(--sbs-pos)' : 'var(--sbs-neg)';
         return `<span style="color:${color};font-weight:700">${_fmt(v)}</span>`;
     }
 
@@ -615,162 +574,195 @@ const SBS = (() => {
         const cls     = highlight ? ' sbs-card--hi' : '';
         const unitTag = unit ? `<span class="sbs-unit">${_esc(unit)}</span>` : '';
         const fmtVal  = typeof value === 'string' ? value : _fmt(value);
-        return `<div class="sbs-card${cls}">
-    <div class="sbs-label">${_esc(label)}</div>
-    <div class="sbs-value">${fmtVal}${unitTag}</div>
-</div>`;
+        return `<div class="sbs-card${cls}"><div class="sbs-label">${_esc(label)}</div><div class="sbs-value">${fmtVal}${unitTag}</div></div>`;
     }
 
     function _section(title, content) {
         if (!content || !content.trim()) return '';
-        return `<div class="sbs-section">
-    <div class="sbs-section-title">${_esc(title)}</div>
-    <div class="sbs-cards">${content}</div>
-</div>`;
+        return `<div class="sbs-section"><div class="sbs-section-title">${_esc(title)}</div><div class="sbs-cards">${content}</div></div>`;
     }
 
     function _tableSection(title, tableHtml) {
         if (!tableHtml) return '';
-        return `<div class="sbs-section">
-    <div class="sbs-section-title">${_esc(title)}</div>
-    <div class="sbs-table-wrap">${tableHtml}</div>
-</div>`;
+        return `<div class="sbs-section"><div class="sbs-section-title">${_esc(title)}</div><div class="sbs-table-wrap">${tableHtml}</div></div>`;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
     //  TAB: COMBAT
     // ─────────────────────────────────────────────────────────────────────────
 
-    function _tabCombat(eff, k) {
+    function _tabCombat(eff, k, phys) {
         if (!k) return _noAttrDefs();
 
-        // Base values
-        const shields     = _get(eff, k.shields);
-        const hull        = _get(eff, k.hull);
-        const shieldMult  = _get(eff, k.shieldMult);
-        const hullMult    = _get(eff, k.hullMult);
+        // ── Core HP ───────────────────────────────────────────────────────
+        const shieldMult   = _get(eff, k.shieldMult);
+        const hullMult     = _get(eff, k.hullMult);
+        const baseShields  = _get(eff, k.shields);
+        const baseHull     = _get(eff, k.hull);
+        const effShields   = baseShields != null ? baseShields * (1 + (shieldMult ?? 0)) : null;
+        const effHull      = baseHull    != null ? baseHull    * (1 + (hullMult    ?? 0)) : null;
 
-        // Apply multipliers for effective values
-        const effShields  = shields != null
-            ? (shieldMult != null ? shields * (1 + shieldMult) : shields)
-            : null;
-        const effHull     = hull    != null
-            ? (hullMult   != null ? hull    * (1 + hullMult)   : hull)
-            : null;
-
-        // Regen (attr is per-frame, multiply ×60 for per-second)
-        const shGenRaw    = _get(eff, k.shieldGen);
-        const hrRaw       = _get(eff, k.hullRepair);
-        const shGenMult   = _get(eff, k.shieldGenMult);
-        const hrMult      = _get(eff, k.hullRepairMult);
-        const shRegen     = shGenRaw != null
-            ? (shGenRaw * FPS) * (1 + (shGenMult ?? 0))
-            : null;
-        const hullRepair  = hrRaw != null
-            ? (hrRaw    * FPS) * (1 + (hrMult    ?? 0))
-            : null;
-
-        const heatDiss    = _get(eff, k.heatDissipation);
-        const cooling     = _get(eff, k.cooling) != null ? _get(eff, k.cooling) * FPS : null;
+        // ── Regen ─────────────────────────────────────────────────────────
+        const shGenMult    = _get(eff, k.shieldGenMult);
+        const hrMult       = _get(eff, k.hullRepairMult);
+        const shGenRaw     = _get(eff, k.shieldGen);
+        const hrRaw        = _get(eff, k.hullRepair);
+        const shRegen      = shGenRaw != null ? (shGenRaw * FPS) * (1 + (shGenMult ?? 0)) : null;
+        const hullRepair   = hrRaw    != null ? (hrRaw    * FPS) * (1 + (hrMult    ?? 0)) : null;
 
         // Time-to-full
         const ttfSh   = (effShields && shRegen)  ? effShields  / shRegen  : null;
         const ttfHull = (effHull    && hullRepair)? effHull     / hullRepair : null;
 
-        let main = '';
-        main += _card('Shields',          effShields,  'hp',  !!effShields);
-        main += _card('Hull',             effHull,     'hp',  !!effHull);
-        main += _card('Shield Regen',     shRegen,     '/s');
-        main += _card('Hull Repair',      hullRepair,  '/s');
-        main += _card('Heat Dissipation', heatDiss,    '');
-        main += _card('Cooling',          cooling,     '/s');
-        if (shieldMult) main += _card('Shield ×',     1 + shieldMult, '');
-        if (hullMult)   main += _card('Hull ×',       1 + hullMult,   '');
-        if (ttfSh   != null) main += _card('TTF Shields', ttfSh,   's');
-        if (ttfHull != null) main += _card('TTF Hull',    ttfHull,  's');
+        // ── Heat ──────────────────────────────────────────────────────────
+        // Max Heat = 100 × (mass + heat capacity)  — from Ship.cpp
+        const maxHeat      = phys?.maxHeat ?? null;
+        const heatDiss     = _get(eff, k.heatDissipation);
+        const cooling      = _get(eff, k.cooling) != null ? _get(eff, k.cooling) * FPS : null;
+        const coolIneff    = _get(eff, k.coolingInefficiency);
 
-        const delayKeys = [
-            [k.shieldDelay,   'Shield Delay'],
-            [k.depletedDelay, 'Depleted Delay'],
-            [k.repairDelay,   'Repair Delay'],
-            [k.disabledRepair,'Disabled Repair'],
+        // ── Regen costs (per second) ──────────────────────────────────────
+        const shEnergy     = _get(eff, k.shieldEnergy) != null ? _get(eff, k.shieldEnergy) * FPS : null;
+        const shHeat       = _get(eff, k.shieldHeat)   != null ? _get(eff, k.shieldHeat)   * FPS : null;
+        const shFuel       = _get(eff, k.shieldFuel)   != null ? _get(eff, k.shieldFuel)   * FPS : null;
+        const hlEnergy     = _get(eff, k.hullEnergy)   != null ? _get(eff, k.hullEnergy)   * FPS : null;
+        const hlHeat       = _get(eff, k.hullHeat)     != null ? _get(eff, k.hullHeat)     * FPS : null;
+        const hlFuel       = _get(eff, k.hullFuel)     != null ? _get(eff, k.hullFuel)     * FPS : null;
+
+        // ── Thresholds ────────────────────────────────────────────────────
+        const threshPct    = _get(eff, k.thresholdPct);
+        const absThresh    = _get(eff, k.absoluteThreshold);
+        const minHullPct   = threshPct != null && effHull != null ? effHull * threshPct : null;
+
+        // ── Delays ────────────────────────────────────────────────────────
+        const shDelay      = _get(eff, k.shieldDelay);
+        const depDelay     = _get(eff, k.depletedDelay);
+        const repDelay     = _get(eff, k.repairDelay);
+        const disRepair    = _get(eff, k.disabledRepair);
+
+        // ── Protections ───────────────────────────────────────────────────
+        const protPairs = [
+            [k.shieldProtection,     'Shield Prot.'],
+            [k.hullProtection,       'Hull Prot.'],
+            [k.energyProtection,     'Energy Prot.'],
+            [k.fuelProtection,       'Fuel Prot.'],
+            [k.heatProtection,       'Heat Prot.'],
+            [k.forceProtection,      'Force Prot.'],
+            [k.piercingProtection,   'Piercing Prot.'],
+            [k.disruptionProtection, 'Disruption Prot.'],
+            [k.piercingResist,       'Piercing Resist'],
         ];
-        let delayCards = '';
-        for (const [key, label] of delayKeys) {
-            const v = _get(eff, key);
-            if (v) delayCards += _card(label, v, '');
+
+        // Status protections from attrDefs descriptors
+        const statusProtPairs = [];
+        for (const desc of (k.attrDefs?.weapon?.statusEffectDecay?.descriptors || [])) {
+            if (desc.protectionKey) statusProtPairs.push([desc.protectionKey, desc.label + ' Prot.']);
         }
 
-        // Status resistances
+        // Status resistances from attrDefs descriptors
         const resistPairs = [
-            [k.ionResist,         'Ion'],
-            [k.scrambleResist,    'Scramble'],
-            [k.disruptionResist,  'Disruption'],
-            [k.slowingResist,     'Slowing'],
-            [k.burnResist,        'Burn'],
-            [k.dischargeResist,   'Discharge'],
-            [k.corrosionResist,   'Corrosion'],
-            [k.leakResist,        'Leak'],
+            [k.ionResist,        'Ion'],
+            [k.scrambleResist,   'Scramble'],
+            [k.disruptionResist, 'Disruption'],
+            [k.slowingResist,    'Slowing'],
+            [k.burnResist,       'Burn'],
+            [k.dischargeResist,  'Discharge'],
+            [k.corrosionResist,  'Corrosion'],
+            [k.leakResist,       'Leak'],
         ];
+
+        // ── Build HTML ────────────────────────────────────────────────────
+        let hpCards = '';
+        hpCards += _card('Shields',       effShields,  'hp',  !!effShields);
+        hpCards += _card('Hull',          effHull,     'hp',  !!effHull);
+        if (shieldMult) hpCards += _card('Shield ×',  1 + shieldMult, '');
+        if (hullMult)   hpCards += _card('Hull ×',    1 + hullMult,   '');
+
+        let regenCards = '';
+        regenCards += _card('Shield Regen',  shRegen,    '/s');
+        regenCards += _card('Hull Repair',   hullRepair, '/s');
+        if (shGenMult) regenCards += _card('Shield Gen ×',  1 + shGenMult, '');
+        if (hrMult)    regenCards += _card('Hull Repair ×', 1 + hrMult,    '');
+        if (ttfSh   != null) regenCards += _card('TTF Shields', ttfSh,   's');
+        if (ttfHull != null) regenCards += _card('TTF Hull',    ttfHull,  's');
+        if (shEnergy != null) regenCards += _card('Shield Energy/s', shEnergy, '/s');
+        if (shHeat   != null) regenCards += _card('Shield Heat/s',   shHeat,   '/s');
+        if (shFuel   != null) regenCards += _card('Shield Fuel/s',   shFuel,   '/s');
+        if (hlEnergy != null) regenCards += _card('Hull Energy/s',   hlEnergy, '/s');
+        if (hlHeat   != null) regenCards += _card('Hull Heat/s',     hlHeat,   '/s');
+        if (hlFuel   != null) regenCards += _card('Hull Fuel/s',     hlFuel,   '/s');
+
+        let heatCards = '';
+        if (maxHeat)   heatCards += _card('Max Heat',        maxHeat,   '',   true);
+        if (heatDiss)  heatCards += _card('Heat Dissipation',heatDiss,  '');
+        if (cooling)   heatCards += _card('Cooling/s',        cooling,  '/s');
+        if (coolIneff) heatCards += _card('Cool. Inefficiency', coolIneff, '');
+
+        let threshCards = '';
+        if (threshPct)  threshCards += _card('Threshold %',  threshPct * 100, '%');
+        if (minHullPct) threshCards += _card('Min Hull (calc)', minHullPct,   'hp');
+        if (absThresh)  threshCards += _card('Absolute Threshold', absThresh, 'hp');
+
+        let delayCards = '';
+        if (shDelay)  delayCards += _card('Shield Delay',    shDelay,  's');
+        if (depDelay) delayCards += _card('Depleted Delay',  depDelay, 's');
+        if (repDelay) delayCards += _card('Repair Delay',    repDelay, 's');
+        if (disRepair)delayCards += _card('Disabled Repair', disRepair,'/s');
+
+        let protCards = '';
+        for (const [key, label] of [...protPairs, ...statusProtPairs]) {
+            const v = _get(eff, key);
+            if (v) protCards += _card(label, _pct(v), '');
+        }
+
         let resistCards = '';
         for (const [key, label] of resistPairs) {
             const v = _get(eff, key);
             if (v) resistCards += _card(label + ' Resist', v, '');
         }
 
-        // Protection values from status effect descriptors
-        let protCards = '';
-        for (const desc of (k.attrDefs?.weapon?.statusEffectDecay?.descriptors || [])) {
-            const v = _get(eff, desc.protectionKey);
-            if (v) protCards += _card(
-                desc.label + ' Prot.',
-                (v * 100).toFixed(1),
-                '%'
-            );
-        }
-
-        return _section('Combat', main)
+        return _section('HP', hpCards)
+             + (regenCards  ? _section('Regen & Costs',      regenCards)  : '')
+             + (heatCards   ? _section('Heat',               heatCards)   : '')
+             + (threshCards ? _section('Hull Thresholds',    threshCards) : '')
              + (delayCards  ? _section('Regen Delays',       delayCards)  : '')
-             + (resistCards ? _section('Status Resistances', resistCards) : '')
-             + (protCards   ? _section('Damage Protections', protCards)   : '');
+             + (protCards   ? _section('Damage Protections', protCards)   : '')
+             + (resistCards ? _section('Status Resistances', resistCards) : '');
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  TAB: MOVEMENT  — three mode panels + turning + reverse
+    //  TAB: MOVEMENT
     // ─────────────────────────────────────────────────────────────────────────
 
     function _tabMovement(eff, k, phys) {
         if (!k || !phys) return _noAttrDefs();
 
-        // ── Shared base info ──────────────────────────────────────────────
+        // ── Base ──────────────────────────────────────────────────────────
         let baseCards = '';
-        baseCards += _card('Mass',           phys.mass,         't',   !!phys.mass);
-        if (phys.inertiaRed) {
-            baseCards += _card('Inertia Red.',   phys.inertiaRed * 100, '%');
-        }
+        baseCards += _card('Mass',           phys.mass,         't',  !!phys.mass);
+        baseCards += _card('Heat Capacity',  phys.heatCap || 0, '');
+        baseCards += _card('Max Heat',       phys.maxHeat,      '',   !!phys.maxHeat);
+        if (phys.inertiaRed) baseCards += _card('Inertia Reduction', _pct(phys.inertiaRed), '');
         baseCards += _card('Inertial Mass',  phys.inertialMass, 't');
         baseCards += _card('Drag',           phys.dragRaw,      '');
-        if (phys.dragRed) {
-            baseCards += _card('Drag Red.',      phys.dragRed * 100,    '%');
-        }
+        if (phys.dragRed)    baseCards += _card('Drag Reduction',    _pct(phys.dragRed),    '');
         baseCards += _card('Effective Drag', phys.effectiveDrag,'');
 
         // ── Mode builder ─────────────────────────────────────────────────
-        function _modeCards(mode, costObj, label) {
+        function _modeSection(mode, costs, label) {
             if (!mode) return '';
             let c = '';
-            c += _card('Max Velocity',   mode.maxVel,   'px/s', true);
-            c += _card('Acceleration',   mode.accel,    'px/s²',true);
-            c += _card('Stopping Dist.', mode.stopDist, 'px');
+            c += _card('Max Velocity',    mode.maxVel,   'px/s', true);
+            c += _card('Acceleration',    mode.accel,    'px/s²',true);
+            c += _card('Stopping Dist.',  mode.stopDist, 'px');
             if (mode.ttMaxVel != null)
-                c += _card('~63% Vel Time', mode.ttMaxVel, 's');
-            // Costs
-            if (costObj) {
-                if (costObj.energy)  c += _card('Energy/s',  costObj.energy,  '/s');
-                if (costObj.heat)    c += _card('Heat/s',    costObj.heat,    '/s');
-                if (costObj.fuel)    c += _card('Fuel/s',    costObj.fuel,    '/s');
-                if (costObj.shields) c += _card('Shields/s', costObj.shields, '/s');
-                if (costObj.hull)    c += _card('Hull/s',    costObj.hull,    '/s');
+                c += _card('~63% Vel. Time', mode.ttMaxVel, 's');
+            if (costs) {
+                if (costs.energy)  c += _card('Energy/s',  costs.energy,  '/s');
+                if (costs.heat)    c += _card('Heat/s',    costs.heat,    '/s');
+                if (costs.fuel)    c += _card('Fuel/s',    costs.fuel,    '/s');
+                if (costs.shields) c += _card('Shields/s', costs.shields, '/s');
+                if (costs.hull)    c += _card('Hull/s',    costs.hull,    '/s');
             }
             return _section(label, c);
         }
@@ -778,88 +770,122 @@ const SBS = (() => {
         // ── Turning ───────────────────────────────────────────────────────
         let turnCards = '';
         turnCards += _card('Turn Rate',   phys.turnRateDeg,  '°/s', !!phys.turnRateDeg);
-        if (phys.timeFor180 != null)
-            turnCards += _card('Time 180°', phys.timeFor180, 's');
-        if (phys.turnMult)
-            turnCards += _card('Turn ×', 1 + phys.turnMult, '');
+        if (phys.timeFor180 != null) turnCards += _card('Time for 180°', phys.timeFor180, 's');
+        if (phys.turnMult)           turnCards += _card('Turn ×', 1 + phys.turnMult, '');
         if (phys.costs.turning.energy) turnCards += _card('Turn Energy/s', phys.costs.turning.energy, '/s');
         if (phys.costs.turning.heat)   turnCards += _card('Turn Heat/s',   phys.costs.turning.heat,   '/s');
         if (phys.costs.turning.fuel)   turnCards += _card('Turn Fuel/s',   phys.costs.turning.fuel,   '/s');
 
-        // Build the three thrust modes
-        // Thrust only: uses thrust costs
-        const thrustSection = _modeCards(
-            phys.thrustOnly,
-            phys.hasThrustOnly ? phys.costs.thrust : null,
-            '🔹 Thrust Only'
-        );
-
-        // AB only: uses ab costs
-        const abSection = _modeCards(
-            phys.abOnly,
-            phys.hasAb ? phys.costs.ab : null,
-            '🔥 Afterburner Only'
-        );
-
-        // Combined: uses combined costs
-        const combinedSection = _modeCards(
-            phys.combined,
-            (phys.hasThrustOnly && phys.hasAb) ? phys.costsCombined : null,
-            '⚡ Thrust + Afterburner'
-        );
-
-        // Reverse thrust
-        let reverseSection = '';
-        if (phys.reverse) {
-            let rc = '';
-            rc += _card('Rev. Max Vel.',  phys.reverse.maxVel,   'px/s');
-            rc += _card('Rev. Accel.',    phys.reverse.accel,    'px/s²');
-            rc += _card('Rev. Stop Dist.',phys.reverse.stopDist, 'px');
-            if (phys.costs.reverse.energy) rc += _card('Rev. Energy/s', phys.costs.reverse.energy, '/s');
-            if (phys.costs.reverse.heat)   rc += _card('Rev. Heat/s',   phys.costs.reverse.heat,   '/s');
-            reverseSection = _section('↩ Reverse Thrust', rc);
-        }
-
         return _section('Mass & Drag', baseCards)
-             + thrustSection
-             + abSection
-             + combinedSection
-             + _section('↪ Turning', turnCards)
-             + reverseSection;
+             + _modeSection(phys.thrustOnly, phys.costs.thrust,    '🔹 Thrust Only')
+             + _modeSection(phys.abOnly,     phys.costs.ab,        '🔥 Afterburner Only')
+             + _modeSection(phys.combined,
+                (phys.hasThrustOnly && phys.hasAb) ? phys.costsCombined : null,
+                '⚡ Thrust + Afterburner')
+             + (turnCards ? _section('↪ Turning', turnCards) : '')
+             + (() => {
+                 if (!phys.reverse) return '';
+                 let rc = '';
+                 rc += _card('Rev. Max Vel.',   phys.reverse.maxVel,   'px/s');
+                 rc += _card('Rev. Accel.',     phys.reverse.accel,    'px/s²');
+                 rc += _card('Rev. Stop Dist.', phys.reverse.stopDist, 'px');
+                 if (phys.reverse.ttMaxVel != null)
+                     rc += _card('Rev. ~63% Time', phys.reverse.ttMaxVel, 's');
+                 if (phys.costs.reverse.energy) rc += _card('Rev. Energy/s', phys.costs.reverse.energy, '/s');
+                 if (phys.costs.reverse.heat)   rc += _card('Rev. Heat/s',   phys.costs.reverse.heat,   '/s');
+                 if (phys.costs.reverse.fuel)   rc += _card('Rev. Fuel/s',   phys.costs.reverse.fuel,   '/s');
+                 return _section('↩ Reverse Thrust', rc);
+             })();
     }
 
     // ─────────────────────────────────────────────────────────────────────────
     //  TAB: POWER
     // ─────────────────────────────────────────────────────────────────────────
 
-    function _tabPower(eff, k) {
+    function _tabPower(eff, k, phys) {
         if (!k) return _noAttrDefs();
 
         const eCap    = _get(eff, k.energyCap);
         const fCap    = _get(eff, k.fuelCap);
-        const eGen    = _get(eff, k.energyGen)  != null ? _get(eff, k.energyGen)  * FPS : null;
-        const eCon    = _get(eff, k.energyCon)  != null ? _get(eff, k.energyCon)  * FPS : null;
+        const eGen    = _get(eff, k.energyGen)       != null ? _get(eff, k.energyGen)       * FPS : null;
+        const eCon    = _get(eff, k.energyCon)       != null ? _get(eff, k.energyCon)       * FPS : null;
         const solar   = _get(eff, k.solarCollection) != null ? _get(eff, k.solarCollection) * FPS : null;
+        const solHeat = _get(eff, k.solarHeat)       != null ? _get(eff, k.solarHeat)       * FPS : null;
         const ramsco  = _get(eff, k.ramscoop);
-        const fuelGen = _get(eff, k.fuelGen)    != null ? _get(eff, k.fuelGen)    * FPS : null;
+        const fuelGen = _get(eff, k.fuelGen)         != null ? _get(eff, k.fuelGen)         * FPS : null;
+        const fuelCon = _get(eff, k.fuelCon)         != null ? _get(eff, k.fuelCon)         * FPS : null;
         const eNet    = (eGen !== null || eCon !== null) ? ((eGen ?? 0) - (eCon ?? 0)) : null;
+        const fNet    = (fuelGen !== null || fuelCon !== null) ? ((fuelGen ?? 0) - (fuelCon ?? 0)) : null;
 
-        let main = '';
-        main += _card('Energy Cap.',     eCap,   'J',   !!eCap);
-        main += _card('Generation',      eGen,   '/s',  eGen > 0);
-        main += _card('Consumption',     eCon,   '/s');
+        // Heat budget
+        const heatDiss  = _get(eff, k.heatDissipation);
+        const cooling   = _get(eff, k.cooling)           != null ? _get(eff, k.cooling)  * FPS : null;
+        const coolIneff = _get(eff, k.coolingInefficiency);
+        const maxHeat   = phys?.maxHeat ?? null;
+
+        // Per-action energy/heat costs (already per-second in phys.costs)
+        const thrustE = phys?.costs.thrust.energy  || null;
+        const thrustH = phys?.costs.thrust.heat    || null;
+        const turnE   = phys?.costs.turning.energy || null;
+        const turnH   = phys?.costs.turning.heat   || null;
+        const abE     = phys?.costs.ab.energy      || null;
+        const abH     = phys?.costs.ab.heat        || null;
+        const shE     = _get(eff, k.shieldEnergy)  != null ? _get(eff, k.shieldEnergy)  * FPS : null;
+        const shH     = _get(eff, k.shieldHeat)    != null ? _get(eff, k.shieldHeat)    * FPS : null;
+        const hlE     = _get(eff, k.hullEnergy)    != null ? _get(eff, k.hullEnergy)    * FPS : null;
+        const hlH     = _get(eff, k.hullHeat)      != null ? _get(eff, k.hullHeat)      * FPS : null;
+        const cloakE  = _get(eff, k.cloakEnergy)   != null ? _get(eff, k.cloakEnergy)   * FPS : null;
+        const cloakH  = _get(eff, k.cloakHeat)     != null ? _get(eff, k.cloakHeat)     * FPS : null;
+        const cloakF  = _get(eff, k.cloakFuel)     != null ? _get(eff, k.cloakFuel)     * FPS : null;
+
+        let energyCards = '';
+        energyCards += _card('Energy Cap.',    eCap,   'J',  !!eCap);
+        energyCards += _card('Generation',     eGen,   '/s', eGen > 0);
+        energyCards += _card('Consumption',    eCon,   '/s');
+        energyCards += _card('Solar Collect.', solar,  '/s');
         if (eNet !== null) {
-            main += `<div class="sbs-card${eNet >= 0 ? ' sbs-card--hi' : ' sbs-card--warn'}">
-    <div class="sbs-label">Net Energy/s</div>
-    <div class="sbs-value">${_coloured(eNet, true)}<span class="sbs-unit">/s</span></div>
-</div>`;
+            energyCards += `<div class="sbs-card${eNet >= 0 ? ' sbs-card--hi' : ' sbs-card--warn'}">
+<div class="sbs-label">Net Energy/s</div>
+<div class="sbs-value">${_coloured(eNet, true)}<span class="sbs-unit">/s</span></div></div>`;
         }
-        main += _card('Fuel Cap.',       fCap,   '');
-        main += _card('Solar Collect.',  solar,  '/s');
-        main += _card('Ramscoop',        ramsco, '');
-        main += _card('Fuel Gen.',       fuelGen,'/s');
 
-        return _section('Power', main);
+        let fuelCards = '';
+        fuelCards += _card('Fuel Cap.',   fCap,    '');
+        fuelCards += _card('Ramscoop',    ramsco,  '');
+        fuelCards += _card('Fuel Gen./s', fuelGen, '/s');
+        fuelCards += _card('Fuel Con./s', fuelCon, '/s');
+        if (fNet !== null) {
+            fuelCards += `<div class="sbs-card${fNet >= 0 ? ' sbs-card--hi' : ' sbs-card--warn'}">
+<div class="sbs-label">Net Fuel/s</div>
+<div class="sbs-value">${_coloured(fNet, true)}<span class="sbs-unit">/s</span></div></div>`;
+        }
+
+        let heatCards = '';
+        heatCards += _card('Max Heat',           maxHeat,   '',   !!maxHeat);
+        heatCards += _card('Heat Dissipation',   heatDiss,  '');
+        heatCards += _card('Cooling/s',          cooling,   '/s');
+        if (coolIneff) heatCards += _card('Cool. Inefficiency', coolIneff, '');
+        if (solHeat)   heatCards += _card('Solar Heat/s',      solHeat,   '/s');
+
+        let costCards = '';
+        if (thrustE) costCards += _card('Thrust Energy/s',  thrustE, '/s');
+        if (thrustH) costCards += _card('Thrust Heat/s',    thrustH, '/s');
+        if (turnE)   costCards += _card('Turning Energy/s', turnE,   '/s');
+        if (turnH)   costCards += _card('Turning Heat/s',   turnH,   '/s');
+        if (abE)     costCards += _card('AB Energy/s',      abE,     '/s');
+        if (abH)     costCards += _card('AB Heat/s',        abH,     '/s');
+        if (shE)     costCards += _card('Shield Regen E/s', shE,     '/s');
+        if (shH)     costCards += _card('Shield Regen H/s', shH,     '/s');
+        if (hlE)     costCards += _card('Hull Repair E/s',  hlE,     '/s');
+        if (hlH)     costCards += _card('Hull Repair H/s',  hlH,     '/s');
+        if (cloakE)  costCards += _card('Cloak Energy/s',   cloakE,  '/s');
+        if (cloakH)  costCards += _card('Cloak Heat/s',     cloakH,  '/s');
+        if (cloakF)  costCards += _card('Cloak Fuel/s',     cloakF,  '/s');
+
+        return _section('Energy',       energyCards)
+             + (fuelCards.trim()  ? _section('Fuel',           fuelCards)  : '')
+             + (heatCards.trim()  ? _section('Heat',           heatCards)  : '')
+             + (costCards.trim()  ? _section('Per-Action Costs',costCards) : '');
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -872,15 +898,18 @@ const SBS = (() => {
             const wCap = _get(eff, k.weaponCap);
             const eCap = _get(eff, k.engineCap);
             const oCap = _get(eff, k.outfitSpace);
+            const guns = _get(eff, k.gunPorts);
+            const turs = _get(eff, k.turretMounts);
             if (wCap) capCards += _card('Weapon Cap.',  wCap, '');
             if (eCap) capCards += _card('Engine Cap.',  eCap, '');
             if (oCap) capCards += _card('Outfit Space', oCap, '');
+            if (guns) capCards += _card('Gun Ports',    guns, '');
+            if (turs) capCards += _card('Turret Mounts',turs, '');
         }
         const capSection = capCards ? _section('Capacity', capCards) : '';
 
-        if (!wData || !wData.weaponCount) {
+        if (!wData || !wData.weaponCount)
             return capSection + `<div class="sbs-section"><div class="sbs-empty">No weapons installed.</div></div>`;
-        }
 
         let sumCards = '';
         sumCards += _card('Total DPS',    wData.totalDps,          'dps', wData.totalDps  > 0);
@@ -890,10 +919,8 @@ const SBS = (() => {
         sumCards += _card('Total Mounts', wData.totalWeaponMounts, '');
 
         let typeCards = '';
-        for (const [key, val] of Object.entries(wData.dpsByType || {})) {
-            if (!val) continue;
-            typeCards += _card(_capWords(key.replace(/ damage$/, '')) + ' DPS', val, 'dps');
-        }
+        for (const [key, val] of Object.entries(wData.dpsByType || {}))
+            if (val) typeCards += _card(_capWords(key.replace(/ damage$/, '')) + ' DPS', val, 'dps');
 
         const rows = (wData.weapons || []).map(w => {
             const range   = w.profile.effectiveRange ? `${_fmt(w.profile.effectiveRange)} px` : '—';
@@ -904,28 +931,20 @@ const SBS = (() => {
             ].join('');
             const countTag = w.count > 1 ? `<span class="sbs-wt-count">×${w.count}</span>` : '';
             return `<tr>
-    <td class="sbs-wt-name">${_esc(w.outfitName)} ${countTag}${badges}</td>
-    <td class="sbs-wt-num">${_fmt(w.profile.shotsPerSecond)}/s</td>
-    <td class="sbs-wt-num">${range}</td>
-    <td class="sbs-wt-num sbs-wt-dps">${_fmt(w.scaledDps)}</td>
-</tr>`;
+<td class="sbs-wt-name">${_esc(w.outfitName)} ${countTag}${badges}</td>
+<td class="sbs-wt-num">${_fmt(w.profile.shotsPerSecond)}/s</td>
+<td class="sbs-wt-num">${range}</td>
+<td class="sbs-wt-num sbs-wt-dps">${_fmt(w.scaledDps)}</td></tr>`;
         }).join('');
 
         const table = `<table class="sbs-table">
-    <thead><tr>
-        <th>Weapon</th>
-        <th style="text-align:right">Shots/s</th>
-        <th style="text-align:right">Range</th>
-        <th style="text-align:right">DPS</th>
-    </tr></thead>
-    <tbody>${rows}</tbody>
-</table>`;
+<thead><tr><th>Weapon</th><th style="text-align:right">Shots/s</th><th style="text-align:right">Range</th><th style="text-align:right">DPS</th></tr></thead>
+<tbody>${rows}</tbody></table>`;
 
         let ammoCards = '';
-        if (wData.hasAmmoWeapons) {
+        if (wData.hasAmmoWeapons)
             for (const a of (wData.ammoRequired || []))
                 ammoCards += _card(_esc(a.ammoOutfitName), _fmt(a.totalShotsPerSecond), 'rounds/s');
-        }
 
         return capSection
              + _section('DPS Summary', sumCards)
@@ -942,143 +961,136 @@ const SBS = (() => {
         if (!k) return _noAttrDefs();
 
         let main = '';
-        main += _card('Required Crew', _get(eff, k.requiredCrew), '');
-        main += _card('Bunks',         _get(eff, k.bunks),        '');
-        main += _card('Cargo Space',   _get(eff, k.cargoSpace),   't');
-        main += _card('Fuel Cap.',     _get(eff, k.fuelCap),      '');
-        main += _card('Cost',          _get(eff, k.cost),         'cr');
+        main += _card('Required Crew',  _get(eff, k.requiredCrew),  '');
+        main += _card('Bunks',          _get(eff, k.bunks),         '');
+        main += _card('Cargo Space',    _get(eff, k.cargoSpace),    't');
+        main += _card('Cost',           _get(eff, k.cost),          'cr');
+        main += _card('Crew Equiv.',    _get(eff, k.crewEquivalent),'');
+        main += _card('Extra Mass',     _get(eff, k.extraMass),     't');
 
+        // Capacity overview
+        let capCards = '';
+        capCards += _card('Outfit Space',  _get(eff, k.outfitSpace), '');
+        capCards += _card('Engine Cap.',   _get(eff, k.engineCap),   '');
+        capCards += _card('Weapon Cap.',   _get(eff, k.weaponCap),   '');
+        capCards += _card('Cargo Space',   _get(eff, k.cargoSpace),  't');
+        capCards += _card('Gun Ports',     _get(eff, k.gunPorts),    '');
+        capCards += _card('Turret Mounts', _get(eff, k.turretMounts),'');
+
+        // Cloaking
         let cloakCards = '';
         const cloakRate = _get(eff, k.cloak);
         if (cloakRate) {
-            const cloakTime = Math.ceil(1 / cloakRate) / FPS;
-            cloakCards += _card('Cloak Rate',    cloakRate,              '');
-            cloakCards += _card('Time to Cloak', cloakTime,              's');
+            cloakCards += _card('Cloak Rate',    cloakRate,               '');
+            cloakCards += _card('Time to Cloak', Math.ceil(1/cloakRate)/FPS, 's');
             const ce = _get(eff, k.cloakEnergy);
             const cf = _get(eff, k.cloakFuel);
             const ch = _get(eff, k.cloakHeat);
-            if (ce) cloakCards += _card('Cloak Energy/s', ce * FPS, '/s');
-            if (cf) cloakCards += _card('Cloak Fuel/s',   cf * FPS, '/s');
-            if (ch) cloakCards += _card('Cloak Heat/s',   ch * FPS, '/s');
+            const cs = _get(eff, k.cloakShields);
+            const cu = _get(eff, k.cloakHull);
+            if (ce) cloakCards += _card('Cloak Energy/s',  ce * FPS, '/s');
+            if (cf) cloakCards += _card('Cloak Fuel/s',    cf * FPS, '/s');
+            if (ch) cloakCards += _card('Cloak Heat/s',    ch * FPS, '/s');
+            if (cs) cloakCards += _card('Cloak Shields/s', cs * FPS, '/s');
+            if (cu) cloakCards += _card('Cloak Hull/s',    cu * FPS, '/s');
         }
 
+        // Navigation
         let navCards = '';
+        const fCap   = _get(eff, k.fuelCap);
+        const jFuel  = _get(eff, k.jumpFuel);
+        const jRange = _get(eff, k.jumpRange);
+        const jMult  = _get(eff, k.jumpFuelMult);
         const hyp    = _get(eff, k.hyperdrive);
         const jDrive = _get(eff, k.jumpDrive);
         const scram  = _get(eff, k.scramDrive);
-        const jFuel  = _get(eff, k.jumpFuel);
-        const jRange = _get(eff, k.jumpRange);
-        const fCap   = _get(eff, k.fuelCap);
-        if (hyp)    navCards += _card('Hyperdrive',  hyp,    '');
-        if (jDrive) navCards += _card('Jump Drive',  jDrive, '');
-        if (scram)  navCards += _card('Scram Drive', scram,  '');
-        if (jFuel)  navCards += _card('Jump Fuel',   jFuel,  '');
-        if (jRange) navCards += _card('Jump Range',  jRange, '');
-        if (jFuel && fCap) navCards += _card('Jumps (full tank)', Math.floor(fCap / jFuel), '');
+        const effJumpFuel = jFuel != null
+            ? (jFuel > 0 ? jFuel : 100) * (1 + (jMult ?? 0))
+            : null;
+        if (hyp)    navCards += _card('Hyperdrive',      hyp,    '');
+        if (jDrive) navCards += _card('Jump Drive',      jDrive, '');
+        if (scram)  navCards += _card('Scram Drive',     scram,  '');
+        if (effJumpFuel) navCards += _card('Jump Fuel Cost', effJumpFuel, '');
+        if (jRange) navCards += _card('Jump Range',      jRange, '');
+        if (effJumpFuel && fCap) navCards += _card('Jumps (full tank)', Math.floor(fCap / effJumpFuel), '');
+
+        // Scanning
+        let scanCards = '';
+        for (const [key, label] of [
+            [k.cargoScan,    'Cargo Scan'],
+            [k.outfitScan,   'Outfit Scan'],
+            [k.tacticalScan, 'Tactical Scan'],
+            [k.asteroidScan, 'Asteroid Scan'],
+        ]) {
+            const v = _get(eff, key);
+            if (v) scanCards += _card(label + ' Range', 100 * Math.sqrt(v), 'px');
+        }
+        const si = _get(eff, k.scanInterference);
+        if (si) scanCards += _card('Scan Evasion', si / (1 + si) * 100, '%');
 
         return _section('Crew & General', main)
-             + (cloakCards ? _section('Cloaking',   cloakCards) : '')
-             + (navCards   ? _section('Navigation', navCards)   : '');
+             + (capCards.trim()   ? _section('Capacity',   capCards)   : '')
+             + (cloakCards.trim() ? _section('Cloaking',   cloakCards) : '')
+             + (navCards.trim()   ? _section('Navigation', navCards)   : '')
+             + (scanCards.trim()  ? _section('Scanning',   scanCards)  : '');
     }
 
     // ─────────────────────────────────────────────────────────────────────────
     //  TAB: OTHER
     //
-    //  Shows every attribute on the effective ship that isn't already shown in
-    //  the other tabs.  Uses window.attrDefs for display multipliers / units.
+    //  Completely flat — no section titles, no grouping.
+    //  Every attribute in eff that isn't shown in any other tab,
+    //  sorted alphabetically, displayed as plain cards.
+    //  Uses attrDefs displayMultiplier / displayUnit where available.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _tabOther(eff, k, ship) {
         if (!k) return _noAttrDefs();
 
-        _coveredKeys(k);
+        const attrMeta = k.attrDefs?.attributes || {};
 
-        const ad        = k.attrDefs || {};
-        const attrMeta  = ad.attributes || {};
+        // Collect uncovered numeric attrs sorted alphabetically
+        const entries = Object.entries(eff)
+            .filter(([key, val]) =>
+                !k.coveredKeys.has(key) &&
+                typeof val === 'number'  &&
+                val !== 0               &&
+                !key.startsWith('_')
+            )
+            .sort((a, b) => a[0].localeCompare(b[0]));
 
-        // Collect all keys in effective attrs that aren't covered
-        const rows = [];
-        for (const [key, rawVal] of Object.entries(eff)) {
-            if (k.coveredKeys.has(key))   continue;
-            if (typeof rawVal !== 'number') continue;
-            if (rawVal === 0)              continue;
-            if (key.startsWith('_'))       continue;
+        // Collect uncovered string attrs from the base ship
+        const strEntries = Object.entries(ship.attributes || {})
+            .filter(([key, val]) =>
+                typeof val === 'string' && val &&
+                !k.coveredKeys.has(key)
+            )
+            .sort((a, b) => a[0].localeCompare(b[0]));
 
+        if (!entries.length && !strEntries.length)
+            return `<div class="sbs-empty">No additional attributes found.</div>`;
+
+        let cards = '';
+        for (const [key, rawVal] of entries) {
             const meta  = attrMeta[key] || {};
             const mult  = meta.displayMultiplier ?? 1;
             const unit  = meta.displayUnit        ?? '';
             const disp  = rawVal * mult;
-
-            rows.push({ key, disp, unit, meta });
+            cards += _card(_capWords(key), disp, unit);
+        }
+        for (const [key, val] of strEntries) {
+            cards += `<div class="sbs-card"><div class="sbs-label">${_esc(_capWords(key))}</div><div class="sbs-value" style="font-size:.78rem">${_esc(val)}</div></div>`;
         }
 
-        // Also show the ship's own category, sprite etc. (string attrs)
-        const strRows = [];
-        for (const [key, val] of Object.entries(ship.attributes || {})) {
-            if (typeof val !== 'string' || !val) continue;
-            if (k.coveredKeys.has(key)) continue;
-            strRows.push({ key, val });
-        }
-
-        if (!rows.length && !strRows.length) {
-            return `<div class="sbs-empty">No additional attributes found.</div>`;
-        }
-
-        // Group by section using attrDefs.usedInShipFunctions or raw key patterns
-        const grouped = {};
-        for (const row of rows) {
-            // Rough grouping by key pattern
-            const grp = _otherGroup(row.key, row.meta);
-            if (!grouped[grp]) grouped[grp] = [];
-            grouped[grp].push(row);
-        }
-
-        let html = '';
-        for (const [grp, grpRows] of Object.entries(grouped).sort((a, b) => a[0].localeCompare(b[0]))) {
-            let cards = '';
-            for (const { key, disp, unit } of grpRows.sort((a, b) => a.key.localeCompare(b.key))) {
-                cards += _card(_capWords(key), disp, unit);
-            }
-            html += _section(grp, cards);
-        }
-
-        // String attributes
-        if (strRows.length) {
-            const strCards = strRows.map(({ key, val }) =>
-                `<div class="sbs-card">
-    <div class="sbs-label">${_esc(_capWords(key))}</div>
-    <div class="sbs-value" style="font-size:0.78rem">${_esc(val)}</div>
-</div>`
-            ).join('');
-            html += _section('Text Attributes', strCards);
-        }
-
-        return html;
-    }
-
-    function _otherGroup(key, meta) {
-        const k = key.toLowerCase();
-        if (meta?.isStatusEffect || meta?.isStatusResistance || meta?.isStatusProtection ||
-            meta?.isStatusResistanceCost) return 'Status Effects';
-        if (/damage|weapon|gun|turret|missile|torpedo|blast|piercing|firing/.test(k)) return 'Weapons';
-        if (/shield|hull|repair/.test(k)) return 'Combat';
-        if (/energy|heat|cooling|solar|fuel|ramscoop/.test(k)) return 'Power';
-        if (/thrust|turn|drag|mass|velocity|speed|accel|reverse|afterburner/.test(k)) return 'Movement';
-        if (/outfit|cargo|capacity|space|mount|port|bay/.test(k)) return 'Capacity';
-        if (/crew|bunk|capture|automaton/.test(k)) return 'Crew';
-        if (/scan|stealth|cloak/.test(k)) return 'Stealth & Scan';
-        if (/jump|hyperdrive|nav|warp|scram/.test(k)) return 'Navigation';
-        if (/resist|protection/.test(k)) return 'Resistances';
-        if (meta?.isMultiplier) return 'Multipliers';
-        return 'Other';
+        return `<div class="sbs-cards" style="gap:5px">${cards}</div>`;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  FALLBACK when attrDefs not loaded
+    //  FALLBACK
     // ─────────────────────────────────────────────────────────────────────────
 
     function _noAttrDefs() {
-        return `<div class="sbs-empty">Attribute definitions (window.attrDefs) not yet loaded.<br>Stats will appear once data is ready.</div>`;
+        return `<div class="sbs-empty">window.attrDefs not yet loaded — stats will appear once data is ready.</div>`;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -1088,137 +1100,11 @@ const SBS = (() => {
     function _capFirst(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
     function _capWords(s) { return String(s).split(' ').map(_capFirst).join(' '); }
     function _esc(s) {
-        return String(s)
-            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    //  CSS
-    // ─────────────────────────────────────────────────────────────────────────
-
-    const _CSS = `
-#sbs-root {
-    --sbs-bg:    #0d1826;
-    --sbs-sur:   #162033;
-    --sbs-sur2:  #1d2d45;
-    --sbs-bdr:   rgba(99,179,237,0.16);
-    --sbs-acc:   #63b3ed;
-    --sbs-acc2:  #38bdf8;
-    --sbs-txt:   #e2e8f0;
-    --sbs-mut:   #64748b;
-    --sbs-dim:   #3d526b;
-    --sbs-pos:   #4ade80;
-    --sbs-neg:   #f87171;
-    --sbs-r:     8px;
-    --sbs-rsm:   5px;
-    margin-top: 28px;
-    border: 1px solid var(--sbs-bdr);
-    border-radius: var(--sbs-r);
-    background: var(--sbs-bg);
-    overflow: hidden;
-    box-shadow: 0 6px 32px rgba(0,0,0,.45), inset 0 1px 0 rgba(99,179,237,.06);
-}
-#sbs-root .sbs-header {
-    display:flex; align-items:center; gap:8px;
-    padding:8px 12px;
-    background:var(--sbs-sur);
-    border-bottom:1px solid var(--sbs-bdr);
-    flex-wrap:wrap;
-}
-#sbs-root .sbs-title {
-    font-size:.72rem; font-weight:800; color:var(--sbs-acc);
-    text-transform:uppercase; letter-spacing:.12em;
-    white-space:nowrap; flex-shrink:0;
-}
-#sbs-root .sbs-tabs { display:flex; gap:4px; flex-wrap:wrap; flex:1; min-width:0; }
-#sbs-root .sbs-tab {
-    padding:3px 10px; border-radius:var(--sbs-rsm);
-    border:1px solid var(--sbs-bdr); background:transparent;
-    color:var(--sbs-mut); font-size:.72rem; font-weight:600;
-    cursor:pointer; transition:background .12s,color .12s,border-color .12s;
-    white-space:nowrap;
-}
-#sbs-root .sbs-tab:hover { background:var(--sbs-sur2); color:var(--sbs-txt); border-color:rgba(99,179,237,.5); }
-#sbs-root .sbs-tab--active { background:#1d4ed8; color:#fff; border-color:#1d4ed8; }
-#sbs-root .sbs-collapse-btn {
-    margin-left:auto; padding:2px 8px; border-radius:var(--sbs-rsm);
-    border:1px solid var(--sbs-bdr); background:transparent;
-    color:var(--sbs-mut); font-size:.7rem; cursor:pointer; flex-shrink:0;
-    transition:color .12s,border-color .12s;
-}
-#sbs-root .sbs-collapse-btn:hover { color:var(--sbs-txt); border-color:var(--sbs-acc); }
-#sbs-root .sbs-body {
-    padding:14px 14px 18px; max-height:420px; overflow-y:auto;
-    scrollbar-width:thin; scrollbar-color:var(--sbs-dim) transparent;
-}
-#sbs-root .sbs-body::-webkit-scrollbar { width:5px; }
-#sbs-root .sbs-body::-webkit-scrollbar-track { background:transparent; }
-#sbs-root .sbs-body::-webkit-scrollbar-thumb { background:var(--sbs-dim); border-radius:3px; }
-#sbs-root .sbs-content { display:flex; flex-direction:column; gap:16px; }
-#sbs-root .sbs-empty {
-    color:var(--sbs-mut); font-size:.82rem; font-style:italic;
-    padding:14px 0; text-align:center; line-height:1.6;
-}
-#sbs-root .sbs-section { display:flex; flex-direction:column; gap:7px; }
-#sbs-root .sbs-section-title {
-    font-size:.63rem; font-weight:700; text-transform:uppercase;
-    letter-spacing:.14em; color:var(--sbs-acc);
-    border-bottom:1px solid var(--sbs-bdr); padding-bottom:3px;
-}
-#sbs-root .sbs-cards { display:flex; flex-wrap:wrap; gap:5px; }
-#sbs-root .sbs-card {
-    display:flex; flex-direction:column;
-    background:var(--sbs-sur); border:1px solid var(--sbs-bdr);
-    border-radius:var(--sbs-rsm); padding:5px 10px 6px; min-width:80px;
-    transition:border-color .12s,background .12s;
-}
-#sbs-root .sbs-card:hover { border-color:rgba(99,179,237,.4); background:var(--sbs-sur2); }
-#sbs-root .sbs-card--hi  { border-color:rgba(99,179,237,.35); background:var(--sbs-sur2); }
-#sbs-root .sbs-card--warn{ border-color:rgba(248,113,113,.35); }
-#sbs-root .sbs-label {
-    font-size:.58rem; font-weight:700; text-transform:uppercase;
-    letter-spacing:.07em; color:var(--sbs-mut); margin-bottom:1px;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-}
-#sbs-root .sbs-value {
-    font-size:.88rem; font-weight:700; color:var(--sbs-txt);
-    font-variant-numeric:tabular-nums; white-space:nowrap;
-}
-#sbs-root .sbs-unit { font-size:.6rem; font-weight:400; color:var(--sbs-mut); margin-left:2px; }
-#sbs-root .sbs-table-wrap { overflow-x:auto; }
-#sbs-root .sbs-table { width:100%; border-collapse:collapse; font-size:.76rem; }
-#sbs-root .sbs-table th {
-    color:var(--sbs-mut); font-size:.62rem; text-transform:uppercase;
-    letter-spacing:.08em; padding:4px 8px;
-    border-bottom:1px solid var(--sbs-bdr); font-weight:700; white-space:nowrap;
-}
-#sbs-root .sbs-table td {
-    padding:5px 8px; color:var(--sbs-txt);
-    border-bottom:1px solid rgba(99,179,237,.06); vertical-align:middle;
-}
-#sbs-root .sbs-table tbody tr:hover td { background:var(--sbs-sur2); }
-#sbs-root .sbs-wt-name { font-weight:600; }
-#sbs-root .sbs-wt-num  { text-align:right; font-variant-numeric:tabular-nums; color:var(--sbs-mut); }
-#sbs-root .sbs-wt-dps  { color:var(--sbs-acc2) !important; font-weight:700; }
-#sbs-root .sbs-wt-count{ font-size:.68rem; color:var(--sbs-mut); margin-left:2px; }
-#sbs-root .sbs-badge {
-    display:inline-block; font-size:.55rem; font-weight:800;
-    letter-spacing:.05em; padding:1px 4px; border-radius:3px;
-    vertical-align:middle; margin-left:3px; line-height:1.4;
-}
-#sbs-root .sbs-badge--blue  { background:rgba(59,130,246,.2);  color:#93c5fd; border:1px solid rgba(59,130,246,.35); }
-#sbs-root .sbs-badge--amber { background:rgba(251,191,36,.15); color:#fcd34d; border:1px solid rgba(251,191,36,.35); }
-#sbs-root .sbs-badge--red   { background:rgba(239,68,68,.15);  color:#fca5a5; border:1px solid rgba(239,68,68,.35); }
-`;
-
-    // ─────────────────────────────────────────────────────────────────────────
-    //  PUBLIC API
-    // ─────────────────────────────────────────────────────────────────────────
 
     return { refresh, hookIntoBuilder, _mount };
 
 })();
 
-document.addEventListener('DOMContentLoaded', () => {
-    SBS._mount();
-});
+document.addEventListener('DOMContentLoaded', () => { SBS._mount(); });
