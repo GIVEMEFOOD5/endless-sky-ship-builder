@@ -271,7 +271,10 @@ const SBS = (() => {
                 const count = parseInt(entry.count) || 1;
                 if (name) outfitMap[name] = (outfitMap[name] || 0) + count;
             }
-            return WeaponStats.getShipWeaponStats({ outfits: outfitMap }, outfitIdx);
+            const stats = WeaponStats.getShipWeaponStats({ outfits: outfitMap }, outfitIdx);
+            // Attach the raw outfit index so _tabWeapons can read all weapon fields
+            if (stats) stats._outfitIdx = outfitIdx;
+            return stats;
         } catch (e) { console.warn('[SBS] WeaponStats error:', e); return null; }
     }
 
@@ -465,13 +468,140 @@ const SBS = (() => {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  TAB: WEAPONS  (custom — keyword sections + DPS table)
+    //  TAB: WEAPONS
+    //
+    //  Three tiers of data:
+    //
+    //  1. Ship-level capacity cards (keyword-matched from eff, same as before).
+    //
+    //  2. Fleet DPS summary from WeaponStats (computed totals).
+    //
+    //  3. Per-weapon detail accordion — for each installed weapon outfit we walk
+    //     the raw outfit.weapon object and display EVERY field found on it,
+    //     regardless of what those fields are.  No hardcoded key list.
+    //
+    //     Field rendering rules (all driven by the raw value type, no hardcoding):
+    //       - numeric               → _fmt(value), with attrDefs unit if known
+    //       - boolean / 0/1 flag   → shown as ✓ / ✗
+    //       - string               → shown as-is
+    //       - plain object         → JSON.stringify (submunition entries, etc.)
+    //       - array                → each element on its own row
+    //
+    //     Fields whose value is an empty array, null, undefined, or 0 are omitted.
+    //     The key is formatted with _capWords for readability.
+    //
+    //  Computed values from WeaponStats profile (shots/s, range, DPS breakdown)
+    //  are appended after the raw fields under a "── Computed ──" divider so
+    //  nothing is lost.
     // ─────────────────────────────────────────────────────────────────────────
+
+    // Keys on the outfit object itself that are NOT weapon stats — skip them
+    // when iterating outfit.weapon so we don't confuse outfit-level fields.
+    const _WEAPON_SKIP_KEYS = new Set([
+        'name', 'displayName', 'category', 'series', 'index', 'cost',
+        'thumbnail', 'sprite', 'spriteData', 'description', 'pluginId',
+        'governments', 'locations', 'attributes', '_internalId', '_pluginId',
+        '_hash', '_pn', '_pd', '_isVariant',
+    ]);
+
+    function _renderWeaponValue(val) {
+        if (val === null || val === undefined) return null;
+        if (typeof val === 'boolean') return val ? '✓' : '✗';
+        if (typeof val === 'number') {
+            if (val === 0) return null;
+            return _fmt(val);
+        }
+        if (typeof val === 'string') return val.trim() || null;
+        if (Array.isArray(val)) {
+            if (!val.length) return null;
+            return val.map(el =>
+                typeof el === 'object' ? JSON.stringify(el) : String(el)
+            ).join(', ');
+        }
+        if (typeof val === 'object') return JSON.stringify(val);
+        return String(val);
+    }
+
+    function _weaponDetailSection(outfitName, count, outfit, profile, ad) {
+        const w        = outfit.weapon || {};
+        const attrMeta = ad?.attributes || {};
+
+        // ── Raw weapon fields ──────────────────────────────────────────────
+        // Walk every key on the weapon object (and top-level outfit fields that
+        // are weapon stats, identifiable by isWeaponStat/isWeaponDataKey in attrDefs)
+        const seenKeys = new Set();
+        const rawRows  = [];
+
+        // weapon sub-object keys first
+        for (const [key, val] of Object.entries(w).sort((a, b) => a[0].localeCompare(b[0]))) {
+            if (_WEAPON_SKIP_KEYS.has(key)) continue;
+            seenKeys.add(key);
+            const rendered = _renderWeaponValue(val);
+            if (rendered === null) continue;
+            const meta = attrMeta[key] || {};
+            const unit = meta.displayUnit ?? '';
+            rawRows.push({ key, label: _capWords(key), rendered, unit });
+        }
+
+        // Also scan top-level outfit keys marked isWeaponStat or isWeaponDataKey
+        for (const [key, val] of Object.entries(outfit).sort((a, b) => a[0].localeCompare(b[0]))) {
+            if (seenKeys.has(key) || _WEAPON_SKIP_KEYS.has(key) || key.startsWith('_')) continue;
+            const meta = attrMeta[key] || {};
+            if (!meta.isWeaponStat && !meta.isWeaponDataKey) continue;
+            const rendered = _renderWeaponValue(val);
+            if (rendered === null) continue;
+            rawRows.push({ key, label: _capWords(key), unit: meta.displayUnit ?? '', rendered });
+        }
+
+        // ── Computed fields from WeaponStats profile ───────────────────────
+        const computedRows = [];
+        computedRows.push({ label: 'Shots / s',      val: _fmt(profile.shotsPerSecond) });
+        if (profile.effectiveRange) computedRows.push({ label: 'Effective Range', val: `${_fmt(profile.effectiveRange)} px` });
+        if (profile.totalDps)       computedRows.push({ label: 'Total DPS',       val: _fmt(profile.totalDps) });
+        for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}))
+            if (dps) computedRows.push({ label: _capWords(dmgKey.replace(/ damage$/, '')) + ' DPS', val: _fmt(dps) });
+        for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}))
+            if (costVal) computedRows.push({ label: _capWords(costKey) + '/shot', val: _fmt(costVal) });
+
+        // ── Build HTML ─────────────────────────────────────────────────────
+        const countLabel = count > 1 ? ` <span class="sbs-wt-count">×${count}</span>` : '';
+        const badges = [
+            profile.isHoming      ? `<span class="sbs-badge sbs-badge--blue">HOMING</span>` : '',
+            profile.hasAmmo       ? `<span class="sbs-badge sbs-badge--amber">AMMO</span>`  : '',
+            profile.isAntiMissile ? `<span class="sbs-badge sbs-badge--red">A-M</span>`     : '',
+        ].join('');
+
+        const rawTableRows = rawRows.map(r =>
+            `<tr><td class="sbs-wt-name">${_esc(r.label)}</td><td class="sbs-wt-num">${_esc(r.rendered)}${r.unit ? `<span class="sbs-unit"> ${_esc(r.unit)}</span>` : ''}</td></tr>`
+        ).join('');
+
+        const computedTableRows = computedRows.map(r =>
+            `<tr><td class="sbs-wt-name" style="color:var(--sbs-pos)">${_esc(r.label)}</td><td class="sbs-wt-num">${_esc(r.val)}</td></tr>`
+        ).join('');
+
+        const divider = computedTableRows
+            ? `<tr><td colspan="2" style="padding:4px 6px;font-size:.7rem;opacity:.5;border-top:1px solid var(--sbs-border)">── Computed ──</td></tr>`
+            : '';
+
+        return `
+<div class="sbs-section">
+  <div class="sbs-section-title">🔫 ${_esc(outfitName)}${countLabel} ${badges}</div>
+  <div class="sbs-table-wrap">
+    <table class="sbs-table">
+      <tbody>
+        ${rawTableRows}
+        ${divider}
+        ${computedTableRows}
+      </tbody>
+    </table>
+  </div>
+</div>`;
+    }
 
     function _tabWeapons(wData, eff, ad) {
         const attrMeta = ad?.attributes || {};
 
-        // Capacity / space section via keyword matching
+        // ── Capacity section (keyword-matched from eff) ────────────────────
         const capTokens = TAB_DEFS.find(t => t.id === 'weapons').sections[0].tokens;
         const capKeys = Object.keys(eff)
             .filter(key => capTokens.some(tok => key.toLowerCase().includes(tok)))
@@ -488,7 +618,7 @@ const SBS = (() => {
         if (!wData || !wData.weaponCount)
             return capSection + `<div class="sbs-section"><div class="sbs-empty">No weapons installed.</div></div>`;
 
-        // DPS summary
+        // ── Fleet DPS summary ──────────────────────────────────────────────
         let sumCards = '';
         sumCards += _card('Total DPS',    wData.totalDps,          'dps', wData.totalDps  > 0);
         sumCards += _card('Shield DPS',   wData.shieldDps,         'dps', wData.shieldDps > 0);
@@ -500,41 +630,25 @@ const SBS = (() => {
         for (const [key, val] of Object.entries(wData.dpsByType || {}))
             if (val) typeCards += _card(_capWords(key.replace(/ damage$/, '')) + ' DPS', val, 'dps');
 
-        // Weapon table
-        const rows = (wData.weapons || []).map(w => {
-            const range   = w.profile.effectiveRange ? `${_fmt(w.profile.effectiveRange)} px` : '—';
-            const badges  = [
-                w.profile.isHoming      ? `<span class="sbs-badge sbs-badge--blue">HOMING</span>` : '',
-                w.profile.hasAmmo       ? `<span class="sbs-badge sbs-badge--amber">AMMO</span>`  : '',
-                w.profile.isAntiMissile ? `<span class="sbs-badge sbs-badge--red">A-M</span>`     : '',
-            ].join('');
-            const countTag = w.count > 1 ? `<span class="sbs-wt-count">×${w.count}</span>` : '';
-            return `<tr>
-<td class="sbs-wt-name">${_esc(w.outfitName)} ${countTag}${badges}</td>
-<td class="sbs-wt-num">${_fmt(w.profile.shotsPerSecond)}/s</td>
-<td class="sbs-wt-num">${range}</td>
-<td class="sbs-wt-num sbs-wt-dps">${_fmt(w.scaledDps)}</td></tr>`;
-        }).join('');
-
-        const table = `<table class="sbs-table">
-<thead><tr>
-    <th>Weapon</th>
-    <th style="text-align:right">Shots/s</th>
-    <th style="text-align:right">Range</th>
-    <th style="text-align:right">DPS</th>
-</tr></thead>
-<tbody>${rows}</tbody></table>`;
-
         let ammoCards = '';
         if (wData.hasAmmoWeapons)
             for (const a of (wData.ammoRequired || []))
                 ammoCards += _card(_esc(a.ammoOutfitName), _fmt(a.totalShotsPerSecond), 'rounds/s');
 
+        // ── Per-weapon detail sections ─────────────────────────────────────
+        const outfitIdx = wData._outfitIdx || {};
+        let detailHtml = '';
+        for (const w of (wData.weapons || [])) {
+            const outfit = outfitIdx[w.outfitName];
+            if (!outfit) continue;
+            detailHtml += _weaponDetailSection(w.outfitName, w.count, outfit, w.profile, ad);
+        }
+
         return capSection
-             + _section('DPS Summary', sumCards)
-             + (typeCards ? _section('DPS by Type', typeCards) : '')
-             + _tableSection('Installed Weapons', table)
-             + (ammoCards ? _section('⚠ Ammo Required', ammoCards) : '');
+             + _section('📊 Fleet DPS Summary', sumCards)
+             + (typeCards  ? _section('💥 DPS by Type',    typeCards)  : '')
+             + (ammoCards  ? _section('⚠ Ammo Required',  ammoCards)  : '')
+             + detailHtml;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
