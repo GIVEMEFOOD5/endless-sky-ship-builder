@@ -229,16 +229,7 @@ const CapacityGuard = (() => {
         return key.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
     }
 
-    function _buildAlertMessage(action, violations) {
-        const lines = [`Cannot ${action} — it would exceed capacity:\n`];
-        for (const v of violations) {
-            lines.push(
-                `  • ${_capLabel(v.key)}: ${v.used.toFixed(0)} used / ${v.max.toFixed(0)} max  (${v.over.toFixed(0)} over limit)`
-            );
-        }
-        lines.push('\nRemove other outfits first to free up space.');
-        return lines.join('\n');
-    }
+
 
     // ─────────────────────────────────────────────────────────────────────────
     //  GUARD: sbRemoveOutfit(i)
@@ -292,11 +283,7 @@ const CapacityGuard = (() => {
             );
 
             if (violations.length) {
-                const msg = _buildAlertMessage(
-                    `remove "${removedName}"`,
-                    violations
-                );
-                alert(msg);
+                _showModal(`remove "${removedName}"`, violations);
                 _highlightViolations(violations.map(v => v.key));
                 // Trigger SBS refresh so highlights appear in the panel
                 if (typeof SBS !== 'undefined' && typeof SBS.refresh === 'function')
@@ -348,11 +335,7 @@ const CapacityGuard = (() => {
 
             if (violations.length) {
                 const targetName = (target.name || '').replace(/^"|"$/g, '');
-                const msg = _buildAlertMessage(
-                    `reduce "${targetName}" to ${newCount}`,
-                    violations
-                );
-                alert(msg);
+                _showModal(`reduce "${targetName}" to ${newCount}`, violations);
                 _highlightViolations(violations.map(v => v.key));
                 // Reset the count input back to its old value
                 const inputs = document.querySelectorAll('.outfit-item__count');
@@ -408,11 +391,7 @@ const CapacityGuard = (() => {
             );
 
             if (violations.length) {
-                const msg = _buildAlertMessage(
-                    `remove attribute "${key}"`,
-                    violations
-                );
-                alert(msg);
+                _showModal(`remove attribute "${key}"`, violations);
                 _highlightViolations(violations.map(v => v.key));
                 if (typeof SBS !== 'undefined' && typeof SBS.refresh === 'function')
                     SBS.refresh();
@@ -457,11 +436,7 @@ const CapacityGuard = (() => {
             const violations = _checkViolations(outfits, capKeys, hypotheticalAttrs);
 
             if (violations.length) {
-                const msg = _buildAlertMessage(
-                    `reduce "${key}" to ${newVal}`,
-                    violations
-                );
-                alert(msg);
+                _showModal(`reduce "${key}" to ${newVal}`, violations);
                 // Restore input to old value
                 inp.value = String(oldVal);
                 _highlightViolations(violations.map(v => v.key));
@@ -478,11 +453,19 @@ const CapacityGuard = (() => {
     //  INJECT CSS for sbs-card--violation if not already present
     // ─────────────────────────────────────────────────────────────────────────
 
+    // ─────────────────────────────────────────────────────────────────────────
+    //  MODAL  — matches the existing modal-box / modal-header / confirm-text
+    //  style used by modal-confirm in shipBuilder.html
+    // ─────────────────────────────────────────────────────────────────────────
+
+    const MODAL_ID = 'modal-cap-guard';
+
     function _injectStyles() {
-        if (document.getElementById('cap-guard-styles')) return;
-        const style = document.createElement('style');
-        style.id = 'cap-guard-styles';
-        style.textContent = `
+        // ── CSS ────────────────────────────────────────────────────────────
+        if (!document.getElementById('cap-guard-styles')) {
+            const style = document.createElement('style');
+            style.id = 'cap-guard-styles';
+            style.textContent = `
 .sbs-card--violation {
     outline: 2px solid var(--c-danger-hi, #fc8181) !important;
     background: rgba(252, 129, 129, 0.12) !important;
@@ -492,8 +475,93 @@ const CapacityGuard = (() => {
     0%   { outline-color: var(--c-danger-hi, #fc8181); }
     50%  { outline-color: transparent; }
     100% { outline-color: var(--c-danger-hi, #fc8181); }
+}
+#modal-cap-guard .cap-guard-violations {
+    margin: 4px 0 16px;
+    padding: 0;
+    list-style: none;
+}
+#modal-cap-guard .cap-guard-violations li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 10px;
+    margin-bottom: 5px;
+    border-radius: var(--r-sm, 6px);
+    background: rgba(252, 129, 129, 0.10);
+    border: 1px solid rgba(252, 129, 129, 0.25);
+    font-size: 0.86rem;
+    color: var(--c-text-mid, #cbd5e0);
+}
+#modal-cap-guard .cap-guard-violations li .cgv-name {
+    font-weight: 700;
+    color: var(--c-danger-hi, #fc8181);
+}
+#modal-cap-guard .cap-guard-violations li .cgv-nums {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.82rem;
+    color: var(--c-text-dim, #718096);
+    white-space: nowrap;
+    margin-left: 12px;
+}
+#modal-cap-guard .cap-guard-hint {
+    font-size: 0.82rem;
+    color: var(--c-text-muted, #64748b);
+    margin: 0;
 }`;
-        document.head.appendChild(style);
+            document.head.appendChild(style);
+        }
+
+        // ── Modal HTML ────────────────────────────────────────────────────
+        if (!document.getElementById(MODAL_ID)) {
+            const wrap = document.createElement('div');
+            wrap.innerHTML = `
+<div id="modal-cap-guard" class="modal-overlay">
+  <div class="modal-box" style="width:min(420px,96vw);">
+    <div class="modal-header">
+      <div class="modal-title" id="cap-guard-modal-title">Cannot Make Change</div>
+      <button class="modal-close" onclick="document.getElementById('modal-cap-guard').classList.remove('active')">×</button>
+    </div>
+    <p class="confirm-text" id="cap-guard-modal-action" style="margin-bottom:12px;"></p>
+    <ul class="cap-guard-violations" id="cap-guard-modal-list"></ul>
+    <p class="cap-guard-hint">Remove other outfits first to free up space.</p>
+    <div class="btn-group btn-group-right" style="margin-top:16px;">
+      <button class="btn btn-secondary"
+        onclick="document.getElementById('modal-cap-guard').classList.remove('active')">OK</button>
+    </div>
+  </div>
+</div>`;
+            document.body.appendChild(wrap.firstElementChild);
+
+            // Close on backdrop click — same behaviour as other modals
+            document.getElementById(MODAL_ID).addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+        }
+    }
+
+    // Show the capacity-guard modal with the given action description and violations
+    function _showModal(actionDesc, violations) {
+        _injectStyles(); // ensure modal exists (safe to call multiple times)
+
+        const titleEl  = document.getElementById('cap-guard-modal-title');
+        const actionEl = document.getElementById('cap-guard-modal-action');
+        const listEl   = document.getElementById('cap-guard-modal-list');
+
+        if (titleEl)  titleEl.textContent  = 'Cannot Make Change';
+        if (actionEl) actionEl.textContent = `This action would exceed capacity: ${actionDesc}`;
+
+        if (listEl) {
+            listEl.innerHTML = violations.map(v => {
+                const name = v.key.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                return `<li>
+                    <span class="cgv-name">${name}</span>
+                    <span class="cgv-nums">${v.used.toFixed(0)} used / ${v.max.toFixed(0)} max &nbsp;(${v.over.toFixed(0)} over)</span>
+                </li>`;
+            }).join('');
+        }
+
+        document.getElementById(MODAL_ID).classList.add('active');
     }
 
     // ─────────────────────────────────────────────────────────────────────────
