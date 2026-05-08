@@ -495,92 +495,95 @@ const SBS = (() => {
     //  nothing is lost.
     // ─────────────────────────────────────────────────────────────────────────
 
-    // Keys on the outfit object itself that are NOT weapon stats — skip them
-    // when iterating outfit.weapon so we don't confuse outfit-level fields.
-    const _WEAPON_SKIP_KEYS = new Set([
-        'name', 'displayName', 'category', 'series', 'index', 'cost',
-        'thumbnail', 'sprite', 'spriteData', 'description', 'pluginId',
-        'governments', 'locations', 'attributes', '_internalId', '_pluginId',
-        '_hash', '_pn', '_pd', '_isVariant',
-    ]);
-
-    function _renderWeaponValue(val) {
-        if (val === null || val === undefined) return null;
-        if (typeof val === 'boolean') return val ? '✓' : '✗';
-        if (typeof val === 'number') {
-            if (val === 0) return null;
-            return _fmt(val);
-        }
-        if (typeof val === 'string') return val.trim() || null;
-        if (Array.isArray(val)) {
-            if (!val.length) return null;
-            return val.map(el =>
-                typeof el === 'object' ? JSON.stringify(el) : String(el)
-            ).join(', ');
-        }
-        if (typeof val === 'object') return JSON.stringify(val);
-        return String(val);
-    }
+    // ─────────────────────────────────────────────────────────────────────────
+    //  _weaponDetailSection
+    //
+    //  Shows ONLY computed/per-second values for a weapon — no raw per-shot data.
+    //
+    //  Two groups of rows:
+    //
+    //  A) "Rate" values — fields on the raw weapon object that are NOT per-shot
+    //     firing costs and NOT damage values.  These describe the weapon's
+    //     behaviour (reload, velocity, lifetime, inaccuracy, homing strength,
+    //     tracking, turn, etc.) and are shown as-is since they are not multiplied
+    //     by shots/s in the game.  Boolean/flag values are shown as ✓.
+    //     Identified by exclusion: any key that does NOT end in " damage" and
+    //     does NOT start with "firing " is a rate/behaviour value.
+    //     Submunition/ammo reference fields (arrays/objects/strings that point to
+    //     other outfits) are shown as text.
+    //
+    //  B) "Per-second" values — computed from WeaponStats profile:
+    //       • Shots/s
+    //       • Effective range
+    //       • DPS per damage type  (already per-second from WeaponStats)
+    //       • Firing costs × shots/s  → energy/s, heat/s, fuel/s, etc.
+    // ─────────────────────────────────────────────────────────────────────────
 
     function _weaponDetailSection(outfitName, count, outfit, profile, ad) {
         const w        = outfit.weapon || {};
         const attrMeta = ad?.attributes || {};
+        const sps      = profile.shotsPerSecond || 0;
 
-        // ── Raw weapon fields ──────────────────────────────────────────────
-        // Walk every key on the weapon object (and top-level outfit fields that
-        // are weapon stats, identifiable by isWeaponStat/isWeaponDataKey in attrDefs)
-        const seenKeys = new Set();
-        const rawRows  = [];
-
-        // weapon sub-object keys first
+        // ── A) Rate / behaviour fields from raw weapon object ──────────────
+        // Skip keys that are per-shot costs (start with "firing ") or damage
+        // values (end with " damage") — those are handled in section B.
+        // Also skip non-scalar reference fields we can't meaningfully display
+        // as a number (submunitions arrays are shown as text though).
+        const rateRows = [];
         for (const [key, val] of Object.entries(w).sort((a, b) => a[0].localeCompare(b[0]))) {
-            if (_WEAPON_SKIP_KEYS.has(key)) continue;
-            seenKeys.add(key);
-            const rendered = _renderWeaponValue(val);
-            if (rendered === null) continue;
+            const lk = key.toLowerCase();
+            if (lk.startsWith('firing '))   continue; // per-shot cost → section B
+            if (lk.endsWith(' damage'))     continue; // damage → shown as DPS in B
+            if (val === null || val === undefined) continue;
+
+            let display = null;
+            if (typeof val === 'boolean')       display = val ? '✓' : '✗';
+            else if (typeof val === 'number')   { if (val !== 0) display = _fmt(val); }
+            else if (typeof val === 'string')   display = val.trim() || null;
+            else if (Array.isArray(val)) {
+                if (val.length) display = val.map(el =>
+                    typeof el === 'object' ? (el.type ?? el.name ?? JSON.stringify(el)) : String(el)
+                ).join(', ');
+            } else if (typeof val === 'object') {
+                // e.g. legacy submunition object — show name/type if present
+                display = val.type ?? val.name ?? JSON.stringify(val);
+            }
+
+            if (display === null) continue;
             const meta = attrMeta[key] || {};
-            const unit = meta.displayUnit ?? '';
-            rawRows.push({ key, label: _capWords(key), rendered, unit });
+            rateRows.push({ label: _capWords(key), display, unit: meta.displayUnit ?? '' });
         }
 
-        // Also scan top-level outfit keys marked isWeaponStat or isWeaponDataKey
-        for (const [key, val] of Object.entries(outfit).sort((a, b) => a[0].localeCompare(b[0]))) {
-            if (seenKeys.has(key) || _WEAPON_SKIP_KEYS.has(key) || key.startsWith('_')) continue;
-            const meta = attrMeta[key] || {};
-            if (!meta.isWeaponStat && !meta.isWeaponDataKey) continue;
-            const rendered = _renderWeaponValue(val);
-            if (rendered === null) continue;
-            rawRows.push({ key, label: _capWords(key), unit: meta.displayUnit ?? '', rendered });
-        }
-
-        // ── Computed fields from WeaponStats profile ───────────────────────
-        const computedRows = [];
-        computedRows.push({ label: 'Shots / s',      val: _fmt(profile.shotsPerSecond) });
-        if (profile.effectiveRange) computedRows.push({ label: 'Effective Range', val: `${_fmt(profile.effectiveRange)} px` });
-        if (profile.totalDps)       computedRows.push({ label: 'Total DPS',       val: _fmt(profile.totalDps) });
-        for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}))
-            if (dps) computedRows.push({ label: _capWords(dmgKey.replace(/ damage$/, '')) + ' DPS', val: _fmt(dps) });
-        for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}))
-            if (costVal) computedRows.push({ label: _capWords(costKey) + '/shot', val: _fmt(costVal) });
+        // ── B) Per-second computed values ──────────────────────────────────
+        const perSecRows = [];
+        perSecRows.push({ label: 'Shots/s', display: _fmt(sps), unit: '' });
+        if (profile.effectiveRange)
+            perSecRows.push({ label: 'Effective Range', display: _fmt(profile.effectiveRange), unit: 'px' });
+        // DPS breakdown — already per-second from WeaponStats
+        for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort((a,b) => a[0].localeCompare(b[0])))
+            if (dps) perSecRows.push({ label: _capWords(dmgKey.replace(/ damage$/, '')) + ' DPS', display: _fmt(dps), unit: '/s' });
+        // Firing costs × shots/s
+        for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort((a,b) => a[0].localeCompare(b[0])))
+            if (costVal) perSecRows.push({ label: _capWords(costKey.replace(/^firing /, '')) + ' Cost', display: _fmt(costVal * sps), unit: '/s' });
 
         // ── Build HTML ─────────────────────────────────────────────────────
         const countLabel = count > 1 ? ` <span class="sbs-wt-count">×${count}</span>` : '';
         const badges = [
-            profile.isHoming      ? `<span class="sbs-badge sbs-badge--blue">HOMING</span>` : '',
-            profile.hasAmmo       ? `<span class="sbs-badge sbs-badge--amber">AMMO</span>`  : '',
-            profile.isAntiMissile ? `<span class="sbs-badge sbs-badge--red">A-M</span>`     : '',
+            profile.isHoming      ? '<span class="sbs-badge sbs-badge--blue">HOMING</span>' : '',
+            profile.hasAmmo       ? '<span class="sbs-badge sbs-badge--amber">AMMO</span>'  : '',
+            profile.isAntiMissile ? '<span class="sbs-badge sbs-badge--red">A-M</span>'     : '',
         ].join('');
 
-        const rawTableRows = rawRows.map(r =>
-            `<tr><td class="sbs-wt-name">${_esc(r.label)}</td><td class="sbs-wt-num">${_esc(r.rendered)}${r.unit ? `<span class="sbs-unit"> ${_esc(r.unit)}</span>` : ''}</td></tr>`
-        ).join('');
+        const mkRow = (label, display, unit, highlight) => {
+            const style = highlight ? ' style="color:var(--sbs-pos)"' : '';
+            const unitTag = unit ? `<span class="sbs-unit"> ${_esc(unit)}</span>` : '';
+            return `<tr><td class="sbs-wt-name"${style}>${_esc(label)}</td><td class="sbs-wt-num">${_esc(display)}${unitTag}</td></tr>`;
+        };
 
-        const computedTableRows = computedRows.map(r =>
-            `<tr><td class="sbs-wt-name" style="color:var(--sbs-pos)">${_esc(r.label)}</td><td class="sbs-wt-num">${_esc(r.val)}</td></tr>`
-        ).join('');
-
-        const divider = computedTableRows
-            ? `<tr><td colspan="2" style="padding:4px 6px;font-size:.7rem;opacity:.5;border-top:1px solid var(--sbs-border)">── Computed ──</td></tr>`
+        const rateHtml    = rateRows.map(r    => mkRow(r.label, r.display, r.unit, false)).join('');
+        const perSecHtml  = perSecRows.map(r  => mkRow(r.label, r.display, r.unit, true)).join('');
+        const divider     = rateHtml && perSecHtml
+            ? `<tr><td colspan="2" style="padding:4px 6px;font-size:.7rem;opacity:.5;border-top:1px solid var(--sbs-border)">── Per Second ──</td></tr>`
             : '';
 
         return `
@@ -589,9 +592,9 @@ const SBS = (() => {
   <div class="sbs-table-wrap">
     <table class="sbs-table">
       <tbody>
-        ${rawTableRows}
+        ${rateHtml}
         ${divider}
-        ${computedTableRows}
+        ${perSecHtml}
       </tbody>
     </table>
   </div>
