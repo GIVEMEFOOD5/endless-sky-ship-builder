@@ -146,14 +146,15 @@ const CapacityGuard = (() => {
             const outfit = sbFindOutfit(name);
             if (!outfit) continue;
 
-            // Check both attributes sub-object and top-level keys
+            // Check both the attributes sub-object and top-level keys
             const sources = [outfit.attributes || {}, outfit];
             for (const src of sources) {
                 for (const [key, rawVal] of Object.entries(src)) {
                     if (typeof rawVal !== 'number' && typeof rawVal !== 'string') continue;
                     const n = Number(rawVal);
-                    if (isNaN(n) || n >= 0) continue; // only negative values = capacity costs
-                    // Ship must have a positive base value for this key to be a cap
+                    if (isNaN(n) || n === 0) continue;
+                    // Include both positive (provides capacity) and negative (consumes capacity)
+                    // values — what matters is that the ship has a positive base value for the key.
                     const shipBase = Number(attrs[key]);
                     if (!isNaN(shipBase) && shipBase > 0) keys.add(key);
                 }
@@ -162,7 +163,7 @@ const CapacityGuard = (() => {
 
         return keys;
     }
-
+    
     // ─────────────────────────────────────────────────────────────────────────
     //  SIMULATE: compute used capacity for a hypothetical outfit list
     //
@@ -198,9 +199,18 @@ const CapacityGuard = (() => {
     //  hypotheticalAttrs: the ship's attributes object after the proposed change
     // ─────────────────────────────────────────────────────────────────────────
 
-    function _getMax(key, hypotheticalAttrs) {
-        const n = Number((hypotheticalAttrs || {})[key]);
-        return isNaN(n) ? 0 : Math.max(0, n);
+    function _getEffectiveMax(key, hypotheticalAttrs, hypotheticalOutfits) {
+        const base = Number((hypotheticalAttrs || {})[key]);
+        let max = isNaN(base) ? 0 : base;
+
+        for (const entry of (hypotheticalOutfits || [])) {
+            const name  = (entry.name || '').replace(/^"|"$/g, '');
+            const count = parseInt(entry.count) || 1;
+            const effect = _getOutfitAttrVal(name, key);
+            if (effect > 0) max += effect * count;  // only positive contributions raise the ceiling
+        }
+
+        return Math.max(0, max);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -213,23 +223,14 @@ const CapacityGuard = (() => {
         const used = _simulateUsed(outfitList, capacityKeys);
         const violations = [];
         for (const key of capacityKeys) {
-            const max  = _getMax(key, hypotheticalAttrs);
-            if (max <= 0) continue; // no cap defined — skip
+            // Pass outfitList so outfit-granted capacity is included in the ceiling
+            const max = _getEffectiveMax(key, hypotheticalAttrs, outfitList);
+            if (max <= 0) continue;
             const u = used[key];
             if (u > max) violations.push({ key, used: u, max, over: u - max });
         }
         return violations;
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    //  FORMAT ALERT MESSAGE
-    // ─────────────────────────────────────────────────────────────────────────
-
-    function _capLabel(key) {
-        return key.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-    }
-
-
 
     // ─────────────────────────────────────────────────────────────────────────
     //  GUARD: sbRemoveOutfit(i)
@@ -362,7 +363,7 @@ const CapacityGuard = (() => {
             const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
             if (!ship) return originalFn.call(this, key);
 
-            // Check if this key is currently a positive capacity attribute
+            // Check if this key is currently a positive capacity attribute on the ship
             const currentVal = Number((ship.attributes || {})[key]);
             if (isNaN(currentVal) || currentVal <= 0) {
                 // Not a capacity-defining attribute — allow freely
@@ -376,13 +377,12 @@ const CapacityGuard = (() => {
             const outfits = ship.outfits || [];
             const capKeys = _discoverCapacityKeys(ship);
 
-            if (!capKeys.has(key) && !capKeys.size) {
-                // No capacity keys discovered — allow
-                return originalFn.call(this, key);
-            }
-
-            // Make sure we check the key being removed even if not yet discovered
+            // Build keysToCheck BEFORE any early-exit so the removed key is always
+            // included even if no outfit currently references it (fixes bug 2).
             const keysToCheck = new Set([...capKeys, key]);
+
+            // Now safe to skip if there is genuinely nothing to check
+            if (!keysToCheck.size) return originalFn.call(this, key);
 
             const violations = _checkViolations(
                 outfits,
@@ -401,7 +401,7 @@ const CapacityGuard = (() => {
             return originalFn.call(this, key);
         };
     }
-
+    
     // ─────────────────────────────────────────────────────────────────────────
     //  GUARD: sbUpdateAttrVal — intercept REDUCTIONS of capacity attributes
     //
