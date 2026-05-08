@@ -10,55 +10,38 @@
 //      <script src="../JavaScript/shipBuilder.js"></script>
 //      <script src="../JavaScript/shipBuilderCapacityGuard.js"></script>
 //
-//  No other changes needed — this file wraps the existing global functions
-//  sbRemoveOutfit, sbUpdateOutfitCount, and sbRemoveAttr automatically on
-//  DOMContentLoaded.
-//
 //  WHAT IT DOES
 //  ─────────────────────────────────────────────────────────────────────────────
-//  Before any action that could leave installed outfits over their capacity
-//  limits, this guard:
+//  Guards every action that could violate capacity limits in either direction:
 //
-//    1. Simulates the post-action state entirely (no side effects).
-//    2. Checks every capacity key that exists on the current ship against the
-//       sum of outfit costs after the action.
-//    3. If any capacity would go negative (i.e. used > max), it:
-//         a. Blocks the action entirely (returns false / does not call original).
-//         b. Shows a descriptive alert listing every violated capacity.
-//         c. Highlights the violating stat cards in the SBS stats panel (if
-//            present) by adding the CSS class `sbs-card--violation` to any card
-//            whose label matches the violated capacity name.
-//    4. The highlight auto-clears after 3 seconds.
+//  REMOVAL GUARDS (block or smart-trim):
+//    sbRemoveOutfit(i)          — smart bulk removal if outfit provides capacity
+//    sbUpdateOutfitCount(i, n)  — blocks count decreases that would violate
+//    sbRemoveAttr(key)          — blocks removal of capacity-defining attrs
+//    sbUpdateAttrVal(inp)       — blocks reductions of capacity attrs
 //
-//  CAPACITY KEYS
+//  ADDITION GUARDS (block if would exceed):
+//    sbAddOutfitFromPicker()    — blocks adding an outfit that costs more than
+//    confirmAddOutfit()           available space in any capacity dimension
+//    addGunTurret()             — blocks adding gun/turret ports that exceed
+//                                 weapon capacity
+//    confirmAddAttr()           — blocks adding an attr that costs capacity
+//    sbUpdateAttrVal(inp)       — blocks increases that cost capacity
+//
+//  SMART BULK REMOVAL
 //  ─────────────────────────────────────────────────────────────────────────────
-//  Capacity keys are NOT hardcoded. They are discovered at runtime by scanning
-//  all outfit attributes on the current ship and finding any key whose net
-//  contribution across all outfits is negative (i.e. it's a consumable resource).
-//  The ship's base attribute value for that key is used as the maximum.
+//  When removing an outfit that provides capacity (e.g. 100 battery packs that
+//  each grant outfit space), the guard calculates the minimum number of copies
+//  needed to keep all other outfits legal, removes the rest, then shows a modal
+//  explaining what was removed and what had to stay.
 //
-//  This means any modded capacity attribute (e.g. "drone capacity") is
-//  automatically protected without any code changes here.
-//
-//  GUARD SCOPE
+//  CAPACITY KEY DISCOVERY
 //  ─────────────────────────────────────────────────────────────────────────────
-//  Three operations are guarded:
-//
-//    sbRemoveOutfit(i)
-//      Simulates removal of outfit[i] entirely.
-//      Blocked if: any remaining outfit's total cost exceeds the remaining max
-//      after accounting for the space/capacity the removed outfit was providing.
-//
-//    sbUpdateOutfitCount(i, newCount)
-//      Only guarded on DECREASE (adding is already checked by sbCheckOutfitSpace).
-//      Blocked if: reducing the count of an outfit that provides capacity would
-//      leave other outfits over their limits.
-//
-//    sbRemoveAttr(key)
-//      Blocked if: removing a capacity-defining attribute (e.g. "outfit space")
-//      would leave installed outfits exceeding the remaining capacity.
-//      Also blocked if removing a non-capacity attribute that is a maximum value
-//      for something that would then be exceeded.
+//  All capacity keys are discovered at runtime — nothing is hardcoded.
+//  A key is treated as a "capacity" key when:
+//    - The ship has a positive base value for it (defines a maximum), AND
+//    - At least one installed outfit has a non-zero value for it (either
+//      consuming or providing that resource).
 //
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -67,34 +50,24 @@ const CapacityGuard = (() => {
 
     // ─────────────────────────────────────────────────────────────────────────
     //  HIGHLIGHT CONTROL
-    //  Adds `sbs-card--violation` to any SBS stat card whose label text
-    //  matches (case-insensitive substring) one of the violated capacity names.
-    //  Auto-removes after HIGHLIGHT_MS milliseconds.
     // ─────────────────────────────────────────────────────────────────────────
 
     const HIGHLIGHT_MS = 3500;
     let _highlightTimer = null;
 
     function _highlightViolations(violatedKeys) {
-        // Clear any previous highlights
         _clearHighlights();
-
         if (!violatedKeys.length) return;
-
         const panel = document.getElementById('sbs-root');
         if (!panel) return;
-
         const lowerKeys = violatedKeys.map(k => k.toLowerCase());
-
         panel.querySelectorAll('.sbs-card').forEach(card => {
             const labelEl = card.querySelector('.sbs-label');
             if (!labelEl) return;
             const labelText = labelEl.textContent.toLowerCase();
-            if (lowerKeys.some(k => labelText.includes(k))) {
+            if (lowerKeys.some(k => labelText.includes(k)))
                 card.classList.add('sbs-card--violation');
-            }
         });
-
         clearTimeout(_highlightTimer);
         _highlightTimer = setTimeout(_clearHighlights, HIGHLIGHT_MS);
     }
@@ -106,21 +79,16 @@ const CapacityGuard = (() => {
 
     // ─────────────────────────────────────────────────────────────────────────
     //  OUTFIT ATTRIBUTE LOOKUP
-    //  Uses the existing sbGetOutfitAttrValue helper from shipBuilder.js.
-    //  Falls back to direct lookup if that function isn't available.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _getOutfitAttrVal(outfitName, key) {
         if (typeof sbGetOutfitAttrValue === 'function')
             return sbGetOutfitAttrValue(outfitName, key) || 0;
-
-        // Fallback: manual lookup
         if (typeof sbFindOutfit !== 'function') return 0;
         const o = sbFindOutfit(outfitName);
         if (!o) return 0;
         const raw = (o.attributes && o.attributes[key] != null)
-            ? o.attributes[key]
-            : o[key];
+            ? o.attributes[key] : o[key];
         const n = Number(raw);
         return isNaN(n) ? 0 : n;
     }
@@ -128,12 +96,12 @@ const CapacityGuard = (() => {
     // ─────────────────────────────────────────────────────────────────────────
     //  CAPACITY KEY DISCOVERY
     //
-    //  Returns a Set of attribute keys that are "capacity" keys — defined as:
-    //  any key for which at least one installed outfit has a NEGATIVE value
-    //  (meaning it consumes that resource) AND the ship has a positive base
-    //  value for that key (meaning it defines the maximum).
+    //  A key is a capacity key when:
+    //    - The ship's base attribute value for it is positive (defines a max).
+    //    - At least one installed outfit has a non-zero value for it.
     //
-    //  This is fully data-driven: no key names are hardcoded.
+    //  Covers both consumers (negative outfit value) AND providers (positive
+    //  outfit value that grants extra capacity to others).
     // ─────────────────────────────────────────────────────────────────────────
 
     function _discoverCapacityKeys(ship) {
@@ -146,15 +114,12 @@ const CapacityGuard = (() => {
             const outfit = sbFindOutfit(name);
             if (!outfit) continue;
 
-            // Check both the attributes sub-object and top-level keys
             const sources = [outfit.attributes || {}, outfit];
             for (const src of sources) {
                 for (const [key, rawVal] of Object.entries(src)) {
                     if (typeof rawVal !== 'number' && typeof rawVal !== 'string') continue;
                     const n = Number(rawVal);
                     if (isNaN(n) || n === 0) continue;
-                    // Include both positive (provides capacity) and negative (consumes capacity)
-                    // values — what matters is that the ship has a positive base value for the key.
                     const shipBase = Number(attrs[key]);
                     if (!isNaN(shipBase) && shipBase > 0) keys.add(key);
                 }
@@ -163,12 +128,13 @@ const CapacityGuard = (() => {
 
         return keys;
     }
-    
+
     // ─────────────────────────────────────────────────────────────────────────
-    //  SIMULATE: compute used capacity for a hypothetical outfit list
+    //  SIMULATE USED CAPACITY
     //
-    //  outfitList: [ { name, count }, ... ]
-    //  Returns: { [capacityKey]: usedAmount }
+    //  Sums the cost (negative outfit values) across all outfits in outfitList.
+    //  Positive outfit values (providers) are handled separately in
+    //  _getEffectiveMax — they do NOT appear in the "used" total.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _simulateUsed(outfitList, capacityKeys) {
@@ -180,23 +146,19 @@ const CapacityGuard = (() => {
             const count = parseInt(entry.count) || 1;
             for (const key of capacityKeys) {
                 const effect = _getOutfitAttrVal(name, key);
-                // Negative effect = consumes capacity; positive = provides capacity
-                // Net cost = -(effect) * count
-                used[key] += (-effect) * count;
+                // Only negative values are costs; positive ones raise the ceiling
+                if (effect < 0) used[key] += (-effect) * count;
             }
         }
-
-        // Clamp to 0 minimum (negative used = surplus, not a violation)
-        for (const key of capacityKeys)
-            if (used[key] < 0) used[key] = 0;
 
         return used;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  GET MAX for a capacity key after a hypothetical attribute state
+    //  EFFECTIVE MAX
     //
-    //  hypotheticalAttrs: the ship's attributes object after the proposed change
+    //  The ceiling = ship base value + capacity granted by outfit providers.
+    //  Only positive outfit values for the key count toward the maximum.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _getEffectiveMax(key, hypotheticalAttrs, hypotheticalOutfits) {
@@ -207,15 +169,16 @@ const CapacityGuard = (() => {
             const name  = (entry.name || '').replace(/^"|"$/g, '');
             const count = parseInt(entry.count) || 1;
             const effect = _getOutfitAttrVal(name, key);
-            if (effect > 0) max += effect * count;  // only positive contributions raise the ceiling
+            if (effect > 0) max += effect * count;
         }
 
         return Math.max(0, max);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  CHECK: given a hypothetical outfit list and attribute set, return all
-    //  violations as an array of { key, used, max, over } objects.
+    //  CHECK VIOLATIONS
+    //
+    //  Returns array of { key, used, max, over } for every capacity exceeded.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _checkViolations(outfitList, capacityKeys, hypotheticalAttrs) {
@@ -223,7 +186,6 @@ const CapacityGuard = (() => {
         const used = _simulateUsed(outfitList, capacityKeys);
         const violations = [];
         for (const key of capacityKeys) {
-            // Pass outfitList so outfit-granted capacity is included in the ceiling
             const max = _getEffectiveMax(key, hypotheticalAttrs, outfitList);
             if (max <= 0) continue;
             const u = used[key];
@@ -233,10 +195,158 @@ const CapacityGuard = (() => {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
+    //  CHECK SINGLE OUTFIT ADDITION
+    //
+    //  Returns violations that would result from adding `count` copies of
+    //  `outfitName` to the current ship state.
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _checkAddViolations(ship, outfitName, count) {
+        count = count || 1;
+        const capKeys = _discoverCapacityKeys(ship);
+
+        // Build a hypothetical outfit list with the new outfit appended
+        const existing = (ship.outfits || []).map(o => ({ ...o }));
+        const existingEntry = existing.find(
+            o => (o.name || '').replace(/^"|"$/g, '') === outfitName
+        );
+        if (existingEntry) {
+            existingEntry.count = (parseInt(existingEntry.count) || 1) + count;
+        } else {
+            existing.push({ name: outfitName, count });
+        }
+
+        // Also discover any NEW capacity keys introduced by this outfit
+        // (the outfit might reference a key not yet on any installed outfit)
+        const attrs = ship.attributes || {};
+        if (typeof sbFindOutfit === 'function') {
+            const o = sbFindOutfit(outfitName);
+            if (o) {
+                const sources = [o.attributes || {}, o];
+                for (const src of sources) {
+                    for (const [key, rawVal] of Object.entries(src)) {
+                        const n = Number(rawVal);
+                        if (isNaN(n) || n === 0) continue;
+                        const shipBase = Number(attrs[key]);
+                        if (!isNaN(shipBase) && shipBase > 0) capKeys.add(key);
+                    }
+                }
+            }
+        }
+
+        if (!capKeys.size) return [];
+        return _checkViolations(existing, capKeys, attrs);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  SMART BULK REMOVAL
+    //
+    //  Called when removing outfit[i] would violate capacity because it provides
+    //  capacity that other outfits depend on.
+    //
+    //  Algorithm:
+    //    1. Determine how many copies of outfit[i] are genuinely needed to keep
+    //       all other outfits legal (binary search over count 0..oldCount).
+    //    2. If minNeeded === oldCount → none can be removed → show hard block.
+    //    3. If minNeeded < oldCount  → remove (oldCount - minNeeded) copies,
+    //       update the outfit count (or remove entirely if minNeeded === 0),
+    //       then show an info modal explaining what happened.
+    //
+    //  Returns true if any removal was performed (caller should not call
+    //  the original function), false if nothing was changed.
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _smartBulkRemove(ship, i, originalFn) {
+        const outfits    = ship.outfits || [];
+        const target     = outfits[i];
+        const targetName = (target.name || '').replace(/^"|"$/g, '');
+        const oldCount   = parseInt(target.count) || 1;
+        const capKeys    = _discoverCapacityKeys(ship);
+
+        // Find the minimum number of copies needed so remaining outfits don't violate.
+        // We binary-search keepCount in [0, oldCount-1].
+        // keepCount = number of this outfit we KEEP.
+        let minNeeded = oldCount; // pessimistic start
+
+        for (let keepCount = 0; keepCount < oldCount; keepCount++) {
+            // Hypothetical outfit list: outfit[i] has keepCount copies
+            const hypo = outfits.map((o, idx) => {
+                if (idx !== i) return { ...o };
+                return { ...o, count: keepCount };
+            }).filter(o => (parseInt(o.count) || 0) > 0);
+
+            const violations = _checkViolations(hypo, capKeys, ship.attributes || {});
+            if (!violations.length) {
+                minNeeded = keepCount;
+                break;
+            }
+        }
+
+        if (minNeeded === oldCount) {
+            // Cannot remove any — hard block
+            const violations = _checkViolations(
+                outfits.filter((_, idx) => idx !== i).map(o => ({ ...o })),
+                capKeys,
+                ship.attributes || {}
+            );
+            _showModal(`remove "${targetName}"`, violations, null);
+            _highlightViolations(violations.map(v => v.key));
+            _sbsRefresh();
+            return true; // blocked — caller must not proceed
+        }
+
+        const removedCount = oldCount - minNeeded;
+
+        if (minNeeded === 0) {
+            // Can remove all — call original to remove entirely
+            originalFn.call(window, i);
+        } else {
+            // Reduce count to minNeeded
+            // Update directly on ship.outfits then call sbUpdateOutfitCount if available
+            if (typeof sbUpdateOutfitCount === 'function') {
+                // Temporarily bypass the guard wrapper by calling the stored original
+                // We need the raw shipBuilder function here.  Since we wrapped it,
+                // we call it via the CapacityGuard bypass path: set count directly.
+                ship.outfits[i].count = minNeeded;
+                // Re-render the outfit list if the builder exposes a render function
+                if (typeof sbRenderOutfits === 'function') sbRenderOutfits();
+                else if (typeof renderOutfits === 'function') renderOutfits();
+            } else {
+                ship.outfits[i].count = minNeeded;
+            }
+        }
+
+        // Show info modal
+        _showModal(
+            null,
+            null,
+            {
+                type:    'partial',
+                name:    targetName,
+                removed: removedCount,
+                kept:    minNeeded,
+            }
+        );
+
+        _sbsRefresh();
+        return true;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  SBS REFRESH HELPER
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _sbsRefresh() {
+        if (typeof SBS !== 'undefined' && typeof SBS.refresh === 'function')
+            SBS.refresh();
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
     //  GUARD: sbRemoveOutfit(i)
     //
-    //  Simulate removing outfit[i] entirely and check if remaining outfits
-    //  still fit within the (possibly reduced) capacity.
+    //  If the outfit being removed provides capacity, attempt smart bulk removal.
+    //  If it only consumes capacity (or has no capacity effect), still check
+    //  that removing it doesn't somehow violate limits.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _guardRemoveOutfit(originalFn) {
@@ -248,63 +358,47 @@ const CapacityGuard = (() => {
             const target  = outfits[i];
             if (!target) return originalFn.call(this, i);
 
-            // Build hypothetical outfit list without outfit[i]
+            const targetName  = (target.name || '').replace(/^"|"$/g, '');
+            const capKeys     = _discoverCapacityKeys(ship);
+
+            // Check if this outfit provides capacity for any key
+            const providesCapacity = [...capKeys].some(
+                key => _getOutfitAttrVal(targetName, key) > 0
+            );
+
             const hypotheticalOutfits = outfits
                 .filter((_, idx) => idx !== i)
                 .map(o => ({ ...o }));
 
-            // Capacity keys from the ORIGINAL list (in case the removed outfit
-            // itself provides capacity — that's the dangerous case)
-            const capKeys = _discoverCapacityKeys(ship);
-
-            // We also need to include keys provided by the outfit being removed
-            // that are positive (i.e. it was granting capacity to others).
-            // These are found by checking the outfit for positive values of any
-            // key that other outfits consume.
-            const removedName = (target.name || '').replace(/^"|"$/g, '');
-            const removedCount = parseInt(target.count) || 1;
-
-            // After removal, the effective max for each key changes if the outfit
-            // was providing extra capacity via positive attribute values.
-            // We simulate the post-removal attribute state by computing net attr
-            // contributions.  Since the ship's BASE attributes are in
-            // ship.attributes, and outfits can ALSO add to capacity attributes
-            // (positive effect = grants capacity), we need the post-removal net.
-            //
-            // Approach: use the existing ship.attributes as the base max, but
-            // also factor in any capacity granted by outfits that REMAIN.
-            // The existing sbShipCapacity() reads ship.attributes only, which
-            // is correct since outfit-granted capacity is already included in
-            // sbUsedCapacity's net calculation.  We replicate that here.
-
             const violations = _checkViolations(
-                hypotheticalOutfits,
-                capKeys,
-                ship.attributes || {}
+                hypotheticalOutfits, capKeys, ship.attributes || {}
             );
 
-            if (violations.length) {
-                _showModal(`remove "${removedName}"`, violations);
-                _highlightViolations(violations.map(v => v.key));
-                // Trigger SBS refresh so highlights appear in the panel
-                if (typeof SBS !== 'undefined' && typeof SBS.refresh === 'function')
-                    SBS.refresh();
-                return; // block
+            if (!violations.length) {
+                // No violation — allow normally
+                return originalFn.call(this, i);
             }
 
-            return originalFn.call(this, i);
+            if (providesCapacity) {
+                // Smart bulk removal: remove as many copies as safely possible
+                _smartBulkRemove(ship, i, originalFn);
+                return;
+            }
+
+            // Hard block — outfit consumes capacity and removal would still violate
+            // (this is unusual but possible with complex multi-key interactions)
+            _showModal(`remove "${targetName}"`, violations, null);
+            _highlightViolations(violations.map(v => v.key));
+            _sbsRefresh();
         };
     }
 
     // ─────────────────────────────────────────────────────────────────────────
     //  GUARD: sbUpdateOutfitCount(i, newCount)
     //
-    //  Only intercepts DECREASES. Increasing is already guarded by
-    //  sbCheckOutfitSpace in shipBuilder.js.
-    //
-    //  A decrease matters when the outfit being reduced PROVIDES capacity
-    //  (positive value for a capacity key), because reducing its count shrinks
-    //  the effective maximum available to other outfits.
+    //  Decreases: check if reducing a provider shrinks the max below used.
+    //             Use smart bulk logic if the outfit is a provider.
+    //  Increases: check if adding more of a consumer would exceed capacity.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _guardUpdateOutfitCount(originalFn) {
@@ -312,50 +406,204 @@ const CapacityGuard = (() => {
             const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
             if (!ship) return originalFn.call(this, i, newCountRaw);
 
-            const newCount = parseInt(newCountRaw) || 1;
+            const newCount = Math.max(1, parseInt(newCountRaw) || 1);
             const outfits  = ship.outfits || [];
             const target   = outfits[i];
             if (!target) return originalFn.call(this, i, newCountRaw);
 
-            const oldCount = parseInt(target.count) || 1;
+            const oldCount   = parseInt(target.count) || 1;
+            const targetName = (target.name || '').replace(/^"|"$/g, '');
 
-            // Only guard decreases
-            if (newCount >= oldCount) return originalFn.call(this, i, newCountRaw);
+            if (newCount === oldCount) return originalFn.call(this, i, newCountRaw);
 
-            // Build hypothetical list with the new count
             const hypotheticalOutfits = outfits.map((o, idx) =>
                 idx === i ? { ...o, count: newCount } : { ...o }
             );
-
             const capKeys = _discoverCapacityKeys(ship);
+
+            // For an increase, also discover new keys the added copies might introduce
+            if (newCount > oldCount && typeof sbFindOutfit === 'function') {
+                const o = sbFindOutfit(targetName);
+                if (o) {
+                    const attrs = ship.attributes || {};
+                    for (const src of [o.attributes || {}, o]) {
+                        for (const [key, rawVal] of Object.entries(src)) {
+                            const n = Number(rawVal);
+                            if (isNaN(n) || n === 0) continue;
+                            const shipBase = Number(attrs[key]);
+                            if (!isNaN(shipBase) && shipBase > 0) capKeys.add(key);
+                        }
+                    }
+                }
+            }
+
             const violations = _checkViolations(
-                hypotheticalOutfits,
-                capKeys,
-                ship.attributes || {}
+                hypotheticalOutfits, capKeys, ship.attributes || {}
             );
 
-            if (violations.length) {
-                const targetName = (target.name || '').replace(/^"|"$/g, '');
-                _showModal(`reduce "${targetName}" to ${newCount}`, violations);
-                _highlightViolations(violations.map(v => v.key));
-                // Reset the count input back to its old value
+            if (!violations.length) return originalFn.call(this, i, newCountRaw);
+
+            if (newCount < oldCount) {
+                // Decrease violation — try smart partial removal
+                _smartBulkRemove(ship, i, (idx) => {
+                    // originalFn for full removal — only reached if minNeeded===0
+                    originalFn.call(window, idx);
+                });
+            } else {
+                // Increase violation — hard block
+                _showModal(`increase "${targetName}" to ${newCount}`, violations, null);
                 const inputs = document.querySelectorAll('.outfit-item__count');
                 if (inputs[i]) inputs[i].value = oldCount;
-                if (typeof SBS !== 'undefined' && typeof SBS.refresh === 'function')
-                    SBS.refresh();
+                _highlightViolations(violations.map(v => v.key));
+                _sbsRefresh();
+            }
+        };
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  GUARD: sbAddOutfitFromPicker / confirmAddOutfit
+    //
+    //  Intercepts the two pathways by which a new outfit is added so that
+    //  adding an outfit that would exceed any capacity is blocked upfront.
+    //
+    //  Both functions are wrapped identically — they are called with no
+    //  arguments (they read picker state internally), so we re-read the
+    //  selected outfit name from the picker before checking.
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _guardAddOutfit(originalFn) {
+        return function(...args) {
+            const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
+            if (!ship) return originalFn.apply(this, args);
+
+            // Try to determine the outfit being added.
+            // The picker typically sets a global like sbSelectedOutfit or
+            // stores the name in a data attribute on the confirm button.
+            let outfitName = null;
+            if (typeof sbSelectedOutfit !== 'undefined' && sbSelectedOutfit)
+                outfitName = String(sbSelectedOutfit).replace(/^"|"$/g, '').trim();
+            if (!outfitName) {
+                const btn = document.getElementById('confirm-add-outfit');
+                outfitName = btn?.dataset?.outfitName?.replace(/^"|"$/g, '').trim() || null;
+            }
+            if (!outfitName) {
+                // Can't determine outfit — allow and let shipBuilder validate
+                return originalFn.apply(this, args);
+            }
+
+            const violations = _checkAddViolations(ship, outfitName, 1);
+            if (violations.length) {
+                _showModal(`add "${outfitName}"`, violations, null);
+                _highlightViolations(violations.map(v => v.key));
+                _sbsRefresh();
                 return; // block
             }
 
-            return originalFn.call(this, i, newCountRaw);
+            return originalFn.apply(this, args);
+        };
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  GUARD: addGunTurret(type)
+    //
+    //  Adding a gun port or turret mount consumes weapon capacity.
+    //  The function is called with a type string ('gun' or 'turret').
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _guardAddGunTurret(originalFn) {
+        return function(type, ...rest) {
+            const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
+            if (!ship) return originalFn.call(this, type, ...rest);
+
+            // Determine which attribute this port type consumes.
+            // The game uses "gun ports" and "turret mounts" as capacity keys.
+            const keyMap = {
+                gun:    'gun ports',
+                turret: 'turret mounts',
+            };
+            const costKey = keyMap[(type || '').toLowerCase()];
+            if (!costKey) return originalFn.call(this, type, ...rest);
+
+            const attrs   = ship.attributes || {};
+            const current = Number(attrs[costKey]) || 0;
+            // Count currently used ports of this type from ship hardpoints
+            const hpArray = ship.hardpoints || ship.guns || ship.turrets || [];
+            // Fallback: count from ship's existing gun/turret attributes
+            // The ship builder tracks gun/turret counts separately; if we can
+            // read them, compare directly.
+            const usedKey   = type === 'gun' ? 'guns' : 'turrets';
+            const usedCount = Number(attrs[usedKey]) || 0;
+            const maxCount  = current;
+
+            if (maxCount > 0 && usedCount >= maxCount) {
+                _showModal(
+                    `add ${type} port`,
+                    [{ key: costKey, used: usedCount + 1, max: maxCount, over: 1 }],
+                    null
+                );
+                _highlightViolations([costKey]);
+                _sbsRefresh();
+                return; // block
+            }
+
+            return originalFn.call(this, type, ...rest);
+        };
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  GUARD: confirmAddAttr
+    //
+    //  Adding a ship attribute that costs capacity (e.g. a negative-valued
+    //  attribute, or one that reduces an existing maximum).
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _guardConfirmAddAttr(originalFn) {
+        return function(...args) {
+            const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
+            if (!ship) return originalFn.apply(this, args);
+
+            // Read the key and value from the add-attr form
+            const keyInput = document.getElementById('new-attr-key')
+                          || document.querySelector('[data-attr-key-input]');
+            const valInput = document.getElementById('new-attr-value')
+                          || document.querySelector('[data-attr-val-input]');
+
+            const key = keyInput?.value?.trim() || '';
+            const val = parseFloat(valInput?.value);
+
+            if (!key || isNaN(val)) return originalFn.apply(this, args);
+
+            // If the new attribute is being ADDED to the ship (not already present),
+            // simulate the post-add state and check capacity
+            const hypotheticalAttrs = { ...(ship.attributes || {}), [key]: val };
+            const outfits  = ship.outfits || [];
+            const capKeys  = _discoverCapacityKeys(ship);
+
+            // If new attr introduces a new capacity key with a positive value,
+            // that's fine (increases max). If it's negative or reduces an existing
+            // positive value, check.
+            const existingVal = Number((ship.attributes || {})[key]);
+            const isReduction = !isNaN(existingVal) && val < existingVal;
+            const isNewNeg    = isNaN(existingVal) && val < 0;
+
+            if (!isReduction && !isNewNeg) return originalFn.apply(this, args);
+
+            if (capKeys.has(key) || isReduction) {
+                const violations = _checkViolations(outfits, new Set([...capKeys, key]), hypotheticalAttrs);
+                if (violations.length) {
+                    _showModal(`set "${key}" to ${val}`, violations, null);
+                    _highlightViolations(violations.map(v => v.key));
+                    _sbsRefresh();
+                    return; // block
+                }
+            }
+
+            return originalFn.apply(this, args);
         };
     }
 
     // ─────────────────────────────────────────────────────────────────────────
     //  GUARD: sbRemoveAttr(key)
-    //
-    //  If the attribute being removed is one that defines a capacity maximum
-    //  (e.g. "outfit space", "engine capacity", or any modded equivalent),
-    //  simulate setting it to 0 and check if installed outfits would violate.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _guardRemoveAttr(originalFn) {
@@ -363,50 +611,36 @@ const CapacityGuard = (() => {
             const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
             if (!ship) return originalFn.call(this, key);
 
-            // Check if this key is currently a positive capacity attribute on the ship
             const currentVal = Number((ship.attributes || {})[key]);
-            if (isNaN(currentVal) || currentVal <= 0) {
-                // Not a capacity-defining attribute — allow freely
+            if (isNaN(currentVal) || currentVal <= 0)
                 return originalFn.call(this, key);
-            }
 
-            // Simulate attributes with this key removed
             const hypotheticalAttrs = { ...(ship.attributes || {}) };
             delete hypotheticalAttrs[key];
 
-            const outfits = ship.outfits || [];
-            const capKeys = _discoverCapacityKeys(ship);
-
-            // Build keysToCheck BEFORE any early-exit so the removed key is always
-            // included even if no outfit currently references it (fixes bug 2).
+            const outfits     = ship.outfits || [];
+            const capKeys     = _discoverCapacityKeys(ship);
             const keysToCheck = new Set([...capKeys, key]);
 
-            // Now safe to skip if there is genuinely nothing to check
             if (!keysToCheck.size) return originalFn.call(this, key);
 
-            const violations = _checkViolations(
-                outfits,
-                keysToCheck,
-                hypotheticalAttrs
-            );
-
+            const violations = _checkViolations(outfits, keysToCheck, hypotheticalAttrs);
             if (violations.length) {
-                _showModal(`remove attribute "${key}"`, violations);
+                _showModal(`remove attribute "${key}"`, violations, null);
                 _highlightViolations(violations.map(v => v.key));
-                if (typeof SBS !== 'undefined' && typeof SBS.refresh === 'function')
-                    SBS.refresh();
-                return; // block
+                _sbsRefresh();
+                return;
             }
 
             return originalFn.call(this, key);
         };
     }
-    
+
     // ─────────────────────────────────────────────────────────────────────────
-    //  GUARD: sbUpdateAttrVal — intercept REDUCTIONS of capacity attributes
+    //  GUARD: sbUpdateAttrVal(inp)
     //
-    //  If a capacity attribute (e.g. "outfit space") is being reduced to a
-    //  value lower than what installed outfits need, block it.
+    //  Guards both REDUCTIONS (existing) and INCREASES that cost capacity
+    //  (e.g. increasing a cost-type attribute that counts against a limit).
     // ─────────────────────────────────────────────────────────────────────────
 
     function _guardUpdateAttrVal(originalFn) {
@@ -414,35 +648,39 @@ const CapacityGuard = (() => {
             const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
             if (!ship) return originalFn.call(this, inp);
 
-            const key      = inp.dataset.key;
-            const newVal   = parseFloat(inp.value);
-            const oldVal   = parseFloat((ship.attributes || {})[key]);
+            const key    = inp.dataset.key;
+            const newVal = parseFloat(inp.value);
+            const oldVal = parseFloat((ship.attributes || {})[key]);
 
-            // Only guard if: key exists, is numeric, and new value is LESS
-            if (!key || isNaN(newVal) || isNaN(oldVal) || newVal >= oldVal) {
+            if (!key || isNaN(newVal) || isNaN(oldVal) || newVal === oldVal)
                 return originalFn.call(this, inp);
-            }
 
-            // Simulate the reduced attribute value
             const hypotheticalAttrs = { ...(ship.attributes || {}), [key]: newVal };
-            const outfits  = ship.outfits || [];
-            const capKeys  = _discoverCapacityKeys(ship);
+            const outfits = ship.outfits || [];
+            const capKeys = _discoverCapacityKeys(ship);
 
-            if (!capKeys.has(key)) {
-                // Not a capacity key — allow
-                return originalFn.call(this, inp);
+            // Reduction of a capacity-providing attribute
+            if (newVal < oldVal && capKeys.has(key)) {
+                const violations = _checkViolations(outfits, capKeys, hypotheticalAttrs);
+                if (violations.length) {
+                    _showModal(`reduce "${key}" to ${newVal}`, violations, null);
+                    inp.value = String(oldVal);
+                    _highlightViolations(violations.map(v => v.key));
+                    _sbsRefresh();
+                    return;
+                }
             }
 
-            const violations = _checkViolations(outfits, capKeys, hypotheticalAttrs);
-
-            if (violations.length) {
-                _showModal(`reduce "${key}" to ${newVal}`, violations);
-                // Restore input to old value
-                inp.value = String(oldVal);
-                _highlightViolations(violations.map(v => v.key));
-                if (typeof SBS !== 'undefined' && typeof SBS.refresh === 'function')
-                    SBS.refresh();
-                return; // block
+            // Increase of a capacity-consuming attribute (e.g. increasing a cost field)
+            if (newVal > oldVal) {
+                const violations = _checkViolations(outfits, capKeys, hypotheticalAttrs);
+                if (violations.length) {
+                    _showModal(`increase "${key}" to ${newVal}`, violations, null);
+                    inp.value = String(oldVal);
+                    _highlightViolations(violations.map(v => v.key));
+                    _sbsRefresh();
+                    return;
+                }
             }
 
             return originalFn.call(this, inp);
@@ -450,18 +688,12 @@ const CapacityGuard = (() => {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  INJECT CSS for sbs-card--violation if not already present
-    // ─────────────────────────────────────────────────────────────────────────
-
-    // ─────────────────────────────────────────────────────────────────────────
-    //  MODAL  — matches the existing modal-box / modal-header / confirm-text
-    //  style used by modal-confirm in shipBuilder.html
+    //  STYLES & MODAL
     // ─────────────────────────────────────────────────────────────────────────
 
     const MODAL_ID = 'modal-cap-guard';
 
     function _injectStyles() {
-        // ── CSS ────────────────────────────────────────────────────────────
         if (!document.getElementById('cap-guard-styles')) {
             const style = document.createElement('style');
             style.id = 'cap-guard-styles';
@@ -504,6 +736,18 @@ const CapacityGuard = (() => {
     white-space: nowrap;
     margin-left: 12px;
 }
+#modal-cap-guard .cap-guard-partial-info {
+    padding: 10px 14px;
+    border-radius: var(--r-sm, 6px);
+    background: rgba(129, 200, 252, 0.10);
+    border: 1px solid rgba(129, 200, 252, 0.25);
+    font-size: 0.86rem;
+    color: var(--c-text-mid, #cbd5e0);
+    margin-bottom: 12px;
+}
+#modal-cap-guard .cap-guard-partial-info strong {
+    color: var(--c-info-hi, #90cdf4);
+}
 #modal-cap-guard .cap-guard-hint {
     font-size: 0.82rem;
     color: var(--c-text-muted, #64748b);
@@ -512,19 +756,20 @@ const CapacityGuard = (() => {
             document.head.appendChild(style);
         }
 
-        // ── Modal HTML ────────────────────────────────────────────────────
         if (!document.getElementById(MODAL_ID)) {
             const wrap = document.createElement('div');
             wrap.innerHTML = `
 <div id="modal-cap-guard" class="modal-overlay">
-  <div class="modal-box" style="width:min(420px,96vw);">
+  <div class="modal-box" style="width:min(440px,96vw);">
     <div class="modal-header">
       <div class="modal-title" id="cap-guard-modal-title">Cannot Make Change</div>
-      <button class="modal-close" onclick="document.getElementById('modal-cap-guard').classList.remove('active')">×</button>
+      <button class="modal-close"
+        onclick="document.getElementById('modal-cap-guard').classList.remove('active')">×</button>
     </div>
     <p class="confirm-text" id="cap-guard-modal-action" style="margin-bottom:12px;"></p>
+    <div id="cap-guard-modal-partial"></div>
     <ul class="cap-guard-violations" id="cap-guard-modal-list"></ul>
-    <p class="cap-guard-hint">Remove other outfits first to free up space.</p>
+    <p class="cap-guard-hint" id="cap-guard-modal-hint"></p>
     <div class="btn-group btn-group-right" style="margin-top:16px;">
       <button class="btn btn-secondary"
         onclick="document.getElementById('modal-cap-guard').classList.remove('active')">OK</button>
@@ -532,63 +777,105 @@ const CapacityGuard = (() => {
   </div>
 </div>`;
             document.body.appendChild(wrap.firstElementChild);
-
-            // Close on backdrop click — same behaviour as other modals
             document.getElementById(MODAL_ID).addEventListener('click', function(e) {
                 if (e.target === this) this.classList.remove('active');
             });
         }
     }
 
-    // Show the capacity-guard modal with the given action description and violations
-    function _showModal(actionDesc, violations) {
-        _injectStyles(); // ensure modal exists (safe to call multiple times)
+    // ─────────────────────────────────────────────────────────────────────────
+    //  SHOW MODAL
+    //
+    //  Three modes:
+    //    1. Hard block:   actionDesc + violations list
+    //    2. Partial:      partialInfo object { type:'partial', name, removed, kept }
+    //    3. Both:         not currently used but supported
+    // ─────────────────────────────────────────────────────────────────────────
 
-        const titleEl  = document.getElementById('cap-guard-modal-title');
-        const actionEl = document.getElementById('cap-guard-modal-action');
-        const listEl   = document.getElementById('cap-guard-modal-list');
+    function _showModal(actionDesc, violations, partialInfo) {
+        _injectStyles();
 
-        if (titleEl)  titleEl.textContent  = 'Cannot Make Change';
-        if (actionEl) actionEl.textContent = `This action would exceed capacity: ${actionDesc}`;
+        const titleEl   = document.getElementById('cap-guard-modal-title');
+        const actionEl  = document.getElementById('cap-guard-modal-action');
+        const listEl    = document.getElementById('cap-guard-modal-list');
+        const partialEl = document.getElementById('cap-guard-modal-partial');
+        const hintEl    = document.getElementById('cap-guard-modal-hint');
 
-        if (listEl) {
-            listEl.innerHTML = violations.map(v => {
-                const name = v.key.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-                return `<li>
-                    <span class="cgv-name">${name}</span>
-                    <span class="cgv-nums">${v.used.toFixed(0)} used / ${v.max.toFixed(0)} max &nbsp;(${v.over.toFixed(0)} over)</span>
-                </li>`;
-            }).join('');
+        // Reset all sections
+        if (partialEl) partialEl.innerHTML = '';
+        if (listEl)    listEl.innerHTML    = '';
+        if (hintEl)    hintEl.textContent  = '';
+        if (actionEl)  actionEl.textContent = '';
+
+        if (partialInfo && partialInfo.type === 'partial') {
+            // Partial removal info modal
+            if (titleEl)  titleEl.textContent = 'Partial Removal';
+            if (actionEl) actionEl.textContent =
+                `Not all copies of "${partialInfo.name}" could be removed.`;
+
+            if (partialEl) {
+                const keptLine = partialInfo.kept > 0
+                    ? `<strong>${partialInfo.kept}</strong> cop${partialInfo.kept === 1 ? 'y' : 'ies'} must remain to support other installed outfits.`
+                    : '';
+                partialEl.innerHTML = `
+<div class="cap-guard-partial-info">
+  <strong>${partialInfo.removed}</strong> cop${partialInfo.removed === 1 ? 'y' : 'ies'} of
+  "${partialInfo.name}" ${partialInfo.removed === 1 ? 'was' : 'were'} removed.
+  ${keptLine}
+</div>`;
+            }
+            if (hintEl) hintEl.textContent =
+                'Remove outfits that depend on this capacity first to free up more.';
+
+        } else {
+            // Hard block modal
+            if (titleEl)  titleEl.textContent  = 'Cannot Make Change';
+            if (actionEl) actionEl.textContent =
+                `This action would exceed capacity: ${actionDesc}`;
+
+            if (listEl && violations && violations.length) {
+                listEl.innerHTML = violations.map(v => {
+                    const name = v.key.split(' ')
+                        .map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                    return `<li>
+                        <span class="cgv-name">${name}</span>
+                        <span class="cgv-nums">${v.used.toFixed(0)} used / ${v.max.toFixed(0)} max &nbsp;(${v.over.toFixed(0)} over)</span>
+                    </li>`;
+                }).join('');
+            }
+            if (hintEl) hintEl.textContent =
+                'Remove other outfits first to free up space.';
         }
 
         document.getElementById(MODAL_ID).classList.add('active');
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  INSTALL — wraps the four global functions from shipBuilder.js
+    //  INSTALL
     // ─────────────────────────────────────────────────────────────────────────
 
     function install() {
         _injectStyles();
 
-        if (typeof window.sbRemoveOutfit === 'function')
-            window.sbRemoveOutfit = _guardRemoveOutfit(window.sbRemoveOutfit);
+        const wrap = (name, guardFn) => {
+            if (typeof window[name] === 'function') {
+                window[name] = guardFn(window[name]);
+                return true;
+            }
+            return false;
+        };
 
-        if (typeof window.sbUpdateOutfitCount === 'function')
-            window.sbUpdateOutfitCount = _guardUpdateOutfitCount(window.sbUpdateOutfitCount);
+        wrap('sbRemoveOutfit',        _guardRemoveOutfit);
+        wrap('sbUpdateOutfitCount',   _guardUpdateOutfitCount);
+        wrap('sbRemoveAttr',          _guardRemoveAttr);
+        wrap('sbUpdateAttrVal',       _guardUpdateAttrVal);
+        wrap('sbAddOutfitFromPicker', _guardAddOutfit);
+        wrap('confirmAddOutfit',      _guardAddOutfit);
+        wrap('addGunTurret',          _guardAddGunTurret);
+        wrap('confirmAddAttr',        _guardConfirmAddAttr);
 
-        if (typeof window.sbRemoveAttr === 'function')
-            window.sbRemoveAttr = _guardRemoveAttr(window.sbRemoveAttr);
-
-        if (typeof window.sbUpdateAttrVal === 'function')
-            window.sbUpdateAttrVal = _guardUpdateAttrVal(window.sbUpdateAttrVal);
-
-        console.log('[CapacityGuard] Installed on sbRemoveOutfit, sbUpdateOutfitCount, sbRemoveAttr, sbUpdateAttrVal.');
+        console.log('[CapacityGuard] Installed on 8 functions.');
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    //  PUBLIC API
-    // ─────────────────────────────────────────────────────────────────────────
 
     return { install };
 
