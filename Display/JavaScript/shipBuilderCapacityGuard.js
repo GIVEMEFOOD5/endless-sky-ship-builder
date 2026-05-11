@@ -36,8 +36,12 @@
 //                                would leave outfits over their limit.
 //
 //  Additions:
-//    sbAddOutfitFromPicker()     Already guarded by sbCheckOutfitSpace inside
-//    confirmAddOutfit()          shipBuilder — we wrap to refresh SBS panel.
+//    sbAddOutfitFromPicker()     Two-pass check: sbCheckOutfitSpace handles the
+//    confirmAddOutfit()          four capacity keys; we add a second pass that
+//                                checks every other attribute the outfit affects
+//                                (e.g. heat dissipation) and blocks if any would
+//                                go illegally negative. Sign rules come from
+//                                AttrValidation so nothing is hardcoded.
 //    addGunTurret(type)          Blocks adding gun/turret hardpoints beyond
 //                                the ship's gun ports / turret mounts attr.
 //    confirmAddAttr()            Blocks setting a capacity attr to a value
@@ -433,15 +437,146 @@ const CapacityGuard = (() => {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
+    //  ATTRIBUTE-LEVEL ADDITION CHECK
+    //
+    //  sbCheckOutfitSpace (inside shipBuilder) only checks the four capacity
+    //  keys. It has no knowledge of attributes like heat dissipation that can
+    //  be driven negative by outfit effects (e.g. "Outfitter Expansion").
+    //
+    //  This function computes the net effect on EVERY attribute of adding
+    //  `count` copies of `outfitName` to the current ship, then checks
+    //  whether any attribute that must stay non-negative would go negative.
+    //
+    //  Sign rules come from AttrValidation.getRule (shipBuilderAttrValidation.js)
+    //  so we never hardcode attribute names here.
+    //
+    //  Returns array of { key, currentNet, wouldBe, deficit } for violations.
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _checkAttrViolationsOnAdd(outfitName, count) {
+        if (!sbCurrentShip) return [];
+
+        const outfit = sbFindOutfit(outfitName);
+        if (!outfit) return [];
+
+        // Collect every numeric attribute the outfit touches
+        const outfitAttrs = {};
+        for (const src of [outfit.attributes || {}, outfit]) {
+            for (const [k, v] of Object.entries(src)) {
+                const n = Number(v);
+                if (!isNaN(n) && n !== 0) outfitAttrs[k] = n;
+            }
+        }
+
+        if (!Object.keys(outfitAttrs).length) return [];
+
+        const violations = [];
+
+        for (const [key, perUnitEffect] of Object.entries(outfitAttrs)) {
+            // Skip non-attribute fields
+            if (['name','displayName','category','cost','thumbnail','sprite',
+                 'description','pluginId','weapon','_pn','_pd'].includes(key)) continue;
+
+            const totalEffect = perUnitEffect * count;
+
+            // Only care about effects that make an attribute DECREASE
+            if (totalEffect >= 0) continue;
+
+            // Compute the current net value of this attribute on the ship
+            // = ship base value + sum of all currently installed outfit contributions
+            const shipBase = Number((sbCurrentShip.attributes || {})[key]) || 0;
+            let outfitNet = 0;
+            for (const entry of (sbCurrentShip.outfits || [])) {
+                const n = (entry.name || '').replace(/^"|"$/g, '');
+                const c = parseInt(entry.count) || 1;
+                outfitNet += sbGetOutfitAttrValue(n, key) * c;
+            }
+            const currentNet = shipBase + outfitNet;
+            const wouldBe    = currentNet + totalEffect;
+
+            // Only flag if the result would be negative AND the attribute must
+            // stay non-negative according to AttrValidation rules
+            if (wouldBe >= 0) continue;
+
+            // Use AttrValidation if available, otherwise default to min=0
+            let min = 0;
+            if (typeof AttrValidation !== 'undefined' && typeof AttrValidation.getRule === 'function') {
+                const rule = AttrValidation.getRule(key);
+                // If min is null the attribute is allowed to go negative — skip
+                if (rule.min === null) continue;
+                min = rule.min;
+            }
+
+            if (wouldBe < min) {
+                violations.push({
+                    key,
+                    currentNet,
+                    wouldBe,
+                    deficit: min - wouldBe,
+                });
+            }
+        }
+
+        return violations;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
     //  GUARD: sbAddOutfitFromPicker / confirmAddOutfit
     //
-    //  shipBuilder already calls sbCheckOutfitSpace inside these functions.
-    //  We only wrap them to ensure the SBS panel refreshes after a block so
-    //  the capacity bars stay in sync with what the user sees.
+    //  sbCheckOutfitSpace (called inside the original functions) handles the
+    //  four capacity keys. We add a second pass here that checks every other
+    //  attribute the outfit affects, blocking if any would go illegally negative.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _guardAddOutfit(originalFn) {
         return function(...args) {
+            const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
+            if (!ship) return originalFn.apply(this, args);
+
+            // Determine outfit name and count from whichever modal is active.
+            // sbAddOutfitFromPicker encodes payload in args[0] (base64 JSON).
+            // confirmAddOutfit reads directly from DOM inputs.
+            let outfitName = null;
+            let count      = 1;
+
+            if (args[0] && typeof args[0] === 'string') {
+                // sbAddOutfitFromPicker path
+                try {
+                    const payload = JSON.parse(decodeURIComponent(escape(atob(args[0]))));
+                    outfitName = (payload.name || '').replace(/^"|"$/g, '').trim();
+                } catch(e) {}
+                const countEl = document.getElementById('sb-outfit-count-input');
+                count = parseInt(countEl?.value) || 1;
+            } else {
+                // confirmAddOutfit path
+                const nameEl  = document.getElementById('new-outfit-name');
+                const countEl = document.getElementById('new-outfit-count');
+                outfitName = (nameEl?.value || '').trim().replace(/^"|"$/g, '');
+                count      = parseInt(countEl?.value) || 1;
+            }
+
+            if (!outfitName) return originalFn.apply(this, args);
+
+            // Check non-capacity attribute violations (capacity is handled by
+            // sbCheckOutfitSpace inside the original function)
+            const attrViolations = _checkAttrViolationsOnAdd(outfitName, count);
+
+            if (attrViolations.length) {
+                _showModal(
+                    `add ${count > 1 ? count + '× ' : ''}"${outfitName}"`,
+                    attrViolations.map(v => ({
+                        key:  v.key,
+                        used: -v.wouldBe,          // how far below zero it would go
+                        max:  Math.max(0, v.currentNet), // current value (the "budget")
+                        over: v.deficit,
+                    })),
+                    null
+                );
+                _highlightViolations(attrViolations.map(v => v.key));
+                _sbsRefresh();
+                return; // block — do not call original
+            }
+
             const result = originalFn.apply(this, args);
             _sbsRefresh();
             return result;
