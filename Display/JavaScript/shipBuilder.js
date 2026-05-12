@@ -334,16 +334,12 @@ function sbShipFromParsed(src) {
   if (rawMass != null && rawMass !== '') s.mass = String(rawMass);
   if (rawDrag != null && rawDrag !== '') s.drag = String(rawDrag);
 
-  // FIX: preserve pluginId on each outfit so ComputedStats can find
-  // outfit attribute data in the correct plugin index.
   const sourcePluginId = src._pn || src._pluginName || null;
   const outfitSource = src.outfits || src.outfitMap;
   if (outfitSource && typeof outfitSource === 'object' && !Array.isArray(outfitSource)) {
-    // Map format from remote plugin JSON
     for (const [n, val] of Object.entries(outfitSource)) {
       const cleanName = n.replace(/^"|"$/g, '');
       const count    = typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1);
-      // FIX: use the outfit's own pluginId if set, else fall back to the ship's source plugin
       const pluginId = (typeof val === 'object' && val.pluginId) ? val.pluginId : sourcePluginId;
       s.outfits.push({ name: cleanName, count, pluginId });
     }
@@ -372,7 +368,7 @@ function sbShipFromParsed(src) {
   for (const e of (src.engines || [])) {
     s.engines.push({
       coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0',
-      zoom:   e.zoom != null ? String(e.zoom) : '',
+      zoom:   e.zoom  != null ? String(e.zoom)  : '',
       angle:  e.angle != null ? String(e.angle) : '',
     });
   }
@@ -387,6 +383,8 @@ function sbShipFromParsed(src) {
     }
   }
 
+  // ── Leaks ──────────────────────────────────────────────────────────────────
+  // Array format: src.leaks = [ { name, count } | "name count", ... ]
   for (const l of (src.leaks || [])) {
     if (typeof l === 'string') {
       const tok = l.trim().match(/^("([^"]+)"|(\S+))/);
@@ -398,6 +396,7 @@ function sbShipFromParsed(src) {
     }
   }
 
+  // ── Explode ────────────────────────────────────────────────────────────────
   const explodeSrc = src.explode || [];
   for (const e of explodeSrc) {
     s.explode.push({
@@ -405,17 +404,54 @@ function sbShipFromParsed(src) {
       count: e.count || 1,
     });
   }
+  // Named explosion keys (both remote plugin JSON and ES parser formats)
   for (const key of ['tiny explosion','small explosion','medium explosion','large explosion','huge explosion']) {
     if (src[key] != null) s.explode.push({ name: key, count: Number(src[key]) });
   }
 
+  // ── Final explode ──────────────────────────────────────────────────────────
   const finalSrc = src.finalExplode || src['final explode'] || [];
   if (typeof finalSrc === 'string') {
     s.finalExplode.push({ name: finalSrc.replace(/^"|"$/g, ''), count: 1 });
   } else {
     for (const e of (Array.isArray(finalSrc) ? finalSrc : [])) {
-      s.finalExplode.push({ name: typeof e === 'string' ? e.replace(/^"|"$/g, '') : (e.name || 'final explosion large'), count: e.count || 1 });
+      s.finalExplode.push({
+        name:  typeof e === 'string' ? e.replace(/^"|"$/g, '') : (e.name || 'final explosion large'),
+        count: e.count || 1,
+      });
     }
+  }
+
+  // ── Flat top-level effect keys ─────────────────────────────────────────────
+  // Some formats (remote plugin JSON) store leak-type effects as flat keys:
+  //   { "leak": 30, "flame": 30, "big leak": 30 }
+  // We detect these by eliminating every key already consumed by the parsers
+  // above. Anything remaining with a positive integer value is a leak effect.
+  //
+  // _consumed is built from:
+  //   - Every field on the blank ship (covers name, sprite, drag, mass, weapon,
+  //     outfits, guns, turrets, engines, drones, fighters, leaks, explode, etc.)
+  //   - Every key in src.attributes (shields, hull, category, cost, ...)
+  //   - The src-side structural keys that don't appear on the blank ship
+  //   - The five named explosion keys already handled above
+  // Nothing is hardcoded beyond what the ES data format itself requires.
+  const _consumed = new Set([
+    ...Object.keys(s),
+    ...Object.keys(src.attributes || {}),
+    'attributes', 'outfits', 'outfitMap',
+    'guns', 'turrets', 'engines', 'reverseEngines', 'steeringEngines', 'bays',
+    'leaks', 'explode', 'finalExplode', 'final explode',
+    'tiny explosion', 'small explosion', 'medium explosion',
+    'large explosion', 'huge explosion',
+  ]);
+
+  for (const [key, val] of Object.entries(src)) {
+    if (_consumed.has(key)) continue;
+    if (key.startsWith('_')) continue;       // internal plugin metadata (_pn, _pd, etc.)
+    if (typeof val === 'object') continue;   // skip nested objects / arrays
+    const n = parseInt(val);
+    if (isNaN(n) || n <= 0) continue;        // must be a positive integer
+    s.leaks.push({ name: key, count: n });
   }
 
   sbAutoSlotAllOutfits(s);
@@ -1565,8 +1601,8 @@ function sbGenerateES(s) {
   if ((s.outfits || []).length) {
     L.push(`${T}outfits`);
     for (const o of s.outfits) {
-      const count    = parseInt(o.count) || 1;
-      const quoted   = o.name.startsWith('"') ? o.name : `"${o.name}"`;
+      const count  = parseInt(o.count) || 1;
+      const quoted = o.name.startsWith('"') ? o.name : `"${o.name}"`;
       L.push(`${TT}${quoted}${count > 1 ? ' ' + count : ''}`);
     }
   }
@@ -1595,15 +1631,25 @@ function sbGenerateES(s) {
     L.push(`${T}bay "Drone" ${parts[0] || '0'} ${parts[1] || '0'}`);
     if (d.launchEffect) L.push(`${TT}"launch effect" "${d.launchEffect}"`);
   }
+
   for (const f of (s.fighters || [])) {
     const parts = (f.coords || '0 0').split(/\s+/);
     L.push(`${T}bay "Fighter" ${parts[0] || '0'} ${parts[1] || '0'}`);
     if (f.launchEffect) L.push(`${TT}"launch effect" "${f.launchEffect}"`);
   }
 
+  // ── Leaks ──────────────────────────────────────────────────────────────────
+  // _isLeak: true  → genuine `leak` directive  → leak "name" count
+  // _isLeak: false → flat effect key           → "name" count  or  name count
   for (const l of (s.leaks || [])) {
-    const count = parseInt(l.count) || 1;
-    L.push(`${T}leak "${l.name}"${count > 1 ? ' ' + count : ''}`);
+    const count       = parseInt(l.count) || 1;
+    const needsQuotes = l.name.includes(' ');
+    const nameOut     = needsQuotes ? `"${l.name}"` : l.name;
+    if (l._isLeak) {
+      L.push(`${T}leak ${nameOut}${count > 1 ? ' ' + count : ''}`);
+    } else {
+      L.push(`${T}${nameOut}${count > 1 ? ' ' + count : ''}`);
+    }
   }
 
   for (const e of (s.explode || [])) {
