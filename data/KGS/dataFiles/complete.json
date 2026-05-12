@@ -51,6 +51,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 40,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Hauler IV",
       "sprite": "ship/kgs_hauler_iv",
       "thumbnail": "thumbnail/kgs_hauler_iv",
@@ -76,9 +93,6 @@
           "hit force": 1500
         }
       },
-      "leak": 50,
-      "flame": 40,
-      "big leak": 80,
       "small explosion": 15,
       "medium explosion": 30,
       "large explosion": 20,
@@ -87,7 +101,7 @@
       "description": "Although the Hauler, Hauler II, and Hauler III are more popular, the Hauler IV is still used by many, for its low price, durable hull, and excellent cargo space. It is, however, very slow.",
       "_internalId": "Kai's list/KGS::KGS Hauler IV",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "1a294e56389f",
+      "_hash": "2cc31551fe25",
       "governments": {
         "KGS": {
           "KGS": true
@@ -349,6 +363,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 40,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Hauler V",
       "sprite": "ship/kgs_hauler_v",
       "thumbnail": "thumbnail/kgs_hauler_v",
@@ -374,9 +405,6 @@
           "hit force": 1500
         }
       },
-      "leak": 50,
-      "flame": 40,
-      "big leak": 80,
       "small explosion": 15,
       "medium explosion": 30,
       "large explosion": 20,
@@ -385,7 +413,7 @@
       "description": "The Hauler V has even more cargo space than the Hauler IV, but it is even slower. It is, however, very durable.",
       "_internalId": "Kai's list/KGS::KGS Hauler V",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "372595200fc5",
+      "_hash": "198b8c38ff4f",
       "governments": {
         "KGS": {
           "KGS": true
@@ -647,6 +675,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 40,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Hauler VI",
       "sprite": "ship/kgs_hauler_vi",
       "thumbnail": "thumbnail/kgs_hauler_vi",
@@ -672,9 +717,6 @@
           "hit force": 1500
         }
       },
-      "leak": 50,
-      "flame": 40,
-      "big leak": 80,
       "small explosion": 15,
       "medium explosion": 30,
       "large explosion": 20,
@@ -683,7 +725,7 @@
       "description": "The Hauler VI has an incredible amount of cargo space, but it is equally slow. It is only used because it is cheaper than two Hauler IIIs.",
       "_internalId": "Kai's list/KGS::KGS Hauler VI",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "e0bc03805f64",
+      "_hash": "51984e18dfe7",
       "governments": {
         "KGS": {
           "KGS": true
@@ -945,6 +987,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 40,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Hauler VII",
       "sprite": "ship/kgs_hauler_vii",
       "thumbnail": "thumbnail/kgs_hauler_vii",
@@ -970,9 +1029,6 @@
           "hit force": 1500
         }
       },
-      "leak": 50,
-      "flame": 40,
-      "big leak": 80,
       "small explosion": 15,
       "medium explosion": 30,
       "large explosion": 20,
@@ -981,7 +1037,7 @@
       "description": "The Hauler VII is the largest freighter built by Southbound Shipyards. It lives up to its title with over 900 tons of cargo space, while being cheaper than multiple smaller freighters.",
       "_internalId": "Kai's list/KGS::KGS Hauler VII",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "ce903eaedd72",
+      "_hash": "25182c3157ae",
       "governments": {
         "KGS": {
           "KGS": true
@@ -1224,6 +1280,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        }
+      ],
       "display name": "Maker",
       "sprite": "ship/kgs_maker",
       "thumbnail": "thumbnail/kgs_maker",
@@ -1249,7 +1312,6 @@
           "hit force": 500
         }
       },
-      "leak": 50,
       "tiny explosion": 10,
       "small explosion": 20,
       "medium explosion": 15,
@@ -1257,7 +1319,7 @@
       "description": "A Rainmaker without its missile launchers, the Maker is a sturdy but sluggish interceptor. Because of its decreased firepower, the Maker is available to regular civilians for purchase.",
       "_internalId": "Kai's list/KGS::KGS Maker",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "2fd1070803d3",
+      "_hash": "440844aca69e",
       "governments": {
         "KGS": {
           "KGS": true
@@ -1431,6 +1493,18 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "display name": "Dipper",
       "sprite": "ship/kgs_dipper",
       "thumbnail": "thumbnail/kgs_dipper",
@@ -1456,8 +1530,6 @@
           "hit force": 810
         }
       },
-      "leak": 60,
-      "flame": 50,
       "tiny explosion": 20,
       "small explosion": 30,
       "medium explosion": 15,
@@ -1465,7 +1537,7 @@
       "description": "The Dipper is a light warship and freighter cobbled together from two Clipper hulls. Seven gun ports and a spacious cargo hold make it a desirable ship among merchants and pirates in the South.",
       "_internalId": "Kai's list/KGS::KGS Dipper",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "4675dc842ecb",
+      "_hash": "396638bd3743",
       "governments": {
         "KGS": {
           "KGS": true
@@ -1690,6 +1762,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        }
+      ],
       "display name": "Mistmaker",
       "sprite": "ship/kgs_mistmaker",
       "thumbnail": "thumbnail/kgs_mistmaker",
@@ -1715,7 +1794,6 @@
           "hit force": 500
         }
       },
-      "leak": 50,
       "tiny explosion": 10,
       "small explosion": 20,
       "medium explosion": 15,
@@ -1723,7 +1801,7 @@
       "description": "The Mistmaker is lighter version of the Rainmaker missile boat, built for civilian use. It comes equipped with four missile pods and enough ammunition to destroy even ships many times its size, and is also slightly faster than the Rainmaker.",
       "_internalId": "Kai's list/KGS::KGS Mistmaker",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "2e4a1c7c9e69",
+      "_hash": "345a16416d3f",
       "governments": {
         "KGS": {
           "KGS": true
@@ -1983,6 +2061,18 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "display name": "Nightingale",
       "sprite": "ship/kgs_nightingale",
       "thumbnail": "thumbnail/kgs_nightingale",
@@ -2008,8 +2098,6 @@
           "hit force": 900
         }
       },
-      "leak": 60,
-      "flame": 50,
       "medium explosion": 24,
       "large explosion": 16,
       "tiny explosion": 28,
@@ -2018,7 +2106,7 @@
       "description": "The Nightingale is a modified Raven with 24 gun ports. Such a huge modification resulted in lowered shield efficiency and hull structural integrity, along with higher drag and worse heat dissipation.",
       "_internalId": "Kai's list/KGS::KGS Nightingale",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "deea66519fbe",
+      "_hash": "4f7d6ea8d372",
       "governments": {
         "KGS": {
           "KGS": true
@@ -2146,6 +2234,18 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
       "display name": "Sparrowhawk",
       "sprite": "ship/kgs_sparrowhawk",
       "thumbnail": "thumbnail/kgs_sparrowhawk",
@@ -2171,14 +2271,12 @@
           "hit force": 550
         }
       },
-      "leak": 60,
-      "flame": 60,
       "tiny explosion": 20,
       "small explosion": 8,
       "description": "Tarazed's Sparrowhawk-class light warship was made by mashing together their interceptors, the Hawk and the Sparrow. The result is a powerful ship, with six guns and decent mobility. It has become very popular as an affordable escort for captains fending off pirates in the South.",
       "_internalId": "Kai's list/KGS::KGS Sparrowhawk",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "3b94210a57f7",
+      "_hash": "6f50c9d134ff",
       "governments": {
         "KGS": {
           "KGS": true
@@ -2534,6 +2632,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "display name": "BIG PEW PEW",
       "sprite": "ship/kgs_big_pew_pew",
       "thumbnail": "thumbnail/kgs_big_pew_pew",
@@ -2561,8 +2671,6 @@
         }
       },
       "under": true,
-      "leak": 60,
-      "flame": 50,
       "medium explosion": 24,
       "large explosion": 16,
       "tiny explosion": 28,
@@ -2571,7 +2679,7 @@
       "description": "The Lionheart Raven is their most popular warship, an agile and elegant vessel that can nevertheless deal out and absorb considerable damage. Ravens are a favorite ship for bounty hunters, because they are more than a match for pirate interceptors and can be used by a skilled pilot to take down much larger ships as well.",
       "_internalId": "Kai's list/KGS::KGS BIG PEW PEW",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "ad7deb6a8ab6",
+      "_hash": "7b520a405ab2",
       "governments": {
         "KGS": {
           "KGS": true
@@ -2674,6 +2782,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Eyas",
       "plural": "Eyases",
       "sprite": "ship/kgs_eyas",
@@ -2700,9 +2825,6 @@
           "hit force": 1000
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 40,
       "small explosion": 55,
       "medium explosion": 60,
@@ -2711,7 +2833,7 @@
       "description": "A shortened Kingfisher, the Eyas-class Destroyer is the fastest medium warship in the Southern Rim, although it is somewhat undergunned.",
       "_internalId": "Kai's list/KGS::KGS Eyas",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "2da44da3db0b",
+      "_hash": "e845da3b646e",
       "governments": {
         "KGS": {
           "KGS": true
@@ -2960,6 +3082,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Eyrie",
       "sprite": "ship/aerie",
       "thumbnail": "thumbnail/aerie",
@@ -2985,9 +3124,6 @@
           "hit force": 1200
         }
       },
-      "leak": 50,
-      "flame": 50,
-      "big leak": 90,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -2996,7 +3132,7 @@
       "description": "The Lionheart Eyrie is a light carrier derived from the Aerie. The Aerie's four internal fighter bays have been rearranged into six drone bays, which are commonly found carrying Lionheart's Stiletto drones.",
       "_internalId": "Kai's list/KGS::KGS Eyrie",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "d5926f43ef70",
+      "_hash": "529258fd4a9d",
       "governments": {
         "KGS": {
           "KGS": true
@@ -3177,6 +3313,23 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Stormmaker",
       "sprite": "ship/kgs_stormmaker",
       "thumbnail": "thumbnail/kgs_stormmaker",
@@ -3205,9 +3358,6 @@
           "hit force": 1200
         }
       },
-      "leak": 40,
-      "flame": 80,
-      "big leak": 80,
       "medium explosion": 24,
       "large explosion": 16,
       "small explosion": 40,
@@ -3216,7 +3366,7 @@
       "description": "The Stormmaker is a heavy missile platform derived from the Rainmaker missile boat. It comes equipped with twelve missile launchers and enough ammunition to destroy ships many times its size. However, it is still slow, and its backup non-missile armament is still very weak.",
       "_internalId": "Kai's list/KGS::KGS Stormmaker",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "abe4a9fc950a",
+      "_hash": "847ea9609094",
       "governments": {
         "KGS": {
           "KGS": true
@@ -3393,6 +3543,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Kingfisher",
       "sprite": "ship/kgs_kingfisher",
       "thumbnail": "thumbnail/kgs_kingfisher",
@@ -3418,9 +3585,6 @@
           "hit force": 1600
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 40,
       "small explosion": 55,
       "medium explosion": 60,
@@ -3429,7 +3593,7 @@
       "description": "A Falcon without its side pods, the Kingfisher-class Battlecruiser is faster and even sleeker, at the cost of weapon space and hardpoints. It has been adapted to use strike tactics, flying fast at the target and unloading a flurry of plasma fire and Javelins before retreating for another dive.",
       "_internalId": "Kai's list/KGS::KGS Kingfisher",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "5711eb495246",
+      "_hash": "0f7dcd3bd32f",
       "governments": {
         "KGS": {
           "KGS": true
@@ -3630,6 +3794,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Kookaburra",
       "sprite": "ship/kgs_kookaburra",
       "thumbnail": "thumbnail/kgs_kookaburra",
@@ -3656,9 +3837,6 @@
         }
       },
       "angle": 30,
-      "leak": 30,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 40,
       "small explosion": 55,
       "medium explosion": 60,
@@ -3667,7 +3845,7 @@
       "description": "Tarazed Shipyards created this monstrosity as a competitor to the Syndicate Protector. A Kingfisher has been stretched, and 10 extra turrets have been added. What it lacks in affordability it makes up for in mobility - upgraded engines allow it to go alarmingly fast for a 12 turret ship.",
       "_internalId": "Kai's list/KGS::KGS Kookaburra",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "124618eedc06",
+      "_hash": "765c284b2b56",
       "governments": {
         "KGS": {
           "KGS": true
@@ -3929,6 +4107,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Fallcoon",
       "sprite": "ship/kgs_fallcoon",
       "thumbnail": "thumbnail/kgs_fallcoon",
@@ -3957,9 +4152,6 @@
           "hit force": 4800
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 40,
       "small explosion": 55,
       "medium explosion": 60,
@@ -3968,7 +4160,7 @@
       "description": "The Tarazed Fallcoon was designed as a competitor to Southbound Shipyards' Dreadnought. Its twin Falcon hulls boast huge engine bays and a staggering array of Plasma Cannons. Although its design was completed too late for it to take part in the civil war, it is still a terrifying warship, able to go head-to-head with a Cruiser.",
       "_internalId": "Kai's list/KGS::KGS Fallcoon",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "84bb6a72b598",
+      "_hash": "8e071058fd01",
       "governments": {
         "KGS": {
           "KGS": true
@@ -4070,6 +4262,7 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [],
       "display name": "Raindrop",
       "sprite": "ship/kgs_raindrop",
       "thumbnail": "thumbnail/kgs_raindrop",
@@ -4099,7 +4292,7 @@
       "description": "The Raindrop is a light missile drone built in the Republic Navy Yard, equipped with two missile launchers. Because of its extremely frail hull and lack of shielding, Raindrops serve best as long-range attack drones, and once their missile supply is spent, they are useless in combat.",
       "_internalId": "Kai's list/KGS::KGS Raindrop",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "c1905fbb96bf",
+      "_hash": "40f45e237fb2",
       "governments": {
         "KGS": {
           "KGS": true
@@ -4159,6 +4352,7 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [],
       "display name": "Stiletto",
       "sprite": "ship/kgs_stiletto",
       "thumbnail": "thumbnail/kgs_stiletto",
@@ -4185,7 +4379,7 @@
       "description": "The Stiletto is a drone developed by Lionheart, derived from the Dagger fighter. As with almost all Lionheart ships, its hull is very light. A potent shield matrix along with long range missile pods give it above average survivability for a drone. \tDrones do not come equipped with a hyperdrive. You cannot carry a drone unless you have a ship in your fleet with a drone bay.",
       "_internalId": "Kai's list/KGS::KGS Stiletto",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "ac1b6d9615e8",
+      "_hash": "f28845ce9333",
       "governments": {
         "KGS": {
           "KGS": true
@@ -4414,6 +4608,7 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [],
       "display name": "Yestrel",
       "sprite": "ship/kgs_yestrel",
       "thumbnail": "thumbnail/kgs_yestrel",
@@ -4447,7 +4642,7 @@
       "description": "Two years after the design of the Kestrel, Tarazed's chief ship designer has finally completed the design of a ship even more powerful, the Yestrel.",
       "_internalId": "Kai's list/KGS::KGS Yestrel",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "a513d5624c7e",
+      "_hash": "f90a30d494e7",
       "governments": {
         "KGS": {
           "KGS": true
@@ -4537,6 +4732,7 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [],
       "display name": "Biolofez",
       "plural": "Biolofezes",
       "sprite": "ship/kgs_biolofez",
@@ -4566,7 +4762,7 @@
       "description": "The Biolofez was made by integrating the hulls of two salvaged 'olofez. The result is a quite capable interceptor. Due to its low fuel capacity and lack of shield generation, the Remnant use it only for patrol and point defense.",
       "_internalId": "Kai's list/KGS::KGS Biolofez",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "95930ed94821",
+      "_hash": "0f7eee195326",
       "governments": {
         "KGS": {
           "KGS": true
@@ -4653,6 +4849,7 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [],
       "display name": "Triolofez",
       "plural": "Triolofezes",
       "sprite": "ship/kgs_triolofez",
@@ -4682,7 +4879,7 @@
       "description": "A Biolofez with another 'olofez tacked on, the Triolofez is a very powerful interceptor. However, its low fuel capacity combined with the fact that the Remnant do not make dedicated shield generation or hull repair have relegated it to in-system patrol and point defense.",
       "_internalId": "Kai's list/KGS::KGS Triolofez",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "e8d0a584c4bb",
+      "_hash": "648dd4e06153",
       "governments": {
         "KGS": {
           "KGS": true
@@ -4778,6 +4975,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Yolofez",
       "plural": "Yolofezes",
       "sprite": "ship/kgs_yolofez",
@@ -4807,7 +5005,7 @@
       "description": "The Yolofez is two 'olofez hulls put together, but with the cockpit of the upper 'olofez modified into a turret mount. The result is a good interceptor. However, due to its low fuel capacity and lack of recovery systems, the Remnant use it only for patrol and point defense.",
       "_internalId": "Kai's list/KGS::KGS Yolofez",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "d3d6707a5443",
+      "_hash": "2e39679925b8",
       "governments": {
         "KGS": {
           "KGS": true
@@ -4918,6 +5116,13 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 2
+        }
+      ],
       "display name": "Silver Penguin",
       "sprite": "ship/kgs_silver_penguin/kgs_silver_penguin",
       "sprite data": {
@@ -4997,13 +5202,12 @@
           "hit force": 800
         }
       },
-      "remnant leak sparkle": 30,
       "tiny explosion": 8,
       "small explosion": 7,
       "description": "Inspired by close contact with void sprites and the reinvigoration of xenobiology, the Penguin is a prototype designed to serve the dual roles of testing new starship technology while exploring hostile planets throughout the Ember Waste. One of this ship's distinguishing features is that it is truly alive and has a mind that approaches self-awareness. \tThe cloaking technology is built into the Penguin's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Penguin",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "0c121bf8d544",
+      "_hash": "3a3b0dd9e831",
       "governments": {
         "KGS": {
           "KGS": true
@@ -5064,6 +5268,13 @@
       "guns": [],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 20,
+          "spreadChance": 2
+        }
+      ],
       "display name": "Silver Puffin",
       "sprite": "ship/kgs_silver_puffin",
       "thumbnail": "thumbnail/kgs_silver_puffin",
@@ -5103,13 +5314,12 @@
         "ion resistance": 0.05,
         "scramble resistance": 0.05
       },
-      "remnant leak sparkle": 20,
       "tiny explosion": 8,
       "small explosion": 7,
       "description": "Centuries ago, the Remnant built these ships in order to explore the upper atmosphere of nearby gas giants. The Archons took issue with the Remnant's research methods, and the studies were unable to be completed. The remaining Puffins have been gathering dust in storage for centuries while the Remnant wait to see if the anger of the Archons will subside.",
       "_internalId": "Kai's list/KGS::KGS Silver Puffin",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "defafe5ab248",
+      "_hash": "b69b29d79da0",
       "governments": {
         "KGS": {
           "KGS": true
@@ -5191,6 +5401,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 7
+        }
+      ],
       "display name": "Silver Gull",
       "sprite": "ship/kgs_silver_gull",
       "thumbnail": "thumbnail/kgs_silver_gull",
@@ -5232,8 +5454,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -5241,7 +5461,7 @@
       "description": "While the Starling was the first successful ship to use technology derived from alien ruins, the Gull is the most recent. The current increase in Korath activities has caused foraging for resources to become a risky endeavor, forcing the Remnant to develop a specialized freighter for hauling cargo from remote sites without revealing their presence to hostile aliens. \tThe Gull has quickly proven its worth, allowing the Starling fleets to return to riskier activities while the Gull takes over the hazardous convoy routes. It is now the primary element of the Remnant's extra-territorial resource operations. \tThe cloaking technology is built into the Gull's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Gull",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "adf52154a81a",
+      "_hash": "151fe2a03690",
       "governments": {
         "KGS": {
           "KGS": true
@@ -5365,6 +5585,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 20,
+          "spreadChance": 8
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 12
+        }
+      ],
       "display name": "Silver Pelican",
       "sprite": "ship/kgs_silver_pelican",
       "thumbnail": "thumbnail/kgs_silver_pelican",
@@ -5401,8 +5633,6 @@
           "hit force": 2400
         }
       },
-      "remnant leak": 20,
-      "remnant leak sparkle": 30,
       "small explosion": 15,
       "medium explosion": 30,
       "large explosion": 20,
@@ -5411,7 +5641,7 @@
       "description": "The Pelican is closely based on the original semi-organic materials the Remnant found in the Ember Waste. While they are not technically alive, their internal mechanisms and method of construction bear such a close resemblance to living organisms that they are often considered as such. One key feature of this living resemblance is the innate sensory capabilities they possess, akin to sensor suites less advanced ships require for detailed scanning. These ships serve as the backbone of Remnant bulk salvage efforts, as well as their fast-logistics distribution network.",
       "_internalId": "Kai's list/KGS::KGS Silver Pelican",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "50d4570b13e2",
+      "_hash": "84a8dc158809",
       "governments": {
         "KGS": {
           "KGS": true
@@ -5523,6 +5753,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Silver Merganser",
       "sprite": "ship/kgs_silver_merganser",
       "thumbnail": "thumbnail/kgs_silver_merganser",
@@ -5597,7 +5828,7 @@
       "description": "The Merganser is the first production ship the Remnant deem to be truly alive, and are considered to be equivalent to dolphins in reasoning tests. These interceptors, deemed for short range operations by Remnant standards, are designed to patrol the upper atmosphere of gas giants and use their decisive speed advantage to conduct hit-and-run attacks on threats in nearby systems. \tThe cloaking technology is built into the Merganser's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Merganser",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "ab88526c7b63",
+      "_hash": "7b1900276484",
       "governments": {
         "KGS": {
           "KGS": true
@@ -5714,6 +5945,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 4
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Starling",
       "sprite": "ship/kgs_silver_starling",
       "thumbnail": "thumbnail/kgs_silver_starling",
@@ -5755,8 +5998,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -5764,7 +6005,7 @@
       "description": "One of the strangest and most useful things that the Remnant have discovered in the abandoned worlds of the Ember Waste is alien cloaking technology. They have designed their scout ships to cloak when needed in order to explore alien territory without being seen... or to escape in a hurry after stealing something particularly valuable from those aliens. \tThe cloaking technology is built into the Starling's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Starling",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "e598c25d0fd6",
+      "_hash": "d90058395301",
       "governments": {
         "KGS": {
           "KGS": true
@@ -5936,6 +6177,18 @@
           "launch effect": "remnant external"
         }
       ],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 20,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Ibis",
       "plural": "Silver Ibises",
       "sprite": "ship/kgs_silver_ibis",
@@ -5973,8 +6226,6 @@
           "hit force": 3000
         }
       },
-      "remnant leak": 20,
-      "remnant leak sparkle": 30,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -5983,7 +6234,7 @@
       "description": "The Ibis is a multipurpose carrier that serves as a mobile mining platform, an escort ship for Pelican fleets, and a combat platform using Terns for screening. It is capable of fielding a single wing of support craft, consisting of two Petrels and four Terns. \tThe Ibis was designed shortly after the Albatross as a means of extending the range of resource collection efforts after the Remnant realized that an Alpha invasion might not be as imminent as originally believed.",
       "_internalId": "Kai's list/KGS::KGS Silver Ibis",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "f2b53688a378",
+      "_hash": "89ed1d81e454",
       "governments": {
         "KGS": {
           "KGS": true
@@ -6125,6 +6376,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Silver Peregrine",
       "sprite": "ship/kgs_silver_peregrine/kgs_silver_peregrine",
       "sprite data": {
@@ -6174,9 +6442,6 @@
           "hit force": 3000
         }
       },
-      "leak": 50,
-      "flame": 50,
-      "big leak": 90,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -6185,7 +6450,7 @@
       "description": "The Peregrine is the first capital warship designed by Taely using fresh insights garnered from recent experimentation as well as renewed studies of the void sprites. Encompassing over a century of development since the last generation of warships was built, it is the forerunner of a new breed of Remnant ships. \tThe Peregrine was designed along the lines of old-earth's fast-attack cruisers. Drawing on inspiration from its namesake, famed for being the fastest self-propelled lifeform on Earth, it is designed to strike hard and fast. It closes quickly with enemies to unleash devastating barrages in the opening seconds of combat. \tThe cloaking technology is built into the Peregrine's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Peregrine",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "0e2df55f7774",
+      "_hash": "c65bdc5b1fcb",
       "governments": {
         "KGS": {
           "KGS": true
@@ -6360,6 +6625,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -6397,8 +6674,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -6407,7 +6682,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "governments": {
         "KGS": {
           "KGS": true
@@ -6511,6 +6786,13 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 20,
+          "spreadChance": 3
+        }
+      ],
       "display name": "Silver Petrel",
       "sprite": "ship/kgs_silver_petrel",
       "thumbnail": "thumbnail/kgs_silver_petrel",
@@ -6549,13 +6831,12 @@
           "hit force": 350
         }
       },
-      "remnant leak sparkle": 20,
       "tiny explosion": 30,
       "small explosion": 20,
       "description": "The Petrel is a multi-role mining/wing leader fightercraft designed to provide support for flights of lighter Terns in high-risk environments. The ship's design originated as an urban mobile gun platform that flitted around structures and natural terrain, but proved easy to adapt into a spacecraft. \tThe Remnant are loath to sacrifice pilots and crew from the comparatively small pool they are drawn from. As such, their fighters are equipped with medium-range weaponry designed to strike enemies from afar. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "Kai's list/KGS::KGS Silver Petrel",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "aed49589047e",
+      "_hash": "fdf291942ceb",
       "governments": {
         "KGS": {
           "KGS": true
@@ -6623,6 +6904,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 22,
+          "spreadChance": 3
+        }
+      ],
       "display name": "Silver Smew",
       "sprite": "ship/kgs_silver_smew",
       "thumbnail": "thumbnail/kgs_silver_smew",
@@ -6663,13 +6951,12 @@
           "hit force": 315
         }
       },
-      "remnant leak sparkle": 22,
       "tiny explosion": 35,
       "small explosion": 24,
       "description": "The Remnant have long favored turns of action that avoid putting crew directly at risk; though their Terns are a rather effective result of this ideology, the Remnant still had to face the fact that, eventually, one of their manned ships was going to end up too crippled to escape to safety. To that end, the Smew was developed; though quite lightly armed, Smews are capable of carrying a considerable quantity of cargo and passengers for a ship of their size, and are durable enough to absorb some fire from enemies while doing so. \tThough originally designed as lifeboats, the surprisingly mobile freighter-fighter hybrid has seen a remarkable amount of usage in mining fleets, as a way to supplement the otherwise poor cargo capacity of the Ibis. Because their purpose can vary from fleet to fleet, Smews are traditionally sold with a fair amount of free space: enough for a small weapon, upgraded engines, or additional support systems. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "Kai's list/KGS::KGS Silver Smew",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "9f73875de1c7",
+      "_hash": "19ab8deab532",
       "governments": {
         "KGS": {
           "KGS": true
@@ -6726,6 +7013,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 2
+        }
+      ],
       "display name": "Silver Tern",
       "sprite": "ship/kgs_silver_tern",
       "thumbnail": "thumbnail/kgs_silver_tern",
@@ -6766,13 +7060,12 @@
           "hit force": 250
         }
       },
-      "remnant leak sparkle": 30,
       "tiny explosion": 30,
       "small explosion": 20,
       "description": "The Tern is a small, hardy drone developed to plunge into the atmosphere of nearby gas giants for collecting valuable resources. These thick-shelled craft are also surprisingly effective when pressed into service as screening ships when enemies intrude into Remnant space. \tUnlike most spacefaring nations, the Remnant do not have enough people to pilot fighter wings in waves likely to sustain significant casualties. As such, they frequently use these hardy drones to fulfill similar screening roles in their home systems, allowing manned craft to focus on more specialized tasks. \tDrones do not come equipped with a hyperdrive. You cannot carry a drone unless you have a ship in your fleet with a drone bay.",
       "_internalId": "Kai's list/KGS::KGS Silver Tern",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "537e2b5c07df",
+      "_hash": "57142240e300",
       "governments": {
         "KGS": {
           "KGS": true
@@ -6887,6 +7180,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Rapid Stream",
       "sprite": "ship/kgs_rapid_stream",
       "thumbnail": "thumbnail/kgs_rapid_stream",
@@ -6923,7 +7217,7 @@
       "description": "Developed after the Unfettered invasion, the Rapid Stream is a cut down Deep River, equipped with three turrets for extra defense from Unfettered Trackers.",
       "_internalId": "Kai's list/KGS::KGS Rapid Stream",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "0846aee4410e",
+      "_hash": "e850db3e0ac3",
       "governments": {
         "KGS": {
           "KGS": true
@@ -7105,6 +7399,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 30,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/chigiriki",
       "thumbnail": "thumbnail/chigiriki",
       "attributes": {
@@ -7129,9 +7440,6 @@
           "hit force": 6600
         }
       },
-      "leak": 30,
-      "flame": 30,
-      "big leak": 30,
       "tiny explosion": 90,
       "small explosion": 70,
       "medium explosion": 45,
@@ -7141,7 +7449,7 @@
       "description": "The Chigiriki is the largest of the Bunrodea's gunships, boasting an astonishing seventeen gun ports. One of these ports is equipped with the devastating Thorax Cannon, a massive cannon capable of dealing significant damage to any ship that dares get in the Chigiriki's way. Some Chigiriki also double as missile platforms, raining down walls of missiles so thick that they can blot out the nearest star.",
       "_internalId": "official-game/endless-sky::Chigiriki",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "150cb67f87bc",
+      "_hash": "d7a6176bea4d",
       "variant": "Chigiriki (KGS Twin Mandible Cannon)",
       "baseShip": "Chigiriki",
       "_variantPluginId": "Kai's list/KGS",
@@ -7261,6 +7569,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        }
+      ],
       "sprite": "ship/hai grasshopper",
       "thumbnail": "thumbnail/hai grasshopper",
       "attributes": {
@@ -7285,7 +7600,6 @@
           "hit force": 540
         }
       },
-      "leak": 60,
       "tiny explosion": 10,
       "small explosion": 20,
       "medium explosion": 5,
@@ -7293,7 +7607,7 @@
       "description": "Designed by the Hai to serve as a fast reconnaissance craft, the Grasshopper has been adopted by thrill-seekers and miners alike. At the same time, it is often used by Hai captains who are looking for effective protection at a low cost.",
       "_internalId": "official-game/endless-sky::Grasshopper",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "64932592e67d",
+      "_hash": "22aed6c0b080",
       "variant": "Grasshopper (KGS Hyperpulse Cannon)",
       "baseShip": "Grasshopper",
       "_variantPluginId": "Kai's list/KGS",
@@ -7429,6 +7743,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/hai sea scorpion",
       "thumbnail": "thumbnail/hai sea scorpion",
       "attributes": {
@@ -7453,8 +7779,6 @@
           "hit force": 1260
         }
       },
-      "leak": 40,
-      "flame": 40,
       "tiny explosion": 24,
       "small explosion": 50,
       "medium explosion": 30,
@@ -7463,7 +7787,7 @@
       "description": "The Sea Scorpion was designed several decades ago to serve as a mobile platform to launch Trackers. However, it is only recently that the Unfettered have been able to mass-produce them. While individually vulnerable, the reduced cost of manufacturing compared to Shield Beetles allow the materially inferior Unfettered to gain a numerical advantage against their brethren.",
       "_internalId": "official-game/endless-sky::Sea Scorpion",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "4ee34a7b1de7",
+      "_hash": "2c283bbc69d3",
       "variant": "Sea Scorpion (KGS Bipulse Ripper)",
       "baseShip": "Sea Scorpion",
       "_variantPluginId": "Kai's list/KGS",
@@ -7620,6 +7944,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 50
+        }
+      ],
       "sprite": "ship/hai shield beetle",
       "thumbnail": "thumbnail/hai shield beetle",
       "attributes": {
@@ -7644,9 +7985,6 @@
           "hit force": 3000
         }
       },
-      "leak": 40,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 50,
       "small explosion": 50,
       "medium explosion": 50,
@@ -7656,7 +7994,7 @@
       "description": "This ship was first built millennia ago, near the end of a more violent time in Hai history. Since then, it has served as the only heavy warship at the disposal of the Hai. The Shield Beetle is a versatile warship used by the Hai to guard their merchant convoys, or by the Unfettered to attack those very same convoys.",
       "_internalId": "official-game/endless-sky::Shield Beetle",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "b45f6c44f131",
+      "_hash": "130e321397c9",
       "variant": "Shield Beetle (KGS Hyperpulse Cannon)",
       "baseShip": "Shield Beetle",
       "_variantPluginId": "Kai's list/KGS",
@@ -7834,6 +8172,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 50
+        }
+      ],
       "sprite": "ship/hai shield beetle",
       "thumbnail": "thumbnail/hai shield beetle",
       "attributes": {
@@ -7858,9 +8213,6 @@
           "hit force": 3000
         }
       },
-      "leak": 40,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 50,
       "small explosion": 50,
       "medium explosion": 50,
@@ -7870,7 +8222,7 @@
       "description": "This ship was first built millennia ago, near the end of a more violent time in Hai history. Since then, it has served as the only heavy warship at the disposal of the Hai. The Shield Beetle is a versatile warship used by the Hai to guard their merchant convoys, or by the Unfettered to attack those very same convoys.",
       "_internalId": "official-game/endless-sky::Shield Beetle",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "b45f6c44f131",
+      "_hash": "130e321397c9",
       "variant": "Shield Beetle (KGS Bipulse Ripper)",
       "baseShip": "Shield Beetle",
       "_variantPluginId": "Kai's list/KGS",
@@ -7975,6 +8327,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        }
+      ],
       "sprite": "ship/shuttle",
       "sprite data": {
         "frame time": 4,
@@ -8004,13 +8363,12 @@
           "hit force": 180
         }
       },
-      "leak": 60,
       "tiny explosion": 10,
       "small explosion": 5,
       "description": "Although Betelgeuse Shipyards produces other ship models as well, the majority of their profits come from sales of the Shuttle. This versatile ship serves equally well as a passenger transport or a cargo courier. It also happens to be the cheapest ship you can buy which is capable of hyperspace travel. \tShuttles are not designed to withstand combat of any sort, but they are fast and maneuverable enough to get out of harm's way if attacked by a larger, slower ship. Although they are typically unarmed, they have enough space for one weapon, which is the origin of the popular phrase, \"as useless as a blaster cannon on a shuttlecraft.\"",
       "_internalId": "official-game/endless-sky::Shuttle",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "08b9e7f5d158",
+      "_hash": "cc5d8dc0d156",
       "variant": "Shuttle (KGS Mini Blaster)",
       "baseShip": "Shuttle",
       "_variantPluginId": "Kai's list/KGS",
@@ -8253,6 +8611,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        }
+      ],
       "sprite": "ship/shuttle",
       "sprite data": {
         "frame time": 4,
@@ -8282,13 +8647,12 @@
           "hit force": 180
         }
       },
-      "leak": 60,
       "tiny explosion": 10,
       "small explosion": 5,
       "description": "Although Betelgeuse Shipyards produces other ship models as well, the majority of their profits come from sales of the Shuttle. This versatile ship serves equally well as a passenger transport or a cargo courier. It also happens to be the cheapest ship you can buy which is capable of hyperspace travel. \tShuttles are not designed to withstand combat of any sort, but they are fast and maneuverable enough to get out of harm's way if attacked by a larger, slower ship. Although they are typically unarmed, they have enough space for one weapon, which is the origin of the popular phrase, \"as useless as a blaster cannon on a shuttlecraft.\"",
       "_internalId": "official-game/endless-sky::Shuttle",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "08b9e7f5d158",
+      "_hash": "cc5d8dc0d156",
       "variant": "Shuttle (KGS Javelin Micro Pod)",
       "baseShip": "Shuttle",
       "_variantPluginId": "Kai's list/KGS",
@@ -8460,6 +8824,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
       "sprite": "ship/scout",
       "thumbnail": "thumbnail/scout",
       "attributes": {
@@ -8487,13 +8863,11 @@
       "tiny explosion": 10,
       "small explosion": 20,
       "medium explosion": 15,
-      "leak": 50,
-      "flame": 60,
       "final explode": "final explosion small",
       "description": "The Lionheart Scoutship was designed back in the days when the galaxy was more sparsely populated, and ships prospecting for habitable worlds or worlds rich in resources would often travel far away from any habitable ports where they would be able to refuel. Although the galaxy has now been much more thoroughly explored, the Scout remains a popular ship for long-distance travel.",
       "_internalId": "official-game/endless-sky::Scout",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "b445807349f9",
+      "_hash": "4d2d104a1c4e",
       "variant": "Scout (KGS Particle Carronade)",
       "baseShip": "Scout",
       "_variantPluginId": "Kai's list/KGS",
@@ -8792,6 +9166,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
       "plural": "Argosies",
       "sprite": "ship/argosy",
       "thumbnail": "thumbnail/argosy",
@@ -8817,8 +9203,6 @@
           "hit force": 900
         }
       },
-      "leak": 60,
-      "flame": 60,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -8827,7 +9211,7 @@
       "description": "The Argosy from Southbound Shipyards is very popular with merchants not because of its capacity, which is actually slightly smaller than the Syndicate Freighter, but because it can hold its own in combat even against a small pirate fleet. \tThe Argosy is also a very easy ship to upgrade with faster engines or more powerful weapons as needed, so many privately owned Argosies have very different capabilities than the stock model.",
       "_internalId": "official-game/endless-sky::Argosy",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "88b43118a9ee",
+      "_hash": "d7e08f3ef3b0",
       "variant": "Argosy (KGS Strike)",
       "baseShip": "Argosy",
       "_variantPluginId": "Kai's list/KGS",
@@ -9080,6 +9464,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
       "plural": "Argosies",
       "sprite": "ship/argosy",
       "thumbnail": "thumbnail/argosy",
@@ -9105,8 +9501,6 @@
           "hit force": 900
         }
       },
-      "leak": 60,
-      "flame": 60,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -9115,7 +9509,7 @@
       "description": "The Argosy from Southbound Shipyards is very popular with merchants not because of its capacity, which is actually slightly smaller than the Syndicate Freighter, but because it can hold its own in combat even against a small pirate fleet. \tThe Argosy is also a very easy ship to upgrade with faster engines or more powerful weapons as needed, so many privately owned Argosies have very different capabilities than the stock model.",
       "_internalId": "official-game/endless-sky::Argosy",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "88b43118a9ee",
+      "_hash": "d7e08f3ef3b0",
       "variant": "Argosy (KGS Twin Gatling)",
       "baseShip": "Argosy",
       "_variantPluginId": "Kai's list/KGS",
@@ -9324,6 +9718,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
       "plural": "Argosies",
       "sprite": "ship/argosy",
       "thumbnail": "thumbnail/argosy",
@@ -9349,8 +9755,6 @@
           "hit force": 900
         }
       },
-      "leak": 60,
-      "flame": 60,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -9359,7 +9763,7 @@
       "description": "The Argosy from Southbound Shipyards is very popular with merchants not because of its capacity, which is actually slightly smaller than the Syndicate Freighter, but because it can hold its own in combat even against a small pirate fleet. \tThe Argosy is also a very easy ship to upgrade with faster engines or more powerful weapons as needed, so many privately owned Argosies have very different capabilities than the stock model.",
       "_internalId": "official-game/endless-sky::Argosy",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "88b43118a9ee",
+      "_hash": "d7e08f3ef3b0",
       "variant": "Argosy (KGS Staggered Twin Gatling)",
       "baseShip": "Argosy",
       "_variantPluginId": "Kai's list/KGS",
@@ -9545,6 +9949,18 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "sprite": "ship/clipper",
       "thumbnail": "thumbnail/clipper",
       "attributes": {
@@ -9569,8 +9985,6 @@
           "hit force": 540
         }
       },
-      "leak": 60,
-      "flame": 50,
       "tiny explosion": 15,
       "small explosion": 20,
       "medium explosion": 10,
@@ -9578,7 +9992,7 @@
       "description": "The Clipper is the smaller sister ship to the popular Southbound Shipyards Argosy. Although not able to carry as much cargo, Clippers are versatile ships that can be used as passenger transports, couriers, or even warships in a pinch, and they come with enough free space to be customized based on an individual captain's needs.",
       "_internalId": "official-game/endless-sky::Clipper",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "3889aa9e8aa5",
+      "_hash": "fd650bd25e5f",
       "variant": "Clipper (KGS Storm)",
       "baseShip": "Clipper",
       "_variantPluginId": "Kai's list/KGS",
@@ -9778,6 +10192,18 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "sprite": "ship/clipper",
       "thumbnail": "thumbnail/clipper",
       "attributes": {
@@ -9802,8 +10228,6 @@
           "hit force": 540
         }
       },
-      "leak": 60,
-      "flame": 50,
       "tiny explosion": 15,
       "small explosion": 20,
       "medium explosion": 10,
@@ -9811,7 +10235,7 @@
       "description": "The Clipper is the smaller sister ship to the popular Southbound Shipyards Argosy. Although not able to carry as much cargo, Clippers are versatile ships that can be used as passenger transports, couriers, or even warships in a pinch, and they come with enough free space to be customized based on an individual captain's needs.",
       "_internalId": "official-game/endless-sky::Clipper",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "3889aa9e8aa5",
+      "_hash": "fd650bd25e5f",
       "variant": "Clipper (KGS Twin Gatling)",
       "baseShip": "Clipper",
       "_variantPluginId": "Kai's list/KGS",
@@ -9997,6 +10421,18 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "sprite": "ship/clipper",
       "thumbnail": "thumbnail/clipper",
       "attributes": {
@@ -10021,8 +10457,6 @@
           "hit force": 540
         }
       },
-      "leak": 60,
-      "flame": 50,
       "tiny explosion": 15,
       "small explosion": 20,
       "medium explosion": 10,
@@ -10030,7 +10464,7 @@
       "description": "The Clipper is the smaller sister ship to the popular Southbound Shipyards Argosy. Although not able to carry as much cargo, Clippers are versatile ships that can be used as passenger transports, couriers, or even warships in a pinch, and they come with enough free space to be customized based on an individual captain's needs.",
       "_internalId": "official-game/endless-sky::Clipper",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "3889aa9e8aa5",
+      "_hash": "fd650bd25e5f",
       "variant": "Clipper (KGS Staggered Twin Gatling)",
       "baseShip": "Clipper",
       "_variantPluginId": "Kai's list/KGS",
@@ -10216,6 +10650,18 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "sprite": "ship/clipper",
       "thumbnail": "thumbnail/clipper",
       "attributes": {
@@ -10240,8 +10686,6 @@
           "hit force": 540
         }
       },
-      "leak": 60,
-      "flame": 50,
       "tiny explosion": 15,
       "small explosion": 20,
       "medium explosion": 10,
@@ -10249,7 +10693,7 @@
       "description": "The Clipper is the smaller sister ship to the popular Southbound Shipyards Argosy. Although not able to carry as much cargo, Clippers are versatile ships that can be used as passenger transports, couriers, or even warships in a pinch, and they come with enough free space to be customized based on an individual captain's needs.",
       "_internalId": "official-game/endless-sky::Clipper",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "3889aa9e8aa5",
+      "_hash": "fd650bd25e5f",
       "variant": "Clipper (KGS Strike)",
       "baseShip": "Clipper",
       "_variantPluginId": "Kai's list/KGS",
@@ -10468,6 +10912,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 50,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/behemoth",
       "thumbnail": "thumbnail/behemoth",
       "attributes": {
@@ -10492,9 +10953,6 @@
           "hit force": 2100
         }
       },
-      "leak": 30,
-      "flame": 30,
-      "big leak": 50,
       "small explosion": 15,
       "medium explosion": 25,
       "large explosion": 35,
@@ -10503,7 +10961,7 @@
       "description": "The Behemoth is a recent ship design from Betelgeuse Shipyards, designed as an alternative to the Syndicate Bulk Freighter. Although its cargo capacity is somewhat lower, it is also more maneuverable, and packs a heavier armament by default.",
       "_internalId": "official-game/endless-sky::Behemoth",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "54066c5f0557",
+      "_hash": "e2b9a79893cf",
       "variant": "Behemoth (KGS Particle Turret)",
       "baseShip": "Behemoth",
       "_variantPluginId": "Kai's list/KGS",
@@ -10717,6 +11175,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 50,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/bactrian",
       "thumbnail": "thumbnail/bactrian",
       "attributes": {
@@ -10744,9 +11219,6 @@
           "hit force": 3900
         }
       },
-      "leak": 30,
-      "flame": 30,
-      "big leak": 50,
       "small explosion": 25,
       "medium explosion": 35,
       "large explosion": 45,
@@ -10755,7 +11227,7 @@
       "description": "The Lionheart Bactrian is the last of the great city-ships, a design hearkening back to the early days of space colonization when a long-distance vessel needed to be a self-contained world, able to survive for weeks at a time without encountering an inhabited planet. It is not only a freighter, but a carrier, and a capable warship either at short range or at a distance. \tNaturally, this versatility also makes it extremely expensive, and the Bactrian is normally only for sale to citizens who have been vetted by the local government of the Deep.",
       "_internalId": "official-game/endless-sky::Bactrian",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "6d540227610f",
+      "_hash": "f80228c395a7",
       "variant": "Bactrian (KGS Particle Turret)",
       "baseShip": "Bactrian",
       "_variantPluginId": "Kai's list/KGS",
@@ -10949,6 +11421,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "plural": "Furies",
       "sprite": "ship/fury",
       "thumbnail": "thumbnail/fury",
@@ -10974,13 +11453,12 @@
           "hit force": 360
         }
       },
-      "flame": 50,
       "tiny explosion": 10,
       "small explosion": 20,
       "description": "The Fury is Southbound Shipyards' most popular design of escort ship. They have greater firepower than any other interceptor-class vessel, meaning that any pirate flying solo will think twice before attacking a convoy that is accompanied by a Fury. However, Furies are also much less maneuverable than other small ships.",
       "_internalId": "official-game/endless-sky::Fury",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "301919c8df32",
+      "_hash": "ee3e284b79c2",
       "variant": "Fury (KGS Storm)",
       "baseShip": "Fury",
       "_variantPluginId": "Kai's list/KGS",
@@ -11152,6 +11630,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        }
+      ],
       "sprite": "ship/hawk",
       "thumbnail": "thumbnail/hawk",
       "attributes": {
@@ -11176,14 +11661,13 @@
           "hit force": 450
         }
       },
-      "leak": 60,
       "tiny explosion": 15,
       "small explosion": 5,
       "final explode": "final explosion small",
       "description": "The Tarazed Hawk is an interceptor-class warship often used as an escort for freighters or in a planetary militia's patrol squadron. Hawks are fast enough to chase down most smaller ships, but are capable of mounting much more powerful weapons. They are also, of course, a favorite ship of pirate captains who have earned enough money to afford one.",
       "_internalId": "official-game/endless-sky::Hawk",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "b00dfd8ff38c",
+      "_hash": "a695a2852253",
       "variant": "Hawk (KGS Javelin Launcher)",
       "baseShip": "Hawk",
       "_variantPluginId": "Kai's list/KGS",
@@ -11368,6 +11852,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        }
+      ],
       "display name": "Maker",
       "sprite": "ship/kgs_maker",
       "thumbnail": "thumbnail/kgs_maker",
@@ -11393,7 +11884,6 @@
           "hit force": 500
         }
       },
-      "leak": 50,
       "tiny explosion": 10,
       "small explosion": 20,
       "medium explosion": 15,
@@ -11401,7 +11891,7 @@
       "description": "A Rainmaker without its missile launchers, the Maker is a sturdy but sluggish interceptor. Because of its decreased firepower, the Maker is available to regular civilians for purchase.",
       "_internalId": "Kai's list/KGS::KGS Maker",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "2fd1070803d3",
+      "_hash": "440844aca69e",
       "variant": "KGS Maker (Mark II)",
       "baseShip": "KGS Maker",
       "_variantPluginId": "Kai's list/KGS",
@@ -11545,6 +12035,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        }
+      ],
       "display name": "Maker",
       "sprite": "ship/kgs_maker",
       "thumbnail": "thumbnail/kgs_maker",
@@ -11570,7 +12067,6 @@
           "hit force": 500
         }
       },
-      "leak": 50,
       "tiny explosion": 10,
       "small explosion": 20,
       "medium explosion": 15,
@@ -11578,7 +12074,7 @@
       "description": "A Rainmaker without its missile launchers, the Maker is a sturdy but sluggish interceptor. Because of its decreased firepower, the Maker is available to regular civilians for purchase.",
       "_internalId": "Kai's list/KGS::KGS Maker",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "2fd1070803d3",
+      "_hash": "440844aca69e",
       "variant": "KGS Maker (Mark II Old Weapons)",
       "baseShip": "KGS Maker",
       "_variantPluginId": "Kai's list/KGS",
@@ -11732,6 +12228,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        }
+      ],
       "sprite": "ship/headhunter",
       "thumbnail": "thumbnail/headhunter",
       "attributes": {
@@ -11756,8 +12264,6 @@
           "hit force": 660
         }
       },
-      "leak": 60,
-      "flame": 80,
       "tiny explosion": 20,
       "small explosion": 25,
       "medium explosion": 15,
@@ -11765,7 +12271,7 @@
       "description": "The Headhunter is one of the newest ships designed by Lionheart: a versatile ship that can serve equally well for carrying cargo or for bounty hunting. As with many of Lionheart's designs, the hull is mostly composite fiber rather than metal, sacrificing armor strength for the sake of lighter weight and faster movement.",
       "_internalId": "official-game/endless-sky::Headhunter",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "92264eaf20b0",
+      "_hash": "689fe0a4b9b0",
       "variant": "Headhunter (KGS Particle Carronade)",
       "baseShip": "Headhunter",
       "_variantPluginId": "Kai's list/KGS",
@@ -11969,6 +12475,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 70,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        }
+      ],
       "plural": "Modified Argosies",
       "sprite": "ship/modified argosy",
       "thumbnail": "thumbnail/modified argosy",
@@ -11994,8 +12512,6 @@
           "hit force": 1200
         }
       },
-      "leak": 70,
-      "flame": 30,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 30,
@@ -12004,7 +12520,7 @@
       "description": "The Argosy has long been a favorite ship for pirates, who have come up with many tricks for modifying them to be more suitable as warships.",
       "_internalId": "official-game/endless-sky::Modified Argosy",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "9633a6fa18a3",
+      "_hash": "7b5d33ad4e99",
       "variant": "Modified Argosy (KGS Javelin Launcher)",
       "baseShip": "Modified Argosy",
       "_variantPluginId": "Kai's list/KGS",
@@ -12226,6 +12742,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 70,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        }
+      ],
       "plural": "Modified Argosies",
       "sprite": "ship/modified argosy",
       "thumbnail": "thumbnail/modified argosy",
@@ -12251,8 +12779,6 @@
           "hit force": 1200
         }
       },
-      "leak": 70,
-      "flame": 30,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 30,
@@ -12261,7 +12787,7 @@
       "description": "The Argosy has long been a favorite ship for pirates, who have come up with many tricks for modifying them to be more suitable as warships.",
       "_internalId": "official-game/endless-sky::Modified Argosy",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "9633a6fa18a3",
+      "_hash": "7b5d33ad4e99",
       "variant": "Modified Argosy (KGS Pure Gatling)",
       "baseShip": "Modified Argosy",
       "_variantPluginId": "Kai's list/KGS",
@@ -12442,6 +12968,18 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "sprite": "ship/raven",
       "thumbnail": "thumbnail/raven",
       "attributes": {
@@ -12466,8 +13004,6 @@
           "hit force": 900
         }
       },
-      "leak": 60,
-      "flame": 50,
       "medium explosion": 24,
       "large explosion": 16,
       "tiny explosion": 28,
@@ -12476,7 +13012,7 @@
       "description": "The Lionheart Raven is their most popular warship, an agile and elegant vessel that can nevertheless deal out and absorb considerable damage. Ravens are a favorite ship for bounty hunters, because they are more than a match for pirate interceptors and can be used by a skilled pilot to take down much larger ships as well.",
       "_internalId": "official-game/endless-sky::Raven",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "6c56644f95db",
+      "_hash": "2ccde85fa9d0",
       "variant": "Raven (KGS Particle Carronade)",
       "baseShip": "Raven",
       "_variantPluginId": "Kai's list/KGS",
@@ -12645,6 +13181,18 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
       "display name": "Dipper",
       "sprite": "ship/kgs_dipper",
       "thumbnail": "thumbnail/kgs_dipper",
@@ -12670,8 +13218,6 @@
           "hit force": 810
         }
       },
-      "leak": 60,
-      "flame": 50,
       "tiny explosion": 20,
       "small explosion": 30,
       "medium explosion": 15,
@@ -12679,7 +13225,7 @@
       "description": "The Dipper is a light warship and freighter cobbled together from two Clipper hulls. Seven gun ports and a spacious cargo hold make it a desirable ship among merchants and pirates in the South.",
       "_internalId": "Kai's list/KGS::KGS Dipper",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "4675dc842ecb",
+      "_hash": "396638bd3743",
       "variant": "KGS Dipper (Heavy)",
       "baseShip": "KGS Dipper",
       "_variantPluginId": "Kai's list/KGS",
@@ -12919,6 +13465,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        }
+      ],
       "display name": "Mistmaker",
       "sprite": "ship/kgs_mistmaker",
       "thumbnail": "thumbnail/kgs_mistmaker",
@@ -12944,7 +13497,6 @@
           "hit force": 500
         }
       },
-      "leak": 50,
       "tiny explosion": 10,
       "small explosion": 20,
       "medium explosion": 15,
@@ -12952,7 +13504,7 @@
       "description": "The Mistmaker is lighter version of the Rainmaker missile boat, built for civilian use. It comes equipped with four missile pods and enough ammunition to destroy even ships many times its size, and is also slightly faster than the Rainmaker.",
       "_internalId": "Kai's list/KGS::KGS Mistmaker",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "2e4a1c7c9e69",
+      "_hash": "345a16416d3f",
       "variant": "KGS Mistmaker (Mark II)",
       "baseShip": "KGS Mistmaker",
       "_variantPluginId": "Kai's list/KGS",
@@ -13143,6 +13695,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/aerie",
       "thumbnail": "thumbnail/aerie",
       "attributes": {
@@ -13167,9 +13736,6 @@
           "hit force": 1200
         }
       },
-      "leak": 50,
-      "flame": 50,
-      "big leak": 90,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -13178,7 +13744,7 @@
       "description": "The Lionheart Aerie is a light carrier, designed to be just big enough for four fighter bays plus a decent armament of its own. Variations on this same ship design have been in use in the Deep for almost half a millennium, but this model comes with the very latest in generator and weapon technology.",
       "_internalId": "official-game/endless-sky::Aerie",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "320149d23e7d",
+      "_hash": "b356fbe1c855",
       "variant": "Aerie (KGS Dual Particle Cannon)",
       "baseShip": "Aerie",
       "_variantPluginId": "Kai's list/KGS",
@@ -13347,6 +13913,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 40,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 70,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/bastion",
       "thumbnail": "thumbnail/bastion",
       "attributes": {
@@ -13371,9 +13954,6 @@
           "hit force": 1800
         }
       },
-      "leak": 40,
-      "flame": 40,
-      "big leak": 70,
       "tiny explosion": 5,
       "small explosion": 15,
       "medium explosion": 30,
@@ -13382,7 +13962,7 @@
       "description": "The Southbound Shipyards Bastion is designed as a heavy defense platform to accompany freighter convoys, in addition to having enough cargo capacity to serve as a freighter in its own right. Because of its heavy armament, it is classified as a warship rather than a freighter.",
       "_internalId": "official-game/endless-sky::Bastion",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "9f20b35a5294",
+      "_hash": "6e328fdfa222",
       "variant": "Bastion (KGS Brawler)",
       "baseShip": "Bastion",
       "_variantPluginId": "Kai's list/KGS",
@@ -13619,6 +14199,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Eyrie",
       "sprite": "ship/aerie",
       "thumbnail": "thumbnail/aerie",
@@ -13644,9 +14241,6 @@
           "hit force": 1200
         }
       },
-      "leak": 50,
-      "flame": 50,
-      "big leak": 90,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -13655,7 +14249,7 @@
       "description": "The Lionheart Eyrie is a light carrier derived from the Aerie. The Aerie's four internal fighter bays have been rearranged into six drone bays, which are commonly found carrying Lionheart's Stiletto drones.",
       "_internalId": "Kai's list/KGS::KGS Eyrie",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "d5926f43ef70",
+      "_hash": "529258fd4a9d",
       "variant": "KGS Eyrie (KGS Dual Particle Cannon)",
       "baseShip": "KGS Eyrie",
       "_variantPluginId": "Kai's list/KGS",
@@ -13823,6 +14417,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/frigate",
       "thumbnail": "thumbnail/frigate",
       "attributes": {
@@ -13850,9 +14461,6 @@
           "hit force": 1500
         }
       },
-      "leak": 40,
-      "flame": 50,
-      "big leak": 90,
       "tiny explosion": 18,
       "small explosion": 36,
       "medium explosion": 24,
@@ -13861,7 +14469,7 @@
       "description": "For centuries, the Frigate was the largest warship produced by the Republic Navy Yard, but now they seem quite small compared to a Cruiser or a Carrier. Armed with a variety of weapons, the Frigate is equally capable at fending off small fighters or bombarding larger ships. In its time it possessed relatively good maneuverability for a ship of its size, but now it sees continued use mostly due to the sheer number of them already built for service.",
       "_internalId": "official-game/endless-sky::Frigate",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "4a7cf6cf53c4",
+      "_hash": "8b8cba5cd9ad",
       "variant": "Frigate (KGS Particle Howitzer)",
       "baseShip": "Frigate",
       "_variantPluginId": "Kai's list/KGS",
@@ -14071,6 +14679,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/frigate",
       "thumbnail": "thumbnail/frigate",
       "attributes": {
@@ -14098,9 +14723,6 @@
           "hit force": 1500
         }
       },
-      "leak": 40,
-      "flame": 50,
-      "big leak": 90,
       "tiny explosion": 18,
       "small explosion": 36,
       "medium explosion": 24,
@@ -14109,7 +14731,7 @@
       "description": "For centuries, the Frigate was the largest warship produced by the Republic Navy Yard, but now they seem quite small compared to a Cruiser or a Carrier. Armed with a variety of weapons, the Frigate is equally capable at fending off small fighters or bombarding larger ships. In its time it possessed relatively good maneuverability for a ship of its size, but now it sees continued use mostly due to the sheer number of them already built for service.",
       "_internalId": "official-game/endless-sky::Frigate",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "4a7cf6cf53c4",
+      "_hash": "8b8cba5cd9ad",
       "variant": "Frigate (KGS Particle Howitzer Mark II)",
       "baseShip": "Frigate",
       "_variantPluginId": "Kai's list/KGS",
@@ -14305,6 +14927,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Eyas",
       "plural": "Eyases",
       "sprite": "ship/kgs_eyas",
@@ -14331,9 +14970,6 @@
           "hit force": 1000
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 40,
       "small explosion": 55,
       "medium explosion": 60,
@@ -14342,7 +14978,7 @@
       "description": "A shortened Kingfisher, the Eyas-class Destroyer is the fastest medium warship in the Southern Rim, although it is somewhat undergunned.",
       "_internalId": "Kai's list/KGS::KGS Eyas",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "2da44da3db0b",
+      "_hash": "e845da3b646e",
       "variant": "KGS Eyas (Heavy)",
       "baseShip": "KGS Eyas",
       "_variantPluginId": "Kai's list/KGS",
@@ -14613,6 +15249,23 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Stormmaker",
       "sprite": "ship/kgs_stormmaker",
       "thumbnail": "thumbnail/kgs_stormmaker",
@@ -14641,9 +15294,6 @@
           "hit force": 1200
         }
       },
-      "leak": 40,
-      "flame": 80,
-      "big leak": 80,
       "medium explosion": 24,
       "large explosion": 16,
       "small explosion": 40,
@@ -14652,7 +15302,7 @@
       "description": "The Stormmaker is a heavy missile platform derived from the Rainmaker missile boat. It comes equipped with twelve missile launchers and enough ammunition to destroy ships many times its size. However, it is still slow, and its backup non-missile armament is still very weak.",
       "_internalId": "Kai's list/KGS::KGS Stormmaker",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "abe4a9fc950a",
+      "_hash": "847ea9609094",
       "variant": "KGS Stormmaker (Mark II)",
       "baseShip": "KGS Stormmaker",
       "_variantPluginId": "Kai's list/KGS",
@@ -14908,6 +15558,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/cruiser",
       "thumbnail": "thumbnail/cruiser",
       "attributes": {
@@ -14935,9 +15602,6 @@
           "hit force": 3900
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 40,
       "tiny explosion": 20,
       "small explosion": 45,
       "medium explosion": 50,
@@ -14947,7 +15611,7 @@
       "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
       "_internalId": "official-game/endless-sky::Cruiser",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "c16b158e2d7b",
+      "_hash": "6241e777a3c1",
       "variant": "Cruiser (KGS Dual Particle Cannon)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Kai's list/KGS",
@@ -15198,6 +15862,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/cruiser",
       "thumbnail": "thumbnail/cruiser",
       "attributes": {
@@ -15225,9 +15906,6 @@
           "hit force": 3900
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 40,
       "tiny explosion": 20,
       "small explosion": 45,
       "medium explosion": 50,
@@ -15237,7 +15915,7 @@
       "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
       "_internalId": "official-game/endless-sky::Cruiser",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "c16b158e2d7b",
+      "_hash": "6241e777a3c1",
       "variant": "Cruiser (KGS Dual Particle Cannon Mark II)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Kai's list/KGS",
@@ -15495,6 +16173,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/cruiser",
       "thumbnail": "thumbnail/cruiser",
       "attributes": {
@@ -15522,9 +16217,6 @@
           "hit force": 3900
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 40,
       "tiny explosion": 20,
       "small explosion": 45,
       "medium explosion": 50,
@@ -15534,7 +16226,7 @@
       "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
       "_internalId": "official-game/endless-sky::Cruiser",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "c16b158e2d7b",
+      "_hash": "6241e777a3c1",
       "variant": "Cruiser (KGS Particle Turret)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Kai's list/KGS",
@@ -15793,6 +16485,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/cruiser",
       "thumbnail": "thumbnail/cruiser",
       "attributes": {
@@ -15820,9 +16529,6 @@
           "hit force": 3900
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 40,
       "tiny explosion": 20,
       "small explosion": 45,
       "medium explosion": 50,
@@ -15832,7 +16538,7 @@
       "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
       "_internalId": "official-game/endless-sky::Cruiser",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "c16b158e2d7b",
+      "_hash": "6241e777a3c1",
       "variant": "Cruiser (KGS Particle Turret Mark II)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Kai's list/KGS",
@@ -16098,6 +16804,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/cruiser",
       "thumbnail": "thumbnail/cruiser",
       "attributes": {
@@ -16125,9 +16848,6 @@
           "hit force": 3900
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 40,
       "tiny explosion": 20,
       "small explosion": 45,
       "medium explosion": 50,
@@ -16137,7 +16857,7 @@
       "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
       "_internalId": "official-game/endless-sky::Cruiser",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "c16b158e2d7b",
+      "_hash": "6241e777a3c1",
       "variant": "Cruiser (KGS Raindrop)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Kai's list/KGS",
@@ -16336,6 +17056,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/cruiser",
       "thumbnail": "thumbnail/cruiser",
       "attributes": {
@@ -16363,9 +17100,6 @@
           "hit force": 3900
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 40,
       "tiny explosion": 20,
       "small explosion": 45,
       "medium explosion": 50,
@@ -16375,7 +17109,7 @@
       "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
       "_internalId": "official-game/endless-sky::Cruiser",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "c16b158e2d7b",
+      "_hash": "6241e777a3c1",
       "variant": "Cruiser (KGS Raindrop Mark II)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Kai's list/KGS",
@@ -16680,6 +17414,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 30,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/carrier",
       "thumbnail": "thumbnail/carrier",
       "attributes": {
@@ -16707,9 +17458,6 @@
           "hit force": 4500
         }
       },
-      "leak": 30,
-      "flame": 30,
-      "big leak": 30,
       "tiny explosion": 20,
       "small explosion": 45,
       "medium explosion": 50,
@@ -16719,7 +17467,7 @@
       "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
       "_internalId": "official-game/endless-sky::Carrier",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "114330c74c9a",
+      "_hash": "8964d3a0ae3c",
       "variant": "Carrier (KGS Particle Turret)",
       "baseShip": "Carrier",
       "_variantPluginId": "Kai's list/KGS",
@@ -17004,6 +17752,23 @@
           "launch effect": "human internal"
         }
       ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 30,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/carrier",
       "thumbnail": "thumbnail/carrier",
       "attributes": {
@@ -17031,9 +17796,6 @@
           "hit force": 4500
         }
       },
-      "leak": 30,
-      "flame": 30,
-      "big leak": 30,
       "tiny explosion": 20,
       "small explosion": 45,
       "medium explosion": 50,
@@ -17043,7 +17805,7 @@
       "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
       "_internalId": "official-game/endless-sky::Carrier",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "114330c74c9a",
+      "_hash": "8964d3a0ae3c",
       "variant": "Carrier (KGS Particle Turret Mark II)",
       "baseShip": "Carrier",
       "_variantPluginId": "Kai's list/KGS",
@@ -17253,6 +18015,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/leviathan",
       "thumbnail": "thumbnail/leviathan",
       "attributes": {
@@ -17277,9 +18056,6 @@
           "hit force": 1200
         }
       },
-      "leak": 50,
-      "flame": 30,
-      "big leak": 60,
       "tiny explosion": 18,
       "small explosion": 36,
       "medium explosion": 24,
@@ -17288,7 +18064,7 @@
       "description": "The Betelgeuse Shipyards Leviathan has been in service since long before the Republic existed. Although considered today to be an outdated and clunky model, it is still a force to be reckoned with.",
       "_internalId": "official-game/endless-sky::Leviathan",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "57f0734d05dc",
+      "_hash": "a7d27a0531a0",
       "variant": "Leviathan (KGS Particle Burster)",
       "baseShip": "Leviathan",
       "_variantPluginId": "Kai's list/KGS",
@@ -17453,6 +18229,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Kingfisher",
       "sprite": "ship/kgs_kingfisher",
       "thumbnail": "thumbnail/kgs_kingfisher",
@@ -17478,9 +18271,6 @@
           "hit force": 1600
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 40,
       "small explosion": 55,
       "medium explosion": 60,
@@ -17489,7 +18279,7 @@
       "description": "A Falcon without its side pods, the Kingfisher-class Battlecruiser is faster and even sleeker, at the cost of weapon space and hardpoints. It has been adapted to use strike tactics, flying fast at the target and unloading a flurry of plasma fire and Javelins before retreating for another dive.",
       "_internalId": "Kai's list/KGS::KGS Kingfisher",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "5711eb495246",
+      "_hash": "0f7dcd3bd32f",
       "variant": "KGS Kingfisher (II)",
       "baseShip": "KGS Kingfisher",
       "_variantPluginId": "Kai's list/KGS",
@@ -17611,6 +18401,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Kingfisher",
       "sprite": "ship/kgs_kingfisher",
       "thumbnail": "thumbnail/kgs_kingfisher",
@@ -17636,9 +18443,6 @@
           "hit force": 1600
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 40,
       "small explosion": 55,
       "medium explosion": 60,
@@ -17647,7 +18451,7 @@
       "description": "A Falcon without its side pods, the Kingfisher-class Battlecruiser is faster and even sleeker, at the cost of weapon space and hardpoints. It has been adapted to use strike tactics, flying fast at the target and unloading a flurry of plasma fire and Javelins before retreating for another dive.",
       "_internalId": "Kai's list/KGS::KGS Kingfisher",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "5711eb495246",
+      "_hash": "0f7dcd3bd32f",
       "variant": "KGS Kingfisher (KGS Javelin Micro Pod Deployer)",
       "baseShip": "KGS Kingfisher",
       "_variantPluginId": "Kai's list/KGS",
@@ -17831,6 +18635,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Kookaburra",
       "sprite": "ship/kgs_kookaburra",
       "thumbnail": "thumbnail/kgs_kookaburra",
@@ -17857,9 +18678,6 @@
         }
       },
       "angle": 30,
-      "leak": 30,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 40,
       "small explosion": 55,
       "medium explosion": 60,
@@ -17868,7 +18686,7 @@
       "description": "Tarazed Shipyards created this monstrosity as a competitor to the Syndicate Protector. A Kingfisher has been stretched, and 10 extra turrets have been added. What it lacks in affordability it makes up for in mobility - upgraded engines allow it to go alarmingly fast for a 12 turret ship.",
       "_internalId": "Kai's list/KGS::KGS Kookaburra",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "124618eedc06",
+      "_hash": "765c284b2b56",
       "variant": "KGS Kookaburra (Quad Blaster)",
       "baseShip": "KGS Kookaburra",
       "_variantPluginId": "Kai's list/KGS",
@@ -18060,6 +18878,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        }
+      ],
       "sprite": "ship/dropship",
       "thumbnail": "thumbnail/dropship",
       "attributes": {
@@ -18086,13 +18911,12 @@
           "hit force": 180
         }
       },
-      "leak": 60,
       "tiny explosion": 15,
       "small explosion": 5,
       "description": "Dropships were designed with the Navy's Auxiliary in mind. Landed Auxiliaries often act as forward operating bases, so troops needing transport to another area often rely on their Dropships. This cramped and uncomfortable vessel is able to move a squad of Republic soldiers at great speed for its size. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "official-game/endless-sky::Dropship",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "cc3f116b68ca",
+      "_hash": "dec47d178a54",
       "variant": "Dropship (KGS Mini Blaster)",
       "baseShip": "Dropship",
       "_variantPluginId": "Kai's list/KGS",
@@ -18200,6 +19024,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
       "plural": "Finches",
       "sprite": "ship/finch",
       "thumbnail": "thumbnail/finch",
@@ -18223,13 +19054,12 @@
           "hit force": 180
         }
       },
-      "flame": 60,
       "tiny explosion": 15,
       "small explosion": 5,
       "description": "When the Free Worlds started requesting a Carrier solution from its local shipyards, Tarazed Shipyards quickly saw that a few modifications could make their entry level interceptor into a top tier fighter. Over 85% of the parts that make up the Finch are shared with the Sparrow assembly line, so it's no surprise that even trimmed down to (barely) fit into a fighter bay, the blindingly fast Finch bears strong resemblance to its hyperspace-faring cousin. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "official-game/endless-sky::Finch",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "da572af49445",
+      "_hash": "21659784770a",
       "variant": "Finch (KGS Javelin Storm Pod)",
       "baseShip": "Finch",
       "_variantPluginId": "Kai's list/KGS",
@@ -18311,6 +19141,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
       "plural": "Finches",
       "sprite": "ship/finch",
       "thumbnail": "thumbnail/finch",
@@ -18334,13 +19171,12 @@
           "hit force": 180
         }
       },
-      "flame": 60,
       "tiny explosion": 15,
       "small explosion": 5,
       "description": "When the Free Worlds started requesting a Carrier solution from its local shipyards, Tarazed Shipyards quickly saw that a few modifications could make their entry level interceptor into a top tier fighter. Over 85% of the parts that make up the Finch are shared with the Sparrow assembly line, so it's no surprise that even trimmed down to (barely) fit into a fighter bay, the blindingly fast Finch bears strong resemblance to its hyperspace-faring cousin. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "official-game/endless-sky::Finch",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "da572af49445",
+      "_hash": "21659784770a",
       "variant": "Finch (KGS Javelin Strike Pod)",
       "baseShip": "Finch",
       "_variantPluginId": "Kai's list/KGS",
@@ -18422,6 +19258,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
       "plural": "Finches",
       "sprite": "ship/finch",
       "thumbnail": "thumbnail/finch",
@@ -18445,13 +19288,12 @@
           "hit force": 180
         }
       },
-      "flame": 60,
       "tiny explosion": 15,
       "small explosion": 5,
       "description": "When the Free Worlds started requesting a Carrier solution from its local shipyards, Tarazed Shipyards quickly saw that a few modifications could make their entry level interceptor into a top tier fighter. Over 85% of the parts that make up the Finch are shared with the Sparrow assembly line, so it's no surprise that even trimmed down to (barely) fit into a fighter bay, the blindingly fast Finch bears strong resemblance to its hyperspace-faring cousin. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "official-game/endless-sky::Finch",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "da572af49445",
+      "_hash": "21659784770a",
       "variant": "Finch (KGS Gatling Snubnose)",
       "baseShip": "Finch",
       "_variantPluginId": "Kai's list/KGS",
@@ -18533,6 +19375,7 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [],
       "sprite": "ship/lance",
       "thumbnail": "thumbnail/lance",
       "attributes": {
@@ -18560,7 +19403,7 @@
       "description": "The Lance is the primary fighter used by the Republic Navy. As with all fighters, it is weak by itself but very effective as part of a larger squadron. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "official-game/endless-sky::Lance",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "1220e6538ef6",
+      "_hash": "c7c929cb3082",
       "variant": "Lance (KGS Particle Carronade)",
       "baseShip": "Lance",
       "_variantPluginId": "Kai's list/KGS",
@@ -18715,6 +19558,7 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [],
       "display name": "Raindrop",
       "sprite": "ship/kgs_raindrop",
       "thumbnail": "thumbnail/kgs_raindrop",
@@ -18744,7 +19588,7 @@
       "description": "The Raindrop is a light missile drone built in the Republic Navy Yard, equipped with two missile launchers. Because of its extremely frail hull and lack of shielding, Raindrops serve best as long-range attack drones, and once their missile supply is spent, they are useless in combat.",
       "_internalId": "Kai's list/KGS::KGS Raindrop",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "c1905fbb96bf",
+      "_hash": "40f45e237fb2",
       "variant": "KGS Raindrop (Mark II)",
       "baseShip": "KGS Raindrop",
       "_variantPluginId": "Kai's list/KGS",
@@ -18963,6 +19807,7 @@
           "launch effect": "korath internal"
         }
       ],
+      "leaks": [],
       "display name": "Karek A'awoj",
       "sprite": "ship/world-ship a",
       "thumbnail": "thumbnail/world-ship a",
@@ -18997,7 +19842,7 @@
       "description": "The largest of Korath production vessels are derived from a common and ancient chassis. The simplest are adapted to haul materials between refinery and factory stations. Fittingly, they're named after a productive colony of the Efreti, to honor their focus on peaceful industry.",
       "_internalId": "official-game/endless-sky::Lor'kas Ik 577",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "8b197332068c",
+      "_hash": "fe74222e555e",
       "variant": "Lor'kas Ik 577 (KGS Double Digger)",
       "baseShip": "Lor'kas Ik 577",
       "_variantPluginId": "Kai's list/KGS",
@@ -19184,6 +20029,7 @@
           "launch effect": "korath internal"
         }
       ],
+      "leaks": [],
       "sprite": "ship/dredger",
       "thumbnail": "thumbnail/dredger",
       "attributes": {
@@ -19217,7 +20063,7 @@
       "description": "After the Korath were exiled from their homelands, efficient resource collection became a priority. World-ships were too precious to risk on dangerous forays, and raiders lacked the cargo capacity. The Rano'erek-class Asteroid Dredging Ship, named for a respected civilian politician and economist, was born as an answer to this problem. \tFeaturing an abundance of cargo and passenger space in addition to their formidable defensive armament, these bulky ships can also offer potent support for frontline Palavrets.",
       "_internalId": "official-game/endless-sky::Rano'erek",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "a77786f7e2e8",
+      "_hash": "e4189900196e",
       "variant": "Rano'erek (KGS Double Digger)",
       "baseShip": "Rano'erek",
       "_variantPluginId": "Kai's list/KGS",
@@ -19348,6 +20194,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Eyas",
       "plural": "Eyases",
       "sprite": "ship/kgs_eyas",
@@ -19374,9 +20237,6 @@
           "hit force": 1000
         }
       },
-      "leak": 30,
-      "flame": 50,
-      "big leak": 60,
       "tiny explosion": 40,
       "small explosion": 55,
       "medium explosion": 60,
@@ -19385,7 +20245,7 @@
       "description": "A shortened Kingfisher, the Eyas-class Destroyer is the fastest medium warship in the Southern Rim, although it is somewhat undergunned.",
       "_internalId": "Kai's list/KGS::KGS Eyas",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "2da44da3db0b",
+      "_hash": "e845da3b646e",
       "variant": "KGS Eyas (Kai)",
       "baseShip": "KGS Eyas",
       "_variantPluginId": "Kai's list/KGS",
@@ -19508,6 +20368,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 7
+        }
+      ],
       "display name": "Silver Gull",
       "sprite": "ship/kgs_silver_gull",
       "thumbnail": "thumbnail/kgs_silver_gull",
@@ -19549,8 +20421,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -19558,7 +20428,7 @@
       "description": "While the Starling was the first successful ship to use technology derived from alien ruins, the Gull is the most recent. The current increase in Korath activities has caused foraging for resources to become a risky endeavor, forcing the Remnant to develop a specialized freighter for hauling cargo from remote sites without revealing their presence to hostile aliens. \tThe Gull has quickly proven its worth, allowing the Starling fleets to return to riskier activities while the Gull takes over the hazardous convoy routes. It is now the primary element of the Remnant's extra-territorial resource operations. \tThe cloaking technology is built into the Gull's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Gull",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "adf52154a81a",
+      "_hash": "151fe2a03690",
       "variant": "KGS Silver Gull (Sniper)",
       "baseShip": "KGS Silver Gull",
       "_variantPluginId": "Kai's list/KGS",
@@ -19682,6 +20552,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 7
+        }
+      ],
       "display name": "Silver Gull",
       "sprite": "ship/kgs_silver_gull",
       "thumbnail": "thumbnail/kgs_silver_gull",
@@ -19723,8 +20605,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -19732,7 +20612,7 @@
       "description": "While the Starling was the first successful ship to use technology derived from alien ruins, the Gull is the most recent. The current increase in Korath activities has caused foraging for resources to become a risky endeavor, forcing the Remnant to develop a specialized freighter for hauling cargo from remote sites without revealing their presence to hostile aliens. \tThe Gull has quickly proven its worth, allowing the Starling fleets to return to riskier activities while the Gull takes over the hazardous convoy routes. It is now the primary element of the Remnant's extra-territorial resource operations. \tThe cloaking technology is built into the Gull's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Gull",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "adf52154a81a",
+      "_hash": "151fe2a03690",
       "variant": "KGS Silver Gull (Support)",
       "baseShip": "KGS Silver Gull",
       "_variantPluginId": "Kai's list/KGS",
@@ -19870,6 +20750,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 7
+        }
+      ],
       "display name": "Silver Gull",
       "sprite": "ship/kgs_silver_gull",
       "thumbnail": "thumbnail/kgs_silver_gull",
@@ -19911,8 +20803,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -19920,7 +20810,7 @@
       "description": "While the Starling was the first successful ship to use technology derived from alien ruins, the Gull is the most recent. The current increase in Korath activities has caused foraging for resources to become a risky endeavor, forcing the Remnant to develop a specialized freighter for hauling cargo from remote sites without revealing their presence to hostile aliens. \tThe Gull has quickly proven its worth, allowing the Starling fleets to return to riskier activities while the Gull takes over the hazardous convoy routes. It is now the primary element of the Remnant's extra-territorial resource operations. \tThe cloaking technology is built into the Gull's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Gull",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "adf52154a81a",
+      "_hash": "151fe2a03690",
       "variant": "KGS Silver Gull (Support II)",
       "baseShip": "KGS Silver Gull",
       "_variantPluginId": "Kai's list/KGS",
@@ -20058,6 +20948,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 7
+        }
+      ],
       "display name": "Silver Gull",
       "sprite": "ship/kgs_silver_gull",
       "thumbnail": "thumbnail/kgs_silver_gull",
@@ -20099,8 +21001,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -20108,7 +21008,7 @@
       "description": "While the Starling was the first successful ship to use technology derived from alien ruins, the Gull is the most recent. The current increase in Korath activities has caused foraging for resources to become a risky endeavor, forcing the Remnant to develop a specialized freighter for hauling cargo from remote sites without revealing their presence to hostile aliens. \tThe Gull has quickly proven its worth, allowing the Starling fleets to return to riskier activities while the Gull takes over the hazardous convoy routes. It is now the primary element of the Remnant's extra-territorial resource operations. \tThe cloaking technology is built into the Gull's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Gull",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "adf52154a81a",
+      "_hash": "151fe2a03690",
       "variant": "KGS Silver Gull (Cargo)",
       "baseShip": "KGS Silver Gull",
       "_variantPluginId": "Kai's list/KGS",
@@ -20220,6 +21120,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 7
+        }
+      ],
       "display name": "Silver Gull",
       "sprite": "ship/kgs_silver_gull",
       "thumbnail": "thumbnail/kgs_silver_gull",
@@ -20261,8 +21173,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -20270,7 +21180,7 @@
       "description": "While the Starling was the first successful ship to use technology derived from alien ruins, the Gull is the most recent. The current increase in Korath activities has caused foraging for resources to become a risky endeavor, forcing the Remnant to develop a specialized freighter for hauling cargo from remote sites without revealing their presence to hostile aliens. \tThe Gull has quickly proven its worth, allowing the Starling fleets to return to riskier activities while the Gull takes over the hazardous convoy routes. It is now the primary element of the Remnant's extra-territorial resource operations. \tThe cloaking technology is built into the Gull's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Gull",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "adf52154a81a",
+      "_hash": "151fe2a03690",
       "variant": "KGS Silver Gull (Bunks)",
       "baseShip": "KGS Silver Gull",
       "_variantPluginId": "Kai's list/KGS",
@@ -20387,6 +21297,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 20,
+          "spreadChance": 8
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 12
+        }
+      ],
       "sprite": "ship/pelican",
       "thumbnail": "thumbnail/pelican",
       "attributes": {
@@ -20422,8 +21344,6 @@
           "hit force": 2400
         }
       },
-      "remnant leak": 20,
-      "remnant leak sparkle": 30,
       "small explosion": 15,
       "medium explosion": 30,
       "large explosion": 20,
@@ -20432,7 +21352,7 @@
       "description": "The Pelican is closely based on the original semi-organic materials the Remnant found in the Ember Waste. While they are not technically alive, their internal mechanisms and method of construction bear such a close resemblance to living organisms that they are often considered as such. One key feature of this living resemblance is the innate sensory capabilities they possess, akin to sensor suites less advanced ships require for detailed scanning. These ships serve as the backbone of Remnant bulk salvage efforts, as well as their fast-logistics distribution network.",
       "_internalId": "official-game/endless-sky::Pelican",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "46f1ad0ce777",
+      "_hash": "f30700539fa8",
       "variant": "Pelican (KGS Twinhibitor)",
       "baseShip": "Pelican",
       "_variantPluginId": "Kai's list/KGS",
@@ -20548,6 +21468,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 20,
+          "spreadChance": 8
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 12
+        }
+      ],
       "display name": "Silver Pelican",
       "sprite": "ship/kgs_silver_pelican",
       "thumbnail": "thumbnail/kgs_silver_pelican",
@@ -20584,8 +21516,6 @@
           "hit force": 2400
         }
       },
-      "remnant leak": 20,
-      "remnant leak sparkle": 30,
       "small explosion": 15,
       "medium explosion": 30,
       "large explosion": 20,
@@ -20594,7 +21524,7 @@
       "description": "The Pelican is closely based on the original semi-organic materials the Remnant found in the Ember Waste. While they are not technically alive, their internal mechanisms and method of construction bear such a close resemblance to living organisms that they are often considered as such. One key feature of this living resemblance is the innate sensory capabilities they possess, akin to sensor suites less advanced ships require for detailed scanning. These ships serve as the backbone of Remnant bulk salvage efforts, as well as their fast-logistics distribution network.",
       "_internalId": "Kai's list/KGS::KGS Silver Pelican",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "50d4570b13e2",
+      "_hash": "84a8dc158809",
       "variant": "KGS Silver Pelican (Heavy Lift)",
       "baseShip": "KGS Silver Pelican",
       "_variantPluginId": "Kai's list/KGS",
@@ -20702,6 +21632,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 20,
+          "spreadChance": 8
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 12
+        }
+      ],
       "display name": "Silver Pelican",
       "sprite": "ship/kgs_silver_pelican",
       "thumbnail": "thumbnail/kgs_silver_pelican",
@@ -20738,8 +21680,6 @@
           "hit force": 2400
         }
       },
-      "remnant leak": 20,
-      "remnant leak sparkle": 30,
       "small explosion": 15,
       "medium explosion": 30,
       "large explosion": 20,
@@ -20748,7 +21688,7 @@
       "description": "The Pelican is closely based on the original semi-organic materials the Remnant found in the Ember Waste. While they are not technically alive, their internal mechanisms and method of construction bear such a close resemblance to living organisms that they are often considered as such. One key feature of this living resemblance is the innate sensory capabilities they possess, akin to sensor suites less advanced ships require for detailed scanning. These ships serve as the backbone of Remnant bulk salvage efforts, as well as their fast-logistics distribution network.",
       "_internalId": "Kai's list/KGS::KGS Silver Pelican",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "50d4570b13e2",
+      "_hash": "84a8dc158809",
       "variant": "KGS Silver Pelican (KGS Twinhibitor)",
       "baseShip": "KGS Silver Pelican",
       "_variantPluginId": "Kai's list/KGS",
@@ -20856,6 +21796,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "sprite": "ship/merganser",
       "thumbnail": "thumbnail/merganser",
       "attributes": {
@@ -20929,7 +21870,7 @@
       "description": "The Merganser is the first production ship the Remnant deem to be truly alive, and are considered to be equivalent to dolphins in reasoning tests. These interceptors, deemed for short range operations by Remnant standards, are designed to patrol the upper atmosphere of gas giants and use their decisive speed advantage to conduct hit-and-run attacks on threats in nearby systems. \tThe cloaking technology is built into the Merganser's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "official-game/endless-sky::Merganser",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "7cb9b6773873",
+      "_hash": "357eefcd9b42",
       "variant": "Merganser (KGS Hybrid)",
       "baseShip": "Merganser",
       "_variantPluginId": "Kai's list/KGS",
@@ -21025,6 +21966,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "sprite": "ship/merganser",
       "thumbnail": "thumbnail/merganser",
       "attributes": {
@@ -21098,7 +22040,7 @@
       "description": "The Merganser is the first production ship the Remnant deem to be truly alive, and are considered to be equivalent to dolphins in reasoning tests. These interceptors, deemed for short range operations by Remnant standards, are designed to patrol the upper atmosphere of gas giants and use their decisive speed advantage to conduct hit-and-run attacks on threats in nearby systems. \tThe cloaking technology is built into the Merganser's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "official-game/endless-sky::Merganser",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "7cb9b6773873",
+      "_hash": "357eefcd9b42",
       "variant": "Merganser (KGS Bomber)",
       "baseShip": "Merganser",
       "_variantPluginId": "Kai's list/KGS",
@@ -21206,6 +22148,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Silver Merganser",
       "sprite": "ship/kgs_silver_merganser",
       "thumbnail": "thumbnail/kgs_silver_merganser",
@@ -21280,7 +22223,7 @@
       "description": "The Merganser is the first production ship the Remnant deem to be truly alive, and are considered to be equivalent to dolphins in reasoning tests. These interceptors, deemed for short range operations by Remnant standards, are designed to patrol the upper atmosphere of gas giants and use their decisive speed advantage to conduct hit-and-run attacks on threats in nearby systems. \tThe cloaking technology is built into the Merganser's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Merganser",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "ab88526c7b63",
+      "_hash": "7b1900276484",
       "variant": "KGS Silver Merganser (II)",
       "baseShip": "KGS Silver Merganser",
       "_variantPluginId": "Kai's list/KGS",
@@ -21395,6 +22338,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Silver Merganser",
       "sprite": "ship/kgs_silver_merganser",
       "thumbnail": "thumbnail/kgs_silver_merganser",
@@ -21469,7 +22413,7 @@
       "description": "The Merganser is the first production ship the Remnant deem to be truly alive, and are considered to be equivalent to dolphins in reasoning tests. These interceptors, deemed for short range operations by Remnant standards, are designed to patrol the upper atmosphere of gas giants and use their decisive speed advantage to conduct hit-and-run attacks on threats in nearby systems. \tThe cloaking technology is built into the Merganser's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Merganser",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "ab88526c7b63",
+      "_hash": "7b1900276484",
       "variant": "KGS Silver Merganser (KGS Hybrid)",
       "baseShip": "KGS Silver Merganser",
       "_variantPluginId": "Kai's list/KGS",
@@ -21565,6 +22509,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Silver Merganser",
       "sprite": "ship/kgs_silver_merganser",
       "thumbnail": "thumbnail/kgs_silver_merganser",
@@ -21639,7 +22584,7 @@
       "description": "The Merganser is the first production ship the Remnant deem to be truly alive, and are considered to be equivalent to dolphins in reasoning tests. These interceptors, deemed for short range operations by Remnant standards, are designed to patrol the upper atmosphere of gas giants and use their decisive speed advantage to conduct hit-and-run attacks on threats in nearby systems. \tThe cloaking technology is built into the Merganser's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Merganser",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "ab88526c7b63",
+      "_hash": "7b1900276484",
       "variant": "KGS Silver Merganser (KGS Bomber)",
       "baseShip": "KGS Silver Merganser",
       "_variantPluginId": "Kai's list/KGS",
@@ -21760,6 +22705,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 4
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Starling",
       "sprite": "ship/kgs_silver_starling",
       "thumbnail": "thumbnail/kgs_silver_starling",
@@ -21801,8 +22758,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -21810,7 +22765,7 @@
       "description": "One of the strangest and most useful things that the Remnant have discovered in the abandoned worlds of the Ember Waste is alien cloaking technology. They have designed their scout ships to cloak when needed in order to explore alien territory without being seen... or to escape in a hurry after stealing something particularly valuable from those aliens. \tThe cloaking technology is built into the Starling's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Starling",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "e598c25d0fd6",
+      "_hash": "d90058395301",
       "variant": "KGS Silver Starling (Heavy)",
       "baseShip": "KGS Silver Starling",
       "_variantPluginId": "Kai's list/KGS",
@@ -21938,6 +22893,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 4
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Starling",
       "sprite": "ship/kgs_silver_starling",
       "thumbnail": "thumbnail/kgs_silver_starling",
@@ -21979,8 +22946,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -21988,7 +22953,7 @@
       "description": "One of the strangest and most useful things that the Remnant have discovered in the abandoned worlds of the Ember Waste is alien cloaking technology. They have designed their scout ships to cloak when needed in order to explore alien territory without being seen... or to escape in a hurry after stealing something particularly valuable from those aliens. \tThe cloaking technology is built into the Starling's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Starling",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "e598c25d0fd6",
+      "_hash": "d90058395301",
       "variant": "KGS Silver Starling (Sniper)",
       "baseShip": "KGS Silver Starling",
       "_variantPluginId": "Kai's list/KGS",
@@ -22128,6 +23093,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 4
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Starling",
       "sprite": "ship/kgs_silver_starling",
       "thumbnail": "thumbnail/kgs_silver_starling",
@@ -22169,8 +23146,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -22178,7 +23153,7 @@
       "description": "One of the strangest and most useful things that the Remnant have discovered in the abandoned worlds of the Ember Waste is alien cloaking technology. They have designed their scout ships to cloak when needed in order to explore alien territory without being seen... or to escape in a hurry after stealing something particularly valuable from those aliens. \tThe cloaking technology is built into the Starling's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Starling",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "e598c25d0fd6",
+      "_hash": "d90058395301",
       "variant": "KGS Silver Starling (Hunter)",
       "baseShip": "KGS Silver Starling",
       "_variantPluginId": "Kai's list/KGS",
@@ -22310,6 +23285,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 4
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Starling",
       "sprite": "ship/kgs_silver_starling",
       "thumbnail": "thumbnail/kgs_silver_starling",
@@ -22351,8 +23338,6 @@
           "hit force": 1200
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "tiny explosion": 40,
       "small explosion": 20,
       "medium explosion": 10,
@@ -22360,7 +23345,7 @@
       "description": "One of the strangest and most useful things that the Remnant have discovered in the abandoned worlds of the Ember Waste is alien cloaking technology. They have designed their scout ships to cloak when needed in order to explore alien territory without being seen... or to escape in a hurry after stealing something particularly valuable from those aliens. \tThe cloaking technology is built into the Starling's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Starling",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "e598c25d0fd6",
+      "_hash": "d90058395301",
       "variant": "KGS Silver Starling (Thrasher)",
       "baseShip": "KGS Silver Starling",
       "_variantPluginId": "Kai's list/KGS",
@@ -22531,6 +23516,18 @@
           "launch effect": "remnant external"
         }
       ],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 20,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "plural": "Ibises",
       "sprite": "ship/ibis",
       "thumbnail": "thumbnail/ibis",
@@ -22567,8 +23564,6 @@
           "hit force": 3000
         }
       },
-      "remnant leak": 20,
-      "remnant leak sparkle": 30,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -22577,7 +23572,7 @@
       "description": "The Ibis is a multipurpose carrier that serves as a mobile mining platform, an escort ship for Pelican fleets, and a combat platform using Terns for screening. It is capable of fielding a single wing of support craft, consisting of two Petrels and four Terns. \tThe Ibis was designed shortly after the Albatross as a means of extending the range of resource collection efforts after the Remnant realized that an Alpha invasion might not be as imminent as originally believed.",
       "_internalId": "official-game/endless-sky::Ibis",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "88e304dc6903",
+      "_hash": "e26823a41d45",
       "variant": "Ibis (KGS Heavy)",
       "baseShip": "Ibis",
       "_variantPluginId": "Kai's list/KGS",
@@ -22765,6 +23760,18 @@
           "launch effect": "remnant external"
         }
       ],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 20,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "plural": "Ibises",
       "sprite": "ship/ibis",
       "thumbnail": "thumbnail/ibis",
@@ -22801,8 +23808,6 @@
           "hit force": 3000
         }
       },
-      "remnant leak": 20,
-      "remnant leak sparkle": 30,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -22811,7 +23816,7 @@
       "description": "The Ibis is a multipurpose carrier that serves as a mobile mining platform, an escort ship for Pelican fleets, and a combat platform using Terns for screening. It is capable of fielding a single wing of support craft, consisting of two Petrels and four Terns. \tThe Ibis was designed shortly after the Albatross as a means of extending the range of resource collection efforts after the Remnant realized that an Alpha invasion might not be as imminent as originally believed.",
       "_internalId": "official-game/endless-sky::Ibis",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "88e304dc6903",
+      "_hash": "e26823a41d45",
       "variant": "Ibis (KGS Twinhibitor)",
       "baseShip": "Ibis",
       "_variantPluginId": "Kai's list/KGS",
@@ -22979,6 +23984,18 @@
           "launch effect": "remnant external"
         }
       ],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 20,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Ibis",
       "plural": "Silver Ibises",
       "sprite": "ship/kgs_silver_ibis",
@@ -23016,8 +24033,6 @@
           "hit force": 3000
         }
       },
-      "remnant leak": 20,
-      "remnant leak sparkle": 30,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -23026,7 +24041,7 @@
       "description": "The Ibis is a multipurpose carrier that serves as a mobile mining platform, an escort ship for Pelican fleets, and a combat platform using Terns for screening. It is capable of fielding a single wing of support craft, consisting of two Petrels and four Terns. \tThe Ibis was designed shortly after the Albatross as a means of extending the range of resource collection efforts after the Remnant realized that an Alpha invasion might not be as imminent as originally believed.",
       "_internalId": "Kai's list/KGS::KGS Silver Ibis",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "f2b53688a378",
+      "_hash": "89ed1d81e454",
       "variant": "KGS Silver Ibis (KGS Heavy)",
       "baseShip": "KGS Silver Ibis",
       "_variantPluginId": "Kai's list/KGS",
@@ -23214,6 +24229,18 @@
           "launch effect": "remnant external"
         }
       ],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 20,
+          "spreadChance": 7
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Ibis",
       "plural": "Silver Ibises",
       "sprite": "ship/kgs_silver_ibis",
@@ -23251,8 +24278,6 @@
           "hit force": 3000
         }
       },
-      "remnant leak": 20,
-      "remnant leak sparkle": 30,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -23261,7 +24286,7 @@
       "description": "The Ibis is a multipurpose carrier that serves as a mobile mining platform, an escort ship for Pelican fleets, and a combat platform using Terns for screening. It is capable of fielding a single wing of support craft, consisting of two Petrels and four Terns. \tThe Ibis was designed shortly after the Albatross as a means of extending the range of resource collection efforts after the Remnant realized that an Alpha invasion might not be as imminent as originally believed.",
       "_internalId": "Kai's list/KGS::KGS Silver Ibis",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "f2b53688a378",
+      "_hash": "89ed1d81e454",
       "variant": "KGS Silver Ibis (KGS Twinhibitor)",
       "baseShip": "KGS Silver Ibis",
       "_variantPluginId": "Kai's list/KGS",
@@ -23391,6 +24416,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
       "display name": "Silver Peregrine",
       "sprite": "ship/kgs_silver_peregrine/kgs_silver_peregrine",
       "sprite data": {
@@ -23440,9 +24482,6 @@
           "hit force": 3000
         }
       },
-      "leak": 50,
-      "flame": 50,
-      "big leak": 90,
       "tiny explosion": 10,
       "small explosion": 25,
       "medium explosion": 25,
@@ -23451,7 +24490,7 @@
       "description": "The Peregrine is the first capital warship designed by Taely using fresh insights garnered from recent experimentation as well as renewed studies of the void sprites. Encompassing over a century of development since the last generation of warships was built, it is the forerunner of a new breed of Remnant ships. \tThe Peregrine was designed along the lines of old-earth's fast-attack cruisers. Drawing on inspiration from its namesake, famed for being the fastest self-propelled lifeform on Earth, it is designed to strike hard and fast. It closes quickly with enemies to unleash devastating barrages in the opening seconds of combat. \tThe cloaking technology is built into the Peregrine's hull; it cannot be removed or transferred to another ship.",
       "_internalId": "Kai's list/KGS::KGS Silver Peregrine",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "0e2df55f7774",
+      "_hash": "c65bdc5b1fcb",
       "variant": "KGS Silver Peregrine (II)",
       "baseShip": "KGS Silver Peregrine",
       "_variantPluginId": "Kai's list/KGS",
@@ -23629,6 +24668,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "plural": "Albatrosses",
       "sprite": "ship/albatross",
       "thumbnail": "thumbnail/albatross",
@@ -23665,8 +24716,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -23675,7 +24724,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "official-game/endless-sky::Albatross",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "cb468f2e6354",
+      "_hash": "a79b967cf2ed",
       "variant": "Albatross (KGS Twinhibitor)",
       "baseShip": "Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -23834,6 +24883,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "plural": "Albatrosses",
       "sprite": "ship/albatross",
       "thumbnail": "thumbnail/albatross",
@@ -23870,8 +24931,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -23880,7 +24939,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "official-game/endless-sky::Albatross",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "cb468f2e6354",
+      "_hash": "a79b967cf2ed",
       "variant": "Albatross (KGS Sniper)",
       "baseShip": "Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -24039,6 +25098,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "plural": "Albatrosses",
       "sprite": "ship/albatross",
       "thumbnail": "thumbnail/albatross",
@@ -24075,8 +25146,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -24085,7 +25154,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "official-game/endless-sky::Albatross",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "cb468f2e6354",
+      "_hash": "a79b967cf2ed",
       "variant": "Albatross (KGS Bithrasher)",
       "baseShip": "Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -24240,6 +25309,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "plural": "Albatrosses",
       "sprite": "ship/albatross",
       "thumbnail": "thumbnail/albatross",
@@ -24276,8 +25357,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -24286,7 +25365,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "official-game/endless-sky::Albatross",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "cb468f2e6354",
+      "_hash": "a79b967cf2ed",
       "variant": "Albatross (KGS Trithrasher)",
       "baseShip": "Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -24445,6 +25524,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -24482,8 +25573,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -24492,7 +25581,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (Sniper)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -24674,6 +25763,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -24711,8 +25812,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -24721,7 +25820,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (Turret)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -24887,6 +25986,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -24924,8 +26035,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -24934,7 +26043,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (Heavy)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -25112,6 +26221,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -25149,8 +26270,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -25159,7 +26278,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (Shield)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -25318,6 +26437,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -25355,8 +26486,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -25365,7 +26494,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (Ember Shield)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -25524,6 +26653,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -25561,8 +26702,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -25571,7 +26710,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (Sniper II)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -25742,6 +26881,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -25779,8 +26930,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -25789,7 +26938,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (KGS Twinhibitor)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -25948,6 +27097,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -25985,8 +27146,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -25995,7 +27154,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (KGS Sniper)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -26154,6 +27313,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -26191,8 +27362,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -26201,7 +27370,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (KGS Bithrasher)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -26356,6 +27525,18 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak",
+          "openChance": 30,
+          "spreadChance": 10
+        },
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 30,
+          "spreadChance": 10
+        }
+      ],
       "display name": "Silver Albatross",
       "plural": "Silver Albatrosses",
       "sprite": "ship/kgs_silver_albatross",
@@ -26393,8 +27574,6 @@
           "hit force": 5400
         }
       },
-      "remnant leak": 30,
-      "remnant leak sparkle": 30,
       "small explosion": 30,
       "medium explosion": 60,
       "large explosion": 40,
@@ -26403,7 +27582,7 @@
       "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
       "_internalId": "Kai's list/KGS::KGS Silver Albatross",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "edb70de9c9d5",
+      "_hash": "4c084c9cb9e1",
       "variant": "KGS Silver Albatross (KGS Trithrasher)",
       "baseShip": "KGS Silver Albatross",
       "_variantPluginId": "Kai's list/KGS",
@@ -26495,6 +27674,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 22,
+          "spreadChance": 3
+        }
+      ],
       "display name": "Silver Smew",
       "sprite": "ship/kgs_silver_smew",
       "thumbnail": "thumbnail/kgs_silver_smew",
@@ -26535,13 +27721,12 @@
           "hit force": 315
         }
       },
-      "remnant leak sparkle": 22,
       "tiny explosion": 35,
       "small explosion": 24,
       "description": "The Remnant have long favored turns of action that avoid putting crew directly at risk; though their Terns are a rather effective result of this ideology, the Remnant still had to face the fact that, eventually, one of their manned ships was going to end up too crippled to escape to safety. To that end, the Smew was developed; though quite lightly armed, Smews are capable of carrying a considerable quantity of cargo and passengers for a ship of their size, and are durable enough to absorb some fire from enemies while doing so. \tThough originally designed as lifeboats, the surprisingly mobile freighter-fighter hybrid has seen a remarkable amount of usage in mining fleets, as a way to supplement the otherwise poor cargo capacity of the Ibis. Because their purpose can vary from fleet to fleet, Smews are traditionally sold with a fair amount of free space: enough for a small weapon, upgraded engines, or additional support systems. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "Kai's list/KGS::KGS Silver Smew",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "9f73875de1c7",
+      "_hash": "19ab8deab532",
       "variant": "KGS Silver Smew (Miner)",
       "baseShip": "KGS Silver Smew",
       "_variantPluginId": "Kai's list/KGS",
@@ -26608,6 +27793,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 22,
+          "spreadChance": 3
+        }
+      ],
       "display name": "Silver Smew",
       "sprite": "ship/kgs_silver_smew",
       "thumbnail": "thumbnail/kgs_silver_smew",
@@ -26648,13 +27840,12 @@
           "hit force": 315
         }
       },
-      "remnant leak sparkle": 22,
       "tiny explosion": 35,
       "small explosion": 24,
       "description": "The Remnant have long favored turns of action that avoid putting crew directly at risk; though their Terns are a rather effective result of this ideology, the Remnant still had to face the fact that, eventually, one of their manned ships was going to end up too crippled to escape to safety. To that end, the Smew was developed; though quite lightly armed, Smews are capable of carrying a considerable quantity of cargo and passengers for a ship of their size, and are durable enough to absorb some fire from enemies while doing so. \tThough originally designed as lifeboats, the surprisingly mobile freighter-fighter hybrid has seen a remarkable amount of usage in mining fleets, as a way to supplement the otherwise poor cargo capacity of the Ibis. Because their purpose can vary from fleet to fleet, Smews are traditionally sold with a fair amount of free space: enough for a small weapon, upgraded engines, or additional support systems. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "Kai's list/KGS::KGS Silver Smew",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "9f73875de1c7",
+      "_hash": "19ab8deab532",
       "variant": "KGS Silver Smew (Runabout)",
       "baseShip": "KGS Silver Smew",
       "_variantPluginId": "Kai's list/KGS",
@@ -26714,6 +27905,13 @@
       ],
       "turrets": [],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "remnant leak sparkle",
+          "openChance": 22,
+          "spreadChance": 3
+        }
+      ],
       "display name": "Silver Smew",
       "sprite": "ship/kgs_silver_smew",
       "thumbnail": "thumbnail/kgs_silver_smew",
@@ -26754,13 +27952,12 @@
           "hit force": 315
         }
       },
-      "remnant leak sparkle": 22,
       "tiny explosion": 35,
       "small explosion": 24,
       "description": "The Remnant have long favored turns of action that avoid putting crew directly at risk; though their Terns are a rather effective result of this ideology, the Remnant still had to face the fact that, eventually, one of their manned ships was going to end up too crippled to escape to safety. To that end, the Smew was developed; though quite lightly armed, Smews are capable of carrying a considerable quantity of cargo and passengers for a ship of their size, and are durable enough to absorb some fire from enemies while doing so. \tThough originally designed as lifeboats, the surprisingly mobile freighter-fighter hybrid has seen a remarkable amount of usage in mining fleets, as a way to supplement the otherwise poor cargo capacity of the Ibis. Because their purpose can vary from fleet to fleet, Smews are traditionally sold with a fair amount of free space: enough for a small weapon, upgraded engines, or additional support systems. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
       "_internalId": "Kai's list/KGS::KGS Silver Smew",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "9f73875de1c7",
+      "_hash": "19ab8deab532",
       "variant": "KGS Silver Smew (Teciimach Ferry)",
       "baseShip": "KGS Silver Smew",
       "_variantPluginId": "Kai's list/KGS",
@@ -26882,6 +28079,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Rapid Stream",
       "sprite": "ship/kgs_rapid_stream_0",
       "thumbnail": "thumbnail/kgs_rapid_stream",
@@ -26918,7 +28116,7 @@
       "description": "Developed after the Unfettered invasion, the Rapid Stream is a cut down Deep River, equipped with three turrets for extra defense from Unfettered Trackers.",
       "_internalId": "Kai's list/KGS::KGS Rapid Stream",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "0846aee4410e",
+      "_hash": "e850db3e0ac3",
       "variant": "KGS Rapid Stream 0",
       "baseShip": "KGS Rapid Stream",
       "_variantPluginId": "Kai's list/KGS",
@@ -27049,6 +28247,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Rapid Stream",
       "sprite": "ship/kgs_rapid_stream_1",
       "thumbnail": "thumbnail/kgs_rapid_stream",
@@ -27085,7 +28284,7 @@
       "description": "Developed after the Unfettered invasion, the Rapid Stream is a cut down Deep River, equipped with three turrets for extra defense from Unfettered Trackers.",
       "_internalId": "Kai's list/KGS::KGS Rapid Stream",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "0846aee4410e",
+      "_hash": "e850db3e0ac3",
       "variant": "KGS Rapid Stream 1",
       "baseShip": "KGS Rapid Stream",
       "_variantPluginId": "Kai's list/KGS",
@@ -27216,6 +28415,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Rapid Stream",
       "sprite": "ship/kgs_rapid_stream_2",
       "thumbnail": "thumbnail/kgs_rapid_stream",
@@ -27252,7 +28452,7 @@
       "description": "Developed after the Unfettered invasion, the Rapid Stream is a cut down Deep River, equipped with three turrets for extra defense from Unfettered Trackers.",
       "_internalId": "Kai's list/KGS::KGS Rapid Stream",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "0846aee4410e",
+      "_hash": "e850db3e0ac3",
       "variant": "KGS Rapid Stream 2",
       "baseShip": "KGS Rapid Stream",
       "_variantPluginId": "Kai's list/KGS",
@@ -27383,6 +28583,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Rapid Stream",
       "sprite": "ship/kgs_rapid_stream_3",
       "thumbnail": "thumbnail/kgs_rapid_stream",
@@ -27419,7 +28620,7 @@
       "description": "Developed after the Unfettered invasion, the Rapid Stream is a cut down Deep River, equipped with three turrets for extra defense from Unfettered Trackers.",
       "_internalId": "Kai's list/KGS::KGS Rapid Stream",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "0846aee4410e",
+      "_hash": "e850db3e0ac3",
       "variant": "KGS Rapid Stream 3",
       "baseShip": "KGS Rapid Stream",
       "_variantPluginId": "Kai's list/KGS",
@@ -27550,6 +28751,7 @@
         }
       ],
       "bays": [],
+      "leaks": [],
       "display name": "Rapid Stream",
       "sprite": "ship/kgs_rapid_stream_4",
       "thumbnail": "thumbnail/kgs_rapid_stream",
@@ -27586,7 +28788,7 @@
       "description": "Developed after the Unfettered invasion, the Rapid Stream is a cut down Deep River, equipped with three turrets for extra defense from Unfettered Trackers.",
       "_internalId": "Kai's list/KGS::KGS Rapid Stream",
       "_pluginId": "Kai's list/KGS",
-      "_hash": "0846aee4410e",
+      "_hash": "e850db3e0ac3",
       "variant": "KGS Rapid Stream 4",
       "baseShip": "KGS Rapid Stream",
       "_variantPluginId": "Kai's list/KGS",
@@ -33476,5 +34678,5 @@
       "pluginId": "Kai's list/KGS"
     }
   ],
-  "parsedAt": "2026-05-02T16:37:28.462Z"
+  "parsedAt": "2026-05-12T12:43:33.539Z"
 }

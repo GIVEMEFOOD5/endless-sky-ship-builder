@@ -15,7 +15,7 @@
       "jumpNavCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.cpp",
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h"
     },
-    "generatedAt": "2026-05-02T16:37:30.403Z",
+    "generatedAt": "2026-05-12T12:43:35.834Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
@@ -2614,7 +2614,8 @@
         "FinishLoading",
         "Launch",
         "FleetCost",
-        "RequiredCrew"
+        "RequiredCrew",
+        "CanBeFlagship"
       ]
     },
     "hyperdrive fuel": {
@@ -4608,6 +4609,7 @@
       "attributesRead": [
         "automaton",
         "crew equivalent",
+        "mandatory crew",
         "required crew",
         "use crew equivalent as crew"
       ],
@@ -4622,8 +4624,8 @@
           "formula": "([crew equivalent])"
         },
         {
-          "rawReturn": "required + crewEquivalent",
-          "formula": "([automaton] ? 0 : [required crew]) + ([crew equivalent])"
+          "rawReturn": "required + mandatory + crewEquivalent",
+          "formula": "([automaton] ? 0 : [required crew]) + ([mandatory crew]) + ([crew equivalent])"
         },
         {
           "rawReturn": "administrativeCost.value_or(!canBeCarried)",
@@ -4632,6 +4634,7 @@
       ],
       "attributeVariables": {
         "crewEquivalent": "[crew equivalent]",
+        "mandatory": "[mandatory crew]",
         "required": "[automaton] ? 0 : [required crew]"
       },
       "displayScale": 1,
@@ -4667,16 +4670,23 @@
       "isConst": true,
       "attributesRead": [
         "automaton",
+        "mandatory crew",
         "required crew"
       ],
       "attributesSet": [],
       "formulas": [
         {
-          "rawReturn": "max<int>(1, attributes.Get(\"required crew\"))",
-          "formula": "max<int>(1, [required crew])"
+          "rawReturn": "mandatory",
+          "formula": "([mandatory crew])"
+        },
+        {
+          "rawReturn": "max<int>(1, attributes.Get(\"required crew\")) + mandatory",
+          "formula": "max<int>(1, [required crew]) + ([mandatory crew])"
         }
       ],
-      "attributeVariables": {},
+      "attributeVariables": {
+        "mandatory": "[mandatory crew]"
+      },
       "displayScale": 1,
       "displayUnit": "",
       "labelPrefix": ""
@@ -4725,12 +4735,14 @@
       "returnType": "bool",
       "params": "",
       "isConst": true,
-      "attributesRead": [],
+      "attributesRead": [
+        "automaton"
+      ],
       "attributesSet": [],
       "formulas": [
         {
-          "rawReturn": "RequiredCrew() && Crew() && !IsDisabled()",
-          "formula": "RequiredCrew() && Crew() && !IsDisabled()"
+          "rawReturn": "!attributes.Get(\"automaton\") && Crew() && !IsDisabled()",
+          "formula": "![automaton] && Crew() && !IsDisabled()"
         }
       ],
       "attributeVariables": {},

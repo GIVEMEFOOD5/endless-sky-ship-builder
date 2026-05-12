@@ -60,6 +60,18 @@
       }
     ],
     "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 80
+      }
+    ],
     "plural": "Argosies",
     "sprite": "ship/argosy",
     "thumbnail": "thumbnail/argosy",
@@ -85,8 +97,6 @@
         "hit force": 900
       }
     },
-    "leak": 60,
-    "flame": 60,
     "tiny explosion": 10,
     "small explosion": 25,
     "medium explosion": 25,
@@ -95,7 +105,7 @@
     "description": "The Argosy from Southbound Shipyards is very popular with merchants not because of its capacity, which is actually slightly smaller than the Syndicate Freighter, but because it can hold its own in combat even against a small pirate fleet. \tThe Argosy is also a very easy ship to upgrade with faster engines or more powerful weapons as needed, so many privately owned Argosies have very different capabilities than the stock model.",
     "_internalId": "official-game/endless-sky::Argosy",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "88b43118a9ee",
+    "_hash": "d7e08f3ef3b0",
     "variant": "Argosy (Explorer)",
     "baseShip": "Argosy",
     "_variantPluginId": "Zuckungs list/uniques",
@@ -590,6 +600,7 @@
         "launch effect": "korath internal"
       }
     ],
+    "leaks": [],
     "sprite": "ship/korsmanath a-awoj",
     "thumbnail": "thumbnail/korsmanath a-awoj",
     "uncapturable": true,
@@ -628,7 +639,7 @@
     "description": "Korsmanath A'awojs, named in memory of the Korath home system, are massive nomadic habitats that hold much of their remaining population. True flying cities, they could be self-contained miniature worlds were it not for their heavy defensive armament and reliance on unsustainable materials, methods, and sources of power. \tCommission of new Korsmanath A'awojs is a resource-demanding, labor-intensive, painstaking process fraught with political intrigue. Navarchs fight with the civilian government for resources and yard time they would rather devote to building raiding and defensive fleets, civilians vie with each other for a place on the next ship, and planning committees argue with engineers over what methods and technologies to use. This leads to construction delays, corner-cutting, and over-militarization of the design at best, and violent feuds at worst.",
     "_internalId": "official-game/endless-sky::Korsmanath A'awoj",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "bd572a229424",
+    "_hash": "ffe2e2c30170",
     "variant": "Korsmanath A'awoj (Jump)",
     "baseShip": "Korsmanath A'awoj",
     "_variantPluginId": "Zuckungs list/uniques",

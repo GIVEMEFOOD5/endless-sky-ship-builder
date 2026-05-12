@@ -125,6 +125,23 @@
         }
       ],
       "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 30,
+          "spreadChance": 30
+        }
+      ],
       "sprite": "ship/chigiriki",
       "thumbnail": "thumbnail/chigiriki",
       "attributes": {
@@ -149,9 +166,6 @@
           "hit force": 6600
         }
       },
-      "leak": 30,
-      "flame": 30,
-      "big leak": 30,
       "tiny explosion": 90,
       "small explosion": 70,
       "medium explosion": 45,
@@ -161,7 +175,7 @@
       "description": "The Chigiriki is the largest of the Bunrodea's gunships, boasting an astonishing seventeen gun ports. One of these ports is equipped with the devastating Thorax Cannon, a massive cannon capable of dealing significant damage to any ship that dares get in the Chigiriki's way. Some Chigiriki also double as missile platforms, raining down walls of missiles so thick that they can blot out the nearest star.",
       "_internalId": "official-game/endless-sky::Chigiriki",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "150cb67f87bc",
+      "_hash": "d7a6176bea4d",
       "variant": "Chigiriki MK2",
       "baseShip": "Chigiriki",
       "_variantPluginId": "Zuckungs list/bunrodea.missions",
@@ -299,5 +313,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-05-02T16:37:28.166Z"
+  "parsedAt": "2026-05-12T12:43:33.241Z"
 }

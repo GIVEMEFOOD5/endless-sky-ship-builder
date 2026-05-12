@@ -60,6 +60,18 @@
       }
     ],
     "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 80
+      }
+    ],
     "plural": "Argosies (wreck)",
     "sprite": "ship/argosy",
     "thumbnail": "thumbnail/argosy",
@@ -86,8 +98,6 @@
         "hit force": 900
       }
     },
-    "leak": 60,
-    "flame": 60,
     "tiny explosion": 10,
     "small explosion": 25,
     "medium explosion": 25,
@@ -96,7 +106,7 @@
     "description": "The Argosy from Southbound Shipyards is very popular with merchants not because of its capacity, which is actually slightly smaller than the Syndicate Freighter, but because it can hold its own in combat even against a small pirate fleet. \tThe Argosy is also a very easy ship to upgrade with faster engines or more powerful weapons as needed, so many privately owned Argosies have very different capabilities than the stock model.",
     "_internalId": "Zuckungs list/uniques::Argosy (wreck)",
     "_pluginId": "Zuckungs list/uniques",
-    "_hash": "872b261b7c6e",
+    "_hash": "f175f5d8493b",
     "governments": {
       "official-game/endless-sky": {
         "Lunarium (Hidden)": true,
@@ -232,6 +242,23 @@
         "launch effect": "human internal"
       }
     ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 50,
+        "spreadChance": 30
+      }
+    ],
     "plural": "Dromedaries",
     "sprite": "ship/modified dromedary",
     "thumbnail": "thumbnail/modified dromedary",
@@ -264,9 +291,6 @@
       }
     },
     "angle": 90,
-    "leak": 30,
-    "flame": 30,
-    "big leak": 50,
     "small explosion": 25,
     "medium explosion": 35,
     "large explosion": 45,
@@ -275,7 +299,7 @@
     "description": "The Tycho Crater Cooperative's Dromedary was one of the foremost colonization ships during the early era before piracy became rampant and triggered the necessity for city-ships to be more combat-oriented. These ships incorporate extensive hydroponics, large construction equipment installations, and hundreds of densely packed \"dream cells\" built to transport people in bulk.",
     "_internalId": "Zuckungs list/uniques::Dromedary",
     "_pluginId": "Zuckungs list/uniques",
-    "_hash": "41bb6ec5fa2c",
+    "_hash": "33f75e930202",
     "governments": {
       "uniques": {
         "uniques": true
@@ -426,6 +450,23 @@
         "launch effect": "human internal"
       }
     ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 50,
+        "spreadChance": 30
+      }
+    ],
     "plural": "Dromedaries (wreck)",
     "sprite": "ship/modified dromedary",
     "thumbnail": "thumbnail/modified dromedary",
@@ -459,9 +500,6 @@
       }
     },
     "angle": 90,
-    "leak": 30,
-    "flame": 30,
-    "big leak": 50,
     "small explosion": 25,
     "medium explosion": 35,
     "large explosion": 45,
@@ -470,7 +508,7 @@
     "description": "The Tycho Crater Cooperative's Dromedary was one of the foremost colonization ships during the early era before piracy became rampant and triggered the necessity for city-ships to be more combat-oriented. These ships incorporate extensive hydroponics, large construction equipment installations, and hundreds of densely packed \"dream cells\" built to transport people in bulk.",
     "_internalId": "Zuckungs list/uniques::Dromedary (wreck)",
     "_pluginId": "Zuckungs list/uniques",
-    "_hash": "550d55b18608",
+    "_hash": "fc2fc927ac99",
     "governments": {
       "Zuckungs list/uniques": {
         "derelict ship": true
@@ -668,6 +706,23 @@
         "launch effect": "human internal"
       }
     ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 30,
+        "spreadChance": 30
+      }
+    ],
     "sprite": "ship/carrier",
     "thumbnail": "thumbnail/carrier",
     "attributes": {
@@ -696,9 +751,6 @@
         "hit force": 4500
       }
     },
-    "leak": 30,
-    "flame": 30,
-    "big leak": 30,
     "tiny explosion": 20,
     "small explosion": 45,
     "medium explosion": 50,
@@ -708,7 +760,7 @@
     "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
     "_internalId": "Zuckungs list/uniques::Carrier (wreck)",
     "_pluginId": "Zuckungs list/uniques",
-    "_hash": "24e99fb71984",
+    "_hash": "d27de8a19c58",
     "governments": {
       "official-game/endless-sky": {
         "Republic": true,
@@ -1210,6 +1262,7 @@
         "launch effect": "korath internal"
       }
     ],
+    "leaks": [],
     "display name": "Korsmanath A'awoj (wreck)",
     "sprite": "ship/korsmanath a-awoj",
     "thumbnail": "thumbnail/korsmanath a-awoj",
@@ -1249,7 +1302,7 @@
     "description": "Korsmanath A'awojs, named in memory of the Korath home system, are massive nomadic habitats that hold much of their remaining population. True flying cities, they could be self-contained miniature worlds were it not for their heavy defensive armament and reliance on unsustainable materials, methods, and sources of power. \tCommission of new Korsmanath A'awojs is a resource-demanding, labor-intensive, painstaking process fraught with political intrigue. Navarchs fight with the civilian government for resources and yard time they would rather devote to building raiding and defensive fleets, civilians vie with each other for a place on the next ship, and planning committees argue with engineers over what methods and technologies to use. This leads to construction delays, corner-cutting, and over-militarization of the design at best, and violent feuds at worst.",
     "_internalId": "Zuckungs list/uniques::unq uncap Korsmanath A'awoj (wreck)",
     "_pluginId": "Zuckungs list/uniques",
-    "_hash": "cc29747467e5",
+    "_hash": "354a5b3214de",
     "governments": {
       "Zuckungs list/uniques": {
         "derelict ship": true
@@ -1783,6 +1836,7 @@
         "launch effect": "korath internal"
       }
     ],
+    "leaks": [],
     "display name": "Korsmanath A'awoj (wreck)",
     "sprite": "ship/korsmanath a-awoj",
     "thumbnail": "thumbnail/korsmanath a-awoj",
@@ -1821,7 +1875,7 @@
     "description": "Korsmanath A'awojs, named in memory of the Korath home system, are massive nomadic habitats that hold much of their remaining population. True flying cities, they could be self-contained miniature worlds were it not for their heavy defensive armament and reliance on unsustainable materials, methods, and sources of power. \tCommission of new Korsmanath A'awojs is a resource-demanding, labor-intensive, painstaking process fraught with political intrigue. Navarchs fight with the civilian government for resources and yard time they would rather devote to building raiding and defensive fleets, civilians vie with each other for a place on the next ship, and planning committees argue with engineers over what methods and technologies to use. This leads to construction delays, corner-cutting, and over-militarization of the design at best, and violent feuds at worst.",
     "_internalId": "Zuckungs list/uniques::unq Korsmanath A'awoj (wreck)",
     "_pluginId": "Zuckungs list/uniques",
-    "_hash": "7b1f3d5fc39c",
+    "_hash": "425cad279f0e",
     "governments": {
       "Zuckungs list/uniques": {
         "derelict ship": true
@@ -1986,6 +2040,18 @@
       }
     ],
     "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 80
+      }
+    ],
     "display name": "Planet Destroyer",
     "sprite": "ship/darkstar",
     "thumbnail": "thumbnail/argosy",
@@ -2012,8 +2078,6 @@
         "hit force": -8200
       }
     },
-    "leak": 60,
-    "flame": 60,
     "tiny explosion": 10,
     "small explosion": 25,
     "medium explosion": 25,
@@ -2022,7 +2086,7 @@
     "description": "You should not be seeing the description of this ship.",
     "_internalId": "Zuckungs list/uniques::fluffy Planet Destroyer",
     "_pluginId": "Zuckungs list/uniques",
-    "_hash": "7b7ddbf3095b",
+    "_hash": "e1755d26c65c",
     "governments": {
       "Zuckungs list/uniques": {
         "Derelict 2": true
@@ -2147,6 +2211,18 @@
       }
     ],
     "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 80
+      }
+    ],
     "display name": "CM-88B",
     "sprite": "ship/nostromo",
     "thumbnail": "thumbnail/argosy",
@@ -2173,8 +2249,6 @@
         "hit force": 900
       }
     },
-    "leak": 60,
-    "flame": 60,
     "tiny explosion": 10,
     "small explosion": 25,
     "medium explosion": 25,
@@ -2183,7 +2257,7 @@
     "description": "You should not be seeing the description of this ship.",
     "_internalId": "Zuckungs list/uniques::fluffy Mega Freighter",
     "_pluginId": "Zuckungs list/uniques",
-    "_hash": "959b878db73b",
+    "_hash": "9b6cd86ab3b0",
     "governments": {
       "Zuckungs list/uniques": {
         "Derelict 2": true

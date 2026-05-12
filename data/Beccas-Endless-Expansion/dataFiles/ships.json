@@ -73,6 +73,23 @@
       }
     ],
     "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 35,
+        "spreadChance": 45
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 95
+      },
+      {
+        "effect": "big leak",
+        "openChance": 50,
+        "spreadChance": 45
+      }
+    ],
     "sprite": "ship/hai modified shield beetle",
     "thumbnail": "thumbnail/hai shield beetle",
     "attributes": {
@@ -100,9 +117,6 @@
         "hit force": 3600
       }
     },
-    "leak": 35,
-    "flame": 60,
-    "big leak": 50,
     "tiny explosion": 60,
     "small explosion": 51,
     "medium explosion": 54,
@@ -112,7 +126,7 @@
     "description": "This ship has been modified by the Unfettered Hai, after that they succesfully invaded Wanderer space. Their primary intention was to increase the weapon space to install more Ion Cannons, but since they were unable to do much they focused on the Solifuge development and, after it was completed, they tried to increase the other attributes instead with good results at the cost of manuevrability and heat control.",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Modified Shield Beetle",
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "6ade2824a4cb",
+    "_hash": "994b9a025595",
     "governments": {
       "Beccas-Endless-Expansion": {
         "Beccas-Endless-Expansion": true
@@ -266,6 +280,7 @@
       }
     ],
     "bays": [],
+    "leaks": [],
     "sprite": "ship/swan",
     "thumbnail": "thumbnail/swan",
     "attributes": {
@@ -309,7 +324,7 @@
     "description": "Compared to the other freighter used by the Remnant the Swan is an old and outdated design: developed at the same time as the agile Starling, but without any integrated cloaking technology. Its main purpose is hauling large quantities of goods between planets, where, if needed, it can land to repair the hull or use its firepower to join the defense fleets.",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Swan",
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "383d1dce444e",
+    "_hash": "1f6ceb628a1d",
     "governments": {
       "official-game/endless-sky": {
         "Remnant": true,
@@ -429,6 +444,7 @@
     "guns": [],
     "turrets": [],
     "bays": [],
+    "leaks": [],
     "sprite": "ship/robin",
     "thumbnail": "thumbnail/robin",
     "attributes": {
@@ -465,7 +481,7 @@
     "description": "Since the beginning of the renewed safety of the contacts with the Void Sprites, the Remnant have tried to improve the Gascraft's basic design. The Robin has better capabilities than its predecessor, but still lacks the armament to be of any use during a fight.",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Robin",
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "d0083146e6c7",
+    "_hash": "cbc89a347919",
     "governments": {
       "Beccas-Endless-Expansion": {
         "Beccas-Endless-Expansion": true
@@ -566,6 +582,7 @@
       }
     ],
     "bays": [],
+    "leaks": [],
     "sprite": "ship/far ek tek 243",
     "thumbnail": "thumbnail/far ek tek 243",
     "attributes": {
@@ -600,7 +617,7 @@
     "description": "After they started producing automated drones, the Korath Exiles decided to adapt them for their needs. The Far Ek Tek 243 is a  spaceship that can raid the nearby species, but that doesn't require any crew to operate.",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Far Ek Tek 243",
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "504427353476",
+    "_hash": "e5b47ce3720b",
     "governments": {
       "Beccas-Endless-Expansion": {
         "Beccas-Endless-Expansion": true
@@ -721,6 +738,7 @@
       }
     ],
     "bays": [],
+    "leaks": [],
     "swizzle": 0,
     "sprite": "ship/courier",
     "thumbnail": "thumbnail/courier",
@@ -756,7 +774,7 @@
     "description": "During the first stages of their civil war, the Korath developed this autonomous freighter as the backbone of their deliveries across their space. Today, hundreds of years after the end of the war that nearly brought their species to an extinction, most of the remaining Couriers are being used by the Korath Efret together with their World-Ships.",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Korath Courier",
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "176984ccb85a",
+    "_hash": "7c8245d3c83e",
     "governments": {
       "Beccas-Endless-Expansion": {
         "Beccas-Endless-Expansion": true
@@ -851,6 +869,7 @@
       }
     ],
     "bays": [],
+    "leaks": [],
     "sprite": "ship/shipper",
     "thumbnail": "thumbnail/shipper",
     "attributes": {
@@ -880,7 +899,7 @@
     "description": "The Shipper is a vessel of old design, used by the Korath mainly for exploration and to transport small groups of people. Only a small number of Shippers is still produced, and even fewer are being actively used as transport.",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Korath Shipper",
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "afb074229bcd",
+    "_hash": "ee98cede012d",
     "governments": {
       "Beccas-Endless-Expansion": {
         "Beccas-Endless-Expansion": true
@@ -997,6 +1016,18 @@
       }
     ],
     "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
     "sprite": "ship/hai sea scorpion",
     "thumbnail": "thumbnail/hai sea scorpion",
     "attributes": {
@@ -1021,8 +1052,6 @@
         "hit force": 1260
       }
     },
-    "leak": 40,
-    "flame": 40,
     "tiny explosion": 24,
     "small explosion": 50,
     "medium explosion": 30,
@@ -1031,7 +1060,7 @@
     "description": "Most of the ships the Unfettered had back when they splitted from the rest of the Hai weren't usable as missile boats, and for a while they had to rely heavily on pulse weapons instead. Only after some decades of hard work they were able to take the Sea Scorpion into mass production, but it was worth it: its low price and high number of gun ports make it perfect for its role, at the cost of a weak hull and shielding.",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Sea Scorpion",
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "5077f146a165",
+    "_hash": "b72b3762b1e6",
     "governments": {
       "Beccas-Endless-Expansion": {
         "Beccas-Endless-Expansion": true
