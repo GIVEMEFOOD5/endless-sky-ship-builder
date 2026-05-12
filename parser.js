@@ -42,6 +42,7 @@ function hashShip(ship) {
     guns:            ship.guns            ?? [],
     turrets:         ship.turrets         ?? [],
     bays:            ship.bays            ?? [],
+    leaks:           ship.leaks           ?? [],  // included so leak-only differences are detected
   };
   return crypto
     .createHash('sha1')
@@ -1259,6 +1260,23 @@ class EndlessSkyParser {
     return null;
   }
 
+  /**
+   * Parse a single `leak` line.
+   * Syntax: leak "effectName" <openChance> <spreadChance>
+   * Returns { effect, openChance, spreadChance } or null if the line is not a leak.
+   */
+  parseLeak(stripped) {
+    const m =
+      stripped.match(/^leak\s+"([^"]+)"\s+(\d+)\s+(\d+)$/) ||
+      stripped.match(/^leak\s+`([^`]+)`\s+(\d+)\s+(\d+)$/);
+    if (!m) return null;
+    return {
+      effect:       m[1],
+      openChance:   parseInt(m[2], 10),
+      spreadChance: parseInt(m[3], 10),
+    };
+  }
+
   parseOptionalNestedProperty(lines, i, baseIndent, data, prop) {
     if (i + 1 < lines.length) {
       const ni = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
@@ -1323,7 +1341,7 @@ class EndlessSkyParser {
     const shipData = {
       name: baseName,
       engines: [], reverseEngines: [], steeringEngines: [],
-      guns: [], turrets: [], bays: [],
+      guns: [], turrets: [], bays: [], leaks: [],
       outfitMap: {}
     };
     let i = startIdx + 1;
@@ -1333,6 +1351,7 @@ class EndlessSkyParser {
       const indent = line2.length - line2.replace(/^\t+/, '').length;
       if (indent < 1) break;
       const stripped = line2.trim();
+
       if (stripped === 'outfits') {
         const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName, null);
         shipData.outfitMap = outfitMap;
@@ -1341,6 +1360,8 @@ class EndlessSkyParser {
       if (stripped === 'add attributes') {
         i = this.skipIndentedBlock(lines, i, indent); continue;
       }
+
+      // ── Hardpoints (engine / gun / turret / bay) ──────────────────────────
       const hr = this.parseHardpoint(stripped, lines, i, indent);
       if (hr) {
         const [type, hdata, ni] = hr;
@@ -1348,6 +1369,13 @@ class EndlessSkyParser {
         shipData[type].push(hdata);
         i = ni; continue;
       }
+
+      // ── Leak lines ─────────────────────────────────────────────────────────
+      // Format: leak "effectName" <openChance> <spreadChance>
+      // Multiple leak lines are valid and must all be collected.
+      const leak = this.parseLeak(stripped);
+      if (leak) { shipData.leaks.push(leak); i++; continue; }
+
       if (stripped === 'description' || stripped.startsWith('description ')) {
         const [desc, ni] = this.parseDescription(lines, i, indent);
         if (desc) {
@@ -1406,6 +1434,7 @@ class EndlessSkyParser {
 
     let changed = false;
     let inlineOutfitsStarted = false;
+    let variantLeaksStarted  = false;   // true once the variant defines its first leak line
 
     let i = startIdx + 1;
     while (i < lines.length) {
@@ -1460,6 +1489,17 @@ class EndlessSkyParser {
           if (val !== baseShip[k]) { v[k] = val; changed = true; }
         }
         i = ni; continue;
+      }
+
+      // ── Leak lines in variants ─────────────────────────────────────────────
+      // A variant that specifies any leak lines replaces the base ship's leaks
+      // entirely (the game engine uses the same semantics — no merging).
+      const leak = this.parseLeak(stripped);
+      if (leak) {
+        if (!variantLeaksStarted) { v.leaks = []; variantLeaksStarted = true; }
+        v.leaks.push(leak);
+        changed = true;
+        i++; continue;
       }
 
       const [parsed, ni] = this.parseBlock(lines, i, { parseHardpoints: true });
