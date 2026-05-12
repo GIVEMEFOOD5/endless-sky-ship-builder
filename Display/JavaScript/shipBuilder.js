@@ -1387,9 +1387,9 @@ function sbOpenEffectPicker(targetField) {
         <div class="sb-picker-group-label">${esc(plugin)}</div>
         ${effects.map(e => {
           const name = e.name || '';
-          return `<div class="sb-picker-row" onclick="sbAddEffectFromPicker(${JSON.stringify(JSON.stringify(name))}, '${esc(targetField)}')">
-            <span class="sb-picker-name">${esc(name)}</span>
-          </div>`;
+          return `<div class="sb-picker-row" data-effect-name="${esc(name)}" data-effect-field="${esc(targetField)}">
+          <span class="sb-picker-name">${esc(name || 'Unknown')}</span>
+        </div>`;
         }).join('')}
       </div>`).join('');
   }
@@ -1397,6 +1397,19 @@ function sbOpenEffectPicker(targetField) {
   document.getElementById('sb-effect-picker-search').value = '';
   document.getElementById('sb-effect-count-input').value   = '1';
   document.getElementById('modal-sb-effect-picker').dataset.targetField = targetField;
+
+  // Wire up click delegation on the list — avoids all inline quoting issues
+  const listEl = document.getElementById('sb-effect-picker-list');
+  const newList = listEl.cloneNode(true); // cloneNode removes old listeners
+  listEl.parentNode.replaceChild(newList, listEl);
+  newList.addEventListener('click', e => {
+      const row = e.target.closest('.sb-picker-row');
+      if (!row) return;
+      const effectName  = row.dataset.effectName;
+      const effectField = row.dataset.effectField;
+      if (effectName) sbAddEffectFromPicker(JSON.stringify(effectName), effectField);
+  });
+
   openModal('modal-sb-effect-picker');
 }
 
