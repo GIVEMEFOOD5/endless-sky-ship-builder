@@ -292,32 +292,7 @@ const CapacityGuard = (() => {
             if (newCount === oldCount) return originalFn.call(this, i, newCountRaw);
 
             if (newCount > oldCount) {
-                const diff = newCount - oldCount;
-
-                // First check non-capacity attribute violations (e.g. heat dissipation
-                // going negative) — sbCheckOutfitSpace inside originalFn only covers
-                // the four capacity keys, not arbitrary attributes.
-                const attrViolations = _checkAttrViolationsOnAdd(targetName, diff);
-                if (attrViolations.length) {
-                    _showModal(
-                        `increase "${targetName}" to ${newCount}`,
-                        attrViolations.map(v => ({
-                            key:  v.key,
-                            used: -v.wouldBe,
-                            max:  Math.max(0, v.currentNet),
-                            over: v.deficit,
-                        })),
-                        null
-                    );
-                    // Restore the input to its previous value
-                    const inputs = document.querySelectorAll('.outfit-item__count');
-                    if (inputs[i]) inputs[i].value = oldCount;
-                    _highlightViolations(attrViolations.map(v => v.key));
-                    _sbsRefresh();
-                    return; // block
-                }
-
-                // Capacity keys are checked by sbCheckOutfitSpace inside originalFn
+                // Increase — sbCheckOutfitSpace handles the block inside originalFn
                 const result = originalFn.call(this, i, newCountRaw);
                 _sbsRefresh();
                 return result;
