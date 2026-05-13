@@ -1415,16 +1415,14 @@ function sbRenderLeaksList() {
   const el = document.getElementById('leaks-list'); if (!el) return;
   const leaks = sbCurrentShip.leaks || [];
   el.innerHTML = leaks.length ? leaks.map((l, i) => `
-    <div class="outfit-item" style="gap:6px;">
-      <span class="outfit-item__name" style="flex:1;">${esc(l.name || '')}</span>
-      <label style="font-size:0.75rem;color:var(--c-text-dim);margin:0;white-space:nowrap;">open</label>
+<div class="outfit-item" style="display:grid;grid-template-columns:1fr 60px 60px 28px;gap:4px;align-items:center;">
+      <span class="outfit-item__name" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(l.name || '')}">${esc(l.name || '')}</span>
       <input class="outfit-item__count" type="number" min="0" max="100"
-        value="${esc(String(l.openChance ?? 0))}" style="width:54px;"
+        value="${esc(String(l.openChance ?? 0))}" style="width:100%;text-align:center;"
         onchange="sbUpdateLeakField(${i}, 'openChance', this.value)"
         title="Open chance (0–100)">
-      <label style="font-size:0.75rem;color:var(--c-text-dim);margin:0;white-space:nowrap;">spread</label>
       <input class="outfit-item__count" type="number" min="0" max="100"
-        value="${esc(String(l.spreadChance ?? 0))}" style="width:54px;"
+        value="${esc(String(l.spreadChance ?? 0))}" style="width:100%;text-align:center;"
         onchange="sbUpdateLeakField(${i}, 'spreadChance', this.value)"
         title="Spread chance (0–100)">
       <button class="btn btn-danger btn-xs" onclick="sbRemoveLeak(${i})">✕</button>
