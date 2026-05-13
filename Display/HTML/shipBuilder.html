@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -233,9 +233,14 @@
           <div>
             <div class="outfit-section-title">Leak Effects
               <button class="btn btn-xs btn-secondary" onclick="addLeakEffect()">+ Add</button>
+              <span style="font-size:0.74rem;color:var(--c-text-dim);font-weight:400;margin-left:8px;">
+                Output: <code>leak "name" openChance spreadChance</code>
+              </span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 60px 60px 28px;gap:4px;padding:0 2px 4px;font-size:0.72rem;color:var(--c-text-dim);font-weight:600;text-transform:uppercase;letter-spacing:.06em;">
+              <span>Effect Name</span><span style="text-align:center;">Open</span><span style="text-align:center;">Spread</span><span></span>
             </div>
             <div id="leaks-list"></div>
-          </div>
         </div>
 
         <!-- RAW EDIT TAB -->
