@@ -18,6 +18,9 @@
 //      outfit entry so ComputedStats resolves them properly.
 //    - sbSave/sbLoad: robust round-trip ensuring outfits are always
 //      stored as a map and restored as an array correctly.
+//    - Leak format: parser produces { effect, openChance, spreadChance }.
+//      shipBuilder normalises to { name, openChance, spreadChance }
+//      internally. ES output: leak "name" <openChance> <spreadChance>.
 // ═══════════════════════════════════════════════════════════
 
 const SB_STORAGE_KEY = 'es_ship_builder_v4';
@@ -87,6 +90,69 @@ function sbBlank() {
   };
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+//  LEAK NORMALISATION
+//
+//  The parser (parser.js) emits leaks as:
+//    { effect: "leak", openChance: 30, spreadChance: 50 }
+//
+//  shipBuilder stores leaks internally as:
+//    { name: "leak", openChance: 30, spreadChance: 50 }
+//
+//  The ES text format is:
+//    leak "name" <openChance> <spreadChance>
+//
+//  This helper canonicalises any of the forms that might arrive (parser
+//  format, old { name, count } format from legacy saves, raw string) into
+//  the internal format.  It never returns null — bad input becomes a
+//  zeroed-out entry so the UI still renders.
+// ─────────────────────────────────────────────────────────────────────────────
+function _sbNormaliseLeak(raw) {
+  if (!raw) return { name: '', openChance: 0, spreadChance: 0 };
+
+  // Parser format: { effect, openChance, spreadChance }
+  if (typeof raw === 'object' && raw.effect != null) {
+    return {
+      name:        String(raw.effect),
+      openChance:  parseInt(raw.openChance)  || 0,
+      spreadChance: parseInt(raw.spreadChance) || 0,
+    };
+  }
+
+  // Already internal format: { name, openChance, spreadChance }
+  if (typeof raw === 'object' && raw.name != null && raw.openChance != null) {
+    return {
+      name:        String(raw.name),
+      openChance:  parseInt(raw.openChance)  || 0,
+      spreadChance: parseInt(raw.spreadChance) || 0,
+    };
+  }
+
+  // Legacy / manual format: { name, count } — treat count as openChance, 0 spread
+  if (typeof raw === 'object' && raw.name != null) {
+    return {
+      name:        String(raw.name),
+      openChance:  parseInt(raw.count) || 0,
+      spreadChance: 0,
+    };
+  }
+
+  // Raw string: 'leak 30 50' or '"leak" 30 50'
+  if (typeof raw === 'string') {
+    const tok = raw.trim().match(/^("([^"]+)"|(\S+))(?:\s+(\d+))?(?:\s+(\d+))?$/);
+    if (tok) {
+      return {
+        name:        (tok[2] || tok[3] || '').replace(/^"|"$/g, ''),
+        openChance:  parseInt(tok[4]) || 0,
+        spreadChance: parseInt(tok[5]) || 0,
+      };
+    }
+    return { name: raw.trim(), openChance: 0, spreadChance: 0 };
+  }
+
+  return { name: '', openChance: 0, spreadChance: 0 };
+}
+
 // ═══════════════════════════════════════════════════════════
 //  PERSISTENCE
 // ═══════════════════════════════════════════════════════════
@@ -113,7 +179,8 @@ function sbLoad() {
             const raw = JSON.parse(d);
             sbFleet = raw.map(ship => ({
                 ...ship,
-                outfits: _sbNormaliseOutfitsToArray(ship.outfits)
+                outfits: _sbNormaliseOutfitsToArray(ship.outfits),
+                leaks:   (ship.leaks || []).map(_sbNormaliseLeak),
             }));
         }
     } catch(e) { sbFleet = []; }
@@ -220,6 +287,7 @@ function sbEditFleetShip(i) {
   sbCurrentShip = JSON.parse(JSON.stringify(sbFleet[i]));
   // Ensure outfits are in array format after JSON clone
   sbCurrentShip.outfits = _sbNormaliseOutfitsToArray(sbCurrentShip.outfits);
+  sbCurrentShip.leaks   = (sbCurrentShip.leaks || []).map(_sbNormaliseLeak);
   sbPopulateBuilder();
   showBuilderView();
 }
@@ -229,6 +297,7 @@ function sbDuplicate(i) {
   c.id = Date.now() + Math.random();
   c.variant = (c.variant || '') + ' (Copy)';
   c.outfits = _sbNormaliseOutfitsToArray(c.outfits);
+  c.leaks   = (c.leaks || []).map(_sbNormaliseLeak);
   sbFleet.push(c); sbSave(); renderFleet();
   sbToast('Ship duplicated!', 'success');
 }
@@ -384,16 +453,10 @@ function sbShipFromParsed(src) {
   }
 
   // ── Leaks ──────────────────────────────────────────────────────────────────
-  // Array format: src.leaks = [ { name, count } | "name count", ... ]
+  // Parser format:  { effect: "leak", openChance: 30, spreadChance: 50 }
+  // Internal format: { name: "leak", openChance: 30, spreadChance: 50 }
   for (const l of (src.leaks || [])) {
-    if (typeof l === 'string') {
-      const tok = l.trim().match(/^("([^"]+)"|(\S+))/);
-      const rawName = tok ? (tok[2] || tok[3] || tok[0]).replace(/^"|"$/g, '') : l;
-      const countMatch = l.match(/\d+/);
-      s.leaks.push({ name: rawName, count: countMatch ? parseInt(countMatch[0]) : 1 });
-    } else if (l && typeof l === 'object') {
-      s.leaks.push({ name: l.name || '', count: l.count || 1 });
-    }
+    s.leaks.push(_sbNormaliseLeak(l));
   }
 
   // ── Explode ────────────────────────────────────────────────────────────────
@@ -420,38 +483,6 @@ function sbShipFromParsed(src) {
         count: e.count || 1,
       });
     }
-  }
-
-  // ── Flat top-level effect keys ─────────────────────────────────────────────
-  // Some formats (remote plugin JSON) store leak-type effects as flat keys:
-  //   { "leak": 30, "flame": 30, "big leak": 30 }
-  // We detect these by eliminating every key already consumed by the parsers
-  // above. Anything remaining with a positive integer value is a leak effect.
-  //
-  // _consumed is built from:
-  //   - Every field on the blank ship (covers name, sprite, drag, mass, weapon,
-  //     outfits, guns, turrets, engines, drones, fighters, leaks, explode, etc.)
-  //   - Every key in src.attributes (shields, hull, category, cost, ...)
-  //   - The src-side structural keys that don't appear on the blank ship
-  //   - The five named explosion keys already handled above
-  // Nothing is hardcoded beyond what the ES data format itself requires.
-  const _consumed = new Set([
-    ...Object.keys(s),
-    ...Object.keys(src.attributes || {}),
-    'attributes', 'outfits', 'outfitMap',
-    'guns', 'turrets', 'engines', 'reverseEngines', 'steeringEngines', 'bays',
-    'leaks', 'explode', 'finalExplode', 'final explode',
-    'tiny explosion', 'small explosion', 'medium explosion',
-    'large explosion', 'huge explosion',
-  ]);
-
-  for (const [key, val] of Object.entries(src)) {
-    if (_consumed.has(key)) continue;
-    if (key.startsWith('_')) continue;       // internal plugin metadata (_pn, _pd, etc.)
-    if (typeof val === 'object') continue;   // skip nested objects / arrays
-    const n = parseInt(val);
-    if (isNaN(n) || n <= 0) continue;        // must be a positive integer
-    s.leaks.push({ name: key, count: n });
   }
 
   sbAutoSlotAllOutfits(s);
@@ -1384,19 +1415,30 @@ function sbRenderLeaksList() {
   const el = document.getElementById('leaks-list'); if (!el) return;
   const leaks = sbCurrentShip.leaks || [];
   el.innerHTML = leaks.length ? leaks.map((l, i) => `
-    <div class="outfit-item">
-      <span class="outfit-item__name">${esc(l.name || '')}</span>
-      <input class="outfit-item__count" type="number" min="1" value="${esc(String(l.count || 1))}"
-        onchange="sbUpdateLeak(${i}, this.value)">
+    <div class="outfit-item" style="gap:6px;">
+      <span class="outfit-item__name" style="flex:1;">${esc(l.name || '')}</span>
+      <label style="font-size:0.75rem;color:var(--c-text-dim);margin:0;white-space:nowrap;">open</label>
+      <input class="outfit-item__count" type="number" min="0" max="100"
+        value="${esc(String(l.openChance ?? 0))}" style="width:54px;"
+        onchange="sbUpdateLeakField(${i}, 'openChance', this.value)"
+        title="Open chance (0–100)">
+      <label style="font-size:0.75rem;color:var(--c-text-dim);margin:0;white-space:nowrap;">spread</label>
+      <input class="outfit-item__count" type="number" min="0" max="100"
+        value="${esc(String(l.spreadChance ?? 0))}" style="width:54px;"
+        onchange="sbUpdateLeakField(${i}, 'spreadChance', this.value)"
+        title="Spread chance (0–100)">
       <button class="btn btn-danger btn-xs" onclick="sbRemoveLeak(${i})">✕</button>
     </div>`).join('')
   : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No leak effects.</div>`;
 }
 
-function sbUpdateLeak(i, v) {
-  sbCurrentShip.leaks[i].count = parseInt(v) || 1;
+function sbUpdateLeakField(i, field, v) {
+  sbCurrentShip.leaks[i][field] = parseInt(v) || 0;
   sbRenderLeaksList(); sbRenderRaw();
 }
+
+// Keep old sbUpdateLeak as an alias in case anything else calls it
+function sbUpdateLeak(i, v) { sbUpdateLeakField(i, 'openChance', v); }
 
 function sbRemoveLeak(i) {
   sbCurrentShip.leaks.splice(i, 1);
@@ -1465,9 +1507,16 @@ function sbAddEffectFromPicker(nameJson, targetField) {
   const field = document.getElementById('modal-sb-effect-picker').dataset.targetField || targetField;
 
   if (field === 'leaks') {
+    // New leaks always start with openChance = count (picker "count" field repurposed as openChance),
+    // spreadChance = 0. User can edit both in the leak list afterwards.
     const existing = (sbCurrentShip.leaks || []).find(l => l.name === name);
-    if (existing) { existing.count += count; }
-    else { (sbCurrentShip.leaks = sbCurrentShip.leaks || []).push({ name, count }); }
+    if (existing) {
+      existing.openChance = (existing.openChance || 0) + count;
+    } else {
+      (sbCurrentShip.leaks = sbCurrentShip.leaks || []).push({
+        name, openChance: count, spreadChance: 0,
+      });
+    }
     closeModal('modal-sb-effect-picker');
     sbRenderLeaksList(); sbRenderRaw();
   } else if (field === 'explode') {
@@ -1639,17 +1688,14 @@ function sbGenerateES(s) {
   }
 
   // ── Leaks ──────────────────────────────────────────────────────────────────
-  // _isLeak: true  → genuine `leak` directive  → leak "name" count
-  // _isLeak: false → flat effect key           → "name" count  or  name count
+  // ES format: leak "effectName" <openChance> <spreadChance>
+  // Internal:  { name, openChance, spreadChance }
   for (const l of (s.leaks || [])) {
-    const count       = parseInt(l.count) || 1;
-    const needsQuotes = l.name.includes(' ');
-    const nameOut     = needsQuotes ? `"${l.name}"` : l.name;
-    if (l._isLeak) {
-      L.push(`${T}leak ${nameOut}${count > 1 ? ' ' + count : ''}`);
-    } else {
-      L.push(`${T}${nameOut}${count > 1 ? ' ' + count : ''}`);
-    }
+    if (!l.name) continue;
+    const nameOut     = l.name.includes(' ') ? `"${l.name}"` : l.name;
+    const openChance  = parseInt(l.openChance)  || 0;
+    const spreadChance = parseInt(l.spreadChance) || 0;
+    L.push(`${T}leak ${nameOut} ${openChance} ${spreadChance}`);
   }
 
   for (const e of (s.explode || [])) {
@@ -1748,13 +1794,17 @@ function sbParseES(text) {
       if (t === 'drone')   { cur.drones.push({ coords: '', launchEffect: '' }); continue; }
       if (t === 'fighter') { cur.fighters.push({ coords: '', launchEffect: '' }); continue; }
 
+      // ── leak "name" <openChance> <spreadChance> ──────────────────────────
       if (t.startsWith('leak ')) {
         const p = sbTok(t.slice(5));
-        const name = sbStripQ(p[0] || '');
-        const count = parseInt(p[1]) || 1;
-        cur.leaks.push({ name, count });
+        cur.leaks.push({
+          name:        sbStripQ(p[0] || ''),
+          openChance:  parseInt(p[1]) || 0,
+          spreadChance: parseInt(p[2]) || 0,
+        });
         continue;
       }
+
       if (t.startsWith('explode '))          { sbPEx(cur, 'explode',      t.slice(8));  continue; }
       if (t.startsWith('"final explode" '))  { sbPEx(cur, 'finalExplode', t.slice(16)); continue; }
 
