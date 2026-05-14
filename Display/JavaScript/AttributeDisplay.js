@@ -766,8 +766,8 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
         if (!key.startsWith('firing ') && !key.startsWith('relative firing ')) continue;
         if (!rawVal) continue;
         const label = getLabel(key);
-        push(label + '/shot', rawVal,       '/shot');
-        push(label + '/s',    rawVal * sps, '/s');
+        push(label, rawVal,       '/shot');
+        push(label, rawVal * sps, '/s');
     }
     
     // ── Status effect doses ───────────────────────────────────────────────────
