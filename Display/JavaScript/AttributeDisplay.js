@@ -749,8 +749,8 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
                             .find(k => weapon[k] !== undefined);
         const val = searchKey !== undefined ? parseFloat(weapon[searchKey] ?? 0) : 0;
         if (!val) continue;
-        push(getLabel(dmgKey, val, 'dmg/shot');
-        push(getLabel(dmgKey, val * sps,  'dmg/s');
+        push(getLabel(dmgKey), val, 'dmg/shot');
+        push(getLabel(dmgKey), val * sps,  'dmg/s');
     }
 
     // ── Anti-missile ──────────────────────────────────────────────────────────
@@ -766,8 +766,8 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
         if (!key.startsWith('firing ') && !key.startsWith('relative firing ')) continue;
         if (!rawVal) continue;
         const label = getLabel(key);
-        push(label, rawVal,        '/shot');
-        push(label, rawVal * sps,  '/s');
+        push(label + '/shot', rawVal,       '/shot');
+        push(label + '/s',    rawVal * sps, '/s');
     }
     
     // ── Status effect doses ───────────────────────────────────────────────────
