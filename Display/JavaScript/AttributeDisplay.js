@@ -542,7 +542,7 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext, plugin
 
     // Pass rootReload so DPS uses the firing weapon's reload, not the submunition's
     const effectiveReload = rootReload || (parseFloat(weapon.reload ?? 1) || 1);
-    const wDerived = (attrDefs, weapon, pluginId, effectiveReload);
+    const wDerived = calcWeaponDerived(attrDefs, weapon, pluginId, effectiveReload);
     if (wDerived.length) html += buildSection(`${sectionTitle} — Derived`, wDerived.map(d => attrRow(d.label, d.value, d.unit, '', 'derived')));
     return html;
 }
@@ -680,11 +680,7 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     return html;
 }
 
-function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
-    console.log('[calcWeaponDerived] weapon keys:', Object.keys(weapon));
-    console.log('[calcWeaponDerived] firing keys:', Object.entries(weapon).filter(([k]) => k.startsWith('firing')));
-    console.log('[calcWeaponDerived] reload:', reload, 'sps:', 60/reload);
-    
+function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {   
     if (!weapon) return [];
     const results = [], seen = new Set();
     function push(label, value, unit) {
