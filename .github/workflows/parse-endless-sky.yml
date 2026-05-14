@@ -24,6 +24,15 @@ jobs:
             attributeParser.js
             data/
 
+      - name: Mark parse as running
+        run: |
+          echo '{"status":"running","startedAt":"'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"}' > parse-status.json
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add parse-status.json
+          git commit -m "chore: mark parse as running"
+          git push
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -46,6 +55,19 @@ jobs:
           git add data/
           git diff --staged --quiet || (
             git commit -m "Update Endless Sky data - $(date +'%Y-%m-%d')" &&
+            git pull --rebase &&
+            git push
+          )
+
+      - name: Mark parse as complete
+        if: always()
+        run: |
+          echo '{"status":"idle","completedAt":"'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"}' > parse-status.json
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add parse-status.json
+          git diff --staged --quiet || (
+            git commit -m "chore: mark parse as complete" &&
             git pull --rebase &&
             git push
           )
