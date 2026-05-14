@@ -6,12 +6,16 @@
    Two lists:
      _plugins  — already committed to plugins.json (Active Plugins)
      _pending  — added this session, not yet saved (Awaiting Save)
+
+   Also polls parse-status.json to show when the GitHub Action is
+   running, and blocks saves during that window.
    ═══════════════════════════════════════════════════════════════ */
 
 'use strict';
 
-/* ── Path to the JSON file (absolute URL for GitHub Pages) ─────── */
-const PLUGINS_JSON_PATH = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
+/* ── Paths ───────────────────────────────────────────────────── */
+const PLUGINS_JSON_PATH  = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
+const PARSE_STATUS_PATH  = 'https://givemefood5.github.io/endless-sky-ship-builder/parse-status.json';
 
 /* ── Vercel backend endpoint ─────────────────────────────────── */
 const BACKEND_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/update-json';
@@ -19,7 +23,13 @@ const BACKEND_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/
 /* ── Optional shared secret (must match SECRET_KEY in Vercel env) */
 const UPDATE_SECRET = null;
 
-/* ── Helpers ─────────────────────────────────────────────────── */
+/* ── How often to re-poll when a parse is running (ms) ──────── */
+const POLL_INTERVAL_RUNNING = 30_000;   // 30 s
+const POLL_INTERVAL_IDLE    = 120_000;  // 2 min (background keep-alive)
+
+/* ══════════════════════════════════════════════════════════════
+   Helpers
+   ══════════════════════════════════════════════════════════════ */
 
 /**
  * Normalise a GitHub repo input to https://github.com/user/repo.
@@ -65,6 +75,19 @@ function highlight(str, query) {
         new RegExp(`(${safeQuery})`, 'gi'),
         '<mark class="search-hl">$1</mark>'
     );
+}
+
+/** Format an ISO date string into a human-friendly local time. */
+function fmtDate(iso) {
+    if (!iso) return '';
+    try {
+        return new Date(iso).toLocaleString(undefined, {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+        });
+    } catch {
+        return iso;
+    }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -114,7 +137,6 @@ class PluginStore {
         const normRepo = normaliseRepository(repo);
         if (!normRepo) return { ok: false, error: 'Invalid repository — use  username/repo  or a full GitHub URL.' };
 
-        /* Check against both active and pending */
         const lower = trimName.toLowerCase();
         for (const list of [this._plugins, this._pending]) {
             for (const p of list) {
@@ -246,11 +268,69 @@ class PluginStore {
 }
 
 /* ══════════════════════════════════════════════════════════════
+   ParseStatusMonitor
+   Polls parse-status.json and notifies listeners of changes.
+   ══════════════════════════════════════════════════════════════ */
+class ParseStatusMonitor {
+    constructor() {
+        this._status      = null;   // 'running' | 'idle' | null (unknown)
+        this._startedAt   = null;
+        this._completedAt = null;
+        this._listeners   = [];
+        this._timer       = null;
+    }
+
+    get isRunning()    { return this._status === 'running'; }
+    get status()       { return this._status; }
+    get startedAt()    { return this._startedAt; }
+    get completedAt()  { return this._completedAt; }
+
+    onChange(fn) { this._listeners.push(fn); }
+    _notify()    { this._listeners.forEach(fn => fn()); }
+
+    async poll() {
+        clearTimeout(this._timer);
+
+        try {
+            const res  = await fetch(PARSE_STATUS_PATH + '?t=' + Date.now());
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+
+            const changed =
+                this._status      !== data.status      ||
+                this._startedAt   !== (data.startedAt   || null) ||
+                this._completedAt !== (data.completedAt || null);
+
+            this._status      = data.status      || null;
+            this._startedAt   = data.startedAt   || null;
+            this._completedAt = data.completedAt || null;
+
+            if (changed) this._notify();
+        } catch {
+            /* parse-status.json missing or network error — treat as unknown */
+            if (this._status !== null) {
+                this._status = null;
+                this._notify();
+            }
+        }
+
+        /* Schedule next poll */
+        const interval = this.isRunning ? POLL_INTERVAL_RUNNING : POLL_INTERVAL_IDLE;
+        this._timer = setTimeout(() => this.poll(), interval);
+    }
+
+    stop() {
+        clearTimeout(this._timer);
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
    PluginManagerUI
    ══════════════════════════════════════════════════════════════ */
 class PluginManagerUI {
-    constructor(store) {
-        this.store = store;
+    constructor(store, monitor) {
+        this.store   = store;
+        this.monitor = monitor;
 
         this.nameInput        = document.getElementById('pluginName');
         this.repoInput        = document.getElementById('repoUrl');
@@ -264,14 +344,16 @@ class PluginManagerUI {
         this.pendingCounterEl = document.getElementById('pendingCounter');
         this.statusEl         = document.getElementById('statusMsg');
         this.searchEl         = document.getElementById('pluginSearch');
+        this.parseBarEl       = document.getElementById('parseStatusBar');
 
-        this._editIndex   = null;   // index in _plugins (active)
-        this._editPending = null;   // index in _pending
+        this._editIndex   = null;
+        this._editPending = null;
         this._statusTimer = null;
         this._searchQuery = '';
 
         this._bindEvents();
-        this.store.onChange(() => this._render());
+        this.store.onChange(()   => this._render());
+        this.monitor.onChange(() => this._updateParseBar());
     }
 
     /* ── Events ──────────────────────────────────────────────── */
@@ -295,6 +377,41 @@ class PluginManagerUI {
             this._searchQuery = '';
             this._render();
         });
+    }
+
+    /* ── Parse status bar ────────────────────────────────────── */
+    _updateParseBar() {
+        if (!this.parseBarEl) return;
+
+        const { status, startedAt, completedAt } = this.monitor;
+
+        if (status === 'running') {
+            const since = startedAt ? ` — started ${fmtDate(startedAt)}` : '';
+            this.parseBarEl.className   = 'parse-status-bar parse-status--running';
+            this.parseBarEl.innerHTML   =
+                `<span class="parse-spinner"></span>` +
+                `<strong>Parse job is currently running${since}.</strong> ` +
+                `Saving is disabled until it completes. This page will update automatically.`;
+            this.saveBtn.disabled = true;
+        } else if (status === 'idle') {
+            const when = completedAt ? ` Last run: ${fmtDate(completedAt)}.` : '';
+            this.parseBarEl.className   = 'parse-status-bar parse-status--idle';
+            this.parseBarEl.innerHTML   =
+                `✅ <strong>Parser idle.</strong>${when}`;
+            this.saveBtn.disabled = false;
+
+            /* Auto-hide the idle bar after 8 s so it stays out of the way */
+            clearTimeout(this._idleHideTimer);
+            this._idleHideTimer = setTimeout(() => {
+                if (!this.monitor.isRunning) {
+                    this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
+                }
+            }, 8000);
+        } else {
+            /* Status unknown (file missing / network error) — don't block */
+            this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
+            this.saveBtn.disabled     = false;
+        }
     }
 
     /* ── Add / edit ──────────────────────────────────────────── */
@@ -324,18 +441,28 @@ class PluginManagerUI {
 
     /* ── Save ────────────────────────────────────────────────── */
     async _handleSave() {
+        if (this.monitor.isRunning) {
+            this._showStatus('Cannot save while the parse job is running. Please wait.', 'error');
+            return;
+        }
+
         this.saveBtn.disabled = true;
         this._showStatus('Saving…', 'info');
 
         const result = await this.store.save();
-        this.saveBtn.disabled = false;
+
+        /* Re-evaluate disabled state from monitor (not just re-enable blindly) */
+        this.saveBtn.disabled = this.monitor.isRunning;
 
         if (!result.ok) {
             this._showStatus('Save failed: ' + (result.error || ''), 'error');
             return;
         }
 
-        this._showStatus('plugins.json saved!', 'success');
+        this._showStatus('plugins.json saved! The parse job will start shortly.', 'success');
+
+        /* The save triggered the GitHub Action — start polling more frequently */
+        setTimeout(() => this.monitor.poll(), 5000);
     }
 
     /* ── Start editing an active plugin ─────────────────────── */
@@ -445,7 +572,6 @@ class PluginManagerUI {
 
         if (this.pendingCounterEl) this.pendingCounterEl.textContent = pending.length;
 
-        /* Show or hide the whole panel */
         if (pending.length === 0) {
             this.pendingPanel.classList.remove('has-items');
             this.pendingListEl.innerHTML = '';
@@ -486,14 +612,14 @@ class PluginManagerUI {
         });
     }
 
-    /* ── Status banner ───────────────────────────────────────── */
+    /* ── Status banner (auto-hides on success) ───────────────── */
     _showStatus(msg, type) {
         if (!this.statusEl) return;
         clearTimeout(this._statusTimer);
 
         if (!msg) { this.statusEl.className = 'status-msg hidden'; return; }
 
-        this.statusEl.className = `status-msg status--${type}`;
+        this.statusEl.className  = `status-msg status--${type}`;
         this.statusEl.textContent = msg;
 
         if (type === 'success') {
@@ -508,18 +634,29 @@ class PluginManagerUI {
    Bootstrap — runs after DOM ready
    ══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', async () => {
-    const store = new PluginStore();
-    const ui    = new PluginManagerUI(store);
+    const store   = new PluginStore();
+    const monitor = new ParseStatusMonitor();
+    const ui      = new PluginManagerUI(store, monitor);
 
-    window.pluginStore = store; // available in console for debugging
+    window.pluginStore   = store;   // available in console for debugging
+    window.parseMonitor  = monitor;
 
-    /* Fetch and display plugins.json immediately */
-    try {
-        const res = await fetch(PLUGINS_JSON_PATH);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        store.loadFromObject(data);
-    } catch (err) {
+    /* Kick off both fetches in parallel */
+    const [pluginsResult] = await Promise.allSettled([
+        /* 1. Load plugins.json */
+        (async () => {
+            const res  = await fetch(PLUGINS_JSON_PATH);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            store.loadFromObject(data);
+        })(),
+
+        /* 2. Check parse status */
+        monitor.poll(),
+    ]);
+
+    if (pluginsResult.status === 'rejected') {
+        const err = pluginsResult.reason;
         console.warn('[PluginManager] Could not load plugins.json:', err.message);
         ui._showStatus(
             `Could not load plugins.json (${err.message}). Add plugins manually or check the file path.`,
