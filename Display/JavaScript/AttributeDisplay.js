@@ -683,9 +683,11 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
 function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {   
     if (!weapon) return [];
     const results = [], seen = new Set();
-    function push(label, value, unit) {
-        if (isNaN(value) || value === 0 || seen.has(label)) return;
-        seen.add(label); results.push({ label, value: fmtNum(value), unit: unit || '' });
+    
+    function push(label, value, unit, dedupKey) {
+        const key = dedupKey ?? label;
+        if (isNaN(value) || value === 0 || seen.has(key)) return;
+        seen.add(key); results.push({ label, value: fmtNum(value), unit: unit || '' });
     }
 
     // Use provided rootReload (from firing weapon), fall back to own reload only for root weapons
@@ -751,6 +753,9 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
         if (!val) continue;
         push(getLabel(dmgKey), val, 'dmg/shot');
         push(getLabel(dmgKey), val * sps,  'dmg/s');
+        push(getLabel(dmgKey), val,       'dmg/shot', dmgKey + '__shot');
+        push(getLabel(dmgKey), val * sps, 'dmg/s',    dmgKey + '__dps');
+
     }
 
     // ── Anti-missile ──────────────────────────────────────────────────────────
@@ -766,8 +771,8 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
         if (!key.startsWith('firing ') && !key.startsWith('relative firing ')) continue;
         if (!rawVal) continue;
         const label = getLabel(key);
-        push(label, rawVal,       '/shot');
-        push(label, rawVal * sps, '/s');
+        push(label, rawVal,       '/shot', key + '__shot');
+        push(label, rawVal * sps, '/s',    key + '__ps');
     }
     
     // ── Status effect doses ───────────────────────────────────────────────────
