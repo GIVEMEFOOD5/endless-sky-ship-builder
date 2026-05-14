@@ -751,8 +751,6 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
                             .find(k => weapon[k] !== undefined);
         const val = searchKey !== undefined ? parseFloat(weapon[searchKey] ?? 0) : 0;
         if (!val) continue;
-        push(getLabel(dmgKey), val, 'dmg/shot');
-        push(getLabel(dmgKey), val * sps,  'dmg/s');
         push(getLabel(dmgKey), val,       'dmg/shot', dmgKey + '__shot');
         push(getLabel(dmgKey), val * sps, 'dmg/s',    dmgKey + '__dps');
 
