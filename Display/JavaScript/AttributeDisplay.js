@@ -681,6 +681,10 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
 }
 
 function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
+    console.log('[calcWeaponDerived] weapon keys:', Object.keys(weapon));
+    console.log('[calcWeaponDerived] firing keys:', Object.entries(weapon).filter(([k]) => k.startsWith('firing')));
+    console.log('[calcWeaponDerived] reload:', reload, 'sps:', 60/reload);
+    
     if (!weapon) return [];
     const results = [], seen = new Set();
     function push(label, value, unit) {
