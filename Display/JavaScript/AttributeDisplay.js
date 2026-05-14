@@ -542,7 +542,7 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext, plugin
 
     // Pass rootReload so DPS uses the firing weapon's reload, not the submunition's
     const effectiveReload = rootReload || (parseFloat(weapon.reload ?? 1) || 1);
-    const wDerived = calcWeaponDerived(attrDefs, weapon, pluginId, effectiveReload);
+    const wDerived = (attrDefs, weapon, pluginId, effectiveReload);
     if (wDerived.length) html += buildSection(`${sectionTitle} — Derived`, wDerived.map(d => attrRow(d.label, d.value, d.unit, '', 'derived')));
     return html;
 }
@@ -689,7 +689,8 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
     }
 
     // Use provided rootReload (from firing weapon), fall back to own reload only for root weapons
-    const reload      = rootReload || (parseFloat(weapon.reload ?? 1) || 1);
+    const reload = rootReload || (parseFloat(weapon.reload ?? 1) || 1);
+    const sps    = 60 / reload;
     const burstCount  = parseFloat(weapon['burst count']  ?? 1) || 1;
     const burstReload = parseFloat(weapon['burst reload']  ?? reload) || reload;
 
@@ -747,7 +748,9 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
         const searchKey = [dmgKey, dmgKey.toLowerCase(), dtype.toLowerCase() + ' damage']
                             .find(k => weapon[k] !== undefined);
         const val = searchKey !== undefined ? parseFloat(weapon[searchKey] ?? 0) : 0;
-        if (val) push(getLabel(dmgKey.replace(/ damage$/i, '')) + ' (per shot)', val, 'dmg');
+        if (!val) continue;
+        push(getLabel(dmgKey.replace(/ damage$/i, '')) + '/shot', val,        'dmg');
+        push(getLabel(dmgKey.replace(/ damage$/i, '')) + ' DPS',  val * sps,  'dmg/s');
     }
 
     // ── Anti-missile ──────────────────────────────────────────────────────────
@@ -757,6 +760,16 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
         push('Intercept Chance', am / (am + ms) * 100, `% vs str ${ms}`);
     }
 
+    // ── Firing costs per second (data-driven — any "firing *" key) ────────────
+    for (const [key, rawVal] of Object.entries(weapon)) {
+        if (typeof rawVal !== 'number') continue;
+        if (!key.startsWith('firing ') && !key.startsWith('relative firing ')) continue;
+        if (!rawVal) continue;
+        const label = getLabel(key);
+        push(label + '/shot', rawVal,        '');
+        push(label + '/s',    rawVal * sps,  '/s');
+    }
+    
     // ── Status effect doses ───────────────────────────────────────────────────
     for (const { damageKey, label } of STATUS_EFFECT_DECAY) {
         const dose = parseFloat(weapon[damageKey] ?? 0);
