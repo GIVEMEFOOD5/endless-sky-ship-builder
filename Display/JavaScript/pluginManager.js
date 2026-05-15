@@ -77,18 +77,7 @@ function highlight(str, query) {
     );
 }
 
-/** Format an ISO date string into a human-friendly local time. */
-function fmtDate(iso) {
-    if (!iso) return '';
-    try {
-        return new Date(iso).toLocaleString(undefined, {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-        });
-    } catch {
-        return iso;
-    }
-}
+
 
 /* ══════════════════════════════════════════════════════════════
    PluginStore
@@ -386,18 +375,15 @@ class PluginManagerUI {
         const { status, startedAt, completedAt } = this.monitor;
 
         if (status === 'running') {
-            const since = startedAt ? ` — started ${fmtDate(startedAt)}` : '';
             this.parseBarEl.className   = 'parse-status-bar parse-status--running';
             this.parseBarEl.innerHTML   =
                 `<span class="parse-spinner"></span>` +
-                `<strong>Parse job is currently running${since}.</strong> ` +
+                `<strong>Parse job is currently running.</strong> ` +
                 `Saving is disabled until it completes. This page will update automatically.`;
             this.saveBtn.disabled = true;
         } else if (status === 'idle') {
-            const when = completedAt ? ` Last run: ${fmtDate(completedAt)}.` : '';
             this.parseBarEl.className   = 'parse-status-bar parse-status--idle';
-            this.parseBarEl.innerHTML   =
-                `✅ <strong>Parser idle.</strong>${when}`;
+            this.parseBarEl.innerHTML   = `✅ <strong>Parser idle.</strong>`;
             this.saveBtn.disabled = false;
 
             /* Auto-hide the idle bar after 8 s so it stays out of the way */
@@ -437,6 +423,24 @@ class PluginManagerUI {
     _handleClear() {
         this._clearInputs();
         this._showStatus('', '');
+    }
+
+    /* ── Save after a remove (no pending check needed) ──────── */
+    async _handleRemoveSave(removedName) {
+        if (this.monitor.isRunning) {
+            this._showStatus('Cannot save while the parse job is running.', 'error');
+            return;
+        }
+        this.saveBtn.disabled = true;
+        this._showStatus(`Removing "${removedName}"…`, 'info');
+        const result = await this.store.save();
+        this.saveBtn.disabled = this.monitor.isRunning;
+        if (!result.ok) {
+            this._showStatus('Remove failed: ' + (result.error || ''), 'error');
+            return;
+        }
+        this._showStatus(`"${removedName}" removed and saved.`, 'success');
+        setTimeout(() => this.monitor.poll(), 5000);
     }
 
     /* ── Save ────────────────────────────────────────────────── */
@@ -558,7 +562,8 @@ class PluginManagerUI {
                 const name = this.store.plugins[idx]?.name ?? 'this plugin';
                 if (confirm(`Remove "${name}"?`)) {
                     if (this._editIndex === idx) this._clearInputs();
-                    this.store.removePlugin(idx);
+                    const result = this.store.removePlugin(idx);
+                    if (result.ok) this._handleRemoveSave(name);
                 }
             });
 
@@ -641,22 +646,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.pluginStore   = store;   // available in console for debugging
     window.parseMonitor  = monitor;
 
-    /* Kick off both fetches in parallel */
-    const [pluginsResult] = await Promise.allSettled([
-        /* 1. Load plugins.json */
-        (async () => {
-            const res  = await fetch(PLUGINS_JSON_PATH);
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
-            store.loadFromObject(data);
-        })(),
-
-        /* 2. Check parse status */
-        monitor.poll(),
-    ]);
-
-    if (pluginsResult.status === 'rejected') {
-        const err = pluginsResult.reason;
+    /* Load plugins immediately — don't wait for parse status */
+    try {
+        const res  = await fetch(PLUGINS_JSON_PATH);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        store.loadFromObject(data);
+    } catch (err) {
         console.warn('[PluginManager] Could not load plugins.json:', err.message);
         ui._showStatus(
             `Could not load plugins.json (${err.message}). Add plugins manually or check the file path.`,
@@ -664,4 +660,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         );
         ui._render();
     }
+
+    /* Poll parse status independently — won't delay the list */
+    monitor.poll();
 });
