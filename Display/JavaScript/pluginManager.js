@@ -395,43 +395,42 @@ class PluginManagerUI {
     }
 
     /* ── Parse status bar ────────────────────────────────────── */
-   _updateParseBar() {
-       if (!this.parseBarEl) return;
-      const { status, startedAt, completedAt } = this.monitor;
-      
-       // If we're no longer idle, cancel any pending hide
-       if (status !== 'idle') {
-           clearTimeout(this._idleHideTimer);
-           this._idleHideTimer = null;
-       }
-      
-        if (status === 'running') {
-            this.parseBarEl.className   = 'parse-status-bar parse-status--running';
-            this.parseBarEl.innerHTML   =
-                `<span class="parse-spinner"></span>` +
-                `<strong>Parse job is currently running.</strong> ` +
-                `Saving is disabled until it completes. This page will update automatically.`;
-            this.saveBtn.disabled = true;
-        } else if (status === 'idle') {
-             this.parseBarEl.className = 'parse-status-bar parse-status--idle';
-             this.parseBarEl.innerHTML = `✅ <strong>Parser idle.</strong>`;
-             this.saveBtn.disabled = false;
+_updateParseBar() {
+    if (!this.parseBarEl) return;
+    const { status, startedAt, completedAt } = this.monitor;
 
-             // Only start the hide timer once, not on every poll
-             if (!this._idleHideTimer) {
-                 this._idleHideTimer = setTimeout(() => {
-                     this._idleHideTimer = null;   // ← clear the ref so next idle cycle works
-                     if (!this.monitor.isRunning) {
-                         this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
-                     }
-                 }, 8000);
-             }
-         } else {
-            /* Status unknown (file missing / network error) — don't block */
-            this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
-            this.saveBtn.disabled     = false;
-        }
+    if (status !== 'idle') {
+        clearTimeout(this._idleHideTimer);
+        this._idleHideTimer = null;
     }
+
+    if (status === 'running') {
+        this.parseBarEl.className = 'parse-status-bar parse-status--running';
+        this.parseBarEl.innerHTML =
+            `<span class="parse-spinner"></span>` +
+            `<strong>Parse job is currently running.</strong> ` +
+            `Saving is disabled until it completes. This page will update automatically.`;
+        this.saveBtn.disabled = true;
+
+    } else if (status === 'idle') {
+        this.parseBarEl.className = 'parse-status-bar parse-status--idle';
+        this.parseBarEl.innerHTML = `✅ <strong>Parser idle.</strong>`;
+        this.saveBtn.disabled = false;
+
+        if (!this._idleHideTimer) {
+            this._idleHideTimer = setTimeout(() => {
+                this._idleHideTimer = null;
+                if (!this.monitor.isRunning) {
+                    this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
+                }
+            }, 8000);
+        }
+
+    } else {
+        this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
+        this.saveBtn.disabled = false;
+    }
+}
 
     /* ── Add / edit ──────────────────────────────────────────── */
     _handleAddOrEdit() {
