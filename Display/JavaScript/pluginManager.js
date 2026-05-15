@@ -15,7 +15,7 @@
 
 /* ── Paths ───────────────────────────────────────────────────── */
 const PLUGINS_JSON_PATH  = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
-const PARSE_STATUS_PATH  = 'https://givemefood5.github.io/endless-sky-ship-builder/parse-status.json';
+const PARSE_STATUS_PATH = 'https://raw.githubusercontent.com/givemefood5/endless-sky-ship-builder/main/parse-status.json';
 
 /* ── Vercel backend endpoint ─────────────────────────────────── */
 const BACKEND_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/update-json';
@@ -300,7 +300,7 @@ class ParseStatusMonitor {
             const data = await res.json();
 
             const changed =
-                this._status      !== data.status      ||
+                this._status      !== (data.status      || null) ||
                 this._startedAt   !== (data.startedAt   || null) ||
                 this._completedAt !== (data.completedAt || null);
 
@@ -395,8 +395,15 @@ class PluginManagerUI {
     }
 
     /* ── Parse status bar ────────────────────────────────────── */
-    _updateParseBar() {
-        if (!this.parseBarEl) return;
+   _updateParseBar() {
+       if (!this.parseBarEl) return;
+       const { status } = this.monitor;
+
+       // If we're no longer idle, cancel any pending hide
+       if (status !== 'idle') {
+           clearTimeout(this._idleHideTimer);
+           this._idleHideTimer = null;
+       }
 
         const { status, startedAt, completedAt } = this.monitor;
 
@@ -408,18 +415,20 @@ class PluginManagerUI {
                 `Saving is disabled until it completes. This page will update automatically.`;
             this.saveBtn.disabled = true;
         } else if (status === 'idle') {
-            this.parseBarEl.className   = 'parse-status-bar parse-status--idle';
-            this.parseBarEl.innerHTML   = `✅ <strong>Parser idle.</strong>`;
-            this.saveBtn.disabled = false;
+             this.parseBarEl.className = 'parse-status-bar parse-status--idle';
+             this.parseBarEl.innerHTML = `✅ <strong>Parser idle.</strong>`;
+             this.saveBtn.disabled = false;
 
-            /* Auto-hide the idle bar after 8 s so it stays out of the way */
-            clearTimeout(this._idleHideTimer);
-            this._idleHideTimer = setTimeout(() => {
-                if (!this.monitor.isRunning) {
-                    this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
-                }
-            }, 8000);
-        } else {
+             // Only start the hide timer once, not on every poll
+             if (!this._idleHideTimer) {
+                 this._idleHideTimer = setTimeout(() => {
+                     this._idleHideTimer = null;   // ← clear the ref so next idle cycle works
+                     if (!this.monitor.isRunning) {
+                         this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
+                     }
+                 }, 8000);
+             }
+         } else {
             /* Status unknown (file missing / network error) — don't block */
             this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
             this.saveBtn.disabled     = false;
