@@ -397,16 +397,14 @@ class PluginManagerUI {
     /* ── Parse status bar ────────────────────────────────────── */
    _updateParseBar() {
        if (!this.parseBarEl) return;
-       const { status } = this.monitor;
-
+      const { status, startedAt, completedAt } = this.monitor;
+      
        // If we're no longer idle, cancel any pending hide
        if (status !== 'idle') {
            clearTimeout(this._idleHideTimer);
            this._idleHideTimer = null;
        }
-
-        const { status, startedAt, completedAt } = this.monitor;
-
+      
         if (status === 'running') {
             this.parseBarEl.className   = 'parse-status-bar parse-status--running';
             this.parseBarEl.innerHTML   =
