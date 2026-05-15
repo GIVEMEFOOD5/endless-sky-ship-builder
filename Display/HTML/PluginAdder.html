@@ -212,6 +212,11 @@
             min-width: 28px;
         }
 
+        /* ── Standalone status message between panels ──────────── */
+        #statusMsg {
+            margin-bottom: 8px;
+        }
+
         /* ── Disabled save button state ────────────────────────── */
         #saveBtn:disabled {
             opacity: 0.45;
@@ -311,6 +316,9 @@
         </div>
     </div>
 
+    <!-- ── Status feedback (outside pendingPanel so it never gets hidden with it) -->
+    <div class="status-msg hidden" id="statusMsg"></div>
+
     <!-- ── Awaiting Save (hidden until items are staged) ─────────── -->
     <div class="panel config-section" id="pendingPanel">
         <div class="sorter-section-header">
@@ -334,9 +342,6 @@
                 <span>💾</span> Save plugins.json
             </button>
         </div>
-
-        <!-- Status feedback -->
-        <div class="status-msg hidden" id="statusMsg"></div>
     </div>
 
 </div>
