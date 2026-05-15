@@ -397,12 +397,11 @@ class PluginManagerUI {
     /* ── Parse status bar ────────────────────────────────────── */
 _updateParseBar() {
     if (!this.parseBarEl) return;
-    const { status, startedAt, completedAt } = this.monitor;
+    const status = this.monitor.status;
 
-    if (status !== 'idle') {
-        clearTimeout(this._idleHideTimer);
-        this._idleHideTimer = null;
-    }
+    // Cancel any pending hide timer — we never auto-hide anymore
+    clearTimeout(this._idleHideTimer);
+    this._idleHideTimer = null;
 
     if (status === 'running') {
         this.parseBarEl.className = 'parse-status-bar parse-status--running';
@@ -414,20 +413,13 @@ _updateParseBar() {
 
     } else if (status === 'idle') {
         this.parseBarEl.className = 'parse-status-bar parse-status--idle';
-        this.parseBarEl.innerHTML = `✅ <strong>Parser idle.</strong>`;
+        this.parseBarEl.innerHTML = `✅ <strong>Parser idle.</strong> Ready to accept changes.`;
         this.saveBtn.disabled = false;
 
-        if (!this._idleHideTimer) {
-            this._idleHideTimer = setTimeout(() => {
-                this._idleHideTimer = null;
-                if (!this.monitor.isRunning) {
-                    this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
-                }
-            }, 8000);
-        }
-
     } else {
-        this.parseBarEl.className = 'parse-status-bar parse-status--hidden';
+        // null = unknown (first load or fetch failed) — show a neutral state
+        this.parseBarEl.className = 'parse-status-bar parse-status--idle';
+        this.parseBarEl.innerHTML = `⏳ <strong>Checking parser status…</strong>`;
         this.saveBtn.disabled = false;
     }
 }
@@ -672,7 +664,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const store   = new PluginStore();
     const monitor = new ParseStatusMonitor();
     const ui      = new PluginManagerUI(store, monitor);
-
+    ui._updateParseBar();
+   
     window.pluginStore   = store;   // available in console for debugging
     window.parseMonitor  = monitor;
 
