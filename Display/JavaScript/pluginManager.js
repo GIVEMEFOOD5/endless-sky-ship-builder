@@ -23,9 +23,11 @@ const BACKEND_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/
 /* ── Optional shared secret (must match SECRET_KEY in Vercel env) */
 const UPDATE_SECRET = null;
 
-/* ── How often to re-poll when a parse is running (ms) ──────── */
-const POLL_INTERVAL_RUNNING = 30_000;   // 30 s
-const POLL_INTERVAL_IDLE    = 120_000;  // 2 min (background keep-alive)
+/* ── Poll intervals ──────────────────────────────────────────── */
+const POLL_INTERVAL_RUNNING    = 30_000;  // 30 s  — while parse is active
+const POLL_INTERVAL_IDLE       = 120_000; // 2 min — background keep-alive
+const POLL_INTERVAL_AFTER_SAVE = 8_000;  // 8 s   — rapid checks just after a save
+const POLL_AFTER_SAVE_DURATION = 180_000; // 3 min — how long to keep rapid-polling
 
 /* ══════════════════════════════════════════════════════════════
    Helpers
@@ -262,11 +264,12 @@ class PluginStore {
    ══════════════════════════════════════════════════════════════ */
 class ParseStatusMonitor {
     constructor() {
-        this._status      = null;   // 'running' | 'idle' | null (unknown)
-        this._startedAt   = null;
-        this._completedAt = null;
-        this._listeners   = [];
-        this._timer       = null;
+        this._status        = null;   // 'running' | 'idle' | null (unknown)
+        this._startedAt     = null;
+        this._completedAt   = null;
+        this._listeners     = [];
+        this._timer         = null;
+        this._rapidDeadline = null;   // timestamp until which we rapid-poll
     }
 
     get isRunning()    { return this._status === 'running'; }
@@ -276,6 +279,17 @@ class ParseStatusMonitor {
 
     onChange(fn) { this._listeners.push(fn); }
     _notify()    { this._listeners.forEach(fn => fn()); }
+
+    /**
+     * Call this immediately after a save so we poll rapidly for the next
+     * POLL_AFTER_SAVE_DURATION ms, catching the moment the Action flips
+     * parse-status.json to "running".
+     */
+    pollAfterSave() {
+        this._rapidDeadline = Date.now() + POLL_AFTER_SAVE_DURATION;
+        clearTimeout(this._timer);
+        this._timer = setTimeout(() => this.poll(), POLL_INTERVAL_AFTER_SAVE);
+    }
 
     async poll() {
         clearTimeout(this._timer);
@@ -303,8 +317,20 @@ class ParseStatusMonitor {
             }
         }
 
-        /* Schedule next poll */
-        const interval = this.isRunning ? POLL_INTERVAL_RUNNING : POLL_INTERVAL_IDLE;
+        /* Pick next interval:
+           - running           → 30 s (keep checking until it goes idle)
+           - within rapid window → 8 s (just saved, watching for Action to start)
+           - idle / unknown    → 2 min (background keep-alive)               */
+        let interval;
+        if (this.isRunning) {
+            interval = POLL_INTERVAL_RUNNING;
+            this._rapidDeadline = null; // no longer need rapid mode
+        } else if (this._rapidDeadline && Date.now() < this._rapidDeadline) {
+            interval = POLL_INTERVAL_AFTER_SAVE;
+        } else {
+            interval = POLL_INTERVAL_IDLE;
+        }
+
         this._timer = setTimeout(() => this.poll(), interval);
     }
 
@@ -440,7 +466,7 @@ class PluginManagerUI {
             return;
         }
         this._showStatus(`"${removedName}" removed and saved.`, 'success');
-        setTimeout(() => this.monitor.poll(), 5000);
+        this.monitor.pollAfterSave();
     }
 
     /* ── Save ────────────────────────────────────────────────── */
@@ -464,9 +490,7 @@ class PluginManagerUI {
         }
 
         this._showStatus('plugins.json saved! The parse job will start shortly.', 'success');
-
-        /* The save triggered the GitHub Action — start polling more frequently */
-        setTimeout(() => this.monitor.poll(), 5000);
+        this.monitor.pollAfterSave();
     }
 
     /* ── Start editing an active plugin ─────────────────────── */
