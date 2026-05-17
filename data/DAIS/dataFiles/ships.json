@@ -1,0 +1,2760 @@
+[
+  {
+    "name": "Akster",
+    "engines": [
+      {
+        "x": -12,
+        "y": 65
+      },
+      {
+        "x": 12,
+        "y": 65
+      },
+      {
+        "x": 0,
+        "y": 48
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -12,
+        "y": -65,
+        "gun": ""
+      },
+      {
+        "x": 12,
+        "y": -65,
+        "gun": ""
+      },
+      {
+        "x": -26,
+        "y": -39,
+        "gun": ""
+      },
+      {
+        "x": 26,
+        "y": -39,
+        "gun": ""
+      },
+      {
+        "x": -32,
+        "y": -39,
+        "gun": ""
+      },
+      {
+        "x": 32,
+        "y": -39,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -10,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Akstere",
+    "sprite": "ship/akster",
+    "thumbnail": "thumbnail/akster",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 8200000,
+      "shields": 8100,
+      "hull": 2200,
+      "required crew": 8,
+      "bunks": 14,
+      "mass": 380,
+      "drag": 6,
+      "heat dissipation": 0.6,
+      "fuel capacity": 600,
+      "cargo space": 40,
+      "outfit space": 395,
+      "weapon capacity": 180,
+      "engine capacity": 95,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "The turn of the millenium was one of the lowest points in the illustrious history of Lionheart Industries; the company was facing shrinking market share and an unsteady place in the zeitgeist as Tarazed's newer ships captivated formerly-loyal customers. While this slippage would eventually be addressed by the release of the Corvette and Lindwurm, Lionheart produced the Akster medium warship as a limited-edition offering for the millenium celebrations, hoping to recapture eyes and minds and to entice wealthy investors. \tAkstere remain some of the most powerful ships of their class, but were never a profitable product line and so never entered full production. Most these days belong either to the wealthy investors to which they were originally marketed, or to pirates who have 'liberated' the ships for their own use.",
+    "_internalId": "DAIS/DAIS::Akster",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "d870d559cc0f",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Adhara",
+          "Aldebaran",
+          "Algieba",
+          "Alheka",
+          "Alhena",
+          "Almaaz",
+          "Alnilam",
+          "Alnitak",
+          "Alpha Centauri",
+          "Alphard",
+          "Altair",
+          "Aludra",
+          "Arneb",
+          "Aspidiske",
+          "Avior",
+          "Betelgeuse",
+          "Bore Fah",
+          "Bote Asu",
+          "Canopus",
+          "Capella",
+          "Cardax",
+          "Castor",
+          "Da Ent",
+          "Da Lest",
+          "Danoa",
+          "Denebola",
+          "Dubhe",
+          "Due Yoot",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fah Root",
+          "Fah Soom",
+          "Fala",
+          "Gomeisa",
+          "Gorvi",
+          "Hassaleh",
+          "Hatysa",
+          "Heia Due",
+          "Hevru Hai",
+          "Imo Dep",
+          "Io Lowe",
+          "Io Mann",
+          "Kursa",
+          "Lolami",
+          "Lom Tahr",
+          "Markeb",
+          "Mebsuta",
+          "Mei Yohn",
+          "Men",
+          "Menkalinan",
+          "Merak",
+          "Miaplacidus",
+          "Mintaka",
+          "Mirzam",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rajak",
+          "Rati Cal",
+          "Regor",
+          "Rigel",
+          "Saiph",
+          "Shaula",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Sumar",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Tortor",
+          "Ula Mon",
+          "Unagi",
+          "Uwa Fahn",
+          "Vega",
+          "Volax",
+          "Wah Ki",
+          "Wah Oh",
+          "Waypoint",
+          "Wazn",
+          "Wezen",
+          "Ya Hai",
+          "Zosma",
+          "Zuba Zub"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      }
+    },
+    "outfits": {
+      "Particle Cannon": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Dwarf Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A250 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Akster of the Torches",
+    "engines": [
+      {
+        "x": -12,
+        "y": 65
+      },
+      {
+        "x": 12,
+        "y": 65
+      },
+      {
+        "x": 0,
+        "y": 48
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -12,
+        "y": -65,
+        "gun": ""
+      },
+      {
+        "x": 12,
+        "y": -65,
+        "gun": ""
+      },
+      {
+        "x": -17,
+        "y": -53,
+        "gun": ""
+      },
+      {
+        "x": 17,
+        "y": -53,
+        "gun": ""
+      },
+      {
+        "x": -26,
+        "y": -39,
+        "gun": ""
+      },
+      {
+        "x": 26,
+        "y": -39,
+        "gun": ""
+      },
+      {
+        "x": -32,
+        "y": -39,
+        "gun": ""
+      },
+      {
+        "x": 32,
+        "y": -39,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -10,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Akstere of the Torches",
+    "sprite": "ship/akster of the torches",
+    "thumbnail": "thumbnail/akster of the torches",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 10500000,
+      "shields": 9550,
+      "hull": 2020,
+      "required crew": 10,
+      "bunks": 14,
+      "mass": 395,
+      "drag": 6,
+      "heat dissipation": 0.58,
+      "fuel capacity": 600,
+      "cargo space": 10,
+      "outfit space": 432,
+      "weapon capacity": 199,
+      "engine capacity": 95,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "Once the property of the feared leader of the Torches Gang, then the property of Syndicate executive Leo Merced, and now the property of you. For fifteen years the ship was the terror of the galactic north before Merced brough its owner in. It's just about as aggressive as a warship comes; its internal systems are undoubtedly in violation of half a dozen regulatory laws and its weapons layout belongs to a ship twice its size.",
+    "_internalId": "DAIS/DAIS::Akster of the Torches",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "96dc90e608ef",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "DAIS/DAIS": {
+        "Missions": [
+          "Erannas Revenge 1"
+        ]
+      }
+    },
+    "outfits": {
+      "Particle Cannon": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 21,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo Storage Rack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Gorge Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Corundum Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Biroo\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Biroo\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Erinys",
+    "engines": [
+      {
+        "x": 22,
+        "y": 99
+      },
+      {
+        "x": -22,
+        "y": 99
+      },
+      {
+        "x": 0,
+        "y": 106
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 10,
+        "y": -58,
+        "gun": ""
+      },
+      {
+        "x": -10,
+        "y": -58,
+        "gun": ""
+      },
+      {
+        "x": 4,
+        "y": -107,
+        "gun": ""
+      },
+      {
+        "x": -4,
+        "y": -107,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -106,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 13,
+        "y": 0,
+        "turret": ""
+      },
+      {
+        "x": -13,
+        "y": 0,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 90,
+        "spreadChance": 30
+      }
+    ],
+    "plural": "Erinyes",
+    "sprite": "ship/erinys",
+    "thumbnail": "thumbnail/erinys",
+    "attributes": {
+      "licenses": {
+        "Militia": true
+      },
+      "category": "Medium Warship",
+      "cost": 4450000,
+      "shields": 8400,
+      "hull": 3600,
+      "required crew": 15,
+      "bunks": 40,
+      "mass": 780,
+      "drag": 8.6,
+      "heat dissipation": 0.5,
+      "fuel capacity": 500,
+      "cargo space": 25,
+      "outfit space": 480,
+      "weapon capacity": 190,
+      "engine capacity": 130,
+      "weapon": {
+        "blast radius": 120,
+        "shield damage": 1200,
+        "hull damage": 600,
+        "hit force": 1800
+      }
+    },
+    "over": true,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Erinys is a powerful mid-size warship designed by Southbound Shipyards for the Free Worlds, a durable destroyer with oversized engines strong enough to go toe-to-toe with a Republic Navy Frigate and fast enough to harass and waylay a Cruiser. Built of the same high-quality materials as the Dreadnought and equipped with the best the Free Worlds have to offer, a battlegroup of Erinyes is just as fearsome as their mythological epithets would imply.",
+    "_internalId": "DAIS/DAIS::Erinys",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "37a4dd8c0018",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "DAIS/DAIS": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Plasma Cannon": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 60,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D94-YV Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 10,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Hydrargyrum",
+    "engines": [
+      {
+        "x": 15,
+        "y": 60
+      },
+      {
+        "x": -15,
+        "y": 60
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 17,
+        "y": -35,
+        "gun": ""
+      },
+      {
+        "x": -17,
+        "y": -35,
+        "gun": ""
+      },
+      {
+        "x": 23,
+        "y": -22,
+        "gun": ""
+      },
+      {
+        "x": -23,
+        "y": -22,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/hydrargyrum",
+    "thumbnail": "thumbnail/hydrargyrum",
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 1225000,
+      "shields": 4000,
+      "hull": 1200,
+      "required crew": 4,
+      "bunks": 6,
+      "mass": 240,
+      "drag": 3.5,
+      "heat dissipation": 0.65,
+      "fuel capacity": 400,
+      "cargo space": 15,
+      "outfit space": 290,
+      "weapon capacity": 140,
+      "engine capacity": 75,
+      "weapon": {
+        "blast radius": 52,
+        "shield damage": 520,
+        "hull damage": 260,
+        "hit force": 760
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 16,
+    "medium explosion": 10,
+    "final explode": "final explosion medium",
+    "description": "Though the Quicksilver's enduring popularity with corporate customers has made it a ubiquitous feature of core space, its spartan design and limited outfitting options have made it a less desirable choice among independent pilots. Megaparsec's new Hydrargyrum light warship is designed along the same lines as the Quicksilver, but can carry up to double its armament, making it among the most powerful warships of its class. Despite this, its interior space remains restrictive, and pilots will have to choose between having effective shield generation and reverse thrust.",
+    "_internalId": "DAIS/DAIS::Hydrargyrum",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "7da67afffc49",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Al Dhanab",
+          "Alcyone",
+          "Alderamin",
+          "Algenib",
+          "Algol",
+          "Almach",
+          "Alnair",
+          "Alpha Hydri",
+          "Alpheratz",
+          "Altair",
+          "Ankaa",
+          "Atik",
+          "Bellatrix",
+          "Caph",
+          "Cardax",
+          "Delta Capricorni",
+          "Diphda",
+          "Durax",
+          "Fomalhaut",
+          "Gamma Cassiopeiae",
+          "Gienah",
+          "Hamal",
+          "Kugel",
+          "Markab",
+          "Matar",
+          "Menkar",
+          "Mirach",
+          "Mirfak",
+          "Misam",
+          "Moktar",
+          "Oblate",
+          "Persian",
+          "Polaris",
+          "Ruchbah",
+          "Scheat",
+          "Schedar",
+          "Shaula",
+          "Sheratan",
+          "Sol",
+          "Zaurak"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      }
+    },
+    "outfits": {
+      "Particle Cannon": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Ducts": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Capybara Reverse Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Lindwurm",
+    "engines": [
+      {
+        "x": 22,
+        "y": 86
+      },
+      {
+        "x": -22,
+        "y": 86
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 16,
+        "y": -12,
+        "gun": ""
+      },
+      {
+        "x": -16,
+        "y": -12,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -7,
+        "gun": ""
+      },
+      {
+        "x": -21,
+        "y": -7,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 50,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 90,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/lindwurm",
+    "thumbnail": "thumbnail/lindwurm",
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 3600000,
+      "shields": 5000,
+      "hull": 600,
+      "required crew": 9,
+      "bunks": 15,
+      "mass": 205,
+      "drag": 4.6,
+      "heat dissipation": 0.58,
+      "fuel capacity": 500,
+      "cargo space": 30,
+      "outfit space": 330,
+      "weapon capacity": 115,
+      "engine capacity": 105,
+      "weapon": {
+        "blast radius": 70,
+        "shield damage": 700,
+        "hull damage": 350,
+        "hit force": 1000
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Produced in tandem with Lionheart's new Corvette medium warship, the sleek and fiery Lindwurm doubles down on the characteristics that made its larger sibling such a success. Though classed as a light warship, the Lindwurm punches well above its size and exhibits unparalleled agility thanks to its lightweight hull; though this does mean that it relies almost entirely on its shields for defense. The premium price tag of these ships puts them squarely out of reach of less successful merchants, but their rapid interception capabilities have made them an effective component of larger freight convoys as well as the internal security services of the Deep. \tThe shared names of the Lindwurm and a certain Quarg freighter have not escaped notice, especially in the more southerly areas of human space. Though Lionheart corporate dismisses this as a mere cultural coincidence, one of the Lindwurm's lead designers claims - to some ridicule - that the Quarg, in fact, stole the name from her.",
+    "_internalId": "DAIS/DAIS::Lindwurm",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "3b32a1e78eea",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Adhara",
+          "Aldebaran",
+          "Algieba",
+          "Alheka",
+          "Alhena",
+          "Almaaz",
+          "Alnilam",
+          "Alnitak",
+          "Alpha Centauri",
+          "Alphard",
+          "Altair",
+          "Aludra",
+          "Arneb",
+          "Aspidiske",
+          "Avior",
+          "Betelgeuse",
+          "Bore Fah",
+          "Bote Asu",
+          "Canopus",
+          "Capella",
+          "Cardax",
+          "Castor",
+          "Da Ent",
+          "Da Lest",
+          "Danoa",
+          "Denebola",
+          "Dubhe",
+          "Due Yoot",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fah Root",
+          "Fah Soom",
+          "Fala",
+          "Fingol",
+          "Gomeisa",
+          "Gorvi",
+          "Hassaleh",
+          "Hatysa",
+          "Heia Due",
+          "Hevru Hai",
+          "Imo Dep",
+          "Io Lowe",
+          "Io Mann",
+          "Kursa",
+          "Lolami",
+          "Lom Tahr",
+          "Markeb",
+          "Mebsuta",
+          "Mei Yohn",
+          "Men",
+          "Menkalinan",
+          "Merak",
+          "Miaplacidus",
+          "Mintaka",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Nocte",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rajak",
+          "Rati Cal",
+          "Regor",
+          "Rigel",
+          "Saiph",
+          "Shaula",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Sumar",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Tortor",
+          "Ula Mon",
+          "Unagi",
+          "Uwa Fahn",
+          "Vega",
+          "Volax",
+          "Wah Ki",
+          "Wah Oh",
+          "Waypoint",
+          "Wazn",
+          "Wezen",
+          "Ya Hai",
+          "Zosma",
+          "Zuba Zub"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      }
+    },
+    "outfits": {
+      "Heavy Laser": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 90,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Hekla Dora",
+    "engines": [
+      {
+        "x": 0,
+        "y": 104
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": 10,
+        "gun": ""
+      },
+      {
+        "x": 28,
+        "y": -82,
+        "gun": ""
+      },
+      {
+        "x": -28,
+        "y": -82,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 44,
+        "y": 13,
+        "turret": ""
+      },
+      {
+        "x": -44,
+        "y": 13,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 41,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": 41,
+        "y": 58,
+        "over": true,
+        "launch effect": "human external"
+      },
+      {
+        "type": "Drone",
+        "x": -41,
+        "y": 58,
+        "over": true,
+        "launch effect": "human external"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 90,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hekla dora",
+    "thumbnail": "thumbnail/hekla dora",
+    "attributes": {
+      "category": "Utility",
+      "cost": 3360000,
+      "shields": 5150,
+      "hull": 2750,
+      "required crew": 14,
+      "bunks": 40,
+      "mass": 660,
+      "drag": 7.5,
+      "heat dissipation": 0.5,
+      "fuel capacity": 800,
+      "cargo space": 150,
+      "outfit space": 395,
+      "weapon capacity": 145,
+      "engine capacity": 100,
+      "ramscoop": 1,
+      "weapon": {
+        "blast radius": 70,
+        "shield damage": 700,
+        "hull damage": 350,
+        "hit force": 1000
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Hekla is a traditional design from the shipyards of Thule, only a very distant cousin to any other ship in human space. Even though Thule is now well-enough connected to the rest of the galaxy, these still lag a generation or so behind the craft coming out of larger-name shipyards, in exchange for being reliable and exceptionally versatile. Most of the ships are etched by the lead shipwright in charge of manufacturing them, and despite the basic design being ubiquitous on Thule, many operators swear by their preferred builder as giving them an extra edge. The Dora version is popular among freelance miners for its pair of drone bays and large cargo hold, though it can also function as a combat carrier if equipped with armed drones.",
+    "_internalId": "DAIS/DAIS::Hekla Dora",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "090054f98869",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "DAIS/DAIS": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Mining Laser Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tractor Beam": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Launcher": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 90,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Asteroid Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-EE Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 10,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Hekla Vaba",
+    "engines": [
+      {
+        "x": 0,
+        "y": 104
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": 10,
+        "gun": ""
+      },
+      {
+        "x": 28,
+        "y": -82,
+        "gun": ""
+      },
+      {
+        "x": -28,
+        "y": -82,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 44,
+        "y": 13,
+        "turret": ""
+      },
+      {
+        "x": -44,
+        "y": 13,
+        "turret": ""
+      },
+      {
+        "x": 41,
+        "y": 58,
+        "turret": ""
+      },
+      {
+        "x": -41,
+        "y": 58,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 90,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hekla vaba",
+    "thumbnail": "thumbnail/hekla vaba",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 3360000,
+      "shields": 5550,
+      "hull": 3000,
+      "required crew": 12,
+      "bunks": 40,
+      "mass": 695,
+      "drag": 7.6,
+      "heat dissipation": 0.5,
+      "fuel capacity": 800,
+      "cargo space": 130,
+      "outfit space": 395,
+      "weapon capacity": 175,
+      "engine capacity": 100,
+      "ramscoop": 1,
+      "weapon": {
+        "blast radius": 70,
+        "shield damage": 700,
+        "hull damage": 350,
+        "hit force": 1000
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Hekla is a traditional design from the shipyards of Thule, only a very distant cousin to any other ship in human space. Even though Thule is now well-enough connected to the rest of the galaxy, these still lag a generation or so behind the craft coming out of larger-name shipyards, in exchange for being reliable and exceptionally versatile. Most of the ships are etched by the lead shipwright in charge of manufacturing them, and despite the basic design being ubiquitous on Thule, many operators swear by their preferred builder as giving them an extra edge. The Vaba version emphasises direct combat ability, gaining an additional turret mount and stronger shields. While one of these craft won't quite stand up to the likes of a Bastion or Frigate, they continue to be popular among southwestern pirates for their cargo space and hardpoint flexibility.",
+    "_internalId": "DAIS/DAIS::Hekla Vaba",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "6a46ea250bf5",
+    "governments": {
+      "DAIS/DAIS": {
+        "Serrated Blades": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpherg",
+          "Antares",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Citadelle",
+          "Dabih",
+          "Delta Velorum",
+          "Dschubba",
+          "Fumalsamakah",
+          "Gacrux",
+          "Girtab",
+          "Hadar",
+          "Han",
+          "Kaus Australis",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Men",
+          "Mimosa",
+          "Minkar",
+          "Mora",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Pherkad",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Shaula",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Umbral",
+          "Vindemiatrix",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      },
+      "DAIS/DAIS": {
+        "Missions": [
+          "Erannas Revenge 3"
+        ]
+      }
+    },
+    "outfits": {
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 60,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfit Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chipmunk Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Moonbeam",
+    "engines": [
+      {
+        "x": 33,
+        "y": 127
+      },
+      {
+        "x": -33,
+        "y": 127
+      },
+      {
+        "x": 47,
+        "y": 120
+      },
+      {
+        "x": -47,
+        "y": 120
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 33,
+        "y": -2,
+        "position": "zoom 0.8"
+      },
+      {
+        "x": -33,
+        "y": -2,
+        "position": "zoom 0.8"
+      },
+      {
+        "x": 47,
+        "y": 44,
+        "position": "under"
+      },
+      {
+        "x": -47,
+        "y": 44,
+        "position": "under"
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 15,
+        "y": -128,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -128,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -128,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -128,
+        "gun": ""
+      },
+      {
+        "x": 30,
+        "y": -18,
+        "gun": ""
+      },
+      {
+        "x": -30,
+        "y": -18,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 30,
+        "y": 72,
+        "turret": ""
+      },
+      {
+        "x": -30,
+        "y": 72,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/moonbeam",
+    "thumbnail": "thumbnail/moonbeam",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 16450000,
+      "shields": 9200,
+      "hull": 2650,
+      "required crew": 44,
+      "bunks": 52,
+      "mass": 1040,
+      "drag": 11.2,
+      "heat dissipation": 0.44,
+      "fuel capacity": 600,
+      "cargo space": 80,
+      "outfit space": 520,
+      "weapon capacity": 220,
+      "engine capacity": 155,
+      "ion protection": -0.3,
+      "weapon": {
+        "blast radius": 130,
+        "shield damage": 1300,
+        "hull damage": 750,
+        "hit force": 2000
+      }
+    },
+    "zoom": 0.8,
+    "tiny explosion": 40,
+    "small explosion": 55,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "final explode": "final explosion medium",
+    "description": "The design has long been out of production and the ship's notoriously temperamental power systems have kept it from enjoying the same enduring popularity as designs like the Firebird and Berserker. Nonetheless, the ample engine bays and lightweight hull of the Moonbeam have made it a rare and beloved possession of the few lucky enough to still have one; these old ships are still the fastest heavy warships in the sky.",
+    "_internalId": "DAIS/DAIS::Moonbeam",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "59c105184ad6",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Alpherg",
+          "Ap'arak",
+          "Aya'k'k",
+          "Belenos",
+          "Chirr'ay'akai",
+          "Chy'chra",
+          "Citadelle",
+          "Ek'kek'ru",
+          "Es'sprak'ai",
+          "Fumalsamakah",
+          "Ik'kara'ka",
+          "Iyech'yek",
+          "Ka'ch'chrai",
+          "Ka'pru",
+          "Kiro'ku",
+          "Kiru'kichi",
+          "Pik'ro'iyak",
+          "Prakacha'a",
+          "Si'yak'ku",
+          "Sich'ka'ara",
+          "Sko'karak"
+        ]
+      }
+    },
+    "outfits": {
+      "Sidewinder Missile Launcher": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 180,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 60,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Orca Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Moonbeam of the Serrated Blade",
+    "engines": [
+      {
+        "x": 33,
+        "y": 127
+      },
+      {
+        "x": -33,
+        "y": 127
+      },
+      {
+        "x": 47,
+        "y": 120
+      },
+      {
+        "x": -47,
+        "y": 120
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 33,
+        "y": -2,
+        "position": "zoom 0.8"
+      },
+      {
+        "x": -33,
+        "y": -2,
+        "position": "zoom 0.8"
+      },
+      {
+        "x": 47,
+        "y": 44,
+        "position": "under"
+      },
+      {
+        "x": -47,
+        "y": 44,
+        "position": "under"
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 15,
+        "y": -128,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -128,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -128,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -128,
+        "gun": ""
+      },
+      {
+        "x": 30,
+        "y": -18,
+        "gun": ""
+      },
+      {
+        "x": -30,
+        "y": -18,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 30,
+        "y": 72,
+        "turret": ""
+      },
+      {
+        "x": -30,
+        "y": 72,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 30
+      }
+    ],
+    "plural": "Moonbeams of the Serrated Blade",
+    "sprite": "ship/moonbeam of the serrated blade",
+    "thumbnail": "thumbnail/moonbeam of the serrated blade",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 24000000,
+      "shields": 10580,
+      "hull": 2680,
+      "required crew": 44,
+      "bunks": 52,
+      "mass": 1040,
+      "drag": 11.2,
+      "heat dissipation": 0.44,
+      "fuel capacity": 600,
+      "cargo space": 80,
+      "outfit space": 520,
+      "weapon capacity": 220,
+      "engine capacity": 155,
+      "ion protection": -0.5,
+      "weapon": {
+        "blast radius": 130,
+        "shield damage": 1300,
+        "hull damage": 750,
+        "hit force": 2050
+      }
+    },
+    "zoom": 0.8,
+    "tiny explosion": 40,
+    "small explosion": 55,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "final explode": "final explosion medium",
+    "description": "The design has long been out of production and the ship's notoriously temperamental power systems have kept it from enjoying the same enduring popularity as designs like the Firebird and Berserker. Nonetheless, the ample engine bays and lightweight hull of the Moonbeam have made it a rare and beloved possession of the few lucky enough to still have one; these old ships are still the fastest heavy warships in the sky. \tOur Lady of the Serrated Blade has had this particular Moonbeam modified, upon request, to boost power to its aging shield matrix. Note that this has increased the stress on the ship's already-sensitive power bus, making it especially vulnerable to ion weaponry.",
+    "_internalId": "DAIS/DAIS::Moonbeam of the Serrated Blade",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "7df7f0642d84",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "DAIS/DAIS": {
+        "Missions": [
+          "Moonbeam for Sale",
+          "Moonbeam for Sale Follow-Up"
+        ]
+      }
+    },
+    "outfits": {
+      "Chameleon Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Fissure Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pebble Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bufaer\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bondir\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Reflection",
+    "engines": [
+      {
+        "x": 69,
+        "y": 16
+      },
+      {
+        "x": 45,
+        "y": -13
+      },
+      {
+        "x": -69,
+        "y": 16
+      },
+      {
+        "x": -45,
+        "y": -13
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 31,
+        "y": -86
+      },
+      {
+        "x": -31,
+        "y": -86
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 39,
+        "y": -94,
+        "gun": ""
+      },
+      {
+        "x": -39,
+        "y": -94,
+        "gun": ""
+      },
+      {
+        "x": 45,
+        "y": -94,
+        "gun": ""
+      },
+      {
+        "x": -45,
+        "y": -94,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -22,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 45,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/reflection",
+    "thumbnail": "thumbnail/reflection",
+    "attributes": {
+      "category": "Utility",
+      "cost": 8200028,
+      "shields": 7860,
+      "hull": 1850,
+      "required crew": 16,
+      "bunks": 30,
+      "mass": 2050,
+      "drag": 30,
+      "heat dissipation": 0.6,
+      "fuel capacity": 800,
+      "cargo space": 130,
+      "outfit space": 540,
+      "weapon capacity": 140,
+      "engine capacity": 205,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 40,
+    "small explosion": 55,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "final explode": "final explosion medium",
+    "description": "First built by industrial manufacturer Janus Systems in the early 2930s, the Reflection class of intra-system tugs was designed to reposition space stations, fielding an astonishingly massive engine block. Though Janus went bankrupt by the 2980s, the occasional well-maintained Reflection still travels the stars, though by now they have mostly landed in the hands of pirates and other unscrupulous figures who have converted them into either rapid freighters or unusual, if effective, medium warships. \tLarge forward-mounted radiators, designed to radiate engine heat at low velocity, give the Reflection excellent thermal performance at the cost of greatly weakening its hull.",
+    "_internalId": "DAIS/DAIS::Reflection",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "03a65d633430",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Adhara",
+          "Aldebaran",
+          "Algieba",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alphard",
+          "Altair",
+          "Aludra",
+          "Aspidiske",
+          "Avior",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Cardax",
+          "Castor",
+          "Denebola",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Gomeisa",
+          "Kursa",
+          "Markeb",
+          "Mebsuta",
+          "Menkalinan",
+          "Merak",
+          "Miaplacidus",
+          "Mirzam",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Saiph",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zosma"
+        ]
+      }
+    },
+    "outfits": {
+      "Sidewinder Missile Launcher": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 180,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tyrant Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Orca Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Marauder Reflection",
+    "engines": [
+      {
+        "x": 69,
+        "y": 16
+      },
+      {
+        "x": 45,
+        "y": -13
+      },
+      {
+        "x": -69,
+        "y": 16
+      },
+      {
+        "x": -45,
+        "y": -13
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 31,
+        "y": -86
+      },
+      {
+        "x": -31,
+        "y": -86
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 4,
+        "y": -62,
+        "gun": ""
+      },
+      {
+        "x": -4,
+        "y": -62,
+        "gun": ""
+      },
+      {
+        "x": 10,
+        "y": -85,
+        "gun": ""
+      },
+      {
+        "x": -10,
+        "y": -62,
+        "gun": ""
+      },
+      {
+        "x": 39,
+        "y": -94,
+        "gun": ""
+      },
+      {
+        "x": -39,
+        "y": -94,
+        "gun": ""
+      },
+      {
+        "x": 45,
+        "y": -94,
+        "gun": ""
+      },
+      {
+        "x": -45,
+        "y": -94,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -22,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 45,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/marauder reflection",
+    "thumbnail": "thumbnail/marauder reflection",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 14000041,
+      "shields": 11511,
+      "hull": 1991,
+      "required crew": 22,
+      "bunks": 28,
+      "mass": 2442,
+      "drag": 24,
+      "heat dissipation": 0.58,
+      "fuel capacity": 800,
+      "cargo space": 30,
+      "outfit space": 635,
+      "weapon capacity": 210,
+      "engine capacity": 210,
+      "weapon": {
+        "blast radius": 130,
+        "shield damage": 1300,
+        "hull damage": 750,
+        "hit force": 2000
+      }
+    },
+    "tiny explosion": 40,
+    "small explosion": 55,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "final explode": "final explosion medium",
+    "description": "With a haphazard helping of additional armor plating, refurbished aetherdynamic engine nozzles, a strengthened shield grid, and double the number of gun ports, this pirate's special Reflection is capable of standing up to even modern warships.",
+    "_internalId": "DAIS/DAIS::Marauder Reflection",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "a67331112e09",
+    "governments": {
+      "DAIS/DAIS": {
+        "Bounty": true
+      }
+    },
+    "locations": {
+      "DAIS/DAIS": {
+        "Missions": [
+          "Marauder Reflection Hunting"
+        ]
+      }
+    },
+    "outfits": {
+      "Pulse Cannon": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ion Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fusion Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 24,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A860 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A125 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A525 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Catatumbo",
+    "engines": [
+      {
+        "x": 12,
+        "y": 135
+      },
+      {
+        "x": -12,
+        "y": 135
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 9,
+        "y": -164,
+        "gun": ""
+      },
+      {
+        "x": -9,
+        "y": -164,
+        "gun": ""
+      },
+      {
+        "x": 56,
+        "y": -6,
+        "gun": ""
+      },
+      {
+        "x": -56,
+        "y": -6,
+        "gun": ""
+      },
+      {
+        "x": 65,
+        "y": -10,
+        "gun": ""
+      },
+      {
+        "x": -65,
+        "y": -10,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 19,
+        "y": -72,
+        "turret": ""
+      },
+      {
+        "x": -19,
+        "y": -72,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 46,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/catatumbo",
+    "thumbnail": "thumbnail/catatumbo",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Wanderer Military": true
+      },
+      "cost": 36500000,
+      "shields": 55700,
+      "hull": 28300,
+      "required crew": 61,
+      "bunks": 102,
+      "mass": 1640,
+      "drag": 16.5,
+      "heat dissipation": 0.36,
+      "fuel capacity": 500,
+      "cargo space": 50,
+      "outfit space": 820,
+      "weapon capacity": 403,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 340,
+        "shield damage": 3400,
+        "hull damage": 1700,
+        "hit force": 5100
+      }
+    },
+    "over": true,
+    "small explosion": 40,
+    "medium explosion": 70,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Bristling with weapons hardpoints and humming with electrifying potential, the Catatumbo completes the Wanderers' heavy warship trifecta. Where the Derecho emphasizes speed and the Hurricane durability, this warship has instead experienced an aggressive metamorphosis from its original, ancient form, now reintroduced to the modern era like a virulent and invasive predator.",
+    "_internalId": "DAIS/DAIS::Catatumbo",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "8865807bc93a",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ap'arak",
+          "Aya'k'k",
+          "Chirr'ay'akai",
+          "Chy'chra",
+          "Ek'kek'ru",
+          "Es'sprak'ai",
+          "Ik'kara'ka",
+          "Iyech'yek",
+          "Ka'ch'chrai",
+          "Ka'pru",
+          "Kiro'ku",
+          "Kiru'kichi",
+          "Pik'ro'iyak",
+          "Prakacha'a",
+          "Si'yak'ku",
+          "Sich'ka'ara",
+          "Sko'karak"
+        ],
+        "Planets": [
+          "Var' Kayi",
+          "Vara K'chrai",
+          "Varu Mer'ek"
+        ]
+      }
+    },
+    "outfits": {
+      "Thunderhead Launcher": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thunderhead Missile": {
+        "count": 280,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thunderhead Storage Array": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Dual Sunbeam Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Wanderer Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blue Sun Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Red Sun Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Dark Storm Shielding": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bright Cloud Shielding": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Wanderer Heat Sink": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Wanderer Ramscoop": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Type 4 Radiant Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Type 1 Radiant Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Type 4 Radiant Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Type 2 Radiant Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Rime Branch",
+    "engines": [
+      {
+        "x": 47,
+        "y": 65
+      },
+      {
+        "x": -47,
+        "y": 65
+      },
+      {
+        "x": 16,
+        "y": 73
+      },
+      {
+        "x": -16,
+        "y": 73
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -59,
+        "gun": ""
+      },
+      {
+        "x": 10,
+        "y": -54,
+        "gun": ""
+      },
+      {
+        "x": -10,
+        "y": -54,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 33,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      }
+    ],
+    "plural": "Rime Branches",
+    "sprite": "ship/rime branch",
+    "thumbnail": "thumbnail/rime branch",
+    "attributes": {
+      "category": "Light Warship",
+      "licenses": {
+        "Wanderer Military": true
+      },
+      "cost": 19750000,
+      "shields": 21400,
+      "hull": 8200,
+      "required crew": 10,
+      "bunks": 18,
+      "mass": 260,
+      "drag": 3.6,
+      "heat dissipation": 0.64,
+      "fuel capacity": 700,
+      "cargo space": 30,
+      "outfit space": 382,
+      "weapon capacity": 105,
+      "engine capacity": 124,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "zoom": 0.5,
+    "tiny explosion": 12,
+    "small explosion": 16,
+    "medium explosion": 10,
+    "final explode": "final explosion medium",
+    "description": "The crackle of frost on a winter's morning, the breath of wind through layers of chilly air; these are moments worth remembering in the heat of a fight. \tThe Rime Branch is a small Wanderer patrol vessel, a slightly larger alternative to the Autumn Leaf that enjoys additional durability and outfit capacity without compromising its impressive mobility.",
+    "_internalId": "DAIS/DAIS::Rime Branch",
+    "_pluginId": "DAIS/DAIS",
+    "_hash": "e798f74c3637",
+    "governments": {
+      "DAIS": {
+        "DAIS": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ap'arak",
+          "Aya'k'k",
+          "Chirr'ay'akai",
+          "Chy'chra",
+          "Ek'kek'ru",
+          "Es'sprak'ai",
+          "Ik'kara'ka",
+          "Iyech'yek",
+          "Ka'ch'chrai",
+          "Ka'pru",
+          "Kiro'ku",
+          "Kiru'kichi",
+          "Pik'ro'iyak",
+          "Prakacha'a",
+          "Si'yak'ku",
+          "Sich'ka'ara",
+          "Sko'karak"
+        ],
+        "Planets": [
+          "Var' Kayi",
+          "Vara K'chrai",
+          "Varu Mer'ek"
+        ]
+      }
+    },
+    "outfits": {
+      "Sunbeam": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Wanderer Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Dark Storm Shielding": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Wanderer Heat Sink": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Wanderer Ramscoop": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Biochemical Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Yellow Sun Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Type 1 Radiant Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Type 3 Radiant Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Type 4 Radiant Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

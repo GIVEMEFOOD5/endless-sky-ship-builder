@@ -1,0 +1,64 @@
+[
+  {
+    "name": "phased point defense",
+    "sprite": "projectile/phased beam/pdb",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "phaser",
+    "lifetime": 10,
+    "velocity scale": 1,
+    "pluginId": "Celestial Strands/celestial-strands"
+  },
+  {
+    "name": "rocket smoke",
+    "sprite": "effect/repeater impact",
+    "sprite data": {
+      "scale": 0.5,
+      "no repeat": true,
+      "frame rate": 10
+    },
+    "lifetime": 24,
+    "random spin": 6,
+    "random angle": 360,
+    "random velocity": 0.3,
+    "velocity scale": 0.3,
+    "pluginId": "Celestial Strands/celestial-strands"
+  },
+  {
+    "name": "missile smoke",
+    "sprite": "effect/smoke",
+    "sprite data": {
+      "scale": 0.1,
+      "no repeat": true,
+      "frame rate": 8
+    },
+    "lifetime": 36,
+    "random spin": 6,
+    "random angle": 360,
+    "random velocity": 0.3,
+    "velocity scale": 0.3,
+    "pluginId": "Celestial Strands/celestial-strands"
+  },
+  {
+    "name": "zonai afterburner",
+    "sprite": "effect/ka'het flare/large",
+    "sprite data": {
+      "scale": 1.5,
+      "frame rate": 20
+    },
+    "sound": "remnant afterburner",
+    "pluginId": "Celestial Strands/celestial-strands"
+  },
+  {
+    "name": "gaza launch",
+    "sound": "gaza launch",
+    "pluginId": "Celestial Strands/celestial-strands"
+  },
+  {
+    "name": "azdara launch",
+    "sound": "azdara launch",
+    "pluginId": "Celestial Strands/celestial-strands"
+  }
+]

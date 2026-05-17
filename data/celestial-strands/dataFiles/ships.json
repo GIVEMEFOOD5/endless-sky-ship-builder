@@ -1,0 +1,4154 @@
+[
+  {
+    "name": "Gazda",
+    "engines": [
+      {
+        "x": -20,
+        "y": 23.5
+      },
+      {
+        "x": 20,
+        "y": 23.5
+      },
+      {
+        "x": -12,
+        "y": 26.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 12,
+        "y": 26.5,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -32,
+        "gun": ""
+      },
+      {
+        "x": -7,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": 7,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": -13.5,
+        "y": -24,
+        "gun": ""
+      },
+      {
+        "x": 13.5,
+        "y": -24,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -6,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/gazda/gazda",
+    "sprite data": {
+      "frame rate": 12
+    },
+    "attributes": {
+      "category": "Fighter",
+      "cost": 800000,
+      "shields": 3200,
+      "shield generation": 0.9,
+      "hull": 600,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 82,
+      "drag": 1.4,
+      "fuel capacity": 300,
+      "heat dissipation": 0.9,
+      "outfit space": 170,
+      "cargo space": 5,
+      "weapon capacity": 72,
+      "engine capacity": 48,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Gazda.",
+    "_internalId": "Celestial Strands/celestial-strands::Gazda",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "0af619796779",
+    "governments": {
+      "Celestial Strands/celestial-strands": {
+        "Giaradz": true,
+        "Strandless (Friendly)": true,
+        "Crescent Militia": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Adgazia",
+          "Akfon",
+          "Alcogi",
+          "Alogok",
+          "Atern",
+          "Auleg",
+          "Bakhax",
+          "Balfar",
+          "Bir",
+          "Cenzset",
+          "Ciban",
+          "Cyon",
+          "Daeln",
+          "Defa",
+          "Eacton",
+          "Egnar",
+          "Elirop",
+          "Emohl",
+          "Emoria",
+          "Eqato",
+          "Ezgakk",
+          "Gidyi",
+          "Icavinis",
+          "Igazidra",
+          "Iuco",
+          "Jozuukl",
+          "Jutili",
+          "Jwoli",
+          "Killis",
+          "Krat",
+          "Lenif",
+          "Lidil",
+          "Liuga",
+          "Miro",
+          "Mzahitu",
+          "NZG-0162",
+          "NZG-020",
+          "NZG-0421",
+          "NZG-0631",
+          "NZG-0936",
+          "NZG-1115",
+          "NZG-112",
+          "NZG-1304",
+          "NZG-14",
+          "NZG-207",
+          "NZG-309",
+          "NZG-339",
+          "NZG-401",
+          "NZG-412",
+          "NZG-446",
+          "NZG-460",
+          "NZG-5165",
+          "NZG-5612",
+          "NZG-61",
+          "NZG-7762",
+          "NZG-7805",
+          "NZG-791",
+          "NZG-871",
+          "NZG-97",
+          "Nimeloni",
+          "Nkob",
+          "Nol",
+          "Nusu",
+          "Oa",
+          "Olaga",
+          "Olozera",
+          "Ornis",
+          "Polubo",
+          "Poshga",
+          "Postil",
+          "Puva",
+          "Qonaz",
+          "Quetol",
+          "Ryl",
+          "Senza",
+          "Serbira",
+          "Sikir",
+          "Sojt",
+          "Sonera",
+          "Sotocza",
+          "Speci",
+          "Sutovyr",
+          "Tefis",
+          "Telis",
+          "Tizm",
+          "Trolqu",
+          "Uqira",
+          "Urga",
+          "Urgast",
+          "Usad",
+          "Vylatis",
+          "Wenibist",
+          "Wyu",
+          "Xaxsu",
+          "Yazgir",
+          "Yluis",
+          "Yotli",
+          "Ysar",
+          "Za Helis",
+          "Zeriji",
+          "Zidizarg",
+          "Zinul",
+          "Zrie",
+          "Zuejok",
+          "Zyan"
+        ]
+      }
+    },
+    "outfits": {
+      "Phase Cannon": {
+        "count": 4,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Zonai Radar System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Zachit Gazda",
+    "engines": [
+      {
+        "x": -20,
+        "y": 23.5
+      },
+      {
+        "x": 20,
+        "y": 23.5
+      },
+      {
+        "x": -12,
+        "y": 26.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 12,
+        "y": 26.5,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -32,
+        "gun": ""
+      },
+      {
+        "x": -7,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": 7,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": -13.5,
+        "y": -24,
+        "gun": ""
+      },
+      {
+        "x": 13.5,
+        "y": -24,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -6,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/gazda/zachit gazda",
+    "sprite data": {
+      "frame rate": 12
+    },
+    "attributes": {
+      "category": "Fighter",
+      "cost": 800000,
+      "shields": 3200,
+      "shield generation": 0.9,
+      "hull": 600,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 82,
+      "drag": 1.4,
+      "fuel capacity": 300,
+      "heat dissipation": 0.9,
+      "outfit space": 170,
+      "cargo space": 5,
+      "weapon capacity": 72,
+      "engine capacity": 48,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Zachit Gazda.",
+    "_internalId": "Celestial Strands/celestial-strands::Zachit Gazda",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "9df5c00fdba9",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Eacton",
+          "Emoria",
+          "Mzahitu",
+          "NZG-1115",
+          "Nkob",
+          "Za Helis",
+          "Zinul",
+          "Zrie",
+          "Zuejok",
+          "Zyan"
+        ]
+      }
+    },
+    "outfits": {
+      "Swivel Phase Cannon": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Phase Cannon": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Pursuit Missile Launcher": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Pursuit Missile": {
+        "count": 15,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Zonai Radar System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Zidagar Gazda",
+    "engines": [
+      {
+        "x": -20,
+        "y": 23.5
+      },
+      {
+        "x": 20,
+        "y": 23.5
+      },
+      {
+        "x": -12,
+        "y": 26.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 12,
+        "y": 26.5,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -32,
+        "gun": ""
+      },
+      {
+        "x": -7,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": 7,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": -13.5,
+        "y": -24,
+        "gun": ""
+      },
+      {
+        "x": 13.5,
+        "y": -24,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -6,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/gazda/zidagar gazda",
+    "sprite data": {
+      "frame rate": 12
+    },
+    "attributes": {
+      "category": "Fighter",
+      "cost": 800000,
+      "shields": 3200,
+      "shield generation": 0.7,
+      "hull": 600,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 84,
+      "drag": 1.4,
+      "fuel capacity": 300,
+      "ramscoop": 3.6,
+      "heat dissipation": 0.9,
+      "outfit space": 176,
+      "cargo space": 5,
+      "weapon capacity": 66,
+      "engine capacity": 48,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Zachit Gazda.",
+    "_internalId": "Celestial Strands/celestial-strands::Zidagar Gazda",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "f873dedade3a",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Bir",
+          "Ciban",
+          "Iuco",
+          "NZG-0162",
+          "NZG-5612",
+          "Ornis",
+          "Puva",
+          "Sojt",
+          "Sotocza",
+          "Sutovyr",
+          "Tefis",
+          "Telis",
+          "Vylatis",
+          "Wenibist",
+          "Zeriji",
+          "Zidizarg"
+        ]
+      }
+    },
+    "outfits": {
+      "Phase Cannon": {
+        "count": 4,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Phased Disruption Laser": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Zidagar ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Zonai Radar System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Azdara",
+    "engines": [
+      {
+        "x": 0,
+        "y": 12.5,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -22,
+        "gun": ""
+      },
+      {
+        "x": -3.5,
+        "y": -16.5,
+        "gun": ""
+      },
+      {
+        "x": 3.5,
+        "y": -16.5,
+        "gun": ""
+      },
+      {
+        "x": -5.5,
+        "y": -11,
+        "gun": ""
+      },
+      {
+        "x": 5.5,
+        "y": -11,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      },
+      {
+        "x": -24,
+        "y": 4,
+        "turret": ""
+      },
+      {
+        "x": 24,
+        "y": 4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/azdara/azdara",
+    "sprite data": {
+      "frame rate": 12
+    },
+    "attributes": {
+      "category": "Fighter",
+      "cost": 1500000,
+      "shields": 4000,
+      "shield generation": 3.6,
+      "hull": 200,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 56,
+      "drag": 0.86,
+      "fuel capacity": 500,
+      "heat dissipation": 0.9,
+      "outfit space": 140,
+      "cargo space": 1,
+      "weapon capacity": 46,
+      "engine capacity": 60,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Azdara.",
+    "_internalId": "Celestial Strands/celestial-strands::Azdara",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "d7ae08fc36c1",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Adgazia",
+          "Alogok",
+          "Atern",
+          "Emohl",
+          "Gidyi",
+          "Icavinis",
+          "Lenif",
+          "Miro",
+          "Polubo",
+          "Senza",
+          "Serbira",
+          "Uqira",
+          "Urgast",
+          "Yotli"
+        ]
+      }
+    },
+    "outfits": {
+      "Swivel Phase Cannon": {
+        "count": 3,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Zonai Radar System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Azigda",
+    "engines": [
+      {
+        "x": 0,
+        "y": 0,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -44.5,
+        "gun": ""
+      },
+      {
+        "x": -8,
+        "y": -20,
+        "gun": ""
+      },
+      {
+        "x": 8,
+        "y": -20,
+        "gun": ""
+      },
+      {
+        "x": -9.5,
+        "y": -18.5,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -18.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -19,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": 19,
+        "y": 1,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/azigda/azigda",
+    "sprite data": {
+      "frame rate": 12
+    },
+    "attributes": {
+      "category": "Fighter",
+      "cost": 1500000,
+      "shields": 4400,
+      "shield generation": 3.9,
+      "hull": 300,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 58,
+      "drag": 0.8,
+      "fuel capacity": 400,
+      "heat dissipation": 0.9,
+      "outfit space": 145,
+      "cargo space": 1,
+      "weapon capacity": 46,
+      "engine capacity": 55,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Azigda.",
+    "_internalId": "Celestial Strands/celestial-strands::Azigda",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "839d8145a18d",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Adgazia",
+          "Alogok",
+          "Atern",
+          "Emohl",
+          "Gidyi",
+          "Icavinis",
+          "Lenif",
+          "Miro",
+          "Polubo",
+          "Senza",
+          "Serbira",
+          "Uqira",
+          "Urgast",
+          "Yotli"
+        ]
+      }
+    },
+    "outfits": {
+      "Rapid Phase Cannon": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Lizada",
+    "engines": [
+      {
+        "x": -17,
+        "y": 55
+      },
+      {
+        "x": 17,
+        "y": 55
+      },
+      {
+        "x": -14.5,
+        "y": 12,
+        "zoom": 0.7
+      },
+      {
+        "x": 14.5,
+        "y": 12,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9.5,
+        "y": -44.5,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -44.5,
+        "gun": ""
+      },
+      {
+        "x": -26.5,
+        "y": 27.5,
+        "gun": ""
+      },
+      {
+        "x": 26.5,
+        "y": 27.05,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -45,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -2.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/lizada/lizada",
+    "sprite data": {
+      "frame rate": 12
+    },
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 800000,
+      "shields": 4600,
+      "shield generation": 1.1,
+      "hull": 800,
+      "required crew": 2,
+      "bunks": 5,
+      "mass": 92,
+      "drag": 1.5,
+      "fuel capacity": 300,
+      "heat dissipation": 1,
+      "outfit space": 211,
+      "cargo space": 5,
+      "weapon capacity": 74,
+      "engine capacity": 52,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "over": true,
+    "tiny explosion": 20,
+    "description": "Lizada.",
+    "_internalId": "Celestial Strands/celestial-strands::Lizada",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "570849cd4990",
+    "governments": {
+      "Celestial Strands/celestial-strands": {
+        "Crescent Militia": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Auleg",
+          "Cenzset",
+          "Killis",
+          "Lidil",
+          "Olaga",
+          "Sikir",
+          "Urga",
+          "Wyu",
+          "Zeriji"
+        ]
+      }
+    },
+    "outfits": {
+      "Phase Cannon": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Phase Cannon Turret": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Swivel Phase Cannon": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Zonai Radar System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Zachit Lizada",
+    "engines": [
+      {
+        "x": -17,
+        "y": 55
+      },
+      {
+        "x": 17,
+        "y": 55
+      },
+      {
+        "x": -14.5,
+        "y": 12,
+        "zoom": 0.7
+      },
+      {
+        "x": 14.5,
+        "y": 12,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9.5,
+        "y": -44.5,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -44.5,
+        "gun": ""
+      },
+      {
+        "x": -26.5,
+        "y": 27.5,
+        "gun": ""
+      },
+      {
+        "x": 26.5,
+        "y": 27.05,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -45,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -2.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/lizada/zachit lizada",
+    "sprite data": {
+      "frame rate": 12
+    },
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 800000,
+      "shields": 4600,
+      "shield generation": 1.1,
+      "hull": 800,
+      "required crew": 2,
+      "bunks": 5,
+      "mass": 92,
+      "drag": 1.5,
+      "fuel capacity": 300,
+      "heat dissipation": 1,
+      "outfit space": 211,
+      "cargo space": 5,
+      "weapon capacity": 74,
+      "engine capacity": 52,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "over": true,
+    "tiny explosion": 20,
+    "description": "Lizada.",
+    "_internalId": "Celestial Strands/celestial-strands::Zachit Lizada",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "30fc442ab4d9",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Eacton",
+          "Emoria",
+          "Mzahitu",
+          "NZG-1115",
+          "Nkob",
+          "Za Helis",
+          "Zinul",
+          "Zrie",
+          "Zuejok",
+          "Zyan"
+        ]
+      }
+    },
+    "outfits": {
+      "Swivel Phase Cannon": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Pursuit Missile Launcher": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Pursuit Missile": {
+        "count": 30,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Arada",
+    "engines": [
+      {
+        "x": -6,
+        "y": 62,
+        "zoom": 0.9
+      },
+      {
+        "x": 6,
+        "y": 62,
+        "zoom": 0.9
+      },
+      {
+        "x": 0,
+        "y": 64
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -62,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -50,
+        "gun": ""
+      },
+      {
+        "x": -3,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": 3,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": 9,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": 9,
+        "gun": ""
+      },
+      {
+        "x": -4,
+        "y": 61,
+        "gun": ""
+      },
+      {
+        "x": 4,
+        "y": 61,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      },
+      {
+        "x": -29,
+        "y": 33,
+        "turret": ""
+      },
+      {
+        "x": 29,
+        "y": 33,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/arada/arada",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Utility",
+      "cost": 800000,
+      "shields": 6800,
+      "shield generation": 0.2,
+      "hull": 1000,
+      "required crew": 3,
+      "bunks": 3,
+      "mass": 225,
+      "drag": 2.8,
+      "fuel capacity": 500,
+      "heat dissipation": 0.8,
+      "outfit space": 286,
+      "cargo space": 40,
+      "weapon capacity": 92,
+      "engine capacity": 82,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "angle": 180,
+    "tiny explosion": 20,
+    "description": "Arada.",
+    "_internalId": "Celestial Strands/celestial-strands::Arada",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "f37c4255a9f1",
+    "governments": {
+      "Celestial Strands/celestial-strands": {
+        "Giaradz": true,
+        "Strandless (Friendly)": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Adgazia",
+          "Akfon",
+          "Alcogi",
+          "Alogok",
+          "Atern",
+          "Auleg",
+          "Bakhax",
+          "Balfar",
+          "Bir",
+          "Cenzset",
+          "Ciban",
+          "Cyon",
+          "Daeln",
+          "Defa",
+          "Eacton",
+          "Egnar",
+          "Elirop",
+          "Emohl",
+          "Emoria",
+          "Eqato",
+          "Ezgakk",
+          "Gidyi",
+          "Icavinis",
+          "Igazidra",
+          "Iuco",
+          "Jozuukl",
+          "Jutili",
+          "Jwoli",
+          "Killis",
+          "Krat",
+          "Lenif",
+          "Lidil",
+          "Liuga",
+          "Miro",
+          "Mzahitu",
+          "NZG-0162",
+          "NZG-020",
+          "NZG-0421",
+          "NZG-0631",
+          "NZG-0936",
+          "NZG-1115",
+          "NZG-112",
+          "NZG-1304",
+          "NZG-14",
+          "NZG-207",
+          "NZG-309",
+          "NZG-339",
+          "NZG-401",
+          "NZG-412",
+          "NZG-446",
+          "NZG-460",
+          "NZG-5165",
+          "NZG-5612",
+          "NZG-61",
+          "NZG-7762",
+          "NZG-7805",
+          "NZG-791",
+          "NZG-871",
+          "NZG-97",
+          "Nimeloni",
+          "Nkob",
+          "Nol",
+          "Nusu",
+          "Oa",
+          "Olaga",
+          "Olozera",
+          "Ornis",
+          "Polubo",
+          "Poshga",
+          "Postil",
+          "Puva",
+          "Qonaz",
+          "Quetol",
+          "Ryl",
+          "Senza",
+          "Serbira",
+          "Sikir",
+          "Sojt",
+          "Sonera",
+          "Sotocza",
+          "Speci",
+          "Sutovyr",
+          "Tefis",
+          "Telis",
+          "Tizm",
+          "Trolqu",
+          "Uqira",
+          "Urga",
+          "Urgast",
+          "Usad",
+          "Vylatis",
+          "Wenibist",
+          "Wyu",
+          "Xaxsu",
+          "Yazgir",
+          "Yluis",
+          "Yotli",
+          "Ysar",
+          "Za Helis",
+          "Zeriji",
+          "Zidizarg",
+          "Zinul",
+          "Zrie",
+          "Zuejok",
+          "Zyan"
+        ]
+      }
+    },
+    "outfits": {
+      "Phase Cannon": {
+        "count": 4,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-C System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Adarga Graviton Buoy": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Zachit Arada",
+    "engines": [
+      {
+        "x": -6,
+        "y": 62,
+        "zoom": 0.9
+      },
+      {
+        "x": 6,
+        "y": 62,
+        "zoom": 0.9
+      },
+      {
+        "x": 0,
+        "y": 64
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -62,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -50,
+        "gun": ""
+      },
+      {
+        "x": -3,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": 3,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": 9,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": 9,
+        "gun": ""
+      },
+      {
+        "x": -4,
+        "y": 61,
+        "gun": ""
+      },
+      {
+        "x": 4,
+        "y": 61,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      },
+      {
+        "x": -29,
+        "y": 33,
+        "turret": ""
+      },
+      {
+        "x": 29,
+        "y": 33,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/arada/zachit arada",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Utility",
+      "cost": 800000,
+      "shields": 7600,
+      "shield generation": 0.26,
+      "hull": 1000,
+      "required crew": 3,
+      "bunks": 3,
+      "mass": 225,
+      "drag": 2.7,
+      "fuel capacity": 500,
+      "heat dissipation": 0.8,
+      "outfit space": 286,
+      "cargo space": 40,
+      "weapon capacity": 92,
+      "engine capacity": 82,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "angle": 180,
+    "tiny explosion": 20,
+    "description": "Zachit Arada.",
+    "_internalId": "Celestial Strands/celestial-strands::Zachit Arada",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "3da99857313f",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Eacton",
+          "Emoria",
+          "Mzahitu",
+          "NZG-1115",
+          "Nkob",
+          "Za Helis",
+          "Zinul",
+          "Zrie",
+          "Zuejok",
+          "Zyan"
+        ]
+      }
+    },
+    "outfits": {
+      "Swivel Phase Cannon": {
+        "count": 3,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Pursuit Missile Launcher": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Pursuit Missile": {
+        "count": 30,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-G System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Adarga Graviton Buoy": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Igadzra Arada",
+    "engines": [
+      {
+        "x": -6,
+        "y": 62,
+        "zoom": 0.9
+      },
+      {
+        "x": 6,
+        "y": 62,
+        "zoom": 0.9
+      },
+      {
+        "x": 0,
+        "y": 64
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -62,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -50,
+        "gun": ""
+      },
+      {
+        "x": -3,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": 3,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": 9,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": 9,
+        "gun": ""
+      },
+      {
+        "x": -4,
+        "y": 61,
+        "gun": ""
+      },
+      {
+        "x": 4,
+        "y": 61,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      },
+      {
+        "x": -29,
+        "y": 33,
+        "turret": ""
+      },
+      {
+        "x": 29,
+        "y": 33,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/arada/igadzra arada",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Utility",
+      "cost": 800000,
+      "shields": 7600,
+      "shield generation": 0.26,
+      "hull": 1000,
+      "required crew": 3,
+      "bunks": 3,
+      "mass": 225,
+      "drag": 2.8,
+      "fuel capacity": 500,
+      "heat dissipation": 0.8,
+      "outfit space": 286,
+      "cargo space": 40,
+      "weapon capacity": 92,
+      "engine capacity": 82,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "angle": 180,
+    "tiny explosion": 20,
+    "description": "Igadzra Arada.",
+    "_internalId": "Celestial Strands/celestial-strands::Igadzra Arada",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "9a75cbb768a0",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Swivel Phase Cannon": {
+        "count": 3,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Phase Cannon": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAE Deployer": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAE Module": {
+        "count": 20,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-I System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Adarga Graviton Buoy": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Azdgari Arada",
+    "engines": [
+      {
+        "x": -6,
+        "y": 62,
+        "zoom": 0.9
+      },
+      {
+        "x": 6,
+        "y": 62,
+        "zoom": 0.9
+      },
+      {
+        "x": 0,
+        "y": 64
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -62,
+        "gun": ""
+      },
+      {
+        "x": -3,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": 3,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": 9,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": 9,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": 63,
+        "gun": ""
+      },
+      {
+        "x": -7.5,
+        "y": 63,
+        "gun": ""
+      },
+      {
+        "x": 7.5,
+        "y": 63,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      },
+      {
+        "x": -29,
+        "y": 33,
+        "turret": ""
+      },
+      {
+        "x": 29,
+        "y": 33,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/arada/azdgari arada",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Utility",
+      "cost": 800000,
+      "shields": 8800,
+      "shield generation": 6.4,
+      "hull": 900,
+      "required crew": 3,
+      "bunks": 3,
+      "mass": 225,
+      "drag": 2.7,
+      "fuel capacity": 500,
+      "heat dissipation": 0.8,
+      "outfit space": 286,
+      "cargo space": 40,
+      "weapon capacity": 92,
+      "engine capacity": 82,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "angle": 180,
+    "tiny explosion": 20,
+    "description": "Azdgari Arada.",
+    "_internalId": "Celestial Strands/celestial-strands::Azdgari Arada",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "2ec229cbd447",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Swivel Phase Cannon": {
+        "count": 3,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Phase Cannon": {
+        "count": 3,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket Launcher": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket": {
+        "count": 20,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-C System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Adarga Graviton Buoy": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Aridara",
+    "engines": [
+      {
+        "x": -21,
+        "y": 56,
+        "zoom": 0.9
+      },
+      {
+        "x": 21,
+        "y": 56,
+        "zoom": 0.9
+      },
+      {
+        "x": -12,
+        "y": 61.5
+      },
+      {
+        "x": 12,
+        "y": 61.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -3.5,
+        "y": -45,
+        "gun": ""
+      },
+      {
+        "x": 3.5,
+        "y": -45,
+        "gun": ""
+      },
+      {
+        "x": -22,
+        "y": 14.5,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": 14.5,
+        "gun": ""
+      },
+      {
+        "x": -29.5,
+        "y": 18,
+        "gun": ""
+      },
+      {
+        "x": 29.5,
+        "y": 18,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/aridara/aridara",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Utility",
+      "cost": 800000,
+      "shields": 7800,
+      "shield generation": 0.3,
+      "hull": 1100,
+      "required crew": 4,
+      "bunks": 4,
+      "mass": 240,
+      "drag": 2.7,
+      "fuel capacity": 500,
+      "heat dissipation": 0.8,
+      "outfit space": 321,
+      "cargo space": 20,
+      "weapon capacity": 122,
+      "engine capacity": 82,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "angle": 5,
+    "tiny explosion": 20,
+    "description": "Aridara.",
+    "_internalId": "Celestial Strands/celestial-strands::Aridara",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "03b46949bb14",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Phase Cannon": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket Launcher": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket": {
+        "count": 20,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAD Deployer": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAD Module": {
+        "count": 30,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-C System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Adarga Graviton Buoy": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Igadzra Aridara",
+    "engines": [
+      {
+        "x": -21,
+        "y": 56,
+        "zoom": 0.9
+      },
+      {
+        "x": 21,
+        "y": 56,
+        "zoom": 0.9
+      },
+      {
+        "x": -12,
+        "y": 61.5
+      },
+      {
+        "x": 12,
+        "y": 61.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -74,
+        "gun": ""
+      },
+      {
+        "x": -22,
+        "y": 14.5,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": 14.5,
+        "gun": ""
+      },
+      {
+        "x": -29.5,
+        "y": 18,
+        "gun": ""
+      },
+      {
+        "x": 29.5,
+        "y": 18,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -64,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/aridara/igadzra aridara",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Utility",
+      "cost": 800000,
+      "shields": 8400,
+      "shield generation": 0.38,
+      "hull": 1100,
+      "required crew": 4,
+      "bunks": 4,
+      "mass": 230,
+      "drag": 2.7,
+      "fuel capacity": 500,
+      "heat dissipation": 0.8,
+      "outfit space": 325,
+      "cargo space": 15,
+      "weapon capacity": 132,
+      "engine capacity": 80,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "angle": 5,
+    "tiny explosion": 20,
+    "description": "Igadzra Aridara.",
+    "_internalId": "Celestial Strands/celestial-strands::Igadzra Aridara",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "b9a1edad2bd4",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Swivel Phase Cannon": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Phase Cannon": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAE Deployer": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAE Module": {
+        "count": 40,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-I System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Adarga Graviton Buoy": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Lazira",
+    "engines": [
+      {
+        "x": 0,
+        "y": 128
+      },
+      {
+        "x": -13,
+        "y": 122
+      },
+      {
+        "x": 13,
+        "y": 122
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -145,
+        "gun": ""
+      },
+      {
+        "x": -48.5,
+        "y": -65,
+        "gun": ""
+      },
+      {
+        "x": 48.5,
+        "y": -65,
+        "gun": ""
+      },
+      {
+        "x": -34,
+        "y": 30,
+        "gun": ""
+      },
+      {
+        "x": 34,
+        "y": 30,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 39.5,
+        "turret": ""
+      },
+      {
+        "x": -48.5,
+        "y": 39.5,
+        "turret": ""
+      },
+      {
+        "x": 48.5,
+        "y": 39.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/lazira/lazira",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Utility",
+      "cost": 800000,
+      "shields": 16200,
+      "shield generation": 0.26,
+      "hull": 2600,
+      "required crew": 24,
+      "bunks": 28,
+      "mass": 640,
+      "drag": 6.2,
+      "fuel capacity": 600,
+      "heat dissipation": 0.65,
+      "outfit space": 415,
+      "cargo space": 50,
+      "weapon capacity": 141,
+      "engine capacity": 126,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Lazira.",
+    "_internalId": "Celestial Strands/celestial-strands::Lazira",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "8ee9340885c4",
+    "governments": {
+      "Celestial Strands/celestial-strands": {
+        "Giaradz": true,
+        "Strandless (Friendly)": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Adgazia",
+          "Akfon",
+          "Alcogi",
+          "Alogok",
+          "Atern",
+          "Auleg",
+          "Bakhax",
+          "Balfar",
+          "Bir",
+          "Cenzset",
+          "Ciban",
+          "Cyon",
+          "Daeln",
+          "Defa",
+          "Eacton",
+          "Egnar",
+          "Elirop",
+          "Emohl",
+          "Emoria",
+          "Eqato",
+          "Ezgakk",
+          "Gidyi",
+          "Icavinis",
+          "Igazidra",
+          "Iuco",
+          "Jozuukl",
+          "Jutili",
+          "Jwoli",
+          "Killis",
+          "Krat",
+          "Lenif",
+          "Lidil",
+          "Liuga",
+          "Miro",
+          "Mzahitu",
+          "NZG-0162",
+          "NZG-020",
+          "NZG-0421",
+          "NZG-0631",
+          "NZG-0936",
+          "NZG-1115",
+          "NZG-112",
+          "NZG-1304",
+          "NZG-14",
+          "NZG-207",
+          "NZG-309",
+          "NZG-339",
+          "NZG-401",
+          "NZG-412",
+          "NZG-446",
+          "NZG-460",
+          "NZG-5165",
+          "NZG-5612",
+          "NZG-61",
+          "NZG-7762",
+          "NZG-7805",
+          "NZG-791",
+          "NZG-871",
+          "NZG-97",
+          "Nimeloni",
+          "Nkob",
+          "Nol",
+          "Nusu",
+          "Oa",
+          "Olaga",
+          "Olozera",
+          "Ornis",
+          "Polubo",
+          "Poshga",
+          "Postil",
+          "Puva",
+          "Qonaz",
+          "Quetol",
+          "Ryl",
+          "Senza",
+          "Serbira",
+          "Sikir",
+          "Sojt",
+          "Sonera",
+          "Sotocza",
+          "Speci",
+          "Sutovyr",
+          "Tefis",
+          "Telis",
+          "Tizm",
+          "Trolqu",
+          "Uqira",
+          "Urga",
+          "Urgast",
+          "Usad",
+          "Vylatis",
+          "Wenibist",
+          "Wyu",
+          "Xaxsu",
+          "Yazgir",
+          "Yluis",
+          "Yotli",
+          "Ysar",
+          "Za Helis",
+          "Zeriji",
+          "Zidizarg",
+          "Zinul",
+          "Zrie",
+          "Zuejok",
+          "Zyan"
+        ]
+      }
+    },
+    "outfits": {
+      "Phase Cannon Turret": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket Launcher": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket": {
+        "count": 20,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAD Deployer": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAD Module": {
+        "count": 15,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-G System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-I System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Lazari Graviton Buoy": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Zidara",
+    "engines": [
+      {
+        "x": -25,
+        "y": 125
+      },
+      {
+        "x": 25,
+        "y": 125
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -135,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -116,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -92,
+        "gun": ""
+      },
+      {
+        "x": -22,
+        "y": -64,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -64,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -64.5,
+        "y": 54.5,
+        "turret": ""
+      },
+      {
+        "x": 64.5,
+        "y": 54.5,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 24.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -22,
+        "y": 30,
+        "launch effect": "gaza launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 22,
+        "y": 30,
+        "launch effect": "gaza launch"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/zidara/zidara",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 800000,
+      "shields": 20400,
+      "shield generation": 0.14,
+      "hull": 2600,
+      "required crew": 33,
+      "bunks": 39,
+      "mass": 725,
+      "drag": 5.9,
+      "fuel capacity": 400,
+      "ramscoop": 2.1,
+      "heat dissipation": 0.7,
+      "outfit space": 458,
+      "cargo space": 15,
+      "weapon capacity": 190,
+      "engine capacity": 152,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Zidara.",
+    "_internalId": "Celestial Strands/celestial-strands::Zidara",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "aaa840d1f5da",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Bir",
+          "Ciban",
+          "Iuco",
+          "NZG-0162",
+          "NZG-5612",
+          "Ornis",
+          "Puva",
+          "Sojt",
+          "Sotocza",
+          "Sutovyr",
+          "Tefis",
+          "Telis",
+          "Vylatis",
+          "Wenibist",
+          "Zeriji",
+          "Zidizarg"
+        ]
+      }
+    },
+    "outfits": {
+      "Phased Disruption Laser": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Phase Cannon Turret": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket Launcher": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket": {
+        "count": 20,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-I System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Zidagar ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Azag-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Azag-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Elzaria",
+    "engines": [
+      {
+        "x": -47.5,
+        "y": 160,
+        "zoom": 0.7
+      },
+      {
+        "x": 47.5,
+        "y": 160,
+        "zoom": 0.7
+      },
+      {
+        "x": -32,
+        "y": 166.5,
+        "zoom": 0.7
+      },
+      {
+        "x": 32,
+        "y": 166.5,
+        "zoom": 0.7
+      },
+      {
+        "x": -16,
+        "y": 171,
+        "zoom": 0.7
+      },
+      {
+        "x": 16,
+        "y": 171,
+        "zoom": 0.7
+      },
+      {
+        "x": 0,
+        "y": 173,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -80,
+        "y": -82,
+        "gun": ""
+      },
+      {
+        "x": 80,
+        "y": -82,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -9,
+        "y": -122,
+        "turret": ""
+      },
+      {
+        "x": 9,
+        "y": -122,
+        "turret": ""
+      },
+      {
+        "x": -86.5,
+        "y": 20.5,
+        "turret": ""
+      },
+      {
+        "x": 86.5,
+        "y": 20.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -62,
+        "launch effect": "gaza launch"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/elzari/elzari",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 800000,
+      "shields": 21000,
+      "shield generation": 0.2,
+      "hull": 3000,
+      "required crew": 24,
+      "bunks": 40,
+      "mass": 920,
+      "drag": 6.7,
+      "fuel capacity": 500,
+      "heat dissipation": 0.6,
+      "outfit space": 442,
+      "cargo space": 40,
+      "weapon capacity": 158,
+      "engine capacity": 126,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Elzari.",
+    "_internalId": "Celestial Strands/celestial-strands::Elzaria",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "2353e44725dc",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Phase Cannon Turret": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Swivel Phase Cannon": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-G System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-I System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Lazari Graviton Buoy": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Zidagar Elzaria",
+    "engines": [
+      {
+        "x": -47.5,
+        "y": 160,
+        "zoom": 0.7
+      },
+      {
+        "x": 47.5,
+        "y": 160,
+        "zoom": 0.7
+      },
+      {
+        "x": -32,
+        "y": 166.5,
+        "zoom": 0.7
+      },
+      {
+        "x": 32,
+        "y": 166.5,
+        "zoom": 0.7
+      },
+      {
+        "x": -16,
+        "y": 171,
+        "zoom": 0.7
+      },
+      {
+        "x": 16,
+        "y": 171,
+        "zoom": 0.7
+      },
+      {
+        "x": 0,
+        "y": 173,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -80,
+        "y": -82,
+        "gun": ""
+      },
+      {
+        "x": 80,
+        "y": -82,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -9,
+        "y": -122,
+        "turret": ""
+      },
+      {
+        "x": 9,
+        "y": -122,
+        "turret": ""
+      },
+      {
+        "x": -86.5,
+        "y": 20.5,
+        "turret": ""
+      },
+      {
+        "x": 86.5,
+        "y": 20.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -62,
+        "launch effect": "gaza launch"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/elzari/zidagar elzari",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 800000,
+      "shields": 21000,
+      "shield generation": 0.2,
+      "hull": 3000,
+      "required crew": 24,
+      "bunks": 40,
+      "mass": 920,
+      "drag": 6.7,
+      "fuel capacity": 600,
+      "heat dissipation": 0.6,
+      "ramscoop": 2.9,
+      "outfit space": 460,
+      "cargo space": 20,
+      "weapon capacity": 158,
+      "engine capacity": 126,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Elzari.",
+    "_internalId": "Celestial Strands/celestial-strands::Zidagar Elzaria",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "62f99c6dbfaa",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Phased Disruption Turret": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Phase Cannon Turret": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket Launcher": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket": {
+        "count": 20,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-I System": {
+        "count": 3,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Zidagar ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Lazari Graviton Buoy": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Gazdira",
+    "engines": [
+      {
+        "x": -24.5,
+        "y": 222,
+        "zoom": 0.8
+      },
+      {
+        "x": 24.5,
+        "y": 222,
+        "zoom": 0.8
+      },
+      {
+        "x": -32.5,
+        "y": 221.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 32.5,
+        "y": 221.5,
+        "zoom": 0.8
+      },
+      {
+        "x": -39.5,
+        "y": 220.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 39.5,
+        "y": 220.5,
+        "zoom": 0.8
+      },
+      {
+        "x": -46,
+        "y": 219,
+        "zoom": 0.7
+      },
+      {
+        "x": 46,
+        "y": 219,
+        "zoom": 0.7
+      },
+      {
+        "x": -52.5,
+        "y": 218,
+        "zoom": 0.7
+      },
+      {
+        "x": 52.5,
+        "y": 218,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -110,
+        "gun": ""
+      },
+      {
+        "x": -10,
+        "y": -94,
+        "gun": ""
+      },
+      {
+        "x": 10,
+        "y": -94,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -135,
+        "turret": ""
+      },
+      {
+        "x": -10.5,
+        "y": 22,
+        "turret": ""
+      },
+      {
+        "x": 10.5,
+        "y": 22,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 163,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 204,
+        "angle": 180,
+        "launch effect": "gaza launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 204,
+        "angle": 180,
+        "launch effect": "gaza launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 204,
+        "angle": 180,
+        "launch effect": "gaza launch"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/gazdira/gazdira",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 800000,
+      "shields": 28000,
+      "shield generation": 0.19,
+      "hull": 3800,
+      "required crew": 61,
+      "bunks": 70,
+      "mass": 1350,
+      "drag": 7.1,
+      "fuel capacity": 500,
+      "heat dissipation": 0.5,
+      "outfit space": 560,
+      "cargo space": 70,
+      "weapon capacity": 200,
+      "engine capacity": 190,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Gazdira.",
+    "_internalId": "Celestial Strands/celestial-strands::Gazdira",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "46fb21b781fe",
+    "governments": {
+      "Celestial Strands/celestial-strands": {
+        "Giaradz": true,
+        "Strandless (Friendly)": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Adgazia",
+          "Alogok",
+          "Auleg",
+          "Bir",
+          "Cenzset",
+          "Ciban",
+          "Cyon",
+          "Gidyi",
+          "Igazidra",
+          "Jozuukl",
+          "Mzahitu",
+          "NZG-0162",
+          "NZG-0421",
+          "NZG-0936",
+          "NZG-207",
+          "NZG-446",
+          "NZG-61",
+          "NZG-871",
+          "NZG-97",
+          "Nol",
+          "Oa",
+          "Olaga",
+          "Olozera",
+          "Qonaz",
+          "Senza",
+          "Serbira",
+          "Sikir",
+          "Sonera",
+          "Tefis",
+          "Tizm",
+          "Uqira",
+          "Urgast",
+          "Vylatis",
+          "Wyu",
+          "Yazgir",
+          "Za Helis",
+          "Zeriji",
+          "Zidizarg",
+          "Zinul",
+          "Zrie",
+          "Zuejok",
+          "Zyan"
+        ]
+      }
+    },
+    "outfits": {
+      "Phase Cannon Turret": {
+        "count": 3,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAD Deployer": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAD Module": {
+        "count": 30,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-G System": {
+        "count": 4,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Azag-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Azag-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Azdgari Gazdira",
+    "engines": [
+      {
+        "x": -24.5,
+        "y": 222,
+        "zoom": 0.8
+      },
+      {
+        "x": 24.5,
+        "y": 222,
+        "zoom": 0.8
+      },
+      {
+        "x": -32.5,
+        "y": 221.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 32.5,
+        "y": 221.5,
+        "zoom": 0.8
+      },
+      {
+        "x": -39.5,
+        "y": 220.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 39.5,
+        "y": 220.5,
+        "zoom": 0.8
+      },
+      {
+        "x": -46,
+        "y": 219,
+        "zoom": 0.7
+      },
+      {
+        "x": 46,
+        "y": 219,
+        "zoom": 0.7
+      },
+      {
+        "x": -52.5,
+        "y": 218,
+        "zoom": 0.7
+      },
+      {
+        "x": 52.5,
+        "y": 218,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -110,
+        "gun": ""
+      },
+      {
+        "x": -10,
+        "y": -94,
+        "gun": ""
+      },
+      {
+        "x": 10,
+        "y": -94,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -135,
+        "turret": ""
+      },
+      {
+        "x": -10.5,
+        "y": 22,
+        "turret": ""
+      },
+      {
+        "x": 10.5,
+        "y": 22,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 163,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 204,
+        "angle": 180,
+        "launch effect": "azdara launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 204,
+        "angle": 180,
+        "launch effect": "azdara launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 204,
+        "angle": 180,
+        "launch effect": "azdara launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 204,
+        "angle": 180,
+        "launch effect": "azdara launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 204,
+        "angle": 180,
+        "launch effect": "azdara launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 204,
+        "angle": 180,
+        "launch effect": "azdara launch"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/gazdira/azdgari gazdira",
+    "sprite data": {
+      "frame rate": 8
+    },
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 800000,
+      "shields": 28000,
+      "shield generation": 0.27,
+      "hull": 3800,
+      "required crew": 61,
+      "bunks": 70,
+      "mass": 1350,
+      "drag": 7.1,
+      "fuel capacity": 500,
+      "heat dissipation": 0.5,
+      "outfit space": 520,
+      "cargo space": 70,
+      "weapon capacity": 136,
+      "engine capacity": 190,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Gazdira.",
+    "_internalId": "Celestial Strands/celestial-strands::Azdgari Gazdira",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "2e53d78ff54d",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Adgazia",
+          "Alogok",
+          "Atern",
+          "Emohl",
+          "Lenif",
+          "Miro",
+          "Serbira",
+          "Urgast",
+          "Yotli"
+        ]
+      }
+    },
+    "outfits": {
+      "Phase Cannon Turret": {
+        "count": 4,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Agri-C System": {
+        "count": 4,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Azag-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Azag-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Igazra",
+    "engines": [
+      {
+        "x": -70,
+        "y": 270
+      },
+      {
+        "x": 70,
+        "y": 270
+      },
+      {
+        "x": -98,
+        "y": 260,
+        "zoom": 0.9
+      },
+      {
+        "x": 98,
+        "y": 260,
+        "zoom": 0.9
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -24,
+        "y": -224,
+        "gun": ""
+      },
+      {
+        "x": 24,
+        "y": -224,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -200,
+        "gun": ""
+      },
+      {
+        "x": -36,
+        "y": -191,
+        "gun": ""
+      },
+      {
+        "x": 36,
+        "y": -191,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -149,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -68,
+        "turret": ""
+      },
+      {
+        "x": -12.5,
+        "y": 23,
+        "turret": ""
+      },
+      {
+        "x": 12.5,
+        "y": 23,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 121.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/igazra/igazra",
+    "sprite data": {
+      "frame rate": 6
+    },
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 800000,
+      "shields": 56000,
+      "shield generation": 0.19,
+      "hull": 6200,
+      "required crew": 52,
+      "bunks": 70,
+      "mass": 1500,
+      "drag": 7.6,
+      "fuel capacity": 800,
+      "heat dissipation": 0.46,
+      "outfit space": 670,
+      "cargo space": 40,
+      "weapon capacity": 260,
+      "engine capacity": 200,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "under": true,
+    "angle": -5,
+    "tiny explosion": 20,
+    "description": "Igazra.",
+    "_internalId": "Celestial Strands/celestial-strands::Igazra",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "b4706ec03566",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Alcogi",
+          "Cenzset",
+          "Egnar",
+          "Elirop",
+          "Igazidra",
+          "Miro",
+          "Nusu",
+          "Serbira",
+          "Sojt",
+          "Trolqu",
+          "Xaxsu"
+        ]
+      }
+    },
+    "outfits": {
+      "Phase Cannon Turret": {
+        "count": 5,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket Launcher": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Dispersal Rocket": {
+        "count": 20,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAE Deployer": {
+        "count": 3,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAE Module": {
+        "count": 60,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Idigazig Graviton System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Igazirada",
+    "engines": [
+      {
+        "x": -92,
+        "y": 258
+      },
+      {
+        "x": 92,
+        "y": 258
+      },
+      {
+        "x": -67,
+        "y": 264,
+        "zoom": 0.9
+      },
+      {
+        "x": 67,
+        "y": 264,
+        "zoom": 0.9
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -57,
+        "y": -214,
+        "gun": ""
+      },
+      {
+        "x": 57,
+        "y": -214,
+        "gun": ""
+      },
+      {
+        "x": -57,
+        "y": -70,
+        "gun": ""
+      },
+      {
+        "x": 57,
+        "y": -70,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -223,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -143,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -60.5,
+        "turret": ""
+      },
+      {
+        "x": -74,
+        "y": 74,
+        "turret": ""
+      },
+      {
+        "x": 74,
+        "y": 74,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 122,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -55,
+        "y": 122,
+        "angle": -10,
+        "under": true,
+        "launch effect": "gaza launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 55,
+        "y": 122,
+        "angle": 10,
+        "under": true,
+        "launch effect": "gaza launch"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/igazirada/igazirada",
+    "sprite data": {
+      "frame rate": 6
+    },
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 800000,
+      "shields": 63000,
+      "shield generation": 0.22,
+      "hull": 7500,
+      "required crew": 66,
+      "bunks": 84,
+      "mass": 1500,
+      "drag": 8.1,
+      "fuel capacity": 800,
+      "heat dissipation": 0.46,
+      "outfit space": 720,
+      "cargo space": 50,
+      "weapon capacity": 280,
+      "engine capacity": 226,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "over": true,
+    "angle": 90,
+    "tiny explosion": 20,
+    "description": "Igazirada.",
+    "_internalId": "Celestial Strands/celestial-strands::Igazirada",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "dbe221b374e1",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "Systems": [
+          "Alcogi",
+          "Cenzset",
+          "Egnar",
+          "Elirop",
+          "Igazidra",
+          "Miro",
+          "Nusu",
+          "Serbira",
+          "Sojt",
+          "Trolqu",
+          "Xaxsu"
+        ]
+      }
+    },
+    "outfits": {
+      "Igadzra Disruption Beamer": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Phase Cannon Turret": {
+        "count": 5,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAE Deployer": {
+        "count": 4,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "SAE Module": {
+        "count": 80,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Idigazig Graviton System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Mirunisa",
+    "engines": [
+      {
+        "x": -37.5,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": -31.5,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": -26,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": -20,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": -14,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": -8.5,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": -2.5,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": 37.5,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": 31.5,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": 26,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": 20,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": 14,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": 8.5,
+        "y": 41,
+        "zoom": 0.8
+      },
+      {
+        "x": 2.5,
+        "y": 41,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -35.5,
+        "y": -66,
+        "gun": ""
+      },
+      {
+        "x": 35.5,
+        "y": -66,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -79,
+        "y": 21,
+        "turret": ""
+      },
+      {
+        "x": 79,
+        "y": 21,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/mirunisa/mirunisa",
+    "sprite data": {
+      "frame rate": 6
+    },
+    "attributes": {
+      "category": "Transport",
+      "cost": 800000,
+      "shields": 6400,
+      "shield generation": 0.45,
+      "hull": 1000,
+      "required crew": 5,
+      "bunks": 39,
+      "mass": 612,
+      "drag": 5.5,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.35,
+      "outfit space": 210,
+      "cargo space": 60,
+      "weapon capacity": 85,
+      "engine capacity": 90,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "Mirunisa.",
+    "_internalId": "Celestial Strands/celestial-strands::Mirunisa",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "13613099c3db",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Phase Cannon Turret": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 2,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Supergate Navigation System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  },
+  {
+    "name": "Jiunura",
+    "engines": [
+      {
+        "x": -37.5,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": -31.5,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": -26,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": -20,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": -14,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": -8.5,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": -2.5,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": 37.5,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": 31.5,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": 26,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": 20,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": 14,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": 8.5,
+        "y": -130,
+        "zoom": 0.8
+      },
+      {
+        "x": 2.5,
+        "y": -130,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -35.5,
+        "y": -241.5,
+        "gun": ""
+      },
+      {
+        "x": 35.5,
+        "y": -241.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -79,
+        "y": -153,
+        "turret": ""
+      },
+      {
+        "x": 79,
+        "y": -153,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -76.5,
+        "turret": ""
+      },
+      {
+        "x": -60,
+        "y": 92.5,
+        "turret": ""
+      },
+      {
+        "x": 60,
+        "y": 92.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/jiunura/jiunura d",
+    "sprite data": {
+      "frame rate": 4
+    },
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 800000,
+      "shields": 16400,
+      "shield generation": 0.35,
+      "hull": 6000,
+      "required crew": 53,
+      "bunks": 57,
+      "mass": 640,
+      "drag": 8.8,
+      "fuel capacity": 800,
+      "heat dissipation": 0.4,
+      "outfit space": 308,
+      "cargo space": 900,
+      "weapon capacity": 105,
+      "engine capacity": 112,
+      "jump fuel": 100,
+      "jump speed": 1,
+      "hyperdrive": 1,
+      "hyperdrive sound": "crescent drive",
+      "hyperdrive in sound": "crescent in",
+      "hyperdrive out sound": "crescent out",
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "over": true,
+    "tiny explosion": 20,
+    "description": "Jiunura.",
+    "_internalId": "Celestial Strands/celestial-strands::Jiunura",
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_hash": "fe41036802d5",
+    "governments": {
+      "celestial-strands": {
+        "celestial-strands": true
+      }
+    },
+    "locations": {
+      "Celestial Strands/celestial-strands": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Elzar Repulsor Beam": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Mirau Pod Deployer": {
+        "count": 4,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Mirau Pod": {
+        "count": 40,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Giz System": {
+        "count": 3,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "ECM System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Supergate Navigation System": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Thruster": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      },
+      "Za-Class Steering": {
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands"
+      }
+    }
+  }
+]

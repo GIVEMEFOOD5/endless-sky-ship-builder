@@ -1,0 +1,806 @@
+{
+  "plugin": "Fighter-Factory",
+  "repository": "https://github.com/1010todd/Fighter-Factory",
+  "ships": [],
+  "variants": [
+    {
+      "name": "Lance (FiFc: Custom Fighter 1)",
+      "engines": [
+        {
+          "x": -14.5,
+          "y": 30.5
+        },
+        {
+          "x": 14.5,
+          "y": 30.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 0,
+          "y": -34,
+          "gun": ""
+        },
+        {
+          "x": -13.5,
+          "y": -6.5,
+          "gun": ""
+        },
+        {
+          "x": 13.5,
+          "y": -6.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/lance",
+      "thumbnail": "thumbnail/lance",
+      "attributes": {
+        "category": "Fighter",
+        "cost": 93000,
+        "shields": 800,
+        "hull": 400,
+        "required crew": 1,
+        "bunks": 1,
+        "mass": 30,
+        "drag": 0.7,
+        "heat dissipation": 0.8,
+        "outfit space": 100,
+        "weapon capacity": 20,
+        "engine capacity": 30,
+        "weapon": {
+          "blast radius": 12,
+          "shield damage": 120,
+          "hull damage": 60,
+          "hit force": 180
+        }
+      },
+      "tiny explosion": 15,
+      "small explosion": 5,
+      "description": "The Lance is the primary fighter used by the Republic Navy. As with all fighters, it is weak by itself but very effective as part of a larger squadron. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+      "_internalId": "official-game/endless-sky::Lance",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "c7c929cb3082",
+      "variant": "FiFc: Custom Fighter 1",
+      "baseShip": "Lance",
+      "_variantPluginId": "Fighter Factory/Fighter-Factory",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true,
+          "Oathbreaker Expeditionary": true
+        },
+        "Blended Ships/blended-ships": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Fighter Factory/Fighter-Factory": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Torpedo Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-AA Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP036a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X1700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X1200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Lance (FiFc: Outfitting Variant Example)",
+      "engines": [
+        {
+          "x": -14.5,
+          "y": 30.5
+        },
+        {
+          "x": 14.5,
+          "y": 30.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 0,
+          "y": -34,
+          "gun": ""
+        },
+        {
+          "x": -13.5,
+          "y": -6.5,
+          "gun": ""
+        },
+        {
+          "x": 13.5,
+          "y": -6.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/lance",
+      "thumbnail": "thumbnail/lance",
+      "attributes": {
+        "category": "Fighter",
+        "cost": 93000,
+        "shields": 800,
+        "hull": 400,
+        "required crew": 1,
+        "bunks": 1,
+        "mass": 30,
+        "drag": 0.7,
+        "heat dissipation": 0.8,
+        "outfit space": 100,
+        "weapon capacity": 20,
+        "engine capacity": 30,
+        "weapon": {
+          "blast radius": 12,
+          "shield damage": 120,
+          "hull damage": 60,
+          "hit force": 180
+        }
+      },
+      "tiny explosion": 15,
+      "small explosion": 5,
+      "description": "The Lance is the primary fighter used by the Republic Navy. As with all fighters, it is weak by itself but very effective as part of a larger squadron. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+      "_internalId": "official-game/endless-sky::Lance",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "c7c929cb3082",
+      "variant": "FiFc: Outfitting Variant Example",
+      "baseShip": "Lance",
+      "_variantPluginId": "Fighter Factory/Fighter-Factory",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true,
+          "Oathbreaker Expeditionary": true
+        },
+        "Blended Ships/blended-ships": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Fighter Factory/Fighter-Factory": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Torpedo Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-AA Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP036a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X1700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X1200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "A-14Fc Rondel (FiFc: Custom Ship Example)",
+      "engines": [
+        {
+          "x": 0,
+          "y": 38
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -9,
+          "y": -1.5,
+          "gun": ""
+        },
+        {
+          "x": 9,
+          "y": -1.5,
+          "gun": ""
+        },
+        {
+          "x": -13,
+          "y": 5,
+          "gun": ""
+        },
+        {
+          "x": 13,
+          "y": 5,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "drag": 1
+      },
+      "_internalId": "Fighter Factory/Fighter-Factory::A-14Fc Rondel",
+      "_pluginId": "Fighter Factory/Fighter-Factory",
+      "_hash": "3b16c3930d3c",
+      "variant": "FiFc: Custom Ship Example",
+      "baseShip": "A-14Fc Rondel",
+      "_variantPluginId": "Fighter Factory/Fighter-Factory",
+      "sprite": "ship/fifc rondel",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "Fighter Factory/Fighter-Factory": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
+    }
+  ],
+  "outfits": [
+    {
+      "name": "XMA03 Fighter Assembler",
+      "category": "Production",
+      "cost": 8200000,
+      "thumbnail": "outfit/ff fighter assembler",
+      "mass": 60,
+      "outfit space": -120,
+      "required crew": 12,
+      "fighter part capacity": 50,
+      "e1 fighter blueprint slot": 1,
+      "factory upgrade slot": 1,
+      "unplunderable": 1,
+      "description": "Experimental ship-board fighter assembly machine for assembling a fighter daily from parts based on a blueprint installed on the machine which can be bought separately. Once bought, depart and land then go to job board and record the current number of fighter. If fighters were loss the machine will produce new fighter based on blueprint to replace it upon landing. Can stack up to two Assembler. MUST be installed on flagship to work.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Geminus",
+            "Greenwater",
+            "New Tortuga",
+            "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Kraz Advanced",
+            "Lovelace Advanced",
+            "Syndicate Advanced"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "Remnant Manufactory Upgrade",
+      "licenses": {
+        "Remnant": true
+      },
+      "category": "Production",
+      "cost": 1580000,
+      "thumbnail": "outfit/research laboratory",
+      "mass": 40,
+      "outfit space": -80,
+      "required crew": 5,
+      "factory upgrade slot": -1,
+      "remnant blueprint slot": 1,
+      "description": "Upgrade which allow factories to manufacture Remnant technologies.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "Fighter Factory/Fighter-Factory": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "XSU01-1 Part Storage",
+      "category": "Production",
+      "cost": 28000,
+      "thumbnail": "outfit/cargo expansion",
+      "mass": 1,
+      "outfit space": -21,
+      "fighter part capacity": 20,
+      "unplunderable": 1,
+      "description": "Storage for fighter parts.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Buccaneer Bay",
+            "Geminus",
+            "Greenwater",
+            "New Britain",
+            "New China",
+            "New Tortuga",
+            "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Kraz Basics",
+            "Lovelace Basics",
+            "Syndicate Basics"
+          ]
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Planets": [
+            "Rum Cellar",
+            "Wang Xiang Tai"
+          ],
+          "Outfitters": [
+            "Kraz Basics",
+            "Lovelace Basics",
+            "Syndicate Basics"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "XSU01-2 Part Storage",
+      "category": "Production",
+      "cost": 49000,
+      "thumbnail": "outfit/cargo expansion",
+      "mass": 2,
+      "outfit space": -50,
+      "fighter part capacity": 50,
+      "unplunderable": 1,
+      "description": "Storage for fighter parts.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Geminus",
+            "Greenwater",
+            "New Tortuga",
+            "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Kraz Advanced",
+            "Lovelace Advanced",
+            "Syndicate Advanced"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "Universal Fighter Parts",
+      "category": "Production",
+      "cost": 125000,
+      "thumbnail": "outfit/ff fighter parts",
+      "mass": 5,
+      "fighter part capacity": -1,
+      "unplunderable": 1,
+      "description": "Basic parts for constructing a fighter.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Buccaneer Bay",
+            "Geminus",
+            "Greenwater",
+            "New Argentina",
+            "New Boston",
+            "New Britain",
+            "New China",
+            "New Holland",
+            "New Tortuga",
+            "New Wales",
+            "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Basic Outfits",
+            "Common Outfits",
+            "Kraz Advanced",
+            "Kraz Basics",
+            "Lovelace Advanced",
+            "Lovelace Basics",
+            "Syndicate Advanced",
+            "Syndicate Basics"
+          ]
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Planets": [
+            "Rum Cellar",
+            "Smuggler's Den",
+            "Wang Xiang Tai"
+          ],
+          "Outfitters": [
+            "Basic Outfits",
+            "Common Outfits",
+            "Kraz Basics",
+            "Lovelace Basics",
+            "Syndicate Basics"
+          ]
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "Planets": [
+            "Sapphire"
+          ],
+          "Outfitters": [
+            "Basic Outfits",
+            "Common Outfits"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Lance Blueprint",
+      "category": "Production",
+      "cost": 240000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for standard Lance fighter made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Geminus"
+          ],
+          "Outfitters": [
+            "Lovelace Advanced"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Custom Blueprint 1",
+      "category": "Production",
+      "cost": 480000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for custom fighter fighter made to E1 standard. [Default is Torp-equipped Lance. Customize in plugin data by editing ffcustomfighter.txt]",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Geminus",
+            "Greenwater",
+            "New Tortuga",
+            "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Kraz Advanced",
+            "Lovelace Advanced",
+            "Syndicate Advanced"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Dagger Blueprint",
+      "category": "Production",
+      "cost": 240000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for standard Dagger fighter made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "Fighter Factory/Fighter-Factory": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Finch Blueprint",
+      "category": "Production",
+      "cost": 240000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for standard Finch fighter made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Kraz Advanced"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Barb Blueprint",
+      "category": "Production",
+      "cost": 240000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for standard Barb fighter made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Greenwater",
+            "New Tortuga"
+          ],
+          "Outfitters": [
+            "Syndicate Advanced"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Barb-P Blueprint",
+      "category": "Production",
+      "cost": 240000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for Proton Barb fighter made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Greenwater",
+            "New Tortuga"
+          ],
+          "Outfitters": [
+            "Syndicate Advanced"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Combat Drone Blueprint",
+      "category": "Production",
+      "licenses": {
+        "Navy": true
+      },
+      "cost": 240000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for standard Combat Drone made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Geminus"
+          ],
+          "Outfitters": [
+            "Lovelace Advanced"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Surveillance Drone Blueprint",
+      "category": "Production",
+      "licenses": {
+        "Navy": true
+      },
+      "cost": 240000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for standard Surveillance Drone made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Geminus"
+          ],
+          "Outfitters": [
+            "Lovelace Advanced"
+          ]
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Petrel Blueprint",
+      "category": "Production",
+      "licenses": {
+        "Remnant": true
+      },
+      "cost": 640000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for standard Petrel fighter made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "Fighter Factory/Fighter-Factory": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Smew Blueprint",
+      "category": "Production",
+      "licenses": {
+        "Remnant": true
+      },
+      "cost": 640000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for standard Smew fighter made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "Fighter Factory/Fighter-Factory": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    },
+    {
+      "name": "E1-a Tern Blueprint",
+      "category": "Production",
+      "licenses": {
+        "Remnant": true
+      },
+      "cost": 640000,
+      "thumbnail": "outfit/license",
+      "e1 fighter blueprint slot": -1,
+      "unplunderable": 1,
+      "description": "Blueprint for standard Tern fighter made to E1 standard.",
+      "governments": {
+        "Fighter-Factory": {
+          "Fighter-Factory": true
+        }
+      },
+      "locations": {
+        "Fighter Factory/Fighter-Factory": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "Fighter Factory/Fighter-Factory"
+    }
+  ],
+  "effects": [],
+  "parsedAt": "2026-05-17T00:58:13.604Z"
+}

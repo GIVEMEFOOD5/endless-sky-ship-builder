@@ -1,0 +1,6401 @@
+[
+  {
+    "name": "Corellian Prospector (Combat)",
+    "engines": [
+      {
+        "x": -6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1,
+        "y": -60.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-prospector",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 1800000,
+      "shields": 2800,
+      "hull": 3500,
+      "required crew": 4,
+      "bunks": 12,
+      "mass": 490,
+      "drag": 8.6,
+      "heat dissipation": 0.5,
+      "fuel capacity": 450,
+      "cargo space": 130,
+      "outfit space": 340,
+      "weapon capacity": 100,
+      "engine capacity": 95,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 30,
+    "medium explosion": 25,
+    "large explosion": 12,
+    "final explode": "final explosion medium",
+    "description": "An early YT-series prototype that predates the production line. The cheapest hull in CEC's catalog — crew-hungry for its size, with limited weapons and weaker shields than anything else bearing the Corellian name. Comes stock with mining lasers and an asteroid scanner. Most surviving examples end up on the frontier, in the hands of miners and salvagers who value the modular design over polish.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Prospector",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "7ef507377b1d",
+    "variant": "Corellian Prospector (Combat)",
+    "baseShip": "Corellian Prospector",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Javelin Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin Storage Crate": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-DD Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Vagabond (Torpedo)",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 93.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 5.5,
+        "y": 93.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -16,
+        "y": 91.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 16,
+        "y": 91.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 88.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 88.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -35.5,
+        "y": 82.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 35.5,
+        "y": 82.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -44,
+        "y": 74.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 44,
+        "y": 74.9,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -64.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 1,
+        "y": 12.9,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 12.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-vagabond",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 2900000,
+      "shields": 4900,
+      "hull": 2700,
+      "required crew": 3,
+      "bunks": 18,
+      "mass": 450,
+      "drag": 6.7,
+      "heat dissipation": 0.75,
+      "fuel capacity": 600,
+      "cargo space": 160,
+      "outfit space": 380,
+      "weapon capacity": 105,
+      "engine capacity": 115,
+      "weapon": {
+        "blast radius": 90,
+        "shield damage": 900,
+        "hull damage": 450,
+        "hit force": 1350
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 32,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "A pirate-modified YT-series freighter built for speed and discretion. Exceptionally strong shields paired with a fragile hull — devastating while shields hold, desperate if they drop. Fast enough to choose its fights, with stealth plating, jammers, and a full sensor suite. Only three crew needed. Available exclusively through unofficial channels.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Vagabond",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "9b1c96e22a18",
+    "variant": "Corellian Vagabond (Torpedo)",
+    "baseShip": "Corellian Vagabond",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Torpedo Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 30,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-EE Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Privateer (Boarding)",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 97.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 5.5,
+        "y": 97.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -16,
+        "y": 94.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 16,
+        "y": 94.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -35.5,
+        "y": 86.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 35.5,
+        "y": 86.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -44,
+        "y": 79.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 44,
+        "y": 79.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1,
+        "y": -66.1,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 11.4,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 10.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-privateer",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 3100000,
+      "shields": 5100,
+      "hull": 2900,
+      "required crew": 6,
+      "bunks": 24,
+      "mass": 510,
+      "drag": 7.8,
+      "heat dissipation": 0.6,
+      "fuel capacity": 600,
+      "cargo space": 185,
+      "outfit space": 385,
+      "weapon capacity": 125,
+      "engine capacity": 101,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 32,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "A pirate raider built for boarding actions, with the strongest shields of any Corellian freighter. Heavy crew complement with boarding marines and a brig for prisoners. Slower than the Vagabond but significantly tougher — trades speed for durability and cargo space for plunder storage. Rarely seen without a Vagabond nearby.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Privateer",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "85d5f4d86c82",
+    "variant": "Corellian Privateer (Boarding)",
+    "baseShip": "Corellian Privateer",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Heavy Rocket Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Rocket": {
+        "count": 20,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tractor Beam": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Security Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Bunk Room": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 8,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nerve Gas": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Striker (Proton)",
+    "engines": [
+      {
+        "x": 2.5,
+        "y": 105.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -20,
+        "y": 89.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 24,
+        "y": 88.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -17.5,
+        "y": -108.6,
+        "gun": ""
+      },
+      {
+        "x": 14,
+        "y": -107.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0.5,
+        "y": 8.9,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 8.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-striker",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 3800000,
+      "shields": 5600,
+      "hull": 2400,
+      "required crew": 2,
+      "bunks": 12,
+      "mass": 400,
+      "drag": 5.3,
+      "heat dissipation": 0.4,
+      "fuel capacity": 600,
+      "cargo space": 80,
+      "outfit space": 440,
+      "weapon capacity": 140,
+      "engine capacity": 140,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 30,
+    "medium explosion": 24,
+    "large explosion": 12,
+    "final explode": "final explosion medium",
+    "description": "A glass cannon strike craft built on a heavily modified YT-1300 hull. Atomic engines and twin heavy lasers make it extremely fast and hard-hitting, but its paper-thin hull means a shield failure is almost certainly fatal. A ship for skilled pilots only.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Striker",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "befc68d4a66c",
+    "variant": "Corellian Striker (Proton)",
+    "baseShip": "Corellian Striker",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true,
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Proton Gun": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "NT-200 Nucleovoltaic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Luxury Accommodations": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A520 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Striker (Torpedo)",
+    "engines": [
+      {
+        "x": 2.5,
+        "y": 105.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -20,
+        "y": 89.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 24,
+        "y": 88.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -17.5,
+        "y": -108.6,
+        "gun": ""
+      },
+      {
+        "x": 14,
+        "y": -107.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0.5,
+        "y": 8.9,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 8.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-striker",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 3800000,
+      "shields": 5600,
+      "hull": 2400,
+      "required crew": 2,
+      "bunks": 12,
+      "mass": 400,
+      "drag": 5.3,
+      "heat dissipation": 0.4,
+      "fuel capacity": 600,
+      "cargo space": 80,
+      "outfit space": 440,
+      "weapon capacity": 140,
+      "engine capacity": 140,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 30,
+    "medium explosion": 24,
+    "large explosion": 12,
+    "final explode": "final explosion medium",
+    "description": "A glass cannon strike craft built on a heavily modified YT-1300 hull. Atomic engines and twin heavy lasers make it extremely fast and hard-hitting, but its paper-thin hull means a shield failure is almost certainly fatal. A ship for skilled pilots only.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Striker",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "befc68d4a66c",
+    "variant": "Corellian Striker (Torpedo)",
+    "baseShip": "Corellian Striker",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true,
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Torpedo Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 60,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Laser Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Ducts": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A520 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Vanguard (Torpedo)",
+    "engines": [
+      {
+        "x": -4.2,
+        "y": 116.3,
+        "zoom": 1.2
+      },
+      {
+        "x": 4.2,
+        "y": 116.3,
+        "zoom": 1.2
+      },
+      {
+        "x": -13,
+        "y": 114.2,
+        "zoom": 1.2
+      },
+      {
+        "x": 13,
+        "y": 114.2,
+        "zoom": 1.2
+      },
+      {
+        "x": -20.8,
+        "y": 111.2,
+        "zoom": 1.2
+      },
+      {
+        "x": 20.8,
+        "y": 111.2,
+        "zoom": 1.2
+      },
+      {
+        "x": -28.6,
+        "y": 106,
+        "zoom": 1.2
+      },
+      {
+        "x": 28.6,
+        "y": 106,
+        "zoom": 1.2
+      },
+      {
+        "x": -36.4,
+        "y": 99.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 36.4,
+        "y": 99.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -8.4,
+        "y": -118.8,
+        "gun": ""
+      },
+      {
+        "x": 8.4,
+        "y": -118.8,
+        "gun": ""
+      },
+      {
+        "x": 3.2,
+        "y": -122.2,
+        "gun": ""
+      },
+      {
+        "x": -3.2,
+        "y": -122.2,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 30,
+        "turret": ""
+      },
+      {
+        "x": 0.1,
+        "y": 30.2,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-vanguard",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5900000,
+      "shields": 7200,
+      "hull": 3800,
+      "required crew": 6,
+      "bunks": 20,
+      "mass": 580,
+      "drag": 7.1,
+      "heat dissipation": 0.5,
+      "fuel capacity": 600,
+      "cargo space": 95,
+      "outfit space": 512,
+      "weapon capacity": 200,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 115,
+        "shield damage": 1150,
+        "hull damage": 575,
+        "hit force": 1725
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 16,
+    "final explode": "final explosion medium",
+    "description": "CEC's flagship combat yacht — four proton guns, exceptional shielding, and enough bunks and cargo space to serve as a mobile headquarters. More expensive than the Firebird or Osprey but trades raw firepower for versatility. A ship for independent operators who need a single hull that can fight, haul, and carry passengers.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Vanguard",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "4f4b18fd043f",
+    "variant": "Corellian Vanguard (Torpedo)",
+    "baseShip": "Corellian Vanguard",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Torpedo Launcher": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 150,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo Storage Rack": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Laser Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "NT-200 Nucleovoltaic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Luxury Accommodations": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A520 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Vanguard (Heavy Laser)",
+    "engines": [
+      {
+        "x": -4.2,
+        "y": 116.3,
+        "zoom": 1.2
+      },
+      {
+        "x": 4.2,
+        "y": 116.3,
+        "zoom": 1.2
+      },
+      {
+        "x": -13,
+        "y": 114.2,
+        "zoom": 1.2
+      },
+      {
+        "x": 13,
+        "y": 114.2,
+        "zoom": 1.2
+      },
+      {
+        "x": -20.8,
+        "y": 111.2,
+        "zoom": 1.2
+      },
+      {
+        "x": 20.8,
+        "y": 111.2,
+        "zoom": 1.2
+      },
+      {
+        "x": -28.6,
+        "y": 106,
+        "zoom": 1.2
+      },
+      {
+        "x": 28.6,
+        "y": 106,
+        "zoom": 1.2
+      },
+      {
+        "x": -36.4,
+        "y": 99.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 36.4,
+        "y": 99.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -8.4,
+        "y": -118.8,
+        "gun": ""
+      },
+      {
+        "x": 8.4,
+        "y": -118.8,
+        "gun": ""
+      },
+      {
+        "x": 3.2,
+        "y": -122.2,
+        "gun": ""
+      },
+      {
+        "x": -3.2,
+        "y": -122.2,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 30,
+        "turret": ""
+      },
+      {
+        "x": 0.1,
+        "y": 30.2,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-vanguard",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5900000,
+      "shields": 7200,
+      "hull": 3800,
+      "required crew": 6,
+      "bunks": 20,
+      "mass": 580,
+      "drag": 7.1,
+      "heat dissipation": 0.5,
+      "fuel capacity": 600,
+      "cargo space": 95,
+      "outfit space": 512,
+      "weapon capacity": 200,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 115,
+        "shield damage": 1150,
+        "hull damage": 575,
+        "hit force": 1725
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 16,
+    "final explode": "final explosion medium",
+    "description": "CEC's flagship combat yacht — four proton guns, exceptional shielding, and enough bunks and cargo space to serve as a mobile headquarters. More expensive than the Firebird or Osprey but trades raw firepower for versatility. A ship for independent operators who need a single hull that can fight, haul, and carry passengers.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Vanguard",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "4f4b18fd043f",
+    "variant": "Corellian Vanguard (Heavy Laser)",
+    "baseShip": "Corellian Vanguard",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Heavy Laser": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Laser Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fusion Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D94-YV Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Ducts": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Luxury Accommodations": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfit Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A370 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A525 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Vanguard (Brawler)",
+    "engines": [
+      {
+        "x": -4.2,
+        "y": 116.3,
+        "zoom": 1.2
+      },
+      {
+        "x": 4.2,
+        "y": 116.3,
+        "zoom": 1.2
+      },
+      {
+        "x": -13,
+        "y": 114.2,
+        "zoom": 1.2
+      },
+      {
+        "x": 13,
+        "y": 114.2,
+        "zoom": 1.2
+      },
+      {
+        "x": -20.8,
+        "y": 111.2,
+        "zoom": 1.2
+      },
+      {
+        "x": 20.8,
+        "y": 111.2,
+        "zoom": 1.2
+      },
+      {
+        "x": -28.6,
+        "y": 106,
+        "zoom": 1.2
+      },
+      {
+        "x": 28.6,
+        "y": 106,
+        "zoom": 1.2
+      },
+      {
+        "x": -36.4,
+        "y": 99.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 36.4,
+        "y": 99.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -8.4,
+        "y": -118.8,
+        "gun": ""
+      },
+      {
+        "x": 8.4,
+        "y": -118.8,
+        "gun": ""
+      },
+      {
+        "x": 3.2,
+        "y": -122.2,
+        "gun": ""
+      },
+      {
+        "x": -3.2,
+        "y": -122.2,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 30,
+        "turret": ""
+      },
+      {
+        "x": 0.1,
+        "y": 30.2,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-vanguard",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5900000,
+      "shields": 7200,
+      "hull": 3800,
+      "required crew": 6,
+      "bunks": 20,
+      "mass": 580,
+      "drag": 7.1,
+      "heat dissipation": 0.5,
+      "fuel capacity": 600,
+      "cargo space": 95,
+      "outfit space": 512,
+      "weapon capacity": 200,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 115,
+        "shield damage": 1150,
+        "hull damage": 575,
+        "hit force": 1725
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 16,
+    "final explode": "final explosion medium",
+    "description": "CEC's flagship combat yacht — four proton guns, exceptional shielding, and enough bunks and cargo space to serve as a mobile headquarters. More expensive than the Firebird or Osprey but trades raw firepower for versatility. A ship for independent operators who need a single hull that can fight, haul, and carry passengers.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Vanguard",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "4f4b18fd043f",
+    "variant": "Corellian Vanguard (Brawler)",
+    "baseShip": "Corellian Vanguard",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Plasma Cannon": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fusion Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D94-YV Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Ducts": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A370 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Cargo (Heavy)",
+    "engines": [
+      {
+        "x": -1,
+        "y": 91.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -17.5,
+        "y": 92.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 14.5,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 83.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -32.5,
+        "y": 84.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -44.5,
+        "y": 72.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 41,
+        "y": 74.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -2,
+        "y": -57.1,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      },
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-cargo",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 2300000,
+      "shields": 3200,
+      "hull": 4000,
+      "required crew": 4,
+      "bunks": 16,
+      "mass": 530,
+      "drag": 9.2,
+      "heat dissipation": 0.55,
+      "fuel capacity": 500,
+      "cargo space": 145,
+      "outfit space": 375,
+      "weapon capacity": 130,
+      "engine capacity": 110,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "CEC's entry-level production freighter. Better shields, hull, and cargo than the Hauler at a higher price, with a single gun and dual turrets. A solid workhorse for trade routes — enough defense to discourage casual raiders, not enough to win a real fight.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Cargo",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "dd810975bf34",
+    "variant": "Corellian Cargo (Heavy)",
+    "baseShip": "Corellian Cargo",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Meteor Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 45,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Cargo (Escort)",
+    "engines": [
+      {
+        "x": -1,
+        "y": 91.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -17.5,
+        "y": 92.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 14.5,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 83.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -32.5,
+        "y": 84.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -44.5,
+        "y": 72.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 41,
+        "y": 74.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -2,
+        "y": -57.1,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      },
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-cargo",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 2300000,
+      "shields": 3200,
+      "hull": 4000,
+      "required crew": 4,
+      "bunks": 16,
+      "mass": 530,
+      "drag": 9.2,
+      "heat dissipation": 0.55,
+      "fuel capacity": 500,
+      "cargo space": 145,
+      "outfit space": 375,
+      "weapon capacity": 130,
+      "engine capacity": 110,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "CEC's entry-level production freighter. Better shields, hull, and cargo than the Hauler at a higher price, with a single gun and dual turrets. A solid workhorse for trade routes — enough defense to discourage casual raiders, not enough to win a real fight.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Cargo",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "dd810975bf34",
+    "variant": "Corellian Cargo (Escort)",
+    "baseShip": "Corellian Cargo",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Sidewinder Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 68,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile Rack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Trader (Smuggler)",
+    "engines": [
+      {
+        "x": -0.5,
+        "y": 103.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -13,
+        "y": 101.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 13,
+        "y": 101.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 96.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 96.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -38.5,
+        "y": 89.4,
+        "zoom": 1.1
+      },
+      {
+        "x": 38.5,
+        "y": 89.4,
+        "zoom": 1.1
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -67.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -0.5,
+        "y": 15.9,
+        "turret": ""
+      },
+      {
+        "x": -0.5,
+        "y": 16.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-trader",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 2800000,
+      "shields": 3800,
+      "hull": 4400,
+      "required crew": 4,
+      "bunks": 18,
+      "mass": 580,
+      "drag": 9.9,
+      "heat dissipation": 0.52,
+      "fuel capacity": 600,
+      "cargo space": 165,
+      "outfit space": 395,
+      "weapon capacity": 135,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 90,
+        "shield damage": 900,
+        "hull damage": 450,
+        "hit force": 1350
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The most popular ship in CEC's catalog — a modular freighter that solidly outperforms the Argosy in hull and cargo at the cost of fewer hardpoints and weaker shields. Generous outfit space and balanced design make it the go-to platform for independent captains who want room to grow.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Trader",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "5898b1a8e0e6",
+    "variant": "Corellian Trader (Smuggler)",
+    "baseShip": "Corellian Trader",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Plasma Cannon": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "NT-200 Nucleovoltaic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Merchantman (Heavy)",
+    "engines": [
+      {
+        "x": 0,
+        "y": 94.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -11,
+        "y": 92.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 11,
+        "y": 92.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -22,
+        "y": 88.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 22,
+        "y": 88.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -32,
+        "y": 84.9,
+        "zoom": 1.1
+      },
+      {
+        "x": 32,
+        "y": 84.9,
+        "zoom": 1.1
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -68.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 10.4,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 10.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-merchantman",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 3600000,
+      "shields": 4500,
+      "hull": 4900,
+      "required crew": 6,
+      "bunks": 20,
+      "mass": 650,
+      "drag": 10.8,
+      "heat dissipation": 0.5,
+      "fuel capacity": 700,
+      "cargo space": 190,
+      "outfit space": 420,
+      "weapon capacity": 140,
+      "engine capacity": 130,
+      "weapon": {
+        "blast radius": 105,
+        "shield damage": 1050,
+        "hull damage": 525,
+        "hit force": 1575
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 30,
+    "large explosion": 16,
+    "huge explosion": 5,
+    "final explode": "final explosion medium",
+    "description": "CEC's premium freighter, competing with the Mule at a lower price point. Offers better hull and cargo capacity but weaker shields and less outfit space. A step up from the YT-1300 for established merchants hauling valuable cargo through dangerous space.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Merchantman",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "80d515070e4a",
+    "variant": "Corellian Merchantman (Heavy)",
+    "baseShip": "Corellian Merchantman",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Heavy Rocket Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Rocket": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Laser Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-EE Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D94-YV Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Orca Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Merchantman (Armored)",
+    "engines": [
+      {
+        "x": 0,
+        "y": 94.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -11,
+        "y": 92.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 11,
+        "y": 92.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -22,
+        "y": 88.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 22,
+        "y": 88.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -32,
+        "y": 84.9,
+        "zoom": 1.1
+      },
+      {
+        "x": 32,
+        "y": 84.9,
+        "zoom": 1.1
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -68.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 10.4,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 10.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-merchantman",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 3600000,
+      "shields": 4500,
+      "hull": 4900,
+      "required crew": 6,
+      "bunks": 20,
+      "mass": 650,
+      "drag": 10.8,
+      "heat dissipation": 0.5,
+      "fuel capacity": 700,
+      "cargo space": 190,
+      "outfit space": 420,
+      "weapon capacity": 140,
+      "engine capacity": 130,
+      "weapon": {
+        "blast radius": 105,
+        "shield damage": 1050,
+        "hull damage": 525,
+        "hit force": 1575
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 30,
+    "large explosion": 16,
+    "huge explosion": 5,
+    "final explode": "final explosion medium",
+    "description": "CEC's premium freighter, competing with the Mule at a lower price point. Offers better hull and cargo capacity but weaker shields and less outfit space. A step up from the YT-1300 for established merchants hauling valuable cargo through dangerous space.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Merchantman",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "80d515070e4a",
+    "variant": "Corellian Merchantman (Armored)",
+    "baseShip": "Corellian Merchantman",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Torpedo Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 30,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D94-YV Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Fortress (Boarding)",
+    "engines": [
+      {
+        "x": -6.5,
+        "y": 99.4,
+        "zoom": 1
+      },
+      {
+        "x": 6.5,
+        "y": 99.4,
+        "zoom": 1
+      },
+      {
+        "x": -19.5,
+        "y": 95.9,
+        "zoom": 0.9
+      },
+      {
+        "x": 19.5,
+        "y": 95.9,
+        "zoom": 0.9
+      },
+      {
+        "x": -31,
+        "y": 89.9,
+        "zoom": 0.9
+      },
+      {
+        "x": 31,
+        "y": 89.9,
+        "zoom": 0.9
+      },
+      {
+        "x": -41.5,
+        "y": 83.9,
+        "zoom": 0.9
+      },
+      {
+        "x": 41.5,
+        "y": 83.9,
+        "zoom": 0.9
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -31,
+        "y": -54.6,
+        "turret": ""
+      },
+      {
+        "x": 31,
+        "y": -54.6,
+        "turret": ""
+      },
+      {
+        "x": -31,
+        "y": -55.1,
+        "turret": ""
+      },
+      {
+        "x": 31,
+        "y": -55.1,
+        "turret": ""
+      },
+      {
+        "x": -44.5,
+        "y": 48.4,
+        "turret": ""
+      },
+      {
+        "x": 44.5,
+        "y": 48.4,
+        "turret": ""
+      },
+      {
+        "x": -44,
+        "y": 48.4,
+        "turret": ""
+      },
+      {
+        "x": 44,
+        "y": 48.4,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -1,
+        "y": 28.9,
+        "under": true
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 90,
+        "spreadChance": 30
+      }
+    ],
+    "plural": "Corellian Fortresses",
+    "sprite": "ship/corellian-fortress",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 5800000,
+      "shields": 6200,
+      "hull": 7800,
+      "required crew": 6,
+      "bunks": 16,
+      "mass": 760,
+      "drag": 9.8,
+      "heat dissipation": 0.5,
+      "fuel capacity": 600,
+      "cargo space": 15,
+      "outfit space": 450,
+      "weapon capacity": 180,
+      "engine capacity": 85,
+      "weapon": {
+        "blast radius": 150,
+        "shield damage": 1500,
+        "hull damage": 750,
+        "hit force": 2250
+      }
+    },
+    "under": true,
+    "tiny explosion": 15,
+    "small explosion": 30,
+    "medium explosion": 35,
+    "large explosion": 25,
+    "huge explosion": 12,
+    "final explode": "final explosion large",
+    "description": "A spherical combat platform with eight turrets, a drone bay, and almost no cargo space. Built for convoy escort and station defense rather than hauling. Glacially slow but nearly impossible to flank, with the thickest hull in the Corellian lineup.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Fortress",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "a7ca31fed52c",
+    "variant": "Corellian Fortress (Boarding)",
+    "baseShip": "Corellian Fortress",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Proton Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tractor Beam": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blaster Turret": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Security Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 10,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 10,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chipmunk Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Fortress (Blaster)",
+    "engines": [
+      {
+        "x": -6.5,
+        "y": 99.4,
+        "zoom": 1
+      },
+      {
+        "x": 6.5,
+        "y": 99.4,
+        "zoom": 1
+      },
+      {
+        "x": -19.5,
+        "y": 95.9,
+        "zoom": 0.9
+      },
+      {
+        "x": 19.5,
+        "y": 95.9,
+        "zoom": 0.9
+      },
+      {
+        "x": -31,
+        "y": 89.9,
+        "zoom": 0.9
+      },
+      {
+        "x": 31,
+        "y": 89.9,
+        "zoom": 0.9
+      },
+      {
+        "x": -41.5,
+        "y": 83.9,
+        "zoom": 0.9
+      },
+      {
+        "x": 41.5,
+        "y": 83.9,
+        "zoom": 0.9
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -31,
+        "y": -54.6,
+        "turret": ""
+      },
+      {
+        "x": 31,
+        "y": -54.6,
+        "turret": ""
+      },
+      {
+        "x": -31,
+        "y": -55.1,
+        "turret": ""
+      },
+      {
+        "x": 31,
+        "y": -55.1,
+        "turret": ""
+      },
+      {
+        "x": -44.5,
+        "y": 48.4,
+        "turret": ""
+      },
+      {
+        "x": 44.5,
+        "y": 48.4,
+        "turret": ""
+      },
+      {
+        "x": -44,
+        "y": 48.4,
+        "turret": ""
+      },
+      {
+        "x": 44,
+        "y": 48.4,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -1,
+        "y": 28.9,
+        "under": true
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 90,
+        "spreadChance": 30
+      }
+    ],
+    "plural": "Corellian Fortresses",
+    "sprite": "ship/corellian-fortress",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 5800000,
+      "shields": 6200,
+      "hull": 7800,
+      "required crew": 6,
+      "bunks": 16,
+      "mass": 760,
+      "drag": 9.8,
+      "heat dissipation": 0.5,
+      "fuel capacity": 600,
+      "cargo space": 15,
+      "outfit space": 450,
+      "weapon capacity": 180,
+      "engine capacity": 85,
+      "weapon": {
+        "blast radius": 150,
+        "shield damage": 1500,
+        "hull damage": 750,
+        "hit force": 2250
+      }
+    },
+    "under": true,
+    "tiny explosion": 15,
+    "small explosion": 30,
+    "medium explosion": 35,
+    "large explosion": 25,
+    "huge explosion": 12,
+    "final explode": "final explosion large",
+    "description": "A spherical combat platform with eight turrets, a drone bay, and almost no cargo space. Built for convoy escort and station defense rather than hauling. Glacially slow but nearly impossible to flank, with the thickest hull in the Corellian lineup.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Fortress",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "a7ca31fed52c",
+    "variant": "Corellian Fortress (Blaster)",
+    "baseShip": "Corellian Fortress",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Quad Blaster Turret": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blaster Turret": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "KP-6 Photovoltaic Array": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Security Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Ducts": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 14,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 14,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Fortress (Gunship)",
+    "engines": [
+      {
+        "x": -6.5,
+        "y": 99.4,
+        "zoom": 1
+      },
+      {
+        "x": 6.5,
+        "y": 99.4,
+        "zoom": 1
+      },
+      {
+        "x": -19.5,
+        "y": 95.9,
+        "zoom": 0.9
+      },
+      {
+        "x": 19.5,
+        "y": 95.9,
+        "zoom": 0.9
+      },
+      {
+        "x": -31,
+        "y": 89.9,
+        "zoom": 0.9
+      },
+      {
+        "x": 31,
+        "y": 89.9,
+        "zoom": 0.9
+      },
+      {
+        "x": -41.5,
+        "y": 83.9,
+        "zoom": 0.9
+      },
+      {
+        "x": 41.5,
+        "y": 83.9,
+        "zoom": 0.9
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -31,
+        "y": -54.6,
+        "turret": ""
+      },
+      {
+        "x": 31,
+        "y": -54.6,
+        "turret": ""
+      },
+      {
+        "x": -31,
+        "y": -55.1,
+        "turret": ""
+      },
+      {
+        "x": 31,
+        "y": -55.1,
+        "turret": ""
+      },
+      {
+        "x": -44.5,
+        "y": 48.4,
+        "turret": ""
+      },
+      {
+        "x": 44.5,
+        "y": 48.4,
+        "turret": ""
+      },
+      {
+        "x": -44,
+        "y": 48.4,
+        "turret": ""
+      },
+      {
+        "x": 44,
+        "y": 48.4,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -1,
+        "y": 28.9,
+        "under": true
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 90,
+        "spreadChance": 30
+      }
+    ],
+    "plural": "Corellian Fortresses",
+    "sprite": "ship/corellian-fortress",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 5800000,
+      "shields": 6200,
+      "hull": 7800,
+      "required crew": 6,
+      "bunks": 16,
+      "mass": 760,
+      "drag": 9.8,
+      "heat dissipation": 0.5,
+      "fuel capacity": 600,
+      "cargo space": 15,
+      "outfit space": 450,
+      "weapon capacity": 180,
+      "engine capacity": 85,
+      "weapon": {
+        "blast radius": 150,
+        "shield damage": 1500,
+        "hull damage": 750,
+        "hit force": 2250
+      }
+    },
+    "under": true,
+    "tiny explosion": 15,
+    "small explosion": 30,
+    "medium explosion": 35,
+    "large explosion": 25,
+    "huge explosion": 12,
+    "final explode": "final explosion large",
+    "description": "A spherical combat platform with eight turrets, a drone bay, and almost no cargo space. Built for convoy escort and station defense rather than hauling. Glacially slow but nearly impossible to flank, with the thickest hull in the Corellian lineup.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Fortress",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "a7ca31fed52c",
+    "variant": "Corellian Fortress (Gunship)",
+    "baseShip": "Corellian Fortress",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Heavy Laser Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blaster Turret": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Security Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Ducts": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Ironclad (Laser)",
+    "engines": [
+      {
+        "x": 0,
+        "y": 106.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -19,
+        "y": 102.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 19,
+        "y": 102.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -36,
+        "y": 95.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 36,
+        "y": 95.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -40.5,
+        "y": -7.6,
+        "turret": ""
+      },
+      {
+        "x": 38.5,
+        "y": -7.6,
+        "turret": ""
+      },
+      {
+        "x": -40.5,
+        "y": -7.6,
+        "turret": ""
+      },
+      {
+        "x": 38.5,
+        "y": -7.1,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-ironclad",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 3400000,
+      "shields": 4200,
+      "hull": 4400,
+      "required crew": 6,
+      "bunks": 16,
+      "mass": 620,
+      "drag": 8.5,
+      "heat dissipation": 0.55,
+      "fuel capacity": 600,
+      "cargo space": 35,
+      "outfit space": 360,
+      "weapon capacity": 140,
+      "engine capacity": 90,
+      "weapon": {
+        "blast radius": 125,
+        "shield damage": 1250,
+        "hull damage": 625,
+        "hit force": 1875
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 36,
+    "medium explosion": 30,
+    "large explosion": 18,
+    "huge explosion": 5,
+    "final explode": "final explosion medium",
+    "description": "A combat conversion of the YT-1100 hull with four turrets and heavy armor plating at the expense of nearly all cargo space. Demands the largest crew of any Corellian ship. Popular with militia and escort services as an affordable, combat-ready alternative to purpose-built warships.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Ironclad",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "f73610cf1a58",
+    "variant": "Corellian Ironclad (Laser)",
+    "baseShip": "Corellian Ironclad",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Heavy Laser Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "NT-200 Nucleovoltaic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 11,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Ironclad (Blaster)",
+    "engines": [
+      {
+        "x": 0,
+        "y": 106.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -19,
+        "y": 102.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 19,
+        "y": 102.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -36,
+        "y": 95.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 36,
+        "y": 95.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -40.5,
+        "y": -7.6,
+        "turret": ""
+      },
+      {
+        "x": 38.5,
+        "y": -7.6,
+        "turret": ""
+      },
+      {
+        "x": -40.5,
+        "y": -7.6,
+        "turret": ""
+      },
+      {
+        "x": 38.5,
+        "y": -7.1,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-ironclad",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 3400000,
+      "shields": 4200,
+      "hull": 4400,
+      "required crew": 6,
+      "bunks": 16,
+      "mass": 620,
+      "drag": 8.5,
+      "heat dissipation": 0.55,
+      "fuel capacity": 600,
+      "cargo space": 35,
+      "outfit space": 360,
+      "weapon capacity": 140,
+      "engine capacity": 90,
+      "weapon": {
+        "blast radius": 125,
+        "shield damage": 1250,
+        "hull damage": 625,
+        "hit force": 1875
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 36,
+    "medium explosion": 30,
+    "large explosion": 18,
+    "huge explosion": 5,
+    "final explode": "final explosion medium",
+    "description": "A combat conversion of the YT-1100 hull with four turrets and heavy armor plating at the expense of nearly all cargo space. Demands the largest crew of any Corellian ship. Popular with militia and escort services as an affordable, combat-ready alternative to purpose-built warships.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Ironclad",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "f73610cf1a58",
+    "variant": "Corellian Ironclad (Blaster)",
+    "baseShip": "Corellian Ironclad",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Quad Blaster Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-EE Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Security Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 10,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Prospector (Start)",
+    "engines": [
+      {
+        "x": -6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1,
+        "y": -60.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-prospector",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 1200000,
+      "shields": 2200,
+      "hull": 2800,
+      "required crew": 3,
+      "bunks": 10,
+      "mass": 490,
+      "drag": 8.6,
+      "heat dissipation": 0.5,
+      "fuel capacity": 400,
+      "cargo space": 110,
+      "outfit space": 310,
+      "weapon capacity": 70,
+      "engine capacity": 85,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 30,
+    "medium explosion": 25,
+    "large explosion": 12,
+    "final explode": "final explosion medium",
+    "description": "An early YT-series prototype that predates the production line. The cheapest hull in CEC's catalog — crew-hungry for its size, with limited weapons and weaker shields than anything else bearing the Corellian name. Comes stock with mining lasers and an asteroid scanner. Most surviving examples end up on the frontier, in the hands of miners and salvagers who value the modular design over polish.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Prospector",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "7ef507377b1d",
+    "variant": "Corellian Prospector (Start)",
+    "baseShip": "Corellian Prospector",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Mining Laser Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-CC Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Asteroid Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Prospector (Armed)",
+    "engines": [
+      {
+        "x": -6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1,
+        "y": -60.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-prospector",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 1800000,
+      "shields": 2800,
+      "hull": 3500,
+      "required crew": 4,
+      "bunks": 12,
+      "mass": 490,
+      "drag": 8.6,
+      "heat dissipation": 0.5,
+      "fuel capacity": 450,
+      "cargo space": 130,
+      "outfit space": 340,
+      "weapon capacity": 100,
+      "engine capacity": 95,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 30,
+    "medium explosion": 25,
+    "large explosion": 12,
+    "final explode": "final explosion medium",
+    "description": "An early YT-series prototype that predates the production line. The cheapest hull in CEC's catalog — crew-hungry for its size, with limited weapons and weaker shields than anything else bearing the Corellian name. Comes stock with mining lasers and an asteroid scanner. Most surviving examples end up on the frontier, in the hands of miners and salvagers who value the modular design over polish.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Prospector",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "7ef507377b1d",
+    "variant": "Corellian Prospector (Armed)",
+    "baseShip": "Corellian Prospector",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Javelin Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin": {
+        "count": 300,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin Storage Crate": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-DD Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Prospector (Miner)",
+    "engines": [
+      {
+        "x": -6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1,
+        "y": -60.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-prospector",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 1800000,
+      "shields": 2800,
+      "hull": 3500,
+      "required crew": 4,
+      "bunks": 12,
+      "mass": 490,
+      "drag": 8.6,
+      "heat dissipation": 0.5,
+      "fuel capacity": 450,
+      "cargo space": 130,
+      "outfit space": 340,
+      "weapon capacity": 100,
+      "engine capacity": 95,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 30,
+    "medium explosion": 25,
+    "large explosion": 12,
+    "final explode": "final explosion medium",
+    "description": "An early YT-series prototype that predates the production line. The cheapest hull in CEC's catalog — crew-hungry for its size, with limited weapons and weaker shields than anything else bearing the Corellian name. Comes stock with mining lasers and an asteroid scanner. Most surviving examples end up on the frontier, in the hands of miners and salvagers who value the modular design over polish.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Prospector",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "7ef507377b1d",
+    "variant": "Corellian Prospector (Miner)",
+    "baseShip": "Corellian Prospector",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Mining Laser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Mining Laser Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-CC Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Asteroid Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Prospector (Smuggler)",
+    "engines": [
+      {
+        "x": -6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 6,
+        "y": 89.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 18,
+        "y": 85.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 78.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 39.5,
+        "y": 70.9,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1,
+        "y": -60.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 16.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-prospector",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 1800000,
+      "shields": 2800,
+      "hull": 3500,
+      "required crew": 4,
+      "bunks": 12,
+      "mass": 490,
+      "drag": 8.6,
+      "heat dissipation": 0.5,
+      "fuel capacity": 450,
+      "cargo space": 130,
+      "outfit space": 340,
+      "weapon capacity": 100,
+      "engine capacity": 95,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 30,
+    "medium explosion": 25,
+    "large explosion": 12,
+    "final explode": "final explosion medium",
+    "description": "An early YT-series prototype that predates the production line. The cheapest hull in CEC's catalog — crew-hungry for its size, with limited weapons and weaker shields than anything else bearing the Corellian name. Comes stock with mining lasers and an asteroid scanner. Most surviving examples end up on the frontier, in the hands of miners and salvagers who value the modular design over polish.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Prospector",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "7ef507377b1d",
+    "variant": "Corellian Prospector (Smuggler)",
+    "baseShip": "Corellian Prospector",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Gatling Gun": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gatling Gun Ammo": {
+        "count": 3000,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-DD Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Vagabond (Javelin)",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 93.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 5.5,
+        "y": 93.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -16,
+        "y": 91.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 16,
+        "y": 91.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 88.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 88.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -35.5,
+        "y": 82.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 35.5,
+        "y": 82.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -44,
+        "y": 74.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 44,
+        "y": 74.9,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -64.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 1,
+        "y": 12.9,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 12.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-vagabond",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 2900000,
+      "shields": 4900,
+      "hull": 2700,
+      "required crew": 3,
+      "bunks": 18,
+      "mass": 450,
+      "drag": 6.7,
+      "heat dissipation": 0.75,
+      "fuel capacity": 600,
+      "cargo space": 160,
+      "outfit space": 380,
+      "weapon capacity": 105,
+      "engine capacity": 115,
+      "weapon": {
+        "blast radius": 90,
+        "shield damage": 900,
+        "hull damage": 450,
+        "hit force": 1350
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 32,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "A pirate-modified YT-series freighter built for speed and discretion. Exceptionally strong shields paired with a fragile hull — devastating while shields hold, desperate if they drop. Fast enough to choose its fights, with stealth plating, jammers, and a full sensor suite. Only three crew needed. Available exclusively through unofficial channels.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Vagabond",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "9b1c96e22a18",
+    "variant": "Corellian Vagabond (Javelin)",
+    "baseShip": "Corellian Vagabond",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Javelin Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin": {
+        "count": 1100,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin Storage Crate": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-EE Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfit Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Vagabond (Scout)",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 93.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 5.5,
+        "y": 93.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -16,
+        "y": 91.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 16,
+        "y": 91.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 88.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 88.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -35.5,
+        "y": 82.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 35.5,
+        "y": 82.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -44,
+        "y": 74.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 44,
+        "y": 74.9,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -64.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 1,
+        "y": 12.9,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 12.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-vagabond",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 2900000,
+      "shields": 4900,
+      "hull": 2700,
+      "required crew": 3,
+      "bunks": 18,
+      "mass": 450,
+      "drag": 6.7,
+      "heat dissipation": 0.75,
+      "fuel capacity": 600,
+      "cargo space": 160,
+      "outfit space": 380,
+      "weapon capacity": 105,
+      "engine capacity": 115,
+      "weapon": {
+        "blast radius": 90,
+        "shield damage": 900,
+        "hull damage": 450,
+        "hit force": 1350
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 32,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "A pirate-modified YT-series freighter built for speed and discretion. Exceptionally strong shields paired with a fragile hull — devastating while shields hold, desperate if they drop. Fast enough to choose its fights, with stealth plating, jammers, and a full sensor suite. Only three crew needed. Available exclusively through unofficial channels.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Vagabond",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "9b1c96e22a18",
+    "variant": "Corellian Vagabond (Scout)",
+    "baseShip": "Corellian Vagabond",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Gatling Gun": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gatling Gun Ammo": {
+        "count": 3000,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-EE Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfit Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Luxury Accommodations": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Vagabond (Raider)",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 93.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 5.5,
+        "y": 93.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -16,
+        "y": 91.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 16,
+        "y": 91.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 88.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 88.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -35.5,
+        "y": 82.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 35.5,
+        "y": 82.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -44,
+        "y": 74.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 44,
+        "y": 74.9,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -64.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 1,
+        "y": 12.9,
+        "turret": ""
+      },
+      {
+        "x": 1,
+        "y": 12.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-vagabond",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 2900000,
+      "shields": 4900,
+      "hull": 2700,
+      "required crew": 3,
+      "bunks": 18,
+      "mass": 450,
+      "drag": 6.7,
+      "heat dissipation": 0.75,
+      "fuel capacity": 600,
+      "cargo space": 160,
+      "outfit space": 380,
+      "weapon capacity": 105,
+      "engine capacity": 115,
+      "weapon": {
+        "blast radius": 90,
+        "shield damage": 900,
+        "hull damage": 450,
+        "hit force": 1350
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 32,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "A pirate-modified YT-series freighter built for speed and discretion. Exceptionally strong shields paired with a fragile hull — devastating while shields hold, desperate if they drop. Fast enough to choose its fights, with stealth plating, jammers, and a full sensor suite. Only three crew needed. Available exclusively through unofficial channels.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Vagabond",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "9b1c96e22a18",
+    "variant": "Corellian Vagabond (Raider)",
+    "baseShip": "Corellian Vagabond",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Heavy Laser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-EE Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Privateer (Gatling)",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 97.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 5.5,
+        "y": 97.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -16,
+        "y": 94.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 16,
+        "y": 94.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -35.5,
+        "y": 86.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 35.5,
+        "y": 86.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -44,
+        "y": 79.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 44,
+        "y": 79.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1,
+        "y": -66.1,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 11.4,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 10.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-privateer",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 3100000,
+      "shields": 5100,
+      "hull": 2900,
+      "required crew": 6,
+      "bunks": 24,
+      "mass": 510,
+      "drag": 7.8,
+      "heat dissipation": 0.6,
+      "fuel capacity": 600,
+      "cargo space": 185,
+      "outfit space": 385,
+      "weapon capacity": 125,
+      "engine capacity": 101,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 32,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "A pirate raider built for boarding actions, with the strongest shields of any Corellian freighter. Heavy crew complement with boarding marines and a brig for prisoners. Slower than the Vagabond but significantly tougher — trades speed for durability and cargo space for plunder storage. Rarely seen without a Vagabond nearby.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Privateer",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "85d5f4d86c82",
+    "variant": "Corellian Privateer (Gatling)",
+    "baseShip": "Corellian Privateer",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Gatling Gun": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gatling Gun Ammo": {
+        "count": 19500,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bullet Boxes": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gatling Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Brig": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nerve Gas": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Bunk Room": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Privateer (Capture)",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 97.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 5.5,
+        "y": 97.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -16,
+        "y": 94.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 16,
+        "y": 94.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -35.5,
+        "y": 86.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 35.5,
+        "y": 86.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -44,
+        "y": 79.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 44,
+        "y": 79.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1,
+        "y": -66.1,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 11.4,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 10.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-privateer",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 3100000,
+      "shields": 5100,
+      "hull": 2900,
+      "required crew": 6,
+      "bunks": 24,
+      "mass": 510,
+      "drag": 7.8,
+      "heat dissipation": 0.6,
+      "fuel capacity": 600,
+      "cargo space": 185,
+      "outfit space": 385,
+      "weapon capacity": 125,
+      "engine capacity": 101,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 32,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "A pirate raider built for boarding actions, with the strongest shields of any Corellian freighter. Heavy crew complement with boarding marines and a brig for prisoners. Slower than the Vagabond but significantly tougher — trades speed for durability and cargo space for plunder storage. Rarely seen without a Vagabond nearby.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Privateer",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "85d5f4d86c82",
+    "variant": "Corellian Privateer (Capture)",
+    "baseShip": "Corellian Privateer",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Heavy Rocket Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Rocket": {
+        "count": 20,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tractor Beam": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Security Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Brig": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 8,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nerve Gas": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Bunk Room": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Privateer (Missile)",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 97.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 5.5,
+        "y": 97.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -16,
+        "y": 94.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 16,
+        "y": 94.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -35.5,
+        "y": 86.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 35.5,
+        "y": 86.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -44,
+        "y": 79.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 44,
+        "y": 79.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1,
+        "y": -66.1,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 11.4,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 10.9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-privateer",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 3100000,
+      "shields": 5100,
+      "hull": 2900,
+      "required crew": 6,
+      "bunks": 24,
+      "mass": 510,
+      "drag": 7.8,
+      "heat dissipation": 0.6,
+      "fuel capacity": 600,
+      "cargo space": 185,
+      "outfit space": 385,
+      "weapon capacity": 125,
+      "engine capacity": 101,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "under": true,
+    "tiny explosion": 18,
+    "small explosion": 32,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "A pirate raider built for boarding actions, with the strongest shields of any Corellian freighter. Heavy crew complement with boarding marines and a brig for prisoners. Slower than the Vagabond but significantly tougher — trades speed for durability and cargo space for plunder storage. Rarely seen without a Vagabond nearby.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Privateer",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "85d5f4d86c82",
+    "variant": "Corellian Privateer (Missile)",
+    "baseShip": "Corellian Privateer",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Sidewinder Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 60,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile Rack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Brig": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Cargo (Upgunned)",
+    "engines": [
+      {
+        "x": -1,
+        "y": 91.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -17.5,
+        "y": 92.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 14.5,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 83.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -32.5,
+        "y": 84.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -44.5,
+        "y": 72.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 41,
+        "y": 74.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -2,
+        "y": -57.1,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      },
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-cargo",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 2300000,
+      "shields": 3200,
+      "hull": 4000,
+      "required crew": 4,
+      "bunks": 16,
+      "mass": 530,
+      "drag": 9.2,
+      "heat dissipation": 0.55,
+      "fuel capacity": 500,
+      "cargo space": 145,
+      "outfit space": 375,
+      "weapon capacity": 130,
+      "engine capacity": 110,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "CEC's entry-level production freighter. Better shields, hull, and cargo than the Hauler at a higher price, with a single gun and dual turrets. A solid workhorse for trade routes — enough defense to discourage casual raiders, not enough to win a real fight.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Cargo",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "dd810975bf34",
+    "variant": "Corellian Cargo (Upgunned)",
+    "baseShip": "Corellian Cargo",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Meteor Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 45,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Cargo (Budget)",
+    "engines": [
+      {
+        "x": -1,
+        "y": 91.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -17.5,
+        "y": 92.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 14.5,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 83.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -32.5,
+        "y": 84.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -44.5,
+        "y": 72.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 41,
+        "y": 74.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -2,
+        "y": -57.1,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      },
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-cargo",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 2300000,
+      "shields": 3200,
+      "hull": 4000,
+      "required crew": 4,
+      "bunks": 16,
+      "mass": 530,
+      "drag": 9.2,
+      "heat dissipation": 0.55,
+      "fuel capacity": 500,
+      "cargo space": 145,
+      "outfit space": 375,
+      "weapon capacity": 130,
+      "engine capacity": 110,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "CEC's entry-level production freighter. Better shields, hull, and cargo than the Hauler at a higher price, with a single gun and dual turrets. A solid workhorse for trade routes — enough defense to discourage casual raiders, not enough to win a real fight.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Cargo",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "dd810975bf34",
+    "variant": "Corellian Cargo (Budget)",
+    "baseShip": "Corellian Cargo",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Sidewinder Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 68,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile Rack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Cargo (Hauler)",
+    "engines": [
+      {
+        "x": -1,
+        "y": 91.9,
+        "zoom": 1.3
+      },
+      {
+        "x": -17.5,
+        "y": 92.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 14.5,
+        "y": 91.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 29.5,
+        "y": 83.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -32.5,
+        "y": 84.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -44.5,
+        "y": 72.9,
+        "zoom": 1.2
+      },
+      {
+        "x": 41,
+        "y": 74.4,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -2,
+        "y": -57.1,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      },
+      {
+        "x": -2,
+        "y": 18.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/corellian-cargo",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 2300000,
+      "shields": 3200,
+      "hull": 4000,
+      "required crew": 4,
+      "bunks": 16,
+      "mass": 530,
+      "drag": 9.2,
+      "heat dissipation": 0.55,
+      "fuel capacity": 500,
+      "cargo space": 145,
+      "outfit space": 375,
+      "weapon capacity": 130,
+      "engine capacity": 110,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "CEC's entry-level production freighter. Better shields, hull, and cargo than the Hauler at a higher price, with a single gun and dual turrets. A solid workhorse for trade routes — enough defense to discourage casual raiders, not enough to win a real fight.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Cargo",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "dd810975bf34",
+    "variant": "Corellian Cargo (Hauler)",
+    "baseShip": "Corellian Cargo",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Energy Blaster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Trader (Upgraded)",
+    "engines": [
+      {
+        "x": -0.5,
+        "y": 103.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -13,
+        "y": 101.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 13,
+        "y": 101.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 96.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 96.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -38.5,
+        "y": 89.4,
+        "zoom": 1.1
+      },
+      {
+        "x": 38.5,
+        "y": 89.4,
+        "zoom": 1.1
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -67.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -0.5,
+        "y": 15.9,
+        "turret": ""
+      },
+      {
+        "x": -0.5,
+        "y": 16.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-trader",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 2800000,
+      "shields": 3800,
+      "hull": 4400,
+      "required crew": 4,
+      "bunks": 18,
+      "mass": 580,
+      "drag": 9.9,
+      "heat dissipation": 0.52,
+      "fuel capacity": 600,
+      "cargo space": 165,
+      "outfit space": 395,
+      "weapon capacity": 135,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 90,
+        "shield damage": 900,
+        "hull damage": 450,
+        "hit force": 1350
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The most popular ship in CEC's catalog — a modular freighter that solidly outperforms the Argosy in hull and cargo at the cost of fewer hardpoints and weaker shields. Generous outfit space and balanced design make it the go-to platform for independent captains who want room to grow.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Trader",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "5898b1a8e0e6",
+    "variant": "Corellian Trader (Upgraded)",
+    "baseShip": "Corellian Trader",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Plasma Cannon": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Laser Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "NT-200 Nucleovoltaic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D94-YV Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Trader (Defensive)",
+    "engines": [
+      {
+        "x": -0.5,
+        "y": 103.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -13,
+        "y": 101.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 13,
+        "y": 101.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 96.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 96.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -38.5,
+        "y": 89.4,
+        "zoom": 1.1
+      },
+      {
+        "x": 38.5,
+        "y": 89.4,
+        "zoom": 1.1
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -67.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -0.5,
+        "y": 15.9,
+        "turret": ""
+      },
+      {
+        "x": -0.5,
+        "y": 16.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-trader",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 2800000,
+      "shields": 3800,
+      "hull": 4400,
+      "required crew": 4,
+      "bunks": 18,
+      "mass": 580,
+      "drag": 9.9,
+      "heat dissipation": 0.52,
+      "fuel capacity": 600,
+      "cargo space": 165,
+      "outfit space": 395,
+      "weapon capacity": 135,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 90,
+        "shield damage": 900,
+        "hull damage": 450,
+        "hit force": 1350
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The most popular ship in CEC's catalog — a modular freighter that solidly outperforms the Argosy in hull and cargo at the cost of fewer hardpoints and weaker shields. Generous outfit space and balanced design make it the go-to platform for independent captains who want room to grow.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Trader",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "5898b1a8e0e6",
+    "variant": "Corellian Trader (Defensive)",
+    "baseShip": "Corellian Trader",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Torpedo Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 30,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Corellian Trader (Express)",
+    "engines": [
+      {
+        "x": -0.5,
+        "y": 103.9,
+        "zoom": 1.2
+      },
+      {
+        "x": -13,
+        "y": 101.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 13,
+        "y": 101.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -26,
+        "y": 96.4,
+        "zoom": 1.2
+      },
+      {
+        "x": 26,
+        "y": 96.4,
+        "zoom": 1.2
+      },
+      {
+        "x": -38.5,
+        "y": 89.4,
+        "zoom": 1.1
+      },
+      {
+        "x": 38.5,
+        "y": 89.4,
+        "zoom": 1.1
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -67.6,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -0.5,
+        "y": 15.9,
+        "turret": ""
+      },
+      {
+        "x": -0.5,
+        "y": 16.4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/corellian-trader",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 2800000,
+      "shields": 3800,
+      "hull": 4400,
+      "required crew": 4,
+      "bunks": 18,
+      "mass": 580,
+      "drag": 9.9,
+      "heat dissipation": 0.52,
+      "fuel capacity": 600,
+      "cargo space": 165,
+      "outfit space": 395,
+      "weapon capacity": 135,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 90,
+        "shield damage": 900,
+        "hull damage": 450,
+        "hit force": 1350
+      }
+    },
+    "under": true,
+    "tiny explosion": 20,
+    "small explosion": 34,
+    "medium explosion": 28,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The most popular ship in CEC's catalog — a modular freighter that solidly outperforms the Argosy in hull and cargo at the cost of fewer hardpoints and weaker shields. Generous outfit space and balanced design make it the go-to platform for independent captains who want room to grow.",
+    "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Trader",
+    "_pluginId": "Corellian Shipyard/corellian-shipyard",
+    "_hash": "5898b1a8e0e6",
+    "variant": "Corellian Trader (Express)",
+    "baseShip": "Corellian Trader",
+    "_variantPluginId": "Corellian Shipyard/corellian-shipyard",
+    "governments": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Corellian Shipyard/corellian-shipyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Energy Blaster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

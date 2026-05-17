@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Korath Detainer Turret",
+    "category": "Turrets",
+    "cost": 2640000,
+    "thumbnail": "outfit/detainer_turret",
+    "mass": 82,
+    "outfit space": -82,
+    "weapon capacity": -82,
+    "energy capacity": 1600,
+    "required crew": 1,
+    "turret mounts": -1,
+    "weapon": {
+      "sprite": "projectile/detainer",
+      "sprite data": {
+        "frame rate": 2.5
+      },
+      "hardpoint sprite": "hardpoint/detainer_turret_hardpoint",
+      "sound": "detainer",
+      "hit effect": [
+        "detainer impact",
+        "detainer smoke"
+      ],
+      "live effect": "detainer sparks",
+      "inaccuracy": 0.5,
+      "turret turn": 2.4,
+      "velocity": 14,
+      "lifetime": 140,
+      "reload": 60,
+      "burst reload": 10,
+      "burst count": 2,
+      "firing energy": 756,
+      "firing force": 40,
+      "firing heat": 400,
+      "hit force": 80,
+      "shield damage": 320,
+      "hull damage": 240,
+      "slowing damage": 40,
+      "blast radius": 20
+    },
+    "description": "A turret mounted detainer is any speedy ships worst nightmare.",
+    "governments": {
+      "Capitalis Major/Capitalis-Major": {
+        "Kor Sestor": true
+      }
+    },
+    "locations": {
+      "Capitalis Major/Capitalis-Major": {
+        "Ships": [
+          "Kar Ik Vot 927 (jump)"
+        ]
+      }
+    },
+    "pluginId": "Capitalis Major/Capitalis-Major"
+  }
+]
