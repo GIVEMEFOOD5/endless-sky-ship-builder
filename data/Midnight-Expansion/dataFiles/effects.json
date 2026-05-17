@@ -1,0 +1,95 @@
+[
+  {
+    "name": "culverin impact",
+    "sprite": "effect/explosion/pug/large",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "sound": "torpedo hit",
+    "lifetime": 32,
+    "random angle": 360,
+    "random velocity": 0.8,
+    "random spin": 4,
+    "random frame rate": 5,
+    "velocity scale": 0.4,
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "accelerator impact",
+    "sprite": "effect/skytrident impact",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "explosion small",
+    "lifetime": 20,
+    "random angle": 2,
+    "random spin": 10,
+    "absolute velocity": -0.05,
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "biribiri afterburner",
+    "sprite": "effect/biribiri afterburner",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30,
+      "scale": 0.5
+    },
+    "sound": "ionic afterburner",
+    "sound category": "afterburner",
+    "lifetime": 10,
+    "random angle": 360,
+    "random spin": 30,
+    "random velocity": 1,
+    "velocity scale": 1,
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "shock wave explosion",
+    "sprite": "effect/plasma explosion",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 1.5
+    },
+    "sound": "explosion tiny",
+    "lifetime": 21,
+    "random angle": 360,
+    "random spin": 4,
+    "random velocity": 0.1,
+    "velocity scale": -0.05,
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "shock wave frag",
+    "sprite": "effect/plasma explosion",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.5
+    },
+    "sound": "explosion tiny",
+    "lifetime": 21,
+    "random angle": 360,
+    "random spin": 4,
+    "random velocity": 0.1,
+    "velocity scale": -0.05,
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Midnight korath waste",
+    "sprite": "effect/Midnight korath waste",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 10,
+      "random start frame": true
+    },
+    "lifetime": 61,
+    "random angle": 20,
+    "random velocity": 1,
+    "random spin": 5,
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Antique Afterburner",
+    "category": "Engines",
+    "cost": 35000,
+    "thumbnail": "outfit/antique afterburner",
+    "mass": 15,
+    "outfit space": -15,
+    "engine capacity": -15,
+    "afterburner thrust": 25,
+    "afterburner fuel": 0.5,
+    "afterburner heat": 10,
+    "afterburner effect": "afterburner",
+    "description": "Surprisingly, this rusty old antique still works. An afterburner works by dumping hyperspace fuel into your engines and igniting it, producing a large amount of thrust. This can be very useful for dodging missiles or briefly escaping from faster opponents, but you must be careful to avoid using up so much fuel that you do not have enough left for hyperspace travel.",
+    "governments": {
+      "Space-Shuttle-Start": {
+        "Space-Shuttle-Start": true
+      }
+    },
+    "locations": {
+      "Space Shuttle Start/Space-Shuttle-Start": {
+        "Ships": [
+          "Space Shuttle (Engines)",
+          "Space Shuttle (Shields)",
+          "Space Shuttle (Weapons)"
+        ]
+      }
+    },
+    "pluginId": "Space Shuttle Start/Space-Shuttle-Start"
+  },
+  {
+    "name": "Antique Anti-Missile",
+    "category": "Turrets",
+    "cost": 20000,
+    "thumbnail": "outfit/antique anti-missile",
+    "mass": 14,
+    "outfit space": -14,
+    "weapon capacity": -14,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/anti-missile",
+      "hardpoint offset": 4,
+      "hit effect": "small anti-missile",
+      "anti-missile": 2,
+      "velocity": 150,
+      "lifetime": 1,
+      "reload": 10,
+      "firing energy": 3,
+      "firing heat": 2
+    },
+    "description": "Early examples of Anti-Missile defenses required a crewmember to aim and fire the turret. They would often miss their targets.",
+    "governments": {
+      "Space-Shuttle-Start": {
+        "Space-Shuttle-Start": true
+      }
+    },
+    "locations": {
+      "Space Shuttle Start/Space-Shuttle-Start": {
+        "Ships": [
+          "Space Shuttle (Weapons)"
+        ]
+      }
+    },
+    "pluginId": "Space Shuttle Start/Space-Shuttle-Start"
+  }
+]

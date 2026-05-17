@@ -1,0 +1,78 @@
+[
+  {
+    "name": "flamethrower die",
+    "sprite": "effect/explosion/small",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "random start frame": true
+    },
+    "lifetime": 24,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 2,
+    "random velocity": 0.4,
+    "velocity scale": 0.4,
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "flamethrower hit",
+    "sprite": "effect/explosion/medium",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "random start frame": true
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 3,
+    "random velocity": 0.6,
+    "velocity scale": 0.4,
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "nuke explosion",
+    "sprite": "effect/explosion/nuke",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30,
+      "scale": 2
+    },
+    "sound": "explosion nuke",
+    "lifetime": 15,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 1,
+    "velocity scale": 0.4,
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "nuke residue fast",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "lifetime": 48,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 12,
+    "velocity scale": 0.1,
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "nuke residue slow",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 10
+    },
+    "lifetime": 90,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 7,
+    "velocity scale": 0.1,
+    "pluginId": "Rumskib/rumskib"
+  }
+]

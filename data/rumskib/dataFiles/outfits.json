@@ -1,0 +1,3558 @@
+[
+  {
+    "name": "Flamethrower",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1160,
+    "cost": 190000,
+    "thumbnail": "outfit/flamethrower",
+    "mass": 9,
+    "outfit space": -9,
+    "weapon capacity": -9,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "effect/explosion/small",
+      "sprite data": {
+        "frame rate": 60,
+        "no repeat": true
+      },
+      "sound": "flamethrower",
+      "icon": "icon/flamethrower",
+      "inaccuracy": 12,
+      "velocity": 9,
+      "lifetime": 5,
+      "reload": 1,
+      "firing energy": 0.15,
+      "firing fuel": 0.42,
+      "firing heat": 4.5,
+      "submunitions": [
+        {
+          "type": "Flamethrower Projectile",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "official-game/endless-sky": {
+        "Free Worlds": true,
+        "Pirate": true,
+        "Merchant": true,
+        "Republic": true,
+        "Navy (Oathkeeper)": true,
+        "Kor Sestor": true,
+        "Alpha": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Pirate": true,
+        "Merchant": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Bounty": true,
+        "Republic": true,
+        "Independent (Killable)": true,
+        "Pirate": true,
+        "Free Worlds": true,
+        "Militia": true,
+        "Oathbreaker": true,
+        "Merchant": true,
+        "Escort": true,
+        "Bounty (Disguised)": true,
+        "Pirate (Rival)": true,
+        "Scar's Legion": true,
+        "Bounty Hunter": true,
+        "Independent": true,
+        "Alpha": true,
+        "Storm Seekers": true,
+        "Kor Sestor": true,
+        "Korath": true
+      },
+      "Blended Ships/blended-ships": {
+        "Pirate": true,
+        "Free Worlds": true,
+        "Republic": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Militia (Rogue)": true,
+        "Pirate": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Yuyuko Saigyouji": true,
+        "Yuyuko Saigyouji (Hostile)": true
+      },
+      "Zuckungs list/planet.map": {
+        "Avalonian Fauna": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Escort": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Kor Sestor": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Korath": true,
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true,
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ],
+        "Systems": [
+          "Acamar",
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldebaran",
+          "Aldhibain",
+          "Algieba",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alnitak",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Centauri",
+          "Alphard",
+          "Alphecca",
+          "Alpherg",
+          "Altair",
+          "Antares",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Betelgeuse",
+          "Boral",
+          "Canopus",
+          "Capella",
+          "Cardax",
+          "Castor",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Denebola",
+          "Dschubba",
+          "Eber",
+          "Elnath",
+          "Eltanin",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ipsing",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kugel",
+          "Kursa",
+          "Lesath",
+          "Limen",
+          "Lolami",
+          "Mebsuta",
+          "Men",
+          "Menkalinan",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mirzam",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Phact",
+          "Phecda",
+          "Pherkad",
+          "Phurad",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rigel",
+          "Sadr",
+          "Saiph",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Shaula",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Spica",
+          "Tais",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Unukalhai",
+          "Vega",
+          "Vindemiatrix",
+          "Volax",
+          "Wazn",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zosma",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "SBO1 Zagreus Station"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ],
+        "ShipyardPlanets": [
+          "SBO1 Zagreus Station"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "Ships": [
+          "Dreadnought (Flamethrower)",
+          "Falcon (Flamethrower)",
+          "Far Osk 27 (Flamethrower)",
+          "Finch (Flamethrower)",
+          "Fury (Doombat)",
+          "Fury (Flamethrower)",
+          "Gunboat (Flamethrower)",
+          "Modified Argosy (Flamethrower)",
+          "Osprey (Flamethrower)"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      },
+      "Zuckungs list/planet.map": {
+        "Ships": [
+          "Avalonian Red Dragon"
+        ]
+      },
+      "Zuckungs list/boss.loot": {
+        "Systems": [
+          "Adhile"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Alkxaai",
+          "Alpha Tudalip",
+          "Arau",
+          "Chasitum",
+          "Corua",
+          "Darceas",
+          "Denleitt",
+          "Ghesie",
+          "Karita",
+          "Mersat",
+          "Nardacus",
+          "Onuka",
+          "Opfrau",
+          "Paruna",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Sedlai",
+          "Vachrau",
+          "Vefrua",
+          "Vensur"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Flamethrower Projectile",
+    "weapon": {
+      "sprite": "projectile/flamethrower",
+      "sprite data": {
+        "frame rate": 17,
+        "random start frame": true
+      },
+      "hit effect": "flamethrower hit",
+      "die effect": "flamethrower die",
+      "inaccuracy": 20,
+      "lifetime": 18,
+      "random lifetime": 8,
+      "damage dropoff": 0,
+      "dropoff modifier": 0.5,
+      "shield damage": 0.8,
+      "hull damage": 0.7,
+      "heat damage": 350,
+      "blast radius": 10,
+      "safe": true
+    },
+    "governments": {
+      "rumskib": {
+        "rumskib": true
+      }
+    },
+    "locations": {
+      "Rumskib/rumskib": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Nuclear Missile",
+    "weapon": {
+      "sprite": "projectile/missile",
+      "sprite data": {
+        "no repeat": true,
+        "frame rate": 0.25
+      },
+      "hardpoint sprite": "hardpoint/nuke",
+      "sound": "nuke",
+      "stream": true,
+      "icon": "icon/nuke",
+      "fused": true,
+      "split range": 300,
+      "die effect": "missile death",
+      "hit effect": "medium explosion",
+      "inaccuracy": 1,
+      "velocity": 6,
+      "lifetime": 60,
+      "reload": 400,
+      "firing energy": 10,
+      "firing heat": 400,
+      "acceleration": 0.9,
+      "drag": 0.1,
+      "turn": 4,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "radar tracking": 0.5,
+      "optical tracking": 1,
+      "shield damage": -23700,
+      "hull damage": -15800,
+      "hit force": -5700,
+      "missile strength": 200,
+      "submunitions": [
+        {
+          "type": "Active Nuclear Missile",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Nuclear Missile",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate": true,
+        "Merchant": true,
+        "Independent": true,
+        "Nemesis": true,
+        "Syndicate (Extremist)": true,
+        "Republic": true,
+        "Oathbreaker": true,
+        "Bounty Hunter": true
+      },
+      "official-game/endless-sky": {
+        "Lunarium (Hidden)": true,
+        "Free Worlds": true,
+        "Merchant": true,
+        "Bounty Hunter": true,
+        "Pirate": true,
+        "Syndicate (Extremist)": true,
+        "Syndicate": true,
+        "Republic": true,
+        "Navy (Oathkeeper)": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Syndicate": true,
+        "Militia (Rogue)": true,
+        "Pirate": true
+      },
+      "Blended Ships/blended-ships": {
+        "Arena": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Solace"
+        ],
+        "Outfitters": [
+          "Nuke"
+        ],
+        "Ships": [
+          "Modified Osprey"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "Ships": [
+          "Barquentine (Nuke)",
+          "Barquentine 🇲 (Nuke)",
+          "Carrier (Pug)",
+          "Clipper (Nuclear)",
+          "Cruiser (Pug)",
+          "Frigate (Pug)",
+          "Manta (Nuclear)",
+          "Marauder Wasp (Nuke)",
+          "Missileboat (Nuclear)",
+          "Missileboat (Rainmaker (Nuclear))",
+          "Modified Argosy (Nuclear)"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Modified Osprey (T1)",
+          "Modified Osprey (T10)",
+          "Modified Osprey (T2)",
+          "Modified Osprey (T3)",
+          "Modified Osprey (T4)",
+          "Modified Osprey (T5)",
+          "Modified Osprey (T6)",
+          "Modified Osprey (T7)",
+          "Modified Osprey (T8)",
+          "Modified Osprey (T9)"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Shield Fortress"
+        ],
+        "Missions": [
+          "Midnight Market: Nukes of Peace?"
+        ]
+      },
+      "Blended Ships/blended-ships": {
+        "ShipyardPlanets": [
+          "Blended Ships ",
+          "mOctave's Plugins "
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Active Nuclear Missile",
+    "weapon": {
+      "sprite": "projectile/missile",
+      "sprite data": {
+        "no repeat": true,
+        "frame rate": 0.25
+      },
+      "hit effect": [
+        "nuke explosion",
+        "nuke residue fast",
+        "nuke residue slow"
+      ],
+      "die effect": "missile death",
+      "fused": true,
+      "safe": true,
+      "lifetime": 400,
+      "acceleration": 0.8,
+      "drag": 0.1,
+      "turn": 4,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "radar tracking": 0.5,
+      "optical tracking": 1,
+      "trigger radius": 960,
+      "blast radius": 1500,
+      "shield damage": 24000,
+      "hull damage": 16000,
+      "hit force": 6000,
+      "missile strength": 200
+    },
+    "governments": {
+      "rumskib": {
+        "rumskib": true
+      }
+    },
+    "locations": {
+      "Rumskib/rumskib": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Torpedo Launcher",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1110,
+    "cost": 80000,
+    "thumbnail": "outfit/torpedo launcher",
+    "mass": 18,
+    "outfit space": -30,
+    "weapon capacity": -30,
+    "gun ports": -1,
+    "torpedo capacity": 30,
+    "weapon": {
+      "sprite": "projectile/torpedo",
+      "sprite data": {
+        "frame rate": 2,
+        "random start frame": true
+      },
+      "sound": "torpedo",
+      "icon": "icon/torpedo",
+      "fire effect": "torpedo fire",
+      "hit effect": "torpedo hit",
+      "die effect": "tiny explosion",
+      "fused": true,
+      "safe": true,
+      "inaccuracy": 5,
+      "velocity": 7,
+      "lifetime": 900,
+      "reload": 150,
+      "firing energy": 2,
+      "firing heat": 45,
+      "acceleration": 0.15,
+      "drag": 0.025,
+      "turn": 1.5,
+      "homing": {
+        "throttle control": true
+      },
+      "optical tracking": 0.8,
+      "shield damage": 820,
+      "hull damage": 820,
+      "hit force": 450,
+      "missile strength": 30,
+      "trigger radius": 100,
+      "blast radius": 400,
+      "ammunition": [
+        {
+          "type": "Torpedo",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "MGF: Player Company": true,
+        "MGF: NBSL": true,
+        "MGF: Crossguard Patrol": true,
+        "Scar's Legion": true,
+        "Bounty": true,
+        "Escort": true,
+        "MGF: Espion Mining Co.": true,
+        "Bounty (Disguised)": true,
+        "MGF: Rangphenn Transport": true,
+        "MGF: NGK Hauling": true,
+        "MGF: Maryhal Logistic": true,
+        "Merchant": true,
+        "Syndicate": true,
+        "MGF: Maryhal Defense": true,
+        "MGF: Reshetka Security": true,
+        "MGF: Jack's Gang": true,
+        "Independent": true,
+        "Militia": true
+      },
+      "official-game/endless-sky": {
+        "Test Dummy": true,
+        "Merchant": true,
+        "Pirate": true,
+        "Deep Security": true,
+        "Republic": true,
+        "Navy (Oathkeeper)": true,
+        "Free Worlds": true,
+        "Militia": true,
+        "Independent": true,
+        "Bounty Hunter": true,
+        "Heliarch": true,
+        "Lunarium": true,
+        "Hai Merchant (Human)": true,
+        "Syndicate (Extremist)": true,
+        "Alpha": true,
+        "Merchant (Hostile)": true,
+        "Bounty": true,
+        "Syndicate": true,
+        "Independent (Killable)": true,
+        "Coalition": true,
+        "Lunarium (Hidden)": true
+      },
+      "Zuckungs list/vague.improvements": {
+        "Pirate": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Merchant": true,
+        "Pirate": true,
+        "Bounty (Disguised)": true,
+        "Bounty Hunter": true,
+        "Oathbreaker": true,
+        "Republic": true,
+        "Free Worlds": true,
+        "Pirate (Rivals)": true,
+        "Independent (Killable)": true,
+        "Escort": true,
+        "Pirate (Rival)": true,
+        "Scar's Legion": true,
+        "Bounty Hunter (licensed)": true,
+        "Deep": true,
+        "Militia": true,
+        "Syndicate": true,
+        "Syndicate (Extremist)": true,
+        "Independent": true,
+        "Bounty": true,
+        "Korath": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Yuyuko Saigyouji": true,
+        "Sayari Plushie": true,
+        "Hidalgo Shrine": true,
+        "Yuyuko Saigyouji (Hostile)": true,
+        "SPA: Republic Livery": true
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Pirate": true
+      },
+      "Nova1422s list/navypirates": {
+        "Pirate": true
+      },
+      "Blended Ships/blended-ships": {
+        "Free Worlds": true,
+        "Pirate": true,
+        "Arena": true,
+        "Republic": true
+      },
+      "Zuckungs list/tribute.republic": {
+        "Republic": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
+      },
+      "Zuckungs list/uniques": {
+        "Pirate": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true,
+        "Bounty": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Militia (Rogue)": true,
+        "Pirate": true,
+        "Syndicate": true,
+        "Syndicate (Extremist)": true,
+        "Merchant": true
+      },
+      "SpaceCrate/SpaceCrate": {
+        "SpaceCrate": true
+      },
+      "DAIS/DAIS": {
+        "Syndicate": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Merchant": true,
+        "Korath": true
+      },
+      "Zuckungs list/bunrodea.missions": {
+        "Korath": true
+      },
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Test Dummy": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Pirate": true
+      },
+      "Corellian Shipyard/corellian-shipyard": {
+        "Merchant": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Geminus",
+          "Greenwater",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced",
+          "Lovelace Advanced",
+          "Syndicate Advanced"
+        ],
+        "Ships": [
+          "Bactrian",
+          "Carrier",
+          "Dreadnought",
+          "Falcon",
+          "Frigate",
+          "Kestrel",
+          "Raven",
+          "Unknown Ship Type",
+          "Valkyrie"
+        ],
+        "ShipyardPlanets": [
+          "Buccaneer Bay",
+          "Geminus",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Adhara",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Alcyone",
+          "Aldebaran",
+          "Alderamin",
+          "Aldhibain",
+          "Algenib",
+          "Algieba",
+          "Algol",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Alioth",
+          "Alkaid",
+          "Almaaz",
+          "Almach",
+          "Alnair",
+          "Alnasl",
+          "Alnilam",
+          "Alnitak",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alphecca",
+          "Alpheratz",
+          "Alpherg",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Antares",
+          "Ap'arak",
+          "Arcturus",
+          "Arneb",
+          "Ascella",
+          "Aspidiske",
+          "Atik",
+          "Atria",
+          "Avior",
+          "Aya'k'k",
+          "Belenos",
+          "Bellatrix",
+          "Beta Lupi",
+          "Betelgeuse",
+          "Boral",
+          "Bore Fah",
+          "Bote Asu",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Cebalrai",
+          "Chirr'ay'akai",
+          "Chy'chra",
+          "Citadelle",
+          "Cor Caroli",
+          "Da Ent",
+          "Da Lest",
+          "Dabih",
+          "Danoa",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Denebola",
+          "Diphda",
+          "Dschubba",
+          "Dubhe",
+          "Due Yoot",
+          "Durax",
+          "Eber",
+          "Ek'kek'ru",
+          "Elnath",
+          "Eltanin",
+          "Enif",
+          "Epsilon Leonis",
+          "Es'sprak'ai",
+          "Eteron",
+          "Fah Root",
+          "Fah Soom",
+          "Fala",
+          "Fingol",
+          "Fomalhaut",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Cassiopeiae",
+          "Gamma Corvi",
+          "Gienah",
+          "Girtab",
+          "Gomeisa",
+          "Gorvi",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hassaleh",
+          "Hatysa",
+          "Heia Due",
+          "Hevru Hai",
+          "Hintar",
+          "Holeb",
+          "Ik'kara'ka",
+          "Ildaria",
+          "Imo Dep",
+          "Io Lowe",
+          "Io Mann",
+          "Ipsing",
+          "Iyech'yek",
+          "Izar",
+          "Ka'ch'chrai",
+          "Ka'pru",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kiro'ku",
+          "Kiru'kichi",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Kursa",
+          "Lesath",
+          "Limen",
+          "Lolami",
+          "Lom Tahr",
+          "Lurata",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Mei Yohn",
+          "Men",
+          "Menkalinan",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mimosa",
+          "Minkar",
+          "Mintaka",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Misam",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naos",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Nunki",
+          "Oblate",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Persian",
+          "Phact",
+          "Phecda",
+          "Pherkad",
+          "Phurad",
+          "Pik'ro'iyak",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Prakacha'a",
+          "Procyon",
+          "Rajak",
+          "Rasalhague",
+          "Rastaban",
+          "Rati Cal",
+          "Regor",
+          "Regulus",
+          "Rigel",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Saiph",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Shaula",
+          "Sheratan",
+          "Si'yak'ku",
+          "Sich'ka'ara",
+          "Sirius",
+          "Sko'karak",
+          "Sol",
+          "Sospi",
+          "Spica",
+          "Suhail",
+          "Sumar",
+          "Tais",
+          "Talita",
+          "Tania Australis",
+          "Tarazed",
+          "Tejat",
+          "Terminus",
+          "Thuban",
+          "Tortor",
+          "Turais",
+          "Ula Mon",
+          "Umbral",
+          "Unagi",
+          "Unukalhai",
+          "Uwa Fahn",
+          "Vega",
+          "Vindemiatrix",
+          "Volax",
+          "Wah Ki",
+          "Wah Oh",
+          "Waypoint",
+          "Wazn",
+          "Wei",
+          "Wezen",
+          "Ya Hai",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zosma",
+          "Zuba Zub",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "MGF: Orbit Point A (Ablub)",
+          "MGF: Orbit Point A (Acnanjo)",
+          "MGF: Orbit Point A (Aierena)",
+          "MGF: Orbit Point A (Aksek)",
+          "MGF: Orbit Point A (Avo Chigo)",
+          "MGF: Orbit Point A (Aya'k'k)",
+          "MGF: Orbit Point A (Billow)",
+          "MGF: Orbit Point A (Blubipad)",
+          "MGF: Orbit Point A (Cardea)",
+          "MGF: Orbit Point A (Celeborim)",
+          "MGF: Orbit Point A (Chikatip)",
+          "MGF: Orbit Point A (Chornifath)",
+          "MGF: Orbit Point A (Clepsydra)",
+          "MGF: Orbit Point A (Coluber)",
+          "MGF: Orbit Point A (Cusp)",
+          "MGF: Orbit Point A (Debrugt)",
+          "MGF: Orbit Point A (Deneb)",
+          "MGF: Orbit Point A (Edusa)",
+          "MGF: Orbit Point A (Egeria)",
+          "MGF: Orbit Point A (Elabi Choati)",
+          "MGF: Orbit Point A (Eneva Katta)",
+          "MGF: Orbit Point A (Era Natta)",
+          "MGF: Orbit Point A (Esix)",
+          "MGF: Orbit Point A (Fearis)",
+          "MGF: Orbit Point A (Fereti)",
+          "MGF: Orbit Point A (Furmeliki)",
+          "MGF: Orbit Point A (Gento Ah)",
+          "MGF: Orbit Point A (Hesselpost)",
+          "MGF: Orbit Point A (Host)",
+          "MGF: Orbit Point A (Ka'ch'chrai)",
+          "MGF: Orbit Point A (Karhio)",
+          "MGF: Orbit Point A (Khosa-Kaska)",
+          "MGF: Orbit Point A (Kor Ak'Mari)",
+          "MGF: Orbit Point A (Kor En'lakfar)",
+          "MGF: Orbit Point A (Kor Fel'tar)",
+          "MGF: Orbit Point A (Kor Men)",
+          "MGF: Orbit Point A (Kor Nor'peli)",
+          "MGF: Orbit Point A (Kor Tar'bei)",
+          "MGF: Orbit Point A (Kor Zena'i)",
+          "MGF: Orbit Point A (Lucina)",
+          "MGF: Orbit Point A (Maspa-Cavaasa)",
+          "MGF: Orbit Point A (Mebla)",
+          "MGF: Orbit Point A (Mego Seo)",
+          "MGF: Orbit Point A (Myiara-Nnesa)",
+          "MGF: Orbit Point A (Myruet-Kvelq)",
+          "MGF: Orbit Point A (Paru Paru)",
+          "MGF: Orbit Point A (Pelubta)",
+          "MGF: Orbit Point A (Piadenli)",
+          "MGF: Orbit Point A (Polerius)",
+          "MGF: Orbit Point A (Porta Terra)",
+          "MGF: Orbit Point A (Prakacha'a)",
+          "MGF: Orbit Point A (Prosa)",
+          "MGF: Orbit Point A (Pug Iyik)",
+          "MGF: Orbit Point A (Raaqa-Ryuit)",
+          "MGF: Orbit Point A (Ravu Kon)",
+          "MGF: Orbit Point A (Ritilas)",
+          "MGF: Orbit Point A (Rouseu)",
+          "MGF: Orbit Point A (Sedes)",
+          "MGF: Orbit Point A (Segesta)",
+          "MGF: Orbit Point A (Sera Natta)",
+          "MGF: Orbit Point A (Solifar)",
+          "MGF: Orbit Point A (Tap)",
+          "MGF: Orbit Point A (Tide)",
+          "MGF: Orbit Point A (Torbab)",
+          "MGF: Orbit Point A (Tscera)",
+          "Nordlin Navy Yard",
+          "OAS4001 Wilkes Station",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ],
+        "Outfitters": [
+          "Kraz Advanced",
+          "Lovelace Advanced",
+          "MGF tbab Player Basic",
+          "Syndicate Advanced"
+        ],
+        "ShipyardPlanets": [
+          "Ankaim Orbital Station",
+          "CSSY-06 Ningxi Station",
+          "Canaveral Naval Yard",
+          "Chiron",
+          "EB-14A Titanite Station",
+          "EB-1A Forge Station",
+          "Follower",
+          "Foundry",
+          "GS1 Galaxy Station",
+          "Millrace",
+          "New China",
+          "New Holland",
+          "New Sahara",
+          "Nordlin Navy Yard",
+          "OAS4001 Wilkes Station",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ],
+        "Ships": [
+          "AD-019A Iabayi",
+          "Aplomado",
+          "BTT34 Ziz Wreckage",
+          "CDB-12K Saturn",
+          "CDB-6K Jupiter",
+          "CK40T Treibard",
+          "CK50T Stahbar",
+          "CS-24 Garrison",
+          "CSE-6 Steward",
+          "E-FD23 Kanran",
+          "E-FD23 Kanran Wreckage",
+          "E-VC14 Zuiho",
+          "EM-28F Wombat",
+          "F-HF51 Kinesaki",
+          "F-VC56 Kaga",
+          "FTV-33 Acareus",
+          "KM50T Stetnel",
+          "L-VC28 Zuikaku",
+          "LPC-2 Atletha",
+          "MGF: Aplomado",
+          "MGF: Nasprite",
+          "Nasprite",
+          "PAS-3 Barbette",
+          "PF-80 Intrepid",
+          "PL-50 Impavid",
+          "PT-60 Gallant",
+          "SV-4450 Sovereign",
+          "TS-1L260 Mieusbar",
+          "TS-CH0 Kratzbal"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Alpha Tudalip",
+          "Arau",
+          "Arket",
+          "Chasitum",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Erou",
+          "Finduue",
+          "Gensokyo",
+          "Ghesie",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Opfrau",
+          "Ouchar",
+          "Ourais",
+          "Paricasa",
+          "Paruna",
+          "Pechara",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Presad",
+          "Raidei",
+          "Sedlai",
+          "Sprad",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varfeticasa",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Vourgat",
+          "Zarkxaa"
+        ],
+        "ShipyardPlanets": [
+          "Leroo Station",
+          "Ondoristra",
+          "Salistra",
+          "Sayari Ring",
+          "Steirek"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ],
+        "Ships": [
+          "Arachne Station",
+          "Charon Station",
+          "Charybdis Station",
+          "Fenrir Station",
+          "Huginn Station",
+          "Hydra Station",
+          "Kraken Station",
+          "Leviathan Station",
+          "Marauder Behemoth",
+          "Marauder Kestrel",
+          "Modified Bactrian",
+          "Muninn Station",
+          "Oberon Station",
+          "Phoenix Station",
+          "Smuggler's Den",
+          "Star Explorer",
+          "Titania Station",
+          "Triton Station",
+          "Typhon Station",
+          "Wyvern Station"
+        ],
+        "ShipyardPlanets": [
+          "Smuggler's Den"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "Systems": [
+          "Nashira"
+        ],
+        "Ships": [
+          "AD-019A Iabayi (MGF: SD1 Regenerator)",
+          "Arach Freighter (pirate)",
+          "Arach Hulk (pirate)",
+          "Bactrian (Flare)",
+          "Bactrian (Hai Engines)",
+          "Barquentine (Nuke)",
+          "Barquentine 🇲 (Nuke)",
+          "Bastion (Tanker)",
+          "Behemoth (Heavy)",
+          "Bulwark (Heavy)",
+          "CDB-12K Saturn (NBSL)",
+          "CDB-6K Jupiter (G22)",
+          "CDB-6K Jupiter (NBSL)",
+          "CDB-6K Jupiter (NGK, Partial Turret Upgrade)",
+          "CDB-6K Jupiter (NGK, Turret Upgrade)",
+          "CK50T Stahbar (NBSL)",
+          "CK50T Stahbar (Proton)",
+          "CK50T Stahbar (Stahbar (MHL Combat))",
+          "CS-24 Garrison (Aphelion)",
+          "CS-24 Garrison (Garrison (Long Range))",
+          "CS-24 Garrison (Parapet)",
+          "CS-24 Garrison (ZOE: Shield)",
+          "CSE-6 Steward (Steward (Long Range))",
+          "CSE-6 Steward (Steward (MHL Combat))",
+          "Carrier (Flare)",
+          "Carrier (Shield Suppressor)",
+          "Carrier (Troops)",
+          "Corellian Merchantman (Armored)",
+          "Corellian Striker (Torpedo)",
+          "Corellian Trader (Defensive)",
+          "Corellian Vagabond (Torpedo)",
+          "Corellian Vanguard (Torpedo)",
+          "Corvette (Missile)",
+          "Cruiser (Sidewinder Missile VLS)",
+          "Dreadnought (FOE Autocannon)",
+          "Dreadnought (FOE Bomber)",
+          "Dreadnought (Jump)",
+          "Dreadnought (Parapet)",
+          "Dreadnought (Shield Suppressor)",
+          "E-FD23 Kanran (Ankulah)",
+          "E-FD23 Kanran (MGF: ST0 Regenerator)",
+          "E-FD23 Kanran (NGK)",
+          "E-FD23 Kanran (NGK, K2-K-S)",
+          "E-VC14 Zuiho (Advanced)",
+          "E-VC14 Zuiho (Advanced, Itano)",
+          "E-VC14 Zuiho (Secure Cargo)",
+          "EM-28F Wombat (Combat)",
+          "EM-8A Armadillo (Armadillo (Weapon))",
+          "F-VC56 Kaga (Early)",
+          "Falcon (Bunsen)",
+          "Falcon (FOE Autocannon)",
+          "Falcon (FOE Blaster)",
+          "Falcon (FOE Bomber)",
+          "Falcon (Flare)",
+          "Falcon (Heavy)",
+          "Falcon (Isochronal)",
+          "Falcon (Korath)",
+          "Falcon (Parapet)",
+          "Falcon (Patrol)",
+          "Falcon (Prisoner Transport)",
+          "Falcon (Quad Mod Blaster)",
+          "Falcon (Quantum Vacuum Battery)",
+          "Falcon (Tarazed Lab)",
+          "Firebird (Missile)",
+          "Frigate (Flare)",
+          "Frigate (Republic Intelligence)",
+          "IBB-032 Wyoming (Missile)",
+          "ICV-122 Cherokee (Torpedo)",
+          "KGS Eyas (Heavy)",
+          "KS-58 Vinograd (Modernized, Combat)",
+          "Kestrel (Merchant Bays)",
+          "Kestrel (Merchant Engines)",
+          "Kestrel (Merchant Shields)",
+          "Kestrel (Merchant Weapons)",
+          "Kestrel (More Bays)",
+          "KestrelDef (Particle)",
+          "KestrelDef (Plasma)",
+          "KestrelDef (Torp)",
+          "KestrelEng (Particle)",
+          "KestrelEng (Plasma)",
+          "KestrelEng (Torp)",
+          "KestrelWep (Torp)",
+          "Kimek Spire (pirate)",
+          "Kimek Thistle (Torpedoes)",
+          "Leviathan (Heavy)",
+          "MGF: Aplomado (Aplomado (Heavy))",
+          "MGF: Aplomado (Aplomado (Heavy, Tarazed Tech))",
+          "MGF: Aplomado (Aplomado (Plasma))",
+          "MGF: Aplomado (Aplomado (Snatcher))",
+          "MGF: Nasprite (MGF: SD0 Regenerator)",
+          "MGF: Nasprite (Nasprite (NGK Secure Cargo))",
+          "MGF: Nasprite (Nasprite (Swordfish))",
+          "MGF: Nasprite (Nasprite (Syndicate Border Patrol))",
+          "Marauder Behemoth (Insurgent Subjugation Gear)",
+          "Modified Argosy (Missile)",
+          "Monolith Lesser",
+          "Nasprite (MGF: Nasprite (MGF: SD1 Regenerator))",
+          "Osprey (Missile)",
+          "PAS-3 Barbette (Early, ACS)",
+          "PAS-3 Barbette (Early, G22)",
+          "PAS-3 Barbette (FW Pug)",
+          "PAS-3 Barbette (FW Pug, Jump)",
+          "PAS-3 Barbette (Parapet)",
+          "PAS-3 Barbette (ZOE: Shield)",
+          "PF-80 Intrepid (Atomic, Jacks)",
+          "PF-80 Intrepid (Laser)",
+          "PF-80 Intrepid (NBSL)",
+          "PF-80 Intrepid (Swordfish)",
+          "PL-50 Impavid (Upgrade 1)",
+          "Palavret (Graviton Generator)",
+          "Palavret (Korath Raider (Plexus))",
+          "Palavret (Korath Raider (Torpedo))",
+          "Protector (Tractor Beam)",
+          "Raven (Flare)",
+          "Saryd Sojourner (pirate)",
+          "Saryd Traveler (pirate)",
+          "Star Explorer (Biohazard)",
+          "Star Explorer (Jump)",
+          "Star Explorer (Korath)",
+          "Star Explorer (Pirate)",
+          "TS-1L260 Mieusbar (Proton)",
+          "TS-CH0 Kratzbal (Plasma Steering)",
+          "Typ057 Lanzhou (Missile)",
+          "Vanguard (Missile)"
+        ]
+      },
+      "Zuckungs list/vague.improvements": {
+        "ShipyardPlanets": [
+          "Geminus"
+        ]
+      },
+      "Zuckungs list/boss.loot": {
+        "Systems": [
+          "Adhile"
+        ]
+      },
+      "Zuckungs list/more.person.ships": {
+        "Ships": [
+          "mps_old_bessie"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Bactrian (T1)",
+          "Bactrian (T10)",
+          "Bactrian (T2)",
+          "Bactrian (T3)",
+          "Bactrian (T4)",
+          "Bactrian (T5)",
+          "Bactrian (T6)",
+          "Bactrian (T7)",
+          "Bactrian (T8)",
+          "Bactrian (T9)",
+          "Carrier (T1)",
+          "Carrier (T10)",
+          "Carrier (T2)",
+          "Carrier (T3)",
+          "Carrier (T4)",
+          "Carrier (T5)",
+          "Carrier (T6)",
+          "Carrier (T7)",
+          "Carrier (T8)",
+          "Carrier (T9)",
+          "Dreadnought (T1)",
+          "Dreadnought (T10)",
+          "Dreadnought (T2)",
+          "Dreadnought (T3)",
+          "Dreadnought (T4)",
+          "Dreadnought (T5)",
+          "Dreadnought (T6)",
+          "Dreadnought (T7)",
+          "Dreadnought (T8)",
+          "Dreadnought (T9)",
+          "Falcon (T1)",
+          "Falcon (T10)",
+          "Falcon (T2)",
+          "Falcon (T3)",
+          "Falcon (T4)",
+          "Falcon (T5)",
+          "Falcon (T6)",
+          "Falcon (T7)",
+          "Falcon (T8)",
+          "Falcon (T9)",
+          "Frigate (T1)",
+          "Frigate (T10)",
+          "Frigate (T2)",
+          "Frigate (T3)",
+          "Frigate (T4)",
+          "Frigate (T5)",
+          "Frigate (T6)",
+          "Frigate (T7)",
+          "Frigate (T8)",
+          "Frigate (T9)",
+          "Kestrel (T1)",
+          "Kestrel (T10)",
+          "Kestrel (T2)",
+          "Kestrel (T3)",
+          "Kestrel (T4)",
+          "Kestrel (T5)",
+          "Kestrel (T6)",
+          "Kestrel (T7)",
+          "Kestrel (T8)",
+          "Kestrel (T9)",
+          "Raven (T1)",
+          "Raven (T10)",
+          "Raven (T2)",
+          "Raven (T3)",
+          "Raven (T4)",
+          "Raven (T5)",
+          "Raven (T6)",
+          "Raven (T7)",
+          "Raven (T8)",
+          "Raven (T9)",
+          "Valkyrie (T1)",
+          "Valkyrie (T10)",
+          "Valkyrie (T2)",
+          "Valkyrie (T3)",
+          "Valkyrie (T4)",
+          "Valkyrie (T5)",
+          "Valkyrie (T6)",
+          "Valkyrie (T7)",
+          "Valkyrie (T8)",
+          "Valkyrie (T9)"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Ships": [
+          "KGS Fallcoon",
+          "KGS Yestrel"
+        ]
+      },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Ships": [
+          "Bactrian Mk II",
+          "Dreadnought Mk II",
+          "Falcon Mk II",
+          "Frigate Mk II",
+          "Kestrel Mk II",
+          "Raven Mk II"
+        ],
+        "ShipyardPlanets": [
+          "New Tortuga"
+        ]
+      },
+      "Blended Ships/blended-ships": {
+        "Ships": [
+          "Eagle",
+          "Eagle 🇲",
+          "Missile Frigate",
+          "Missile Frigate 🇲",
+          "Rawalpindi",
+          "Rawalpindi 🇲",
+          "Star General",
+          "Star General 🇲",
+          "Sunthief",
+          "Sunthief 🇲"
+        ],
+        "ShipyardPlanets": [
+          "Blended Ships ",
+          "Glaze",
+          "Greenrock",
+          "New Britain",
+          "Smuggler's Den",
+          "Wayfarer",
+          "Zug",
+          "mOctave's Plugins "
+        ]
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Ships": [
+          "Aesalon",
+          "Monolith",
+          "Stolen Prototype"
+        ]
+      },
+      "Corellian Shipyard/corellian-shipyard": {
+        "Ships": [
+          "Corellian Merchantman",
+          "Corellian Trader"
+        ],
+        "ShipyardPlanets": [
+          "New Sahara"
+        ]
+      },
+      "DAIS/DAIS": {
+        "Ships": [
+          "Moonbeam"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Torpedo Pod",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1100,
+    "cost": 30000,
+    "thumbnail": "outfit/torpedopod",
+    "mass": 5,
+    "outfit space": -8,
+    "weapon capacity": -8,
+    "gun ports": -1,
+    "torpedo capacity": 3,
+    "weapon": {
+      "sprite": "projectile/torpedo",
+      "sprite data": {
+        "frame rate": 2,
+        "random start frame": true
+      },
+      "sound": "torpedo",
+      "icon": "icon/torpedo",
+      "fire effect": "torpedo fire",
+      "hit effect": "torpedo hit",
+      "die effect": "tiny explosion",
+      "fused": true,
+      "safe": true,
+      "inaccuracy": 5,
+      "velocity": 7,
+      "lifetime": 900,
+      "reload": 320,
+      "burst count": 3,
+      "burst reload": 150,
+      "firing energy": 2,
+      "firing heat": 45,
+      "acceleration": 0.15,
+      "drag": 0.025,
+      "turn": 1.5,
+      "homing": {
+        "throttle control": true
+      },
+      "optical tracking": 0.8,
+      "shield damage": 820,
+      "hull damage": 820,
+      "hit force": 450,
+      "missile strength": 30,
+      "trigger radius": 100,
+      "blast radius": 400,
+      "ammunition": [
+        {
+          "type": "Torpedo",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "MGF: Player Company": true,
+        "MGF: Core Nuclear Transport": true,
+        "MGF: Crossguard Patrol": true,
+        "Bounty (Disguised)": true,
+        "Navy (Oathkeeper)": true,
+        "MGF: Minotaurs": true,
+        "MGF: Espion Mining Co.": true,
+        "MGF: Core Food Corp": true,
+        "MGF: NGK Hauling": true
+      },
+      "official-game/endless-sky": {
+        "Syndicate": true,
+        "Pirate": true,
+        "Syndicate (Extremist)": true,
+        "Bounty Hunter": true,
+        "Merchant": true,
+        "Free Worlds": true,
+        "Heliarch": true,
+        "Republic": true,
+        "Navy (Oathkeeper)": true,
+        "Deep Security": true,
+        "Lunarium (Hidden)": true,
+        "Alpha": true,
+        "Merchant (Hostile)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate (Rivals)": true,
+        "Merchant": true,
+        "Bounty Hunter (licensed)": true,
+        "Free Worlds": true,
+        "Bounty": true,
+        "Independent (Killable)": true,
+        "Pirate": true,
+        "Oathbreaker": true,
+        "Syndicate": true,
+        "Republic": true,
+        "Independent": true,
+        "Creature Hunter": true,
+        "Bounty (Disguised)": true,
+        "Bounty Hunter": true,
+        "Storm Seekers": true,
+        "Deep": true,
+        "Alpha": true,
+        "Escort": true,
+        "Oathbreaker Expeditionary": true,
+        "Pirate (Rival)": true,
+        "Scar's Legion": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Syndicate": true,
+        "Merchant": true,
+        "Militia (Rogue)": true,
+        "Pirate": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Pirate": true,
+        "Merchant": true
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Free Worlds": true
+      },
+      "Blended Ships/blended-ships": {
+        "Free Worlds": true,
+        "Pirate": true,
+        "Republic": true
+      },
+      "Zuckungs list/uniques": {
+        "Pirate": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Yuyuko Saigyouji (Hostile)": true,
+        "Yuyuko Saigyouji": true
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Geminus",
+          "Greenwater",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced",
+          "Lovelace Advanced",
+          "Syndicate Advanced"
+        ],
+        "Ships": [
+          "Manta",
+          "Modified Battleship"
+        ],
+        "ShipyardPlanets": [
+          "Buccaneer Bay",
+          "Geminus",
+          "Greenwater",
+          "New Tortuga",
+          "Smuggler's Den"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Adhara",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Alcyone",
+          "Aldebaran",
+          "Alderamin",
+          "Aldhibain",
+          "Algenib",
+          "Algieba",
+          "Algol",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Alioth",
+          "Alkaid",
+          "Almaaz",
+          "Almach",
+          "Alnair",
+          "Alnasl",
+          "Alnilam",
+          "Alnitak",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alphecca",
+          "Alpheratz",
+          "Alpherg",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Antares",
+          "Arcturus",
+          "Arneb",
+          "Ascella",
+          "Aspidiske",
+          "Atik",
+          "Atria",
+          "Avior",
+          "Belenos",
+          "Bellatrix",
+          "Beta Lupi",
+          "Betelgeuse",
+          "Boral",
+          "Bore Fah",
+          "Bote Asu",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Da Ent",
+          "Da Lest",
+          "Dabih",
+          "Danoa",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Denebola",
+          "Diphda",
+          "Dschubba",
+          "Dubhe",
+          "Due Yoot",
+          "Durax",
+          "Eber",
+          "Elnath",
+          "Eltanin",
+          "Enif",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fah Root",
+          "Fah Soom",
+          "Fala",
+          "Fingol",
+          "Fomalhaut",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Cassiopeiae",
+          "Gamma Corvi",
+          "Gienah",
+          "Girtab",
+          "Gomeisa",
+          "Gorvi",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hassaleh",
+          "Hatysa",
+          "Heia Due",
+          "Hevru Hai",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Imo Dep",
+          "Io Lowe",
+          "Io Mann",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Kursa",
+          "Lesath",
+          "Limen",
+          "Lolami",
+          "Lom Tahr",
+          "Lurata",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Mei Yohn",
+          "Men",
+          "Menkalinan",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mimosa",
+          "Minkar",
+          "Mintaka",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Misam",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naos",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Nunki",
+          "Oblate",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Persian",
+          "Phact",
+          "Phecda",
+          "Pherkad",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rajak",
+          "Rasalhague",
+          "Rastaban",
+          "Rati Cal",
+          "Regor",
+          "Regulus",
+          "Rigel",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Saiph",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Shaula",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Spica",
+          "Suhail",
+          "Sumar",
+          "Tais",
+          "Talita",
+          "Tania Australis",
+          "Tarazed",
+          "Tejat",
+          "Terminus",
+          "Thuban",
+          "Tortor",
+          "Turais",
+          "Ula Mon",
+          "Umbral",
+          "Unagi",
+          "Unukalhai",
+          "Uwa Fahn",
+          "Vega",
+          "Vindemiatrix",
+          "Volax",
+          "Wah Ki",
+          "Wah Oh",
+          "Waypoint",
+          "Wazn",
+          "Wei",
+          "Wezen",
+          "Ya Hai",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zosma",
+          "Zuba Zub",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "MGF: Orbit Point A (Ablub)",
+          "MGF: Orbit Point A (Acnanjo)",
+          "MGF: Orbit Point A (Aierena)",
+          "MGF: Orbit Point A (Aksek)",
+          "MGF: Orbit Point A (Avo Chigo)",
+          "MGF: Orbit Point A (Aya'k'k)",
+          "MGF: Orbit Point A (Billow)",
+          "MGF: Orbit Point A (Blubipad)",
+          "MGF: Orbit Point A (Cardea)",
+          "MGF: Orbit Point A (Celeborim)",
+          "MGF: Orbit Point A (Chikatip)",
+          "MGF: Orbit Point A (Chornifath)",
+          "MGF: Orbit Point A (Clepsydra)",
+          "MGF: Orbit Point A (Coluber)",
+          "MGF: Orbit Point A (Cusp)",
+          "MGF: Orbit Point A (Debrugt)",
+          "MGF: Orbit Point A (Deneb)",
+          "MGF: Orbit Point A (Edusa)",
+          "MGF: Orbit Point A (Egeria)",
+          "MGF: Orbit Point A (Elabi Choati)",
+          "MGF: Orbit Point A (Eneva Katta)",
+          "MGF: Orbit Point A (Era Natta)",
+          "MGF: Orbit Point A (Esix)",
+          "MGF: Orbit Point A (Fearis)",
+          "MGF: Orbit Point A (Fereti)",
+          "MGF: Orbit Point A (Furmeliki)",
+          "MGF: Orbit Point A (Gento Ah)",
+          "MGF: Orbit Point A (Hesselpost)",
+          "MGF: Orbit Point A (Host)",
+          "MGF: Orbit Point A (Ka'ch'chrai)",
+          "MGF: Orbit Point A (Karhio)",
+          "MGF: Orbit Point A (Khosa-Kaska)",
+          "MGF: Orbit Point A (Kor Ak'Mari)",
+          "MGF: Orbit Point A (Kor En'lakfar)",
+          "MGF: Orbit Point A (Kor Fel'tar)",
+          "MGF: Orbit Point A (Kor Men)",
+          "MGF: Orbit Point A (Kor Nor'peli)",
+          "MGF: Orbit Point A (Kor Tar'bei)",
+          "MGF: Orbit Point A (Kor Zena'i)",
+          "MGF: Orbit Point A (Lucina)",
+          "MGF: Orbit Point A (Maspa-Cavaasa)",
+          "MGF: Orbit Point A (Mebla)",
+          "MGF: Orbit Point A (Mego Seo)",
+          "MGF: Orbit Point A (Myiara-Nnesa)",
+          "MGF: Orbit Point A (Myruet-Kvelq)",
+          "MGF: Orbit Point A (Paru Paru)",
+          "MGF: Orbit Point A (Pelubta)",
+          "MGF: Orbit Point A (Piadenli)",
+          "MGF: Orbit Point A (Polerius)",
+          "MGF: Orbit Point A (Porta Terra)",
+          "MGF: Orbit Point A (Prakacha'a)",
+          "MGF: Orbit Point A (Prosa)",
+          "MGF: Orbit Point A (Pug Iyik)",
+          "MGF: Orbit Point A (Raaqa-Ryuit)",
+          "MGF: Orbit Point A (Ravu Kon)",
+          "MGF: Orbit Point A (Ritilas)",
+          "MGF: Orbit Point A (Rouseu)",
+          "MGF: Orbit Point A (Sedes)",
+          "MGF: Orbit Point A (Segesta)",
+          "MGF: Orbit Point A (Sera Natta)",
+          "MGF: Orbit Point A (Solifar)",
+          "MGF: Orbit Point A (Tap)",
+          "MGF: Orbit Point A (Tide)",
+          "MGF: Orbit Point A (Torbab)",
+          "MGF: Orbit Point A (Tscera)",
+          "Nordlin Navy Yard",
+          "OAS4001 Wilkes Station",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ],
+        "Outfitters": [
+          "Kraz Advanced",
+          "Lovelace Advanced",
+          "MGF tbab Player Basic",
+          "Syndicate Advanced"
+        ],
+        "ShipyardPlanets": [
+          "Ankaim Orbital Station",
+          "CSSY-06 Ningxi Station",
+          "Canaveral Naval Yard",
+          "Chiron",
+          "Foundry",
+          "New China",
+          "Nordlin Navy Yard",
+          "OAS4001 Wilkes Station",
+          "Ourea Naval Arsenal",
+          "Yokosuka Naval Arsenal"
+        ],
+        "Ships": [
+          "A-14F Rondel"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "ShipyardPlanets": [
+          "Smuggler's Den"
+        ],
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ],
+        "Ships": [
+          "Arachne Station",
+          "Broadsword",
+          "Carabao",
+          "Charon Station",
+          "Charybdis Station",
+          "Fenrir Station",
+          "Huginn Station",
+          "Hydra Station",
+          "Kraken Station",
+          "Leviathan Station",
+          "Muninn Station",
+          "Oberon Station",
+          "Phoenix Station",
+          "Smuggler's Den",
+          "Starcadia",
+          "Titania Station",
+          "Triton Station",
+          "Typhon Station",
+          "Wyvern Station"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "Systems": [
+          "Nashira"
+        ],
+        "Ships": [
+          "Bastion (FOE Bomber)",
+          "Cruiser (Pug)",
+          "Deep River Rapids (Deep River Pirate 3)",
+          "Dreadnought (Shield Suppressor)",
+          "EP-1 Mole (Torpedo)",
+          "Falcon (Parapet)",
+          "Frigate (Meteor Missile Turret)",
+          "Hawk (Bomber)",
+          "KGS Stormmaker (Mark II)",
+          "Kestrel (Battle Bays)",
+          "Kestrel (Battle Engines)",
+          "Kestrel (Battle Shields)",
+          "Kestrel (Battle Weapons)",
+          "Kimek Thistle (pirate)",
+          "Lance (FiFc: Custom Fighter 1)",
+          "Lance (FiFc: Outfitting Variant Example)",
+          "Lectica :LCS (Atomic Torpedo)",
+          "Leviathan (NGK Escort)",
+          "Manta (Flare)",
+          "Manta (Korath)",
+          "Modified Argosy (Shields Missile)",
+          "Raven (Turner Power)",
+          "Saryd Traveler (pirate)",
+          "Typ064 Xuchang (Anti Missile)",
+          "Typ064 Xuchang (Missile)"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Alpha Tudalip",
+          "Arau",
+          "Arket",
+          "Chasitum",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Erou",
+          "Finduue",
+          "Gensokyo",
+          "Ghesie",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Opfrau",
+          "Ouchar",
+          "Ourais",
+          "Paricasa",
+          "Paruna",
+          "Pechara",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Presad",
+          "Raidei",
+          "Sedlai",
+          "Sprad",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varfeticasa",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Vourgat",
+          "Zarkxaa"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Manta (T1)",
+          "Manta (T10)",
+          "Manta (T2)",
+          "Manta (T3)",
+          "Manta (T4)",
+          "Manta (T5)",
+          "Manta (T6)",
+          "Manta (T7)",
+          "Manta (T8)",
+          "Manta (T9)",
+          "Modified Battleship (T1)",
+          "Modified Battleship (T10)",
+          "Modified Battleship (T2)",
+          "Modified Battleship (T3)",
+          "Modified Battleship (T4)",
+          "Modified Battleship (T5)",
+          "Modified Battleship (T6)",
+          "Modified Battleship (T7)",
+          "Modified Battleship (T8)",
+          "Modified Battleship (T9)"
+        ]
+      },
+      "Zuckungs list/boss.loot": {
+        "Systems": [
+          "Adhile"
+        ]
+      },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Ships": [
+          "Manta Mk II"
+        ]
+      },
+      "LixiChronikouOrious list/Louise.Conglomerate.Shipyards": {
+        "Ships": [
+          "Bellator :LCS"
+        ],
+        "ShipyardPlanets": [
+          "New Britain"
+        ]
+      },
+      "DAIS/DAIS": {
+        "Ships": [
+          "Akster of the Torches"
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Marauder Rukh"
+        ]
+      },
+      "Zuckungs list/vague.improvements": {
+        "ShipyardPlanets": [
+          "Geminus"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Heavy Rocket Launcher",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1090,
+    "cost": 40000,
+    "thumbnail": "outfit/rocket launcher",
+    "mass": 15,
+    "outfit space": -25,
+    "weapon capacity": -25,
+    "gun ports": -1,
+    "rocket capacity": 20,
+    "weapon": {
+      "sprite": "projectile/rocket",
+      "sprite data": {
+        "frame rate": 4
+      },
+      "sound": "rocket",
+      "icon": "icon/rocket",
+      "hit effect": "heavy rocket hit",
+      "die effect": "small explosion",
+      "fused": true,
+      "safe": true,
+      "inaccuracy": 1,
+      "velocity": 8,
+      "lifetime": 125,
+      "reload": 240,
+      "firing energy": 1,
+      "firing heat": 250,
+      "acceleration": 0.8,
+      "drag": 0.1,
+      "trigger radius": 200,
+      "blast radius": 500,
+      "shield damage": 790,
+      "hull damage": 670,
+      "hit force": 900,
+      "missile strength": 16,
+      "ammunition": [
+        {
+          "type": "Heavy Rocket",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "Mega Freight/Mega-Freight": {
+        "MGF: Player Company": true,
+        "MGF: Solacer Group": true,
+        "Merchant": true,
+        "MGF: NBSL": true,
+        "Bounty (Disguised)": true,
+        "MGF: NGK Security": true,
+        "MGF: Bounty Hunter (AntiMHL)": true,
+        "Escort": true
+      },
+      "official-game/endless-sky": {
+        "Merchant": true,
+        "Free Worlds": true,
+        "Militia": true,
+        "Pirate": true,
+        "Independent": true,
+        "Lunarium (Hidden)": true,
+        "Bounty Hunter": true,
+        "Republic": true,
+        "Navy (Oathkeeper)": true,
+        "Bounty": true
+      },
+      "Zuckungs list/tribute.republic": {
+        "Republic": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Merchant": true,
+        "Independent (Killable)": true,
+        "Oathbreaker": true,
+        "Escort": true,
+        "Republic": true,
+        "Pirate": true,
+        "Independent": true,
+        "Free Worlds": true,
+        "Bounty (Disguised)": true,
+        "Bounty Hunter": true,
+        "Pirate (Rivals)": true,
+        "Militia": true,
+        "Creature Hunter": true,
+        "Bounty Hunter (licensed)": true,
+        "Bounty": true,
+        "Pirate (Rival)": true,
+        "Scar's Legion": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Yuyuko Saigyouji": true,
+        "Sayari Plushie": true,
+        "Yuyuko Saigyouji (Hostile)": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true,
+        "Pirate": true,
+        "Bounty": true
+      },
+      "Blended Ships/blended-ships": {
+        "Free Worlds": true,
+        "Pirate": true,
+        "Arena": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Militia (Rogue)": true,
+        "Merchant": true
+      },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Pirate": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Pirate": true,
+        "Bounty Hunter": true
+      },
+      "SpaceCrate/SpaceCrate": {
+        "SpaceCrate": true
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Free Worlds": true
+      },
+      "Corellian Shipyard/corellian-shipyard": {
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Delta V Advanced"
+        ],
+        "Ships": [
+          "Bastion",
+          "Bulwark"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Adhara",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Alcyone",
+          "Aldebaran",
+          "Alderamin",
+          "Aldhibain",
+          "Algenib",
+          "Algol",
+          "Algorel",
+          "Alheka",
+          "Alioth",
+          "Alkaid",
+          "Almaaz",
+          "Almach",
+          "Alnair",
+          "Alnasl",
+          "Alnilam",
+          "Alnitak",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Hydri",
+          "Alphard",
+          "Alphecca",
+          "Alpheratz",
+          "Alpherg",
+          "Altair",
+          "Ankaa",
+          "Antares",
+          "Arcturus",
+          "Arneb",
+          "Ascella",
+          "Atik",
+          "Atria",
+          "Belenos",
+          "Bellatrix",
+          "Beta Lupi",
+          "Boral",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Dabih",
+          "Danoa",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Diphda",
+          "Dschubba",
+          "Dubhe",
+          "Durax",
+          "Eber",
+          "Elnath",
+          "Eltanin",
+          "Enif",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Fomalhaut",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Cassiopeiae",
+          "Gamma Corvi",
+          "Gienah",
+          "Girtab",
+          "Gorvi",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hassaleh",
+          "Hatysa",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Kursa",
+          "Lesath",
+          "Limen",
+          "Lolami",
+          "Lurata",
+          "Markab",
+          "Matar",
+          "Mebsuta",
+          "Men",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mimosa",
+          "Minkar",
+          "Mintaka",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Misam",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Nunki",
+          "Oblate",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Persian",
+          "Phact",
+          "Phecda",
+          "Pherkad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rajak",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rigel",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Saiph",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Shaula",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Spica",
+          "Sumar",
+          "Tais",
+          "Talita",
+          "Tania Australis",
+          "Tarazed",
+          "Tejat",
+          "Terminus",
+          "Thuban",
+          "Tortor",
+          "Turais",
+          "Umbral",
+          "Unagi",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Volax",
+          "Wazn",
+          "Wei",
+          "Wezen",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zosma",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ],
+        "ShipyardPlanets": [
+          "Buccaneer Bay",
+          "New Tortuga",
+          "Smuggler's Den"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "MGF: Orbit Point A (Ablub)",
+          "MGF: Orbit Point A (Acnanjo)",
+          "MGF: Orbit Point A (Aierena)",
+          "MGF: Orbit Point A (Aksek)",
+          "MGF: Orbit Point A (Avo Chigo)",
+          "MGF: Orbit Point A (Aya'k'k)",
+          "MGF: Orbit Point A (Billow)",
+          "MGF: Orbit Point A (Blubipad)",
+          "MGF: Orbit Point A (Cardea)",
+          "MGF: Orbit Point A (Celeborim)",
+          "MGF: Orbit Point A (Chikatip)",
+          "MGF: Orbit Point A (Chornifath)",
+          "MGF: Orbit Point A (Clepsydra)",
+          "MGF: Orbit Point A (Coluber)",
+          "MGF: Orbit Point A (Cusp)",
+          "MGF: Orbit Point A (Debrugt)",
+          "MGF: Orbit Point A (Deneb)",
+          "MGF: Orbit Point A (Edusa)",
+          "MGF: Orbit Point A (Egeria)",
+          "MGF: Orbit Point A (Elabi Choati)",
+          "MGF: Orbit Point A (Eneva Katta)",
+          "MGF: Orbit Point A (Era Natta)",
+          "MGF: Orbit Point A (Esix)",
+          "MGF: Orbit Point A (Fearis)",
+          "MGF: Orbit Point A (Fereti)",
+          "MGF: Orbit Point A (Furmeliki)",
+          "MGF: Orbit Point A (Gento Ah)",
+          "MGF: Orbit Point A (Hesselpost)",
+          "MGF: Orbit Point A (Host)",
+          "MGF: Orbit Point A (Ka'ch'chrai)",
+          "MGF: Orbit Point A (Karhio)",
+          "MGF: Orbit Point A (Khosa-Kaska)",
+          "MGF: Orbit Point A (Kor Ak'Mari)",
+          "MGF: Orbit Point A (Kor En'lakfar)",
+          "MGF: Orbit Point A (Kor Fel'tar)",
+          "MGF: Orbit Point A (Kor Men)",
+          "MGF: Orbit Point A (Kor Nor'peli)",
+          "MGF: Orbit Point A (Kor Tar'bei)",
+          "MGF: Orbit Point A (Kor Zena'i)",
+          "MGF: Orbit Point A (Lucina)",
+          "MGF: Orbit Point A (Maspa-Cavaasa)",
+          "MGF: Orbit Point A (Mebla)",
+          "MGF: Orbit Point A (Mego Seo)",
+          "MGF: Orbit Point A (Myiara-Nnesa)",
+          "MGF: Orbit Point A (Myruet-Kvelq)",
+          "MGF: Orbit Point A (Paru Paru)",
+          "MGF: Orbit Point A (Pelubta)",
+          "MGF: Orbit Point A (Piadenli)",
+          "MGF: Orbit Point A (Polerius)",
+          "MGF: Orbit Point A (Porta Terra)",
+          "MGF: Orbit Point A (Prakacha'a)",
+          "MGF: Orbit Point A (Prosa)",
+          "MGF: Orbit Point A (Pug Iyik)",
+          "MGF: Orbit Point A (Raaqa-Ryuit)",
+          "MGF: Orbit Point A (Ravu Kon)",
+          "MGF: Orbit Point A (Ritilas)",
+          "MGF: Orbit Point A (Rouseu)",
+          "MGF: Orbit Point A (Sedes)",
+          "MGF: Orbit Point A (Segesta)",
+          "MGF: Orbit Point A (Sera Natta)",
+          "MGF: Orbit Point A (Solifar)",
+          "MGF: Orbit Point A (Tap)",
+          "MGF: Orbit Point A (Tide)",
+          "MGF: Orbit Point A (Torbab)",
+          "MGF: Orbit Point A (Tscera)",
+          "SBO1 Zagreus Station"
+        ],
+        "Outfitters": [
+          "Delta V Advanced",
+          "MGF tbab Player Basic"
+        ],
+        "ShipyardPlanets": [
+          "Canaveral Naval Yard",
+          "Follower",
+          "Millrace",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ],
+        "Ships": [
+          "SWV4 Ravelin"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "ShipyardPlanets": [
+          "Rum Cellar"
+        ],
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Alpha Tudalip",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriie",
+          "Erou",
+          "Ghesie",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Karita",
+          "Kolicasa",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Opfrau",
+          "Ourais",
+          "Paricasa",
+          "Paruna",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Presad",
+          "Sedlai",
+          "Sprad",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varfeticasa",
+          "Varisa",
+          "Vefrua",
+          "Vourgat"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "Systems": [
+          "Nashira"
+        ],
+        "Ships": [
+          "Antecursor :LCS (Heavy Rocket)",
+          "Bastion (Flare)",
+          "Bastion (Patrol)",
+          "Bastion (Scanner)",
+          "Clipper (Heavy)",
+          "Corellian Privateer (Boarding)",
+          "Corellian Privateer (Capture)",
+          "Cruiser (Heavy)",
+          "Falcon (Bunsen Pirate)",
+          "Hawk (Rocket)",
+          "Marauder Leviathan (Engines)",
+          "Modified Barb (Heavy Rocket)",
+          "Osprey (Missile)",
+          "Osprey (Twin Torpedo Pod)"
+        ]
+      },
+      "sensor/sensor": {
+        "Systems": [
+          "array"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Bastion (T1)",
+          "Bastion (T10)",
+          "Bastion (T2)",
+          "Bastion (T3)",
+          "Bastion (T4)",
+          "Bastion (T5)",
+          "Bastion (T6)",
+          "Bastion (T7)",
+          "Bastion (T8)",
+          "Bastion (T9)",
+          "Bulwark (T1)",
+          "Bulwark (T10)",
+          "Bulwark (T2)",
+          "Bulwark (T3)",
+          "Bulwark (T4)",
+          "Bulwark (T5)",
+          "Bulwark (T6)",
+          "Bulwark (T7)",
+          "Bulwark (T8)",
+          "Bulwark (T9)"
+        ]
+      },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Ships": [
+          "Bastion Mk II"
+        ]
+      },
+      "Blended Ships/blended-ships": {
+        "Ships": [
+          "Barquentine",
+          "Barquentine 🇲"
+        ],
+        "ShipyardPlanets": [
+          "Blended Ships ",
+          "mOctave's Plugins "
+        ]
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Ships": [
+          "Kriegsmacher"
+        ]
+      },
+      "Corellian Shipyard/corellian-shipyard": {
+        "Ships": [
+          "Corellian Privateer"
+        ],
+        "ShipyardPlanets": [
+          "Haven"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Quad Beam Laser",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1051,
+    "cost": 200000,
+    "thumbnail": "outfit/laser quad",
+    "mass": 30,
+    "outfit space": -30,
+    "weapon capacity": -30,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/laser",
+      "sprite data": {
+        "frame rate": 1
+      },
+      "sound": "laser",
+      "hit effect": "beam laser impact",
+      "inaccuracy": 0.7,
+      "velocity": 300,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 3.1,
+      "firing heat": 8.7,
+      "shield damage": 4.05,
+      "hull damage": 5.15
+    },
+    "description": "In the early part of the space era, the settlements in the region of space known as the Deep developed in relative isolation from the rest of human space. One result of that isolation is that their weapons technology mostly uses beam weapons, instead of the energy projectile weapons that are more common elsewhere. \tThe Quadruple Beam Laser is a modified version of the regular Beam Laser. The designers crammed together four beams for better space usage, but at the cost of less accuracy, more heat and less energy efficiency.",
+    "governments": {
+      "rumskib": {
+        "rumskib": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ],
+        "Systems": [
+          "Achernar",
+          "Acrux",
+          "Al Dhanab",
+          "Albaldah",
+          "Aldebaran",
+          "Aldhibain",
+          "Algieba",
+          "Alheka",
+          "Alhena",
+          "Alkaid",
+          "Almaaz",
+          "Alnair",
+          "Alnilam",
+          "Alnitak",
+          "Alpha Centauri",
+          "Alphard",
+          "Altair",
+          "Aludra",
+          "Arcturus",
+          "Arneb",
+          "Ascella",
+          "Atik",
+          "Atria",
+          "Beta Lupi",
+          "Betelgeuse",
+          "Boral",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Cor Caroli",
+          "Danoa",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Denebola",
+          "Dschubba",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Fomalhaut",
+          "Gamma Cassiopeiae",
+          "Gamma Corvi",
+          "Gomeisa",
+          "Gorvi",
+          "Graffias",
+          "Hassaleh",
+          "Hatysa",
+          "Kornephoros",
+          "Kursa",
+          "Limen",
+          "Lolami",
+          "Markab",
+          "Markeb",
+          "Mebsuta",
+          "Men",
+          "Menkalinan",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mintaka",
+          "Mirach",
+          "Mirzam",
+          "Misam",
+          "Mora",
+          "Naos",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Orbona",
+          "Peacock",
+          "Persian",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Pollux",
+          "Procyon",
+          "Rajak",
+          "Regulus",
+          "Rigel",
+          "Rutilicus",
+          "Sadr",
+          "Saiph",
+          "Scheat",
+          "Shaula",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Sumar",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Tortor",
+          "Turais",
+          "Unagi",
+          "Unukalhai",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Yed Prior",
+          "Zaurak",
+          "Zosma",
+          "Zubeneschamali"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "SBO1 Zagreus Station"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "Ships": [
+          "Marauder Boxwing",
+          "Rumskib Destroyer"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Alkxaai",
+          "Alpha Tudalip",
+          "Arau",
+          "Arket",
+          "Chasitum",
+          "Corua",
+          "Darceas",
+          "Denleitt",
+          "Ghesie",
+          "Illumina",
+          "Illuria",
+          "Karita",
+          "Kolicasa",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Opfrau",
+          "Paricasa",
+          "Paruna",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Sedlai",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Vefrua",
+          "Vensur"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      },
+      "Zuckungs list/boss.loot": {
+        "Systems": [
+          "Adhile"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Quad Laser Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 1041,
+    "cost": 322000,
+    "thumbnail": "outfit/laser turret quad",
+    "mass": 38,
+    "outfit space": -38,
+    "weapon capacity": -38,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/2x laser",
+      "sprite data": {
+        "frame rate": 1
+      },
+      "hardpoint sprite": "hardpoint/laser turret quad",
+      "hardpoint offset": -0.5,
+      "sound": "laser",
+      "hit effect": "beam laser impact",
+      "inaccuracy": 0.5,
+      "turret turn": 2.75,
+      "velocity": 300,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 2.67,
+      "firing heat": 6.4,
+      "shield damage": 4.05,
+      "hull damage": 5.15
+    },
+    "description": "Unlike the Laser Turret, the quadified version does not turn fast enough to hold off fighter pilots. However, the doubled damage output more than makes up for this slight disadvantage. \tAlthough it would make more sense to mount a Quad Beam Laser on a turret, Deep Sky instead decided to double the lasers held by the normal laser turret as a cheaper way to increase the damage output.",
+    "governments": {
+      "rumskib": {
+        "rumskib": true
+      }
+    },
+    "locations": {
+      "Rumskib/rumskib": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Single Plasma Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 1089,
+    "cost": 216000,
+    "thumbnail": "outfit/plasma turret single",
+    "mass": 34,
+    "outfit space": -34,
+    "weapon capacity": -34,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/plasma",
+      "sprite data": {
+        "frame rate": 3
+      },
+      "hardpoint sprite": "hardpoint/plasma turret single",
+      "hardpoint offset": 14,
+      "sound": "plasma",
+      "hit effect": "plasma explosion",
+      "inaccuracy": 2,
+      "turret turn": 2.3,
+      "velocity": 12,
+      "lifetime": 40,
+      "reload": 18,
+      "firing energy": 30,
+      "firing heat": 180,
+      "hit force": 45,
+      "shield damage": 63,
+      "hull damage": 25,
+      "heat damage": 340
+    },
+    "description": "The Single Plasma Turret is one plasma cannon mounted on a turret to fire in any direction. While not as powerful as the dual Plasma Turret, it is able to fit on much smaller ships.",
+    "governments": {
+      "rumskib": {
+        "rumskib": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "SBO1 Zagreus Station"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Quad Plasma Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 1091,
+    "cost": 1196000,
+    "thumbnail": "outfit/plasma turret quad",
+    "mass": 111,
+    "outfit space": -111,
+    "weapon capacity": -111,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/plasma",
+      "sprite data": {
+        "frame rate": 3
+      },
+      "hardpoint sprite": "hardpoint/plasma turret",
+      "hardpoint offset": 15,
+      "sound": "plasma",
+      "hit effect": "plasma explosion",
+      "inaccuracy": 2,
+      "turret turn": 1.1,
+      "velocity": 12,
+      "lifetime": 40,
+      "reload": 4.5,
+      "firing energy": 30,
+      "firing heat": 180,
+      "hit force": 45,
+      "shield damage": 63,
+      "hull damage": 25,
+      "heat damage": 340
+    },
+    "description": "The Quad Plasma Turret is even more powerful than the standard Plasma Turret, but its size makes it rather impractical - it costs more than a flight of fighters and would occupy almost all of a medium warship's weapon space. As such, no sane independent captain will use it. \tSo, how about one?",
+    "governments": {
+      "rumskib": {
+        "rumskib": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "SBO1 Zagreus Station"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Rumskib Triple Gatling Gun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1143,
+    "cost": 55000,
+    "display name": "Triple Gatling Gun",
+    "thumbnail": "outfit/trigat",
+    "mass": 5,
+    "outfit space": -23,
+    "weapon capacity": -23,
+    "gun ports": -1,
+    "gatling round capacity": 9000,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "gatling",
+      "icon": "icon/gat",
+      "inaccuracy": 4,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 3.1,
+      "burst count": 200,
+      "burst reload": 1.2,
+      "firing energy": 0.1,
+      "firing heat": 7,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 1
+        },
+        {
+          "type": "gbullet",
+          "count": 1
+        },
+        {
+          "type": "gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 3
+        }
+      ]
+    },
+    "description": "When Dr. Richard J. Gatling invented the rapid-fire gun bearing his name in the 19th century, he hoped that its destructiveness would lead to the end of war itself. Over a millennium later, this modern incarnation of the Gatling Gun sees action in the stars, a testament to its fundamentally robust design - and Dr. Gatling's naivete. \tThis more powerful incarnation of the weapon fires three bullets simultaneously from a single gun port, at the cost of more energy for each individual shot. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Pirate": true,
+        "Merchant": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Militia (Rogue)": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "South Pirate Advanced"
+        ],
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpherg",
+          "Antares",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Citadelle",
+          "Dabih",
+          "Delta Velorum",
+          "Dschubba",
+          "Fumalsamakah",
+          "Gacrux",
+          "Girtab",
+          "Hadar",
+          "Han",
+          "Kaus Australis",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Men",
+          "Mimosa",
+          "Minkar",
+          "Mora",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Pherkad",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Shaula",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Umbral",
+          "Vindemiatrix",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "Ships": [
+          "Modified Argosy (Gat)"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Karita",
+          "Vefrua"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Rumskib Quad Gatling Turret",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1152,
+    "cost": 180000,
+    "thumbnail": "outfit/gat turret quad",
+    "display name": "Quad Gatling Turret",
+    "mass": 17,
+    "outfit space": -41,
+    "weapon capacity": -41,
+    "turret mounts": -1,
+    "required crew": 1,
+    "gatling round capacity": 12000,
+    "weapon": {
+      "sound": "gatling",
+      "sprite": "projectile/2x tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "hardpoint sprite": "hardpoint/gat turret hardpoint",
+      "icon": "icon/gat turret",
+      "inaccuracy": 4,
+      "turret turn": 2.7,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 3,
+      "burst count": 180,
+      "burst reload": 1,
+      "firing energy": 0.12,
+      "firing heat": 10,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 1
+        },
+        {
+          "type": "gbullet",
+          "count": 1
+        },
+        {
+          "type": "gbullet",
+          "count": 1
+        },
+        {
+          "type": "gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 4
+        }
+      ]
+    },
+    "description": "When the war broke out the Pirates had to adapt to the new circumstances. The Quad Gatling Turret was born when a pirate, taking a page from the Gatling Turret, thought to replace the blasters on a Quad Blaster Turret with a double pair of Gatling Guns. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Pirate": true,
+        "Merchant": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Militia (Rogue)": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Rumskib/rumskib": {
+        "Ships": [
+          "Modified Argosy (Gat)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpherg",
+          "Antares",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Citadelle",
+          "Dabih",
+          "Delta Velorum",
+          "Dschubba",
+          "Fumalsamakah",
+          "Gacrux",
+          "Girtab",
+          "Hadar",
+          "Han",
+          "Kaus Australis",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Men",
+          "Mimosa",
+          "Minkar",
+          "Mora",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Pherkad",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Shaula",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Umbral",
+          "Vindemiatrix",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Karita",
+          "Vefrua"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Rumskib Triple Gatling Turret",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1151,
+    "cost": 150000,
+    "thumbnail": "outfit/gat turret triple",
+    "display name": "Triple Gatling Turret",
+    "mass": 14,
+    "outfit space": -32,
+    "weapon capacity": -32,
+    "turret mounts": -1,
+    "required crew": 1,
+    "gatling round capacity": 9000,
+    "weapon": {
+      "sound": "gatling",
+      "sprite": "projectile/2x tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "hardpoint sprite": "hardpoint/gat turret triple",
+      "icon": "icon/gat turret",
+      "inaccuracy": 3,
+      "turret turn": 3.1,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 3,
+      "burst count": 180,
+      "burst reload": 1,
+      "firing energy": 0.09,
+      "firing heat": 7.5,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 1
+        },
+        {
+          "type": "gbullet",
+          "count": 1
+        },
+        {
+          "type": "gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 3
+        }
+      ]
+    },
+    "description": "The standard version of the Gatling Turret in the Core. The Triple Gat Turret is an unnerving threat for any honest merchant, with more barrels then the default version. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "rumskib": {
+        "rumskib": true
+      }
+    },
+    "locations": {
+      "Rumskib/rumskib": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  },
+  {
+    "name": "Rumskib Single Gatling Turret",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1149,
+    "cost": 90000,
+    "thumbnail": "outfit/gat turret single",
+    "display name": "Single Gatling Turret",
+    "mass": 9,
+    "outfit space": -15,
+    "weapon capacity": -15,
+    "turret mounts": -1,
+    "required crew": 1,
+    "gatling round capacity": 3000,
+    "weapon": {
+      "sound": "gatling",
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "hardpoint sprite": "hardpoint/gat turret single",
+      "icon": "icon/gat turret",
+      "inaccuracy": 2,
+      "turret turn": 4.8,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 3,
+      "burst count": 180,
+      "burst reload": 1,
+      "firing energy": 0.03,
+      "firing heat": 2.5,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "gbullet",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "In an act that would make Dr. Richard J. Gatling spin in his grave with the ferocity of the barrels of his invention, the Gatling Turret was born when a resourceful pirate thought to replace the Energy Blasters on a Blaster Turret with a pair of Gatling Guns. Ever since, the dominion of the Gatling Turret has spread across the Southern Rim, terrorizing merchants and law enforcement alike with its unparalleled ability to tear apart the hulls of ships. \tThe Single Gatling Turret came into existence when a pirate decided that the space requirements for the Gatling Turret were too high and dismounted one of the Gatling guns, creating a turret that turns even faster. As a result, this turret is the best anti-fighter weapon employed by pirates. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "rumskib": {
+        "rumskib": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "South Pirate Advanced"
+        ]
+      }
+    },
+    "pluginId": "Rumskib/rumskib"
+  }
+]

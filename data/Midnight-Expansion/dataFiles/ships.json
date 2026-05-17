@@ -1,0 +1,6083 @@
+[
+  {
+    "name": "Korath Warlord",
+    "engines": [
+      {
+        "x": -78,
+        "y": 221
+      },
+      {
+        "x": 78,
+        "y": 221
+      },
+      {
+        "x": 0,
+        "y": 335
+      },
+      {
+        "x": -31,
+        "y": 349,
+        "zoom": 0.6
+      },
+      {
+        "x": 31,
+        "y": 349,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -79,
+        "y": 38,
+        "zoom": 0.06
+      },
+      {
+        "x": -79,
+        "y": 38,
+        "zoom": 0.06
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -78,
+        "y": 221,
+        "position": "right"
+      },
+      {
+        "x": 78,
+        "y": 221,
+        "position": "left"
+      }
+    ],
+    "guns": [
+      {
+        "x": -11,
+        "y": -323,
+        "gun": ""
+      },
+      {
+        "x": 11,
+        "y": -323,
+        "gun": ""
+      },
+      {
+        "x": -22,
+        "y": -272,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -272,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -50,
+        "y": -261,
+        "turret": ""
+      },
+      {
+        "x": 50,
+        "y": -261,
+        "turret": ""
+      },
+      {
+        "x": -52,
+        "y": -238,
+        "turret": ""
+      },
+      {
+        "x": 52,
+        "y": -238,
+        "turret": ""
+      },
+      {
+        "x": -54,
+        "y": -210,
+        "turret": ""
+      },
+      {
+        "x": 54,
+        "y": -210,
+        "turret": ""
+      },
+      {
+        "x": -57,
+        "y": -181,
+        "turret": ""
+      },
+      {
+        "x": 57,
+        "y": -181,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "display name": "Lor'owar",
+    "sprite": "ship/AESmisc kar_ik_vot_637",
+    "thumbnail": "thumbnail/AESmisc kar_ik_vot_637",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 63700000,
+      "shields": 82900,
+      "hull": 67400,
+      "required crew": 4,
+      "bunks": 24,
+      "crew equivalent": 200,
+      "mass": 4890,
+      "drag": 50.4,
+      "heat dissipation": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 63,
+      "outfit space": 1239,
+      "weapon capacity": 527,
+      "engine capacity": 211,
+      "ramscoop": 3,
+      "self destruct": 0.8,
+      "weapon": {
+        "blast radius": 550,
+        "shield damage": 6800,
+        "hull damage": 3600,
+        "hit force": 9800
+      }
+    },
+    "drone": -52,
+    "fighter": 52,
+    "huge explosion": 20,
+    "large explosion": 60,
+    "medium explosion": 90,
+    "small explosion": 70,
+    "tiny explosion": 140,
+    "final explode": "final explosion large",
+    "description": "After gaining access to Sestor and Mereti technology, the Exiles have developed this new ship. Unlike the Palavret or Rano'erek, this is a true war machine.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Korath Warlord",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "09bbba9d8d84",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Korath": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion: Korath Warlord Pirate",
+          "Midnight Expansion: Korath Warlord Syndication"
+        ]
+      }
+    },
+    "outfits": {
+      "Fire-Lance": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Disruptor Gun": {
+        "count": 2,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Shield Disruptor Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Husk-Slice Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 24,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Prateskar 711",
+    "engines": [
+      {
+        "x": -57.5,
+        "y": 297
+      },
+      {
+        "x": 57.5,
+        "y": 297
+      },
+      {
+        "x": -31.5,
+        "y": 365.5,
+        "zoom": 1.2
+      },
+      {
+        "x": 31.5,
+        "y": 365.5,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -105,
+        "y": 40,
+        "zoom": 0.6
+      },
+      {
+        "x": 105,
+        "y": 40,
+        "zoom": 0.6
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -57.5,
+        "y": 297,
+        "position": "over"
+      },
+      {
+        "x": 57.5,
+        "y": 297,
+        "position": "over"
+      }
+    ],
+    "guns": [
+      {
+        "x": -11.5,
+        "y": -319.5,
+        "gun": ""
+      },
+      {
+        "x": 11.5,
+        "y": -319.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -50.5,
+        "y": -259.5,
+        "turret": ""
+      },
+      {
+        "x": 50.5,
+        "y": -259.5,
+        "turret": ""
+      },
+      {
+        "x": -52,
+        "y": -235.5,
+        "turret": ""
+      },
+      {
+        "x": 52,
+        "y": -235.5,
+        "turret": ""
+      },
+      {
+        "x": -54.5,
+        "y": -207.5,
+        "turret": ""
+      },
+      {
+        "x": 54.5,
+        "y": -207.5,
+        "turret": ""
+      },
+      {
+        "x": -55,
+        "y": -178.5,
+        "turret": ""
+      },
+      {
+        "x": 55,
+        "y": -178.5,
+        "turret": ""
+      },
+      {
+        "x": -53,
+        "y": -152.5,
+        "turret": ""
+      },
+      {
+        "x": 53,
+        "y": -152.5,
+        "turret": ""
+      },
+      {
+        "x": -50.5,
+        "y": -128.5,
+        "turret": ""
+      },
+      {
+        "x": 50.5,
+        "y": -128.5,
+        "turret": ""
+      },
+      {
+        "x": -123.5,
+        "y": 201,
+        "turret": ""
+      },
+      {
+        "x": -102.5,
+        "y": 201,
+        "turret": ""
+      },
+      {
+        "x": 102.5,
+        "y": 201,
+        "turret": ""
+      },
+      {
+        "x": 123.5,
+        "y": 201,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/AESmisc kar_ik_vot_711",
+    "sprite data": {
+      "rewind": true
+    },
+    "thumbnail": "thumbnail/AESmisc kar_ik_vot_711",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 47550000,
+      "shields": 88400,
+      "hull": 82100,
+      "automaton": 1,
+      "crew equivalent": 200,
+      "mass": 6789,
+      "drag": 39,
+      "heat dissipation": 0.31,
+      "fuel capacity": 700,
+      "cargo space": 56,
+      "outfit space": 1461,
+      "weapon capacity": 527,
+      "engine capacity": 261,
+      "self destruct": 0.9,
+      "ramscoop": 3,
+      "weapon": {
+        "blast radius": 570,
+        "shield damage": 6900,
+        "hull damage": 4100,
+        "hit force": 9500
+      }
+    },
+    "over": true,
+    "huge explosion": 20,
+    "large explosion": 60,
+    "medium explosion": 90,
+    "small explosion": 70,
+    "tiny explosion": 140,
+    "final explode": "final explosion large",
+    "description": "An unfinished prototype under development by the Kor Sestor at the time their network was shut down. Its deployment into the Sestor fleets could have shifted the balance of power in their war with the Mereti.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Prateskar 711",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "6434f097035f",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Sestor": true,
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion: Sestor Protoype",
+          "Midnight Expansion: Sestor Protoype Rogue",
+          "Midnight Expansion: Sestor Protoype Scrapper"
+        ]
+      }
+    },
+    "outfits": {
+      "Banisher Grav-Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Turret": {
+        "count": 8,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Piercer Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Piercer Missile Rack": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Piercer Missile": {
+        "count": 110,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Small)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Control Transceiver": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Vector Engine (Reality Class)": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      }
+    }
+  },
+  {
+    "name": "Model 1024",
+    "engines": [
+      {
+        "x": -149,
+        "y": 97
+      },
+      {
+        "x": 149,
+        "y": 97
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [
+      {
+        "x": -149,
+        "y": 97,
+        "position": "right"
+      },
+      {
+        "x": 149,
+        "y": 97,
+        "position": "left"
+      }
+    ],
+    "guns": [
+      {
+        "x": -22,
+        "y": -143,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -143,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 91,
+        "y": -102,
+        "turret": ""
+      },
+      {
+        "x": -121,
+        "y": 86,
+        "turret": ""
+      },
+      {
+        "x": 54,
+        "y": 138,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/Midnight AESmisc model_1024",
+    "thumbnail": "thumbnail/AESmisc model_1024",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 45936000,
+      "shields": 119200,
+      "hull": 37900,
+      "automaton": 1,
+      "crew equivalent": 200,
+      "mass": 3654,
+      "drag": 39.2,
+      "heat dissipation": 0.54,
+      "fuel capacity": 500,
+      "cargo space": 669,
+      "outfit space": 819,
+      "weapon capacity": 267,
+      "engine capacity": 192,
+      "self destruct": 0.9,
+      "ramscoop": 3,
+      "weapon": {
+        "blast radius": 420,
+        "shield damage": 5600,
+        "hull damage": 2800,
+        "hit force": 8400
+      }
+    },
+    "large explosion": 35,
+    "medium explosion": 80,
+    "small explosion": 115,
+    "tiny explosion": 160,
+    "final explode": "final explosion large",
+    "description": "The next step in the evolution of the Kor Mereti war-machine is the Model 1024, somewhat improved beyond a perfect ring. Sporting minimal armament with a sudden conversion to a cargo hauling vessel, this was obviously developed after the Kor Mereti gained sapience and diverted their focus to less self-destructive endeavors.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Model 1024",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "f186e86e10e6",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Mereti": true,
+        "Kor Mereti (Hostile)": true,
+        "Kor Scrappers": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chimitarp",
+          "Eshkoshtar",
+          "Faronektu",
+          "Mekislepti",
+          "Salipastart",
+          "Sepetrosk",
+          "Similisti"
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion: Damnation 1024",
+          "Midnight Expansion: Damnation 1024 B",
+          "Midnight Expansion: Devourer 1024",
+          "Midnight Expansion: Mereti 88:88:88:8",
+          "Midnight Expansion: Mereti Trading Copper",
+          "Midnight Expansion: Mereti Trading Gold",
+          "Midnight Expansion: Mereti Trading Platinum",
+          "Midnight Expansion: Mereti Trading Silver"
+        ]
+      }
+    },
+    "outfits": {
+      "Korath Disruptor Gun": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Husk-Slice": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Shield Disruptor Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Husk-Slice Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Small)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Reasoning Node": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Comet Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Korath Forager",
+    "engines": [
+      {
+        "x": -7,
+        "y": 37
+      },
+      {
+        "x": 7,
+        "y": 37
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -4,
+        "y": -37,
+        "gun": ""
+      },
+      {
+        "x": 4,
+        "y": -37,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "display name": "For'ajar",
+    "sprite": "ship/AESmisc korath_stalker",
+    "thumbnail": "thumbnail/AESmisc korath_stalker",
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 1786000,
+      "shields": 4200,
+      "hull": 1800,
+      "required crew": 2,
+      "bunks": 3,
+      "mass": 190,
+      "drag": 2.2,
+      "heat dissipation": 1.7,
+      "fuel capacity": 200,
+      "cargo space": 20,
+      "outfit space": 165,
+      "weapon capacity": 45,
+      "engine capacity": 31,
+      "weapon": {
+        "blast radius": 50,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 30,
+    "description": "Originally designed as a military scout, the Kor Efret have repurposed these interceptors for mining asteroids.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Korath Forager",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "21f14e65cbc8",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chikatip",
+          "Hesselpost",
+          "Kashikt",
+          "Meftarkata",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ]
+      }
+    },
+    "outfits": {
+      "Digger Mining Beam": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Generator (Furnace Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Tiny)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Arkrof GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Arkrof GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Quarg Seakraken",
+    "engines": [
+      {
+        "x": -38,
+        "y": 304
+      },
+      {
+        "x": 38,
+        "y": 304
+      },
+      {
+        "x": 0,
+        "y": 315
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -80,
+        "y": -75,
+        "zoom": 0.6
+      },
+      {
+        "x": 80,
+        "y": -75,
+        "zoom": 0.6
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -31,
+        "y": -207,
+        "zoom": 0.6,
+        "position": "right"
+      },
+      {
+        "x": 31,
+        "y": -207,
+        "zoom": 0.6,
+        "position": "left"
+      },
+      {
+        "x": -99,
+        "y": 131,
+        "zoom": 0.6,
+        "position": "left"
+      },
+      {
+        "x": 99,
+        "y": 131,
+        "zoom": 0.6,
+        "position": "right"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -326,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -31,
+        "y": -207,
+        "turret": ""
+      },
+      {
+        "x": 31,
+        "y": -207,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -156,
+        "turret": ""
+      },
+      {
+        "x": -48,
+        "y": -99,
+        "turret": ""
+      },
+      {
+        "x": 48,
+        "y": -99,
+        "turret": ""
+      },
+      {
+        "x": -68,
+        "y": 9,
+        "turret": ""
+      },
+      {
+        "x": 68,
+        "y": 9,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "display name": "Quarg Taniwha",
+    "sprite": "ship/Midnight AESmisc quarg seakraken",
+    "thumbnail": "thumbnail/Midnight AESmisc quarg seakraken",
+    "attributes": {
+      "category": "Space Liner",
+      "cost": 99000000,
+      "shields": 115000,
+      "hull": 185000,
+      "required crew": 120,
+      "bunks": 300,
+      "mass": 2800,
+      "drag": 26,
+      "heat dissipation": 0.5,
+      "fuel capacity": 1600,
+      "cargo space": 180,
+      "outfit space": 700,
+      "weapon capacity": 235,
+      "engine capacity": 170,
+      "weapon": {
+        "blast radius": 280,
+        "shield damage": 28000,
+        "hull damage": 14000,
+        "hit force": 4500
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 16,
+    "medium explosion": 30,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion medium",
+    "description": "Despite their enormous population, civilian Quarg are seldom seen travelling from one of their rings to another via ships. When they need to do so, however, these massive transports are at their disposal. While most think of the Quarg as a peaceful species, the large number of weapon mounts on the Taniwha hint at its violent past as a troop carrier.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Quarg Seakraken",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "a88dba297e2f",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion: Heliarch Scouting - Singularity Core",
+          "Midnight Expansion: Quarg Seakraken"
+        ]
+      }
+    },
+    "outfits": {
+      "Skydagger": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Stratospear": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Celestial Culverin": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Vacuum Battery": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Singularity Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Aegis Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Central Repair Hub": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Void Scraper": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Phalanx System": {
+        "count": 57,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Graviton Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Graviton Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Quarg Wardrake",
+    "engines": [
+      {
+        "x": -14,
+        "y": 47
+      },
+      {
+        "x": 14,
+        "y": 47
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -70,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -1,
+        "turret": ""
+      },
+      {
+        "x": -18,
+        "y": 37.5,
+        "turret": ""
+      },
+      {
+        "x": 18,
+        "y": 37.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/AESmisc quarg_oriole",
+    "thumbnail": "thumbnail/AESmisc quarg_oriole",
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 33960000,
+      "shields": 94500,
+      "hull": 45000,
+      "required crew": 32,
+      "bunks": 56,
+      "mass": 561,
+      "drag": 3.2,
+      "heat dissipation": 0.61,
+      "fuel capacity": 1200,
+      "cargo space": 60,
+      "outfit space": 380,
+      "weapon capacity": 105,
+      "engine capacity": 90,
+      "ramscoop": 10,
+      "weapon": {
+        "blast radius": 180,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 14,
+    "medium explosion": 24,
+    "large explosion": 24,
+    "huge explosion": 18,
+    "final explode": "final explosion medium",
+    "description": "The Quarg use this as a small patrol and scouting vessel. They typically travel in squadrons escorting other Quarg vessels to prevent the theft of Quarg technology.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Quarg Wardrake",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "55ae49176870",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion: Heliarch Scouting - Nanotech Battery",
+          "Midnight Expansion: Heliarch Scouting - Singularity Core",
+          "Midnight Expansion: Heliarch Scouting - Tachyon Core"
+        ]
+      }
+    },
+    "outfits": {
+      "Quarg Skydagger": {
+        "count": 2,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quarg Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quarg Culverin": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Nanotech Battery": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tachyon Core": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Fluxion Shield Generator": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Peripheral Repair Hub": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Intrusion Countermeasures": {
+        "count": 32,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Graviton Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Graviton Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Quarg Warwyvern",
+    "engines": [
+      {
+        "x": -36.5,
+        "y": 94
+      },
+      {
+        "x": 36.5,
+        "y": 94
+      },
+      {
+        "x": 0,
+        "y": 95
+      },
+      {
+        "x": -28,
+        "y": 101.5
+      },
+      {
+        "x": 28,
+        "y": 101.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -14.5,
+        "y": -63.5,
+        "gun": ""
+      },
+      {
+        "x": 14.5,
+        "y": -63.5,
+        "gun": ""
+      },
+      {
+        "x": -75,
+        "y": 45.5,
+        "gun": ""
+      },
+      {
+        "x": 75,
+        "y": 45.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -17.5,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35.5,
+        "turret": ""
+      },
+      {
+        "x": -27,
+        "y": 64.5,
+        "turret": ""
+      },
+      {
+        "x": 27,
+        "y": 64.5,
+        "turret": ""
+      },
+      {
+        "x": -66.5,
+        "y": 73,
+        "turret": ""
+      },
+      {
+        "x": 66.5,
+        "y": 73,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/AESmisc quarg_hydra",
+    "thumbnail": "thumbnail/AESmisc quarg_hydra",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 82441000,
+      "shields": 194000,
+      "hull": 95000,
+      "required crew": 89,
+      "bunks": 118,
+      "mass": 1240,
+      "drag": 16.3,
+      "heat dissipation": 0.35,
+      "fuel capacity": 800,
+      "cargo space": 19,
+      "outfit space": 760,
+      "weapon capacity": 300,
+      "engine capacity": 120,
+      "ramscoop": 10
+    },
+    "description": "The Warwyvern was used by the Quarg as a medium warship during times of war. Rarely seen among their fleets today, Warwyverns still remain on standby to defend Quarg ringworlds from external threats.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Quarg Warwyvern",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "2a85cf6f9ac8",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Quarg Ranseur": {
+        "count": 2,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quarg Skydagger": {
+        "count": 4,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quarg Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quarg Culverin": {
+        "count": 2,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Nanotech Battery": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Singularity Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tachyon Core": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Infimum Shield Generator": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Peripheral Repair Hub": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Central Repair Hub": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Intrusion Countermeasures": {
+        "count": 55,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Quarg Skyswift",
+    "engines": [
+      {
+        "x": -15,
+        "y": 117
+      },
+      {
+        "x": 15,
+        "y": 117
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -12,
+        "y": -80,
+        "gun": ""
+      },
+      {
+        "x": 12,
+        "y": -80,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -34,
+        "y": 24,
+        "turret": ""
+      },
+      {
+        "x": 34,
+        "y": 24,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/Midnight quarg skyswift",
+    "thumbnail": "thumbnail/Midnight quarg skyswift",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 68566000,
+      "shields": 126000,
+      "hull": 84000,
+      "required crew": 58,
+      "bunks": 97,
+      "mass": 890,
+      "drag": 22.6,
+      "heat dissipation": 0.34,
+      "fuel capacity": 1000,
+      "cargo space": 1253,
+      "outfit space": 520,
+      "weapon capacity": 120,
+      "engine capacity": 120,
+      "ramscoop": 10
+    },
+    "tiny explosion": 12,
+    "small explosion": 16,
+    "medium explosion": 30,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion medium",
+    "description": "With over twice the cargo capacity of the largest human freighters, Skyswifts are old freighters the Quarg use mostly to transport materials in bulk.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Quarg Skyswift",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "6f276aee648b",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion: Heliarch Scouting - Tachyon Core"
+        ]
+      }
+    },
+    "outfits": {
+      "Quarg Culverin": {
+        "count": 2,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quarg Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nanotech Battery": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Singularity Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Infimum Shield Generator": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Central Repair Hub": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Intrusion Countermeasures": {
+        "count": 49,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Garbage Scow",
+    "engines": [
+      {
+        "x": -31.5,
+        "y": 110.5,
+        "zoom": 0.7
+      },
+      {
+        "x": 31.5,
+        "y": 110.5,
+        "zoom": 0.7
+      },
+      {
+        "x": 0,
+        "y": 113.5,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -48.5,
+        "y": -9.5,
+        "gun": ""
+      },
+      {
+        "x": 48.5,
+        "y": -9.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 37,
+        "turret": ""
+      },
+      {
+        "x": -11.5,
+        "y": 51,
+        "turret": ""
+      },
+      {
+        "x": 11.5,
+        "y": 51,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 65,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 50,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/Becca scavenger",
+    "sprite data": {
+      "center": 0
+    },
+    "thumbnail": "thumbnail/Becca scavenger",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 7200000,
+      "shields": 5200,
+      "hull": 4400,
+      "required crew": 13,
+      "bunks": 23,
+      "mass": 710,
+      "drag": 15,
+      "heat dissipation": 0.1,
+      "fuel capacity": 800,
+      "cargo space": 10,
+      "outfit space": 440,
+      "weapon capacity": 170,
+      "engine capacity": 85,
+      "integrated systems": -1,
+      "weapon": {
+        "blast radius": 140,
+        "shield damage": 1400,
+        "hull damage": 700,
+        "hit force": 2100
+      }
+    },
+    "parallel": true,
+    "small explosion": 15,
+    "medium explosion": 25,
+    "large explosion": 35,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "The Garbage Scow is an ancient ship: developed hundreds of years ago to transport radioactive materials across human space, it had lost importance with the introduction of generalised and better armed haulers like the Bulk Freighter and the Behemoth. Some still operate legitimately, carrying waste away to designated disposal sites. But many of these freighters have wound up in the hands of smugglers after the discovery that the internal structure of their Radiological Containment cylinders are very efficient at hiding cargo from being scanned.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Garbage Scow",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "77b9e9a1047c",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Leroo Station"
+        ]
+      }
+    },
+    "outfits": {
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tractor Beam": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 120,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Radiological Containment": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 12,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Antique Rifle": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Modified Garbage Scow",
+    "engines": [
+      {
+        "x": -31.5,
+        "y": 110.5,
+        "zoom": 0.7
+      },
+      {
+        "x": 31.5,
+        "y": 110.5,
+        "zoom": 0.7
+      },
+      {
+        "x": 0,
+        "y": 113.5,
+        "zoom": 1.2
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -48.5,
+        "y": -9.5,
+        "gun": ""
+      },
+      {
+        "x": 48.5,
+        "y": -9.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 37,
+        "turret": ""
+      },
+      {
+        "x": -11.5,
+        "y": 51,
+        "turret": ""
+      },
+      {
+        "x": 11.5,
+        "y": 51,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 65,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 50,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/Midnight-Becca mod_scavenger",
+    "sprite data": {
+      "center": 0
+    },
+    "thumbnail": "thumbnail/Midnight-Becca mod-scavenger",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 7200000,
+      "shields": 5200,
+      "hull": 4400,
+      "required crew": 13,
+      "bunks": 23,
+      "mass": 710,
+      "drag": 15,
+      "heat dissipation": 0.1,
+      "fuel capacity": 800,
+      "cargo space": 10,
+      "outfit space": 440,
+      "weapon capacity": 170,
+      "engine capacity": 85,
+      "integrated systems": -1,
+      "weapon": {
+        "blast radius": 140,
+        "shield damage": 1400,
+        "hull damage": 700,
+        "hit force": 2100
+      }
+    },
+    "parallel": true,
+    "small explosion": 15,
+    "medium explosion": 25,
+    "large explosion": 35,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "When the Radiological Containment cylinders on a Garbage Scow have been damaged beyond repair, removing them is often easier than finding a replacement. This transforms the Garbage Scow into a compact medium warship.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Modified Garbage Scow",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "fd35290e294f",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Leroo Station"
+        ]
+      }
+    },
+    "outfits": {
+      "Quad Turbo Blaster Turret": {
+        "count": 2,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Stinger Missile Launcher": {
+        "count": 2,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Stinger Missile": {
+        "count": 90,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Stinger Missile Rack": {
+        "count": 2,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D41-HY Shielding": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 12,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Antique Rifle": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Rukh",
+    "engines": [
+      {
+        "x": -33,
+        "y": 95.5
+      },
+      {
+        "x": 33,
+        "y": 95.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13.5,
+        "y": -92,
+        "gun": ""
+      },
+      {
+        "x": 13.5,
+        "y": -92,
+        "gun": ""
+      },
+      {
+        "x": -43.5,
+        "y": 15,
+        "gun": ""
+      },
+      {
+        "x": 43.5,
+        "y": 15,
+        "gun": ""
+      },
+      {
+        "x": -58,
+        "y": 25,
+        "gun": ""
+      },
+      {
+        "x": 58,
+        "y": 25,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -39.5,
+        "turret": ""
+      },
+      {
+        "x": -8,
+        "y": 70,
+        "turret": ""
+      },
+      {
+        "x": 8,
+        "y": 70,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/Becca warbird",
+    "thumbnail": "thumbnail/Becca warbird",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5100000,
+      "shields": 6500,
+      "hull": 4100,
+      "required crew": 11,
+      "bunks": 27,
+      "mass": 1052,
+      "drag": 7.4,
+      "heat dissipation": 0.27,
+      "fuel capacity": 400,
+      "cargo space": 140,
+      "outfit space": 470,
+      "weapon capacity": 210,
+      "engine capacity": 110,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "A Firebird-based ship design produced at the Wei Shipyards centuries ago, the Rukh was a vessel that qualifies as a middle ground between medium and heavy warships. Betelgeuse Shipyards sued their competitor at Wei for patent infringement shortly after the Republic was formed. The court judgement left Wei Shipyards bankrupt and production of the Rukh abruptly ceased.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Rukh",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "631a3c68d565",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Rum Cellar",
+          "Wang Xiang Tai"
+        ]
+      }
+    },
+    "outfits": {
+      "Energy Cannon": {
+        "count": 4,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Energy Cannon Turret": {
+        "count": 2,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 165,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D41-HY Shielding": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Antique Rifle": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X4200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Marauder Rukh",
+    "engines": [
+      {
+        "x": -33,
+        "y": 95.5
+      },
+      {
+        "x": 33,
+        "y": 95.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13.5,
+        "y": -92,
+        "gun": ""
+      },
+      {
+        "x": 13.5,
+        "y": -92,
+        "gun": ""
+      },
+      {
+        "x": -43.5,
+        "y": 15,
+        "gun": ""
+      },
+      {
+        "x": 43.5,
+        "y": 15,
+        "gun": ""
+      },
+      {
+        "x": -58,
+        "y": 25,
+        "gun": ""
+      },
+      {
+        "x": 58,
+        "y": 25,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -39.5,
+        "turret": ""
+      },
+      {
+        "x": -8,
+        "y": 70,
+        "turret": ""
+      },
+      {
+        "x": 8,
+        "y": 70,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/Midnight-Becca marauder_warbird",
+    "thumbnail": "thumbnail/Midnight-Becca marauder_warbird",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5600000,
+      "shields": 7400,
+      "hull": 3100,
+      "required crew": 12,
+      "bunks": 29,
+      "mass": 620,
+      "drag": 8.1,
+      "heat dissipation": 0.2,
+      "fuel capacity": 400,
+      "cargo space": 70,
+      "outfit space": 580,
+      "weapon capacity": 310,
+      "engine capacity": 110,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "After the discovery of the original blueprints for the Rukh, mechanics were able to combine that data with modern ship design principles to further optimize the design for combat.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Marauder Rukh",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "38183eeb7f9a",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      }
+    },
+    "outfits": {
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Mod Blaster Turret": {
+        "count": 2,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Torpedo Pod": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 273,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo Storage Rack": {
+        "count": 17,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D67-TM Shielding": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sniper Rifle": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X4200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Water Scorpion",
+    "engines": [
+      {
+        "x": -17,
+        "y": 77
+      },
+      {
+        "x": 17,
+        "y": 77
+      },
+      {
+        "x": -39,
+        "y": 68
+      },
+      {
+        "x": 39,
+        "y": 68
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -79,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -67,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -67,
+        "gun": ""
+      },
+      {
+        "x": -26,
+        "y": -54,
+        "gun": ""
+      },
+      {
+        "x": 26,
+        "y": -54,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -20,
+        "y": -16,
+        "turret": ""
+      },
+      {
+        "x": 20,
+        "y": -16,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/Midnight-Becca hai sea scorpion",
+    "thumbnail": "thumbnail/Becca hai sea scorpion",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5990000,
+      "shields": 14700,
+      "hull": 5700,
+      "required crew": 15,
+      "bunks": 31,
+      "mass": 808,
+      "drag": 8.5,
+      "heat dissipation": 0.43,
+      "fuel capacity": 500,
+      "cargo space": 31,
+      "outfit space": 510,
+      "weapon capacity": 158,
+      "engine capacity": 104,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "zoom": 0.4,
+    "tiny explosion": 24,
+    "small explosion": 50,
+    "medium explosion": 30,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The Water Scorpion was an ancient strike vessel that Hai warlords deployed to patrol their conquered territories. They declined in popularity with the rise of the Shield Beetle. Centuries later, memories of this ship would inspire the Unfettered to design the Sea Scorpion.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Water Scorpion",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "129018978612",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Heavy Pulse Cannon": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Pulse Cannon": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Ravine Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pebble Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Corundum Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Williwaw Cooling": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Value Detector": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Biroo\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Tevah-Ark Coracle",
+    "engines": [
+      {
+        "x": -430,
+        "y": 136,
+        "zoom": 0.6
+      },
+      {
+        "x": 430,
+        "y": 136,
+        "zoom": 0.6
+      },
+      {
+        "x": -409,
+        "y": 132,
+        "zoom": 0.8
+      },
+      {
+        "x": 409,
+        "y": 132,
+        "zoom": 0.8
+      },
+      {
+        "x": 388,
+        "y": 130,
+        "zoom": 0.6
+      },
+      {
+        "x": -388,
+        "y": 130,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -405,
+        "y": -182,
+        "zoom": 0.6
+      },
+      {
+        "x": 405,
+        "y": -182,
+        "zoom": 0.6
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -430,
+        "y": 136,
+        "zoom": 0.6,
+        "position": "right"
+      },
+      {
+        "x": -409,
+        "y": 132,
+        "zoom": 0.8,
+        "position": "right"
+      },
+      {
+        "x": -388,
+        "y": 130,
+        "zoom": 0.6,
+        "position": "right"
+      },
+      {
+        "x": 388,
+        "y": 130,
+        "zoom": 0.6,
+        "position": "left"
+      },
+      {
+        "x": 430,
+        "y": 136,
+        "zoom": 0.6,
+        "position": "left"
+      },
+      {
+        "x": 409,
+        "y": 132,
+        "zoom": 0.8,
+        "position": "left"
+      }
+    ],
+    "guns": [
+      {
+        "x": -34,
+        "y": -390,
+        "gun": ""
+      },
+      {
+        "x": 34,
+        "y": -390,
+        "gun": ""
+      },
+      {
+        "x": -54,
+        "y": -382,
+        "gun": ""
+      },
+      {
+        "x": 54,
+        "y": -382,
+        "gun": ""
+      },
+      {
+        "x": -92,
+        "y": -349,
+        "gun": ""
+      },
+      {
+        "x": 92,
+        "y": -349,
+        "gun": ""
+      },
+      {
+        "x": -134,
+        "y": -298,
+        "gun": ""
+      },
+      {
+        "x": 134,
+        "y": -298,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -47,
+        "y": -404,
+        "turret": ""
+      },
+      {
+        "x": 47,
+        "y": -404,
+        "turret": ""
+      },
+      {
+        "x": -131,
+        "y": -349,
+        "turret": ""
+      },
+      {
+        "x": 131,
+        "y": -349,
+        "turret": ""
+      },
+      {
+        "x": -275,
+        "y": -311,
+        "turret": ""
+      },
+      {
+        "x": 275,
+        "y": -311,
+        "turret": ""
+      },
+      {
+        "x": -293,
+        "y": -298,
+        "turret": ""
+      },
+      {
+        "x": 293,
+        "y": -298,
+        "turret": ""
+      },
+      {
+        "x": -407,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": 407,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": -410,
+        "y": -27,
+        "turret": ""
+      },
+      {
+        "x": 410,
+        "y": -27,
+        "turret": ""
+      },
+      {
+        "x": -333,
+        "y": 191,
+        "turret": ""
+      },
+      {
+        "x": 333,
+        "y": 191,
+        "turret": ""
+      },
+      {
+        "x": -319,
+        "y": 209,
+        "turret": ""
+      },
+      {
+        "x": 319,
+        "y": 209,
+        "turret": ""
+      },
+      {
+        "x": -201,
+        "y": 317,
+        "turret": ""
+      },
+      {
+        "x": 201,
+        "y": 317,
+        "turret": ""
+      },
+      {
+        "x": -183,
+        "y": 330,
+        "turret": ""
+      },
+      {
+        "x": 183,
+        "y": 330,
+        "turret": ""
+      },
+      {
+        "x": -11,
+        "y": 397,
+        "turret": ""
+      },
+      {
+        "x": 11,
+        "y": 397,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/Midnight PR4987 korath haven B",
+    "thumbnail": "thumbnail/PR4987 korath haven",
+    "attributes": {
+      "category": "Superheavy",
+      "cost": 276900000,
+      "shields": 320690,
+      "hull": 196420,
+      "required crew": 1746,
+      "bunks": 28728,
+      "mass": 42421,
+      "drag": 254,
+      "heat dissipation": 0.072,
+      "solar collection": 4.6,
+      "fuel capacity": 900,
+      "cargo space": 2050,
+      "outfit space": 3180,
+      "weapon capacity": 1260,
+      "engine capacity": 434,
+      "atmosphere scan": 100,
+      "biome": 20,
+      "industry": 10,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "angle": 45,
+    "fighter -241 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "fighter -231 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "fighter -221 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "fighter -211 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "fighter -201 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "fighter -191 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "fighter  241 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "fighter  231 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "fighter  221 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "fighter  211 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "fighter  201 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "fighter  191 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "drone -241 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "drone -231 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "drone -221 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "drone -211 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "drone -201 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "drone -191 -129 under": {
+      "angle": -90,
+      "launch effect": "korath internal"
+    },
+    "drone  241 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "drone  231 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "drone  221 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "drone  211 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "drone  201 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "drone  191 -129 under": {
+      "angle": 90,
+      "launch effect": "korath internal"
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "The Tevah-Ark Coracle is a mobile habitat store house of DNA samples for all the life forms once native to Korath space. Its deployment after centuries of being on standby brings hope for the Kor Efret to restoring the ruined Korath worlds.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Tevah-Ark Coracle",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "61a78c40d646",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion: Kor Efret Tevah-Ark Coracle"
+        ]
+      }
+    },
+    "outfits": {
+      "Arkrof GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Arkrof GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Banisher Grav-Turret": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Botanical Garden": {
+        "count": 18,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Digger Mining Beam": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fentra Predator": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Fuel Processor": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Refiner": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Gaktem GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gaktem GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Defense Drone": {
+        "count": 1780,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Korath Fireswarm": {
+        "count": 310,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Korath Fireswarm Launcher": {
+        "count": 4,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Korath Fireswarm Nest": {
+        "count": 23,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Korath Shocker Turret": {
+        "count": 6,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Langrage Hyper-Heaver": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Sodium Cooler": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Microbot Defense Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Microbot Fabricator": {
+        "count": 7,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Nelmeb GP Hybrid Reverser": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Nelmeb GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nelmeb GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Seleptra Bloom": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Systems Core (Huge)": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Triple Plasma Core": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Ikatila'ej Eldar",
+    "engines": [
+      {
+        "x": -41,
+        "y": 251
+      },
+      {
+        "x": 41,
+        "y": 251
+      },
+      {
+        "x": -97,
+        "y": 252
+      },
+      {
+        "x": 97,
+        "y": 252
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -97,
+        "y": -2,
+        "position": "zoom .8"
+      },
+      {
+        "x": 97,
+        "y": -2,
+        "position": "zoom .8"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -97,
+        "y": 252,
+        "position": "zoom .8"
+      },
+      {
+        "x": 97,
+        "y": 252,
+        "position": "zoom .8"
+      },
+      {
+        "x": -97,
+        "y": -2,
+        "position": "angle 180"
+      },
+      {
+        "x": 97,
+        "y": -2,
+        "position": "angle 180"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -103,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -71,
+        "y": -201,
+        "turret": ""
+      },
+      {
+        "x": 71,
+        "y": -201,
+        "turret": ""
+      },
+      {
+        "x": -160,
+        "y": -110,
+        "turret": ""
+      },
+      {
+        "x": 160,
+        "y": -110,
+        "turret": ""
+      },
+      {
+        "x": -129,
+        "y": -15,
+        "turret": ""
+      },
+      {
+        "x": 129,
+        "y": -14,
+        "turret": ""
+      },
+      {
+        "x": -173,
+        "y": 109,
+        "turret": ""
+      },
+      {
+        "x": 173,
+        "y": 109,
+        "turret": ""
+      },
+      {
+        "x": -158,
+        "y": 228,
+        "turret": ""
+      },
+      {
+        "x": 158,
+        "y": 228,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -52,
+        "y": -83,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 52,
+        "y": -83,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -147,
+        "y": 133,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 147,
+        "y": 133,
+        "launch effect": "korath internal"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/Midnight PR4987 korath refabricator B",
+    "thumbnail": "thumbnail/PR4987 korath refabricator",
+    "attributes": {
+      "category": "Superheavy",
+      "cost": 120312000,
+      "shields": 80000,
+      "hull": 102000,
+      "required crew": 1050,
+      "bunks": 2125,
+      "mass": 15490,
+      "drag": 146.7,
+      "heat dissipation": 0.14,
+      "fuel capacity": 800,
+      "cargo space": 925,
+      "outfit space": 1445,
+      "weapon capacity": 486,
+      "engine capacity": 282,
+      "spinal mount": 1,
+      "industry": 10,
+      "weapon": {
+        "blast radius": 700,
+        "shield damage": 9900,
+        "hull damage": 5200,
+        "hit force": 22000
+      }
+    },
+    "zoom": 0.8,
+    "tiny explosion": 180,
+    "small explosion": 80,
+    "medium explosion": 90,
+    "large explosion": 60,
+    "huge explosion": 25,
+    "final explode": "final explosion large",
+    "description": "\tThe microbot-powered grinder on this older model Ikatila'ej operates internally rather than taking in detritus directly from outside the ship. But this version of the ship is more durable than newer designs.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Ikatila'ej Eldar",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "3b47e22096cf",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion: Scrapper Ikatila'ej Eldar"
+        ]
+      }
+    },
+    "outfits": {
+      "Afterburner (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Digger Mining Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Refiner": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Korath Sentinel": {
+        "count": 3,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Langrage Hyper-Launcher": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Liquid Sodium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Microbot Defense Station": {
+        "count": 17,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Microbot Fabricator": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Reverser (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Shock-Strike Turret": {
+        "count": 6,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Small Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Huge)": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 1046,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Rai'alorej Makwar",
+    "engines": [
+      {
+        "x": -149,
+        "y": 197
+      },
+      {
+        "x": 149,
+        "y": 197
+      },
+      {
+        "x": -39,
+        "y": 204
+      },
+      {
+        "x": 39,
+        "y": 204
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -48,
+        "y": -215,
+        "position": "zoom .8"
+      },
+      {
+        "x": 48,
+        "y": -215,
+        "position": "zoom .8"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -149,
+        "y": 197,
+        "position": "zoom 1.2"
+      },
+      {
+        "x": 149,
+        "y": 197,
+        "position": "zoom 1.2"
+      },
+      {
+        "x": -149,
+        "y": 95,
+        "position": "angle 180"
+      },
+      {
+        "x": 149,
+        "y": 95,
+        "position": "angle 180"
+      }
+    ],
+    "guns": [
+      {
+        "x": -65,
+        "y": 0,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -126,
+        "y": -166,
+        "turret": ""
+      },
+      {
+        "x": 126,
+        "y": -166,
+        "turret": ""
+      },
+      {
+        "x": -88,
+        "y": 38,
+        "turret": ""
+      },
+      {
+        "x": 88,
+        "y": 38,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 157,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -155,
+        "y": -197,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 155,
+        "y": -197,
+        "launch effect": "korath internal"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/Midnight PR4987 korath refuge B",
+    "thumbnail": "thumbnail/PR4987 korath refuge",
+    "attributes": {
+      "category": "Utility",
+      "cost": 35167000,
+      "shields": 47000,
+      "hull": 30000,
+      "required crew": 575,
+      "bunks": 1576,
+      "mass": 1826,
+      "drag": 30.3,
+      "heat dissipation": 0.39,
+      "fuel capacity": 700,
+      "cargo space": 386,
+      "outfit space": 942,
+      "weapon capacity": 260,
+      "engine capacity": 214,
+      "biome": 5,
+      "industry": 5,
+      "weapon": {
+        "blast radius": 600,
+        "shield damage": 9000,
+        "hull damage": 4800,
+        "hit force": 20000
+      }
+    },
+    "zoom": 1.2,
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "This militarized variant of the Rai'alorej-Class Refuge operates as a mobile medical center. It has many of the facilities found on the regular model. Missing are the incubators and nurseries intended for civilian use.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Rai'alorej Makwar",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "1a9846609526",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion: Scrapper Rai'alorej Makwar"
+        ]
+      }
+    },
+    "outfits": {
+      "Afterburner (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Botanical Garden": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Digger Mining Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Refiner": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Korath Sentinel": {
+        "count": 2,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Langrage Hyper-Launcher": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Liquid Sodium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Microbot Defense Station": {
+        "count": 14,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Reverser (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Shock-Strike Turret": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Huge)": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 563,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Korath World Crafter",
+    "engines": [
+      {
+        "x": -43,
+        "y": 244
+      },
+      {
+        "x": 43,
+        "y": 244
+      },
+      {
+        "x": -171,
+        "y": 235
+      },
+      {
+        "x": 171,
+        "y": 235
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -57,
+        "y": -250,
+        "position": "zoom .5"
+      },
+      {
+        "x": 57,
+        "y": -250,
+        "position": "zoom .5"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -171,
+        "y": 235,
+        "position": "zoom .6"
+      },
+      {
+        "x": 171,
+        "y": 235,
+        "position": "zoom .6"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -250,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -134,
+        "y": -198,
+        "turret": ""
+      },
+      {
+        "x": 134,
+        "y": -198,
+        "turret": ""
+      },
+      {
+        "x": -158,
+        "y": -187,
+        "turret": ""
+      },
+      {
+        "x": 158,
+        "y": -187,
+        "turret": ""
+      },
+      {
+        "x": -104,
+        "y": 30,
+        "turret": ""
+      },
+      {
+        "x": 104,
+        "y": 30,
+        "turret": ""
+      },
+      {
+        "x": -104,
+        "y": 60,
+        "turret": ""
+      },
+      {
+        "x": 104,
+        "y": 60,
+        "turret": ""
+      },
+      {
+        "x": -17,
+        "y": 181,
+        "turret": ""
+      },
+      {
+        "x": 17,
+        "y": 181,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -183,
+        "y": -179
+      },
+      {
+        "type": "Fighter",
+        "x": 183,
+        "y": -179
+      },
+      {
+        "type": "Fighter",
+        "x": -115,
+        "y": -70
+      },
+      {
+        "type": "Fighter",
+        "x": 115,
+        "y": -70
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/Midnight PR4987 korath refuge/Midnight PR4987 korath refuge",
+    "thumbnail": "thumbnail/PR4987 korath refuge",
+    "swizzle": 0,
+    "attributes": {
+      "category": "Transport",
+      "cost": 31970000,
+      "shields": 94000,
+      "hull": 68000,
+      "required crew": 1786,
+      "bunks": 3357,
+      "mass": 5200,
+      "drag": 52,
+      "heat dissipation": 0.3,
+      "fuel capacity": 1000,
+      "cargo space": 528,
+      "outfit space": 1022,
+      "weapon capacity": 443,
+      "engine capacity": 192,
+      "integrated systems": -1,
+      "weapon": {
+        "blast radius": 1600,
+        "shield damage": 16000,
+        "hull damage": 8000,
+        "hit force": 24000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "The Korath World Crafter manufactures parts, medicine, medical equipment, and sufficient food for bare sustenance. Onboard, there are incubators, nurseries, and hospitals.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Korath World Crafter",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "1db8747838e5",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Korath Waste Launcher": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Korath Waste": {
+        "count": 96,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Banisher Grav-Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Shock-Strike": {
+        "count": 2,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Warder Anti-Missile": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Huge)": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Fuel Refiner": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Korath Defense Drone": {
+        "count": 1700,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 600,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Microbot Defense Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Afterburner (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Korath World Forger",
+    "engines": [
+      {
+        "x": -45,
+        "y": 279
+      },
+      {
+        "x": 45,
+        "y": 279
+      },
+      {
+        "x": -105,
+        "y": 281
+      },
+      {
+        "x": 105,
+        "y": 281
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -193,
+        "y": 42,
+        "position": "zoom 0.6"
+      },
+      {
+        "x": 193,
+        "y": 42,
+        "position": "zoom 0.6"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -105,
+        "y": 281,
+        "position": "zoom 0.7"
+      },
+      {
+        "x": 105,
+        "y": 281,
+        "position": "zoom 0.7"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -265,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -78,
+        "y": -220,
+        "turret": ""
+      },
+      {
+        "x": 78,
+        "y": -220,
+        "turret": ""
+      },
+      {
+        "x": -176,
+        "y": -120,
+        "turret": ""
+      },
+      {
+        "x": 176,
+        "y": -120,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -114,
+        "turret": ""
+      },
+      {
+        "x": -142,
+        "y": -17,
+        "turret": ""
+      },
+      {
+        "x": 142,
+        "y": -17,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 17,
+        "turret": ""
+      },
+      {
+        "x": -189,
+        "y": 119,
+        "turret": ""
+      },
+      {
+        "x": 189,
+        "y": 119,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 180,
+        "turret": ""
+      },
+      {
+        "x": -173,
+        "y": 248,
+        "turret": ""
+      },
+      {
+        "x": 173,
+        "y": 248,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/Midnight PR4987 korath refabricator",
+    "sprite data": {
+      "rewind": true,
+      "delay": 1
+    },
+    "swizzle": 0,
+    "thumbnail": "thumbnail/PR4987 korath refabricator",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 39370000,
+      "shields": 105000,
+      "hull": 77000,
+      "required crew": 1389,
+      "bunks": 2611,
+      "mass": 5560,
+      "drag": 53,
+      "heat dissipation": 0.325,
+      "fuel capacity": 1000,
+      "cargo space": 818,
+      "outfit space": 1187,
+      "weapon capacity": 576,
+      "engine capacity": 192,
+      "integrated systems": -1,
+      "weapon": {
+        "blast radius": 1800,
+        "shield damage": 18000,
+        "hull damage": 9000,
+        "hit force": 27000
+      }
+    },
+    "zoom": 0.7,
+    "fighter": 175,
+    "tiny explosion": 180,
+    "small explosion": 80,
+    "medium explosion": 90,
+    "large explosion": 60,
+    "huge explosion": 25,
+    "final explode": "final explosion large",
+    "description": "The World Forger is factory ship; a millennia-old ship design that has improved in every generation. At the height of the Korath war, these ships created drones and clouds of combat nanites. Today, its facilities produce basic living supplies and ship parts.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Korath World Forger",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "68fdba8bab0e",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Korath Waste Launcher": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Korath Waste": {
+        "count": 96,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Warder Anti-Missile": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Shock-Strike": {
+        "count": 3,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Banisher Grav-Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Huge)": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Refiner": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Korath Defense Drone": {
+        "count": 1300,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 450,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Microbot Defense Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Afterburner (Comet Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Korath World Shaper",
+    "engines": [
+      {
+        "x": -430,
+        "y": 136,
+        "zoom": 0.6
+      },
+      {
+        "x": 430,
+        "y": 136,
+        "zoom": 0.6
+      },
+      {
+        "x": -409,
+        "y": 132,
+        "zoom": 0.8
+      },
+      {
+        "x": 409,
+        "y": 132,
+        "zoom": 0.8
+      },
+      {
+        "x": 388,
+        "y": 130,
+        "zoom": 0.6
+      },
+      {
+        "x": -388,
+        "y": 130,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -405,
+        "y": -182,
+        "zoom": 0.6
+      },
+      {
+        "x": 405,
+        "y": -182,
+        "zoom": 0.6
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -430,
+        "y": 136,
+        "zoom": 0.6,
+        "position": "right"
+      },
+      {
+        "x": -409,
+        "y": 132,
+        "zoom": 0.8,
+        "position": "right"
+      },
+      {
+        "x": -388,
+        "y": 130,
+        "zoom": 0.6,
+        "position": "right"
+      },
+      {
+        "x": 388,
+        "y": 130,
+        "zoom": 0.6,
+        "position": "left"
+      },
+      {
+        "x": 430,
+        "y": 136,
+        "zoom": 0.6,
+        "position": "left"
+      },
+      {
+        "x": 409,
+        "y": 132,
+        "zoom": 0.8,
+        "position": "left"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -400,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -47,
+        "y": -404,
+        "turret": ""
+      },
+      {
+        "x": 47,
+        "y": -404,
+        "turret": ""
+      },
+      {
+        "x": -131,
+        "y": -349,
+        "turret": ""
+      },
+      {
+        "x": 131,
+        "y": -349,
+        "turret": ""
+      },
+      {
+        "x": -275,
+        "y": -311,
+        "turret": ""
+      },
+      {
+        "x": 275,
+        "y": -311,
+        "turret": ""
+      },
+      {
+        "x": -293,
+        "y": -298,
+        "turret": ""
+      },
+      {
+        "x": 293,
+        "y": -298,
+        "turret": ""
+      },
+      {
+        "x": -407,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": 407,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": -410,
+        "y": -27,
+        "turret": ""
+      },
+      {
+        "x": 410,
+        "y": -27,
+        "turret": ""
+      },
+      {
+        "x": -333,
+        "y": 191,
+        "turret": ""
+      },
+      {
+        "x": 333,
+        "y": 191,
+        "turret": ""
+      },
+      {
+        "x": -319,
+        "y": 209,
+        "turret": ""
+      },
+      {
+        "x": 319,
+        "y": 209,
+        "turret": ""
+      },
+      {
+        "x": -201,
+        "y": 317,
+        "turret": ""
+      },
+      {
+        "x": 201,
+        "y": 317,
+        "turret": ""
+      },
+      {
+        "x": -183,
+        "y": 330,
+        "turret": ""
+      },
+      {
+        "x": 183,
+        "y": 330,
+        "turret": ""
+      },
+      {
+        "x": -11,
+        "y": 397,
+        "turret": ""
+      },
+      {
+        "x": 11,
+        "y": 397,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/Midnight PR4987 korath haven",
+    "sprite data": {
+      "rewind": true,
+      "frame rate": 0.25,
+      "delay": 1
+    },
+    "thumbnail": "thumbnail/PR4987 korath haven",
+    "swizzle": 0,
+    "attributes": {
+      "category": "Transport",
+      "cost": 110760000,
+      "shields": 141000,
+      "hull": 102000,
+      "required crew": 3176,
+      "bunks": 5968,
+      "mass": 12760,
+      "drag": 54,
+      "heat dissipation": 0.35,
+      "fuel capacity": 1000,
+      "cargo space": 1020,
+      "outfit space": 2072,
+      "weapon capacity": 905,
+      "engine capacity": 229,
+      "integrated systems": -1,
+      "weapon": {
+        "blast radius": 2400,
+        "shield damage": 24000,
+        "hull damage": 12000,
+        "hit force": 36000
+      }
+    },
+    "fighter": 211,
+    "tiny explosion": 90,
+    "small explosion": 120,
+    "medium explosion": 110,
+    "large explosion": 70,
+    "huge explosion": 35,
+    "final explode": "final explosion large",
+    "description": "The Korath Exiles built these vast ships as their main population centers. In addition to living space, each Korath World Shaper has industrial and hydroponics capacity sufficient for bare subsistence of its inhabitants.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Korath World Shaper",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "4bdb0de6d3d1",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Korath Waste Launcher": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Korath Waste": {
+        "count": 96,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Warder Anti-Missile": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Turret": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Banisher Grav-Turret": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Shock-Strike": {
+        "count": 4,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Triple Plasma Core": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Huge)": {
+        "count": 2,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Large Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Fuel Refiner": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Korath Defense Drone": {
+        "count": 3000,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 1000,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Microbot Defense Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Afterburner (Comet Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Avialae",
+    "engines": [
+      {
+        "x": -25,
+        "y": 182
+      },
+      {
+        "x": 25,
+        "y": 182
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -26,
+        "y": -180,
+        "gun": ""
+      },
+      {
+        "x": 26,
+        "y": -180,
+        "gun": ""
+      },
+      {
+        "x": 44,
+        "y": -110,
+        "gun": ""
+      },
+      {
+        "x": -44,
+        "y": -110,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -11,
+        "turret": ""
+      },
+      {
+        "x": -13,
+        "y": 60,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": 60,
+        "turret": ""
+      },
+      {
+        "x": -56,
+        "y": 140,
+        "turret": ""
+      },
+      {
+        "x": 56,
+        "y": 140,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -22,
+        "y": -20,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 22,
+        "y": -20,
+        "launch effect": "remnant internal"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "remnant leak",
+        "openChance": 35,
+        "spreadChance": 15
+      },
+      {
+        "effect": "remnant leak sparkle",
+        "openChance": 35,
+        "spreadChance": 15
+      }
+    ],
+    "plural": "Avialans",
+    "sprite": "ship/Becca swan",
+    "thumbnail": "thumbnail/Becca swan",
+    "attributes": {
+      "licenses": {
+        "Remnant Capital": true
+      },
+      "category": "Utility",
+      "cost": 63400000,
+      "shields": 33900,
+      "hull": 17100,
+      "required crew": 89,
+      "bunks": 265,
+      "mass": 4400,
+      "drag": 20.6,
+      "heat dissipation": 0.3,
+      "fuel capacity": 800,
+      "ramscoop": 2.75,
+      "cargo space": 491,
+      "outfit space": 720,
+      "weapon capacity": 265,
+      "engine capacity": 180,
+      "shield generation": 2.7,
+      "shield energy": 1.8,
+      "hull repair rate": 1,
+      "hull energy": 0.75,
+      "outfit scan power": 12,
+      "outfit scan efficiency": 12,
+      "tactical scan power": 26,
+      "weapon": {
+        "blast radius": 500,
+        "shield damage": 5000,
+        "hull damage": 2500,
+        "hit force": 7000
+      }
+    },
+    "small explosion": 35,
+    "medium explosion": 65,
+    "large explosion": 45,
+    "huge explosion": 15,
+    "final explode": "final explosion large",
+    "description": "The Avialae is an early example of Remnant ship development. Its design function still has traces of principles from ancestral human space. As they acclimated to life in the Ember Wastes many Prefects determined that mass production of big Utility ships was a waste of resources. Instead they chose to focus on filling their fleets with smaller, more specialized, models.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Avialae",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "095508fe03ee",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Aeon Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Crystal Capacitor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Emergency Ramscoop": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Epoch Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Inhibitor Cannon": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Point Defense Turret": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Key Stone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Salvage Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Smelter-Class Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Smelter-Class Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermoelectric Cooler": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thrasher Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tuning Rifle": {
+        "count": 75,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Ekfar Tek 23",
+    "engines": [
+      {
+        "x": -43.5,
+        "y": 150.5
+      },
+      {
+        "x": 43.5,
+        "y": 150.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -26,
+        "y": -152,
+        "gun": ""
+      },
+      {
+        "x": 26,
+        "y": -152,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -49.5,
+        "y": -86,
+        "turret": ""
+      },
+      {
+        "x": 49.5,
+        "y": -86,
+        "turret": ""
+      },
+      {
+        "x": -51,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 51,
+        "y": -35,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/Midnight-Becca-far ek tek 243",
+    "thumbnail": "thumbnail/Midnight-Becca-far ek tek 243",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 16730000,
+      "shields": 19000,
+      "hull": 25000,
+      "mass": 1056,
+      "automaton": 1,
+      "drag": 14.4,
+      "heat dissipation": 0.35,
+      "fuel capacity": 400,
+      "cargo space": 222,
+      "outfit space": 444,
+      "weapon capacity": 136,
+      "engine capacity": 94,
+      "self destruct": 0.25,
+      "ramscoop": 1,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 60,
+    "small explosion": 35,
+    "medium explosion": 40,
+    "large explosion": 22,
+    "huge explosion": 6,
+    "final explode": "final explosion medium",
+    "description": "This freighter is used by new Kor Sestor colonies to harvest and transport raw materials.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Ekfar Tek 23",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "35d5e2765924",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Sestor": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion Sestor Colony"
+        ]
+      }
+    },
+    "outfits": {
+      "Korath Tormentor": {
+        "count": 2,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Scavenger Turret": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Tormentor Turret": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Generator (Furnace Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Obsolete Transceiver": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Steering (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Korbatar Makwar",
+    "engines": [
+      {
+        "x": -170,
+        "y": 216,
+        "zoom": 0.7
+      },
+      {
+        "x": 170,
+        "y": 216,
+        "zoom": 0.7
+      },
+      {
+        "x": -103,
+        "y": 471,
+        "zoom": 0.8
+      },
+      {
+        "x": 103,
+        "y": 471,
+        "zoom": 0.8
+      },
+      {
+        "x": -36,
+        "y": 498,
+        "zoom": 0.9
+      },
+      {
+        "x": 36,
+        "y": 498,
+        "zoom": 0.9
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -92.5,
+        "y": -302,
+        "position": "over"
+      },
+      {
+        "x": 92.5,
+        "y": -302,
+        "position": "over"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -110,
+        "y": -435,
+        "position": "\"zoom\" .5"
+      },
+      {
+        "x": 110,
+        "y": -435,
+        "position": "\"zoom\" .5"
+      },
+      {
+        "x": -110,
+        "y": -379,
+        "position": "\"zoom\" .5"
+      },
+      {
+        "x": 110,
+        "y": -379,
+        "position": "\"zoom\" .5"
+      },
+      {
+        "x": -87.5,
+        "y": 299,
+        "position": "\"zoom\" .5"
+      },
+      {
+        "x": 87.5,
+        "y": 299,
+        "position": "\"zoom\" .5"
+      },
+      {
+        "x": -87.5,
+        "y": 327,
+        "position": "\"zoom\" .5"
+      },
+      {
+        "x": 87.5,
+        "y": 327,
+        "position": "\"zoom\" .5"
+      }
+    ],
+    "guns": [
+      {
+        "x": -90,
+        "y": -497,
+        "gun": ""
+      },
+      {
+        "x": 90,
+        "y": -497,
+        "gun": ""
+      },
+      {
+        "x": -69,
+        "y": -497,
+        "gun": ""
+      },
+      {
+        "x": 69,
+        "y": -497,
+        "gun": ""
+      },
+      {
+        "x": -55.5,
+        "y": -497,
+        "gun": ""
+      },
+      {
+        "x": 55.5,
+        "y": -497,
+        "gun": ""
+      },
+      {
+        "x": -180,
+        "y": -135,
+        "gun": ""
+      },
+      {
+        "x": 180,
+        "y": -135,
+        "gun": ""
+      },
+      {
+        "x": -180,
+        "y": -97,
+        "gun": ""
+      },
+      {
+        "x": 180,
+        "y": -97,
+        "gun": ""
+      },
+      {
+        "x": -180,
+        "y": -59,
+        "gun": ""
+      },
+      {
+        "x": 180,
+        "y": -59,
+        "gun": ""
+      },
+      {
+        "x": -180,
+        "y": -21,
+        "gun": ""
+      },
+      {
+        "x": 180,
+        "y": -21,
+        "gun": ""
+      },
+      {
+        "x": -180,
+        "y": 17,
+        "gun": ""
+      },
+      {
+        "x": 180,
+        "y": 17,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -81.5,
+        "y": -477,
+        "turret": ""
+      },
+      {
+        "x": 81.5,
+        "y": -477,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -243.5,
+        "turret": ""
+      },
+      {
+        "x": -139.5,
+        "y": -159.5,
+        "turret": ""
+      },
+      {
+        "x": 139.5,
+        "y": -159.5,
+        "turret": ""
+      },
+      {
+        "x": -110,
+        "y": -141,
+        "turret": ""
+      },
+      {
+        "x": 110,
+        "y": -141,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -58,
+        "turret": ""
+      },
+      {
+        "x": -99.5,
+        "y": -43.5,
+        "turret": ""
+      },
+      {
+        "x": 99.5,
+        "y": -43.5,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 54,
+        "turret": ""
+      },
+      {
+        "x": -97.5,
+        "y": 67.5,
+        "turret": ""
+      },
+      {
+        "x": 97.5,
+        "y": 67.5,
+        "turret": ""
+      },
+      {
+        "x": -97.5,
+        "y": 153.5,
+        "turret": ""
+      },
+      {
+        "x": 97.5,
+        "y": 153.5,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 160,
+        "turret": ""
+      },
+      {
+        "x": -119,
+        "y": 198.5,
+        "turret": ""
+      },
+      {
+        "x": 119,
+        "y": 198.5,
+        "turret": ""
+      },
+      {
+        "x": -32.5,
+        "y": 270,
+        "turret": ""
+      },
+      {
+        "x": 32.5,
+        "y": 270,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/Midnight X-27 korath battleship",
+    "thumbnail": "thumbnail/X-27 Korath Battleship thumbnail",
+    "attributes": {
+      "category": "Superheavy",
+      "cost": 276900000,
+      "shields": 352760,
+      "hull": 176770,
+      "required crew": 2134,
+      "bunks": 3192,
+      "mass": 25452,
+      "drag": 152.4,
+      "heat dissipation": 0.1,
+      "solar collection": 3.8,
+      "fuel capacity": 1000,
+      "cargo space": 932,
+      "outfit space": 3830,
+      "weapon capacity": 1584,
+      "engine capacity": 430,
+      "tactical scan power": 90,
+      "radar jamming": 60,
+      "weapon": {
+        "blast radius": 1600,
+        "shield damage": 30000,
+        "hull damage": 15000,
+        "hit force": 45000
+      }
+    },
+    "angle": 90,
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "One of the last great Korath battleships from the height of the war that drove their species to near extinction, the Korbatar Makwar is an engine of destruction that dominates conventional battlefields. \tThe number of these battleships which are still in operation can be counted on one hand. Korath shipyards are fully capable of assembling more Korbatar Makwars, but the exile from Korath space has forced them to prioritize construction of Korsmanath A'awojs and other support vessels instead. A small, but vocal, group of Navarchs continue to lobby various planning committees for construction of new Korbatar Makwars. But the civilian government refuses to capitulate to their demands.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Korbatar Makwar",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "e63b1d5e9589",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Korath (Civilian)": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion Korbatar Makwar Antique 1",
+          "Midnight Expansion Korbatar Makwar Antique 2"
+        ]
+      }
+    },
+    "outfits": {
+      "Afterburner (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Banisher Grav-Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cluster Mine": {
+        "count": 170,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cluster Mine Rack": {
+        "count": 10,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Firestorm Battery": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Firestorm Torpedo": {
+        "count": 78,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Firestorm Torpedo Rack": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Refiner": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Korath Scattermine": {
+        "count": 10,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Langrage Hyper-Heaver": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 9,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Sodium Cooler": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Microbot Defense Station": {
+        "count": 108,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Reverser (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Huge)": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 1200,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Scorcher": {
+        "count": 6,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Thermal Scorcher Turret": {
+        "count": 6,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Thruster (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Modified Cargo Star",
+    "engines": [
+      {
+        "x": -12,
+        "y": 121
+      },
+      {
+        "x": 12,
+        "y": 121
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -6,
+        "y": -119,
+        "gun": ""
+      },
+      {
+        "x": 6,
+        "y": -119,
+        "gun": ""
+      },
+      {
+        "x": -18,
+        "y": -90,
+        "gun": ""
+      },
+      {
+        "x": 18,
+        "y": -90,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -10,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 44,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 50,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/AESmisc proto_freighter",
+    "thumbnail": "thumbnail/AESmisc proto_freighter",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 5500000,
+      "shields": 7000,
+      "hull": 7700,
+      "required crew": 21,
+      "bunks": 45,
+      "mass": 994,
+      "drag": 21.2,
+      "heat dissipation": 0.33,
+      "fuel capacity": 600,
+      "cargo space": 385,
+      "outfit space": 370,
+      "weapon capacity": 120,
+      "engine capacity": 90,
+      "weapon": {
+        "blast radius": 140,
+        "shield damage": 1400,
+        "hull damage": 700,
+        "hit force": 2100
+      }
+    },
+    "small explosion": 15,
+    "medium explosion": 25,
+    "large explosion": 35,
+    "huge explosion": 20,
+    "description": "The Cargo Star was a proprietary freighter used by Starwell Shipping Corporation before it was bought out by the Syndicate in a hostile corporate takeover. Many of the technologies and design principles from this ship can be found in the modern designs of Syndicate Shipyards. \tMost Cargo Stars that survived the Alpha Wars did so by having extensive modifications made to strengthen their hull, shields, and weapon capacity.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Modified Cargo Star",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "b7bfcf82b7b5",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Modified Cargo Star",
+          "Midnight Venomous Fang 2"
+        ]
+      }
+    },
+    "outfits": {
+      "Antique Rifle": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Energy Cannon": {
+        "count": 2,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Energy Cannon Turret": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 22,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 44,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D41-HY Shielding": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X1100 Ion Reverse Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Korath Scouter",
+    "engines": [
+      {
+        "x": -13,
+        "y": 31
+      },
+      {
+        "x": 13,
+        "y": 31
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -15,
+        "y": -71,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -71,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -71,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -71,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -23,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 23,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": -74,
+        "y": 11,
+        "turret": ""
+      },
+      {
+        "x": 74,
+        "y": 11,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "leaks": [],
+    "display name": "Sku'uta",
+    "sprite": "ship/Midnight PR4987 ravager",
+    "thumbnail": "thumbnail/PR4987 ravager",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 8285000,
+      "shields": 13500,
+      "hull": 4500,
+      "required crew": 72,
+      "bunks": 125,
+      "mass": 885,
+      "drag": 10.2,
+      "heat dissipation": 0.45,
+      "fuel capacity": 600,
+      "cargo space": 85,
+      "outfit space": 388,
+      "weapon capacity": 170,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 125,
+        "shield damage": 1800,
+        "hull damage": 900,
+        "hit force": 2700
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "medium explosion": 25,
+    "large explosion": 20,
+    "final explode": "final explosion large",
+    "description": "The Sku'uta is a Korath reconnaissance ship intended for quick forays into hostile territory.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Korath Scouter",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "7a4ce385416e",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Korath": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion Avialae Salvage 1",
+          "Midnight Expansion: Salvage Scouter"
+        ]
+      }
+    },
+    "outfits": {
+      "Banisher Grav-Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Small)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 98,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Magpie",
+    "engines": [
+      {
+        "x": 35,
+        "y": 70
+      },
+      {
+        "x": -35,
+        "y": 70
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -114,
+        "gun": ""
+      },
+      {
+        "x": -19,
+        "y": -74,
+        "gun": ""
+      },
+      {
+        "x": 19,
+        "y": -74,
+        "gun": ""
+      },
+      {
+        "x": -24,
+        "y": -57,
+        "gun": ""
+      },
+      {
+        "x": 24,
+        "y": -57,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -17,
+        "y": -7,
+        "turret": ""
+      },
+      {
+        "x": 17,
+        "y": -7,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "remnant leak",
+        "openChance": 20,
+        "spreadChance": 7
+      },
+      {
+        "effect": "remnant leak sparkle",
+        "openChance": 30,
+        "spreadChance": 10
+      }
+    ],
+    "sprite": "ship/Becca robin",
+    "thumbnail": "thumbnail/Becca robin",
+    "attributes": {
+      "category": "Medium Warship",
+      "licenses": {
+        "Remnant": true
+      },
+      "cost": 13000000,
+      "shields": 12900,
+      "hull": 5600,
+      "required crew": 15,
+      "bunks": 32,
+      "mass": 535,
+      "drag": 6.7,
+      "heat dissipation": 0.5,
+      "fuel capacity": 700,
+      "ramscoop": 2.75,
+      "cargo space": 83,
+      "outfit space": 389,
+      "weapon capacity": 162,
+      "engine capacity": 94,
+      "shield generation": 3.5,
+      "shield energy": 3.1,
+      "hull repair rate": 1.2,
+      "hull energy": 0.95,
+      "cloak": 0.02,
+      "cloaking energy": 10,
+      "cloaking fuel": 0.2,
+      "outfit scan power": 18,
+      "outfit scan efficiency": 20,
+      "tactical scan power": 39,
+      "weapon": {
+        "blast radius": 180,
+        "shield damage": 1800,
+        "hull damage": 900,
+        "hit force": 2700
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 25,
+    "large explosion": 10,
+    "final explode": "final explosion medium",
+    "description": "Shortly after development of the Starling, Remnant ship crafters attempted to apply the design principles they learned towards a medium warship. The Magpie was one functional result of this endeavor. \tThere was an unforeseen problem with trying to apply the alien cloaking technology they had access to with a bigger ship: a noticeable increase in consumption of energy and fuel. Until the shipyards solve this problem, larger ships with cloaking will remain a rare sight in Remnant fleets. \tThe cloaking technology is built into the Magpie's hull; it cannot be removed or transferred to another ship.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Magpie",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "62a8243381ba",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Crucible-Class Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Crystal Capacitor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "EMP Torpedo": {
+        "count": 9,
+        "pluginId": "official-game/endless-sky"
+      },
+      "EMP Torpedo Bay": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Emergency Ramscoop": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Epoch Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Forge-Class Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Forge-Class Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Inhibitor Cannon": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Point Defense Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Key Stone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Salvage Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermoelectric Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tuning Rifle": {
+        "count": 12,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Locust",
+    "engines": [
+      {
+        "x": -13,
+        "y": 22
+      },
+      {
+        "x": 13,
+        "y": 22
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -4,
+        "y": -27.5,
+        "gun": ""
+      },
+      {
+        "x": 4,
+        "y": -27.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/Midnight AESmisc hornet",
+    "thumbnail": "thumbnail/Midnight AESmisc hornet",
+    "attributes": {
+      "category": "Drone",
+      "licenses": {
+        "Syndicate Security": true
+      },
+      "cost": 90000,
+      "shields": 500,
+      "hull": 200,
+      "automaton": 1,
+      "mass": 20,
+      "drag": 0.5,
+      "heat dissipation": 0.8,
+      "outfit space": 52,
+      "weapon capacity": 10,
+      "engine capacity": 20,
+      "weapon": {
+        "blast radius": 20,
+        "shield damage": 200,
+        "hull damage": 100,
+        "hit force": 300
+      }
+    },
+    "tiny explosion": 15,
+    "description": "None of the ships publicly sold by the Syndicate are able to deploy drones, but rumors of Locusts being loaded onto Bulk Freighters have fueled speculation on how and where they are being used.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Locust",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "25e16c84b231",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Expansion Cargo Trap (Core)"
+        ]
+      }
+    },
+    "outfits": {
+      "Energy Blaster": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-AA Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Supercapacitor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X1050 Ion Engines": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Ogopogo",
+    "engines": [
+      {
+        "x": -35,
+        "y": 152
+      },
+      {
+        "x": 35,
+        "y": 152
+      },
+      {
+        "x": 0,
+        "y": 159
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -162,
+        "gun": ""
+      },
+      {
+        "x": -50,
+        "y": -27,
+        "gun": ""
+      },
+      {
+        "x": 50,
+        "y": -27,
+        "gun": ""
+      },
+      {
+        "x": -64,
+        "y": 2,
+        "gun": ""
+      },
+      {
+        "x": 64,
+        "y": 2,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -19,
+        "y": -17,
+        "turret": ""
+      },
+      {
+        "x": 19,
+        "y": -17,
+        "turret": ""
+      },
+      {
+        "x": -62,
+        "y": 97,
+        "turret": ""
+      },
+      {
+        "x": 62,
+        "y": 97,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -18,
+        "y": 67
+      },
+      {
+        "type": "Drone",
+        "x": 18,
+        "y": 67
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/AESmisc hydra",
+    "thumbnail": "thumbnail/AESmisc hydra",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 11800000,
+      "shields": 17600,
+      "hull": 6000,
+      "required crew": 53,
+      "bunks": 74,
+      "mass": 1900,
+      "drag": 14.3,
+      "heat dissipation": 0.31,
+      "fuel capacity": 500,
+      "cargo space": 40,
+      "outfit space": 620,
+      "weapon capacity": 240,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 90,
+        "shield damage": 900,
+        "hull damage": 450,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion large",
+    "description": "The Ogopogo is a rare variant of the Leviathan heavy warship. It is slower than normal Leviathans, weighed down by thick layers of additional armor and shield emitters. Half the cargo bay has been altered to launch drones. And somehow, an extra gun port was jammed into the ship's prow, allowing it to carry another weapon into battle.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Ogopogo",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "9b6b6c9e1e36",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Bounty Hunter": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Venomous Fang 2"
+        ]
+      }
+    },
+    "outfits": {
+      "Twin Turbo Blaster": {
+        "count": 4,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Quad Turbo Blaster Turret": {
+        "count": 2,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Twin Torpedo Pod": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Torpedo Storage Rack": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 66,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fusion Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D94-YV Shielding": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Engineering Room": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sniper Rifle": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Laser Rifle": {
+        "count": 73,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A370 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A525 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Wretched Hive",
+    "engines": [
+      {
+        "x": -35,
+        "y": 104,
+        "zoom": 0.8
+      },
+      {
+        "x": 35,
+        "y": 104,
+        "zoom": 0.8
+      },
+      {
+        "x": -11,
+        "y": 125,
+        "zoom": 0.6
+      },
+      {
+        "x": 11,
+        "y": 125,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -39,
+        "y": -51,
+        "turret": ""
+      },
+      {
+        "x": 39,
+        "y": -51,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -10.5,
+        "turret": ""
+      },
+      {
+        "x": -65,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": 65,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 19.5,
+        "turret": ""
+      },
+      {
+        "x": -39,
+        "y": 52.5,
+        "turret": ""
+      },
+      {
+        "x": 39,
+        "y": 52.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -85
+      },
+      {
+        "type": "Drone",
+        "x": -39,
+        "y": -51,
+        "angle": 315
+      },
+      {
+        "type": "Drone",
+        "x": 39,
+        "y": -51,
+        "angle": 45
+      },
+      {
+        "type": "Drone",
+        "x": -65,
+        "y": 1,
+        "angle": 270
+      },
+      {
+        "type": "Drone",
+        "x": 65,
+        "y": 1,
+        "angle": 90
+      },
+      {
+        "type": "Drone",
+        "x": -39,
+        "y": 52.5,
+        "angle": 225
+      },
+      {
+        "type": "Drone",
+        "x": 39,
+        "y": 52.5,
+        "angle": 135
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 20,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/AESmisc bulwark",
+    "thumbnail": "thumbnail/AESmisc bulwark",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 6600000,
+      "shields": 12000,
+      "hull": 10000,
+      "required crew": 36,
+      "bunks": 76,
+      "mass": 1400,
+      "drag": 16.5,
+      "heat dissipation": 0.38,
+      "fuel capacity": 400,
+      "cargo space": 20,
+      "outfit space": 670,
+      "weapon capacity": 240,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 220,
+        "shield damage": 2200,
+        "hull damage": 1100,
+        "hit force": 3300
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion large",
+    "description": "The Wretched Hive is a Protector that was heavily modified by pirates to act as a carrier. The gun ports were removed while the remaining internal weapon circuitry was rerouted through the cargo bay to make space for housing a swarm of drones. Thick armor plating has been added to the hull while additional engine space was made available to offset the added mass and drag.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Wretched Hive",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "23075cd6e837",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Scum & Villainy 2"
+        ]
+      }
+    },
+    "outfits": {
+      "Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Engineering Room": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Fusion Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 41,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sniper Rifle": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D41-HY Shielding": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Modified D67-TM Shielding": {
+        "count": 2,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Proton Turret": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Security Station (Staffed)": {
+        "count": 1,
+        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X4700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

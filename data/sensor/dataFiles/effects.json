@@ -1,0 +1,87 @@
+[
+  {
+    "name": "rockettrace",
+    "sprite": "effect/afterburner",
+    "sprite data": {
+      "scale": 1,
+      "frame rate": 1,
+      "start frame": 0,
+      "no repeat": true
+    },
+    "lifetime": 500,
+    "velocity scale": 0,
+    "random angle": [
+      180,
+      180
+    ],
+    "random velocity": 0.5,
+    "random spin": 10,
+    "pluginId": "sensor/sensor"
+  },
+  {
+    "name": "rocketminitrace",
+    "sprite": "effect/afterburner",
+    "sprite data": {
+      "scale": 0.5,
+      "frame rate": 0.02,
+      "start frame": 1,
+      "no repeat": true
+    },
+    "random angle": 180,
+    "random velocity": 0.2,
+    "velocity scale": 0,
+    "lifetime": 500,
+    "pluginId": "sensor/sensor"
+  },
+  {
+    "name": "sensor-fragmentsparking",
+    "sprite": "effect/finisher sparks",
+    "sprite data": {
+      "scale": 3,
+      "frame rate": 0.05,
+      "no repeat": true
+    },
+    "random angle": 180,
+    "lifetime": 5,
+    "pluginId": "sensor/sensor"
+  },
+  {
+    "name": "finisher trail",
+    "sprite": "effect/finisher trail",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 5
+    },
+    "lifetime": 37,
+    "random spin": 1,
+    "random velocity": 1,
+    "velocity scale": 0.8,
+    "pluginId": "sensor/sensor"
+  },
+  {
+    "name": "sensor-blink",
+    "sprite": "effect/blink",
+    "sprite data": {
+      "scale": 5,
+      "frame rate": 1,
+      "start frame": 0,
+      "no repeat": true
+    },
+    "velocity scale": 0,
+    "random angle": 180,
+    "lifetime": 500,
+    "pluginId": "sensor/sensor"
+  },
+  {
+    "name": "FireStream",
+    "sprite": "projectile/blaze-pike",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "finisher",
+    "lifetime": 120,
+    "velocity scale": 1,
+    "pluginId": "sensor/sensor"
+  }
+]

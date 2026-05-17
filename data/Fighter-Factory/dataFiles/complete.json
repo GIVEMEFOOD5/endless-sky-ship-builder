@@ -81,6 +81,10 @@
         },
         "Blended Ships/blended-ships": {
           "Republic": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
         }
       },
       "locations": {
@@ -209,6 +213,10 @@
         },
         "Blended Ships/blended-ships": {
           "Republic": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
         }
       },
       "locations": {
@@ -332,8 +340,9 @@
       "unplunderable": 1,
       "description": "Experimental ship-board fighter assembly machine for assembling a fighter daily from parts based on a blueprint installed on the machine which can be bought separately. Once bought, depart and land then go to job board and record the current number of fighter. If fighters were loss the machine will produce new fighter based on blueprint to replace it upon landing. Can stack up to two Assembler. MUST be installed on flagship to work.",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true
         }
       },
       "locations": {
@@ -343,6 +352,22 @@
             "Greenwater",
             "New Tortuga",
             "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Kraz Advanced",
+            "Lovelace Advanced",
+            "Syndicate Advanced"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "OAS4001 Wilkes Station",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
           ],
           "Outfitters": [
             "Kraz Advanced",
@@ -390,8 +415,9 @@
       "unplunderable": 1,
       "description": "Storage for fighter parts.",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true
         }
       },
       "locations": {
@@ -421,6 +447,20 @@
             "Lovelace Basics",
             "Syndicate Basics"
           ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Ankaim Orbital Station",
+            "Ankulah Ship Breaking Station",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "Yokosuka Naval Arsenal"
+          ],
+          "Outfitters": [
+            "Kraz Basics",
+            "Lovelace Basics",
+            "Syndicate Basics"
+          ]
         }
       },
       "pluginId": "Fighter Factory/Fighter-Factory"
@@ -436,8 +476,9 @@
       "unplunderable": 1,
       "description": "Storage for fighter parts.",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true
         }
       },
       "locations": {
@@ -447,6 +488,22 @@
             "Greenwater",
             "New Tortuga",
             "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Kraz Advanced",
+            "Lovelace Advanced",
+            "Syndicate Advanced"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "OAS4001 Wilkes Station",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
           ],
           "Outfitters": [
             "Kraz Advanced",
@@ -467,8 +524,16 @@
       "unplunderable": 1,
       "description": "Basic parts for constructing a fighter.",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true,
+          "Syndicate": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true
+        },
+        "sensor/sensor": {
+          "sensor": true
         }
       },
       "locations": {
@@ -511,6 +576,31 @@
             "Syndicate Basics"
           ]
         },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Ankaim Orbital Station",
+            "Ankulah Ship Breaking Station",
+            "CSSY-06 Ningxi Station",
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "OAS4001 Wilkes Station",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Vinci",
+            "Yokosuka Naval Arsenal"
+          ],
+          "Outfitters": [
+            "Basic Outfits",
+            "Common Outfits",
+            "Kraz Advanced",
+            "Kraz Basics",
+            "Lovelace Advanced",
+            "Lovelace Basics",
+            "Syndicate Advanced",
+            "Syndicate Basics"
+          ]
+        },
         "Zuckungs list/galactic.capital.investment": {
           "Planets": [
             "Sapphire"
@@ -518,6 +608,27 @@
           "Outfitters": [
             "Basic Outfits",
             "Common Outfits"
+          ]
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Planets": [
+            "Leroo Station",
+            "Ondoristra",
+            "Salistra",
+            "Sayari Ring",
+            "Steirek"
+          ],
+          "Outfitters": [
+            "Basic Outfits",
+            "Common Outfits"
+          ]
+        },
+        "sensor/sensor": {
+          "Planets": [
+            "lidar"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
           ]
         }
       },
@@ -532,14 +643,27 @@
       "unplunderable": 1,
       "description": "Blueprint for standard Lance fighter made to E1 standard.",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true
         }
       },
       "locations": {
         "official-game/endless-sky": {
           "Planets": [
             "Geminus"
+          ],
+          "Outfitters": [
+            "Lovelace Advanced"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "OAS4001 Wilkes Station",
+            "Yokosuka Naval Arsenal"
           ],
           "Outfitters": [
             "Lovelace Advanced"
@@ -557,8 +681,9 @@
       "unplunderable": 1,
       "description": "Blueprint for custom fighter fighter made to E1 standard. [Default is Torp-equipped Lance. Customize in plugin data by editing ffcustomfighter.txt]",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true
         }
       },
       "locations": {
@@ -568,6 +693,22 @@
             "Greenwater",
             "New Tortuga",
             "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Kraz Advanced",
+            "Lovelace Advanced",
+            "Syndicate Advanced"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "OAS4001 Wilkes Station",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
           ],
           "Outfitters": [
             "Kraz Advanced",
@@ -619,6 +760,14 @@
           "Outfitters": [
             "Kraz Advanced"
           ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "SBO1 Zagreus Station"
+          ],
+          "Outfitters": [
+            "Kraz Advanced"
+          ]
         }
       },
       "pluginId": "Fighter Factory/Fighter-Factory"
@@ -632,8 +781,8 @@
       "unplunderable": 1,
       "description": "Blueprint for standard Barb fighter made to E1 standard.",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "MGF: NGK Security": true
         }
       },
       "locations": {
@@ -641,6 +790,15 @@
           "Planets": [
             "Greenwater",
             "New Tortuga"
+          ],
+          "Outfitters": [
+            "Syndicate Advanced"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Ourea Naval Arsenal",
+            "Yokosuka Naval Arsenal"
           ],
           "Outfitters": [
             "Syndicate Advanced"
@@ -658,8 +816,8 @@
       "unplunderable": 1,
       "description": "Blueprint for Proton Barb fighter made to E1 standard.",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "MGF: NGK Security": true
         }
       },
       "locations": {
@@ -667,6 +825,15 @@
           "Planets": [
             "Greenwater",
             "New Tortuga"
+          ],
+          "Outfitters": [
+            "Syndicate Advanced"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Ourea Naval Arsenal",
+            "Yokosuka Naval Arsenal"
           ],
           "Outfitters": [
             "Syndicate Advanced"
@@ -687,14 +854,27 @@
       "unplunderable": 1,
       "description": "Blueprint for standard Combat Drone made to E1 standard.",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true
         }
       },
       "locations": {
         "official-game/endless-sky": {
           "Planets": [
             "Geminus"
+          ],
+          "Outfitters": [
+            "Lovelace Advanced"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "OAS4001 Wilkes Station",
+            "Yokosuka Naval Arsenal"
           ],
           "Outfitters": [
             "Lovelace Advanced"
@@ -715,14 +895,27 @@
       "unplunderable": 1,
       "description": "Blueprint for standard Surveillance Drone made to E1 standard.",
       "governments": {
-        "Fighter-Factory": {
-          "Fighter-Factory": true
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true
         }
       },
       "locations": {
         "official-game/endless-sky": {
           "Planets": [
             "Geminus"
+          ],
+          "Outfitters": [
+            "Lovelace Advanced"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "OAS4001 Wilkes Station",
+            "Yokosuka Naval Arsenal"
           ],
           "Outfitters": [
             "Lovelace Advanced"
@@ -802,5 +995,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-05-17T00:58:13.604Z"
+  "parsedAt": "2026-05-17T01:06:23.579Z"
 }

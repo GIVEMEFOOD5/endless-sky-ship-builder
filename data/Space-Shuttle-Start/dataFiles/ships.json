@@ -1,0 +1,147 @@
+[
+  {
+    "name": "Space Shuttle",
+    "engines": [
+      {
+        "x": -17,
+        "y": 61.5
+      },
+      {
+        "x": 17,
+        "y": 61.5
+      },
+      {
+        "x": -12,
+        "y": 64
+      },
+      {
+        "x": 12,
+        "y": 64
+      },
+      {
+        "x": -5.5,
+        "y": 65.5
+      },
+      {
+        "x": 5.5,
+        "y": 65.5
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 0,
+        "y": -91.5,
+        "position": "over"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -14.5,
+        "y": -60,
+        "position": "right"
+      },
+      {
+        "x": 14.5,
+        "y": -60,
+        "position": "left"
+      }
+    ],
+    "guns": [],
+    "turrets": [],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": 5
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/spaceshuttle",
+    "thumbnail": "thumbnail/spaceshuttle_thumb",
+    "swizzle": 0,
+    "attributes": {
+      "category": "Utility",
+      "cost": 460000,
+      "shields": 2100,
+      "hull": 5200,
+      "required crew": 4,
+      "bunks": 14,
+      "mass": 990,
+      "drag": 8.8,
+      "heat dissipation": 0.472,
+      "fuel capacity": 400,
+      "cargo space": 210,
+      "outfit space": 270,
+      "weapon capacity": 20,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 60,
+        "shield damage": 600,
+        "hull damage": 300,
+        "hit force": 900
+      }
+    },
+    "zoom": 1,
+    "under": true,
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 25,
+    "large explosion": 10,
+    "final explode": "final explosion medium",
+    "description": "This is an old relic from centuries before the development of the Hyperdrive. Most of its original systems are gone, replaced with modern outfits.",
+    "_internalId": "Space Shuttle Start/Space-Shuttle-Start::Space Shuttle",
+    "_pluginId": "Space Shuttle Start/Space-Shuttle-Start",
+    "_hash": "1ad6d73ed75b",
+    "governments": {
+      "Space-Shuttle-Start": {
+        "Space-Shuttle-Start": true
+      }
+    },
+    "locations": {
+      "Space Shuttle Start/Space-Shuttle-Start": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "nGVF-BB Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D14-RN Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Antique Afterburner": {
+        "count": 1,
+        "pluginId": "Space Shuttle Start/Space-Shuttle-Start"
+      },
+      "X2700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X2200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

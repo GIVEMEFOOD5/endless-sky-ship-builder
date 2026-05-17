@@ -1,0 +1,134 @@
+[
+  {
+    "name": "SPA Skylance",
+    "category": "Turrets",
+    "cost": 24000000,
+    "thumbnail": "outfit/quarg skylance",
+    "mass": 50,
+    "outfit space": -50,
+    "weapon capacity": -50,
+    "turret mounts": -1,
+    "required crew": 1,
+    "licenses": {
+      "SPA Outfit": true
+    },
+    "weapon": {
+      "sprite": "projectile/skylance",
+      "sprite data": {
+        "frame rate": 1
+      },
+      "hardpoint sprite": "hardpoint/quarg skylance",
+      "hardpoint offset": 10,
+      "sound": "skylance",
+      "hit effect": "skylance impact",
+      "inaccuracy": 0.8,
+      "turret turn": 3.7,
+      "velocity": 500,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 21.18,
+      "firing heat": 15,
+      "shield damage": 31.17,
+      "hull damage": 37.97,
+      "ion damage": 0.1
+    },
+    "description": "These immensely powerful beam weapons are used by Quarg warships to strike fear into the hearts of all who dare oppose them. After the disappearance of several SPA agents equipped with Skylances after landing on a Quarg ringworld, the SPA created a slightly different version of the Skylance, which would hopefully be undetectable.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true
+      }
+    },
+    "locations": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Ondoristra",
+          "Salistra",
+          "Sayari Ring",
+          "Steirek"
+        ],
+        "Outfitters": [
+          "Sayari Outfits"
+        ]
+      }
+    },
+    "pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff"
+  },
+  {
+    "name": "SPA Scan Blocker",
+    "category": "Systems",
+    "cost": 60000,
+    "thumbnail": "outfit/unknown",
+    "mass": 4,
+    "outfit space": -8,
+    "scan interference": 2,
+    "description": "The Sayari Plushie Authority uses this Scan Blocker to block incoming CSSF scans and allow their plushie transports to pass by undetected. Combined with false flag Merchant-colored transports, plushies can be transported to any world in human space with minimal fuss.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Arena": true
+      }
+    },
+    "locations": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Ondoristra",
+          "Salistra",
+          "Sayari Ring",
+          "Steirek"
+        ],
+        "Outfitters": [
+          "Sayari Outfits"
+        ],
+        "Ships": [
+          "SPA Rosas"
+        ],
+        "ShipyardPlanets": [
+          "LEEST ",
+          "Ondoristra",
+          "Salistra",
+          "Sayari Ring",
+          "Steirek"
+        ]
+      }
+    },
+    "pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff"
+  },
+  {
+    "name": "Ship Sniper",
+    "category": "Guns",
+    "cost": 4000000,
+    "mass": 5,
+    "outfit space": -40,
+    "weapon capacity": -40,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/torpedo",
+      "sprite data": {
+        "frame rate": 2,
+        "random start frame": true
+      },
+      "sound": "torpedo",
+      "hit effect": "torpedo hit",
+      "inaccuracy": 0.02,
+      "velocity": 50,
+      "lifetime": 480,
+      "reload": 200,
+      "firing energy": 500,
+      "firing heat": 300,
+      "shield damage": 5000,
+      "hull damage": 6000
+    },
+    "description": "The Ship Sniper is a prototype weapon capable of dealing immense damage to any ship unlucky enough to be hit by a Ship Sniper. It has a long reload time and uses up energy and emits immense heat every time it is fired.",
+    "governments": {
+      "Lemurias-Extra-ES-Stuff": {
+        "Lemurias-Extra-ES-Stuff": true
+      }
+    },
+    "locations": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff"
+  }
+]

@@ -1,0 +1,6594 @@
+{
+  "plugin": "Lemurias-Extra-ES-Stuff",
+  "repository": "https://github.com/a-random-lemurian/Lemurias-Extra-ES-Stuff",
+  "ships": [
+    {
+      "name": "Amidala",
+      "engines": [
+        {
+          "x": -24,
+          "y": 237
+        },
+        {
+          "x": 24,
+          "y": 237
+        },
+        {
+          "x": 0,
+          "y": 237
+        },
+        {
+          "x": -24.5,
+          "y": 236.5
+        },
+        {
+          "x": 24.5,
+          "y": 236.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -8,
+          "y": -220,
+          "gun": ""
+        },
+        {
+          "x": -8,
+          "y": -220,
+          "gun": ""
+        },
+        {
+          "x": 8,
+          "y": -220,
+          "gun": ""
+        },
+        {
+          "x": 8,
+          "y": -220,
+          "gun": ""
+        },
+        {
+          "x": -37,
+          "y": -211,
+          "gun": ""
+        },
+        {
+          "x": -37,
+          "y": -211,
+          "gun": ""
+        },
+        {
+          "x": 37,
+          "y": -211,
+          "gun": ""
+        },
+        {
+          "x": 37,
+          "y": -211,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -60.5,
+          "y": -148.5,
+          "turret": ""
+        },
+        {
+          "x": 60.5,
+          "y": -148.5,
+          "turret": ""
+        },
+        {
+          "x": -61.5,
+          "y": -131,
+          "turret": ""
+        },
+        {
+          "x": 61.5,
+          "y": -131,
+          "turret": ""
+        },
+        {
+          "x": -64,
+          "y": -110,
+          "turret": ""
+        },
+        {
+          "x": 64,
+          "y": -110,
+          "turret": ""
+        },
+        {
+          "x": -65,
+          "y": -88,
+          "turret": ""
+        },
+        {
+          "x": 65,
+          "y": -88,
+          "turret": ""
+        },
+        {
+          "x": -71,
+          "y": 43,
+          "turret": ""
+        },
+        {
+          "x": 71,
+          "y": 43,
+          "turret": ""
+        },
+        {
+          "x": -55.5,
+          "y": 42.5,
+          "turret": ""
+        },
+        {
+          "x": 55.5,
+          "y": 42.5,
+          "turret": ""
+        },
+        {
+          "x": -100.5,
+          "y": 189,
+          "turret": ""
+        },
+        {
+          "x": 100.5,
+          "y": 189,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/amidala",
+      "thumbnail": "thumbnail/kar ik vot 349",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 77988000,
+        "shields": 88700,
+        "hull": 74300,
+        "mass": 1500,
+        "drag": 14.2,
+        "bunks": 23,
+        "heat dissipation": 0.5,
+        "fuel capacity": 700,
+        "cargo space": 164,
+        "outfit space": 1259,
+        "weapon capacity": 676,
+        "engine capacity": 214,
+        "self destruct": 0.01,
+        "ramscoop": 3,
+        "weapon": {
+          "blast radius": 450,
+          "shield damage": 6400,
+          "hull damage": 3200,
+          "hit force": 9600
+        }
+      },
+      "tiny explosion": 120,
+      "small explosion": 60,
+      "medium explosion": 70,
+      "large explosion": 50,
+      "huge explosion": 15,
+      "final explode": "final explosion large",
+      "description": "The Amidala-class Battleship (dubbed the Amidala amongst Illumina Regions residents) is the Sayari Plushie Authority's special variant of the Kor Sestor's Kar Ik Vot 349. It has additional outfit space, and has 3 engines instead of 2. A modified version of the Kor Sestor AI is installed on this ship, meaning it requires very little crew. \tThe source code of the modified AI is free and open-source. An installation of the AI comes bundled with every purchase of an Amidala-class Battleship.",
+      "_internalId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff::Amidala",
+      "_pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_hash": "af047292af00",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Arena": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Planets": [
+            "LEEST ",
+            "Ondoristra",
+            "Salistra",
+            "Sayari Ring",
+            "Steirek"
+          ],
+          "Missions": [
+            "SPA salespeople going home, Large [1]",
+            "SPA salespeople going home, Large [2]",
+            "SPA salespeople going home, Large [3]",
+            "SPA salespeople going home, Large [4]"
+          ]
+        }
+      },
+      "outfits": {
+        "Korath Slicer": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Disruptor": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Slicer Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Warder": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Antimatter Core": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nanotech Battery": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Heat Shunt": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bufaer\" Atomic Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bufaer\" Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Jump Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "SPA Rosas",
+      "engines": [
+        {
+          "x": -13,
+          "y": 198,
+          "zoom": 0.7
+        },
+        {
+          "x": 0,
+          "y": 199,
+          "zoom": 1
+        },
+        {
+          "x": 13,
+          "y": 198,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -27,
+          "y": -88,
+          "gun": ""
+        },
+        {
+          "x": 27,
+          "y": -88,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -65,
+          "turret": ""
+        },
+        {
+          "x": -30,
+          "y": -45,
+          "turret": ""
+        },
+        {
+          "x": 30,
+          "y": -45,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 189,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/arach spindle",
+      "thumbnail": "thumbnail/arach spindle",
+      "plural": "SPA Rosases",
+      "attributes": {
+        "category": "Medium Warship",
+        "licenses": {
+          "SPA Ship": true
+        },
+        "cost": 12652000,
+        "shields": 20000,
+        "hull": 42000,
+        "required crew": 4,
+        "bunks": 14,
+        "mass": 340,
+        "drag": 10.8,
+        "heat dissipation": 0.55,
+        "fuel capacity": 500,
+        "cargo space": 300,
+        "outfit space": 586,
+        "weapon capacity": 288,
+        "engine capacity": 198,
+        "weapon": {
+          "blast radius": 100,
+          "shield damage": 1000,
+          "hull damage": 500,
+          "hit force": 1500
+        }
+      },
+      "small explosion": 10,
+      "medium explosion": 20,
+      "large explosion": 20,
+      "final explode": "final explosion large",
+      "description": "The Rosas-class freighter (\"Rosas\" meaning \"pink\" in Tagalog) is a large-scale plushie smuggling ship, meant as a replacement for the Syndicate Bulk Freighter. It may be a freighter but it is classified as a Medium Warship due to its armanent. ",
+      "_internalId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff::SPA Rosas",
+      "_pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_hash": "a12f01861ddc",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Arena": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Planets": [
+            "LEEST ",
+            "Ondoristra",
+            "Salistra",
+            "Sayari Ring",
+            "Steirek"
+          ]
+        }
+      },
+      "outfits": {
+        "Heavy Laser": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "White Sun Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nanotech Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Smelter-Class Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Smelter-Class Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "SPA Scan Blocker": {
+          "count": 10,
+          "pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    }
+  ],
+  "variants": [
+    {
+      "name": "Amidala Miner",
+      "engines": [
+        {
+          "x": -24,
+          "y": 237
+        },
+        {
+          "x": 24,
+          "y": 237
+        },
+        {
+          "x": 0,
+          "y": 237
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -8,
+          "y": -212,
+          "gun": ""
+        },
+        {
+          "x": 8,
+          "y": -212,
+          "gun": ""
+        },
+        {
+          "x": -16,
+          "y": -158,
+          "gun": ""
+        },
+        {
+          "x": 16,
+          "y": -158,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -37,
+          "y": -150,
+          "turret": ""
+        },
+        {
+          "x": 37,
+          "y": -150,
+          "turret": ""
+        },
+        {
+          "x": -38,
+          "y": -132,
+          "turret": ""
+        },
+        {
+          "x": 38,
+          "y": -132,
+          "turret": ""
+        },
+        {
+          "x": -40,
+          "y": -111,
+          "turret": ""
+        },
+        {
+          "x": 40,
+          "y": -111,
+          "turret": ""
+        },
+        {
+          "x": -102,
+          "y": 188,
+          "turret": ""
+        },
+        {
+          "x": 102,
+          "y": 188,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/amidala",
+      "thumbnail": "thumbnail/kar ik vot 349",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 77988000,
+        "shields": 88700,
+        "hull": 74300,
+        "mass": 1500,
+        "drag": 14.2,
+        "bunks": 23,
+        "heat dissipation": 0.5,
+        "fuel capacity": 700,
+        "cargo space": 164,
+        "outfit space": 1259,
+        "weapon capacity": 676,
+        "engine capacity": 214,
+        "self destruct": 0.01,
+        "ramscoop": 3,
+        "weapon": {
+          "blast radius": 450,
+          "shield damage": 6400,
+          "hull damage": 3200,
+          "hit force": 9600
+        }
+      },
+      "tiny explosion": 120,
+      "small explosion": 60,
+      "medium explosion": 70,
+      "large explosion": 50,
+      "huge explosion": 15,
+      "final explode": "final explosion large",
+      "description": "The Amidala-class Battleship (dubbed the Amidala amongst Illumina Regions residents) is the Sayari Plushie Authority's special variant of the Kor Sestor's Kar Ik Vot 349. It has additional outfit space, and has 3 engines instead of 2. A modified version of the Kor Sestor AI is installed on this ship, meaning it requires very little crew. \tThe source code of the modified AI is free and open-source. An installation of the AI comes bundled with every purchase of an Amidala-class Battleship.",
+      "_internalId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff::Amidala",
+      "_pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_hash": "af047292af00",
+      "variant": "Amidala Miner",
+      "baseShip": "Amidala",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Korath Slicer": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Disruptor": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Slicer Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Warder": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Antimatter Core": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nanotech Battery": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Heat Shunt": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bufaer\" Atomic Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bufaer\" Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Jump Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Amidala (Skylance Amidala)",
+      "engines": [
+        {
+          "x": -24,
+          "y": 237
+        },
+        {
+          "x": 24,
+          "y": 237
+        },
+        {
+          "x": 0,
+          "y": 237
+        },
+        {
+          "x": -24.5,
+          "y": 236.5
+        },
+        {
+          "x": 24.5,
+          "y": 236.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -8,
+          "y": -212,
+          "gun": ""
+        },
+        {
+          "x": 8,
+          "y": -212,
+          "gun": ""
+        },
+        {
+          "x": -16,
+          "y": -158,
+          "gun": ""
+        },
+        {
+          "x": 16,
+          "y": -158,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -37,
+          "y": -150,
+          "turret": ""
+        },
+        {
+          "x": 37,
+          "y": -150,
+          "turret": ""
+        },
+        {
+          "x": -38,
+          "y": -132,
+          "turret": ""
+        },
+        {
+          "x": 38,
+          "y": -132,
+          "turret": ""
+        },
+        {
+          "x": -40,
+          "y": -111,
+          "turret": ""
+        },
+        {
+          "x": 40,
+          "y": -111,
+          "turret": ""
+        },
+        {
+          "x": -102,
+          "y": 188,
+          "turret": ""
+        },
+        {
+          "x": 102,
+          "y": 188,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/amidala",
+      "thumbnail": "thumbnail/kar ik vot 349",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 77988000,
+        "shields": 88700,
+        "hull": 74300,
+        "mass": 1500,
+        "drag": 14.2,
+        "bunks": 23,
+        "heat dissipation": 0.5,
+        "fuel capacity": 700,
+        "cargo space": 164,
+        "outfit space": 1259,
+        "weapon capacity": 676,
+        "engine capacity": 214,
+        "self destruct": 0.01,
+        "ramscoop": 3,
+        "weapon": {
+          "blast radius": 450,
+          "shield damage": 6400,
+          "hull damage": 3200,
+          "hit force": 9600
+        }
+      },
+      "tiny explosion": 120,
+      "small explosion": 60,
+      "medium explosion": 70,
+      "large explosion": 50,
+      "huge explosion": 15,
+      "final explode": "final explosion large",
+      "description": "The Amidala-class Battleship (dubbed the Amidala amongst Illumina Regions residents) is the Sayari Plushie Authority's special variant of the Kor Sestor's Kar Ik Vot 349. It has additional outfit space, and has 3 engines instead of 2. A modified version of the Kor Sestor AI is installed on this ship, meaning it requires very little crew. \tThe source code of the modified AI is free and open-source. An installation of the AI comes bundled with every purchase of an Amidala-class Battleship.",
+      "_internalId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff::Amidala",
+      "_pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_hash": "af047292af00",
+      "variant": "Skylance Amidala",
+      "baseShip": "Amidala",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Korath Slicer": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Disruptor": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Slicer Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Warder": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Antimatter Core": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nanotech Battery": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Heat Shunt": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bufaer\" Atomic Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bufaer\" Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Jump Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Falcon (CSSF Falcon (Electron))",
+      "engines": [
+        {
+          "x": -16.5,
+          "y": 143
+        },
+        {
+          "x": 16.5,
+          "y": 143
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -16,
+          "y": -86.5,
+          "gun": ""
+        },
+        {
+          "x": 16,
+          "y": -86.5,
+          "gun": ""
+        },
+        {
+          "x": -19,
+          "y": -76.5,
+          "gun": ""
+        },
+        {
+          "x": 19,
+          "y": -76.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -16,
+          "y": -29,
+          "turret": ""
+        },
+        {
+          "x": 16,
+          "y": -29,
+          "turret": ""
+        },
+        {
+          "x": -50,
+          "y": 39.5,
+          "turret": ""
+        },
+        {
+          "x": 50,
+          "y": 39.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/falcon",
+      "thumbnail": "thumbnail/falcon",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 10900000,
+        "shields": 12800,
+        "hull": 3700,
+        "required crew": 52,
+        "bunks": 91,
+        "mass": 1260,
+        "drag": 11.4,
+        "heat dissipation": 0.42,
+        "fuel capacity": 600,
+        "cargo space": 130,
+        "outfit space": 560,
+        "weapon capacity": 250,
+        "engine capacity": 150,
+        "weapon": {
+          "blast radius": 160,
+          "shield damage": 1600,
+          "hull damage": 800,
+          "hit force": 2400
+        }
+      },
+      "tiny explosion": 40,
+      "small explosion": 55,
+      "medium explosion": 60,
+      "large explosion": 40,
+      "final explode": "final explosion medium",
+      "description": "The Tarazed Falcon is one of the most powerful warships that civilians can buy, a sleeker and more maneuverable alternative to the venerable and somewhat outdated Leviathan.",
+      "_internalId": "official-game/endless-sky::Falcon",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "43b36f581825",
+      "variant": "CSSF Falcon (Electron)",
+      "baseShip": "Falcon",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Free Worlds": true,
+          "Militia": true,
+          "Pirate": true,
+          "Independent": true,
+          "Merchant": true
+        },
+        "Zuckungs list/tribute.republic": {
+          "Republic": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Pirate (Rivals)": true,
+          "Merchant": true,
+          "Independent (Killable)": true,
+          "Oathbreaker": true,
+          "Escort": true,
+          "Bounty (Disguised)": true,
+          "Pirate": true,
+          "Pirate (Rival)": true,
+          "Republic": true,
+          "Scar's Legion": true,
+          "Free Worlds": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true,
+          "Hidalgo Shrine": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "MGF: NBSL": true,
+          "MGF: Crossguard Patrol": true,
+          "MGF: NGK Security": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo": {
+          "count": 60,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quad Blaster Turret": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Breeder Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "KP-6 Photovoltaic Array": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "KP-6 Photovoltaic Panel": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D41-HY Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 15,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Heliarch Punisher (SPA Heliarch Punisher)",
+      "engines": [
+        {
+          "x": -24,
+          "y": 184,
+          "zoom": 0.6
+        },
+        {
+          "x": 0,
+          "y": 187,
+          "zoom": 1.1
+        },
+        {
+          "x": 24,
+          "y": 184,
+          "zoom": 0.6
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -21,
+          "y": -121,
+          "gun": ""
+        },
+        {
+          "x": 21,
+          "y": -121,
+          "gun": ""
+        },
+        {
+          "x": -27,
+          "y": -118,
+          "gun": ""
+        },
+        {
+          "x": 27,
+          "y": -118,
+          "gun": ""
+        },
+        {
+          "x": -43,
+          "y": -43,
+          "gun": ""
+        },
+        {
+          "x": 43,
+          "y": -43,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -13,
+          "y": -42,
+          "turret": ""
+        },
+        {
+          "x": 13,
+          "y": -42,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -35,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 164,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/heliarch punisher",
+      "thumbnail": "thumbnail/heliarch punisher",
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Heliarch": true
+        },
+        "cost": 58487000,
+        "shields": 108000,
+        "hull": 85000,
+        "required crew": 96,
+        "bunks": 145,
+        "mass": 2030,
+        "drag": 21.3,
+        "heat dissipation": 0.35,
+        "ion protection": 0.3,
+        "scramble protection": 0.3,
+        "fuel capacity": 600,
+        "cargo space": 94,
+        "outfit space": 885,
+        "weapon capacity": 352,
+        "engine capacity": 187,
+        "weapon": {
+          "blast radius": 400,
+          "shield damage": 4800,
+          "hull damage": 2400,
+          "hit force": 6000
+        }
+      },
+      "small explosion": 20,
+      "medium explosion": 60,
+      "large explosion": 40,
+      "huge explosion": 20,
+      "final explode": "final explosion large",
+      "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+      "_internalId": "official-game/endless-sky::Heliarch Punisher",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "5cda3aacc509",
+      "variant": "SPA Heliarch Punisher",
+      "baseShip": "Heliarch Punisher",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Ion Rain Gun": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Finisher Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Finisher Torpedo": {
+          "count": 80,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bombardment Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Reactor Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Battery Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overcharged Shield Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overclocked Repair Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Module": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scanning Module": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Riot Staff": {
+          "count": 78,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Confrontation Gear": {
+          "count": 44,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Guardian Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Thrust Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Thrust Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Steering Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Steering Module": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Heliarch Breacher (SPA Heliarch Breacher)",
+      "engines": [
+        {
+          "x": 0,
+          "y": 85,
+          "zoom": 0.9
+        },
+        {
+          "x": -19,
+          "y": 78,
+          "zoom": 0.7
+        },
+        {
+          "x": 19,
+          "y": 79,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 0,
+          "y": -87,
+          "gun": ""
+        },
+        {
+          "x": -20,
+          "y": -33,
+          "gun": ""
+        },
+        {
+          "x": 20,
+          "y": -33,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -23.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/heliarch breacher",
+      "thumbnail": "thumbnail/heliarch breacher",
+      "attributes": {
+        "category": "Light Warship",
+        "licenses": {
+          "Heliarch": true
+        },
+        "cost": 17659000,
+        "shields": 24400,
+        "hull": 21500,
+        "required crew": 11,
+        "bunks": 15,
+        "mass": 343,
+        "drag": 4,
+        "heat dissipation": 0.62,
+        "ion protection": 0.1,
+        "scramble protection": 0.1,
+        "fuel capacity": 800,
+        "cargo space": 13,
+        "outfit space": 372,
+        "weapon capacity": 112,
+        "engine capacity": 106,
+        "weapon": {
+          "blast radius": 150,
+          "shield damage": 1200,
+          "hull damage": 600,
+          "hit force": 1500
+        }
+      },
+      "small explosion": 30,
+      "medium explosion": 40,
+      "large explosion": 20,
+      "final explode": "final explosion medium",
+      "description": "The Breacher isn't the most durable Heliarch vessel, but its impressive forward speed and high firepower for its size make this ship ideal for strafing runs.",
+      "_internalId": "official-game/endless-sky::Heliarch Breacher",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "aa4bdaeb79fd",
+      "variant": "SPA Heliarch Breacher",
+      "baseShip": "Heliarch Breacher",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Bombardment Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bombardment Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Finisher Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Finisher Torpedo": {
+          "count": 40,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Reactor Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Battery Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overcharged Shield Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overclocked Repair Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scanning Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Riot Staff": {
+          "count": 8,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Confrontation Gear": {
+          "count": 6,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Guardian Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Thrust Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Steering Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Heliarch Hunter (SPA Heliarch Hunter)",
+      "engines": [
+        {
+          "x": -5.5,
+          "y": 103,
+          "zoom": 0.1
+        },
+        {
+          "x": 5.5,
+          "y": 103,
+          "zoom": 0.1
+        },
+        {
+          "x": -25,
+          "y": 113,
+          "zoom": 0.8
+        },
+        {
+          "x": 25,
+          "y": 113,
+          "zoom": 0.8
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 0,
+          "y": -117,
+          "gun": ""
+        },
+        {
+          "x": -17.5,
+          "y": -72.5,
+          "gun": ""
+        },
+        {
+          "x": 17.5,
+          "y": -72.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -39.5,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 33,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/heliarch hunter",
+      "thumbnail": "thumbnail/heliarch hunter",
+      "attributes": {
+        "category": "Medium Warship",
+        "licenses": {
+          "Heliarch": true
+        },
+        "cost": 32985000,
+        "shields": 54900,
+        "hull": 45300,
+        "required crew": 26,
+        "bunks": 41,
+        "mass": 860,
+        "drag": 7.7,
+        "heat dissipation": 0.5,
+        "ion protection": 0.2,
+        "scramble protection": 0.2,
+        "fuel capacity": 1500,
+        "cargo space": 27,
+        "outfit space": 552,
+        "weapon capacity": 201,
+        "engine capacity": 141,
+        "weapon": {
+          "blast radius": 200,
+          "shield damage": 2700,
+          "hull damage": 1200,
+          "hit force": 3000
+        }
+      },
+      "small explosion": 30,
+      "medium explosion": 50,
+      "large explosion": 25,
+      "huge explosion": 5,
+      "final explode": "final explosion large",
+      "description": "Although they mostly serve as patrol vessels nowadays in peacetime, Hunters were originally designed to quickly track down dissidents and bring them to justice.",
+      "_internalId": "official-game/endless-sky::Heliarch Hunter",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "03418d015cf9",
+      "variant": "SPA Heliarch Hunter",
+      "baseShip": "Heliarch Hunter",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Finisher Pod": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Finisher Torpedo": {
+          "count": 120,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bombardment Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heliarch Attractor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Reactor Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Battery Module": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overcharged Shield Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overclocked Repair Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scanning Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Riot Staff": {
+          "count": 25,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Confrontation Gear": {
+          "count": 13,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Guardian Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Thrust Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Thrust Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Steering Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Steering Module": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Heliarch Interdictor (SPA Heliarch Interdictor)",
+      "engines": [
+        {
+          "x": -30,
+          "y": 163,
+          "zoom": 0.5
+        },
+        {
+          "x": -20,
+          "y": 163,
+          "zoom": 0.85
+        },
+        {
+          "x": 20,
+          "y": 163,
+          "zoom": 0.85
+        },
+        {
+          "x": 30,
+          "y": 163,
+          "zoom": 0.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -20,
+          "y": -98,
+          "gun": ""
+        },
+        {
+          "x": 20,
+          "y": -98,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -8,
+          "y": -63,
+          "turret": ""
+        },
+        {
+          "x": 8,
+          "y": -63,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/heliarch interdictor",
+      "thumbnail": "thumbnail/heliarch interdictor",
+      "attributes": {
+        "category": "Medium Warship",
+        "licenses": {
+          "Heliarch": true
+        },
+        "cost": 35487000,
+        "shields": 65300,
+        "hull": 54600,
+        "required crew": 42,
+        "bunks": 70,
+        "mass": 1052,
+        "drag": 11.1,
+        "heat dissipation": 0.47,
+        "ion protection": 0.2,
+        "scramble protection": 0.2,
+        "fuel capacity": 800,
+        "cargo space": 79,
+        "outfit space": 544,
+        "weapon capacity": 179,
+        "engine capacity": 135,
+        "weapon": {
+          "blast radius": 250,
+          "shield damage": 3000,
+          "hull damage": 1500,
+          "hit force": 3800
+        }
+      },
+      "small explosion": 20,
+      "medium explosion": 50,
+      "large explosion": 30,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "Anyone who incurs the wrath of the Heliarchs cannot count on making a fast getaway thanks to the Interdictors, which were primarily designed to carry a pair of attractor and repulsor beams that can hold a ship a safe distance away while pushing it around enough to prevent it from getting a hyperspace lock to jump out of the system.",
+      "_internalId": "official-game/endless-sky::Heliarch Interdictor",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "0fafa38ccbb4",
+      "variant": "SPA Heliarch Interdictor",
+      "baseShip": "Heliarch Interdictor",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Storm Seekers": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Finisher Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Finisher Storage Tube": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Finisher Torpedo": {
+          "count": 100,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heliarch Attractor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heliarch Repulsor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Reactor Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Battery Module": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overcharged Shield Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overclocked Repair Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scanning Module": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Riot Staff": {
+          "count": 28,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Confrontation Gear": {
+          "count": 30,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Guardian Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Thrust Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Steering Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Steering Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Heliarch Judicator (SPA Heliarch Judicator)",
+      "engines": [
+        {
+          "x": -33,
+          "y": 108,
+          "zoom": 0.5
+        },
+        {
+          "x": -17,
+          "y": 163,
+          "zoom": 0.7
+        },
+        {
+          "x": 17,
+          "y": 163,
+          "zoom": 0.7
+        },
+        {
+          "x": 33,
+          "y": 108,
+          "zoom": 0.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -13,
+          "y": -124.5,
+          "gun": ""
+        },
+        {
+          "x": 13,
+          "y": -124.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": 45,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -34.5,
+          "y": -82
+        },
+        {
+          "type": "Fighter",
+          "x": 34.5,
+          "y": -82
+        },
+        {
+          "type": "Fighter",
+          "x": -67.5,
+          "y": 35
+        },
+        {
+          "type": "Fighter",
+          "x": -67.5,
+          "y": 35
+        },
+        {
+          "type": "Fighter",
+          "x": 67.5,
+          "y": 35
+        },
+        {
+          "type": "Fighter",
+          "x": 67.5,
+          "y": 35
+        }
+      ],
+      "leaks": [],
+      "sprite": "ship/heliarch judicator",
+      "thumbnail": "thumbnail/heliarch judicator",
+      "attributes": {
+        "category": "Medium Warship",
+        "licenses": {
+          "Heliarch": true
+        },
+        "cost": 33953000,
+        "shields": 47700,
+        "hull": 41900,
+        "required crew": 31,
+        "bunks": 110,
+        "mass": 982,
+        "drag": 11.9,
+        "heat dissipation": 0.45,
+        "ion protection": 0.2,
+        "scramble protection": 0.2,
+        "fuel capacity": 900,
+        "cargo space": 136,
+        "outfit space": 524,
+        "weapon capacity": 164,
+        "engine capacity": 114,
+        "weapon": {
+          "blast radius": 250,
+          "shield damage": 2800,
+          "hull damage": 1400,
+          "hit force": 3800
+        }
+      },
+      "small explosion": 20,
+      "medium explosion": 50,
+      "large explosion": 20,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "During their time battling the Quarg, the Coalition focused on producing the strongest, toughest warships they could, so fightercraft were out of the question. Now, however, the Heliarch's shield matrix and hull integrity technology is much more advanced, and they have recently experimented with such ships. The Judicator was made for transportation of these new fighters. \tAlongside their six fighter bays, Judicators come with a large bunk count and higher cargo space than other Heliarch warships, thus doubling as a logistics vessel for transporting troops and equipment.",
+      "_internalId": "official-game/endless-sky::Heliarch Judicator",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "7935ed9505da",
+      "variant": "SPA Heliarch Judicator",
+      "baseShip": "Heliarch Judicator",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Heliarch": true,
+          "Storm Seekers": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Finisher Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Finisher Torpedo": {
+          "count": 140,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Finisher Storage Tube": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Ion Hail Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Reactor Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Battery Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overcharged Shield Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overclocked Repair Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scanning Module": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Riot Staff": {
+          "count": 83,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Confrontation Gear": {
+          "count": 49,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Guardian Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Thrust Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Steering Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Thrust Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Steering Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Heliarch Neutralizer (SPA Heliarch Neutralizer)",
+      "engines": [
+        {
+          "x": -17,
+          "y": 82,
+          "zoom": 0.7
+        },
+        {
+          "x": 0,
+          "y": 74,
+          "zoom": 1
+        },
+        {
+          "x": 17,
+          "y": 82,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -16,
+          "y": -59,
+          "gun": ""
+        },
+        {
+          "x": 16,
+          "y": -59,
+          "gun": ""
+        },
+        {
+          "x": -22,
+          "y": -57,
+          "gun": ""
+        },
+        {
+          "x": 22,
+          "y": -57,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/heliarch neutralizer",
+      "thumbnail": "thumbnail/heliarch neutralizer",
+      "attributes": {
+        "category": "Light Warship",
+        "licenses": {
+          "Heliarch": true
+        },
+        "cost": 18847000,
+        "shields": 36400,
+        "hull": 32800,
+        "required crew": 17,
+        "bunks": 24,
+        "mass": 429,
+        "drag": 5.1,
+        "heat dissipation": 0.6,
+        "ion protection": 0.1,
+        "scramble protection": 0.1,
+        "fuel capacity": 1000,
+        "cargo space": 36,
+        "outfit space": 367,
+        "weapon capacity": 72,
+        "engine capacity": 102,
+        "weapon": {
+          "blast radius": 150,
+          "shield damage": 1800,
+          "hull damage": 900,
+          "hit force": 2100
+        }
+      },
+      "small explosion": 30,
+      "medium explosion": 40,
+      "large explosion": 20,
+      "final explode": "final explosion medium",
+      "description": "The most common Heliarch patrol ship, Neutralizers are designed to be just strong enough to keep an enemy vessel occupied until reinforcements can arrive.",
+      "_internalId": "official-game/endless-sky::Heliarch Neutralizer",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "e3ce0014715d",
+      "variant": "SPA Heliarch Neutralizer",
+      "baseShip": "Heliarch Neutralizer",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Ion Rain Gun": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Reactor Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Battery Module": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overcharged Shield Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Overclocked Repair Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scanning Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Riot Staff": {
+          "count": 9,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Enforcer Confrontation Gear": {
+          "count": 11,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Guardian Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Thrust Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Thrust Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Steering Module": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Steering Module": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Hauler III (SPA Hauler III)",
+      "engines": [
+        {
+          "x": -45,
+          "y": 196.5
+        },
+        {
+          "x": 45,
+          "y": 196.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -14.5,
+          "y": -166.5,
+          "gun": ""
+        },
+        {
+          "x": 14.5,
+          "y": -166.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -21.5,
+          "y": -122,
+          "turret": ""
+        },
+        {
+          "x": 21.5,
+          "y": -122,
+          "turret": ""
+        },
+        {
+          "x": -18.5,
+          "y": 152.5,
+          "turret": ""
+        },
+        {
+          "x": 18.5,
+          "y": 152.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 40,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/hauler iii",
+      "thumbnail": "thumbnail/hauler iii",
+      "attributes": {
+        "category": "Heavy Freighter",
+        "cost": 3260000,
+        "shields": 3300,
+        "hull": 6700,
+        "required crew": 3,
+        "bunks": 12,
+        "mass": 790,
+        "drag": 11.6,
+        "heat dissipation": 0.43,
+        "fuel capacity": 400,
+        "cargo space": 390,
+        "outfit space": 350,
+        "weapon capacity": 140,
+        "engine capacity": 80,
+        "weapon": {
+          "blast radius": 100,
+          "shield damage": 1000,
+          "hull damage": 500,
+          "hit force": 1500
+        }
+      },
+      "small explosion": 15,
+      "medium explosion": 30,
+      "large explosion": 20,
+      "huge explosion": 5,
+      "final explode": "final explosion large",
+      "description": "Considered by many to be outdated, there are nonetheless many Haulers still in service due to their combination of comparatively low price and simple construction. This large version of the Hauler provides the best tradeoff between price and cargo space.",
+      "_internalId": "official-game/endless-sky::Hauler III",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "5b6b5f98a1d1",
+      "variant": "SPA Hauler III",
+      "baseShip": "Hauler III",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Merchant": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Merchant": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Merchant": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Meteor Missile Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Meteor Missile": {
+          "count": 59,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Meteor Missile Box": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quad Blaster Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "S3 Thermionic": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP072a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D23-QP Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Capybara Reverse Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Aerie Miner",
+      "engines": [
+        {
+          "x": 0,
+          "y": 91
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -13,
+          "y": -79,
+          "gun": ""
+        },
+        {
+          "x": 13,
+          "y": -79,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 14,
+          "turret": ""
+        },
+        {
+          "x": -17,
+          "y": 14,
+          "turret": ""
+        },
+        {
+          "x": 17,
+          "y": 14,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/aerie",
+      "thumbnail": "thumbnail/aerie",
+      "attributes": {
+        "category": "Medium Warship",
+        "cost": 3500000,
+        "shields": 5700,
+        "hull": 1900,
+        "required crew": 10,
+        "bunks": 28,
+        "mass": 390,
+        "drag": 6.15,
+        "heat dissipation": 0.47,
+        "fuel capacity": 500,
+        "cargo space": 50,
+        "outfit space": 390,
+        "weapon capacity": 150,
+        "engine capacity": 95,
+        "weapon": {
+          "blast radius": 80,
+          "shield damage": 800,
+          "hull damage": 400,
+          "hit force": 1200
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 25,
+      "medium explosion": 25,
+      "large explosion": 10,
+      "final explode": "final explosion medium",
+      "description": "The Lionheart Aerie is a light carrier, designed to be just big enough for four fighter bays plus a decent armament of its own. Variations on this same ship design have been in use in the Deep for almost half a millennium, but this model comes with the very latest in generator and weapon technology.",
+      "_internalId": "official-game/endless-sky::Aerie",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "b356fbe1c855",
+      "variant": "Aerie Miner",
+      "baseShip": "Aerie",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Merchant": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "NT-200 Nucleovoltaic": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "KP-6 Photovoltaic Panel": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP072a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D41-HY Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X3700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X3200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Gunboat (SPA Gunboat)",
+      "engines": [
+        {
+          "x": -12,
+          "y": 57.5,
+          "zoom": 0.7
+        },
+        {
+          "x": 12,
+          "y": 57.5,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -28.5,
+          "y": -27.5,
+          "gun": ""
+        },
+        {
+          "x": 28.5,
+          "y": -27.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -1,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        }
+      ],
+      "sprite": "ship/gunboat",
+      "thumbnail": "thumbnail/gunboat",
+      "attributes": {
+        "category": "Light Warship",
+        "licenses": {
+          "Navy": true
+        },
+        "cost": 3200000,
+        "shields": 5800,
+        "hull": 1400,
+        "required crew": 7,
+        "bunks": 12,
+        "mass": 280,
+        "drag": 4,
+        "heat dissipation": 0.62,
+        "fuel capacity": 600,
+        "cargo space": 50,
+        "outfit space": 270,
+        "weapon capacity": 100,
+        "engine capacity": 90,
+        "weapon": {
+          "blast radius": 72,
+          "shield damage": 720,
+          "hull damage": 360,
+          "hit force": 1080
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 20,
+      "medium explosion": 15,
+      "final explode": "final explosion small",
+      "description": "The Navy Gunboat is designed for engaging targets at short range, and also serves as the Navy's mobile sensor platform, scanning ships for illegal equipment or cargo.",
+      "_internalId": "official-game/endless-sky::Gunboat",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "d238037c9bac",
+      "variant": "SPA Gunboat",
+      "baseShip": "Gunboat",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Republic": true,
+          "Oathbreaker": true,
+          "Pirate": true
+        },
+        "Blended Ships/blended-ships": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Heavy Laser": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "RT-I Radiothermal": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cargo Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfit Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Brig": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X3700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X2200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Gunboat (SPA Gunboat (Proton Gun))",
+      "engines": [
+        {
+          "x": -12,
+          "y": 57.5,
+          "zoom": 0.7
+        },
+        {
+          "x": 12,
+          "y": 57.5,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -28.5,
+          "y": -27.5,
+          "gun": ""
+        },
+        {
+          "x": 28.5,
+          "y": -27.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -1,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        }
+      ],
+      "sprite": "ship/gunboat",
+      "thumbnail": "thumbnail/gunboat",
+      "attributes": {
+        "category": "Light Warship",
+        "licenses": {
+          "Navy": true
+        },
+        "cost": 3200000,
+        "shields": 5800,
+        "hull": 1400,
+        "required crew": 7,
+        "bunks": 12,
+        "mass": 280,
+        "drag": 4,
+        "heat dissipation": 0.62,
+        "fuel capacity": 600,
+        "cargo space": 50,
+        "outfit space": 270,
+        "weapon capacity": 100,
+        "engine capacity": 90,
+        "weapon": {
+          "blast radius": 72,
+          "shield damage": 720,
+          "hull damage": 360,
+          "hit force": 1080
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 20,
+      "medium explosion": 15,
+      "final explode": "final explosion small",
+      "description": "The Navy Gunboat is designed for engaging targets at short range, and also serves as the Navy's mobile sensor platform, scanning ships for illegal equipment or cargo.",
+      "_internalId": "official-game/endless-sky::Gunboat",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "d238037c9bac",
+      "variant": "SPA Gunboat (Proton Gun)",
+      "baseShip": "Gunboat",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Bounty Hunter (licensed)": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Better Vanilla Pirates/BetterVanillaPirates": {
+          "Republic": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        },
+        "Blended Ships/blended-ships": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Heavy Laser": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "RT-I Radiothermal": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cargo Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfit Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Brig": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X3700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X2200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Gunboat (SPA Gunboat (Blaze-Pike))",
+      "engines": [
+        {
+          "x": -12,
+          "y": 57.5,
+          "zoom": 0.7
+        },
+        {
+          "x": 12,
+          "y": 57.5,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -28.5,
+          "y": -27.5,
+          "gun": ""
+        },
+        {
+          "x": 28.5,
+          "y": -27.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -28.5,
+          "y": -27.5,
+          "turret": ""
+        },
+        {
+          "x": 28.5,
+          "y": -27.5,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -1,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        }
+      ],
+      "sprite": "ship/gunboat",
+      "thumbnail": "thumbnail/gunboat",
+      "attributes": {
+        "category": "Light Warship",
+        "licenses": {
+          "Navy": true
+        },
+        "cost": 3200000,
+        "shields": 5800,
+        "hull": 1400,
+        "required crew": 7,
+        "bunks": 12,
+        "mass": 280,
+        "drag": 4,
+        "heat dissipation": 0.62,
+        "fuel capacity": 600,
+        "cargo space": 50,
+        "outfit space": 270,
+        "weapon capacity": 100,
+        "engine capacity": 90,
+        "weapon": {
+          "blast radius": 72,
+          "shield damage": 720,
+          "hull damage": 360,
+          "hit force": 1080
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 20,
+      "medium explosion": 15,
+      "final explode": "final explosion small",
+      "description": "The Navy Gunboat is designed for engaging targets at short range, and also serves as the Navy's mobile sensor platform, scanning ships for illegal equipment or cargo.",
+      "_internalId": "official-game/endless-sky::Gunboat",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "d238037c9bac",
+      "variant": "SPA Gunboat (Blaze-Pike)",
+      "baseShip": "Gunboat",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Bounty Hunter (licensed)": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Better Vanilla Pirates/BetterVanillaPirates": {
+          "Republic": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        },
+        "Blended Ships/blended-ships": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Heavy Laser": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "RT-I Radiothermal": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cargo Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfit Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Brig": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X3700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X2200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Cruiser (SPA Cruiser)",
+      "engines": [
+        {
+          "x": -52,
+          "y": 151,
+          "zoom": 0.75
+        },
+        {
+          "x": -28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 0,
+          "y": 154,
+          "zoom": 0.5
+        },
+        {
+          "x": 28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 52,
+          "y": 151,
+          "zoom": 0.75
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": -40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": 40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": -30,
+          "y": -30,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -30,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -39.5,
+          "turret": ""
+        },
+        {
+          "x": -32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": -10,
+          "y": 0,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 49.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 49.5
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Navy Cruiser": true
+        },
+        "cost": 11200000,
+        "shields": 19600,
+        "hull": 6400,
+        "required crew": 81,
+        "bunks": 136,
+        "mass": 1910,
+        "drag": 18.7,
+        "heat dissipation": 0.25,
+        "fuel capacity": 600,
+        "cargo space": 60,
+        "outfit space": 760,
+        "weapon capacity": 320,
+        "engine capacity": 170,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "tiny explosion": 20,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
+      "_internalId": "official-game/endless-sky::Cruiser",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "6241e777a3c1",
+      "variant": "SPA Cruiser",
+      "baseShip": "Cruiser",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Pirate": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Republic": true,
+          "Pirate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP288a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fragmentation Grenades": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Cruiser (SPA Cruiser (PFC))",
+      "engines": [
+        {
+          "x": -52,
+          "y": 151,
+          "zoom": 0.75
+        },
+        {
+          "x": -28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 0,
+          "y": 154,
+          "zoom": 0.5
+        },
+        {
+          "x": 28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 52,
+          "y": 151,
+          "zoom": 0.75
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -55,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -55,
+          "turret": ""
+        },
+        {
+          "x": 10,
+          "y": -40,
+          "turret": ""
+        },
+        {
+          "x": -10,
+          "y": -40,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -25,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 49.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 49.5
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Navy Cruiser": true
+        },
+        "cost": 11200000,
+        "shields": 19600,
+        "hull": 6400,
+        "required crew": 81,
+        "bunks": 136,
+        "mass": 1910,
+        "drag": 18.7,
+        "heat dissipation": 0.25,
+        "fuel capacity": 600,
+        "cargo space": 60,
+        "outfit space": 760,
+        "weapon capacity": 320,
+        "engine capacity": 170,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "tiny explosion": 20,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
+      "_internalId": "official-game/endless-sky::Cruiser",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "6241e777a3c1",
+      "variant": "SPA Cruiser (PFC)",
+      "baseShip": "Cruiser",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP288a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fragmentation Grenades": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Cruiser (SPA Cruiser (Blaze-Pike))",
+      "engines": [
+        {
+          "x": -52,
+          "y": 151,
+          "zoom": 0.75
+        },
+        {
+          "x": -28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 0,
+          "y": 154,
+          "zoom": 0.5
+        },
+        {
+          "x": 28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 52,
+          "y": 151,
+          "zoom": 0.75
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": -40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": 40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": -30,
+          "y": -30,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -30,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -39.5,
+          "turret": ""
+        },
+        {
+          "x": -32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": -10,
+          "y": 0,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 49.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 49.5
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Navy Cruiser": true
+        },
+        "cost": 11200000,
+        "shields": 19600,
+        "hull": 6400,
+        "required crew": 81,
+        "bunks": 136,
+        "mass": 1910,
+        "drag": 18.7,
+        "heat dissipation": 0.25,
+        "fuel capacity": 600,
+        "cargo space": 60,
+        "outfit space": 760,
+        "weapon capacity": 320,
+        "engine capacity": 170,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "tiny explosion": 20,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
+      "_internalId": "official-game/endless-sky::Cruiser",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "6241e777a3c1",
+      "variant": "SPA Cruiser (Blaze-Pike)",
+      "baseShip": "Cruiser",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP288a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fragmentation Grenades": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Cruiser (SPA Cruiser (Electron))",
+      "engines": [
+        {
+          "x": -52,
+          "y": 151,
+          "zoom": 0.75
+        },
+        {
+          "x": -28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 0,
+          "y": 154,
+          "zoom": 0.5
+        },
+        {
+          "x": 28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 52,
+          "y": 151,
+          "zoom": 0.75
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": -40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": 40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": -30,
+          "y": -30,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -30,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -39.5,
+          "turret": ""
+        },
+        {
+          "x": -32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": -10,
+          "y": 0,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 49.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 49.5
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Navy Cruiser": true
+        },
+        "cost": 11200000,
+        "shields": 19600,
+        "hull": 6400,
+        "required crew": 81,
+        "bunks": 136,
+        "mass": 1910,
+        "drag": 18.7,
+        "heat dissipation": 0.25,
+        "fuel capacity": 600,
+        "cargo space": 60,
+        "outfit space": 760,
+        "weapon capacity": 320,
+        "engine capacity": 170,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "tiny explosion": 20,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
+      "_internalId": "official-game/endless-sky::Cruiser",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "6241e777a3c1",
+      "variant": "SPA Cruiser (Electron)",
+      "baseShip": "Cruiser",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP288a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fragmentation Grenades": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Cruiser (SPA Cruiser (Ion))",
+      "engines": [
+        {
+          "x": -52,
+          "y": 151,
+          "zoom": 0.75
+        },
+        {
+          "x": -28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 0,
+          "y": 154,
+          "zoom": 0.5
+        },
+        {
+          "x": 28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 52,
+          "y": 151,
+          "zoom": 0.75
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": -40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": 40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": -30,
+          "y": -30,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -30,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -39.5,
+          "turret": ""
+        },
+        {
+          "x": -32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": -10,
+          "y": 0,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 49.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 49.5
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Navy Cruiser": true
+        },
+        "cost": 11200000,
+        "shields": 19600,
+        "hull": 6400,
+        "required crew": 81,
+        "bunks": 136,
+        "mass": 1910,
+        "drag": 18.7,
+        "heat dissipation": 0.25,
+        "fuel capacity": 600,
+        "cargo space": 60,
+        "outfit space": 760,
+        "weapon capacity": 320,
+        "engine capacity": 170,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "tiny explosion": 20,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
+      "_internalId": "official-game/endless-sky::Cruiser",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "6241e777a3c1",
+      "variant": "SPA Cruiser (Ion)",
+      "baseShip": "Cruiser",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP288a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fragmentation Grenades": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Cruiser (SPA Cruiser (Korath Slicer))",
+      "engines": [
+        {
+          "x": -52,
+          "y": 151,
+          "zoom": 0.75
+        },
+        {
+          "x": -28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 0,
+          "y": 154,
+          "zoom": 0.5
+        },
+        {
+          "x": 28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 52,
+          "y": 151,
+          "zoom": 0.75
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": -40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": 40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": -30,
+          "y": -30,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -30,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -39.5,
+          "turret": ""
+        },
+        {
+          "x": -32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": -10,
+          "y": 0,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 49.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 49.5
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Navy Cruiser": true
+        },
+        "cost": 11200000,
+        "shields": 19600,
+        "hull": 6400,
+        "required crew": 81,
+        "bunks": 136,
+        "mass": 1910,
+        "drag": 18.7,
+        "heat dissipation": 0.25,
+        "fuel capacity": 600,
+        "cargo space": 60,
+        "outfit space": 760,
+        "weapon capacity": 320,
+        "engine capacity": 170,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "tiny explosion": 20,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
+      "_internalId": "official-game/endless-sky::Cruiser",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "6241e777a3c1",
+      "variant": "SPA Cruiser (Korath Slicer)",
+      "baseShip": "Cruiser",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP288a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fragmentation Grenades": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Cruiser (SPA Cruiser (Particle Cannon))",
+      "engines": [
+        {
+          "x": -52,
+          "y": 151,
+          "zoom": 0.75
+        },
+        {
+          "x": -28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 0,
+          "y": 154,
+          "zoom": 0.5
+        },
+        {
+          "x": 28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 52,
+          "y": 151,
+          "zoom": 0.75
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": -40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": 40.5,
+          "y": -52,
+          "gun": ""
+        },
+        {
+          "x": -30,
+          "y": -30,
+          "gun": ""
+        },
+        {
+          "x": 30,
+          "y": -30,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -39.5,
+          "turret": ""
+        },
+        {
+          "x": -32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 32,
+          "y": -23,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "turret": ""
+        },
+        {
+          "x": -10,
+          "y": 0,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 49.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 49.5
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Navy Cruiser": true
+        },
+        "cost": 11200000,
+        "shields": 19600,
+        "hull": 6400,
+        "required crew": 81,
+        "bunks": 136,
+        "mass": 1910,
+        "drag": 18.7,
+        "heat dissipation": 0.25,
+        "fuel capacity": 600,
+        "cargo space": 60,
+        "outfit space": 760,
+        "weapon capacity": 320,
+        "engine capacity": 170,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "tiny explosion": 20,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
+      "_internalId": "official-game/endless-sky::Cruiser",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "6241e777a3c1",
+      "variant": "SPA Cruiser (Particle Cannon)",
+      "baseShip": "Cruiser",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP288a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fragmentation Grenades": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Carrier (SPA Carrier (Combat))",
+      "engines": [
+        {
+          "x": -36.5,
+          "y": 200,
+          "zoom": 0.65
+        },
+        {
+          "x": 36.5,
+          "y": 200,
+          "zoom": 0.65
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -17.5,
+          "y": -176.5,
+          "gun": ""
+        },
+        {
+          "x": 17.5,
+          "y": -176.5,
+          "gun": ""
+        },
+        {
+          "x": -17.5,
+          "y": -176.5,
+          "gun": ""
+        },
+        {
+          "x": 17.5,
+          "y": -176.5,
+          "gun": ""
+        },
+        {
+          "x": -26,
+          "y": -167.5,
+          "gun": ""
+        },
+        {
+          "x": 26,
+          "y": -167.5,
+          "gun": ""
+        },
+        {
+          "x": -26,
+          "y": -167.5,
+          "gun": ""
+        },
+        {
+          "x": 26,
+          "y": -167.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -49,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 14,
+          "turret": ""
+        },
+        {
+          "x": -22,
+          "y": 22,
+          "turret": ""
+        },
+        {
+          "x": 22,
+          "y": 22,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -38.5,
+          "y": -64.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 38.5,
+          "y": -64.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -38.5,
+          "y": -64.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 38.5,
+          "y": -64.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -50,
+          "y": 40.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 50,
+          "y": 40.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -50,
+          "y": 40.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 50,
+          "y": 40.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Drone",
+          "x": -71.5,
+          "y": -49.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Drone",
+          "x": 71.5,
+          "y": -49.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Drone",
+          "x": -115,
+          "y": 55,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Drone",
+          "x": 115,
+          "y": 55,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Drone",
+          "x": -85,
+          "y": 55,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Drone",
+          "x": 85,
+          "y": 55,
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 30,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/carrier",
+      "thumbnail": "thumbnail/carrier",
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Navy Carrier": true
+        },
+        "cost": 15200000,
+        "shields": 21400,
+        "hull": 8300,
+        "required crew": 111,
+        "bunks": 184,
+        "mass": 2640,
+        "drag": 35.4,
+        "heat dissipation": 0.23,
+        "fuel capacity": 700,
+        "cargo space": 100,
+        "outfit space": 820,
+        "weapon capacity": 240,
+        "engine capacity": 210,
+        "weapon": {
+          "blast radius": 300,
+          "shield damage": 3000,
+          "hull damage": 1500,
+          "hit force": 4500
+        }
+      },
+      "tiny explosion": 20,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+      "_internalId": "official-game/endless-sky::Carrier",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "8964d3a0ae3c",
+      "variant": "SPA Carrier (Combat)",
+      "baseShip": "Carrier",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Meteor Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Meteor Missile": {
+          "count": 60,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Rack": {
+          "count": 8,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 184,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo": {
+          "count": 60,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP288a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D94-YV Shield Generator": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Water Coolant System": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Brig": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 40,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fragmentation Grenades": {
+          "count": 40,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X5700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Shield Beetle (SPA Shield Beetle (Proton))",
+      "engines": [
+        {
+          "x": -44,
+          "y": 133
+        },
+        {
+          "x": 44,
+          "y": 133
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -22,
+          "y": -102,
+          "gun": ""
+        },
+        {
+          "x": 22,
+          "y": -102,
+          "gun": ""
+        },
+        {
+          "x": -34,
+          "y": -68,
+          "gun": ""
+        },
+        {
+          "x": 34,
+          "y": -68,
+          "gun": ""
+        },
+        {
+          "x": -49,
+          "y": -38,
+          "gun": ""
+        },
+        {
+          "x": 49,
+          "y": -38,
+          "gun": ""
+        },
+        {
+          "x": -61,
+          "y": -14,
+          "gun": ""
+        },
+        {
+          "x": 61,
+          "y": -14,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -39,
+          "y": 48,
+          "turret": ""
+        },
+        {
+          "x": 39,
+          "y": 48,
+          "turret": ""
+        },
+        {
+          "x": -57,
+          "y": 75,
+          "turret": ""
+        },
+        {
+          "x": 57,
+          "y": 75,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 50
+        }
+      ],
+      "sprite": "ship/hai shield beetle",
+      "thumbnail": "thumbnail/hai shield beetle",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 17900000,
+        "shields": 32000,
+        "hull": 9800,
+        "required crew": 47,
+        "bunks": 95,
+        "mass": 1881,
+        "drag": 16.3,
+        "heat dissipation": 0.33,
+        "fuel capacity": 500,
+        "cargo space": 142,
+        "outfit space": 798,
+        "weapon capacity": 333,
+        "engine capacity": 150,
+        "weapon": {
+          "blast radius": 400,
+          "shield damage": 4000,
+          "hull damage": 2000,
+          "hit force": 3000
+        }
+      },
+      "tiny explosion": 50,
+      "small explosion": 50,
+      "medium explosion": 50,
+      "large explosion": 50,
+      "huge explosion": 20,
+      "final explode": "final explosion large",
+      "description": "This ship was first built millennia ago, near the end of a more violent time in Hai history. Since then, it has served as the only heavy warship at the disposal of the Hai. The Shield Beetle is a versatile warship used by the Hai to guard their merchant convoys, or by the Unfettered to attack those very same convoys.",
+      "_internalId": "official-game/endless-sky::Shield Beetle",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "130e321397c9",
+      "variant": "SPA Shield Beetle (Proton)",
+      "baseShip": "Shield Beetle",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Hai": true,
+          "Hai Merchant": true,
+          "Hai Merchant (Sympathizers)": true,
+          "Hai Merchant (Human)": true,
+          "Hai (Unfettered)": true,
+          "Merchant": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Independent": true,
+          "Independent (Killable)": true,
+          "Pirate": true,
+          "Storm Seekers": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Bounty Hunter": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Ion Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Tracker Pod": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Tracker": {
+          "count": 280,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tracker Storage Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bullfrog Anti-Missile": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Cuttlefish Jammer": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Boulder Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Geode Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Valley Batteries": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Diamond Regenerator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Williwaw Cooling": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quantum Keystone": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Pulse Rifle": {
+          "count": 55,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bondir\" Atomic Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bufaer\" Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Skein (SPA Skein)",
+      "engines": [
+        {
+          "x": -45,
+          "y": 196.5
+        },
+        {
+          "x": 45,
+          "y": 196.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -14.5,
+          "y": -166.5,
+          "gun": ""
+        },
+        {
+          "x": 14.5,
+          "y": -166.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -21.5,
+          "y": -122,
+          "turret": ""
+        },
+        {
+          "x": 21.5,
+          "y": -122,
+          "turret": ""
+        },
+        {
+          "x": -18.5,
+          "y": 152.5,
+          "turret": ""
+        },
+        {
+          "x": 18.5,
+          "y": 152.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -47,
+          "y": -61,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": 47,
+          "y": -61,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": -47,
+          "y": 14,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": 47,
+          "y": 14,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": -47,
+          "y": 88,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": 47,
+          "y": 88,
+          "position": "under"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 40,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 70,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/skein",
+      "thumbnail": "thumbnail/skein",
+      "attributes": {
+        "category": "Utility",
+        "licenses": {
+          "Militia": true
+        },
+        "cost": 3500000,
+        "shields": 3300,
+        "hull": 6700,
+        "required crew": 9,
+        "bunks": 18,
+        "mass": 850,
+        "drag": 11.6,
+        "heat dissipation": 0.51,
+        "fuel capacity": 700,
+        "cargo space": 120,
+        "outfit space": 500,
+        "weapon capacity": 140,
+        "engine capacity": 80,
+        "weapon": {
+          "blast radius": 100,
+          "shield damage": 1000,
+          "hull damage": 500,
+          "hit force": 1500
+        }
+      },
+      "small explosion": 15,
+      "medium explosion": 30,
+      "large explosion": 20,
+      "huge explosion": 5,
+      "final explode": "final explosion large",
+      "description": "This particular cockpit and engine set has found itself attached to three of Southbound Shipyards' new \"Type F\" Fighter-carrier pods. When the Free Worlds asked for a carrier, they did not expect one that would be able to carry almost as many fighters as the heaviest Navy warships. Given this fact, the Free Worlds have asked Southbound and Tarazed to restrict sale of the \"Hauler III: Type F,\" \"Skein\" to its Militia only.",
+      "_internalId": "official-game/endless-sky::Skein",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "956420dfa284",
+      "variant": "SPA Skein",
+      "baseShip": "Skein",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Free Worlds": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Free Worlds": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Meteor Missile Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Meteor Missile": {
+          "count": 29,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Meteor Missile Box": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quad Blaster Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "S3 Thermionic": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP072a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Capybara Reverse Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Bactrian (Old Bactrian)",
+      "engines": [
+        {
+          "x": 18.5,
+          "y": 232
+        },
+        {
+          "x": -15,
+          "y": 232
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -9,
+          "y": -231.5,
+          "gun": ""
+        },
+        {
+          "x": 13.5,
+          "y": -231.5,
+          "gun": ""
+        },
+        {
+          "x": 36.5,
+          "y": -197,
+          "gun": ""
+        },
+        {
+          "x": 42,
+          "y": -193,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 37,
+          "y": -132.5,
+          "turret": ""
+        },
+        {
+          "x": -39,
+          "y": -39,
+          "turret": ""
+        },
+        {
+          "x": 31.5,
+          "y": -26,
+          "turret": ""
+        },
+        {
+          "x": -42.5,
+          "y": 75,
+          "turret": ""
+        },
+        {
+          "x": 32.5,
+          "y": 132,
+          "turret": ""
+        },
+        {
+          "x": -33.5,
+          "y": 192.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -43.5,
+          "y": -125,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 53,
+          "y": -72.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -50,
+          "y": 103.5,
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 50,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/old_bactrian",
+      "thumbnail": "thumbnail/old_bactrian",
+      "attributes": {
+        "licenses": {
+          "City-Ship": true
+        },
+        "category": "Utility",
+        "cost": 17600000,
+        "shields": 17500,
+        "hull": 8600,
+        "required crew": 70,
+        "bunks": 245,
+        "mass": 2450,
+        "drag": 30.6,
+        "heat dissipation": 0.22,
+        "fuel capacity": 700,
+        "cargo space": 530,
+        "outfit space": 740,
+        "weapon capacity": 300,
+        "engine capacity": 180,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "small explosion": 25,
+      "medium explosion": 35,
+      "large explosion": 45,
+      "huge explosion": 30,
+      "final explode": "final explosion large",
+      "description": "The Lionheart Bactrian is the last of the great city-ships, a design hearkening back to the early days of space colonization when a long-distance vessel needed to be a self-contained world, able to survive for weeks at a time without encountering an inhabited planet. It is not only a freighter, but a carrier, and a capable warship either at short range or at a distance. \tNaturally, this versatility also makes it extremely expensive, and the Bactrian is normally only for sale to citizens who have been vetted by the local government of the Deep.",
+      "_internalId": "official-game/endless-sky::Bactrian",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "f80228c395a7",
+      "variant": "Old Bactrian",
+      "baseShip": "Bactrian",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Deep Security": true
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "Pirate": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Pirate": true,
+          "Bounty (Disguised)": true,
+          "Bounty Hunter": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo Launcher": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo": {
+          "count": 30,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D94-YV Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Ramscoop": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 15,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X5200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Kestrel (SPA Kestrel)",
+      "engines": [
+        {
+          "x": 13,
+          "y": 170
+        },
+        {
+          "x": -13,
+          "y": 170
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -73.5,
+          "y": 46,
+          "gun": ""
+        },
+        {
+          "x": -76.5,
+          "y": 49,
+          "gun": ""
+        },
+        {
+          "x": 73.5,
+          "y": 46,
+          "gun": ""
+        },
+        {
+          "x": 76.5,
+          "y": 49,
+          "gun": ""
+        },
+        {
+          "x": -51,
+          "y": 49.5,
+          "gun": ""
+        },
+        {
+          "x": -55.5,
+          "y": 52.5,
+          "gun": ""
+        },
+        {
+          "x": 51,
+          "y": 49.5,
+          "gun": ""
+        },
+        {
+          "x": 55.5,
+          "y": 52.5,
+          "gun": ""
+        },
+        {
+          "x": -29.5,
+          "y": 52,
+          "gun": ""
+        },
+        {
+          "x": -33,
+          "y": 55,
+          "gun": ""
+        },
+        {
+          "x": 29.5,
+          "y": 52,
+          "gun": ""
+        },
+        {
+          "x": 33,
+          "y": 55,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -7,
+          "y": -4,
+          "turret": ""
+        },
+        {
+          "x": 7,
+          "y": -4,
+          "turret": ""
+        },
+        {
+          "x": -23,
+          "y": 14,
+          "turret": ""
+        },
+        {
+          "x": 23,
+          "y": 14,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -46,
+          "y": 106,
+          "position": "under",
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 46,
+          "y": 106,
+          "position": "under",
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [],
+      "sprite": "ship/kestrelw",
+      "thumbnail": "thumbnail/kestrelw",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 14700000,
+        "shields": 19400,
+        "hull": 7200,
+        "required crew": 64,
+        "bunks": 128,
+        "mass": 2135,
+        "drag": 20.9,
+        "heat dissipation": 0.32,
+        "fuel capacity": 500,
+        "cargo space": 120,
+        "outfit space": 810,
+        "weapon capacity": 390,
+        "engine capacity": 210,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "small explosion": 25,
+      "medium explosion": 35,
+      "large explosion": 45,
+      "huge explosion": 30,
+      "final explode": "final explosion large",
+      "description": "Several years ago, while visiting a sweat lodge in search of spiritual renewal, Tarazed's chief ship designer fell into a trance and journeyed to a reality separate from our own. There he saw visions of a strange and elegant starship. Returning to his work with renewed purpose, he spent the next seven years making the Kestrel a reality.",
+      "_internalId": "official-game/endless-sky::Kestrel",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "d4959a315ee3",
+      "variant": "SPA Kestrel",
+      "baseShip": "Kestrel",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "Lemurias-Extra-ES-Stuff": {
+          "Lemurias-Extra-ES-Stuff": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo": {
+          "count": 60,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D94-YV Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Kestrel (SPA Kestrel (Proton))",
+      "engines": [
+        {
+          "x": 13,
+          "y": 170
+        },
+        {
+          "x": -13,
+          "y": 170
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -73.5,
+          "y": 46,
+          "gun": ""
+        },
+        {
+          "x": -76.5,
+          "y": 49,
+          "gun": ""
+        },
+        {
+          "x": 73.5,
+          "y": 46,
+          "gun": ""
+        },
+        {
+          "x": 76.5,
+          "y": 49,
+          "gun": ""
+        },
+        {
+          "x": -51,
+          "y": 49.5,
+          "gun": ""
+        },
+        {
+          "x": -55.5,
+          "y": 52.5,
+          "gun": ""
+        },
+        {
+          "x": 51,
+          "y": 49.5,
+          "gun": ""
+        },
+        {
+          "x": 55.5,
+          "y": 52.5,
+          "gun": ""
+        },
+        {
+          "x": -29.5,
+          "y": 52,
+          "gun": ""
+        },
+        {
+          "x": -33,
+          "y": 55,
+          "gun": ""
+        },
+        {
+          "x": 29.5,
+          "y": 52,
+          "gun": ""
+        },
+        {
+          "x": 33,
+          "y": 55,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -8,
+          "y": -10.5,
+          "turret": ""
+        },
+        {
+          "x": 8,
+          "y": -10.5,
+          "turret": ""
+        },
+        {
+          "x": -20.5,
+          "y": 9,
+          "turret": ""
+        },
+        {
+          "x": 20.5,
+          "y": 9,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -46,
+          "y": 106,
+          "position": "under",
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 46,
+          "y": 106,
+          "position": "under",
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [],
+      "sprite": "ship/kestrelw",
+      "thumbnail": "thumbnail/kestrelw",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 14700000,
+        "shields": 19400,
+        "hull": 7200,
+        "required crew": 64,
+        "bunks": 128,
+        "mass": 2135,
+        "drag": 20.9,
+        "heat dissipation": 0.32,
+        "fuel capacity": 500,
+        "cargo space": 120,
+        "outfit space": 810,
+        "weapon capacity": 390,
+        "engine capacity": 210,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "small explosion": 25,
+      "medium explosion": 35,
+      "large explosion": 45,
+      "huge explosion": 30,
+      "final explode": "final explosion large",
+      "description": "Several years ago, while visiting a sweat lodge in search of spiritual renewal, Tarazed's chief ship designer fell into a trance and journeyed to a reality separate from our own. There he saw visions of a strange and elegant starship. Returning to his work with renewed purpose, he spent the next seven years making the Kestrel a reality.",
+      "_internalId": "official-game/endless-sky::Kestrel",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "d4959a315ee3",
+      "variant": "SPA Kestrel (Proton)",
+      "baseShip": "Kestrel",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "Lemurias-Extra-ES-Stuff": {
+          "Lemurias-Extra-ES-Stuff": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo": {
+          "count": 60,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D94-YV Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Falcon (SPA Falcon (Korath Slicer))",
+      "engines": [
+        {
+          "x": -16.5,
+          "y": 143
+        },
+        {
+          "x": 16.5,
+          "y": 143
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -16,
+          "y": -86.5,
+          "gun": ""
+        },
+        {
+          "x": 16,
+          "y": -86.5,
+          "gun": ""
+        },
+        {
+          "x": -19,
+          "y": -76.5,
+          "gun": ""
+        },
+        {
+          "x": 19,
+          "y": -76.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -16,
+          "y": -29,
+          "turret": ""
+        },
+        {
+          "x": 16,
+          "y": -29,
+          "turret": ""
+        },
+        {
+          "x": -50,
+          "y": 39.5,
+          "turret": ""
+        },
+        {
+          "x": 50,
+          "y": 39.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/falcon",
+      "thumbnail": "thumbnail/falcon",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 10900000,
+        "shields": 12800,
+        "hull": 3700,
+        "required crew": 52,
+        "bunks": 91,
+        "mass": 1260,
+        "drag": 11.4,
+        "heat dissipation": 0.42,
+        "fuel capacity": 600,
+        "cargo space": 130,
+        "outfit space": 560,
+        "weapon capacity": 250,
+        "engine capacity": 150,
+        "weapon": {
+          "blast radius": 160,
+          "shield damage": 1600,
+          "hull damage": 800,
+          "hit force": 2400
+        }
+      },
+      "tiny explosion": 40,
+      "small explosion": 55,
+      "medium explosion": 60,
+      "large explosion": 40,
+      "final explode": "final explosion medium",
+      "description": "The Tarazed Falcon is one of the most powerful warships that civilians can buy, a sleeker and more maneuverable alternative to the venerable and somewhat outdated Leviathan.",
+      "_internalId": "official-game/endless-sky::Falcon",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "43b36f581825",
+      "variant": "SPA Falcon (Korath Slicer)",
+      "baseShip": "Falcon",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "governments": {
+        "official-game/endless-sky": {
+          "Free Worlds": true,
+          "Militia": true,
+          "Pirate": true,
+          "Independent": true,
+          "Merchant": true
+        },
+        "Zuckungs list/tribute.republic": {
+          "Republic": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Pirate (Rivals)": true,
+          "Merchant": true,
+          "Independent (Killable)": true,
+          "Oathbreaker": true,
+          "Escort": true,
+          "Bounty (Disguised)": true,
+          "Pirate": true,
+          "Pirate (Rival)": true,
+          "Republic": true,
+          "Scar's Legion": true,
+          "Free Worlds": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true,
+          "Hidalgo Shrine": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "MGF: NBSL": true,
+          "MGF: Crossguard Patrol": true,
+          "MGF: NGK Security": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Korath Slicer Turret": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "A375 Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Supercapacitor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    }
+  ],
+  "outfits": [
+    {
+      "name": "SPA Skylance",
+      "category": "Turrets",
+      "cost": 24000000,
+      "thumbnail": "outfit/quarg skylance",
+      "mass": 50,
+      "outfit space": -50,
+      "weapon capacity": -50,
+      "turret mounts": -1,
+      "required crew": 1,
+      "licenses": {
+        "SPA Outfit": true
+      },
+      "weapon": {
+        "sprite": "projectile/skylance",
+        "sprite data": {
+          "frame rate": 1
+        },
+        "hardpoint sprite": "hardpoint/quarg skylance",
+        "hardpoint offset": 10,
+        "sound": "skylance",
+        "hit effect": "skylance impact",
+        "inaccuracy": 0.8,
+        "turret turn": 3.7,
+        "velocity": 500,
+        "lifetime": 1,
+        "reload": 1,
+        "firing energy": 21.18,
+        "firing heat": 15,
+        "shield damage": 31.17,
+        "hull damage": 37.97,
+        "ion damage": 0.1
+      },
+      "description": "These immensely powerful beam weapons are used by Quarg warships to strike fear into the hearts of all who dare oppose them. After the disappearance of several SPA agents equipped with Skylances after landing on a Quarg ringworld, the SPA created a slightly different version of the Skylance, which would hopefully be undetectable.",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Planets": [
+            "Ondoristra",
+            "Salistra",
+            "Sayari Ring",
+            "Steirek"
+          ],
+          "Outfitters": [
+            "Sayari Outfits"
+          ]
+        }
+      },
+      "pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff"
+    },
+    {
+      "name": "SPA Scan Blocker",
+      "category": "Systems",
+      "cost": 60000,
+      "thumbnail": "outfit/unknown",
+      "mass": 4,
+      "outfit space": -8,
+      "scan interference": 2,
+      "description": "The Sayari Plushie Authority uses this Scan Blocker to block incoming CSSF scans and allow their plushie transports to pass by undetected. Combined with false flag Merchant-colored transports, plushies can be transported to any world in human space with minimal fuss.",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Arena": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Planets": [
+            "Ondoristra",
+            "Salistra",
+            "Sayari Ring",
+            "Steirek"
+          ],
+          "Outfitters": [
+            "Sayari Outfits"
+          ],
+          "Ships": [
+            "SPA Rosas"
+          ],
+          "ShipyardPlanets": [
+            "LEEST ",
+            "Ondoristra",
+            "Salistra",
+            "Sayari Ring",
+            "Steirek"
+          ]
+        }
+      },
+      "pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff"
+    },
+    {
+      "name": "Ship Sniper",
+      "category": "Guns",
+      "cost": 4000000,
+      "mass": 5,
+      "outfit space": -40,
+      "weapon capacity": -40,
+      "gun ports": -1,
+      "weapon": {
+        "sprite": "projectile/torpedo",
+        "sprite data": {
+          "frame rate": 2,
+          "random start frame": true
+        },
+        "sound": "torpedo",
+        "hit effect": "torpedo hit",
+        "inaccuracy": 0.02,
+        "velocity": 50,
+        "lifetime": 480,
+        "reload": 200,
+        "firing energy": 500,
+        "firing heat": 300,
+        "shield damage": 5000,
+        "hull damage": 6000
+      },
+      "description": "The Ship Sniper is a prototype weapon capable of dealing immense damage to any ship unlucky enough to be hit by a Ship Sniper. It has a long reload time and uses up energy and emits immense heat every time it is fired.",
+      "governments": {
+        "Lemurias-Extra-ES-Stuff": {
+          "Lemurias-Extra-ES-Stuff": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff"
+    }
+  ],
+  "effects": [],
+  "parsedAt": "2026-05-17T01:06:23.636Z"
+}

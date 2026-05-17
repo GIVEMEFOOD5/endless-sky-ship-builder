@@ -1,0 +1,1966 @@
+[
+  {
+    "name": "Scrap Metal",
+    "plural": "Scrap Metal",
+    "category": "Special",
+    "cost": 1000,
+    "thumbnail": "outfit/scrap metal",
+    "mass": 1,
+    "installable": -1,
+    "description": "Twisted wreckage from a destroyed spacecraft or other artificial object.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath World-Ship (Scrapyard World-Ship (Crippled))"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Energy Absorber?",
+    "category": "Guns",
+    "thumbnail": "outfit/unknown",
+    "cost": 900000,
+    "gun ports": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "sprite": "projectile/energyabsorber",
+      "sprite data": {
+        "frame rate": 60
+      },
+      "sound": "energy absorber",
+      "hit effect": "beam laser impact",
+      "inaccuracy": 0.4,
+      "velocity": 300,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": -0.1,
+      "firing fuel": -0.01,
+      "energy damage": 6,
+      "heat damage": -6,
+      "fuel damage": 6,
+      "shield damage": 12,
+      "hull damage": 1,
+      "disruption damage": 0.12,
+      "discharge damage": 0.24
+    },
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Invasive Predator": true,
+        "Escort": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Blight Hatchling",
+          "Blight Horror",
+          "Blight Shadow",
+          "Blight Terror"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Festering Boil",
+    "category": "Turrets",
+    "thumbnail": "outfit/unknown",
+    "turret mounts": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "fire effect": "black blood",
+      "turret turn": 180,
+      "velocity": 10,
+      "lifetime": 2,
+      "reload": 100,
+      "blast radius": 10,
+      "split range": 200,
+      "submunitions": [
+        {
+          "type": "Festering Boil Submunition",
+          "count": 1
+        }
+      ]
+    },
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Festering Boil Submunition",
+    "weapon": {
+      "lifetime": 20,
+      "trigger radius": 200,
+      "blast radius": 20,
+      "hull damage": 0.15,
+      "no damage scaling": true
+    },
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Blight Leak",
+    "category": "Turrets",
+    "thumbnail": "outfit/unknown",
+    "turret mounts": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "turret turn": 180,
+      "fire effect": "black blood",
+      "inaccuracy": 10,
+      "velocity": 10000,
+      "lifetime": 1,
+      "reload": 2,
+      "stream": true
+    },
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath Devourer (Infested)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Flame Leak",
+    "category": "Turrets",
+    "thumbnail": "outfit/unknown",
+    "turret mounts": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "turret turn": 180,
+      "fire effect": "flame",
+      "inaccuracy": 10,
+      "velocity": 10000,
+      "lifetime": 1,
+      "reload": 2,
+      "stream": true
+    },
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath Devourer (Infested)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Anomalous Husk",
+    "plural": "Anomalous Husk",
+    "category": "Special",
+    "cost": 225000,
+    "thumbnail": "outfit/anomalous husk",
+    "flotsam sprite": "effect/flotsam anomalous husk",
+    "flotsam chance": 0.5,
+    "mass": 1,
+    "outfit space": -1,
+    "drag": 0.04,
+    "unplunderable": 1,
+    "heat capacity": 1.718,
+    "description": "Trace amounts of dessicated biological residue are attached to this mass of glassy material. It appears to be well suited for absorbing heat, but otherwise does not appear to possess be any unusual physical properties.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Energy Drainer?",
+    "category": "Guns",
+    "thumbnail": "outfit/unknown",
+    "cost": 2700000,
+    "gun ports": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "sprite": "projectile/energydrainer",
+      "sprite data": {
+        "frame rate": 60
+      },
+      "sound": "energy drainer",
+      "hit effect": "energy drainer impact",
+      "inaccuracy": 0.4,
+      "velocity": 590,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": -0.2,
+      "firing fuel": -0.02,
+      "energy damage": 36,
+      "heat damage": -36,
+      "fuel damage": 36,
+      "shield damage": 36,
+      "hull damage": 6,
+      "disruption damage": 0.36,
+      "discharge damage": 0.72
+    },
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Invasive Predator": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Blight Horror",
+          "Blight Mutation",
+          "Blight Terror"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Blight Defense?",
+    "category": "Turrets",
+    "thumbnail": "outfit/unknown",
+    "cost": 120000,
+    "turret mounts": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "hit effect": "blight defense",
+      "fire effect": "black blood spurt",
+      "anti-missile": 10,
+      "velocity": 350,
+      "lifetime": 1,
+      "reload": 5,
+      "firing energy": 24
+    },
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Invasive Predator": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Blight Horror",
+          "Blight Mutation"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Blood Lightning?",
+    "category": "Turrets",
+    "thumbnail": "outfit/unknown",
+    "cost": 1200000,
+    "turret mounts": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "sprite": "projectile/blood lightning",
+      "sprite data": {
+        "frame rate": 60,
+        "random start frame": true,
+        "delay": 6
+      },
+      "sound": "zapper",
+      "icon": "icon/blightning",
+      "hit effect": "blood lightning impact",
+      "fire effect": "blood sparks",
+      "target effect": "blood sparks",
+      "inaccuracy": 0.3,
+      "turret turn": 180,
+      "velocity": 320,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 4,
+      "energy damage": -3,
+      "shield damage": 8.7,
+      "hull damage": 11.1,
+      "scrambling damage": 0.2
+    },
+    "description": "The red lightning generated from this organ will slightly recharge the batteries of a ship struck by it. This is accompanied by a weapon jamming effect similar to, but different from, ionization.",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Invasive Predator": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Blight Horror"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Fireswarm Access Temporary License",
+    "display name": "Fireswarm Missile Tech",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 4015,
+    "licenses": {
+      "Navarch": true
+    },
+    "cost": 7600000,
+    "thumbnail": "outfit/tech korath fireswarm",
+    "base research rate": 0.04,
+    "requires Torpedo Tech": 1,
+    "requires Fireswarm Missile": 1,
+    "requires Ammo Basics": 1,
+    "requires Research Data": 1,
+    "requires Research Data (Chem)": 1,
+    "requires Research Data (Phys)": 1,
+    "description": "This technical manual details how to manufacture Fireswarm Missiles. Having this makes it possible for any outfitter to offer Fireswarm Missiles even if it is normally not stocked there. \tThe version available for purchase is written in an alien language you don't understand... \tThis tech can be researched instead of purchased. (Hover/Tap the attributes below for more details.) \tAfter this is acquired it can be found in the Licenses area when at the outfitter.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Fireswarm Tech License",
+    "display name": "Fireswarm Missile Tech",
+    "category": "Licenses",
+    "series": "Technology",
+    "index": 4015,
+    "licenses": {
+      "Navarch": true
+    },
+    "cost": 7600000,
+    "thumbnail": "outfit/tech korath fireswarm",
+    "base research rate": 0.04,
+    "requires Torpedo Tech": 1,
+    "requires Fireswarm Missile": 1,
+    "requires Ammo Basics": 1,
+    "requires Research Data": 1,
+    "requires Research Data (Chem)": 1,
+    "requires Research Data (Phys)": 1,
+    "description": "This technical manual details how to manufacture Korath Fireswarms. Having this makes it possible for any outfitter to offer Korath Fireswarms even if it is normally not stocked there.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Automine Deployer",
+    "category": "Secondary Weapons",
+    "index": 4040,
+    "cost": [
+      1073000,
+      584150
+    ],
+    "thumbnail": "outfit/automine deployer",
+    "mass": 38.7,
+    "outfit space": -57,
+    "weapon capacity": -57,
+    "energy capacity": 50,
+    "gun ports": -1,
+    "integrated systems": 1,
+    "reinstall": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "sprite": "projectile/korath minelayer",
+      "sprite data": {
+        "frame rate": 0.6,
+        "no repeat": true
+      },
+      "sound": "minelayer",
+      "icon": "icon/minelayer",
+      "fire effect": "minelayer fire",
+      "hit effect": "huge explosion",
+      "die effect": "minelayer split",
+      "inaccuracy": 10,
+      "velocity": 1.5,
+      "lifetime": 50,
+      "reload": 360,
+      "burst reload": 90,
+      "burst count": 2,
+      "firing energy": 18,
+      "firing heat": 18,
+      "acceleration": 0.8,
+      "drag": 0.04,
+      "turn": 2,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "infrared tracking": 0.9,
+      "missile strength": 35,
+      "stream": true,
+      "submunitions": [
+        {
+          "type": "Korath Mine Submunition",
+          "count": 11
+        }
+      ]
+    },
+    "description": "A newly developed Mereti weapon, the Automine Deployer forgoes the need to carry ammunition. Instead, the mines are constructed using Korath nanomachine technology. These weapons were developed exclusively for use by the Mechanized Mine automata.",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Mereti": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Mechanized Mine"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chimitarp",
+          "Eshkoshtar",
+          "Farbutero",
+          "Faronektu",
+          "Feroteri",
+          "Fornarep",
+          "Kaliptari",
+          "Korsmanath",
+          "Mekislepti",
+          "Salipastart",
+          "Sepetrosk",
+          "Similisti"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Burrower Mining Beam",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 4070,
+    "cost": 509000,
+    "thumbnail": "outfit/korath burrower",
+    "mass": 22,
+    "outfit space": -22,
+    "weapon capacity": -20,
+    "asteroid scan power": 20,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/burrower",
+      "sprite data": {
+        "frame rate": 20
+      },
+      "sound": "korath digger",
+      "hit effect": "korath digger hit",
+      "inaccuracy": 0.2,
+      "velocity": 480,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 5,
+      "firing heat": 9.2,
+      "shield damage": 1.3,
+      "hull damage": 2.2,
+      "minable damage": 9.8,
+      "prospecting": 7.9
+    },
+    "description": "This classic Korath mining laser lacks the shield disruption effect found in its modern counterpart, but is more effective for its intended purpose.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Laki Nemparu",
+          "Setar Fort"
+        ],
+        "Outfitters": [
+          "Korath Basics"
+        ],
+        "Systems": [
+          "Chikatip",
+          "Hesselpost",
+          "Kashikt",
+          "Meftarkata",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Shelf-Sloop"
+        ],
+        "ShipyardPlanets": [
+          "Laki Nemparu"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Eliminator",
+    "display name": "World Slicer",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 4000,
+    "cost": 150000000,
+    "thumbnail": "outfit/korath eliminator",
+    "mass": 165,
+    "outfit space": -165,
+    "weapon capacity": -165,
+    "gun ports": -1,
+    "spinal mount": -1,
+    "unique": 1,
+    "weapon": {
+      "sprite": "projectile/korath eliminator",
+      "sprite data": {
+        "frame rate": 6
+      },
+      "icon": "icon/k-eliminator",
+      "sound": "eliminator",
+      "hit effect": [
+        "dragonflame plasma",
+        "dragonflame debris"
+      ],
+      "inaccuracy": 0,
+      "velocity": 2080,
+      "lifetime": 1,
+      "reload": 1.62,
+      "firing energy": 56,
+      "firing heat": 178,
+      "shield damage": 63,
+      "hull damage": 167,
+      "heat damage": 80,
+      "piercing": 0.2,
+      "penetration count": 20
+    },
+    "description": "The World Slicer is an orbital strike weapon that can carve deep into a planet's crust. Many worlds were destroyed in the Korath civil war by these tools of destruction.",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Stakoshtar 187"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Fireswarm Nest",
+    "display name": "Fireswarm Nest",
+    "category": "Ammunition",
+    "series": "Secondary Weapons",
+    "index": 4016,
+    "cost": 137000,
+    "thumbnail": "outfit/korath fireswarm nest",
+    "mass": 3,
+    "outfit space": -6,
+    "fireswarm capacity": 10,
+    "ammo": "Korath Fireswarm",
+    "energy generation": 0.2,
+    "heat generation": 1,
+    "description": "These storage shells hold additional Fireswarm Missiles for the Fireswarm Launcher. \tEach Fireswarm Nest includes a power charger to keep stored Fireswarms ready for launch. They also plug into your ships power systems, allowing surplus energy to be used elsewhere.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Efret": true
+      },
+      "official-game/endless-sky": {
+        "Kor Efret": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Tevah-Ark Coracle"
+        ]
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Arch-Carrack (Fireswarm)",
+          "Charm-Shallop (Fireswarm Scanner)",
+          "Charm-Shallop (Fireswarm)",
+          "Echo-Galleon (Fireswarm)",
+          "Korath Ranger (Korath Warmonger (Fireswarm))",
+          "Korath World-Ship (Scrapyard World-Ship (Crippled))"
+        ],
+        "ShipyardPlanets": [
+          "Laki Nemparu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chikatip",
+          "Dokdobaru",
+          "Hesselpost",
+          "Kashikt",
+          "Meftarkata",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Fireswarm Depot",
+    "display name": "Fireswarm Depot",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 4017,
+    "cost": 164400,
+    "thumbnail": "outfit/fireswarm depot",
+    "mass": 15,
+    "cargo space": -40,
+    "fireswarm capacity": 50,
+    "energy generation": 1.2,
+    "heat generation": 6,
+    "ammo": "Korath Fireswarm",
+    "required crew": 1,
+    "description": "The Fireswarm Depot stages extra ammunition in your cargo bay for weapons that use Fireswarm Missiles. The ammunition is ready to be withdrawn for use. Storing it this way uses more cargo space than if it were packed away in sealed crates. An extra crewmember is required to oversee maintenance of the ammunition.",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      },
+      "official-game/endless-sky": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Echo-Galleon (Fireswarm)",
+          "Korath World-Ship (Fireswarm)",
+          "Korath World-Ship B (Fireswarm)",
+          "Korath World-Ship C (Fireswarm)"
+        ],
+        "ShipyardPlanets": [
+          "Laki Nemparu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Dokdobaru",
+          "Kashikt",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Fireswarm",
+    "display name": "Fireswarm Missile",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 4015,
+    "cost": 7600,
+    "thumbnail": "outfit/korath fireswarm",
+    "mass": 0.3,
+    "fireswarm capacity": -1,
+    "energy capacity": 35,
+    "description": "Each Fireswarm Missile carries ten smaller missiles. When not being fired as weapons, they add to the energy storage capacity of your ship.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Efret": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      },
+      "official-game/endless-sky": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Tevah-Ark Coracle"
+        ]
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Arch-Carrack (Fireswarm)",
+          "Charm-Shallop (Fireswarm Scanner)",
+          "Charm-Shallop (Fireswarm)",
+          "Echo-Galleon (Fireswarm)",
+          "Korath Ranger (Fireswarm)",
+          "Korath Ranger (Korath Warmonger (Fireswarm))",
+          "Korath World-Ship (Fireswarm)",
+          "Korath World-Ship B (Fireswarm)",
+          "Korath World-Ship C (Fireswarm)"
+        ],
+        "ShipyardPlanets": [
+          "Laki Nemparu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chikatip",
+          "Dokdobaru",
+          "Hesselpost",
+          "Kashikt",
+          "Meftarkata",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Fireswarm Launcher",
+    "display name": "Fireswarm Launcher",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 4015,
+    "cost": 1937000,
+    "thumbnail": "outfit/korath fireswarm launcher",
+    "mass": 22,
+    "outfit space": -28,
+    "weapon capacity": -28,
+    "gun ports": -1,
+    "fireswarm capacity": 20,
+    "weapon": {
+      "sprite": "projectile/fireswarm",
+      "sprite data": {
+        "frame rate": 4,
+        "random start frame": true
+      },
+      "sound": "rocket-ver8",
+      "icon": "icon/fireswarm",
+      "hit effect": [
+        "fireswarm ring small",
+        "fireswarm ring"
+      ],
+      "die effect": "piercer fire",
+      "velocity": 4,
+      "velocity override": 16,
+      "lifetime": 30,
+      "reload": 120,
+      "burst reload": 30,
+      "burst count": 3,
+      "firing energy": 151,
+      "firing heat": 211,
+      "acceleration": 0.6,
+      "drag": 0.1,
+      "infrared tracking": 0.7,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "turn": 4.6,
+      "hit force": 150,
+      "split range": 60,
+      "missile strength": 30,
+      "submunitions": [
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        },
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        },
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        },
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        },
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        },
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        },
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        },
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        },
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        },
+        {
+          "type": "Fireswarm Submunition",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Korath Fireswarm",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The Fireswarm Missile is a cluster munition that carries a swarm of smaller missiles which can overwhelm slow defense systems. \tIf multiple Fireswarm Launchers are installed, they will all fire simultaneously.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Efret": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      },
+      "official-game/endless-sky": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Tevah-Ark Coracle"
+        ]
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Arch-Carrack (Fireswarm)",
+          "Charm-Shallop (Fireswarm Scanner)",
+          "Charm-Shallop (Fireswarm)",
+          "Echo-Galleon (Fireswarm)",
+          "Korath Ranger (Fireswarm)",
+          "Korath Ranger (Korath Warmonger (Fireswarm))",
+          "Korath World-Ship (Fireswarm)",
+          "Korath World-Ship B (Fireswarm)",
+          "Korath World-Ship C (Fireswarm)"
+        ],
+        "ShipyardPlanets": [
+          "Laki Nemparu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chikatip",
+          "Dokdobaru",
+          "Hesselpost",
+          "Kashikt",
+          "Meftarkata",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Fireswarm Submunition",
+    "weapon": {
+      "sprite": "projectile/fireswarm submunition",
+      "sprite data": {
+        "frame rate": 2,
+        "random start frame": true
+      },
+      "sound": "javelin",
+      "hit effect": [
+        "fireswarm ring small",
+        "fireswarm ring"
+      ],
+      "die effect": "tiny explosion",
+      "velocity": 2,
+      "random velocity": 1,
+      "lifetime": 130,
+      "random lifetime": 10,
+      "acceleration": 1.6,
+      "drag": 0.1,
+      "turn": 1.7,
+      "inaccuracy": 5,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "infrared tracking": 0.5,
+      "shield damage": 95,
+      "hull damage": 95,
+      "heat damage": 180,
+      "burn damage": 1,
+      "corrosion damage": 0.2,
+      "hit force": 60,
+      "missile strength": 3
+    },
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Grappler",
+    "display name": "Grappler Gun",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 4034,
+    "cost": 410000,
+    "thumbnail": "outfit/kor grappler",
+    "mass": 17,
+    "outfit space": -17,
+    "weapon capacity": -17,
+    "energy capacity": 50,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/grab-strike",
+      "sprite data": {
+        "frame rate": 25,
+        "random start frame": true
+      },
+      "sound": "grab-strike",
+      "hit effect": "grab-strike impact",
+      "die effect": "grab-strike impact",
+      "inaccuracy": 1,
+      "velocity": 10,
+      "lifetime": 100,
+      "reload": 40,
+      "firing energy": 60,
+      "firing heat": 150,
+      "acceleration": 1,
+      "drag": 0.1,
+      "turn": 0.2,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "tracking": 0.7,
+      "shield damage": 108,
+      "hull damage": 32,
+      "hit force": -240
+    },
+    "description": "Grappler Gun projectiles are designed to pull a target closer to the Korath ship, to keep it from escaping.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Sestor": true,
+        "Kor Efret": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath Ranger (Grappler)",
+          "Korath Ranger (Korath Warmonger (Grappler))",
+          "Tercheldar 150 (Tormentor)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Dokdobaru",
+          "Kashikt",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Incinerator",
+    "display name": "Scrap Incinerator",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 4000,
+    "cost": 190000,
+    "thumbnail": "outfit/korath incinerator",
+    "mass": 27,
+    "outfit space": -27,
+    "weapon capacity": -27,
+    "gun ports": -1,
+    "energy consumption": 10,
+    "heat generation": 40,
+    "integrated systems": 1,
+    "reinstall": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "sound": "flamethrower",
+      "sprite": "projectile/flamethrower",
+      "sprite data": {
+        "frame rate": 17,
+        "random start frame": true
+      },
+      "hit effect": "flamethrower hit",
+      "inaccuracy": 180,
+      "velocity": 1,
+      "lifetime": 9,
+      "reload": 1,
+      "shield damage": 900,
+      "hull damage": 900,
+      "heat damage": 600,
+      "burn damage": 6,
+      "minable damage": 1200,
+      "prospecting": 4200
+    },
+    "description": "A giant smelter. Ships and asteroids go in. Melted metal comes out.",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true,
+        "Kor Scrappers (Hostile)": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath Devourer"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Scattermine",
+    "display name": "Scattermine Deployer",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 4040,
+    "cost": 536500,
+    "thumbnail": "outfit/korath scattermine",
+    "mass": 18,
+    "outfit space": -24,
+    "weapon capacity": -24,
+    "energy capacity": 25,
+    "gun ports": -1,
+    "minelayer capacity": 8,
+    "weapon": {
+      "sprite": "projectile/korath minelayer",
+      "sprite data": {
+        "frame rate": 0.6,
+        "no repeat": true
+      },
+      "sound": "minelayer",
+      "icon": "icon/minelayer",
+      "fire effect": "minelayer fire",
+      "hit effect": "huge explosion",
+      "die effect": "minelayer split",
+      "inaccuracy": 10,
+      "velocity": 0,
+      "lifetime": 1,
+      "reload": 360,
+      "firing energy": 9,
+      "firing heat": 9,
+      "drag": 0.04,
+      "missile strength": 35,
+      "blast radius": 32,
+      "submunitions": [
+        {
+          "type": "Korath Mine Submunition",
+          "count": 11
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Cluster Mine",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The Scattermine Deployer is a crude device for deploying a cloud of stationary mines along the ship's wake. One drawback of deploying the mines in this manner is that premature detonation can damage the ship dropping the mines.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Korath (Civilian)": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Korbatar Makwar"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Tractor",
+    "display name": "Salvager Turret",
+    "category": "Secondary Weapons",
+    "series": "Tractor Beams",
+    "index": 4010,
+    "cost": 493000,
+    "thumbnail": "outfit/korath tractor",
+    "mass": 21,
+    "outfit space": -21,
+    "weapon capacity": -21,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/korath tractor",
+      "sprite data": {
+        "frame rate": 6
+      },
+      "hardpoint sprite": "hardpoint/korath tractor",
+      "hardpoint offset": 5,
+      "sound": "tractor",
+      "icon": "icon/korath tractor",
+      "inaccuracy": 0.4,
+      "turret turn": 2.1,
+      "velocity": 590,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 3.3,
+      "firing heat": 4.9,
+      "hit force": -30
+    },
+    "description": "The Salvager Turret is used to tow derelict ships away from dangerous battlefields.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Missions": [
+          "Scrapyard Korath Tractor 2"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Tormentor",
+    "display name": "Thermal Tormentor",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 4011,
+    "cost": 306000,
+    "thumbnail": "outfit/kor tormentor",
+    "mass": 11,
+    "outfit space": -11,
+    "weapon capacity": -11,
+    "energy capacity": 100,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/repeater",
+      "sprite data": {
+        "frame rate": 5
+      },
+      "sound": "repeater",
+      "hit effect": "repeater impact",
+      "inaccuracy": 4,
+      "velocity": 13,
+      "lifetime": 40,
+      "reload": 10,
+      "firing energy": 24,
+      "firing heat": 108,
+      "shield damage": 26,
+      "hull damage": 22,
+      "heat damage": 33
+    },
+    "description": "An ancient Korath design, the Tormentor lacks the burst fire and synchronization features which were later implemented in the Repeater.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Sestor": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Ekfar Tek 23"
+        ]
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Skoretak 13"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chikatip",
+          "Hesselpost",
+          "Kashikt",
+          "Meftarkata",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Tormentor Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 4011,
+    "cost": 437000,
+    "thumbnail": "outfit/tormentor turret",
+    "mass": 14,
+    "outfit space": -14,
+    "weapon capacity": -14,
+    "energy capacity": 100,
+    "required crew": 1,
+    "turret mounts": -1,
+    "weapon": {
+      "sprite": "projectile/repeater",
+      "sprite data": {
+        "frame rate": 5
+      },
+      "hardpoint sprite": "hardpoint/tormentor turret",
+      "hardpoint offset": 7,
+      "sound": "repeater",
+      "hit effect": "repeater impact",
+      "inaccuracy": 4,
+      "turret turn": 2.8,
+      "velocity": 13,
+      "lifetime": 40,
+      "reload": 10,
+      "firing energy": 24,
+      "firing heat": 108,
+      "shield damage": 26,
+      "hull damage": 22,
+      "heat damage": 33
+    },
+    "description": "Tormentor Turrets only have a single Tormentor mounted on their base, but have low space requirements for installation.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Sestor": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Ekfar Tek 23"
+        ]
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Tercheldar 150 (Tormentor)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Hyperdrive (Damaged)",
+    "category": "Systems",
+    "series": "Drives",
+    "index": 10,
+    "cost": 25000,
+    "thumbnail": "outfit/damaged hyperdrive",
+    "mass": 20,
+    "outfit space": -20,
+    "jump speed": 0.2,
+    "jump fuel": 300,
+    "hyperdrive": 1,
+    "fused circuits": 1,
+    "unplunderable": 1,
+    "description": "A malfunction is causing this hyperdrive to consume triple the amount of fuel that a normal hyperdrive would.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath Devourer (Infested)",
+          "Korath World-Ship (Scrapyard World-Ship (Crippled))",
+          "Korath World-Ship D (Crippled)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Obsolete Transceiver",
+    "category": "Systems",
+    "series": "Special Systems",
+    "index": 4020,
+    "cost": "7000",
+    "thumbnail": "outfit/obsolete transceiver",
+    "mass": 1,
+    "outfit space": -1,
+    "description": "This is a miniaturized communication device, which can be connected to all the major systems of a Kor Sestor automaton, apparently as a way of controlling them remotely. This appears to be an older model transceiver incompatible with the encryption and authentication methods utilized by modern Kor Sestor.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Sestor": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Ekfar Tek 23"
+        ],
+        "Missions": [
+          "Midnight Expansion Sestor Baran Salvage"
+        ]
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Grakerat 572",
+          "Skoretak 13",
+          "Stakoshtar 187",
+          "Tercheldar 150"
+        ],
+        "Missions": [
+          "Scrapyard Exploring the Persitar Wreck"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Obsolete Transmitter",
+    "category": "Systems",
+    "series": "Special Systems",
+    "index": 4020,
+    "cost": "14000",
+    "thumbnail": "outfit/obsolete transmitter",
+    "mass": 2,
+    "outfit space": -2,
+    "description": "This is some sort of advanced, miniature computer combined with various sensor inputs. Presumably, in some way it controls nearby Sestor automata when communications over a hyperspace communications network are unavailable. This device is designed to interface with older model transceivers and is incompatible with the encryption and authentication methods utilized by modern Kor Sestor.",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Grakerat 572"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Triple Plasma Core (Damaged)",
+    "category": "Power",
+    "series": "Generators",
+    "index": 4060,
+    "cost": 10230000,
+    "thumbnail": "outfit/damaged triple plasma core",
+    "mass": 169,
+    "outfit space": -169,
+    "energy generation": 22,
+    "heat generation": 154,
+    "fused circuits": 1,
+    "unplunderable": 1,
+    "description": "While there is no visible damage, you are certain this unit is malfunctioning. The power output is no better than a Double Plasma Core.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath Devourer (Infested)",
+          "Korath World-Ship (Scrapyard World-Ship (Crippled))",
+          "Korath World-Ship D (Crippled)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Afterburner (Meteor Class)",
+    "plural": "Afterburners (Meteor Class)",
+    "category": "Engines",
+    "series": "Afterburners",
+    "index": 4015,
+    "cost": 340000,
+    "thumbnail": "outfit/korath afterburner",
+    "mass": 22,
+    "outfit space": -22,
+    "engine capacity": -12,
+    "fuel capacity": 250,
+    "ramscoop": 0.63,
+    "afterburner thrust": 57.75,
+    "afterburner energy": 1.5,
+    "afterburner heat": 15.63,
+    "afterburner fuel": 0.0938,
+    "afterburner effect": "korath afterburner small",
+    "description": "This older afterburner design was once a common sight in Korath space. \tKorath afterburners pump super-heated hyperspace fuel directly into a thruster's plasma stream, resulting in a phenomenal explosion that nearly melts the thruster.",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true,
+        "Kor Scrappers (Hostile)": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true,
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath Ranger (Fireswarm)",
+          "Korath Ranger (Grappler)",
+          "Korath Ranger (Korath Warmonger (Fireswarm))",
+          "Korath Ranger (Korath Warmonger (Grappler))"
+        ],
+        "ShipyardPlanets": [
+          "Laki Nemparu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Dokdobaru",
+          "Kashikt",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Arkrof GP Hybrid Reverser",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 4072,
+    "cost": 165000,
+    "thumbnail": "outfit/tiny efreti reverser",
+    "mass": 19,
+    "outfit space": -19,
+    "engine capacity": -10,
+    "weapon capacity": -9,
+    "reverse thrust": 28.95,
+    "reverse thrusting energy": 2.6,
+    "reverse thrusting heat": 3,
+    "reverse flare sprite": "effect/efreti flare/tiny",
+    "reverse flare sprite data": {
+      "frame rate": 8
+    },
+    "reverse flare sound": "ion tiny",
+    "description": "Efreti engineers have adapted their smallest gravitoplasma-based thrusters into this reverser. \tThis Korath engine has been modified to be partially installed in a ship's weapon space, allowing it to push the ship in reverse.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Kor Efret": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Delta-Ferry"
+        ],
+        "ShipyardPlanets": [
+          "Laki Nemparu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chikatip",
+          "Dokdobaru",
+          "Hesselpost",
+          "Kashikt",
+          "Meftarkata",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Farves GP Hybrid Reverser",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 4082,
+    "cost": 405000,
+    "thumbnail": "outfit/small efreti reverser",
+    "mass": 33,
+    "outfit space": -33,
+    "engine capacity": -17,
+    "weapon capacity": -16,
+    "reverse thrust": 53.1,
+    "reverse thrusting energy": 5.05,
+    "reverse thrusting heat": 5.9,
+    "reverse flare sprite": "effect/efreti flare/small",
+    "reverse flare sprite data": {
+      "frame rate": 7.5
+    },
+    "reverse flare sound": "ion small",
+    "description": "Reversers aren't particularly popular among the Kor Efret, yet Efreti factories still produce them for a niche market. \tThis Korath engine has been modified to be partially installed in a ship's weapon space, allowing it to push the ship in reverse.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Gaktem GP Hybrid Reverser",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 4092,
+    "cost": 883000,
+    "thumbnail": "outfit/medium efreti reverser",
+    "mass": 57,
+    "outfit space": -57,
+    "engine capacity": -29,
+    "weapon capacity": -28,
+    "reverse thrust": 97.425,
+    "reverse thrusting energy": 9.1,
+    "reverse thrusting heat": 11.05,
+    "reverse flare sprite": "effect/efreti flare/medium",
+    "reverse flare sprite data": {
+      "frame rate": 7
+    },
+    "reverse flare sound": "ion medium",
+    "description": "Efreti reverse thrusters are just as powerful as their normal gravitoplasma thrusters. \tThis Korath engine has been modified to be partially installed in a ship's weapon space, allowing it to push the ship in reverse.",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Mereti Efret"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Nelmeb GP Hybrid Reverser",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 4102,
+    "cost": 1649000,
+    "thumbnail": "outfit/large efreti reverser",
+    "mass": 86,
+    "outfit space": -86,
+    "engine capacity": -43,
+    "weapon capacity": -43,
+    "reverse thrust": 156.9,
+    "reverse thrusting energy": 14,
+    "reverse thrusting heat": 18,
+    "reverse flare sprite": "effect/efreti flare/large",
+    "reverse flare sprite data": {
+      "frame rate": 6.5
+    },
+    "reverse flare sound": "ion large",
+    "description": "These are the largest gravitoplasma reversers that the Efreti have to offer. \tThis Korath engine has been modified to be partially installed in a ship's weapon space, allowing it to push the ship in reverse.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Tevah-Ark Coracle"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Steering (Planetary Class)(Damaged)",
+    "plural": "Steerings (Planetary Class)(Damaged)",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 4050,
+    "cost": 540000,
+    "thumbnail": "outfit/damaged large korath steering",
+    "mass": 52,
+    "outfit space": -52,
+    "engine capacity": -52,
+    "fused circuits": 1,
+    "turn": 1584,
+    "turning energy": 2.5,
+    "turning heat": 7.4,
+    "steering flare sprite": "effect/korath flare/medium",
+    "steering flare sprite data": {
+      "frame rate": 7
+    },
+    "steering flare sound": "plasma medium",
+    "unplunderable": 1,
+    "description": "A malfunction in the steering system has reduced its effectiveness significantly.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath World-Ship (Scrapyard World-Ship (Crippled))",
+          "Korath World-Ship D (Crippled)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Thruster (Planetary Class)(Damaged)",
+    "plural": "Thrusters (Planetary Class)(Damaged)",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 4051,
+    "cost": 608000,
+    "thumbnail": "outfit/damaged large korath thruster",
+    "mass": 69,
+    "outfit space": -69,
+    "engine capacity": -69,
+    "fused circuits": 1,
+    "thrust": 66.195,
+    "thrusting energy": 4.9,
+    "thrusting heat": 11.9,
+    "flare sprite": "effect/korath flare/medium",
+    "flare sprite data": {
+      "frame rate": 7
+    },
+    "flare sound": "plasma medium",
+    "unplunderable": 1,
+    "description": "Damage to the thrusters has reduced output by half.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Korath World-Ship (Scrapyard World-Ship (Crippled))",
+          "Korath World-Ship D (Crippled)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Blight Rifle",
+    "category": "Hand to Hand",
+    "series": "H2H",
+    "index": 4000,
+    "licenses": {
+      "Remnant": true
+    },
+    "cost": 422000,
+    "thumbnail": "outfit/blight rifle",
+    "capture attack": 11.9,
+    "capture defense": 8.1,
+    "unplunderable": 1,
+    "unique": 1,
+    "description": "A prototype the Remnant created using Blight Shadow eggs. This weapon drains energy from whatever it is used on. This can disrupt electronic door locks and reduces living creatures into withered husks. This effect also replenishes its own energy, making it an exceptional weapon for long sieges. Death from this weapon appears to be cruel and painful. If the governments back home knew of its existence, it would probably be banned.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Missions": [
+          "Scrapyard Blight Rifle 2",
+          "Scrapyard Eggs Remnant 2"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Sentinel",
+    "category": "Hand to Hand",
+    "series": "Fortifications",
+    "index": 4010,
+    "cost": 212000,
+    "thumbnail": "outfit/korath sentinel",
+    "mass": 2,
+    "outfit space": -2,
+    "capture defense": 9.6,
+    "unplunderable": 1,
+    "description": "A semi autonomous robot made with Sestor technology, these defense droids patrol high security areas on the ships of experienced Kor scrapper crews.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Ikatila'ej Eldar",
+          "Rai'alorej Makwar"
+        ]
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Palavret Tek",
+          "Rano'erek Tek"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Slicer Torch",
+    "category": "Hand to Hand",
+    "series": "H2H",
+    "index": 4000,
+    "cost": 999999,
+    "thumbnail": "outfit/slicer torch",
+    "capture attack": 9.6,
+    "capture defense": 6.3,
+    "energy consumption": 0.032,
+    "heat generation": 0.016,
+    "unplunderable": 1,
+    "unique": 1,
+    "description": "An improvised weapon made by a Scrapyard hermit. It easily and quickly cuts through ship bulkheads, making it an ideal tool for raiding ships. It can also be used to make emergency escape routes when one is seemingly trapped in a dead end. This weapon can get incredibly hot after prolonged use, so it may be unwise to use it for defending against extended sieges.",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Ships": [
+          "Osk Lek Chaser"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Blight Shadow Eggs",
+    "plural": "Blight Shadow Eggs",
+    "category": "Special",
+    "cost": 0,
+    "thumbnail": "outfit/blight egg",
+    "unplunderable": 1,
+    "description": "Alien eggs found in a derelict space station. Might be worth something to the right person.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Missions": [
+          "Scrapyard Eggs Pirate 1",
+          "Scrapyard Eggs Remnant 1"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Node 8 Jammer",
+    "category": "Unique",
+    "series": "Non-Functional Unique",
+    "index": 4010,
+    "thumbnail": "outfit/node 8 jammer",
+    "mass": 9,
+    "illegal": 1000000,
+    "unique": 1,
+    "description": "This resembles a clump of Kor Mereti Reasoning Nodes, but is an obvious fake when compared to the real thing. Despite this, it's a sophisticated piece of technology with the ability to disrupt communications on a network it's installed on.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Missions": [
+          "Scrapyard Damnation 4"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Node 8 Processor",
+    "category": "Unique",
+    "series": "Non-Functional Unique",
+    "index": 4010,
+    "thumbnail": "outfit/node 8 processor",
+    "mass": 9,
+    "unique": 1,
+    "description": "This resembles a clump of Kor Mereti Reasoning Nodes. It must be related to the Mereti communications network somehow.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Missions": [
+          "Scrapyard Damnation 3"
+        ]
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Efret Salvage License",
+    "category": "Licenses",
+    "series": "Licenses",
+    "index": 4000,
+    "thumbnail": "outfit/efret salvage license",
+    "description": "Gives you access to salvaged outfits from the Kor Efret. You're not sure if this is a formal license or simply a means to communicate to the outfitter that you're looking for used parts...",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Afterburner",
+    "category": "Engines",
+    "cost": 340000,
+    "thumbnail": "outfit/korath afterburner",
+    "mass": 22,
+    "outfit space": -22,
+    "engine capacity": -12,
+    "fuel capacity": 250,
+    "ramscoop": 0.63,
+    "afterburner thrust": 57.75,
+    "afterburner energy": 1.5,
+    "afterburner heat": 15.63,
+    "afterburner fuel": 0.0938,
+    "afterburner effect": "korath afterburner small",
+    "description": "Korath Scrappers recovered his small afterburner from the ruins of their ancestral space. \tKorath afterburners pump super-heated hyperspace fuel directly into a thruster's plasma stream, resulting in a phenomenal explosion that nearly melts the thruster.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  },
+  {
+    "name": "Korath Smelter",
+    "category": "Guns",
+    "cost": 190000,
+    "thumbnail": "outfit/korath incinerator",
+    "mass": 1009,
+    "outfit space": -1009,
+    "weapon capacity": -1009,
+    "gun ports": -1,
+    "energy consumption": 3.1,
+    "heat generation": 13,
+    "integrated systems": 1,
+    "reinstall": -1,
+    "unplunderable": 1,
+    "weapon": {
+      "sound": "flamethrower",
+      "sprite": "projectile/flamethrower",
+      "sprite data": {
+        "frame rate": 17,
+        "random start frame": true
+      },
+      "hit effect": "flamethrower hit",
+      "inaccuracy": 180,
+      "velocity": 10,
+      "lifetime": 1,
+      "reload": 1,
+      "burst reload": 35,
+      "burst count": 3,
+      "cluster": true,
+      "shield damage": 300,
+      "hull damage": 300,
+      "heat damage": 200
+    },
+    "description": "A giant smelter. Ships go in. Melted metal comes out.",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+  }
+]

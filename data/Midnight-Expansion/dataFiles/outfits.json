@@ -1,0 +1,1504 @@
+[
+  {
+    "name": "Scattershot Ammo Access Temporary License",
+    "display name": "Scattershot Ammo Tech",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 99999,
+    "licenses": {
+      "Genesis": true
+    },
+    "cost": 0,
+    "thumbnail": "outfit/Midnight-Becca accurate gat tech",
+    "base research rate": 0.04,
+    "requires Gatling Ammo Tech": 1,
+    "requires Scattershot Ammo": 1,
+    "requires Ammo Basics": 1,
+    "description": "This technical manual details how to manufacture Scattershot Ammo. Having this makes it possible for any outfitter to offer Scattershot Ammo even if it is normally not stocked there. \tThe version available for purchase is written in an alien language you don't understand... \tThis tech can be researched instead of purchased. (Hover/Tap the attributes below for more details.) \tAfter this is acquired it can be found in the Licenses area when at the outfitter.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Scattershot Ammo Tech License",
+    "display name": "High Caliber Ammo Tech",
+    "category": "Licenses",
+    "series": "Technology",
+    "index": 99999,
+    "licenses": {
+      "Genesis": true
+    },
+    "thumbnail": "outfit/Midnight-Becca accurate gat tech",
+    "base research rate": 0.04,
+    "requires Gatling Ammo Tech": 1,
+    "requires Scattershot Ammo": 1,
+    "requires Ammo Basics": 1,
+    "description": "This technical manual details how to manufacture Scattershot Ammo. Having this makes it possible for any outfitter to offer Scattershot Ammo even if it is normally not stocked there.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Korath Disruptor Gun",
+    "display name": "Shield Disruptor Gun",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 4050,
+    "cost": 697000,
+    "thumbnail": "outfit/AESmisc disruptor_gun",
+    "mass": 23,
+    "outfit space": -23,
+    "weapon capacity": -23,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/disruptor",
+      "sprite data": {
+        "frame rate": 15
+      },
+      "sound": "disruptor",
+      "hit effect": "disruptor impact",
+      "inaccuracy": 1,
+      "velocity": 480,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 8,
+      "firing heat": 2.7,
+      "shield damage": 3.8,
+      "hull damage": 0.5,
+      "disruption damage": 0.24
+    },
+    "description": "Korath Disruptors interfere with a ship's shields, allowing a ship's hull to be damaged even when shields are up. However, they do very little hull damage by themselves.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Korath": true,
+        "Pirate": true,
+        "Kor Mereti": true,
+        "Kor Mereti (Hostile)": true,
+        "Kor Scrappers": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Korath": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Mereti (Hostile)": true,
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Model 8 (disruptor)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chimitarp",
+          "Eshkoshtar",
+          "Farbutero",
+          "Faronektu",
+          "Feroteri",
+          "Fornarep",
+          "Kaliptari",
+          "Korsmanath",
+          "Mekislepti",
+          "Salipastart",
+          "Sepetrosk",
+          "Similisti"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Vector Engine (Reality Class)",
+    "plural": "Vector Engines (Reality Class)",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 4069,
+    "cost": 5192000,
+    "thumbnail": "outfit/AESmisc vector_engine_reality_class",
+    "mass": 198,
+    "outfit space": -198,
+    "engine capacity": -198,
+    "turn": 6399,
+    "turning energy": 13.7,
+    "turning heat": 34.2,
+    "thrust": 250.35,
+    "thrusting energy": 22.7,
+    "thrusting heat": 51.6,
+    "flare sprite": "effect/korath flare/huge",
+    "flare sprite data": {
+      "frame rate": 6
+    },
+    "flare sound": "plasma huge",
+    "description": "Endless skirmishes among the rival Korath forces have produced a mockery of the word efficiency. Although total power output is increased considerably, the waste energy is very nearly enough to offset the advantages.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Sestor": true,
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Prateskar 711"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quarg Ranseur",
+    "category": "Guns",
+    "cost": 8150000,
+    "thumbnail": "outfit/AESmisc quarg ranseur",
+    "mass": 31,
+    "outfit space": -31,
+    "weapon capacity": -31,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/AESmisc ranseur",
+      "sprite data": {
+        "frame rate": 1
+      },
+      "sound": "skylance",
+      "hit effect": "skylance impact",
+      "inaccuracy": 0.4,
+      "velocity": 800,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 15,
+      "firing heat": 5,
+      "shield damage": 25,
+      "hull damage": 20,
+      "ion damage": 0.1
+    },
+    "description": "The Quarg Ranseur has a longer range than the Skylance but is a less powerful beam weapon.",
+    "governments": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Independent (Killable)": true,
+        "Bounty Hunter": true,
+        "Escort": true,
+        "Syndicate (Extremist)": true,
+        "Team Blue": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Bounty": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Marauder Vanguard (Ranseur)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quarg Skydagger",
+    "category": "Turrets",
+    "cost": 6000000,
+    "thumbnail": "outfit/AESmisc quarg skydagger",
+    "mass": 23,
+    "outfit space": -23,
+    "weapon capacity": -23,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/AESmisc skydagger",
+      "sprite data": {
+        "frame rate": 1
+      },
+      "hardpoint sprite": "hardpoint/AESmisc quarg skydagger",
+      "hardpoint offset": 7,
+      "sound": "skylance",
+      "hit effect": "skylance impact",
+      "inaccuracy": 0.6,
+      "turret turn": 3.1,
+      "velocity": 430,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 4.6,
+      "firing heat": 1.5,
+      "shield damage": 7.7,
+      "hull damage": 6.1,
+      "ion damage": 0.03
+    },
+    "description": "Older Quarg vessels are outfitted with this beam weapon instead of the more infamous Skylance.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Quarg Wardrake",
+          "Quarg Warwyvern"
+        ],
+        "Missions": [
+          "Midnight Expansion: Pirate Sales - Quarg Skydagger"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quarg Culverin",
+    "category": "Secondary Weapons",
+    "thumbnail": "outfit/Midnight AESmisc culverin",
+    "cost": 5000000,
+    "mass": 19,
+    "outfit space": -19,
+    "weapon capacity": -19,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/Midnight culverin a",
+      "sound": "typhoon",
+      "icon": "icon/Midnight culverin",
+      "hit effect": "culverin impact",
+      "inaccuracy": 3,
+      "velocity": 9,
+      "lifetime": 80,
+      "stream": true,
+      "reload": 110,
+      "firing energy": 786,
+      "firing heat": 654,
+      "acceleration": 1.8,
+      "drag": 0.3,
+      "turn": 1,
+      "homing": true,
+      "tracking": 0.2,
+      "shield damage": 639,
+      "hull damage": 123,
+      "hit force": 5,
+      "missile strength": 60,
+      "submunitions": [
+        {
+          "type": "Culverin Submunition",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This multipurpose weapon deals incredibly high shield damage at short range before the shot changes into an incredibly fast, shield-piercing blast.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Quarg Skyswift",
+          "Quarg Wardrake",
+          "Quarg Warwyvern"
+        ],
+        "Missions": [
+          "Midnight Expansion: Pirate Sales - Quarg Culverin"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Culverin Submunition",
+    "weapon": {
+      "sprite": "projectile/Midnight culverin b",
+      "sound": "proton",
+      "hit effect": "culverin impact",
+      "inaccuracy": 2,
+      "velocity": 21,
+      "lifetime": 160,
+      "acceleration": 3,
+      "drag": 0.2,
+      "turn": 10,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "infrared tracking": 0.9,
+      "shield damage": 123,
+      "hull damage": 639,
+      "piercing": 0.35,
+      "hit force": 1,
+      "missile strength": 12
+    },
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Fluxion Shield Generator",
+    "category": "Systems",
+    "cost": 5000000,
+    "thumbnail": "outfit/AESmisc quarg fluxion shield generator",
+    "mass": 53,
+    "outfit space": -53,
+    "shield generation": 4.6,
+    "shield energy": 4.6,
+    "description": "The first humans who met the Quarg thought that their technology worked on magic, and many even think so to this day. The mechanism by which this Quarg shield generator works is completely unknown to humanity, and the Quarg aren't interested in giving up their secrets.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Quarg Wardrake"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Infimum Shield Generator",
+    "category": "Systems",
+    "cost": 7368000,
+    "thumbnail": "outfit/AESmisc quarg infimum shield generator",
+    "mass": 71,
+    "outfit space": -71,
+    "shield generation": 8.1,
+    "shield energy": 8.1,
+    "description": "The first humans who met the Quarg thought that their technology worked on magic, and many even think so to this day. The mechanism by which this Quarg shield generator works is completely unknown to humanity, and the Quarg aren't interested in giving up their secrets.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Quarg Skyswift",
+          "Quarg Warwyvern"
+        ],
+        "Missions": [
+          "Midnight Expansion: Midnight Market - Infimum Shield Generator 2"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Tachyon Core",
+    "category": "Power",
+    "cost": 18500000,
+    "thumbnail": "outfit/AESmisc quarg tachyon core",
+    "mass": 37,
+    "outfit space": -37,
+    "energy generation": 22.8,
+    "heat generation": 5.7,
+    "unplunderable": 1,
+    "description": "Although humanity is now capable of producing antimatter in relatively significant quantities when compared to a thousand years ago, it is still nothing compared to the Quarg. The Quarg can produce enough antimatter to outfit every ship with an extremely efficient antimatter core, producing extreme amounts of energy with surprisingly little waste heat.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Quarg Wardrake",
+          "Quarg Warwyvern"
+        ],
+        "Missions": [
+          "Midnight Expansion: Heliarch Scouting - Tachyon Core"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Korath Electro Shocker",
+    "display name": "Shocker Gun",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 4036,
+    "cost": 419000,
+    "thumbnail": "outfit/Midnight PR4987 korath shocker",
+    "mass": 23,
+    "outfit space": -23,
+    "weapon capacity": -23,
+    "gun ports": -1,
+    "energy capacity": 190,
+    "weapon": {
+      "sprite": "projectile/Midnight shocker",
+      "sprite data": {
+        "frame rate": 11
+      },
+      "sound": "ion",
+      "hit effect": "ion impact",
+      "inaccuracy": 0.4,
+      "velocity": 12,
+      "lifetime": 90,
+      "reload": 60,
+      "firing energy": 190,
+      "firing heat": 210,
+      "shield damage": 140,
+      "hull damage": 45,
+      "ion damage": 3
+    },
+    "description": "The Shocker Gun is designed to incapacitate small vessels long enough for a Korath mothership to disable and pillage them. \tThe Korath began using ion based weaponry after plundering this technology from a rodent-like species they encountered to the west of their space.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Kor Efret": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Charm-Shallop (Shocker)",
+          "Echo-Galleon (Shocker)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Dokdobaru",
+          "Kashikt",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Korath Shocker Turret",
+    "display name": "Shocker Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 4045,
+    "cost": 509000,
+    "thumbnail": "outfit/Midnight PR4987 korath heavy shock turret",
+    "mass": 57,
+    "outfit space": -57,
+    "weapon capacity": -57,
+    "turret mounts": -1,
+    "required crew": 1,
+    "energy capacity": 190,
+    "weapon": {
+      "sprite": "projectile/Midnight shocker",
+      "sprite data": {
+        "frame rate": 11
+      },
+      "hardpoint sprite": "hardpoint/Midnight korath shocker turret",
+      "sound": "ion",
+      "hit effect": "ion impact",
+      "turret turn": 3.6,
+      "inaccuracy": 0.2,
+      "velocity": 12,
+      "lifetime": 90,
+      "reload": 40,
+      "firing energy": 190,
+      "firing heat": 210,
+      "shield damage": 140,
+      "hull damage": 45,
+      "ion damage": 3
+    },
+    "description": "This turret bears a larger version of the Shocker Gun which rapidly drains its target's energy reserves. If it doesn't have the generator capacity to spare, the unfortunate target may soon be stripped bare by a Korath raiding party. \tAccess to ion based weapons were essential to staving off the autonomous hordes which dominated the later stages of the Korath civil war.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Efret": true
+      },
+      "official-game/endless-sky": {
+        "Kor Efret": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Arch-Carrack (Shocker)",
+          "Echo-Galleon (Shocker)",
+          "Korath World Crafter (Kor Efret World Crafter)",
+          "Korath World-Ship (Shocker)",
+          "Korath World-Ship B (Shocker)",
+          "Korath World-Ship C (Shocker)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Dokdobaru",
+          "Kashikt",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Fuel Refiner",
+    "category": "Systems",
+    "series": "Ramscoops",
+    "index": 4010,
+    "cost": 1000000,
+    "thumbnail": "outfit/Midnight PR4987 korath fuel stack",
+    "mass": 35,
+    "outfit space": -35,
+    "fuel capacity": 600,
+    "ramscoop": 6,
+    "description": "The Korath developed this giant fuel processor for capital ships that carry many of their fuel-guzzling outfits. It maintains a negative vacuum pressure, pulling gas into the ramscoops faster than a fuel processor would alone.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Efret": true,
+        "Kor Scrappers": true,
+        "Korath (Civilian)": true,
+        "Korath": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Korath World Crafter (Kor Efret World Crafter)",
+          "Korbatar Makwar (Exile Upgrade)",
+          "Korsmanath A'awoj (Refiner)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Korath Defense Drone",
+    "display name": "Kor Defense Drone",
+    "category": "Hand to Hand",
+    "series": "H2H",
+    "index": 4020,
+    "cost": 106000,
+    "thumbnail": "outfit/Midnight PR4987 korath probe",
+    "capture defense": 4.8,
+    "unplunderable": 1,
+    "description": "These flying defense drones are released when intruders board the ship. Once one intruder has been neutralized, a laser emitter with a 360 degree firing arc allows it to quickly switch targets without pausing to reorient itself.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Efret": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Korath World Crafter (Kor Efret World Crafter)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Korath Shock-Strike",
+    "category": "Turrets",
+    "cost": 1075500,
+    "thumbnail": "outfit/Midnight PR4987 shunt-strike",
+    "mass": 75,
+    "outfit space": -75,
+    "weapon capacity": -75,
+    "turret mounts": -1,
+    "required crew": 1,
+    "energy capacity": 100,
+    "weapon": {
+      "sprite": "projectile/shock strike",
+      "sprite data": {
+        "frame rate": 25,
+        "random start frame": true
+      },
+      "hardpoint sprite": "hardpoint/Midnight korath shock-strike",
+      "hardpoint offset": 7,
+      "sound": "grab-strike",
+      "hit effect": "ion impact",
+      "inaccuracy": 1,
+      "turret turn": 2.4,
+      "velocity": 10,
+      "lifetime": 100,
+      "reload": 20,
+      "firing energy": 190,
+      "firing heat": 210,
+      "acceleration": 1,
+      "drag": 0.1,
+      "turn": 0.2,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "tracking": 0.7,
+      "shield damage": 140,
+      "hull damage": 45,
+      "hit force": -160,
+      "ion damage": 3
+    },
+    "description": "This weapon adds an ionic charge to Korath Grab-Strike projectiles, further incapacitating the targeted ship to prevent it from escaping.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Korath World-Ship (Shock-Strike)",
+          "Korath World-Ship B (Shock-Strike)",
+          "Korath World-Ship C (Shock-Strike)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Dokdobaru",
+          "Kashikt",
+          "Sevrelect",
+          "Sumprast"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Fuel Stabilizer",
+    "category": "Systems",
+    "series": "Fuel",
+    "index": 20,
+    "cost": 95000,
+    "thumbnail": "outfit/Becca fuel compressor",
+    "mass": 25,
+    "outfit space": -25,
+    "fuel capacity": 400,
+    "leak resistance": 3,
+    "leak resistance energy": 0.4,
+    "leak resistance heat": 3,
+    "description": "Refineries utilize this device to separate impurities from harvested gaseous elements and process it into a liquid or solid for easier storage. \tIt can also be used during fuel transportation. In rare situations, a sudden change in temperature can cause fuel to expand or contract, resulting in burst fuel tanks. A Fuel Stabilizer can help protect fuel carried during transport by regulating its state as a solid, liquid, or gas.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Accelerator Cannon",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 2050,
+    "cost": 660000,
+    "thumbnail": "outfit/midnight becca hai ionic rifle",
+    "mass": 54,
+    "outfit space": -54,
+    "weapon capacity": -54,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/Midnight accelerator beam",
+      "sound": "particle",
+      "fire effect": "rail sparks",
+      "hit effect": "accelerator impact",
+      "inaccuracy": 1,
+      "velocity": 45,
+      "lifetime": 16,
+      "reload": 20,
+      "firing energy": 63,
+      "firing force": 27,
+      "firing heat": 216,
+      "hit force": 216,
+      "shield damage": 117,
+      "hull damage": 112,
+      "ion damage": 1,
+      "scrambling damage": 1
+    },
+    "description": "The Accelerator Cannon is a relatively new addition to the Unfettered arsenal. Projectiles launched by this weaponized particle accelerator retain some electromagnetic properties, causing some disruption in the power systems of any target struck by them. Due to their immense space requirements, few Unfettered captains are willing to radically alter their ships existing loadout for accomodating this weapon.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate": true,
+        "Storm Seekers": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Bounty Hunter": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Armor Beetle (Accelerator Cannon)",
+          "Armor Beetle (Jump, Accelerator Cannon)",
+          "Shield Beetle (Accelerator Collector)"
+        ],
+        "Missions": [
+          "Midnight Expansion Unfettered Accelerator Cannon"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "\"Biri Biri\" Afterburner",
+    "category": "Engines",
+    "series": "Afterburners",
+    "index": 2010,
+    "cost": 130000,
+    "thumbnail": "outfit/becca afterburner hai",
+    "mass": 8,
+    "outfit space": -8,
+    "engine capacity": -8,
+    "afterburner thrust": 22,
+    "afterburner fuel": 0.04,
+    "afterburner energy": 6.1,
+    "afterburner heat": 3,
+    "afterburner effect": "biribiri afterburner",
+    "description": "This tiny afterburner is considered a relic from the past among many Hai. Only the Unfettered still use them.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Hai (Unfettered)": true,
+        "Hai (Friendly Unfettered)": true,
+        "Pirate": true,
+        "Storm Seekers": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Bounty Hunter": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Armor Beetle (Accelerator Cannon)",
+          "Armor Beetle (Jump, Accelerator Cannon)",
+          "Armor Beetle (Jump, Shock Wave Heavy Pulse)",
+          "Armor Beetle (Shock Wave Heavy Pulse)",
+          "Cicada (Shock Wave)",
+          "Horseshoe Crab (Shock Wave Afterburner)",
+          "Ladybug (Shock Wave)",
+          "Lightning Bug (Afterburner)",
+          "Lightning Bug (Shock Wave)",
+          "Modified Aphid (Afterburner)",
+          "Modified Aphid (Shock Wave)",
+          "Questing Tick (Shock Wave)",
+          "Sea Scorpion (Pulse Afterburner)",
+          "Sea Scorpion (Pulse Repeater Afterburner)",
+          "Shield Beetle (Jump, Pulse Repeater Afterburner)",
+          "Shield Beetle (Jump, Shock Wave Tracker)",
+          "Shield Beetle (Pulse Afterburner)",
+          "Shield Beetle (Pulse Repeater Afterburner)",
+          "Shield Beetle (Shock Wave Ion)",
+          "Shield Beetle (Shock Wave Tracker)",
+          "Shield Beetle (Shock Wave)",
+          "Solifuge (Shock Wave)",
+          "Titan Beetle (Shock Wave)",
+          "Water Bug (Shock Wave)",
+          "Water Scorpion (Jump, Tracker)",
+          "Water Scorpion (Tracker)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Bore Fah",
+          "Bote Asu",
+          "Da Ent",
+          "Da Lest",
+          "Due Yoot",
+          "Ehma Ti",
+          "Fah Root",
+          "Fah Soom",
+          "Heia Due",
+          "Hevru Hai",
+          "Hi Yahr",
+          "Imo Dep",
+          "Io Lowe",
+          "Io Mann",
+          "Lom Tahr",
+          "Mei Yohn",
+          "Rati Cal",
+          "Ula Mon",
+          "Uwa Fahn",
+          "Wah Ki",
+          "Wah Oh",
+          "Wah Yoot",
+          "Waypoint",
+          "Ya Hai",
+          "Zuba Zub"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Langrage Hyper-Launcher",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 4000,
+    "cost": 3450000,
+    "thumbnail": "outfit/PR4987 shunt bomb launcher",
+    "mass": 46,
+    "outfit space": -46,
+    "weapon capacity": -46,
+    "fuel capacity": 200,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/heaver hyperspace",
+      "sprite data": {
+        "frame rate": 12,
+        "rewind": true
+      },
+      "sound": "heaver",
+      "icon": "icon/korath heaver",
+      "hit effect": "heaver hyperspace hit",
+      "inaccuracy": 0.5,
+      "velocity": 30,
+      "lifetime": 8,
+      "reload": 40,
+      "burst reload": 12,
+      "burst count": 6,
+      "firing energy": 46.5,
+      "firing heat": 285,
+      "firing fuel": 18.75,
+      "shield damage": -513,
+      "hull damage": -513,
+      "hit force": 3600,
+      "submunitions": [
+        {
+          "type": "Heaver Shard",
+          "count": 30
+        }
+      ]
+    },
+    "description": "This non-turreted version of the Langrage Hyper-Heaver lacks the ability to rotate itself, but each shot delivers a larger payload. \tAt close range, the heaved langrage merely forces the enemy back. As the launch field collapses and the langrage returns fully to normal space, however, it is rent into a rapidly-expanding cloud of deadly projectiles.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Scrappers": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Ikatila'ej Eldar",
+          "Rai'alorej Makwar"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Radiological Containment",
+    "category": "Systems",
+    "series": "Expansions",
+    "index": 10,
+    "thumbnail": "outfit/Midnight-Becca scavenger",
+    "cost": 1200000,
+    "mass": 150,
+    "hull": 2200,
+    "heat dissipation": 0.2,
+    "outfit space": -10,
+    "cargo space": 360,
+    "cooling": 12,
+    "scan interference": 99,
+    "cargo scan opacity": 150,
+    "scan concealment": 180,
+    "integrated systems": 1,
+    "reinstall": -1,
+    "unplunderable": 1,
+    "description": "These cargo storage cylinders are designed to contain hazardous radioactive waste. Their internal structure also interferes with incoming scans enough to almost completely block all of them.",
+    "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Bounty": true,
+        "Bounty (Disguised)": true,
+        "Pirate": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Garbage Scow (Heavy)",
+          "Garbage Scow (Jammer)",
+          "Garbage Scow (Proton)",
+          "Garbage Scow (Quad Blaster)",
+          "Garbage Scow (Smuggler)",
+          "Garbage Scow (Stinger)",
+          "Garbage Scow (Turbo)"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "ShipyardPlanets": [
+          "Leroo Station"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Alpherg",
+          "Belenos",
+          "Citadelle",
+          "Fumalsamakah"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Scattershot Ammo",
+    "plural": "Scattershot Ammo",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 99999,
+    "cost": 96,
+    "thumbnail": "outfit/Midnight-Becca accurate gat",
+    "mass": 0.048,
+    "scattershot capacity": -1,
+    "scramble protection": 0.00001,
+    "description": "Scattershot shells are packed into special racks designed for loading the Scattershot Gun. \tGenesis ammunition, professionally manufactured by their industrial mass production factories, is a critical element to many of their weapons. Quality control measures at these facilities make them less likely to jam.",
+    "governments": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Genesis": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Genesis Logistic (Scattershot)",
+          "Genesis Spacecraft (Scattershot)",
+          "Genesis Transport (Scattershot)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Scattershot Rack",
+    "plural": "Scattershot Racks",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 99999,
+    "cost": 3000,
+    "thumbnail": "outfit/Midnight-Becca-Zahniser accurate gat storage",
+    "mass": 2,
+    "outfit space": -5,
+    "scattershot capacity": 62,
+    "ammo": "Scattershot Ammo",
+    "description": "Scattershot Racks are used to store extra ammunition for Scattershot Guns.",
+    "governments": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Genesis": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Genesis Logistic (Scattershot)",
+          "Genesis Spacecraft (Scattershot)",
+          "Genesis Transport (Scattershot)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Scattershot Depot",
+    "plural": "Scattershot Racks",
+    "cost": 18000,
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 99999,
+    "thumbnail": "outfit/Midnight-Becca-Zahniser accurate gat depot",
+    "mass": 12,
+    "cargo space": -40,
+    "scattershot capacity": 372,
+    "ammo": "Scattershot Ammo",
+    "required crew": 1,
+    "description": "The Scattershot Depot stages extra ammunition in your cargo bay for weapons that use Scattershot Ammo. The ammunition is ready to be withdrawn for use. Storing it this way uses more cargo space than if it were packed away in sealed crates. An extra crewmember is required to oversee maintenance of the ammunition.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Scattershot Gun",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 99999,
+    "cost": 20000,
+    "thumbnail": "outfit/Becca accurate gat",
+    "mass": 2,
+    "outfit space": -8,
+    "weapon capacity": -8,
+    "gun ports": -1,
+    "scattershot capacity": 125,
+    "scramble resistance": 0.05,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "scattershot",
+      "icon": "icon/scattershot",
+      "inaccuracy": 1,
+      "velocity": 16,
+      "lifetime": 1,
+      "reload": 72,
+      "firing energy": 0.72,
+      "firing heat": 60,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "scattershot bullet",
+          "count": 8
+        },
+        {
+          "type": "scattershot bullet",
+          "count": 8
+        },
+        {
+          "type": "scattershot bullet",
+          "count": 8
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Scattershot Ammo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The Scattershot Gun racks shells that split into multiple shots which spread out to cover a wide area. \tGenesis mechanical weapons technology is far ahead of their energy weapons development. The loading systems on them are less likely to jam compared to species that put more resources on developing their energy weapons.",
+    "governments": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Genesis": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Genesis Logistic (Scattershot)",
+          "Genesis Spacecraft (Scattershot)",
+          "Genesis Transport (Scattershot)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "scattershot bullet",
+    "weapon": {
+      "sprite": "projectile/bullet",
+      "sprite data": {
+        "delay": 5,
+        "random start frame": true,
+        "frame rate": 0
+      },
+      "inaccuracy": 3,
+      "random velocity": 8,
+      "lifetime": 20,
+      "random lifetime": 5,
+      "shield damage": 4,
+      "hull damage": 8,
+      "hit force": 2,
+      "hit effect": "bullet impact"
+    },
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Shock Wave Blaster",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 2055,
+    "cost": 290000,
+    "thumbnail": "outfit/midnight becca ionic blaster",
+    "mass": 16,
+    "outfit space": -16,
+    "weapon capacity": -16,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/Midnight shock wave blaster",
+      "sound": "particle-ver8",
+      "hit effect": "shock wave explosion",
+      "inaccuracy": 4,
+      "velocity": 12,
+      "lifetime": 10,
+      "reload": 14,
+      "firing energy": 48,
+      "firing heat": 90,
+      "firing force": 1.5,
+      "submunitions": [
+        {
+          "type": "Shock Wave Fragment",
+          "count": 6
+        }
+      ]
+    },
+    "description": "Shock Wave Blasters were originally the weapon of choice for the Hai Imperial Guard. They eventually fell out of favor as pulse and ion technology rose to prominence. \tThe ionized plasma fired from these weapons is composed of charged particles that are extremely volatile. They lose cohesion after only a short distance of flight, making them less effective against distant targets.",
+    "governments": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Hai (Friendly Unfettered)": true,
+        "Hai (Unfettered)": true,
+        "Pirate": true,
+        "Storm Seekers": true
+      },
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Bounty Hunter": true
+      },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Bounty Hunter": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anomalocaris (Shock Wave)",
+          "Armor Beetle (Jump, Shock Wave Heavy Pulse)",
+          "Armor Beetle (Shock Wave Heavy Pulse)",
+          "Horseshoe Crab (Shock Wave Afterburner)",
+          "Horseshoe Crab (Shock Wave)",
+          "Ladybug (Shock Wave)",
+          "Lightning Bug (Shock Wave)",
+          "Modified Aphid (Shock Wave)",
+          "Questing Tick (Shock Wave Tracker)",
+          "Questing Tick (Shock Wave)",
+          "Sea Scorpion (Shock Wave)",
+          "Shield Beetle (Jump, Shock Wave Tracker)",
+          "Shield Beetle (Shock Wave Ion)",
+          "Shield Beetle (Shock Wave Tracker)",
+          "Shield Beetle (Shock Wave)",
+          "Solifuge (Shock Wave)",
+          "Titan Beetle (Shock Wave)",
+          "Violin Spider (Shock Wave)",
+          "Water Bug (Shock Wave)",
+          "Water Scorpion (Jump, Tracker)",
+          "Water Scorpion (Tracker)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ehma Ti",
+          "Hi Yahr",
+          "Wah Yoot"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Shock Wave Fragment",
+    "weapon": {
+      "sprite": "projectile/Midnight shock wave fragment",
+      "hit effect": "shock wave frag",
+      "inaccuracy": 8,
+      "lifetime": 30,
+      "shield damage": 5.25,
+      "hull damage": 3.967,
+      "heat damage": 21.7,
+      "hit force": 7
+    },
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Shock Wave Blaster Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 2030,
+    "cost": 325000,
+    "thumbnail": "outfit/midnight becca ionic turret single",
+    "mass": 20,
+    "outfit space": -20,
+    "weapon capacity": -20,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/Midnight shock wave blaster",
+      "turret turn": 2.3,
+      "hardpoint sprite": "hardpoint/modified shock wave turret",
+      "hardpoint offset": 7,
+      "sound": "particle-ver8",
+      "hit effect": "shock wave explosion",
+      "inaccuracy": 4,
+      "velocity": 12,
+      "lifetime": 10,
+      "reload": 14,
+      "firing energy": 48,
+      "firing heat": 90,
+      "firing force": 1.5,
+      "submunitions": [
+        {
+          "type": "Shock Wave Fragment",
+          "count": 6
+        }
+      ]
+    },
+    "description": "Mounting only a single Shockwave Blaster, this older version of the Shock Wave Turret is a viable option for arming smaller ships.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Cicada (Shock Wave)",
+          "Horseshoe Crab (Shock Wave Afterburner)",
+          "Horseshoe Crab (Shock Wave)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Shock Wave Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 2030,
+    "cost": 650000,
+    "thumbnail": "outfit/midnight becca ionic turret",
+    "mass": 42,
+    "outfit space": -42,
+    "weapon capacity": -42,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/Midnight shock wave blaster",
+      "turret turn": 2.3,
+      "hardpoint sprite": "hardpoint/shock wave turret",
+      "hardpoint offset": 7,
+      "sound": "particle-ver8",
+      "hit effect": "shock wave explosion",
+      "inaccuracy": 4,
+      "velocity": 12,
+      "lifetime": 10,
+      "reload": 7,
+      "firing energy": 48,
+      "firing heat": 90,
+      "firing force": 1.5,
+      "submunitions": [
+        {
+          "type": "Shock Wave Fragment",
+          "count": 6
+        }
+      ]
+    },
+    "description": "Shock Wave Blasters are no longer utilized in modern Hai fleets, but have seen a resurgence among Unfettered raiders. Mounting two of these weapons on a rotating turret base is a recent Unfettered innovation.",
+    "governments": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Hai (Friendly Unfettered)": true,
+        "Hai (Unfettered)": true,
+        "Pirate": true,
+        "Storm Seekers": true
+      },
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Bounty Hunter": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anomalocaris (Shock Wave)",
+          "Armor Beetle (Jump, Shock Wave Heavy Pulse)",
+          "Armor Beetle (Shock Wave Heavy Pulse)",
+          "Horseshoe Crab (Shock Wave Afterburner)",
+          "Ladybug (Shock Wave)",
+          "Lightning Bug (Shock Wave)",
+          "Sea Scorpion (Shock Wave)",
+          "Shield Beetle (Jump, Shock Wave Tracker)",
+          "Shield Beetle (Shock Wave Ion)",
+          "Shield Beetle (Shock Wave Tracker)",
+          "Shield Beetle (Shock Wave)",
+          "Solifuge (Shock Wave)",
+          "Titan Beetle (Shock Wave)",
+          "Water Bug (Shock Wave)",
+          "Water Scorpion (Jump, Tracker)",
+          "Water Scorpion (Tracker)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ehma Ti",
+          "Hi Yahr",
+          "Wah Yoot"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Korath Waste",
+    "category": "Ammunition",
+    "cost": 0,
+    "thumbnail": "outfit/korath waste",
+    "mass": 0.0625,
+    "korath waste capacity": -1,
+    "description": "This irradiated industrial waste is a byproduct of Korath manufacturing processes.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Korath World Crafter (Kor Efret World Crafter)"
+        ],
+        "Missions": [
+          "Korath Waste Disposal",
+          "Korath Waste Generation"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Korath Waste Launcher",
+    "category": "Secondary Weapons",
+    "cost": 393000,
+    "thumbnail": "outfit/PR4987 shunt bomb launcher",
+    "mass": 11,
+    "outfit space": -17,
+    "weapon capacity": -17,
+    "energy capacity": 50,
+    "gun ports": -1,
+    "korath waste capacity": 96,
+    "integrated systems": 1,
+    "reinstall": -1,
+    "weapon": {
+      "sprite": "projectile/korath waste launcher",
+      "sprite data": {
+        "frame rate": 7
+      },
+      "sound": "minelayer",
+      "icon": "icon/Midnight korath waste",
+      "hit effect": "large explosion",
+      "inaccuracy": 1,
+      "velocity": 5,
+      "lifetime": 10,
+      "reload": 90,
+      "firing energy": 36,
+      "firing heat": 107,
+      "submunitions": [
+        {
+          "type": "Korath Waste Submunition",
+          "count": 15
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Korath Waste",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The factories on larger Korath world ships produce a tremendous amount of waste. This weapon takes the most dangerous irradiated waste and fires it as a projectile that is very effective against shields.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Korath World Crafter (Kor Efret World Crafter)"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Korath Waste Submunition",
+    "weapon": {
+      "sprite": "projectile/korath waste",
+      "sprite data": {
+        "frame rate": 1,
+        "no repeat": true
+      },
+      "hit effect": "small explosion",
+      "die effect": "Midnight korath waste",
+      "inaccuracy": 360,
+      "velocity": 5,
+      "random velocity": 20,
+      "lifetime": 2000,
+      "random lifetime": 120,
+      "acceleration": 0.00001,
+      "drag": 0.05,
+      "shield damage": 30,
+      "hull damage": 10,
+      "missile strength": 22
+    },
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  }
+]
