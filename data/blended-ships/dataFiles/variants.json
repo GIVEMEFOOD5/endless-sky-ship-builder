@@ -1,0 +1,1152 @@
+[
+  {
+    "name": "Barquentine (Nuke)",
+    "engines": [
+      {
+        "x": -27.5,
+        "y": 179
+      },
+      {
+        "x": 23.5,
+        "y": 178
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 16,
+        "y": -167.5,
+        "gun": ""
+      },
+      {
+        "x": 7.5,
+        "y": -179,
+        "gun": ""
+      },
+      {
+        "x": -12,
+        "y": -179.5,
+        "gun": ""
+      },
+      {
+        "x": -20,
+        "y": -167.5,
+        "gun": ""
+      },
+      {
+        "x": -34.5,
+        "y": -74,
+        "gun": ""
+      },
+      {
+        "x": -39,
+        "y": -55,
+        "gun": ""
+      },
+      {
+        "x": -44,
+        "y": -36.5,
+        "gun": ""
+      },
+      {
+        "x": -32.5,
+        "y": -16.5,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": 29,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": 37.5,
+        "gun": ""
+      },
+      {
+        "x": -60.5,
+        "y": 65.5,
+        "gun": ""
+      },
+      {
+        "x": -74.5,
+        "y": 82,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": 95,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": 103,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": 111,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": 119,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 36,
+        "y": -57.5,
+        "turret": ""
+      },
+      {
+        "x": 37,
+        "y": 114,
+        "turret": ""
+      },
+      {
+        "x": -50.5,
+        "y": 134.5,
+        "turret": ""
+      },
+      {
+        "x": -3,
+        "y": -92.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 20,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/barquentine",
+    "thumbnail": "thumbnail/barquentine",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Militia": true
+      },
+      "cost": "29400000",
+      "shields": 21720,
+      "hull": 5840,
+      "required crew": 95,
+      "bunks": 107,
+      "mass": 1550,
+      "drag": 27.9,
+      "heat dissipation": 0.39,
+      "fuel capacity": 500,
+      "cargo space": 50,
+      "outfit space": 790,
+      "weapon capacity": 430,
+      "engine capacity": 190,
+      "weapon": {
+        "blast radius": 280,
+        "shield damage": 2800,
+        "hull damage": 1400,
+        "hit force": 4200
+      }
+    },
+    "angle": 270,
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Originally designed as a flagship for the Free Worlds' war fleet, the Barquentine is a unique model based off the Southbound Shipyards Dreadnought. Armed with no fewer than 16 gun ports, the Barquentine is capable of taking down a Navy Carrier - and its full fighter and drone complement - in the hands of a skilled pilot. However, its mass imbalance and broadside weapon mounting makes it the most difficult ship to pilot in all of human space.",
+    "_internalId": "Blended Ships/blended-ships::Barquentine",
+    "_pluginId": "Blended Ships/blended-ships",
+    "_hash": "da1a6cabfe0a",
+    "variant": "Barquentine (Nuke)",
+    "baseShip": "Barquentine",
+    "_variantPluginId": "Blended Ships/blended-ships",
+    "governments": {
+      "blended-ships": {
+        "blended-ships": true
+      }
+    },
+    "locations": {
+      "Blended Ships/blended-ships": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Nuclear Missile": {
+        "count": 12,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo Launcher": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 120,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plasma Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Breeder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-970 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Catalytic Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 38,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A520 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A865 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Barquentine 🇲 (Nuke)",
+    "engines": [
+      {
+        "x": -27.5,
+        "y": 179
+      },
+      {
+        "x": 23.5,
+        "y": 178
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 16,
+        "y": -167.5,
+        "gun": ""
+      },
+      {
+        "x": 7.5,
+        "y": -179,
+        "gun": ""
+      },
+      {
+        "x": -12,
+        "y": -179.5,
+        "gun": ""
+      },
+      {
+        "x": -20,
+        "y": -167.5,
+        "gun": ""
+      },
+      {
+        "x": -34.5,
+        "y": -74,
+        "gun": ""
+      },
+      {
+        "x": -39,
+        "y": -55,
+        "gun": ""
+      },
+      {
+        "x": -44,
+        "y": -36.5,
+        "gun": ""
+      },
+      {
+        "x": -32.5,
+        "y": -16.5,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": 29,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": 37.5,
+        "gun": ""
+      },
+      {
+        "x": -60.5,
+        "y": 65.5,
+        "gun": ""
+      },
+      {
+        "x": -74.5,
+        "y": 82,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": 95,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": 103,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": 111,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": 119,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 36,
+        "y": -57.5,
+        "turret": ""
+      },
+      {
+        "x": 37,
+        "y": 114,
+        "turret": ""
+      },
+      {
+        "x": -50.5,
+        "y": 134.5,
+        "turret": ""
+      },
+      {
+        "x": -3,
+        "y": -92.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 20,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "display name": "Barquentine",
+    "sprite": "ship/barquentine",
+    "thumbnail": "thumbnail/barquentine",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Militia": true
+      },
+      "cost": "29400000",
+      "shields": 21720,
+      "hull": 5840,
+      "required crew": 95,
+      "bunks": 107,
+      "mass": 1550,
+      "drag": 27.9,
+      "heat dissipation": 0.39,
+      "fuel capacity": 500,
+      "cargo space": 50,
+      "outfit space": 790,
+      "weapon capacity": 430,
+      "engine capacity": 190,
+      "weapon": {
+        "blast radius": 280,
+        "shield damage": 2800,
+        "hull damage": 1400,
+        "hit force": 4200
+      }
+    },
+    "angle": 270,
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Originally designed as a flagship for the Free Worlds' war fleet, the Barquentine is a unique model based off the Southbound Shipyards Dreadnought. Armed with no fewer than 16 gun ports, the Barquentine is capable of taking down a Navy Carrier - and its full fighter and drone complement - in the hands of a skilled pilot. However, its mass imbalance and broadside weapon mounting makes it the most difficult ship to pilot in all of human space.",
+    "_internalId": "Blended Ships/blended-ships::Barquentine 🇲",
+    "_pluginId": "Blended Ships/blended-ships",
+    "_hash": "da1a6cabfe0a",
+    "variant": "Barquentine 🇲 (Nuke)",
+    "baseShip": "Barquentine 🇲",
+    "_variantPluginId": "Blended Ships/blended-ships",
+    "governments": {
+      "Blended Ships/blended-ships": {
+        "Arena": true
+      }
+    },
+    "locations": {
+      "Blended Ships/blended-ships": {
+        "Planets": [
+          "Blended Ships ",
+          "mOctave's Plugins "
+        ],
+        "Missions": [
+          "FWC Checkmate 1 (Barquentine)"
+        ]
+      }
+    },
+    "outfits": {
+      "Nuclear Missile": {
+        "count": 12,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo Launcher": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Torpedo": {
+        "count": 120,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plasma Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Breeder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-970 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Catalytic Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 38,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A520 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A865 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Hare 🇲 (Miner)",
+    "engines": [
+      {
+        "x": -10,
+        "y": 34
+      },
+      {
+        "x": 10,
+        "y": 34
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -20,
+        "y": -29,
+        "gun": ""
+      },
+      {
+        "x": 20,
+        "y": -29,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -26.5,
+        "turret": ""
+      },
+      {
+        "x": -38,
+        "y": 4,
+        "turret": ""
+      },
+      {
+        "x": 38,
+        "y": 4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 80,
+        "spreadChance": 100
+      }
+    ],
+    "display name": "Hare",
+    "sprite": "ship/hare",
+    "thumbnail": "thumbnail/hare",
+    "attributes": {
+      "category": "Transport",
+      "cost": 1548000,
+      "shields": 2100,
+      "hull": 600,
+      "required crew": 1,
+      "bunks": 10,
+      "mass": 180,
+      "drag": 4.8,
+      "heat dissipation": 0.7,
+      "fuel capacity": 1000,
+      "cargo space": 60,
+      "outfit space": 238,
+      "weapon capacity": 80,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 20,
+        "shield damage": 200,
+        "hull damage": 100,
+        "hit force": 300
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion medium",
+    "description": "When explorers and couriers in the galactic east despaired of the choice between a Scout and a Bounder, a small startup stepped in and made the decision even harder. The Hare is the result, a Bounder-Scout hybrid that has abnormally high cargo and outfit capacity for its size and can be customized in any number of ways.",
+    "_internalId": "Blended Ships/blended-ships::Hare 🇲",
+    "_pluginId": "Blended Ships/blended-ships",
+    "_hash": "d9fa662f9ce1",
+    "variant": "Hare 🇲 (Miner)",
+    "baseShip": "Hare 🇲",
+    "_variantPluginId": "Blended Ships/blended-ships",
+    "governments": {
+      "Blended Ships/blended-ships": {
+        "Arena": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Achernar",
+          "Acrux",
+          "Al Dhanab",
+          "Albaldah",
+          "Aldhibain",
+          "Alheka",
+          "Alkaid",
+          "Alnair",
+          "Alphard",
+          "Aludra",
+          "Arcturus",
+          "Ascella",
+          "Atik",
+          "Atria",
+          "Beta Lupi",
+          "Betelgeuse",
+          "Boral",
+          "Capella",
+          "Caph",
+          "Cor Caroli",
+          "Danoa",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Gamma Cassiopeiae",
+          "Gamma Corvi",
+          "Graffias",
+          "Hassaleh",
+          "Kornephoros",
+          "Limen",
+          "Lolami",
+          "Markab",
+          "Menkar",
+          "Menkent",
+          "Mintaka",
+          "Mirach",
+          "Misam",
+          "Mora",
+          "Naos",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Orbona",
+          "Peacock",
+          "Persian",
+          "Phact",
+          "Phecda",
+          "Regulus",
+          "Rigel",
+          "Rutilicus",
+          "Sadr",
+          "Sospi",
+          "Talita",
+          "Turais",
+          "Unukalhai",
+          "Vega",
+          "Yed Prior",
+          "Zaurak",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "Mining Laser": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Mining Laser Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tractor Beam": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-AA Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-BB Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Supercapacitor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D14-RN Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Hare 🇲 (Long Haul)",
+    "engines": [
+      {
+        "x": -10,
+        "y": 34
+      },
+      {
+        "x": 10,
+        "y": 34
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -20,
+        "y": -29,
+        "gun": ""
+      },
+      {
+        "x": 20,
+        "y": -29,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -26.5,
+        "turret": ""
+      },
+      {
+        "x": -38,
+        "y": 4,
+        "turret": ""
+      },
+      {
+        "x": 38,
+        "y": 4,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 80,
+        "spreadChance": 100
+      }
+    ],
+    "display name": "Hare",
+    "sprite": "ship/hare",
+    "thumbnail": "thumbnail/hare",
+    "attributes": {
+      "category": "Transport",
+      "cost": 1548000,
+      "shields": 2100,
+      "hull": 600,
+      "required crew": 1,
+      "bunks": 10,
+      "mass": 180,
+      "drag": 4.8,
+      "heat dissipation": 0.7,
+      "fuel capacity": 1000,
+      "cargo space": 60,
+      "outfit space": 238,
+      "weapon capacity": 80,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 20,
+        "shield damage": 200,
+        "hull damage": 100,
+        "hit force": 300
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion medium",
+    "description": "When explorers and couriers in the galactic east despaired of the choice between a Scout and a Bounder, a small startup stepped in and made the decision even harder. The Hare is the result, a Bounder-Scout hybrid that has abnormally high cargo and outfit capacity for its size and can be customized in any number of ways.",
+    "_internalId": "Blended Ships/blended-ships::Hare 🇲",
+    "_pluginId": "Blended Ships/blended-ships",
+    "_hash": "d9fa662f9ce1",
+    "variant": "Hare 🇲 (Long Haul)",
+    "baseShip": "Hare 🇲",
+    "_variantPluginId": "Blended Ships/blended-ships",
+    "governments": {
+      "Blended Ships/blended-ships": {
+        "Arena": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alnair",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Danoa",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Fomalhaut",
+          "Gomeisa",
+          "Gorvi",
+          "Hamal",
+          "Hassaleh",
+          "Kugel",
+          "Kursa",
+          "Lolami",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mintaka",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Nocte",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Tortor",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      }
+    },
+    "outfits": {
+      "Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-CC Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Supercapacitor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D14-RN Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bunk Room": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X2700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Sunder (Patrol)",
+    "engines": [
+      {
+        "x": -11.5,
+        "y": 54
+      },
+      {
+        "x": 11.5,
+        "y": 54
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9.5,
+        "y": -53,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -53,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 28.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -14,
+        "under": true,
+        "launch effect": "human external"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": 38,
+        "under": true,
+        "angle": 180,
+        "launch effect": "human external"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/sunder",
+    "thumbnail": "thumbnail/sunder",
+    "attributes": {
+      "category": "Utility",
+      "cost": 1000000,
+      "shields": 1200,
+      "hull": 1600,
+      "required crew": 3,
+      "bunks": 5,
+      "mass": 260,
+      "drag": 4.7,
+      "heat dissipation": 0.56,
+      "fuel capacity": 600,
+      "cargo space": 80,
+      "outfit space": 230,
+      "weapon capacity": 50,
+      "engine capacity": 90,
+      "weapon": {
+        "blast radius": 28,
+        "shield damage": 280,
+        "hull damage": 140,
+        "hit force": 420
+      }
+    },
+    "tiny explosion": 20,
+    "small explosion": 15,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "The Sunder is a versatile mining platform equipped with dedicated prospecting equipment, most notably an undercarriage that supports two Mining Drones. The lineage of this ship can be traced back to the old asteroid mining ships used in the Sol Main Belt centuries ago; however, because of recent Syndicate efforts to further exploit the Core's mineral wealth, the newest model of the Sunder is now manufactured by Syndicated Shipyards.",
+    "_internalId": "official-game/endless-sky::Sunder",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "6e8cf9343b17",
+    "variant": "Sunder (Patrol)",
+    "baseShip": "Sunder",
+    "_variantPluginId": "Blended Ships/blended-ships",
+    "governments": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Scar's Legion": true,
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Antares",
+          "Beta Lupi",
+          "Dschubba",
+          "Eber",
+          "Gamma Corvi",
+          "Hadar",
+          "Han",
+          "Ildaria",
+          "Izar",
+          "Kornephoros",
+          "Kraz",
+          "Mimosa",
+          "Minkar",
+          "Pherkad",
+          "Sabik",
+          "Sargas",
+          "Shaula",
+          "Spica",
+          "Unukalhai",
+          "Wei",
+          "Yed Prior",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "Meteor Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 75,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfit Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-CC Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

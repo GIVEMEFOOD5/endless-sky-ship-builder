@@ -1,0 +1,238 @@
+{
+  "plugin": "purchase.bactrian",
+  "repository": "https://github.com/Nova1422/plugins",
+  "ships": [],
+  "variants": [
+    {
+      "name": "Bactrian (Pirated)",
+      "engines": [
+        {
+          "x": 18.5,
+          "y": 232
+        },
+        {
+          "x": -15,
+          "y": 232
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -9,
+          "y": -231.5,
+          "gun": ""
+        },
+        {
+          "x": 13.5,
+          "y": -231.5,
+          "gun": ""
+        },
+        {
+          "x": 36.5,
+          "y": -197,
+          "gun": ""
+        },
+        {
+          "x": 42,
+          "y": -193,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 37,
+          "y": -132.5,
+          "turret": ""
+        },
+        {
+          "x": -39,
+          "y": -39,
+          "turret": ""
+        },
+        {
+          "x": 31.5,
+          "y": -26,
+          "turret": ""
+        },
+        {
+          "x": -42.5,
+          "y": 75,
+          "turret": ""
+        },
+        {
+          "x": 32.5,
+          "y": 132,
+          "turret": ""
+        },
+        {
+          "x": -33.5,
+          "y": 192.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -43.5,
+          "y": -125,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 53,
+          "y": -72.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -50,
+          "y": 103.5,
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 50,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/bactrian",
+      "thumbnail": "thumbnail/bactrian",
+      "attributes": {
+        "licenses": {
+          "City-Ship": true
+        },
+        "category": "Utility",
+        "cost": 17600000,
+        "shields": 17500,
+        "hull": 8600,
+        "required crew": 70,
+        "bunks": 245,
+        "mass": 2450,
+        "drag": 30.6,
+        "heat dissipation": 0.22,
+        "fuel capacity": 700,
+        "cargo space": 530,
+        "outfit space": 740,
+        "weapon capacity": 300,
+        "engine capacity": 180,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "small explosion": 25,
+      "medium explosion": 35,
+      "large explosion": 45,
+      "huge explosion": 30,
+      "final explode": "final explosion large",
+      "description": "The Lionheart Bactrian is the last of the great city-ships, a design hearkening back to the early days of space colonization when a long-distance vessel needed to be a self-contained world, able to survive for weeks at a time without encountering an inhabited planet. It is not only a freighter, but a carrier, and a capable warship either at short range or at a distance. \tNaturally, this versatility also makes it extremely expensive, and the Bactrian is normally only for sale to citizens who have been vetted by the local government of the Deep.",
+      "_internalId": "official-game/endless-sky::Bactrian",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "f80228c395a7",
+      "variant": "Bactrian (Pirated)",
+      "baseShip": "Bactrian",
+      "_variantPluginId": "Nova1422s list/purchase.bactrian",
+      "governments": {
+        "official-game/endless-sky": {
+          "Deep Security": true
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "Pirate": true
+        },
+        "Lost in Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Pirate": true,
+          "Bounty (Disguised)": true,
+          "Bounty Hunter": true
+        }
+      },
+      "locations": {
+        "Nova1422s list/purchase.bactrian": {
+          "Planets": [
+            "Haven"
+          ]
+        }
+      },
+      "outfits": {
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo Launcher": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo": {
+          "count": 30,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D94-YV Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Ramscoop": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 15,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X5200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    }
+  ],
+  "outfits": [],
+  "effects": [],
+  "parsedAt": "2026-05-17T00:49:01.764Z"
+}

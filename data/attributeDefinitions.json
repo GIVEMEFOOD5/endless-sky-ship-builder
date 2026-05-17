@@ -15,7 +15,7 @@
       "jumpNavCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.cpp",
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h"
     },
-    "generatedAt": "2026-05-15T13:02:30.043Z",
+    "generatedAt": "2026-05-17T00:49:02.959Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
@@ -195,6 +195,7 @@
       "stacking": "additive",
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
+        "SetCloaked",
         "DoCloakDecision"
       ]
     },
@@ -207,6 +208,7 @@
       "stacking": "additive",
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
+        "SetCloaked",
         "DoCloakDecision"
       ]
     },
@@ -231,6 +233,7 @@
       "stacking": "additive",
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
+        "SetCloaked",
         "DoCloakDecision"
       ]
     },
@@ -2603,6 +2606,7 @@
       "stacking": "additive",
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
+        "SetCloaked",
         "DoCloakDecision"
       ]
     },
@@ -4505,6 +4509,29 @@
       "attributeVariables": {},
       "displayScale": 1,
       "displayUnit": "",
+      "labelPrefix": ""
+    },
+    "SetCloaked": {
+      "returnType": "void",
+      "params": "",
+      "isConst": false,
+      "attributesRead": [
+        "cloaking energy",
+        "cloaking fuel",
+        "cloaking hull",
+        "cloaking shields"
+      ],
+      "attributesSet": [],
+      "formulas": [],
+      "attributeVariables": {
+        "cloakingSpeed": "CloakingSpeed()",
+        "cloakingFuel": "[cloaking fuel]",
+        "cloakingEnergy": "[cloaking energy]",
+        "cloakingHull": "[cloaking hull]",
+        "cloakingShield": "[cloaking shields]"
+      },
+      "displayScale": 60,
+      "displayUnit": "/s",
       "labelPrefix": ""
     },
     "CloakingSpeed": {

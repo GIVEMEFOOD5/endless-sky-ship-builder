@@ -1,0 +1,235 @@
+{
+  "plugin": "capture.archons",
+  "repository": "https://github.com/Nova1422/plugins",
+  "ships": [],
+  "variants": [
+    {
+      "name": "Archon (C)",
+      "engines": [
+        {
+          "x": -17,
+          "y": 92
+        },
+        {
+          "x": 17,
+          "y": 92
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 0,
+          "y": -74,
+          "gun": ""
+        },
+        {
+          "x": 0,
+          "y": -74,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -10,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -10,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -10,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -10,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -10,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -10,
+          "turret": ""
+        },
+        {
+          "x": -40,
+          "y": -13,
+          "turret": ""
+        },
+        {
+          "x": -40,
+          "y": -13,
+          "turret": ""
+        },
+        {
+          "x": 40,
+          "y": -13,
+          "turret": ""
+        },
+        {
+          "x": 40,
+          "y": -13,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 81,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 81,
+          "turret": ""
+        },
+        {
+          "x": -55,
+          "y": 16,
+          "turret": ""
+        },
+        {
+          "x": 55,
+          "y": 16,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "noun": "entity",
+      "sprite": "ship/archon",
+      "sprite data": {
+        "frame rate": 0.87
+      },
+      "thumbnail": "thumbnail/archon",
+      "never disabled": true,
+      "attributes": {
+        "category": "Unclassified",
+        "cost": 1000000000,
+        "shields": 4000000,
+        "hull": 1000000,
+        "required crew": 1,
+        "bunks": 1,
+        "mass": 2150,
+        "drag": 40.5,
+        "heat dissipation": 27,
+        "fuel capacity": 800,
+        "cargo space": 0,
+        "outfit space": 1300,
+        "weapon capacity": 1125,
+        "engine capacity": 200,
+        "energy capacity": 100000,
+        "energy generation": 1000,
+        "heat generation": 17,
+        "shield generation": 100,
+        "shield energy": 100,
+        "hull repair rate": 100,
+        "hull energy": 100,
+        "ion protection": 3,
+        "scramble protection": 3,
+        "ion resistance": 1,
+        "scramble resistance": 1,
+        "ramscoop": 100,
+        "thrust": 120,
+        "thrusting energy": 20,
+        "thrusting heat": 10,
+        "turn": 2400,
+        "turning energy": 10,
+        "turning heat": 5,
+        "weapon": {
+          "blast radius": 500,
+          "shield damage": 10000,
+          "hull damage": 5000,
+          "hit force": -10000
+        }
+      },
+      "under": true,
+      "final explode": "archon a teleport",
+      "description": "The Archon's presence is chilling. The \"ship\" has an almost organic appearance, but your ship's scanners give you no discernible information on its construction. What exactly it is you do not know, but you can feel that it is powerful.",
+      "_internalId": "official-game/endless-sky::Archon",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "f41abc4e1f65",
+      "variant": "Archon (C)",
+      "baseShip": "Archon",
+      "_variantPluginId": "Nova1422s list/capture.archons",
+      "governments": {
+        "Nova1422s list/capture.archons": {
+          "Drak (C)": true,
+          "Drak (Incipias)": true
+        },
+        "official-game/endless-sky": {
+          "Drak": true
+        }
+      },
+      "locations": {
+        "Nova1422s list/capture.archons": {
+          "Systems": [
+            "Hallownest"
+          ],
+          "Missions": [
+            "Drak guarding Incipias space (C)",
+            "Drak guarding Korath space (C)",
+            "Drak guarding Sayaiban (C)",
+            "Drak guarding Void Sprites (C)"
+          ]
+        }
+      },
+      "outfits": {
+        "Drak Antimatter Cannon": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Drak Antimatter Cannon (Augmented)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Drak Anti-Missile Field": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Drak Anti-Missile Field (Augmented)": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Drak Draining Field": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Drak Draining Field (Augmented)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Drak Distancer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Drak Turret": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Drak Turret (Augmented)": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Jump Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    }
+  ],
+  "outfits": [],
+  "effects": [],
+  "parsedAt": "2026-05-17T00:49:01.762Z"
+}

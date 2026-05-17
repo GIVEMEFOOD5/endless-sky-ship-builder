@@ -1,0 +1,253 @@
+[
+  {
+    "name": "Bunsen Torch",
+    "category": "Hand to Hand",
+    "series": "H2H",
+    "index": 1021,
+    "licenses": {
+      "Militia": true
+    },
+    "thumbnail": "outfit/bunsen torch",
+    "cost": 35000,
+    "capture attack": 1.8,
+    "capture defense": 0.3,
+    "unplunderable": 1,
+    "description": "Though heavily debated, the more militant factions in the Senate could push through that licensed captains are allowed to equip their boarding crews with these advanced flamethrowers to break the resistance of enemy crews. However, most people would consider this weapon to be inhumane.",
+    "governments": {
+      "Bunsen.Burner": {
+        "Bunsen.Burner": true
+      }
+    },
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "Bunsen_Torch",
+    "display name": "Bunsen Torch",
+    "category": "Hand to Hand",
+    "series": "H2H",
+    "index": 1022,
+    "thumbnail": "outfit/bunsen torch",
+    "cost": 42000,
+    "capture attack": 1.8,
+    "capture defense": 0.3,
+    "illegal": 800000,
+    "unplunderable": 1,
+    "description": "Right when the war ended, the Bunsen Torch was banned not only in the territories of the Free Worlds, but by the peace agreement also everywhere else. As to be expected, the Pirates didn't care and recognized a business opportunity. \tHowever, torches bought legally during the war still won't be fined because of exception rules in the corresponding paragraphs.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Pirate": true,
+        "Free Worlds": true,
+        "Merchant": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Merchant": true,
+        "Escort": true,
+        "Bounty (Disguised)": true,
+        "Pirate": true,
+        "Pirate (Rival)": true,
+        "Republic": true,
+        "Scar's Legion": true,
+        "Free Worlds": true
+      },
+      "Blended Ships/blended-ships": {
+        "Free Worlds": true
+      }
+    },
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Ships": [
+          "Falcon (Bunsen Pirate)"
+        ]
+      }
+    },
+    "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "Bunsen Projectile",
+    "weapon": {
+      "sprite": "projectile/bunsen",
+      "sprite data": {
+        "frame rate": 17,
+        "random start frame": true
+      },
+      "hit effect": "flamethrower hit",
+      "die effect": "flamethrower die",
+      "inaccuracy": 10,
+      "lifetime": 22,
+      "random lifetime": 8,
+      "damage dropoff": 0,
+      "dropoff modifier": 0.7,
+      "shield damage": 1.2,
+      "hull damage": 0.9,
+      "heat damage": 320,
+      "burn damage": 1.6
+    },
+    "governments": {
+      "Bunsen.Burner": {
+        "Bunsen.Burner": true
+      }
+    },
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "Bunsen Burner",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1158,
+    "cost": 285000,
+    "thumbnail": "outfit/bunsen burner",
+    "mass": 20,
+    "outfit space": -20,
+    "weapon capacity": -20,
+    "gun ports": -1,
+    "fuel capacity": 100,
+    "weapon": {
+      "sprite": "effect/explosion/small",
+      "sprite data": {
+        "frame rate": 60,
+        "no repeat": true
+      },
+      "sound": "flamethrower",
+      "icon": "icon/flamethrower",
+      "inaccuracy": 6,
+      "velocity": 10,
+      "lifetime": 5,
+      "reload": 1,
+      "firing energy": 0.1,
+      "firing fuel": 0.65,
+      "firing heat": 6.4,
+      "submunitions": [
+        {
+          "type": "Bunsen Projectile",
+          "count": 1
+        }
+      ]
+    },
+    "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. So great are its fuel requirements that it comes with a standard fuel pod pre-installed, and has nevertheless became feasible only with the introduction of the catalytic ramscoop. Ships which lack powerful cooling systems should stay out of range at all costs.",
+    "governments": {
+      "Bunsen.Burner": {
+        "Bunsen.Burner": true
+      }
+    },
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "Bunsen Burner Turret",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1159,
+    "cost": 710000,
+    "thumbnail": "outfit/bunsen burner turret",
+    "mass": 26,
+    "outfit space": -26,
+    "weapon capacity": -26,
+    "turret mounts": -1,
+    "required crew": 1,
+    "fuel capacity": 100,
+    "weapon": {
+      "sprite": "effect/explosion/small",
+      "sprite data": {
+        "frame rate": 60,
+        "no repeat": true
+      },
+      "hardpoint sprite": "hardpoint/bunsen burner turret",
+      "hardpoint offset": 7,
+      "sound": "flamethrower",
+      "icon": "icon/flamethrower",
+      "inaccuracy": 6,
+      "turret turn": 3.1,
+      "velocity": 10,
+      "lifetime": 5,
+      "reload": 1,
+      "firing energy": 0.1,
+      "firing fuel": 0.65,
+      "firing heat": 6.4,
+      "submunitions": [
+        {
+          "type": "Bunsen Projectile",
+          "count": 1
+        }
+      ]
+    },
+    "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. So great are its fuel requirements that it comes with a standard fuel pod pre-installed, and has nevertheless became feasible only with the introduction of the catalytic ramscoop. Ships which lack powerful cooling systems should stay out of range at all costs. \tOne of the disadvantages of the flamethrower turned out to be that it's only effective when employed on capital ships which can be equipped with plenty enough fuel pods. As such ships are often slow in turning, the Bunsen Burner comes also in a turret version with high turning rate.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Pirate": true,
+        "Free Worlds": true,
+        "Merchant": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Merchant": true,
+        "Escort": true,
+        "Bounty (Disguised)": true,
+        "Pirate": true,
+        "Pirate (Rival)": true,
+        "Republic": true,
+        "Scar's Legion": true,
+        "Free Worlds": true
+      },
+      "Blended Ships/blended-ships": {
+        "Free Worlds": true
+      },
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Test Dummy": true
+      }
+    },
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Ships": [
+          "Falcon (Bunsen Pirate)",
+          "Falcon (Bunsen)"
+        ]
+      }
+    },
+    "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "Flamethrower Projectile",
+    "weapon": {
+      "sprite": "projectile/flamethrower",
+      "sprite data": {
+        "frame rate": 17,
+        "random start frame": true
+      },
+      "hit effect": "flamethrower hit",
+      "die effect": "flamethrower die",
+      "inaccuracy": 20,
+      "lifetime": 18,
+      "random lifetime": 8,
+      "damage dropoff": 0,
+      "dropoff modifier": 0.5,
+      "shield damage": 0.8,
+      "hull damage": 0.7,
+      "heat damage": 200,
+      "burn damage": 1
+    },
+    "governments": {
+      "Bunsen.Burner": {
+        "Bunsen.Burner": true
+      }
+    },
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+  }
+]

@@ -1,0 +1,3077 @@
+[
+  {
+    "name": "Heliarch Punisher (Burst Fire)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Burst Fire)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Finisher Maegrolain": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Storage Tube": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Torpedo": {
+        "count": 320,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Battery Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scanning Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 29,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 113,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Pure Finishers)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Pure Finishers)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Finisher Pod": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Storage Tube": {
+        "count": 21,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Torpedo": {
+        "count": 660,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scanning Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 71,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 40,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Scrappy)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Scrappy)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true,
+        "Heliarch Test Dummy": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Heliarch Drills 3"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Missions": [
+          "Coalition Dissension: Spaceport Bomber (Arach)"
+        ]
+      }
+    },
+    "outfits": {
+      "Bombardment Cannon": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bombardment Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Battery Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scanning Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 77,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 45,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Jump Burst Fire)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Jump Burst Fire)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Finisher Maegrolain": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Storage Tube": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Torpedo": {
+        "count": 320,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Battery Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scanning Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 29,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 113,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Jump Pure Finishers)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Jump Pure Finishers)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Finisher Pod": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Storage Tube": {
+        "count": 21,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Torpedo": {
+        "count": 660,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scanning Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 71,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 40,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Jump Scrappy)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Jump Scrappy)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Bombardment Cannon": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bombardment Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Battery Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scanning Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 77,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 45,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Scrappy Looting Mission)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Scrappy Looting Mission)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Ion Rain Gun": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Pod": {
+        "count": 2,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Finisher Torpedo": {
+        "count": 80,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bombardment Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Battery Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scanning Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 78,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 44,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Guardian Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Looting Mission)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Looting Mission)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Missions": [
+          "Overcharged Shield Module (The First Time)"
+        ]
+      }
+    },
+    "outfits": {
+      "Ion Rain Gun": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Pod": {
+        "count": 2,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Finisher Torpedo": {
+        "count": 80,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bombardment Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Battery Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scanning Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 78,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 44,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Guardian Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Skylance)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Skylance)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Heliarch": true
+      },
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Quarg Skylance": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Battery Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 11,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 145,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Full Quarg)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Full Quarg)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Quarg Skylance": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bombardment Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Antimatter Core": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nanotech Battery": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 78,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 44,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Full Quarg Attractor)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Full Quarg Attractor)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Heliarch Attractor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quarg Skylance": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Antimatter Core": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nanotech Battery": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Quarg Pure Finishers)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Quarg Pure Finishers)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Finisher Pod": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Storage Tube": {
+        "count": 20,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Torpedo": {
+        "count": 640,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Antimatter Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nanotech Battery": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Steering Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 78,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 44,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Skylance Advanced)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Skylance Advanced)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Cooling Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Advanced Battery Module (Large)": {
+        "count": 1,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Advanced Reactor Module (Large)": {
+        "count": 4,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Large Steering Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quarg Skylance": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Advanced Reactor Module (Small)": {
+        "count": 1,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Bombardment Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Collector Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Skylance Very Advanced)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Skylance Very Advanced)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Cooling Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Advanced Battery Module (Large)": {
+        "count": 1,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Advanced Reactor Module (Large)": {
+        "count": 4,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Advanced Steering Module": {
+        "count": 2,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Advanced Thrust Module": {
+        "count": 2,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quarg Skylance": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Advanced Reactor Module (Small)": {
+        "count": 1,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Small Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ion Hail Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Battery Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Heliarch Punisher (Advanced Pure Finishers)",
+    "engines": [
+      {
+        "x": -24,
+        "y": 184,
+        "zoom": 0.6
+      },
+      {
+        "x": 0,
+        "y": 187,
+        "zoom": 1.1
+      },
+      {
+        "x": 24,
+        "y": 184,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -121,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -118,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -43,
+        "gun": ""
+      },
+      {
+        "x": 43,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 13,
+        "y": -42,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -35,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 164,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/heliarch punisher",
+    "thumbnail": "thumbnail/heliarch punisher",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Heliarch": true
+      },
+      "cost": 58487000,
+      "shields": 108000,
+      "hull": 85000,
+      "required crew": 96,
+      "bunks": 145,
+      "mass": 2030,
+      "drag": 21.3,
+      "heat dissipation": 0.35,
+      "ion protection": 0.3,
+      "scramble protection": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 94,
+      "outfit space": 885,
+      "weapon capacity": 352,
+      "engine capacity": 187,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4800,
+        "hull damage": 2400,
+        "hit force": 6000
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Although not quite as strong or powerful as the Quarg ships that they are designed to oppose, Heliarch Punishers are versatile and durable ships. Rumors say that the Heliarchs have a small stash of stolen Quarg Skylances that they can outfit the Punishers with in times of war.",
+    "_internalId": "official-game/endless-sky::Heliarch Punisher",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5cda3aacc509",
+    "variant": "Heliarch Punisher (Advanced Pure Finishers)",
+    "baseShip": "Heliarch Punisher",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Advanced Finisher Pod": {
+        "count": 6,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Finisher Storage Tube": {
+        "count": 21,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Torpedo": {
+        "count": 660,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Reactor Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Shield Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scanning Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Riot Staff": {
+        "count": 71,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Enforcer Confrontation Gear": {
+        "count": 40,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Thrust Module": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Thrust Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Steering Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Quarg Skydragon (Skydragon (Looted Tech))",
+    "engines": [
+      {
+        "x": -26,
+        "y": 209.5
+      },
+      {
+        "x": 26.5,
+        "y": 210
+      },
+      {
+        "x": -18.5,
+        "y": 209.5
+      },
+      {
+        "x": 35.5,
+        "y": 210
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -58.5,
+        "y": -143.5,
+        "turret": ""
+      },
+      {
+        "x": -127,
+        "y": -60.5,
+        "turret": ""
+      },
+      {
+        "x": 60,
+        "y": -142,
+        "turret": ""
+      },
+      {
+        "x": 127.5,
+        "y": -62,
+        "turret": ""
+      },
+      {
+        "x": -145.5,
+        "y": 90,
+        "turret": ""
+      },
+      {
+        "x": 148.5,
+        "y": 94.5,
+        "turret": ""
+      },
+      {
+        "x": -139,
+        "y": 245,
+        "turret": ""
+      },
+      {
+        "x": 138,
+        "y": 247.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/skylark",
+    "sprite data": {
+      "scale": 1.5
+    },
+    "thumbnail": "thumbnail/skylark",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 12000000,
+      "shields": 240000,
+      "hull": 140000,
+      "required crew": 240,
+      "bunks": 420,
+      "mass": 920,
+      "drag": 18.5,
+      "heat dissipation": 0.7,
+      "fuel capacity": 2000,
+      "cargo space": 50,
+      "outfit space": 1200,
+      "weapon capacity": 400,
+      "engine capacity": 240,
+      "hull repair rate": 10,
+      "hull energy": 10,
+      "ramscoop": 10,
+      "weapon": {
+        "blast radius": 500,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 3000
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 16,
+    "medium explosion": 30,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion medium",
+    "description": "The Skydragon is twice as powerful as the Skylark. It was built as an answer to the Heliarch Longsword.",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Quarg Skydragon",
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_hash": "b2fd529e7c0b",
+    "variant": "Skydragon (Looted Tech)",
+    "baseShip": "Quarg Skydragon",
+    "_variantPluginId": "A Coalition at War/A-Coalition-At-War",
+    "governments": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Quarg Skylance": {
+        "count": 4,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Quarg Anti-Missile": {
+        "count": 4,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Antimatter Core": {
+        "count": 2,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Nanotech Battery": {
+        "count": 2,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Quantum Shield Generator": {
+        "count": 2,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Intrusion Countermeasures": {
+        "count": 240,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Medium Graviton Thruster": {
+        "count": 2,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Medium Graviton Steering": {
+        "count": 2,
+        "pluginId": "A Coalition at War/A-Coalition-At-War"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

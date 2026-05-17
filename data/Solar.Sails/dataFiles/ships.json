@@ -1,0 +1,95 @@
+[
+  {
+    "name": "Sailor",
+    "engines": [
+      {
+        "x": -19,
+        "y": 13.5
+      },
+      {
+        "x": -19,
+        "y": 13.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -18,
+        "y": -33,
+        "gun": ""
+      },
+      {
+        "x": 18,
+        "y": -33,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/sailor_sprite",
+    "thumbnail": "thumbnail/sailor_thumb",
+    "swizzle": 0,
+    "attributes": {
+      "category": "Transport",
+      "cost": 1500000,
+      "shields": 5000,
+      "hull": 1000,
+      "required crew": 1,
+      "bunks": 4,
+      "mass": 267,
+      "drag": 3.5,
+      "heat dissipation": 0.81,
+      "fuel capacity": 600,
+      "cargo space": 10,
+      "outfit space": 240,
+      "weapon capacity": 72,
+      "engine capacity": 60
+    },
+    "description": "Poking around game files, huh? I don't blame you.",
+    "_internalId": "LixiChronikouOrious list/Solar.Sails::Sailor",
+    "_pluginId": "LixiChronikouOrious list/Solar.Sails",
+    "_hash": "1cdade6853b3",
+    "governments": {
+      "Solar.Sails": {
+        "Solar.Sails": true
+      }
+    },
+    "locations": {
+      "LixiChronikouOrious list/Solar.Sails": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Shield Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Repair Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Battery Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Finisher Torpedo": {
+        "count": 80,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sailor's Sail": {
+        "count": 1,
+        "pluginId": "LixiChronikouOrious list/Solar.Sails"
+      }
+    }
+  }
+]

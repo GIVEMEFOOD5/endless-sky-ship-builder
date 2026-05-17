@@ -1,0 +1,3460 @@
+[
+  {
+    "name": "Shield Beetle (Proton)",
+    "engines": [
+      {
+        "x": -44,
+        "y": 133
+      },
+      {
+        "x": 44,
+        "y": 133
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": -34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": 34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": -49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": 49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": -14,
+        "gun": ""
+      },
+      {
+        "x": 61,
+        "y": -14,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": 39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": -57,
+        "y": 75,
+        "turret": ""
+      },
+      {
+        "x": 57,
+        "y": 75,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/hai shield beetle",
+    "thumbnail": "thumbnail/hai shield beetle",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 17900000,
+      "shields": 32000,
+      "hull": 9800,
+      "required crew": 47,
+      "bunks": 95,
+      "mass": 1881,
+      "drag": 16.3,
+      "heat dissipation": 0.33,
+      "fuel capacity": 500,
+      "cargo space": 142,
+      "outfit space": 798,
+      "weapon capacity": 333,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 3000
+      }
+    },
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "This ship was first built millennia ago, near the end of a more violent time in Hai history. Since then, it has served as the only heavy warship at the disposal of the Hai. The Shield Beetle is a versatile warship used by the Hai to guard their merchant convoys, or by the Unfettered to attack those very same convoys.",
+    "_internalId": "official-game/endless-sky::Shield Beetle",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "130e321397c9",
+    "variant": "Shield Beetle (Proton)",
+    "baseShip": "Shield Beetle",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate": true,
+        "Storm Seekers": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bufaer\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bullfrog Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Gorge Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Gun": {
+        "count": 8,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-970 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 80,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Shield Beetle (Particle)",
+    "engines": [
+      {
+        "x": -44,
+        "y": 133
+      },
+      {
+        "x": 44,
+        "y": 133
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": -34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": 34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": -49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": 49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": -14,
+        "gun": ""
+      },
+      {
+        "x": 61,
+        "y": -14,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": 39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": -57,
+        "y": 75,
+        "turret": ""
+      },
+      {
+        "x": 57,
+        "y": 75,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/hai shield beetle",
+    "thumbnail": "thumbnail/hai shield beetle",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 17900000,
+      "shields": 32000,
+      "hull": 9800,
+      "required crew": 47,
+      "bunks": 95,
+      "mass": 1881,
+      "drag": 16.3,
+      "heat dissipation": 0.33,
+      "fuel capacity": 500,
+      "cargo space": 142,
+      "outfit space": 798,
+      "weapon capacity": 333,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 3000
+      }
+    },
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "This ship was first built millennia ago, near the end of a more violent time in Hai history. Since then, it has served as the only heavy warship at the disposal of the Hai. The Shield Beetle is a versatile warship used by the Hai to guard their merchant convoys, or by the Unfettered to attack those very same convoys.",
+    "_internalId": "official-game/endless-sky::Shield Beetle",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "130e321397c9",
+    "variant": "Shield Beetle (Particle)",
+    "baseShip": "Shield Beetle",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate": true,
+        "Storm Seekers": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bufaer\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Gorge Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Particle Cannon": {
+        "count": 8,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 80,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Shield Beetle (Electron)",
+    "engines": [
+      {
+        "x": -44,
+        "y": 133
+      },
+      {
+        "x": 44,
+        "y": 133
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": -34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": 34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": -49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": 49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": -14,
+        "gun": ""
+      },
+      {
+        "x": 61,
+        "y": -14,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": 39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": -57,
+        "y": 75,
+        "turret": ""
+      },
+      {
+        "x": 57,
+        "y": 75,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/hai shield beetle",
+    "thumbnail": "thumbnail/hai shield beetle",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 17900000,
+      "shields": 32000,
+      "hull": 9800,
+      "required crew": 47,
+      "bunks": 95,
+      "mass": 1881,
+      "drag": 16.3,
+      "heat dissipation": 0.33,
+      "fuel capacity": 500,
+      "cargo space": 142,
+      "outfit space": 798,
+      "weapon capacity": 333,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 3000
+      }
+    },
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "This ship was first built millennia ago, near the end of a more violent time in Hai history. Since then, it has served as the only heavy warship at the disposal of the Hai. The Shield Beetle is a versatile warship used by the Hai to guard their merchant convoys, or by the Unfettered to attack those very same convoys.",
+    "_internalId": "official-game/endless-sky::Shield Beetle",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "130e321397c9",
+    "variant": "Shield Beetle (Electron)",
+    "baseShip": "Shield Beetle",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate": true,
+        "Storm Seekers": true
+      }
+    },
+    "locations": {
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bufaer\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Breeder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Electron Beam": {
+        "count": 8,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Electron Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Ravine Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 80,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Shield Beetle (Plasma)",
+    "engines": [
+      {
+        "x": -44,
+        "y": 133
+      },
+      {
+        "x": 44,
+        "y": 133
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -102,
+        "gun": ""
+      },
+      {
+        "x": -34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": 34,
+        "y": -68,
+        "gun": ""
+      },
+      {
+        "x": -49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": 49,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": -61,
+        "y": -14,
+        "gun": ""
+      },
+      {
+        "x": 61,
+        "y": -14,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": 39,
+        "y": 48,
+        "turret": ""
+      },
+      {
+        "x": -57,
+        "y": 75,
+        "turret": ""
+      },
+      {
+        "x": 57,
+        "y": 75,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/hai shield beetle",
+    "thumbnail": "thumbnail/hai shield beetle",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 17900000,
+      "shields": 32000,
+      "hull": 9800,
+      "required crew": 47,
+      "bunks": 95,
+      "mass": 1881,
+      "drag": 16.3,
+      "heat dissipation": 0.33,
+      "fuel capacity": 500,
+      "cargo space": 142,
+      "outfit space": 798,
+      "weapon capacity": 333,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 3000
+      }
+    },
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "This ship was first built millennia ago, near the end of a more violent time in Hai history. Since then, it has served as the only heavy warship at the disposal of the Hai. The Shield Beetle is a versatile warship used by the Hai to guard their merchant convoys, or by the Unfettered to attack those very same convoys.",
+    "_internalId": "official-game/endless-sky::Shield Beetle",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "130e321397c9",
+    "variant": "Shield Beetle (Plasma)",
+    "baseShip": "Shield Beetle",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate": true,
+        "Storm Seekers": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bufaer\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Ravine Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plasma Cannon": {
+        "count": 8,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-970 Regenerator": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 80,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Solifuge (Proton)",
+    "engines": [
+      {
+        "x": -28,
+        "y": 135.5
+      },
+      {
+        "x": 28,
+        "y": 135.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -140,
+        "gun": ""
+      },
+      {
+        "x": -11.5,
+        "y": -138.5,
+        "gun": ""
+      },
+      {
+        "x": 11.5,
+        "y": -138.5,
+        "gun": ""
+      },
+      {
+        "x": -9.5,
+        "y": -101,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -101,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -109.5,
+        "turret": ""
+      },
+      {
+        "x": 54.5,
+        "y": -48.5,
+        "turret": ""
+      },
+      {
+        "x": -54.5,
+        "y": -48.5,
+        "turret": ""
+      },
+      {
+        "x": 55,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": -55,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": 54.5,
+        "y": 50.5,
+        "turret": ""
+      },
+      {
+        "x": -54.5,
+        "y": 50.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -51.5,
+        "y": -71,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 51.5,
+        "y": -71,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": -58.5,
+        "y": 2,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 58.5,
+        "y": 2,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": -51.5,
+        "y": 76,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 51.5,
+        "y": 76,
+        "position": "under",
+        "launch effect": "hai launch"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 70
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/hai solifuge",
+    "thumbnail": "thumbnail/hai solifuge",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Unfettered Militia": true
+      },
+      "cost": 22800000,
+      "shields": 37800,
+      "hull": 11000,
+      "required crew": 62,
+      "bunks": 118,
+      "mass": 2590,
+      "drag": 30,
+      "heat dissipation": 0.22,
+      "fuel capacity": 600,
+      "cargo space": 142,
+      "outfit space": 828,
+      "weapon capacity": 342,
+      "engine capacity": 166,
+      "weapon": {
+        "blast radius": 450,
+        "shield damage": 4500,
+        "hull damage": 2250,
+        "hit force": 3500
+      }
+    },
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Impressed by the Alphas' \"Giftbringer,\" the Unfettered endeavored to build their own fighter carrier to take more advantage of their supply of jump drives.",
+    "_internalId": "official-game/endless-sky::Solifuge",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5f56bfc837c9",
+    "variant": "Solifuge (Proton)",
+    "baseShip": "Solifuge",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Storm Seekers": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "Bufaer\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A520 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bullfrog Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Gorge Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Gun": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Turret": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-270 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 100,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Solifuge (Electron)",
+    "engines": [
+      {
+        "x": -28,
+        "y": 135.5
+      },
+      {
+        "x": 28,
+        "y": 135.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -140,
+        "gun": ""
+      },
+      {
+        "x": -11.5,
+        "y": -138.5,
+        "gun": ""
+      },
+      {
+        "x": 11.5,
+        "y": -138.5,
+        "gun": ""
+      },
+      {
+        "x": -9.5,
+        "y": -101,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -101,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -109.5,
+        "turret": ""
+      },
+      {
+        "x": 54.5,
+        "y": -48.5,
+        "turret": ""
+      },
+      {
+        "x": -54.5,
+        "y": -48.5,
+        "turret": ""
+      },
+      {
+        "x": 55,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": -55,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": 54.5,
+        "y": 50.5,
+        "turret": ""
+      },
+      {
+        "x": -54.5,
+        "y": 50.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -51.5,
+        "y": -71,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 51.5,
+        "y": -71,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": -58.5,
+        "y": 2,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 58.5,
+        "y": 2,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": -51.5,
+        "y": 76,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 51.5,
+        "y": 76,
+        "position": "under",
+        "launch effect": "hai launch"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 70
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/hai solifuge",
+    "thumbnail": "thumbnail/hai solifuge",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Unfettered Militia": true
+      },
+      "cost": 22800000,
+      "shields": 37800,
+      "hull": 11000,
+      "required crew": 62,
+      "bunks": 118,
+      "mass": 2590,
+      "drag": 30,
+      "heat dissipation": 0.22,
+      "fuel capacity": 600,
+      "cargo space": 142,
+      "outfit space": 828,
+      "weapon capacity": 342,
+      "engine capacity": 166,
+      "weapon": {
+        "blast radius": 450,
+        "shield damage": 4500,
+        "hull damage": 2250,
+        "hit force": 3500
+      }
+    },
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Impressed by the Alphas' \"Giftbringer,\" the Unfettered endeavored to build their own fighter carrier to take more advantage of their supply of jump drives.",
+    "_internalId": "official-game/endless-sky::Solifuge",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5f56bfc837c9",
+    "variant": "Solifuge (Electron)",
+    "baseShip": "Solifuge",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Storm Seekers": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "Bufaer\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A525 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bullfrog Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Electron Turret": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Fissure Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-970 Regenerator": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 100,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Solifuge (Plasma)",
+    "engines": [
+      {
+        "x": -28,
+        "y": 135.5
+      },
+      {
+        "x": 28,
+        "y": 135.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -140,
+        "gun": ""
+      },
+      {
+        "x": -11.5,
+        "y": -138.5,
+        "gun": ""
+      },
+      {
+        "x": 11.5,
+        "y": -138.5,
+        "gun": ""
+      },
+      {
+        "x": -9.5,
+        "y": -101,
+        "gun": ""
+      },
+      {
+        "x": 9.5,
+        "y": -101,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -109.5,
+        "turret": ""
+      },
+      {
+        "x": 54.5,
+        "y": -48.5,
+        "turret": ""
+      },
+      {
+        "x": -54.5,
+        "y": -48.5,
+        "turret": ""
+      },
+      {
+        "x": 55,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": -55,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": 54.5,
+        "y": 50.5,
+        "turret": ""
+      },
+      {
+        "x": -54.5,
+        "y": 50.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -51.5,
+        "y": -71,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 51.5,
+        "y": -71,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": -58.5,
+        "y": 2,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 58.5,
+        "y": 2,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": -51.5,
+        "y": 76,
+        "position": "under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Fighter",
+        "x": 51.5,
+        "y": 76,
+        "position": "under",
+        "launch effect": "hai launch"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 70
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/hai solifuge",
+    "thumbnail": "thumbnail/hai solifuge",
+    "attributes": {
+      "category": "Heavy Warship",
+      "licenses": {
+        "Unfettered Militia": true
+      },
+      "cost": 22800000,
+      "shields": 37800,
+      "hull": 11000,
+      "required crew": 62,
+      "bunks": 118,
+      "mass": 2590,
+      "drag": 30,
+      "heat dissipation": 0.22,
+      "fuel capacity": 600,
+      "cargo space": 142,
+      "outfit space": 828,
+      "weapon capacity": 342,
+      "engine capacity": 166,
+      "weapon": {
+        "blast radius": 450,
+        "shield damage": 4500,
+        "hull damage": 2250,
+        "hit force": 3500
+      }
+    },
+    "tiny explosion": 50,
+    "small explosion": 50,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Impressed by the Alphas' \"Giftbringer,\" the Unfettered endeavored to build their own fighter carrier to take more advantage of their supply of jump drives.",
+    "_internalId": "official-game/endless-sky::Solifuge",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5f56bfc837c9",
+    "variant": "Solifuge (Plasma)",
+    "baseShip": "Solifuge",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Storm Seekers": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "Benga\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bufaer\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Gorge Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plasma Cannon": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plasma Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 100,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Pond Strider (Proton)",
+    "engines": [
+      {
+        "x": -23,
+        "y": 80
+      },
+      {
+        "x": 23,
+        "y": 80
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -76,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -72,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -72,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -18,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": 18,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 14,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": -45,
+        "position": "left under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": -45,
+        "position": "right under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": 28,
+        "position": "left under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": 28,
+        "position": "right under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": -45,
+        "position": "over",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": -45,
+        "position": "over",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": 28,
+        "position": "over",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": 28,
+        "position": "over",
+        "launch effect": "hai launch"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 70
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai pond strider",
+    "thumbnail": "thumbnail/hai pond strider",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5250000,
+      "shields": 10000,
+      "hull": 3000,
+      "required crew": 9,
+      "bunks": 18,
+      "mass": 429,
+      "drag": 5.33,
+      "hull repair rate": 1,
+      "heat dissipation": 0.34,
+      "fuel capacity": 300,
+      "cargo space": 71,
+      "outfit space": 354,
+      "weapon capacity": 144,
+      "engine capacity": 76,
+      "weapon": {
+        "blast radius": 200,
+        "shield damage": 1500,
+        "hull damage": 750,
+        "hit force": 1750
+      }
+    },
+    "tiny explosion": 20,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 10,
+    "final explode": "final explosion large",
+    "description": "The Hai upgraded their original Pond Strider after acquiring hull repair technology through alien diplomacy. These improvements have greatly reduced casualties in their conflict with the Unfettered, since the light Pond Striders become vulnerable as they collect damaged drones. Besides enabling the ship to repair damaged drones, the Hai have cleverly innovated the Skipper Railgun to make the Pond Strider and Fleas into very efficient combat support for their fleets.",
+    "_internalId": "official-game/endless-sky::Pond Strider",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "560fd952d316",
+    "variant": "Pond Strider (Proton)",
+    "baseShip": "Pond Strider",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "BetterVanillaHai": {
+        "BetterVanillaHai": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "Biroo\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Biroo\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-970 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 135,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile Launcher": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Pond Strider (Electron)",
+    "engines": [
+      {
+        "x": -23,
+        "y": 80
+      },
+      {
+        "x": 23,
+        "y": 80
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -76,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -72,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -72,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -18,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": 18,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 14,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": -45,
+        "position": "left under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": -45,
+        "position": "right under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": 28,
+        "position": "left under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": 28,
+        "position": "right under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": -45,
+        "position": "over",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": -45,
+        "position": "over",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": 28,
+        "position": "over",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": 28,
+        "position": "over",
+        "launch effect": "hai launch"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 70
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai pond strider",
+    "thumbnail": "thumbnail/hai pond strider",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5250000,
+      "shields": 10000,
+      "hull": 3000,
+      "required crew": 9,
+      "bunks": 18,
+      "mass": 429,
+      "drag": 5.33,
+      "hull repair rate": 1,
+      "heat dissipation": 0.34,
+      "fuel capacity": 300,
+      "cargo space": 71,
+      "outfit space": 354,
+      "weapon capacity": 144,
+      "engine capacity": 76,
+      "weapon": {
+        "blast radius": 200,
+        "shield damage": 1500,
+        "hull damage": 750,
+        "hit force": 1750
+      }
+    },
+    "tiny explosion": 20,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 10,
+    "final explode": "final explosion large",
+    "description": "The Hai upgraded their original Pond Strider after acquiring hull repair technology through alien diplomacy. These improvements have greatly reduced casualties in their conflict with the Unfettered, since the light Pond Striders become vulnerable as they collect damaged drones. Besides enabling the ship to repair damaged drones, the Hai have cleverly innovated the Skipper Railgun to make the Pond Strider and Fleas into very efficient combat support for their fleets.",
+    "_internalId": "official-game/endless-sky::Pond Strider",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "560fd952d316",
+    "variant": "Pond Strider (Electron)",
+    "baseShip": "Pond Strider",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "BetterVanillaHai": {
+        "BetterVanillaHai": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "A250 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bullfrog Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Electron Beam": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Electron Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Chasm Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Fissure Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-970 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Pond Strider (Particle)",
+    "engines": [
+      {
+        "x": -23,
+        "y": 80
+      },
+      {
+        "x": 23,
+        "y": 80
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -76,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -72,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -72,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -18,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": 18,
+        "y": -53,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 14,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": -45,
+        "position": "left under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": -45,
+        "position": "right under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": 28,
+        "position": "left under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": 28,
+        "position": "right under",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": -45,
+        "position": "over",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": -45,
+        "position": "over",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": -70,
+        "y": 28,
+        "position": "over",
+        "launch effect": "hai launch"
+      },
+      {
+        "type": "Drone",
+        "x": 70,
+        "y": 28,
+        "position": "over",
+        "launch effect": "hai launch"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 70
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai pond strider",
+    "thumbnail": "thumbnail/hai pond strider",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5250000,
+      "shields": 10000,
+      "hull": 3000,
+      "required crew": 9,
+      "bunks": 18,
+      "mass": 429,
+      "drag": 5.33,
+      "hull repair rate": 1,
+      "heat dissipation": 0.34,
+      "fuel capacity": 300,
+      "cargo space": 71,
+      "outfit space": 354,
+      "weapon capacity": 144,
+      "engine capacity": 76,
+      "weapon": {
+        "blast radius": 200,
+        "shield damage": 1500,
+        "hull damage": 750,
+        "hit force": 1750
+      }
+    },
+    "tiny explosion": 20,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 10,
+    "final explode": "final explosion large",
+    "description": "The Hai upgraded their original Pond Strider after acquiring hull repair technology through alien diplomacy. These improvements have greatly reduced casualties in their conflict with the Unfettered, since the light Pond Striders become vulnerable as they collect damaged drones. Besides enabling the ship to repair damaged drones, the Hai have cleverly innovated the Skipper Railgun to make the Pond Strider and Fleas into very efficient combat support for their fleets.",
+    "_internalId": "official-game/endless-sky::Pond Strider",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "560fd952d316",
+    "variant": "Pond Strider (Particle)",
+    "baseShip": "Pond Strider",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "BetterVanillaHai": {
+        "BetterVanillaHai": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "A250 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bullfrog Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Gorge Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Particle Cannon": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-270 Regenerator": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Lightning Bug (Particle)",
+    "engines": [
+      {
+        "x": -40,
+        "y": 22
+      },
+      {
+        "x": 40,
+        "y": 22
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -40,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -47,
+        "y": 18,
+        "turret": ""
+      },
+      {
+        "x": 47,
+        "y": 18,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai lightning bug",
+    "thumbnail": "thumbnail/hai lightning bug",
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 3200000,
+      "shields": 6700,
+      "hull": 1700,
+      "required crew": 4,
+      "bunks": 10,
+      "mass": 345,
+      "drag": 4.8,
+      "heat dissipation": 0.68,
+      "fuel capacity": 600,
+      "cargo space": 73,
+      "outfit space": 278,
+      "weapon capacity": 87,
+      "engine capacity": 93,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion small",
+    "description": "The Lightning Bug is a small defensive ship, mostly used by the Hai as a convoy escort. The Lightning Bug, as with many insects, works best in a swarm: even a small number of Lightning Bugs can manage to leave the largest of ships helpless with their stock-fitted Ion Cannons.",
+    "_internalId": "official-game/endless-sky::Lightning Bug",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "53b4360d990d",
+    "variant": "Lightning Bug (Particle)",
+    "baseShip": "Lightning Bug",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Hai (Unfettered)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "A370 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Corundum Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Fissure Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Particle Cannon": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Lightning Bug (Proton)",
+    "engines": [
+      {
+        "x": -40,
+        "y": 22
+      },
+      {
+        "x": 40,
+        "y": 22
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -40,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -47,
+        "y": 18,
+        "turret": ""
+      },
+      {
+        "x": 47,
+        "y": 18,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai lightning bug",
+    "thumbnail": "thumbnail/hai lightning bug",
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 3200000,
+      "shields": 6700,
+      "hull": 1700,
+      "required crew": 4,
+      "bunks": 10,
+      "mass": 345,
+      "drag": 4.8,
+      "heat dissipation": 0.68,
+      "fuel capacity": 600,
+      "cargo space": 73,
+      "outfit space": 278,
+      "weapon capacity": 87,
+      "engine capacity": 93,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion small",
+    "description": "The Lightning Bug is a small defensive ship, mostly used by the Hai as a convoy escort. The Lightning Bug, as with many insects, works best in a swarm: even a small number of Lightning Bugs can manage to leave the largest of ships helpless with their stock-fitted Ion Cannons.",
+    "_internalId": "official-game/endless-sky::Lightning Bug",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "53b4360d990d",
+    "variant": "Lightning Bug (Proton)",
+    "baseShip": "Lightning Bug",
+    "_variantPluginId": "Better Vanilla Hai/BetterVanillaHai",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Hai (Unfettered)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      }
+    },
+    "outfits": {
+      "A370 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Corundum Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Fissure Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Gun": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

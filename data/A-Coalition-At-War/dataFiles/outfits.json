@@ -1,0 +1,1304 @@
+[
+  {
+    "name": "Jump Drive (Special)",
+    "category": "Systems",
+    "cost": 1000000,
+    "thumbnail": "outfit/jump drive",
+    "mass": 20,
+    "outfit space": -20,
+    "jump speed": 0.3,
+    "jump fuel": 200,
+    "jump drive": 1,
+    "description": "The workings of the jump drive are a total mystery. The best that human scientists have been able to find out is that this device is a containment field for matter in a state that cannot normally exist in this universe; if the drive is opened up, the field collapses and its contents disappear. Therefore, even though a few jump drives have been captured over the years, it has so far proved impossible to reverse engineer them.",
+    "governments": {
+      "A-Coalition-At-War": {
+        "A-Coalition-At-War": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Quantum Deionizer",
+    "category": "Systems",
+    "cost": 100000000,
+    "mass": 300,
+    "outfit space": -100,
+    "weapon capacity": -240,
+    "heat generation": 158,
+    "energy consumption": 50,
+    "drag": 20,
+    "ion protection": 500,
+    "hull protection": 0.1,
+    "shield protection": 0.1,
+    "description": "This Quantum Deionizer makes you virtually immune to ion damage at a high cost. The ion sheath it creates gives a 10% reduction to shield & hull damage. It slows down your ship A LOT, uses a lot of WEAPON space, and might be the hottest outfit. Is immunity worth it? I don't know. Seems like someone could just kill you with a flamethrower.",
+    "governments": {
+      "A-Coalition-At-War": {
+        "A-Coalition-At-War": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Advanced Reactor Module (Large)",
+    "category": "Power",
+    "plural": "Advanced Reactor Modules (Large)",
+    "licenses": "Heliarch",
+    "cost": 27754000,
+    "thumbnail": "outfit/large reactor module",
+    "flotsam sprite": "outfit/large reactor module",
+    "mass": 98,
+    "outfit space": -98,
+    "energy generation": 24.2,
+    "heat generation": 45,
+    "active cooling": 42,
+    "cooling energy": 2.8,
+    "description": "This reactor was designed for the most powerful Heliarch warships. Its design has not changed significantly in the millennia since the first battle with the Quarg, but each generation of reactors is made slightly more efficient than the previous ones. This new generation has cooling built-in which allows it to be more space efficient.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Heliarch Punisher (Skylance Advanced)",
+          "Heliarch Punisher (Skylance Very Advanced)"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Advanced Reactor Module (Small)",
+    "category": "Power",
+    "plural": "Advanced Reactor Modules (Small)",
+    "licenses": "Heliarch",
+    "cost": 10754000,
+    "thumbnail": "outfit/small reactor module",
+    "flotsam sprite": "outfit/small reactor module",
+    "mass": 42,
+    "outfit space": -42,
+    "energy generation": 9.8,
+    "heat generation": 19,
+    "active cooling": 21,
+    "cooling energy": 1.4,
+    "description": "This reactor has built-in cooling which makes it superior to previous generators of small reactor modules.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Heliarch Punisher (Skylance Advanced)",
+          "Heliarch Punisher (Skylance Very Advanced)"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Advanced Battery Module (Large)",
+    "category": "Power",
+    "licenses": {
+      "Coalition": true
+    },
+    "cost": 170000,
+    "thumbnail": "outfit/large battery module",
+    "mass": 18,
+    "outfit space": -18,
+    "energy capacity": 18000,
+    "active cooling": 21,
+    "cooling energy": 1.4,
+    "description": "This battery pack stores enough power to allow a Coalition ship to continue maneuvering even when its solar panels are only producing a fraction of their peak output.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Heliarch Punisher (Skylance Advanced)",
+          "Heliarch Punisher (Skylance Very Advanced)"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Advanced Thrust Module",
+    "category": "Engines",
+    "licenses": {
+      "Coalition": true
+    },
+    "cost": 752000,
+    "thumbnail": "outfit/large thrust module",
+    "mass": 48,
+    "outfit space": -48,
+    "engine capacity": -48,
+    "thrust": 52.4,
+    "thrusting energy": 2.9,
+    "thrusting heat": 19,
+    "flare sprite": "effect/coalition flare/large",
+    "flare sprite data": {
+      "frame rate": 7
+    },
+    "flare sound": "atomic small",
+    "description": "The Heliarch wanted a more efficient engine for their big ships. This is it.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Heliarch Punisher (Skylance Very Advanced)"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Advanced Steering Module",
+    "category": "Engines",
+    "licenses": {
+      "Coalition": true
+    },
+    "cost": 269000,
+    "thumbnail": "outfit/large steering module",
+    "mass": 38,
+    "outfit space": -38,
+    "engine capacity": -38,
+    "turn": 1494,
+    "turning energy": 1.7,
+    "turning heat": 11,
+    "steering flare sprite": "effect/coalition flare/large",
+    "steering flare sprite data": {
+      "frame rate": 7
+    },
+    "steering flare sound": "atomic small",
+    "description": "The Heliarch wanted more effiicent steering for their big ships, so this outfit was born.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Heliarch Punisher (Skylance Very Advanced)"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Advanced Confrontation Gear",
+    "category": "Hand to Hand",
+    "licenses": "Heliarch",
+    "cost": 709000,
+    "thumbnail": "outfit/enforcer confrontation gear",
+    "capture attack": 6.2,
+    "capture defense": 4.9,
+    "unplunderable": 1,
+    "description": "The peak of Heliarch combat engineering, this weapon uses condensed blasts of energy to dispatch any who dare threaten the Coalition safety. This new version was developed because of the difficulty in capturing Quarg ships.",
+    "governments": {
+      "A-Coalition-At-War": {
+        "A-Coalition-At-War": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Advanced Finisher Pod",
+    "category": "Secondary Weapons",
+    "licenses": {
+      "Heliarch": true
+    },
+    "cost": 1370000,
+    "thumbnail": "outfit/finisher pod",
+    "mass": 16,
+    "outfit space": -36,
+    "weapon capacity": -36,
+    "gun ports": -1,
+    "finisher capacity": 40,
+    "weapon": {
+      "sprite": "projectile/finisher activating",
+      "sprite data": {
+        "frame rate": 1,
+        "no repeat": true
+      },
+      "sound": "finisher",
+      "icon": "icon/finisher",
+      "fire effect": "finisher sparks",
+      "hit effect": [
+        "finisher impact",
+        "finisher fragment"
+      ],
+      "die effect": "finisher fragment",
+      "inaccuracy": 5,
+      "velocity": 10,
+      "lifetime": 150,
+      "reload": 20,
+      "firing energy": 120,
+      "firing heat": 20,
+      "acceleration": 0.8,
+      "drag": 0.1,
+      "turn": 3,
+      "homing": 3,
+      "radar tracking": 0.8,
+      "optical tracking": 0.8,
+      "missile strength": 50,
+      "submunitions": [
+        {
+          "type": "Active Finisher",
+          "count": 1
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Finisher Torpedo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The way the advanced pod fires looks suspiciously like a Pug seeker. Maybe they reverse-engineered alien tech to make it? Finisher Torpedoes are one of the Heliarchs' most dreaded weapons. In fact, in one way or another most of their other weapons merely exist to hold a ship in place for long enough for a barrage of Finishers to destroy it.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Heliarch Punisher (Advanced Pure Finishers)"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Finisher Pod",
+    "weapon": {
+      "optical tracking": 0.5
+    },
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Storm Seekers": true,
+        "Heliarch": true,
+        "Coalition Bounty (Disguised)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Ships": [
+          "Heliarch Breacher",
+          "Heliarch Hunter",
+          "Heliarch Interdictor",
+          "Heliarch Judicator",
+          "Heliarch Punisher",
+          "Modified Osprey"
+        ]
+      },
+      "Zuckungs list/coalition.shopping": {
+        "ShipyardPlanets": [
+          "Far Home"
+        ]
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "ShipyardPlanets": [
+          "Ring of Friendship"
+        ],
+        "Ships": [
+          "Heliarch Breacher (Evidence)",
+          "Heliarch Breacher (Missile)",
+          "Heliarch Breacher (Rogue Missile)",
+          "Heliarch Hunter (Evidence)",
+          "Heliarch Hunter (Interdicting)",
+          "Heliarch Hunter (Missile)",
+          "Heliarch Hunter (Rogue Interdicting)",
+          "Heliarch Hunter (Rogue Missile)",
+          "Heliarch Interdictor (Bombardment)",
+          "Heliarch Interdictor (Evidence)",
+          "Heliarch Interdictor (Missile)",
+          "Heliarch Interdictor (Rogue Bombardment)",
+          "Heliarch Interdictor (Rogue Missile)",
+          "Heliarch Judicator (Missile)",
+          "Heliarch Judicator (Repulsor)",
+          "Heliarch Judicator (Rogue Missile)",
+          "Heliarch Judicator (Rogue Repulsor)",
+          "Heliarch Neutralizer (Missile)",
+          "Heliarch Neutralizer (Rogue Missile)",
+          "Heliarch Punisher (Evidence)",
+          "Heliarch Punisher (Fuel)",
+          "Heliarch Punisher (Interdicting)",
+          "Heliarch Punisher (Jump Pure Finishers)",
+          "Heliarch Punisher (Missile)",
+          "Heliarch Punisher (Pure Finishers)",
+          "Heliarch Punisher (Quarg Pure Finishers)",
+          "Heliarch Punisher (Rogue Interdicting)",
+          "Heliarch Punisher (Rogue Missile)",
+          "Heliarch Punisher (Rogue Pure Finishers)"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Heliarch Breacher (T1)",
+          "Heliarch Breacher (T10)",
+          "Heliarch Breacher (T2)",
+          "Heliarch Breacher (T3)",
+          "Heliarch Breacher (T4)",
+          "Heliarch Breacher (T5)",
+          "Heliarch Breacher (T6)",
+          "Heliarch Breacher (T7)",
+          "Heliarch Breacher (T8)",
+          "Heliarch Breacher (T9)",
+          "Heliarch Hunter (T1)",
+          "Heliarch Hunter (T10)",
+          "Heliarch Hunter (T2)",
+          "Heliarch Hunter (T3)",
+          "Heliarch Hunter (T4)",
+          "Heliarch Hunter (T5)",
+          "Heliarch Hunter (T6)",
+          "Heliarch Hunter (T7)",
+          "Heliarch Hunter (T8)",
+          "Heliarch Hunter (T9)",
+          "Heliarch Interdictor (T1)",
+          "Heliarch Interdictor (T10)",
+          "Heliarch Interdictor (T2)",
+          "Heliarch Interdictor (T3)",
+          "Heliarch Interdictor (T4)",
+          "Heliarch Interdictor (T5)",
+          "Heliarch Interdictor (T6)",
+          "Heliarch Interdictor (T7)",
+          "Heliarch Interdictor (T8)",
+          "Heliarch Interdictor (T9)",
+          "Heliarch Judicator (T1)",
+          "Heliarch Judicator (T10)",
+          "Heliarch Judicator (T2)",
+          "Heliarch Judicator (T3)",
+          "Heliarch Judicator (T4)",
+          "Heliarch Judicator (T5)",
+          "Heliarch Judicator (T6)",
+          "Heliarch Judicator (T7)",
+          "Heliarch Judicator (T8)",
+          "Heliarch Judicator (T9)",
+          "Heliarch Punisher (T1)",
+          "Heliarch Punisher (T10)",
+          "Heliarch Punisher (T2)",
+          "Heliarch Punisher (T3)",
+          "Heliarch Punisher (T4)",
+          "Heliarch Punisher (T5)",
+          "Heliarch Punisher (T6)",
+          "Heliarch Punisher (T7)",
+          "Heliarch Punisher (T8)",
+          "Heliarch Punisher (T9)",
+          "Modified Osprey (T1)",
+          "Modified Osprey (T10)",
+          "Modified Osprey (T2)",
+          "Modified Osprey (T3)",
+          "Modified Osprey (T4)",
+          "Modified Osprey (T5)",
+          "Modified Osprey (T6)",
+          "Modified Osprey (T7)",
+          "Modified Osprey (T8)",
+          "Modified Osprey (T9)"
+        ]
+      },
+      "LixiChronikouOrious list/Solar.Sails": {
+        "Ships": [
+          "Sailor"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Finisher Maegrolain",
+    "weapon": {
+      "optical tracking": 0.5
+    },
+    "governments": {
+      "official-game/endless-sky": {
+        "Heliarch": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Storm Seekers": true
+      }
+    },
+    "locations": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Heliarch Hunter (Burst Fire)",
+          "Heliarch Interdictor (Burst Fire)",
+          "Heliarch Punisher (Burst Fire)",
+          "Heliarch Punisher (Jump Burst Fire)"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Nanotech Battery",
+    "plural": "Nanotech Batteries",
+    "category": "Power",
+    "licenses": {
+      "Quarg": true
+    },
+    "cost": 3000000,
+    "thumbnail": "outfit/quarg nanotech battery",
+    "mass": 50,
+    "outfit space": -50,
+    "energy capacity": 60000,
+    "description": "Human engineers who first came into contact with the Quarg were astonished by the sheer efficiency of their technology. The energy density of Quarg batteries is unparalleled, storing nearly a third more energy than the best human batteries while being less than a third the size. Purchasing this outfit requires a Quarg License.",
+    "governments": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true
+      },
+      "Nova1422s list/tributequarg": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true
+      },
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Ships": [
+          "Quarg Skylark",
+          "Wardragon"
+        ]
+      },
+      "Zuckungs list/better.starts": {
+        "Ships": [
+          "Squiddy",
+          "Squiddy Drone"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Wardragon (T1)",
+          "Wardragon (T10)",
+          "Wardragon (T2)",
+          "Wardragon (T3)",
+          "Wardragon (T4)",
+          "Wardragon (T5)",
+          "Wardragon (T6)",
+          "Wardragon (T7)",
+          "Wardragon (T8)",
+          "Wardragon (T9)"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Skythrush",
+          "Quarg Warkite",
+          "Quarg Warwyrm"
+        ]
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Quarg Motherdragon",
+          "Quarg Skydragon",
+          "Quarg Strikedragon"
+        ]
+      },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Ships": [
+          "Marauder 53"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Antimatter Core",
+    "category": "Power",
+    "licenses": {
+      "Quarg": true
+    },
+    "cost": 100000000,
+    "thumbnail": "outfit/quarg antimatter core",
+    "mass": 80,
+    "outfit space": -80,
+    "energy generation": 80,
+    "heat generation": 20,
+    "unplunderable": 1,
+    "description": "Although humanity is now capable of producing antimatter in relatively significant quantities when compared to a thousand years ago, it is still nothing compared to the Quarg. The Quarg can produce enough antimatter to outfit every ship with an extremely efficient Antimatter Core, producing extreme amounts of energy with surprisingly little waste heat.",
+    "governments": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true,
+        "Heliarch": true
+      },
+      "Nova1422s list/tributequarg": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true
+      },
+      "official-game/endless-sky": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Heliarch": true
+      },
+      "Zuckungs list/quarg.farm": {
+        "Quarg (Evil)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true,
+        "Pirate (Rival)": true,
+        "Bounty Hunter": true,
+        "Pirate": true,
+        "Bounty": true
+      }
+    },
+    "locations": {
+      "Nova1422s list/quargoutfitter": {
+        "Planets": [
+          "Remote Blue",
+          "Ring of Power",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "quarh"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Ships": [
+          "Quarg Drake",
+          "Quarg Hydra",
+          "Quarg Skylark",
+          "Wardragon"
+        ],
+        "Systems": [
+          "Actannka",
+          "Aleit",
+          "Chikatip",
+          "Chornifath",
+          "Dokdobaru",
+          "Due Yoot",
+          "Elifennka",
+          "Enif",
+          "Fah Root",
+          "Fah Soom",
+          "Farbutero",
+          "Feroteri",
+          "Fornarep",
+          "Furmeliki",
+          "Ghhil",
+          "Hesselpost",
+          "Heutesl",
+          "Hevru Hai",
+          "Iigen",
+          "Kaliptari",
+          "Kashikt",
+          "Korsmanath",
+          "Lom Tahr",
+          "Meftarkata",
+          "Sabriset",
+          "Seketra",
+          "Sepriaptu",
+          "Sevrelect",
+          "Skeruto",
+          "Solifar",
+          "Sumprast",
+          "Tscera",
+          "Ya Hai",
+          "Yllke"
+        ]
+      },
+      "Zuckungs list/quarg.farm": {
+        "Systems": [
+          "Saquerver"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Quarg Drake (T1)",
+          "Quarg Drake (T10)",
+          "Quarg Drake (T2)",
+          "Quarg Drake (T3)",
+          "Quarg Drake (T4)",
+          "Quarg Drake (T5)",
+          "Quarg Drake (T6)",
+          "Quarg Drake (T7)",
+          "Quarg Drake (T8)",
+          "Quarg Drake (T9)",
+          "Quarg Hydra (T1)",
+          "Quarg Hydra (T10)",
+          "Quarg Hydra (T2)",
+          "Quarg Hydra (T3)",
+          "Quarg Hydra (T4)",
+          "Quarg Hydra (T5)",
+          "Quarg Hydra (T6)",
+          "Quarg Hydra (T7)",
+          "Quarg Hydra (T8)",
+          "Quarg Hydra (T9)",
+          "Wardragon (T1)",
+          "Wardragon (T10)",
+          "Wardragon (T2)",
+          "Wardragon (T3)",
+          "Wardragon (T4)",
+          "Wardragon (T5)",
+          "Wardragon (T6)",
+          "Wardragon (T7)",
+          "Wardragon (T8)",
+          "Wardragon (T9)"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Basilisk",
+          "Quarg Orochi",
+          "Quarg Skycrane",
+          "Quarg Skythrush",
+          "Quarg Warkite",
+          "Quarg Warwyrm"
+        ]
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Heliarch Longsword",
+          "Quarg Motherdragon",
+          "Quarg Skydragon",
+          "Quarg Strikedragon"
+        ]
+      },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Ships": [
+          "Marauder 53"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Quarg Skylance",
+    "category": "Turrets",
+    "licenses": {
+      "Quarg": true
+    },
+    "cost": 18000000,
+    "thumbnail": "outfit/quarg skylance",
+    "mass": 60,
+    "outfit space": -60,
+    "weapon capacity": -60,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/skylance",
+      "sprite data": {
+        "frame rate": 1
+      },
+      "hardpoint sprite": "hardpoint/quarg skylance",
+      "hardpoint offset": 10,
+      "sound": "skylance",
+      "hit effect": "skylance impact",
+      "inaccuracy": 0.4,
+      "turret turn": 4,
+      "velocity": 500,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 30,
+      "firing heat": 10,
+      "shield damage": 50,
+      "hull damage": 40,
+      "ion damage": 0.1,
+      "scrambling damage": 0.1
+    },
+    "description": "These immensely powerful beam weapons are used by Quarg warships to strike fear into the hearts of all who dare oppose them. Purchasing this outfit requires a Quarg License.",
+    "governments": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true,
+        "Heliarch": true
+      },
+      "Nova1422s list/tributequarg": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true
+      },
+      "official-game/endless-sky": {
+        "Heliarch": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Ships": [
+          "Quarg Skylark",
+          "Ursa Polaris",
+          "Wardragon"
+        ]
+      },
+      "Zuckungs list/better.starts": {
+        "Ships": [
+          "Squiddy",
+          "Squiddy Drone"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Ursa Polaris (T1)",
+          "Ursa Polaris (T10)",
+          "Ursa Polaris (T2)",
+          "Ursa Polaris (T3)",
+          "Ursa Polaris (T4)",
+          "Ursa Polaris (T5)",
+          "Ursa Polaris (T6)",
+          "Ursa Polaris (T7)",
+          "Ursa Polaris (T8)",
+          "Ursa Polaris (T9)",
+          "Wardragon (T1)",
+          "Wardragon (T10)",
+          "Wardragon (T2)",
+          "Wardragon (T3)",
+          "Wardragon (T4)",
+          "Wardragon (T5)",
+          "Wardragon (T6)",
+          "Wardragon (T7)",
+          "Wardragon (T8)",
+          "Wardragon (T9)"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Warwyrm"
+        ]
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Quarg Motherdragon",
+          "Quarg Skydragon",
+          "Quarg Strikedragon"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Quarg Anti-Missile",
+    "category": "Turrets",
+    "licenses": {
+      "Quarg": true
+    },
+    "cost": 6000000,
+    "thumbnail": "outfit/quarg anti missile",
+    "mass": 40,
+    "outfit space": -40,
+    "weapon capacity": -40,
+    "turret mounts": -1,
+    "weapon": {
+      "hit effect": "quarg anti-missile",
+      "hardpoint sprite": "hardpoint/quarg anti missile",
+      "hardpoint offset": 4,
+      "anti-missile": 25,
+      "velocity": 500,
+      "lifetime": 1,
+      "reload": 10,
+      "firing energy": 50
+    },
+    "description": "Quarg anti-missile defenses can target projectiles from considerable range compared to human technology, ensuring that only the most powerful missiles are capable of even getting near a Quarg ship. Purchasing this outfit requires a Quarg License.",
+    "governments": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true
+      },
+      "Nova1422s list/tributequarg": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Ships": [
+          "Modified Boxwing",
+          "Quarg Skylark",
+          "Ursa Polaris",
+          "Wardragon"
+        ]
+      },
+      "Zuckungs list/better.starts": {
+        "Ships": [
+          "Squiddy",
+          "Squiddy Drone"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Modified Boxwing (T1)",
+          "Modified Boxwing (T10)",
+          "Modified Boxwing (T2)",
+          "Modified Boxwing (T3)",
+          "Modified Boxwing (T4)",
+          "Modified Boxwing (T5)",
+          "Modified Boxwing (T6)",
+          "Modified Boxwing (T7)",
+          "Modified Boxwing (T8)",
+          "Modified Boxwing (T9)",
+          "Ursa Polaris (T1)",
+          "Ursa Polaris (T10)",
+          "Ursa Polaris (T2)",
+          "Ursa Polaris (T3)",
+          "Ursa Polaris (T4)",
+          "Ursa Polaris (T5)",
+          "Ursa Polaris (T6)",
+          "Ursa Polaris (T7)",
+          "Ursa Polaris (T8)",
+          "Ursa Polaris (T9)",
+          "Wardragon (T1)",
+          "Wardragon (T10)",
+          "Wardragon (T2)",
+          "Wardragon (T3)",
+          "Wardragon (T4)",
+          "Wardragon (T5)",
+          "Wardragon (T6)",
+          "Wardragon (T7)",
+          "Wardragon (T8)",
+          "Wardragon (T9)"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Warwyrm"
+        ]
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Quarg Motherdragon",
+          "Quarg Skydragon",
+          "Quarg Strikedragon"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Medium Graviton Thruster",
+    "category": "Engines",
+    "licenses": {
+      "Quarg": true
+    },
+    "cost": 20000000,
+    "thumbnail": "outfit/medium quarg thruster",
+    "mass": 70,
+    "outfit space": -70,
+    "engine capacity": -70,
+    "thrust": 80,
+    "thrusting energy": 20,
+    "thrusting heat": 2,
+    "force protection": 0.15,
+    "inertia reduction": 0.15,
+    "flare sprite": "effect/medium graviton flare",
+    "description": "Quarg thrusters are quite powerful for their size and produce very little heat, but at the cost of consuming immense amounts of energy. \tThey also have strange capabilities which seem to violate the laws of physics as humanity understands them. Ships with these engines accelerate faster under their own power than one would expect given the thrust of their engines, while also taking less impact from external forces. Purchasing this outfit requires a Quarg License.",
+    "governments": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true
+      },
+      "Nova1422s list/tributequarg": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true
+      },
+      "official-game/endless-sky": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Kor Efret)": true,
+        "Drak": true,
+        "Heliarch": true
+      },
+      "Zuckungs list/quarg.farm": {
+        "Quarg (Evil)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true,
+        "Pirate (Rival)": true,
+        "Bounty Hunter": true,
+        "Pirate": true,
+        "Bounty": true,
+        "Derelict (Killable)": true
+      }
+    },
+    "locations": {
+      "Nova1422s list/quargoutfitter": {
+        "Planets": [
+          "Remote Blue",
+          "Ring of Power",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "quarh"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Ships": [
+          "Quarg Guivre",
+          "Quarg Skylark",
+          "Quarg Wyvern",
+          "Wardragon"
+        ],
+        "Systems": [
+          "Aleit",
+          "Chikatip",
+          "Chornifath",
+          "Dokdobaru",
+          "Enif",
+          "Farbutero",
+          "Feroteri",
+          "Fornarep",
+          "Furmeliki",
+          "Hesselpost",
+          "Hevru Hai",
+          "Kaliptari",
+          "Kashikt",
+          "Korsmanath",
+          "Meftarkata",
+          "Sabriset",
+          "Seketra",
+          "Sepriaptu",
+          "Sevrelect",
+          "Skeruto",
+          "Solifar",
+          "Sumprast"
+        ]
+      },
+      "Zuckungs list/quarg.farm": {
+        "Systems": [
+          "Saquerver"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Quarg Guivre (T1)",
+          "Quarg Guivre (T10)",
+          "Quarg Guivre (T2)",
+          "Quarg Guivre (T3)",
+          "Quarg Guivre (T4)",
+          "Quarg Guivre (T5)",
+          "Quarg Guivre (T6)",
+          "Quarg Guivre (T7)",
+          "Quarg Guivre (T8)",
+          "Quarg Guivre (T9)",
+          "Quarg Wyvern (T1)",
+          "Quarg Wyvern (T10)",
+          "Quarg Wyvern (T2)",
+          "Quarg Wyvern (T3)",
+          "Quarg Wyvern (T4)",
+          "Quarg Wyvern (T5)",
+          "Quarg Wyvern (T6)",
+          "Quarg Wyvern (T7)",
+          "Quarg Wyvern (T8)",
+          "Quarg Wyvern (T9)",
+          "Wardragon (T1)",
+          "Wardragon (T10)",
+          "Wardragon (T2)",
+          "Wardragon (T3)",
+          "Wardragon (T4)",
+          "Wardragon (T5)",
+          "Wardragon (T6)",
+          "Wardragon (T7)",
+          "Wardragon (T8)",
+          "Wardragon (T9)"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Skythrush",
+          "Quarg Tiamat",
+          "Quarg Warwyrm",
+          "Quarg Zilant"
+        ]
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Quarg Motherdragon",
+          "Quarg Skydragon",
+          "Quarg Strikedragon"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Medium Graviton Steering",
+    "category": "Engines",
+    "licenses": {
+      "Quarg": true
+    },
+    "cost": 16000000,
+    "thumbnail": "outfit/medium quarg steering",
+    "mass": 50,
+    "outfit space": -50,
+    "engine capacity": -50,
+    "turn": 1600,
+    "turning energy": 10,
+    "turning heat": 1,
+    "force protection": 0.15,
+    "inertia reduction": 0.15,
+    "steering flare sprite": "effect/medium graviton flare",
+    "description": "Quarg steering engines are as similarly impressive as their thrusters in how much energy they consume. The Quarg don't seem to be bothered by this cost though, given the unmatched strength of their reactors. \tThey also have strange capabilities which seem to violate the laws of physics as humanity understands them. Ships with these engines accelerate faster under their own power than one would expect given the thrust of their engines, while also taking less impact from external forces. Purchasing this outfit requires a Quarg License.",
+    "governments": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true
+      },
+      "Nova1422s list/tributequarg": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true
+      },
+      "official-game/endless-sky": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Drak": true,
+        "Heliarch": true
+      },
+      "Zuckungs list/quarg.farm": {
+        "Quarg (Evil)": true
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true,
+        "Derelict (Killable)": true
+      }
+    },
+    "locations": {
+      "Nova1422s list/quargoutfitter": {
+        "Planets": [
+          "Remote Blue",
+          "Ring of Power",
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "quarh"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Ships": [
+          "Quarg Lindwyrm",
+          "Quarg Skylark",
+          "Quarg Wardragon",
+          "Quarg Wyvern",
+          "Wardragon"
+        ],
+        "Systems": [
+          "Actannka",
+          "Aleit",
+          "Chikatip",
+          "Chornifath",
+          "Dokdobaru",
+          "Due Yoot",
+          "Elifennka",
+          "Enif",
+          "Fah Root",
+          "Fah Soom",
+          "Farbutero",
+          "Feroteri",
+          "Fornarep",
+          "Furmeliki",
+          "Ghhil",
+          "Hesselpost",
+          "Heutesl",
+          "Hevru Hai",
+          "Iigen",
+          "Kaliptari",
+          "Kashikt",
+          "Korsmanath",
+          "Lom Tahr",
+          "Meftarkata",
+          "Sabriset",
+          "Seketra",
+          "Sepriaptu",
+          "Sevrelect",
+          "Skeruto",
+          "Solifar",
+          "Sumprast",
+          "Tscera",
+          "Ya Hai",
+          "Yllke"
+        ]
+      },
+      "Zuckungs list/quarg.farm": {
+        "Systems": [
+          "Saquerver"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Quarg Lindwyrm (T1)",
+          "Quarg Lindwyrm (T10)",
+          "Quarg Lindwyrm (T2)",
+          "Quarg Lindwyrm (T3)",
+          "Quarg Lindwyrm (T4)",
+          "Quarg Lindwyrm (T5)",
+          "Quarg Lindwyrm (T6)",
+          "Quarg Lindwyrm (T7)",
+          "Quarg Lindwyrm (T8)",
+          "Quarg Lindwyrm (T9)",
+          "Quarg Wardragon (T1)",
+          "Quarg Wardragon (T10)",
+          "Quarg Wardragon (T2)",
+          "Quarg Wardragon (T3)",
+          "Quarg Wardragon (T4)",
+          "Quarg Wardragon (T5)",
+          "Quarg Wardragon (T6)",
+          "Quarg Wardragon (T7)",
+          "Quarg Wardragon (T8)",
+          "Quarg Wardragon (T9)",
+          "Quarg Wyvern (T1)",
+          "Quarg Wyvern (T10)",
+          "Quarg Wyvern (T2)",
+          "Quarg Wyvern (T3)",
+          "Quarg Wyvern (T4)",
+          "Quarg Wyvern (T5)",
+          "Quarg Wyvern (T6)",
+          "Quarg Wyvern (T7)",
+          "Quarg Wyvern (T8)",
+          "Quarg Wyvern (T9)",
+          "Wardragon (T1)",
+          "Wardragon (T10)",
+          "Wardragon (T2)",
+          "Wardragon (T3)",
+          "Wardragon (T4)",
+          "Wardragon (T5)",
+          "Wardragon (T6)",
+          "Wardragon (T7)",
+          "Wardragon (T8)",
+          "Wardragon (T9)"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Basilisk",
+          "Quarg Gorgon",
+          "Quarg Ouroboros",
+          "Quarg Skycrane",
+          "Quarg Tiamat",
+          "Quarg Warkite",
+          "Quarg Warwyrm"
+        ],
+        "Missions": [
+          "Midnight Market - Tarazed Smuggling 2",
+          "Midnight Market Gorgon - Medium Graviton Steering 2"
+        ]
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Quarg Motherdragon",
+          "Quarg Skydragon",
+          "Quarg Strikedragon"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Quantum Shield Generator",
+    "category": "Systems",
+    "licenses": {
+      "Quarg": true
+    },
+    "cost": 30000000,
+    "thumbnail": "outfit/quarg quantum shield generator",
+    "mass": 120,
+    "outfit space": -120,
+    "shield generation": 10,
+    "shield energy": 10,
+    "description": "The first humans who met the Quarg thought that their technology worked on magic, and many even think so to this day. The mechanism by which this Quarg shield generator works is completely unknown to humanity, and the Quarg aren't interested in giving up their secrets. Purchasing this outfit requires a Quarg License.",
+    "governments": {
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true
+      },
+      "Nova1422s list/tributequarg": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Ships": [
+          "Quarg Skylark",
+          "Wardragon"
+        ]
+      },
+      "Zuckungs list/ship.merging": {
+        "Ships": [
+          "Wardragon (T1)",
+          "Wardragon (T10)",
+          "Wardragon (T2)",
+          "Wardragon (T3)",
+          "Wardragon (T4)",
+          "Wardragon (T5)",
+          "Wardragon (T6)",
+          "Wardragon (T7)",
+          "Wardragon (T8)",
+          "Wardragon (T9)"
+        ]
+      },
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Skythrush",
+          "Quarg Warkite",
+          "Quarg Warwyrm"
+        ]
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Ships": [
+          "Quarg Motherdragon",
+          "Quarg Skydragon",
+          "Quarg Strikedragon"
+        ]
+      }
+    },
+    "pluginId": "A Coalition at War/A-Coalition-At-War"
+  }
+]
