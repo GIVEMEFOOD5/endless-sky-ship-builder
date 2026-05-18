@@ -92,9 +92,6 @@
         "Kor Mereti (Hostile)": true,
         "Kor Scrappers": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Korath": true
-      },
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Mereti (Hostile)": true,
         "Kor Scrappers (Hostile)": true
@@ -191,21 +188,14 @@
     },
     "description": "The Quarg Ranseur has a longer range than the Skylance but is a less powerful beam weapon.",
     "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Independent (Killable)": true,
-        "Bounty Hunter": true,
-        "Escort": true,
-        "Syndicate (Extremist)": true,
-        "Team Blue": true
-      },
-      "Midnight Expansion/Midnight-Expansion": {
-        "Bounty": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
-          "Marauder Vanguard (Ranseur)"
+          "Quarg Warwyvern"
         ]
       }
     },
@@ -739,10 +729,6 @@
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -750,8 +736,6 @@
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
-          "Armor Beetle (Accelerator Cannon)",
-          "Armor Beetle (Jump, Accelerator Cannon)",
           "Shield Beetle (Accelerator Collector)"
         ],
         "Missions": [
@@ -781,12 +765,6 @@
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true,
-        "Hai (Friendly Unfettered)": true,
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -794,18 +772,10 @@
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
-          "Armor Beetle (Accelerator Cannon)",
-          "Armor Beetle (Jump, Accelerator Cannon)",
-          "Armor Beetle (Jump, Shock Wave Heavy Pulse)",
-          "Armor Beetle (Shock Wave Heavy Pulse)",
           "Cicada (Shock Wave)",
-          "Horseshoe Crab (Shock Wave Afterburner)",
           "Ladybug (Shock Wave)",
           "Lightning Bug (Afterburner)",
           "Lightning Bug (Shock Wave)",
-          "Modified Aphid (Afterburner)",
-          "Modified Aphid (Shock Wave)",
-          "Questing Tick (Shock Wave)",
           "Sea Scorpion (Pulse Afterburner)",
           "Sea Scorpion (Pulse Repeater Afterburner)",
           "Shield Beetle (Jump, Pulse Repeater Afterburner)",
@@ -816,7 +786,6 @@
           "Shield Beetle (Shock Wave Tracker)",
           "Shield Beetle (Shock Wave)",
           "Solifuge (Shock Wave)",
-          "Titan Beetle (Shock Wave)",
           "Water Bug (Shock Wave)",
           "Water Scorpion (Jump, Tracker)",
           "Water Scorpion (Tracker)"
@@ -954,13 +923,6 @@
           "Leroo Station"
         ]
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Systems": [
-          "Archipelago",
-          "Chasm",
-          "Diyu"
-        ]
-      },
       "official-game/endless-sky": {
         "Systems": [
           "Alpherg",
@@ -985,17 +947,13 @@
     "scramble protection": 0.00001,
     "description": "Scattershot shells are packed into special racks designed for loading the Scattershot Gun. \tGenesis ammunition, professionally manufactured by their industrial mass production factories, is a critical element to many of their weapons. Quality control measures at these facilities make them less likely to jam.",
     "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Genesis": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Ships": [
-          "Genesis Logistic (Scattershot)",
-          "Genesis Spacecraft (Scattershot)",
-          "Genesis Transport (Scattershot)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "pluginId": "Midnight Expansion/Midnight-Expansion"
@@ -1014,17 +972,13 @@
     "ammo": "Scattershot Ammo",
     "description": "Scattershot Racks are used to store extra ammunition for Scattershot Guns.",
     "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Genesis": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Ships": [
-          "Genesis Logistic (Scattershot)",
-          "Genesis Spacecraft (Scattershot)",
-          "Genesis Transport (Scattershot)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "pluginId": "Midnight Expansion/Midnight-Expansion"
@@ -1106,17 +1060,13 @@
     },
     "description": "The Scattershot Gun racks shells that split into multiple shots which spread out to cover a wide area. \tGenesis mechanical weapons technology is far ahead of their energy weapons development. The loading systems on them are less likely to jam compared to species that put more resources on developing their energy weapons.",
     "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Genesis": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Ships": [
-          "Genesis Logistic (Scattershot)",
-          "Genesis Spacecraft (Scattershot)",
-          "Genesis Transport (Scattershot)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "pluginId": "Midnight Expansion/Midnight-Expansion"
@@ -1182,12 +1132,6 @@
     },
     "description": "Shock Wave Blasters were originally the weapon of choice for the Hai Imperial Guard. They eventually fell out of favor as pulse and ion technology rose to prominence. \tThe ionized plasma fired from these weapons is composed of charged particles that are extremely volatile. They lose cohesion after only a short distance of flight, making them less effective against distant targets.",
     "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true,
-        "Hai (Unfettered)": true,
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
@@ -1202,22 +1146,14 @@
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
           "Anomalocaris (Shock Wave)",
-          "Armor Beetle (Jump, Shock Wave Heavy Pulse)",
-          "Armor Beetle (Shock Wave Heavy Pulse)",
-          "Horseshoe Crab (Shock Wave Afterburner)",
-          "Horseshoe Crab (Shock Wave)",
           "Ladybug (Shock Wave)",
           "Lightning Bug (Shock Wave)",
-          "Modified Aphid (Shock Wave)",
-          "Questing Tick (Shock Wave Tracker)",
-          "Questing Tick (Shock Wave)",
           "Sea Scorpion (Shock Wave)",
           "Shield Beetle (Jump, Shock Wave Tracker)",
           "Shield Beetle (Shock Wave Ion)",
           "Shield Beetle (Shock Wave Tracker)",
           "Shield Beetle (Shock Wave)",
           "Solifuge (Shock Wave)",
-          "Titan Beetle (Shock Wave)",
           "Violin Spider (Shock Wave)",
           "Water Bug (Shock Wave)",
           "Water Scorpion (Jump, Tracker)",
@@ -1300,9 +1236,7 @@
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
-          "Cicada (Shock Wave)",
-          "Horseshoe Crab (Shock Wave Afterburner)",
-          "Horseshoe Crab (Shock Wave)"
+          "Cicada (Shock Wave)"
         ]
       }
     },
@@ -1343,12 +1277,6 @@
     },
     "description": "Shock Wave Blasters are no longer utilized in modern Hai fleets, but have seen a resurgence among Unfettered raiders. Mounting two of these weapons on a rotating turret base is a recent Unfettered innovation.",
     "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true,
-        "Hai (Unfettered)": true,
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
@@ -1360,9 +1288,6 @@
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
           "Anomalocaris (Shock Wave)",
-          "Armor Beetle (Jump, Shock Wave Heavy Pulse)",
-          "Armor Beetle (Shock Wave Heavy Pulse)",
-          "Horseshoe Crab (Shock Wave Afterburner)",
           "Ladybug (Shock Wave)",
           "Lightning Bug (Shock Wave)",
           "Sea Scorpion (Shock Wave)",
@@ -1371,7 +1296,6 @@
           "Shield Beetle (Shock Wave Tracker)",
           "Shield Beetle (Shock Wave)",
           "Solifuge (Shock Wave)",
-          "Titan Beetle (Shock Wave)",
           "Water Bug (Shock Wave)",
           "Water Scorpion (Jump, Tracker)",
           "Water Scorpion (Tracker)"

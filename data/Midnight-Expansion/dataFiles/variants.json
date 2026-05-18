@@ -470,189 +470,6 @@
     }
   },
   {
-    "name": "Marauder Vanguard (Ranseur)",
-    "engines": [
-      {
-        "x": -15,
-        "y": 127
-      },
-      {
-        "x": 15,
-        "y": 127
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 0,
-        "y": -129,
-        "gun": ""
-      },
-      {
-        "x": -23,
-        "y": -119,
-        "gun": ""
-      },
-      {
-        "x": 23,
-        "y": -119,
-        "gun": ""
-      },
-      {
-        "x": -31,
-        "y": -41,
-        "gun": ""
-      },
-      {
-        "x": 31,
-        "y": -41,
-        "gun": ""
-      },
-      {
-        "x": -23,
-        "y": -41,
-        "gun": ""
-      },
-      {
-        "x": 23,
-        "y": -41,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": 0,
-        "y": 42,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 60,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 30,
-        "spreadChance": 80
-      }
-    ],
-    "sprite": "ship/marauder vanguard",
-    "thumbnail": "thumbnail/marauder vanguard",
-    "attributes": {
-      "category": "Heavy Warship",
-      "cost": 7920000,
-      "shields": 10800,
-      "hull": 6600,
-      "required crew": 25,
-      "bunks": 49,
-      "mass": 1133,
-      "drag": 12,
-      "heat dissipation": 0.4,
-      "fuel capacity": 400,
-      "cargo space": 40,
-      "outfit space": 580,
-      "weapon capacity": 230,
-      "engine capacity": 120,
-      "self destruct": 0.15,
-      "weapon": {
-        "blast radius": 160,
-        "shield damage": 1600,
-        "hull damage": 800,
-        "hit force": 2400
-      }
-    },
-    "parallel": true,
-    "tiny explosion": 18,
-    "small explosion": 36,
-    "medium explosion": 24,
-    "large explosion": 8,
-    "final explode": "final explosion medium",
-    "description": "This Syndicate Shipyards Vanguard has been customized with additional armored plating as well as upgraded shielding to accommodate the latest experimental technologies.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Marauder Vanguard",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "37edc6b59290",
-    "variant": "Marauder Vanguard (Ranseur)",
-    "baseShip": "Marauder Vanguard",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Independent (Killable)": true,
-        "Bounty Hunter": true,
-        "Escort": true,
-        "Syndicate (Extremist)": true,
-        "Team Blue": true
-      },
-      "Midnight Expansion/Midnight-Expansion": {
-        "Bounty": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Missions": [
-          "Midnight Expansion: Bounty Job - Quarg Ranseur"
-        ]
-      }
-    },
-    "outfits": {
-      "A370 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A525 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Electron Beam": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fusion Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 25,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Nitrogen Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quarg Ranseur": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "S-270 Regenerator": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "S-970 Regenerator": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Torpedo Storage Rack": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Twin Torpedo Pod": {
-        "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      }
-    }
-  },
-  {
     "name": "Model 8 (disruptor)",
     "engines": [
       {
@@ -721,9 +538,6 @@
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Mereti": true,
         "Kor Scrappers": true
-      },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Korath": true
       },
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Mereti (Hostile)": true,
@@ -850,9 +664,6 @@
     "baseShip": "Model 8",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Korath": true
-      },
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true,
         "Kor Mereti": true
@@ -1280,7 +1091,7 @@
       },
       "Botanical Garden": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Cargo Expansion": {
         "count": 1,
@@ -1296,7 +1107,7 @@
       },
       "Security Node": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Steering (Stellar Class)": {
         "count": 1,
@@ -1735,7 +1546,7 @@
     "description": "The Garbage Scow is an ancient ship: developed hundreds of years ago to transport radioactive materials across human space, it had lost importance with the introduction of generalised and better armed haulers like the Bulk Freighter and the Behemoth. Some still operate legitimately, carrying waste away to designated disposal sites. But many of these freighters have wound up in the hands of smugglers after the discovery that the internal structure of their Radiological Containment cylinders are very efficient at hiding cargo from being scanned.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "77b9e9a1047c",
+    "_hash": "11abc52d8a94",
     "variant": "Garbage Scow (Smuggler)",
     "baseShip": "Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -1745,13 +1556,6 @@
       }
     },
     "locations": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Systems": [
-          "Archipelago",
-          "Chasm",
-          "Diyu"
-        ]
-      },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Planets": [
           "Leroo Station"
@@ -1761,7 +1565,7 @@
     "outfits": {
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Cargo Expansion": {
         "count": 2,
@@ -1789,15 +1593,15 @@
       },
       "Plunder Catapult": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Plunder Depot": {
         "count": 6,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Plunder Mine": {
         "count": 96,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Blaster Turret": {
         "count": 2,
@@ -1817,7 +1621,7 @@
       },
       "Smuggler's Hideaway": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Tractor Beam": {
         "count": 1,
@@ -1943,7 +1747,7 @@
     "description": "The Garbage Scow is an ancient ship: developed hundreds of years ago to transport radioactive materials across human space, it had lost importance with the introduction of generalised and better armed haulers like the Bulk Freighter and the Behemoth. Some still operate legitimately, carrying waste away to designated disposal sites. But many of these freighters have wound up in the hands of smugglers after the discovery that the internal structure of their Radiological Containment cylinders are very efficient at hiding cargo from being scanned.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "77b9e9a1047c",
+    "_hash": "11abc52d8a94",
     "variant": "Garbage Scow (Jammer)",
     "baseShip": "Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -1962,7 +1766,7 @@
     "outfits": {
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Cargo Expansion": {
         "count": 1,
@@ -2002,7 +1806,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Blaster Turret": {
         "count": 3,
@@ -2140,7 +1944,7 @@
     "description": "The Garbage Scow is an ancient ship: developed hundreds of years ago to transport radioactive materials across human space, it had lost importance with the introduction of generalised and better armed haulers like the Bulk Freighter and the Behemoth. Some still operate legitimately, carrying waste away to designated disposal sites. But many of these freighters have wound up in the hands of smugglers after the discovery that the internal structure of their Radiological Containment cylinders are very efficient at hiding cargo from being scanned.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "77b9e9a1047c",
+    "_hash": "11abc52d8a94",
     "variant": "Garbage Scow (Stinger)",
     "baseShip": "Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -2178,7 +1982,7 @@
     "outfits": {
       "Energy Cannon Turret": {
         "count": 3,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Tractor Beam": {
         "count": 1,
@@ -2186,15 +1990,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 120,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 4,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -2210,7 +2014,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Radiological Containment": {
         "count": 1,
@@ -2226,7 +2030,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -2352,7 +2156,7 @@
     "description": "The Garbage Scow is an ancient ship: developed hundreds of years ago to transport radioactive materials across human space, it had lost importance with the introduction of generalised and better armed haulers like the Bulk Freighter and the Behemoth. Some still operate legitimately, carrying waste away to designated disposal sites. But many of these freighters have wound up in the hands of smugglers after the discovery that the internal structure of their Radiological Containment cylinders are very efficient at hiding cargo from being scanned.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "77b9e9a1047c",
+    "_hash": "11abc52d8a94",
     "variant": "Garbage Scow (Turbo)",
     "baseShip": "Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -2380,7 +2184,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -2396,11 +2200,11 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Turbo Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Radiological Containment": {
         "count": 1,
@@ -2412,15 +2216,15 @@
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Tractor Beam": {
         "count": 1,
@@ -2550,7 +2354,7 @@
     "description": "The Garbage Scow is an ancient ship: developed hundreds of years ago to transport radioactive materials across human space, it had lost importance with the introduction of generalised and better armed haulers like the Bulk Freighter and the Behemoth. Some still operate legitimately, carrying waste away to designated disposal sites. But many of these freighters have wound up in the hands of smugglers after the discovery that the internal structure of their Radiological Containment cylinders are very efficient at hiding cargo from being scanned.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "77b9e9a1047c",
+    "_hash": "11abc52d8a94",
     "variant": "Garbage Scow (Heavy)",
     "baseShip": "Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -2583,15 +2387,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -2603,7 +2407,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Radiological Containment": {
         "count": 1,
@@ -2615,7 +2419,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -2741,7 +2545,7 @@
     "description": "The Garbage Scow is an ancient ship: developed hundreds of years ago to transport radioactive materials across human space, it had lost importance with the introduction of generalised and better armed haulers like the Bulk Freighter and the Behemoth. Some still operate legitimately, carrying waste away to designated disposal sites. But many of these freighters have wound up in the hands of smugglers after the discovery that the internal structure of their Radiological Containment cylinders are very efficient at hiding cargo from being scanned.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "77b9e9a1047c",
+    "_hash": "11abc52d8a94",
     "variant": "Garbage Scow (Proton)",
     "baseShip": "Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -2772,15 +2576,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -2792,7 +2596,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Brig": {
         "count": 1,
@@ -2812,7 +2616,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -2938,7 +2742,7 @@
     "description": "The Garbage Scow is an ancient ship: developed hundreds of years ago to transport radioactive materials across human space, it had lost importance with the introduction of generalised and better armed haulers like the Bulk Freighter and the Behemoth. Some still operate legitimately, carrying waste away to designated disposal sites. But many of these freighters have wound up in the hands of smugglers after the discovery that the internal structure of their Radiological Containment cylinders are very efficient at hiding cargo from being scanned.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "77b9e9a1047c",
+    "_hash": "11abc52d8a94",
     "variant": "Garbage Scow (Quad Blaster)",
     "baseShip": "Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -2955,7 +2759,7 @@
     "outfits": {
       "Quad Mod Blaster Turret": {
         "count": 3,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Tractor Beam": {
         "count": 1,
@@ -2963,15 +2767,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -2983,7 +2787,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Radiological Containment": {
         "count": 1,
@@ -2999,7 +2803,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3125,7 +2929,7 @@
     "description": "When the Radiological Containment cylinders on a Garbage Scow have been damaged beyond repair, removing them is often easier than finding a replacement. This transforms the Garbage Scow into a compact medium warship.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Modified Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "fd35290e294f",
+    "_hash": "7eaa846ea8d6",
     "variant": "Modified Garbage Scow (Heavy)",
     "baseShip": "Modified Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -3150,11 +2954,11 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 60,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -3166,7 +2970,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Water Coolant System": {
         "count": 2,
@@ -3182,7 +2986,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3308,7 +3112,7 @@
     "description": "When the Radiological Containment cylinders on a Garbage Scow have been damaged beyond repair, removing them is often easier than finding a replacement. This transforms the Garbage Scow into a compact medium warship.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Modified Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "fd35290e294f",
+    "_hash": "7eaa846ea8d6",
     "variant": "Modified Garbage Scow (Proton)",
     "baseShip": "Modified Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -3333,15 +3137,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -3353,7 +3157,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Water Coolant System": {
         "count": 2,
@@ -3369,7 +3173,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3495,7 +3299,7 @@
     "description": "When the Radiological Containment cylinders on a Garbage Scow have been damaged beyond repair, removing them is often easier than finding a replacement. This transforms the Garbage Scow into a compact medium warship.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Modified Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "fd35290e294f",
+    "_hash": "7eaa846ea8d6",
     "variant": "Modified Garbage Scow (Quad Blaster)",
     "baseShip": "Modified Garbage Scow",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -3513,13 +3317,6 @@
           "Fumalsamakah"
         ]
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Systems": [
-          "Archipelago",
-          "Chasm",
-          "Diyu"
-        ]
-      },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Planets": [
           "Leroo Station"
@@ -3529,7 +3326,7 @@
     "outfits": {
       "Quad Mod Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Modified Blaster Turret": {
         "count": 2,
@@ -3537,15 +3334,15 @@
       },
       "Stinger Missile": {
         "count": 44,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Pod": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -3557,7 +3354,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Large Radar Jammer": {
         "count": 1,
@@ -3577,7 +3374,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3706,7 +3503,7 @@
     "description": "A Firebird-based ship design produced at the Wei Shipyards centuries ago, the Rukh was a vessel that qualifies as a middle ground between medium and heavy warships. Betelgeuse Shipyards sued their competitor at Wei for patent infringement shortly after the Republic was formed. The court judgement left Wei Shipyards bankrupt and production of the Rukh abruptly ceased.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "631a3c68d565",
+    "_hash": "045a4ceaa0d8",
     "variant": "Rukh (Energy Cannons)",
     "baseShip": "Rukh",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -3725,11 +3522,11 @@
     "outfits": {
       "Energy Cannon": {
         "count": 6,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Energy Cannon Turret": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Anti-Missile Turret": {
         "count": 1,
@@ -3749,7 +3546,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Large Radar Jammer": {
         "count": 1,
@@ -3773,7 +3570,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3902,7 +3699,7 @@
     "description": "A Firebird-based ship design produced at the Wei Shipyards centuries ago, the Rukh was a vessel that qualifies as a middle ground between medium and heavy warships. Betelgeuse Shipyards sued their competitor at Wei for patent infringement shortly after the Republic was formed. The court judgement left Wei Shipyards bankrupt and production of the Rukh abruptly ceased.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "631a3c68d565",
+    "_hash": "045a4ceaa0d8",
     "variant": "Rukh (Turbo Blaster)",
     "baseShip": "Rukh",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -3912,21 +3709,18 @@
       }
     },
     "locations": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Planets": [
-          "Rum Cellar",
-          "Wang Xiang Tai"
-        ]
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
       }
     },
     "outfits": {
       "Twin Turbo Blaster": {
         "count": 4,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Turbo Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Anti-Missile Turret": {
         "count": 1,
@@ -3954,7 +3748,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Liquid Nitrogen Cooler": {
         "count": 1,
@@ -3970,7 +3764,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -4099,7 +3893,7 @@
     "description": "A Firebird-based ship design produced at the Wei Shipyards centuries ago, the Rukh was a vessel that qualifies as a middle ground between medium and heavy warships. Betelgeuse Shipyards sued their competitor at Wei for patent infringement shortly after the Republic was formed. The court judgement left Wei Shipyards bankrupt and production of the Rukh abruptly ceased.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "631a3c68d565",
+    "_hash": "045a4ceaa0d8",
     "variant": "Rukh (Turbo)",
     "baseShip": "Rukh",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -4118,11 +3912,11 @@
     "outfits": {
       "Turbo Blaster": {
         "count": 6,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Turbo Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Anti-Missile Turret": {
         "count": 1,
@@ -4142,7 +3936,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Liquid Nitrogen Cooler": {
         "count": 1,
@@ -4154,7 +3948,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Laser Rifle": {
         "count": 6,
@@ -4287,7 +4081,7 @@
     "description": "A Firebird-based ship design produced at the Wei Shipyards centuries ago, the Rukh was a vessel that qualifies as a middle ground between medium and heavy warships. Betelgeuse Shipyards sued their competitor at Wei for patent infringement shortly after the Republic was formed. The court judgement left Wei Shipyards bankrupt and production of the Rukh abruptly ceased.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "631a3c68d565",
+    "_hash": "045a4ceaa0d8",
     "variant": "Rukh (Modified Blaster)",
     "baseShip": "Rukh",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -4336,7 +4130,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Water Coolant System": {
         "count": 1,
@@ -4356,7 +4150,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -4485,7 +4279,7 @@
     "description": "A Firebird-based ship design produced at the Wei Shipyards centuries ago, the Rukh was a vessel that qualifies as a middle ground between medium and heavy warships. Betelgeuse Shipyards sued their competitor at Wei for patent infringement shortly after the Republic was formed. The court judgement left Wei Shipyards bankrupt and production of the Rukh abruptly ceased.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "631a3c68d565",
+    "_hash": "045a4ceaa0d8",
     "variant": "Rukh (Heavy)",
     "baseShip": "Rukh",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -4495,11 +4289,8 @@
       }
     },
     "locations": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Planets": [
-          "Rum Cellar",
-          "Wang Xiang Tai"
-        ]
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -4549,7 +4340,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -4678,7 +4469,7 @@
     "description": "After the discovery of the original blueprints for the Rukh, mechanics were able to combine that data with modern ship design principles to further optimize the design for combat.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Marauder Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "38183eeb7f9a",
+    "_hash": "7e4267cd27bd",
     "variant": "Marauder Rukh (Inferno Rocket)",
     "baseShip": "Marauder Rukh",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -4688,12 +4479,8 @@
       }
     },
     "locations": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Systems": [
-          "Archipelago",
-          "Chasm",
-          "Diyu"
-        ]
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -4703,23 +4490,23 @@
       },
       "Quad Turbo Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Inferno Rocket Launcher": {
         "count": 4,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Inferno Rocket Pod": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Inferno Rocket": {
         "count": 164,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Inferno Rocket Rack": {
         "count": 8,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -4731,11 +4518,11 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Modified D67-TM Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Liquid Nitrogen Cooler": {
         "count": 1,
@@ -4751,7 +4538,7 @@
       },
       "Sniper Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -4880,7 +4667,7 @@
     "description": "After the discovery of the original blueprints for the Rukh, mechanics were able to combine that data with modern ship design principles to further optimize the design for combat.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Marauder Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "38183eeb7f9a",
+    "_hash": "7e4267cd27bd",
     "variant": "Marauder Rukh (Heavy)",
     "baseShip": "Marauder Rukh",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -4890,12 +4677,8 @@
       }
     },
     "locations": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Systems": [
-          "Archipelago",
-          "Chasm",
-          "Diyu"
-        ]
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -4921,7 +4704,7 @@
       },
       "Modified D67-TM Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "D94-YV Shield Generator": {
         "count": 1,
@@ -4941,7 +4724,7 @@
       },
       "Sniper Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -5064,7 +4847,7 @@
     "description": "The Water Scorpion was an ancient strike vessel that Hai warlords deployed to patrol their conquered territories. They declined in popularity with the rise of the Shield Beetle. Centuries later, memories of this ship would inspire the Unfettered to design the Sea Scorpion.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Water Scorpion",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "129018978612",
+    "_hash": "f6d1fc63dc09",
     "variant": "Water Scorpion (Jump)",
     "baseShip": "Water Scorpion",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -5081,7 +4864,7 @@
     "outfits": {
       "Heavy Pulse Cannon": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Cannon": {
         "count": 4,
@@ -5248,7 +5031,7 @@
     "description": "The Water Scorpion was an ancient strike vessel that Hai warlords deployed to patrol their conquered territories. They declined in popularity with the rise of the Shield Beetle. Centuries later, memories of this ship would inspire the Unfettered to design the Sea Scorpion.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Water Scorpion",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "129018978612",
+    "_hash": "f6d1fc63dc09",
     "variant": "Water Scorpion (Jump, Tracker)",
     "baseShip": "Water Scorpion",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -5440,7 +5223,7 @@
     "description": "The Water Scorpion was an ancient strike vessel that Hai warlords deployed to patrol their conquered territories. They declined in popularity with the rise of the Shield Beetle. Centuries later, memories of this ship would inspire the Unfettered to design the Sea Scorpion.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Water Scorpion",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "129018978612",
+    "_hash": "f6d1fc63dc09",
     "variant": "Water Scorpion (Tracker)",
     "baseShip": "Water Scorpion",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -5682,7 +5465,7 @@
     "description": "The Korath World Crafter manufactures parts, medicine, medical equipment, and sufficient food for bare sustenance. Onboard, there are incubators, nurseries, and hospitals.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korath World Crafter",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "1db8747838e5",
+    "_hash": "f26138805e8e",
     "variant": "Kor Efret World Crafter",
     "baseShip": "Korath World Crafter",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -5723,7 +5506,7 @@
       },
       "Systems Core (Huge)": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Systems Core (Medium)": {
         "count": 1,
@@ -5739,7 +5522,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fuel Refiner": {
         "count": 1,
@@ -5755,7 +5538,7 @@
       },
       "Medical Bay": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Afterburner (Comet Class)": {
         "count": 1,
@@ -5885,8 +5668,8 @@
     "baseShip": "Anomalocaris",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "locations": {
@@ -5925,7 +5708,7 @@
       },
       "Modified Hyperdrive (Hai)": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 20,
@@ -5942,898 +5725,6 @@
       "Value Detector": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Armor Beetle (Accelerator Cannon)",
-    "engines": [
-      {
-        "x": -44,
-        "y": 133
-      },
-      {
-        "x": 44,
-        "y": 133
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -22,
-        "y": -102,
-        "gun": ""
-      },
-      {
-        "x": 22,
-        "y": -102,
-        "gun": ""
-      },
-      {
-        "x": -34,
-        "y": -68,
-        "gun": ""
-      },
-      {
-        "x": 34,
-        "y": -68,
-        "gun": ""
-      },
-      {
-        "x": -49,
-        "y": -38,
-        "gun": ""
-      },
-      {
-        "x": 49,
-        "y": -38,
-        "gun": ""
-      },
-      {
-        "x": -61,
-        "y": -14,
-        "gun": ""
-      },
-      {
-        "x": 61,
-        "y": -14,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": -39,
-        "y": 48,
-        "turret": ""
-      },
-      {
-        "x": 39,
-        "y": 48,
-        "turret": ""
-      },
-      {
-        "x": -57,
-        "y": 75,
-        "turret": ""
-      },
-      {
-        "x": 57,
-        "y": 75,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 40,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 50,
-        "spreadChance": 80
-      },
-      {
-        "effect": "big leak",
-        "openChance": 60,
-        "spreadChance": 50
-      }
-    ],
-    "sprite": "ship/hai armor beetle",
-    "thumbnail": "thumbnail/hai armor beetle-thumb",
-    "attributes": {
-      "category": "Heavy Warship",
-      "licenses": {
-        "Unfettered Militia": true
-      },
-      "cost": 19700000,
-      "shields": 35000,
-      "hull": 11000,
-      "required crew": 47,
-      "bunks": 95,
-      "mass": 1988,
-      "drag": 18.2,
-      "heat dissipation": 0.33,
-      "fuel capacity": 500,
-      "cargo space": 70,
-      "outfit space": 842,
-      "weapon capacity": 377,
-      "engine capacity": 150,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 4000,
-        "hull damage": 2000,
-        "hit force": 3000
-      }
-    },
-    "tiny explosion": 50,
-    "small explosion": 50,
-    "medium explosion": 50,
-    "large explosion": 50,
-    "huge explosion": 20,
-    "final explode": "final explosion large",
-    "description": "The Armor Beetle is a specialized Unfettered warship that has been optimized for combat at the expense of cargo space.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Armor Beetle",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "48a57c0e1a96",
-    "variant": "Armor Beetle (Accelerator Cannon)",
-    "baseShip": "Armor Beetle",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Biri Biri\" Afterburner": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Bondir\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Bufaer\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Accelerator Cannon": {
-        "count": 4,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Boulder Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chameleon Anti-Missile": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Dual Pulse Pistols": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Geode Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Heliotrope Regenerator": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hai Mistral Cooling": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hai Ravine Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Tracker": {
-        "count": 224,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Tracker Pod": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ion Flash Bang": {
-        "count": 27,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Phantom Tracker (Turret)": {
-        "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Pulse Rifle": {
-        "count": 55,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Armor Beetle (Jump, Accelerator Cannon)",
-    "engines": [
-      {
-        "x": -44,
-        "y": 133
-      },
-      {
-        "x": 44,
-        "y": 133
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -22,
-        "y": -102,
-        "gun": ""
-      },
-      {
-        "x": 22,
-        "y": -102,
-        "gun": ""
-      },
-      {
-        "x": -34,
-        "y": -68,
-        "gun": ""
-      },
-      {
-        "x": 34,
-        "y": -68,
-        "gun": ""
-      },
-      {
-        "x": -49,
-        "y": -38,
-        "gun": ""
-      },
-      {
-        "x": 49,
-        "y": -38,
-        "gun": ""
-      },
-      {
-        "x": -61,
-        "y": -14,
-        "gun": ""
-      },
-      {
-        "x": 61,
-        "y": -14,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": -39,
-        "y": 48,
-        "turret": ""
-      },
-      {
-        "x": 39,
-        "y": 48,
-        "turret": ""
-      },
-      {
-        "x": -57,
-        "y": 75,
-        "turret": ""
-      },
-      {
-        "x": 57,
-        "y": 75,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 40,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 50,
-        "spreadChance": 80
-      },
-      {
-        "effect": "big leak",
-        "openChance": 60,
-        "spreadChance": 50
-      }
-    ],
-    "sprite": "ship/hai armor beetle",
-    "thumbnail": "thumbnail/hai armor beetle-thumb",
-    "attributes": {
-      "category": "Heavy Warship",
-      "licenses": {
-        "Unfettered Militia": true
-      },
-      "cost": 19700000,
-      "shields": 35000,
-      "hull": 11000,
-      "required crew": 47,
-      "bunks": 95,
-      "mass": 1988,
-      "drag": 18.2,
-      "heat dissipation": 0.33,
-      "fuel capacity": 500,
-      "cargo space": 70,
-      "outfit space": 842,
-      "weapon capacity": 377,
-      "engine capacity": 150,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 4000,
-        "hull damage": 2000,
-        "hit force": 3000
-      }
-    },
-    "tiny explosion": 50,
-    "small explosion": 50,
-    "medium explosion": 50,
-    "large explosion": 50,
-    "huge explosion": 20,
-    "final explode": "final explosion large",
-    "description": "The Armor Beetle is a specialized Unfettered warship that has been optimized for combat at the expense of cargo space.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Armor Beetle",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "48a57c0e1a96",
-    "variant": "Armor Beetle (Jump, Accelerator Cannon)",
-    "baseShip": "Armor Beetle",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Biri Biri\" Afterburner": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Bondir\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Bufaer\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Accelerator Cannon": {
-        "count": 4,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Boulder Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chameleon Anti-Missile": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Dual Pulse Pistols": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Geode Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Heliotrope Regenerator": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hai Mistral Cooling": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hai Ravine Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Tracker": {
-        "count": 224,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Tracker Pod": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Jump Drive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ion Flash Bang": {
-        "count": 27,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Phantom Tracker (Turret)": {
-        "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Pulse Rifle": {
-        "count": 55,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Armor Beetle (Jump, Shock Wave Heavy Pulse)",
-    "engines": [
-      {
-        "x": -44,
-        "y": 133
-      },
-      {
-        "x": 44,
-        "y": 133
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -22,
-        "y": -102,
-        "gun": ""
-      },
-      {
-        "x": 22,
-        "y": -102,
-        "gun": ""
-      },
-      {
-        "x": -34,
-        "y": -68,
-        "gun": ""
-      },
-      {
-        "x": 34,
-        "y": -68,
-        "gun": ""
-      },
-      {
-        "x": -49,
-        "y": -38,
-        "gun": ""
-      },
-      {
-        "x": 49,
-        "y": -38,
-        "gun": ""
-      },
-      {
-        "x": -61,
-        "y": -14,
-        "gun": ""
-      },
-      {
-        "x": 61,
-        "y": -14,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": -39,
-        "y": 48,
-        "turret": ""
-      },
-      {
-        "x": 39,
-        "y": 48,
-        "turret": ""
-      },
-      {
-        "x": -57,
-        "y": 75,
-        "turret": ""
-      },
-      {
-        "x": 57,
-        "y": 75,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 40,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 50,
-        "spreadChance": 80
-      },
-      {
-        "effect": "big leak",
-        "openChance": 60,
-        "spreadChance": 50
-      }
-    ],
-    "sprite": "ship/hai armor beetle",
-    "thumbnail": "thumbnail/hai armor beetle-thumb",
-    "attributes": {
-      "category": "Heavy Warship",
-      "licenses": {
-        "Unfettered Militia": true
-      },
-      "cost": 19700000,
-      "shields": 35000,
-      "hull": 11000,
-      "required crew": 47,
-      "bunks": 95,
-      "mass": 1988,
-      "drag": 18.2,
-      "heat dissipation": 0.33,
-      "fuel capacity": 500,
-      "cargo space": 70,
-      "outfit space": 842,
-      "weapon capacity": 377,
-      "engine capacity": 150,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 4000,
-        "hull damage": 2000,
-        "hit force": 3000
-      }
-    },
-    "tiny explosion": 50,
-    "small explosion": 50,
-    "medium explosion": 50,
-    "large explosion": 50,
-    "huge explosion": 20,
-    "final explode": "final explosion large",
-    "description": "The Armor Beetle is a specialized Unfettered warship that has been optimized for combat at the expense of cargo space.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Armor Beetle",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "48a57c0e1a96",
-    "variant": "Armor Beetle (Jump, Shock Wave Heavy Pulse)",
-    "baseShip": "Armor Beetle",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Biri Biri\" Afterburner": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Bondir\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Bufaer\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Boulder Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chameleon Anti-Missile": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Dual Pulse Pistols": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Geode Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Heliotrope Regenerator": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hai Mistral Cooling": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hai Ravine Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Pulse Cannon": {
-        "count": 4,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Jump Drive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ion Flash Bang": {
-        "count": 27,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pulse Rifle": {
-        "count": 55,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quantum Keystone": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster": {
-        "count": 4,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Shock Wave Turret": {
-        "count": 2,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      }
-    }
-  },
-  {
-    "name": "Armor Beetle (Shock Wave Heavy Pulse)",
-    "engines": [
-      {
-        "x": -44,
-        "y": 133
-      },
-      {
-        "x": 44,
-        "y": 133
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -22,
-        "y": -102,
-        "gun": ""
-      },
-      {
-        "x": 22,
-        "y": -102,
-        "gun": ""
-      },
-      {
-        "x": -34,
-        "y": -68,
-        "gun": ""
-      },
-      {
-        "x": 34,
-        "y": -68,
-        "gun": ""
-      },
-      {
-        "x": -49,
-        "y": -38,
-        "gun": ""
-      },
-      {
-        "x": 49,
-        "y": -38,
-        "gun": ""
-      },
-      {
-        "x": -61,
-        "y": -14,
-        "gun": ""
-      },
-      {
-        "x": 61,
-        "y": -14,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": -39,
-        "y": 48,
-        "turret": ""
-      },
-      {
-        "x": 39,
-        "y": 48,
-        "turret": ""
-      },
-      {
-        "x": -57,
-        "y": 75,
-        "turret": ""
-      },
-      {
-        "x": 57,
-        "y": 75,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 40,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 50,
-        "spreadChance": 80
-      },
-      {
-        "effect": "big leak",
-        "openChance": 60,
-        "spreadChance": 50
-      }
-    ],
-    "sprite": "ship/hai armor beetle",
-    "thumbnail": "thumbnail/hai armor beetle-thumb",
-    "attributes": {
-      "category": "Heavy Warship",
-      "licenses": {
-        "Unfettered Militia": true
-      },
-      "cost": 19700000,
-      "shields": 35000,
-      "hull": 11000,
-      "required crew": 47,
-      "bunks": 95,
-      "mass": 1988,
-      "drag": 18.2,
-      "heat dissipation": 0.33,
-      "fuel capacity": 500,
-      "cargo space": 70,
-      "outfit space": 842,
-      "weapon capacity": 377,
-      "engine capacity": 150,
-      "weapon": {
-        "blast radius": 400,
-        "shield damage": 4000,
-        "hull damage": 2000,
-        "hit force": 3000
-      }
-    },
-    "tiny explosion": 50,
-    "small explosion": 50,
-    "medium explosion": 50,
-    "large explosion": 50,
-    "huge explosion": 20,
-    "final explode": "final explosion large",
-    "description": "The Armor Beetle is a specialized Unfettered warship that has been optimized for combat at the expense of cargo space.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Armor Beetle",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "48a57c0e1a96",
-    "variant": "Armor Beetle (Shock Wave Heavy Pulse)",
-    "baseShip": "Armor Beetle",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Biri Biri\" Afterburner": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Bondir\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Bufaer\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Boulder Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chameleon Anti-Missile": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Dual Pulse Pistols": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Geode Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Heliotrope Regenerator": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hai Mistral Cooling": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hai Ravine Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Pulse Cannon": {
-        "count": 4,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Ion Flash Bang": {
-        "count": 27,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pulse Rifle": {
-        "count": 55,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quantum Keystone": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster": {
-        "count": 4,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Shock Wave Turret": {
-        "count": 2,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
       }
     }
   },
@@ -6938,9 +5829,6 @@
       "official-game/endless-sky": {
         "Hai Merchant": true,
         "Hai Merchant (Sympathizers)": true
-      },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true
       }
     },
     "locations": {
@@ -6987,7 +5875,7 @@
       },
       "Modified Hyperdrive (Hai)": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Shock Wave Blaster Turret": {
         "count": 2,
@@ -7000,296 +5888,6 @@
       "Tracker Storage Pod": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Horseshoe Crab (Shock Wave)",
-    "engines": [
-      {
-        "x": -34,
-        "y": 37
-      },
-      {
-        "x": 34,
-        "y": 37
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 0,
-        "y": -57,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": 0,
-        "y": 4,
-        "turret": ""
-      },
-      {
-        "x": -39,
-        "y": 27,
-        "turret": ""
-      },
-      {
-        "x": 39,
-        "y": 27,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 40,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 40,
-        "spreadChance": 30
-      }
-    ],
-    "sprite": "ship/hai horseshoe crab",
-    "thumbnail": "thumbnail/hai horseshoe crab-thumb",
-    "attributes": {
-      "category": "Light Warship",
-      "cost": 3500000,
-      "shields": 7200,
-      "hull": 2200,
-      "required crew": 5,
-      "bunks": 12,
-      "mass": 365,
-      "drag": 5.3,
-      "heat dissipation": 0.7,
-      "fuel capacity": 600,
-      "cargo space": 36,
-      "outfit space": 300,
-      "weapon capacity": 100,
-      "engine capacity": 95,
-      "weapon": {
-        "blast radius": 84,
-        "shield damage": 840,
-        "hull damage": 420,
-        "hit force": 1260
-      }
-    },
-    "tiny explosion": 18,
-    "small explosion": 36,
-    "medium explosion": 27,
-    "large explosion": 9,
-    "final explode": "final explosion small",
-    "description": "An old fossil abandoned by modern Hai, many functional Horseshoe Crabs can still be found on their ancestral worlds. While somewhat sluggish compared to to the Lightning Bug, its hardened defenses and additional turret mount make it a formidable alternative.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Horseshoe Crab",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "33f10987885a",
-    "variant": "Horseshoe Crab (Shock Wave)",
-    "baseShip": "Horseshoe Crab",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true,
-        "Hai (Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Benga\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Biroo\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chameleon Anti-Missile": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Geode Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Corundum Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Gorge Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Octopus Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster Turret": {
-        "count": 2,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Pulse Rifle": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      }
-    }
-  },
-  {
-    "name": "Horseshoe Crab (Shock Wave Afterburner)",
-    "engines": [
-      {
-        "x": -34,
-        "y": 37
-      },
-      {
-        "x": 34,
-        "y": 37
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 0,
-        "y": -57,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": 0,
-        "y": 4,
-        "turret": ""
-      },
-      {
-        "x": -39,
-        "y": 27,
-        "turret": ""
-      },
-      {
-        "x": 39,
-        "y": 27,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 40,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 40,
-        "spreadChance": 30
-      }
-    ],
-    "sprite": "ship/hai horseshoe crab",
-    "thumbnail": "thumbnail/hai horseshoe crab-thumb",
-    "attributes": {
-      "category": "Light Warship",
-      "cost": 3500000,
-      "shields": 7200,
-      "hull": 2200,
-      "required crew": 5,
-      "bunks": 12,
-      "mass": 365,
-      "drag": 5.3,
-      "heat dissipation": 0.7,
-      "fuel capacity": 600,
-      "cargo space": 36,
-      "outfit space": 300,
-      "weapon capacity": 100,
-      "engine capacity": 95,
-      "weapon": {
-        "blast radius": 84,
-        "shield damage": 840,
-        "hull damage": 420,
-        "hit force": 1260
-      }
-    },
-    "tiny explosion": 18,
-    "small explosion": 36,
-    "medium explosion": 27,
-    "large explosion": 9,
-    "final explode": "final explosion small",
-    "description": "An old fossil abandoned by modern Hai, many functional Horseshoe Crabs can still be found on their ancestral worlds. While somewhat sluggish compared to to the Lightning Bug, its hardened defenses and additional turret mount make it a formidable alternative.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Horseshoe Crab",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "33f10987885a",
-    "variant": "Horseshoe Crab (Shock Wave Afterburner)",
-    "baseShip": "Horseshoe Crab",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true,
-        "Hai (Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Benga\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Biri Biri\" Afterburner": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Biroo\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Geode Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Corundum Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Gorge Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster Turret": {
-        "count": 2,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Pulse Rifle": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Shock Wave Turret": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
       }
     }
   },
@@ -7386,8 +5984,8 @@
     "baseShip": "Ladybug",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "locations": {
@@ -7438,7 +6036,7 @@
       },
       "Modified Nugget Finder": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 7,
@@ -7547,9 +6145,6 @@
     "governments": {
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
-      },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
       }
     },
     "locations": {
@@ -7619,7 +6214,7 @@
       },
       "Ion Flash Bang": {
         "count": 3,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Biri Biri\" Afterburner": {
         "count": 1,
@@ -7724,9 +6319,6 @@
     "governments": {
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
-      },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
       }
     },
     "locations": {
@@ -7781,7 +6373,7 @@
       },
       "Ion Flash Bang": {
         "count": 3,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quantum Keystone": {
         "count": 1,
@@ -7793,534 +6385,6 @@
       },
       "Shock Wave Turret": {
         "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      }
-    }
-  },
-  {
-    "name": "Modified Aphid (Afterburner)",
-    "engines": [
-      {
-        "x": -7.5,
-        "y": 41
-      },
-      {
-        "x": 7.5,
-        "y": 41
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 0,
-        "y": -39,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": 0,
-        "y": 26,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 60,
-        "spreadChance": 50
-      }
-    ],
-    "sprite": "ship/hai modified aphid",
-    "thumbnail": "thumbnail/hai modified aphid-thumb",
-    "attributes": {
-      "category": "Light Freighter",
-      "cost": 627000,
-      "shields": 1900,
-      "hull": 1500,
-      "required crew": 1,
-      "bunks": 5,
-      "mass": 143,
-      "drag": 2.3,
-      "heat dissipation": 0.74,
-      "fuel capacity": 300,
-      "cargo space": 25,
-      "outfit space": 200,
-      "weapon capacity": 47,
-      "engine capacity": 48,
-      "weapon": {
-        "blast radius": 30,
-        "shield damage": 300,
-        "hull damage": 150,
-        "hit force": 450
-      }
-    },
-    "tiny explosion": 15,
-    "small explosion": 25,
-    "medium explosion": 15,
-    "description": "The Unfettered sometimes modify Aphids to make them more suitable for combat. This Modified Aphid has sacrificed a fuel tank for additional shield emitters and heavier hull plating. Significant portions of its cargo bay have also been dedicated to weapons systems to support an additional gun port.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Modified Aphid",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "2733049be0c1",
-    "variant": "Modified Aphid (Afterburner)",
-    "baseShip": "Modified Aphid",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Basrem\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Basrem\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Biri Biri\" Afterburner": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Chameleon Anti-Missile": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Corundum Regenerator": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Fissure Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Octopus Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Modified Nugget Finder": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Pebble Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pulse Cannon": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pulse Rifle": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quantum Keystone": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Value Detector": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Modified Aphid (Shock Wave)",
-    "engines": [
-      {
-        "x": -7.5,
-        "y": 41
-      },
-      {
-        "x": 7.5,
-        "y": 41
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 0,
-        "y": -39,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": 0,
-        "y": 26,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 60,
-        "spreadChance": 50
-      }
-    ],
-    "sprite": "ship/hai modified aphid",
-    "thumbnail": "thumbnail/hai modified aphid-thumb",
-    "attributes": {
-      "category": "Light Freighter",
-      "cost": 627000,
-      "shields": 1900,
-      "hull": 1500,
-      "required crew": 1,
-      "bunks": 5,
-      "mass": 143,
-      "drag": 2.3,
-      "heat dissipation": 0.74,
-      "fuel capacity": 300,
-      "cargo space": 25,
-      "outfit space": 200,
-      "weapon capacity": 47,
-      "engine capacity": 48,
-      "weapon": {
-        "blast radius": 30,
-        "shield damage": 300,
-        "hull damage": 150,
-        "hit force": 450
-      }
-    },
-    "tiny explosion": 15,
-    "small explosion": 25,
-    "medium explosion": 15,
-    "description": "The Unfettered sometimes modify Aphids to make them more suitable for combat. This Modified Aphid has sacrificed a fuel tank for additional shield emitters and heavier hull plating. Significant portions of its cargo bay have also been dedicated to weapons systems to support an additional gun port.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Modified Aphid",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "2733049be0c1",
-    "variant": "Modified Aphid (Shock Wave)",
-    "baseShip": "Modified Aphid",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Basrem\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Benga\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Biri Biri\" Afterburner": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Chameleon Anti-Missile": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Chasm Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Corundum Regenerator": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Fissure Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pebble Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pulse Rifle": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quantum Keystone": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      }
-    }
-  },
-  {
-    "name": "Questing Tick (Shock Wave)",
-    "engines": [
-      {
-        "x": 0,
-        "y": 32
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 0,
-        "y": -22.5,
-        "gun": ""
-      },
-      {
-        "x": -6,
-        "y": -22.5,
-        "gun": ""
-      },
-      {
-        "x": 6,
-        "y": -22.5,
-        "gun": ""
-      }
-    ],
-    "turrets": [],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 60,
-        "spreadChance": 50
-      }
-    ],
-    "sprite": "ship/hai questing tick",
-    "thumbnail": "thumbnail/hai questing tick-thumb",
-    "attributes": {
-      "category": "Interceptor",
-      "cost": 648000,
-      "shields": 3600,
-      "hull": 700,
-      "required crew": 1,
-      "bunks": 2,
-      "mass": 112,
-      "drag": 1.81,
-      "heat dissipation": 0.71,
-      "fuel capacity": 300,
-      "cargo space": 25,
-      "outfit space": 200,
-      "weapon capacity": 61,
-      "engine capacity": 47,
-      "weapon": {
-        "blast radius": 40,
-        "shield damage": 400,
-        "hull damage": 200,
-        "hit force": 600
-      }
-    },
-    "tiny explosion": 10,
-    "small explosion": 20,
-    "medium explosion": 5,
-    "final explode": "final explosion small",
-    "description": "The Questing Tick is a sturdy interceptor that was once a common sight in the ancient Hai empire. Now, they are almost exclusively used by the Unfettered.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Questing Tick",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "2e340e445b7b",
-    "variant": "Questing Tick (Shock Wave)",
-    "baseShip": "Questing Tick",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true,
-        "Hai (Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Basrem\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Benga\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Biri Biri\" Afterburner": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Hai Corundum Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Fissure Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pebble Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pulse Rifle": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster": {
-        "count": 3,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      }
-    }
-  },
-  {
-    "name": "Questing Tick (Shock Wave Tracker)",
-    "engines": [
-      {
-        "x": 0,
-        "y": 32
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 0,
-        "y": -22.5,
-        "gun": ""
-      },
-      {
-        "x": -6,
-        "y": -22.5,
-        "gun": ""
-      },
-      {
-        "x": 6,
-        "y": -22.5,
-        "gun": ""
-      }
-    ],
-    "turrets": [],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 60,
-        "spreadChance": 50
-      }
-    ],
-    "sprite": "ship/hai questing tick",
-    "thumbnail": "thumbnail/hai questing tick-thumb",
-    "attributes": {
-      "category": "Interceptor",
-      "cost": 648000,
-      "shields": 3600,
-      "hull": 700,
-      "required crew": 1,
-      "bunks": 2,
-      "mass": 112,
-      "drag": 1.81,
-      "heat dissipation": 0.71,
-      "fuel capacity": 300,
-      "cargo space": 25,
-      "outfit space": 200,
-      "weapon capacity": 61,
-      "engine capacity": 47,
-      "weapon": {
-        "blast radius": 40,
-        "shield damage": 400,
-        "hull damage": 200,
-        "hit force": 600
-      }
-    },
-    "tiny explosion": 10,
-    "small explosion": 20,
-    "medium explosion": 5,
-    "final explode": "final explosion small",
-    "description": "The Questing Tick is a sturdy interceptor that was once a common sight in the ancient Hai empire. Now, they are almost exclusively used by the Unfettered.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Questing Tick",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "2e340e445b7b",
-    "variant": "Questing Tick (Shock Wave Tracker)",
-    "baseShip": "Questing Tick",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true,
-        "Hai (Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Basrem\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Benga\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Chasm Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Corundum Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Cuttlefish Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Fissure Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Tracker": {
-        "count": 56,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Tracker Pod": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pebble Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pulse Rifle": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quantum Keystone": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster": {
-        "count": 2,
         "pluginId": "Midnight Expansion/Midnight-Expansion"
       }
     }
@@ -8455,7 +6519,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Corundum Regenerator": {
         "count": 1,
@@ -8463,11 +6527,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 1,
@@ -8479,15 +6543,15 @@
       },
       "Ion Flash Bang": {
         "count": 7,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater": {
         "count": 4,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater Turret": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 15,
@@ -8629,7 +6693,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Corundum Regenerator": {
         "count": 1,
@@ -8637,11 +6701,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 1,
@@ -8653,7 +6717,7 @@
       },
       "Ion Flash Bang": {
         "count": 7,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Cannon": {
         "count": 4,
@@ -8988,10 +7052,6 @@
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -9024,7 +7084,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Enforcer Confrontation Gear": {
         "count": 1,
@@ -9044,7 +7104,7 @@
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 2,
@@ -9068,7 +7128,7 @@
       },
       "Ion Flash Bang": {
         "count": 13,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Laser Rifle": {
         "count": 1,
@@ -9076,7 +7136,7 @@
       },
       "Phantom Tracker (Turret)": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 27,
@@ -9237,10 +7297,6 @@
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -9289,7 +7345,7 @@
       },
       "Ion Flash Bang": {
         "count": 27,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Biri Biri\" Afterburner": {
         "count": 1,
@@ -9446,10 +7502,6 @@
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -9482,7 +7534,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Geode Reactor": {
         "count": 1,
@@ -9494,11 +7546,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 2,
@@ -9518,7 +7570,7 @@
       },
       "Ion Flash Bang": {
         "count": 27,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Jump Drive": {
         "count": 1,
@@ -9526,11 +7578,11 @@
       },
       "Pulse Repeater": {
         "count": 6,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater Turret": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 55,
@@ -9675,10 +7727,6 @@
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -9711,7 +7759,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Geode Reactor": {
         "count": 1,
@@ -9723,11 +7771,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 2,
@@ -9747,15 +7795,15 @@
       },
       "Ion Flash Bang": {
         "count": 27,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater": {
         "count": 6,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater Turret": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 55,
@@ -9900,10 +7948,6 @@
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -9940,11 +7984,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 3,
@@ -10120,10 +8164,6 @@
     "governments": {
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
-      },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
@@ -10346,10 +8386,6 @@
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -10571,10 +8607,6 @@
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true
-      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -10615,7 +8647,7 @@
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 3,
@@ -10841,9 +8873,6 @@
     "governments": {
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
-      },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Storm Seekers": true
       }
     },
     "locations": {
@@ -10886,11 +8915,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Tracker": {
         "count": 112,
@@ -10919,219 +8948,6 @@
       "Shock Wave Turret": {
         "count": 4,
         "pluginId": "Midnight Expansion/Midnight-Expansion"
-      }
-    }
-  },
-  {
-    "name": "Titan Beetle (Shock Wave)",
-    "engines": [
-      {
-        "x": -43,
-        "y": 131
-      },
-      {
-        "x": 43,
-        "y": 131
-      },
-      {
-        "x": 0,
-        "y": 126.5
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 11,
-        "y": -128,
-        "gun": ""
-      },
-      {
-        "x": -11,
-        "y": -128,
-        "gun": ""
-      },
-      {
-        "x": -24,
-        "y": -102.5,
-        "gun": ""
-      },
-      {
-        "x": 24,
-        "y": -102.5,
-        "gun": ""
-      },
-      {
-        "x": -43,
-        "y": -54,
-        "gun": ""
-      },
-      {
-        "x": 43,
-        "y": -54,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": 62,
-        "y": 76,
-        "turret": ""
-      },
-      {
-        "x": -62,
-        "y": 76,
-        "turret": ""
-      },
-      {
-        "x": 0,
-        "y": 107.5,
-        "turret": ""
-      }
-    ],
-    "bays": [
-      {
-        "type": "Fighter",
-        "x": 0,
-        "y": 40,
-        "position": "under",
-        "launch effect": "hai launch"
-      }
-    ],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 25,
-        "spreadChance": 35
-      },
-      {
-        "effect": "flame",
-        "openChance": 40,
-        "spreadChance": 75
-      },
-      {
-        "effect": "big leak",
-        "openChance": 40,
-        "spreadChance": 35
-      }
-    ],
-    "sprite": "ship/hai titan beetle",
-    "thumbnail": "thumbnail/hai titan beetle-thumb",
-    "attributes": {
-      "category": "Utility",
-      "cost": 26300000,
-      "shields": 21400,
-      "hull": 15700,
-      "required crew": 42,
-      "bunks": 118,
-      "mass": 2012,
-      "drag": 17.2,
-      "cargo space": 170,
-      "outfit space": 682,
-      "weapon capacity": 280,
-      "engine capacity": 120,
-      "heat dissipation": 0.38,
-      "fuel capacity": 800,
-      "ramscoop": 0.5,
-      "weapon": {
-        "blast radius": 370,
-        "shield damage": 3700,
-        "hull damage": 1900,
-        "hit force": 2800
-      }
-    },
-    "zoom": 0.5,
-    "tiny explosion": 50,
-    "small explosion": 40,
-    "medium explosion": 30,
-    "large explosion": 20,
-    "huge explosion": 5,
-    "final explode": "final explosion large",
-    "description": "Excelling at both transportation and logistics, the Titan Beetle is more versatile than the Shield Beetle in every aspect but combat. A key component of this are the built-in collection gills which magnify the natural ramscoop present in all ships and large capacity fuel tanks that facilitated uninterrupted travel to far-flung regions of the Hai empire.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Titan Beetle",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "1e6fd29277d1",
-    "variant": "Titan Beetle (Shock Wave)",
-    "baseShip": "Titan Beetle",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Biri Biri\" Afterburner": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Bondir\" Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Bondir\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Boulder Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chameleon Anti-Missile": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Geode Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Diamond Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Tracker": {
-        "count": 112,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Tracker Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Valley Batteries": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hai Williwaw Cooling": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ion Flash Bang": {
-        "count": 29,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Pebble Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pulse Rifle": {
-        "count": 61,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shock Wave Blaster": {
-        "count": 4,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Shock Wave Turret": {
-        "count": 2,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Value Detector": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
       }
     }
   },
@@ -11204,9 +9020,6 @@
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "official-game/endless-sky": {
-        "Hai (Unfettered)": true
-      },
-      "Lost in Midnight/Lost-in-Midnight": {
         "Hai (Unfettered)": true
       },
       "Better Vanilla Pirates/BetterVanillaPirates": {
@@ -11394,7 +9207,7 @@
       },
       "Ion Flash Bang": {
         "count": 4,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 2,
@@ -12618,7 +10431,7 @@
     "description": "The Sku'uta is a Korath reconnaissance ship intended for quick forays into hostile territory.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korath Scouter",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "7a4ce385416e",
+    "_hash": "743a0df7dfb7",
     "variant": "Korath Scouter (Crippled)",
     "baseShip": "Korath Scouter",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -12657,7 +10470,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Repeater Rifle": {
         "count": 98,
@@ -12780,7 +10593,7 @@
     "description": "The Sku'uta is a Korath reconnaissance ship intended for quick forays into hostile territory.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korath Scouter",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "7a4ce385416e",
+    "_hash": "743a0df7dfb7",
     "variant": "Korath Scouter (Repeater)",
     "baseShip": "Korath Scouter",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -12829,7 +10642,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Repeater Rifle": {
         "count": 98,
@@ -12952,24 +10765,16 @@
     "description": "The Sku'uta is a Korath reconnaissance ship intended for quick forays into hostile territory.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korath Scouter",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "7a4ce385416e",
+    "_hash": "743a0df7dfb7",
     "variant": "Korath Scouter (Fire-Lance)",
     "baseShip": "Korath Scouter",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Korath": true
-      },
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Korath": true
       }
     },
     "locations": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Missions": [
-          "Collect Void Sprites"
-        ]
-      },
       "Midnight Expansion/Midnight-Expansion": {
         "Missions": [
           "Midnight Expansion Avialae Salvage 1",
@@ -13012,7 +10817,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Repeater Rifle": {
         "count": 36,
@@ -13536,7 +11341,7 @@
       },
       "Botanical Garden": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Cargo Expansion": {
         "count": 1,
@@ -13572,7 +11377,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Langrage Hyper-Heaver": {
         "count": 3,
@@ -13588,7 +11393,7 @@
       },
       "Microbot Fabricator": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Reverser (Stellar Class)": {
         "count": 1,
@@ -13600,7 +11405,7 @@
       },
       "Shock-Strike Turret": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Steering (Planetary Class)": {
         "count": 1,
@@ -13612,7 +11417,7 @@
       },
       "Systems Core (Huge)": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Repeater Rifle": {
         "count": 1982,
@@ -14183,475 +11988,6 @@
     }
   },
   {
-    "name": "Genesis Spacecraft (Scattershot)",
-    "engines": [
-      {
-        "x": -41,
-        "y": 76
-      },
-      {
-        "x": 41,
-        "y": 76
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -18,
-        "y": -61,
-        "gun": ""
-      },
-      {
-        "x": 18,
-        "y": -61,
-        "gun": ""
-      },
-      {
-        "x": -18,
-        "y": -61,
-        "gun": ""
-      },
-      {
-        "x": 18,
-        "y": -61,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": 0,
-        "y": -23,
-        "turret": ""
-      },
-      {
-        "x": 0,
-        "y": 59,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 60,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 60,
-        "spreadChance": 80
-      }
-    ],
-    "sprite": "ship/genesis spacecraft",
-    "attributes": {
-      "category": "Light Freighter",
-      "cost": 1560000,
-      "hull": 6800,
-      "required crew": 4,
-      "bunks": 14,
-      "mass": 495,
-      "drag": 8.85,
-      "heat dissipation": 0.473,
-      "fuel capacity": 50,
-      "cargo space": 120,
-      "outfit space": 270,
-      "weapon capacity": 90,
-      "engine capacity": 80,
-      "atmosphere scan": 100,
-      "threshold percentage": 0.01,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      }
-    },
-    "tiny explosion": 10,
-    "small explosion": 25,
-    "medium explosion": 25,
-    "large explosion": 10,
-    "final explode": "final explosion medium",
-    "description": "A basic space exploration vessel from a pre-hyperdrive civilization. The hull lacks any form of shield emitter and doesn't have the internal safety protocols found on the ships of more advanced species. But it does seem sturdier than the hull of an equivalently sized human ship.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Genesis Spacecraft",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "bcb504b20878",
-    "variant": "Genesis Spacecraft (Scattershot)",
-    "baseShip": "Genesis Spacecraft",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Genesis": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Genesis Afterburner": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Anti-Missile": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Battery": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Flak Shell": {
-        "count": 60,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Flak Shell Crate": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Flak Turret": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Fuel Pod": {
-        "count": 5,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Genesis Engines": {
-        "count": 3,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Scattershot Ammo": {
-        "count": 312,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Scattershot Rack": {
-        "count": 1,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Scattershot Gun": {
-        "count": 2,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Hydrogen Collector": {
-        "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hydrogen Missile": {
-        "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Genesis Radiothermal": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Photovoltaic Panel": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Narrowband Scanner": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      }
-    }
-  },
-  {
-    "name": "Genesis Logistic (Scattershot)",
-    "engines": [
-      {
-        "x": -18,
-        "y": 91
-      },
-      {
-        "x": 18.5,
-        "y": 91.5
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -15,
-        "y": -70,
-        "gun": ""
-      },
-      {
-        "x": 15,
-        "y": -70,
-        "gun": ""
-      },
-      {
-        "x": -20,
-        "y": -55,
-        "gun": ""
-      },
-      {
-        "x": 20,
-        "y": -55,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": -18,
-        "y": -18,
-        "turret": ""
-      },
-      {
-        "x": 18,
-        "y": -18,
-        "turret": ""
-      },
-      {
-        "x": 0,
-        "y": 64,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [],
-    "plural": "Genesis Logistics",
-    "sprite": "ship/genesis logistic",
-    "attributes": {
-      "category": "Light Warship",
-      "cost": 4400000,
-      "hull": 7300,
-      "required crew": 8,
-      "bunks": 17,
-      "mass": 225,
-      "drag": 5.25,
-      "heat dissipation": 0.473,
-      "fuel capacity": 50,
-      "cargo space": 100,
-      "outfit space": 360,
-      "weapon capacity": 150,
-      "engine capacity": 100,
-      "threshold percentage": 0.01,
-      "weapon": {
-        "blast radius": 80,
-        "shield damage": 800,
-        "hull damage": 400,
-        "hit force": 1200
-      }
-    },
-    "description": "The inhabitants of Genesis developed this ship to supply their nearby space colonies. It has enough weaponry to contribute to defense operations as well.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Genesis Logistic",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "784a4c3cce6b",
-    "variant": "Genesis Logistic (Scattershot)",
-    "baseShip": "Genesis Logistic",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Genesis": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Genesis Afterburner": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Anti-Missile": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Battery": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Flak Shell": {
-        "count": 100,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Flak Shell Crate": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Flak Turret": {
-        "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Fuel Pod": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Genesis Engines": {
-        "count": 4,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Scattershot Ammo": {
-        "count": 374,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Scattershot Rack": {
-        "count": 2,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Scattershot Gun": {
-        "count": 2,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Hydrogen Collector": {
-        "count": 9,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Hydrogen Missile": {
-        "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Radiothermal": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      }
-    }
-  },
-  {
-    "name": "Genesis Transport (Scattershot)",
-    "engines": [
-      {
-        "x": -17,
-        "y": 50
-      },
-      {
-        "x": 17,
-        "y": 50
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -48,
-        "y": 19,
-        "gun": ""
-      },
-      {
-        "x": 48,
-        "y": 19,
-        "gun": ""
-      }
-    ],
-    "turrets": [],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 50,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 70,
-        "spreadChance": 80
-      }
-    ],
-    "sprite": "ship/genesis transport",
-    "attributes": {
-      "category": "Transport",
-      "cost": 2230000,
-      "hull": 5300,
-      "required crew": 3,
-      "bunks": 28,
-      "mass": 330,
-      "drag": 7.5,
-      "heat dissipation": 0.473,
-      "fuel capacity": 50,
-      "cargo space": 60,
-      "outfit space": 350,
-      "weapon capacity": 90,
-      "engine capacity": 110,
-      "threshold percentage": 0.01,
-      "weapon": {
-        "blast radius": 60,
-        "shield damage": 600,
-        "hull damage": 300,
-        "hit force": 900
-      }
-    },
-    "tiny explosion": 15,
-    "small explosion": 34,
-    "medium explosion": 18,
-    "large explosion": 2,
-    "final explode": "final explosion small",
-    "description": "The inhabitants of Genesis developed these transports to ferry civilians to their nearby space colonies.",
-    "_internalId": "Lost in Midnight/Lost-in-Midnight::Genesis Transport",
-    "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-    "_hash": "fafe03248a2c",
-    "variant": "Genesis Transport (Scattershot)",
-    "baseShip": "Genesis Transport",
-    "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
-    "governments": {
-      "Lost in Midnight/Lost-in-Midnight": {
-        "Genesis": true
-      }
-    },
-    "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Genesis Afterburner": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Battery": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Fuel Pod": {
-        "count": 5,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Genesis Engines": {
-        "count": 5,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Scattershot Ammo": {
-        "count": 560,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Scattershot Rack": {
-        "count": 5,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Scattershot Gun": {
-        "count": 2,
-        "pluginId": "Midnight Expansion/Midnight-Expansion"
-      },
-      "Hydrogen Collector": {
-        "count": 9,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Luxury Accommodations": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Genesis Photovoltaic Array": {
-        "count": 3,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Photovoltaic Panel": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      },
-      "Genesis Thermionic": {
-        "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
-      }
-    }
-  },
-  {
     "name": "Avialae (Disarmed)",
     "engines": [
       {
@@ -14911,7 +12247,7 @@
     "description": "This freighter is used by new Kor Sestor colonies to harvest and transport raw materials.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Ekfar Tek 23",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "35d5e2765924",
+    "_hash": "b20ca0fdd34d",
     "variant": "Ekfar Tek 23 (Salvaged)",
     "baseShip": "Ekfar Tek 23",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -15277,7 +12613,7 @@
     "description": "One of the last great Korath battleships from the height of the war that drove their species to near extinction, the Korbatar Makwar is an engine of destruction that dominates conventional battlefields. \tThe number of these battleships which are still in operation can be counted on one hand. Korath shipyards are fully capable of assembling more Korbatar Makwars, but the exile from Korath space has forced them to prioritize construction of Korsmanath A'awojs and other support vessels instead. A small, but vocal, group of Navarchs continue to lobby various planning committees for construction of new Korbatar Makwars. But the civilian government refuses to capitulate to their demands.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korbatar Makwar",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "e63b1d5e9589",
+    "_hash": "691405fcf37b",
     "variant": "Korbatar Makwar (Exile Upgrade)",
     "baseShip": "Korbatar Makwar",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -15337,7 +12673,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Langrage Hyper-Heaver": {
         "count": 1,
@@ -15353,19 +12689,19 @@
       },
       "Magnetic Mine": {
         "count": 224,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Magnetic Mine Deployer": {
         "count": 10,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Magnetic Mine Rack": {
         "count": 10,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Magnetic Mine Depot": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Microbot Defense Station": {
         "count": 108,
@@ -15389,7 +12725,7 @@
       },
       "Shock-Strike Turret": {
         "count": 6,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Steering (Lunar Class)": {
         "count": 1,
@@ -15401,7 +12737,7 @@
       },
       "Systems Core (Huge)": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Systems Core (Large)": {
         "count": 1,
@@ -15744,7 +13080,7 @@
     "description": "One of the last great Korath battleships from the height of the war that drove their species to near extinction, the Korbatar Makwar is an engine of destruction that dominates conventional battlefields. \tThe number of these battleships which are still in operation can be counted on one hand. Korath shipyards are fully capable of assembling more Korbatar Makwars, but the exile from Korath space has forced them to prioritize construction of Korsmanath A'awojs and other support vessels instead. A small, but vocal, group of Navarchs continue to lobby various planning committees for construction of new Korbatar Makwars. But the civilian government refuses to capitulate to their demands.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korbatar Makwar",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "e63b1d5e9589",
+    "_hash": "691405fcf37b",
     "variant": "Korbatar Makwar (Efret Upgrade)",
     "baseShip": "Korbatar Makwar",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -15808,7 +13144,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Korath Scattermine": {
         "count": 10,
@@ -15852,7 +13188,7 @@
       },
       "Systems Core (Huge)": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Systems Core (Large)": {
         "count": 1,
@@ -15868,11 +13204,11 @@
       },
       "Thermal Scorcher": {
         "count": 6,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Scorcher Turret": {
         "count": 6,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thruster (Lunar Class)": {
         "count": 1,
@@ -15989,7 +13325,7 @@
     "description": "The Cargo Star was a proprietary freighter used by Starwell Shipping Corporation before it was bought out by the Syndicate in a hostile corporate takeover. Many of the technologies and design principles from this ship can be found in the modern designs of Syndicate Shipyards. \tMost Cargo Stars that survived the Alpha Wars did so by having extensive modifications made to strengthen their hull, shields, and weapon capacity.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Modified Cargo Star",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "b7bfcf82b7b5",
+    "_hash": "ea3807f2ad24",
     "variant": "Modified Cargo Star (Smuggler)",
     "baseShip": "Modified Cargo Star",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -16009,15 +13345,15 @@
     "outfits": {
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Energy Cannon": {
         "count": 2,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Energy Cannon Turret": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Heavy Anti-Missile Turret": {
         "count": 1,
@@ -16053,7 +13389,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "RT-I Radiothermal": {
         "count": 1,
@@ -16065,7 +13401,7 @@
       },
       "Smuggler's Hideaway": {
         "count": 1,
-        "pluginId": "Lost in Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X1100 Ion Reverse Thruster": {
         "count": 1,

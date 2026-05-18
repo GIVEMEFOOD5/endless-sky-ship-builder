@@ -73,27 +73,13 @@
       "_pluginId": "Tugderic's Addons/Tugderics-Addons",
       "_hash": "bb03f6ac15ed",
       "governments": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Pirate (Rivals)": true,
-          "Merchant": true
+        "Tugderics-Addons": {
+          "Tugderics-Addons": true
         }
       },
       "locations": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ],
-          "Planets": [
-            "Wang Xiang Tai"
-          ]
-        },
-        "official-game/endless-sky": {
-          "Planets": [
-            "Geminus"
-          ]
+        "Tugderic's Addons/Tugderics-Addons": {
+          "_deprecated/unused": true
         }
       },
       "outfits": {
@@ -1498,212 +1484,6 @@
   ],
   "variants": [
     {
-      "name": "Buckler (Hai)",
-      "engines": [
-        {
-          "x": -8,
-          "y": 34
-        },
-        {
-          "x": 8,
-          "y": 34
-        }
-      ],
-      "reverseEngines": [
-        {
-          "x": -8,
-          "y": -2
-        },
-        {
-          "x": 8,
-          "y": -2
-        }
-      ],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "sprite": "ship/buckler",
-      "thumbnail": "thumbnail/buckler-thumb",
-      "attributes": {
-        "category": "Interceptor",
-        "cost": 258000,
-        "shields": 2600,
-        "hull": 800,
-        "required crew": 1,
-        "bunks": 1,
-        "mass": 160,
-        "drag": 1.89,
-        "heat dissipation": 0.67,
-        "fuel capacity": 300,
-        "outfit space": 110,
-        "weapon capacity": 20,
-        "engine capacity": 35,
-        "weapon": {
-          "blast radius": 32,
-          "shield damage": 320,
-          "hull damage": 160,
-          "hit force": 480
-        }
-      },
-      "tiny explosion": 20,
-      "small explosion": 10,
-      "description": "Built upon a Dagger chassis, the Buckler plays a very different combat role from its smaller sibling. Lacking any weapon mounts, it features a high number of shield emitters and some of the toughest hull armor of any interceptor in the galaxy. \tBuckler pilots are expected to prioritize the defense of the flagship they are meant to protect over their own safety. To encourage this, new Bucklers purchased from Lionheart include a free training video installed on the ship's computer. Mixed in with tutorials for operating and maintaining the spacecraft are inspirational stories praising heroic pilots who sacrificed themselves for the greater good.",
-      "_internalId": "Lost in Midnight/Lost-in-Midnight::Buckler",
-      "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-      "_hash": "7e1d7e2b70be",
-      "variant": "Buckler (Hai)",
-      "baseShip": "Buckler",
-      "_variantPluginId": "Lost in Midnight/Lost-in-Midnight",
-      "governments": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Scar's Legion": true,
-          "Independent": true,
-          "Independent (Killable)": true
-        }
-      },
-      "locations": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Systems": [
-            "Archipelago"
-          ]
-        }
-      },
-      "outfits": {
-        "Sand Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Hai Corundum Regenerator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Small Radar Jammer": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Basrem\" Atomic Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Basrem\" Atomic Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Buckler (Pirate)",
-      "engines": [
-        {
-          "x": -8,
-          "y": 34
-        },
-        {
-          "x": 8,
-          "y": 34
-        }
-      ],
-      "reverseEngines": [
-        {
-          "x": -8,
-          "y": -2
-        },
-        {
-          "x": 8,
-          "y": -2
-        }
-      ],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "sprite": "ship/buckler",
-      "thumbnail": "thumbnail/buckler-thumb",
-      "attributes": {
-        "category": "Interceptor",
-        "cost": 258000,
-        "shields": 2600,
-        "hull": 800,
-        "required crew": 1,
-        "bunks": 1,
-        "mass": 160,
-        "drag": 1.89,
-        "heat dissipation": 0.67,
-        "fuel capacity": 300,
-        "outfit space": 110,
-        "weapon capacity": 20,
-        "engine capacity": 35,
-        "weapon": {
-          "blast radius": 32,
-          "shield damage": 320,
-          "hull damage": 160,
-          "hit force": 480
-        }
-      },
-      "tiny explosion": 20,
-      "small explosion": 10,
-      "description": "Built upon a Dagger chassis, the Buckler plays a very different combat role from its smaller sibling. Lacking any weapon mounts, it features a high number of shield emitters and some of the toughest hull armor of any interceptor in the galaxy. \tBuckler pilots are expected to prioritize the defense of the flagship they are meant to protect over their own safety. To encourage this, new Bucklers purchased from Lionheart include a free training video installed on the ship's computer. Mixed in with tutorials for operating and maintaining the spacecraft are inspirational stories praising heroic pilots who sacrificed themselves for the greater good.",
-      "_internalId": "Lost in Midnight/Lost-in-Midnight::Buckler",
-      "_pluginId": "Lost in Midnight/Lost-in-Midnight",
-      "_hash": "7e1d7e2b70be",
-      "variant": "Buckler (Pirate)",
-      "baseShip": "Buckler",
-      "_variantPluginId": "Lost in Midnight/Lost-in-Midnight",
-      "governments": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Pirate (Rivals)": true
-        }
-      },
-      "locations": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ]
-        },
-        "official-game/endless-sky": {
-          "Planets": [
-            "Geminus"
-          ]
-        }
-      },
-      "outfits": {
-        "nGVF-AA Fuel Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Modified D41-HY Shielding": {
-          "count": 1,
-          "pluginId": "Lost in Midnight/Lost-in-Midnight"
-        },
-        "Small Radar Jammer": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Laser Rifle": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Chimera Junk Steering": {
-          "count": 1,
-          "pluginId": "Lost in Midnight/Lost-in-Midnight"
-        },
-        "Chimera Junk Thruster": {
-          "count": 1,
-          "pluginId": "Lost in Midnight/Lost-in-Midnight"
-        }
-      }
-    },
-    {
       "name": "Runner (Javelin)",
       "engines": [
         {
@@ -2874,15 +2654,6 @@
         "Zuckungs list/job.coloring": {
           "Merchant": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true
-        },
         "Blended Ships/blended-ships": {
           "Free Worlds": true
         },
@@ -3030,13 +2801,6 @@
           "Pirate": true
         },
         "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-          "Free Worlds": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Bounty": true,
-          "Merchant": true,
-          "Independent (Killable)": true,
-          "Pirate": true,
           "Free Worlds": true
         },
         "Blended Ships/blended-ships": {
@@ -3203,12 +2967,6 @@
           "Merchant": true,
           "Alpha": true,
           "Republic": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true
@@ -3405,12 +3163,6 @@
         },
         "Zuckungs list/galactic.capital.investment": {
           "Pirate": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Pirate": true,
-          "Pirate (Rival)": true,
-          "Pirate (Rivals)": true
         },
         "Blended Ships/blended-ships": {
           "Pirate": true
@@ -3686,10 +3438,6 @@
           "Republic": true,
           "Navy (Oathkeeper)": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Republic": true,
-          "Pirate": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "Truthseekers": true
         }
@@ -3850,12 +3598,6 @@
           "Republic": true,
           "Navy (Oathkeeper)": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Oathbreaker": true,
-          "Republic": true,
-          "Pirate": true,
-          "Oathbreaker Expeditionary": true
-        },
         "Blended Ships/blended-ships": {
           "Republic": true
         },
@@ -3994,14 +3736,6 @@
           "Navy (Oathkeeper)": true,
           "Team Red": true,
           "Team Blue": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Oathbreaker": true,
-          "Merchant": true,
-          "Republic": true,
-          "Deep Security": true,
-          "Independent (Killable)": true,
-          "Oathbreaker Expeditionary": true
         },
         "Blended Ships/blended-ships": {
           "Republic": true,
@@ -4152,11 +3886,6 @@
         "official-game/endless-sky": {
           "Republic": true,
           "Navy (Oathkeeper)": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Oathbreaker": true,
-          "Pirate": true,
-          "Republic": true
         },
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true,
@@ -4324,11 +4053,6 @@
           "Republic": true,
           "Navy (Oathkeeper)": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Republic": true,
-          "Oathbreaker": true,
-          "Pirate": true
-        },
         "Blended Ships/blended-ships": {
           "Republic": true
         },
@@ -4488,11 +4212,6 @@
         "official-game/endless-sky": {
           "Republic": true,
           "Navy (Oathkeeper)": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Oathbreaker": true,
-          "Pirate": true,
-          "Republic": true
         },
         "Blended Ships/blended-ships": {
           "Republic": true
@@ -4907,9 +4626,6 @@
         "Zuckungs list/job.coloring": {
           "Merchant": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Scar's Legion": true
-        },
         "Crisis In Management/endless-sky-syndicate": {
           "Alpha": true,
           "Merchant": true
@@ -5062,11 +4778,6 @@
         },
         "Zuckungs list/uniques": {
           "Pirate": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Merchant": true,
-          "Deep": true
         },
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true
@@ -5247,11 +4958,6 @@
           "Deep Security": true,
           "Republic": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Pirate (Rivals)": true,
-          "Deep": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true,
           "Bounty": true
@@ -5392,19 +5098,6 @@
         },
         "Zuckungs list/galactic.capital.investment": {
           "Pirate": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate (Rival)": true,
-          "Scar's Legion (Killable)": true,
-          "Pirate": true,
-          "Bounty": true,
-          "Bounty Hunter": true,
-          "Merchant": true,
-          "Alpha": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Deep": true,
-          "Storm Seekers": true
         },
         "Tugderic's Addons/Tugderics-Addons": {
           "Black Beards": true,
@@ -5583,10 +5276,6 @@
         "Zuckungs list/job.coloring": {
           "Merchant": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Scar's Legion": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "The Assembly": true,
           "Pirate (Haven Engineers)": true,
@@ -5755,12 +5444,6 @@
           "Merchant": true,
           "Alpha": true,
           "Republic": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true
@@ -5953,12 +5636,6 @@
         "Zuckungs list/galactic.capital.investment": {
           "Pirate": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Pirate": true,
-          "Pirate (Rival)": true,
-          "Pirate (Rivals)": true
-        },
         "Blended Ships/blended-ships": {
           "Pirate": true
         },
@@ -6116,12 +5793,6 @@
         },
         "Zuckungs list/job.coloring": {
           "Pirate": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Bounty": true,
-          "Pirate": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Pirate": true
@@ -6289,13 +5960,6 @@
         "official-game/endless-sky": {
           "Pirate": true,
           "Republic": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Bounty Hunter": true,
-          "Republic": true,
-          "Bounty": true,
-          "Pirate (Rivals)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true,
@@ -6557,10 +6221,6 @@
           "Republic": true,
           "Navy (Oathkeeper)": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Republic": true,
-          "Pirate": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "Bounty": true
         }
@@ -6721,19 +6381,6 @@
         "Zuckungs list/galactic.capital.investment": {
           "Pirate": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate (Rival)": true,
-          "Scar's Legion (Killable)": true,
-          "Pirate": true,
-          "Bounty": true,
-          "Bounty Hunter": true,
-          "Merchant": true,
-          "Alpha": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Deep": true,
-          "Storm Seekers": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "Black Beards": true,
           "Ancient Travelers": true,
@@ -6824,10 +6471,6 @@
       "baseShip": "Mining Drone",
       "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
       "governments": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Escort": true,
-          "Merchant": true
-        },
         "Rumskib/rumskib": {
           "Pirate": true,
           "Merchant": true
@@ -6993,9 +6636,6 @@
       "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
       "governments": {
         "official-game/endless-sky": {
-          "Free Worlds": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
           "Free Worlds": true
         },
         "Blended Ships/blended-ships": {
@@ -7229,9 +6869,6 @@
         "official-game/endless-sky": {
           "Remnant": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Storm Seekers": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "Remnant": true
         }
@@ -7411,11 +7048,6 @@
           "Syndicate (Extremist)": true,
           "Syndicate": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Syndicate": true,
-          "Pirate (Rival)": true
-        },
         "Crisis In Management/endless-sky-syndicate": {
           "Syndicate": true,
           "Syndicate (Extremist)": true,
@@ -7593,14 +7225,6 @@
           "Independent (Killable)": true,
           "Merchant": true,
           "Syndicate": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Independent (Killable)": true,
-          "Syndicate": true,
-          "Bounty (Disguised)": true,
-          "Pirate (Rival)": true,
-          "Syndicate (Extremist)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Pirate": true,
@@ -7792,16 +7416,6 @@
           "Free Worlds": true,
           "Merchant": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Pirate": true,
-          "Pirate (Rival)": true,
-          "Republic": true,
-          "Scar's Legion": true,
-          "Free Worlds": true
-        },
         "Blended Ships/blended-ships": {
           "Free Worlds": true
         },
@@ -7989,12 +7603,6 @@
         },
         "Zuckungs list/galactic.capital.investment": {
           "Pirate": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Pirate": true,
-          "Pirate (Rival)": true,
-          "Pirate (Rivals)": true
         },
         "Blended Ships/blended-ships": {
           "Pirate": true
@@ -8186,10 +7794,6 @@
         },
         "Zuckungs list/job.coloring": {
           "Merchant": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Scar's Legion": true
         },
         "Tugderic's Addons/Tugderics-Addons": {
           "Pirate": true
@@ -8783,10 +8387,6 @@
       "baseShip": "Saber",
       "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
       "governments": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Oathbreaker": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true,
           "The Assembly": true
@@ -8927,10 +8527,6 @@
       "baseShip": "Enforcer",
       "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
       "governments": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Oathbreaker": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true,
           "The Assembly": true
@@ -9290,11 +8886,6 @@
           "Republic": true,
           "Navy (Oathkeeper)": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Republic": true,
-          "Oathbreaker": true,
-          "Pirate": true
-        },
         "Blended Ships/blended-ships": {
           "Republic": true
         },
@@ -9617,12 +9208,6 @@
           "Alpha": true,
           "Republic": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true
-        },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true
         },
@@ -9730,9 +9315,6 @@
         "official-game/endless-sky": {
           "Remnant": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Storm Seekers": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "Remnant": true
         }
@@ -9763,14 +9345,6 @@
         },
         "Zuckungs list/job.coloring": {
           "Pirate": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Bounty": true,
-          "Pirate": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Bounty Hunter": true,
-          "Republic": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Pirate": true,
@@ -9824,12 +9398,6 @@
         "Zuckungs list/galactic.capital.investment": {
           "Pirate": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Pirate": true,
-          "Pirate (Rival)": true,
-          "Pirate (Rivals)": true
-        },
         "Blended Ships/blended-ships": {
           "Pirate": true
         },
@@ -9873,11 +9441,6 @@
           "Navy (Oathkeeper)": true,
           "Free Worlds": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true
-        },
         "Blended Ships/blended-ships": {
           "Free Worlds": true
         }
@@ -9910,10 +9473,6 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true,
           "The Assembly": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Oathbreaker": true
         }
       },
       "locations": {
@@ -9944,10 +9503,6 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "The Assembly": true,
           "Ancient Travelers": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Oathbreaker": true
         }
       },
       "locations": {
@@ -10082,17 +9637,6 @@
           "Merchant": true,
           "Pirate": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Bounty": true,
-          "Independent (Killable)": true
-        },
         "Blended Ships/blended-ships": {
           "Free Worlds": true,
           "Pirate": true
@@ -10160,13 +9704,6 @@
           "Alpha": true,
           "Republic": true,
           "Merchant (Hostile)": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Pirate (Rival)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true
@@ -10255,13 +9792,6 @@
           "Alpha": true,
           "Republic": true,
           "Merchant (Hostile)": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Pirate (Rival)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true
@@ -10353,17 +9883,6 @@
         "Zuckungs list/job.coloring": {
           "Merchant": true
         },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Scar's Legion": true,
-          "Pirate": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Pirate (Rival)": true,
-          "Bounty Hunter": true,
-          "Republic": true,
-          "Bounty": true
-        },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true,
           "Merchant": true
@@ -10437,21 +9956,6 @@
         },
         "Zuckungs list/job.coloring": {
           "Merchant": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Scar's Legion": true,
-          "Pirate": true,
-          "Merchant": true,
-          "Deep": true,
-          "Pirate (Rivals)": true,
-          "Pirate (Rival)": true,
-          "Scar's Legion (Killable)": true,
-          "Bounty": true,
-          "Bounty Hunter": true,
-          "Alpha": true,
-          "Oathbreaker": true,
-          "Storm Seekers": true,
-          "Free Worlds": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Alpha": true,
@@ -10533,13 +10037,6 @@
           "Pirate": true,
           "Merchant": true,
           "Alpha": true
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Republic": true,
-          "Oathbreaker": true,
-          "Pirate": true,
-          "Merchant": true,
-          "Pirate (Rivals)": true
         },
         "Blended Ships/blended-ships": {
           "Republic": true
@@ -10690,31 +10187,14 @@
       },
       "description": "this version of the turret has a long range.",
       "governments": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Pirate (Rivals)": true,
-          "Merchant": true
+        "Tugderics-Addons": {
+          "Tugderics-Addons": true
         }
       },
       "locations": {
         "Tugderic's Addons/Tugderics-Addons": {
           "Ships": [
             "Buckler"
-          ]
-        },
-        "official-game/endless-sky": {
-          "ShipyardPlanets": [
-            "Geminus"
-          ]
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "ShipyardPlanets": [
-            "Wang Xiang Tai"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
           ]
         }
       },
@@ -10790,31 +10270,14 @@
       },
       "description": "This Particle Cannon has a very big range, but can only be mounted on a defense post",
       "governments": {
-        "Lost in Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Pirate (Rivals)": true,
-          "Merchant": true
+        "Tugderics-Addons": {
+          "Tugderics-Addons": true
         }
       },
       "locations": {
         "Tugderic's Addons/Tugderics-Addons": {
           "Ships": [
             "Buckler"
-          ]
-        },
-        "official-game/endless-sky": {
-          "ShipyardPlanets": [
-            "Geminus"
-          ]
-        },
-        "Lost in Midnight/Lost-in-Midnight": {
-          "ShipyardPlanets": [
-            "Wang Xiang Tai"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
           ]
         }
       },
@@ -10864,5 +10327,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-05-18T07:52:59.832Z"
+  "parsedAt": "2026-05-18T12:05:35.178Z"
 }
