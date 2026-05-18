@@ -292,6 +292,8 @@ class ParseStatusMonitor {
     }
 
     async poll() {
+        if (this._lastPollTime && Date.now() - this._lastPollTime < 5000) return;
+
         clearTimeout(this._timer);
 
         try {
@@ -332,7 +334,7 @@ class ParseStatusMonitor {
         } else {
             interval = POLL_INTERVAL_IDLE;
         }
-
+        this._lastPollTime = Date.now();
         this._timer = setTimeout(() => this.poll(), interval);
     }
 
@@ -368,33 +370,33 @@ class PluginManagerUI {
         this._statusTimer = null;
         this._searchQuery = '';
 
-        this._bindEvents();
+        this._();
         this.store.onChange(()   => this._render());
         this.monitor.onChange(() => this._updateParseBar());
     }
 
     /* ── Events ──────────────────────────────────────────────── */
-    _bindEvents() {
-        this.addBtn.addEventListener('click',  () => this._handleAddOrEdit());
-        this.clearBtn.addEventListener('click', () => this._handleClear());
-        this.saveBtn.addEventListener('click',  () => this._handleSave());
+_bindEvents() {
+    this.addBtn.addEventListener('click',  () => { this.monitor.poll(); this._handleAddOrEdit(); });
+    this.clearBtn.addEventListener('click', () => { this.monitor.poll(); this._handleClear(); });
+    this.saveBtn.addEventListener('click',  () => { this.monitor.poll(); this._handleSave(); });
 
-        [this.nameInput, this.repoInput].forEach(el =>
-            el.addEventListener('keydown', e => {
-                if (e.key === 'Enter') this._handleAddOrEdit();
-            })
-        );
+    [this.nameInput, this.repoInput].forEach(el =>
+        el.addEventListener('focus', () => this.monitor.poll())
+    );
 
-        this.searchEl.addEventListener('input', () => {
-            this._searchQuery = this.searchEl.value.trim();
-            this._render();
-        });
+    this.searchEl.addEventListener('focus', () => this.monitor.poll());
 
-        this.searchEl.addEventListener('search', () => {
-            this._searchQuery = '';
-            this._render();
-        });
-    }
+    this.searchEl.addEventListener('input', () => {
+        this._searchQuery = this.searchEl.value.trim();
+        this._render();
+    });
+
+    this.searchEl.addEventListener('search', () => {
+        this._searchQuery = '';
+        this._render();
+    });
+}
 
     /* ── Parse status bar ────────────────────────────────────── */
 _updateParseBar() {
