@@ -14,7 +14,7 @@
 'use strict';
 
 /* ── Paths ───────────────────────────────────────────────────── */
-const PLUGINS_JSON_PATH  = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
+const PLUGINS_JSON_PATH = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
 const PARSE_STATUS_PATH = 'https://api.github.com/repos/givemefood5/endless-sky-ship-builder/contents/parse-status.json';
 
 /* ── Vercel backend endpoint ─────────────────────────────────── */
@@ -78,8 +78,6 @@ function highlight(str, query) {
         '<mark class="search-hl">$1</mark>'
     );
 }
-
-
 
 /* ══════════════════════════════════════════════════════════════
    PluginStore
@@ -264,21 +262,56 @@ class PluginStore {
    ══════════════════════════════════════════════════════════════ */
 class ParseStatusMonitor {
     constructor() {
-        this._status        = null;   // 'running' | 'idle' | null (unknown)
-        this._startedAt     = null;
-        this._completedAt   = null;
-        this._listeners     = [];
-        this._timer         = null;
-        this._rapidDeadline = null;   // timestamp until which we rapid-poll
+        this._status           = null;   // 'running' | 'idle' | null (unknown)
+        this._startedAt        = null;
+        this._completedAt      = null;
+        this._listeners        = [];
+        this._timer            = null;
+        this._rapidDeadline    = null;   // timestamp until which we rapid-poll
+        this._lastPollTime     = null;
+        this._optimisticTimer  = null;   // safety-net timer for optimistic running state
+        this._confirmedRunning = false;  // true once GitHub actually confirms running
     }
 
-    get isRunning()    { return this._status === 'running'; }
-    get status()       { return this._status; }
-    get startedAt()    { return this._startedAt; }
-    get completedAt()  { return this._completedAt; }
+    get isRunning()   { return this._status === 'running'; }
+    get status()      { return this._status; }
+    get startedAt()   { return this._startedAt; }
+    get completedAt() { return this._completedAt; }
 
     onChange(fn) { this._listeners.push(fn); }
     _notify()    { this._listeners.forEach(fn => fn()); }
+
+    /**
+     * Immediately flip the bar to "running" after a save without waiting
+     * for GitHub to confirm. The next real poll will override this with
+     * the actual status. If the Action hasn't started within 3 minutes,
+     * the safety net reverts to polling normally.
+     */
+    forceOptimisticRunning() {
+        const previousStatus   = this._status;
+        this._status           = 'running';
+        this._confirmedRunning = false;
+        this._notify();
+
+        // Start rapid polling to catch the real status ASAP
+        this._rapidDeadline = Date.now() + POLL_AFTER_SAVE_DURATION;
+        clearTimeout(this._timer);
+        clearTimeout(this._optimisticTimer);
+
+        // Safety net: if after 3 minutes GitHub still hasn't confirmed
+        // running, revert to the previous status so we don't show a
+        // permanent false "running" state
+        this._optimisticTimer = setTimeout(() => {
+            if (!this._confirmedRunning) {
+                this._status = previousStatus;
+                this._notify();
+            }
+            this._optimisticTimer = null;
+        }, POLL_AFTER_SAVE_DURATION);
+
+        // Begin rapid polling immediately
+        this._timer = setTimeout(() => this.poll(), POLL_INTERVAL_AFTER_SAVE);
+    }
 
     /**
      * Call this immediately after a save so we poll rapidly for the next
@@ -291,56 +324,83 @@ class ParseStatusMonitor {
         this._timer = setTimeout(() => this.poll(), POLL_INTERVAL_AFTER_SAVE);
     }
 
-async poll() {
-    if (this._lastPollTime && Date.now() - this._lastPollTime < 5000) return;
+    async poll() {
+        // Debounce: ignore if a poll completed less than 5 seconds ago
+        if (this._lastPollTime && Date.now() - this._lastPollTime < 5000) return;
 
-    clearTimeout(this._timer);
+        clearTimeout(this._timer);
 
-    try {
-        const res = await fetch(PARSE_STATUS_PATH, {
-            headers: {
-                'Accept': 'application/vnd.github.raw+json',
-                'X-GitHub-Api-Version': '2022-11-28'
+        try {
+            const res = await fetch(PARSE_STATUS_PATH, {
+                headers: {
+                    'Accept': 'application/vnd.github.raw+json',
+                    'X-GitHub-Api-Version': '2022-11-28',
+                }
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+            const text = await res.text();
+            const data = JSON.parse(text);
+
+            // If GitHub confirms running, mark it as real and cancel safety net
+            if (data.status === 'running') {
+                this._confirmedRunning = true;
+                clearTimeout(this._optimisticTimer);
+                this._optimisticTimer = null;
             }
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        
-        // Raw+json returns the file content directly as JSON
-        const text = await res.text();
-        const data = JSON.parse(text);
 
-        const changed =
-            this._status      !== (data.status      || null) ||
-            this._startedAt   !== (data.startedAt   || null) ||
-            this._completedAt !== (data.completedAt || null);
+            // If we're optimistically showing "running" but GitHub still says
+            // "idle", it means the Action hasn't started yet — keep showing
+            // running and keep rapid polling rather than flipping back to idle
+            if (data.status === 'idle' && this._status === 'running' && !this._confirmedRunning) {
+                // Action hasn't started yet — hold the optimistic state
+            } else {
+                const changed =
+                    this._status      !== (data.status      || null) ||
+                    this._startedAt   !== (data.startedAt   || null) ||
+                    this._completedAt !== (data.completedAt || null);
 
-        this._status      = data.status      || null;
-        this._startedAt   = data.startedAt   || null;
-        this._completedAt = data.completedAt || null;
+                this._status      = data.status      || null;
+                this._startedAt   = data.startedAt   || null;
+                this._completedAt = data.completedAt || null;
 
-        if (changed) this._notify();
-    } catch {
-        if (this._status !== null) {
-            this._status = null;
-            this._notify();
+                if (changed) this._notify();
+            }
+
+            // Once we reach idle after a confirmed run, reset for next cycle
+            if (data.status === 'idle' && this._confirmedRunning) {
+                this._confirmedRunning = false;
+            }
+
+        } catch {
+            // Network error or missing file — only clear status if we're not
+            // in an optimistic running state (don't let a blip cancel it)
+            if (this._status !== null && !this._optimisticTimer) {
+                this._status = null;
+                this._notify();
+            }
         }
-    }
 
-    let interval;
-    if (this.isRunning) {
-        interval = POLL_INTERVAL_RUNNING;
-        this._rapidDeadline = null;
-    } else if (this._rapidDeadline && Date.now() < this._rapidDeadline) {
-        interval = POLL_INTERVAL_AFTER_SAVE;
-    } else {
-        interval = POLL_INTERVAL_IDLE;
+        /* Pick next interval:
+           - running              → 30 s (keep checking until it goes idle)
+           - within rapid window  → 8 s  (just saved, watching for Action)
+           - idle / unknown       → 2 min (background keep-alive)           */
+        let interval;
+        if (this.isRunning) {
+            interval = POLL_INTERVAL_RUNNING;
+        } else if (this._rapidDeadline && Date.now() < this._rapidDeadline) {
+            interval = POLL_INTERVAL_AFTER_SAVE;
+        } else {
+            interval = POLL_INTERVAL_IDLE;
+        }
+
+        this._lastPollTime = Date.now();
+        this._timer = setTimeout(() => this.poll(), interval);
     }
-    this._lastPollTime = Date.now();
-    this._timer = setTimeout(() => this.poll(), interval);
-}
 
     stop() {
         clearTimeout(this._timer);
+        clearTimeout(this._optimisticTimer);
     }
 }
 
@@ -377,57 +437,53 @@ class PluginManagerUI {
     }
 
     /* ── Events ──────────────────────────────────────────────── */
-_bindEvents() {
-    this.addBtn.addEventListener('click',  () => { this.monitor.poll(); this._handleAddOrEdit(); });
-    this.clearBtn.addEventListener('click', () => { this.monitor.poll(); this._handleClear(); });
-    this.saveBtn.addEventListener('click',  () => { this.monitor.poll(); this._handleSave(); });
+    _bindEvents() {
+        this.addBtn.addEventListener('click',  () => { this.monitor.poll(); this._handleAddOrEdit(); });
+        this.clearBtn.addEventListener('click', () => { this.monitor.poll(); this._handleClear(); });
+        this.saveBtn.addEventListener('click',  () => { this._handleSave(); });
 
-    [this.nameInput, this.repoInput].forEach(el =>
-        el.addEventListener('focus', () => this.monitor.poll())
-    );
+        [this.nameInput, this.repoInput].forEach(el =>
+            el.addEventListener('focus', () => this.monitor.poll())
+        );
 
-    this.searchEl.addEventListener('focus', () => this.monitor.poll());
+        this.searchEl.addEventListener('focus', () => this.monitor.poll());
 
-    this.searchEl.addEventListener('input', () => {
-        this._searchQuery = this.searchEl.value.trim();
-        this._render();
-    });
+        this.searchEl.addEventListener('input', () => {
+            this._searchQuery = this.searchEl.value.trim();
+            this._render();
+        });
 
-    this.searchEl.addEventListener('search', () => {
-        this._searchQuery = '';
-        this._render();
-    });
-}
+        this.searchEl.addEventListener('search', () => {
+            this._searchQuery = '';
+            this._render();
+        });
+    }
 
     /* ── Parse status bar ────────────────────────────────────── */
-_updateParseBar() {
-    if (!this.parseBarEl) return;
-    const status = this.monitor.status;
+    _updateParseBar() {
+        if (!this.parseBarEl) return;
+        const status = this.monitor.status;
 
-    // Cancel any pending hide timer — we never auto-hide anymore
-    clearTimeout(this._idleHideTimer);
-    this._idleHideTimer = null;
+        if (status === 'running') {
+            this.parseBarEl.className = 'parse-status-bar parse-status--running';
+            this.parseBarEl.innerHTML =
+                `<span class="parse-spinner"></span>` +
+                `<strong>Parse job is currently running.</strong> ` +
+                `Saving is disabled until it completes. This page will update automatically.`;
+            this.saveBtn.disabled = true;
 
-    if (status === 'running') {
-        this.parseBarEl.className = 'parse-status-bar parse-status--running';
-        this.parseBarEl.innerHTML =
-            `<span class="parse-spinner"></span>` +
-            `<strong>Parse job is currently running.</strong> ` +
-            `Saving is disabled until it completes. This page will update automatically.`;
-        this.saveBtn.disabled = true;
+        } else if (status === 'idle') {
+            this.parseBarEl.className = 'parse-status-bar parse-status--idle';
+            this.parseBarEl.innerHTML = `✅ <strong>Parser idle.</strong> Ready to accept changes.`;
+            this.saveBtn.disabled = false;
 
-    } else if (status === 'idle') {
-        this.parseBarEl.className = 'parse-status-bar parse-status--idle';
-        this.parseBarEl.innerHTML = `✅ <strong>Parser idle.</strong> Ready to accept changes.`;
-        this.saveBtn.disabled = false;
-
-    } else {
-        // null = unknown (first load or fetch failed) — show a neutral state
-        this.parseBarEl.className = 'parse-status-bar parse-status--idle';
-        this.parseBarEl.innerHTML = `⏳ <strong>Checking parser status…</strong>`;
-        this.saveBtn.disabled = false;
+        } else {
+            // null = unknown (first load or fetch failed)
+            this.parseBarEl.className = 'parse-status-bar parse-status--idle';
+            this.parseBarEl.innerHTML = `⏳ <strong>Checking parser status…</strong>`;
+            this.saveBtn.disabled = false;
+        }
     }
-}
 
     /* ── Add / edit ──────────────────────────────────────────── */
     _handleAddOrEdit() {
@@ -463,13 +519,13 @@ _updateParseBar() {
         this.saveBtn.disabled = true;
         this._showStatus(`Removing "${removedName}"…`, 'info');
         const result = await this.store.save();
-        this.saveBtn.disabled = this.monitor.isRunning;
         if (!result.ok) {
+            this.saveBtn.disabled = false;
             this._showStatus('Remove failed: ' + (result.error || ''), 'error');
             return;
         }
         this._showStatus(`"${removedName}" removed and saved.`, 'success');
-        this.monitor.pollAfterSave();
+        this.monitor.forceOptimisticRunning();
     }
 
     /* ── Save ────────────────────────────────────────────────── */
@@ -484,16 +540,16 @@ _updateParseBar() {
 
         const result = await this.store.save();
 
-        /* Re-evaluate disabled state from monitor (not just re-enable blindly) */
-        this.saveBtn.disabled = this.monitor.isRunning;
-
         if (!result.ok) {
+            this.saveBtn.disabled = false;
             this._showStatus('Save failed: ' + (result.error || ''), 'error');
             return;
         }
 
-        this._showStatus('plugins.json saved! The parse job will start shortly.', 'success');
-        this.monitor.pollAfterSave();
+        // Optimistically show running immediately — Vercel already wrote
+        // parse-status.json to "running" so the next poll will confirm it
+        this._showStatus('plugins.json saved! Parse job starting…', 'success');
+        this.monitor.forceOptimisticRunning();
     }
 
     /* ── Start editing an active plugin ─────────────────────── */
@@ -651,7 +707,7 @@ _updateParseBar() {
 
         if (!msg) { this.statusEl.className = 'status-msg hidden'; return; }
 
-        this.statusEl.className  = `status-msg status--${type}`;
+        this.statusEl.className   = `status-msg status--${type}`;
         this.statusEl.textContent = msg;
 
         if (type === 'success') {
@@ -669,10 +725,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const store   = new PluginStore();
     const monitor = new ParseStatusMonitor();
     const ui      = new PluginManagerUI(store, monitor);
+
+    // Show "Checking…" immediately before first poll returns
     ui._updateParseBar();
-   
-    window.pluginStore   = store;   // available in console for debugging
-    window.parseMonitor  = monitor;
+
+    window.pluginStore  = store;   // available in console for debugging
+    window.parseMonitor = monitor;
 
     /* Load plugins immediately — don't wait for parse status */
     try {
