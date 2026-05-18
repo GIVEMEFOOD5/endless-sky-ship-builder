@@ -291,52 +291,53 @@ class ParseStatusMonitor {
         this._timer = setTimeout(() => this.poll(), POLL_INTERVAL_AFTER_SAVE);
     }
 
-    async poll() {
-        if (this._lastPollTime && Date.now() - this._lastPollTime < 5000) return;
+async poll() {
+    if (this._lastPollTime && Date.now() - this._lastPollTime < 5000) return;
 
-        clearTimeout(this._timer);
+    clearTimeout(this._timer);
 
-        try {
-           const res = await fetch(PARSE_STATUS_PATH, {
-            headers: { 'Accept': 'application/vnd.github.raw+json' }
-           });
-           if (!res.ok) throw new Error(`HTTP ${res.status}`);
-           const data = await res.json();
-
-            const changed =
-                this._status      !== (data.status      || null) ||
-                this._startedAt   !== (data.startedAt   || null) ||
-                this._completedAt !== (data.completedAt || null);
-
-            this._status      = data.status      || null;
-            this._startedAt   = data.startedAt   || null;
-            this._completedAt = data.completedAt || null;
-
-            if (changed) this._notify();
-        } catch {
-            /* parse-status.json missing or network error — treat as unknown */
-            if (this._status !== null) {
-                this._status = null;
-                this._notify();
+    try {
+        const res = await fetch(PARSE_STATUS_PATH, {
+            headers: {
+                'Accept': 'application/vnd.github.raw+json',
+                'X-GitHub-Api-Version': '2022-11-28'
             }
-        }
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        
+        // Raw+json returns the file content directly as JSON
+        const text = await res.text();
+        const data = JSON.parse(text);
 
-        /* Pick next interval:
-           - running           → 30 s (keep checking until it goes idle)
-           - within rapid window → 8 s (just saved, watching for Action to start)
-           - idle / unknown    → 2 min (background keep-alive)               */
-        let interval;
-        if (this.isRunning) {
-            interval = POLL_INTERVAL_RUNNING;
-            this._rapidDeadline = null; // no longer need rapid mode
-        } else if (this._rapidDeadline && Date.now() < this._rapidDeadline) {
-            interval = POLL_INTERVAL_AFTER_SAVE;
-        } else {
-            interval = POLL_INTERVAL_IDLE;
+        const changed =
+            this._status      !== (data.status      || null) ||
+            this._startedAt   !== (data.startedAt   || null) ||
+            this._completedAt !== (data.completedAt || null);
+
+        this._status      = data.status      || null;
+        this._startedAt   = data.startedAt   || null;
+        this._completedAt = data.completedAt || null;
+
+        if (changed) this._notify();
+    } catch {
+        if (this._status !== null) {
+            this._status = null;
+            this._notify();
         }
-        this._lastPollTime = Date.now();
-        this._timer = setTimeout(() => this.poll(), interval);
     }
+
+    let interval;
+    if (this.isRunning) {
+        interval = POLL_INTERVAL_RUNNING;
+        this._rapidDeadline = null;
+    } else if (this._rapidDeadline && Date.now() < this._rapidDeadline) {
+        interval = POLL_INTERVAL_AFTER_SAVE;
+    } else {
+        interval = POLL_INTERVAL_IDLE;
+    }
+    this._lastPollTime = Date.now();
+    this._timer = setTimeout(() => this.poll(), interval);
+}
 
     stop() {
         clearTimeout(this._timer);
@@ -370,7 +371,7 @@ class PluginManagerUI {
         this._statusTimer = null;
         this._searchQuery = '';
 
-        this._();
+        this._bindEvents();
         this.store.onChange(()   => this._render());
         this.monitor.onChange(() => this._updateParseBar());
     }
