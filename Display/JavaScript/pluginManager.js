@@ -15,7 +15,7 @@
 
 /* ── Paths ───────────────────────────────────────────────────── */
 const PLUGINS_JSON_PATH  = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
-const PARSE_STATUS_PATH = 'https://raw.githubusercontent.com/givemefood5/endless-sky-ship-builder/main/parse-status.json';
+const PARSE_STATUS_PATH = 'https://api.github.com/repos/givemefood5/endless-sky-ship-builder/contents/parse-status.json';
 
 /* ── Vercel backend endpoint ─────────────────────────────────── */
 const BACKEND_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/update-json';
@@ -295,9 +295,11 @@ class ParseStatusMonitor {
         clearTimeout(this._timer);
 
         try {
-            const res  = await fetch(PARSE_STATUS_PATH + '?t=' + Date.now());
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
+           const res = await fetch(PARSE_STATUS_PATH, {
+            headers: { 'Accept': 'application/vnd.github.raw+json' }
+           });
+           if (!res.ok) throw new Error(`HTTP ${res.status}`);
+           const data = await res.json();
 
             const changed =
                 this._status      !== (data.status      || null) ||
