@@ -6,6 +6,11 @@ on:
   push:
     paths:
       - 'plugins.json'
+
+concurrency:
+  group: parse-job
+  cancel-in-progress: false
+  
 permissions:
   contents: write
 jobs:
