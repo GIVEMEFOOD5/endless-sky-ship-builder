@@ -1,0 +1,1495 @@
+[
+  {
+    "name": "Buckler",
+    "engines": [
+      {
+        "x": 0,
+        "y": 34
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -34,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -6,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/buckler",
+    "thumbnail": "thumbnail/buckler",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 204000,
+      "shields": 2700,
+      "hull": 900,
+      "required crew": 1,
+      "bunks": 2,
+      "mass": 110,
+      "drag": 90,
+      "heat dissipation": 0.86,
+      "outfit space": 180,
+      "weapon capacity": 80,
+      "engine capacity": 0,
+      "defense post infrastructure": 5,
+      "afterburner thrust": 20,
+      "afterburner heat": 80,
+      "turn": 200,
+      "turning energy": 0.3,
+      "turning heat": 0.6,
+      "thrust": 0.1,
+      "thrusting energy": 0.1,
+      "thrusting heat": 0.1,
+      "weapon": {
+        "blast radius": 15,
+        "shield damage": 125,
+        "hull damage": 75,
+        "hit force": 210
+      }
+    },
+    "tiny explosion": 15,
+    "small explosion": 5,
+    "final explode": "final explosion small",
+    "description": "The buckler was designed as a static defense point.",
+    "_internalId": "Tugderic's Addons/Tugderics-Addons::Buckler",
+    "_pluginId": "Tugderic's Addons/Tugderics-Addons",
+    "_hash": "bb03f6ac15ed",
+    "governments": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Pirate": true,
+        "Pirate (Rivals)": true,
+        "Merchant": true
+      }
+    },
+    "locations": {
+      "Lost in Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ],
+        "Planets": [
+          "Wang Xiang Tai"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Planets": [
+          "Geminus"
+        ]
+      }
+    },
+    "outfits": {
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Defense Post Particle Cannon": {
+        "count": 1,
+        "pluginId": "Tugderic's Addons/Tugderics-Addons"
+      },
+      "Defense Post Blaster Turret": {
+        "count": 1,
+        "pluginId": "Tugderic's Addons/Tugderics-Addons"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-CC Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Goliath",
+    "engines": [
+      {
+        "x": -18,
+        "y": 138
+      },
+      {
+        "x": 18,
+        "y": 138
+      },
+      {
+        "x": 0,
+        "y": 138
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -42,
+        "y": -40.5,
+        "gun": ""
+      },
+      {
+        "x": 42,
+        "y": -40.5,
+        "gun": ""
+      },
+      {
+        "x": -55,
+        "y": -27,
+        "gun": ""
+      },
+      {
+        "x": 55,
+        "y": -27,
+        "gun": ""
+      },
+      {
+        "x": -67,
+        "y": -14,
+        "gun": ""
+      },
+      {
+        "x": 67,
+        "y": -14,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -28,
+        "y": 9.5,
+        "turret": ""
+      },
+      {
+        "x": 28,
+        "y": 9.5,
+        "turret": ""
+      },
+      {
+        "x": -43,
+        "y": 61.5,
+        "turret": ""
+      },
+      {
+        "x": 43,
+        "y": 61.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/goliath",
+    "thumbnail": "thumbnail/goliath",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 13600000,
+      "shields": 18800,
+      "hull": 7800,
+      "required crew": 75,
+      "bunks": 112,
+      "mass": 1950,
+      "drag": 15.1,
+      "heat dissipation": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 80,
+      "outfit space": 815,
+      "weapon capacity": 300,
+      "engine capacity": 180,
+      "weapon": {
+        "blast radius": 95,
+        "shield damage": 1100,
+        "hull damage": 650,
+        "hit force": 1800
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 42,
+    "medium explosion": 30,
+    "large explosion": 12,
+    "final explode": "final explosion large",
+    "description": "A Goliath is essencially an over customized Leviathan build by a strong pirate warlord.",
+    "_internalId": "Tugderic's Addons/Tugderics-Addons::Goliath",
+    "_pluginId": "Tugderic's Addons/Tugderics-Addons",
+    "_hash": "e13add2a0378",
+    "governments": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "The Assembly": true,
+        "Bounty": true
+      }
+    },
+    "locations": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Missions": [
+          "Assembly Defense Fleet",
+          "Northern Pirate Warlord Bounty"
+        ]
+      }
+    },
+    "outfits": {
+      "Bufaer\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bufaer\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blaster Gatling": {
+        "count": 6,
+        "pluginId": "Tugderic's Addons/Tugderics-Addons"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cooling Ducts": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP288a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ogre Reactor": {
+        "count": 1,
+        "pluginId": "Tugderic's Addons/Tugderics-Addons"
+      },
+      "P94-YV Shield Generator": {
+        "count": 1,
+        "pluginId": "Tugderic's Addons/Tugderics-Addons"
+      },
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-270 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-970 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 75,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nerve Gas": {
+        "count": 30,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Hornet",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 45
+      },
+      {
+        "x": 5.5,
+        "y": 45
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -41,
+        "gun": ""
+      },
+      {
+        "x": -13.5,
+        "y": -35,
+        "gun": ""
+      },
+      {
+        "x": 13.5,
+        "y": -35,
+        "gun": ""
+      },
+      {
+        "x": -18.5,
+        "y": -27,
+        "gun": ""
+      },
+      {
+        "x": 18.5,
+        "y": -27,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -20,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -20,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/hornet",
+    "thumbnail": "thumbnail/hornet",
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 720000,
+      "shields": 2800,
+      "hull": 900,
+      "required crew": 2,
+      "bunks": 4,
+      "mass": 185,
+      "drag": 3.9,
+      "heat dissipation": 0.7,
+      "fuel capacity": 500,
+      "cargo space": 30,
+      "outfit space": 230,
+      "weapon capacity": 70,
+      "engine capacity": 60,
+      "weapon": {
+        "blast radius": 30,
+        "shield damage": 400,
+        "hull damage": 200,
+        "hit force": 300
+      }
+    },
+    "tiny explosion": 20,
+    "small explosion": 10,
+    "description": "The Hornet is an heavier version of the wasp, while not necessarily  as strong as other light warships, it's cheap and still quite efficient.",
+    "_internalId": "Tugderic's Addons/Tugderics-Addons::Hornet",
+    "_pluginId": "Tugderic's Addons/Tugderics-Addons",
+    "_hash": "70ec657c35ab",
+    "governments": {
+      "Tugderics-Addons": {
+        "Tugderics-Addons": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldhibain",
+          "Algorel",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alphecca",
+          "Arcturus",
+          "Ascella",
+          "Atria",
+          "Beta Lupi",
+          "Boral",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Dschubba",
+          "Eber",
+          "Eltanin",
+          "Enif",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Lesath",
+          "Limen",
+          "Lurata",
+          "Menkent",
+          "Merak",
+          "Mimosa",
+          "Minkar",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phecda",
+          "Pherkad",
+          "Porrima",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Spica",
+          "Tais",
+          "Tarazed",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vindemiatrix",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "Darceas"
+        ]
+      }
+    },
+    "outfits": {
+      "Cooling Ducts": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Energy Blaster": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 45,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X2200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X2700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-DD Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Kraken",
+    "engines": [
+      {
+        "x": -63.5,
+        "y": 147
+      },
+      {
+        "x": -25.5,
+        "y": 147
+      },
+      {
+        "x": 24.5,
+        "y": 147
+      },
+      {
+        "x": 61,
+        "y": 147
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13.5,
+        "y": -129,
+        "gun": ""
+      },
+      {
+        "x": 13.5,
+        "y": -129,
+        "gun": ""
+      },
+      {
+        "x": -22,
+        "y": -105,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -106,
+        "gun": ""
+      },
+      {
+        "x": -22,
+        "y": -28,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -30.5,
+        "gun": ""
+      },
+      {
+        "x": -43,
+        "y": -27,
+        "gun": ""
+      },
+      {
+        "x": 41,
+        "y": -27,
+        "gun": ""
+      },
+      {
+        "x": -54.5,
+        "y": -14,
+        "gun": ""
+      },
+      {
+        "x": 54.5,
+        "y": -14,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -38,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -4,
+        "turret": ""
+      },
+      {
+        "x": -17,
+        "y": 23,
+        "turret": ""
+      },
+      {
+        "x": 15,
+        "y": 23,
+        "turret": ""
+      },
+      {
+        "x": -31,
+        "y": 62,
+        "turret": ""
+      },
+      {
+        "x": 30,
+        "y": 65,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "type": "Fighter",
+        "x": 10,
+        "y": 0
+      },
+      {
+        "type": "Fighter",
+        "x": -10,
+        "y": 0
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 10
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -10
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/kraken",
+    "thumbnail": "thumbnail/kraken",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 29000000,
+      "shields": 38000,
+      "hull": 17100,
+      "required crew": 184,
+      "bunks": 270,
+      "mass": 3400,
+      "drag": 18.7,
+      "heat dissipation": 0.3,
+      "fuel capacity": 1200,
+      "cargo space": 180,
+      "outfit space": 1240,
+      "weapon capacity": 465,
+      "engine capacity": 260,
+      "self destruct": 0.3,
+      "weapon": {
+        "blast radius": 190,
+        "shield damage": 3400,
+        "hull damage": 1400,
+        "hit force": 3200
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 48,
+    "medium explosion": 48,
+    "large explosion": 32,
+    "final explode": "final explosion large",
+    "description": "Multiple ships were melted together, creating this monstruosity.",
+    "_internalId": "Tugderic's Addons/Tugderics-Addons::Kraken",
+    "_pluginId": "Tugderic's Addons/Tugderics-Addons",
+    "_hash": "eece5fadcc06",
+    "governments": {
+      "Tugderics-Addons": {
+        "Tugderics-Addons": true
+      }
+    },
+    "locations": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Biroo\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Biroo\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bufaer\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bufaer\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bullfrog Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Digger Mining Beam": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Electron Beam": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 35,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP576a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 110,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nerve Gas": {
+        "count": 35,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ogre Reactor": {
+        "count": 1,
+        "pluginId": "Tugderic's Addons/Tugderics-Addons"
+      },
+      "Outfit Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "P94-YV Shield Generator": {
+        "count": 1,
+        "pluginId": "Tugderic's Addons/Tugderics-Addons"
+      },
+      "Plasma Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-270 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S-970 Regenerator": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Security Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Typhoon Launcher": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Typhoon Storage Tube": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Typhoon Torpedo": {
+        "count": 150,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Pike",
+    "engines": [
+      {
+        "x": -46,
+        "y": 100
+      },
+      {
+        "x": 46,
+        "y": 100
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -101,
+        "gun": ""
+      },
+      {
+        "x": -47,
+        "y": 4.5,
+        "gun": ""
+      },
+      {
+        "x": 47,
+        "y": 4.5,
+        "gun": ""
+      },
+      {
+        "x": -46,
+        "y": 4.5,
+        "gun": ""
+      },
+      {
+        "x": 46,
+        "y": 4.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 10
+      }
+    ],
+    "sprite": "ship/pike",
+    "thumbnail": "thumbnail/pike",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 4000000,
+      "shields": 6000,
+      "hull": 3100,
+      "required crew": 4,
+      "bunks": 9,
+      "mass": 650,
+      "drag": 5.9,
+      "heat dissipation": 0.52,
+      "fuel capacity": 300,
+      "cargo space": 15,
+      "outfit space": 440,
+      "weapon capacity": 160,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 85,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 25,
+    "large explosion": 10,
+    "final explode": "final explosion medium",
+    "description": "The Pike is basically just a scaled up version of the lance. due to being inspired by a fighter, the pike lacks fuel and cargo, as well as turrets.",
+    "_internalId": "Tugderic's Addons/Tugderics-Addons::Pike",
+    "_pluginId": "Tugderic's Addons/Tugderics-Addons",
+    "_hash": "7d71b473fc72",
+    "governments": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Test Dummy": true
+      }
+    },
+    "locations": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Planets": [
+          "Geminus"
+        ],
+        "Missions": [
+          "Navy Ship Testing Pike"
+        ]
+      }
+    },
+    "outfits": {
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "NT-200 Nucleovoltaic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Particle Cannon": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Typhoon Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Typhoon Torpedo": {
+        "count": 30,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X4200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Runner",
+    "engines": [
+      {
+        "x": -45,
+        "y": 122.5
+      },
+      {
+        "x": 45,
+        "y": 122.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -14.5,
+        "y": -92.5,
+        "gun": ""
+      },
+      {
+        "x": 14.5,
+        "y": -92.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -21.5,
+        "y": -48,
+        "turret": ""
+      },
+      {
+        "x": 21.5,
+        "y": -48,
+        "turret": ""
+      },
+      {
+        "x": -18.5,
+        "y": 78.5,
+        "turret": ""
+      },
+      {
+        "x": 18.5,
+        "y": 78.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 90,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/runner i",
+    "thumbnail": "thumbnail/runner i",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 1630000,
+      "shields": 2600,
+      "hull": 4000,
+      "required crew": 4,
+      "bunks": 10,
+      "mass": 490,
+      "drag": 14.7,
+      "heat dissipation": 0.43,
+      "fuel capacity": 400,
+      "cargo space": 110,
+      "outfit space": 380,
+      "weapon capacity": 160,
+      "engine capacity": 100,
+      "scan interference": 0.5,
+      "weapon": {
+        "blast radius": 60,
+        "shield damage": 600,
+        "hull damage": 300,
+        "hit force": 900
+      }
+    },
+    "tiny explosion": 20,
+    "small explosion": 35,
+    "medium explosion": 20,
+    "large explosion": 5,
+    "final explode": "final explosion medium",
+    "description": "Several centuries ago, in the early days of the Republic, the sudden increase in commerce and space travel led to high demand for cargo ships. Haulers were first created simply by bolting a cockpit and engine block onto a cargo container, and the basic design has not changed much since then.",
+    "_internalId": "Tugderic's Addons/Tugderics-Addons::Runner",
+    "_pluginId": "Tugderic's Addons/Tugderics-Addons",
+    "_hash": "577148c581d7",
+    "governments": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Smuggler": true
+      }
+    },
+    "locations": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Capybara Reverse Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 90,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Runner II",
+    "engines": [
+      {
+        "x": -45,
+        "y": 159.5
+      },
+      {
+        "x": 45,
+        "y": 159.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -14.5,
+        "y": -129.5,
+        "gun": ""
+      },
+      {
+        "x": 14.5,
+        "y": -129.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -21.5,
+        "y": -84.5,
+        "turret": ""
+      },
+      {
+        "x": 21.5,
+        "y": -84.5,
+        "turret": ""
+      },
+      {
+        "x": -18.5,
+        "y": 115.5,
+        "turret": ""
+      },
+      {
+        "x": 18.5,
+        "y": 115.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/runner ii",
+    "thumbnail": "thumbnail/runner ii",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 2740000,
+      "shields": 3100,
+      "hull": 5700,
+      "required crew": 4,
+      "bunks": 10,
+      "mass": 640,
+      "drag": 16.1,
+      "heat dissipation": 0.43,
+      "fuel capacity": 400,
+      "cargo space": 220,
+      "outfit space": 380,
+      "weapon capacity": 160,
+      "engine capacity": 100,
+      "scan interference": 0.6,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 30,
+    "large explosion": 15,
+    "final explode": "final explosion medium",
+    "description": "This is a mid-sized freighter, designed for a balance between cargo capacity and defensive capability. Centuries ago, various Hauler models made up nearly half of the merchant vessels in service, but today the design is considered somewhat outdated.",
+    "_internalId": "Tugderic's Addons/Tugderics-Addons::Runner II",
+    "_pluginId": "Tugderic's Addons/Tugderics-Addons",
+    "_hash": "ffd0e4d8302a",
+    "governments": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Smuggler": true
+      }
+    },
+    "locations": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Capybara Reverse Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fragmentation Grenades": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 90,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Runner III",
+    "engines": [
+      {
+        "x": -45,
+        "y": 196.5
+      },
+      {
+        "x": 45,
+        "y": 196.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -14.5,
+        "y": -166.5,
+        "gun": ""
+      },
+      {
+        "x": 14.5,
+        "y": -166.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -21.5,
+        "y": -122,
+        "turret": ""
+      },
+      {
+        "x": 21.5,
+        "y": -122,
+        "turret": ""
+      },
+      {
+        "x": -18.5,
+        "y": 152.5,
+        "turret": ""
+      },
+      {
+        "x": 18.5,
+        "y": 152.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/runner iii",
+    "thumbnail": "thumbnail/runner iii",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 3860000,
+      "shields": 3600,
+      "hull": 7400,
+      "required crew": 4,
+      "bunks": 10,
+      "mass": 790,
+      "drag": 17.5,
+      "heat dissipation": 0.43,
+      "fuel capacity": 400,
+      "cargo space": 330,
+      "outfit space": 380,
+      "weapon capacity": 160,
+      "engine capacity": 100,
+      "scan interference": 0.7,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "small explosion": 15,
+    "medium explosion": 30,
+    "large explosion": 20,
+    "huge explosion": 5,
+    "final explode": "final explosion large",
+    "description": "Considered by many to be outdated, there are nonetheless many Haulers still in service due to their combination of comparatively low price and simple construction. This large version of the Hauler provides the best tradeoff between price and cargo space.",
+    "_internalId": "Tugderic's Addons/Tugderics-Addons::Runner III",
+    "_pluginId": "Tugderic's Addons/Tugderics-Addons",
+    "_hash": "80324ae5255d",
+    "governments": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Smuggler": true
+      }
+    },
+    "locations": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Capybara Reverse Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 90,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Box": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Volcano Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]
