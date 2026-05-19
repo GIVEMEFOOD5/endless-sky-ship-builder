@@ -45,6 +45,51 @@ async function sparseClone(repoGitUrl, branch, targetDir, folders) {
   await exec(`git -C "${targetDir}" checkout ${branch}`);
 }
 
+  // ---------------------------------------------------------------------------
+// Hash a file for change detection
+// ---------------------------------------------------------------------------
+async function hashFile(filePath) {
+  try {
+    const buf = await fs.readFile(filePath);
+    return crypto.createHash('sha1').update(buf).digest('hex');
+  } catch {
+    return null;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Recursively list all files under a directory
+// ---------------------------------------------------------------------------
+async function listFilesRecursive(dir) {
+  const results = [];
+  let entries;
+  try { entries = await fs.readdir(dir, { withFileTypes: true }); }
+  catch { return results; }
+  for (const e of entries) {
+    const full = path.join(dir, e.name);
+    if (e.isDirectory()) results.push(...await listFilesRecursive(full));
+    else results.push(full);
+  }
+  return results;
+}
+
+  // ---------------------------------------------------------------------------
+// Remove empty directories recursively (bottom-up)
+// ---------------------------------------------------------------------------
+async function removeEmptyDirs(dir) {
+  let entries;
+  try { entries = await fs.readdir(dir, { withFileTypes: true }); }
+  catch { return; }
+  for (const e of entries) {
+    if (e.isDirectory()) await removeEmptyDirs(path.join(dir, e.name));
+  }
+  // Re-read after recursing — children may now be empty
+  try {
+    const remaining = await fs.readdir(dir);
+    if (remaining.length === 0) await fs.rmdir(dir);
+  } catch { /* ignore */ }
+}
+
 // ---------------------------------------------------------------------------
 // Compute a deterministic structural hash of a ship's data for duplicate detection.
 // ---------------------------------------------------------------------------
@@ -502,51 +547,6 @@ async copyMatchingImages(sourceDir, destDir, imagePath, copiedDestFiles) {
       } catch { continue; }
     }
   }
-
-  // ---------------------------------------------------------------------------
-// Hash a file for change detection
-// ---------------------------------------------------------------------------
-async function hashFile(filePath) {
-  try {
-    const buf = await fs.readFile(filePath);
-    return crypto.createHash('sha1').update(buf).digest('hex');
-  } catch {
-    return null;
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Recursively list all files under a directory
-// ---------------------------------------------------------------------------
-async function listFilesRecursive(dir) {
-  const results = [];
-  let entries;
-  try { entries = await fs.readdir(dir, { withFileTypes: true }); }
-  catch { return results; }
-  for (const e of entries) {
-    const full = path.join(dir, e.name);
-    if (e.isDirectory()) results.push(...await listFilesRecursive(full));
-    else results.push(full);
-  }
-  return results;
-}
-
-  // ---------------------------------------------------------------------------
-// Remove empty directories recursively (bottom-up)
-// ---------------------------------------------------------------------------
-async function removeEmptyDirs(dir) {
-  let entries;
-  try { entries = await fs.readdir(dir, { withFileTypes: true }); }
-  catch { return; }
-  for (const e of entries) {
-    if (e.isDirectory()) await removeEmptyDirs(path.join(dir, e.name));
-  }
-  // Re-read after recursing — children may now be empty
-  try {
-    const remaining = await fs.readdir(dir);
-    if (remaining.length === 0) await fs.rmdir(dir);
-  } catch { /* ignore */ }
-}
   
   async copyImagesForPlugin(sourceImagesDir, destImagesDir, ships, variants, outfits, effects) {
     if (!sourceImagesDir) { console.log('  No images folder, skipping.'); return; }
