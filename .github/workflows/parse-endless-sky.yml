@@ -1,4 +1,5 @@
 name: Parse Endless Sky Data
+
 on:
   schedule:
     - cron: '0 0 1 * *'
@@ -54,7 +55,7 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "Update Endless Sky data - $(date +'%Y-%m-%d')"
             git fetch origin main
-            git rebase origin/main
+            git rebase -X theirs origin/main
             git push
           else
             echo "No changes to commit"
@@ -66,7 +67,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git fetch origin main
-          git rebase origin/main
+          git rebase -X theirs origin/main
           echo '{"status":"idle","completedAt":"'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"}' > parse-status.json
           git add parse-status.json
           git diff --staged --quiet || (
