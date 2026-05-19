@@ -483,13 +483,11 @@ class EndlessSkyParser {
           await fs.mkdir(outDir, { recursive: true });
           for (const f of matches) {
             await fs.copyFile(path.join(sp.dir, f), path.join(outDir, f));
-            console.log(`    ✓ ${sp.relative}/${f}`);
           }
           return;
         }
       } catch { continue; }
     }
-    console.log(`    ✗ No files found for: ${norm}`);
   }
 
   async copyImagesForPlugin(sourceImagesDir, destImagesDir, ships, variants, outfits, effects) {
@@ -1575,11 +1573,9 @@ class EndlessSkyParser {
       if (!v) { skippedNoChange++; continue; }
       const isDuplicate = this.variants.some(existing => this.shipsAreIdentical(existing, v));
       if (isDuplicate) {
-        console.log(`    ~ Skipped duplicate variant: ${v.name}`);
         skippedDuplicate++; continue;
       }
       this.variants.push(v);
-      console.log(`    + ${v.name}`);
       kept++;
     }
     console.log(`  Variants: ${kept} kept, ${skippedNoChange} skipped, ${skippedDuplicate} duplicates removed`);
