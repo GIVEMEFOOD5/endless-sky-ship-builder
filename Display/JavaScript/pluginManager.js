@@ -324,86 +324,72 @@ class ParseStatusMonitor {
         this._timer = setTimeout(() => this.poll(), POLL_INTERVAL_AFTER_SAVE);
     }
 
-    async poll() {
-        // Debounce: ignore if a poll completed less than 5 seconds ago
-        if (this._lastPollTime && Date.now() - this._lastPollTime < 5000) return;
+async poll() {
+    if (this._lastPollTime && Date.now() - this._lastPollTime < 5000) return;
+    clearTimeout(this._timer);
 
-        clearTimeout(this._timer);
-
-        try {
-            const res = await fetch(PARSE_STATUS_PATH, {
-                headers: {
-                    'Accept': 'application/vnd.github.raw+json',
-                    'X-GitHub-Api-Version': '2022-11-28',
-                }
-            });
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-            const text = await res.text();
-            const data = JSON.parse(text);
-
-            // If GitHub confirms running, mark it as real and cancel safety net
-            if (data.status === 'running') {
-                this._confirmedRunning = true;
-                clearTimeout(this._optimisticTimer);
-                this._optimisticTimer = null;
+    try {
+        // Use the standard JSON response and decode base64 content ourselves
+        // This avoids relying on the raw+json accept header which can be flaky
+        const res = await fetch(PARSE_STATUS_PATH + '?t=' + Date.now(), {
+            headers: {
+                'Accept': 'application/vnd.github+json',
+                'X-GitHub-Api-Version': '2022-11-28',
             }
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-            // If we're optimistically showing "running" but GitHub still says
-            // "idle", it means the Action hasn't started yet — keep showing
-            // running and keep rapid polling rather than flipping back to idle
-            if (data.status === 'idle' && this._status === 'running' && !this._confirmedRunning) {
-                // Action hasn't started yet — hold the optimistic state
-            } else {
-                const changed =
-                    this._status      !== (data.status      || null) ||
-                    this._startedAt   !== (data.startedAt   || null) ||
-                    this._completedAt !== (data.completedAt || null);
+        const envelope = await res.json();
 
-                this._status      = data.status      || null;
-                this._startedAt   = data.startedAt   || null;
-                this._completedAt = data.completedAt || null;
+        // GitHub returns content as base64 with newlines — decode it
+        const raw  = atob(envelope.content.replace(/\n/g, ''));
+        const data = JSON.parse(raw);
 
-                if (changed) this._notify();
-            }
-
-            // Once we reach idle after a confirmed run, reset for next cycle
-            if (data.status === 'idle' && this._confirmedRunning) {
-                this._confirmedRunning = false;
-            }
-
-        } catch {
-            // Network error or missing file — only clear status if we're not
-            // in an optimistic running state (don't let a blip cancel it)
-            if (this._status !== null && !this._optimisticTimer) {
-                this._status = null;
-                this._notify();
-            }
+        if (data.status === 'running') {
+            this._confirmedRunning = true;
+            clearTimeout(this._optimisticTimer);
+            this._optimisticTimer = null;
         }
 
-        /* Pick next interval:
-           - running              → 30 s (keep checking until it goes idle)
-           - within rapid window  → 8 s  (just saved, watching for Action)
-           - idle / unknown       → 2 min (background keep-alive)           */
-        let interval;
-        if (this.isRunning) {
-            interval = POLL_INTERVAL_RUNNING;
-        } else if (this._rapidDeadline && Date.now() < this._rapidDeadline) {
-            interval = POLL_INTERVAL_AFTER_SAVE;
+        if (data.status === 'idle' && this._status === 'running' && !this._confirmedRunning) {
+            // Hold optimistic state — action hasn't started yet
         } else {
-            interval = POLL_INTERVAL_IDLE;
+            const changed =
+                this._status      !== (data.status      || null) ||
+                this._startedAt   !== (data.startedAt   || null) ||
+                this._completedAt !== (data.completedAt || null);
+
+            this._status      = data.status      || null;
+            this._startedAt   = data.startedAt   || null;
+            this._completedAt = data.completedAt || null;
+
+            if (changed) this._notify();
         }
 
-        this._lastPollTime = Date.now();
-        this._timer = setTimeout(() => this.poll(), interval);
+        if (data.status === 'idle' && this._confirmedRunning) {
+            this._confirmedRunning = false;
+        }
+
+    } catch {
+        if (this._status !== null && !this._optimisticTimer) {
+            this._status = null;
+            this._notify();
+        }
     }
 
-    stop() {
-        clearTimeout(this._timer);
-        clearTimeout(this._optimisticTimer);
+    let interval;
+    if (this.isRunning) {
+        interval = POLL_INTERVAL_RUNNING;
+    } else if (this._rapidDeadline && Date.now() < this._rapidDeadline) {
+        interval = POLL_INTERVAL_AFTER_SAVE;
+    } else {
+        interval = POLL_INTERVAL_IDLE;
     }
+
+    this._lastPollTime = Date.now();
+    this._timer = setTimeout(() => this.poll(), interval);
 }
-
+   
 /* ══════════════════════════════════════════════════════════════
    PluginManagerUI
    ══════════════════════════════════════════════════════════════ */
