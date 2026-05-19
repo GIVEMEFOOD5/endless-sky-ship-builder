@@ -447,7 +447,7 @@ class EndlessSkyParser {
     return plugins;
   }
 
-  async copyMatchingImages(sourceDir, destDir, imagePath) {
+async copyMatchingImages(sourceDir, destDir, imagePath, copiedDestFiles) {
     const norm      = imagePath.replace(/\\/g, '/');
     const parts     = norm.split('/');
     const basename  = parts[parts.length - 1];
@@ -482,7 +482,20 @@ class EndlessSkyParser {
           const outDir = path.join(destDir, sp.relative);
           await fs.mkdir(outDir, { recursive: true });
           for (const f of matches) {
-            await fs.copyFile(path.join(sp.dir, f), path.join(outDir, f));
+            const srcFile  = path.join(sp.dir, f);
+            const destFile = path.join(outDir, f);
+
+            // Track this file as expected regardless of whether we copy it
+            copiedDestFiles.add(destFile);
+
+            // Only copy if content has changed or file doesn't exist yet
+            const [srcHash, destHash] = await Promise.all([
+              hashFile(srcFile),
+              hashFile(destFile),
+            ]);
+            if (srcHash !== destHash) {
+              await fs.copyFile(srcFile, destFile);
+            }
           }
           return;
         }
@@ -490,9 +503,55 @@ class EndlessSkyParser {
     }
   }
 
+  // ---------------------------------------------------------------------------
+// Hash a file for change detection
+// ---------------------------------------------------------------------------
+async function hashFile(filePath) {
+  try {
+    const buf = await fs.readFile(filePath);
+    return crypto.createHash('sha1').update(buf).digest('hex');
+  } catch {
+    return null;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Recursively list all files under a directory
+// ---------------------------------------------------------------------------
+async function listFilesRecursive(dir) {
+  const results = [];
+  let entries;
+  try { entries = await fs.readdir(dir, { withFileTypes: true }); }
+  catch { return results; }
+  for (const e of entries) {
+    const full = path.join(dir, e.name);
+    if (e.isDirectory()) results.push(...await listFilesRecursive(full));
+    else results.push(full);
+  }
+  return results;
+}
+
+  // ---------------------------------------------------------------------------
+// Remove empty directories recursively (bottom-up)
+// ---------------------------------------------------------------------------
+async function removeEmptyDirs(dir) {
+  let entries;
+  try { entries = await fs.readdir(dir, { withFileTypes: true }); }
+  catch { return; }
+  for (const e of entries) {
+    if (e.isDirectory()) await removeEmptyDirs(path.join(dir, e.name));
+  }
+  // Re-read after recursing — children may now be empty
+  try {
+    const remaining = await fs.readdir(dir);
+    if (remaining.length === 0) await fs.rmdir(dir);
+  } catch { /* ignore */ }
+}
+  
   async copyImagesForPlugin(sourceImagesDir, destImagesDir, ships, variants, outfits, effects) {
     if (!sourceImagesDir) { console.log('  No images folder, skipping.'); return; }
     await fs.mkdir(destImagesDir, { recursive: true });
+
     const paths = new Set();
     const add = p => { if (p) paths.add(p); };
     for (const s of ships) {
@@ -511,9 +570,36 @@ class EndlessSkyParser {
       if (o.weapon) { add(o.weapon['hardpoint sprite']); add(o.weapon.sprite); }
     }
     for (const e of effects) { add(e.sprite); }
-    console.log(`  Copying images (${paths.size} paths referenced)...`);
-    for (const p of paths) await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
-    console.log('  ✓ Images done');
+
+    console.log(`  Syncing images (${paths.size} paths referenced)...`);
+
+    // Set of destination files that should exist after this run
+    const copiedDestFiles = new Set();
+
+    for (const p of paths) {
+      await this.copyMatchingImages(sourceImagesDir, destImagesDir, p, copiedDestFiles);
+    }
+
+    // Remove any files in destImagesDir that weren't in this run's source
+    const existingFiles = await listFilesRecursive(destImagesDir);
+    let removed = 0, skipped = 0, added = 0;
+
+    for (const existingFile of existingFiles) {
+      if (!copiedDestFiles.has(existingFile)) {
+        await fs.unlink(existingFile);
+        removed++;
+      }
+    }
+
+    // Count how many were actually copied (changed) vs already up to date
+    for (const f of copiedDestFiles) {
+      try { await fs.access(f); skipped++; } catch { added++; }
+    }
+
+    // Clean up empty directories left behind by removals
+    await removeEmptyDirs(destImagesDir);
+
+    console.log(`  ✓ Images done — ${copiedDestFiles.size} expected, ${removed} removed, unchanged files skipped`);
   }
 
   async parseRepository(repoUrl, sourceName = null) {
