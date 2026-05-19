@@ -305,6 +305,12 @@
         "Heliarch": true,
         "Hai (Unfettered)": true
       },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Storm Seekers": true,
+        "Heliarch": true,
+        "Pirate": true,
+        "Coalition Bounty (Disguised)": true
+      },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
       }
@@ -330,20 +336,35 @@
           "Ring of Friendship"
         ],
         "Ships": [
+          "Heliarch Breacher (Evidence)",
           "Heliarch Breacher (Missile)",
+          "Heliarch Breacher (Rogue Missile)",
+          "Heliarch Hunter (Evidence)",
           "Heliarch Hunter (Interdicting)",
           "Heliarch Hunter (Missile)",
+          "Heliarch Hunter (Rogue Interdicting)",
+          "Heliarch Hunter (Rogue Missile)",
           "Heliarch Interdictor (Bombardment)",
+          "Heliarch Interdictor (Evidence)",
           "Heliarch Interdictor (Missile)",
+          "Heliarch Interdictor (Rogue Bombardment)",
+          "Heliarch Interdictor (Rogue Missile)",
           "Heliarch Judicator (Missile)",
           "Heliarch Judicator (Repulsor)",
+          "Heliarch Judicator (Rogue Missile)",
+          "Heliarch Judicator (Rogue Repulsor)",
           "Heliarch Neutralizer (Missile)",
+          "Heliarch Neutralizer (Rogue Missile)",
+          "Heliarch Punisher (Evidence)",
           "Heliarch Punisher (Fuel)",
           "Heliarch Punisher (Interdicting)",
           "Heliarch Punisher (Jump Pure Finishers)",
           "Heliarch Punisher (Missile)",
           "Heliarch Punisher (Pure Finishers)",
           "Heliarch Punisher (Quarg Pure Finishers)",
+          "Heliarch Punisher (Rogue Interdicting)",
+          "Heliarch Punisher (Rogue Missile)",
+          "Heliarch Punisher (Rogue Pure Finishers)",
           "Rumskib Destroyer (Kitteh)",
           "Shield Beetle (Azure)"
         ]
@@ -428,6 +449,9 @@
     "governments": {
       "official-game/endless-sky": {
         "Heliarch": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Storm Seekers": true
       }
     },
     "locations": {
@@ -508,7 +532,10 @@
         "Ships": [
           "Heliarch Punisher (Full Quarg Attractor)",
           "Heliarch Punisher (Full Quarg)",
-          "Heliarch Punisher (Quarg Pure Finishers)"
+          "Heliarch Punisher (Quarg Pure Finishers)",
+          "Quarg Skylark (Scanner)",
+          "Quarg Skythrush (Scanner)",
+          "Quarg Warkite (Scanner)"
         ]
       },
       "Better Vanilla Pirates/BetterVanillaPirates": {
@@ -537,6 +564,14 @@
         ],
         "Missions": [
           "Midnight Expansion: Heliarch Scouting - Nanotech Battery"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Skythrush",
+          "Quarg Warkite",
+          "Quarg Warwyrm"
         ]
       }
     },
@@ -582,6 +617,17 @@
       },
       "Zuckungs list/quarg.farm": {
         "Quarg (Evil)": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Quarg": true,
+        "Republic": true,
+        "Scar's Legion": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true,
+        "Pirate (Rival)": true,
+        "Bounty Hunter": true,
+        "Pirate": true,
+        "Bounty": true
       },
       "Zuckungs list/heavy.traffic": {
         "Merchant": true
@@ -701,10 +747,16 @@
       },
       "A Coalition at War/A-Coalition-At-War": {
         "Ships": [
+          "Carabao (Quash Abandoned)",
           "Heliarch Punisher (Full Quarg Attractor)",
           "Heliarch Punisher (Full Quarg)",
           "Heliarch Punisher (Quarg Pure Finishers)",
+          "Marauder Behemoth (Scavenger Quarg)",
+          "Quarg Drake (Explorer)",
           "Quarg Drake (Scrapyard Surveillance)",
+          "Quarg Skylark (Scanner)",
+          "Quarg Skythrush (Scanner)",
+          "Quarg Warkite (Scanner)",
           "Star Queen (Fake Discount)"
         ]
       },
@@ -723,6 +775,16 @@
           "Salistra",
           "Sayari Ring",
           "Steirek"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Basilisk",
+          "Quarg Orochi",
+          "Quarg Skycrane",
+          "Quarg Skythrush",
+          "Quarg Warkite",
+          "Quarg Warwyrm"
         ]
       }
     },
@@ -795,6 +857,10 @@
       },
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Republic": true,
+        "Scar's Legion": true
       }
     },
     "locations": {
@@ -842,7 +908,14 @@
           "Heliarch Punisher (Skylance Advanced)",
           "Heliarch Punisher (Skylance Very Advanced)",
           "Heliarch Punisher (Skylance)",
+          "Quarg Skylark (Scanner)",
           "Star Queen (Fake Discount)"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Warwyrm"
         ]
       }
     },
@@ -937,9 +1010,7 @@
       },
       "A Coalition at War/A-Coalition-At-War": {
         "Ships": [
-          "Quarg Motherdragon",
-          "Quarg Skydragon",
-          "Quarg Strikedragon"
+          "Quarg Skylark (Scanner)"
         ]
       },
       "Midnight Expansion/Midnight-Expansion": {
@@ -950,6 +1021,12 @@
         ],
         "Missions": [
           "Midnight Expansion: Pirate Sales - Quarg Anti-Missile"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Warwyrm"
         ]
       }
     },
@@ -992,10 +1069,21 @@
         "Quarg (Hai)": true,
         "Quarg (Gegno)": true,
         "Quarg (Kor Efret)": true,
-        "Heliarch": true
+        "Heliarch": true,
+        "Drak": true
       },
       "Zuckungs list/quarg.farm": {
         "Quarg (Evil)": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true,
+        "Pirate (Rival)": true,
+        "Bounty Hunter": true,
+        "Pirate": true,
+        "Bounty": true,
+        "Derelict (Killable)": true
       },
       "Galactic War/Galactic-War": {
         "arena": true
@@ -1085,9 +1173,16 @@
       },
       "A Coalition at War/A-Coalition-At-War": {
         "Ships": [
+          "Archon (Lich)",
+          "Carabao (Quash Abandoned)",
           "Heliarch Punisher (Full Quarg Attractor)",
           "Heliarch Punisher (Full Quarg)",
-          "Heliarch Punisher (Quarg Pure Finishers)"
+          "Heliarch Punisher (Quarg Pure Finishers)",
+          "Marauder Behemoth (Scavenger Quarg)",
+          "Quarg Skylark (Scanner)",
+          "Quarg Skythrush (Scanner)",
+          "Quarg Wyvern (Explorer)",
+          "Quarg Zilant (Void Scraper)"
         ]
       },
       "Galactic War/Galactic-War": {
@@ -1105,6 +1200,15 @@
         ],
         "Missions": [
           "Midnight Expansion: Heliarch Espionage - Medium Graviton Thruster"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Skythrush",
+          "Quarg Tiamat",
+          "Quarg Warwyrm",
+          "Quarg Zilant"
         ]
       }
     },
@@ -1147,10 +1251,17 @@
         "Quarg (Hai)": true,
         "Quarg (Kor Efret)": true,
         "Quarg (Gegno)": true,
-        "Heliarch": true
+        "Heliarch": true,
+        "Drak": true
       },
       "Zuckungs list/quarg.farm": {
         "Quarg (Evil)": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true,
+        "Derelict (Killable)": true
       },
       "Galactic War/Galactic-War": {
         "arena": true
@@ -1263,9 +1374,17 @@
       },
       "A Coalition at War/A-Coalition-At-War": {
         "Ships": [
+          "Archon (Lich)",
+          "Carabao (Quash Abandoned)",
           "Heliarch Punisher (Full Quarg Attractor)",
           "Heliarch Punisher (Full Quarg)",
-          "Heliarch Punisher (Quarg Pure Finishers)"
+          "Heliarch Punisher (Quarg Pure Finishers)",
+          "Quarg Lindwyrm (Void Scraper)",
+          "Quarg Skylark (Scanner)",
+          "Quarg Wardragon (Scanner)",
+          "Quarg Wardragon (Void Scraper)",
+          "Quarg Warkite (Scanner)",
+          "Quarg Wyvern (Explorer)"
         ]
       },
       "Galactic War/Galactic-War": {
@@ -1283,6 +1402,21 @@
         ],
         "Missions": [
           "Midnight Expansion: Heliarch Espionage - Medium Graviton Steering"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Basilisk",
+          "Quarg Gorgon",
+          "Quarg Ouroboros",
+          "Quarg Skycrane",
+          "Quarg Tiamat",
+          "Quarg Warkite",
+          "Quarg Warwyrm"
+        ],
+        "Missions": [
+          "Midnight Market - Tarazed Smuggling 2",
+          "Midnight Market Gorgon - Medium Graviton Steering 2"
         ]
       }
     },
@@ -1339,9 +1473,17 @@
       },
       "A Coalition at War/A-Coalition-At-War": {
         "Ships": [
-          "Quarg Motherdragon",
-          "Quarg Skydragon",
-          "Quarg Strikedragon"
+          "Quarg Skylark (Scanner)",
+          "Quarg Skythrush (Scanner)",
+          "Quarg Warkite (Scanner)"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Quarg Skycrane",
+          "Quarg Skythrush",
+          "Quarg Warkite",
+          "Quarg Warwyrm"
         ]
       }
     },
