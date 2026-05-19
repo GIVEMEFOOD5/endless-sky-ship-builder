@@ -33,14 +33,6 @@ const POLL_AFTER_SAVE_DURATION = 180_000; // 3 min — how long to keep rapid-po
    Helpers
    ══════════════════════════════════════════════════════════════ */
 
-/**
- * Normalise a GitHub repo input to https://github.com/user/repo.
- * Accepts:
- *   username/repo
- *   https://github.com/username/repo
- *   https://github.com/username/repo/tree/branch  (trimmed to root)
- * Returns null on failure.
- */
 function normaliseRepository(raw) {
     const s = (raw || '').trim();
     if (!s) return null;
@@ -65,10 +57,6 @@ function esc(str) {
         .replace(/"/g, '&quot;');
 }
 
-/**
- * Wrap every occurrence of `query` in a string with <mark> tags.
- * Case-insensitive. Returns escaped HTML.
- */
 function highlight(str, query) {
     const escaped = esc(str);
     if (!query) return escaped;
@@ -84,24 +72,19 @@ function highlight(str, query) {
    ══════════════════════════════════════════════════════════════ */
 class PluginStore {
     constructor() {
-        /** Already saved to plugins.json */
-        this._plugins  = [];
-        /** Added this session, not yet saved */
-        this._pending  = [];
+        this._plugins   = [];
+        this._pending   = [];
         this._listeners = [];
     }
 
-    /* ── Observers ───────────────────────────────────────────── */
     onChange(fn) { this._listeners.push(fn); }
     _notify()    { this._listeners.forEach(fn => fn()); }
 
-    /* ── Accessors ───────────────────────────────────────────── */
     get plugins()      { return JSON.parse(JSON.stringify(this._plugins)); }
     get pending()      { return JSON.parse(JSON.stringify(this._pending)); }
     get count()        { return this._plugins.length; }
     get pendingCount() { return this._pending.length; }
 
-    /* ── Load from parsed object (populates _plugins only) ───── */
     loadFromObject(obj) {
         if (!obj || !Array.isArray(obj.plugins)) {
             throw new Error('JSON must have a "plugins" array at the root.');
@@ -113,12 +96,10 @@ class PluginStore {
         this._notify();
     }
 
-    /* ── Combined list used when saving ─────────────────────── */
     _allPlugins() {
         return [...this._plugins, ...this._pending];
     }
 
-    /* ── Add to pending list ─────────────────────────────────── */
     addPlugin(name, repo) {
         const trimName = (name || '').trim();
         if (!trimName) return { ok: false, error: 'Plugin name cannot be empty.' };
@@ -141,7 +122,6 @@ class PluginStore {
         return { ok: true };
     }
 
-    /* ── Edit active plugin ──────────────────────────────────── */
     editPlugin(index, name, repo) {
         if (index < 0 || index >= this._plugins.length)
             return { ok: false, error: `No plugin at index ${index}.` };
@@ -172,7 +152,6 @@ class PluginStore {
         return { ok: true };
     }
 
-    /* ── Edit pending plugin ─────────────────────────────────── */
     editPending(index, name, repo) {
         if (index < 0 || index >= this._pending.length)
             return { ok: false, error: `No pending plugin at index ${index}.` };
@@ -203,7 +182,6 @@ class PluginStore {
         return { ok: true };
     }
 
-    /* ── Remove active plugin ────────────────────────────────── */
     removePlugin(index) {
         if (index < 0 || index >= this._plugins.length)
             return { ok: false, error: `No plugin at index ${index}.` };
@@ -212,7 +190,6 @@ class PluginStore {
         return { ok: true };
     }
 
-    /* ── Remove pending plugin ───────────────────────────────── */
     removePending(index) {
         if (index < 0 || index >= this._pending.length)
             return { ok: false, error: `No pending plugin at index ${index}.` };
@@ -221,7 +198,6 @@ class PluginStore {
         return { ok: true };
     }
 
-    /* ── Save: merge pending into active, then commit ────────── */
     async save() {
         const payload = { plugins: this._allPlugins() };
         const headers = { 'Content-Type': 'application/json' };
@@ -244,7 +220,6 @@ class PluginStore {
                 return { ok: false, error: data.error || `Server error ${res.status}` };
             }
 
-            /* On success: move pending into active and clear pending */
             this._plugins = this._allPlugins();
             this._pending = [];
             this._notify();
@@ -267,10 +242,10 @@ class ParseStatusMonitor {
         this._completedAt      = null;
         this._listeners        = [];
         this._timer            = null;
-        this._rapidDeadline    = null;   // timestamp until which we rapid-poll
+        this._rapidDeadline    = null;
         this._lastPollTime     = null;
-        this._optimisticTimer  = null;   // safety-net timer for optimistic running state
-        this._confirmedRunning = false;  // true once GitHub actually confirms running
+        this._optimisticTimer  = null;
+        this._confirmedRunning = false;
     }
 
     get isRunning()   { return this._status === 'running'; }
@@ -281,26 +256,18 @@ class ParseStatusMonitor {
     onChange(fn) { this._listeners.push(fn); }
     _notify()    { this._listeners.forEach(fn => fn()); }
 
-    /**
-     * Immediately flip the bar to "running" after a save without waiting
-     * for GitHub to confirm. The next real poll will override this with
-     * the actual status. If the Action hasn't started within 3 minutes,
-     * the safety net reverts to polling normally.
-     */
+    /* ── Immediately show running after a save ───────────────── */
     forceOptimisticRunning() {
         const previousStatus   = this._status;
         this._status           = 'running';
         this._confirmedRunning = false;
         this._notify();
 
-        // Start rapid polling to catch the real status ASAP
         this._rapidDeadline = Date.now() + POLL_AFTER_SAVE_DURATION;
         clearTimeout(this._timer);
         clearTimeout(this._optimisticTimer);
 
-        // Safety net: if after 3 minutes GitHub still hasn't confirmed
-        // running, revert to the previous status so we don't show a
-        // permanent false "running" state
+        // Safety net: revert if GitHub never confirms running within 3 min
         this._optimisticTimer = setTimeout(() => {
             if (!this._confirmedRunning) {
                 this._status = previousStatus;
@@ -309,87 +276,91 @@ class ParseStatusMonitor {
             this._optimisticTimer = null;
         }, POLL_AFTER_SAVE_DURATION);
 
-        // Begin rapid polling immediately
         this._timer = setTimeout(() => this.poll(), POLL_INTERVAL_AFTER_SAVE);
     }
 
-    /**
-     * Call this immediately after a save so we poll rapidly for the next
-     * POLL_AFTER_SAVE_DURATION ms, catching the moment the Action flips
-     * parse-status.json to "running".
-     */
     pollAfterSave() {
         this._rapidDeadline = Date.now() + POLL_AFTER_SAVE_DURATION;
         clearTimeout(this._timer);
         this._timer = setTimeout(() => this.poll(), POLL_INTERVAL_AFTER_SAVE);
     }
 
-async poll() {
-    if (this._lastPollTime && Date.now() - this._lastPollTime < 5000) return;
-    clearTimeout(this._timer);
+    async poll() {
+        // Debounce: ignore if a poll completed less than 5 seconds ago
+        if (this._lastPollTime && Date.now() - this._lastPollTime < 5000) return;
+        clearTimeout(this._timer);
 
-    try {
-        // Use the standard JSON response and decode base64 content ourselves
-        // This avoids relying on the raw+json accept header which can be flaky
-        const res = await fetch(PARSE_STATUS_PATH + '?t=' + Date.now(), {
-            headers: {
-                'Accept': 'application/vnd.github+json',
-                'X-GitHub-Api-Version': '2022-11-28',
+        try {
+            // Fetch via Contents API and decode base64 ourselves —
+            // more reliable than relying on raw+json content negotiation
+            const res = await fetch(PARSE_STATUS_PATH + '?t=' + Date.now(), {
+                headers: {
+                    'Accept': 'application/vnd.github+json',
+                    'X-GitHub-Api-Version': '2022-11-28',
+                }
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+            const envelope = await res.json();
+            const raw      = atob(envelope.content.replace(/\n/g, ''));
+            const data     = JSON.parse(raw);
+
+            // GitHub confirmed running — cancel safety net
+            if (data.status === 'running') {
+                this._confirmedRunning = true;
+                clearTimeout(this._optimisticTimer);
+                this._optimisticTimer = null;
             }
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const envelope = await res.json();
+            // If we're optimistically showing running but GitHub still says
+            // idle, the Action hasn't started yet — hold the optimistic state
+            if (data.status === 'idle' && this._status === 'running' && !this._confirmedRunning) {
+                // hold — do nothing
+            } else {
+                const changed =
+                    this._status      !== (data.status      || null) ||
+                    this._startedAt   !== (data.startedAt   || null) ||
+                    this._completedAt !== (data.completedAt || null);
 
-        // GitHub returns content as base64 with newlines — decode it
-        const raw  = atob(envelope.content.replace(/\n/g, ''));
-        const data = JSON.parse(raw);
+                this._status      = data.status      || null;
+                this._startedAt   = data.startedAt   || null;
+                this._completedAt = data.completedAt || null;
 
-        if (data.status === 'running') {
-            this._confirmedRunning = true;
-            clearTimeout(this._optimisticTimer);
-            this._optimisticTimer = null;
+                if (changed) this._notify();
+            }
+
+            // Reset confirmed flag once job finishes
+            if (data.status === 'idle' && this._confirmedRunning) {
+                this._confirmedRunning = false;
+            }
+
+        } catch {
+            // Network error — only clear status if not in optimistic state
+            if (this._status !== null && !this._optimisticTimer) {
+                this._status = null;
+                this._notify();
+            }
         }
 
-        if (data.status === 'idle' && this._status === 'running' && !this._confirmedRunning) {
-            // Hold optimistic state — action hasn't started yet
+        let interval;
+        if (this.isRunning) {
+            interval = POLL_INTERVAL_RUNNING;
+        } else if (this._rapidDeadline && Date.now() < this._rapidDeadline) {
+            interval = POLL_INTERVAL_AFTER_SAVE;
         } else {
-            const changed =
-                this._status      !== (data.status      || null) ||
-                this._startedAt   !== (data.startedAt   || null) ||
-                this._completedAt !== (data.completedAt || null);
-
-            this._status      = data.status      || null;
-            this._startedAt   = data.startedAt   || null;
-            this._completedAt = data.completedAt || null;
-
-            if (changed) this._notify();
+            interval = POLL_INTERVAL_IDLE;
         }
 
-        if (data.status === 'idle' && this._confirmedRunning) {
-            this._confirmedRunning = false;
-        }
-
-    } catch {
-        if (this._status !== null && !this._optimisticTimer) {
-            this._status = null;
-            this._notify();
-        }
+        this._lastPollTime = Date.now();
+        this._timer = setTimeout(() => this.poll(), interval);
     }
 
-    let interval;
-    if (this.isRunning) {
-        interval = POLL_INTERVAL_RUNNING;
-    } else if (this._rapidDeadline && Date.now() < this._rapidDeadline) {
-        interval = POLL_INTERVAL_AFTER_SAVE;
-    } else {
-        interval = POLL_INTERVAL_IDLE;
+    stop() {
+        clearTimeout(this._timer);
+        clearTimeout(this._optimisticTimer);
     }
-
-    this._lastPollTime = Date.now();
-    this._timer = setTimeout(() => this.poll(), interval);
 }
-   
+
 /* ══════════════════════════════════════════════════════════════
    PluginManagerUI
    ══════════════════════════════════════════════════════════════ */
@@ -424,7 +395,7 @@ class PluginManagerUI {
 
     /* ── Events ──────────────────────────────────────────────── */
     _bindEvents() {
-        this.addBtn.addEventListener('click',  () => { this.monitor.poll(); this._handleAddOrEdit(); });
+        this.addBtn.addEventListener('click',   () => { this.monitor.poll(); this._handleAddOrEdit(); });
         this.clearBtn.addEventListener('click', () => { this.monitor.poll(); this._handleClear(); });
         this.saveBtn.addEventListener('click',  () => { this._handleSave(); });
 
@@ -496,7 +467,7 @@ class PluginManagerUI {
         this._showStatus('', '');
     }
 
-    /* ── Save after a remove (no pending check needed) ──────── */
+    /* ── Save after a remove ─────────────────────────────────── */
     async _handleRemoveSave(removedName) {
         if (this.monitor.isRunning) {
             this._showStatus('Cannot save while the parse job is running.', 'error');
@@ -532,8 +503,6 @@ class PluginManagerUI {
             return;
         }
 
-        // Optimistically show running immediately — Vercel already wrote
-        // parse-status.json to "running" so the next poll will confirm it
         this._showStatus('plugins.json saved! Parse job starting…', 'success');
         this.monitor.forceOptimisticRunning();
     }
@@ -715,7 +684,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Show "Checking…" immediately before first poll returns
     ui._updateParseBar();
 
-    window.pluginStore  = store;   // available in console for debugging
+    window.pluginStore  = store;
     window.parseMonitor = monitor;
 
     /* Load plugins immediately — don't wait for parse status */
