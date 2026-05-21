@@ -214,6 +214,12 @@ function createCardPlaceholder(item) {
     card.appendChild(imgWrap);
     card.appendChild(content);
 
+    const inner = document.createElement('div');
+    inner.className = 'card-inner';
+    inner.appendChild(imgWrap);
+    inner.appendChild(content);
+    card.appendChild(inner);
+    
     const sorterBadges = document.createElement('div');
     sorterBadges.className = 'sorter-badges';
     card.appendChild(sorterBadges);
