@@ -49,6 +49,8 @@ async function filterItems() {
         }
     }
 
+    if (typeof stampSorterValues === 'function') stampSorterValues();
+    
     if (myGeneration !== _filterGeneration) return;
     initLazySprites(myGeneration);
 }
