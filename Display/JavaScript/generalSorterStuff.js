@@ -643,6 +643,8 @@ function stampSorterValues() {
             if (!field) continue;
 
             const val = getFieldValue(item2, field);
+            console.log('field:', field.label, 'key:', field.key, 'val:', val, 'isComputed:', field.isComputed, 'useComputed:', field.useComputed);
+            
             if (val == null) continue;
 
             const badge = document.createElement('div');
