@@ -2987,6 +2987,36 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 #sbs-root .sbs-badge--amber { background:rgba(251,191,36,.15); color:#fcd34d; border:1px solid rgba(251,191,36,.35); }
 #sbs-root .sbs-badge--red   { background:rgba(239,68,68,.15);  color:#fca5a5; border:1px solid rgba(239,68,68,.35); }
 
+.sorter-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 6px 10px 8px;
+    border-top: 1px solid rgba(59, 130, 246, 0.15);
+    margin-top: 4px;
+}
+
+.sorter-badge {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 11px;
+}
+
+.sorter-badge-label {
+    color: #93c5fd;
+    font-weight: 500;
+}
+
+.sorter-badge-value {
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
 /* ── ≤600px: small phone ─────────────────────────────────────── */
 @media (max-width: 600px) {
     .list-row__label { min-width: 90px; font-size: 0.85rem; }
