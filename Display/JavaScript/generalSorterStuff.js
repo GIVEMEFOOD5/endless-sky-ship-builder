@@ -368,6 +368,7 @@ function setSorterItems(items) {
     _sorterItems = items || [];
     delete _fieldCache[sorterCurrentTab];
     renderSorterBox();
+    if (typeof stampSorterValues === 'function') stampSorterValues();
 }
 
 // ---------------------------------------------------------------------------
@@ -610,6 +611,49 @@ async function confirmSorterPicker() {
     await _triggerFilterItems();
 }
 
+function stampSorterValues() {
+    const container = document.getElementById('cardsContainer');
+    if (!container) return;
+
+    // Clear all existing badges first
+    container.querySelectorAll('.sorter-badges').forEach(el => { el.innerHTML = ''; });
+
+    if (activeSorters.length === 0) return;
+
+    const fields = getFieldsForTab(sorterCurrentTab);
+
+    for (const card of container.querySelectorAll('.card')) {
+        // Retrieve the item reference stored at card-creation time
+        const item = _cardItemMap?.get ? undefined : null; 
+        // _cardItemMap is in DataViewer.js scope — use the dataset id to find the item
+        const itemId = card.dataset.itemId;
+        if (!itemId) continue;
+
+        // Find the item in _sorterItems by matching _internalId or name
+        const item2 = _sorterItems.find(
+            i => (i._internalId || i.name || '') == itemId
+        );
+        if (!item2) continue;
+
+        const badgeArea = card.querySelector('.sorter-badges');
+        if (!badgeArea) continue;
+
+        for (const sorter of activeSorters) {
+            const field = fields.find(f => f.id === sorter.id);
+            if (!field) continue;
+
+            const val = getFieldValue(item2, field);
+            if (val == null) continue;
+
+            const badge = document.createElement('div');
+            badge.className = 'sorter-badge';
+            badge.innerHTML = `<span class="sorter-badge-label">${field.label}</span>`
+                            + `<span class="sorter-badge-value">${formatAvgValue(val)}</span>`;
+            badgeArea.appendChild(badge);
+        }
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Picker list renderer
 //
@@ -745,3 +789,4 @@ window.closeSorterPicker   = closeSorterPicker;
 window.confirmSorterPicker = confirmSorterPicker;
 window.renderPickerList    = renderPickerList;
 window.onSorterTabChange   = onSorterTabChange;
+window.stampSorterValues   = stampSorterValues;
