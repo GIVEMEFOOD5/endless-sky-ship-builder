@@ -139,6 +139,7 @@ async function _runFilter() {
     }
 
     if (myGeneration !== window._filterGeneration) return;
+    if (typeof stampSorterValues === 'function') stampSorterValues();
     initLazySprites(myGeneration);
 }
 
