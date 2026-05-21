@@ -164,7 +164,8 @@ function createCardPlaceholder(item) {
     card.dataset.spriteLoaded = 'false';
     _cardItemMap.set(card, item);
     card.onclick = () => showDetails(item);
- 
+    card.dataset.itemId = item._internalId || item.name || Math.random();
+    
     const imgWrap = document.createElement('div');
     imgWrap.className = 'card-image card-image--placeholder';
     imgWrap.innerHTML = '<div style="width:100%;height:100%;background:rgba(15,23,42,0.5);border-radius:4px;"></div>';
@@ -212,6 +213,11 @@ function createCardPlaceholder(item) {
     content.appendChild(details);
     card.appendChild(imgWrap);
     card.appendChild(content);
+
+    const sorterBadges = document.createElement('div');
+    sorterBadges.className = 'sorter-badges';
+    card.appendChild(sorterBadges);
+
     return card;
 }
 
