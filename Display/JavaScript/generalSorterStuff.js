@@ -160,8 +160,6 @@ function scanFieldsFromItems(tab, items) {
             }
 
             // ── Accumulated attributes (via getComputedStats) ─────────────────
-            // getComputedStats returns base attrs + outfit contributions stacked,
-            // plus _fn_/_derived_/_sys_ keys. We only want the plain attr keys here.
             if (typeof getComputedStats === 'function') {
                 const pluginId = item._pluginId || _sorterPluginId;
                 if (pluginId) {
@@ -169,8 +167,8 @@ function scanFieldsFromItems(tab, items) {
                     if (computed && typeof computed === 'object') {
                         for (const [key, val] of Object.entries(computed)) {
                             if (typeof val !== 'number')   continue;
-                            if (key.startsWith('_'))        continue; // all internal/computed keys start with _
-                            if (isComputedKey(key))         continue; // belt-and-braces
+                            if (key.startsWith('_'))        continue;
+                            if (isComputedKey(key))         continue;
                             const id = 'accum_attr_' + keyToId(key);
                             if (shipAccumSeen.has(id))      continue;
                             shipAccumSeen.add(id);
@@ -178,7 +176,6 @@ function scanFieldsFromItems(tab, items) {
                                 id,
                                 key,
                                 label: toTitleCase(key) + ' (with outfits)',
-                                // No path — resolved via getComputedStats at sort time
                                 path:        null,
                                 useAccum:    true,
                                 raw:         false,
@@ -210,22 +207,44 @@ function scanFieldsFromItems(tab, items) {
 
             // ── Numeric fields inside item.weapon ────────────────────────────
             if (item.weapon && typeof item.weapon === 'object') {
+                const reload = parseFloat(item.weapon.reload ?? 1) || 1;
+                const sps    = 60 / reload;
+
                 for (const [key, val] of Object.entries(item.weapon)) {
                     if (SKIP_WEAPON.has(key))    continue;
                     if (typeof val !== 'number') continue;
-                    // PascalCase keys are outfit-name ammo-count references, not stats
                     if (/^[A-Z]/.test(key))      continue;
+
+                    // ── Per-shot field (existing behaviour) ──────────────────
                     const id = 'weapon_' + keyToId(key);
-                    if (weaponSeen.has(id)) continue;
-                    weaponSeen.add(id);
-                    weaponFields.push({
-                        id,
-                        key,
-                        label: toTitleCase(key),
-                        path:  ['weapon', key],
-                        raw:   true,
-                        group: 'weapon',
-                    });
+                    if (!weaponSeen.has(id)) {
+                        weaponSeen.add(id);
+                        weaponFields.push({
+                            id,
+                            key,
+                            label: toTitleCase(key),
+                            path:  ['weapon', key],
+                            raw:   true,
+                            group: 'weapon',
+                        });
+                    }
+
+                    // ── DPS field for damage keys ────────────────────────────
+                    if (key.endsWith(' damage')) {
+                        const dpsId = 'weapon_dps_' + keyToId(key);
+                        if (!weaponSeen.has(dpsId)) {
+                            weaponSeen.add(dpsId);
+                            weaponFields.push({
+                                id:           dpsId,
+                                key,
+                                label:        toTitleCase(key.replace(/ damage$/, '')) + ' DPS',
+                                path:         ['weapon', key],
+                                raw:          true,
+                                group:        'weapon',
+                                dpsMultiplier: sps,
+                            });
+                        }
+                    }
                 }
             }
 
@@ -386,7 +405,7 @@ function getFieldValue(item, field) {
     // 1. Inline computed (hardpoint counts)
     if (field.computed) return field.computed(item);
 
-    // 2. ComputedStats — _fn_/_derived_/_sys_ physics stats from ship functions.
+    // 2. ComputedStats — _fn_/_derived_/_sys_ physics stats
     if ((field.isComputed || field.useComputed) && typeof getComputedStats === 'function') {
         const pluginId = item._pluginId || _sorterPluginId;
         if (pluginId) {
@@ -396,8 +415,7 @@ function getFieldValue(item, field) {
         }
     }
 
-    // 3. Accumulated attribute (base + outfit contributions stacked).
-    //    useAccum fields have path: null so they must be resolved here.
+    // 3. Accumulated attribute (base + outfit contributions stacked)
     if (field.useAccum && typeof getComputedStats === 'function') {
         const pluginId = item._pluginId || _sorterPluginId;
         if (pluginId) {
@@ -407,12 +425,16 @@ function getFieldValue(item, field) {
         }
     }
 
-    // 4. Walk path on the raw item (handles both ['attributes','key'] and ['key'])
+    // 4. Walk path on the raw item
     if (field.path && field.path.length > 0) {
         let obj = item;
         for (const k of field.path) {
             if (obj == null) return undefined;
             obj = obj[k];
+        }
+        // Apply DPS multiplier if present (weapon damage DPS fields)
+        if (typeof obj === 'number' && field.dpsMultiplier) {
+            return obj * field.dpsMultiplier;
         }
         return obj;
     }
