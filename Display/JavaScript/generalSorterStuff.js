@@ -418,14 +418,38 @@ function setSorterItems(items) {
 
 function getFieldValue(item, field) {
 
-// 0. Weapon DPS fields — resolved via WeaponStats
 if (field.isDps && typeof window.WeaponStats !== 'undefined') {
     if (!item.weapon) return undefined;
-    if (item.weapon.reload == null) return undefined;  // ← submunitions have no reload
-    const profile = window.WeaponStats.getOutfitWeaponStats(item, _getOutfitIndex());
-    if (!profile) return undefined;
-    const dpsKey = field.key + ' damage';
-    return profile.dpsBreakdown?.[dpsKey] ?? undefined;
+    if (item.weapon.reload == null) return undefined;
+
+    const weapon = item.weapon;
+    const reload = parseFloat(weapon.reload) || 1;
+    const sps    = 60 / reload;
+
+    // Walk submunition tree for total damage — same as AttributeDisplay
+    const outfitIndex = _getOutfitIndex();
+    const visited = new Set([item.name].filter(Boolean));
+
+    function collectDamage(w, multiplier, depth) {
+        if (depth > 8) return 0;
+        const dmgKey = field.key + ' damage';
+        let total = (parseFloat(w[dmgKey]) || 0) * multiplier;
+
+        // submunitions — all three formats, same as WeaponStats
+        const refs = window.WeaponStats._getSubmunitionRefs(w, outfitIndex);
+        for (const { subName, subCount } of refs) {
+            if (visited.has(subName)) continue;
+            const subOutfit = outfitIndex[subName];
+            if (!subOutfit?.weapon) continue;
+            visited.add(subName);
+            total += collectDamage(subOutfit.weapon, multiplier * subCount, depth + 1);
+        }
+        return total;
+    }
+
+    const totalDmgPerShot = collectDamage(weapon, 1, 0);
+    if (!totalDmgPerShot) return undefined;
+    return totalDmgPerShot * sps;
 }
     
     // 1. Inline computed (hardpoint counts)
