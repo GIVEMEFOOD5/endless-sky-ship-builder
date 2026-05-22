@@ -1,4 +1,4 @@
-    // Sorter.js
+// Sorter.js
 //
 // Builds sortable field lists by scanning ONLY the items currently on screen.
 // No attribute names are hardcoded anywhere. Every field offered in the picker
@@ -60,8 +60,6 @@ let _cachedOutfitIndex  = null;
 
 // ---------------------------------------------------------------------------
 // Skip sets — structural / metadata keys that are never sortable.
-// Intentionally minimal: the typeof === 'number' guard handles everything
-// else; these exist only to avoid iterating into known object-valued keys.
 // ---------------------------------------------------------------------------
 
 const SKIP_TOP_LEVEL = new Set([
@@ -83,12 +81,15 @@ const SKIP_WEAPON = new Set([
 ]);
 
 // Prefixes that mark keys produced by ComputedStats derived/fn/sys resolution.
-// Accumulated attribute keys from accumulateOutfits() never start with these.
 const COMPUTED_PREFIXES = ['_fn_', '_derived_', '_sys_'];
 
 function isComputedKey(key) {
     return COMPUTED_PREFIXES.some(p => key.startsWith(p));
 }
+
+// ---------------------------------------------------------------------------
+// Outfit index cache
+// ---------------------------------------------------------------------------
 
 function _getOutfitIndex() {
     if (_cachedOutfitIndex) return _cachedOutfitIndex;
@@ -118,22 +119,6 @@ function toTitleCase(str) {
 
 // ---------------------------------------------------------------------------
 // Dynamic field scanner
-//
-// Iterates the current on-screen items and collects every numeric key as a
-// sortable field descriptor. Nothing is predeclared.
-//
-// For ships/variants this now also scans getComputedStats() output (the
-// accumulated result including outfits) to discover "accumulated attribute"
-// fields — keys that exist in the post-outfit-stacking attribute map but are
-// NOT _fn_/_derived_/_sys_ computed keys.  These are labelled "(with outfits)"
-// to distinguish them from the raw base-only "(base)" fields.
-//
-// Returns arrays (all sorted alphabetically by label):
-//   shipBaseFields  — from item.attributes.* (ships/variants, base only)
-//   shipAccumFields — from getComputedStats() accumulated attrs (with outfits)
-//   outfitFields    — from item.*            (outfits, top-level)
-//   weaponFields    — from item.weapon.*     (outfits with a weapon sub-object)
-//   effectFields    — from item.*            (effects / other tabs)
 // ---------------------------------------------------------------------------
 
 function scanFieldsFromItems(tab, items) {
@@ -197,6 +182,40 @@ function scanFieldsFromItems(tab, items) {
                                 group:       'shipAccum',
                             });
                         }
+
+                        // ── Explicit per-second weapon DPS fields from WeaponStats ──
+                        const WS_FIELDS = [
+                            { wsKey: '_ws_totalDps',         label: 'Total DPS (with outfits)'    },
+                            { wsKey: '_ws_shieldDps',         label: 'Shield DPS (with outfits)'   },
+                            { wsKey: '_ws_hullDps',           label: 'Hull DPS (with outfits)'     },
+                            { wsKey: '_ws_weaponCount',       label: 'Weapon Types (with outfits)' },
+                            { wsKey: '_ws_totalWeaponMounts', label: 'Total Weapon Mounts'         },
+                        ];
+                        // Also add any _ws_dps_* breakdown keys dynamically
+                        for (const key of Object.keys(computed)) {
+                            if (!key.startsWith('_ws_dps_')) continue;
+                            const dmgType = key.slice('_ws_dps_'.length).replace(/_/g, ' ');
+                            WS_FIELDS.push({
+                                wsKey: key,
+                                label: toTitleCase(dmgType) + ' DPS (with outfits)',
+                            });
+                        }
+
+                        for (const { wsKey, label } of WS_FIELDS) {
+                            if (computed[wsKey] == null) continue;
+                            const id = 'ship_ws_' + keyToId(wsKey);
+                            if (shipAccumSeen.has(id)) continue;
+                            shipAccumSeen.add(id);
+                            shipAccumFields.push({
+                                id,
+                                key:      wsKey,
+                                label,
+                                path:     null,
+                                useAccum: true,
+                                raw:      false,
+                                group:    'shipAccum',
+                            });
+                        }
                     }
                 }
             }
@@ -222,15 +241,12 @@ function scanFieldsFromItems(tab, items) {
 
             // ── Numeric fields inside item.weapon ────────────────────────────
             if (item.weapon && typeof item.weapon === 'object') {
-                const reload = parseFloat(item.weapon.reload ?? 1) || 1;
-                const sps    = 60 / reload;
-
                 for (const [key, val] of Object.entries(item.weapon)) {
                     if (SKIP_WEAPON.has(key))    continue;
                     if (typeof val !== 'number') continue;
                     if (/^[A-Z]/.test(key))      continue;
 
-                    // ── Per-shot field (existing behaviour) ──────────────────
+                    // ── Per-shot field ───────────────────────────────────────
                     const id = 'weapon_' + keyToId(key);
                     if (!weaponSeen.has(id)) {
                         weaponSeen.add(id);
@@ -244,21 +260,33 @@ function scanFieldsFromItems(tab, items) {
                         });
                     }
 
-if (key.endsWith(' damage')) {
-    const dpsId = 'weapon_dps_' + keyToId(key);
-    if (!weaponSeen.has(dpsId)) {
-        weaponSeen.add(dpsId);
-        weaponFields.push({
-            id:    dpsId,
-            key:   key.replace(/ damage$/, ''),
-            label: toTitleCase(key.replace(/ damage$/, '')) + ' DPS',
-            path:  null,
-            raw:   false,
-            group: 'weapon',
-            isDps: true,
-        });
-    }
-}
+                    // ── DPS field for damage keys ────────────────────────────
+                    // Only added when the weapon has an explicit reload (not a submunition)
+                    if (key.endsWith(' damage')) {
+                        const dpsId = 'weapon_dps_' + keyToId(key);
+                        if (!weaponSeen.has(dpsId)) {
+                            weaponSeen.add(dpsId);
+                            weaponFields.push({
+                                id:    dpsId,
+                                key:   key.replace(/ damage$/, ''),
+                                label: toTitleCase(key.replace(/ damage$/, '')) + ' DPS',
+                                path:  null,
+                                raw:   false,
+                                group: 'weapon',
+                                isDps: true,
+                            });
+                        }
+                    }
+                }
+
+                // ── Computed weapon summary fields ───────────────────────────
+                if (!weaponSeen.has('weapon_computed_totalDps')) {
+                    weaponSeen.add('weapon_computed_totalDps');
+                    weaponFields.push({ id: 'weapon_computed_totalDps',  key: 'totalDps',       label: 'Total DPS',        path: null, group: 'weapon', isOutfitComputed: true });
+                    weaponFields.push({ id: 'weapon_computed_shieldDps', key: 'shieldDps',      label: 'Shield DPS',       path: null, group: 'weapon', isOutfitComputed: true });
+                    weaponFields.push({ id: 'weapon_computed_hullDps',   key: 'hullDps',        label: 'Hull DPS',         path: null, group: 'weapon', isOutfitComputed: true });
+                    weaponFields.push({ id: 'weapon_computed_range',     key: 'effectiveRange', label: 'Effective Range',  path: null, group: 'weapon', isOutfitComputed: true });
+                    weaponFields.push({ id: 'weapon_computed_sps',       key: 'shotsPerSecond', label: 'Shots Per Second', path: null, group: 'weapon', isOutfitComputed: true });
                 }
             }
 
@@ -294,12 +322,6 @@ if (key.endsWith(' damage')) {
 
 // ---------------------------------------------------------------------------
 // Computed fields (ships / variants only)
-//
-// getComputedSorterFields() (from ComputedStats.js) returns descriptors like:
-//   { id: '_fn_MaxShields', key: '_fn_MaxShields', label: '...', isComputed: true }
-//
-// We spread useComputed: true onto each so getFieldValue can detect them with
-// either flag — isComputed (from ComputedStats) or useComputed (set here).
 // ---------------------------------------------------------------------------
 
 function buildComputedFields() {
@@ -309,10 +331,6 @@ function buildComputedFields() {
 
 // ---------------------------------------------------------------------------
 // Hardpoint count pseudo-fields (ships / variants only)
-//
-// These use an inline computed fn rather than a path lookup.
-// They carry { computed: fn } but NOT isComputed / useComputed, so they are
-// cleanly separated from ComputedStats-derived fields in the picker grouping.
 // ---------------------------------------------------------------------------
 
 const HARDPOINT_FIELDS = [
@@ -340,7 +358,6 @@ function buildFieldsForTab(tab, items) {
     const add    = f => { if (!seenId.has(f.id)) { all.push(f); seenId.add(f.id); } };
 
     if (isShipLike) {
-        // Order: physics-computed first, then accumulated attrs, then base-only, then hardpoints
         for (const f of buildComputedFields())      add(f);
         for (const f of shipAccumFields)            add(f);
         for (const f of shipBaseFields)             add(f);
@@ -349,7 +366,6 @@ function buildFieldsForTab(tab, items) {
         }
 
     } else if (isOutfits) {
-        // Order: outfit attributes first, then weapon stats
         for (const f of outfitFields) add(f);
         for (const f of weaponFields) add(f);
 
@@ -387,17 +403,12 @@ function setSorterAttrDefs(defs) {
 }
 
 function setSorterPluginId(pluginId) {
-    _sorterPluginId = pluginId;
+    _sorterPluginId    = pluginId;
     _cachedOutfitIndex = null;
     clearFieldCache();
     if (typeof clearComputedCache === 'function') clearComputedCache();
 }
 
-/**
- * Called by filterItems() with the post-filter visible items.
- * Deletes the current tab's field cache so the picker rebuilds from
- * exactly what is on screen right now.
- */
 function setSorterItems(items) {
     _sorterItems = items || [];
     delete _fieldCache[sorterCurrentTab];
@@ -409,49 +420,57 @@ function setSorterItems(items) {
 // Value extraction
 //
 // Resolution order:
-//   1. field.computed(item)                  — hardpoint count lambda
-//   2. getComputedStats(item, pluginId)[key] — _fn_/_derived_/_sys_ physics stats
-//   3. getComputedStats(item, pluginId)[key] — accumulated attr (with outfits)
-//      flagged by field.useAccum === true
-//   4. Walk field.path on the raw item       — base attributes or top-level
+//   0a. isOutfitComputed  — WeaponStats profile fields (range, sps, totalDps…)
+//   0b. isDps             — per-damage-type DPS via 60/reload * submunition tree
+//   1.  field.computed    — hardpoint count lambda
+//   2.  isComputed/useComputed — _fn_/_derived_/_sys_ via getComputedStats
+//   3.  useAccum          — accumulated attr (base + outfits) via getComputedStats
+//   4.  field.path        — raw path walk on the item
 // ---------------------------------------------------------------------------
 
 function getFieldValue(item, field) {
 
-if (field.isDps && typeof window.WeaponStats !== 'undefined') {
-    if (!item.weapon) return undefined;
-    if (item.weapon.reload == null) return undefined;
-
-    const weapon = item.weapon;
-    const reload = parseFloat(weapon.reload) || 1;
-    const sps    = 60 / reload;
-
-    // Walk submunition tree for total damage — same as AttributeDisplay
-    const outfitIndex = _getOutfitIndex();
-    const visited = new Set([item.name].filter(Boolean));
-
-    function collectDamage(w, multiplier, depth) {
-        if (depth > 8) return 0;
-        const dmgKey = field.key + ' damage';
-        let total = (parseFloat(w[dmgKey]) || 0) * multiplier;
-
-        // submunitions — all three formats, same as WeaponStats
-        const refs = window.WeaponStats._getSubmunitionRefs(w, outfitIndex);
-        for (const { subName, subCount } of refs) {
-            if (visited.has(subName)) continue;
-            const subOutfit = outfitIndex[subName];
-            if (!subOutfit?.weapon) continue;
-            visited.add(subName);
-            total += collectDamage(subOutfit.weapon, multiplier * subCount, depth + 1);
-        }
-        return total;
+    // 0a. Outfit computed weapon profile (range, sps, totalDps, shieldDps, hullDps)
+    if (field.isOutfitComputed) {
+        if (!item.weapon || !window.WeaponStats) return undefined;
+        const profile = window.WeaponStats.getOutfitWeaponStats(item, _getOutfitIndex());
+        if (!profile) return undefined;
+        return profile[field.key] ?? undefined;
     }
 
-    const totalDmgPerShot = collectDamage(weapon, 1, 0);
-    if (!totalDmgPerShot) return undefined;
-    return totalDmgPerShot * sps;
-}
-    
+    // 0b. Weapon DPS — mirrors AttributeDisplay: 60/reload * full submunition tree damage
+    if (field.isDps) {
+        if (!item.weapon) return undefined;
+        if (item.weapon.reload == null) return undefined; // submunitions have no reload
+
+        const weapon  = item.weapon;
+        const reload  = parseFloat(weapon.reload) || 1;
+        const sps     = 60 / reload;
+        const outfitIndex = _getOutfitIndex();
+        const visited = new Set([item.name].filter(Boolean));
+
+        function collectDamage(w, multiplier, depth) {
+            if (depth > 8) return 0;
+            const dmgKey = field.key + ' damage';
+            let total    = (parseFloat(w[dmgKey]) || 0) * multiplier;
+
+            if (!window.WeaponStats) return total;
+            const refs = window.WeaponStats._getSubmunitionRefs(w, outfitIndex);
+            for (const { subName, subCount } of refs) {
+                if (visited.has(subName)) continue;
+                const subOutfit = outfitIndex[subName];
+                if (!subOutfit?.weapon) continue;
+                visited.add(subName);
+                total += collectDamage(subOutfit.weapon, multiplier * subCount, depth + 1);
+            }
+            return total;
+        }
+
+        const totalDmgPerShot = collectDamage(weapon, 1, 0);
+        if (!totalDmgPerShot) return undefined;
+        return totalDmgPerShot * sps;
+    }
+
     // 1. Inline computed (hardpoint counts)
     if (field.computed) return field.computed(item);
 
@@ -481,10 +500,6 @@ if (field.isDps && typeof window.WeaponStats !== 'undefined') {
         for (const k of field.path) {
             if (obj == null) return undefined;
             obj = obj[k];
-        }
-        // Apply DPS multiplier if present (weapon damage DPS fields)
-        if (typeof obj === 'number' && field.dpsMultiplier) {
-            return obj * field.dpsMultiplier;
         }
         return obj;
     }
@@ -523,7 +538,7 @@ function applySorters(items) {
             const bMissing = bv == null || (typeof bv === 'number' && isNaN(bv));
 
             if (aMissing && bMissing) continue;
-            if (aMissing) return 1;   // items without this field sink to bottom
+            if (aMissing) return 1;
             if (bMissing) return -1;
 
             const diff = sorter.dir === 'asc' ? av - bv : bv - av;
@@ -534,7 +549,7 @@ function applySorters(items) {
 }
 
 // ---------------------------------------------------------------------------
-// Average calculation (over currently visible items)
+// Average calculation
 // ---------------------------------------------------------------------------
 
 function computeAverage(sorter) {
@@ -655,28 +670,27 @@ function closeSorterPicker() {
 async function confirmSorterPicker() {
     const fields = getFieldsForTab(sorterCurrentTab);
 
-    // Add newly ticked fields (preserving all properties needed by getFieldValue)
     for (const id of sorterPickerPending) {
         if (!activeSorters.find(s => s.id === id)) {
             const field = fields.find(f => f.id === id);
             if (field) {
                 activeSorters.push({
-                    id:          field.id,
-                    key:         field.key,
-                    label:       field.label,
-                    path:        field.path        || null,
-                    computed:    field.computed     || null,
-                    useComputed: field.useComputed  || false,
-                    isComputed:  field.isComputed   || false,
-                    useAccum:    field.useAccum     || false,   // ← new
-                    isDps:       field.isDps        || false,
-                    dir:         'desc',
+                    id:               field.id,
+                    key:              field.key,
+                    label:            field.label,
+                    path:             field.path             || null,
+                    computed:         field.computed         || null,
+                    useComputed:      field.useComputed      || false,
+                    isComputed:       field.isComputed       || false,
+                    useAccum:         field.useAccum         || false,
+                    isDps:            field.isDps            || false,
+                    isOutfitComputed: field.isOutfitComputed || false,
+                    dir:              'desc',
                 });
             }
         }
     }
 
-    // Remove unticked fields
     activeSorters = activeSorters.filter(s => sorterPickerPending.includes(s.id));
 
     closeSorterPicker();
@@ -684,11 +698,14 @@ async function confirmSorterPicker() {
     await _triggerFilterItems();
 }
 
+// ---------------------------------------------------------------------------
+// Stamp sorter values onto cards
+// ---------------------------------------------------------------------------
+
 function stampSorterValues() {
     const container = document.getElementById('cardsContainer');
     if (!container) return;
 
-    // Clear all existing badges first
     container.querySelectorAll('.sorter-badges').forEach(el => { el.innerHTML = ''; });
 
     if (activeSorters.length === 0) return;
@@ -696,17 +713,13 @@ function stampSorterValues() {
     const fields = getFieldsForTab(sorterCurrentTab);
 
     for (const card of container.querySelectorAll('.card')) {
-        // Retrieve the item reference stored at card-creation time
-        const item = _cardItemMap?.get ? undefined : null; 
-        // _cardItemMap is in DataViewer.js scope — use the dataset id to find the item
         const itemId = card.dataset.itemId;
         if (!itemId) continue;
 
-        // Find the item in _sorterItems by matching _internalId or name
-        const item2 = _sorterItems.find(
+        const item = _sorterItems.find(
             i => (i._internalId || i.name || '') == itemId
         );
-        if (!item2) continue;
+        if (!item) continue;
 
         const badgeArea = card.querySelector('.sorter-badges');
         if (!badgeArea) continue;
@@ -715,9 +728,7 @@ function stampSorterValues() {
             const field = fields.find(f => f.id === sorter.id);
             if (!field) continue;
 
-            const val = getFieldValue(item2, field);
-            console.log('field:', field.label, 'key:', field.key, 'val:', val, 'isComputed:', field.isComputed, 'useComputed:', field.useComputed);
-            
+            const val = getFieldValue(item, field);
             if (val == null) continue;
 
             const badge = document.createElement('div');
@@ -731,18 +742,6 @@ function stampSorterValues() {
 
 // ---------------------------------------------------------------------------
 // Picker list renderer
-//
-// Groups for ships / variants:
-//   ⚡ Computed (physics, with outfits) — isComputed || useComputed
-//   Accumulated Attributes (with outfits) — useAccum === true (plain numerics)
-//   Base Attributes (hull only)          — raw scanned fields from item.attributes
-//   Hardpoints                           — inline computed fns (f.computed, not isComputed)
-//
-// Groups for outfits:
-//   Outfit Attributes          — top-level numeric fields
-//   Weapon Stats               — item.weapon.* numeric fields
-//
-// Effects / other: ungrouped.
 // ---------------------------------------------------------------------------
 
 function renderPickerList(query) {
@@ -771,26 +770,29 @@ function renderPickerList(query) {
     let groups;
 
     if (sorterCurrentTab === 'ships' || sorterCurrentTab === 'variants') {
-        // Physics computed = ComputedStats _fn_/_derived_/_sys_ keys
         const computed  = filtered.filter(f => f.isComputed || f.useComputed);
-        // Accumulated attribute = base + outfits stacked, plain numeric key
         const accum     = filtered.filter(f => f.useAccum && !f.isComputed && !f.useComputed);
-        // Hardpoint = has f.computed fn but is NOT a ComputedStats field
         const hardpoint = filtered.filter(f => f.computed && !f.isComputed && !f.useComputed && !f.useAccum);
-        // Base-only = raw item.attributes scan, no outfit stacking
         const base      = filtered.filter(f => !f.isComputed && !f.useComputed && !f.computed && !f.useAccum);
 
         groups = [
-            { label: '⚡ Computed — Physics (with outfits)',    fields: computed  },
+            { label: '⚡ Computed — Physics (with outfits)',     fields: computed  },
             { label: '📦 Accumulated Attributes (with outfits)', fields: accum     },
-            { label: '🔩 Base Attributes (hull only)',           fields: base      },
-            { label: '🎯 Hardpoints',                           fields: hardpoint },
+            { label: '🔩 Base Attributes (hull only)',            fields: base      },
+            { label: '🎯 Hardpoints',                            fields: hardpoint },
         ];
 
     } else if (sorterCurrentTab === 'outfits') {
+        const outfitAttrs    = filtered.filter(f => f.group === 'outfit');
+        const weaponPerShot  = filtered.filter(f => f.group === 'weapon' && !f.isDps && !f.isOutfitComputed);
+        const weaponDps      = filtered.filter(f => f.group === 'weapon' && f.isDps);
+        const weaponComputed = filtered.filter(f => f.group === 'weapon' && f.isOutfitComputed);
+
         groups = [
-            { label: 'Outfit Attributes', fields: filtered.filter(f => f.group === 'outfit') },
-            { label: 'Weapon Stats',      fields: filtered.filter(f => f.group === 'weapon') },
+            { label: 'Outfit Attributes',          fields: outfitAttrs    },
+            { label: '⚡ Weapon — Computed Stats',  fields: weaponComputed },
+            { label: '💥 Weapon — DPS',             fields: weaponDps      },
+            { label: '🎯 Weapon — Per Shot',        fields: weaponPerShot  },
         ];
 
     } else {
@@ -840,13 +842,13 @@ function renderPickerList(query) {
 }
 
 // ---------------------------------------------------------------------------
-// Tab change — clear active sorters and invalidate field cache for new tab
+// Tab change
 // ---------------------------------------------------------------------------
 
 function onSorterTabChange(tab) {
     sorterCurrentTab = tab;
     activeSorters    = [];
-    delete _fieldCache[tab]; // will rescan when new tab's items arrive
+    delete _fieldCache[tab];
     renderSorterBox();
 }
 
