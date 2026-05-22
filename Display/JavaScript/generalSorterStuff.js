@@ -1,4 +1,4 @@
-// Sorter.js
+    // Sorter.js
 //
 // Builds sortable field lists by scanning ONLY the items currently on screen.
 // No attribute names are hardcoded anywhere. Every field offered in the picker
@@ -229,19 +229,24 @@ function scanFieldsFromItems(tab, items) {
                         });
                     }
 
-                    // ── DPS field for damage keys ────────────────────────────
                     if (key.endsWith(' damage')) {
                         const dpsId = 'weapon_dps_' + keyToId(key);
                         if (!weaponSeen.has(dpsId)) {
                             weaponSeen.add(dpsId);
+
+                            const totalSubCount = Array.isArray(item.weapon.submunitions) && item.weapon.submunitions.length > 0
+                                ? item.weapon.submunitions.reduce((s, e) => s + (e?.count ?? 1), 0)
+                                : 1;
+                            const effectiveSps = sps * totalSubCount;
+
                             weaponFields.push({
-                                id:           dpsId,
+                                id:            dpsId,
                                 key,
-                                label:        toTitleCase(key.replace(/ damage$/, '')) + ' DPS',
-                                path:         ['weapon', key],
-                                raw:          true,
-                                group:        'weapon',
-                                dpsMultiplier: sps,
+                                label:         toTitleCase(key.replace(/ damage$/, '')) + ' DPS',
+                                path:          ['weapon', key],
+                                raw:           true,
+                                group:         'weapon',
+                                dpsMultiplier: effectiveSps,
                             });
                         }
                     }
