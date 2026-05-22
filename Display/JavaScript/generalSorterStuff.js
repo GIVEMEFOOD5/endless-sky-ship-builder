@@ -56,6 +56,7 @@ let sorterPickerPending = [];
 let _sorterItems        = [];   // post-filter items currently on screen
 let _sorterAttrDefs     = null;
 let _sorterPluginId     = null; // fallback when item has no own _pluginId
+let _cachedOutfitIndex  = null;
 
 // ---------------------------------------------------------------------------
 // Skip sets — structural / metadata keys that are never sortable.
@@ -87,6 +88,20 @@ const COMPUTED_PREFIXES = ['_fn_', '_derived_', '_sys_'];
 
 function isComputedKey(key) {
     return COMPUTED_PREFIXES.some(p => key.startsWith(p));
+}
+
+function _getOutfitIndex() {
+    if (_cachedOutfitIndex) return _cachedOutfitIndex;
+    if (window._outfitIndex && Object.keys(window._outfitIndex).length > 0) {
+        _cachedOutfitIndex = window._outfitIndex;
+        return _cachedOutfitIndex;
+    }
+    const merged = {};
+    for (const pd of Object.values(window.allData || {}))
+        for (const o of (pd.outfits || []))
+            if (o.name) merged[o.name] = o;
+    _cachedOutfitIndex = merged;
+    return _cachedOutfitIndex;
 }
 
 // ---------------------------------------------------------------------------
@@ -230,26 +245,20 @@ function scanFieldsFromItems(tab, items) {
                     }
 
                     if (key.endsWith(' damage')) {
-                        const dpsId = 'weapon_dps_' + keyToId(key);
-                        if (!weaponSeen.has(dpsId)) {
-                            weaponSeen.add(dpsId);
-
-                            const totalSubCount = Array.isArray(item.weapon.submunitions) && item.weapon.submunitions.length > 0
-                                ? item.weapon.submunitions.reduce((s, e) => s + (e?.count ?? 1), 0)
-                                : 1;
-                            const effectiveSps = sps * totalSubCount;
-
-                            weaponFields.push({
-                                id:            dpsId,
-                                key,
-                                label:         toTitleCase(key.replace(/ damage$/, '')) + ' DPS',
-                                path:          ['weapon', key],
-                                raw:           true,
-                                group:         'weapon',
-                                dpsMultiplier: effectiveSps,
-                            });
-                        }
-                    }
+    const dpsId = 'weapon_dps_' + keyToId(key);
+    if (!weaponSeen.has(dpsId)) {
+        weaponSeen.add(dpsId);
+        weaponFields.push({
+            id:    dpsId,
+            key:   key.replace(/ damage$/, ''),  // e.g. 'shield' from 'shield damage'
+            label: toTitleCase(key.replace(/ damage$/, '')) + ' DPS',
+            path:  null,
+            raw:   false,
+            group: 'weapon',
+            isDps: true,
+        });
+    }
+}
                 }
             }
 
@@ -379,6 +388,7 @@ function setSorterAttrDefs(defs) {
 
 function setSorterPluginId(pluginId) {
     _sorterPluginId = pluginId;
+    _cachedOutfitIndex = null;
     clearFieldCache();
     if (typeof clearComputedCache === 'function') clearComputedCache();
 }
@@ -407,6 +417,16 @@ function setSorterItems(items) {
 // ---------------------------------------------------------------------------
 
 function getFieldValue(item, field) {
+
+// 0. Weapon DPS fields — resolved via WeaponStats
+if (field.isDps && typeof window.WeaponStats !== 'undefined') {
+    if (!item.weapon) return undefined;
+    const profile = window.WeaponStats.getOutfitWeaponStats(item, _getOutfitIndex());
+    if (!profile) return undefined;
+    const dpsKey = field.key + ' damage';
+    return profile.dpsBreakdown?.[dpsKey] ?? undefined;
+}
+    
     // 1. Inline computed (hardpoint counts)
     if (field.computed) return field.computed(item);
 
@@ -624,6 +644,7 @@ async function confirmSorterPicker() {
                     useComputed: field.useComputed  || false,
                     isComputed:  field.isComputed   || false,
                     useAccum:    field.useAccum     || false,   // ← new
+                    isDps:       field.isDps        || false,
                     dir:         'desc',
                 });
             }
