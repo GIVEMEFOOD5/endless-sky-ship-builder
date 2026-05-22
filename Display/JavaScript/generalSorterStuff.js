@@ -244,13 +244,14 @@ function scanFieldsFromItems(tab, items) {
                         });
                     }
 
-                    if (key.endsWith(' damage')) {
+// ── DPS field for damage keys — only if weapon has explicit reload ────
+if (key.endsWith(' damage') && item.weapon.reload != null) {
     const dpsId = 'weapon_dps_' + keyToId(key);
     if (!weaponSeen.has(dpsId)) {
         weaponSeen.add(dpsId);
         weaponFields.push({
             id:    dpsId,
-            key:   key.replace(/ damage$/, ''),  // e.g. 'shield' from 'shield damage'
+            key:   key.replace(/ damage$/, ''),
             label: toTitleCase(key.replace(/ damage$/, '')) + ' DPS',
             path:  null,
             raw:   false,
