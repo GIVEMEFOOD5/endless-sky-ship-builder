@@ -244,8 +244,7 @@ function scanFieldsFromItems(tab, items) {
                         });
                     }
 
-// ── DPS field for damage keys — only if weapon has explicit reload ────
-if (key.endsWith(' damage') && item.weapon.reload != null) {
+if (key.endsWith(' damage')) {
     const dpsId = 'weapon_dps_' + keyToId(key);
     if (!weaponSeen.has(dpsId)) {
         weaponSeen.add(dpsId);
@@ -422,6 +421,7 @@ function getFieldValue(item, field) {
 // 0. Weapon DPS fields — resolved via WeaponStats
 if (field.isDps && typeof window.WeaponStats !== 'undefined') {
     if (!item.weapon) return undefined;
+    if (item.weapon.reload == null) return undefined;  // ← submunitions have no reload
     const profile = window.WeaponStats.getOutfitWeaponStats(item, _getOutfitIndex());
     if (!profile) return undefined;
     const dpsKey = field.key + ' damage';
