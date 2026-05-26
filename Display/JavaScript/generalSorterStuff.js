@@ -209,11 +209,11 @@ function scanFieldsFromItems(tab, items) {
 
                         // ── Explicit per-second weapon DPS fields from WeaponStats ──
                         const WS_FIELDS = [
-                            { wsKey: '_ws_totalDps',         label: 'Total DPS (with outfits)'    },
-                            { wsKey: '_ws_shieldDps',         label: 'Shield DPS (with outfits)'   },
-                            { wsKey: '_ws_hullDps',           label: 'Hull DPS (with outfits)'     },
-                            { wsKey: '_ws_weaponCount',       label: 'Weapon Types (with outfits)' },
-                            { wsKey: '_ws_totalWeaponMounts', label: 'Total Weapon Mounts'         },
+                            { wsKey: '_ws_totalDps',         label: 'Total DPS (with outfits)'         },
+                            { wsKey: '_ws_shieldDps',        label: 'Shield DPS (with outfits)'        },
+                            { wsKey: '_ws_hullDps',          label: 'Hull DPS (with outfits)'          },
+                            { wsKey: '_ws_weaponCount',      label: 'Weapon Types (with outfits)'      },
+                            { wsKey: '_ws_totalWeaponMounts',label: 'Total Weapon Mounts'              },
                         ];
                         // Also add any _ws_dps_* breakdown keys dynamically
                         for (const key of Object.keys(computed)) {
@@ -232,13 +232,57 @@ function scanFieldsFromItems(tab, items) {
                             shipAccumSeen.add(id);
                             shipAccumFields.push({
                                 id,
-                                key:      wsKey,
+                                key:              wsKey,
                                 label,
-                                path:     null,
-                                useAccum: true,
-                                raw:      false,
-                                group:    'shipAccum',
+                                path:             null,
+                                useAccum:         true,
+                                raw:              false,
+                                group:            'shipAccum',
+                                displayMultiplier: 1, // _ws_ keys are already /s
                             });
+                        }
+
+                        // ── Firing costs per second from WeaponStats ──────────────
+                        // _derived_energy_firing and _derived_heat_firing are zero in
+                        // attrDefs because the JSON formula is hardcoded 0.
+                        // Get real values from WeaponStats weapon profiles instead.
+                        if (window.WeaponStats) {
+                            const outfitMap = item.outfitMap || item.outfits || {};
+                            const outfitIdx = _getOutfitIndex();
+                            const wsStats   = window.WeaponStats.getShipWeaponStats({ outfits: outfitMap }, outfitIdx);
+
+                            // Aggregate firing costs across all weapons
+                            let firingEnergy = 0, firingHeat = 0, firingFuel = 0;
+                            for (const w of (wsStats.weapons || [])) {
+                                const fc = w.profile?.firingCosts;
+                                if (!fc) continue;
+                                const sps = w.profile.shotsPerSecond * w.count;
+                                firingEnergy += (fc['firing energy'] || 0) * sps;
+                                firingHeat   += (fc['firing heat']   || 0) * sps;
+                                firingFuel   += (fc['firing fuel']   || 0) * sps;
+                            }
+
+                            const FIRING_FIELDS = [
+                                { id: 'ship_firing_energy_ps', key: '_firing_energy_ps', label: 'Firing Energy/s (with outfits)', val: firingEnergy },
+                                { id: 'ship_firing_heat_ps',   key: '_firing_heat_ps',   label: 'Firing Heat/s (with outfits)',   val: firingHeat   },
+                                { id: 'ship_firing_fuel_ps',   key: '_firing_fuel_ps',   label: 'Firing Fuel/s (with outfits)',   val: firingFuel   },
+                            ];
+                            for (const { id, key, label, val } of FIRING_FIELDS) {
+                                if (!val || shipAccumSeen.has(id)) continue;
+                                shipAccumSeen.add(id);
+                                shipAccumFields.push({
+                                    id,
+                                    key,
+                                    label,
+                                    path:              null,
+                                    useAccum:          false,
+                                    isFiringCost:      true,
+                                    firingCostVal:     val,
+                                    raw:               false,
+                                    group:             'shipAccum',
+                                    displayMultiplier: 1,
+                                });
+                            }
                         }
                     }
                 }
@@ -464,6 +508,29 @@ function getFieldValue(item, field) {
         return profile[field.key] ?? undefined;
     }
 
+    // 0b-i. Firing cost fields (energy/heat/fuel per second from WeaponStats)
+    if (field.isFiringCost) {
+        // Value was pre-computed at scan time and stored on the field descriptor.
+        // Re-compute live here so it reflects the actual item being evaluated.
+        if (!window.WeaponStats) return undefined;
+        const outfitMap = item.outfitMap || item.outfits || {};
+        const outfitIdx = _getOutfitIndex();
+        const wsStats   = window.WeaponStats.getShipWeaponStats({ outfits: outfitMap }, outfitIdx);
+        let firingEnergy = 0, firingHeat = 0, firingFuel = 0;
+        for (const w of (wsStats.weapons || [])) {
+            const fc = w.profile?.firingCosts;
+            if (!fc) continue;
+            const sps = w.profile.shotsPerSecond * w.count;
+            firingEnergy += (fc['firing energy'] || 0) * sps;
+            firingHeat   += (fc['firing heat']   || 0) * sps;
+            firingFuel   += (fc['firing fuel']   || 0) * sps;
+        }
+        if (field.key === '_firing_energy_ps') return firingEnergy || undefined;
+        if (field.key === '_firing_heat_ps')   return firingHeat   || undefined;
+        if (field.key === '_firing_fuel_ps')   return firingFuel   || undefined;
+        return undefined;
+    }
+
     // 0b. Weapon DPS — mirrors AttributeDisplay: 60/reload * full submunition tree damage
     if (field.isDps) {
         if (!item.weapon) return undefined;
@@ -506,7 +573,16 @@ function getFieldValue(item, field) {
         if (pluginId) {
             const stats = getComputedStats(item, pluginId);
             const val   = stats?.[field.key];
-            if (val != null) return val; // computed stats already have display scaling applied
+            if (val != null) {
+                // _fn_ keys need displayScale applied (ComputedStats stores raw value)
+                if (field.key.startsWith('_fn_') && _sorterAttrDefs) {
+                    const fnName = field.key.slice(4);
+                    const fnData = (_sorterAttrDefs.shipFunctions || {})[fnName];
+                    const scale  = fnData?.displayScale ?? 1;
+                    return val * scale;
+                }
+                return val;
+            }
         }
     }
 
@@ -718,6 +794,7 @@ async function confirmSorterPicker() {
                     useAccum:         field.useAccum         || false,
                     isDps:            field.isDps            || false,
                     isOutfitComputed: field.isOutfitComputed || false,
+                    isFiringCost:     field.isFiringCost     || false,
                     displayMultiplier: field.displayMultiplier || 1,
                     dir:              'desc',
                 });
