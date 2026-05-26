@@ -88,6 +88,26 @@ function isComputedKey(key) {
 }
 
 // ---------------------------------------------------------------------------
+// Attribute display multiplier helper
+//
+// attributeDefinitions.json stores raw per-frame values. The displayMultiplier
+// converts them to the human-readable unit shown in-game and in AttributeDisplay:
+//   ×60    → /s   (shield generation, energy generation, cooling, etc.)
+//   ×3600  → /s²  (thrust, reverse thrust, afterburner thrust)
+//   ×6000  → %/s  (resistances, status effects, turn, etc.)
+//   ×100   → %    (multipliers, protections)
+//   ×0.016 → s    (delay attributes)
+// ---------------------------------------------------------------------------
+
+function _getDisplayMultiplier(key) {
+    if (!_sorterAttrDefs) return 1;
+    const def = (_sorterAttrDefs.attributes || {})[key];
+    return (def && typeof def.displayMultiplier === 'number' && def.displayMultiplier !== 0)
+        ? def.displayMultiplier
+        : 1;
+}
+
+// ---------------------------------------------------------------------------
 // Outfit index cache
 // ---------------------------------------------------------------------------
 
@@ -148,13 +168,15 @@ function scanFieldsFromItems(tab, items) {
                     const id = 'raw_attr_' + keyToId(key);
                     if (shipBaseSeen.has(id)) continue;
                     shipBaseSeen.add(id);
+                    const mult = _getDisplayMultiplier(key);
                     shipBaseFields.push({
                         id,
                         key,
-                        label: toTitleCase(key) + ' (base)',
-                        path:  ['attributes', key],
-                        raw:   true,
-                        group: 'shipBase',
+                        label:             toTitleCase(key) + ' (base)',
+                        path:              ['attributes', key],
+                        raw:               true,
+                        group:             'shipBase',
+                        displayMultiplier: mult,
                     });
                 }
             }
@@ -172,14 +194,16 @@ function scanFieldsFromItems(tab, items) {
                             const id = 'accum_attr_' + keyToId(key);
                             if (shipAccumSeen.has(id))      continue;
                             shipAccumSeen.add(id);
+                            const mult = _getDisplayMultiplier(key);
                             shipAccumFields.push({
                                 id,
                                 key,
-                                label: toTitleCase(key) + ' (with outfits)',
-                                path:        null,
-                                useAccum:    true,
-                                raw:         false,
-                                group:       'shipAccum',
+                                label:             toTitleCase(key) + ' (with outfits)',
+                                path:              null,
+                                useAccum:          true,
+                                raw:               false,
+                                group:             'shipAccum',
+                                displayMultiplier: mult,
                             });
                         }
 
@@ -229,13 +253,15 @@ function scanFieldsFromItems(tab, items) {
                 const id = 'raw_' + keyToId(key);
                 if (outfitSeen.has(id)) continue;
                 outfitSeen.add(id);
+                const mult = _getDisplayMultiplier(key);
                 outfitFields.push({
                     id,
                     key,
-                    label: toTitleCase(key),
-                    path:  [key],
-                    raw:   true,
-                    group: 'outfit',
+                    label:             toTitleCase(key),
+                    path:              [key],
+                    raw:               true,
+                    group:             'outfit',
+                    displayMultiplier: mult,
                 });
             }
 
@@ -480,7 +506,7 @@ function getFieldValue(item, field) {
         if (pluginId) {
             const stats = getComputedStats(item, pluginId);
             const val   = stats?.[field.key];
-            if (val != null) return val;
+            if (val != null) return val; // computed stats already have display scaling applied
         }
     }
 
@@ -490,7 +516,10 @@ function getFieldValue(item, field) {
         if (pluginId) {
             const stats = getComputedStats(item, pluginId);
             const val   = stats?.[field.key];
-            if (val != null) return val;
+            if (val != null) {
+                const mult = field.displayMultiplier || _getDisplayMultiplier(field.key);
+                return val * mult;
+            }
         }
     }
 
@@ -500,6 +529,10 @@ function getFieldValue(item, field) {
         for (const k of field.path) {
             if (obj == null) return undefined;
             obj = obj[k];
+        }
+        if (typeof obj === 'number') {
+            const mult = field.displayMultiplier || _getDisplayMultiplier(field.key || (field.path[field.path.length - 1]));
+            return obj * mult;
         }
         return obj;
     }
@@ -685,6 +718,7 @@ async function confirmSorterPicker() {
                     useAccum:         field.useAccum         || false,
                     isDps:            field.isDps            || false,
                     isOutfitComputed: field.isOutfitComputed || false,
+                    displayMultiplier: field.displayMultiplier || 1,
                     dir:              'desc',
                 });
             }
