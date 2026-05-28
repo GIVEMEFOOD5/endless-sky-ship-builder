@@ -3056,7 +3056,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     gap: 12px;
     min-width: 0;
     flex: 1;
-    overflow: hidden;
+    overflow: hidden;  /* keep this — clips the scroll region against the bar edge */
 }
 
 .compare-bar__icon {
@@ -3074,8 +3074,14 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .compare-bar__chips {
     display: flex;
     gap: 6px;
-    overflow: hidden;
+    overflow-x: auto;
     flex-wrap: nowrap;
+    scrollbar-width: none;       /* Firefox — hides scrollbar but keeps scroll */
+    -ms-overflow-style: none;    /* IE/Edge */
+}
+
+.compare-bar__chips::-webkit-scrollbar {
+    display: none;               /* Chrome/Safari — hides scrollbar but keeps scroll */
 }
 
 .compare-bar__chip {
