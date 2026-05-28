@@ -224,6 +224,25 @@ function createCardPlaceholder(item) {
     sorterBadges.className = 'sorter-badges';
     card.appendChild(sorterBadges);
 
+    const compareBtn = document.createElement('button');
+    compareBtn.className = 'btn-compare';
+    compareBtn.textContent = window.CompareManager?.isInList(item) ? '✓ In Compare' : '+ Compare';
+    compareBtn.classList.toggle('btn-compare--active', window.CompareManager?.isInList(item));
+    compareBtn.onclick = (e) => {
+        e.stopPropagation();
+        const added = window.CompareManager.toggle(item, currentTab);
+        compareBtn.textContent   = window.CompareManager.isInList(item) ? '✓ In Compare' : '+ Compare';
+        compareBtn.classList.toggle('btn-compare--active', window.CompareManager.isInList(item));
+    };
+    // Keep the button label in sync if the item is removed from elsewhere
+    window.addEventListener('compareListChanged', () => {
+        if (!document.body.contains(card)) return;
+        const inList = window.CompareManager.isInList(item);
+        compareBtn.textContent = inList ? '✓ In Compare' : '+ Compare';
+        compareBtn.classList.toggle('btn-compare--active', inList);
+    });
+    card.appendChild(compareBtn);
+    
     return card;
 }
 
@@ -368,6 +387,29 @@ async function showDetails(item) {
     }
 
     modalBody._item = item;
+    
+    const existingCmpBtn = document.getElementById('modalCompareBtn');
+    if (existingCmpBtn) existingCmpBtn.remove();
+
+    const modalCompareBtn = document.createElement('button');
+    modalCompareBtn.id        = 'modalCompareBtn';
+    modalCompareBtn.className = 'btn-compare';
+    modalCompareBtn.style.cssText = 'margin-right:12px;';
+    const _updateModalBtn = () => {
+        const inList = window.CompareManager?.isInList(item);
+        modalCompareBtn.textContent = inList ? '✓ In Compare' : '+ Compare';
+        modalCompareBtn.classList.toggle('btn-compare--active', !!inList);
+    };
+    _updateModalBtn();
+    modalCompareBtn.onclick = () => {
+        window.CompareManager?.toggle(item, currentTab);
+        _updateModalBtn();
+    };
+    // Insert before the close button inside .modal-header
+    const modalHeader = document.querySelector('.modal-header');
+    const closeBtn    = modalHeader?.querySelector('.btn-close');
+    if (closeBtn) modalHeader.insertBefore(modalCompareBtn, closeBtn);
+    
     modal.classList.add('active');
     await switchModalTab(currentModalTab);
 }
