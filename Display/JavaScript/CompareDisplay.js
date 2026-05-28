@@ -1,22 +1,11 @@
 'use strict';
 
 // ─── CompareDisplay.js ────────────────────────────────────────────────────────
-//
-// Renders:
-//   1. A sticky bottom bar showing how many items are queued and a toggle button
-//   2. A full-screen overlay panel with side-by-side columns OR a table view
-//
-// Depends on:
-//   CompareManager.js   — state
-//   DataViewer.js       — window.currentTab, window.attrDefs (optional)
-//   ImageGrabber.js     — window.fetchSprite (optional, graceful fallback)
-// ─────────────────────────────────────────────────────────────────────────────
 
 window.CompareDisplay = (() => {
 
-    // ── State ─────────────────────────────────────────────────────────────────
-    let _panelOpen  = false;
-    let _viewMode   = 'columns'; // 'columns' | 'table'
+    let _panelOpen = false;
+    let _viewMode  = 'columns';
 
     // ── DOM bootstrap ─────────────────────────────────────────────────────────
 
@@ -39,8 +28,10 @@ window.CompareDisplay = (() => {
         bar.innerHTML = `
             <div class="compare-bar__left">
                 <span class="compare-bar__icon">⚖</span>
-                <span class="compare-bar__label" id="compareBarLabel">Compare — 0 items</span>
-                <div class="compare-bar__chips" id="compareBarChips"></div>
+                <div class="compare-bar__scroll" id="compareBarScroll">
+                    <span class="compare-bar__label" id="compareBarLabel">Compare — nothing selected</span>
+                    <div class="compare-bar__chips" id="compareBarChips"></div>
+                </div>
             </div>
             <div class="compare-bar__right">
                 <button class="compare-bar__clear" id="compareBarClear" onclick="window.CompareDisplay.clearAll()">Clear</button>
@@ -66,7 +57,7 @@ window.CompareDisplay = (() => {
         if (!label) return;
 
         const groupType = window.CompareManager.getGroupType();
-        const groupStr  = groupType === 'ship' ? 'ships/variants' : groupType === 'outfit' ? 'outfits' : '';
+        const groupStr  = groupType === 'ship' ? 'ships/variants' : 'outfits';
         label.textContent = count === 0
             ? 'Compare — nothing selected'
             : `Compare — ${count} ${groupStr}`;
@@ -75,7 +66,11 @@ window.CompareDisplay = (() => {
         items.forEach(item => {
             const chip = document.createElement('span');
             chip.className   = 'compare-bar__chip';
-            chip.textContent = item['display name'] || item.name || '?';
+
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = item['display name'] || item.name || '?';
+            chip.appendChild(nameSpan);
+
             const x = document.createElement('button');
             x.className   = 'compare-bar__chip-remove';
             x.textContent = '×';
@@ -84,9 +79,9 @@ window.CompareDisplay = (() => {
             chips.appendChild(chip);
         });
 
-        clearBtn.style.display  = count > 0 ? '' : 'none';
-        openBtn.style.display   = count > 1 ? '' : 'none';
-        openLabel.textContent   = _panelOpen ? 'Close Compare ▼' : 'Open Compare ▲';
+        clearBtn.style.display = count > 0 ? '' : 'none';
+        openBtn.style.display  = count > 1 ? '' : 'none';
+        openLabel.textContent  = _panelOpen ? 'Close Compare ▼' : 'Open Compare ▲';
         bar.classList.toggle('compare-bar--has-items', count > 0);
     }
 
@@ -117,15 +112,12 @@ window.CompareDisplay = (() => {
     function _renderPanelContent() {
         const body  = document.getElementById('comparePanelBody');
         const items = window.CompareManager.getItems();
-
         if (!body) return;
         body.innerHTML = '';
-
         if (items.length < 2) {
             body.innerHTML = '<p class="compare-empty">Add at least two items to compare.</p>';
             return;
         }
-
         if (_viewMode === 'columns') _renderColumns(body, items);
         else                         _renderTable(body, items);
     }
@@ -141,7 +133,6 @@ window.CompareDisplay = (() => {
             const col = document.createElement('div');
             col.className = 'compare-col';
 
-            // Header
             const header = document.createElement('div');
             header.className = 'compare-col__header';
 
@@ -166,10 +157,8 @@ window.CompareDisplay = (() => {
             header.appendChild(img);
             header.appendChild(name);
             if (sub.textContent) header.appendChild(sub);
-
             col.appendChild(header);
 
-            // Attributes
             const attrs = _getDisplayAttrs(item);
             attrs.forEach(({ key, value }) => {
                 const row = document.createElement('div');
@@ -194,7 +183,6 @@ window.CompareDisplay = (() => {
     // ── Table view ────────────────────────────────────────────────────────────
 
     function _renderTable(container, items) {
-        // Collect union of all attribute keys
         const allKeys = [];
         const keySet  = new Set();
         items.forEach(item => {
@@ -209,10 +197,10 @@ window.CompareDisplay = (() => {
         const table = document.createElement('table');
         table.className = 'compare-table';
 
-        // Header row
-        const thead = document.createElement('thead');
+        const thead   = document.createElement('thead');
         const headRow = document.createElement('tr');
         headRow.innerHTML = '<th class="compare-table__corner">Attribute</th>';
+
         items.forEach(item => {
             const th = document.createElement('th');
             th.className = 'compare-table__item-header';
@@ -238,7 +226,6 @@ window.CompareDisplay = (() => {
         thead.appendChild(headRow);
         table.appendChild(thead);
 
-        // Body rows
         const tbody = document.createElement('tbody');
         allKeys.forEach((key, i) => {
             const tr = document.createElement('tr');
@@ -289,14 +276,11 @@ window.CompareDisplay = (() => {
         }
 
         if (item.attributes && typeof item.attributes === 'object') {
-            // Ship / variant — pull from attributes sub-object first
             Object.entries(item.attributes).forEach(([k, v]) => push(k, v));
-            // Then a few top-level ship fields
             ['baseShip', 'guns', 'turrets', 'bays', 'engines'].forEach(k => {
                 if (item[k] !== undefined) push(k, item[k]);
             });
         } else {
-            // Outfit — flat structure
             Object.entries(item).forEach(([k, v]) => {
                 if (k === 'weapon' && typeof v === 'object') {
                     Object.entries(v).forEach(([wk, wv]) => {
@@ -312,14 +296,12 @@ window.CompareDisplay = (() => {
         return results;
     }
 
-    // ── Sprite thumbnail helper ───────────────────────────────────────────────
+    // ── Sprite thumbnail ──────────────────────────────────────────────────────
 
     function _loadThumb(item, container) {
         container.innerHTML = '<div class="compare-thumb-placeholder"></div>';
-
         const spritePath = item.thumbnail || item.sprite;
         if (!spritePath || !window.fetchSprite) return;
-
         window.fetchSprite(spritePath, null).then(el => {
             if (!el) return;
             el.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
@@ -338,13 +320,8 @@ window.CompareDisplay = (() => {
         if (_panelOpen) _renderPanelContent();
     }
 
-    function openPanel() {
-        if (!_panelOpen) togglePanel();
-    }
-
-    function closePanel() {
-        if (_panelOpen) togglePanel();
-    }
+    function openPanel()  { if (!_panelOpen) togglePanel(); }
+    function closePanel() { if (_panelOpen)  togglePanel(); }
 
     function setViewMode(mode) {
         _viewMode = mode;
@@ -363,7 +340,6 @@ window.CompareDisplay = (() => {
 
 })();
 
-// Auto-init when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => window.CompareDisplay.init());
 } else {
