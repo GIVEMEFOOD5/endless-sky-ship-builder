@@ -22,7 +22,6 @@ window.CompareManager = (() => {
     let _stores = { ship: [], outfit: [] };
 
     // Which group is currently visible in the UI
-    // Driven by setActiveTab() calls from DataViewer's switchTab()
     let _activeGroup = 'ship'; // 'ship' | 'outfit'
 
     // ── Helpers ───────────────────────────────────────────────────────────────
@@ -42,17 +41,21 @@ window.CompareManager = (() => {
         }));
     }
 
-    // Unique ID per item — uses _internalId when available (variants have one),
-    // otherwise name + tab to avoid base-ship name collisions across tabs.
+    // Unique ID per item.
+    // Priority:
+    //   1. _internalId  — most reliable, set by the data pipeline
+    //   2. name only    — used for isInList() lookups where _compareTab may not
+    //                     be set yet (e.g. freshly rendered cards, local-storage
+    //                     items). Two items with the same name in different tabs
+    //                     are intentionally treated as the same logical ship.
     function _idOf(item) {
-        if (item._internalId) return item._internalId;
-        return (item.name || '') + '|' + (item._compareTab || '');
+        if (item._internalId) return String(item._internalId);
+        return String(item.name || '');
     }
 
     // ── Public API ────────────────────────────────────────────────────────────
 
     function isInList(item) {
-        // Check both stores so card buttons stay accurate regardless of active tab
         const id = _idOf(item);
         return _stores.ship.some(i => _idOf(i) === id) ||
                _stores.outfit.some(i => _idOf(i) === id);
@@ -63,8 +66,7 @@ window.CompareManager = (() => {
     function getCount()     { return _stores[_activeGroup].length; }
 
     /**
-     * Called by DataViewer's switchTab() so we know which group to surface.
-     * Silently swaps the visible list — no prompt, no clearing.
+     * Called by DataViewer's switchTab() — silently swaps the visible list.
      */
     function setActiveTab(tab) {
         const group = _tabToGroup(tab);
@@ -74,10 +76,12 @@ window.CompareManager = (() => {
     }
 
     function add(item, tab) {
+        // Stamp a copy with the originating tab
         item = Object.assign({}, item, { _compareTab: tab });
         const group = _tabToGroup(tab);
         const store = _stores[group];
 
+        // Deduplicate by _idOf
         if (store.some(i => _idOf(i) === _idOf(item))) return false;
 
         store.push(item);
