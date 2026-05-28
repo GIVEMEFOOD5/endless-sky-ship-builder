@@ -7,110 +7,98 @@
 // Rules:
 //   • Ships and variants can be compared together (type group: 'ship')
 //   • Outfits are a separate group (type group: 'outfit')
-//   • Switching groups clears the previous list (with a confirm prompt)
+//   • Switching tabs silently hides the other group's list and restores it
+//     when you switch back — no clearing, no prompts
 //   • Items persist until explicitly removed or cleared
-//   • Max 8 items at once (keeps UI sane)
+//   • No item limit
 //
 // Events dispatched on window:
-//   'compareListChanged'  — whenever the list is mutated
+//   'compareListChanged'  — whenever the visible list or active group changes
 // ─────────────────────────────────────────────────────────────────────────────
 
 window.CompareManager = (() => {
 
-    const MAX_ITEMS = 8;
+    // Two independent stores, one per group
+    let _stores = { ship: [], outfit: [] };
 
-    // Internal state
-    let _items      = [];   // array of item objects
-    let _groupType  = null; // 'ship' | 'outfit' | null
+    // Which group is currently visible in the UI
+    // Driven by setActiveTab() calls from DataViewer's switchTab()
+    let _activeGroup = 'ship'; // 'ship' | 'outfit'
 
     // ── Helpers ───────────────────────────────────────────────────────────────
 
     function _tabToGroup(tab) {
         if (tab === 'ships' || tab === 'variants') return 'ship';
         if (tab === 'outfits') return 'outfit';
-        return null;
-    }
-
-    function _itemGroup(item) {
-        // Outfits have a flat 'category', ships/variants have attributes.category
-        if (item._compareTab) return _tabToGroup(item._compareTab);
-        if (item.attributes)  return 'ship';
-        return 'outfit';
+        return 'ship';
     }
 
     function _dispatch() {
         window.dispatchEvent(new CustomEvent('compareListChanged', {
-            detail: { items: [..._items], groupType: _groupType }
+            detail: {
+                items:     [..._stores[_activeGroup]],
+                groupType: _activeGroup
+            }
         }));
     }
 
+    // Unique ID per item — uses _internalId when available (variants have one),
+    // otherwise name + tab to avoid base-ship name collisions across tabs.
     function _idOf(item) {
-        return item._internalId || item.name || JSON.stringify(item).slice(0, 80);
+        if (item._internalId) return item._internalId;
+        return (item.name || '') + '|' + (item._compareTab || '');
     }
 
     // ── Public API ────────────────────────────────────────────────────────────
 
     function isInList(item) {
+        // Check both stores so card buttons stay accurate regardless of active tab
         const id = _idOf(item);
-        return _items.some(i => _idOf(i) === id);
+        return _stores.ship.some(i => _idOf(i) === id) ||
+               _stores.outfit.some(i => _idOf(i) === id);
     }
 
-    function canAdd(item) {
-        if (_items.length >= MAX_ITEMS) return false;
-        if (_groupType === null)        return true;
-        return _itemGroup(item) === _groupType;
-    }
-
-    function getGroupType()  { return _groupType; }
-    function getItems()      { return [..._items]; }
-    function getCount()      { return _items.length; }
+    function getGroupType() { return _activeGroup; }
+    function getItems()     { return [..._stores[_activeGroup]]; }
+    function getCount()     { return _stores[_activeGroup].length; }
 
     /**
-     * Add an item. If the item belongs to a different group, prompt the user
-     * to confirm switching (which clears the existing list).
-     * Returns true if added, false if rejected.
+     * Called by DataViewer's switchTab() so we know which group to surface.
+     * Silently swaps the visible list — no prompt, no clearing.
      */
-    function add(item, tab) {
-        // Stamp the tab so we know the group even after tab switches
-        item = Object.assign({}, item, { _compareTab: tab });
-
-        if (isInList(item)) return false;
-
-        const incoming = _itemGroup(item);
-
-        if (_groupType !== null && incoming !== _groupType) {
-            const groupLabel = _groupType === 'ship' ? 'ships/variants' : 'outfits';
-            const confirmed  = window.confirm(
-                `You're currently comparing ${groupLabel}.\n\n` +
-                `Outfits and ships cannot be compared together.\n\n` +
-                `Clear the current compare list and start a new one?`
-            );
-            if (!confirmed) return false;
-            _items     = [];
-            _groupType = null;
-        }
-
-        if (_items.length >= MAX_ITEMS) {
-            alert(`You can compare at most ${MAX_ITEMS} items at once.`);
-            return false;
-        }
-
-        _groupType = incoming;
-        _items.push(item);
+    function setActiveTab(tab) {
+        const group = _tabToGroup(tab);
+        if (group === _activeGroup) return;
+        _activeGroup = group;
         _dispatch();
+    }
+
+    function add(item, tab) {
+        item = Object.assign({}, item, { _compareTab: tab });
+        const group = _tabToGroup(tab);
+        const store = _stores[group];
+
+        if (store.some(i => _idOf(i) === _idOf(item))) return false;
+
+        store.push(item);
+        if (group === _activeGroup) _dispatch();
         return true;
     }
 
     function remove(item) {
         const id = _idOf(item);
-        _items = _items.filter(i => _idOf(i) !== id);
-        if (_items.length === 0) _groupType = null;
+        _stores.ship   = _stores.ship.filter(i => _idOf(i) !== id);
+        _stores.outfit = _stores.outfit.filter(i => _idOf(i) !== id);
         _dispatch();
     }
 
     function clear() {
-        _items     = [];
-        _groupType = null;
+        _stores[_activeGroup] = [];
+        _dispatch();
+    }
+
+    function clearAll() {
+        _stores = { ship: [], outfit: [] };
         _dispatch();
     }
 
@@ -119,6 +107,7 @@ window.CompareManager = (() => {
         return add(item, tab);
     }
 
-    return { isInList, canAdd, add, remove, clear, toggle, getItems, getCount, getGroupType };
+    return { isInList, add, remove, clear, clearAll, toggle,
+             getItems, getCount, getGroupType, setActiveTab };
 
 })();
