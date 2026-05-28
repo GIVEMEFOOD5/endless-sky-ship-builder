@@ -3023,6 +3023,14 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     font-weight: 600;
 }
 
+/* ─── compare.css ────────────────────────────────────────────────────────────
+   Styles for the Compare feature:
+     • .compare-bar        — sticky bottom bar
+     • .compare-panel      — full-screen slide-up overlay
+     • .compare-columns    — side-by-side column view
+     • .compare-table      — attribute table view
+   ─────────────────────────────────────────────────────────────────────────── */
+
 /* ── Bottom bar ─────────────────────────────────────────────────────────────── */
 
 .compare-bar {
@@ -3053,15 +3061,30 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .compare-bar__left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     min-width: 0;
     flex: 1;
-    overflow: hidden;
+    overflow: hidden; /* clips scroll region against bar edge */
 }
 
 .compare-bar__icon {
     font-size: 1.15rem;
     flex-shrink: 0;
+}
+
+/* Scroll container — label and chips move together */
+.compare-bar__scroll {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto;
+    flex: 1;
+    min-width: 0;
+    scrollbar-width: none;      /* Firefox */
+    -ms-overflow-style: none;   /* IE/Edge */
+}
+.compare-bar__scroll::-webkit-scrollbar {
+    display: none;              /* Chrome/Safari */
 }
 
 .compare-bar__label {
@@ -3074,16 +3097,8 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .compare-bar__chips {
     display: flex;
     gap: 6px;
-    overflow-x: auto;
     flex-wrap: nowrap;
-    flex-shrink: 1;
-    min-width: 0;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.compare-bar__chips::-webkit-scrollbar {
-    display: none;
+    flex-shrink: 0; /* never compress — scroll instead */
 }
 
 .compare-bar__chip {
@@ -3097,7 +3112,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     font-size: 0.72rem;
     color: #93c5fd;
     white-space: nowrap;
-    flex-shrink: 0;
+    flex-shrink: 0; /* full name always visible, never truncated */
 }
 
 .compare-bar__chip-remove {
