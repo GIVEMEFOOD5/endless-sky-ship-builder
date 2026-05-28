@@ -565,11 +565,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ─── Global exports ───────────────────────────────────────────────────────────
 
-window.loadData       = loadData;
-window.clearData      = clearData;
-window.switchTab      = switchTab;
-window.closeModal     = closeModal;
-window.selectPlugin   = selectPlugin;
-window.switchModalTab = switchModalTab;
-window.updateStats    = updateStats;
-window.renderCards    = renderCards;
+window.loadData              = loadData;
+window.clearData             = clearData;
+window.switchTab             = switchTab;
+window.closeModal            = closeModal;
+window.selectPlugin          = selectPlugin;
+window.switchModalTab        = switchModalTab;
+window.updateStats           = updateStats;
+window.renderCards           = renderCards;
+window.createCardPlaceholder = createCardPlaceholder;
+window.filteredData          = filteredData;
