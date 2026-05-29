@@ -115,6 +115,7 @@ function switchTab(tab) {
         t.classList.toggle('active', t.dataset.tab === tab);
     });
     if (typeof onSorterTabChange === 'function') onSorterTabChange(tab);
+    window.CompareManager?.setActiveTab(tab);
     renderCards();
 }
 
