@@ -12,17 +12,20 @@
 //   • Items persist until explicitly removed or cleared
 //   • No item limit
 //
+// ID strategy:
+//   _internalId is the gold standard — variants always have a unique one.
+//   If absent, fall back to name + '|' + tab so that e.g. "Rano Ek" on the
+//   ships tab and "Rano Ek" on the variants tab are treated as distinct items,
+//   and two different variants that share a display name are also distinct.
+//
 // Events dispatched on window:
 //   'compareListChanged'  — whenever the visible list or active group changes
 // ─────────────────────────────────────────────────────────────────────────────
 
 window.CompareManager = (() => {
 
-    // Two independent stores, one per group
     let _stores = { ship: [], outfit: [] };
-
-    // Which group is currently visible in the UI
-    let _activeGroup = 'ship'; // 'ship' | 'outfit'
+    let _activeGroup = 'ship';
 
     // ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -34,27 +37,25 @@ window.CompareManager = (() => {
 
     function _dispatch() {
         window.dispatchEvent(new CustomEvent('compareListChanged', {
-            detail: {
-                items:     [..._stores[_activeGroup]],
-                groupType: _activeGroup
-            }
+            detail: { items: [..._stores[_activeGroup]], groupType: _activeGroup }
         }));
     }
 
-    // Unique ID per item.
-    // Priority:
-    //   1. _internalId  — most reliable, set by the data pipeline
-    //   2. name only    — used for isInList() lookups where _compareTab may not
-    //                     be set yet (e.g. freshly rendered cards, local-storage
-    //                     items). Two items with the same name in different tabs
-    //                     are intentionally treated as the same logical ship.
+    // Build a stable unique key for an item.
+    // _internalId is always preferred — it is unique per variant even when
+    // two variants share the same name.
+    // Fallback uses name + tab so that a ship and a same-named variant are
+    // not considered the same item.
     function _idOf(item) {
-        if (item._internalId) return String(item._internalId);
-        return String(item.name || '');
+        if (item._internalId) return 'id:' + String(item._internalId);
+        const tab = item._compareTab || '';
+        return 'n:' + String(item.name || '') + '|' + tab;
     }
 
     // ── Public API ────────────────────────────────────────────────────────────
 
+    // item should already have _compareTab stamped on it (done at card creation
+    // in DataViewer.js) so the key is always fully qualified.
     function isInList(item) {
         const id = _idOf(item);
         return _stores.ship.some(i => _idOf(i) === id) ||
@@ -65,9 +66,6 @@ window.CompareManager = (() => {
     function getItems()     { return [..._stores[_activeGroup]]; }
     function getCount()     { return _stores[_activeGroup].length; }
 
-    /**
-     * Called by DataViewer's switchTab() — silently swaps the visible list.
-     */
     function setActiveTab(tab) {
         const group = _tabToGroup(tab);
         if (group === _activeGroup) return;
@@ -76,14 +74,10 @@ window.CompareManager = (() => {
     }
 
     function add(item, tab) {
-        // Stamp a copy with the originating tab
         item = Object.assign({}, item, { _compareTab: tab });
         const group = _tabToGroup(tab);
         const store = _stores[group];
-
-        // Deduplicate by _idOf
         if (store.some(i => _idOf(i) === _idOf(item))) return false;
-
         store.push(item);
         if (group === _activeGroup) _dispatch();
         return true;
