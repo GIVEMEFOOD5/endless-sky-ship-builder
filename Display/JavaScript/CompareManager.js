@@ -13,10 +13,11 @@
 //   • No item limit
 //
 // ID strategy:
-//   _internalId is the gold standard — variants always have a unique one.
-//   If absent, fall back to name + '|' + tab so that e.g. "Rano Ek" on the
-//   ships tab and "Rano Ek" on the variants tab are treated as distinct items,
-//   and two different variants that share a display name are also distinct.
+//   Variants share a base ship _internalId (e.g. "plugin::Korath Dredger")
+//   so we CANNOT rely on _internalId alone to distinguish them.
+//   Instead we always use:  name + '|' + tab
+//   which is unique because variant names are unique (e.g. "Korath Dredger (Digger)")
+//   and ships/variants live on different tabs.
 //
 // Events dispatched on window:
 //   'compareListChanged'  — whenever the visible list or active group changes
@@ -41,21 +42,18 @@ window.CompareManager = (() => {
         }));
     }
 
-    // Build a stable unique key for an item.
-    // _internalId is always preferred — it is unique per variant even when
-    // two variants share the same name.
-    // Fallback uses name + tab so that a ship and a same-named variant are
-    // not considered the same item.
+    // Always use name + tab — this is the only truly unique key for variants
+    // since all variants of a ship share the same _internalId as the base ship.
     function _idOf(item) {
-        if (item._internalId) return 'id:' + String(item._internalId);
-        const tab = item._compareTab || '';
-        return 'n:' + String(item.name || '') + '|' + tab;
+        const tab  = item._compareTab || '';
+        const name = String(item.name || '');
+        return name + '|' + tab;
     }
 
     // ── Public API ────────────────────────────────────────────────────────────
 
-    // item should already have _compareTab stamped on it (done at card creation
-    // in DataViewer.js) so the key is always fully qualified.
+    // item must have _compareTab stamped on it before calling this
+    // (done at card creation time in DataViewer.js)
     function isInList(item) {
         const id = _idOf(item);
         return _stores.ship.some(i => _idOf(i) === id) ||
@@ -66,11 +64,13 @@ window.CompareManager = (() => {
     function getItems()     { return [..._stores[_activeGroup]]; }
     function getCount()     { return _stores[_activeGroup].length; }
 
+    // Called by DataViewer's switchTab() on every tab change.
+    // Always dispatches so the bar hides/shows correctly even when
+    // switching between ships and variants (same group, bar still refreshes).
     function setActiveTab(tab) {
         const group = _tabToGroup(tab);
-        if (group === _activeGroup) return;
         _activeGroup = group;
-        _dispatch();
+        _dispatch(); // always dispatch — keeps bar in sync on every tab switch
     }
 
     function add(item, tab) {
