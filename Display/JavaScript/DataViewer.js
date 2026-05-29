@@ -159,6 +159,8 @@ function updateStats() {
 // ─── Card placeholder ─────────────────────────────────────────────────────────
 
 function createCardPlaceholder(item) {
+    item._compareTab = currentTab;
+    
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.spriteLoaded = 'false';
