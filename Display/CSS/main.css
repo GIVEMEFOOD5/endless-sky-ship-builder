@@ -3541,6 +3541,51 @@ body {
     letter-spacing: 0.05em;
 }
 
+/* ── Fleet summary banner ────────────────────────────────────────────────────── */
+
+.compare-fleet-summary {
+    background: rgba(20, 30, 50, 0.9);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+}
+
+.compare-fleet-summary__title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #3b82f6;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 12px;
+}
+
+.compare-fleet-summary__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+}
+
+.compare-fleet-summary__cell {
+    display: flex;
+    flex-direction: column;
+    min-width: 130px;
+}
+
+.compare-fleet-summary__label {
+    font-size: 0.65rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.compare-fleet-summary__value {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-top: 2px;
+}
+
 /* ── ≤600px: small phone ─────────────────────────────────────── */
 @media (max-width: 600px) {
     .list-row__label { min-width: 90px; font-size: 0.85rem; }
