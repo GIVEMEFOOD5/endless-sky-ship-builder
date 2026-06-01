@@ -1,0 +1,5677 @@
+{
+  "plugin": "Sheragi.Rebirth.Redux",
+  "repository": "https://github.com/LixiChronikouOriou/ES-plugins",
+  "ships": [
+    {
+      "name": "Shio Firebird",
+      "engines": [
+        {
+          "x": -31.5,
+          "y": 68
+        },
+        {
+          "x": 31.5,
+          "y": 68
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -28,
+          "y": -34,
+          "gun": ""
+        },
+        {
+          "x": 28,
+          "y": -34,
+          "gun": ""
+        },
+        {
+          "x": -39,
+          "y": -19,
+          "gun": ""
+        },
+        {
+          "x": 39,
+          "y": -19,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -44,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -2.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/mfirebirds",
+      "thumbnail": "thumbnail/mfirebirds",
+      "attributes": {
+        "category": "Medium Warship",
+        "cost": 4100000,
+        "shields": 6400,
+        "hull": 4200,
+        "required crew": 10,
+        "bunks": 25,
+        "mass": 350,
+        "drag": 4.5,
+        "heat dissipation": 0.6,
+        "fuel capacity": 400,
+        "cargo space": 20,
+        "outfit space": 465,
+        "weapon capacity": 175,
+        "engine capacity": 110,
+        "weapon": {
+          "blast radius": 110,
+          "shield damage": 1100,
+          "hull damage": 550,
+          "hit force": 1650
+        }
+      },
+      "tiny explosion": 18,
+      "small explosion": 36,
+      "medium explosion": 24,
+      "large explosion": 8,
+      "final explode": "final explosion medium",
+      "description": "The age old design of the Firebird was once one of the most common ships during the Alpha Wars. As such it was one of the few designs the Humans that fled to Sheragi space had access to. After half a millennium this ship has recieved heavy design tweaks to make it better able to stand up against the Behemoth Sheragi warships.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Shio Firebird",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "6f5c312c2ab9",
+      "governments": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
+          ]
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Particle Waveform Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fission Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Supercapacitor": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D41-HY Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Medium Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        },
+        "Laser Rifle": {
+          "count": 10,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fission Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Steering": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Shio Leviathan",
+      "engines": [
+        {
+          "x": -23,
+          "y": 126.5
+        },
+        {
+          "x": 23,
+          "y": 126.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -39.5,
+          "y": -33,
+          "gun": ""
+        },
+        {
+          "x": 39.5,
+          "y": -33,
+          "gun": ""
+        },
+        {
+          "x": -51,
+          "y": -21,
+          "gun": ""
+        },
+        {
+          "x": 51,
+          "y": -21,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -14.5,
+          "y": -11.5,
+          "turret": ""
+        },
+        {
+          "x": 14.5,
+          "y": -11.5,
+          "turret": ""
+        },
+        {
+          "x": -26,
+          "y": 11.5,
+          "turret": ""
+        },
+        {
+          "x": 26,
+          "y": 11.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "sprite": "ship/mleviathans",
+      "thumbnail": "thumbnail/mleviathans",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 11200000,
+        "shields": 16000,
+        "hull": 6500,
+        "required crew": 48,
+        "bunks": 69,
+        "mass": 640,
+        "drag": 7.6,
+        "heat dissipation": 0.5,
+        "fuel capacity": 500,
+        "cargo space": 20,
+        "outfit space": 680,
+        "weapon capacity": 265,
+        "engine capacity": 140,
+        "weapon": {
+          "blast radius": 90,
+          "shield damage": 900,
+          "hull damage": 450,
+          "hit force": 1500
+        }
+      },
+      "tiny explosion": 18,
+      "small explosion": 36,
+      "medium explosion": 24,
+      "large explosion": 8,
+      "final explode": "final explosion large",
+      "description": "The Leviathan has been in service for a long time, and with 500 years of extra development alongside Sheragi ships this ship is now capable of holding its own against some of the smaller Sheragi warships.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Shio Leviathan",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "fd82095ccee2",
+      "governments": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
+          ]
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Particle Waveform Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small EM Battery": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Hybrid Cooling": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Electronic Warfare System": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 48,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Fission Drive": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Fusion Afterburner": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Sheragi Hyperdrive": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Chipmunk Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Dromedary",
+      "engines": [
+        {
+          "x": 32.5,
+          "y": 207
+        },
+        {
+          "x": 3,
+          "y": 207
+        },
+        {
+          "x": -27.5,
+          "y": 207
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 65,
+          "y": -111,
+          "gun": ""
+        },
+        {
+          "x": -72,
+          "y": -97.5,
+          "gun": ""
+        },
+        {
+          "x": -66.5,
+          "y": 61,
+          "gun": ""
+        },
+        {
+          "x": 78,
+          "y": 64,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 10,
+          "y": -136.5,
+          "turret": ""
+        },
+        {
+          "x": -21.5,
+          "y": -57.5,
+          "turret": ""
+        },
+        {
+          "x": 51,
+          "y": 101,
+          "turret": ""
+        },
+        {
+          "x": -63.5,
+          "y": 120,
+          "turret": ""
+        },
+        {
+          "x": 52.5,
+          "y": 143,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -51,
+          "y": -54,
+          "position": "under",
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 47,
+          "y": -40,
+          "position": "under",
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 50,
+          "spreadChance": 30
+        }
+      ],
+      "plural": "Dromedaries",
+      "sprite": "ship/modified dromedary",
+      "thumbnail": "thumbnail/modified dromedary",
+      "attributes": {
+        "category": "Utility",
+        "cost": 20000000,
+        "shields": 15100,
+        "hull": 9600,
+        "required crew": 95,
+        "bunks": 300,
+        "mass": 2140,
+        "drag": 15.1,
+        "heat dissipation": 0.4,
+        "fuel capacity": 900,
+        "cargo space": 550,
+        "outfit space": 740,
+        "weapon capacity": 270,
+        "engine capacity": 195,
+        "outfit scan power": 18,
+        "outfit scan efficiency": 48,
+        "tactical scan power": 39,
+        "asteroid scan power": 42,
+        "atmosphere scan": 100,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "angle": 90,
+      "small explosion": 25,
+      "medium explosion": 35,
+      "large explosion": 45,
+      "huge explosion": 30,
+      "final explode": "final explosion large",
+      "description": "The Tycho Crater Cooperative's Dromedary was one of the foremost colonization ships during the early era before piracy became rampant and triggered the necessity for city-ships to be more combat-oriented. These ships incorporate extensive hydroponics, large construction equipment installations, and hundreds of densely packed \"dream cells\" built to transport people in bulk.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Dromedary",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "9affafbda0ec",
+      "governments": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true,
+          "The Assembly": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
+          ]
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Missions": [
+            "Ancient Travelers' Company 16",
+            "Assembly Defense Fleet"
+          ]
+        },
+        "Zuckungs list/uniques": {
+          "Missions": [
+            "derelict sadr swap"
+          ]
+        }
+      },
+      "outfits": {
+        "Particle Waveform Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo Launcher": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Torpedo": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Ducts": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Light Particle Shielding": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Electronic Warfare System": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 200,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 9,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Fission Drive": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Impala Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Llama",
+      "engines": [
+        {
+          "x": 3,
+          "y": 36.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 13,
+          "y": -21,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 70,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
+      "sprite": "ship/llama",
+      "thumbnail": "thumbnail/llama",
+      "attributes": {
+        "category": "Fighter",
+        "cost": 725000,
+        "shields": 1400,
+        "hull": 900,
+        "required crew": 1,
+        "bunks": 1,
+        "mass": 55,
+        "drag": 0.59,
+        "heat dissipation": 0.27,
+        "outfit space": 115,
+        "weapon capacity": 25,
+        "engine capacity": 35,
+        "cargo space": 100,
+        "weapon": {
+          "blast radius": 12,
+          "shield damage": 120,
+          "hull damage": 60,
+          "hit force": 180
+        }
+      },
+      "tiny explosion": 15,
+      "small explosion": 5,
+      "description": "The Llama is pushing the bounds of what can be considered a fighter by Human standards. It was created when it became apparant that a fighter needed to not immediateley disintegrate from a stray Sheragi shot. So that the model would never become obsolete, Shio Industries took inspiration from the Mule and decided to put a little bit of everything into this fighter, resulting in its bizarre appearance. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Llama",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "9210694a7c29",
+      "governments": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true,
+          "Syndicate": true
+        },
+        "sensor/sensor": {
+          "sensor": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
+          ]
+        },
+        "official-game/endless-sky": {
+          "Planets": [
+            "Geminus",
+            "Greenwater",
+            "New Boston",
+            "New Britain",
+            "New Tortuga"
+          ]
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "Planets": [
+            "Sapphire"
+          ]
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Planets": [
+            "Kestrix II"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Ankulah Ship Breaking Station",
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
+          ]
+        },
+        "sensor/sensor": {
+          "Planets": [
+            "lidar"
+          ]
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-AA Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "KP-6 Photovoltaic Array": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Ducts": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Platinum Spear :SRR",
+      "engines": [
+        {
+          "x": 83,
+          "y": 275
+        },
+        {
+          "x": -83,
+          "y": 275
+        },
+        {
+          "x": 0,
+          "y": 279
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": -123.5,
+          "y": 163.5,
+          "position": "over"
+        },
+        {
+          "x": 123.5,
+          "y": 163.5,
+          "position": "over"
+        }
+      ],
+      "steeringEngines": [
+        {
+          "x": -123.5,
+          "y": 163.5,
+          "position": "left"
+        },
+        {
+          "x": 123.5,
+          "y": 163.5,
+          "position": "right"
+        },
+        {
+          "x": -34.5,
+          "y": -221.5,
+          "position": "right"
+        },
+        {
+          "x": -39,
+          "y": -193.5,
+          "position": "right"
+        },
+        {
+          "x": -43.5,
+          "y": -165.5,
+          "position": "right"
+        },
+        {
+          "x": 34.5,
+          "y": -221.5,
+          "position": "left"
+        },
+        {
+          "x": 39,
+          "y": -193.5,
+          "position": "left"
+        },
+        {
+          "x": 43.5,
+          "y": -165.5,
+          "position": "left"
+        }
+      ],
+      "guns": [
+        {
+          "x": -96,
+          "y": -23,
+          "gun": ""
+        },
+        {
+          "x": 96,
+          "y": -23,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": 18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": -70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": 70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": -95,
+          "y": 168,
+          "turret": ""
+        },
+        {
+          "x": 95,
+          "y": 168,
+          "turret": ""
+        },
+        {
+          "x": -16.5,
+          "y": -111,
+          "turret": ""
+        },
+        {
+          "x": 16.5,
+          "y": -111,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 114,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 183,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "display name": "Platinum Spear",
+      "sprite": "ship/platinum spear",
+      "thumbnail": "thumbnail/platinum spear",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 35000000,
+        "shields": 20000,
+        "hull": 42000,
+        "required crew": 82,
+        "bunks": 286,
+        "mass": 1520,
+        "drag": 20,
+        "heat dissipation": 0.45,
+        "fuel capacity": 800,
+        "cargo space": 60,
+        "outfit space": 1300,
+        "weapon capacity": 510,
+        "engine capacity": 230,
+        "weapon": {
+          "blast radius": 420,
+          "shield damage": 7664,
+          "hull damage": 3832,
+          "hit force": 11495
+        }
+      },
+      "zoom": 1.35,
+      "over": true,
+      "tiny explosion": 60,
+      "small explosion": 26,
+      "medium explosion": 47,
+      "large explosion": 39,
+      "huge explosion": 42,
+      "nuke explosion": 2,
+      "final explode": "nuke residue fast",
+      "description": "A powerful Sheragi warship designed to break through enemy lines. The few flaws in its design are made up for by its immense size, making it one of the most powerful warships you've ever seen. With the collaboration between Human and Sheragi engineering this ship is the the most efficient warship in the Sheragi arsenal.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Platinum Spear :SRR",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "85f01daf8269",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Waveform Turret": {
+          "count": 8,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Kinetic Spear Launcher": {
+          "count": 2,
+          "pluginId": null
+        },
+        "Kinetic Spear Rack": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Kinetic Spear": {
+          "count": 18,
+          "pluginId": null
+        },
+        "Dense Particle Shielding": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Large EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Electronic Warfare System": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 2,
+          "pluginId": null
+        },
+        "Fusion Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Gold Shield :SRR",
+      "engines": [
+        {
+          "x": -174,
+          "y": 100
+        },
+        {
+          "x": 174,
+          "y": 100
+        },
+        {
+          "x": 0,
+          "y": 167
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": -177,
+          "y": -41,
+          "position": "over"
+        },
+        {
+          "x": 177,
+          "y": -41,
+          "position": "over"
+        }
+      ],
+      "steeringEngines": [
+        {
+          "x": -177,
+          "y": -41,
+          "position": "left"
+        },
+        {
+          "x": 177,
+          "y": -41,
+          "position": "right"
+        },
+        {
+          "x": -33,
+          "y": -142,
+          "position": "right"
+        },
+        {
+          "x": 33,
+          "y": -142,
+          "position": "left"
+        }
+      ],
+      "guns": [
+        {
+          "x": -156.5,
+          "y": -76.5,
+          "gun": ""
+        },
+        {
+          "x": 156.5,
+          "y": -76.5,
+          "gun": ""
+        },
+        {
+          "x": -147,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": 147,
+          "y": -55,
+          "gun": ""
+        },
+        {
+          "x": -80,
+          "y": -72,
+          "gun": ""
+        },
+        {
+          "x": 80,
+          "y": -72,
+          "gun": ""
+        },
+        {
+          "x": -69,
+          "y": -121,
+          "gun": ""
+        },
+        {
+          "x": 69,
+          "y": -121,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -0.5,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 70,
+          "turret": ""
+        },
+        {
+          "x": -99,
+          "y": 70,
+          "turret": ""
+        },
+        {
+          "x": 99,
+          "y": 70,
+          "turret": ""
+        },
+        {
+          "x": -171.5,
+          "y": -9.5,
+          "turret": ""
+        },
+        {
+          "x": 171.5,
+          "y": -9.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -99,
+          "y": 107,
+          "position": "back"
+        },
+        {
+          "type": "Fighter",
+          "x": -99,
+          "y": 107,
+          "position": "back"
+        },
+        {
+          "type": "Fighter",
+          "x": -99,
+          "y": 107,
+          "position": "back"
+        },
+        {
+          "type": "Fighter",
+          "x": -99,
+          "y": 107,
+          "position": "back"
+        },
+        {
+          "type": "Fighter",
+          "x": 99,
+          "y": 107,
+          "position": "back"
+        },
+        {
+          "type": "Fighter",
+          "x": 99,
+          "y": 107,
+          "position": "back"
+        },
+        {
+          "type": "Fighter",
+          "x": 99,
+          "y": 107,
+          "position": "back"
+        },
+        {
+          "type": "Fighter",
+          "x": 99,
+          "y": 107,
+          "position": "back"
+        }
+      ],
+      "leaks": [],
+      "display name": "Gold Shield",
+      "sprite": "ship/gold shield",
+      "thumbnail": "thumbnail/gold shield",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 24000000,
+        "shields": 18000,
+        "hull": 34000,
+        "required crew": 69,
+        "bunks": 245,
+        "mass": 1520,
+        "drag": 25,
+        "heat dissipation": 0.45,
+        "fuel capacity": 1800,
+        "cargo space": 200,
+        "outfit space": 1080,
+        "weapon capacity": 320,
+        "engine capacity": 230,
+        "hull repair rate": 2.5,
+        "hull delay": 180,
+        "weapon": {
+          "blast radius": 398,
+          "shield damage": 5832,
+          "hull damage": 2916,
+          "hit force": 8748
+        }
+      },
+      "zoom": 1.2,
+      "over": true,
+      "tiny explosion": 60,
+      "small explosion": 26,
+      "medium explosion": 47,
+      "large explosion": 39,
+      "huge explosion": 42,
+      "nuke explosion": 2,
+      "final explode": "nuke residue fast",
+      "description": "A powerful Sheragi carrier designed to quickly deploy fighters to swarm enemy ships. The ship comes equipped with a more powerful version of the repair system the Black Diamonds use. This increases its survivability, providing time for the fighters to finish off the enemy.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Gold Shield :SRR",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "a73c0cc23857",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Shard Fabricator": {
+          "count": 8,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Particle Waveform Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Medium EM Battery": {
+          "count": 2,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        },
+        "Dense Particle Shielding": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Large Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Electronic Warfare System": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 2,
+          "pluginId": null
+        },
+        "Fusion Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Opal Glaive :SRR",
+      "engines": [
+        {
+          "x": 83,
+          "y": 275
+        },
+        {
+          "x": -83,
+          "y": 275
+        },
+        {
+          "x": 0,
+          "y": 279
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": -123.5,
+          "y": 163.5,
+          "position": "over"
+        },
+        {
+          "x": 123.5,
+          "y": 163.5,
+          "position": "over"
+        }
+      ],
+      "steeringEngines": [
+        {
+          "x": -123.5,
+          "y": 163.5,
+          "position": "left"
+        },
+        {
+          "x": 123.5,
+          "y": 163.5,
+          "position": "right"
+        },
+        {
+          "x": -34.5,
+          "y": -221.5,
+          "position": "right"
+        },
+        {
+          "x": -39,
+          "y": -193.5,
+          "position": "right"
+        },
+        {
+          "x": -43.5,
+          "y": -165.5,
+          "position": "right"
+        },
+        {
+          "x": 34.5,
+          "y": -221.5,
+          "position": "left"
+        },
+        {
+          "x": 39,
+          "y": -193.5,
+          "position": "left"
+        },
+        {
+          "x": 43.5,
+          "y": -165.5,
+          "position": "left"
+        }
+      ],
+      "guns": [
+        {
+          "x": 0,
+          "y": -276,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": 18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": -70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": 70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": -95,
+          "y": 168,
+          "turret": ""
+        },
+        {
+          "x": 95,
+          "y": 168,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 114,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 183,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "display name": "Opal Glaive",
+      "sprite": "ship/opal glaive",
+      "thumbnail": "thumbnail/opal glaive",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 50000000,
+        "shields": 24000,
+        "hull": 42000,
+        "required crew": 85,
+        "bunks": 276,
+        "mass": 1520,
+        "drag": 20,
+        "heat dissipation": 0.45,
+        "fuel capacity": 800,
+        "cargo space": 60,
+        "outfit space": 1420,
+        "weapon capacity": 520,
+        "engine capacity": 230,
+        "spinal mount": 1,
+        "weapon": {
+          "blast radius": 420,
+          "shield damage": 7664,
+          "hull damage": 3832,
+          "hit force": 11495
+        }
+      },
+      "zoom": 1.35,
+      "over": true,
+      "tiny explosion": 60,
+      "small explosion": 26,
+      "medium explosion": 47,
+      "large explosion": 39,
+      "huge explosion": 42,
+      "nuke explosion": 2,
+      "final explode": "nuke residue fast",
+      "description": "For its original Sheragi masters, this warship was home to around 100 individuals. For others, however, that number more than doubles, bringing it on par with the largest city ships.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Opal Glaive :SRR",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "94a1b283af4c",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Sheragi Pulse Beam Turret": {
+          "count": 6,
+          "pluginId": null
+        },
+        "Sheragi Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Electronic Warfare System": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Bronze Edge :SRR",
+      "engines": [
+        {
+          "x": 0,
+          "y": 76
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [
+        {
+          "x": 51,
+          "y": 43,
+          "position": "right"
+        },
+        {
+          "x": 51,
+          "y": -2.5,
+          "position": "left"
+        },
+        {
+          "x": -51,
+          "y": 43,
+          "position": "left"
+        },
+        {
+          "x": -51,
+          "y": -2.5,
+          "position": "right"
+        }
+      ],
+      "guns": [
+        {
+          "x": 0,
+          "y": -77,
+          "gun": ""
+        },
+        {
+          "x": 45,
+          "y": -11,
+          "gun": ""
+        },
+        {
+          "x": -45,
+          "y": -11,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": 27.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "display name": "Bronze Edge",
+      "sprite": "ship/bronze edge",
+      "thumbnail": "thumbnail/bronze edge",
+      "attributes": {
+        "category": "Light Warship",
+        "cost": 6500000,
+        "shields": 4500,
+        "hull": 9500,
+        "required crew": 7,
+        "bunks": 10,
+        "mass": 295,
+        "drag": 4.5,
+        "heat dissipation": 0.75,
+        "fuel capacity": 600,
+        "cargo space": 0,
+        "outfit space": 460,
+        "weapon capacity": 120,
+        "engine capacity": 115,
+        "weapon": {
+          "blast radius": 100,
+          "shield damage": 1000,
+          "hull damage": 500,
+          "hit force": 1500
+        }
+      },
+      "zoom": 1.3,
+      "over": true,
+      "tiny explosion": 16,
+      "small explosion": 40,
+      "medium explosion": 28,
+      "large explosion": 10,
+      "final explode": "final explosion medium",
+      "description": "The Sheragi, despite being large creatures have managed to create a warship of relatively small size. It has space for passengers while still remaining, somehow, functional.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Bronze Edge :SRR",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "9e7a365faac5",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Heavy Ion Cyclotron": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Particle Waveform Cannon": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Sheragi Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Electronic Warfare System": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Large Fission Drive": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Fusion Afterburner": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Sheragi Hyperdrive": {
+          "count": 1,
+          "pluginId": null
+        }
+      }
+    },
+    {
+      "name": "Ruby Hammer :SRR",
+      "engines": [
+        {
+          "x": -95,
+          "y": -50
+        },
+        {
+          "x": 95,
+          "y": -50
+        },
+        {
+          "x": 0,
+          "y": 172
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": -68,
+          "y": -144,
+          "position": "over"
+        },
+        {
+          "x": 68,
+          "y": -144,
+          "position": "over"
+        }
+      ],
+      "steeringEngines": [
+        {
+          "x": -68,
+          "y": -144,
+          "position": "left"
+        },
+        {
+          "x": 68,
+          "y": -144,
+          "position": "right"
+        },
+        {
+          "x": -95,
+          "y": -50,
+          "position": "right"
+        },
+        {
+          "x": 95,
+          "y": -50,
+          "position": "left"
+        }
+      ],
+      "guns": [],
+      "turrets": [
+        {
+          "x": -22,
+          "y": -117,
+          "turret": ""
+        },
+        {
+          "x": 22,
+          "y": -117,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 66.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "display name": "Ruby Hammer",
+      "sprite": "ship/ruby hammer",
+      "thumbnail": "thumbnail/ruby hammer",
+      "attributes": {
+        "category": "Heavy Freighter",
+        "cost": 14000000,
+        "shields": 11000,
+        "hull": 29500,
+        "required crew": 38,
+        "bunks": 57,
+        "mass": 1020,
+        "drag": 20,
+        "heat dissipation": 0.45,
+        "fuel capacity": 1400,
+        "cargo space": 1200,
+        "outfit space": 630,
+        "weapon capacity": 210,
+        "engine capacity": 156,
+        "ion resistance": 0.1,
+        "weapon": {
+          "blast radius": 330,
+          "shield damage": 3300,
+          "hull damage": 1650,
+          "hit force": 4950
+        }
+      },
+      "zoom": 0.9,
+      "over": true,
+      "tiny explosion": 60,
+      "small explosion": 36,
+      "medium explosion": 55,
+      "large explosion": 42,
+      "huge explosion": 28,
+      "final explode": "final explosion large",
+      "description": "This Sheragi freighter outclasses any other freighter merely through its size. The Ruby Hammer was designed to cross the empty and dangerous space full of ion storms seperating Eden in two. Its unique hull shape helps provide some ion resistance.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Ruby Hammer :SRR",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "8d3e2c711eec",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Waveform Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Light Particle Shielding": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Medium EM Battery": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        },
+        "Large Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 2,
+          "pluginId": null
+        },
+        "Small Fusion Drive": {
+          "count": 1,
+          "pluginId": null
+        }
+      }
+    },
+    {
+      "name": "White Brand :SRR",
+      "engines": [
+        {
+          "x": -43,
+          "y": 159
+        },
+        {
+          "x": 43,
+          "y": 159
+        },
+        {
+          "x": -139,
+          "y": 128
+        },
+        {
+          "x": 139,
+          "y": 128
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": -84,
+          "y": -7,
+          "position": "over"
+        },
+        {
+          "x": 84,
+          "y": -7,
+          "position": "over"
+        }
+      ],
+      "steeringEngines": [
+        {
+          "x": -139,
+          "y": 128,
+          "position": "right"
+        },
+        {
+          "x": 139,
+          "y": 128,
+          "position": "left"
+        },
+        {
+          "x": -84,
+          "y": -7,
+          "position": "left"
+        },
+        {
+          "x": 84,
+          "y": -7,
+          "position": "right"
+        }
+      ],
+      "guns": [
+        {
+          "x": -56,
+          "y": -155,
+          "gun": ""
+        },
+        {
+          "x": 56,
+          "y": -155,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -95,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -26,
+          "turret": ""
+        },
+        {
+          "x": -47,
+          "y": -2,
+          "turret": ""
+        },
+        {
+          "x": 47,
+          "y": -2,
+          "turret": ""
+        },
+        {
+          "x": -67,
+          "y": 53,
+          "turret": ""
+        },
+        {
+          "x": 67,
+          "y": 53,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "display name": "White Brand",
+      "sprite": "ship/white brand",
+      "thumbnail": "thumbnail/white brand",
+      "attributes": {
+        "category": "Medium Warship",
+        "cost": 20000000,
+        "shields": 12500,
+        "hull": 32000,
+        "required crew": 47,
+        "bunks": 102,
+        "mass": 1000,
+        "drag": 15,
+        "heat dissipation": 0.45,
+        "fuel capacity": 800,
+        "cargo space": 60,
+        "outfit space": 1050,
+        "weapon capacity": 400,
+        "engine capacity": 156,
+        "weapon": {
+          "blast radius": 330,
+          "shield damage": 3300,
+          "hull damage": 1650,
+          "hit force": 4950
+        }
+      },
+      "zoom": 0.6,
+      "over": true,
+      "angle": 332,
+      "tiny explosion": 55,
+      "small explosion": 40,
+      "medium explosion": 56,
+      "large explosion": 45,
+      "huge explosion": 32,
+      "final explode": "final explosion large",
+      "description": "This Sheragi warship is the mainstay of the Sheragi military, providing the combat power neccesary while remaining cost effective enough that it can be present in numbers within the battlefield.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::White Brand :SRR",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "c3c8daf62b1f",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Waveform Turret": {
+          "count": 5,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Particle Waveform Cannon": {
+          "count": 2,
+          "pluginId": null
+        },
+        "Sheragi Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Dense Particle Shielding": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Medium EM Battery": {
+          "count": 2,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        },
+        "Large Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Electronic Warfare System": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 2,
+          "pluginId": null
+        },
+        "Small Fusion Drive": {
+          "count": 1,
+          "pluginId": null
+        }
+      }
+    }
+  ],
+  "variants": [
+    {
+      "name": "Scout (Shio)",
+      "engines": [
+        {
+          "x": -7,
+          "y": 40
+        },
+        {
+          "x": 7,
+          "y": 40
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -18.5,
+          "y": -6,
+          "gun": ""
+        },
+        {
+          "x": 18.5,
+          "y": -6,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -2.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
+      "sprite": "ship/scout",
+      "thumbnail": "thumbnail/scout",
+      "attributes": {
+        "category": "Transport",
+        "cost": 850000,
+        "shields": 2000,
+        "hull": 400,
+        "required crew": 1,
+        "bunks": 12,
+        "mass": 160,
+        "drag": 3.9,
+        "heat dissipation": 0.61,
+        "fuel capacity": 800,
+        "cargo space": 55,
+        "outfit space": 220,
+        "weapon capacity": 40,
+        "engine capacity": 100,
+        "weapon": {
+          "blast radius": 16,
+          "shield damage": 160,
+          "hull damage": 80,
+          "hit force": 240
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 20,
+      "medium explosion": 15,
+      "final explode": "final explosion small",
+      "description": "The Lionheart Scoutship was designed back in the days when the galaxy was more sparsely populated, and ships prospecting for habitable worlds or worlds rich in resources would often travel far away from any habitable ports where they would be able to refuel. Although the galaxy has now been much more thoroughly explored, the Scout remains a popular ship for long-distance travel.",
+      "_internalId": "official-game/endless-sky::Scout",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "4d2d104a1c4e",
+      "variant": "Scout (Shio)",
+      "baseShip": "Scout",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "official-game/endless-sky": {
+          "Merchant": true,
+          "Republic": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Merchant": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Alpha": true,
+          "Merchant": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Scar's Legion": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Energy Blaster": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-CC Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP036a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Scout (Eden)",
+      "engines": [
+        {
+          "x": -7,
+          "y": 40
+        },
+        {
+          "x": 7,
+          "y": 40
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -18.5,
+          "y": -6,
+          "gun": ""
+        },
+        {
+          "x": 18.5,
+          "y": -6,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -2.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
+      "sprite": "ship/scout",
+      "thumbnail": "thumbnail/scout",
+      "attributes": {
+        "category": "Transport",
+        "cost": 850000,
+        "shields": 2000,
+        "hull": 400,
+        "required crew": 1,
+        "bunks": 12,
+        "mass": 160,
+        "drag": 3.9,
+        "heat dissipation": 0.61,
+        "fuel capacity": 800,
+        "cargo space": 55,
+        "outfit space": 220,
+        "weapon capacity": 40,
+        "engine capacity": 100,
+        "weapon": {
+          "blast radius": 16,
+          "shield damage": 160,
+          "hull damage": 80,
+          "hit force": 240
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 20,
+      "medium explosion": 15,
+      "final explode": "final explosion small",
+      "description": "The Lionheart Scoutship was designed back in the days when the galaxy was more sparsely populated, and ships prospecting for habitable worlds or worlds rich in resources would often travel far away from any habitable ports where they would be able to refuel. Although the galaxy has now been much more thoroughly explored, the Scout remains a popular ship for long-distance travel.",
+      "_internalId": "official-game/endless-sky::Scout",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "4d2d104a1c4e",
+      "variant": "Scout (Eden)",
+      "baseShip": "Scout",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
+        },
+        "official-game/endless-sky": {
+          "Merchant": true,
+          "Republic": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Merchant": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Alpha": true,
+          "Merchant": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Scar's Legion": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
+          ]
+        }
+      },
+      "outfits": {
+        "Shard Fabricator": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Fission Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Berserker (Shio)",
+      "engines": [
+        {
+          "x": -10,
+          "y": 45
+        },
+        {
+          "x": 10,
+          "y": 45
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -20,
+          "y": 12,
+          "gun": ""
+        },
+        {
+          "x": 20,
+          "y": 12,
+          "gun": ""
+        },
+        {
+          "x": -44,
+          "y": 10,
+          "gun": ""
+        },
+        {
+          "x": 44,
+          "y": 10,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        }
+      ],
+      "sprite": "ship/berserker",
+      "thumbnail": "thumbnail/berserker",
+      "attributes": {
+        "category": "Interceptor",
+        "cost": 520000,
+        "shields": 2200,
+        "hull": 500,
+        "required crew": 1,
+        "bunks": 2,
+        "mass": 130,
+        "drag": 2.5,
+        "heat dissipation": 0.74,
+        "fuel capacity": 400,
+        "cargo space": 10,
+        "outfit space": 200,
+        "weapon capacity": 35,
+        "engine capacity": 65,
+        "weapon": {
+          "blast radius": 30,
+          "shield damage": 300,
+          "hull damage": 150,
+          "hit force": 450
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 15,
+      "final explode": "final explosion small",
+      "description": "Once one of the most popular interceptor-class ships, the Berserker's popularity is now waning in favor of more modern and versatile ships like the Hawk. Although limited numbers are still produced by Betelgeuse Shipyards, most Berserkers that are in service today are more than half a century old.",
+      "_internalId": "official-game/endless-sky::Berserker",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "a2e90a81f576",
+      "variant": "Berserker (Shio)",
+      "baseShip": "Berserker",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "official-game/endless-sky": {
+          "Pirate": true,
+          "Republic": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Pirate": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Pirate": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true,
+          "Pirate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Bounty": true,
+          "Pirate": true,
+          "Oathbreaker": true,
+          "Pirate (Rivals)": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Gatling Gun": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gatling Gun Ammo": {
+          "count": 12000,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-CC Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP072a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D23-QP Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Berserker (Eden)",
+      "engines": [
+        {
+          "x": -10,
+          "y": 45
+        },
+        {
+          "x": 10,
+          "y": 45
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -20,
+          "y": 12,
+          "gun": ""
+        },
+        {
+          "x": 20,
+          "y": 12,
+          "gun": ""
+        },
+        {
+          "x": -44,
+          "y": 10,
+          "gun": ""
+        },
+        {
+          "x": 44,
+          "y": 10,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        }
+      ],
+      "sprite": "ship/berserker",
+      "thumbnail": "thumbnail/berserker",
+      "attributes": {
+        "category": "Interceptor",
+        "cost": 520000,
+        "shields": 2200,
+        "hull": 500,
+        "required crew": 1,
+        "bunks": 2,
+        "mass": 130,
+        "drag": 2.5,
+        "heat dissipation": 0.74,
+        "fuel capacity": 400,
+        "cargo space": 10,
+        "outfit space": 200,
+        "weapon capacity": 35,
+        "engine capacity": 65,
+        "weapon": {
+          "blast radius": 30,
+          "shield damage": 300,
+          "hull damage": 150,
+          "hit force": 450
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 15,
+      "final explode": "final explosion small",
+      "description": "Once one of the most popular interceptor-class ships, the Berserker's popularity is now waning in favor of more modern and versatile ships like the Hawk. Although limited numbers are still produced by Betelgeuse Shipyards, most Berserkers that are in service today are more than half a century old.",
+      "_internalId": "official-game/endless-sky::Berserker",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "a2e90a81f576",
+      "variant": "Berserker (Eden)",
+      "baseShip": "Berserker",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
+        },
+        "official-game/endless-sky": {
+          "Pirate": true,
+          "Republic": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Pirate": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Pirate": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true,
+          "Pirate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Bounty": true,
+          "Pirate": true,
+          "Oathbreaker": true,
+          "Pirate (Rivals)": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
+          ]
+        }
+      },
+      "outfits": {
+        "Shard Fabricator": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D23-QP Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Fission Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Aerie (Shio)",
+      "engines": [
+        {
+          "x": 15,
+          "y": 97
+        },
+        {
+          "x": -15,
+          "y": 97
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -12,
+          "y": -78,
+          "gun": ""
+        },
+        {
+          "x": 12,
+          "y": -78,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": 1.5,
+          "turret": ""
+        },
+        {
+          "x": -31,
+          "y": 15.5,
+          "turret": ""
+        },
+        {
+          "x": 31,
+          "y": 15.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/aerie",
+      "thumbnail": "thumbnail/aerie",
+      "attributes": {
+        "category": "Medium Warship",
+        "cost": 3500000,
+        "shields": 5700,
+        "hull": 1900,
+        "required crew": 10,
+        "bunks": 28,
+        "mass": 390,
+        "drag": 6.15,
+        "heat dissipation": 0.47,
+        "fuel capacity": 500,
+        "cargo space": 50,
+        "outfit space": 390,
+        "weapon capacity": 150,
+        "engine capacity": 95,
+        "weapon": {
+          "blast radius": 80,
+          "shield damage": 800,
+          "hull damage": 400,
+          "hit force": 1200
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 25,
+      "medium explosion": 25,
+      "large explosion": 10,
+      "final explode": "final explosion medium",
+      "description": "The Lionheart Aerie is a light carrier, designed to be just big enough for four fighter bays plus a decent armament of its own. Variations on this same ship design have been in use in the Deep for almost half a millennium, but this model comes with the very latest in generator and weapon technology.",
+      "_internalId": "official-game/endless-sky::Aerie",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "b356fbe1c855",
+      "variant": "Aerie (Shio)",
+      "baseShip": "Aerie",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "official-game/endless-sky": {
+          "Deep Security": true,
+          "Republic": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Pirate (Rivals)": true,
+          "Deep": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fission Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D41-HY Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Aerie (Eden)",
+      "engines": [
+        {
+          "x": 15,
+          "y": 97
+        },
+        {
+          "x": -15,
+          "y": 97
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -12,
+          "y": -78,
+          "gun": ""
+        },
+        {
+          "x": 12,
+          "y": -78,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": 1.5,
+          "turret": ""
+        },
+        {
+          "x": -31,
+          "y": 15.5,
+          "turret": ""
+        },
+        {
+          "x": 31,
+          "y": 15.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 43.5,
+          "y": 2,
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 90,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/aerie",
+      "thumbnail": "thumbnail/aerie",
+      "attributes": {
+        "category": "Medium Warship",
+        "cost": 3500000,
+        "shields": 5700,
+        "hull": 1900,
+        "required crew": 10,
+        "bunks": 28,
+        "mass": 390,
+        "drag": 6.15,
+        "heat dissipation": 0.47,
+        "fuel capacity": 500,
+        "cargo space": 50,
+        "outfit space": 390,
+        "weapon capacity": 150,
+        "engine capacity": 95,
+        "weapon": {
+          "blast radius": 80,
+          "shield damage": 800,
+          "hull damage": 400,
+          "hit force": 1200
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 25,
+      "medium explosion": 25,
+      "large explosion": 10,
+      "final explode": "final explosion medium",
+      "description": "The Lionheart Aerie is a light carrier, designed to be just big enough for four fighter bays plus a decent armament of its own. Variations on this same ship design have been in use in the Deep for almost half a millennium, but this model comes with the very latest in generator and weapon technology.",
+      "_internalId": "official-game/endless-sky::Aerie",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "b356fbe1c855",
+      "variant": "Aerie (Eden)",
+      "baseShip": "Aerie",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
+        },
+        "official-game/endless-sky": {
+          "Deep Security": true,
+          "Republic": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Pirate (Rivals)": true,
+          "Deep": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
+          ]
+        }
+      },
+      "outfits": {
+        "Particle Waveform Turret": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small EM Battery": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Supercapacitor": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D41-HY Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Hybrid Cooling": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Solar Intake": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Outfits Expansion": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 15,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fission Drive": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Mule (Shio)",
+      "engines": [
+        {
+          "x": 11,
+          "y": 128
+        },
+        {
+          "x": -8,
+          "y": 128
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -11,
+          "y": -125,
+          "gun": ""
+        },
+        {
+          "x": 11,
+          "y": -125,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -22,
+          "y": -53.5,
+          "turret": ""
+        },
+        {
+          "x": 19.5,
+          "y": -39,
+          "turret": ""
+        },
+        {
+          "x": 20,
+          "y": 33,
+          "turret": ""
+        },
+        {
+          "x": -20.5,
+          "y": 103.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -25,
+          "y": -25,
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/mule",
+      "thumbnail": "thumbnail/mule",
+      "attributes": {
+        "category": "Utility",
+        "cost": 4080000,
+        "shields": 5400,
+        "hull": 4400,
+        "required crew": 14,
+        "bunks": 43,
+        "mass": 780,
+        "drag": 9.1,
+        "heat dissipation": 0.32,
+        "fuel capacity": 600,
+        "cargo space": 170,
+        "outfit space": 440,
+        "weapon capacity": 170,
+        "engine capacity": 110,
+        "weapon": {
+          "blast radius": 100,
+          "shield damage": 1000,
+          "hull damage": 500,
+          "hit force": 1500
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 30,
+      "medium explosion": 20,
+      "final explode": "final explosion medium",
+      "description": "The Mule is as much of a hodgepodge as its looks suggest. The Lionheart ship designers combined a good deal of cargo space with a decent amount of weaponry and even a fighter bay, and ended up with a ship that is mostly used as a freighter but can also be used as a warship because of its heavy armament and shields. This hodgepodge nature has its downside, though, namely its high crew requirement and the fact that any dedicated ship of the same cost will do better in a specialized role than the Mule will.",
+      "_internalId": "official-game/endless-sky::Mule",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "dd565399efa6",
+      "variant": "Mule (Shio)",
+      "baseShip": "Mule",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "official-game/endless-sky": {
+          "Pirate": true,
+          "Merchant": true,
+          "Deep Security": true,
+          "Republic": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Bounty": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate": true,
+          "Bounty (Disguised)": true,
+          "Merchant": true,
+          "Bounty Hunter": true,
+          "Pirate (Rivals)": true,
+          "Bounty": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP072a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D41-HY Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Ducts": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Water Coolant System": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-AA Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-CC Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "KP-6 Photovoltaic Array": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Ramscoop": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 10,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Mule (Eden)",
+      "engines": [
+        {
+          "x": 11,
+          "y": 128
+        },
+        {
+          "x": -8,
+          "y": 128
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -11,
+          "y": -125,
+          "gun": ""
+        },
+        {
+          "x": 11,
+          "y": -125,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -22,
+          "y": -53.5,
+          "turret": ""
+        },
+        {
+          "x": 19.5,
+          "y": -39,
+          "turret": ""
+        },
+        {
+          "x": 20,
+          "y": 33,
+          "turret": ""
+        },
+        {
+          "x": -20.5,
+          "y": 103.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -25,
+          "y": -25,
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 50,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/mule",
+      "thumbnail": "thumbnail/mule",
+      "attributes": {
+        "category": "Utility",
+        "cost": 4080000,
+        "shields": 5400,
+        "hull": 4400,
+        "required crew": 14,
+        "bunks": 43,
+        "mass": 780,
+        "drag": 9.1,
+        "heat dissipation": 0.32,
+        "fuel capacity": 600,
+        "cargo space": 170,
+        "outfit space": 440,
+        "weapon capacity": 170,
+        "engine capacity": 110,
+        "weapon": {
+          "blast radius": 100,
+          "shield damage": 1000,
+          "hull damage": 500,
+          "hit force": 1500
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 30,
+      "medium explosion": 20,
+      "final explode": "final explosion medium",
+      "description": "The Mule is as much of a hodgepodge as its looks suggest. The Lionheart ship designers combined a good deal of cargo space with a decent amount of weaponry and even a fighter bay, and ended up with a ship that is mostly used as a freighter but can also be used as a warship because of its heavy armament and shields. This hodgepodge nature has its downside, though, namely its high crew requirement and the fact that any dedicated ship of the same cost will do better in a specialized role than the Mule will.",
+      "_internalId": "official-game/endless-sky::Mule",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "dd565399efa6",
+      "variant": "Mule (Eden)",
+      "baseShip": "Mule",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
+        },
+        "official-game/endless-sky": {
+          "Pirate": true,
+          "Merchant": true,
+          "Deep Security": true,
+          "Republic": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Bounty": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate": true,
+          "Bounty (Disguised)": true,
+          "Merchant": true,
+          "Bounty Hunter": true,
+          "Pirate (Rivals)": true,
+          "Bounty": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
+          ]
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Particle Waveform Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP072a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D41-HY Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cooling Ducts": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-BB Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "KP-6 Photovoltaic Array": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Ramscoop": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fission Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Bactrian (Eden)",
+      "engines": [
+        {
+          "x": 18.5,
+          "y": 232
+        },
+        {
+          "x": -15,
+          "y": 232
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -9,
+          "y": -231.5,
+          "gun": ""
+        },
+        {
+          "x": 13.5,
+          "y": -231.5,
+          "gun": ""
+        },
+        {
+          "x": 36.5,
+          "y": -197,
+          "gun": ""
+        },
+        {
+          "x": 42,
+          "y": -193,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": 37,
+          "y": -132.5,
+          "turret": ""
+        },
+        {
+          "x": -39,
+          "y": -39,
+          "turret": ""
+        },
+        {
+          "x": 31.5,
+          "y": -26,
+          "turret": ""
+        },
+        {
+          "x": -42.5,
+          "y": 75,
+          "turret": ""
+        },
+        {
+          "x": 32.5,
+          "y": 132,
+          "turret": ""
+        },
+        {
+          "x": -33.5,
+          "y": 192.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -43.5,
+          "y": -125,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": 53,
+          "y": -72.5,
+          "launch effect": "human internal"
+        },
+        {
+          "type": "Fighter",
+          "x": -50,
+          "y": 103.5,
+          "launch effect": "human internal"
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 30,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 50,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/bactrian",
+      "thumbnail": "thumbnail/bactrian",
+      "attributes": {
+        "licenses": {
+          "City-Ship": true
+        },
+        "category": "Utility",
+        "cost": 17600000,
+        "shields": 17500,
+        "hull": 8600,
+        "required crew": 70,
+        "bunks": 245,
+        "mass": 2450,
+        "drag": 30.6,
+        "heat dissipation": 0.22,
+        "fuel capacity": 700,
+        "cargo space": 530,
+        "outfit space": 740,
+        "weapon capacity": 300,
+        "engine capacity": 180,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "small explosion": 25,
+      "medium explosion": 35,
+      "large explosion": 45,
+      "huge explosion": 30,
+      "final explode": "final explosion large",
+      "description": "The Lionheart Bactrian is the last of the great city-ships, a design hearkening back to the early days of space colonization when a long-distance vessel needed to be a self-contained world, able to survive for weeks at a time without encountering an inhabited planet. It is not only a freighter, but a carrier, and a capable warship either at short range or at a distance. \tNaturally, this versatility also makes it extremely expensive, and the Bactrian is normally only for sale to citizens who have been vetted by the local government of the Deep.",
+      "_internalId": "official-game/endless-sky::Bactrian",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "f80228c395a7",
+      "variant": "Bactrian (Eden)",
+      "baseShip": "Bactrian",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
+        },
+        "official-game/endless-sky": {
+          "Deep Security": true
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "Pirate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Pirate": true,
+          "Bounty (Disguised)": true,
+          "Bounty Hunter": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
+          ]
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Particle Waveform Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Light Particle Shielding": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Electronic Warfare System": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Breeder Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fission Core": {
+          "count": 1,
+          "pluginId": null
+        },
+        "LP144a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 175,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 6,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Emerald Sword (Modern) :SRR",
+      "engines": [
+        {
+          "x": 83,
+          "y": 275
+        },
+        {
+          "x": 132,
+          "y": 282
+        },
+        {
+          "x": -83,
+          "y": 275
+        },
+        {
+          "x": -132,
+          "y": 282
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": -131,
+          "y": 136,
+          "position": "over"
+        },
+        {
+          "x": 131,
+          "y": 136,
+          "position": "over"
+        }
+      ],
+      "steeringEngines": [
+        {
+          "x": -131,
+          "y": 136,
+          "position": "left"
+        },
+        {
+          "x": 131,
+          "y": 136,
+          "position": "right"
+        },
+        {
+          "x": -34.5,
+          "y": -221.5,
+          "position": "right"
+        },
+        {
+          "x": -39,
+          "y": -193.5,
+          "position": "right"
+        },
+        {
+          "x": -43.5,
+          "y": -165.5,
+          "position": "right"
+        },
+        {
+          "x": 34.5,
+          "y": -221.5,
+          "position": "left"
+        },
+        {
+          "x": 39,
+          "y": -193.5,
+          "position": "left"
+        },
+        {
+          "x": 43.5,
+          "y": -165.5,
+          "position": "left"
+        }
+      ],
+      "guns": [
+        {
+          "x": 0,
+          "y": -276,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": 18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": -70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": 70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 114,
+          "turret": ""
+        },
+        {
+          "x": -128.5,
+          "y": 174,
+          "turret": ""
+        },
+        {
+          "x": 128.5,
+          "y": 174,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 183,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": 220.5,
+          "position": "back",
+          "launch effect": "sheragi launch"
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": 220.5,
+          "position": "back",
+          "launch effect": "sheragi launch"
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": 220.5,
+          "position": "back",
+          "launch effect": "sheragi launch"
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": 220.5,
+          "position": "back",
+          "launch effect": "sheragi launch"
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": 220.5,
+          "position": "back",
+          "launch effect": "sheragi launch"
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": 220.5,
+          "position": "back",
+          "launch effect": "sheragi launch"
+        }
+      ],
+      "leaks": [],
+      "sprite": "ship/emeraldsword",
+      "thumbnail": "thumbnail/emeraldsword",
+      "swizzle": 3,
+      "attributes": {
+        "category": "Superheavy",
+        "cost": 100000000,
+        "shields": 35000,
+        "hull": 60000,
+        "required crew": 86,
+        "bunks": 302,
+        "mass": 4360,
+        "drag": 41,
+        "heat dissipation": 0.22,
+        "fuel capacity": 900,
+        "cargo space": 169,
+        "outfit space": 1500,
+        "weapon capacity": 512,
+        "engine capacity": 230,
+        "spinal mount": 1,
+        "weapon": {
+          "blast radius": 993,
+          "shield damage": 19930,
+          "hull damage": 11965,
+          "hit force": 11495
+        },
+        "self destruct": 1
+      },
+      "zoom": 0.8,
+      "over": true,
+      "tiny explosion": 60,
+      "small explosion": 26,
+      "medium explosion": 47,
+      "large explosion": 39,
+      "huge explosion": 42,
+      "nuke explosion": 2,
+      "final explode": "nuke residue fast",
+      "description": "An ancient Sheragi warship that was crewed by mutineers that fled from their civil war and escaped into interstellar space. Found orbiting a disconnected star, this is an impressively large ship, fit for the equally large Sheragi. The ship's main weapon is a fusion-pumped gamma-ray laser called the 'Dragonflame Cannon.' Despite the relatively primitive outfits, it's still a very capable war machine due to its size. For its original Sheragi masters, this warship was home to around 100 individuals. For others, however, that number more than doubles, bringing it on par with the largest city ships.",
+      "_internalId": "official-game/endless-sky::Emerald Sword",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "c7c84852482a",
+      "variant": "Emerald Sword (Modern) :SRR",
+      "baseShip": "Emerald Sword",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true
+        },
+        "official-game/endless-sky": {
+          "Sheragi": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Dragonflame Cannon": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Particle Waveform Turret": {
+          "count": 6,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sheragi Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Hybrid Cooling": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Electronic Warfare System": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Dense Particle Shielding": {
+          "count": 2,
+          "pluginId": null
+        },
+        "Fission Core": {
+          "count": 3,
+          "pluginId": null
+        },
+        "Sheragi Solar Intake": {
+          "count": 2,
+          "pluginId": null
+        },
+        "Fusion Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Opal Glaive :SRR (Opal Glaive (Light) :SRR)",
+      "engines": [
+        {
+          "x": 83,
+          "y": 275
+        },
+        {
+          "x": -83,
+          "y": 275
+        },
+        {
+          "x": 0,
+          "y": 279
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": -123.5,
+          "y": 163.5,
+          "position": "over"
+        },
+        {
+          "x": 123.5,
+          "y": 163.5,
+          "position": "over"
+        }
+      ],
+      "steeringEngines": [
+        {
+          "x": -123.5,
+          "y": 163.5,
+          "position": "left"
+        },
+        {
+          "x": 123.5,
+          "y": 163.5,
+          "position": "right"
+        },
+        {
+          "x": -34.5,
+          "y": -221.5,
+          "position": "right"
+        },
+        {
+          "x": -39,
+          "y": -193.5,
+          "position": "right"
+        },
+        {
+          "x": -43.5,
+          "y": -165.5,
+          "position": "right"
+        },
+        {
+          "x": 34.5,
+          "y": -221.5,
+          "position": "left"
+        },
+        {
+          "x": 39,
+          "y": -193.5,
+          "position": "left"
+        },
+        {
+          "x": 43.5,
+          "y": -165.5,
+          "position": "left"
+        }
+      ],
+      "guns": [
+        {
+          "x": 0,
+          "y": -276,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": 18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": -70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": 70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": -95,
+          "y": 168,
+          "turret": ""
+        },
+        {
+          "x": 95,
+          "y": 168,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 114,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 183,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "display name": "Opal Glaive",
+      "sprite": "ship/opal glaive",
+      "thumbnail": "thumbnail/opal glaive",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 50000000,
+        "shields": 24000,
+        "hull": 42000,
+        "required crew": 85,
+        "bunks": 276,
+        "mass": 1520,
+        "drag": 20,
+        "heat dissipation": 0.45,
+        "fuel capacity": 800,
+        "cargo space": 60,
+        "outfit space": 1420,
+        "weapon capacity": 520,
+        "engine capacity": 230,
+        "spinal mount": 1,
+        "weapon": {
+          "blast radius": 420,
+          "shield damage": 7664,
+          "hull damage": 3832,
+          "hit force": 11495
+        }
+      },
+      "zoom": 1.35,
+      "over": true,
+      "tiny explosion": 60,
+      "small explosion": 26,
+      "medium explosion": 47,
+      "large explosion": 39,
+      "huge explosion": 42,
+      "nuke explosion": 2,
+      "final explode": "nuke residue fast",
+      "description": "For its original Sheragi masters, this warship was home to around 100 individuals. For others, however, that number more than doubles, bringing it on par with the largest city ships.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Opal Glaive :SRR",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "94a1b283af4c",
+      "variant": "Opal Glaive (Light) :SRR",
+      "baseShip": "Opal Glaive :SRR",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Sheragi Pulse Beam Turret": {
+          "count": 6,
+          "pluginId": null
+        },
+        "Sheragi Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Electronic Warfare System": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Light's Bane": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Fusion Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)",
+      "engines": [
+        {
+          "x": 83,
+          "y": 275
+        },
+        {
+          "x": -83,
+          "y": 275
+        },
+        {
+          "x": 0,
+          "y": 279
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": -123.5,
+          "y": 163.5,
+          "position": "over"
+        },
+        {
+          "x": 123.5,
+          "y": 163.5,
+          "position": "over"
+        }
+      ],
+      "steeringEngines": [
+        {
+          "x": -123.5,
+          "y": 163.5,
+          "position": "left"
+        },
+        {
+          "x": 123.5,
+          "y": 163.5,
+          "position": "right"
+        },
+        {
+          "x": -34.5,
+          "y": -221.5,
+          "position": "right"
+        },
+        {
+          "x": -39,
+          "y": -193.5,
+          "position": "right"
+        },
+        {
+          "x": -43.5,
+          "y": -165.5,
+          "position": "right"
+        },
+        {
+          "x": 34.5,
+          "y": -221.5,
+          "position": "left"
+        },
+        {
+          "x": 39,
+          "y": -193.5,
+          "position": "left"
+        },
+        {
+          "x": 43.5,
+          "y": -165.5,
+          "position": "left"
+        }
+      ],
+      "guns": [
+        {
+          "x": 0,
+          "y": -276,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": 18,
+          "y": -41.5,
+          "turret": ""
+        },
+        {
+          "x": -70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": 70,
+          "y": 70.5,
+          "turret": ""
+        },
+        {
+          "x": -95,
+          "y": 168,
+          "turret": ""
+        },
+        {
+          "x": 95,
+          "y": 168,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 114,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": 183,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "display name": "Opal Glaive",
+      "sprite": "ship/opal glaive",
+      "thumbnail": "thumbnail/opal glaive",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 50000000,
+        "shields": 24000,
+        "hull": 42000,
+        "required crew": 85,
+        "bunks": 276,
+        "mass": 1520,
+        "drag": 20,
+        "heat dissipation": 0.45,
+        "fuel capacity": 800,
+        "cargo space": 60,
+        "outfit space": 1420,
+        "weapon capacity": 520,
+        "engine capacity": 230,
+        "spinal mount": 1,
+        "weapon": {
+          "blast radius": 420,
+          "shield damage": 7664,
+          "hull damage": 3832,
+          "hit force": 11495
+        }
+      },
+      "zoom": 1.35,
+      "over": true,
+      "tiny explosion": 60,
+      "small explosion": 26,
+      "medium explosion": 47,
+      "large explosion": 39,
+      "huge explosion": 42,
+      "nuke explosion": 2,
+      "final explode": "nuke residue fast",
+      "description": "For its original Sheragi masters, this warship was home to around 100 individuals. For others, however, that number more than doubles, bringing it on par with the largest city ships.",
+      "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Opal Glaive :SRR",
+      "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "_hash": "94a1b283af4c",
+      "variant": "Opal Glaive (Shadow) :SRR",
+      "baseShip": "Opal Glaive :SRR",
+      "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Sheragi Pulse Beam Turret": {
+          "count": 6,
+          "pluginId": null
+        },
+        "Sheragi Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large EM Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Hybrid Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Electronic Warfare System": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Shadow's Blade": {
+          "count": 1,
+          "pluginId": null
+        },
+        "Fusion Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    }
+  ],
+  "outfits": [
+    {
+      "name": "SRR Small EM Battery",
+      "display name": "Small EM Battery",
+      "plural": "Small EM Batteries",
+      "category": "Power",
+      "series": "Batteries",
+      "index": 13030,
+      "cost": 100000,
+      "thumbnail": "outfit/small embattery",
+      "mass": 14,
+      "outfit space": -14,
+      "shield generation": 0.14,
+      "shield energy": 0.14,
+      "shield heat": 0.07,
+      "heat generation": 0.6,
+      "energy capacity": 8800,
+      "description": "This small superconductive inductor stores just enough power to keep a fighter running, and the electromagnetic field it generates helps to maintain the shield matrix.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Large EM Battery",
+      "display name": "Large EM Battery",
+      "plural": "Large EM Batteries",
+      "category": "Power",
+      "series": "Batteries",
+      "index": 13050,
+      "cost": 750000,
+      "thumbnail": "outfit/embattery",
+      "mass": 150,
+      "outfit space": -150,
+      "shield generation": 0.8,
+      "shield energy": 0.8,
+      "shield heat": 0.4,
+      "heat generation": 5,
+      "energy capacity": 105000,
+      "description": "This is a massive superconductive coil, capable of storing large amounts of energy in an electromagnetic field and discharging all of it in a fraction of a second. The magnetic field also provides a small boost to the shield regeneration of the ship, which is otherwise very underdeveloped.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Small Hybrid Cooling",
+      "display name": "Small Hybrid Cooling",
+      "category": "Systems",
+      "series": "Cooling",
+      "index": 13030,
+      "cost": 235000,
+      "thumbnail": "outfit/small sheragi cooling",
+      "mass": 8,
+      "outfit space": -8,
+      "cooling": 9,
+      "active cooling": 17,
+      "cooling energy": 1.6,
+      "description": "This small cooling solution was designed with fighters in mind, and as such, it does not store fuel. However, it provides more passive cooling than its big brother.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Large Hybrid Cooling",
+      "display name": "Large Hybrid Cooling",
+      "category": "Systems",
+      "series": "Cooling",
+      "index": 13050,
+      "cost": 1460000,
+      "thumbnail": "outfit/sheragicooling",
+      "mass": 40,
+      "outfit space": -40,
+      "cooling": 24,
+      "active cooling": 128,
+      "cooling energy": 15.55,
+      "fuel capacity": -200,
+      "heat capacity": 500,
+      "description": "This Sheragi cooling system is primitive at best, but it works both actively and passively, allowing it to dissipate much more heat than a simple radiator would. It does, however, drain a lot of power when subjected to the heat of battle. It also includes cryogenic tanks to hold some additional fuel, which is used as a temporary heat reservoir.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Aeleos Drive",
+      "display name": "Aeleos Drive",
+      "category": "Engines",
+      "series": "Engines",
+      "index": 13030,
+      "cost": 2243000,
+      "thumbnail": "outfit/drive aeleos",
+      "mass": 68,
+      "outfit space": -68,
+      "engine capacity": -32,
+      "weapon capacity": -3,
+      "energy generation": 5.2,
+      "heat generation": 14.15,
+      "thrust": 26.7,
+      "thrusting energy": 1.55,
+      "thrusting heat": 2.9,
+      "reverse thrust": 8.2,
+      "reverse thrusting energy": 0.9,
+      "reverse thrusting heat": 1.55,
+      "turn": 479.7,
+      "turning energy": 0.6,
+      "turning heat": 1.4,
+      "flare sprite": "effect/fissionflare",
+      "flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "flare sound": "atomic small",
+      "steering flare sprite": "effect/fissionflare",
+      "steering flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "steering flare sound": "atomic tiny",
+      "description": "A much smaller cousin of the Fusion Drive, it relies on fission instead of fusion to function, providing the necessary power generation and thrust to drive the Heavy Ion Cyclotron.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Aolilatse Drive",
+      "display name": "Aolilatse Drive",
+      "category": "Engines",
+      "series": "Engines",
+      "index": 13033,
+      "cost": 42169000,
+      "thumbnail": "outfit/drive aolilatse",
+      "mass": 460,
+      "outfit space": -460,
+      "engine capacity": -219,
+      "weapon capacity": -19,
+      "energy generation": 54,
+      "heat generation": 156,
+      "thrust": 270.75,
+      "thrusting energy": 11,
+      "thrusting heat": 33,
+      "reverse thrust": 63.9,
+      "reverse thrusting energy": 4.9,
+      "reverse thrusting heat": 13.3,
+      "turn": 3744,
+      "turning energy": 4.55,
+      "turning heat": 12.35,
+      "flare sprite": "effect/fusionflare",
+      "flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "flare sound": "atomic huge",
+      "steering flare sprite": "effect/fusionflare",
+      "steering flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "steering flare sound": "atomic medium",
+      "reverse flare sprite": "effect/fusionflare",
+      "reverse flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "reverse flare sound": "atomic large",
+      "unplunderable": 1,
+      "description": "The Sheragi engines are much more than simple tubes spewing fire; they are a collection of interdependent devices, providing increased efficiency at the cost of modularity. These include a hyperdrive, an enormous fusion reactor, and the most powerful plasma engines you've ever seen. It's all examples of relatively simple technology, but they have been refined and taken to their extreme. The engines are fundamentally connected to the fusion reactor, increasing their thrust even further and thereby allowing the Emerald Sword to fly at impressive speeds, traveling through interstellar space with relative ease.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Electronic Warfare System",
+      "display name": "Electronic Warfare System",
+      "category": "Systems",
+      "series": "Scanners",
+      "index": 13011,
+      "cost": 3400000,
+      "thumbnail": "outfit/sheragi ews",
+      "mass": 6,
+      "outfit space": -6,
+      "radar jamming": 10,
+      "tactical scan power": 100,
+      "scan interference": 2,
+      "energy consumption": 0.2,
+      "description": "This device provides radar jamming and a whole suite of electronic warfare, gathering data about the battlefield in real time and enhancing a ship's combat capabilities. It was an essential item for every Sheragi warship, and the technique it uses is still difficult to counter to this very day.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Dragonflame Cannon",
+      "display name": "Dragonflame Cannon",
+      "category": "Secondary Weapons",
+      "series": "Secondary Weapons",
+      "index": 13021,
+      "cost": 150000000,
+      "thumbnail": "outfit/dragonflame",
+      "mass": 156,
+      "outfit space": -156,
+      "weapon capacity": -156,
+      "required crew": 10,
+      "gun ports": -1,
+      "spinal mount": -1,
+      "weapon": {
+        "sound": "dragonflame",
+        "icon": "icon/dragonflame",
+        "fire effect": "dragonflame",
+        "hit effect": [
+          "bright hit",
+          "dragonflame plasma",
+          "dragonflame debris"
+        ],
+        "velocity": 2000,
+        "lifetime": 1,
+        "reload": 180,
+        "firing energy": 16000,
+        "firing fuel": 200,
+        "firing heat": 40000,
+        "firing force": 1500,
+        "hit force": 3000,
+        "shield damage": 25000,
+        "hull damage": 15000,
+        "heat damage": 50000,
+        "piercing": 0.4,
+        "penetration count": 20
+      },
+      "description": "The ancient Sheragi superweapon is simple in concept, but the cost involved in developing something like it is exorbitant. It's hard to envision what could have motivated the creation of such a thing. It uses an obscene amount of energy to trigger an extremely powerful thermonuclear reaction, directing most of the energy from the resulting explosion forwards in a devastatingly powerful beam of gamma radiation.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Sheragi Anti-Missile",
+      "display name": "Sheragi Anti-Missile",
+      "category": "Turrets",
+      "series": "Anti-Missile",
+      "index": 13011,
+      "cost": 845000,
+      "thumbnail": "outfit/sheragiam",
+      "mass": 35,
+      "outfit space": -35,
+      "weapon capacity": -35,
+      "turret mounts": -1,
+      "weapon": {
+        "hardpoint sprite": "hardpoint/sheragiam",
+        "hardpoint offset": 1.5,
+        "hit effect": "sheragiam",
+        "anti-missile": 200,
+        "velocity": 450,
+        "lifetime": 1,
+        "reload": 60,
+        "firing energy": 220,
+        "firing heat": 440
+      },
+      "description": "The Sheragi Anti-Missile fires an extremely powerful laser pulse capable of obliterating any missile in a single shot, but it comes at the expense of a long recharge time.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Particle Waveform Turret",
+      "display name": "Particle Waveform Turret",
+      "category": "Turrets",
+      "series": "Turrets",
+      "index": 13011,
+      "cost": 1450000,
+      "thumbnail": "outfit/pwave turret",
+      "mass": 45,
+      "outfit space": -45,
+      "weapon capacity": -45,
+      "turret mounts": -1,
+      "required crew": 1,
+      "weapon": {
+        "sprite": "projectile/pwavecannon",
+        "sprite data": {
+          "frame rate": 20
+        },
+        "sound": "pwave",
+        "hardpoint sprite": "hardpoint/pwavehp",
+        "hardpoint offset": 11,
+        "fire effect": "lightning flare",
+        "hit effect": "pwave impact",
+        "inaccuracy": 1.5,
+        "turret turn": 1.2,
+        "velocity": 50,
+        "lifetime": 18,
+        "reload": 60,
+        "firing energy": 180,
+        "firing heat": 651,
+        "shield damage": 120,
+        "hull damage": 300,
+        "heat damage": 224,
+        "ion damage": 4.2,
+        "scrambling damage": 4.2
+      },
+      "description": "This ancient Sheragi turret accelerates a dense packet of electrons that, while very ineffective against any kind of shielding, has a very long range and disrupts electrical systems. By the nature of these weapons, one can deduce that their tactics likely involved using the Dragonflame Cannon at long range to break the enemy shields and finishing them off at relatively close range with the Particle Waveform Turrets.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Shard Fabricator",
+      "display name": "Shard Fabricator",
+      "category": "Secondary Weapons",
+      "series": "Secondary Weapons",
+      "index": 13011,
+      "cost": 330000,
+      "thumbnail": "outfit/shard",
+      "mass": 10,
+      "outfit space": -10,
+      "weapon capacity": -7,
+      "fuel capacity": 36,
+      "gun ports": -1,
+      "operating costs": 150,
+      "weapon": {
+        "sprite": "projectile/shardactive",
+        "sprite data": {
+          "frame rate": 30,
+          "random start frame": true
+        },
+        "sound": "grab-strike",
+        "icon": "icon/shard",
+        "fire effect": "basic launch",
+        "hit effect": "shard impact",
+        "inaccuracy": 80,
+        "velocity": 15,
+        "lifetime": 40,
+        "random lifetime": 20,
+        "reload": 60,
+        "burst reload": 2,
+        "burst count": 6,
+        "firing energy": 40,
+        "firing fuel": 2,
+        "firing heat": 60,
+        "acceleration": 1.5,
+        "drag": 0.1,
+        "turn": 8,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "radar tracking": 0.8,
+        "missile strength": 1,
+        "submunitions": [
+          {
+            "type": "Shard inactive",
+            "count": 1
+          }
+        ]
+      },
+      "description": "To reduce reliance on supply chains during prolonged war time, this outfit contains specialized fabricators that produce simple kinetic missiles from stock materials and a small amount of stored fuel; their guidance system merely receives data from the shipboard radar. The missiles are fired in volleys of six at a time from each launcher, making them very effective at overwhelming point defenses despite their fragility. However, the low amount of fuel they carry means they can only home in on the target for about a second before they turn into unguided ammunition. Because they are manufactured on the spot, it takes a long time to reload.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Heavy Ion Cyclotron",
+      "display name": "Heavy Ion Cyclotron",
+      "category": "Guns",
+      "series": "Guns",
+      "index": 13011,
+      "cost": 1650000,
+      "thumbnail": "outfit/hion",
+      "mass": 33,
+      "outfit space": -33,
+      "weapon capacity": -21,
+      "gun ports": -1,
+      "weapon": {
+        "sprite": "projectile/hion",
+        "sprite data": {
+          "frame rate": 30
+        },
+        "sound": "hion",
+        "hit effect": "proton impact",
+        "velocity": 28,
+        "lifetime": 1,
+        "reload": 1,
+        "firing energy": 2.9,
+        "firing heat": 12.2,
+        "firing force": 13.5,
+        "submunitions": [
+          {
+            "type": "Heavy Ion Fragment",
+            "count": 3
+          }
+        ]
+      },
+      "description": "The main weapon of the Sheragi fighters is a particle accelerator not unlike the ones used by the Republic Navy and the Syndicate. However, this one produces a dense stream of heavy metal ions instead of bursts of lighter ones, resulting in high damage with intense recoil. Because the particle accelerator itself can be mounted elsewhere, it saves on weapon space.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Medium EM Battery",
+      "display name": "Medium EM Battery",
+      "plural": "Medium EM Batteries",
+      "category": "Power",
+      "series": "Batteries",
+      "index": 13040,
+      "cost": 350000,
+      "thumbnail": "outfit/medium embattery",
+      "mass": 50,
+      "outfit space": -50,
+      "shield generation": 0.36,
+      "shield energy": 0.36,
+      "shield heat": 0.18,
+      "heat generation": 1.85,
+      "energy capacity": 33600,
+      "description": "This medium superconductive inductor stores enough power to keep most ships running, and the electromagnetic field it generates helps to maintain the shield matrix.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Drilgir Core",
+      "display name": "Drilgir Core",
+      "category": "Power",
+      "series": "Generators",
+      "index": 13010,
+      "cost": 1794000,
+      "thumbnail": "outfit/core drilgir",
+      "mass": 33,
+      "outfit space": -33,
+      "energy generation": 5.2,
+      "heat generation": 15.6,
+      "description": "With the intergration of Humans into Sheragi space came the request for more compatible technology, the Sheragi's solution was to simply sell fission drives without the engine components as alternatives to some of the Human reactors available. However, some Sheragi have begun adopting the tactic of greater energy generation in favour of large batteries.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Ethimir Core",
+      "display name": "Ethimir Core",
+      "category": "Power",
+      "series": "Generators",
+      "index": 13020,
+      "cost": 4598000,
+      "thumbnail": "outfit/core ethimir",
+      "mass": 61,
+      "outfit space": -61,
+      "energy generation": 11,
+      "heat generation": 33.8,
+      "description": "With the intergration of Humans into Sheragi space came the request for more compatible technology, the Sheragi's solution was to simply sell fission drives without the engine components as alternatives to some of the Human reactors available. However, some Sheragi have begun adopting the tactic of greater energy generation in favour of large batteries.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Letnir Core",
+      "display name": "Letnir Core",
+      "category": "Power",
+      "series": "Generators",
+      "index": 13030,
+      "cost": 21958000,
+      "thumbnail": "outfit/core letnir",
+      "mass": 167,
+      "outfit space": -167,
+      "energy generation": 38,
+      "heat generation": 119.9,
+      "description": "This is by far the largest reactor you have ever seen, so large in fact that you don't think it would be practical to fit on any human ship. This reactor is a modified version of the Fusion Drive that powers the Sheragi's large capital ships.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Vishmixenir Core",
+      "display name": "Vishmixenir Core",
+      "category": "Power",
+      "series": "Generators",
+      "index": 13040,
+      "cost": 34278000,
+      "thumbnail": "outfit/core vishmixenir",
+      "mass": 222,
+      "outfit space": -222,
+      "energy generation": 54,
+      "heat generation": 171.6,
+      "description": "This is by far the largest reactor you have ever seen, so large in fact that you don't think it would be practical to fit on any human ship. This reactor is a modified version of the Fusion Drive that powers the Sheragi's large capital ships.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Solar Intake",
+      "display name": "Solar Intake",
+      "category": "Systems",
+      "cost": 220000,
+      "thumbnail": "outfit/solar intake",
+      "mass": 12,
+      "outfit space": -10,
+      "solar collection": 0.8,
+      "solar heat": 0.6,
+      "ramscoop": 1.5,
+      "description": "When faced with the possibility of becoming stranded between the habitable zones of their new territory the Sheragi developed a multipurpose solar and ramscoop collection panel",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Medium Hybrid Cooling",
+      "display name": "Medium Hybrid Cooling",
+      "category": "Systems",
+      "series": "Cooling",
+      "index": 13040,
+      "cost": 820000,
+      "thumbnail": "outfit/medium sheragi cooling",
+      "mass": 24,
+      "outfit space": -24,
+      "cooling": 16.275,
+      "active cooling": 72.4,
+      "cooling energy": 7.7,
+      "fuel capacity": -100,
+      "heat capacity": 250,
+      "description": "This cooling system was designed to cater for the sheragi's intensive heat needs. Additionally it serves as a fuel system to further the fuel capacity of sheragi ships.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Osvith Drive",
+      "display name": "Osvith Drive",
+      "category": "Systems",
+      "series": "Drives",
+      "index": 13020,
+      "cost": 180000,
+      "thumbnail": "outfit/drive osvith",
+      "mass": 30,
+      "outfit space": -20,
+      "scram drive": 0.2,
+      "jump fuel": 100,
+      "hyperdrive": 1,
+      "description": "The Sheragi Scram Drive was developed to be used in conjunction with the Fusion Afterburner, allowing it to function similiar to a Scram Drive but without the increased fuel cost.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Santhilia Drive",
+      "display name": "Santhilia Drive",
+      "category": "Engines",
+      "series": "Engines",
+      "index": 13031,
+      "cost": 10014000,
+      "thumbnail": "outfit/drive santhilia",
+      "mass": 145,
+      "outfit space": -145,
+      "engine capacity": -77,
+      "weapon capacity": -7,
+      "energy generation": 11,
+      "heat generation": 30.7,
+      "thrust": 75,
+      "thrusting energy": 3.75,
+      "thrusting heat": 8.6,
+      "reverse thrust": 20.7,
+      "reverse thrusting energy": 1.9,
+      "reverse thrusting heat": 4.1,
+      "turn": 1252.5,
+      "turning energy": 1.55,
+      "turning heat": 3.9,
+      "flare sprite": "effect/fissionflare",
+      "flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "flare sound": "atomic small",
+      "steering flare sprite": "effect/fissionflare",
+      "steering flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "steering flare sound": "atomic tiny",
+      "description": "This large complex engine is fission powered, resulting in a massive amount of energy to drive heavy ships forwards.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Xarlaxe Drive",
+      "display name": "Xarlaxe Drive",
+      "category": "Engines",
+      "series": "Engines",
+      "index": 13032,
+      "cost": 26427000,
+      "thumbnail": "outfit/drive xarlaxe",
+      "mass": 331,
+      "outfit space": -331,
+      "engine capacity": -150,
+      "weapon capacity": -14,
+      "energy generation": 38,
+      "heat generation": 109,
+      "thrust": 168,
+      "thrusting energy": 7.35,
+      "thrusting heat": 20,
+      "reverse thrust": 42.6,
+      "reverse thrusting energy": 3.5,
+      "reverse thrusting heat": 8.7,
+      "turn": 2625,
+      "turning energy": 3.25,
+      "turning heat": 8.5,
+      "flare sprite": "effect/fusionflare",
+      "flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "flare sound": "atomic huge",
+      "steering flare sprite": "effect/fusionflare",
+      "steering flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "steering flare sound": "atomic medium",
+      "reverse flare sprite": "effect/fusionflare",
+      "reverse flare sprite data": {
+        "frame rate": 30,
+        "rewind": true
+      },
+      "reverse flare sound": "atomic large",
+      "unplunderable": 1,
+      "description": "A smaller version of the Sheragi fusion drive designed for medium warships.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Beithir Afterburner",
+      "display name": "Beithir Afterburner",
+      "category": "Engines",
+      "series": "Afterburners",
+      "index": 13050,
+      "cost": 390000,
+      "thumbnail": "outfit/afterburner beithir",
+      "mass": 11,
+      "outfit space": -11,
+      "engine capacity": -11,
+      "afterburner thrust": 96.9,
+      "afterburner energy": 2.9,
+      "afterburner heat": 30.9,
+      "afterburner fuel": 0.55,
+      "afterburner effect": "fusion afterburner effect",
+      "afterburner attachment": 4,
+      "description": "The Sheragi's first forays into space travel involved the use of fission and fusion powered thrusters similiar to this afterburner, this developed the basis of all of their future engine technologies. \tThe key note about the Sheragi's original Fusion Afterburners was that they resulted in the Sheragi's development of the Hyperdrive by use of the afterburner as a reaction chamber.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Fusion Power Converter",
+      "display name": "Fusion Power Converter",
+      "category": "Engines",
+      "series": "Afterburners",
+      "index": 13051,
+      "cost": 785000,
+      "thumbnail": "outfit/fusion power converter",
+      "mass": 10,
+      "outfit space": -10,
+      "afterburner thrust": -24.225,
+      "afterburner energy": -2.95,
+      "afterburner heat": -1.5875,
+      "afterburner attachment": -1,
+      "description": "This simple attachment for the Fusion Afterburner recycles some of the generated energy back into the afterburner, increasing the thrust output. However, as this is mutually exclusive to the Sheragi Hyperdrive it is usually only used on larger ships that use Fusion Drives or madmen that install multiple afterburners.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Plasma Thrower",
+      "display name": "Plasma Thrower",
+      "category": "Hand to Hand",
+      "cost": 42000,
+      "thumbnail": "outfit/unknown",
+      "capture attack": 1.5,
+      "capture defense": 0.9,
+      "unplunderable": 1,
+      "description": "This is essentially a wrist mounted flamethrower that spews superheated plasma. It truly makes the Sheragi seem like the dragons of Human fantasy. The wrist mechanism is too big for your tiny human hands, but it works just fine hand held.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Light Particle Shielding",
+      "display name": "Light Particle Shielding",
+      "category": "Systems",
+      "cost": 975000,
+      "thumbnail": "outfit/light particle shielding",
+      "mass": 35,
+      "outfit space": -35,
+      "shield generation": 1.8,
+      "shield energy": 1.8,
+      "depleted shield delay": 600,
+      "energy capacity": 750,
+      "ion resistance": 0.13,
+      "ion resistance energy": -6,
+      "energy consumption": 0.4,
+      "description": "This shielding system was initialy developed to combat the ion storms splitting the middle of the new Sheragi territory. However upon discovering its effectiveness at reducing ion damage from Particle Waveform Cannons the Sheragi refined and improved the design allowing the charged particles to release absorbed energy into the ship's power systems, unleashing a new wave of warfare. One should be careful not to let the shield matrix of a ship using this system fully deplete as the resulting discharge will short circuit the capacitor, shutting down the system and resulting in a lengthy reboot.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Dense Particle Shielding",
+      "display name": "Dense Particle Shielding",
+      "category": "Systems",
+      "cost": 2200000,
+      "thumbnail": "outfit/dense particle shielding",
+      "mass": 76,
+      "outfit space": -76,
+      "shield generation": 4.2,
+      "shield energy": 4.2,
+      "depleted shield delay": 720,
+      "energy capacity": 750,
+      "ion resistance": 0.3,
+      "ion resistance energy": -15,
+      "energy consumption": 0.9,
+      "description": "This Sheragi shield device was developed to further the shield matrices and ion resistance in the new age of warship technology spurred on by its weaker predecessor. The energy boost provided by this shield can be used to gain an edge in combat where ion attacks are involved. One should be careful not to let the shield matrix of a ship using this system fully deplete as the resulting discharge will short circuit the capacitor, shutting down the system and resulting in a lengthy reboot.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "Sheragi License",
+      "category": "Licenses",
+      "thumbnail": "outfit/sheragi license",
+      "description": "A license that will allow you to purchase most of the Sheragi's technology and ships",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "Sheragi Capital License",
+      "category": "Licenses",
+      "thumbnail": "outfit/sheragi capital",
+      "description": "A license that will allow you to purchase the Sheragi's most powerful technology and ships",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "Quantum Energy Field",
+      "category": "Special",
+      "thumbnail": "outfit/unknown",
+      "quantum keystone": 1,
+      "description": "This field of quantum energy was placed around your ship by an Archon to allow you to travel through unstable wormholes. It is best you do so quickly as there is no way of knowing how long the field will last.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Missions": [
+            "Stuck in Eden"
+          ]
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Shadow's Blade",
+      "display name": "Shadow's Blade",
+      "category": "Secondary Weapons",
+      "cost": 150000000,
+      "thumbnail": "outfit/ember tear",
+      "mass": 120,
+      "outfit space": -120,
+      "weapon capacity": -120,
+      "required crew": 10,
+      "energy capacity": 5000,
+      "gun ports": -1,
+      "spinal mount": -1,
+      "weapon": {
+        "sprite": "projectile/superbeam",
+        "sprite data": {
+          "frame rate": 60
+        },
+        "sound": "electron beam",
+        "icon": "icon/sheragibeam",
+        "hit effect": "electron impact",
+        "inaccuracy": 0.3,
+        "velocity": 1200,
+        "lifetime": 1,
+        "reload": 1,
+        "firing energy": 45,
+        "firing heat": 45,
+        "shield damage": 4.5,
+        "hull damage": 50
+      },
+      "description": "The Sheragi are a warlike race, even now when they are secluded from the rest of the galaxy they are driven to develop weapons of utter devestation. This prototype weapon was designed to deal massive hull damage, to be used in conjunction with its sister ship's weapon.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Light's Bane",
+      "display name": "Light's Bane",
+      "category": "Secondary Weapons",
+      "cost": 150000000,
+      "thumbnail": "outfit/fusion cannon",
+      "mass": 120,
+      "outfit space": -120,
+      "weapon capacity": -120,
+      "required crew": 10,
+      "energy capacity": 5000,
+      "gun ports": -1,
+      "spinal mount": -1,
+      "weapon": {
+        "sprite": "projectile/superbeam",
+        "sprite data": {
+          "frame rate": 60
+        },
+        "sound": "electron beam",
+        "icon": "icon/sheragibeam",
+        "hit effect": "electron impact",
+        "inaccuracy": 0.3,
+        "velocity": 1200,
+        "lifetime": 1,
+        "reload": 1,
+        "firing energy": 45,
+        "firing heat": 45,
+        "shield damage": 15,
+        "hull damage": 4,
+        "disruption damage": 1.25
+      },
+      "description": "The Sheragi are a warlike race, even now when they are secluded from the rest of the galaxy they are driven to develop weapons of utter devestation. This prototype weapon was designed to disrupt enemy shields, to be used in conjunction with its sister ship's weapon.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Pulse Beam",
+      "display name": "Pulse Beam",
+      "category": "Guns",
+      "cost": 1150000,
+      "thumbnail": "outfit/pulsebeam",
+      "mass": 42,
+      "outfit space": -42,
+      "weapon capacity": -42,
+      "gun ports": -1,
+      "weapon": {
+        "sprite": "projectile/pulsebeam",
+        "sprite data": {
+          "frame rate": 6
+        },
+        "sound": "electron beam",
+        "hit effect": "electron impact",
+        "inaccuracy": 0,
+        "velocity": 450,
+        "lifetime": 1,
+        "reload": 1.5,
+        "burst reload": 1,
+        "burst count": 60,
+        "firing energy": 5.5,
+        "firing heat": 11,
+        "shield damage": 10,
+        "hull damage": 11
+      },
+      "description": "This beam weapon was created in conjunction between Human and Sheragi engineers by altering the ancient but powerful design of the Sheragi Anti-Missile. It is more balanced in its effectiveness at damaging shields than most Sheragi weaponry, as influenced by the existence of shield reliant Human ships. Despite its immense power, one should beware of the high energy cost of this weapon.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Pulse Beam Turret",
+      "display name": "Pulse Beam Turret",
+      "category": "Turrets",
+      "cost": 1750000,
+      "thumbnail": "outfit/pulsebeam turret",
+      "mass": 55,
+      "outfit space": -55,
+      "weapon capacity": -55,
+      "turret mounts": -1,
+      "required crew": 1,
+      "weapon": {
+        "sprite": "projectile/pulsebeam",
+        "sprite data": {
+          "frame rate": 6
+        },
+        "sound": "electron beam",
+        "hardpoint sprite": "hardpoint/pulsebeamturrethp",
+        "hardpoint offset": 8,
+        "hit effect": "electron impact",
+        "inaccuracy": 0,
+        "velocity": 450,
+        "lifetime": 1,
+        "reload": 1.5,
+        "burst reload": 1,
+        "burst count": 60,
+        "firing energy": 5.5,
+        "firing heat": 11,
+        "turret turn": 1.2,
+        "shield damage": 10,
+        "hull damage": 11
+      },
+      "description": "This beam turret is the peak of standard Sheragi weaponry, balanced in its effectiveness at damaging both shields and hull. One should beware the high energy cost of this weapon and the difficulty installing a weapon of such a size.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Particle Waveform Cannon",
+      "display name": "Particle Waveform Cannon",
+      "category": "Guns",
+      "cost": 750000,
+      "thumbnail": "outfit/pwave cannon",
+      "mass": 33,
+      "outfit space": -33,
+      "weapon capacity": -33,
+      "gun ports": -1,
+      "weapon": {
+        "sprite": "projectile/pwavecannon",
+        "sprite data": {
+          "frame rate": 20
+        },
+        "sound": "pwave",
+        "fire effect": "lightning flare",
+        "hit effect": "pwave impact",
+        "inaccuracy": 1.5,
+        "velocity": 50,
+        "lifetime": 18,
+        "reload": 60,
+        "firing energy": 180,
+        "firing heat": 651,
+        "shield damage": 120,
+        "hull damage": 300,
+        "heat damage": 224,
+        "ion damage": 4.2
+      },
+      "description": "This ancient Sheragi cannon has been in use for thousands of years and still is effective in combat today. It works by accelerating a dense packet of electrons that, while very ineffective against any kind of shielding, have a very long range and disrupts electrical systems.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Kinetic Spear",
+      "display name": "Kinetic Spear",
+      "category": "Ammunition",
+      "cost": 15000,
+      "thumbnail": "outfit/kinetic spear",
+      "mass": 0.5,
+      "kinetic spear capacity": -1,
+      "description": "A Kinetic Spear is ammunition for the Kinetic Spear Launcher; without a Launcher to store them in you cannot purchase or use Kinetic Spears.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Kinetic Spear Rack",
+      "display name": "Kinetic Spear Rack",
+      "category": "Ammunition",
+      "cost": 45000,
+      "thumbnail": "outfit/kinetic spear rack",
+      "mass": 3,
+      "outfit space": -10,
+      "kinetic spear capacity": 6,
+      "ammo": "Kinetic Spear",
+      "description": "This rack is used to store extra ammunition for Kinetic Spear Launchers.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "SRR Kinetic Spear Launcher",
+      "display name": "Kinetic Spear Launcher",
+      "category": "Secondary Weapons",
+      "cost": 2250000,
+      "thumbnail": "outfit/kinetic spear launcher",
+      "mass": 28,
+      "outfit space": -40,
+      "weapon capacity": -40,
+      "gun ports": -1,
+      "kinetic spear capacity": 6,
+      "weapon": {
+        "sprite": "projectile/kinetic spear",
+        "sound": "piercer",
+        "icon": "icon/kinetic spear",
+        "fire effect": "basic launch",
+        "hit effect": "kinetic impact",
+        "die effect": "missile death",
+        "inaccuracy": 1,
+        "velocity": 6,
+        "lifetime": 750,
+        "reload": 480,
+        "firing energy": 1500,
+        "firing heat": 120,
+        "shield damage": 0,
+        "hull damage": 5500,
+        "hit force": 3000,
+        "piercing": 1,
+        "missile strength": 400,
+        "ammunition": [
+          {
+            "type": "Kinetic Spear",
+            "count": 1
+          }
+        ]
+      },
+      "description": "The Sheragi Kinetic Spear Launcher is a weapon designed to rip through the hulls of ships. The weapon fires a large unguided tungsten rod which completley penetrates shields. The fact it is made of solid metal makes this weapon very difficult to shoot down with standard Anti-Missile systems.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "Sheragi War Manuscript",
+      "category": "Unique",
+      "thumbnail": "outfit/unknown",
+      "hull protection": 0.05,
+      "piercing protection": 0.05,
+      "force protection": 0.05,
+      "description": "An ancient Sheragi manuscript dating back to the Sheragi civil war containing numerous battle tactics for protecting against incoming attacks. It was gifted to you by Izkagg, a Sheragi warrior you helped.",
+      "governments": {
+        "Sheragi.Rebirth.Redux": {
+          "Sheragi.Rebirth.Redux": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    }
+  ],
+  "effects": [
+    {
+      "name": "fusion afterburner effect",
+      "sprite": "effect/fusionflare",
+      "sprite data": {
+        "scale": 0.4,
+        "rewind": true,
+        "frame rate": 30
+      },
+      "sound": "atomic medium",
+      "lifetime": 1,
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    },
+    {
+      "name": "kinetic impact",
+      "sprite": "effect/particle impact",
+      "sprite data": {
+        "no repeat": true,
+        "frame rate": 30
+      },
+      "sound": "explosion medium",
+      "lifetime": 30,
+      "velocity scale": 0,
+      "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+    }
+  ],
+  "parsedAt": "2026-06-01T03:42:23.596Z"
+}

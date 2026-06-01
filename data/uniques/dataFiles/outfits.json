@@ -44,9 +44,9 @@
     "locations": {
       "Zuckungs list/uniques": {
         "Missions": [
-          "unq Human Cultural Archives",
-          "unq Remnant: Salvage 1",
-          "unq archive patch"
+          "Coalition: Struggling Author - Human Media 1",
+          "Human Cultural Archives",
+          "Remnant: Salvage 1"
         ]
       }
     },
@@ -74,6 +74,32 @@
       "Zuckungs list/uniques": {
         "Missions": [
           "unq_crashed_alien_ship"
+        ]
+      }
+    },
+    "pluginId": "Zuckungs list/uniques"
+  },
+  {
+    "name": "unq_beyond_the_hyperdrive",
+    "display name": "Beyond the Hyperdrive",
+    "category": "Unique",
+    "series": "Non-Functional Unique",
+    "index": 1200,
+    "thumbnail": "outfit/unq_beyond_the_hyperdrive",
+    "unique": 1,
+    "unplunderable": 1,
+    "cost": 40,
+    "description": "This unique edition of \"Beyond the Hyperdrive\" by Anna Fangvin was translated into your language specifically as a personal gift for your assistance in helping distribute the original work within Coalition space. Heliarch linguists worked closely on the translation, attempting to preserve the spirit of the story while adapting concepts that did not translate well into Coalition culture. Although the main plot remains intact, parts of the original text were altered or removed to make the novel more suitable for the Coalition, according to the translator's own notes included in the first pages of the book.",
+    "governments": {
+      "uniques": {
+        "uniques": true
+      }
+    },
+    "locations": {
+      "Zuckungs list/uniques": {
+        "Missions": [
+          "Coalition: Struggling Author 5A",
+          "Coalition: Struggling Author 5B"
         ]
       }
     },
@@ -150,7 +176,8 @@
       "Zuckungs list/uniques": {
         "Missions": [
           "unq_bioluminescent_offspring_science02",
-          "unq_bioluminescent_offspring_science03"
+          "unq_bioluminescent_offspring_science03",
+          "unq_bioluminescent_offspring_science04"
         ]
       }
     },
@@ -561,6 +588,66 @@
     "pluginId": "Zuckungs list/uniques"
   },
   {
+    "name": "fluffy_tribble",
+    "category": "Pets",
+    "series": "Functional Unique",
+    "index": 99100,
+    "unique": 1,
+    "unplunderable": 1,
+    "display name": "\"Furbel\"",
+    "capture attack": 0.1,
+    "capture defense": 0.1,
+    "cost": 40,
+    "thumbnail": "outfit/fluffy_tribble",
+    "description": "\"Furbel\" is less a pet and more a portable pile of sentient lint that somehow developed a purr. It doesn't walk, run, or jump - it simply exists, vibrating happily like a warm beanbag with opinions. Furbel's hobbies include multiplying when you're not looking, rolling dramatically under furniture, and staring at you with the judgmental intensity of a thousand fluffballs. Owning Furbel is like having a living dust bunny that unionized.",
+    "governments": {
+      "uniques": {
+        "uniques": true
+      }
+    },
+    "locations": {
+      "Zuckungs list/uniques": {
+        "Missions": [
+          "unq_tribbles 1"
+        ]
+      }
+    },
+    "pluginId": "Zuckungs list/uniques"
+  },
+  {
+    "name": "fluffy_tribbles",
+    "category": "Pets",
+    "series": "Functional Unique",
+    "index": 99100,
+    "unique": 1,
+    "unplunderable": 1,
+    "display name": "more Tribbles",
+    "plural": "Tribbles",
+    "capture attack": 0.1,
+    "capture defense": 0.1,
+    "cost": 40,
+    "thumbnail": "outfit/fluffy_tribbles",
+    "description": "Furbel's \"kids\" are basically copy-paste errors in the shape of squeaky pom-poms. They roll in herds, squeal like squeaky toys with stage fright, and collectively shed enough fluff to knit a sweater for a yeti. Together, they form a living carpet that judges you for daring to own only one chair.",
+    "governments": {
+      "uniques": {
+        "uniques": true
+      }
+    },
+    "locations": {
+      "Zuckungs list/uniques": {
+        "Missions": [
+          "unq_tribbles 1",
+          "unq_tribbles gain 1",
+          "unq_tribbles gain 2",
+          "unq_tribbles gain 3",
+          "unq_tribbles gain 4",
+          "unq_tribbles gain 5"
+        ]
+      }
+    },
+    "pluginId": "Zuckungs list/uniques"
+  },
+  {
     "name": "unq_gegnotablet",
     "display name": "Gegno Starmap",
     "category": "Unique",
@@ -786,8 +873,7 @@
     "locations": {
       "Zuckungs list/uniques": {
         "Missions": [
-          "unq The Book of Skadenga",
-          "unq skadenga patch"
+          "The Book of Skadenga"
         ]
       }
     },
@@ -892,65 +978,6 @@
       "Zuckungs list/uniques": {
         "Missions": [
           "unq toolbox"
-        ]
-      }
-    },
-    "pluginId": "Zuckungs list/uniques"
-  },
-  {
-    "name": "fluffy_tribble",
-    "category": "Pets",
-    "series": "Functional Unique",
-    "index": 99100,
-    "unique": 1,
-    "unplunderable": 1,
-    "display name": "\"Furbel\"",
-    "capture attack": 0.1,
-    "capture defense": 0.1,
-    "cost": 40,
-    "thumbnail": "outfit/fluffy_tribble",
-    "description": "\"Furbel\" is less a pet and more a portable pile of sentient lint that somehow developed a purr. It doesn't walk, run, or jump - it simply exists, vibrating happily like a warm beanbag with opinions. Furbel's hobbies include multiplying when you're not looking, rolling dramatically under furniture, and staring at you with the judgmental intensity of a thousand fluffballs. Owning Furbel is like having a living dust bunny that unionized.",
-    "governments": {
-      "uniques": {
-        "uniques": true
-      }
-    },
-    "locations": {
-      "Zuckungs list/uniques": {
-        "Missions": [
-          "unq_tribbles 1"
-        ]
-      }
-    },
-    "pluginId": "Zuckungs list/uniques"
-  },
-  {
-    "name": "fluffy_tribbles",
-    "category": "Pets",
-    "series": "Functional Unique",
-    "index": 99100,
-    "unique": 1,
-    "unplunderable": 1,
-    "display name": "more Tribbles",
-    "plural": "Tribbles",
-    "capture attack": 0.1,
-    "capture defense": 0.1,
-    "cost": 40,
-    "thumbnail": "outfit/fluffy_tribbles",
-    "description": "Furbel's \"kids\" are basically copy-paste errors in the shape of squeaky pom-poms. They roll in herds, squeal like squeaky toys with stage fright, and collectively shed enough fluff to knit a sweater for a yeti. Together, they form a living carpet that judges you for daring to own only one chair.",
-    "governments": {
-      "uniques": {
-        "uniques": true
-      }
-    },
-    "locations": {
-      "Zuckungs list/uniques": {
-        "Missions": [
-          "unq_tribbles 1",
-          "unq_tribbles gain 1",
-          "unq_tribbles gain 2",
-          "unq_tribbles gain 3",
-          "unq_tribbles gain 4"
         ]
       }
     },

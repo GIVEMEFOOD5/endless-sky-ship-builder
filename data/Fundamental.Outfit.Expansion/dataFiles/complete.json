@@ -4,854 +4,6 @@
   "ships": [],
   "variants": [
     {
-      "name": "Osprey (Beehive Rocket)",
-      "engines": [
-        {
-          "x": -42.5,
-          "y": 62.5,
-          "zoom": 0.8
-        },
-        {
-          "x": 42.5,
-          "y": 62.5,
-          "zoom": 0.8
-        },
-        {
-          "x": -16.5,
-          "y": 105,
-          "zoom": 0.6
-        },
-        {
-          "x": 16.5,
-          "y": 105,
-          "zoom": 0.6
-        }
-      ],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [
-        {
-          "x": -9.5,
-          "y": -95.5,
-          "gun": ""
-        },
-        {
-          "x": 9.5,
-          "y": -95.5,
-          "gun": ""
-        },
-        {
-          "x": -25,
-          "y": -49.5,
-          "gun": ""
-        },
-        {
-          "x": 25,
-          "y": -49.5,
-          "gun": ""
-        }
-      ],
-      "turrets": [
-        {
-          "x": -15.5,
-          "y": -12,
-          "turret": ""
-        },
-        {
-          "x": 15.5,
-          "y": -12,
-          "turret": ""
-        }
-      ],
-      "bays": [],
-      "leaks": [
-        {
-          "effect": "leak",
-          "openChance": 40,
-          "spreadChance": 50
-        },
-        {
-          "effect": "flame",
-          "openChance": 80,
-          "spreadChance": 80
-        },
-        {
-          "effect": "big leak",
-          "openChance": 80,
-          "spreadChance": 30
-        }
-      ],
-      "sprite": "ship/osprey",
-      "thumbnail": "thumbnail/osprey",
-      "attributes": {
-        "category": "Medium Warship",
-        "cost": 4200000,
-        "shields": 7200,
-        "hull": 1600,
-        "required crew": 9,
-        "bunks": 24,
-        "mass": 630,
-        "drag": 8.9,
-        "heat dissipation": 0.54,
-        "fuel capacity": 600,
-        "cargo space": 40,
-        "outfit space": 450,
-        "weapon capacity": 180,
-        "engine capacity": 130,
-        "weapon": {
-          "blast radius": 80,
-          "shield damage": 800,
-          "hull damage": 400,
-          "hit force": 1200
-        }
-      },
-      "medium explosion": 24,
-      "large explosion": 16,
-      "small explosion": 40,
-      "tiny explosion": 28,
-      "final explode": "final explosion medium",
-      "description": "After the Blackbird gained surprising popularity as an agile light warship despite its original design as a transport, Tarazed decided to produce a new design specifically intended as a warship. The Osprey was the result. Although it is considered overpriced by most savvy pilots, it is nevertheless a perennial favorite among those who have the extra cash to spend on it.",
-      "_internalId": "official-game/endless-sky::Osprey",
-      "_pluginId": "official-game/endless-sky",
-      "_hash": "b3d0258bceec",
-      "variant": "Osprey (Beehive Rocket)",
-      "baseShip": "Osprey",
-      "_variantPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "governments": {
-        "official-game/endless-sky": {
-          "Pirate": true,
-          "Free Worlds": true,
-          "Merchant": true
-        },
-        "Zuckungs list/job.coloring": {
-          "Merchant": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "Escort": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Acrux",
-            "Albaldah",
-            "Albireo",
-            "Aldhibain",
-            "Algorel",
-            "Alioth",
-            "Alkaid",
-            "Alnasl",
-            "Alniyat",
-            "Alpha Arae",
-            "Alphecca",
-            "Alpherg",
-            "Antares",
-            "Arcturus",
-            "Ascella",
-            "Atria",
-            "Belenos",
-            "Beta Lupi",
-            "Boral",
-            "Cebalrai",
-            "Citadelle",
-            "Cor Caroli",
-            "Dabih",
-            "Delta Sagittarii",
-            "Delta Velorum",
-            "Dschubba",
-            "Eber",
-            "Fumalsamakah",
-            "Gacrux",
-            "Gamma Corvi",
-            "Girtab",
-            "Hadar",
-            "Han",
-            "Hintar",
-            "Holeb",
-            "Ildaria",
-            "Izar",
-            "Kappa Centauri",
-            "Kaus Australis",
-            "Kaus Borealis",
-            "Kochab",
-            "Kornephoros",
-            "Kraz",
-            "Lesath",
-            "Limen",
-            "Lurata",
-            "Men",
-            "Mimosa",
-            "Minkar",
-            "Mora",
-            "Naper",
-            "Nunki",
-            "Orbona",
-            "Orvala",
-            "Peacock",
-            "Pherkad",
-            "Rasalhague",
-            "Rastaban",
-            "Regulus",
-            "Rutilicus",
-            "Sabik",
-            "Sadr",
-            "Sargas",
-            "Sarin",
-            "Seginus",
-            "Shaula",
-            "Spica",
-            "Tais",
-            "Tarazed",
-            "Terminus",
-            "Thuban",
-            "Turais",
-            "Umbral",
-            "Unukalhai",
-            "Vindemiatrix",
-            "Wei",
-            "Yed Prior",
-            "Zeta Aquilae",
-            "Zeta Centauri",
-            "Zubenelgenubi",
-            "Zubeneschamali"
-          ]
-        },
-        "Fire Corporation/Fire-Corporation": {
-          "Systems": [
-            "Hidden Queen"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Systems": [
-            "94 Merisai",
-            "Karita",
-            "Vefrua"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ]
-        }
-      },
-      "outfits": {
-        "Plasma Cannon": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Beehive Rocket Launcher": {
-          "count": 2,
-          "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-        },
-        "Beehive Rocket": {
-          "count": 64,
-          "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-        },
-        "Quad Blaster Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Heavy Anti-Missile Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Breeder Reactor": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D41-HY Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Large Radar Jammer": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Liquid Helium Cooler": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Laser Rifle": {
-          "count": 4,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Hyperdrive": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Bastion (Beehive Rocket)",
-      "engines": [
-        {
-          "x": 31.5,
-          "y": 89.5
-        },
-        {
-          "x": -31.5,
-          "y": 89.5
-        }
-      ],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [
-        {
-          "x": -52.5,
-          "y": -0.5,
-          "gun": ""
-        },
-        {
-          "x": -52.5,
-          "y": -0.5,
-          "gun": ""
-        },
-        {
-          "x": 52.5,
-          "y": -0.5,
-          "gun": ""
-        },
-        {
-          "x": 52.5,
-          "y": -0.5,
-          "gun": ""
-        }
-      ],
-      "turrets": [
-        {
-          "x": 0,
-          "y": 0.5,
-          "turret": ""
-        },
-        {
-          "x": -35.5,
-          "y": 29.5,
-          "turret": ""
-        },
-        {
-          "x": 35.5,
-          "y": 29.5,
-          "turret": ""
-        }
-      ],
-      "bays": [],
-      "leaks": [
-        {
-          "effect": "leak",
-          "openChance": 40,
-          "spreadChance": 50
-        },
-        {
-          "effect": "flame",
-          "openChance": 40,
-          "spreadChance": 80
-        },
-        {
-          "effect": "big leak",
-          "openChance": 70,
-          "spreadChance": 30
-        }
-      ],
-      "sprite": "ship/bastion",
-      "thumbnail": "thumbnail/bastion",
-      "attributes": {
-        "category": "Medium Warship",
-        "cost": 3860000,
-        "shields": 8600,
-        "hull": 5300,
-        "required crew": 17,
-        "bunks": 40,
-        "mass": 1100,
-        "drag": 15.5,
-        "heat dissipation": 0.34,
-        "fuel capacity": 500,
-        "cargo space": 110,
-        "outfit space": 470,
-        "weapon capacity": 190,
-        "engine capacity": 120,
-        "weapon": {
-          "blast radius": 120,
-          "shield damage": 1200,
-          "hull damage": 600,
-          "hit force": 1800
-        }
-      },
-      "tiny explosion": 5,
-      "small explosion": 15,
-      "medium explosion": 30,
-      "large explosion": 20,
-      "final explode": "final explosion medium",
-      "description": "The Southbound Shipyards Bastion is designed as a heavy defense platform to accompany freighter convoys, in addition to having enough cargo capacity to serve as a freighter in its own right. Because of its heavy armament, it is classified as a warship rather than a freighter.",
-      "_internalId": "official-game/endless-sky::Bastion",
-      "_pluginId": "official-game/endless-sky",
-      "_hash": "6e328fdfa222",
-      "variant": "Bastion (Beehive Rocket)",
-      "baseShip": "Bastion",
-      "_variantPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "governments": {
-        "official-game/endless-sky": {
-          "Lunarium (Hidden)": true,
-          "Merchant": true,
-          "Free Worlds": true,
-          "Pirate": true
-        },
-        "Zuckungs list/job.coloring": {
-          "Merchant": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true,
-          "Pirate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Republic": true,
-          "Pirate": true,
-          "Independent": true,
-          "Free Worlds": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Acrux",
-            "Albaldah",
-            "Albireo",
-            "Aldhibain",
-            "Algorel",
-            "Alioth",
-            "Alkaid",
-            "Alnasl",
-            "Alniyat",
-            "Alpha Arae",
-            "Alpherg",
-            "Antares",
-            "Atria",
-            "Belenos",
-            "Beta Lupi",
-            "Citadelle",
-            "Dabih",
-            "Delta Velorum",
-            "Dschubba",
-            "Eber",
-            "Fumalsamakah",
-            "Gacrux",
-            "Gamma Corvi",
-            "Girtab",
-            "Hadar",
-            "Han",
-            "Ildaria",
-            "Izar",
-            "Kaus Australis",
-            "Kornephoros",
-            "Kraz",
-            "Lesath",
-            "Limen",
-            "Lurata",
-            "Men",
-            "Mimosa",
-            "Minkar",
-            "Mora",
-            "Nunki",
-            "Orbona",
-            "Orvala",
-            "Peacock",
-            "Pherkad",
-            "Rasalhague",
-            "Rastaban",
-            "Regulus",
-            "Sabik",
-            "Sadr",
-            "Sargas",
-            "Sarin",
-            "Shaula",
-            "Spica",
-            "Tais",
-            "Tarazed",
-            "Terminus",
-            "Thuban",
-            "Turais",
-            "Umbral",
-            "Unukalhai",
-            "Vindemiatrix",
-            "Wei",
-            "Yed Prior",
-            "Zeta Aquilae",
-            "Zeta Centauri",
-            "Zubenelgenubi",
-            "Zubeneschamali"
-          ]
-        },
-        "Fire Corporation/Fire-Corporation": {
-          "Systems": [
-            "Hidden Queen"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Systems": [
-            "94 Merisai",
-            "Karita",
-            "Vefrua"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ]
-        }
-      },
-      "outfits": {
-        "Plasma Cannon": {
-          "count": 4,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Anti-Missile Turret": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Beehive Rocket Turret": {
-          "count": 1,
-          "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-        },
-        "Beehive Rocket": {
-          "count": 64,
-          "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-        },
-        "S3 Thermionic": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP072a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "nGVF-BB Fuel Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D67-TM Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Water Coolant System": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Tactical Scanner": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Laser Rifle": {
-          "count": 8,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Hyperdrive": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Vanguard (Beehive Rocket)",
-      "engines": [
-        {
-          "x": -16.5,
-          "y": 131
-        },
-        {
-          "x": 16.5,
-          "y": 131
-        }
-      ],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [
-        {
-          "x": 0,
-          "y": -132.5,
-          "gun": ""
-        },
-        {
-          "x": -24,
-          "y": -122.5,
-          "gun": ""
-        },
-        {
-          "x": 24,
-          "y": -122.5,
-          "gun": ""
-        },
-        {
-          "x": -40,
-          "y": -47.5,
-          "gun": ""
-        },
-        {
-          "x": 40,
-          "y": -47.5,
-          "gun": ""
-        },
-        {
-          "x": -35,
-          "y": -44.5,
-          "gun": ""
-        },
-        {
-          "x": 35,
-          "y": -44.5,
-          "gun": ""
-        }
-      ],
-      "turrets": [
-        {
-          "x": 0,
-          "y": 42,
-          "turret": ""
-        }
-      ],
-      "bays": [],
-      "leaks": [
-        {
-          "effect": "leak",
-          "openChance": 60,
-          "spreadChance": 50
-        },
-        {
-          "effect": "flame",
-          "openChance": 30,
-          "spreadChance": 80
-        }
-      ],
-      "sprite": "ship/vanguard",
-      "thumbnail": "thumbnail/vanguard",
-      "attributes": {
-        "category": "Heavy Warship",
-        "cost": 7200000,
-        "shields": 9800,
-        "hull": 6000,
-        "required crew": 23,
-        "bunks": 45,
-        "mass": 1030,
-        "drag": 12,
-        "heat dissipation": 0.4,
-        "fuel capacity": 400,
-        "cargo space": 50,
-        "outfit space": 560,
-        "weapon capacity": 220,
-        "engine capacity": 120,
-        "weapon": {
-          "blast radius": 160,
-          "shield damage": 1600,
-          "hull damage": 800,
-          "hit force": 2400
-        }
-      },
-      "parallel": true,
-      "tiny explosion": 18,
-      "small explosion": 36,
-      "medium explosion": 24,
-      "large explosion": 8,
-      "final explode": "final explosion medium",
-      "description": "The Vanguard is Syndicated Systems' newest warship intended for the heavy anti-pirate defense market. Vanguards offer an unusual feature set, focusing on powerful fixed guns and featuring Syndicated Systems' latest automation technologies, resulting in an atypically low crew complement for a ship its size. Few capital ships will endure for long under the withering fusillade of gunfire that it can unleash against those in front of it.",
-      "_internalId": "official-game/endless-sky::Vanguard",
-      "_pluginId": "official-game/endless-sky",
-      "_hash": "9464abed8ddb",
-      "variant": "Vanguard (Beehive Rocket)",
-      "baseShip": "Vanguard",
-      "_variantPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "governments": {
-        "official-game/endless-sky": {
-          "Pirate": true,
-          "Independent (Killable)": true,
-          "Merchant": true,
-          "Syndicate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Pirate": true,
-          "Syndicate": true,
-          "Syndicate (Extremist)": true
-        },
-        "DAIS/DAIS": {
-          "Syndicate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Merchant": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Independent (Killable)": true,
-          "Syndicate": true,
-          "Bounty (Disguised)": true,
-          "Pirate (Rival)": true,
-          "Syndicate (Extremist)": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Al Dhanab",
-            "Alcyone",
-            "Alderamin",
-            "Algenib",
-            "Algol",
-            "Almach",
-            "Alnair",
-            "Alpha Hydri",
-            "Alpheratz",
-            "Ankaa",
-            "Atik",
-            "Durax",
-            "Gamma Cassiopeiae",
-            "Gienah",
-            "Hamal",
-            "Kugel",
-            "Matar",
-            "Menkar",
-            "Misam",
-            "Oblate",
-            "Persian",
-            "Ruchbah",
-            "Scheat",
-            "Schedar",
-            "Shaula",
-            "Sheratan",
-            "Zaurak"
-          ]
-        },
-        "Fire Corporation/Fire-Corporation": {
-          "Systems": [
-            "Hidden Queen"
-          ]
-        },
-        "Rumskib/rumskib": {
-          "Systems": [
-            "Nashira"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ]
-        }
-      },
-      "outfits": {
-        "Beehive Rocket Launcher": {
-          "count": 4,
-          "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-        },
-        "Beehive Rocket": {
-          "count": 128,
-          "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-        },
-        "Proton Gun": {
-          "count": 3,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Javelin Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Javelin Storage Crate": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Javelin": {
-          "count": 600,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fission Reactor": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D94-YV Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D67-TM Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Large Radar Jammer": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Water Coolant System": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Laser Rifle": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X3700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X4200 Ion Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Hyperdrive": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
       "name": "Dreadnought (Heavy Rocket Turret)",
       "engines": [
         {
@@ -3542,265 +2694,6 @@
           "pluginId": "official-game/endless-sky"
         },
         "Scram Drive": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Rainmaker (Thunderbolt)",
-      "engines": [
-        {
-          "x": -11.5,
-          "y": 44.5,
-          "zoom": 0.4
-        },
-        {
-          "x": 11.5,
-          "y": 44.5,
-          "zoom": 0.4
-        }
-      ],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [
-        {
-          "x": -7.5,
-          "y": -36.5,
-          "gun": ""
-        },
-        {
-          "x": 7.5,
-          "y": -36.5,
-          "gun": ""
-        },
-        {
-          "x": -27,
-          "y": 8,
-          "gun": ""
-        },
-        {
-          "x": 27,
-          "y": 8,
-          "gun": ""
-        },
-        {
-          "x": -22,
-          "y": 8,
-          "gun": ""
-        },
-        {
-          "x": 22,
-          "y": 8,
-          "gun": ""
-        }
-      ],
-      "turrets": [],
-      "bays": [],
-      "leaks": [
-        {
-          "effect": "leak",
-          "openChance": 50,
-          "spreadChance": 50
-        }
-      ],
-      "sprite": "ship/rainmaker",
-      "thumbnail": "thumbnail/rainmaker",
-      "attributes": {
-        "category": "Light Warship",
-        "licenses": {
-          "Navy": true
-        },
-        "cost": 1580000,
-        "shields": 3500,
-        "hull": 1200,
-        "required crew": 3,
-        "bunks": 7,
-        "mass": 260,
-        "drag": 4.6,
-        "heat dissipation": 0.5,
-        "fuel capacity": 500,
-        "cargo space": 25,
-        "outfit space": 240,
-        "weapon capacity": 70,
-        "engine capacity": 50,
-        "weapon": {
-          "blast radius": 40,
-          "shield damage": 400,
-          "hull damage": 200,
-          "hit force": 600
-        }
-      },
-      "tiny explosion": 10,
-      "small explosion": 20,
-      "medium explosion": 15,
-      "final explode": "final explosion small",
-      "description": "The Rainmaker is a missile boat built in the Republic Navy Yard. It comes equipped with four missile launchers and enough ammunition to destroy even ships many times its size. Because of their lack of maneuverability and relatively light shielding, Rainmakers serve best as long-range attack ships, and once their missile supply is spent, they are relatively useless in combat.",
-      "_internalId": "official-game/endless-sky::Rainmaker",
-      "_pluginId": "official-game/endless-sky",
-      "_hash": "d44d9b2b6487",
-      "variant": "Rainmaker (Thunderbolt)",
-      "baseShip": "Rainmaker",
-      "_variantPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "governments": {
-        "official-game/endless-sky": {
-          "Republic": true,
-          "Navy (Oathkeeper)": true
-        },
-        "Blended Ships/blended-ships": {
-          "Republic": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Oathbreaker": true,
-          "Pirate": true,
-          "Republic": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Acamar",
-            "Aldebaran",
-            "Algieba",
-            "Algorel",
-            "Alheka",
-            "Alhena",
-            "Almaaz",
-            "Alnilam",
-            "Alnitak",
-            "Alpha Centauri",
-            "Alphard",
-            "Altair",
-            "Arneb",
-            "Betelgeuse",
-            "Canopus",
-            "Capella",
-            "Cardax",
-            "Castor",
-            "Cor Caroli",
-            "Danoa",
-            "Delta Velorum",
-            "Denebola",
-            "Elnath",
-            "Eteron",
-            "Fala",
-            "Fingol",
-            "Gacrux",
-            "Gorvi",
-            "Hassaleh",
-            "Hatysa",
-            "Kugel",
-            "Kursa",
-            "Lolami",
-            "Mebsuta",
-            "Menkalinan",
-            "Menkent",
-            "Merak",
-            "Miaplacidus",
-            "Mintaka",
-            "Mirzam",
-            "Mora",
-            "Muphrid",
-            "Nihal",
-            "Nocte",
-            "Phact",
-            "Phecda",
-            "Phurad",
-            "Pollux",
-            "Porrima",
-            "Procyon",
-            "Regulus",
-            "Rigel",
-            "Saiph",
-            "Sirius",
-            "Sol",
-            "Sospi",
-            "Sumar",
-            "Talita",
-            "Tania Australis",
-            "Tejat",
-            "Tortor",
-            "Vega",
-            "Volax",
-            "Wazn",
-            "Zosma"
-          ]
-        },
-        "Zuckungs list/boss.loot": {
-          "Systems": [
-            "Adhile"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Systems": [
-            "94 Merisai",
-            "Airuka",
-            "Alkxaai",
-            "Alpha Tudalip",
-            "Arau",
-            "Chasitum",
-            "Corua",
-            "Darceas",
-            "Denleitt",
-            "Ghesie",
-            "Karita",
-            "Mersat",
-            "Nardacus",
-            "Onuka",
-            "Opfrau",
-            "Paruna",
-            "Pelitol",
-            "Poreu",
-            "Porsuei",
-            "Posteli",
-            "Sedlai",
-            "Vachrau",
-            "Vefrua",
-            "Vensur"
-          ]
-        }
-      },
-      "outfits": {
-        "Heavy Laser": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Thunderbolt Missile": {
-          "count": 4,
-          "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-        },
-        "nGVF-DD Fuel Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D41-HY Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Large Radar Jammer": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Tactical Scanner": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2200 Ion Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Hyperdrive": {
           "count": 1,
           "pluginId": "official-game/endless-sky"
         }
@@ -22058,947 +20951,6 @@
       "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
     },
     {
-      "name": "Beehive Rocket",
-      "category": "Ammunition",
-      "series": "Ammunition",
-      "index": 1037,
-      "cost": 1000,
-      "thumbnail": "outfit/beehive rocket",
-      "mass": 0.25,
-      "beehive rocket capacity": -1,
-      "description": "Beehive Rockets are ammunition for Beehive Rocket weapons. You cannot install one unless you have first installed a launcher to fire it from.",
-      "governments": {
-        "Mega Freight/Mega-Freight": {
-          "Republic": true,
-          "Escort": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Scar's Legion": true,
-          "Merchant": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Independent": true,
-          "Independent (Killable)": true,
-          "Syndicate": true,
-          "Pirate (Rival)": true,
-          "Syndicate (Extremist)": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Pirate": true,
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Pirate": true,
-          "Free Worlds": true,
-          "Merchant": true,
-          "Lunarium (Hidden)": true,
-          "Independent (Killable)": true,
-          "Syndicate": true
-        },
-        "Zuckungs list/job.coloring": {
-          "Merchant": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true,
-          "Pirate": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true,
-          "Pirate": true,
-          "Syndicate": true,
-          "Syndicate (Extremist)": true
-        },
-        "DAIS/DAIS": {
-          "Syndicate": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Merchant": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "Deadman's Cove",
-            "Greenwater",
-            "New Argentina",
-            "New Boston",
-            "New Britain",
-            "New China",
-            "New Holland",
-            "New India",
-            "New Tortuga",
-            "New Wales",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Ammo South",
-            "Delta V Advanced",
-            "Delta V Basics",
-            "Pirate Advanced",
-            "Pirate Basics",
-            "Pirate Outfits"
-          ],
-          "Systems": [
-            "Acrux",
-            "Al Dhanab",
-            "Albaldah",
-            "Albireo",
-            "Alcyone",
-            "Alderamin",
-            "Aldhibain",
-            "Algenib",
-            "Algol",
-            "Algorel",
-            "Alioth",
-            "Alkaid",
-            "Almach",
-            "Alnair",
-            "Alnasl",
-            "Alniyat",
-            "Alpha Arae",
-            "Alpha Hydri",
-            "Alphecca",
-            "Alpheratz",
-            "Alpherg",
-            "Ankaa",
-            "Antares",
-            "Arcturus",
-            "Ascella",
-            "Atik",
-            "Atria",
-            "Belenos",
-            "Beta Lupi",
-            "Boral",
-            "Cebalrai",
-            "Citadelle",
-            "Cor Caroli",
-            "Dabih",
-            "Delta Sagittarii",
-            "Delta Velorum",
-            "Dschubba",
-            "Durax",
-            "Eber",
-            "Fumalsamakah",
-            "Gacrux",
-            "Gamma Cassiopeiae",
-            "Gamma Corvi",
-            "Gienah",
-            "Girtab",
-            "Hadar",
-            "Hamal",
-            "Han",
-            "Hintar",
-            "Holeb",
-            "Ildaria",
-            "Izar",
-            "Kappa Centauri",
-            "Kaus Australis",
-            "Kaus Borealis",
-            "Kochab",
-            "Kornephoros",
-            "Kraz",
-            "Kugel",
-            "Lesath",
-            "Limen",
-            "Lurata",
-            "Matar",
-            "Men",
-            "Menkar",
-            "Mimosa",
-            "Minkar",
-            "Misam",
-            "Mora",
-            "Naper",
-            "Nunki",
-            "Oblate",
-            "Orbona",
-            "Orvala",
-            "Peacock",
-            "Persian",
-            "Pherkad",
-            "Rasalhague",
-            "Rastaban",
-            "Regulus",
-            "Ruchbah",
-            "Rutilicus",
-            "Sabik",
-            "Sadr",
-            "Sargas",
-            "Sarin",
-            "Scheat",
-            "Schedar",
-            "Seginus",
-            "Shaula",
-            "Sheratan",
-            "Spica",
-            "Tais",
-            "Tarazed",
-            "Terminus",
-            "Thuban",
-            "Turais",
-            "Umbral",
-            "Unukalhai",
-            "Vindemiatrix",
-            "Wei",
-            "Yed Prior",
-            "Zaurak",
-            "Zeta Aquilae",
-            "Zeta Centauri",
-            "Zubenelgenubi",
-            "Zubeneschamali"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "Ankulah Ship Breaking Station",
-            "SBO1 Zagreus Station"
-          ],
-          "Outfitters": [
-            "Ammo South",
-            "Delta V Advanced"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Scar's Hideout",
-            "Smuggler's Den",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Ammo South",
-            "Delta V Basics",
-            "Pirate Advanced",
-            "Pirate Basics",
-            "Pirate Outfits"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Planets": [
-            "Kestrix II",
-            "Leroo Station"
-          ],
-          "Outfitters": [
-            "Pirate Outfits"
-          ],
-          "Systems": [
-            "94 Merisai",
-            "Karita",
-            "Vefrua"
-          ]
-        },
-        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "Ships": [
-            "Bastion (Beehive Rocket)",
-            "Osprey (Beehive Rocket)",
-            "Vanguard (Beehive Rocket)"
-          ]
-        },
-        "Fire Corporation/Fire-Corporation": {
-          "Systems": [
-            "Hidden Queen"
-          ]
-        },
-        "Rumskib/rumskib": {
-          "Systems": [
-            "Nashira"
-          ]
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "Beehive Rocket Rack",
-      "category": "Ammunition",
-      "series": "Ammunition",
-      "index": 1037,
-      "cost": 12000,
-      "thumbnail": "outfit/beehive rocket storage",
-      "mass": 2,
-      "outfit space": -6,
-      "beehive rocket capacity": 16,
-      "ammo": "Beehive Rocket",
-      "description": "The Beehive Rocket Rack is used to store extra ammunition for Beehive Rocket weapons.",
-      "governments": {
-        "Fundamental.Outfit.Expansion": {
-          "Fundamental.Outfit.Expansion": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "New Britain",
-            "New Holland",
-            "New Tortuga",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Delta V Advanced",
-            "Delta V Basics",
-            "Pirate Advanced"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Smuggler's Den",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Delta V Basics",
-            "Pirate Advanced"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "SBO1 Zagreus Station"
-          ],
-          "Outfitters": [
-            "Delta V Advanced"
-          ]
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "Beehive Rocket Pod",
-      "category": "Secondary Weapons",
-      "series": "Secondary Weapons",
-      "index": 1077,
-      "cost": 10000,
-      "thumbnail": "outfit/beehive rocket pod",
-      "mass": 2,
-      "outfit space": -5,
-      "weapon capacity": -5,
-      "gun ports": -1,
-      "beehive rocket capacity": 4,
-      "weapon": {
-        "sprite": "projectile/beehive rocket projectile",
-        "sound": "rocket",
-        "icon": "icon/beehive rocket launcher icon",
-        "live effect": "ballistic smoke",
-        "hit effect": "missile death",
-        "die effect": "nettle split",
-        "inaccuracy": 6,
-        "acceleration": 1.2,
-        "drag": 0.12,
-        "velocity": 6,
-        "velocity override": 21,
-        "range override": 1140,
-        "lifetime": 80,
-        "reload": 160,
-        "burst count": 4,
-        "burst reload": 60,
-        "firing energy": 0.5,
-        "firing heat": 125,
-        "hit force": -360,
-        "missile strength": 12,
-        "split range": 300,
-        "submunitions": [
-          {
-            "type": "beehive rocket flechette",
-            "count": 180
-          }
-        ],
-        "ammunition": [
-          {
-            "type": "Beehive Rocket",
-            "count": 1
-          }
-        ]
-      },
-      "description": "Beehive Rockets are filled with vast numbers of of closely-packed rods. The warhead splits before impact, unleashing a shotgun-like cone of metal that is devastating against fighter swarms and the large surface areas of heavy warship hulls alike. \tPods enable fighters and other light craft to carry small quantities of missiles into battle while retaining enough space for other weapons. Large ships are better off with full-size launchers.",
-      "governments": {
-        "Fundamental.Outfit.Expansion": {
-          "Fundamental.Outfit.Expansion": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "New Britain",
-            "New Holland",
-            "New Tortuga",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Delta V Advanced",
-            "Delta V Basics",
-            "Pirate Advanced"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Smuggler's Den",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Delta V Basics",
-            "Pirate Advanced"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "SBO1 Zagreus Station"
-          ],
-          "Outfitters": [
-            "Delta V Advanced"
-          ]
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "Beehive Rocket Launcher",
-      "category": "Secondary Weapons",
-      "series": "Secondary Weapons",
-      "index": 1078,
-      "cost": 35000,
-      "thumbnail": "outfit/beehive rocket launcher",
-      "mass": 7,
-      "outfit space": -20,
-      "weapon capacity": -20,
-      "gun ports": -1,
-      "beehive rocket capacity": 32,
-      "weapon": {
-        "sprite": "projectile/beehive rocket projectile",
-        "sound": "rocket",
-        "icon": "icon/beehive rocket launcher icon",
-        "live effect": "ballistic smoke",
-        "hit effect": "missile death",
-        "die effect": "nettle split",
-        "inaccuracy": 6,
-        "acceleration": 1.2,
-        "drag": 0.12,
-        "velocity": 6,
-        "velocity override": 21,
-        "range override": 1140,
-        "lifetime": 80,
-        "reload": 80,
-        "firing energy": 0.5,
-        "firing heat": 125,
-        "hit force": -360,
-        "missile strength": 12,
-        "split range": 300,
-        "submunitions": [
-          {
-            "type": "beehive rocket flechette",
-            "count": 180
-          }
-        ],
-        "ammunition": [
-          {
-            "type": "Beehive Rocket",
-            "count": 1
-          }
-        ]
-      },
-      "description": "Beehive Rockets are filled with vast numbers of of closely-packed rods. The warhead splits before impact, unleashing a shotgun-like cone of metal that is devastating against fighter swarms and the large surface areas of heavy warship hulls alike.",
-      "governments": {
-        "official-game/endless-sky": {
-          "Pirate": true,
-          "Free Worlds": true,
-          "Merchant": true,
-          "Independent (Killable)": true,
-          "Syndicate": true
-        },
-        "Zuckungs list/job.coloring": {
-          "Merchant": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "Escort": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Independent (Killable)": true,
-          "Syndicate": true,
-          "Pirate (Rival)": true,
-          "Syndicate (Extremist)": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Pirate": true,
-          "Syndicate": true,
-          "Syndicate (Extremist)": true
-        },
-        "DAIS/DAIS": {
-          "Syndicate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Merchant": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "New Britain",
-            "New Holland",
-            "New Tortuga",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Delta V Advanced",
-            "Delta V Basics",
-            "Pirate Advanced"
-          ],
-          "Systems": [
-            "Acrux",
-            "Al Dhanab",
-            "Albaldah",
-            "Albireo",
-            "Alcyone",
-            "Alderamin",
-            "Aldhibain",
-            "Algenib",
-            "Algol",
-            "Algorel",
-            "Alioth",
-            "Alkaid",
-            "Almach",
-            "Alnair",
-            "Alnasl",
-            "Alniyat",
-            "Alpha Arae",
-            "Alpha Hydri",
-            "Alphecca",
-            "Alpheratz",
-            "Alpherg",
-            "Ankaa",
-            "Antares",
-            "Arcturus",
-            "Ascella",
-            "Atik",
-            "Atria",
-            "Belenos",
-            "Beta Lupi",
-            "Boral",
-            "Cebalrai",
-            "Citadelle",
-            "Cor Caroli",
-            "Dabih",
-            "Delta Sagittarii",
-            "Delta Velorum",
-            "Dschubba",
-            "Durax",
-            "Eber",
-            "Fumalsamakah",
-            "Gacrux",
-            "Gamma Cassiopeiae",
-            "Gamma Corvi",
-            "Gienah",
-            "Girtab",
-            "Hadar",
-            "Hamal",
-            "Han",
-            "Hintar",
-            "Holeb",
-            "Ildaria",
-            "Izar",
-            "Kappa Centauri",
-            "Kaus Australis",
-            "Kaus Borealis",
-            "Kochab",
-            "Kornephoros",
-            "Kraz",
-            "Kugel",
-            "Lesath",
-            "Limen",
-            "Lurata",
-            "Matar",
-            "Men",
-            "Menkar",
-            "Mimosa",
-            "Minkar",
-            "Misam",
-            "Mora",
-            "Naper",
-            "Nunki",
-            "Oblate",
-            "Orbona",
-            "Orvala",
-            "Peacock",
-            "Persian",
-            "Pherkad",
-            "Rasalhague",
-            "Rastaban",
-            "Regulus",
-            "Ruchbah",
-            "Rutilicus",
-            "Sabik",
-            "Sadr",
-            "Sargas",
-            "Sarin",
-            "Scheat",
-            "Schedar",
-            "Seginus",
-            "Shaula",
-            "Sheratan",
-            "Spica",
-            "Tais",
-            "Tarazed",
-            "Terminus",
-            "Thuban",
-            "Turais",
-            "Umbral",
-            "Unukalhai",
-            "Vindemiatrix",
-            "Wei",
-            "Yed Prior",
-            "Zaurak",
-            "Zeta Aquilae",
-            "Zeta Centauri",
-            "Zubenelgenubi",
-            "Zubeneschamali"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Smuggler's Den",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Delta V Basics",
-            "Pirate Advanced"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "SBO1 Zagreus Station"
-          ],
-          "Outfitters": [
-            "Delta V Advanced"
-          ]
-        },
-        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "Ships": [
-            "Osprey (Beehive Rocket)",
-            "Vanguard (Beehive Rocket)"
-          ]
-        },
-        "Fire Corporation/Fire-Corporation": {
-          "Systems": [
-            "Hidden Queen"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Systems": [
-            "94 Merisai",
-            "Karita",
-            "Vefrua"
-          ]
-        },
-        "Rumskib/rumskib": {
-          "Systems": [
-            "Nashira"
-          ]
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "Beehive Rocket Turret",
-      "category": "Secondary Weapons",
-      "series": "Secondary Weapons",
-      "index": 1078,
-      "cost": 190000,
-      "thumbnail": "outfit/beehive rocket turret",
-      "mass": 24,
-      "outfit space": -50,
-      "weapon capacity": -50,
-      "turret mounts": -1,
-      "required crew": 1,
-      "beehive rocket capacity": 64,
-      "weapon": {
-        "hardpoint sprite": "hardpoint/beehive rocket turret hardpoint",
-        "hardpoint offset": 6,
-        "icon": "icon/beehive rocket turret icon",
-        "sound": "rocket",
-        "hit effect": "missile death",
-        "inaccuracy 6": {
-          "narrow": true
-        },
-        "turret turn": 1.7,
-        "lifetime": 1,
-        "velocity override": 12,
-        "range override": 1140,
-        "reload": 80,
-        "firing energy": 1,
-        "firing heat": 250,
-        "hit force": -360,
-        "cluster": "# uses this instead of missile strength so anti-missile can't destroy the 1-frame-lifetime projectile before it splits into the submunitions",
-        "submunitions": [
-          {
-            "type": "beehive rocket turret submunition",
-            "count": 1
-          },
-          {
-            "type": "beehive rocket turret submunition",
-            "count": 1
-          }
-        ],
-        "ammunition": [
-          {
-            "type": "Beehive Rocket",
-            "count": 2
-          }
-        ]
-      },
-      "description": "Beehive Rockets are filled with vast numbers of of closely-packed rods. The warhead splits before impact, unleashing a shotgun-like cone of metal that is devastating against fighter swarms and the large surface areas of heavy warship hulls alike. \tThese turret-mounted launchers are notably effective when used during close-range passes against the broadside of a large target.",
-      "governments": {
-        "official-game/endless-sky": {
-          "Lunarium (Hidden)": true,
-          "Merchant": true,
-          "Free Worlds": true,
-          "Pirate": true
-        },
-        "Zuckungs list/job.coloring": {
-          "Merchant": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true,
-          "Pirate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Republic": true,
-          "Pirate": true,
-          "Independent": true,
-          "Free Worlds": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "New Tortuga",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Delta V Advanced",
-            "Pirate Advanced"
-          ],
-          "Systems": [
-            "Acrux",
-            "Albaldah",
-            "Albireo",
-            "Aldhibain",
-            "Algorel",
-            "Alioth",
-            "Alkaid",
-            "Alnasl",
-            "Alniyat",
-            "Alpha Arae",
-            "Alpherg",
-            "Antares",
-            "Atria",
-            "Belenos",
-            "Beta Lupi",
-            "Citadelle",
-            "Dabih",
-            "Delta Velorum",
-            "Dschubba",
-            "Eber",
-            "Fumalsamakah",
-            "Gacrux",
-            "Gamma Corvi",
-            "Girtab",
-            "Hadar",
-            "Han",
-            "Ildaria",
-            "Izar",
-            "Kaus Australis",
-            "Kornephoros",
-            "Kraz",
-            "Lesath",
-            "Limen",
-            "Lurata",
-            "Men",
-            "Mimosa",
-            "Minkar",
-            "Mora",
-            "Nunki",
-            "Orbona",
-            "Orvala",
-            "Peacock",
-            "Pherkad",
-            "Rasalhague",
-            "Rastaban",
-            "Regulus",
-            "Sabik",
-            "Sadr",
-            "Sargas",
-            "Sarin",
-            "Shaula",
-            "Spica",
-            "Tais",
-            "Tarazed",
-            "Terminus",
-            "Thuban",
-            "Turais",
-            "Umbral",
-            "Unukalhai",
-            "Vindemiatrix",
-            "Wei",
-            "Yed Prior",
-            "Zeta Aquilae",
-            "Zeta Centauri",
-            "Zubenelgenubi",
-            "Zubeneschamali"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "SBO1 Zagreus Station"
-          ],
-          "Outfitters": [
-            "Delta V Advanced"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Smuggler's Den",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Pirate Advanced"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ]
-        },
-        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "Ships": [
-            "Bastion (Beehive Rocket)"
-          ]
-        },
-        "Fire Corporation/Fire-Corporation": {
-          "Systems": [
-            "Hidden Queen"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Systems": [
-            "94 Merisai",
-            "Karita",
-            "Vefrua"
-          ]
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "beehive rocket turret submunition",
-      "weapon": {
-        "sprite": "projectile/beehive rocket projectile",
-        "live effect": "ballistic smoke",
-        "hit effect": "missile death",
-        "die effect": "nettle split",
-        "inaccuracy": 3,
-        "velocity": 12,
-        "lifetime": 80,
-        "hit force": -360,
-        "missile strength": 12,
-        "split range": 300,
-        "submunitions": [
-          {
-            "type": "beehive rocket flechette",
-            "count": 180
-          }
-        ]
-      },
-      "governments": {
-        "Fundamental.Outfit.Expansion": {
-          "Fundamental.Outfit.Expansion": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "_deprecated/unused": true
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "beehive rocket flechette",
-      "weapon": {
-        "sprite": "projectile/bullet",
-        "sprite data": {
-          "frame rate": 3,
-          "start frame": 1,
-          "rewind": true,
-          "no repeat": true
-        },
-        "hit effect": "heaver shard hit",
-        "inaccuracy 18": {
-          "narrow": true
-        },
-        "lifetime": 40,
-        "random lifetime": 20,
-        "random velocity": 9,
-        "shield damage": 2,
-        "hull damage": 3,
-        "hit force": 4
-      },
-      "governments": {
-        "Fundamental.Outfit.Expansion": {
-          "Fundamental.Outfit.Expansion": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "_deprecated/unused": true
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
       "name": "Heavy Rocket Turret",
       "category": "Secondary Weapons",
       "series": "Secondary Weapons",
@@ -24034,541 +21986,6 @@
       "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
     },
     {
-      "name": "Hailstorm Missile",
-      "category": "Secondary Weapons",
-      "series": "Secondary Weapons",
-      "index": 1167,
-      "cost": 17500,
-      "thumbnail": "outfit/hailstorm missile",
-      "mass": 5,
-      "outfit space": -5,
-      "weapon capacity": -5,
-      "gun ports": -1,
-      "weapon": {
-        "hardpoint sprite": "hardpoint/hailstorm missile hardpoint",
-        "sprite": "projectile/hailstorm missile projectile",
-        "icon": "icon/hailstorm missile icon",
-        "sound": "nuke",
-        "live effect": "hailstorm missile flame",
-        "hit effect": "large explosion",
-        "die effect": "medium explosion",
-        "split range": 450,
-        "inaccuracy": 1,
-        "velocity": 0,
-        "velocity override": 6,
-        "lifetime": 750,
-        "range override": 4500,
-        "reload": 150,
-        "firing energy": 8,
-        "firing heat": 400,
-        "acceleration": 0.3,
-        "drag": 0.05,
-        "turn": 1.5,
-        "homing": {
-          "throttle control": true
-        },
-        "radar tracking": 0.8,
-        "missile strength": 35,
-        "stream": true,
-        "submunitions": [
-          {
-            "type": "Hailstorm Missile Submunition",
-            "count": 7
-          }
-        ],
-        "ammunition": [
-          {
-            "type": "Hailstorm Missile",
-            "count": 1
-          }
-        ]
-      },
-      "description": "The Hailstorm is an externally-mounted cluster missile that does not require a launcher. Seven submunitions are released at a target distance of 450. The wide distribution of near-simultaneous impacts makes it both a very potent shield-stripper and useful against small targets that can evade larger missiles. \tSubmunition data: \t- Homing: Excellent \t- Radar tracking: 50% \t- Shield damage: 900 \t- Hull damage: 150 \t- Hit force: 300 \t- Missile strength: 4 \t[Hailstorm missiles are a one-shot weapon: each missile occupies a gun slot, and after it is fired, the slot it was in is left empty.]",
-      "governments": {
-        "Mega Freight/Mega-Freight": {
-          "Republic": true,
-          "MGF: NGK Security": true,
-          "Syndicate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "Geminus",
-            "Greenwater",
-            "New Britain",
-            "New China",
-            "New Tortuga",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Common Outfits",
-            "Lovelace Advanced",
-            "Lovelace Basics"
-          ]
-        },
-        "Zuckungs list/galactic.capital.investment": {
-          "Planets": [
-            "Sapphire"
-          ],
-          "Outfitters": [
-            "Common Outfits"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Planets": [
-            "Salistra"
-          ],
-          "Outfitters": [
-            "Common Outfits"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "Ankaim Orbital Station",
-            "Ankulah Ship Breaking Station",
-            "CSSY-06 Ningxi Station",
-            "Canaveral Naval Yard",
-            "GS1 Galaxy Station",
-            "Nordlin Navy Yard",
-            "OAS4001 Wilkes Station",
-            "Ourea Naval Arsenal",
-            "SBO1 Zagreus Station",
-            "Yokosuka Naval Arsenal"
-          ],
-          "Outfitters": [
-            "Common Outfits",
-            "Lovelace Advanced",
-            "Lovelace Basics"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Common Outfits",
-            "Lovelace Basics"
-          ]
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "Hailstorm Missile Submunition",
-      "weapon": {
-        "sprite": "projectile/hailstorm missile projectile submunition",
-        "live effect": "swarm flare scale 2",
-        "hit effect": "missile hit",
-        "die effect": "missile death",
-        "inaccuracy": 60,
-        "velocity": 3,
-        "lifetime": 175,
-        "acceleration": 0.6,
-        "drag": 0.05,
-        "turn": 4,
-        "homing": {
-          "leading": true,
-          "throttle control": true
-        },
-        "radar tracking": 0.5,
-        "shield damage": 900,
-        "hull damage": 150,
-        "hit force": 300,
-        "missile strength": 4
-      },
-      "governments": {
-        "Fundamental.Outfit.Expansion": {
-          "Fundamental.Outfit.Expansion": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "_deprecated/unused": true
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "Rapier Missile",
-      "category": "Secondary Weapons",
-      "series": "Secondary Weapons",
-      "index": 1168,
-      "cost": 15000,
-      "thumbnail": "outfit/rapier missile",
-      "mass": 3,
-      "outfit space": -3,
-      "weapon capacity": -3,
-      "gun ports": -1,
-      "weapon": {
-        "hardpoint sprite": "hardpoint/rapier missile hardpoint",
-        "sprite": "projectile/rapier missile projectile",
-        "icon": "icon/rapier missile icon",
-        "sound": "nuke",
-        "live effect": [
-          "rapier missile trail",
-          "rapier missile smoke"
-        ],
-        "hit effect": [
-          "piercer impact scale 1.5",
-          "torpedo hit velocity scale .1"
-        ],
-        "die effect": "small explosion",
-        "inaccuracy": 0.5,
-        "velocity": 0,
-        "velocity override": 32,
-        "lifetime": 425,
-        "range override": 8500,
-        "reload": 90,
-        "firing energy": 4,
-        "firing heat": 250,
-        "acceleration": 0.8,
-        "drag": 0.025,
-        "turn": 0.75,
-        "homing": {
-          "blindspot": true
-        },
-        "optical tracking": 0.75,
-        "shield damage": 1200,
-        "hull damage": 1800,
-        "hit force": 1500,
-        "piercing": 0.5,
-        "missile strength": 65,
-        "stream": true,
-        "ammunition": [
-          {
-            "type": "Rapier Missile",
-            "count": 1
-          }
-        ]
-      },
-      "description": "The Rapier is an externally-mounted hypervelocity missile that does not require a launcher. Bearing a large propellant fraction and an armor-piercing tandem warhead, it is capable of heavily damaging targets at incredible ranges, even through their shields. \tThe missile's tracking relies on an initial snapshot of the target taken at the moment of firing. While in flight, it will try to keep the initial and live images of its target lined up. While this is very reliable within typical operating timespans of under 3.5 seconds against a target that cannot turn quickly, it makes the Rapier completely useless if it misses and its target leaves its field of view. On the other hand, this simple solution keeps the costs associated with using such a powerful fire-and-forget weapon down. \t[Rapier missiles are a one-shot weapon: each missile occupies a gun slot, and after it is fired, the slot it was in is left empty.]",
-      "governments": {
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "Republic": true,
-          "MGF: NGK Security": true,
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "Geminus",
-            "Greenwater",
-            "New Britain",
-            "New China",
-            "New Holland",
-            "New Tortuga",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Common Outfits",
-            "Delta V Advanced",
-            "Delta V Basics"
-          ]
-        },
-        "Zuckungs list/galactic.capital.investment": {
-          "Planets": [
-            "Sapphire"
-          ],
-          "Outfitters": [
-            "Common Outfits"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Planets": [
-            "Salistra"
-          ],
-          "Outfitters": [
-            "Common Outfits"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "Ankaim Orbital Station",
-            "Ankulah Ship Breaking Station",
-            "CSSY-06 Ningxi Station",
-            "Canaveral Naval Yard",
-            "GS1 Galaxy Station",
-            "Nordlin Navy Yard",
-            "OAS4001 Wilkes Station",
-            "Ourea Naval Arsenal",
-            "SBO1 Zagreus Station",
-            "Yokosuka Naval Arsenal"
-          ],
-          "Outfitters": [
-            "Common Outfits",
-            "Delta V Advanced"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Common Outfits",
-            "Delta V Basics"
-          ]
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "Thunderbolt Missile",
-      "category": "Secondary Weapons",
-      "series": "Secondary Weapons",
-      "index": 1169,
-      "cost": 10000,
-      "thumbnail": "outfit/thunderbolt missile",
-      "mass": 3,
-      "outfit space": -3,
-      "weapon capacity": -3,
-      "gun ports": -1,
-      "weapon": {
-        "hardpoint sprite": "hardpoint/thunderbolt missile hardpoint",
-        "sprite": "projectile/thunderbolt missile projectile",
-        "icon": "icon/thunderbolt missile icon",
-        "sound": "nuke",
-        "live effect": "thunderbolt missile flame",
-        "hit effect": "heavy rocket hit",
-        "die effect": "small explosion",
-        "inaccuracy": 1,
-        "velocity": 0,
-        "velocity override": 9,
-        "lifetime": 750,
-        "range override": 6750,
-        "reload": 120,
-        "firing energy": 3,
-        "firing heat": 300,
-        "acceleration": 0.675,
-        "drag": 0.075,
-        "turn": 1.75,
-        "homing": true,
-        "infrared tracking": 0.95,
-        "trigger radius": 25,
-        "blast radius": 75,
-        "shield damage": 3180,
-        "hull damage": 2700,
-        "hit force": 1200,
-        "missile strength": 80,
-        "stream": true,
-        "ammunition": [
-          {
-            "type": "Thunderbolt Missile",
-            "count": 1
-          }
-        ]
-      },
-      "description": "The Thunderbolt is an externally-mounted heavy missile that does not require a launcher. Its guidance is quite primitive, but it is very persistent and difficult to shoot down, and its warhead is the largest available on the open market. \t[Thunderbolt missiles are a one-shot weapon: each missile occupies a gun slot, and after it is fired, the slot it was in is left empty.]",
-      "governments": {
-        "Mega Freight/Mega-Freight": {
-          "Republic": true,
-          "MGF: NGK Security": true,
-          "Syndicate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true
-        },
-        "official-game/endless-sky": {
-          "Republic": true,
-          "Navy (Oathkeeper)": true
-        },
-        "Blended Ships/blended-ships": {
-          "Republic": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Oathbreaker": true,
-          "Pirate": true,
-          "Republic": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "Geminus",
-            "Greenwater",
-            "New Britain",
-            "New China",
-            "New Holland",
-            "New Tortuga",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Common Outfits",
-            "Delta V Advanced",
-            "Delta V Basics",
-            "Lovelace Advanced",
-            "Lovelace Basics"
-          ],
-          "Systems": [
-            "Acamar",
-            "Aldebaran",
-            "Algieba",
-            "Algorel",
-            "Alheka",
-            "Alhena",
-            "Almaaz",
-            "Alnilam",
-            "Alnitak",
-            "Alpha Centauri",
-            "Alphard",
-            "Altair",
-            "Arneb",
-            "Betelgeuse",
-            "Canopus",
-            "Capella",
-            "Cardax",
-            "Castor",
-            "Cor Caroli",
-            "Danoa",
-            "Delta Velorum",
-            "Denebola",
-            "Elnath",
-            "Eteron",
-            "Fala",
-            "Fingol",
-            "Gacrux",
-            "Gorvi",
-            "Hassaleh",
-            "Hatysa",
-            "Kugel",
-            "Kursa",
-            "Lolami",
-            "Mebsuta",
-            "Menkalinan",
-            "Menkent",
-            "Merak",
-            "Miaplacidus",
-            "Mintaka",
-            "Mirzam",
-            "Mora",
-            "Muphrid",
-            "Nihal",
-            "Nocte",
-            "Phact",
-            "Phecda",
-            "Phurad",
-            "Pollux",
-            "Porrima",
-            "Procyon",
-            "Regulus",
-            "Rigel",
-            "Saiph",
-            "Sirius",
-            "Sol",
-            "Sospi",
-            "Sumar",
-            "Talita",
-            "Tania Australis",
-            "Tejat",
-            "Tortor",
-            "Vega",
-            "Volax",
-            "Wazn",
-            "Zosma"
-          ]
-        },
-        "Zuckungs list/galactic.capital.investment": {
-          "Planets": [
-            "Sapphire"
-          ],
-          "Outfitters": [
-            "Common Outfits"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Planets": [
-            "Salistra"
-          ],
-          "Outfitters": [
-            "Common Outfits"
-          ],
-          "Systems": [
-            "94 Merisai",
-            "Airuka",
-            "Alkxaai",
-            "Alpha Tudalip",
-            "Arau",
-            "Chasitum",
-            "Corua",
-            "Darceas",
-            "Denleitt",
-            "Ghesie",
-            "Karita",
-            "Mersat",
-            "Nardacus",
-            "Onuka",
-            "Opfrau",
-            "Paruna",
-            "Pelitol",
-            "Poreu",
-            "Porsuei",
-            "Posteli",
-            "Sedlai",
-            "Vachrau",
-            "Vefrua",
-            "Vensur"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "Ankaim Orbital Station",
-            "Ankulah Ship Breaking Station",
-            "CSSY-06 Ningxi Station",
-            "Canaveral Naval Yard",
-            "GS1 Galaxy Station",
-            "Nordlin Navy Yard",
-            "OAS4001 Wilkes Station",
-            "Ourea Naval Arsenal",
-            "SBO1 Zagreus Station",
-            "Yokosuka Naval Arsenal"
-          ],
-          "Outfitters": [
-            "Common Outfits",
-            "Delta V Advanced",
-            "Lovelace Advanced",
-            "Lovelace Basics"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Common Outfits",
-            "Delta V Basics",
-            "Lovelace Basics"
-          ]
-        },
-        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "Ships": [
-            "Rainmaker (Thunderbolt)"
-          ]
-        },
-        "Zuckungs list/boss.loot": {
-          "Systems": [
-            "Adhile"
-          ]
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
       "name": "Heavy Meteor Missile Launcher",
       "display name": "Meteor Multi-Launcher",
       "category": "Secondary Weapons",
@@ -24690,115 +22107,6 @@
       "locations": {
         "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
           "_deprecated/unused": true
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "Surveillance Radar",
-      "category": "Turrets",
-      "cost": 580000,
-      "outfit/surveillance radar": "# based on the radar design on the Heavy Centaur and Boreas in X3TC",
-      "mass": 30,
-      "outfit space": -20,
-      "turret mounts": -1,
-      "energy consumption": 0.15,
-      "cargo scan power": 90,
-      "cargo scan efficiency": 10,
-      "outfit scan power": 100,
-      "outfit scan efficiency": 30,
-      "asteroid scan power": 400,
-      "weapon": {
-        "hardpoint sprite hardpoint/surveillance radar/surveillance radar hardpoint": {
-          "frame rate": 12
-        },
-        "turret turn": 0.0001
-      },
-      "description": "A long-range external scanner primarily used by the Republic Navy's reconnaissance and law-enforcement arms, but commercial models are available for use on research, mining, salvage, and privateering vessels. \tIt has vastly greater power than standard internal scanners but not much more efficiency, allowing scans to be performed at much greater ranges but at a relatively slow rate. \tThis system is so bulky that it requires installation on a powered rotating turret mount.",
-      "governments": {
-        "Mega Freight/Mega-Freight": {
-          "Republic": true,
-          "MGF: NGK Security": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Geminus",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Kraz Advanced",
-            "Lovelace Advanced"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "Canaveral Naval Yard",
-            "GS1 Galaxy Station",
-            "Nordlin Navy Yard",
-            "OAS4001 Wilkes Station",
-            "SBO1 Zagreus Station",
-            "Yokosuka Naval Arsenal"
-          ],
-          "Outfitters": [
-            "Kraz Advanced",
-            "Lovelace Advanced"
-          ]
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "Tactical Radar",
-      "category": "Turrets",
-      "cost": 660000,
-      "thumbnail": "outfit/tactical radar",
-      "mass": 18,
-      "outfit space": -12,
-      "turret mounts": -1,
-      "energy consumption": 0.15,
-      "outfit scan power": 40,
-      "outfit scan efficiency": 60,
-      "tactical scan power": 250,
-      "radar jamming": 4,
-      "weapon": {
-        "hardpoint sprite hardpoint/tactical radar/tactical radar hardpoint": {
-          "frame rate": 18
-        },
-        "turret turn": 0.0001
-      },
-      "description": "A long-range external scanner primarily used by the Republic Navy. Its powerful signal can also be directed to actively jam radar-homing missiles. \tThis system is so bulky that it requires installation on a powered rotating turret mount.",
-      "governments": {
-        "Mega Freight/Mega-Freight": {
-          "Republic": true,
-          "MGF: NGK Security": true
-        }
-      },
-      "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Geminus",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Kraz Advanced",
-            "Lovelace Advanced"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "Canaveral Naval Yard",
-            "GS1 Galaxy Station",
-            "Nordlin Navy Yard",
-            "OAS4001 Wilkes Station",
-            "SBO1 Zagreus Station",
-            "Yokosuka Naval Arsenal"
-          ],
-          "Outfitters": [
-            "Kraz Advanced",
-            "Lovelace Advanced"
-          ]
         }
       },
       "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
@@ -26760,7 +24068,8 @@
           "Ancient Travelers": true,
           "Black Beards": true,
           "Pirate": true,
-          "Navy Intelligence": true
+          "Navy Intelligence": true,
+          "The Assembly": true
         },
         "Rumskib/rumskib": {
           "Pirate": true
@@ -26788,6 +24097,9 @@
         "Midnight Expansion/Midnight-Expansion": {
           "Merchant": true,
           "Korath": true
+        },
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Merchant": true
         },
         "LixiChronikouOrious list/Bunsen.Burner": {
           "Test Dummy": true
@@ -27585,6 +24897,24 @@
             "Wayfarer",
             "Zug",
             "mOctave's Plugins "
+          ]
+        },
+        "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
+          "Ships": [
+            "Dromedary"
+          ],
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Eavak",
+            "Eligne",
+            "Khazayob",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Tobor",
+            "Xiekivi",
+            "Xiilek"
           ]
         },
         "Capitalis Major/Capitalis-Major": {
@@ -30006,389 +27336,234 @@
       "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
     },
     {
-      "name": "Beehive Rocket Launcher",
-      "weapon": {
-        "burst count": 4,
-        "burst reload": 15,
-        "live effect": "ballistic smoke"
-      },
+      "name": "FOE: Barrage Missile",
+      "display name": "Barrage Missile",
+      "category": "Ammunition",
+      "cost": 200,
+      "thumbnail": "outfit/barrage missile",
+      "mass": 0.1,
+      "barrage capacity": -1,
+      "description": "A small missile designed by the Republic Navy to give fighters and drones more firepower, it was purpose built to be fired in large waves, hence its name.",
       "governments": {
-        "official-game/endless-sky": {
-          "Pirate": true,
-          "Free Worlds": true,
-          "Merchant": true,
-          "Independent (Killable)": true,
-          "Syndicate": true
-        },
-        "Zuckungs list/job.coloring": {
-          "Merchant": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "Escort": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Independent (Killable)": true,
-          "Syndicate": true,
-          "Pirate (Rival)": true,
-          "Syndicate (Extremist)": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Pirate": true,
-          "Syndicate": true,
-          "Syndicate (Extremist)": true
-        },
-        "DAIS/DAIS": {
-          "Syndicate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Merchant": true
+        "Fundamental.Outfit.Expansion": {
+          "Fundamental.Outfit.Expansion": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "New Britain",
-            "New Holland",
-            "New Tortuga",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Delta V Advanced",
-            "Delta V Basics",
-            "Pirate Advanced"
-          ],
-          "Systems": [
-            "Acrux",
-            "Al Dhanab",
-            "Albaldah",
-            "Albireo",
-            "Alcyone",
-            "Alderamin",
-            "Aldhibain",
-            "Algenib",
-            "Algol",
-            "Algorel",
-            "Alioth",
-            "Alkaid",
-            "Almach",
-            "Alnair",
-            "Alnasl",
-            "Alniyat",
-            "Alpha Arae",
-            "Alpha Hydri",
-            "Alphecca",
-            "Alpheratz",
-            "Alpherg",
-            "Ankaa",
-            "Antares",
-            "Arcturus",
-            "Ascella",
-            "Atik",
-            "Atria",
-            "Belenos",
-            "Beta Lupi",
-            "Boral",
-            "Cebalrai",
-            "Citadelle",
-            "Cor Caroli",
-            "Dabih",
-            "Delta Sagittarii",
-            "Delta Velorum",
-            "Dschubba",
-            "Durax",
-            "Eber",
-            "Fumalsamakah",
-            "Gacrux",
-            "Gamma Cassiopeiae",
-            "Gamma Corvi",
-            "Gienah",
-            "Girtab",
-            "Hadar",
-            "Hamal",
-            "Han",
-            "Hintar",
-            "Holeb",
-            "Ildaria",
-            "Izar",
-            "Kappa Centauri",
-            "Kaus Australis",
-            "Kaus Borealis",
-            "Kochab",
-            "Kornephoros",
-            "Kraz",
-            "Kugel",
-            "Lesath",
-            "Limen",
-            "Lurata",
-            "Matar",
-            "Men",
-            "Menkar",
-            "Mimosa",
-            "Minkar",
-            "Misam",
-            "Mora",
-            "Naper",
-            "Nunki",
-            "Oblate",
-            "Orbona",
-            "Orvala",
-            "Peacock",
-            "Persian",
-            "Pherkad",
-            "Rasalhague",
-            "Rastaban",
-            "Regulus",
-            "Ruchbah",
-            "Rutilicus",
-            "Sabik",
-            "Sadr",
-            "Sargas",
-            "Sarin",
-            "Scheat",
-            "Schedar",
-            "Seginus",
-            "Shaula",
-            "Sheratan",
-            "Spica",
-            "Tais",
-            "Tarazed",
-            "Terminus",
-            "Thuban",
-            "Turais",
-            "Umbral",
-            "Unukalhai",
-            "Vindemiatrix",
-            "Wei",
-            "Yed Prior",
-            "Zaurak",
-            "Zeta Aquilae",
-            "Zeta Centauri",
-            "Zubenelgenubi",
-            "Zubeneschamali"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Smuggler's Den",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Delta V Basics",
-            "Pirate Advanced"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "SBO1 Zagreus Station"
-          ],
-          "Outfitters": [
-            "Delta V Advanced"
-          ]
-        },
         "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "Ships": [
-            "Osprey (Beehive Rocket)",
-            "Vanguard (Beehive Rocket)"
-          ]
-        },
-        "Fire Corporation/Fire-Corporation": {
-          "Systems": [
-            "Hidden Queen"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Systems": [
-            "94 Merisai",
-            "Karita",
-            "Vefrua"
-          ]
-        },
-        "Rumskib/rumskib": {
-          "Systems": [
-            "Nashira"
-          ]
+          "_deprecated/unused": true
         }
       },
       "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
     },
     {
-      "name": "Beehive Rocket Turret",
-      "weapon": {
-        "burst count": 3,
-        "burst reload": 15,
-        "live effect": "ballistic smoke"
-      },
+      "name": "FOE: Barrage Storage",
+      "display name": "Barrage Storage",
+      "category": "Ammunition",
+      "cost": 10000,
+      "thumbnail": "outfit/barrage storage",
+      "mass": 3,
+      "outfit space": -5,
+      "barrage capacity": 200,
+      "description": "A safe storage for the Barrage Missiles.",
       "governments": {
-        "official-game/endless-sky": {
-          "Lunarium (Hidden)": true,
-          "Merchant": true,
-          "Free Worlds": true,
-          "Pirate": true
-        },
-        "Zuckungs list/job.coloring": {
-          "Merchant": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true,
-          "Pirate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Republic": true,
-          "Pirate": true,
-          "Independent": true,
-          "Free Worlds": true
+        "Fundamental.Outfit.Expansion": {
+          "Fundamental.Outfit.Expansion": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Buccaneer Bay",
-            "New Tortuga",
-            "Smuggler's Den"
-          ],
-          "Outfitters": [
-            "Delta V Advanced",
-            "Pirate Advanced"
-          ],
-          "Systems": [
-            "Acrux",
-            "Albaldah",
-            "Albireo",
-            "Aldhibain",
-            "Algorel",
-            "Alioth",
-            "Alkaid",
-            "Alnasl",
-            "Alniyat",
-            "Alpha Arae",
-            "Alpherg",
-            "Antares",
-            "Atria",
-            "Belenos",
-            "Beta Lupi",
-            "Citadelle",
-            "Dabih",
-            "Delta Velorum",
-            "Dschubba",
-            "Eber",
-            "Fumalsamakah",
-            "Gacrux",
-            "Gamma Corvi",
-            "Girtab",
-            "Hadar",
-            "Han",
-            "Ildaria",
-            "Izar",
-            "Kaus Australis",
-            "Kornephoros",
-            "Kraz",
-            "Lesath",
-            "Limen",
-            "Lurata",
-            "Men",
-            "Mimosa",
-            "Minkar",
-            "Mora",
-            "Nunki",
-            "Orbona",
-            "Orvala",
-            "Peacock",
-            "Pherkad",
-            "Rasalhague",
-            "Rastaban",
-            "Regulus",
-            "Sabik",
-            "Sadr",
-            "Sargas",
-            "Sarin",
-            "Shaula",
-            "Spica",
-            "Tais",
-            "Tarazed",
-            "Terminus",
-            "Thuban",
-            "Turais",
-            "Umbral",
-            "Unukalhai",
-            "Vindemiatrix",
-            "Wei",
-            "Yed Prior",
-            "Zeta Aquilae",
-            "Zeta Centauri",
-            "Zubenelgenubi",
-            "Zubeneschamali"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "Planets": [
-            "SBO1 Zagreus Station"
-          ],
-          "Outfitters": [
-            "Delta V Advanced"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Planets": [
-            "Rum Cellar",
-            "Smuggler's Den",
-            "Wang Xiang Tai"
-          ],
-          "Outfitters": [
-            "Pirate Advanced"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ]
-        },
         "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "Ships": [
-            "Bastion (Beehive Rocket)"
-          ]
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
+    },
+    {
+      "name": "FOE: Barrage Launcher",
+      "display name": "Barrage Launcher",
+      "category": "Secondary Weapons",
+      "cost": 5000,
+      "thumbnail": "outfit/barrage launcher",
+      "mass": 3,
+      "outfit space": -3,
+      "weapon capacity": -3,
+      "gun ports": -1,
+      "barrage capacity": 50,
+      "weapon": {
+        "sprite": "projectile/barrage missile",
+        "sprite data": {
+          "no repeat": true,
+          "frame rate": 6
         },
-        "Fire Corporation/Fire-Corporation": {
-          "Systems": [
-            "Hidden Queen"
-          ]
+        "sound": "meteor",
+        "icon": "icon/barrage",
+        "fire effect": "meteor fire",
+        "die effect": "missile death",
+        "hit effect": "missile hit",
+        "inaccuracy": 5,
+        "velocity": 11,
+        "lifetime": 350,
+        "reload": 100,
+        "burst count": 9,
+        "burst reload": 40,
+        "firing energy": 1,
+        "firing heat": 20,
+        "acceleration": 1,
+        "drag": 0.1,
+        "turn": 1.8,
+        "homing": 1,
+        "infrared tracking": 1,
+        "radar tracking": 1,
+        "optical tracking": 1,
+        "shield damage": 50,
+        "hull damage": 40,
+        "hit force": 80,
+        "missile strength": 3,
+        "ammunition": [
+          {
+            "type": "FOE: Barrage Missile",
+            "count": 1
+          }
+        ]
+      },
+      "description": "A fast firing launcher made for compact ships, it was designed to lay down a large amount of missile fire to overwhelm enemy countermeasures to allow stronger missiles in.",
+      "governments": {
+        "Fundamental.Outfit.Expansion": {
+          "Fundamental.Outfit.Expansion": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
+    },
+    {
+      "name": "FOE: Broadsider Slug",
+      "display name": "Broadsider Slug",
+      "category": "Ammunition",
+      "cost": 60,
+      "thumbnail": "outfit/broadsider slug",
+      "mass": 0.1,
+      "broadsider slug capacity": -1,
+      "description": "A Heavy slug made primarily of Tungsten.",
+      "governments": {
+        "Fundamental.Outfit.Expansion": {
+          "Fundamental.Outfit.Expansion": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
+    },
+    {
+      "name": "FOE: Broadsider Storage",
+      "display name": "Broadsider Storage",
+      "category": "Ammunition",
+      "cost": 72000,
+      "thumbnail": "outfit/broadsider storage",
+      "mass": 10,
+      "outfit space": -10,
+      "broadsider slug capacity": 60,
+      "description": "The Broadsider makes use of large magazines for loading new shells. These magazines are loaded by a crew member in an industrial exosuit.",
+      "governments": {
+        "Fundamental.Outfit.Expansion": {
+          "Fundamental.Outfit.Expansion": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
+    },
+    {
+      "name": "FOE: Broadsider",
+      "display name": "Broadsider",
+      "category": "Turrets",
+      "cost": 1120000,
+      "thumbnail": "outfit/broadsider",
+      "mass": 63,
+      "outfit space": -63,
+      "weapon capacity": -63,
+      "turret mounts": -1,
+      "required crew": 2,
+      "broadsider slug capacity": 300,
+      "weapon": {
+        "sprite": "projectile/broadsider slug",
+        "hardpoint sprite": "hardpoint/broadsider",
+        "hardpoint offset": 9,
+        "icon": "icon/broadsider",
+        "sound": "ion impact",
+        "fire effect": "rail sparks",
+        "live effect": "rail sparks",
+        "hit effect": "bullet impact",
+        "inaccuracy": 2,
+        "turret turn": 1,
+        "velocity": 28,
+        "lifetime": 1,
+        "reload": 50,
+        "firing energy": 198,
+        "firing heat": 93,
+        "firing force": 11,
+        "hit force": 44,
+        "submunitions": [
+          {
+            "type": "bslug",
+            "count": 1
+          }
+        ],
+        "ammunition": [
+          {
+            "type": "FOE: Broadsider Slug",
+            "count": 1
+          }
+        ]
+      },
+      "description": "As part of the Navy's 'New Age Initiative,' the team at Geminus has developed larger and more powerful weaponry to function on their new ships. The Broadsider is one such weapon created for the Battleship and meant to hit harder than anything humanity has to offer.",
+      "governments": {
+        "Fundamental.Outfit.Expansion": {
+          "Fundamental.Outfit.Expansion": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
+    },
+    {
+      "name": "bslug",
+      "weapon": {
+        "acceleration": 0.022,
+        "drag": 0.001,
+        "lifetime": 99,
+        "sprite": "projectile/broadsider slug",
+        "sprite data": {
+          "frame rate": 30
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Systems": [
-            "94 Merisai",
-            "Karita",
-            "Vefrua"
-          ]
+        "live effect": "rail sparks",
+        "hit effect": "bullet impact",
+        "shield damage": 825,
+        "hull damage": 1135,
+        "hit force": 44,
+        "missile strength": 26,
+        "piercing": 0.1
+      },
+      "governments": {
+        "Fundamental.Outfit.Expansion": {
+          "Fundamental.Outfit.Expansion": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+          "_deprecated/unused": true
         }
       },
       "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
@@ -32734,11 +29909,13 @@
     },
     {
       "name": "Hesperian Toolbox",
+      "plural": "Hesperian Toolboxes",
       "category": "Systems",
       "series": "Repair",
       "index": 1020,
       "cost": 25000,
       "thumbnail": "outfit/hesperian toolbox",
+      "mass": 1,
       "outfit space": -1,
       "required crew": 2,
       "operating cost": 200,
@@ -33001,7 +30178,7 @@
       "index": 1021,
       "cost": 10000,
       "thumbnail": "outfit/duct tape",
-      "mass": 0.1,
+      "mass": 1,
       "outfit space": 0,
       "hull repair rate": 0.01,
       "weapon capacity": 1,
@@ -33027,7 +30204,7 @@
       "index": 1022,
       "cost": 25000,
       "thumbnail": "outfit/screwdriver red",
-      "mass": 0.5,
+      "mass": 1,
       "outfit space": 0,
       "hull repair rate": 0.05,
       "hull energy": 0.1,
@@ -33199,7 +30376,7 @@
       "index": 1023,
       "cost": 17000,
       "thumbnail": "outfit/screwdriver blue",
-      "mass": 0.5,
+      "mass": 1,
       "outfit space": 0,
       "shield generation": 0.1,
       "shield energy": 0.1,
@@ -33532,116 +30709,7 @@
       "random angle": 180,
       "velocity scale": 0,
       "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "hailstorm missile flame",
-      "sprite": "effect/explosion/tiny",
-      "sprite data": {
-        "no repeat": true,
-        "frame rate": 15,
-        "scale": 0.5
-      },
-      "lifetime": 20,
-      "absolute angle": 180,
-      "random angle": 180,
-      "random spin": 6,
-      "absolute velocity": 0,
-      "random velocity": 2,
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "swarm flare scale 2",
-      "sprite": "effect/swarm",
-      "sprite data": {
-        "no repeat": true,
-        "frame rate": 5,
-        "scale": 2
-      },
-      "lifetime": 40,
-      "velocity scale": 0.1,
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "rapier missile trail",
-      "sprite": "effect/pulse impact",
-      "sprite data": {
-        "no repeat": true,
-        "frame rate": 5,
-        "scale": 1.25
-      },
-      "lifetime": 80,
-      "absolute angle": 180,
-      "random angle": 90,
-      "random spin": 4,
-      "absolute velocity": 0,
-      "random velocity": 1,
-      "random frame rate": 1,
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "rapier missile smoke",
-      "sprite": "effect/smoke",
-      "sprite data": {
-        "no repeat": true,
-        "frame rate": 2,
-        "scale": 0.7
-      },
-      "lifetime": 160,
-      "random spin": 4,
-      "random angle": 360,
-      "absolute velocity": 0,
-      "random velocity": 1,
-      "random frame rate": 1,
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "torpedo hit velocity scale .1",
-      "sprite": "effect/explosion/large",
-      "sprite data": {
-        "no repeat": true,
-        "frame rate": 15
-      },
-      "sound": "torpedo hit",
-      "lifetime": 32,
-      "random angle": 360,
-      "random velocity": 0.8,
-      "random spin": 4,
-      "random frame rate": 5,
-      "velocity scale": 0.1,
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "piercer impact scale 1.5",
-      "sprite": "effect/piercer impact",
-      "sprite data": {
-        "no repeat": true,
-        "frame rate": 8,
-        "scale": 1.5
-      },
-      "sound": "explosion tiny",
-      "lifetime": 31,
-      "random angle": 360,
-      "random spin": 60,
-      "random velocity": 0.1,
-      "velocity scale": 0.001,
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
-    },
-    {
-      "name": "thunderbolt missile flame",
-      "sprite": "effect/explosion/tiny",
-      "sprite data": {
-        "no repeat": true,
-        "frame rate": 15,
-        "scale": 0.5
-      },
-      "lifetime": 20,
-      "absolute angle": 180,
-      "random angle": 180,
-      "random spin": 6,
-      "absolute velocity": 0,
-      "random velocity": 2,
-      "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
     }
   ],
-  "parsedAt": "2026-05-19T13:01:01.046Z"
+  "parsedAt": "2026-06-01T03:42:23.581Z"
 }
