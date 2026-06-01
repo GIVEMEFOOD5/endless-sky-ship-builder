@@ -11,15 +11,17 @@
 //   4. Weapon DPS       — fleet summary + per-weapon detail
 //   5. Computed stats   — _fn_*, _derived_*, _ws_* from ComputedStats
 //
-// Multi-item fleet summary (shown at top when ≥2 items selected):
-//   Ships/variants: combined cost, combined DPS by type, combined ammo/s
-//   Outfits:        combined cost, combined mass, combined DPS
+// Quantity multiplier:
+//   Each item has a ×N spinner in its column/table header.
+//   All numeric stats are multiplied by that quantity before display.
+//   Useful for comparing e.g. ×2 of one outfit vs ×1 of another.
 // ─────────────────────────────────────────────────────────────────────────────
 
 window.CompareDisplay = (() => {
 
     let _panelOpen = false;
     let _viewMode  = 'columns';
+    let _quantities = {}; // qKey(item) → integer ≥ 1
 
     const MAX_TEMP = 100;
 
@@ -105,13 +107,27 @@ window.CompareDisplay = (() => {
         else if (s === '_outfitMass')              return 'Outfit Mass';
         else if (s === '_totalOutfitCost')         return 'Total Outfit Cost';
         else if (s === '_totalOutfits')            return 'Total Outfits';
-        // _ws_dps_ prefix: key is like "_ws_dps_shield_damage" — strip suffix "damage" word
         else if (s.startsWith('_ws_dps_')) {
             s = s.slice('_ws_dps_'.length).replace(/_/g, ' ');
             s = s.replace(/\s*damage\s*$/, '').trim() + ' DPS';
         }
         return s.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ')
                 .replace(/\s+/g, ' ').replace(/^./, c => c.toUpperCase()).trim();
+    }
+
+    // ── Quantity helpers ──────────────────────────────────────────────────────
+
+    function _qKey(item) {
+        return (item.name || '') + '|' + (item._compareTab || '');
+    }
+
+    function _getQty(item) {
+        return _quantities[_qKey(item)] || 1;
+    }
+
+    function _setQty(item, n) {
+        _quantities[_qKey(item)] = Math.max(1, Math.floor(n) || 1);
+        _renderPanelContent();
     }
 
     // ── Outfit index ──────────────────────────────────────────────────────────
@@ -194,7 +210,6 @@ window.CompareDisplay = (() => {
     }
 
     // ── Weapon data ───────────────────────────────────────────────────────────
-    // Returns WeaponStats.getShipWeaponStats result with _outfitIdx attached.
 
     function _buildWeaponData(item, outfitIdx) {
         if (!window.WeaponStats) return null;
@@ -209,9 +224,6 @@ window.CompareDisplay = (() => {
     }
 
     // ── Per-weapon detail rows ────────────────────────────────────────────────
-    // Returns [{label, value, unit}] for one weapon outfit.
-    // Section A: raw weapon fields (rate/behaviour)
-    // Section B: per-second values (shots/s, DPS by type, firing costs/s)
 
     function _weaponDetailRows(outfitName, count, outfit, profile) {
         const w        = outfit.weapon || {};
@@ -225,7 +237,6 @@ window.CompareDisplay = (() => {
             'die effect','live effect','submunition','submunitions','stream','cluster',
             'hardpoint sprite','hardpoint offset','icon','ammunition','ammo']);
 
-        // A) Rate / behaviour fields
         for (const [key, val] of Object.entries(w).sort((a, b) => a[0].localeCompare(b[0]))) {
             const lk = key.toLowerCase();
             if (weapSkip.has(lk))         continue;
@@ -246,20 +257,17 @@ window.CompareDisplay = (() => {
             rows.push({ label: _labelOf(key), value: display, unit: _getDisplayUnit(key) });
         }
 
-        // B) Per-second — divider then computed values
         rows.push({ label: '— Per Second —', value: '', unit: '' });
         rows.push({ label: 'Shots/s', value: _fmt(sps), unit: '' });
         if (profile.effectiveRange)
             rows.push({ label: 'Range', value: _fmt(profile.effectiveRange), unit: 'px' });
 
-        // All damage types from dpsBreakdown — strip " damage" from key for label
         for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort())
             if (dps) {
                 const label = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
                 rows.push({ label, value: _fmt(dps * count), unit: 'dmg/s' });
             }
 
-        // Firing costs per second
         for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort())
             if (costVal) {
                 const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
@@ -267,88 +275,6 @@ window.CompareDisplay = (() => {
             }
 
         return rows;
-    }
-
-    // ── Fleet summary (multi-item) ────────────────────────────────────────────
-    // Calculates combined fields across all items in the compare list.
-    // Only fields that meaningfully combine are shown (cost, DPS, mass etc.)
-    // Fields that don't combine (speed, shields of individual ships) are excluded.
-
-    function _buildFleetSummary(items, outfitIdx) {
-        const groupType = window.CompareManager.getGroupType();
-        const isShip    = groupType === 'ship';
-
-        let totalCost = 0;
-        const combinedDps     = {}; // dmgKey → total dps
-        let combinedMass      = 0;
-        let combinedOutfitCost = 0;
-        let combinedHullDps   = 0;
-        let combinedShieldDps = 0;
-        let combinedTotalDps  = 0;
-        const combinedAmmo    = {}; // ammoName → rounds/s
-
-        for (const item of items) {
-            // Cost
-            const cost = item.attributes?.cost ?? item.cost ?? 0;
-            if (typeof cost === 'number') totalCost += cost;
-
-            if (isShip) {
-                const wData = _buildWeaponData(item, outfitIdx);
-                if (wData) {
-                    combinedHullDps   += wData.hullDps   || 0;
-                    combinedShieldDps += wData.shieldDps || 0;
-                    combinedTotalDps  += wData.totalDps  || 0;
-                    for (const [dmgKey, val] of Object.entries(wData.dpsByType || {}))
-                        combinedDps[dmgKey] = (combinedDps[dmgKey] || 0) + val;
-                    for (const a of (wData.ammoRequired || []))
-                        combinedAmmo[a.ammoOutfitName] = (combinedAmmo[a.ammoOutfitName] || 0) + a.totalShotsPerSecond;
-                }
-                const eff = _buildEffectiveAttrs(item, outfitIdx);
-                combinedMass += eff['mass'] || 0;
-            } else {
-                // Outfit
-                const mass = typeof item.mass === 'number' ? item.mass : 0;
-                combinedMass += mass;
-                const oCost = typeof item.cost === 'number' ? item.cost : 0;
-                combinedOutfitCost += oCost;
-                // DPS for outfit weapons
-                if (item.weapon && window.WeaponStats) {
-                    const profile = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
-                    if (profile) {
-                        combinedTotalDps  += profile.totalDps  || 0;
-                        combinedShieldDps += profile.shieldDps || 0;
-                        combinedHullDps   += profile.hullDps   || 0;
-                        for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}))
-                            combinedDps[dmgKey] = (combinedDps[dmgKey] || 0) + dps;
-                    }
-                }
-            }
-        }
-
-        const rows = [];
-
-        const n = items.length;
-        const groupLabel = isShip ? `${n} Ships` : `${n} Outfits`;
-
-        rows.push({ label: 'Items compared', value: String(n), unit: '' });
-        if (totalCost)         rows.push({ label: 'Combined Cost',       value: _fmt(totalCost),         unit: 'cr' });
-        if (combinedMass)      rows.push({ label: 'Combined Mass',       value: _fmt(combinedMass),      unit: '' });
-        if (combinedTotalDps)  rows.push({ label: 'Combined Total DPS',  value: _fmt(combinedTotalDps),  unit: 'dmg/s' });
-        if (combinedShieldDps) rows.push({ label: 'Combined Shield DPS', value: _fmt(combinedShieldDps), unit: 'dmg/s' });
-        if (combinedHullDps)   rows.push({ label: 'Combined Hull DPS',   value: _fmt(combinedHullDps),   unit: 'dmg/s' });
-
-        // All damage types combined
-        for (const [dmgKey, val] of Object.entries(combinedDps).sort())
-            if (val) rows.push({
-                label: _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS (combined)',
-                value: _fmt(val), unit: 'dmg/s'
-            });
-
-        // Ammo
-        for (const [ammoName, rps] of Object.entries(combinedAmmo).sort())
-            if (rps) rows.push({ label: `${ammoName} (combined)`, value: _fmt(rps), unit: 'rounds/s' });
-
-        return { rows, groupLabel };
     }
 
     // ── Skip sets ─────────────────────────────────────────────────────────────
@@ -365,8 +291,11 @@ window.CompareDisplay = (() => {
     const COMPUTED_SKIP = new Set(['_ws_hasAmmoWeapons','_totalOutfits']);
 
     // ── Build attribute map for one item ──────────────────────────────────────
+    // qty: integer multiplier applied to all numeric values
 
-    function _buildAttrMap(item) {
+    function _buildAttrMap(item, qty) {
+        qty = (typeof qty === 'number' && qty >= 1) ? qty : 1;
+
         const sections  = {};
         const seen      = new Set();
         const outfitIdx = _buildOutfitIndex();
@@ -380,7 +309,9 @@ window.CompareDisplay = (() => {
             const section = sectionOverride || _getSection(key);
             const mult    = _getDisplayMultiplier(key);
             const unit    = _getDisplayUnit(key);
-            const display = typeof rawVal === 'number' ? _fmt(rawVal * mult) : String(rawVal);
+            // Apply qty multiplier to numeric values
+            const scaledVal = typeof rawVal === 'number' ? rawVal * qty : rawVal;
+            const display   = typeof scaledVal === 'number' ? _fmt(scaledVal * mult) : String(scaledVal);
             if (!sections[section]) sections[section] = [];
             sections[section].push({ key, label: _labelOf(key), value: display, unit });
         }
@@ -392,54 +323,62 @@ window.CompareDisplay = (() => {
             sections[section].push({ key, label, value, unit: unit || '' });
         }
 
+        // Helper: scale a pre-formatted numeric string by qty.
+        // We re-compute from the raw number, so callers pass rawNum separately.
+        function pushRawScaled(section, key, label, rawNum, unit) {
+            if (seen.has(key)) return;
+            seen.add(key);
+            if (!sections[section]) sections[section] = [];
+            const display = typeof rawNum === 'number' ? _fmt(rawNum * qty) : String(rawNum);
+            sections[section].push({ key, label, value: display, unit: unit || '' });
+        }
+
         if (isShip) {
-            // 1. Effective attributes
+            // 1. Effective attributes (all numeric — multiplied by qty inside push())
             const eff = _buildEffectiveAttrs(item, outfitIdx);
             for (const [k, v] of Object.entries(eff)) push(k, v);
 
-            // 2. Hardpoints
-            if (item.guns?.length)           pushRaw('Hardpoints', 'Guns',           'Guns',           String(item.guns.length), '');
-            if (item.turrets?.length)        pushRaw('Hardpoints', 'Turrets',        'Turrets',        String(item.turrets.length), '');
-            if (item.engines?.length)        pushRaw('Hardpoints', 'Engines',        'Engines',        String(item.engines.length), '');
-            if (item.reverseEngines?.length) pushRaw('Hardpoints', 'ReverseEngines', 'Reverse Engines',String(item.reverseEngines.length), '');
+            // 2. Hardpoints — scale counts by qty
+            if (item.guns?.length)           pushRaw('Hardpoints', 'Guns',           'Guns',           String(item.guns.length * qty), '');
+            if (item.turrets?.length)        pushRaw('Hardpoints', 'Turrets',        'Turrets',        String(item.turrets.length * qty), '');
+            if (item.engines?.length)        pushRaw('Hardpoints', 'Engines',        'Engines',        String(item.engines.length * qty), '');
+            if (item.reverseEngines?.length) pushRaw('Hardpoints', 'ReverseEngines', 'Reverse Engines',String(item.reverseEngines.length * qty), '');
             if (item.bays?.length) {
                 const byType = {};
                 item.bays.forEach(b => { byType[b.type || 'Bay'] = (byType[b.type || 'Bay'] || 0) + 1; });
-                Object.entries(byType).forEach(([t, n]) => pushRaw('Hardpoints', `${t} Bays`, `${t} Bays`, String(n), ''));
+                Object.entries(byType).forEach(([t, n]) => pushRaw('Hardpoints', `${t} Bays`, `${t} Bays`, String(n * qty), ''));
             }
 
-            // 3. Heat derived
+            // 3. Heat derived — scale by qty
             const hd = _computeHeatDerived(item, eff, outfitIdx);
             if (hd.totalHeatCapacity != null)
-                pushRaw('Heat (derived)', '_hd_totalHeatCap', 'Total Heat Capacity',    _fmt(hd.totalHeatCapacity),      '');
+                pushRawScaled('Heat (derived)', '_hd_totalHeatCap', 'Total Heat Capacity',    hd.totalHeatCapacity,      '');
             if (hd.maxSustainableHeatProd != null)
-                pushRaw('Heat (derived)', '_hd_maxSustHeat',  'Max Sustainable Heat/s', _fmt(hd.maxSustainableHeatProd), '/s');
+                pushRawScaled('Heat (derived)', '_hd_maxSustHeat',  'Max Sustainable Heat/s', hd.maxSustainableHeatProd, '/s');
 
-            // 4. Weapon DPS — fleet summary + all damage types + per-weapon detail
+            // 4. Weapon DPS — scale DPS values by qty
             const wData = _buildWeaponData(item, outfitIdx);
             if (wData && wData.weaponCount) {
                 const dS = 'Weapon DPS';
-                pushRaw(dS, '_ws_totalDps',    'Total DPS',    _fmt(wData.totalDps),            'dmg/s');
-                pushRaw(dS, '_ws_shieldDps',   'Shield DPS',   _fmt(wData.shieldDps),           'dmg/s');
-                pushRaw(dS, '_ws_hullDps',     'Hull DPS',     _fmt(wData.hullDps),             'dmg/s');
+                pushRawScaled(dS, '_ws_totalDps',    'Total DPS',    wData.totalDps,            'dmg/s');
+                pushRawScaled(dS, '_ws_shieldDps',   'Shield DPS',   wData.shieldDps,           'dmg/s');
+                pushRawScaled(dS, '_ws_hullDps',     'Hull DPS',     wData.hullDps,             'dmg/s');
                 pushRaw(dS, '_ws_weaponCount', 'Weapon Types', String(wData.weaponCount),       '');
-                pushRaw(dS, '_ws_totalMounts', 'Total Mounts', String(wData.totalWeaponMounts), '');
+                pushRaw(dS, '_ws_totalMounts', 'Total Mounts', String(wData.totalWeaponMounts * qty), '');
 
-                // All damage types from dpsByType — key is e.g. "shield damage", strip " damage"
                 for (const [dmgKey, val] of Object.entries(wData.dpsByType || {}).sort())
                     if (val) {
                         const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}`;
                         const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
-                        pushRaw(dS, safeKey, label, _fmt(val), 'dmg/s');
+                        pushRawScaled(dS, safeKey, label, val, 'dmg/s');
                     }
 
-                // Ammo consumption
                 if (wData.hasAmmoWeapons)
                     for (const a of (wData.ammoRequired || []))
-                        pushRaw('Ammo Consumption', `_ammo_${a.ammoOutfitName}`,
-                            a.ammoOutfitName, _fmt(a.totalShotsPerSecond), 'rounds/s');
+                        pushRawScaled('Ammo Consumption', `_ammo_${a.ammoOutfitName}`,
+                            a.ammoOutfitName, a.totalShotsPerSecond, 'rounds/s');
 
-                // Per-weapon detail — each weapon gets its own section
+                // Per-weapon detail — scale DPS rows by qty, leave rate/behaviour rows unscaled
                 for (const w of (wData.weapons || [])) {
                     const outfit = outfitIdx[w.outfitName];
                     if (!outfit?.weapon) continue;
@@ -450,13 +389,20 @@ window.CompareDisplay = (() => {
                         const k = `_wd_${w.outfitName}_${r.label}`;
                         if (seen.has(k)) continue;
                         seen.add(k);
-                        sections[sectionKey].push({ key: k, label: r.label, value: r.value, unit: r.unit });
+                        // Scale DPS and shots/s type rows; leave rate/behaviour rows alone
+                        const isDpsRow = r.unit === 'dmg/s' || r.label === 'Shots/s' || r.label.endsWith('/s');
+                        let displayVal = r.value;
+                        if (isDpsRow && qty > 1) {
+                            const parsed = parseFloat(r.value.replace(/,/g, ''));
+                            if (!isNaN(parsed)) displayVal = _fmt(parsed * qty);
+                        }
+                        sections[sectionKey].push({ key: k, label: r.label, value: displayVal, unit: r.unit });
                     }
                 }
             }
 
         } else {
-            // Outfit — flat structure
+            // Outfit — flat structure; push() handles qty scaling
             for (const [k, v] of Object.entries(item)) {
                 if (SKIP_KEYS.has(k) || typeof v === 'object') continue;
                 push(k, v);
@@ -472,28 +418,25 @@ window.CompareDisplay = (() => {
                 }
 
                 if (window.WeaponStats) {
-                    const outfitIdx = _buildOutfitIndex();
-                    const profile   = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
+                    const profile = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
                     if (profile) {
                         const dS = 'Weapon DPS';
-                        if (profile.totalDps)       pushRaw(dS, '_ws_totalDps',  'Total DPS',  _fmt(profile.totalDps),       'dmg/s');
-                        if (profile.shieldDps)      pushRaw(dS, '_ws_shieldDps', 'Shield DPS', _fmt(profile.shieldDps),      'dmg/s');
-                        if (profile.hullDps)        pushRaw(dS, '_ws_hullDps',   'Hull DPS',   _fmt(profile.hullDps),        'dmg/s');
+                        if (profile.totalDps)       pushRawScaled(dS, '_ws_totalDps',  'Total DPS',  profile.totalDps,       'dmg/s');
+                        if (profile.shieldDps)      pushRawScaled(dS, '_ws_shieldDps', 'Shield DPS', profile.shieldDps,      'dmg/s');
+                        if (profile.hullDps)        pushRawScaled(dS, '_ws_hullDps',   'Hull DPS',   profile.hullDps,        'dmg/s');
                         if (profile.effectiveRange) pushRaw(dS, '_ws_range',     'Range',      _fmt(profile.effectiveRange), 'px');
-                        if (profile.shotsPerSecond) pushRaw(dS, '_ws_sps',       'Fire Rate',  _fmt(profile.shotsPerSecond), 'shots/s');
-                        // All damage types
+                        if (profile.shotsPerSecond) pushRawScaled(dS, '_ws_sps', 'Fire Rate',  profile.shotsPerSecond, 'shots/s');
                         for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort())
                             if (dps) {
                                 const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}`;
                                 const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
-                                pushRaw(dS, safeKey, label, _fmt(dps), 'dmg/s');
+                                pushRawScaled(dS, safeKey, label, dps, 'dmg/s');
                             }
-                        // Firing costs per second
                         for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort())
                             if (costVal) {
                                 const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
-                                pushRaw(dS, `_ws_cost_${costKey.replace(/\s+/g,'_')}`, label,
-                                    _fmt(costVal * profile.shotsPerSecond), '');
+                                pushRawScaled(dS, `_ws_cost_${costKey.replace(/\s+/g,'_')}`, label,
+                                    costVal * profile.shotsPerSecond, '');
                             }
                     }
                 }
@@ -527,6 +470,8 @@ window.CompareDisplay = (() => {
                         const scale = _attrDefs()?.shipFunctions?.[k.slice(4)]?.displayScale;
                         if (scale) display = v * scale;
                     }
+                    // Scale computed numeric values by qty
+                    if (typeof display === 'number') display = display * qty;
                     const unit = (k.startsWith('_ws_') && k.toLowerCase().includes('dps')) ? 'dmg/s' : '';
                     if (!sections[section]) sections[section] = [];
                     sections[section].push({ key: k, label: _labelOf(k), value: _fmt(display), unit });
@@ -645,46 +590,57 @@ window.CompareDisplay = (() => {
             return;
         }
 
-        const outfitIdx = _buildOutfitIndex();
-
-        // Fleet summary banner (always shown when ≥2 items)
-        const { rows: summaryRows, groupLabel } = _buildFleetSummary(items, outfitIdx);
-        if (summaryRows.length) {
-            const banner = document.createElement('div');
-            banner.className = 'compare-fleet-summary';
-
-            const title = document.createElement('div');
-            title.className   = 'compare-fleet-summary__title';
-            title.textContent = `⚖ Combined — ${groupLabel}`;
-            banner.appendChild(title);
-
-            const grid = document.createElement('div');
-            grid.className = 'compare-fleet-summary__grid';
-            for (const { label, value, unit } of summaryRows) {
-                const cell = document.createElement('div');
-                cell.className = 'compare-fleet-summary__cell';
-                const lEl = document.createElement('div');
-                lEl.className   = 'compare-fleet-summary__label';
-                lEl.textContent = label;
-                const vEl = document.createElement('div');
-                vEl.className   = 'compare-fleet-summary__value';
-                vEl.textContent = unit ? `${value} ${unit}` : value;
-                cell.appendChild(lEl);
-                cell.appendChild(vEl);
-                grid.appendChild(cell);
-            }
-            banner.appendChild(grid);
-            body.appendChild(banner);
-        }
+        // No fleet summary banner — removed per request.
 
         if (_viewMode === 'columns') _renderColumns(body, items);
         else                         _renderTable(body, items);
     }
 
+    // ── Quantity control widget ───────────────────────────────────────────────
+    // Returns a DOM element: [−] [×N] [+]
+    // Changing the value calls _setQty which triggers a re-render.
+
+    function _makeQtyControl(item) {
+        const wrap = document.createElement('div');
+        wrap.className = 'compare-qty';
+
+        const dec = document.createElement('button');
+        dec.className   = 'compare-qty__btn';
+        dec.textContent = '−';
+        dec.title       = 'Decrease quantity';
+
+        const display = document.createElement('span');
+        display.className = 'compare-qty__val';
+        display.textContent = `×${_getQty(item)}`;
+
+        const inc = document.createElement('button');
+        inc.className   = 'compare-qty__btn';
+        inc.textContent = '+';
+        inc.title       = 'Increase quantity';
+
+        dec.onclick = () => {
+            const newQty = _getQty(item) - 1;
+            _setQty(item, newQty);
+            // display updated by re-render, but update inline for snappiness
+            display.textContent = `×${_getQty(item)}`;
+        };
+
+        inc.onclick = () => {
+            const newQty = _getQty(item) + 1;
+            _setQty(item, newQty);
+            display.textContent = `×${_getQty(item)}`;
+        };
+
+        wrap.appendChild(dec);
+        wrap.appendChild(display);
+        wrap.appendChild(inc);
+        return wrap;
+    }
+
     // ── Columns view ──────────────────────────────────────────────────────────
 
     function _renderColumns(container, items) {
-        const attrMaps = items.map(_buildAttrMap);
+        const attrMaps = items.map(item => _buildAttrMap(item, _getQty(item)));
 
         const grid = document.createElement('div');
         grid.className = 'compare-columns';
@@ -717,10 +673,14 @@ window.CompareDisplay = (() => {
                 ? item.name
                 : (item.attributes?.category || item.category || '');
 
+            // Quantity control
+            const qtyCtrl = _makeQtyControl(item);
+
             header.appendChild(removeBtn);
             header.appendChild(imgEl);
             header.appendChild(nameEl);
             if (subEl.textContent) header.appendChild(subEl);
+            header.appendChild(qtyCtrl);
             col.appendChild(header);
 
             // Sections
@@ -770,7 +730,7 @@ window.CompareDisplay = (() => {
     // ── Table view ────────────────────────────────────────────────────────────
 
     function _renderTable(container, items) {
-        const attrMaps = items.map(_buildAttrMap);
+        const attrMaps = items.map(item => _buildAttrMap(item, _getQty(item)));
 
         const sectionKeyOrder = [];
         const seenSectionKeys = new Set();
@@ -839,10 +799,14 @@ window.CompareDisplay = (() => {
             removeBtn.textContent = '× Remove';
             removeBtn.onclick     = () => window.CompareManager.remove(item);
 
+            // Quantity control in table header
+            const qtyCtrl = _makeQtyControl(item);
+
             th.appendChild(removeBtn);
             th.appendChild(img);
             th.appendChild(nameEl);
             if (subEl.textContent) th.appendChild(subEl);
+            th.appendChild(qtyCtrl);
             headRow.appendChild(th);
         });
         thead.appendChild(headRow);
@@ -864,7 +828,6 @@ window.CompareDisplay = (() => {
                 continue;
             }
 
-            // Skip divider rows in table view
             if (entry.label?.startsWith('—')) continue;
 
             const sk = entry.section + '::' + entry.key;
@@ -929,6 +892,7 @@ window.CompareDisplay = (() => {
 
     function clearAll() {
         window.CompareManager.clear();
+        _quantities = {}; // reset quantities when clearing
         closePanel();
     }
 
