@@ -3586,6 +3586,77 @@ body {
     margin-top: 2px;
 }
 
+/* ── Quantity multiplier control ────────────────────────────────────────────
+   Appears in each column/table header: [−] [×N] [+]
+   Matches the existing compare panel design tokens.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.compare-qty {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 10px;
+    border: 1px solid rgba(59, 130, 246, 0.30);
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.55);
+}
+
+/* − and + buttons */
+.compare-qty__btn {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+    font-weight: 700;
+    /* subtle separator lines between the three segments */
+    border-right: 1px solid rgba(59, 130, 246, 0.18);
+}
+.compare-qty__btn:last-child {
+    border-right: none;
+    border-left: 1px solid rgba(59, 130, 246, 0.18);
+}
+
+.compare-qty__btn:hover {
+    background: rgba(59, 130, 246, 0.18);
+    color: #93c5fd;
+}
+
+/* ×N display */
+.compare-qty__val {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #93c5fd;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.03em;
+    padding: 0 8px;
+    min-width: 32px;
+    text-align: center;
+    white-space: nowrap;
+    user-select: none;
+    line-height: 26px;
+}
+
+/* When qty > 1, highlight the whole control so it's visually obvious */
+.compare-qty:has(.compare-qty__val:not([data-qty="1"])) {
+    border-color: rgba(59, 130, 246, 0.55);
+    background: rgba(59, 130, 246, 0.10);
+}
+
+/* Table header variant — same widget, just a bit more compact */
+.compare-table__item-header .compare-qty {
+    margin-top: 8px;
+}
+
 /* ── ≤600px: small phone ─────────────────────────────────────── */
 @media (max-width: 600px) {
     .list-row__label { min-width: 90px; font-size: 0.85rem; }
