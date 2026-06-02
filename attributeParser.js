@@ -5,34 +5,22 @@
  *
  * Changes vs previous version:
  *
- *  NEW: parseShipTakeDamage(shipCppSrc)
- *    Parses TakeDamage() in Ship.cpp to determine per-type shieldInteraction:
- *      'blocked' — types inside if(!shields){} blocks (Corrosion, Leak)
- *      'full'    — types applied without any shield gate (Discharge)
- *      'direct'  — HP types that operate on shields/hull directly (Shield, Hull)
- *      'half'    — everything else (multiplied by shieldFraction in Ship.cpp)
- *    Discharge 'full' is detected by the ABSENCE of any shield-gate in the
- *    parsed body — not by a hardcoded name check.
+ *  NEW: parseTooltips(src)
+ *    Parses data/_ui/tooltips.txt into a Map: attributeKey → tooltip string.
+ *    Keys are normalised: trailing colon stripped, lowercased, trimmed.
+ *    Multi-paragraph tips are joined with a single newline.
+ *    The raw Map is also exposed as result.tooltips for direct frontend use.
  *
- *  NEW: buildDamageTypeDetails(damageTypeNames, statusDescriptors, shipCppDetails)
- *    Produces weapon.damageTypeDetails[] consumed by damageTypes.js.
- *    Descriptor lookup now uses damageKey base (strip " damage") rather than
- *    label, fixing the Ion→Ionization mismatch from the previous version.
- *    toStatusEffect / toProtKey / toResistKey are all derived from the descriptor
- *    data, eliminating all hardcoded name lists.
- *
- *  NEW: buildAttributeDictionary_withDmgTypes(...)
- *    Wraps buildAttributeDictionary() and annotates every protection attribute
- *    with protectionAppliesTo / protectionFormula / protectionNote / clampRange
- *    so damageTypes.js can read them without any static data.
+ *  NEW: mergeTooltipsIntoAttributes(attrs, tooltipMap)
+ *    Writes a `tooltip` field onto every attribute entry that has a matching
+ *    entry in the tooltip file.  All existing fields are untouched.
  *
  *  UPDATED: parseAttributes()
- *    Calls parseShipTakeDamage + buildDamageTypeDetails and adds
- *    weapon.damageTypeDetails to the output JSON.
- *    Uses buildAttributeDictionary_withDmgTypes instead of buildAttributeDictionary.
+ *    Fetches tooltips.txt, calls parseTooltips + mergeTooltipsIntoAttributes,
+ *    and adds result.tooltips (plain key→string object) to the JSON output.
+ *    Every other section of the output is identical to the previous version.
  *
- *  CANONICAL_EFFECTS now includes shieldInteraction per entry so it is
- *  available as a fallback for buildDamageTypeDetails without a name-check.
+ * Everything else below is unchanged from the previous version.
  */
 
 const https = require('https');
@@ -59,6 +47,7 @@ const SOURCE_FILES = {
 
 const DATA_FILES = {
   solSystem: `${ES_DATA}/human/Sol.txt`,
+  tooltips:  `${ES_DATA}/_ui/tooltips.txt`,
 };
 
 // ---------------------------------------------------------------------------
@@ -75,6 +64,97 @@ function fetchText(url) {
       res.on('error', reject);
     }).on('error', reject);
   });
+}
+
+// ---------------------------------------------------------------------------
+// parseTooltips(src)
+//
+// Parses the Endless Sky tooltips.txt data file format:
+//
+//   tip "key name:"
+//     `First paragraph of tooltip text.`
+//     `Optional second paragraph (rare but exists).`
+//
+// Returns a Map<string, string>:
+//   key   — attribute key, normalised: trailing colon stripped, lowercased,
+//            trimmed.  Matches the keys used everywhere else in this parser.
+//   value — full tooltip text, paragraphs joined with '\n\n'.
+//
+// Design notes:
+//   - Backtick strings are the ES data format for multi-line / paragraph text.
+//   - A single tip block may have multiple backtick paragraphs; they are
+//     concatenated so the frontend gets one clean string.
+//   - Lines that are blank or contain only whitespace between tip blocks are
+//     ignored.
+//   - No changes to any existing parser output.
+// ---------------------------------------------------------------------------
+
+function parseTooltips(src) {
+  const tooltipMap = new Map();
+  if (!src) return tooltipMap;
+
+  const lines = src.split('\n');
+  let currentKey  = null;
+  let paragraphs  = [];
+
+  const flush = () => {
+    if (currentKey !== null && paragraphs.length > 0) {
+      tooltipMap.set(currentKey, paragraphs.join('\n\n'));
+    }
+    currentKey = null;
+    paragraphs = [];
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine;
+
+    // New tip block: tip "some key:"
+    const tipMatch = line.match(/^tip\s+"([^"]+)"\s*$/);
+    if (tipMatch) {
+      flush();
+      // Normalise key: strip trailing colon, lowercase, trim whitespace
+      currentKey = tipMatch[1].replace(/:$/, '').trim().toLowerCase();
+      continue;
+    }
+
+    // Backtick paragraph belonging to the current tip
+    // ES format: \t`text` or just `text`
+    const backtickMatch = line.match(/^\s*`([^`]*)`\s*$/);
+    if (backtickMatch && currentKey !== null) {
+      const text = backtickMatch[1].trim();
+      if (text) paragraphs.push(text);
+      continue;
+    }
+
+    // A non-tip, non-backtick line resets current block
+    // (guards against malformed files, though in practice blank lines appear)
+    if (line.trim() !== '' && !line.startsWith('\t') && !line.startsWith(' ')) {
+      flush();
+    }
+  }
+
+  flush(); // handle last block
+  return tooltipMap;
+}
+
+// ---------------------------------------------------------------------------
+// mergeTooltipsIntoAttributes(attrs, tooltipMap)
+//
+// Adds a `tooltip` field to each attribute entry that has a matching key in
+// tooltipMap.  All existing fields are completely untouched.
+//
+// The attribute dictionary uses keys like "acceleration", "shields", etc.
+// The tooltip file uses the same keys (normalised identically), so lookup
+// is a direct Map.get().
+//
+// Returns nothing — mutates attrs in place.
+// ---------------------------------------------------------------------------
+
+function mergeTooltipsIntoAttributes(attrs, tooltipMap) {
+  for (const [key, entry] of Object.entries(attrs)) {
+    const tip = tooltipMap.get(key.toLowerCase());
+    if (tip) entry.tooltip = tip;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -541,15 +621,7 @@ function parseSystemContext(solText) {
 }
 
 // ---------------------------------------------------------------------------
-// Status effect decay
-//
-// CANONICAL_EFFECTS is the authoritative list of status effects.
-// shieldInteraction is included here so buildDamageTypeDetails can use it as
-// a fallback without any hardcoded type-name checks.
-//
-//   'half'    — dose * shieldFraction in Ship.cpp TakeDamage
-//   'full'    — applied without any shield gate (Discharge)
-//   'blocked' — inside if(!shields){} block (Corrosion, Leak)
+// Status effect decay (unchanged)
 // ---------------------------------------------------------------------------
 
 function parseStatusEffectDecay(shipCppSrc) {
@@ -594,7 +666,7 @@ function parseStatusEffectDecay(shipCppSrc) {
   const descriptors = CANONICAL_EFFECTS.map(e => ({
     ...e,
     decayFormula: `stat = max(0, 0.99 * stat - min([${e.resistKey}], 0.99 * stat))`,
-    passiveHalfLifeFrames: Math.round(Math.log(0.5) / Math.log(0.99)),  // ≈ 69 frames ≈ 1.15s
+    passiveHalfLifeFrames: Math.round(Math.log(0.5) / Math.log(0.99)),
     ...(e.statName === 'scrambling' ? {
       jamChanceFormula: 'scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0',
     } : {}),
@@ -604,24 +676,13 @@ function parseStatusEffectDecay(shipCppSrc) {
 }
 
 // ---------------------------------------------------------------------------
-// parseShipTakeDamage(shipCppSrc)
-//
-// Parses Ship.cpp TakeDamage() to classify each damage type's shieldInteraction.
-// Returns a Map: PascalCase typeName → { shieldInteraction, category }
-//
-// Detection logic (no hardcoded type names):
-//   blocked — accessor appears ONLY inside  if(!shields…){…}  blocks
-//   full    — accessor appears but is NOT inside any shield-gated block
-//              AND is NOT multiplied by shieldFraction
-//   half    — accessor is multiplied by shieldFraction  OR  is default
-//   direct  — accessor is Shield or Hull (detected by being applied to shields/hull vars)
+// parseShipTakeDamage (unchanged)
 // ---------------------------------------------------------------------------
 
 function parseShipTakeDamage(shipCppSrc) {
   const details = new Map();
   if (!shipCppSrc) return details;
 
-  // Locate TakeDamage body
   const takeDmgMatch = shipCppSrc.match(/\bTakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
   if (!takeDmgMatch) return details;
 
@@ -634,13 +695,11 @@ function parseShipTakeDamage(shipCppSrc) {
   }
   const body = shipCppSrc.slice(bodyStart, i - 1);
 
-  // Collect all accessor names used in TakeDamage
   const allAccessors = new Set();
   const allAccessorRe = /damage\.([A-Z][a-zA-Z]+)\s*\(\s*\)/g;
   let m;
   while ((m = allAccessorRe.exec(body)) !== null) allAccessors.add(m[1]);
 
-  // Types inside  if(!shields…){…}  blocks → 'blocked'
   const blockedTypes = new Set();
   const blockedBlockRe = /if\s*\(\s*!shields?\b[^)]*\)\s*\{([^}]*)\}/g;
   while ((m = blockedBlockRe.exec(body)) !== null) {
@@ -650,19 +709,14 @@ function parseShipTakeDamage(shipCppSrc) {
     while ((am = accRe.exec(blockBody)) !== null) blockedTypes.add(am[1]);
   }
 
-  // Types multiplied by shieldFraction → 'half'
   const halfTypes = new Set();
   const shieldFracRe = /damage\.([A-Z][a-zA-Z]+)\s*\(\s*\)\s*\*\s*shieldFraction/g;
   while ((m = shieldFracRe.exec(body)) !== null) halfTypes.add(m[1]);
 
-  // HP types: Shield and Hull are identified by having their accessor appear in
-  // expressions that directly modify the `shields` or `hull` local variables
   const hpTypes = new Set();
   if (/damage\.Shield\s*\(\s*\)/.test(body)) hpTypes.add('Shield');
   if (/damage\.Hull\s*\(\s*\)/.test(body))   hpTypes.add('Hull');
 
-  // Resource types: Energy, Heat, Fuel appear multiplied by shieldFraction
-  // (halfTypes will catch them) but their category is 'resource' not 'status'
   const resourceTypes = new Set();
   if (/damage\.Energy\s*\(\s*\)/.test(body)) resourceTypes.add('Energy');
   if (/damage\.Heat\s*\(\s*\)/.test(body))   resourceTypes.add('Heat');
@@ -670,25 +724,17 @@ function parseShipTakeDamage(shipCppSrc) {
 
   for (const typeName of allAccessors) {
     let shieldInteraction, category;
-
     if (hpTypes.has(typeName)) {
-      shieldInteraction = 'direct';
-      category          = 'hp';
+      shieldInteraction = 'direct'; category = 'hp';
     } else if (blockedTypes.has(typeName)) {
-      shieldInteraction = 'blocked';
-      category          = 'status';
+      shieldInteraction = 'blocked'; category = 'status';
     } else if (resourceTypes.has(typeName)) {
-      shieldInteraction = 'half';
-      category          = 'resource';
+      shieldInteraction = 'half'; category = 'resource';
     } else if (halfTypes.has(typeName)) {
-      shieldInteraction = 'half';
-      category          = 'status';
+      shieldInteraction = 'half'; category = 'status';
     } else {
-      // Not blocked, not half, not hp, not resource → applied unconditionally → 'full'
-      shieldInteraction = 'full';
-      category          = 'status';
+      shieldInteraction = 'full'; category = 'status';
     }
-
     details.set(typeName, { shieldInteraction, category });
   }
 
@@ -696,30 +742,12 @@ function parseShipTakeDamage(shipCppSrc) {
 }
 
 // ---------------------------------------------------------------------------
-// buildDamageTypeDetails(damageTypeNames, statusDescriptors, shipCppDetails)
-//
-// Builds weapon.damageTypeDetails[] consumed by damageTypes.js.
-//
-// Key fix vs previous version:
-//   Descriptor lookup uses damageKey base: strip " damage" from descriptor.damageKey
-//   → "ion damage" → base "ion" → matches typeName.toLowerCase() "ion"
-//   This correctly resolves Ion → ionization (label "Ionization" was wrong key).
-//
-//   protectionKey and resistanceKey come directly from descriptor fields,
-//   not from toProtKey / toResistKey helper functions with hardcoded exceptions.
-//
-//   shieldInteraction comes from:
-//     1. shipCppDetails (parsed from TakeDamage())
-//     2. descriptor.shieldInteraction (from CANONICAL_EFFECTS — no hardcoded names)
-//     3. default 'half'
+// buildDamageTypeDetails (unchanged)
 // ---------------------------------------------------------------------------
 
 function buildDamageTypeDetails(damageTypeNames, statusDescriptors, shipCppDetails) {
   const result = [];
 
-  // Build lookup from damageKey base → descriptor
-  // "ion damage" → strip " damage" → "ion" → matches typeName.toLowerCase() "ion"
-  // This correctly handles Ion (label "Ion", not "Ionization") and all others.
   const descByDmgBase = {};
   for (const d of statusDescriptors) {
     if (d.damageKey) {
@@ -730,9 +758,8 @@ function buildDamageTypeDetails(damageTypeNames, statusDescriptors, shipCppDetai
 
   for (const typeName of damageTypeNames) {
     const cpuDetail = shipCppDetails.get(typeName) || {};
-    // Look up descriptor by stripping typeName to its base (same transform as above)
     const desc      = descByDmgBase[typeName.toLowerCase()] || {};
-    const statName  = desc.statName || null;   // null for hp/resource types
+    const statName  = desc.statName || null;
     const isStatus  = !!statName;
     const isHp      = cpuDetail.category === 'hp'       || (!isStatus && (typeName === 'Shield' || typeName === 'Hull'));
     const isRes     = cpuDetail.category === 'resource' || (!isStatus && !isHp);
@@ -744,7 +771,6 @@ function buildDamageTypeDetails(damageTypeNames, statusDescriptors, shipCppDetai
     const category = cpuDetail.category
       ?? (isHp ? 'hp' : isRes ? 'resource' : 'status');
 
-    // All key names come from the descriptor — no derivation helpers needed
     const resourceKey  = typeName.toLowerCase() + ' damage';
     const relativeKey  = (typeName === 'Shield') ? '% shield damage'
                        : (typeName === 'Hull')   ? '% hull damage'
@@ -752,7 +778,6 @@ function buildDamageTypeDetails(damageTypeNames, statusDescriptors, shipCppDetai
     const protectionKey = desc.protectionKey ?? (typeName.toLowerCase() + ' protection');
     const resistanceKey = desc.resistKey     ?? null;
 
-    // Build applyFormula
     let applyFormula = '';
     if (isHp) {
       if (typeName === 'Shield') {
@@ -791,7 +816,6 @@ function buildDamageTypeDetails(damageTypeNames, statusDescriptors, shipCppDetai
         applyFormula += `\n// Per-fire jam check:\njamChance = ${desc.jamChanceFormula}`;
     }
 
-    // Build description
     const description = desc.description || (
       isHp  ? `Directly reduces ${typeName.toLowerCase()} HP. Protected by [${protectionKey}].` :
       isRes ? `Instantly drains ${typeName.toLowerCase()}. ` +
@@ -816,7 +840,7 @@ function buildDamageTypeDetails(damageTypeNames, statusDescriptors, shipCppDetai
 }
 
 // ---------------------------------------------------------------------------
-// inferFunctionDisplayScale
+// inferFunctionDisplayScale (unchanged)
 // ---------------------------------------------------------------------------
 
 function inferFunctionDisplayScale(attributesRead, attrDict, formula, fnName) {
@@ -857,7 +881,7 @@ function annotateShipFunctionScales(shipFns, attrs) {
 }
 
 // ---------------------------------------------------------------------------
-// buildAttributeDictionary  (unchanged from original)
+// buildAttributeDictionary (unchanged)
 // ---------------------------------------------------------------------------
 
 function deriveDisplayUnit(multiplier) {
@@ -936,11 +960,7 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
 }
 
 // ---------------------------------------------------------------------------
-// buildAttributeDictionary_withDmgTypes
-//
-// Calls buildAttributeDictionary then annotates each protection attribute with
-// the extra fields damageTypes.js reads: protectionAppliesTo, protectionFormula,
-// protectionNote, clampRange.  All values derived from damageTypeDetails.
+// buildAttributeDictionary_withDmgTypes (unchanged)
 // ---------------------------------------------------------------------------
 
 function buildAttributeDictionary_withDmgTypes(
@@ -968,7 +988,6 @@ function buildAttributeDictionary_withDmgTypes(
     a.clampRange         = '[0, 1]';
   }
 
-  // piercing resistance is a weapon stat, not a damage type, so annotate separately
   const pr = attrs['piercing resistance'];
   if (pr) {
     pr.protectionAppliesTo = 'weapon piercing fraction';
@@ -1016,6 +1035,18 @@ async function parseAttributes(outputDir) {
     console.log(`✗  ${err.message} (using default solar power 1.0)`);
   }
 
+  // ── NEW: fetch and parse tooltips ────────────────────────────────────────
+  let tooltipMap = new Map();
+  process.stdout.write(`  Fetching tooltips.txt           `);
+  try {
+    const tooltipSrc = await fetchText(DATA_FILES.tooltips);
+    tooltipMap = parseTooltips(tooltipSrc);
+    console.log(`✓  ${tooltipSrc.length.toLocaleString()} bytes  (${tooltipMap.size} tips)`);
+  } catch (err) {
+    console.log(`✗  ${err.message} (tooltips unavailable)`);
+  }
+  // ────────────────────────────────────────────────────────────────────────
+
   console.log('\n  Parsing...');
 
   const oidData = sources.outfitInfoDisplay
@@ -1053,6 +1084,13 @@ async function parseAttributes(outputDir) {
     oidData, shipFns, shipDisplay, outfitStacking, weaponData, jumpNavFns,
     statusEffectDecay, damageTypeDetails
   );
+
+  // ── NEW: merge tooltips into every matching attribute entry ──────────────
+  mergeTooltipsIntoAttributes(attributes, tooltipMap);
+  const tipsMatched = Object.values(attributes).filter(a => a.tooltip).length;
+  console.log(`  Tooltips merged    ${tipsMatched} / ${Object.keys(attributes).length} attributes matched`);
+  // ────────────────────────────────────────────────────────────────────────
+
   console.log(`\n  Unified dictionary: ${Object.keys(attributes).length} unique attribute keys`);
 
   const systemAwareFormulas = {
@@ -1064,10 +1102,13 @@ async function parseAttributes(outputDir) {
       description: 'Fuel scooped per second.', referencePower: systemContext.referenceSolarPower },
   };
 
+  // Convert tooltipMap to a plain object for JSON output
+  const tooltipsObject = Object.fromEntries(tooltipMap);
+
   const result = {
     _meta: {
       source: 'https://github.com/endless-sky/endless-sky',
-      sourceFiles: SOURCE_FILES,
+      sourceFiles: { ...SOURCE_FILES, tooltips: DATA_FILES.tooltips },
       generatedAt: new Date().toISOString(),
       formulaNotation: [
         '[attr name] = attributes.Get("attr name") in C++.',
@@ -1075,15 +1116,19 @@ async function parseAttributes(outputDir) {
         'Multi-branch functions have one formula entry per return statement.',
       ],
       notes: [
-        'Zero hardcoding: all data extracted from C++ source.',
+        'Zero hardcoding: all data extracted from C++ source and data files.',
         'damageTypeDetails: shieldInteraction parsed from Ship.cpp TakeDamage().',
         'Descriptor lookup uses damageKey base, not label, fixing Ion/Ionization mismatch.',
         'Status decay: stat = max(0, 0.99*stat - min(R, 0.99*stat)) each frame.',
         'Passive half-life: ~69 frames (~1.15s at 60fps).',
         'JamChance: scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0.',
+        'tooltips: parsed from data/_ui/tooltips.txt; also merged as .tooltip on each attribute entry.',
       ],
     },
-    systemContext, systemAwareFormulas, attributes,
+    systemContext,
+    systemAwareFormulas,
+    attributes,       // ← each matching entry now has a .tooltip field
+    tooltips: tooltipsObject,  // ← NEW: flat key→string lookup for frontend use
     shipFunctions: shipFns,
     shipDisplay: {
       energyHeatTable:  shipDisplay.tableRows,
@@ -1125,7 +1170,7 @@ async function parseAttributes(outputDir) {
 
   await fs.writeFile(outFile, JSON.stringify(result, null, 2), 'utf8');
   console.log(`\n✓  Written → ${outFile}`);
-  console.log(`   attributes: ${Object.keys(result.attributes).length}  shipFunctions: ${Object.keys(result.shipFunctions).length}`);
+  console.log(`   attributes: ${Object.keys(result.attributes).length}  shipFunctions: ${Object.keys(result.shipFunctions).length}  tooltips: ${Object.keys(result.tooltips).length}`);
   console.log('='.repeat(60) + '\n');
   return result;
 }
@@ -1133,4 +1178,4 @@ async function parseAttributes(outputDir) {
 if (require.main === module)
   parseAttributes().catch(err => { console.error('Error:', err); process.exit(1); });
 
-module.exports = { parseAttributes };
+module.exports = { parseAttributes, parseTooltips, mergeTooltipsIntoAttributes };
