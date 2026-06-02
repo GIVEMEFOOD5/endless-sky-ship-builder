@@ -3353,7 +3353,7 @@
       "licenses": {
         "Twilight Guard": true
       },
-      "cost": 47880,
+      "cost": 71820,
       "thumbnail": "outfit/tiny vls(T1)",
       "mass": 3,
       "outfit space": -9,
@@ -4144,9 +4144,9 @@
       "index": 10010,
       "cost": 482790,
       "thumbnail": "outfit/swarm pod(T1)",
-      "mass": 5,
-      "outfit space": -21,
-      "weapon capacity": -21,
+      "mass": 3,
+      "outfit space": -15,
+      "weapon capacity": -15,
       "gun ports": -1,
       "swarm capacity": 400,
       "weapon": {
@@ -4169,8 +4169,8 @@
         "drag": 0.1,
         "turn": 5.35,
         "homing": true,
-        "radar tracking": 0.5,
-        "optical tracking": 0.5,
+        "radar tracking": 0.2,
+        "optical tracking": 0.6,
         "shield damage": 61.18,
         "hull damage": 31.92,
         "missile strength": 8,
@@ -5777,6 +5777,7 @@
     },
     {
       "name": "Ion Torch(T1)",
+      "plural": "Ion Torches",
       "category": "Guns",
       "series": "Guns",
       "index": 6080,
@@ -6236,9 +6237,9 @@
       "index": 2010,
       "cost": 199500,
       "thumbnail": "outfit/hai tracker pod(T1)",
-      "mass": 8,
-      "outfit space": -19,
-      "weapon capacity": -19,
+      "mass": 5,
+      "outfit space": -16,
+      "weapon capacity": -16,
       "gun ports": -1,
       "tracker capacity": 56,
       "weapon": {
@@ -6269,7 +6270,7 @@
           "throttle control": true
         },
         "optical tracking": 0.8,
-        "infrared tracking": 0.4,
+        "infrared tracking": 0.2,
         "shield damage": 266,
         "hull damage": 212.8,
         "hit force": 525,
@@ -7736,7 +7737,7 @@
         "lifetime": 60,
         "reload": 40,
         "burst count": 30,
-        "burst reload": 15,
+        "burst reload": 20,
         "firing energy": 0.2,
         "firing heat": 12,
         "shield damage": 63.84,
@@ -7842,13 +7843,14 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 7,
+        "velocity": 0,
+        "velocity override": 6,
         "lifetime": 900,
         "reload": 150,
         "firing energy": 2,
         "firing heat": 45,
-        "acceleration": 0.15,
-        "drag": 0.025,
+        "acceleration": 0.12,
+        "drag": 0.02,
         "turn": 1.5,
         "homing": {
           "throttle control": true
@@ -7904,15 +7906,16 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 7,
+        "velocity": 0,
+        "velocity override": 6,
         "lifetime": 900,
         "reload": 320,
         "burst count": 3,
         "burst reload": 150,
         "firing energy": 2,
         "firing heat": 45,
-        "acceleration": 0.15,
-        "drag": 0.025,
+        "acceleration": 0.12,
+        "drag": 0.02,
         "turn": 1.5,
         "homing": {
           "throttle control": true
@@ -7968,13 +7971,13 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 6,
-        "lifetime": 1100,
-        "reload": 120,
+        "velocity": 4,
+        "lifetime": 1600,
+        "reload": 150,
         "firing energy": 4,
         "firing heat": 50,
-        "acceleration": 0.1,
-        "drag": 0.02,
+        "acceleration": 0.15,
+        "drag": 0.04,
         "turn": 1.5,
         "homing": {
           "leading": true,
@@ -8031,15 +8034,15 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 6,
-        "lifetime": 1100,
-        "reload": 252,
+        "velocity": 4,
+        "lifetime": 1600,
+        "reload": 320,
         "burst count": 3,
-        "burst reload": 120,
+        "burst reload": 150,
         "firing energy": 4,
         "firing heat": 50,
-        "acceleration": 0.1,
-        "drag": 0.02,
+        "acceleration": 0.15,
+        "drag": 0.04,
         "turn": 1.5,
         "homing": {
           "leading": true,
@@ -8090,6 +8093,7 @@
           "frame rate": 4
         },
         "sound": "rocket",
+        "stream": true,
         "icon": "icon/rocket",
         "hit effect": "heavy rocket hit",
         "die effect": "small explosion",
@@ -8102,11 +8106,11 @@
         "acceleration": 0.8,
         "drag": 0.1,
         "trigger radius": 20,
-        "blast radius": 90,
+        "blast radius": 150,
         "shield damage": 1050.7,
         "hull damage": 891.1,
         "hit force": 900,
-        "missile strength": 16,
+        "missile strength": 24,
         "ammunition": [
           {
             "type": "Heavy Rocket",
@@ -8161,11 +8165,11 @@
         "acceleration": 0.8,
         "drag": 0.1,
         "trigger radius": 20,
-        "blast radius": 90,
+        "blast radius": 150,
         "shield damage": 1050.7,
         "hull damage": 891.1,
         "hit force": 900,
-        "missile strength": 16,
+        "missile strength": 24,
         "ammunition": [
           {
             "type": "Heavy Rocket",
@@ -8236,6 +8240,7 @@
         "hull damage": 9310,
         "hit force": 6000,
         "missile strength": 200,
+        "triggers nuke alert": true,
         "ammunition": [
           {
             "type": "Nuclear Missile",
@@ -12966,7 +12971,9 @@
       },
       "locations": {
         "Zuckungs list/boss.loot": {
-          "_deprecated/unused": true
+          "Missions": [
+            "upgrade outfits"
+          ]
         }
       },
       "pluginId": "Zuckungs list/boss.loot"
@@ -13003,7 +13010,9 @@
       },
       "locations": {
         "Zuckungs list/boss.loot": {
-          "_deprecated/unused": true
+          "Missions": [
+            "upgrade outfits"
+          ]
         }
       },
       "pluginId": "Zuckungs list/boss.loot"
@@ -13281,11 +13290,11 @@
       "index": 5010,
       "cost": 950950,
       "thumbnail": "outfit/ka'het emp deployer(T1)",
-      "mass": 18,
+      "mass": 10,
       "outfit space": -26,
       "weapon capacity": -26,
       "gun ports": -1,
-      "emp torpedo capacity": 16,
+      "emp torpedo capacity": 27,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -13314,7 +13323,7 @@
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.7,
+        "infrared tracking": 0.2,
         "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
@@ -13862,12 +13871,12 @@
       "index": 4030,
       "cost": 788690,
       "thumbnail": "outfit/piercer launcher(T1)",
-      "mass": 18,
-      "outfit space": -27,
-      "weapon capacity": -27,
+      "mass": 7,
+      "outfit space": -21,
+      "weapon capacity": -21,
       "energy capacity": 50,
       "gun ports": -1,
-      "piercer capacity": 31,
+      "piercer capacity": 197,
       "weapon": {
         "sprite": "projectile/piercer",
         "sprite data": {
@@ -13881,26 +13890,18 @@
           "piercer impact",
           "piercer explosion"
         ],
-        "die effect": "piercer explosion",
-        "inaccuracy": 3,
+        "die effect": "piercer death",
+        "inaccuracy": 1.5,
         "velocity": 18,
-        "lifetime": 200,
-        "reload": 72,
-        "firing energy": 29,
-        "firing heat": 144,
-        "acceleration": 0.54,
-        "drag": 0.03,
-        "turn": 1.6,
-        "homing": {
-          "leading": true,
-          "throttle control": true
-        },
-        "infrared tracking": 0.9,
-        "shield damage": 385.7,
-        "hull damage": 585.2,
+        "lifetime": 47,
+        "reload": 23,
+        "firing energy": 9,
+        "firing heat": 46,
+        "shield damage": 172.9,
+        "hull damage": 262.01,
         "piercing": 0.2,
-        "hit force": 450,
-        "missile strength": 73,
+        "hit force": 144,
+        "missile strength": 23,
         "stream": true,
         "ammunition": [
           {
@@ -13984,12 +13985,12 @@
       "index": 4040,
       "cost": 1427090,
       "thumbnail": "outfit/korath minelayer(T1)",
-      "mass": 36,
-      "outfit space": -48,
-      "weapon capacity": -48,
+      "mass": 15,
+      "outfit space": -27,
+      "weapon capacity": -27,
       "energy capacity": 50,
       "gun ports": -1,
-      "minelayer capacity": 17,
+      "minelayer capacity": 41,
       "weapon": {
         "sprite": "projectile/korath minelayer",
         "sprite data": {
@@ -14359,7 +14360,7 @@
           }
         ]
       },
-      "description": "Langrage Hyper-Heavers raise the use of improvised ammunition to a fine art. This turret converts scrap metal, nearby asteroids, compressed garbage, or other debris into a high speed debris field. The exact mechanism is unclear, but the internal workings bear some similarities to hyperdrives and Banishers. \tAt close range, the heaved langrage merely forces the enemy back. As the launch field collapses and the langrage returns fully to normal space, however, it is rent into a rapidly-expanding cloud of deadly projectiles as it returns to normal space.",
+      "description": "Langrage Hyper-Heavers raise the use of improvised ammunition to a fine art. This turret converts scrap metal, nearby asteroids, compressed garbage, or other debris into a high speed debris field. The exact mechanism is unclear, but the internal workings bear some similarities to hyperdrives and Banishers. \tAt close range, the heaved langrage merely forces the enemy back. However, as the launch field collapses and the langrage returns fully to normal space, it is rent into a rapidly-expanding cloud of deadly projectiles.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -14413,13 +14414,8 @@
         "lifetime": 20,
         "acceleration": -0.1,
         "turn": 4.6,
-        "homing": {
-          "leading": true,
-          "throttle control": true
-        },
-        "tracking": 0.9,
-        "trigger radius": 20,
-        "blast radius": 48,
+        "homing": true,
+        "optical tracking": 0.9,
         "hit force": 90,
         "missile strength": 30,
         "submunitions": [
@@ -14460,13 +14456,10 @@
           "throttle control": true
         },
         "optical tracking": 0.7,
-        "trigger radius": 20,
-        "blast radius": 48,
         "shield damage": 1263.5,
         "hull damage": 1263.5,
         "heat damage": 2394,
         "burn damage": 10,
-        "corrosion damage": 2,
         "hit force": 600,
         "missile strength": 33
       },
@@ -14537,7 +14530,7 @@
       "index": 4020,
       "cost": 3169390,
       "thumbnail": "outfit/firestorm battery(T1)",
-      "mass": 35,
+      "mass": 22,
       "outfit space": -48,
       "weapon capacity": -48,
       "energy capacity": 1300,
@@ -14578,7 +14571,6 @@
         "hull damage": 3670.8,
         "heat damage": 7075.6,
         "burn damage": 40,
-        "corrosion damage": 5,
         "hit force": 6000,
         "missile strength": 115,
         "ammunition": [
@@ -15269,8 +15261,8 @@
       "cost": 1823430,
       "thumbnail": "outfit/inhibitor turret(T1)",
       "mass": 42,
-      "outfit space": -28,
-      "weapon capacity": -22,
+      "outfit space": -42,
+      "weapon capacity": -42,
       "required crew": 1,
       "turret mounts": -1,
       "weapon": {
@@ -15298,7 +15290,7 @@
         "hit force": 58.5,
         "slowing damage": 0.67
       },
-      "description": "While cannons that can interfere with a ship's engines are useful in any situation, the Remnant quickly decided that it would be even more useful as a turret that their ships could use to impede those chasing after them. These small Inhibitor Turrets are typically found primarily on Pelicans trying to outrun opponents rather than defeat them. Although these turrets are unremarkable in terms of performance, the comparatively recent perfection of a technique of installing the bulk of the weapon itself externally on the turret mount instead of under the base has resulted in a weapon that takes comparatively little outfit space. It does, however, still add quite a bit more to the mass of the ship.",
+      "description": "While cannons that can interfere with a ship's engines are useful in any situation, the Remnant have long desired a turret that their ships could use to impede those chasing after them. These versatile Inhibitor Turrets are typically found on ships trying to outrun opponents rather than defeat them. \tAlthough these turrets are unremarkable in terms of performance, the comparatively recent refinement of the interference effect dampens the strong torques that previously made the use of a swiveling mount unfeasible, making these turrets a true engineering achievement.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -15425,7 +15417,7 @@
       "outfit space": -18,
       "weapon capacity": -18,
       "gun ports": -1,
-      "emp torpedo capacity": 9,
+      "emp torpedo capacity": 15,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -15454,7 +15446,7 @@
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.7,
+        "infrared tracking": 0.2,
         "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
@@ -15496,11 +15488,11 @@
       },
       "cost": 2028250,
       "thumbnail": "outfit/teciimach bay(T1)",
-      "mass": 9,
-      "outfit space": -13,
-      "weapon capacity": -13,
+      "mass": 6,
+      "outfit space": -18,
+      "weapon capacity": -18,
       "gun ports": -1,
-      "teciimach canister capacity": 9,
+      "emp torpedo capacity": 20,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -15516,40 +15508,38 @@
           "emp spark"
         ],
         "die effect": "tiny explosion",
-        "cluster": true,
+        "stream": true,
         "safe": true,
-        "reload": 310,
+        "reload": 330,
         "firing energy": 400,
         "firing heat": 18,
         "inaccuracy": 5,
         "lifetime": 300,
-        "velocity": 8,
+        "velocity": 7,
         "acceleration": 0.7,
         "drag": 0.1,
-        "turn": 2.5,
+        "turn": 2,
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.8,
-        "radar tracking": 0.9,
+        "infrared tracking": 0.2,
+        "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
-        "shield damage": 1197,
-        "hull damage": 166.25,
-        "disabled damage": 60,
-        "ion damage": 86.45,
-        "scrambling damage": 86.45,
-        "energy damage": 2660,
+        "shield damage": 931,
+        "hull damage": 133,
+        "ion damage": 63.84,
+        "scrambling damage": 63.84,
         "hit force": 135,
-        "missile strength": 95,
+        "missile strength": 80,
         "ammunition": [
           {
-            "type": "Teciimach Canister",
+            "type": "EMP Torpedo",
             "count": 1
           }
         ]
       },
-      "description": "Electromagnetic pulse weapons were originally developed by the Remnant during the early days of their colony, when they were living in fear that the Alphas would overrun human space and expand beyond it. Centuries later, the Teciimach revision includes a range of upgrades to their effectiveness, efficiency, reliability, and safety. The Remnant attribute these improvements to a mix of the latest research and secrets uncovered by Warren research teams. \tAmmunition for this weapon can be restocked at any outfitter.",
+      "description": "Electromagnetic pulse weapons were originally developed by the Remnant during the early days of their colony, when they were living in fear that the Alphas would overrun human space and expand beyond it. \tThe newest revision of the EMP Torpedo Bay, the \"Teciimach,\" contains two major improvements. The first is a mechanism on the launcher that alters each torpedoes' energy to ignore allies, letting Teciimachs be deployed without risk of ionizing yourself or the rest of your fleet. \tThe second is a significant reduction in the size of the launcher hardware, allowing space for a clip that is a third larger. \tAmmunition for this weapon can be restocked at any outfitter.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -15574,11 +15564,11 @@
       },
       "cost": 1014125,
       "thumbnail": "outfit/teciimach pod(T1)",
-      "mass": 3,
+      "mass": 4,
       "outfit space": -6,
       "weapon capacity": -6,
       "gun ports": -1,
-      "teciimach canister capacity": 3,
+      "emp torpedo capacity": 3,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -15594,42 +15584,39 @@
           "emp spark"
         ],
         "die effect": "tiny explosion",
-        "cluster": true,
         "safe": true,
         "burst count": 3,
-        "burst reload": 110,
-        "reload": 620,
-        "firing energy": 350,
-        "firing heat": 16,
+        "burst reload": 330,
+        "reload": 660,
+        "firing energy": 400,
+        "firing heat": 18,
         "inaccuracy": 5,
         "lifetime": 300,
-        "velocity": 8,
+        "velocity": 7,
         "acceleration": 0.7,
         "drag": 0.1,
-        "turn": 2.5,
+        "turn": 2,
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.8,
-        "radar tracking": 0.9,
+        "infrared tracking": 0.2,
+        "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
-        "shield damage": 1197,
-        "hull damage": 166.25,
-        "disabled damage": 60,
-        "ion damage": 79.8,
-        "scrambling damage": 79.8,
-        "energy damage": 2660,
+        "shield damage": 931,
+        "hull damage": 133,
+        "ion damage": 63.84,
+        "scrambling damage": 63.84,
         "hit force": 135,
-        "missile strength": 95,
+        "missile strength": 80,
         "ammunition": [
           {
-            "type": "Teciimach Canister",
+            "type": "EMP Torpedo",
             "count": 1
           }
         ]
       },
-      "description": "While originally developed as a heavy weapon to paralyze enemy capital ships, the Remnant have utilized on-the-spot assembly techniques to support their use on smaller ships. These pods sacrifice multiple assembly systems in order to fit them onto interceptor-class vessels. \tDespite this explanation, a careful examination of these bays and pods suggest that there is much more here than their volume would suggest. \tAmmunition for this weapon can be restocked at any outfitter.",
+      "description": "While originally developed as a heavy weapon to paralyze enemy capital ships, the Remnant have utilized on-the-spot assembly techniques to support their use on smaller ships. These pods sacrifice multiple assembly systems in order to fit them onto interceptor-class vessels. \tTo better fit the hit-and-run tactics used on interceptors and light warships, Teciimach Pods launch all ready torpedoes at once instead of in sequence, maximizing the ion damage dealt in a single moment. \tAmmunition for this weapon can be restocked at any outfitter.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -16272,8 +16259,9 @@
         "reload": 30,
         "firing energy": 80,
         "firing heat": 120,
+        "firing force": 25,
         "shield damage": -125.02,
-        "hull damage": 99.75,
+        "hull damage": 123.69,
         "hit force": 120,
         "cluster": true,
         "submunitions": [
@@ -16337,7 +16325,7 @@
         "firing heat": 120,
         "firing force": 25,
         "shield damage": -125.02,
-        "hull damage": 99.75,
+        "hull damage": 123.69,
         "hit force": 120,
         "cluster": true,
         "submunitions": [
@@ -16376,7 +16364,7 @@
         "lifetime": 6,
         "random lifetime": 3,
         "shield damage": 63.84,
-        "hull damage": 26.6
+        "hull damage": 18.62
       },
       "governments": {
         "boss.loot": {
@@ -16687,7 +16675,7 @@
         "High Houses": true
       },
       "thumbnail": "outfit/sjeja kinetic lance(T1)",
-      "mass": 60,
+      "mass": 54,
       "outfit space": -60,
       "weapon capacity": -60,
       "energy capacity": 1900,
@@ -16714,7 +16702,7 @@
         "firing energy": 1900,
         "firing ion": 3,
         "firing heat": 4000,
-        "shield damage": 1776.88,
+        "shield damage": 1421.77,
         "hull damage": 2553.6,
         "piercing": 0.15,
         "hit force": 800,
@@ -17061,11 +17049,11 @@
       },
       "cost": 598500,
       "thumbnail": "outfit/thunderhead launcher(T1)",
-      "mass": 14,
+      "mass": 11,
       "outfit space": -26,
       "weapon capacity": -26,
       "gun ports": -1,
-      "thunderhead capacity": 40,
+      "thunderhead capacity": 56,
       "weapon": {
         "sprite": "projectile/thunderhead",
         "sprite data": {
@@ -17091,8 +17079,8 @@
           "leading": true,
           "throttle control": true
         },
-        "infrared tracking": 0.9,
-        "radar tracking": 0.6,
+        "infrared tracking": 1,
+        "radar tracking": 0.3,
         "missile strength": 12,
         "submunitions": [
           {
@@ -17142,43 +17130,12 @@
           "leading": true,
           "throttle control": true
         },
-        "optical tracking": 0.9,
-        "radar tracking": 0.6,
+        "infrared tracking": 1,
+        "radar tracking": 0.3,
         "shield damage": 146.3,
         "hull damage": 106.4,
         "hit force": 225,
         "missile strength": 3
-      },
-      "governments": {
-        "boss.loot": {
-          "boss.loot": true
-        }
-      },
-      "locations": {
-        "Zuckungs list/boss.loot": {
-          "_deprecated/unused": true
-        }
-      },
-      "pluginId": "Zuckungs list/boss.loot"
-    },
-    {
-      "name": "Pincer(T1)",
-      "category": "Guns",
-      "series": "Guns",
-      "index": 92050,
-      "gun ports": -1,
-      "weapon": {
-        "sound": "pincer hit",
-        "hit effect": "void sprite chewing",
-        "inaccuracy": 180,
-        "velocity": 40,
-        "lifetime": 1,
-        "reload": 120,
-        "cluster": true,
-        "shield damage": 2527,
-        "hull damage": 2527,
-        "firing energy": 40,
-        "firing heat": 20
       },
       "governments": {
         "boss.loot": {
@@ -18478,7 +18435,7 @@
       "licenses": {
         "Twilight Guard": true
       },
-      "cost": 59760,
+      "cost": 89640,
       "thumbnail": "outfit/tiny vls(T2)",
       "mass": 3,
       "outfit space": -9,
@@ -19269,9 +19226,9 @@
       "index": 10010,
       "cost": 602580,
       "thumbnail": "outfit/swarm pod(T2)",
-      "mass": 5,
-      "outfit space": -21,
-      "weapon capacity": -21,
+      "mass": 3,
+      "outfit space": -15,
+      "weapon capacity": -15,
       "gun ports": -1,
       "swarm capacity": 400,
       "weapon": {
@@ -19294,8 +19251,8 @@
         "drag": 0.1,
         "turn": 5.35,
         "homing": true,
-        "radar tracking": 0.5,
-        "optical tracking": 0.5,
+        "radar tracking": 0.2,
+        "optical tracking": 0.6,
         "shield damage": 76.36,
         "hull damage": 39.84,
         "missile strength": 8,
@@ -20902,6 +20859,7 @@
     },
     {
       "name": "Ion Torch(T2)",
+      "plural": "Ion Torches",
       "category": "Guns",
       "series": "Guns",
       "index": 6080,
@@ -21361,9 +21319,9 @@
       "index": 2010,
       "cost": 249000,
       "thumbnail": "outfit/hai tracker pod(T2)",
-      "mass": 8,
-      "outfit space": -19,
-      "weapon capacity": -19,
+      "mass": 5,
+      "outfit space": -16,
+      "weapon capacity": -16,
       "gun ports": -1,
       "tracker capacity": 56,
       "weapon": {
@@ -21394,7 +21352,7 @@
           "throttle control": true
         },
         "optical tracking": 0.8,
-        "infrared tracking": 0.4,
+        "infrared tracking": 0.2,
         "shield damage": 332,
         "hull damage": 265.6,
         "hit force": 525,
@@ -22861,7 +22819,7 @@
         "lifetime": 60,
         "reload": 40,
         "burst count": 30,
-        "burst reload": 15,
+        "burst reload": 20,
         "firing energy": 0.2,
         "firing heat": 12,
         "shield damage": 79.68,
@@ -22967,13 +22925,14 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 7,
+        "velocity": 0,
+        "velocity override": 6,
         "lifetime": 900,
         "reload": 150,
         "firing energy": 2,
         "firing heat": 45,
-        "acceleration": 0.15,
-        "drag": 0.025,
+        "acceleration": 0.12,
+        "drag": 0.02,
         "turn": 1.5,
         "homing": {
           "throttle control": true
@@ -23029,15 +22988,16 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 7,
+        "velocity": 0,
+        "velocity override": 6,
         "lifetime": 900,
         "reload": 320,
         "burst count": 3,
         "burst reload": 150,
         "firing energy": 2,
         "firing heat": 45,
-        "acceleration": 0.15,
-        "drag": 0.025,
+        "acceleration": 0.12,
+        "drag": 0.02,
         "turn": 1.5,
         "homing": {
           "throttle control": true
@@ -23093,13 +23053,13 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 6,
-        "lifetime": 1100,
-        "reload": 120,
+        "velocity": 4,
+        "lifetime": 1600,
+        "reload": 150,
         "firing energy": 4,
         "firing heat": 50,
-        "acceleration": 0.1,
-        "drag": 0.02,
+        "acceleration": 0.15,
+        "drag": 0.04,
         "turn": 1.5,
         "homing": {
           "leading": true,
@@ -23156,15 +23116,15 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 6,
-        "lifetime": 1100,
-        "reload": 252,
+        "velocity": 4,
+        "lifetime": 1600,
+        "reload": 320,
         "burst count": 3,
-        "burst reload": 120,
+        "burst reload": 150,
         "firing energy": 4,
         "firing heat": 50,
-        "acceleration": 0.1,
-        "drag": 0.02,
+        "acceleration": 0.15,
+        "drag": 0.04,
         "turn": 1.5,
         "homing": {
           "leading": true,
@@ -23215,6 +23175,7 @@
           "frame rate": 4
         },
         "sound": "rocket",
+        "stream": true,
         "icon": "icon/rocket",
         "hit effect": "heavy rocket hit",
         "die effect": "small explosion",
@@ -23227,11 +23188,11 @@
         "acceleration": 0.8,
         "drag": 0.1,
         "trigger radius": 20,
-        "blast radius": 90,
+        "blast radius": 150,
         "shield damage": 1311.4,
         "hull damage": 1112.2,
         "hit force": 900,
-        "missile strength": 16,
+        "missile strength": 24,
         "ammunition": [
           {
             "type": "Heavy Rocket",
@@ -23286,11 +23247,11 @@
         "acceleration": 0.8,
         "drag": 0.1,
         "trigger radius": 20,
-        "blast radius": 90,
+        "blast radius": 150,
         "shield damage": 1311.4,
         "hull damage": 1112.2,
         "hit force": 900,
-        "missile strength": 16,
+        "missile strength": 24,
         "ammunition": [
           {
             "type": "Heavy Rocket",
@@ -23361,6 +23322,7 @@
         "hull damage": 11620,
         "hit force": 6000,
         "missile strength": 200,
+        "triggers nuke alert": true,
         "ammunition": [
           {
             "type": "Nuclear Missile",
@@ -28091,7 +28053,9 @@
       },
       "locations": {
         "Zuckungs list/boss.loot": {
-          "_deprecated/unused": true
+          "Missions": [
+            "upgrade outfits"
+          ]
         }
       },
       "pluginId": "Zuckungs list/boss.loot"
@@ -28128,7 +28092,9 @@
       },
       "locations": {
         "Zuckungs list/boss.loot": {
-          "_deprecated/unused": true
+          "Missions": [
+            "upgrade outfits"
+          ]
         }
       },
       "pluginId": "Zuckungs list/boss.loot"
@@ -28406,11 +28372,11 @@
       "index": 5010,
       "cost": 1186900,
       "thumbnail": "outfit/ka'het emp deployer(T2)",
-      "mass": 18,
+      "mass": 10,
       "outfit space": -26,
       "weapon capacity": -26,
       "gun ports": -1,
-      "emp torpedo capacity": 16,
+      "emp torpedo capacity": 27,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -28439,7 +28405,7 @@
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.7,
+        "infrared tracking": 0.2,
         "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
@@ -28987,12 +28953,12 @@
       "index": 4030,
       "cost": 984380,
       "thumbnail": "outfit/piercer launcher(T2)",
-      "mass": 18,
-      "outfit space": -27,
-      "weapon capacity": -27,
+      "mass": 7,
+      "outfit space": -21,
+      "weapon capacity": -21,
       "energy capacity": 50,
       "gun ports": -1,
-      "piercer capacity": 31,
+      "piercer capacity": 197,
       "weapon": {
         "sprite": "projectile/piercer",
         "sprite data": {
@@ -29006,26 +28972,18 @@
           "piercer impact",
           "piercer explosion"
         ],
-        "die effect": "piercer explosion",
-        "inaccuracy": 3,
+        "die effect": "piercer death",
+        "inaccuracy": 1.5,
         "velocity": 18,
-        "lifetime": 200,
-        "reload": 72,
-        "firing energy": 29,
-        "firing heat": 144,
-        "acceleration": 0.54,
-        "drag": 0.03,
-        "turn": 1.6,
-        "homing": {
-          "leading": true,
-          "throttle control": true
-        },
-        "infrared tracking": 0.9,
-        "shield damage": 481.4,
-        "hull damage": 730.4,
+        "lifetime": 47,
+        "reload": 23,
+        "firing energy": 9,
+        "firing heat": 46,
+        "shield damage": 215.8,
+        "hull damage": 327.02,
         "piercing": 0.2,
-        "hit force": 450,
-        "missile strength": 73,
+        "hit force": 144,
+        "missile strength": 23,
         "stream": true,
         "ammunition": [
           {
@@ -29109,12 +29067,12 @@
       "index": 4040,
       "cost": 1781180,
       "thumbnail": "outfit/korath minelayer(T2)",
-      "mass": 36,
-      "outfit space": -48,
-      "weapon capacity": -48,
+      "mass": 15,
+      "outfit space": -27,
+      "weapon capacity": -27,
       "energy capacity": 50,
       "gun ports": -1,
-      "minelayer capacity": 17,
+      "minelayer capacity": 41,
       "weapon": {
         "sprite": "projectile/korath minelayer",
         "sprite data": {
@@ -29484,7 +29442,7 @@
           }
         ]
       },
-      "description": "Langrage Hyper-Heavers raise the use of improvised ammunition to a fine art. This turret converts scrap metal, nearby asteroids, compressed garbage, or other debris into a high speed debris field. The exact mechanism is unclear, but the internal workings bear some similarities to hyperdrives and Banishers. \tAt close range, the heaved langrage merely forces the enemy back. As the launch field collapses and the langrage returns fully to normal space, however, it is rent into a rapidly-expanding cloud of deadly projectiles as it returns to normal space.",
+      "description": "Langrage Hyper-Heavers raise the use of improvised ammunition to a fine art. This turret converts scrap metal, nearby asteroids, compressed garbage, or other debris into a high speed debris field. The exact mechanism is unclear, but the internal workings bear some similarities to hyperdrives and Banishers. \tAt close range, the heaved langrage merely forces the enemy back. However, as the launch field collapses and the langrage returns fully to normal space, it is rent into a rapidly-expanding cloud of deadly projectiles.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -29538,13 +29496,8 @@
         "lifetime": 20,
         "acceleration": -0.1,
         "turn": 4.6,
-        "homing": {
-          "leading": true,
-          "throttle control": true
-        },
-        "tracking": 0.9,
-        "trigger radius": 20,
-        "blast radius": 48,
+        "homing": true,
+        "optical tracking": 0.9,
         "hit force": 90,
         "missile strength": 30,
         "submunitions": [
@@ -29585,13 +29538,10 @@
           "throttle control": true
         },
         "optical tracking": 0.7,
-        "trigger radius": 20,
-        "blast radius": 48,
         "shield damage": 1577,
         "hull damage": 1577,
         "heat damage": 2988,
         "burn damage": 10,
-        "corrosion damage": 2,
         "hit force": 600,
         "missile strength": 33
       },
@@ -29662,7 +29612,7 @@
       "index": 4020,
       "cost": 3955780,
       "thumbnail": "outfit/firestorm battery(T2)",
-      "mass": 35,
+      "mass": 22,
       "outfit space": -48,
       "weapon capacity": -48,
       "energy capacity": 1300,
@@ -29703,7 +29653,6 @@
         "hull damage": 4581.6,
         "heat damage": 8831.2,
         "burn damage": 40,
-        "corrosion damage": 5,
         "hit force": 6000,
         "missile strength": 115,
         "ammunition": [
@@ -30394,8 +30343,8 @@
       "cost": 2275860,
       "thumbnail": "outfit/inhibitor turret(T2)",
       "mass": 42,
-      "outfit space": -28,
-      "weapon capacity": -22,
+      "outfit space": -42,
+      "weapon capacity": -42,
       "required crew": 1,
       "turret mounts": -1,
       "weapon": {
@@ -30423,7 +30372,7 @@
         "hit force": 58.5,
         "slowing damage": 0.83
       },
-      "description": "While cannons that can interfere with a ship's engines are useful in any situation, the Remnant quickly decided that it would be even more useful as a turret that their ships could use to impede those chasing after them. These small Inhibitor Turrets are typically found primarily on Pelicans trying to outrun opponents rather than defeat them. Although these turrets are unremarkable in terms of performance, the comparatively recent perfection of a technique of installing the bulk of the weapon itself externally on the turret mount instead of under the base has resulted in a weapon that takes comparatively little outfit space. It does, however, still add quite a bit more to the mass of the ship.",
+      "description": "While cannons that can interfere with a ship's engines are useful in any situation, the Remnant have long desired a turret that their ships could use to impede those chasing after them. These versatile Inhibitor Turrets are typically found on ships trying to outrun opponents rather than defeat them. \tAlthough these turrets are unremarkable in terms of performance, the comparatively recent refinement of the interference effect dampens the strong torques that previously made the use of a swiveling mount unfeasible, making these turrets a true engineering achievement.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -30550,7 +30499,7 @@
       "outfit space": -18,
       "weapon capacity": -18,
       "gun ports": -1,
-      "emp torpedo capacity": 9,
+      "emp torpedo capacity": 15,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -30579,7 +30528,7 @@
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.7,
+        "infrared tracking": 0.2,
         "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
@@ -30621,11 +30570,11 @@
       },
       "cost": 2531500,
       "thumbnail": "outfit/teciimach bay(T2)",
-      "mass": 9,
-      "outfit space": -13,
-      "weapon capacity": -13,
+      "mass": 6,
+      "outfit space": -18,
+      "weapon capacity": -18,
       "gun ports": -1,
-      "teciimach canister capacity": 9,
+      "emp torpedo capacity": 20,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -30641,40 +30590,38 @@
           "emp spark"
         ],
         "die effect": "tiny explosion",
-        "cluster": true,
+        "stream": true,
         "safe": true,
-        "reload": 310,
+        "reload": 330,
         "firing energy": 400,
         "firing heat": 18,
         "inaccuracy": 5,
         "lifetime": 300,
-        "velocity": 8,
+        "velocity": 7,
         "acceleration": 0.7,
         "drag": 0.1,
-        "turn": 2.5,
+        "turn": 2,
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.8,
-        "radar tracking": 0.9,
+        "infrared tracking": 0.2,
+        "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
-        "shield damage": 1494,
-        "hull damage": 207.5,
-        "disabled damage": 60,
-        "ion damage": 107.9,
-        "scrambling damage": 107.9,
-        "energy damage": 3320,
+        "shield damage": 1162,
+        "hull damage": 166,
+        "ion damage": 79.68,
+        "scrambling damage": 79.68,
         "hit force": 135,
-        "missile strength": 95,
+        "missile strength": 80,
         "ammunition": [
           {
-            "type": "Teciimach Canister",
+            "type": "EMP Torpedo",
             "count": 1
           }
         ]
       },
-      "description": "Electromagnetic pulse weapons were originally developed by the Remnant during the early days of their colony, when they were living in fear that the Alphas would overrun human space and expand beyond it. Centuries later, the Teciimach revision includes a range of upgrades to their effectiveness, efficiency, reliability, and safety. The Remnant attribute these improvements to a mix of the latest research and secrets uncovered by Warren research teams. \tAmmunition for this weapon can be restocked at any outfitter.",
+      "description": "Electromagnetic pulse weapons were originally developed by the Remnant during the early days of their colony, when they were living in fear that the Alphas would overrun human space and expand beyond it. \tThe newest revision of the EMP Torpedo Bay, the \"Teciimach,\" contains two major improvements. The first is a mechanism on the launcher that alters each torpedoes' energy to ignore allies, letting Teciimachs be deployed without risk of ionizing yourself or the rest of your fleet. \tThe second is a significant reduction in the size of the launcher hardware, allowing space for a clip that is a third larger. \tAmmunition for this weapon can be restocked at any outfitter.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -30699,11 +30646,11 @@
       },
       "cost": 1265750,
       "thumbnail": "outfit/teciimach pod(T2)",
-      "mass": 3,
+      "mass": 4,
       "outfit space": -6,
       "weapon capacity": -6,
       "gun ports": -1,
-      "teciimach canister capacity": 3,
+      "emp torpedo capacity": 3,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -30719,42 +30666,39 @@
           "emp spark"
         ],
         "die effect": "tiny explosion",
-        "cluster": true,
         "safe": true,
         "burst count": 3,
-        "burst reload": 110,
-        "reload": 620,
-        "firing energy": 350,
-        "firing heat": 16,
+        "burst reload": 330,
+        "reload": 660,
+        "firing energy": 400,
+        "firing heat": 18,
         "inaccuracy": 5,
         "lifetime": 300,
-        "velocity": 8,
+        "velocity": 7,
         "acceleration": 0.7,
         "drag": 0.1,
-        "turn": 2.5,
+        "turn": 2,
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.8,
-        "radar tracking": 0.9,
+        "infrared tracking": 0.2,
+        "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
-        "shield damage": 1494,
-        "hull damage": 207.5,
-        "disabled damage": 60,
-        "ion damage": 99.6,
-        "scrambling damage": 99.6,
-        "energy damage": 3320,
+        "shield damage": 1162,
+        "hull damage": 166,
+        "ion damage": 79.68,
+        "scrambling damage": 79.68,
         "hit force": 135,
-        "missile strength": 95,
+        "missile strength": 80,
         "ammunition": [
           {
-            "type": "Teciimach Canister",
+            "type": "EMP Torpedo",
             "count": 1
           }
         ]
       },
-      "description": "While originally developed as a heavy weapon to paralyze enemy capital ships, the Remnant have utilized on-the-spot assembly techniques to support their use on smaller ships. These pods sacrifice multiple assembly systems in order to fit them onto interceptor-class vessels. \tDespite this explanation, a careful examination of these bays and pods suggest that there is much more here than their volume would suggest. \tAmmunition for this weapon can be restocked at any outfitter.",
+      "description": "While originally developed as a heavy weapon to paralyze enemy capital ships, the Remnant have utilized on-the-spot assembly techniques to support their use on smaller ships. These pods sacrifice multiple assembly systems in order to fit them onto interceptor-class vessels. \tTo better fit the hit-and-run tactics used on interceptors and light warships, Teciimach Pods launch all ready torpedoes at once instead of in sequence, maximizing the ion damage dealt in a single moment. \tAmmunition for this weapon can be restocked at any outfitter.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -31397,8 +31341,9 @@
         "reload": 30,
         "firing energy": 80,
         "firing heat": 120,
+        "firing force": 25,
         "shield damage": -156.04,
-        "hull damage": 124.5,
+        "hull damage": 154.38,
         "hit force": 120,
         "cluster": true,
         "submunitions": [
@@ -31462,7 +31407,7 @@
         "firing heat": 120,
         "firing force": 25,
         "shield damage": -156.04,
-        "hull damage": 124.5,
+        "hull damage": 154.38,
         "hit force": 120,
         "cluster": true,
         "submunitions": [
@@ -31501,7 +31446,7 @@
         "lifetime": 6,
         "random lifetime": 3,
         "shield damage": 79.68,
-        "hull damage": 33.2
+        "hull damage": 23.24
       },
       "governments": {
         "boss.loot": {
@@ -31812,7 +31757,7 @@
         "High Houses": true
       },
       "thumbnail": "outfit/sjeja kinetic lance(T2)",
-      "mass": 60,
+      "mass": 54,
       "outfit space": -60,
       "weapon capacity": -60,
       "energy capacity": 1900,
@@ -31839,7 +31784,7 @@
         "firing energy": 1900,
         "firing ion": 3,
         "firing heat": 4000,
-        "shield damage": 2217.76,
+        "shield damage": 1774.54,
         "hull damage": 3187.2,
         "piercing": 0.15,
         "hit force": 800,
@@ -32186,11 +32131,11 @@
       },
       "cost": 747000,
       "thumbnail": "outfit/thunderhead launcher(T2)",
-      "mass": 14,
+      "mass": 11,
       "outfit space": -26,
       "weapon capacity": -26,
       "gun ports": -1,
-      "thunderhead capacity": 40,
+      "thunderhead capacity": 56,
       "weapon": {
         "sprite": "projectile/thunderhead",
         "sprite data": {
@@ -32216,8 +32161,8 @@
           "leading": true,
           "throttle control": true
         },
-        "infrared tracking": 0.9,
-        "radar tracking": 0.6,
+        "infrared tracking": 1,
+        "radar tracking": 0.3,
         "missile strength": 12,
         "submunitions": [
           {
@@ -32267,43 +32212,12 @@
           "leading": true,
           "throttle control": true
         },
-        "optical tracking": 0.9,
-        "radar tracking": 0.6,
+        "infrared tracking": 1,
+        "radar tracking": 0.3,
         "shield damage": 182.6,
         "hull damage": 132.8,
         "hit force": 225,
         "missile strength": 3
-      },
-      "governments": {
-        "boss.loot": {
-          "boss.loot": true
-        }
-      },
-      "locations": {
-        "Zuckungs list/boss.loot": {
-          "_deprecated/unused": true
-        }
-      },
-      "pluginId": "Zuckungs list/boss.loot"
-    },
-    {
-      "name": "Pincer(T2)",
-      "category": "Guns",
-      "series": "Guns",
-      "index": 92050,
-      "gun ports": -1,
-      "weapon": {
-        "sound": "pincer hit",
-        "hit effect": "void sprite chewing",
-        "inaccuracy": 180,
-        "velocity": 40,
-        "lifetime": 1,
-        "reload": 120,
-        "cluster": true,
-        "shield damage": 3154,
-        "hull damage": 3154,
-        "firing energy": 40,
-        "firing heat": 20
       },
       "governments": {
         "boss.loot": {
@@ -33603,7 +33517,7 @@
       "licenses": {
         "Twilight Guard": true
       },
-      "cost": 72000,
+      "cost": 108000,
       "thumbnail": "outfit/tiny vls(T3)",
       "mass": 3,
       "outfit space": -9,
@@ -34394,9 +34308,9 @@
       "index": 10010,
       "cost": 726000,
       "thumbnail": "outfit/swarm pod(T3)",
-      "mass": 5,
-      "outfit space": -21,
-      "weapon capacity": -21,
+      "mass": 3,
+      "outfit space": -15,
+      "weapon capacity": -15,
       "gun ports": -1,
       "swarm capacity": 400,
       "weapon": {
@@ -34419,8 +34333,8 @@
         "drag": 0.1,
         "turn": 5.35,
         "homing": true,
-        "radar tracking": 0.5,
-        "optical tracking": 0.5,
+        "radar tracking": 0.2,
+        "optical tracking": 0.6,
         "shield damage": 92,
         "hull damage": 48,
         "missile strength": 8,
@@ -36027,6 +35941,7 @@
     },
     {
       "name": "Ion Torch(T3)",
+      "plural": "Ion Torches",
       "category": "Guns",
       "series": "Guns",
       "index": 6080,
@@ -36486,9 +36401,9 @@
       "index": 2010,
       "cost": 300000,
       "thumbnail": "outfit/hai tracker pod(T3)",
-      "mass": 8,
-      "outfit space": -19,
-      "weapon capacity": -19,
+      "mass": 5,
+      "outfit space": -16,
+      "weapon capacity": -16,
       "gun ports": -1,
       "tracker capacity": 56,
       "weapon": {
@@ -36519,7 +36434,7 @@
           "throttle control": true
         },
         "optical tracking": 0.8,
-        "infrared tracking": 0.4,
+        "infrared tracking": 0.2,
         "shield damage": 400,
         "hull damage": 320,
         "hit force": 525,
@@ -37986,7 +37901,7 @@
         "lifetime": 60,
         "reload": 40,
         "burst count": 30,
-        "burst reload": 15,
+        "burst reload": 20,
         "firing energy": 0.2,
         "firing heat": 12,
         "shield damage": 96,
@@ -38092,13 +38007,14 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 7,
+        "velocity": 0,
+        "velocity override": 6,
         "lifetime": 900,
         "reload": 150,
         "firing energy": 2,
         "firing heat": 45,
-        "acceleration": 0.15,
-        "drag": 0.025,
+        "acceleration": 0.12,
+        "drag": 0.02,
         "turn": 1.5,
         "homing": {
           "throttle control": true
@@ -38154,15 +38070,16 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 7,
+        "velocity": 0,
+        "velocity override": 6,
         "lifetime": 900,
         "reload": 320,
         "burst count": 3,
         "burst reload": 150,
         "firing energy": 2,
         "firing heat": 45,
-        "acceleration": 0.15,
-        "drag": 0.025,
+        "acceleration": 0.12,
+        "drag": 0.02,
         "turn": 1.5,
         "homing": {
           "throttle control": true
@@ -38218,13 +38135,13 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 6,
-        "lifetime": 1100,
-        "reload": 120,
+        "velocity": 4,
+        "lifetime": 1600,
+        "reload": 150,
         "firing energy": 4,
         "firing heat": 50,
-        "acceleration": 0.1,
-        "drag": 0.02,
+        "acceleration": 0.15,
+        "drag": 0.04,
         "turn": 1.5,
         "homing": {
           "leading": true,
@@ -38281,15 +38198,15 @@
         "hit effect": "torpedo hit",
         "die effect": "tiny explosion",
         "inaccuracy": 5,
-        "velocity": 6,
-        "lifetime": 1100,
-        "reload": 252,
+        "velocity": 4,
+        "lifetime": 1600,
+        "reload": 320,
         "burst count": 3,
-        "burst reload": 120,
+        "burst reload": 150,
         "firing energy": 4,
         "firing heat": 50,
-        "acceleration": 0.1,
-        "drag": 0.02,
+        "acceleration": 0.15,
+        "drag": 0.04,
         "turn": 1.5,
         "homing": {
           "leading": true,
@@ -38340,6 +38257,7 @@
           "frame rate": 4
         },
         "sound": "rocket",
+        "stream": true,
         "icon": "icon/rocket",
         "hit effect": "heavy rocket hit",
         "die effect": "small explosion",
@@ -38352,11 +38270,11 @@
         "acceleration": 0.8,
         "drag": 0.1,
         "trigger radius": 20,
-        "blast radius": 90,
+        "blast radius": 150,
         "shield damage": 1580,
         "hull damage": 1340,
         "hit force": 900,
-        "missile strength": 16,
+        "missile strength": 24,
         "ammunition": [
           {
             "type": "Heavy Rocket",
@@ -38411,11 +38329,11 @@
         "acceleration": 0.8,
         "drag": 0.1,
         "trigger radius": 20,
-        "blast radius": 90,
+        "blast radius": 150,
         "shield damage": 1580,
         "hull damage": 1340,
         "hit force": 900,
-        "missile strength": 16,
+        "missile strength": 24,
         "ammunition": [
           {
             "type": "Heavy Rocket",
@@ -38486,6 +38404,7 @@
         "hull damage": 14000,
         "hit force": 6000,
         "missile strength": 200,
+        "triggers nuke alert": true,
         "ammunition": [
           {
             "type": "Nuclear Missile",
@@ -43216,7 +43135,9 @@
       },
       "locations": {
         "Zuckungs list/boss.loot": {
-          "_deprecated/unused": true
+          "Missions": [
+            "upgrade outfits"
+          ]
         }
       },
       "pluginId": "Zuckungs list/boss.loot"
@@ -43253,7 +43174,9 @@
       },
       "locations": {
         "Zuckungs list/boss.loot": {
-          "_deprecated/unused": true
+          "Missions": [
+            "upgrade outfits"
+          ]
         }
       },
       "pluginId": "Zuckungs list/boss.loot"
@@ -43531,11 +43454,11 @@
       "index": 5010,
       "cost": 1430000,
       "thumbnail": "outfit/ka'het emp deployer(T3)",
-      "mass": 18,
+      "mass": 10,
       "outfit space": -26,
       "weapon capacity": -26,
       "gun ports": -1,
-      "emp torpedo capacity": 16,
+      "emp torpedo capacity": 27,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -43564,7 +43487,7 @@
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.7,
+        "infrared tracking": 0.2,
         "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
@@ -44112,12 +44035,12 @@
       "index": 4030,
       "cost": 1186000,
       "thumbnail": "outfit/piercer launcher(T3)",
-      "mass": 18,
-      "outfit space": -27,
-      "weapon capacity": -27,
+      "mass": 7,
+      "outfit space": -21,
+      "weapon capacity": -21,
       "energy capacity": 50,
       "gun ports": -1,
-      "piercer capacity": 31,
+      "piercer capacity": 197,
       "weapon": {
         "sprite": "projectile/piercer",
         "sprite data": {
@@ -44131,26 +44054,18 @@
           "piercer impact",
           "piercer explosion"
         ],
-        "die effect": "piercer explosion",
-        "inaccuracy": 3,
+        "die effect": "piercer death",
+        "inaccuracy": 1.5,
         "velocity": 18,
-        "lifetime": 200,
-        "reload": 72,
-        "firing energy": 29,
-        "firing heat": 144,
-        "acceleration": 0.54,
-        "drag": 0.03,
-        "turn": 1.6,
-        "homing": {
-          "leading": true,
-          "throttle control": true
-        },
-        "infrared tracking": 0.9,
-        "shield damage": 580,
-        "hull damage": 880,
+        "lifetime": 47,
+        "reload": 23,
+        "firing energy": 9,
+        "firing heat": 46,
+        "shield damage": 260,
+        "hull damage": 394,
         "piercing": 0.2,
-        "hit force": 450,
-        "missile strength": 73,
+        "hit force": 144,
+        "missile strength": 23,
         "stream": true,
         "ammunition": [
           {
@@ -44234,12 +44149,12 @@
       "index": 4040,
       "cost": 2146000,
       "thumbnail": "outfit/korath minelayer(T3)",
-      "mass": 36,
-      "outfit space": -48,
-      "weapon capacity": -48,
+      "mass": 15,
+      "outfit space": -27,
+      "weapon capacity": -27,
       "energy capacity": 50,
       "gun ports": -1,
-      "minelayer capacity": 17,
+      "minelayer capacity": 41,
       "weapon": {
         "sprite": "projectile/korath minelayer",
         "sprite data": {
@@ -44609,7 +44524,7 @@
           }
         ]
       },
-      "description": "Langrage Hyper-Heavers raise the use of improvised ammunition to a fine art. This turret converts scrap metal, nearby asteroids, compressed garbage, or other debris into a high speed debris field. The exact mechanism is unclear, but the internal workings bear some similarities to hyperdrives and Banishers. \tAt close range, the heaved langrage merely forces the enemy back. As the launch field collapses and the langrage returns fully to normal space, however, it is rent into a rapidly-expanding cloud of deadly projectiles as it returns to normal space.",
+      "description": "Langrage Hyper-Heavers raise the use of improvised ammunition to a fine art. This turret converts scrap metal, nearby asteroids, compressed garbage, or other debris into a high speed debris field. The exact mechanism is unclear, but the internal workings bear some similarities to hyperdrives and Banishers. \tAt close range, the heaved langrage merely forces the enemy back. However, as the launch field collapses and the langrage returns fully to normal space, it is rent into a rapidly-expanding cloud of deadly projectiles.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -44663,13 +44578,8 @@
         "lifetime": 20,
         "acceleration": -0.1,
         "turn": 4.6,
-        "homing": {
-          "leading": true,
-          "throttle control": true
-        },
-        "tracking": 0.9,
-        "trigger radius": 20,
-        "blast radius": 48,
+        "homing": true,
+        "optical tracking": 0.9,
         "hit force": 90,
         "missile strength": 30,
         "submunitions": [
@@ -44710,13 +44620,10 @@
           "throttle control": true
         },
         "optical tracking": 0.7,
-        "trigger radius": 20,
-        "blast radius": 48,
         "shield damage": 1900,
         "hull damage": 1900,
         "heat damage": 3600,
         "burn damage": 10,
-        "corrosion damage": 2,
         "hit force": 600,
         "missile strength": 33
       },
@@ -44787,7 +44694,7 @@
       "index": 4020,
       "cost": 4766000,
       "thumbnail": "outfit/firestorm battery(T3)",
-      "mass": 35,
+      "mass": 22,
       "outfit space": -48,
       "weapon capacity": -48,
       "energy capacity": 1300,
@@ -44828,7 +44735,6 @@
         "hull damage": 5520,
         "heat damage": 10640,
         "burn damage": 40,
-        "corrosion damage": 5,
         "hit force": 6000,
         "missile strength": 115,
         "ammunition": [
@@ -45519,8 +45425,8 @@
       "cost": 2742000,
       "thumbnail": "outfit/inhibitor turret(T3)",
       "mass": 42,
-      "outfit space": -28,
-      "weapon capacity": -22,
+      "outfit space": -42,
+      "weapon capacity": -42,
       "required crew": 1,
       "turret mounts": -1,
       "weapon": {
@@ -45548,7 +45454,7 @@
         "hit force": 58.5,
         "slowing damage": 1
       },
-      "description": "While cannons that can interfere with a ship's engines are useful in any situation, the Remnant quickly decided that it would be even more useful as a turret that their ships could use to impede those chasing after them. These small Inhibitor Turrets are typically found primarily on Pelicans trying to outrun opponents rather than defeat them. Although these turrets are unremarkable in terms of performance, the comparatively recent perfection of a technique of installing the bulk of the weapon itself externally on the turret mount instead of under the base has resulted in a weapon that takes comparatively little outfit space. It does, however, still add quite a bit more to the mass of the ship.",
+      "description": "While cannons that can interfere with a ship's engines are useful in any situation, the Remnant have long desired a turret that their ships could use to impede those chasing after them. These versatile Inhibitor Turrets are typically found on ships trying to outrun opponents rather than defeat them. \tAlthough these turrets are unremarkable in terms of performance, the comparatively recent refinement of the interference effect dampens the strong torques that previously made the use of a swiveling mount unfeasible, making these turrets a true engineering achievement.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -45675,7 +45581,7 @@
       "outfit space": -18,
       "weapon capacity": -18,
       "gun ports": -1,
-      "emp torpedo capacity": 9,
+      "emp torpedo capacity": 15,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -45704,7 +45610,7 @@
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.7,
+        "infrared tracking": 0.2,
         "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
@@ -45746,11 +45652,11 @@
       },
       "cost": 3050000,
       "thumbnail": "outfit/teciimach bay(T3)",
-      "mass": 9,
-      "outfit space": -13,
-      "weapon capacity": -13,
+      "mass": 6,
+      "outfit space": -18,
+      "weapon capacity": -18,
       "gun ports": -1,
-      "teciimach canister capacity": 9,
+      "emp torpedo capacity": 20,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -45766,40 +45672,38 @@
           "emp spark"
         ],
         "die effect": "tiny explosion",
-        "cluster": true,
+        "stream": true,
         "safe": true,
-        "reload": 310,
+        "reload": 330,
         "firing energy": 400,
         "firing heat": 18,
         "inaccuracy": 5,
         "lifetime": 300,
-        "velocity": 8,
+        "velocity": 7,
         "acceleration": 0.7,
         "drag": 0.1,
-        "turn": 2.5,
+        "turn": 2,
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.8,
-        "radar tracking": 0.9,
+        "infrared tracking": 0.2,
+        "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
-        "shield damage": 1800,
-        "hull damage": 250,
-        "disabled damage": 60,
-        "ion damage": 130,
-        "scrambling damage": 130,
-        "energy damage": 4000,
+        "shield damage": 1400,
+        "hull damage": 200,
+        "ion damage": 96,
+        "scrambling damage": 96,
         "hit force": 135,
-        "missile strength": 95,
+        "missile strength": 80,
         "ammunition": [
           {
-            "type": "Teciimach Canister",
+            "type": "EMP Torpedo",
             "count": 1
           }
         ]
       },
-      "description": "Electromagnetic pulse weapons were originally developed by the Remnant during the early days of their colony, when they were living in fear that the Alphas would overrun human space and expand beyond it. Centuries later, the Teciimach revision includes a range of upgrades to their effectiveness, efficiency, reliability, and safety. The Remnant attribute these improvements to a mix of the latest research and secrets uncovered by Warren research teams. \tAmmunition for this weapon can be restocked at any outfitter.",
+      "description": "Electromagnetic pulse weapons were originally developed by the Remnant during the early days of their colony, when they were living in fear that the Alphas would overrun human space and expand beyond it. \tThe newest revision of the EMP Torpedo Bay, the \"Teciimach,\" contains two major improvements. The first is a mechanism on the launcher that alters each torpedoes' energy to ignore allies, letting Teciimachs be deployed without risk of ionizing yourself or the rest of your fleet. \tThe second is a significant reduction in the size of the launcher hardware, allowing space for a clip that is a third larger. \tAmmunition for this weapon can be restocked at any outfitter.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -45824,11 +45728,11 @@
       },
       "cost": 1525000,
       "thumbnail": "outfit/teciimach pod(T3)",
-      "mass": 3,
+      "mass": 4,
       "outfit space": -6,
       "weapon capacity": -6,
       "gun ports": -1,
-      "teciimach canister capacity": 3,
+      "emp torpedo capacity": 3,
       "weapon": {
         "sprite": "projectile/emp torpedo",
         "sprite data": {
@@ -45844,42 +45748,39 @@
           "emp spark"
         ],
         "die effect": "tiny explosion",
-        "cluster": true,
         "safe": true,
         "burst count": 3,
-        "burst reload": 110,
-        "reload": 620,
-        "firing energy": 350,
-        "firing heat": 16,
+        "burst reload": 330,
+        "reload": 660,
+        "firing energy": 400,
+        "firing heat": 18,
         "inaccuracy": 5,
         "lifetime": 300,
-        "velocity": 8,
+        "velocity": 7,
         "acceleration": 0.7,
         "drag": 0.1,
-        "turn": 2.5,
+        "turn": 2,
         "homing": {
           "throttle control": true
         },
-        "infrared tracking": 0.8,
-        "radar tracking": 0.9,
+        "infrared tracking": 0.2,
+        "radar tracking": 0.8,
         "trigger radius": 50,
         "blast radius": 200,
-        "shield damage": 1800,
-        "hull damage": 250,
-        "disabled damage": 60,
-        "ion damage": 120,
-        "scrambling damage": 120,
-        "energy damage": 4000,
+        "shield damage": 1400,
+        "hull damage": 200,
+        "ion damage": 96,
+        "scrambling damage": 96,
         "hit force": 135,
-        "missile strength": 95,
+        "missile strength": 80,
         "ammunition": [
           {
-            "type": "Teciimach Canister",
+            "type": "EMP Torpedo",
             "count": 1
           }
         ]
       },
-      "description": "While originally developed as a heavy weapon to paralyze enemy capital ships, the Remnant have utilized on-the-spot assembly techniques to support their use on smaller ships. These pods sacrifice multiple assembly systems in order to fit them onto interceptor-class vessels. \tDespite this explanation, a careful examination of these bays and pods suggest that there is much more here than their volume would suggest. \tAmmunition for this weapon can be restocked at any outfitter.",
+      "description": "While originally developed as a heavy weapon to paralyze enemy capital ships, the Remnant have utilized on-the-spot assembly techniques to support their use on smaller ships. These pods sacrifice multiple assembly systems in order to fit them onto interceptor-class vessels. \tTo better fit the hit-and-run tactics used on interceptors and light warships, Teciimach Pods launch all ready torpedoes at once instead of in sequence, maximizing the ion damage dealt in a single moment. \tAmmunition for this weapon can be restocked at any outfitter.",
       "governments": {
         "boss.loot": {
           "boss.loot": true
@@ -46522,8 +46423,9 @@
         "reload": 30,
         "firing energy": 80,
         "firing heat": 120,
+        "firing force": 25,
         "shield damage": -188,
-        "hull damage": 150,
+        "hull damage": 186,
         "hit force": 120,
         "cluster": true,
         "submunitions": [
@@ -46587,7 +46489,7 @@
         "firing heat": 120,
         "firing force": 25,
         "shield damage": -188,
-        "hull damage": 150,
+        "hull damage": 186,
         "hit force": 120,
         "cluster": true,
         "submunitions": [
@@ -46626,7 +46528,7 @@
         "lifetime": 6,
         "random lifetime": 3,
         "shield damage": 96,
-        "hull damage": 40
+        "hull damage": 28
       },
       "governments": {
         "boss.loot": {
@@ -46937,7 +46839,7 @@
         "High Houses": true
       },
       "thumbnail": "outfit/sjeja kinetic lance(T3)",
-      "mass": 60,
+      "mass": 54,
       "outfit space": -60,
       "weapon capacity": -60,
       "energy capacity": 1900,
@@ -46964,7 +46866,7 @@
         "firing energy": 1900,
         "firing ion": 3,
         "firing heat": 4000,
-        "shield damage": 2672,
+        "shield damage": 2138,
         "hull damage": 3840,
         "piercing": 0.15,
         "hit force": 800,
@@ -47311,11 +47213,11 @@
       },
       "cost": 900000,
       "thumbnail": "outfit/thunderhead launcher(T3)",
-      "mass": 14,
+      "mass": 11,
       "outfit space": -26,
       "weapon capacity": -26,
       "gun ports": -1,
-      "thunderhead capacity": 40,
+      "thunderhead capacity": 56,
       "weapon": {
         "sprite": "projectile/thunderhead",
         "sprite data": {
@@ -47341,8 +47243,8 @@
           "leading": true,
           "throttle control": true
         },
-        "infrared tracking": 0.9,
-        "radar tracking": 0.6,
+        "infrared tracking": 1,
+        "radar tracking": 0.3,
         "missile strength": 12,
         "submunitions": [
           {
@@ -47392,43 +47294,12 @@
           "leading": true,
           "throttle control": true
         },
-        "optical tracking": 0.9,
-        "radar tracking": 0.6,
+        "infrared tracking": 1,
+        "radar tracking": 0.3,
         "shield damage": 220,
         "hull damage": 160,
         "hit force": 225,
         "missile strength": 3
-      },
-      "governments": {
-        "boss.loot": {
-          "boss.loot": true
-        }
-      },
-      "locations": {
-        "Zuckungs list/boss.loot": {
-          "_deprecated/unused": true
-        }
-      },
-      "pluginId": "Zuckungs list/boss.loot"
-    },
-    {
-      "name": "Pincer(T3)",
-      "category": "Guns",
-      "series": "Guns",
-      "index": 92050,
-      "gun ports": -1,
-      "weapon": {
-        "sound": "pincer hit",
-        "hit effect": "void sprite chewing",
-        "inaccuracy": 180,
-        "velocity": 40,
-        "lifetime": 1,
-        "reload": 120,
-        "cluster": true,
-        "shield damage": 3800,
-        "hull damage": 3800,
-        "firing energy": 40,
-        "firing heat": 20
       },
       "governments": {
         "boss.loot": {
@@ -47455,5 +47326,5 @@
       "pluginId": "Zuckungs list/boss.loot"
     }
   ],
-  "parsedAt": "2026-06-01T03:42:23.192Z"
+  "parsedAt": "2026-06-02T12:21:48.428Z"
 }

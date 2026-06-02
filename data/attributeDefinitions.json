@@ -13,21 +13,23 @@
       "damageDealtCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/DamageDealt.cpp",
       "damageDealtH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/DamageDealt.h",
       "jumpNavCpp": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.cpp",
-      "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h"
+      "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
+      "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-06-01T03:42:25.115Z",
+    "generatedAt": "2026-06-02T12:21:54.254Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "notes": [
-      "Zero hardcoding: all data extracted from C++ source.",
+      "Zero hardcoding: all data extracted from C++ source and data files.",
       "damageTypeDetails: shieldInteraction parsed from Ship.cpp TakeDamage().",
       "Descriptor lookup uses damageKey base, not label, fixing Ion/Ionization mismatch.",
       "Status decay: stat = max(0, 0.99*stat - min(R, 0.99*stat)) each frame.",
       "Passive half-life: ~69 frames (~1.15s at 60fps).",
-      "JamChance: scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0."
+      "JamChance: scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0.",
+      "tooltips: parsed from data/_ui/tooltips.txt; also merged as .tooltip on each attribute entry."
     ]
   },
   "systemContext": {
@@ -73,7 +75,8 @@
       "usedInShipFunctions": [
         "IdleHeat",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Cooling provided per second when running at full strength. Active cooling requires energy, but if your heat level is low it runs at a lower cooling rate and lower energy draw. The amount of cooling is proportional to the temperature of your ship, reaching the full level only if you are about to overheat."
     },
     "afterburner shields": {
       "key": "afterburner shields",
@@ -85,7 +88,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Shield damage dealt to the ship per second when firing this afterburner."
     },
     "afterburner hull": {
       "key": "afterburner hull",
@@ -97,7 +101,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Hull damage dealt to the ship per second when firing this afterburner."
     },
     "afterburner energy": {
       "key": "afterburner energy",
@@ -110,7 +115,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when firing this afterburner."
     },
     "afterburner fuel": {
       "key": "afterburner fuel",
@@ -122,7 +128,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when firing this afterburner."
     },
     "afterburner heat": {
       "key": "afterburner heat",
@@ -135,7 +142,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Heat created per second when firing this afterburner."
     },
     "burn resistance energy": {
       "key": "burn resistance energy",
@@ -148,7 +156,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when resisting burn damage."
     },
     "burn resistance fuel": {
       "key": "burn resistance fuel",
@@ -161,7 +170,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when resisting burn damage."
     },
     "burn resistance heat": {
       "key": "burn resistance heat",
@@ -174,7 +184,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat generated per second when resisting burn damage."
     },
     "cloak": {
       "key": "cloak",
@@ -184,7 +195,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "CloakingSpeed"
-      ]
+      ],
+      "tooltip": "This outfit allows your ship to cloak. The value represents how long it takes to fully activate or deactivate cloaking. Ships cannot fire while cloaked, except if they have the related \"cloaked firing\" attribute."
     },
     "cloaking energy": {
       "key": "cloaking energy",
@@ -197,7 +209,8 @@
       "usedInShipFunctions": [
         "SetCloaked",
         "DoCloakDecision"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when cloaked."
     },
     "cloaking fuel": {
       "key": "cloaking fuel",
@@ -210,7 +223,8 @@
       "usedInShipFunctions": [
         "SetCloaked",
         "DoCloakDecision"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when cloaked."
     },
     "cloaking heat": {
       "key": "cloaking heat",
@@ -222,7 +236,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoCloakDecision"
-      ]
+      ],
+      "tooltip": "Heat generated per second when cloaked."
     },
     "cloaking shields": {
       "key": "cloaking shields",
@@ -235,7 +250,8 @@
       "usedInShipFunctions": [
         "SetCloaked",
         "DoCloakDecision"
-      ]
+      ],
+      "tooltip": "Shields consumed per second while cloaked."
     },
     "cloaked firing": {
       "key": "cloaked firing",
@@ -248,7 +264,8 @@
       "usedInShipFunctions": [
         "Fire",
         "CannotAct"
-      ]
+      ],
+      "tooltip": "This device is so efficient at hiding you that you may shoot when cloaking, losing this amount of cloaking in the process, before being cloaked again. A negative value means shooting does not even hinder your cloak."
     },
     "cooling": {
       "key": "cooling",
@@ -260,7 +277,8 @@
       "usedInShipFunctions": [
         "IdleHeat",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat dissipated per second. This is for when your ship's built-in heat dissipation is not sufficient to keep it from overheating."
     },
     "cooling energy": {
       "key": "cooling energy",
@@ -273,7 +291,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when active cooling is running at full strength (because your ship's temperature is approaching the overheating threshold)."
     },
     "corrosion resistance energy": {
       "key": "corrosion resistance energy",
@@ -286,7 +305,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when resisting corrosion damage."
     },
     "corrosion resistance fuel": {
       "key": "corrosion resistance fuel",
@@ -299,7 +319,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when resisting corrosion damage."
     },
     "corrosion resistance heat": {
       "key": "corrosion resistance heat",
@@ -312,7 +333,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat generated per second when resisting corrosion damage."
     },
     "discharge resistance energy": {
       "key": "discharge resistance energy",
@@ -325,7 +347,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when resisting discharge damage."
     },
     "discharge resistance fuel": {
       "key": "discharge resistance fuel",
@@ -338,7 +361,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when resisting discharge damage."
     },
     "discharge resistance heat": {
       "key": "discharge resistance heat",
@@ -351,7 +375,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat generated per second when resisting discharge damage."
     },
     "disruption resistance energy": {
       "key": "disruption resistance energy",
@@ -364,7 +389,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when resisting disruption damage."
     },
     "disruption resistance fuel": {
       "key": "disruption resistance fuel",
@@ -377,7 +403,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when resisting disruption damage."
     },
     "disruption resistance heat": {
       "key": "disruption resistance heat",
@@ -390,7 +417,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat generated per second when resisting disruption damage."
     },
     "energy consumption": {
       "key": "energy consumption",
@@ -404,7 +432,8 @@
       "usedInShipFunctions": [
         "FlightCheck",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second while in flight."
     },
     "energy generation": {
       "key": "energy generation",
@@ -420,7 +449,8 @@
         "Recharge",
         "NeedsEnergy",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy generated per second. If your ship has weapons other than beam weapons, you will probably also need batteries to store energy in."
     },
     "fuel consumption": {
       "key": "fuel consumption",
@@ -433,7 +463,8 @@
       "usedInShipFunctions": [
         "FlightCheck",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when in flight."
     },
     "fuel energy": {
       "key": "fuel energy",
@@ -448,7 +479,8 @@
         "FlightCheck",
         "NeedsEnergy",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy produced per second when consuming fuel."
     },
     "fuel generation": {
       "key": "fuel generation",
@@ -462,7 +494,8 @@
         "FlightCheck",
         "Recharge",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel generated per second."
     },
     "fuel heat": {
       "key": "fuel heat",
@@ -475,7 +508,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat produced per second when consuming fuel."
     },
     "heat generation": {
       "key": "heat generation",
@@ -489,7 +523,8 @@
       "usedInShipFunctions": [
         "IdleHeat",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat generated per second. Heat generation can be offset by \"cooling\" outfits. If your ship exceeds its maximum heat, it must temporarily shut down to cool itself off."
     },
     "heat dissipation": {
       "key": "heat dissipation",
@@ -499,7 +534,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "HeatDissipation"
-      ]
+      ],
+      "tooltip": "How effectively this ship radiates excess heat."
     },
     "hull repair rate": {
       "key": "hull repair rate",
@@ -511,7 +547,8 @@
       "usedInShipFunctions": [
         "Recharge",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Amount of hull strength that can be repaired per second. Repairs usually consume energy and may generate heat as well."
     },
     "hull energy": {
       "key": "hull energy",
@@ -524,7 +561,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when repairing the hull."
     },
     "hull fuel": {
       "key": "hull fuel",
@@ -536,7 +574,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when repairing the hull."
     },
     "hull heat": {
       "key": "hull heat",
@@ -549,7 +588,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat produced per second when repairing the hull."
     },
     "delayed hull repair rate": {
       "key": "delayed hull repair rate",
@@ -560,7 +600,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Additional hull strength that can be repaired per second after the repair delay period."
     },
     "delayed hull energy": {
       "key": "delayed hull energy",
@@ -571,7 +612,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Additional energy consumed per second when repairing the hull after the repair delay period."
     },
     "delayed hull fuel": {
       "key": "delayed hull fuel",
@@ -581,7 +623,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Additional fuel consumed per second when repairing the hull after the repair delay period."
     },
     "delayed hull heat": {
       "key": "delayed hull heat",
@@ -592,7 +635,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Additional heat produced per second when repairing the hull after the repair delay period."
     },
     "ion resistance energy": {
       "key": "ion resistance energy",
@@ -605,7 +649,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when resisting ion damage."
     },
     "ion resistance fuel": {
       "key": "ion resistance fuel",
@@ -618,7 +663,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when resisting ion damage."
     },
     "ion resistance heat": {
       "key": "ion resistance heat",
@@ -631,7 +677,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat generated per second when resisting ion damage."
     },
     "scramble resistance energy": {
       "key": "scramble resistance energy",
@@ -644,7 +691,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when resisting scrambling damage."
     },
     "scramble resistance fuel": {
       "key": "scramble resistance fuel",
@@ -657,7 +705,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when resisting scrambling damage."
     },
     "scramble resistance heat": {
       "key": "scramble resistance heat",
@@ -670,7 +719,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat generated per second when resisting scrambling damage."
     },
     "jump speed": {
       "key": "jump speed",
@@ -680,7 +730,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "IsReadyToJump"
-      ]
+      ],
+      "tooltip": "The maximum velocity the ship can jump at."
     },
     "leak resistance energy": {
       "key": "leak resistance energy",
@@ -693,7 +744,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when resisting leak damage."
     },
     "leak resistance fuel": {
       "key": "leak resistance fuel",
@@ -706,7 +758,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when resisting leak damage."
     },
     "leak resistance heat": {
       "key": "leak resistance heat",
@@ -719,7 +772,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat generated per second when resisting leak damage."
     },
     "overheat damage rate": {
       "key": "overheat damage rate",
@@ -729,7 +783,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Hull damage taken per second when overheated. Overheat damage scales with how far past the overheat threshold the ship is."
     },
     "reverse thrusting shields": {
       "key": "reverse thrusting shields",
@@ -738,7 +793,8 @@
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Shield damage dealt to the ship per second when firing reverse thrusters."
     },
     "reverse thrusting hull": {
       "key": "reverse thrusting hull",
@@ -747,7 +803,8 @@
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Hull damage dealt to the ship per second when firing reverse thrusters."
     },
     "reverse thrusting energy": {
       "key": "reverse thrusting energy",
@@ -760,7 +817,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "IsIonized"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when firing reverse thrusters."
     },
     "reverse thrusting fuel": {
       "key": "reverse thrusting fuel",
@@ -769,7 +827,8 @@
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Fuel consumed per second when firing reverse thrusters."
     },
     "reverse thrusting heat": {
       "key": "reverse thrusting heat",
@@ -779,7 +838,8 @@
       "shownInOutfitPanel": true,
       "stacking": "additive",
       "stackingDescription": "Values sum directly across all installed outfits.",
-      "shownInShipPanel": true
+      "shownInShipPanel": true,
+      "tooltip": "Heat produced per second when firing reverse thrusters."
     },
     "scram drive": {
       "key": "scram drive",
@@ -794,7 +854,8 @@
       ],
       "usedInShipFunctions": [
         "IsReadyToJump"
-      ]
+      ],
+      "tooltip": "Allows you to jump without coming to a stop, as long as your velocity is within this range of being lined up with the direction you are jumping in."
     },
     "shield generation": {
       "key": "shield generation",
@@ -806,7 +867,8 @@
       "usedInShipFunctions": [
         "Recharge",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Shield points recharged per second. Recharging shields usually consumes energy, and may also produce heat."
     },
     "shield energy": {
       "key": "shield energy",
@@ -819,7 +881,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when recharging shields."
     },
     "shield fuel": {
       "key": "shield fuel",
@@ -831,7 +894,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when recharging shields."
     },
     "shield heat": {
       "key": "shield heat",
@@ -844,7 +908,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat produced per second when recharging shields."
     },
     "delayed shield generation": {
       "key": "delayed shield generation",
@@ -855,7 +920,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Additional shield points recharged per second after the shield delay period."
     },
     "delayed shield energy": {
       "key": "delayed shield energy",
@@ -866,7 +932,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Additional energy consumed per second when recharging shields after the shield delay period."
     },
     "delayed shield fuel": {
       "key": "delayed shield fuel",
@@ -876,7 +943,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Additional fuel consumed per second when recharging shields after the shield delay period."
     },
     "delayed shield heat": {
       "key": "delayed shield heat",
@@ -887,7 +955,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Additional heat produced per second when recharging shields after the shield delay period."
     },
     "slowing resistance energy": {
       "key": "slowing resistance energy",
@@ -900,7 +969,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when resisting slowing damage."
     },
     "slowing resistance fuel": {
       "key": "slowing resistance fuel",
@@ -913,7 +983,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when resisting slowing damage."
     },
     "slowing resistance heat": {
       "key": "slowing resistance heat",
@@ -926,7 +997,8 @@
       "isStatusResistanceCost": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat generated per second when resisting slowing damage."
     },
     "solar collection": {
       "key": "solar collection",
@@ -939,7 +1011,8 @@
         "FlightCheck",
         "NeedsEnergy",
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Energy produced depending on how far this ship is from the star at the center of the system."
     },
     "solar heat": {
       "key": "solar heat",
@@ -950,7 +1023,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Heat produced depending on how far this ship is from the star at the center of the system."
     },
     "thrusting shields": {
       "key": "thrusting shields",
@@ -959,7 +1033,8 @@
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Shield damage dealt to the ship per second when firing thrusters."
     },
     "thrusting hull": {
       "key": "thrusting hull",
@@ -968,7 +1043,8 @@
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Hull damage dealt to the ship per second when firing thrusters."
     },
     "thrusting energy": {
       "key": "thrusting energy",
@@ -982,7 +1058,8 @@
       "usedInShipFunctions": [
         "FlightCheck",
         "IsIonized"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when firing thrusters."
     },
     "thrusting fuel": {
       "key": "thrusting fuel",
@@ -991,7 +1068,8 @@
       "scaleIndex": 0,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Fuel consumed per second when firing thrusters."
     },
     "thrusting heat": {
       "key": "thrusting heat",
@@ -1004,7 +1082,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "FlightCheck"
-      ]
+      ],
+      "tooltip": "Heat generated per second when firing thrusters."
     },
     "turn": {
       "key": "turn",
@@ -1017,7 +1096,8 @@
       "usedInShipFunctions": [
         "FlightCheck",
         "TurnRate"
-      ]
+      ],
+      "tooltip": "Turning force produced by engines. The more mass a ship has, the more turning force is needed to achieve the same turn rate."
     },
     "turning shields": {
       "key": "turning shields",
@@ -1029,7 +1109,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Shield damage dealt to the ship per second when turning."
     },
     "turning hull": {
       "key": "turning hull",
@@ -1041,7 +1122,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Hull damage dealt to the ship per second when turning."
     },
     "turning energy": {
       "key": "turning energy",
@@ -1056,7 +1138,8 @@
         "FlightCheck",
         "IsIonized",
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Energy consumed per second when turning."
     },
     "turning fuel": {
       "key": "turning fuel",
@@ -1068,7 +1151,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Fuel consumed per second when turning."
     },
     "turning heat": {
       "key": "turning heat",
@@ -1082,7 +1166,8 @@
       "usedInShipFunctions": [
         "FlightCheck",
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Heat generated per second when turning."
     },
     "thrust": {
       "key": "thrust",
@@ -1095,7 +1180,8 @@
         "FlightCheck",
         "Acceleration",
         "MaxVelocity"
-      ]
+      ],
+      "tooltip": "Thrust produced by engines. Higher thrust increases a ship's acceleration and top speed. The more mass a ship has, the more thrust is needed to achieve the same acceleration."
     },
     "reverse thrust": {
       "key": "reverse thrust",
@@ -1108,7 +1194,8 @@
         "ReverseAcceleration",
         "MaxReverseVelocity",
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Reverse thrust generated by engines. Reverse thrust allows a ship to slow down without needing to turn around."
     },
     "afterburner thrust": {
       "key": "afterburner thrust",
@@ -1122,7 +1209,8 @@
         "Acceleration",
         "MaxVelocity",
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Thrust produced by this afterburner."
     },
     "afterburner discharge": {
       "key": "afterburner discharge",
@@ -1134,7 +1222,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated shield discharging per second when firing this afterburner."
     },
     "afterburner corrosion": {
       "key": "afterburner corrosion",
@@ -1146,7 +1235,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated hull corrosion per second when firing this afterburner."
     },
     "afterburner ion": {
       "key": "afterburner ion",
@@ -1158,7 +1248,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated ionization per second when firing this afterburner."
     },
     "afterburner scramble": {
       "key": "afterburner scramble",
@@ -1168,7 +1259,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated scrambling per second when firing this afterburner."
     },
     "afterburner leakage": {
       "key": "afterburner leakage",
@@ -1180,7 +1272,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated leaking fuel per second when firing this afterburner."
     },
     "afterburner burn": {
       "key": "afterburner burn",
@@ -1192,7 +1285,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated exothermic interactions per second when firing this afterburner."
     },
     "afterburner slowing": {
       "key": "afterburner slowing",
@@ -1204,7 +1298,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated engine interference per second when firing this afterburner."
     },
     "afterburner disruption": {
       "key": "afterburner disruption",
@@ -1216,7 +1311,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated shield interference per second when firing this afterburner."
     },
     "reverse thrusting discharge": {
       "key": "reverse thrusting discharge",
@@ -1225,7 +1321,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated shield discharging per second when firing reverse thrusters."
     },
     "reverse thrusting corrosion": {
       "key": "reverse thrusting corrosion",
@@ -1234,7 +1331,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated hull corrosion per second when firing reverse thrusters."
     },
     "reverse thrusting ion": {
       "key": "reverse thrusting ion",
@@ -1243,14 +1341,16 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated ionization per second when firing reverse thrusters."
     },
     "reverse thrusting scramble": {
       "key": "reverse thrusting scramble",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "tooltip": "Accumulated scrambling per second when firing reverse thrusters."
     },
     "reverse thrusting leakage": {
       "key": "reverse thrusting leakage",
@@ -1259,7 +1359,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated leaking fuel per second when firing reverse thrusters."
     },
     "reverse thrusting burn": {
       "key": "reverse thrusting burn",
@@ -1268,7 +1369,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated exothermic interactions per second when firing reverse thrusters."
     },
     "reverse thrusting slowing": {
       "key": "reverse thrusting slowing",
@@ -1277,7 +1379,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated engine interference per second when firing reverse thrusters."
     },
     "reverse thrusting disruption": {
       "key": "reverse thrusting disruption",
@@ -1286,7 +1389,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated shield interference per second when firing reverse thrusters."
     },
     "thrusting discharge": {
       "key": "thrusting discharge",
@@ -1295,7 +1399,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated shield discharging per second when firing thrusters."
     },
     "thrusting corrosion": {
       "key": "thrusting corrosion",
@@ -1304,7 +1409,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated hull corrosion per second when firing thrusters."
     },
     "thrusting ion": {
       "key": "thrusting ion",
@@ -1313,14 +1419,16 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated ionization per second when firing thrusters."
     },
     "thrusting scramble": {
       "key": "thrusting scramble",
       "displayMultiplier": 6000,
       "displayUnit": "%/s",
       "scaleIndex": 2,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "tooltip": "Accumulated scrambling per second when firing thrusters."
     },
     "thrusting leakage": {
       "key": "thrusting leakage",
@@ -1329,7 +1437,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated leaking fuel per second when firing thrusters."
     },
     "thrusting burn": {
       "key": "thrusting burn",
@@ -1338,7 +1447,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated exothermic interactions per second when firing thrusters."
     },
     "thrusting slowing": {
       "key": "thrusting slowing",
@@ -1347,7 +1457,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated engine interference per second when firing thrusters."
     },
     "thrusting disruption": {
       "key": "thrusting disruption",
@@ -1356,7 +1467,8 @@
       "scaleIndex": 2,
       "shownInOutfitPanel": true,
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Accumulated shield interference per second when firing thrusters."
     },
     "turning discharge": {
       "key": "turning discharge",
@@ -1368,7 +1480,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated shield discharging per second when turning."
     },
     "turning corrosion": {
       "key": "turning corrosion",
@@ -1380,7 +1493,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated hull corrosion per second when turning."
     },
     "turning ion": {
       "key": "turning ion",
@@ -1392,7 +1506,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated ionization per second when turning."
     },
     "turning scramble": {
       "key": "turning scramble",
@@ -1402,7 +1517,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated scrambling per second when turning."
     },
     "turning leakage": {
       "key": "turning leakage",
@@ -1414,7 +1530,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated leaking fuel per second when turning."
     },
     "turning burn": {
       "key": "turning burn",
@@ -1426,7 +1543,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated exothermic interactions per second when turning."
     },
     "turning slowing": {
       "key": "turning slowing",
@@ -1438,7 +1556,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated engine interference per second when turning."
     },
     "turning disruption": {
       "key": "turning disruption",
@@ -1450,7 +1569,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Accumulated shield interference per second when turning."
     },
     "ion resistance": {
       "key": "ion resistance",
@@ -1461,7 +1581,8 @@
       "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Ion damage resisted per second."
     },
     "scramble resistance": {
       "key": "scramble resistance",
@@ -1472,7 +1593,8 @@
       "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Scrambling damage resisted per second."
     },
     "disruption resistance": {
       "key": "disruption resistance",
@@ -1483,7 +1605,8 @@
       "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Shield disruption damage resisted per second."
     },
     "slowing resistance": {
       "key": "slowing resistance",
@@ -1494,7 +1617,8 @@
       "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Slowing damage resisted per second."
     },
     "discharge resistance": {
       "key": "discharge resistance",
@@ -1505,7 +1629,8 @@
       "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "How much shield discharge damage this ship can resist per second."
     },
     "corrosion resistance": {
       "key": "corrosion resistance",
@@ -1516,7 +1641,8 @@
       "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Corrosion damage resisted per second."
     },
     "leak resistance": {
       "key": "leak resistance",
@@ -1527,7 +1653,8 @@
       "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Leak damage resisted per second."
     },
     "burn resistance": {
       "key": "burn resistance",
@@ -1538,7 +1665,8 @@
       "isStatusResistance": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Burn damage resisted per second."
     },
     "cloak by mass": {
       "key": "cloak by mass",
@@ -1548,7 +1676,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "CloakingSpeed"
-      ]
+      ],
+      "tooltip": "This outfit allows your ship to cloak. The value represents how long it takes to fully activate or deactivate cloaking for a ship with 1000 mass. The higher a ship's mass, the slower the cloak works, the lower its mass, the faster the cloak works. Ships cannot fire while cloaked, except if they have the related \"cloaked firing\" attribute."
     },
     "shield multiplier": {
       "key": "shield multiplier",
@@ -1561,7 +1690,8 @@
       "isMultiplier": true,
       "usedInShipFunctions": [
         "MaxShields"
-      ]
+      ],
+      "tooltip": "Modifies the ship's total shield strength by the given factor."
     },
     "hull multiplier": {
       "key": "hull multiplier",
@@ -1574,7 +1704,8 @@
       "isMultiplier": true,
       "usedInShipFunctions": [
         "MaxHull"
-      ]
+      ],
+      "tooltip": "Modifies the ship's total hull strength by the given factor."
     },
     "hull repair multiplier": {
       "key": "hull repair multiplier",
@@ -1588,7 +1719,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the amount of hull strength repaired per second by the given factor."
     },
     "hull energy multiplier": {
       "key": "hull energy multiplier",
@@ -1602,7 +1734,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the energy consumed when repairing the hull by the given factor."
     },
     "hull fuel multiplier": {
       "key": "hull fuel multiplier",
@@ -1615,7 +1748,8 @@
       "isMultiplier": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the fuel consumed when repairing the hull by the given factor."
     },
     "hull heat multiplier": {
       "key": "hull heat multiplier",
@@ -1629,7 +1763,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the heat produced when repairing the hull by the given factor."
     },
     "piercing resistance": {
       "key": "piercing resistance",
@@ -1640,7 +1775,8 @@
       "protectionAppliesTo": "weapon piercing fraction",
       "protectionFormula": "effectivePiercing = clamp(weapon.piercing, 0, 1) * (1 - [piercing resistance])",
       "protectionNote": "Reduces the fraction of shield damage that bleeds to hull. Stacks additively; clamped [0, 1].",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Piercing damage resisted on all incoming projectiles, preventing damage from leaking through the shields to the hull."
     },
     "shield generation multiplier": {
       "key": "shield generation multiplier",
@@ -1654,7 +1790,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the amount of shield points recharged per second by the given factor."
     },
     "shield energy multiplier": {
       "key": "shield energy multiplier",
@@ -1668,7 +1805,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the energy consumed when recharging shields by the given factor."
     },
     "shield fuel multiplier": {
       "key": "shield fuel multiplier",
@@ -1681,7 +1819,8 @@
       "isMultiplier": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the fuel consumed when recharging shields by the given factor."
     },
     "shield heat multiplier": {
       "key": "shield heat multiplier",
@@ -1695,7 +1834,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the heat produced when recharging shields by the given factor."
     },
     "threshold percentage": {
       "key": "threshold percentage",
@@ -1705,7 +1845,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "MinimumHull"
-      ]
+      ],
+      "tooltip": "Modifies the percentage of the remaining hull strength at which the ship will become disabled."
     },
     "overheat damage threshold": {
       "key": "overheat damage threshold",
@@ -1715,28 +1856,32 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Increases the percentage past overheated at which point overheat damage begins."
     },
     "high shield permeability": {
       "key": "high shield permeability",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "tooltip": "This percentage of all incoming damage bypasses shields and applies directly to the hull when at full shields."
     },
     "low shield permeability": {
       "key": "low shield permeability",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "tooltip": "This percentage of all incoming damage will bypass shields and apply directly to the hull as shields approach zero."
     },
     "cloaked shield permeability": {
       "key": "cloaked shield permeability",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "tooltip": "This percentage of all incoming damage will bypass shields and apply directly to the hull while you are cloaked."
     },
     "cloaked regen multiplier": {
       "key": "cloaked regen multiplier",
@@ -1749,7 +1894,8 @@
       "isMultiplier": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the amount of shield points recharged per second by the given factor while a cloaking device is active."
     },
     "cloaked repair multiplier": {
       "key": "cloaked repair multiplier",
@@ -1762,7 +1908,8 @@
       "isMultiplier": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "Modifies the amount of hull strength repaired per second by the given factor while a cloaking device is active."
     },
     "acceleration multiplier": {
       "key": "acceleration multiplier",
@@ -1778,7 +1925,8 @@
         "Acceleration",
         "ReverseAcceleration",
         "DoMovement"
-      ]
+      ],
+      "tooltip": "Modifies the ship's acceleration by the given factor."
     },
     "turn multiplier": {
       "key": "turn multiplier",
@@ -1792,7 +1940,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "TurnRate"
-      ]
+      ],
+      "tooltip": "Modifies the ship's rate of turn by the given factor."
     },
     "turret turn multiplier": {
       "key": "turret turn multiplier",
@@ -1802,7 +1951,8 @@
       "shownInOutfitPanel": true,
       "stacking": "additive",
       "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 1.0 doubles the stat.",
-      "isMultiplier": true
+      "isMultiplier": true,
+      "tooltip": "Modifies the turret turn rate on this ship by the given factor."
     },
     "burn protection": {
       "key": "burn protection",
@@ -1817,7 +1967,8 @@
       "protectionAppliesTo": "burn damage dose on hit",
       "protectionFormula": "effectiveDose = [burn damage] * (1 - [burn protection])",
       "protectionNote": "Reduces incoming burn dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against burn damage. Increases by the given factor how much burn damage a ship can withstand before its heat rises as much as an unprotected ship."
     },
     "corrosion protection": {
       "key": "corrosion protection",
@@ -1832,7 +1983,8 @@
       "protectionAppliesTo": "corrosion damage dose on hit",
       "protectionFormula": "effectiveDose = [corrosion damage] * (1 - [corrosion protection])",
       "protectionNote": "Reduces incoming corrosion dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against corrosion damage. Increases by the given factor how much corrosion damage a ship can withstand before it loses as much hull as an unprotected ship."
     },
     "discharge protection": {
       "key": "discharge protection",
@@ -1847,7 +1999,8 @@
       "protectionAppliesTo": "discharge damage dose on hit",
       "protectionFormula": "effectiveDose = [discharge damage] * (1 - [discharge protection])",
       "protectionNote": "Reduces incoming discharge dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against shield discharge damage. Increases by the given factor how much discharge damage a ship can withstand before it loses as much shielding as an unprotected ship."
     },
     "disruption protection": {
       "key": "disruption protection",
@@ -1862,7 +2015,8 @@
       "protectionAppliesTo": "disruption damage dose on hit",
       "protectionFormula": "effectiveDose = [disruption damage] * (1 - [disruption protection])",
       "protectionNote": "Reduces incoming disruption dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against shield disruption damage. Increases by the given factor how much disruption damage a ship can withstand before its shields are as disrupted as those of an unprotected ship."
     },
     "drag reduction": {
       "key": "drag reduction",
@@ -1876,7 +2030,8 @@
       "usedInShipFunctions": [
         "Drag",
         "DragForce"
-      ]
+      ],
+      "tooltip": "Reduces drag. Increases the top speed of a ship by the given factor."
     },
     "energy protection": {
       "key": "energy protection",
@@ -1890,7 +2045,8 @@
       "protectionAppliesTo": "incoming energy damage",
       "protectionFormula": "effectiveDmg = rawDmg * (1 - [energy protection])",
       "protectionNote": "Reduces incoming energy damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against energy damage. Increases by the given factor how much energy damage a ship can withstand before it loses as much energy as an unprotected ship."
     },
     "force protection": {
       "key": "force protection",
@@ -1900,7 +2056,8 @@
       "shownInOutfitPanel": true,
       "stacking": "additive",
       "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
-      "isProtection": true
+      "isProtection": true,
+      "tooltip": "Protection provided against hit force from weapons. Increases by the given factor how much external force a ship can withstand before it is moved as much as an unprotected ship."
     },
     "fuel protection": {
       "key": "fuel protection",
@@ -1914,7 +2071,8 @@
       "protectionAppliesTo": "incoming fuel damage",
       "protectionFormula": "effectiveDmg = rawDmg * (1 - [fuel protection])",
       "protectionNote": "Reduces incoming fuel damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against fuel damage. Increases by the given factor how much fuel damage a ship can withstand before it loses as much fuel as an unprotected ship."
     },
     "heat protection": {
       "key": "heat protection",
@@ -1928,7 +2086,8 @@
       "protectionAppliesTo": "incoming heat damage",
       "protectionFormula": "effectiveDmg = rawDmg * (1 - [heat protection])",
       "protectionNote": "Reduces incoming heat damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against heat damage. Increases by the given factor how much heat damage a ship can withstand before its heat rises as much as an unprotected ship."
     },
     "hull protection": {
       "key": "hull protection",
@@ -1942,7 +2101,8 @@
       "protectionAppliesTo": "incoming hull damage",
       "protectionFormula": "effectiveDmg = rawDmg * (1 - [hull protection])",
       "protectionNote": "Reduces incoming hull damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against direct hull damage. Increases by the given factor how much hull damage a ship can withstand before it loses as much hull as an unprotected ship."
     },
     "inertia reduction": {
       "key": "inertia reduction",
@@ -1956,7 +2116,8 @@
       "shownInShipPanel": true,
       "usedInShipFunctions": [
         "InertialMass"
-      ]
+      ],
+      "tooltip": "Reduces effective ship mass. Increases how quickly a ship accelerates by the given factor."
     },
     "ion protection": {
       "key": "ion protection",
@@ -1971,7 +2132,8 @@
       "protectionAppliesTo": "ionization damage dose on hit",
       "protectionFormula": "effectiveDose = [ion damage] * (1 - [ion protection])",
       "protectionNote": "Reduces incoming ion dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against ion damage. Modifies by the given factor how much ion damage a ship can withstand before it loses as much energy as an unprotected ship."
     },
     "scramble protection": {
       "key": "scramble protection",
@@ -1986,7 +2148,8 @@
       "protectionAppliesTo": "scrambling damage dose on hit",
       "protectionFormula": "effectiveDose = [scrambling damage] * (1 - [scramble protection])",
       "protectionNote": "Reduces incoming scrambling dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against weapon scrambling damage. Increases by the given factor how much scramble damage a ship can withstand before its weapons are as scrambled as those of an unprotected ship."
     },
     "leak protection": {
       "key": "leak protection",
@@ -2001,7 +2164,8 @@
       "protectionAppliesTo": "leak damage dose on hit",
       "protectionFormula": "effectiveDose = [leak damage] * (1 - [leak protection])",
       "protectionNote": "Reduces incoming leak dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against leak damage. Increases by the given factor how much leak damage a ship can withstand before it loses as much fuel as an unprotected ship."
     },
     "piercing protection": {
       "key": "piercing protection",
@@ -2011,7 +2175,8 @@
       "shownInOutfitPanel": true,
       "stacking": "additive",
       "stackingDescription": "Summed additively. Applied in formulas as (1 + sum), so e.g. 0.5 gives 33% reduction.",
-      "isProtection": true
+      "isProtection": true,
+      "tooltip": "Protection provided against piercing weapons. Increases by the given factor the amount of piercing required to make the same portion of weapon damage bypass a ship's shields."
     },
     "shield protection": {
       "key": "shield protection",
@@ -2025,7 +2190,8 @@
       "protectionAppliesTo": "incoming shield damage",
       "protectionFormula": "effectiveDmg = rawDmg * (1 - [shield protection])",
       "protectionNote": "Reduces incoming shield damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against shield damage. Increases by the given factor how much shield damage a ship can withstand before it loses as much shields as an unprotected ship."
     },
     "slowing protection": {
       "key": "slowing protection",
@@ -2040,21 +2206,24 @@
       "protectionAppliesTo": "slowing damage dose on hit",
       "protectionFormula": "effectiveDose = [slowing damage] * (1 - [slowing protection])",
       "protectionNote": "Reduces incoming slowing dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]"
+      "clampRange": "[0, 1]",
+      "tooltip": "Protection provided against slowing damage. Increases by the given factor how much slowing damage a ship can withstand before it as slowed as an unprotected ship."
     },
     "cloak hull protection": {
       "key": "cloak hull protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "tooltip": "Protection provided against weapons that do hull damage when the cloak is active. Increases by the given factor how much hull damage a ship can withstand before it loses as much energy as an unprotected ship."
     },
     "cloak shield protection": {
       "key": "cloak shield protection",
       "displayMultiplier": 100,
       "displayUnit": "%",
       "scaleIndex": 3,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "tooltip": "Protection provided against weapons that do shield damage when the cloak is active. Increases by the given factor how much shield damage a ship can withstand before it loses as much energy as an unprotected ship."
     },
     "repair delay": {
       "key": "repair delay",
@@ -2064,7 +2233,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "TakeDamage"
-      ]
+      ],
+      "tooltip": "The number of seconds it takes for additional hull repairs to begin after taking hull damage."
     },
     "cloaking repair delay": {
       "key": "cloaking repair delay",
@@ -2076,7 +2246,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoCloakDecision"
-      ]
+      ],
+      "tooltip": "This ship is unable to regenerate hull whilst cloaked, instead its hull regeneration will suffer a delay that will grow the longer it is cloaked."
     },
     "disabled repair delay": {
       "key": "disabled repair delay",
@@ -2086,7 +2257,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "TakeDamage"
-      ]
+      ],
+      "tooltip": "The number of seconds it takes for hull repairs to begin after being disabled."
     },
     "shield delay": {
       "key": "shield delay",
@@ -2096,7 +2268,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "TakeDamage"
-      ]
+      ],
+      "tooltip": "The number of seconds it takes for additional shield generation to begin after taking shield damage."
     },
     "cloaking shield delay": {
       "key": "cloaking shield delay",
@@ -2108,7 +2281,8 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "DoCloakDecision"
-      ]
+      ],
+      "tooltip": "This ship is unable to regenerate shields whilst cloaked, instead its shield regeneration will suffer a delay that will grow the longer it is cloaked"
     },
     "depleted shield delay": {
       "key": "depleted shield delay",
@@ -2118,7 +2292,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "TakeDamage"
-      ]
+      ],
+      "tooltip": "The number of seconds it takes for additional shield generation to begin after your shields have been depleted."
     },
     "disabled recovery time": {
       "key": "disabled recovery time",
@@ -2128,7 +2303,8 @@
       "shownInOutfitPanel": true,
       "usedInShipFunctions": [
         "DoGeneration"
-      ]
+      ],
+      "tooltip": "The number of seconds it takes for a disabled ship to repair itself."
     },
     "unplunderable": {
       "key": "unplunderable",
@@ -2476,70 +2652,81 @@
       "isWeaponStat": true,
       "displayUnit": "%",
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "This projectile's ability to maintain its target lock."
     },
     "optical tracking": {
       "key": "optical tracking",
       "isWeaponStat": true,
       "displayUnit": "%",
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "This projectile's ability to maintain an optical target lock, which depends on the size of the target; negatively affected by any potential optical jamming equipment."
     },
     "infrared tracking": {
       "key": "infrared tracking",
       "isWeaponStat": true,
       "displayUnit": "%",
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "This projectile's ability to maintain an infrared target lock, which depends on the target ship's heat level and distance from the missile; IR-guided missiles become more accurate the closer they are to their targets."
     },
     "radar tracking": {
       "key": "radar tracking",
       "isWeaponStat": true,
       "displayUnit": "%",
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "This projectile's ability to maintain a radar target lock; negatively affected by the target ship's radar jamming equipment."
     },
     "piercing": {
       "key": "piercing",
       "isWeaponStat": true,
       "displayUnit": "%",
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "Percentage of this weapon's damage that leaks through to the hull while the target's shields are still active."
     },
     "inaccuracy": {
       "key": "inaccuracy",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "Maximum inaccuracy of this weapon, in degrees. A value of one means the weapon's aim will be at most one degree off-target."
     },
     "blast radius": {
       "key": "blast radius",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "Everything within this distance (including friendly ships) will be damaged when the weapon hits something."
     },
     "missile strength": {
       "key": "missile strength",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "This projectile's resistance to anti-missile shots."
     },
     "anti-missile": {
       "key": "anti-missile",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "The power of the anti-missile shots. Higher values make it easier to destroy stronger projectiles."
     },
     "tractor beam": {
       "key": "tractor beam",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "The base velocity that this weapon pulls flotsam toward itself. Heavier flotsam is more difficult to pull."
     },
     "mining precision": {
       "key": "mining precision",
       "isWeaponStat": true,
-      "shownInOutfitPanel": true
+      "shownInOutfitPanel": true,
+      "tooltip": "A measure of how well this weapon prevents damage to valuable materials while mining. Weapons with a positive precision result in higher yields, while a negative precision results in lower yields. Some minable objects are tougher than others, and are therefore less susceptible to having their yields altered."
     },
     "outfit space": {
       "key": "outfit space",
@@ -2556,14 +2743,16 @@
       "isExpectedNegative": true,
       "isPrerequisite": true,
       "shipPanelLabel": "weapon capacity",
-      "shownInShipPanel": true
+      "shownInShipPanel": true,
+      "tooltip": "Tons of weapons this ship can hold. (To install a weapon, you must also have enough total outfit space available.)"
     },
     "engine capacity": {
       "key": "engine capacity",
       "isExpectedNegative": true,
       "isPrerequisite": true,
       "shipPanelLabel": "engine capacity",
-      "shownInShipPanel": true
+      "shownInShipPanel": true,
+      "tooltip": "Tons of engines this ship can hold. (To install an engine, you must also have enough total outfit space available.)"
     },
     "gun ports": {
       "key": "gun ports",
@@ -2585,12 +2774,14 @@
       "stackingDescription": "Values sum directly across all installed outfits.",
       "usedInShipFunctions": [
         "MinimumHull"
-      ]
+      ],
+      "tooltip": "Modifies the hull strength value at which the ship will become disabled."
     },
     "flotsam chance": {
       "key": "flotsam chance",
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "The chance that this outfit will drop as flotsam when the ship it is installed on is destroyed."
     },
     "crew equivalent": {
       "key": "crew equivalent",
@@ -2608,7 +2799,8 @@
       "usedInShipFunctions": [
         "SetCloaked",
         "DoCloakDecision"
-      ]
+      ],
+      "tooltip": "Hull consumed per second while cloaked."
     },
     "automaton": {
       "key": "automaton",
@@ -2620,17 +2812,20 @@
         "FleetCost",
         "RequiredCrew",
         "CanBeFlagship"
-      ]
+      ],
+      "tooltip": "A ship with this attribute does not need any crew to operate, even if it has outfits that normally require additional crew. However, you cannot use it as your flagship in this state."
     },
     "hyperdrive fuel": {
       "key": "hyperdrive fuel",
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Fuel consumed when jumping between systems using this hyperdrive."
     },
     "jump drive fuel": {
       "key": "jump drive fuel",
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "Fuel consumed when jumping between systems using this jump drive."
     },
     "jump fuel": {
       "key": "jump fuel",
@@ -2640,7 +2835,8 @@
     "jump range": {
       "key": "jump range",
       "stacking": "additive",
-      "stackingDescription": "Values sum directly across all installed outfits."
+      "stackingDescription": "Values sum directly across all installed outfits.",
+      "tooltip": "The maximum distance this drive can jump."
     },
     "bunks": {
       "key": "bunks",
@@ -2649,7 +2845,8 @@
         "FlightCheck",
         "Recharge",
         "AddCrew"
-      ]
+      ],
+      "tooltip": "The number of people (passengers or crew) your ship can hold."
     },
     "cargo space": {
       "key": "cargo space",
@@ -2659,7 +2856,8 @@
         "Scan",
         "AddOutfit",
         "CalculateAttraction"
-      ]
+      ],
+      "tooltip": "Tons of cargo (commodities, mission cargo, and plundered outfits) this ship can carry."
     },
     "energy capacity": {
       "key": "energy capacity",
@@ -2676,7 +2874,8 @@
         "ExpendAmmo",
         "DoGeneration",
         "CalculateDeterrence"
-      ]
+      ],
+      "tooltip": "The amount of energy this outfit adds to your ship's energy capacity. This allows you to temporarily use more power than your generators produce."
     },
     "fuel capacity": {
       "key": "fuel capacity",
@@ -2694,19 +2893,23 @@
         "DoGeneration",
         "DoLandingLogic",
         "CalculateDeterrence"
-      ]
+      ],
+      "tooltip": "The amount of fuel this ship can hold. An ordinary hyperdrive jump consumes 100 fuel. Fuel is replenished for free when you land on an inhabited planet."
     },
     "acceleration": {
       "key": "acceleration",
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "How quickly this ship gains speed. The higher a ship's mass (including the mass of any cargo or fighters it is carrying), the slower it accelerates."
     },
     "ammo": {
       "key": "ammo",
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "The type of outfits this weapon consumes when fired."
     },
     "arc": {
       "key": "arc",
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "The angular range of protection provided by this weapon, in degrees."
     },
     "burst count": {
       "key": "burst count",
@@ -2739,11 +2942,13 @@
         "FinishLoading",
         "Drag",
         "DragForce"
-      ]
+      ],
+      "tooltip": "Limits the maximum speed of a ship."
     },
     "dropoff modifier": {
       "key": "dropoff modifier",
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "The multiplier applied to the damage of this weapon once its projectile has reached the maximum dropoff range."
     },
     "empty sound": {
       "key": "empty sound",
@@ -2947,7 +3152,8 @@
     },
     "velocity": {
       "key": "velocity",
-      "isWeaponDataKey": true
+      "isWeaponDataKey": true,
+      "tooltip": "The initial velocity of projectiles fired by this weapon. Some weapons have projectiles that accelerate or decelerate from this initial value as they travel."
     },
     "velocity override": {
       "key": "velocity override",
@@ -3005,7 +3211,8 @@
       "key": "jump mass cost",
       "usedInNavFunctions": [
         "Calibrate"
-      ]
+      ],
+      "tooltip": "Fuel consumed per 100 tons of mass when jumping. Additive with jump fuel."
     },
     "hitforce protection": {
       "key": "hitforce protection",
@@ -3023,6 +3230,562 @@
       "protectionNote": "Reduces incoming scaling dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
       "clampRange": "[0, 1]"
     }
+  },
+  "tooltips": {
+    "parked": "(parked)",
+    "acceleration": "How quickly this ship gains speed. The higher a ship's mass (including the mass of any cargo or fighters it is carrying), the slower it accelerates.",
+    "acceleration multiplier": "Modifies the ship's acceleration by the given factor.",
+    "active cooling": "Cooling provided per second when running at full strength. Active cooling requires energy, but if your heat level is low it runs at a lower cooling rate and lower energy draw. The amount of cooling is proportional to the temperature of your ship, reaching the full level only if you are about to overheat.",
+    "afterburner energy": "Energy consumed per second when firing this afterburner.",
+    "afterburner shields": "Shield damage dealt to the ship per second when firing this afterburner.",
+    "afterburner hull": "Hull damage dealt to the ship per second when firing this afterburner.",
+    "afterburner fuel": "Fuel consumed per second when firing this afterburner.",
+    "afterburner discharge": "Accumulated shield discharging per second when firing this afterburner.",
+    "afterburner corrosion": "Accumulated hull corrosion per second when firing this afterburner.",
+    "afterburner ion": "Accumulated ionization per second when firing this afterburner.",
+    "afterburner scramble": "Accumulated scrambling per second when firing this afterburner.",
+    "afterburner leakage": "Accumulated leaking fuel per second when firing this afterburner.",
+    "afterburner burn": "Accumulated exothermic interactions per second when firing this afterburner.",
+    "afterburner slowing": "Accumulated engine interference per second when firing this afterburner.",
+    "afterburner disruption": "Accumulated shield interference per second when firing this afterburner.",
+    "afterburner heat": "Heat created per second when firing this afterburner.",
+    "afterburner thrust": "Thrust produced by this afterburner.",
+    "asteroid scan power": "Allows scanning of asteroids. The range of this asteroid scanner is proportional to the square root of this value.",
+    "atmosphere scan": "This type of scanning cannot be performed by your ship, but this outfit might be useful for certain missions.",
+    "automaton": "A ship with this attribute does not need any crew to operate, even if it has outfits that normally require additional crew. However, you cannot use it as your flagship in this state.",
+    "bunks": "The number of people (passengers or crew) your ship can hold.",
+    "burn protection": "Protection provided against burn damage. Increases by the given factor how much burn damage a ship can withstand before its heat rises as much as an unprotected ship.",
+    "burn resistance": "Burn damage resisted per second.",
+    "burn resistance energy": "Energy consumed per second when resisting burn damage.",
+    "burn resistance fuel": "Fuel consumed per second when resisting burn damage.",
+    "burn resistance heat": "Heat generated per second when resisting burn damage.",
+    "capture attack": "Increases the \"strength\" of one crew member when attacking another ship to capture it. Each crew member can only wield one weapon at a time, but they will use whichever weapons provide the highest power.",
+    "capture defense": "Increases the \"strength\" of one crew member when defending against an attempt to capture this ship. Each crew member can only wield one weapon at a time, but they will use whichever weapons provide the highest power.",
+    "cargo": "Tons of cargo this ship is carrying right now, out of its maximum.",
+    "cargo scan": "Allows scanning of your target ship's cargo from up to this distance away.",
+    "cargo scan power": "Allows scanning of your target ship's cargo. The range of this cargo scanner is proportional to the square root of this value.",
+    "cargo scan speed": "Determines how long it takes to perform a cargo scan. A higher value will correspond to a quicker scan.",
+    "cargo scan efficiency": "The maximum speed of this cargo scanner is proportional to the square root of this value. The observed scan speed will be impacted by multiple factors. Targets which are farther away or have a larger cargo hold will take longer to scan.",
+    "cargo scan opacity": "Increases the time required for other ships to perform a cargo scan of this ship. A value of one has the same influence on the time taken as adding one more ton of cargo space to scan.",
+    "cargo space": "Tons of cargo (commodities, mission cargo, and plundered outfits) this ship can carry.",
+    "cargo space needed": "Tons of cargo space this outfit uses up.",
+    "cloak": "This outfit allows your ship to cloak. The value represents how long it takes to fully activate or deactivate cloaking. Ships cannot fire while cloaked, except if they have the related \"cloaked firing\" attribute.",
+    "cloak by mass": "This outfit allows your ship to cloak. The value represents how long it takes to fully activate or deactivate cloaking for a ship with 1000 mass. The higher a ship's mass, the slower the cloak works, the lower its mass, the faster the cloak works. Ships cannot fire while cloaked, except if they have the related \"cloaked firing\" attribute.",
+    "cloaking energy": "Energy consumed per second when cloaked.",
+    "cloaking fuel": "Fuel consumed per second when cloaked.",
+    "cloaking heat": "Heat generated per second when cloaked.",
+    "cloaking shields": "Shields consumed per second while cloaked.",
+    "cloaking shield delay": "This ship is unable to regenerate shields whilst cloaked, instead its shield regeneration will suffer a delay that will grow the longer it is cloaked",
+    "cloaking hull": "Hull consumed per second while cloaked.",
+    "cloaking repair delay": "This ship is unable to regenerate hull whilst cloaked, instead its hull regeneration will suffer a delay that will grow the longer it is cloaked.",
+    "cloak hull protection": "Protection provided against weapons that do hull damage when the cloak is active. Increases by the given factor how much hull damage a ship can withstand before it loses as much energy as an unprotected ship.",
+    "cloak shield protection": "Protection provided against weapons that do shield damage when the cloak is active. Increases by the given factor how much shield damage a ship can withstand before it loses as much energy as an unprotected ship.",
+    "cloak phasing": "When cloaked, weapons cannot affect this ship, and pass right through.",
+    "cloaked firing": "This device is so efficient at hiding you that you may shoot when cloaking, losing this amount of cloaking in the process, before being cloaked again. A negative value means shooting does not even hinder your cloak.",
+    "cloak hull threshold": "If you have hull lower than this value (seen as a % between 0 and 1) the cloaking device can no longer operate.",
+    "cooling": "Heat dissipated per second. This is for when your ship's built-in heat dissipation is not sufficient to keep it from overheating.",
+    "cooling energy": "Energy consumed per second when active cooling is running at full strength (because your ship's temperature is approaching the overheating threshold).",
+    "cooling inefficiency": "Interference with your ship's cooling abilities. Its cooling systems will only be about 75% effective at a cooling inefficiency of 5, and 30% at an inefficiency of 10.",
+    "corrosion protection": "Protection provided against corrosion damage. Increases by the given factor how much corrosion damage a ship can withstand before it loses as much hull as an unprotected ship.",
+    "corrosion resistance": "Corrosion damage resisted per second.",
+    "corrosion resistance energy": "Energy consumed per second when resisting corrosion damage.",
+    "corrosion resistance fuel": "Fuel consumed per second when resisting corrosion damage.",
+    "corrosion resistance heat": "Heat generated per second when resisting corrosion damage.",
+    "cost": "Cost, in credits. If you have sold any used (depreciated) items today, you can buy them back for the same price you sold them for.",
+    "fleet cost": "How much this ship costs toward your fleet capacity. Your flagship and parked escorts do not count toward the capacity. You may exceed your capacity while landed, but will not be able to depart if you go over your capacity.",
+    "discharge protection": "Protection provided against shield discharge damage. Increases by the given factor how much discharge damage a ship can withstand before it loses as much shielding as an unprotected ship.",
+    "discharge resistance": "How much shield discharge damage this ship can resist per second.",
+    "discharge resistance energy": "Energy consumed per second when resisting discharge damage.",
+    "discharge resistance fuel": "Fuel consumed per second when resisting discharge damage.",
+    "discharge resistance heat": "Heat generated per second when resisting discharge damage.",
+    "disruption protection": "Protection provided against shield disruption damage. Increases by the given factor how much disruption damage a ship can withstand before its shields are as disrupted as those of an unprotected ship.",
+    "disruption resistance": "Shield disruption damage resisted per second.",
+    "disruption resistance energy": "Energy consumed per second when resisting disruption damage.",
+    "disruption resistance fuel": "Fuel consumed per second when resisting disruption damage.",
+    "disruption resistance heat": "Heat generated per second when resisting disruption damage.",
+    "drag": "Limits the maximum speed of a ship.",
+    "drag reduction": "Reduces drag. Increases the top speed of a ship by the given factor.",
+    "drone bays": "The number of ships from the \"Drone\" category that this ship can carry.",
+    "energy capacity": "The amount of energy this outfit adds to your ship's energy capacity. This allows you to temporarily use more power than your generators produce.",
+    "energy consumption": "Energy consumed per second while in flight.",
+    "energy generation": "Energy generated per second. If your ship has weapons other than beam weapons, you will probably also need batteries to store energy in.",
+    "engine capacity needed": "Tons of engine space this outfit takes up.",
+    "engine capacity": "Tons of engines this ship can hold. (To install an engine, you must also have enough total outfit space available.)",
+    "energy protection": "Protection provided against energy damage. Increases by the given factor how much energy damage a ship can withstand before it loses as much energy as an unprotected ship.",
+    "fighter bays": "The number of ships from the \"Fighter\" category that this ship can carry.",
+    "flotsam chance": "The chance that this outfit will drop as flotsam when the ship it is installed on is destroyed.",
+    "force protection": "Protection provided against hit force from weapons. Increases by the given factor how much external force a ship can withstand before it is moved as much as an unprotected ship.",
+    "fuel": "This ship's current fuel amount. An ordinary hyperdrive jump consumes 100 fuel.",
+    "fuel capacity": "The amount of fuel this ship can hold. An ordinary hyperdrive jump consumes 100 fuel. Fuel is replenished for free when you land on an inhabited planet.",
+    "fuel consumption": "Fuel consumed per second when in flight.",
+    "fuel energy": "Energy produced per second when consuming fuel.",
+    "fuel generation": "Fuel generated per second.",
+    "fuel heat": "Heat produced per second when consuming fuel.",
+    "fuel protection": "Protection provided against fuel damage. Increases by the given factor how much fuel damage a ship can withstand before it loses as much fuel as an unprotected ship.",
+    "gun ports needed": "This weapon uses up a gun port. Guns always fire straight forward; turrets fire in the direction of your currently selected target.",
+    "gun ports free": "How many guns this ship can hold. This includes most missiles and secondary weapons that fire straight forward.",
+    "heat dissipation": "How effectively this ship radiates excess heat.",
+    "heat generation": "Heat generated per second. Heat generation can be offset by \"cooling\" outfits. If your ship exceeds its maximum heat, it must temporarily shut down to cool itself off.",
+    "heat protection": "Protection provided against heat damage. Increases by the given factor how much heat damage a ship can withstand before its heat rises as much as an unprotected ship.",
+    "heat capacity": "Increases the maximum heat this ship is able to withstand before becoming overheated. A value of one has the same influence on a ship's maximum heat as one ton of mass, without the effects that mass has on movement.",
+    "hull (repair)": "Total hull strength and repair rate per second. The smallest of ships are disabled when their hull strength drops below about 45%, while very large ships are disabled at close to 10%.",
+    "hull": "Total hull strength. Ships with a higher hull strength are able to take more damage as a proportion of their total strength before being disabled; the smallest of ships are disabled when their hull strength drops below about 45%, while very large ships are disabled at close to 10%.",
+    "hull energy": "Energy consumed per second when repairing the hull.",
+    "delayed hull energy": "Additional energy consumed per second when repairing the hull after the repair delay period.",
+    "hull energy multiplier": "Modifies the energy consumed when repairing the hull by the given factor.",
+    "hull fuel": "Fuel consumed per second when repairing the hull.",
+    "delayed hull fuel": "Additional fuel consumed per second when repairing the hull after the repair delay period.",
+    "hull fuel multiplier": "Modifies the fuel consumed when repairing the hull by the given factor.",
+    "hull heat": "Heat produced per second when repairing the hull.",
+    "delayed hull heat": "Additional heat produced per second when repairing the hull after the repair delay period.",
+    "hull heat multiplier": "Modifies the heat produced when repairing the hull by the given factor.",
+    "hull multiplier": "Modifies the ship's total hull strength by the given factor.",
+    "hull repair rate": "Amount of hull strength that can be repaired per second. Repairs usually consume energy and may generate heat as well.",
+    "delayed hull repair rate": "Additional hull strength that can be repaired per second after the repair delay period.",
+    "repair delay": "The number of seconds it takes for additional hull repairs to begin after taking hull damage.",
+    "disabled repair delay": "The number of seconds it takes for hull repairs to begin after being disabled.",
+    "disabled recovery time": "The number of seconds it takes for a disabled ship to repair itself.",
+    "disabled recovery energy": "The energy cost required for a disabled ship to repair itself.",
+    "disabled recovery fuel": "The fuel cost required for a disabled ship to repair itself.",
+    "disabled recovery heat": "The heat applied when a disabled ship repairs itself.",
+    "disabled recovery ionization": "The ion damage applied when a disabled ship repairs itself.",
+    "disabled recovery scrambling": "The scrambling damage applied when a disabled ship repairs itself.",
+    "disabled recovery disruption": "The disruption damage applied when a disabled ship repairs itself.",
+    "disabled recovery slowing": "The slowing damage applied when a disabled ship repairs itself.",
+    "disabled recovery discharge": "The discharge damage applied when a disabled ship repairs itself.",
+    "disabled recovery corrosion": "The corrosion damage applied when a disabled ship repairs itself.",
+    "disabled recovery leak": "The leak damage applied when a disabled ship repairs itself.",
+    "disabled recovery burning": "The burning damage applied when a disabled ship repairs itself.",
+    "absolute threshold": "The remaining hull strength at which the ship becomes disabled. This attribute takes priority over other attributes that change the disabled threshold.",
+    "hull threshold": "Modifies the hull strength value at which the ship will become disabled.",
+    "threshold percentage": "Modifies the percentage of the remaining hull strength at which the ship will become disabled.",
+    "hull protection": "Protection provided against direct hull damage. Increases by the given factor how much hull damage a ship can withstand before it loses as much hull as an unprotected ship.",
+    "hull repair multiplier": "Modifies the amount of hull strength repaired per second by the given factor.",
+    "cloaked repair multiplier": "Modifies the amount of hull strength repaired per second by the given factor while a cloaking device is active.",
+    "illegal": "Amount of credits you can be fined for carrying this outfit.",
+    "income": "Amount of credits received per day when you own this outfit, even if it is not in active use.",
+    "inertia reduction": "Reduces effective ship mass. Increases how quickly a ship accelerates by the given factor.",
+    "ion protection": "Protection provided against ion damage. Modifies by the given factor how much ion damage a ship can withstand before it loses as much energy as an unprotected ship.",
+    "scramble protection": "Protection provided against weapon scrambling damage. Increases by the given factor how much scramble damage a ship can withstand before its weapons are as scrambled as those of an unprotected ship.",
+    "ion resistance": "Ion damage resisted per second.",
+    "ion resistance energy": "Energy consumed per second when resisting ion damage.",
+    "ion resistance fuel": "Fuel consumed per second when resisting ion damage.",
+    "ion resistance heat": "Heat generated per second when resisting ion damage.",
+    "landing speed": "Speed at which this ship appears to land or travel through a wormhole.",
+    "scramble resistance": "Scrambling damage resisted per second.",
+    "scramble resistance energy": "Energy consumed per second when resisting scrambling damage.",
+    "scramble resistance fuel": "Fuel consumed per second when resisting scrambling damage.",
+    "scramble resistance heat": "Heat generated per second when resisting scrambling damage.",
+    "jump speed": "The maximum velocity the ship can jump at.",
+    "hyperdrive fuel": "Fuel consumed when jumping between systems using this hyperdrive.",
+    "jump drive fuel": "Fuel consumed when jumping between systems using this jump drive.",
+    "jump range": "The maximum distance this drive can jump.",
+    "jump mass cost": "Fuel consumed per 100 tons of mass when jumping. Additive with jump fuel.",
+    "jump base mass": "Modifies the impact your ship's mass has on the jump mass cost. Ships below this mass will have a cheaper jump cost than the base jump fuel cost, while ships above this mass will have more expensive jumps.",
+    "leak protection": "Protection provided against leak damage. Increases by the given factor how much leak damage a ship can withstand before it loses as much fuel as an unprotected ship.",
+    "leak resistance": "Leak damage resisted per second.",
+    "leak resistance energy": "Energy consumed per second when resisting leak damage.",
+    "leak resistance fuel": "Fuel consumed per second when resisting leak damage.",
+    "leak resistance heat": "Heat generated per second when resisting leak damage.",
+    "maintenance costs": "Credits spent per day to maintain this outfit. Even if a ship is parked or an outfit is in cargo, you still need to pay for its maintenance.",
+    "map": "The number of star systems included in this map.",
+    "mass with no cargo": "Mass of this ship when not carrying any cargo or fighters. Cargo increases mass, which reduces acceleration and turn rate and increases maximum heat before overheating.",
+    "mass": "Mass, in tons. A ship's mass determines how fast it turns and accelerates and its maximum heat before overheating.",
+    "max speed": "The maximum speed of this ship when using thrusters. Excludes the effect of afterburners, unless there are no normal thrusters installed.",
+    "movement": "How quickly this ship can accelerate and turn.",
+    "movement (full - no cargo)": "How quickly this ship can accelerate and turn when its cargo hold is full versus when it is empty.",
+    "operating costs": "Credits spent per day to maintain this outfit when it is in active use.",
+    "operating income": "Credits received per day when this outfit is in active use.",
+    "outfit scan": "Allows scanning of your target ship's outfits from up to this distance away.",
+    "outfit scan power": "Allows scanning of your target ship's outfits. The range of this outfit scanner is proportional to the square root of this value.",
+    "outfit scan speed": "Determines how long it takes to perform an outfit scan. A higher value will correspond to a quicker scan.",
+    "outfit scan efficiency": "The maximum speed of this outfit scanner is proportional to the square root of this value. The observed scan speed will be impacted by multiple factors. Targets which are farther away or have a larger outfit capacity will take longer to scan.",
+    "outfit scan opacity": "Increases the time required for other ships to perform an outfit scan of this ship. A value of one has the same influence on the time taken as adding one more ton of outfit space to scan.",
+    "outfit space added": "Tons of general-purpose space this outfit provides.",
+    "outfit space needed": "Tons of general-purpose space this outfit uses up. Some outfits also use up weapon space or engine space.",
+    "outfit space free": "Tons of space this ship has for outfits (including weapons and engines).",
+    "overheat damage rate": "Hull damage taken per second when overheated. Overheat damage scales with how far past the overheat threshold the ship is.",
+    "overheat damage threshold": "Increases the percentage past overheated at which point overheat damage begins.",
+    "optical jamming": "Reduces the ability of optical-guided missiles to track your ship, which is mostly useful for larger ships. The more optical jamming is installed, the greater the distance at which missiles can be jammed, and the greater the chance that a jammed missile will fly off in a random direction.",
+    "piercing": "Percentage of this weapon's damage that leaks through to the hull while the target's shields are still active.",
+    "piercing protection": "Protection provided against piercing weapons. Increases by the given factor the amount of piercing required to make the same portion of weapon damage bypass a ship's shields.",
+    "piercing resistance": "Piercing damage resisted on all incoming projectiles, preventing damage from leaking through the shields to the hull.",
+    "radar jamming": "Reduces the ability of radar-guided missiles to track your ship. The more radar jamming is installed, the greater the distance at which missiles can be jammed, and the greater the chance that a jammed missile will fly off in a random direction.",
+    "ramscoop": "Replenishes fuel by harvesting the stellar wind. Ramscoops are more effective when closer to a star. If you add more than one ramscoop, each additional one is less effective: you need four ramscoops to achieve double the recharge rate that one ramscoop provides.",
+    "required crew / bunks": "Crew members required to operate this ship, and the total number bunks available. Extra bunks can be used for passengers or extra crew.",
+    "required crew": "Changes the number of crew members this ship requires by this amount.",
+    "mandatory crew": "Changes the number of crew members this ship requires by this amount. Mandatory crew cannot be replaced by automation.",
+    "reverse thrust": "Reverse thrust generated by engines. Reverse thrust allows a ship to slow down without needing to turn around.",
+    "reverse thrusting energy": "Energy consumed per second when firing reverse thrusters.",
+    "reverse thrusting heat": "Heat produced per second when firing reverse thrusters.",
+    "reverse thrusting shields": "Shield damage dealt to the ship per second when firing reverse thrusters.",
+    "reverse thrusting hull": "Hull damage dealt to the ship per second when firing reverse thrusters.",
+    "reverse thrusting fuel": "Fuel consumed per second when firing reverse thrusters.",
+    "reverse thrusting discharge": "Accumulated shield discharging per second when firing reverse thrusters.",
+    "reverse thrusting corrosion": "Accumulated hull corrosion per second when firing reverse thrusters.",
+    "reverse thrusting ion": "Accumulated ionization per second when firing reverse thrusters.",
+    "reverse thrusting scramble": "Accumulated scrambling per second when firing reverse thrusters.",
+    "reverse thrusting leakage": "Accumulated leaking fuel per second when firing reverse thrusters.",
+    "reverse thrusting burn": "Accumulated exothermic interactions per second when firing reverse thrusters.",
+    "reverse thrusting slowing": "Accumulated engine interference per second when firing reverse thrusters.",
+    "reverse thrusting disruption": "Accumulated shield interference per second when firing reverse thrusters.",
+    "scan interference": "Ability to evade detection when a ship is carrying illegal outfits or cargo. Interference of 1 blocks 50% of scan attempts; 3 blocks 75%, and 9 blocks 90%.",
+    "scram drive": "Allows you to jump without coming to a stop, as long as your velocity is within this range of being lined up with the direction you are jumping in.",
+    "self destruct": "The chance of this ship self-destructing when you try to board or capture it.",
+    "sells for": "What this outfit will sell for, in credits. Outfits and ships will depreciate (lose resale value) over time, and plunder always starts out fully depreciated.",
+    "shield energy": "Energy consumed per second when recharging shields.",
+    "delayed shield energy": "Additional energy consumed per second when recharging shields after the shield delay period.",
+    "shield energy multiplier": "Modifies the energy consumed when recharging shields by the given factor.",
+    "shield fuel": "Fuel consumed per second when recharging shields.",
+    "delayed shield fuel": "Additional fuel consumed per second when recharging shields after the shield delay period.",
+    "shield fuel multiplier": "Modifies the fuel consumed when recharging shields by the given factor.",
+    "shield heat": "Heat produced per second when recharging shields.",
+    "delayed shield heat": "Additional heat produced per second when recharging shields after the shield delay period.",
+    "shield heat multiplier": "Modifies the heat produced when recharging shields by the given factor.",
+    "shield generation": "Shield points recharged per second. Recharging shields usually consumes energy, and may also produce heat.",
+    "delayed shield generation": "Additional shield points recharged per second after the shield delay period.",
+    "shield generation multiplier": "Modifies the amount of shield points recharged per second by the given factor.",
+    "cloaked regen multiplier": "Modifies the amount of shield points recharged per second by the given factor while a cloaking device is active.",
+    "high shield permeability": "This percentage of all incoming damage bypasses shields and applies directly to the hull when at full shields.",
+    "low shield permeability": "This percentage of all incoming damage will bypass shields and apply directly to the hull as shields approach zero.",
+    "cloaked shield permeability": "This percentage of all incoming damage will bypass shields and apply directly to the hull while you are cloaked.",
+    "shields (charge)": "Total shield strength and regeneration rate per second.",
+    "shields": "Total shield strength. Most weapons cannot damage your hull until your shields are depleted. Some weapon effects, such as heat damage, become more severe once shields are down.",
+    "shield multiplier": "Modifies the ship's total shield strength by the given factor.",
+    "shield delay": "The number of seconds it takes for additional shield generation to begin after taking shield damage.",
+    "depleted shield delay": "The number of seconds it takes for additional shield generation to begin after your shields have been depleted.",
+    "shield protection": "Protection provided against shield damage. Increases by the given factor how much shield damage a ship can withstand before it loses as much shields as an unprotected ship.",
+    "silent jumps": "Prevents a ship from making hyperdrive or jump drive sounds when entering or leaving a system.",
+    "silent scans": "Prevents a ship from emitting scan sounds.",
+    "slowing protection": "Protection provided against slowing damage. Increases by the given factor how much slowing damage a ship can withstand before it as slowed as an unprotected ship.",
+    "slowing resistance": "Slowing damage resisted per second.",
+    "slowing resistance energy": "Energy consumed per second when resisting slowing damage.",
+    "slowing resistance fuel": "Fuel consumed per second when resisting slowing damage.",
+    "slowing resistance heat": "Heat generated per second when resisting slowing damage.",
+    "solar collection": "Energy produced depending on how far this ship is from the star at the center of the system.",
+    "solar heat": "Heat produced depending on how far this ship is from the star at the center of the system.",
+    "strategic scan power": "Strategic scanners allow you to view your current target's distance from you, maximum gun range, maximum turret range, current speed, maximum acceleration, and turning speed when it is within range. The range is proportional to the square root of this value.",
+    "tactical scan power": "Tactical scanners allow you to view your current target's crew complement, fuel, heat, and energy levels when it is within range. The range is proportional to the square root of this value.",
+    "acceleration scan power": "Mobility scanners allow you to view your current target's current maximum acceleration when it is within range. The range is proportional to the square root of this value.",
+    "crew scan power": "Crew scanners allow you to view your current target's crew complement when it is within range. The range is proportional to the square root of this value.",
+    "energy scan power": "Energy scanners allow you to view your current target's energy levels when it is within range. The range is proportional to the square root of this value.",
+    "fuel scan power": "Fuel scanners allow you to view your current target's fuel levels when it is within range. The range is proportional to the square root of this value.",
+    "maneuver scan power": "Maneuver scanners allow you to view your current target's current maximum turn speed when it is within range. The range is proportional to the square root of this value.",
+    "mobility scan power": "Mobility scanners allow you to view your current target's current speed and maximum acceleration when it is within range. The range is proportional to the square root of this value.",
+    "range finder power": "Range finders allow you to view the distance from the center of your ship to the center of your current target. There is no range limit.",
+    "thermal scan power": "Thermal scanners allow you to view your current target's thermal level when it is within range. The range is proportional to the square root of this value.",
+    "velocity scan power": "Mobility scanners allow you to view your current target's current speed when it is within range. The range is proportional to the square root of this value.",
+    "weapon scan power": "Weapon scanners allow you to view your current target's weapons' maximum range when it is within scanner range. Specifically, it shows the longest range of all weapons in a gun hardpoint; and the longest range of all weapons in a turret hardpoint. These ranges include the weapon offset and thus show the maximum range from the center of the ship its shots can reach. The scanner range is proportional to the square root of this value.",
+    "thrust": "Thrust produced by engines. Higher thrust increases a ship's acceleration and top speed. The more mass a ship has, the more thrust is needed to achieve the same acceleration.",
+    "thrusting energy": "Energy consumed per second when firing thrusters.",
+    "thrusting heat": "Heat generated per second when firing thrusters.",
+    "thrusting shields": "Shield damage dealt to the ship per second when firing thrusters.",
+    "thrusting hull": "Hull damage dealt to the ship per second when firing thrusters.",
+    "thrusting fuel": "Fuel consumed per second when firing thrusters.",
+    "thrusting discharge": "Accumulated shield discharging per second when firing thrusters.",
+    "thrusting corrosion": "Accumulated hull corrosion per second when firing thrusters.",
+    "thrusting ion": "Accumulated ionization per second when firing thrusters.",
+    "thrusting scramble": "Accumulated scrambling per second when firing thrusters.",
+    "thrusting leakage": "Accumulated leaking fuel per second when firing thrusters.",
+    "thrusting burn": "Accumulated exothermic interactions per second when firing thrusters.",
+    "thrusting slowing": "Accumulated engine interference per second when firing thrusters.",
+    "thrusting disruption": "Accumulated shield interference per second when firing thrusters.",
+    "turn": "Turning force produced by engines. The more mass a ship has, the more turning force is needed to achieve the same turn rate.",
+    "turning": "Turn rate, in degrees per second. The higher a ship's mass (including the mass of any cargo or fighters it is carrying), the slower it turns.",
+    "turn multiplier": "Modifies the ship's rate of turn by the given factor.",
+    "turning energy": "Energy consumed per second when turning.",
+    "turning heat": "Heat generated per second when turning.",
+    "turning shields": "Shield damage dealt to the ship per second when turning.",
+    "turning hull": "Hull damage dealt to the ship per second when turning.",
+    "turning fuel": "Fuel consumed per second when turning.",
+    "turning discharge": "Accumulated shield discharging per second when turning.",
+    "turning corrosion": "Accumulated hull corrosion per second when turning.",
+    "turning ion": "Accumulated ionization per second when turning.",
+    "turning scramble": "Accumulated scrambling per second when turning.",
+    "turning leakage": "Accumulated leaking fuel per second when turning.",
+    "turning burn": "Accumulated exothermic interactions per second when turning.",
+    "turning slowing": "Accumulated engine interference per second when turning.",
+    "turning disruption": "Accumulated shield interference per second when turning.",
+    "turret mounts needed": "This weapon can fire in any direction, tracking your currently selected target. It uses up one of your ship's turret mounts.",
+    "turret mounts free": "How many turrets can be mounted on this ship. Turrets fire in the direction of the currently selected target, instead of firing straight forward like guns.",
+    "weapon capacity needed": "Tons of weapon space this outfit takes up.",
+    "weapon capacity": "Tons of weapons this ship can hold. (To install a weapon, you must also have enough total outfit space available.)",
+    "scan brightness": "Modifies the likelihood of this illegal outfit appearing on a cargo scan. The higher the brightness, the more likely a scan will pick it up. A scan brightness of 5 has as much a chance of being scanned as an outfit that is 5 tons.",
+    "scan concealment": "Hides an equivalent mass of illegal cargo from cargo scans, preventing you from being fined for having it. A scan concealment of 10 would make up to 10 tons of illegal cargo not appear on cargo scans.",
+    "outfitter: b": "Buy from the outfitter and install onto the currently selected ship(s). Hold Shift, Control, or Alt to buy 5, 20, or 500 at once. Hold a combination of these keys for larger amounts.",
+    "outfitter: s": "Sell from cargo, storage, or the currently selected ship(s), in that order. Hold Shift, Control, or Alt to sell 5, 20, or 500 at once. Hold a combination of these keys for larger amounts.",
+    "outfitter: i": "Install on the currently selected ship(s) from cargo or storage, in that order. Hold Shift, Control, or Alt to install 5, 20, or 500 at once. Hold a combination of these keys for larger amounts.",
+    "outfitter: u": "Uninstall or move outfits from the currently selected ship(s) or cargo to storage, in that order. Hold Shift, Control, or Alt to uninstall 5, 20, or 500 at once. Hold a combination of these keys for larger amounts.",
+    "outfitter: c": "Transfer the outfit from planetary storage to cargo if possible. Otherwise, buy it from the outfitter. Hold Shift, Control, or Alt to buy or move 5, 20, or 500 at once. Hold a combination of these keys for larger amounts.",
+    "outfitter: r": "Move the outfit from cargo or the currently selected ship(s) into planetary storage, in that order. Hold Shift, Control, or Alt to store 5, 20, or 500 at once. Hold a combination of these keys for larger amounts.",
+    "shipyard: b": "Buy this ship. Hold Shift, Control, or Alt to buy 5, 20, or 500 ships at once. Hold a combination of these keys for larger amounts.",
+    "shipyard: s": "Sell the selected ships and their outfits.",
+    "shipyard: r": "Sell the hulls of the selected ships, but retain the outfits in storage.",
+    "empty hull": "Price the ship itself would sell for without any outfits installed.",
+    "+ outfits": "Price that all this ship's outfits would sell for.",
+    "idle": "Energy and heat generated when this ship is idle, i.e. not firing weapons, turning, or thrusting.",
+    "moving": "Energy consumed and heat generated when this ship is turning and thrusting. This is in addition to the \"idle\" amount.",
+    "firing": "Energy consumed and heat generated when this ship is firing all its weapons. This is in addition to the \"idle\" amount.",
+    "shields / hull": "Energy consumed and heat generated when this ship is recharging shields and repairing its hull at the same time. This is in addition to the \"idle\" amount.",
+    "repairing hull": "Energy consumed and heat generated when this ship is repairing its hull. This is in addition to the \"idle\" amount.",
+    "charging shields": "Energy consumed and heat generated when this ship is recharging its shields. This is in addition to the \"idle\" amount.",
+    "net change": "The sum of the energy consumed and heat generated from the above energy and heat values. Represents the worst case scenario when all systems are active at once.",
+    "max": "Energy storage capacity and maximum safe level for heat generation. Energy capacity allows a ship to temporarily draw more energy than it produces. The heat maximum is the highest your heat generation can be without eventually causing your ship to overheat.",
+    "guns": "Weapons that are fixed in place (firing in the direction your ship is pointed) and that require no ammunition.",
+    "turrets": "Weapons that can fire in any direction and will track your currently selected target.",
+    "secondary weapons": "Weapons that require ammunition (which must be purchased separately).",
+    "ammunition": "Outfits that serve as ammunition for other weapons. To fire this ammunition, you need a launcher of the appropriate type.",
+    "systems": "Outfits that occupy general space, not the space set aside for engines or weapons.",
+    "power": "Outfits that either supply energy, or store the energy that is generated.",
+    "engines": "Thrusters and steering systems, which affect how quickly your ship moves.",
+    "hand to hand": "Weapons that your crew uses when trying to capture a ship.",
+    "special": "Items you can purchase or sell but that are not outfits that can be installed in a ship.",
+    "ammo": "The type of outfits this weapon consumes when fired.",
+    "ammo usage": "Units of ammo this weapon consumes when fired.",
+    "range": "Total range of this weapon.",
+    "velocity": "The initial velocity of projectiles fired by this weapon. Some weapons have projectiles that accelerate or decelerate from this initial value as they travel.",
+    "dropoff modifier": "The multiplier applied to the damage of this weapon once its projectile has reached the maximum dropoff range.",
+    "dropoff range": "The starting and ending range between which the damage of this weapon ramps from 100% to the displayed dropoff modifier.",
+    "shield damage / second": "Shield damage dealt per second.",
+    "hull damage / second": "Hull damage dealt per second.",
+    "minable damage / second": "Minable damage dealt per second.",
+    "fuel damage / second": "Fuel lost by the target per second when hit by this weapon. Only half as effective when the target's shields are up. A negative amount means fuel is added.",
+    "heat damage / second": "Increases the target's heat by this amount per second. Only half as effective when the target's shields are up.",
+    "energy damage / second": "Reduces the target's energy by this amount per second. Only half as effective when the target's shields are up.",
+    "ion damage / second": "Reduces the target's energy. Only half as effective when the target's shields are up. Ionization slowly wears off over time.",
+    "scrambling damage / second": "Increases the target's chance of weapon failure. Only half as effective when the target's shields are up. Scrambling slowly wears off over time.",
+    "slowing damage / second": "Reduces the target's turn rate, acceleration, and top speed. Only half as effective when the target's shields are up. Slowing wears off over time.",
+    "disruption damage / second": "Allows weapon damage to \"leak through\" to the hull even if shields are up. Shield disruption wears off over time, and adding additional shield disruption becomes more difficult as damage leaks past shields instead of disrupting them.",
+    "discharge damage / second": "Shield damage dealt over time by this weapon per second.",
+    "corrosion damage / second": "Hull damage dealt over time by this weapon per second.",
+    "leak damage / second": "Fuel damage dealt over time by this weapon per second.",
+    "burn damage / second": "Heat damage dealt over time by this weapon per second.",
+    "% shield damage / second": "Shield damage dealt per second, as a percentage of the target's total shield strength.",
+    "% hull damage / second": "Hull damage dealt per second, as a percentage of the target's total hull strength.",
+    "% minable damage / second": "Minable damage dealt per second, as a percentage of the target's total health.",
+    "% fuel damage / second": "Fuel loss caused per second as a percentage of the target's total fuel capacity. Only half as effective when the target's shields are up.",
+    "% heat damage / second": "Increases the target's heat as a percentage of its maximum heat capacity by this amount per second. Only half as effective when the target's shields are up.",
+    "% energy damage / second": "Reduces the target's energy as a percentage of its energy capacity by this amount per second. Only half as effective when the target's shields are up.",
+    "firing energy / second": "Energy consumed per second.",
+    "firing heat / second": "Heat generated per second.",
+    "firing fuel / second": "Fuel consumed per second.",
+    "firing hull / second": "Hull damage dealt to your ship per second.",
+    "firing shields / second": "Shield damage dealt to your ship per second.",
+    "firing ion / second": "Reduces energy levels for some time after this weapon is fired.",
+    "firing scramble / second": "Increases the chance of weapon failure for some time after this weapon is fired.",
+    "firing slowing / second": "Reduces the turn rate, acceleration, and top speed of the ship when this weapon is fired. Slowing wears off over time.",
+    "firing disruption / second": "Disrupts the ship's shields after firing this weapon, allowing damage from hostile weapons to \"leak through\" to the hull even if shields are up. Shield disruption wears off over time, but imparting disruption on yourself does not lose effectiveness as your shields become more leaky.",
+    "firing discharge / second": "Reduces shields for some time after this weapon is fired.",
+    "firing corrosion / second": "Reduces hull for some time after this weapon is fired.",
+    "firing leak / second": "Reduces fuel for some time after this weapon is fired.",
+    "firing burn / second": "Increases heat for some time after this weapon is fired.",
+    "% firing energy / second": "Energy consumed per second, as a percentage of your total energy capacity.",
+    "% firing heat / second": "Increases your heat as a percentage of your maximum heat capacity by this amount per second.",
+    "% firing fuel / second": "Fuel used or lost per second as a percentage of the ship's total fuel.",
+    "% firing hull / second": "Hull damage dealt to your ship per second, as a percentage of your total hull strength.",
+    "% firing shields / second": "Shield damage dealt to your ship per second, as a percentage of your total shield strength.",
+    "shots / second": "Projectiles fired per second by this weapon. Weapons that fire continuously do not require batteries if the ship's energy generation per second is higher than the weapon's firing energy per second. Some continuous fire weapons only fire a fraction of the time, in which case the ship's energy production must be higher than the weapon's firing energy divided by the firing time to not require batteries.",
+    "turret turn rate": "Degrees this turret can turn per second.",
+    "turret turn multiplier": "Modifies the turret turn rate on this ship by the given factor.",
+    "arc": "The angular range of protection provided by this weapon, in degrees.",
+    "homing type": "How this projectile tracks its target. Projectiles with \"direct\" will fly straight at their target, while projectiles with \"leading\" will lead their trajectory.",
+    "tracking": "This projectile's ability to maintain its target lock.",
+    "optical tracking": "This projectile's ability to maintain an optical target lock, which depends on the size of the target; negatively affected by any potential optical jamming equipment.",
+    "infrared tracking": "This projectile's ability to maintain an infrared target lock, which depends on the target ship's heat level and distance from the missile; IR-guided missiles become more accurate the closer they are to their targets.",
+    "radar tracking": "This projectile's ability to maintain a radar target lock; negatively affected by the target ship's radar jamming equipment.",
+    "shield damage / shot": "Shield damage dealt per shot.",
+    "hull damage / shot": "Hull damage dealt per shot.",
+    "minable damage / shot": "Damage dealt to minable objects per shot, in lieu of hull damage.",
+    "fuel damage / shot": "Fuel lost by the target per shot when hit by this weapon. Only half as effective when the target's shields are up. A negative amount means fuel is added.",
+    "heat damage / shot": "Increases the target ship's heat by this amount per shot. Only half as effective when the target's shields are up.",
+    "energy damage / shot": "Reduces the target ship's energy by this amount per shot. Only half as effective when the target's shields are up.",
+    "ion damage / shot": "Increases the target's ionization by this amount per shot. Only half as effective when the target's shields are up. Ionization reduces the target's energy, and slowly wears off over time.",
+    "scrambling damage / shot": "Increases the target's chance of weapon failure. Only half as effective when the target's shields are up. Scrambling slowly wears off over time.",
+    "slowing damage / shot": "Reduces the target's turn rate, acceleration, and top speed. Only half as effective when the target's shields are up. Slowing wears off over time.",
+    "disruption damage / shot": "Allows weapon damage to \"leak through\" to the hull even if shields are up. Shield disruption wears off over time, and adding additional shield disruption becomes more difficult as damage leaks past shields instead of disrupting them.",
+    "discharge damage / shot": "Shield damage dealt over time by this weapon per shot.",
+    "corrosion damage / shot": "Hull damage dealt over time by this weapon per shot.",
+    "leak damage / shot": "Fuel damage dealt over time by this weapon per shot.",
+    "burn damage / shot": "Heat damage dealt over time by this weapon per shot.",
+    "% shield damage / shot": "Shield damage dealt per shot, as a percentage of your target's total shield strength.",
+    "% hull damage / shot": "Hull damage dealt per shot, as a percentage of your target's total hull strength.",
+    "% minable damage / shot": "Minable damage dealt as a percentage of the target's total health, in lieu of relative hull damage being used.",
+    "% fuel damage / shot": "Fuel loss caused per shot as a percentage of the target's total fuel capacity. Only half as effective when the target's shields are up.",
+    "% heat damage / shot": "Increases the target ship's heat as a percentage of its maximum heat capacity by this amount per shot. Only half as effective when the target's shields are up.",
+    "% energy damage / shot": "Reduces the target ship's energy as a percentage of its energy capacity by this amount per shot. Only half as effective when the target's shields are up.",
+    "firing energy / shot": "Energy consumed per shot. A weapon will not fire if the ship's batteries do not have at least this amount of energy stored.",
+    "firing heat / shot": "Heat generated per shot.",
+    "firing fuel / shot": "Fuel consumed per shot.",
+    "firing hull / shot": "Hull damage dealt to your ship per shot.",
+    "firing shields / shot": "Shield damage dealt to your ship per shot.",
+    "firing ion / shot": "Reduces the ship's energy. Ionization slowly wears off over time.",
+    "firing scramble / shot": "Increases the chance of weapon failure for some time after this weapon is fired.",
+    "firing slowing / shot": "Reduces the ship's turn rate, acceleration, and top speed. Slowing wears off over time.",
+    "firing disruption / shot": "Allows weapon damage to \"leak through\" to the ship's hull even if shields are up. Shield disruption wears off over time, but imparting disruption on yourself does not lose effectiveness as your shields become more leaky.",
+    "firing discharge / shot": "Shield damage dealt to your ship over time by this weapon per shot.",
+    "firing corrosion / shot": "Hull damage dealt to your ship over time by this weapon per shot.",
+    "firing leak / shot": "Fuel damage dealt to your ship over time per shot.",
+    "firing burn / shot": "Heat damage dealt to your ship over time per shot.",
+    "% firing energy / shot": "Energy consumed per shot, as a percentage of the ship's total energy capacity.",
+    "% firing heat / shot": "Heat generated per shot, as a percentage of the ship's maximum heat capacity.",
+    "% firing fuel / shot": "Fuel used or lost per shot, as a percentage of the ship's total fuel.",
+    "% firing hull / shot": "Hull damage dealt to your ship per shot, as a percentage of your total hull strength.",
+    "% firing shields / shot": "Shield damage dealt to your ship per shot, as a percentage of your total shield strength.",
+    "inaccuracy": "Maximum inaccuracy of this weapon, in degrees. A value of one means the weapon's aim will be at most one degree off-target.",
+    "blast radius": "Everything within this distance (including friendly ships) will be damaged when the weapon hits something.",
+    "missile strength": "This projectile's resistance to anti-missile shots.",
+    "anti-missile": "The power of the anti-missile shots. Higher values make it easier to destroy stronger projectiles.",
+    "tractor beam": "The base velocity that this weapon pulls flotsam toward itself. Heavier flotsam is more difficult to pull.",
+    "mining precision": "A measure of how well this weapon prevents damage to valuable materials while mining. Weapons with a positive precision result in higher yields, while a negative precision results in lower yields. Some minable objects are tougher than others, and are therefore less susceptible to having their yields altered.",
+    "no bunks!": "This ship needs crew to operate, but has no bunks.",
+    "overheating!": "This ship's outfits are producing so much heat that it will overheat the moment it takes off. You must either add more cooling or remove some of the outfits that are producing heat.",
+    "no energy!": "This ship does not have any source of energy to power its systems. You must install some sort of generator.",
+    "no fuel!": "This ship does not have enough fuel to provide energy to power its systems. You must increase the fuel capacity.",
+    "no thruster!": "This ship is unable to move. You must install thrusters.",
+    "no steering!": "This ship is unable to turn. You must install steering systems.",
+    "insufficient bunks?": "This ship does not have enough bunks for its crew. It could become unresponsive at random times.",
+    "insufficient heat?": "This ship is too cold to use some of its engines while idle. Its movement may be hindered if it does not have another way of generating heat.",
+    "afterburner only?": "This ship's only thruster is an afterburner. It may be unable to move if the afterburner runs out of fuel.",
+    "reverse only?": "This ship has a reverse thruster but no forward thruster. It could be very difficult to maneuver.",
+    "battery only?": "This ship has no means of generating energy. It could end up stranded and unable to move if its batteries are depleted.",
+    "limited thrust?": "This ship's energy supply is not sufficient to run the thrusters at full power. Its top speed and acceleration will be diminished.",
+    "limited turn?": "This ship's energy supply is not sufficient to run the steering at full power. Its turn rate will be diminished.",
+    "solar power?": "This ship is powered entirely by solar energy. It could be difficult to maneuver if you fly too far from the center of a star system, because your engines will only have a fraction of the power they require.",
+    "fuel?": "This ship consumes fuel, but has insufficient storage. If it took off, it would immediately run out of fuel.",
+    "no hyperdrive?": "This ship has no hyperdrive. If it took off, it would be unable to leave this star system.",
+    "no fuel?": "This ship has insufficient fuel capacity to make a hyperspace jump. If it took off, it would be unable to leave this star system.",
+    "no bays?": "There are insufficient bays available to carry this ship. If it took off, it would be unable to leave this star system.",
+    "insufficient energy to fire?": "This ship has insufficient energy storage to fire an installed weapon.",
+    "this outfit is considered an atrocity.": "Governments that scan for illegal goods will attack you upon discovering this item in your possession in space, or arrest you if found when landed.",
+    "forward thrust": "Accelerate your flagship forward.",
+    "turn left": "Turn your flagship left.",
+    "turn right": "Turn your flagship right.",
+    "reverse": "Turn your flagship opposite its current direction of flight. If reverse thrusters are installed, accelerate backwards.\n\nWith <shift>, stop your ship.",
+    "fire afterburner": "Fire your flagship's afterburner, if one is installed.",
+    "auto steer": "If the \"Automatic aiming\" setting is off, activate automatic aiming when this key is held.",
+    "land on planet / station": "Land on the selected planet. If no planet is selected, automatically selects a planet to land on, or attempts to land on the planet you are directly on top of if traveling at low speeds. If a planet is already selected, double tapping will cycle to the next planet.",
+    "initiate hyperspace jump": "Initiate a hyperspace jump to follow your current travel plan. If you have no travel plan, initiates a jump nearest to your current facing angle. When held, commands your escorts to get ready to jump and only initiates the jump when released.\n\nWith <shift>, your fleet will not jump until every ship in the fleet is ready for every system in the travel plan instead of needing to hold the key at each system.",
+    "view star map": "Open the star map panel.",
+    "view player info": "Open the player info panel.",
+    "select nearest hostile ship": "Select the nearest hostile ship.\n\nWith <shift>, select the nearest ship regardless of hostility.",
+    "select next ship": "Select the next non-escort ship in the system, cycling through all ships.\n\nWith <shift>, cycle through escorts.",
+    "talk to selected ship": "Hail the selected ship or planet. If both a ship and planet are selected, hails the ship.\n\nWith <shift>, hails the planet.",
+    "board selected ship": "Board the selected ship. If no boardable ship is selected, selects a ship to board based on the \"Boarding target priority\" setting.\n\nWith <shift>, selects an escort to board.",
+    "select nearest asteroid": "Select the nearest asteroid based on the \"Target asteroid based on\" setting.",
+    "scan selected ship": "Scan the selected ship, if you have outfit or cargo scanners installed.",
+    "fire primary weapon": "Fire all of your flagship's primary weapons. The \"automatic firing\" setting will fire only those weapons that are within your target's range.",
+    "toggle turret tracking": "Toggle the \"Turret tracking\" setting between \"focused\" and \"opportunistic\". See the \"Turret tracking\" setting tooltip on the Settings tab for more details.",
+    "select secondary weapon": "Cycle to your flagship's next secondary weapon. After cycling through all secondary weapons individually, selects every secondary weapon at once, then selects no weapons.",
+    "fire secondary weapon": "Fire your flagship's selected secondary weapon(s).",
+    "toggle cloaking device": "Activate or deactivate your fleet's cloaking devices, if any are installed.",
+    "turret aim override (hold)": "Turrets aim towards your cursor when this key is held. If the \"Aim turrets with mouse\" setting is enabled, it will do the opposite.",
+    "mouse turning (hold)": "Cause your flagship to turn toward your mouse if this key is held. To have mouse turning always active, activate the \"Control ship with mouse\" setting. If that setting is active, holding this key deactivates mouse turning.",
+    "show main menu": "Open the main menu.",
+    "toggle fullscreen": "Toggle whether the game is in fullscreen mode.",
+    "toggle fast-forward": "Toggle a 3x speed fast-forward. Fast-forward may be automatically deactivated by the \"Interrupt fast-forward\" setting. If the key is set to caps-lock then the caps-lock state will be used to determine the fast-forward state.",
+    "pause": "Stop time in the game. You can still select ships, give commands, and interact with menus.",
+    "show help": "Display the help dialogs that are relevant to your current UI panel and situation. Uses the same help dialogs from the \"Reactivate first-time help\" setting, forcing them to appear even if they have already appeared before.",
+    "view message log": "Open the log panel containing status messages and hails from other ships received since the current pilot was loaded.",
+    "toggle performance info": "Toggle the \"Show CPU / GPU load\" setting.",
+    "deploy / recall fighters": "Deploy or recall carried ships (e.g. fighters, drones) in your fleet. Requires carriers with space to hold the carried ships.",
+    "fleet: fight my target": "Command your entire fleet to focus fire on the selected target. If only some escorts are selected, only sends the command to those escorts. This command can also be sent by right clicking on a hostile ship.",
+    "fleet: toggle hold fire": "Command your fleet to stop firing except if they are given a specific target to shoot at afterwards. If only some escorts are selected, only sends the command to those escorts.",
+    "fleet: gather around me": "Command your fleet to gather around your flagship. If only some escorts are selected, only sends the command to those escorts. You can also command escorts to gather around another ship by right clicking on a friendly ship.\n\nWith <shift>, change the formation pattern in your fleet.",
+    "fleet: hold position": "Command your fleet to hold its current position. If only some escorts are selected, only sends the command to those escorts. This command can also be sent by right clicking on empty space.",
+    "fleet: toggle ammo usage": "Toggle the \"Escorts expend ammo\" setting.",
+    "fleet: harvest flotsam": "Command your fleet to harvest nearby flotsam (e.g. dropped cargo). The \"Flotsam collection\" setting must allow your escorts to pick up flotsam in order to harvest it.",
+    "fleet: scan my target": "Command your fleet to scan a target. Requires your escorts to have cargo or outfit scanners installed. If only some escorts are selected, only sends the command to those escorts.",
+    "main zoom factor": "Increase the main zoom factor (the size of the UI and gameplay). Wraps back to 100 if the zoom exceeds your screen's limits.",
+    "view zoom factor": "Increase the zoom factor of the gameplay view when in flight. Can also be changed by the + and - keys and the scroll wheel.",
+    "screen mode": "Toggle whether the game is in windowed or fullscreen mode. Can also be toggled by the \"Toggle fullscreen\" control.",
+    "vsync": "Toggle vsync between off, on, and adaptive (should your computer support it).",
+    "camera acceleration": "Determines where the screen center is positioned relative to the flagship while accelerating.\n\n- \"off\": camera is fixed on flagship.\n\n- \"on\": camera trails behind.\n\n- \"reversed\": camera speeds ahead.",
+    "show cpu / gpu load": "Display the CPU load, GPU load, and virtual memory usage at the top of the screen. CPU and GPU loads are presented as the time that it takes to calculate or draw each frame, respectively. The percentages represent how long it takes to calculate or draw each frame relative to the target frame rate, which is 60 frames/second for the GPU and 60 ticks/second (or 180 ticks/second with fast-forward enabled) for the CPU. >100% load means the game will run slower than the target frame rate.",
+    "render motion blur": "Toggle whether motion blur is rendered for all moving objects.",
+    "reduce large graphics": "Reduce the size of very large (images with >= 1 million pixels) or all graphics to half their dimensions. UI sprites are excluded. (Not recommended for high-resolution displays, but may be used to free up memory. Requires game restart.)",
+    "defer loading images": "Defer the loading of certain images so that they are loaded when they are needed instead of loading them when the game is first opened. This will result in a quicker launch time and lower VRAM usage, but you may experience pop-in as sprites are being loaded. Recommended for systems with low VRAM. (Requires game restart.)",
+    "draw background haze": "Draw the background haze when in flight.",
+    "draw starfield": "Draw the background starfield when in flight.",
+    "fixed starfield zoom": "Draw the background starfield with a fixed zoom level instead of changing with the view zoom level.",
+    "parallax background": "Add parallax to objects in the background, which includes the haze and starfield.\n\n- \"fancy\": three layers of parallax.\n\n- \"fast\": one layer of parallax.\n\n- \"off\": no parallax.",
+    "animate main menu background": "Animate the background stars and haze in the main menu.",
+    "show hyperspace flash": "Create a white flash when hyperspacing between systems.",
+    "extended jump effects": "Add additional motion blur to the background when jumping between systems. The medium and heavy options control how intense the effect is.",
+    "ship outlines in shops": "Controls the display of your fleet ship icons when in the shipyard or outfitter.\n\n- \"fancy\": applies a sobel filter to all ships. This can result in high GPU load for large fleets and/or on low performance computers.\n\n- \"fast\": just uses the ship's sprite.",
+    "ship outlines in hud": "Controls the display of your flagship and target ship icons in the HUD.\n\n- \"fancy\": applies a sobel filter to the sprites. This can result in high GPU load for some ships on very old or low performance computers.\n\n- \"fast\": just uses the ship's sprite.",
+    "cloaked ship outlines": "Controls the display of cloaked escorts.\n\n- \"fancy\": causes the ship to become transparent and applies a red outline.\n\n- \"fast\": simply shifts the ship to being red.",
+    "linear filter": "Use a standard linear interpolation filter to make sprites look smoother. (Requires game restart.)",
+    "show status overlays": "Display status overlays over top of all ships when in flight. Status overlays display a ship's shields and hull.\n\n- \"off\": overlays never appear.\n\n- \"always on\": overlays always appear.\n\n- \"damaged\": overlays only appear on ships that have taken damage.\n\n- \"on hit\": overlays appear for a short time on ships that have just taken damage.\n\n- \"--\": this setting is broken down by ship category in the sub-settings below.",
+    "show flagship overlay": "Display a status overlay over top of your flagship when in flight.",
+    "show escort overlays": "Display status overlays over top of your escorts when in flight.",
+    "show enemy overlays": "Display status overlays over top of hostile ships when in flight.",
+    "show neutral overlays": "Display status overlays over top of friendly and neutral ships when in flight.",
+    "show missile overlays": "Display an overlay on hostile missiles. The overlay indicates the danger of the missiles, with more powerful missiles relative to your flagship's HP being indicated more intensely.",
+    "turret overlays": "Display overlays on your flagship's turrets with blindspots. Setting this to \"blindspots only\" shows the overlays only when the blindspots are blocking the turrets' fire.",
+    "show asteroid scanner overlay": "If an asteroid scanner is installed on your flagship, display an overlay for nearby asteroids.",
+    "highlight ships": "Control whether ships should be highlighted while in flight.\n\n- \"flagship\": a green highlight is applied to your flagship.\n\n- \"owned ships\": your flagship and all the escorts you own will be highlighted.\n\n- \"all\": all ships will have a highlight matching their color on the radar.",
+    "rotate flagship in hud": "Rotate the icon for your flagship in the HUD to match your flagship's actual rotation.",
+    "show planet labels": "Display an overlay on nearby landable planets and stations.",
+    "show mini-map": "Control the display of a mini-map of nearby systems.\n\n- \"off\": the mini-map is never shown.\n\n- \"when jumping\": the mini-map only appears when initiating a hyperspace jump.\n\n- \"always on\": the mini-map is always present when in flight.",
+    "clickable radar display": "Activate the ability to send commands to your escorts using the in-system radar mini-map.",
+    "alert indicator": "Control an indicator that occurs when hostile ships enter your current system.\n\n- \"off\": no indicator occurs.\n\n- \"audio\": plays a siren.\n\n- \"visual\": displays an alert icon by the in-system radar.\n\n- \"both\": both audio and visual indicators occur.",
+    "extra fleet status messages": "Display extra status messages about escorts in your fleet, such as when they are under-crewed or collect flotsam.",
+    "control ship with mouse": "If active, your flagship will always turn toward your mouse. For activating mouse turning on a key press, see the \"Mouse turning (hold)\" control.",
+    "aim turrets with mouse": "If active, your turrets will target your mouse position. See the \"Turret aim override (hold)\" keybind to toggle based on a held key.",
+    "automatic aiming": "Automatically turn your ship towards your target to aim fixed weapons.",
+    "automatic firing": "Automatically fire your primary weapons if your enemy is within the weapon's range.",
+    "turret tracking": "The strategy that your fleet's turrets use when targeting hostiles.\n\n- \"focused\": all turrets will attack the same target.\n\n- \"opportunistic\": turrets will target ships that they are nearest to aiming at, allowing multiple hostiles to be engaged at once.",
+    "target asteroid based on": "The strategy that the \"Select nearest asteroid\" control uses for selecting asteroids.\n\n- \"proximity\": selects the nearest asteroid.\n\n- \"value\": selects the highest value asteroid.",
+    "boarding target priority": "The strategy that the \"Board selected ship\" control uses for selecting ships when you have none targeted.\n\n- \"proximity\": selects the nearest ship.\n\n- \"value\": selects the highest value ship, with the value being estimated if you haven't scanned the outfits of the ship.\n\n- \"mixed\": accounts for the value divided by the distance to the ship.",
+    "escorts expend ammo": "The strategy that your escorts use for determining when to fire their secondary weapons. Able to be toggled by the \"Fleet: Toggle ammo usage\" control.\n\n- \"never\": your escorts will never use their secondary weapons.\n\n- \"frugal\": your escorts will only fire their secondary weapons when their HP is low or the hostiles in the system are stronger than your fleet and friendlies.\n\n- \"always\": your escorts will always use their secondary weapons when firing.",
+    "flotsam collection": "Control which of your ships can pick up flotsam (cargo floating in space). Flotsam is picked up automatically when your ships overlap it.\n\n- \"off\": your ships will never pick up flotsam.\n\n- \"flagship only\": only your flagship will pick up flotsam.\n\n- \"escorts only\": only your escorts will pick up flotsam.\n\n- \"on\": your entire fleet will pick up flotsam.",
+    "repair fighters in": "The strategy used for repairing carried ships (e.g. fighters, drones) in your fleet while they are docked with their carrier.\n\n- \"series\": repairs the highest HP ship until it is fully repaired, then moves on to the next one.\n\n- \"parallel\": repairs the lowest HP ship at all times so that all ships increase in HP together.",
+    "fighters transfer cargo": "Fighters transfer any cargo that they have to their carried ship when they dock.",
+    "rehire extra crew when lost": "Rehires extra crew whenever you land if you lost additional (non-required) crew while in flight.",
+    "automatically unpark flagship": "Automatically unpark a ship dragged to the first position in the ship list, and make it your flagship.",
+    "prioritize flagship use": "When distributing cargo and passengers among your ships on takeoff, prioritize the flagship over your escorts. (When your flagship does not have enough space, some mission cargo or passengers may still be moved to your other ships.)",
+    "deadline blink by distance": "For rush missions, subtract the distance to the destination from the deadline to determine how fast to blink the map marker.",
+    "hide unexplored map regions": "Creates a dark shroud over regions of the galaxy that you haven't explored yet. The shroud is lifted as you explore systems.",
+    "show escort systems on map": "If you have escorts, marks systems with escorts in them on the star map.",
+    "show stored outfits on map": "If you have outfits stored on a planet, marks systems with stored outfits on the star map.",
+    "always underline shortcuts": "Always underline the shortcut key for any buttons. Holding the alt key in any panel will also underline the button shortcut keys if this setting is off.",
+    "reactivate first-time help": "Reactivate the first-time help dialogs.",
+    "interrupt fast-forward": "Disable fast-forward whenever you land or when a conversation, dialog, or other panel appears while in flight.",
+    "sell outfits without outfitter": "In the Trading panel, controls whether the \"Sell Outfits\" button will allow selling outfits even when there is no outfitter at which to buy them back.",
+    "confirm selling outfits": "In the Trading panel, controls whether or not to confirm sales of all outfits in cargo.",
+    "confirm selling minables": "In the Trading panel, controls whether or not to confirm sales of minables, specials and other flotsam that may have been picked up.",
+    "landing zoom": "Apply a cinematic zoom in and out when you are landing and taking off.",
+    "scroll speed": "The speed of scrolling in panels that can scroll.",
+    "tooltip activation time": "For how long you need to hover over an item to show its tooltip.",
+    "date format": "The format that dates in the game are displayed in.",
+    "parenthesize trade profits": "Toggle whether parentheses are shown around potential profits and losses in the ports map mode.",
+    "notify on destination": "Control an indicator that occurs when you enter a system with a planet you must land on for a mission.\n\n- \"off\": no indication given.\n\n- \"message\": displays a message with the planets you must land on.\n\n- \"both\": displays the message and plays a notification sound.",
+    "save message log": "Include message logs in pilot files so they are not lost when closing the game or reloading the save file. This will increase save file sizes and may increase load times. The stored log history can be cleared from the message log panel.",
+    "text alignment": "Sets the horizontal text alignment of paragraphs across the UI.\n\n- \"left\": align to the left.\n\n- \"right\": align to the right.\n\n- \"center\": center the text.\n\n- \"justified\": add extra space between words to align with both margins.",
+    "block screen saver": "Whether your monitor should be able to dim and turn off or change to the screen saver while the game is open.",
+    "auto refill ammo": "Controls the ammo refill behavior when you enter the outfitter.\n\n- \"always\": ammo will be automatically refilled if you have the credits for it.\n\n- \"when free\": ammo will be automatically refilled only if it doesn't cost you anything, such as when you have spare ammo in cargo or storage.\n\n- \"ask\": you will be prompted to refill any missing ammunition upon entering the outfitter.\n\n- \"never\": you will always have to manually refill your ammunition.",
+    "title bar theme": "Choose the theme of the title bar, or leave \"system default\" to use system settings. (Available on Windows 10 or newer; on Windows 10, the game window must be resized or restarted in order for the change to take effect.)",
+    "window rounding": "Control the appearance of window corners. (Available on Windows 11.)",
+    "tribute confirmation": "Whether a confirmation dialog will be displayed when you attempt to demand tribute from a planet.\n\n- \"off\": you will never be asked for confirmation.\n\n- \"friendly only\": you will only be asked for confirmation against planets that you are friendly toward.\n\n- \"always\": you will always be asked for confirmation.",
+    "minimum value": "The lowest value that an outfit or ship can depreciate to relative to its full price. All plundered, captured, or gifted items start at this value, and all purchased items start at 100% value and then depreciate toward this value according to the other depreciation gamerules.",
+    "grace period": "The number of days that must pass before a newly purchased outfit or ship will begin to depreciate. This allows you to have a short amount of time to test out an item and then sell it back at full value if you decide that you do not like it.",
+    "maximum age": "The number of days that must pass, after the grace period has ended, in order for an outfit or ship to become fully depreciated.",
+    "daily depreciation": "The percentage of an item's depreciable value that it maintains day over day. Only impacts the exponential term of the depreciation calculation. If set to 100%, an item will still linearly lose value.",
+    "spawn attempt period": "The number of frames on average that the game waits before attempting to spawn a person ship. The game rolls a random number between 0 and this value minus one every frame. (There are 60 frames in a second.) If the value lands on 0, a person ship spawn attempt is made. In other words, higher values result in lower spawn rates of person ships.",
+    "no spawn weight": "When a person ship spawn attempt is made, this is the \"weight\" of the chance of having the spawn attempt fail. Each person ship has a \"weight\" associated with it which determines its chance of spawning. The chance of any single person ship spawning is its weight divided by the sum of the weights of all person ships and this value. That means that the chance of a spawn attempt failing is this number over that same sum.",
+    "npc max mining time": "Randomly spawned NPCs with the \"mining\" personality will spend this many frames mining in the current system before deciding to do something else. The purpose of this limit is so that NPC ships can be seen by the player to show how to mine without stripping the system bare of minable asteroids. This limit does not apply to mining ships that are spawned by a mission.",
+    "universal frugal threshold": "Ships with the \"frugal\" personality will only use weapons that consume ammo or fuel while their health (shields + hull - the hull level when they become disabled) is at or below this percentage, or if the hostiles in the system are considerably stronger than them.",
+    "universal ramscoop": "Determines whether the \"universal ramscoop\" is active on all ships. This ramscoop provides a very small amount of fuel to every ship regardless of whether it has an actual ramscoop installed. The strength of this ramscoop falls off much more strongly than normal ramscoops, requiring you to be as close to a star as possible to have any real gain in fuel. Having this enabled prevents needing to reload your save file if you run out of fuel and no NPCs spawn in the system that you can get fuel from.",
+    "minimum arrival distance": "The minimum arrival distance for all systems. Applies to both hyperdrive and jump drive travel. If the system has a defined arrival distance greater than this value, then it will be used instead. If this gamerule has a value of \"(unset)\", then the value defined by the system will always be used.",
+    "minimum departure distance": "The minimum departure distance for all systems. A ship can only jump out of a system if it is farther from the system center than the departure distance. If a system has a defined departure distance greater than this value, then it will be used instead.",
+    "fleet multiplier": "A global fleet spawn rate multiplier for random fleet spawns within systems.",
+    "lock gamerules": "Controls whether gamerules can be altered after a pilot has been created. If true, the gamerules button will not appear on the main menu for this pilot. If you set this to true on an existing pilot, you will not be able to return to this menu after leaving.",
+    "fighter crossfire immunity": "Controls which carried ships (fighters and drones), when disabled, will not be hit by projectiles unless they are directly targeted. Fighters and drones are fragile ships that can be difficult and/or tedious to replace for the player, so this gamerule is a means of increasing their survivability without increasing their combat effectiveness. Disabled carried ships can still be hit by explosions, whether from weapons or exploding ships.\n\n- \"none\": no carried ships are affected.\n\n- \"player\": only ships owned by the player are affected.\n\n- \"all\": all carried ships are affected.",
+    "universal ammo stocking": "Controls whether the ammo for most secondary weapons that you have installed or in your cargo will be available for purchase at any outfitter, even if that outfitter does not normally sell ammo of that type. The description of each secondary weapon will indicate whether it can be restocked anywhere when this rule is true.",
+    "spawn raid fleets": "Controls whether raid fleets are able to spawn. Raid fleets are hostile fleets that can spawn in some systems if your fleet's cargo attractiveness is much higher than its deterrence. (That is, if you have a lot of cargo space and not a lot of firepower to defend it.) If this rule is active, your fleet's raid fleet spawn chance can be viewed from the player info panel.",
+    "fleet size limitation": "Determines whether the player can only have a limited number of escorts active at once. If active, your flagship, parked ships, and carried ships (fighters and drones) are excluded from your fleet capacity, and you will not be able to capture ships that would put you over your capacity or take off from a planet if your capacity has been reached.\n\n- \"none\": you can have as many escorts as you want.\n\n- \"ship cap\": you can only command up to a certain number of escorts.\n\n- \"crew cap\": the base crew requirement of your active escorts may not exceed a certain limit.\n\n- \"admin cap\": the limit is tied to an \"administrative cost\" that every ship has, with larger ships having a higher cost.",
+    "default max escort count": "If the fleet size limitation is \"ship cap,\" then this is the default maximum number of escorts that you can have active at once. This value may be increased through story events. Changing this value on an existing pilot will have no effect.",
+    "default max escort crew": "If the fleet size limitation is \"crew cap,\" then this is the default maximum sum of the base required crew (i.e. excluding required crew added by outfits like turrets) across all your escorts that you can have at once. Automated ships will use a crew-equivalent value. This value may be increased through story events. Changing this value on an existing pilot will have no effect."
   },
   "shipFunctions": {
     "FinishLoading": {
