@@ -387,58 +387,58 @@ window.CompareDisplay = (() => {
                         pushRawScaled('Ammo Consumption', `_ammo_${a.ammoOutfitName}`,
                             a.ammoOutfitName, a.totalShotsPerSecond, 'rounds/s');
 
-                // Per-weapon detail — use attrDefs flags to decide per-row scaling.
+                // Per-weapon detail sections (one section per weapon type).
                 //
-                // Scaling rules (zero hardcoding — all driven by attrDefs):
-                //   isWeaponStat:true                   → scale by qty
-                //     These are per-second outputs: DPS values, firing costs/s, shots/s.
-                //     Having ×N of the same weapon produces ×N of these outputs.
+                // Policy: all weapon data rows are shown at their raw per-instance values.
+                // Reload time, velocity, inaccuracy etc. do not change because you have
+                // more ships — they are intrinsic weapon properties.
                 //
-                //   isWeaponDataKey:true && !isWeaponStat → do NOT scale
-                //     These are intrinsic weapon behaviour: reload, velocity, lifetime,
-                //     inaccuracy, burst count etc.  They don't change with quantity.
+                // The only thing that scales with qty is the COUNT of that weapon:
+                //   e.g. a ship with 2 Blaster Turrets at qty ×3 = 6 total blasters.
                 //
-                //   no attrDefs entry found              → fall back to unit-based heuristic
-                //     Covers synthesised rows like '— Per Second —' dividers and
-                //     computed DPS rows built by _weaponDetailRows whose labels don't
-                //     exactly match an attrDefs key (e.g. "Shield DPS", "Energy/s").
-                //     Heuristic: scale if unit is 'dmg/s' or label ends with '/s'.
+                // The Weapon DPS section above already shows the correctly-scaled
+                // aggregate output (total DPS, shield DPS, firing costs/s) so the
+                // per-weapon sections exist purely as a reference for weapon behaviour.
                 for (const w of (wData.weapons || [])) {
                     const outfit = outfitIdx[w.outfitName];
                     if (!outfit?.weapon) continue;
                     const sectionKey = `Weapon: ${w.outfitName}`;
                     if (!sections[sectionKey]) sections[sectionKey] = [];
                     if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
-                    for (const r of _weaponDetailRows(w.outfitName, w.count, outfit, w.profile)) {
+
+                    const detailRows = _weaponDetailRows(w.outfitName, w.count, outfit, w.profile);
+                    let injectedCount = false;
+
+                    for (const r of detailRows) {
                         const k = `_wd_${w.outfitName}_${r.label}`;
                         if (seen.has(k)) continue;
                         seen.add(k);
 
-                        // Resolve the row's label to an attrDefs key.
-                        // Labels from _weaponDetailRows are already human-readable
-                        // (e.g. "Reload", "Shield Damage", "Shots/s") — normalise to
-                        // lowercase to match attrDefs keys.
-                        const normLabel = r.label.toLowerCase().trim();
-                        const attrEntry = _getAttrRecord(normLabel);
-
-                        let shouldScale;
-                        if (attrEntry) {
-                            // Flag-driven: isWeaponStat means it's a scalable output;
-                            // isWeaponDataKey without isWeaponStat means behaviour config.
-                            shouldScale = !!attrEntry.isWeaponStat;
-                        } else {
-                            // Fallback for synthesised rows with no attrDefs entry:
-                            // scale if the unit marks it as a rate (dmg/s) or the
-                            // label pattern looks like a per-second value.
-                            shouldScale = r.unit === 'dmg/s' || r.label.endsWith('/s');
-                        }
-
+                        // Count row: multiply by qty so total mount count is accurate.
+                        // All other rows: frozen at per-instance values.
                         let displayVal = r.value;
-                        if (shouldScale && qty > 1) {
-                            const parsed = parseFloat(String(r.value).replace(/,/g, ''));
-                            if (!isNaN(parsed)) displayVal = _fmt(parsed * qty);
+                        if (r.label === 'Count') {
+                            const base = parseInt(String(r.value).replace(/[^\d]/g, ''), 10) || w.count;
+                            displayVal = `\xd7${base * qty}`;
+                            injectedCount = true;
                         }
+
                         sections[sectionKey].push({ key: k, label: r.label, value: displayVal, unit: r.unit });
+                    }
+
+                    // If _weaponDetailRows didn't emit a Count row (weapon count === 1)
+                    // and qty > 1, prepend one so the reader always sees the total.
+                    if (!injectedCount) {
+                        const countKey = `_wd_${w.outfitName}_Count`;
+                        if (!seen.has(countKey)) {
+                            seen.add(countKey);
+                            sections[sectionKey].unshift({
+                                key:   countKey,
+                                label: 'Count',
+                                value: `\xd7${w.count * qty}`,
+                                unit:  '',
+                            });
+                        }
                     }
                 }
             }
