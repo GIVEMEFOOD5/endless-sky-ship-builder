@@ -15,6 +15,11 @@
 //   Each item has a ×N spinner in its column/table header.
 //   All numeric stats are multiplied by that quantity before display.
 //   Useful for comparing e.g. ×2 of one outfit vs ×1 of another.
+//
+// Base vs With-Outfits display:
+//   For ships, each section first shows base-only values (ship attrs alone).
+//   If any values differ once outfits are included, a "(with outfits)" sub-section
+//   appears immediately after showing only the changed/new rows.
 // ─────────────────────────────────────────────────────────────────────────────
 
 window.CompareDisplay = (() => {
@@ -151,6 +156,7 @@ window.CompareDisplay = (() => {
         'outfitMap','outfits',
     ]);
 
+    // Build effective attrs. If outfitIdx is null/omitted, only base ship attrs are used.
     function _buildEffectiveAttrs(item, outfitIdx) {
         const eff = {};
         const attrs = item.attributes || {};
@@ -158,6 +164,8 @@ window.CompareDisplay = (() => {
             if (typeof v === 'number')      eff[k] = v;
             else if (typeof v === 'string') { const n = parseFloat(v); if (!isNaN(n)) eff[k] = n; }
         }
+
+        if (!outfitIdx) return eff; // base-only — stop here
 
         const outfitSource = item.outfitMap || item.outfits || {};
         const entries = _outfitEntries(outfitSource);
@@ -190,12 +198,14 @@ window.CompareDisplay = (() => {
     function _computeHeatDerived(item, eff, outfitIdx) {
         const shipMass = parseFloat(item.attributes?.mass ?? item.mass ?? 0) || 0;
         let outfitMassSum = 0;
-        for (const [name, count] of _outfitEntries(item.outfitMap || item.outfits || {})) {
-            const outfit  = outfitIdx[name];
-            if (!outfit) continue;
-            const massKey = Object.keys(outfit).find(k => k.toLowerCase() === 'mass');
-            if (massKey && typeof outfit[massKey] === 'number')
-                outfitMassSum += outfit[massKey] * count;
+        if (outfitIdx) {
+            for (const [name, count] of _outfitEntries(item.outfitMap || item.outfits || {})) {
+                const outfit  = outfitIdx[name];
+                if (!outfit) continue;
+                const massKey = Object.keys(outfit).find(k => k.toLowerCase() === 'mass');
+                if (massKey && typeof outfit[massKey] === 'number')
+                    outfitMassSum += outfit[massKey] * count;
+            }
         }
         const totalMass   = shipMass + outfitMassSum;
         const heatCapKey  = Object.keys(eff).find(k => k.toLowerCase() === 'heat capacity');
@@ -292,14 +302,18 @@ window.CompareDisplay = (() => {
 
     // ── Build attribute map for one item ──────────────────────────────────────
     // qty: integer multiplier applied to all numeric values
+    // includeOutfits: if false, only base ship attrs are used (no outfit contributions)
 
-    function _buildAttrMap(item, qty) {
+    function _buildAttrMap(item, qty, includeOutfits = true) {
         qty = (typeof qty === 'number' && qty >= 1) ? qty : 1;
 
         const sections  = {};
         const seen      = new Set();
         const outfitIdx = _buildOutfitIndex();
         const isShip    = !!(item.attributes && typeof item.attributes === 'object');
+
+        // For base-only mode on outfits, behaviour is unchanged (outfits have no sub-outfits)
+        const effectiveOutfitIdx = (isShip && !includeOutfits) ? null : outfitIdx;
 
         function push(key, rawVal, sectionOverride) {
             if (SKIP_KEYS.has(key) || seen.has(key))    return;
@@ -311,11 +325,6 @@ window.CompareDisplay = (() => {
             const unit     = _getDisplayUnit(key);
             const entry    = _getAttrRecord(key);
 
-            // Decide whether to scale by qty using attrDefs flags (zero hardcoding):
-            //   isWeaponDataKey && !isWeaponStat → intrinsic weapon behaviour
-            //     (reload, velocity, lifetime, inaccuracy, burst count etc.)
-            //     These are per-instance properties — they don't change with quantity.
-            //   Everything else with a numeric value → scale.
             const isBehaviourKey = entry?.isWeaponDataKey && !entry?.isWeaponStat;
             const scaledVal = (typeof rawVal === 'number' && !isBehaviourKey)
                 ? rawVal * qty
@@ -332,8 +341,6 @@ window.CompareDisplay = (() => {
             sections[section].push({ key, label, value, unit: unit || '' });
         }
 
-        // Helper: scale a pre-formatted numeric string by qty.
-        // We re-compute from the raw number, so callers pass rawNum separately.
         function pushRawScaled(section, key, label, rawNum, unit) {
             if (seen.has(key)) return;
             seen.add(key);
@@ -343,11 +350,11 @@ window.CompareDisplay = (() => {
         }
 
         if (isShip) {
-            // 1. Effective attributes (all numeric — multiplied by qty inside push())
-            const eff = _buildEffectiveAttrs(item, outfitIdx);
+            // 1. Effective attributes
+            const eff = _buildEffectiveAttrs(item, effectiveOutfitIdx);
             for (const [k, v] of Object.entries(eff)) push(k, v);
 
-            // 2. Hardpoints — scale counts by qty
+            // 2. Hardpoints — these are intrinsic to the ship hull, same in both modes
             if (item.guns?.length)           pushRaw('Hardpoints', 'Guns',           'Guns',           String(item.guns.length * qty), '');
             if (item.turrets?.length)        pushRaw('Hardpoints', 'Turrets',        'Turrets',        String(item.turrets.length * qty), '');
             if (item.engines?.length)        pushRaw('Hardpoints', 'Engines',        'Engines',        String(item.engines.length * qty), '');
@@ -358,86 +365,72 @@ window.CompareDisplay = (() => {
                 Object.entries(byType).forEach(([t, n]) => pushRaw('Hardpoints', `${t} Bays`, `${t} Bays`, String(n * qty), ''));
             }
 
-            // 3. Heat derived — scale by qty
-            const hd = _computeHeatDerived(item, eff, outfitIdx);
+            // 3. Heat derived
+            const hd = _computeHeatDerived(item, eff, effectiveOutfitIdx);
             if (hd.totalHeatCapacity != null)
                 pushRawScaled('Heat (derived)', '_hd_totalHeatCap', 'Total Heat Capacity',    hd.totalHeatCapacity,      '');
             if (hd.maxSustainableHeatProd != null)
                 pushRawScaled('Heat (derived)', '_hd_maxSustHeat',  'Max Sustainable Heat/s', hd.maxSustainableHeatProd, '/s');
 
-            // 4. Weapon DPS — scale DPS values by qty
-            const wData = _buildWeaponData(item, outfitIdx);
-            if (wData && wData.weaponCount) {
-                const dS = 'Weapon DPS';
-                pushRawScaled(dS, '_ws_totalDps',    'Total DPS',    wData.totalDps,            'dmg/s');
-                pushRawScaled(dS, '_ws_shieldDps',   'Shield DPS',   wData.shieldDps,           'dmg/s');
-                pushRawScaled(dS, '_ws_hullDps',     'Hull DPS',     wData.hullDps,             'dmg/s');
-                pushRaw(dS, '_ws_weaponCount', 'Weapon Types', String(wData.weaponCount),       '');
-                pushRaw(dS, '_ws_totalMounts', 'Total Mounts', String(wData.totalWeaponMounts * qty), '');
+            // 4. Weapon DPS — only available when outfits are included
+            if (includeOutfits) {
+                const wData = _buildWeaponData(item, outfitIdx);
+                if (wData && wData.weaponCount) {
+                    const dS = 'Weapon DPS';
+                    pushRawScaled(dS, '_ws_totalDps',    'Total DPS',    wData.totalDps,            'dmg/s');
+                    pushRawScaled(dS, '_ws_shieldDps',   'Shield DPS',   wData.shieldDps,           'dmg/s');
+                    pushRawScaled(dS, '_ws_hullDps',     'Hull DPS',     wData.hullDps,             'dmg/s');
+                    pushRaw(dS, '_ws_weaponCount', 'Weapon Types', String(wData.weaponCount),       '');
+                    pushRaw(dS, '_ws_totalMounts', 'Total Mounts', String(wData.totalWeaponMounts * qty), '');
 
-                for (const [dmgKey, val] of Object.entries(wData.dpsByType || {}).sort())
-                    if (val) {
-                        const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}`;
-                        const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
-                        pushRawScaled(dS, safeKey, label, val, 'dmg/s');
-                    }
-
-                if (wData.hasAmmoWeapons)
-                    for (const a of (wData.ammoRequired || []))
-                        pushRawScaled('Ammo Consumption', `_ammo_${a.ammoOutfitName}`,
-                            a.ammoOutfitName, a.totalShotsPerSecond, 'rounds/s');
-
-                // Per-weapon detail sections (one section per weapon type).
-                //
-                // Policy: all weapon data rows are shown at their raw per-instance values.
-                // Reload time, velocity, inaccuracy etc. do not change because you have
-                // more ships — they are intrinsic weapon properties.
-                //
-                // The only thing that scales with qty is the COUNT of that weapon:
-                //   e.g. a ship with 2 Blaster Turrets at qty ×3 = 6 total blasters.
-                //
-                // The Weapon DPS section above already shows the correctly-scaled
-                // aggregate output (total DPS, shield DPS, firing costs/s) so the
-                // per-weapon sections exist purely as a reference for weapon behaviour.
-                for (const w of (wData.weapons || [])) {
-                    const outfit = outfitIdx[w.outfitName];
-                    if (!outfit?.weapon) continue;
-                    const sectionKey = `Weapon: ${w.outfitName}`;
-                    if (!sections[sectionKey]) sections[sectionKey] = [];
-                    if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
-
-                    const detailRows = _weaponDetailRows(w.outfitName, w.count, outfit, w.profile);
-                    let injectedCount = false;
-
-                    for (const r of detailRows) {
-                        const k = `_wd_${w.outfitName}_${r.label}`;
-                        if (seen.has(k)) continue;
-                        seen.add(k);
-
-                        // Count row: multiply by qty so total mount count is accurate.
-                        // All other rows: frozen at per-instance values.
-                        let displayVal = r.value;
-                        if (r.label === 'Count') {
-                            const base = parseInt(String(r.value).replace(/[^\d]/g, ''), 10) || w.count;
-                            displayVal = `\xd7${base * qty}`;
-                            injectedCount = true;
+                    for (const [dmgKey, val] of Object.entries(wData.dpsByType || {}).sort())
+                        if (val) {
+                            const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}`;
+                            const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
+                            pushRawScaled(dS, safeKey, label, val, 'dmg/s');
                         }
 
-                        sections[sectionKey].push({ key: k, label: r.label, value: displayVal, unit: r.unit });
-                    }
+                    if (wData.hasAmmoWeapons)
+                        for (const a of (wData.ammoRequired || []))
+                            pushRawScaled('Ammo Consumption', `_ammo_${a.ammoOutfitName}`,
+                                a.ammoOutfitName, a.totalShotsPerSecond, 'rounds/s');
 
-                    // If _weaponDetailRows didn't emit a Count row (weapon count === 1)
-                    // and qty > 1, prepend one so the reader always sees the total.
-                    if (!injectedCount) {
-                        const countKey = `_wd_${w.outfitName}_Count`;
-                        if (!seen.has(countKey)) {
-                            seen.add(countKey);
-                            sections[sectionKey].unshift({
-                                key:   countKey,
-                                label: 'Count',
-                                value: `\xd7${w.count * qty}`,
-                                unit:  '',
-                            });
+                    for (const w of (wData.weapons || [])) {
+                        const outfit = outfitIdx[w.outfitName];
+                        if (!outfit?.weapon) continue;
+                        const sectionKey = `Weapon: ${w.outfitName}`;
+                        if (!sections[sectionKey]) sections[sectionKey] = [];
+                        if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
+
+                        const detailRows = _weaponDetailRows(w.outfitName, w.count, outfit, w.profile);
+                        let injectedCount = false;
+
+                        for (const r of detailRows) {
+                            const k = `_wd_${w.outfitName}_${r.label}`;
+                            if (seen.has(k)) continue;
+                            seen.add(k);
+
+                            let displayVal = r.value;
+                            if (r.label === 'Count') {
+                                const base = parseInt(String(r.value).replace(/[^\d]/g, ''), 10) || w.count;
+                                displayVal = `\xd7${base * qty}`;
+                                injectedCount = true;
+                            }
+
+                            sections[sectionKey].push({ key: k, label: r.label, value: displayVal, unit: r.unit });
+                        }
+
+                        if (!injectedCount) {
+                            const countKey = `_wd_${w.outfitName}_Count`;
+                            if (!seen.has(countKey)) {
+                                seen.add(countKey);
+                                sections[sectionKey].unshift({
+                                    key:   countKey,
+                                    label: 'Count',
+                                    value: `\xd7${w.count * qty}`,
+                                    unit:  '',
+                                });
+                            }
                         }
                     }
                 }
@@ -512,7 +505,6 @@ window.CompareDisplay = (() => {
                         const scale = _attrDefs()?.shipFunctions?.[k.slice(4)]?.displayScale;
                         if (scale) display = v * scale;
                     }
-                    // Scale computed numeric values by qty
                     if (typeof display === 'number') display = display * qty;
                     const unit = (k.startsWith('_ws_') && k.toLowerCase().includes('dps')) ? 'dmg/s' : '';
                     if (!sections[section]) sections[section] = [];
@@ -522,6 +514,32 @@ window.CompareDisplay = (() => {
         } catch (_) {}
 
         return sections;
+    }
+
+    // ── Diff two section maps ─────────────────────────────────────────────────
+    // Returns a map of section → rows that differ (changed value or new key).
+    // Only used for ships — outfits have no sub-outfit layering.
+
+    function _diffSectionMaps(baseMap, outfitMap) {
+        const diff = {};
+        // All sections present in the outfit map
+        for (const [section, outfitRows] of Object.entries(outfitMap)) {
+            const baseRows  = baseMap[section] || [];
+            const baseLookup = {};
+            for (const r of baseRows) baseLookup[r.key] = r.value + (r.unit ? ' ' + r.unit : '');
+
+            const changedRows = [];
+            for (const r of outfitRows) {
+                const outfitDisplayVal = r.value + (r.unit ? ' ' + r.unit : '');
+                const baseDisplayVal   = baseLookup[r.key];
+                // Row is "changed" if value differs OR it is brand new (not in base)
+                if (outfitDisplayVal !== baseDisplayVal) {
+                    changedRows.push(r);
+                }
+            }
+            if (changedRows.length) diff[section] = changedRows;
+        }
+        return diff;
     }
 
     // ── DOM bootstrap ─────────────────────────────────────────────────────────
@@ -632,15 +650,11 @@ window.CompareDisplay = (() => {
             return;
         }
 
-        // No fleet summary banner — removed per request.
-
         if (_viewMode === 'columns') _renderColumns(body, items);
         else                         _renderTable(body, items);
     }
 
     // ── Quantity control widget ───────────────────────────────────────────────
-    // Returns a DOM element: [−] [×N] [+]
-    // Changing the value calls _setQty which triggers a re-render.
 
     function _makeQtyControl(item) {
         const wrap = document.createElement('div');
@@ -663,7 +677,6 @@ window.CompareDisplay = (() => {
         dec.onclick = () => {
             const newQty = _getQty(item) - 1;
             _setQty(item, newQty);
-            // display updated by re-render, but update inline for snappiness
             display.textContent = `×${_getQty(item)}`;
         };
 
@@ -679,10 +692,46 @@ window.CompareDisplay = (() => {
         return wrap;
     }
 
+    // ── Section row renderer (shared by columns view) ─────────────────────────
+
+    function _appendSectionRows(col, rows) {
+        for (const { label, value, unit } of rows) {
+            if (label.startsWith('—') && !value) {
+                const div = document.createElement('div');
+                div.className   = 'compare-col__divider';
+                div.textContent = label;
+                col.appendChild(div);
+                continue;
+            }
+            const row = document.createElement('div');
+            row.className = 'compare-col__row';
+            const k = document.createElement('div');
+            k.className   = 'compare-col__key';
+            k.textContent = label;
+            const v = document.createElement('div');
+            v.className   = 'compare-col__val';
+            v.textContent = unit ? `${value} ${unit}` : value;
+            row.appendChild(k);
+            row.appendChild(v);
+            col.appendChild(row);
+        }
+    }
+
     // ── Columns view ──────────────────────────────────────────────────────────
 
     function _renderColumns(container, items) {
-        const attrMaps = items.map(item => _buildAttrMap(item, _getQty(item)));
+        const isShipGroup = window.CompareManager.getGroupType() === 'ship';
+
+        // Build both base and with-outfits maps for ships; only full map for outfits
+        const baseMaps   = items.map(item => isShipGroup
+            ? _buildAttrMap(item, _getQty(item), false)
+            : _buildAttrMap(item, _getQty(item), true));
+        const outfitMaps = isShipGroup
+            ? items.map(item => _buildAttrMap(item, _getQty(item), true))
+            : baseMaps;
+        const diffMaps   = isShipGroup
+            ? items.map((_, i) => _diffSectionMaps(baseMaps[i], outfitMaps[i]))
+            : items.map(() => ({}));
 
         const grid = document.createElement('div');
         grid.className = 'compare-columns';
@@ -715,7 +764,6 @@ window.CompareDisplay = (() => {
                 ? item.name
                 : (item.attributes?.category || item.category || '');
 
-            // Quantity control
             const qtyCtrl = _makeQtyControl(item);
 
             header.appendChild(removeBtn);
@@ -725,41 +773,51 @@ window.CompareDisplay = (() => {
             header.appendChild(qtyCtrl);
             col.appendChild(header);
 
-            // Sections
-            const sectionMap = attrMaps[idx];
+            // Sections — use base map as the canonical section list
+            const sectionMap = baseMaps[idx];
+            const diffMap    = diffMaps[idx];
+
             const orderedSections = [
-                ...SECTION_ORDER.filter(s => sectionMap[s]),
-                ...Object.keys(sectionMap).filter(s => !SECTION_ORDER.includes(s)),
-            ];
+                ...SECTION_ORDER.filter(s => sectionMap[s] || outfitMaps[idx][s]),
+                ...Object.keys(outfitMaps[idx]).filter(s =>
+                    !SECTION_ORDER.includes(s) && !sectionMap[s]),
+            ].filter((s, i, a) => a.indexOf(s) === i);
 
             for (const section of orderedSections) {
-                const rows = sectionMap[section];
-                if (!rows?.length) continue;
+                const baseRows   = sectionMap[section] || [];
+                const diffRows   = diffMap[section]    || [];
 
-                const secHeader = document.createElement('div');
-                secHeader.className   = 'compare-col__section';
-                secHeader.textContent = section;
-                col.appendChild(secHeader);
+                // Only render the section block if there's something to show
+                if (!baseRows.length && !diffRows.length) continue;
 
-                for (const { label, value, unit } of rows) {
-                    if (label.startsWith('—') && !value) {
-                        const div = document.createElement('div');
-                        div.className   = 'compare-col__divider';
-                        div.textContent = label;
-                        col.appendChild(div);
-                        continue;
+                // Base section header + rows
+                if (baseRows.length) {
+                    const secHeader = document.createElement('div');
+                    secHeader.className   = 'compare-col__section';
+                    secHeader.textContent = section;
+                    col.appendChild(secHeader);
+                    _appendSectionRows(col, baseRows);
+                }
+
+                // (with outfits) sub-section — only if there are differences
+                if (diffRows.length) {
+                    const subHeader = document.createElement('div');
+                    subHeader.className   = 'compare-col__section compare-col__section--with-outfits';
+                    subHeader.textContent = `${section} (with outfits)`;
+                    col.appendChild(subHeader);
+                    _appendSectionRows(col, diffRows);
+                }
+
+                // Edge case: section only exists in outfit map (entirely new section from outfits)
+                if (!baseRows.length && diffRows.length === 0) {
+                    const outfitOnlyRows = outfitMaps[idx][section] || [];
+                    if (outfitOnlyRows.length) {
+                        const subHeader = document.createElement('div');
+                        subHeader.className   = 'compare-col__section compare-col__section--with-outfits';
+                        subHeader.textContent = `${section} (with outfits)`;
+                        col.appendChild(subHeader);
+                        _appendSectionRows(col, outfitOnlyRows);
                     }
-                    const row = document.createElement('div');
-                    row.className = 'compare-col__row';
-                    const k = document.createElement('div');
-                    k.className   = 'compare-col__key';
-                    k.textContent = label;
-                    const v = document.createElement('div');
-                    v.className   = 'compare-col__val';
-                    v.textContent = unit ? `${value} ${unit}` : value;
-                    row.appendChild(k);
-                    row.appendChild(v);
-                    col.appendChild(row);
                 }
             }
 
@@ -772,33 +830,93 @@ window.CompareDisplay = (() => {
     // ── Table view ────────────────────────────────────────────────────────────
 
     function _renderTable(container, items) {
-        const attrMaps = items.map(item => _buildAttrMap(item, _getQty(item)));
+        const isShipGroup = window.CompareManager.getGroupType() === 'ship';
 
+        const baseMaps   = items.map(item => isShipGroup
+            ? _buildAttrMap(item, _getQty(item), false)
+            : _buildAttrMap(item, _getQty(item), true));
+        const outfitMaps = isShipGroup
+            ? items.map(item => _buildAttrMap(item, _getQty(item), true))
+            : baseMaps;
+        const diffMaps   = isShipGroup
+            ? items.map((_, i) => _diffSectionMaps(baseMaps[i], outfitMaps[i]))
+            : items.map(() => ({}));
+
+        // Build the ordered list of row entries, interleaving base sections and
+        // their (with outfits) sub-sections immediately after.
         const sectionKeyOrder = [];
         const seenSectionKeys = new Set();
 
+        // Collect all sections from both base and outfit maps
         const allSections = [
             ...SECTION_ORDER,
-            ...new Set(attrMaps.flatMap(m => Object.keys(m))),
+            ...new Set([
+                ...baseMaps.flatMap(m => Object.keys(m)),
+                ...outfitMaps.flatMap(m => Object.keys(m)),
+            ]),
         ].filter((s, i, a) => a.indexOf(s) === i);
 
         for (const section of allSections) {
-            let sectionAdded = false;
-            for (const map of attrMaps) {
+            // --- Base rows for this section ---
+            let baseSectionAdded = false;
+            for (const map of baseMaps) {
                 for (const { key, label } of (map[section] || [])) {
                     const sk = section + '::' + key;
                     if (seenSectionKeys.has(sk)) continue;
                     seenSectionKeys.add(sk);
-                    if (!sectionAdded) {
-                        sectionKeyOrder.push({ isSectionHeader: true, section });
-                        sectionAdded = true;
+                    if (!baseSectionAdded) {
+                        sectionKeyOrder.push({ isSectionHeader: true, section, withOutfits: false });
+                        baseSectionAdded = true;
                     }
-                    sectionKeyOrder.push({ isSectionHeader: false, section, key, label });
+                    sectionKeyOrder.push({ isSectionHeader: false, section, key, label, withOutfits: false });
+                }
+            }
+
+            // --- (with outfits) diff rows for this section ---
+            // Collect all diff keys across all items for this section
+            let diffSectionAdded = false;
+            for (const dMap of diffMaps) {
+                for (const { key, label } of (dMap[section] || [])) {
+                    const sk = section + '::wo::' + key;
+                    if (seenSectionKeys.has(sk)) continue;
+                    seenSectionKeys.add(sk);
+                    if (!diffSectionAdded) {
+                        sectionKeyOrder.push({ isSectionHeader: true, section, withOutfits: true });
+                        diffSectionAdded = true;
+                    }
+                    sectionKeyOrder.push({ isSectionHeader: false, section, key, label, withOutfits: true });
+                }
+            }
+
+            // Edge case: section only in outfit map (new section entirely from outfits)
+            if (!baseSectionAdded) {
+                let outfitOnlySectionAdded = false;
+                for (const map of outfitMaps) {
+                    for (const { key, label } of (map[section] || [])) {
+                        const sk = section + '::wo::' + key;
+                        if (seenSectionKeys.has(sk)) continue;
+                        seenSectionKeys.add(sk);
+                        if (!outfitOnlySectionAdded) {
+                            sectionKeyOrder.push({ isSectionHeader: true, section, withOutfits: true });
+                            outfitOnlySectionAdded = true;
+                        }
+                        sectionKeyOrder.push({ isSectionHeader: false, section, key, label, withOutfits: true });
+                    }
                 }
             }
         }
 
-        const lookups = attrMaps.map(map => {
+        // Build lookup tables
+        // base lookups
+        const baseLookups = baseMaps.map(map => {
+            const lut = {};
+            for (const [section, rows] of Object.entries(map))
+                for (const { key, value, unit } of rows)
+                    lut[section + '::' + key] = unit ? `${value} ${unit}` : value;
+            return lut;
+        });
+        // diff lookups (from outfit map, not diff map, so we get the actual outfit value)
+        const outfitLookups = outfitMaps.map(map => {
             const lut = {};
             for (const [section, rows] of Object.entries(map))
                 for (const { key, value, unit } of rows)
@@ -841,7 +959,6 @@ window.CompareDisplay = (() => {
             removeBtn.textContent = '× Remove';
             removeBtn.onclick     = () => window.CompareManager.remove(item);
 
-            // Quantity control in table header
             const qtyCtrl = _makeQtyControl(item);
 
             th.appendChild(removeBtn);
@@ -860,11 +977,17 @@ window.CompareDisplay = (() => {
         for (const entry of sectionKeyOrder) {
             if (entry.isSectionHeader) {
                 const tr = document.createElement('tr');
-                tr.className = 'compare-table__section-row';
+                tr.className = entry.withOutfits
+                    ? 'compare-table__section-row compare-table__section-row--with-outfits'
+                    : 'compare-table__section-row';
                 const td = document.createElement('td');
-                td.colSpan     = items.length + 1;
-                td.className   = 'compare-table__section-header';
-                td.textContent = entry.section;
+                td.colSpan   = items.length + 1;
+                td.className = entry.withOutfits
+                    ? 'compare-table__section-header compare-table__section-header--with-outfits'
+                    : 'compare-table__section-header';
+                td.textContent = entry.withOutfits
+                    ? `${entry.section} (with outfits)`
+                    : entry.section;
                 tr.appendChild(td);
                 tbody.appendChild(tr);
                 continue;
@@ -872,20 +995,29 @@ window.CompareDisplay = (() => {
 
             if (entry.label?.startsWith('—')) continue;
 
-            const sk = entry.section + '::' + entry.key;
-            const tr = document.createElement('tr');
-            tr.className = rowIdx % 2 === 0 ? 'compare-table__row--even' : 'compare-table__row--odd';
+            const sk      = entry.section + '::' + entry.key;
+            const skWo    = entry.section + '::' + entry.key; // same key, different lookup table
+            const tr      = document.createElement('tr');
+            tr.className  = (rowIdx % 2 === 0 ? 'compare-table__row--even' : 'compare-table__row--odd') +
+                            (entry.withOutfits ? ' compare-table__row--with-outfits' : '');
             rowIdx++;
 
             const keyTd = document.createElement('td');
-            keyTd.className   = 'compare-table__key';
+            keyTd.className   = 'compare-table__key' + (entry.withOutfits ? ' compare-table__key--with-outfits' : '');
             keyTd.textContent = entry.label;
             tr.appendChild(keyTd);
 
             items.forEach((_, i) => {
                 const td = document.createElement('td');
-                td.className   = 'compare-table__val';
-                td.textContent = lookups[i][sk] ?? '—';
+                td.className   = 'compare-table__val' + (entry.withOutfits ? ' compare-table__val--with-outfits' : '');
+                // For with-outfits rows, show the outfit value (or — if unchanged for this item)
+                if (entry.withOutfits) {
+                    const diffRows = diffMaps[i][entry.section] || [];
+                    const hasDiff  = diffRows.some(r => r.key === entry.key);
+                    td.textContent = hasDiff ? (outfitLookups[i][sk] ?? '—') : '—';
+                } else {
+                    td.textContent = baseLookups[i][sk] ?? '—';
+                }
                 tr.appendChild(td);
             });
 
@@ -934,7 +1066,7 @@ window.CompareDisplay = (() => {
 
     function clearAll() {
         window.CompareManager.clear();
-        _quantities = {}; // reset quantities when clearing
+        _quantities = {};
         closePanel();
     }
 
