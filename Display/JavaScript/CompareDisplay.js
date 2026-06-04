@@ -306,12 +306,21 @@ window.CompareDisplay = (() => {
             if (rawVal === null || rawVal === undefined) return;
             if (typeof rawVal === 'object')             return;
             seen.add(key);
-            const section = sectionOverride || _getSection(key);
-            const mult    = _getDisplayMultiplier(key);
-            const unit    = _getDisplayUnit(key);
-            // Apply qty multiplier to numeric values
-            const scaledVal = typeof rawVal === 'number' ? rawVal * qty : rawVal;
-            const display   = typeof scaledVal === 'number' ? _fmt(scaledVal * mult) : String(scaledVal);
+            const section  = sectionOverride || _getSection(key);
+            const mult     = _getDisplayMultiplier(key);
+            const unit     = _getDisplayUnit(key);
+            const entry    = _getAttrRecord(key);
+
+            // Decide whether to scale by qty using attrDefs flags (zero hardcoding):
+            //   isWeaponDataKey && !isWeaponStat → intrinsic weapon behaviour
+            //     (reload, velocity, lifetime, inaccuracy, burst count etc.)
+            //     These are per-instance properties — they don't change with quantity.
+            //   Everything else with a numeric value → scale.
+            const isBehaviourKey = entry?.isWeaponDataKey && !entry?.isWeaponStat;
+            const scaledVal = (typeof rawVal === 'number' && !isBehaviourKey)
+                ? rawVal * qty
+                : rawVal;
+            const display = typeof scaledVal === 'number' ? _fmt(scaledVal * mult) : String(scaledVal);
             if (!sections[section]) sections[section] = [];
             sections[section].push({ key, label: _labelOf(key), value: display, unit });
         }
@@ -378,7 +387,22 @@ window.CompareDisplay = (() => {
                         pushRawScaled('Ammo Consumption', `_ammo_${a.ammoOutfitName}`,
                             a.ammoOutfitName, a.totalShotsPerSecond, 'rounds/s');
 
-                // Per-weapon detail — scale DPS rows by qty, leave rate/behaviour rows unscaled
+                // Per-weapon detail — use attrDefs flags to decide per-row scaling.
+                //
+                // Scaling rules (zero hardcoding — all driven by attrDefs):
+                //   isWeaponStat:true                   → scale by qty
+                //     These are per-second outputs: DPS values, firing costs/s, shots/s.
+                //     Having ×N of the same weapon produces ×N of these outputs.
+                //
+                //   isWeaponDataKey:true && !isWeaponStat → do NOT scale
+                //     These are intrinsic weapon behaviour: reload, velocity, lifetime,
+                //     inaccuracy, burst count etc.  They don't change with quantity.
+                //
+                //   no attrDefs entry found              → fall back to unit-based heuristic
+                //     Covers synthesised rows like '— Per Second —' dividers and
+                //     computed DPS rows built by _weaponDetailRows whose labels don't
+                //     exactly match an attrDefs key (e.g. "Shield DPS", "Energy/s").
+                //     Heuristic: scale if unit is 'dmg/s' or label ends with '/s'.
                 for (const w of (wData.weapons || [])) {
                     const outfit = outfitIdx[w.outfitName];
                     if (!outfit?.weapon) continue;
@@ -389,11 +413,29 @@ window.CompareDisplay = (() => {
                         const k = `_wd_${w.outfitName}_${r.label}`;
                         if (seen.has(k)) continue;
                         seen.add(k);
-                        // Scale DPS and shots/s type rows; leave rate/behaviour rows alone
-                        const isDpsRow = r.unit === 'dmg/s' || r.label === 'Shots/s' || r.label.endsWith('/s');
+
+                        // Resolve the row's label to an attrDefs key.
+                        // Labels from _weaponDetailRows are already human-readable
+                        // (e.g. "Reload", "Shield Damage", "Shots/s") — normalise to
+                        // lowercase to match attrDefs keys.
+                        const normLabel = r.label.toLowerCase().trim();
+                        const attrEntry = _getAttrRecord(normLabel);
+
+                        let shouldScale;
+                        if (attrEntry) {
+                            // Flag-driven: isWeaponStat means it's a scalable output;
+                            // isWeaponDataKey without isWeaponStat means behaviour config.
+                            shouldScale = !!attrEntry.isWeaponStat;
+                        } else {
+                            // Fallback for synthesised rows with no attrDefs entry:
+                            // scale if the unit marks it as a rate (dmg/s) or the
+                            // label pattern looks like a per-second value.
+                            shouldScale = r.unit === 'dmg/s' || r.label.endsWith('/s');
+                        }
+
                         let displayVal = r.value;
-                        if (isDpsRow && qty > 1) {
-                            const parsed = parseFloat(r.value.replace(/,/g, ''));
+                        if (shouldScale && qty > 1) {
+                            const parsed = parseFloat(String(r.value).replace(/,/g, ''));
                             if (!isNaN(parsed)) displayVal = _fmt(parsed * qty);
                         }
                         sections[sectionKey].push({ key: k, label: r.label, value: displayVal, unit: r.unit });
