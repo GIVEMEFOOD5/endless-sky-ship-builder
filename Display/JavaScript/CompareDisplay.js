@@ -9,7 +9,8 @@
 //   2. Hardpoints       — gun/turret/bay/engine counts
 //   3. Heat derived     — totalHeatCapacity, maxSustainableHeatProd
 //   4. Weapon DPS       — fleet summary + per-weapon detail
-//   5. Computed stats   — _fn_*, _derived_*, _ws_* from ComputedStats
+//   5. Per-outfit detail — Outfit: <name> sections for every installed outfit
+//   6. Computed stats   — _fn_*, _derived_*, _ws_* from ComputedStats
 //
 // Quantity multiplier:
 //   Each item has a ×N spinner in its column/table header.
@@ -95,6 +96,16 @@ window.CompareDisplay = (() => {
 
     function _getDisplayUnit(key)       { return _getAttrRecord(key)?.displayUnit       ?? ''; }
     function _getDisplayMultiplier(key) { return _getAttrRecord(key)?.displayMultiplier ?? 1; }
+
+    // Infer a per-second unit for computed _fn_ keys where the attrDefs don't
+    // supply one but the key name implies a rate.
+    const _FN_RATE_RE = /rate|per.?second|generation|consumption|dissipation|production|output|input|recharge|repair/i;
+    function _inferFnUnit(fnName) {
+        const rec = _attrDefs()?.shipFunctions?.[fnName];
+        if (rec?.displayUnit) return rec.displayUnit;
+        if (_FN_RATE_RE.test(fnName)) return '/s';
+        return '';
+    }
 
     // Pretty label for any key including computed/internal ones
     function _labelOf(key) {
@@ -287,6 +298,112 @@ window.CompareDisplay = (() => {
         return rows;
     }
 
+    // ── Per-outfit detail rows ────────────────────────────────────────────────
+    // Builds attribute rows for a single outfit install, including computed
+    // _fn_ / _derived_ stats for that outfit's flat numeric attributes.
+    // Keys that belong to the weapon sub-object are skipped here (they live in
+    // the Weapon: <name> section instead).
+
+    const _OUTFIT_DETAIL_SKIP = new Set([
+        'name','display name','description','sprite','thumbnail','spriteData',
+        '_pluginId','_internalId','_compareTab','_hash','_variantPluginId',
+        'locations','governments','weapon','outfitMap','outfits',
+        'leaks','engines','guns','turrets','bays','reverseEngines','steeringEngines',
+    ]);
+
+    function _outfitDetailRows(outfitName, count, outfit, qty) {
+        const rows = [];
+
+        // Count header
+        rows.push({ label: 'Count', value: `×${count * qty}`, unit: '', isHeader: false });
+
+        // Flat numeric attributes
+        const src = (outfit.attributes && Object.keys(outfit.attributes).length)
+            ? { ...outfit, ...outfit.attributes } : outfit;
+
+        const attrRows = [];
+        for (const [key, val] of Object.entries(src)) {
+            if (_OUTFIT_DETAIL_SKIP.has(key) || key.startsWith('_')) continue;
+            if (typeof val === 'object' || Array.isArray(val))        continue;
+
+            let display = null;
+            let unit    = '';
+
+            if (typeof val === 'boolean') {
+                display = val ? '✓' : '✗';
+            } else if (typeof val === 'number' && val !== 0) {
+                const mult = _getDisplayMultiplier(key);
+                display = _fmt(val * count * qty * mult);
+                unit    = _getDisplayUnit(key);
+            } else if (typeof val === 'string' && val.trim()) {
+                display = val.trim();
+            }
+
+            if (display === null) continue;
+            attrRows.push({ label: _labelOf(key), value: display, unit, key });
+        }
+
+        // Sort attribute rows alphabetically by label for consistency
+        attrRows.sort((a, b) => a.label.localeCompare(b.label));
+        rows.push(...attrRows);
+
+        // Computed _fn_ / _derived_ stats for this outfit
+        if (window.ComputedStats?.isReady()) {
+            try {
+                const flat = {};
+                for (const [k, v] of Object.entries(src))
+                    if (typeof v === 'number') flat[k] = v;
+
+                const computed = window.ComputedStats.getComputedStatsForAttrs(flat);
+                if (computed) {
+                    rows.push({ label: '— Computed /s —', value: '', unit: '', isDivider: true });
+                    const computedRows = [];
+                    for (const [k, v] of Object.entries(computed)) {
+                        if (v === null || v === undefined) continue;
+                        if (typeof v === 'number' && (isNaN(v) || v === 0)) continue;
+                        if (typeof v === 'object') continue;
+
+                        const isComputedKey = k.startsWith('_fn_') || k.startsWith('_derived_') ||
+                                              k.startsWith('_sys_');
+                        if (!isComputedKey) continue;
+
+                        let display = v;
+                        let unit    = '';
+
+                        if (k.startsWith('_fn_')) {
+                            const fnName = k.slice(4);
+                            const scale  = _attrDefs()?.shipFunctions?.[fnName]?.displayScale;
+                            if (scale) display = v * scale;
+                            unit = _inferFnUnit(fnName);
+                            // Scale by count × qty for rates
+                            if (typeof display === 'number') display = display * count * qty;
+                        } else if (k.startsWith('_derived_energy_') || k.startsWith('_derived_heat_')) {
+                            // These are already per-second rates
+                            if (typeof display === 'number') display = display * count * qty;
+                            unit = k.startsWith('_derived_energy_') ? 'e/s' : 'h/s';
+                        } else if (k.startsWith('_derived_')) {
+                            if (typeof display === 'number') display = display * count * qty;
+                        } else if (k.startsWith('_sys_')) {
+                            if (typeof display === 'number') display = display * count * qty;
+                            unit = '/s';
+                        }
+
+                        computedRows.push({
+                            label: _labelOf(k),
+                            value: typeof display === 'number' ? _fmt(display) : String(display),
+                            unit,
+                            key:   k,
+                        });
+                    }
+                    computedRows.sort((a, b) => a.label.localeCompare(b.label));
+                    rows.push(...computedRows);
+                }
+            } catch (_) {}
+        }
+
+        return rows;
+    }
+
     // ── Skip sets ─────────────────────────────────────────────────────────────
 
     const SKIP_KEYS = new Set([
@@ -372,7 +489,7 @@ window.CompareDisplay = (() => {
             if (hd.maxSustainableHeatProd != null)
                 pushRawScaled('Heat (derived)', '_hd_maxSustHeat',  'Max Sustainable Heat/s', hd.maxSustainableHeatProd, '/s');
 
-            // 4. Weapon DPS — only available when outfits are included
+            // 4. Weapon DPS + per-weapon sections — only available when outfits are included
             if (includeOutfits) {
                 const wData = _buildWeaponData(item, outfitIdx);
                 if (wData && wData.weaponCount) {
@@ -434,6 +551,39 @@ window.CompareDisplay = (() => {
                         }
                     }
                 }
+
+                // 5. Per-outfit detail sections — one section per unique installed outfit,
+                //    sorted by name for a stable, predictable order.
+                const outfitSource  = item.outfitMap || item.outfits || {};
+                const outfitEntries = _outfitEntries(outfitSource);
+                // Sort by outfit name so section order is consistent across ships
+                outfitEntries.sort((a, b) => a[0].localeCompare(b[0]));
+
+                for (const [outfitName, count] of outfitEntries) {
+                    if (!outfitName) continue;
+                    const outfit = outfitIdx[outfitName];
+                    if (!outfit)    continue;
+
+                    const sectionKey = `Outfit: ${outfitName}`;
+                    if (!sections[sectionKey]) sections[sectionKey] = [];
+                    if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
+
+                    const detailRows = _outfitDetailRows(outfitName, count, outfit, qty);
+
+                    for (const r of detailRows) {
+                        // Use a namespaced key to avoid collisions with top-level attrs
+                        const k = `_od_${outfitName}_${r.label}`;
+                        if (seen.has(k)) continue;
+                        seen.add(k);
+                        sections[sectionKey].push({
+                            key:   k,
+                            label: r.label,
+                            value: r.value,
+                            unit:  r.unit || '',
+                            ...(r.isDivider ? { isDivider: true } : {}),
+                        });
+                    }
+                }
             }
 
         } else {
@@ -478,7 +628,7 @@ window.CompareDisplay = (() => {
             }
         }
 
-        // 5. Computed stats (_fn_*, _derived_*, _sys_*)
+        // 6. Computed stats (_fn_*, _derived_*, _sys_*) for the whole ship/outfit
         try {
             let computed = null;
             if (isShip && window.ComputedStats?.isReady())
@@ -498,15 +648,23 @@ window.CompareDisplay = (() => {
                     if (!isComputedKey) continue;
                     seen.add(k);
                     let section = 'Derived Stats';
-                    if (k.startsWith('_ws_'))                              section = 'Weapon DPS';
+                    if (k.startsWith('_ws_'))                                 section = 'Weapon DPS';
                     else if (k === '_outfitMass' || k === '_totalOutfitCost') section = 'General';
                     let display = v;
+                    let unit    = '';
                     if (k.startsWith('_fn_')) {
-                        const scale = _attrDefs()?.shipFunctions?.[k.slice(4)]?.displayScale;
+                        const fnName = k.slice(4);
+                        const scale  = _attrDefs()?.shipFunctions?.[fnName]?.displayScale;
                         if (scale) display = v * scale;
+                        unit = _inferFnUnit(fnName);
+                    } else if (k.startsWith('_derived_energy_')) {
+                        unit = 'e/s';
+                    } else if (k.startsWith('_derived_heat_')) {
+                        unit = 'h/s';
+                    } else if (k.startsWith('_ws_') && k.toLowerCase().includes('dps')) {
+                        unit = 'dmg/s';
                     }
                     if (typeof display === 'number') display = display * qty;
-                    const unit = (k.startsWith('_ws_') && k.toLowerCase().includes('dps')) ? 'dmg/s' : '';
                     if (!sections[section]) sections[section] = [];
                     sections[section].push({ key: k, label: _labelOf(k), value: _fmt(display), unit });
                 }
@@ -695,8 +853,8 @@ window.CompareDisplay = (() => {
     // ── Section row renderer (shared by columns view) ─────────────────────────
 
     function _appendSectionRows(col, rows) {
-        for (const { label, value, unit } of rows) {
-            if (label.startsWith('—') && !value) {
+        for (const { label, value, unit, isDivider } of rows) {
+            if ((label.startsWith('—') && !value) || isDivider) {
                 const div = document.createElement('div');
                 div.className   = 'compare-col__divider';
                 div.textContent = label;
@@ -995,9 +1153,8 @@ window.CompareDisplay = (() => {
 
             if (entry.label?.startsWith('—')) continue;
 
-            const sk      = entry.section + '::' + entry.key;
-            const skWo    = entry.section + '::' + entry.key; // same key, different lookup table
-            const tr      = document.createElement('tr');
+            const sk   = entry.section + '::' + entry.key;
+            const tr   = document.createElement('tr');
             tr.className  = (rowIdx % 2 === 0 ? 'compare-table__row--even' : 'compare-table__row--odd') +
                             (entry.withOutfits ? ' compare-table__row--with-outfits' : '');
             rowIdx++;
