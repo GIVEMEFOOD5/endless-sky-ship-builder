@@ -68,14 +68,6 @@ window.CompareDisplay = (() => {
         return parseFloat(v.toPrecision(4)).toString();
     }
 
-    // Strip a single layer of surrounding double-quotes from a string value.
-    // e.g. '"100"' → '100',  '"Destroyer"' → 'Destroyer',  'foo' → 'foo'
-    function _unquote(v) {
-        if (typeof v === 'string' && v.length >= 2 && v[0] === '"' && v[v.length - 1] === '"')
-            return v.slice(1, -1);
-        return v;
-    }
-
     function _getAttrRecord(key) {
         const defs = _attrDefs();
         if (!defs) return null;
@@ -170,7 +162,7 @@ window.CompareDisplay = (() => {
         const attrs = item.attributes || {};
         for (const [k, v] of Object.entries(attrs)) {
             if (typeof v === 'number')      eff[k] = v;
-            else if (typeof v === 'string') { const n = parseFloat(_unquote(v)); if (!isNaN(n)) eff[k] = n; }
+            else if (typeof v === 'string') { const n = parseFloat(v); if (!isNaN(n)) eff[k] = n; }
         }
 
         if (!outfitIdx) return eff; // base-only — stop here
@@ -328,23 +320,15 @@ window.CompareDisplay = (() => {
             if (rawVal === null || rawVal === undefined) return;
             if (typeof rawVal === 'object')             return;
             seen.add(key);
-
-            // Strip surrounding quotes that appear in some data sources
-            const unquoted = _unquote(rawVal);
-            // If the original was a quoted number, parse it back to a number
-            const coerced  = (typeof unquoted === 'string' && unquoted !== rawVal)
-                ? (isNaN(parseFloat(unquoted)) ? unquoted : parseFloat(unquoted))
-                : unquoted;
-
             const section  = sectionOverride || _getSection(key);
             const mult     = _getDisplayMultiplier(key);
             const unit     = _getDisplayUnit(key);
             const entry    = _getAttrRecord(key);
 
             const isBehaviourKey = entry?.isWeaponDataKey && !entry?.isWeaponStat;
-            const scaledVal = (typeof coerced === 'number' && !isBehaviourKey)
-                ? coerced * qty
-                : coerced;
+            const scaledVal = (typeof rawVal === 'number' && !isBehaviourKey)
+                ? rawVal * qty
+                : rawVal;
             const display = typeof scaledVal === 'number' ? _fmt(scaledVal * mult) : String(scaledVal);
             if (!sections[section]) sections[section] = [];
             sections[section].push({ key, label: _labelOf(key), value: display, unit });
