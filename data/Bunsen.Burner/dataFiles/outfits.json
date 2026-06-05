@@ -1,6 +1,7 @@
 [
   {
     "name": "Bunsen Torch",
+    "plural": "Bunsen Torches",
     "category": "Hand to Hand",
     "series": "H2H",
     "index": 1021,
@@ -28,6 +29,7 @@
   {
     "name": "Bunsen_Torch",
     "display name": "Bunsen Torch",
+    "plural": "Bunsen Torches",
     "category": "Hand to Hand",
     "series": "H2H",
     "index": 1022,
@@ -72,42 +74,10 @@
     "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
   },
   {
-    "name": "Bunsen Projectile",
-    "weapon": {
-      "sprite": "projectile/bunsen",
-      "sprite data": {
-        "frame rate": 17,
-        "random start frame": true
-      },
-      "hit effect": "flamethrower hit",
-      "die effect": "flamethrower die",
-      "inaccuracy": 10,
-      "lifetime": 22,
-      "random lifetime": 8,
-      "damage dropoff": 0,
-      "dropoff modifier": 0.7,
-      "shield damage": 1.2,
-      "hull damage": 0.9,
-      "heat damage": 320,
-      "burn damage": 1.6
-    },
-    "governments": {
-      "Bunsen.Burner": {
-        "Bunsen.Burner": true
-      }
-    },
-    "locations": {
-      "LixiChronikouOrious list/Bunsen.Burner": {
-        "_deprecated/unused": true
-      }
-    },
-    "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
-  },
-  {
     "name": "Bunsen Burner",
     "category": "Secondary Weapons",
     "series": "Secondary Weapons",
-    "index": 1158,
+    "index": 1165,
     "cost": 285000,
     "thumbnail": "outfit/bunsen burner",
     "mass": 20,
@@ -128,7 +98,7 @@
       "lifetime": 5,
       "reload": 1,
       "firing energy": 0.1,
-      "firing fuel": 0.65,
+      "firing fuel": 0.15,
       "firing heat": 6.4,
       "submunitions": [
         {
@@ -137,7 +107,7 @@
         }
       ]
     },
-    "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. So great are its fuel requirements that it comes with a standard fuel pod pre-installed, and has nevertheless became feasible only with the introduction of the catalytic ramscoop. Ships which lack powerful cooling systems should stay out of range at all costs.",
+    "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. The fuel requirements are so significant that it comes with a pre-installed fuel pod. Nevertheless its usage became feasible only with the introduction of the catalytic ramscoop.",
     "governments": {
       "Bunsen.Burner": {
         "Bunsen.Burner": true
@@ -154,7 +124,7 @@
     "name": "Bunsen Burner Turret",
     "category": "Secondary Weapons",
     "series": "Secondary Weapons",
-    "index": 1159,
+    "index": 1166,
     "cost": 710000,
     "thumbnail": "outfit/bunsen burner turret",
     "mass": 26,
@@ -179,7 +149,7 @@
       "lifetime": 5,
       "reload": 1,
       "firing energy": 0.1,
-      "firing fuel": 0.65,
+      "firing fuel": 0.2,
       "firing heat": 6.4,
       "submunitions": [
         {
@@ -188,7 +158,7 @@
         }
       ]
     },
-    "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. So great are its fuel requirements that it comes with a standard fuel pod pre-installed, and has nevertheless became feasible only with the introduction of the catalytic ramscoop. Ships which lack powerful cooling systems should stay out of range at all costs. \tOne of the disadvantages of the flamethrower turned out to be that it's only effective when employed on capital ships which can be equipped with plenty enough fuel pods. As such ships are often slow in turning, the Bunsen Burner comes also in a turret version with high turning rate.",
+    "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. The fuel requirements are so significant that it comes with a pre-installed fuel pod. Nevertheless its usage became feasible only with the introduction of the catalytic ramscoop. \tOne of the disadvantages of the flamethrower turned out to be that it's only effective when employed on ships which are big enough to be equipped with ramscoops and several fuel pods. As such ships are often slower in turning, the Bunsen Burner comes also in a turret version with high turning rate.",
     "governments": {
       "official-game/endless-sky": {
         "Pirate": true,
@@ -227,6 +197,317 @@
     "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
   },
   {
+    "name": "Bunsen Projectile",
+    "weapon": {
+      "sprite": "projectile/bunsen",
+      "sprite data": {
+        "frame rate": 17,
+        "random start frame": true
+      },
+      "hit effect": "flamethrower hit",
+      "die effect": "flamethrower die",
+      "inaccuracy": 10,
+      "lifetime": 22,
+      "random lifetime": 8,
+      "damage dropoff": 0,
+      "dropoff modifier": 0.7,
+      "shield damage": 1.2,
+      "hull damage": 0.9,
+      "heat damage": 256
+    },
+    "governments": {
+      "Bunsen.Burner": {
+        "Bunsen.Burner": true
+      }
+    },
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "Flamethrower",
+    "weapon": {
+      "firing fuel": 0.15
+    },
+    "governments": {
+      "official-game/endless-sky": {
+        "Free Worlds": true,
+        "Pirate": true,
+        "Merchant": true,
+        "Kor Sestor": true,
+        "Alpha": true,
+        "Republic": true,
+        "Navy (Oathkeeper)": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Pirate": true,
+        "Merchant": true
+      },
+      "Blended Ships/blended-ships": {
+        "Pirate": true,
+        "Free Worlds": true,
+        "Republic": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Militia (Rogue)": true,
+        "Pirate": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Yuyuko Saigyouji": true,
+        "Yuyuko Saigyouji (Hostile)": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Bounty": true,
+        "Republic": true,
+        "Independent (Killable)": true,
+        "Pirate": true,
+        "Free Worlds": true,
+        "Merchant": true,
+        "Escort": true,
+        "Bounty (Disguised)": true,
+        "Pirate (Rival)": true,
+        "Scar's Legion": true,
+        "Militia": true,
+        "Kor Sestor": true,
+        "Korath": true,
+        "Oathbreaker": true,
+        "Bounty Hunter": true,
+        "Independent": true,
+        "Alpha": true,
+        "Storm Seekers": true
+      },
+      "Zuckungs list/planet.map": {
+        "Avalonian Fauna": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Escort": true
+      },
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Ancient Travelers": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Kor Sestor": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Korath": true,
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true,
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Smuggler's Den"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ],
+        "Systems": [
+          "Acamar",
+          "Acrux",
+          "Albaldah",
+          "Albireo",
+          "Aldebaran",
+          "Aldhibain",
+          "Algieba",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alnitak",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Centauri",
+          "Alphard",
+          "Alphecca",
+          "Alpherg",
+          "Altair",
+          "Antares",
+          "Ascella",
+          "Atria",
+          "Belenos",
+          "Beta Lupi",
+          "Betelgeuse",
+          "Boral",
+          "Canopus",
+          "Capella",
+          "Cardax",
+          "Castor",
+          "Cebalrai",
+          "Citadelle",
+          "Cor Caroli",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Denebola",
+          "Dschubba",
+          "Eber",
+          "Elnath",
+          "Eltanin",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Graffias",
+          "Hadar",
+          "Han",
+          "Hintar",
+          "Holeb",
+          "Ipsing",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kugel",
+          "Kursa",
+          "Lesath",
+          "Limen",
+          "Lolami",
+          "Mebsuta",
+          "Men",
+          "Menkalinan",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mirzam",
+          "Mizar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Nunki",
+          "Orbona",
+          "Orvala",
+          "Peacock",
+          "Phact",
+          "Phecda",
+          "Pherkad",
+          "Phurad",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rasalhague",
+          "Rastaban",
+          "Regulus",
+          "Rigel",
+          "Sadr",
+          "Saiph",
+          "Sargas",
+          "Sarin",
+          "Seginus",
+          "Shaula",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Spica",
+          "Tais",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Terminus",
+          "Thuban",
+          "Turais",
+          "Unukalhai",
+          "Vega",
+          "Vindemiatrix",
+          "Volax",
+          "Wazn",
+          "Wei",
+          "Yed Prior",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zosma",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "SBO1 Zagreus Station"
+        ],
+        "Outfitters": [
+          "Kraz Advanced"
+        ],
+        "ShipyardPlanets": [
+          "SBO1 Zagreus Station"
+        ]
+      },
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Ships": [
+          "Dreadnought (Flamethrower)",
+          "Falcon (Flamethrower)",
+          "Far Osk 27 (Flamethrower)",
+          "Finch (Flamethrower)",
+          "Fury (Doombat)",
+          "Fury (Flamethrower)",
+          "Gunboat (Flamethrower)",
+          "Modified Argosy (Flamethrower)",
+          "Osprey (Flamethrower)"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      },
+      "Zuckungs list/planet.map": {
+        "Ships": [
+          "Avalonian Red Dragon"
+        ]
+      },
+      "Zuckungs list/boss.loot": {
+        "Systems": [
+          "Adhile"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Alkxaai",
+          "Alpha Tudalip",
+          "Arau",
+          "Chasitum",
+          "Corua",
+          "Darceas",
+          "Denleitt",
+          "Ghesie",
+          "Karita",
+          "Mersat",
+          "Nardacus",
+          "Onuka",
+          "Opfrau",
+          "Paruna",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Sedlai",
+          "Vachrau",
+          "Vefrua",
+          "Vensur"
+        ]
+      }
+    },
+    "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
     "name": "Flamethrower Projectile",
     "weapon": {
       "sprite": "projectile/flamethrower",
@@ -240,11 +521,10 @@
       "lifetime": 18,
       "random lifetime": 8,
       "damage dropoff": 0,
-      "dropoff modifier": 0.5,
+      "dropoff modifier": 0.7,
       "shield damage": 0.8,
       "hull damage": 0.7,
-      "heat damage": 200,
-      "burn damage": 1
+      "heat damage": 160
     },
     "governments": {
       "Bunsen.Burner": {

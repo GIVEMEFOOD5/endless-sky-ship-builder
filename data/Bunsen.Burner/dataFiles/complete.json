@@ -443,11 +443,1578 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Clipper (Flamethrower)",
+      "engines": [
+        {
+          "x": -22,
+          "y": 47
+        },
+        {
+          "x": 22,
+          "y": 47
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -21.5,
+          "y": -18,
+          "gun": ""
+        },
+        {
+          "x": 21.5,
+          "y": -18,
+          "gun": ""
+        },
+        {
+          "x": -11,
+          "y": -8.5,
+          "gun": ""
+        },
+        {
+          "x": 11,
+          "y": -8.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 60,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
+      "sprite": "ship/clipper",
+      "thumbnail": "thumbnail/clipper",
+      "attributes": {
+        "category": "Light Freighter",
+        "cost": 900000,
+        "shields": 2700,
+        "hull": 800,
+        "required crew": 3,
+        "bunks": 9,
+        "mass": 210,
+        "drag": 4.3,
+        "heat dissipation": 0.7,
+        "fuel capacity": 500,
+        "cargo space": 70,
+        "outfit space": 260,
+        "weapon capacity": 60,
+        "engine capacity": 80,
+        "weapon": {
+          "blast radius": 36,
+          "shield damage": 360,
+          "hull damage": 180,
+          "hit force": 540
+        }
+      },
+      "tiny explosion": 15,
+      "small explosion": 20,
+      "medium explosion": 10,
+      "final explode": "final explosion small",
+      "description": "The Clipper is the smaller sister ship to the popular Southbound Shipyards Argosy. Although not able to carry as much cargo, Clippers are versatile ships that can be used as passenger transports, couriers, or even warships in a pinch, and they come with enough free space to be customized based on an individual captain's needs.",
+      "_internalId": "official-game/endless-sky::Clipper",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "fd650bd25e5f",
+      "variant": "Clipper (Flamethrower)",
+      "baseShip": "Clipper",
+      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+      "governments": {
+        "official-game/endless-sky": {
+          "Lunarium (Hidden)": true,
+          "Free Worlds": true,
+          "Merchant": true,
+          "Bounty Hunter": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Merchant": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Independent": true,
+          "Pirate": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Systems": [
+            "Acrux",
+            "Albaldah",
+            "Albireo",
+            "Aldhibain",
+            "Algorel",
+            "Alioth",
+            "Alkaid",
+            "Alnasl",
+            "Alniyat",
+            "Alpha Arae",
+            "Alphecca",
+            "Alpherg",
+            "Antares",
+            "Ascella",
+            "Atria",
+            "Belenos",
+            "Beta Lupi",
+            "Boral",
+            "Cebalrai",
+            "Citadelle",
+            "Cor Caroli",
+            "Delta Sagittarii",
+            "Delta Velorum",
+            "Dschubba",
+            "Eber",
+            "Eltanin",
+            "Fumalsamakah",
+            "Gacrux",
+            "Gamma Corvi",
+            "Girtab",
+            "Graffias",
+            "Hadar",
+            "Han",
+            "Hintar",
+            "Holeb",
+            "Ipsing",
+            "Kappa Centauri",
+            "Kaus Australis",
+            "Kaus Borealis",
+            "Kochab",
+            "Kornephoros",
+            "Lesath",
+            "Limen",
+            "Men",
+            "Mizar",
+            "Mora",
+            "Muhlifain",
+            "Muphrid",
+            "Naper",
+            "Nunki",
+            "Orbona",
+            "Orvala",
+            "Peacock",
+            "Pherkad",
+            "Porrima",
+            "Rasalhague",
+            "Rastaban",
+            "Regulus",
+            "Sadr",
+            "Sargas",
+            "Sarin",
+            "Seginus",
+            "Shaula",
+            "Spica",
+            "Tais",
+            "Terminus",
+            "Thuban",
+            "Turais",
+            "Unukalhai",
+            "Vindemiatrix",
+            "Wei",
+            "Yed Prior",
+            "Zeta Aquilae",
+            "Zeta Centauri",
+            "Zubenelgenubi",
+            "Zubeneschamali"
+          ]
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Systems": [
+            "Chasm"
+          ]
+        }
+      },
+      "outfits": {
+        "Javelin Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-BB Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP072a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Javelin Storage Crate": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chipmunk Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Greyhound Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Falcon (Flamethrower)",
+      "engines": [
+        {
+          "x": -16.5,
+          "y": 143
+        },
+        {
+          "x": 16.5,
+          "y": 143
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -16,
+          "y": -86.5,
+          "gun": ""
+        },
+        {
+          "x": 16,
+          "y": -86.5,
+          "gun": ""
+        },
+        {
+          "x": -19,
+          "y": -76.5,
+          "gun": ""
+        },
+        {
+          "x": 19,
+          "y": -76.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -16,
+          "y": -29,
+          "turret": ""
+        },
+        {
+          "x": 16,
+          "y": -29,
+          "turret": ""
+        },
+        {
+          "x": -50,
+          "y": 39.5,
+          "turret": ""
+        },
+        {
+          "x": 50,
+          "y": 39.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/falcon",
+      "thumbnail": "thumbnail/falcon",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 10900000,
+        "shields": 12800,
+        "hull": 3700,
+        "required crew": 52,
+        "bunks": 91,
+        "mass": 1260,
+        "drag": 11.4,
+        "heat dissipation": 0.42,
+        "fuel capacity": 600,
+        "cargo space": 130,
+        "outfit space": 560,
+        "weapon capacity": 250,
+        "engine capacity": 150,
+        "weapon": {
+          "blast radius": 160,
+          "shield damage": 1600,
+          "hull damage": 800,
+          "hit force": 2400
+        }
+      },
+      "tiny explosion": 40,
+      "small explosion": 55,
+      "medium explosion": 60,
+      "large explosion": 40,
+      "final explode": "final explosion medium",
+      "description": "The Tarazed Falcon is one of the most powerful warships that civilians can buy, a sleeker and more maneuverable alternative to the venerable and somewhat outdated Leviathan.",
+      "_internalId": "official-game/endless-sky::Falcon",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "43b36f581825",
+      "variant": "Falcon (Flamethrower)",
+      "baseShip": "Falcon",
+      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+      "governments": {
+        "official-game/endless-sky": {
+          "Pirate": true,
+          "Free Worlds": true,
+          "Merchant": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Escort": true,
+          "Bounty (Disguised)": true,
+          "Pirate": true,
+          "Pirate (Rival)": true,
+          "Republic": true,
+          "Scar's Legion": true,
+          "Free Worlds": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Systems": [
+            "Acrux",
+            "Albaldah",
+            "Albireo",
+            "Aldhibain",
+            "Algorel",
+            "Alioth",
+            "Alkaid",
+            "Alnasl",
+            "Alniyat",
+            "Alpha Arae",
+            "Alphecca",
+            "Alpherg",
+            "Antares",
+            "Ascella",
+            "Atria",
+            "Belenos",
+            "Beta Lupi",
+            "Boral",
+            "Cebalrai",
+            "Citadelle",
+            "Cor Caroli",
+            "Delta Sagittarii",
+            "Delta Velorum",
+            "Dschubba",
+            "Eber",
+            "Eltanin",
+            "Fumalsamakah",
+            "Gacrux",
+            "Gamma Corvi",
+            "Girtab",
+            "Graffias",
+            "Hadar",
+            "Han",
+            "Hintar",
+            "Holeb",
+            "Ipsing",
+            "Kappa Centauri",
+            "Kaus Australis",
+            "Kaus Borealis",
+            "Kochab",
+            "Kornephoros",
+            "Lesath",
+            "Limen",
+            "Men",
+            "Mizar",
+            "Mora",
+            "Muhlifain",
+            "Muphrid",
+            "Naper",
+            "Nunki",
+            "Orbona",
+            "Orvala",
+            "Peacock",
+            "Pherkad",
+            "Porrima",
+            "Rasalhague",
+            "Rastaban",
+            "Regulus",
+            "Sadr",
+            "Sargas",
+            "Sarin",
+            "Seginus",
+            "Shaula",
+            "Spica",
+            "Tais",
+            "Terminus",
+            "Thuban",
+            "Turais",
+            "Unukalhai",
+            "Vindemiatrix",
+            "Wei",
+            "Yed Prior",
+            "Zeta Aquilae",
+            "Zeta Centauri",
+            "Zubenelgenubi",
+            "Zubeneschamali"
+          ]
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Systems": [
+            "Chasm"
+          ],
+          "Missions": [
+            "Harvesting: Mysterious Treasure Greenrock"
+          ]
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quad Blaster Turret": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Breeder Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP036a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP072a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Water Coolant System": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Catalytic Ramscoop": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 15,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X1700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Falcon (Flamethrower Pirate)",
+      "engines": [
+        {
+          "x": -16.5,
+          "y": 143
+        },
+        {
+          "x": 16.5,
+          "y": 143
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -16,
+          "y": -86.5,
+          "gun": ""
+        },
+        {
+          "x": 16,
+          "y": -86.5,
+          "gun": ""
+        },
+        {
+          "x": -19,
+          "y": -76.5,
+          "gun": ""
+        },
+        {
+          "x": 19,
+          "y": -76.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -16,
+          "y": -29,
+          "turret": ""
+        },
+        {
+          "x": 16,
+          "y": -29,
+          "turret": ""
+        },
+        {
+          "x": -50,
+          "y": 39.5,
+          "turret": ""
+        },
+        {
+          "x": 50,
+          "y": 39.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 60,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/falcon",
+      "thumbnail": "thumbnail/falcon",
+      "attributes": {
+        "category": "Heavy Warship",
+        "cost": 10900000,
+        "shields": 12800,
+        "hull": 3700,
+        "required crew": 52,
+        "bunks": 91,
+        "mass": 1260,
+        "drag": 11.4,
+        "heat dissipation": 0.42,
+        "fuel capacity": 600,
+        "cargo space": 130,
+        "outfit space": 560,
+        "weapon capacity": 250,
+        "engine capacity": 150,
+        "weapon": {
+          "blast radius": 160,
+          "shield damage": 1600,
+          "hull damage": 800,
+          "hit force": 2400
+        }
+      },
+      "tiny explosion": 40,
+      "small explosion": 55,
+      "medium explosion": 60,
+      "large explosion": 40,
+      "final explode": "final explosion medium",
+      "description": "The Tarazed Falcon is one of the most powerful warships that civilians can buy, a sleeker and more maneuverable alternative to the venerable and somewhat outdated Leviathan.",
+      "_internalId": "official-game/endless-sky::Falcon",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "43b36f581825",
+      "variant": "Falcon (Flamethrower Pirate)",
+      "baseShip": "Falcon",
+      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+      "governments": {
+        "official-game/endless-sky": {
+          "Pirate": true,
+          "Free Worlds": true,
+          "Merchant": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Escort": true,
+          "Bounty (Disguised)": true,
+          "Pirate": true,
+          "Pirate (Rival)": true,
+          "Republic": true,
+          "Scar's Legion": true,
+          "Free Worlds": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Bunsen.Burner": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gatling Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Javelin Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Breeder Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP036a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D41-HY Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gatling Gun Ammo": {
+          "count": 12000,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Javelin Storage Crate": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 15,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X1700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Fury (Flamethrower Blaster)",
+      "engines": [
+        {
+          "x": -11,
+          "y": 35,
+          "zoom": 0.8
+        },
+        {
+          "x": 11,
+          "y": 35,
+          "zoom": 0.8
+        },
+        {
+          "x": -18,
+          "y": 37,
+          "zoom": 0.6
+        },
+        {
+          "x": 18,
+          "y": 37,
+          "zoom": 0.6
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -11,
+          "y": -28,
+          "gun": ""
+        },
+        {
+          "x": 11,
+          "y": -28,
+          "gun": ""
+        },
+        {
+          "x": -17,
+          "y": -19.5,
+          "gun": ""
+        },
+        {
+          "x": 17,
+          "y": -19.5,
+          "gun": ""
+        },
+        {
+          "x": -5.5,
+          "y": -33,
+          "gun": ""
+        },
+        {
+          "x": 5.5,
+          "y": -33,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
+      "plural": "Furies",
+      "sprite": "ship/fury",
+      "thumbnail": "thumbnail/fury",
+      "attributes": {
+        "category": "Interceptor",
+        "cost": 490000,
+        "shields": 2000,
+        "hull": 400,
+        "required crew": 1,
+        "bunks": 3,
+        "mass": 105,
+        "drag": 1.8,
+        "heat dissipation": 0.79,
+        "fuel capacity": 600,
+        "cargo space": 15,
+        "outfit space": 160,
+        "weapon capacity": 40,
+        "engine capacity": 60,
+        "weapon": {
+          "blast radius": 24,
+          "shield damage": 240,
+          "hull damage": 120,
+          "hit force": 360
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 20,
+      "description": "The Fury is Southbound Shipyards' most popular design of escort ship. They have greater firepower than any other interceptor-class vessel, meaning that any pirate flying solo will think twice before attacking a convoy that is accompanied by a Fury. However, Furies are also much less maneuverable than other small ships.",
+      "_internalId": "official-game/endless-sky::Fury",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "ee3e284b79c2",
+      "variant": "Fury (Flamethrower Blaster)",
+      "baseShip": "Fury",
+      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+      "governments": {
+        "official-game/endless-sky": {
+          "Free Worlds": true,
+          "Pirate": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Pirate": true
+        },
+        "Blended Ships/blended-ships": {
+          "Pirate": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Militia (Rogue)": true,
+          "Pirate": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Bounty": true,
+          "Republic": true,
+          "Independent (Killable)": true,
+          "Pirate": true,
+          "Free Worlds": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Bunsen.Burner": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Energy Blaster": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-AA Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP036a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X2700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X2200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Fury (Flamethrower Pirate)",
+      "engines": [
+        {
+          "x": -11,
+          "y": 35,
+          "zoom": 0.8
+        },
+        {
+          "x": 11,
+          "y": 35,
+          "zoom": 0.8
+        },
+        {
+          "x": -18,
+          "y": 37,
+          "zoom": 0.6
+        },
+        {
+          "x": 18,
+          "y": 37,
+          "zoom": 0.6
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -11,
+          "y": -28,
+          "gun": ""
+        },
+        {
+          "x": 11,
+          "y": -28,
+          "gun": ""
+        },
+        {
+          "x": -17,
+          "y": -19.5,
+          "gun": ""
+        },
+        {
+          "x": 17,
+          "y": -19.5,
+          "gun": ""
+        },
+        {
+          "x": -5.5,
+          "y": -33,
+          "gun": ""
+        },
+        {
+          "x": 5.5,
+          "y": -33,
+          "gun": ""
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        }
+      ],
+      "plural": "Furies",
+      "sprite": "ship/fury",
+      "thumbnail": "thumbnail/fury",
+      "attributes": {
+        "category": "Interceptor",
+        "cost": 490000,
+        "shields": 2000,
+        "hull": 400,
+        "required crew": 1,
+        "bunks": 3,
+        "mass": 105,
+        "drag": 1.8,
+        "heat dissipation": 0.79,
+        "fuel capacity": 600,
+        "cargo space": 15,
+        "outfit space": 160,
+        "weapon capacity": 40,
+        "engine capacity": 60,
+        "weapon": {
+          "blast radius": 24,
+          "shield damage": 240,
+          "hull damage": 120,
+          "hit force": 360
+        }
+      },
+      "tiny explosion": 10,
+      "small explosion": 20,
+      "description": "The Fury is Southbound Shipyards' most popular design of escort ship. They have greater firepower than any other interceptor-class vessel, meaning that any pirate flying solo will think twice before attacking a convoy that is accompanied by a Fury. However, Furies are also much less maneuverable than other small ships.",
+      "_internalId": "official-game/endless-sky::Fury",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "ee3e284b79c2",
+      "variant": "Fury (Flamethrower Pirate)",
+      "baseShip": "Fury",
+      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+      "governments": {
+        "official-game/endless-sky": {
+          "Free Worlds": true,
+          "Pirate": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Pirate": true
+        },
+        "Blended Ships/blended-ships": {
+          "Pirate": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Militia (Rogue)": true,
+          "Pirate": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Bounty": true,
+          "Republic": true,
+          "Independent (Killable)": true,
+          "Pirate": true,
+          "Free Worlds": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Bunsen.Burner": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Gatling Gun": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "nGVF-AA Fuel Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP036a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gatling Gun Ammo": {
+          "count": 6000,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X2700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X2200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Osprey (Flamethrower)",
+      "engines": [
+        {
+          "x": -42.5,
+          "y": 62.5,
+          "zoom": 0.8
+        },
+        {
+          "x": 42.5,
+          "y": 62.5,
+          "zoom": 0.8
+        },
+        {
+          "x": -16.5,
+          "y": 105,
+          "zoom": 0.6
+        },
+        {
+          "x": 16.5,
+          "y": 105,
+          "zoom": 0.6
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -9.5,
+          "y": -95.5,
+          "gun": ""
+        },
+        {
+          "x": 9.5,
+          "y": -95.5,
+          "gun": ""
+        },
+        {
+          "x": -25,
+          "y": -49.5,
+          "gun": ""
+        },
+        {
+          "x": 25,
+          "y": -49.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -15.5,
+          "y": -12,
+          "turret": ""
+        },
+        {
+          "x": 15.5,
+          "y": -12,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/osprey",
+      "thumbnail": "thumbnail/osprey",
+      "attributes": {
+        "category": "Medium Warship",
+        "cost": 4200000,
+        "shields": 7200,
+        "hull": 1600,
+        "required crew": 9,
+        "bunks": 24,
+        "mass": 630,
+        "drag": 8.9,
+        "heat dissipation": 0.54,
+        "fuel capacity": 600,
+        "cargo space": 40,
+        "outfit space": 450,
+        "weapon capacity": 180,
+        "engine capacity": 130,
+        "weapon": {
+          "blast radius": 80,
+          "shield damage": 800,
+          "hull damage": 400,
+          "hit force": 1200
+        }
+      },
+      "medium explosion": 24,
+      "large explosion": 16,
+      "small explosion": 40,
+      "tiny explosion": 28,
+      "final explode": "final explosion medium",
+      "description": "After the Blackbird gained surprising popularity as an agile light warship despite its original design as a transport, Tarazed decided to produce a new design specifically intended as a warship. The Osprey was the result. Although it is considered overpriced by most savvy pilots, it is nevertheless a perennial favorite among those who have the extra cash to spend on it.",
+      "_internalId": "official-game/endless-sky::Osprey",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "b3d0258bceec",
+      "variant": "Osprey (Flamethrower)",
+      "baseShip": "Osprey",
+      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+      "governments": {
+        "official-game/endless-sky": {
+          "Pirate": true,
+          "Free Worlds": true,
+          "Merchant": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Merchant": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Escort": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Escort": true,
+          "Bounty (Disguised)": true,
+          "Republic": true,
+          "Pirate": true,
+          "Free Worlds": true,
+          "Militia": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Systems": [
+            "Acrux",
+            "Albaldah",
+            "Albireo",
+            "Aldhibain",
+            "Algorel",
+            "Alioth",
+            "Alkaid",
+            "Alnasl",
+            "Alniyat",
+            "Alpha Arae",
+            "Alphecca",
+            "Alpherg",
+            "Antares",
+            "Ascella",
+            "Atria",
+            "Belenos",
+            "Beta Lupi",
+            "Boral",
+            "Cebalrai",
+            "Citadelle",
+            "Cor Caroli",
+            "Delta Sagittarii",
+            "Delta Velorum",
+            "Dschubba",
+            "Eber",
+            "Eltanin",
+            "Fumalsamakah",
+            "Gacrux",
+            "Gamma Corvi",
+            "Girtab",
+            "Graffias",
+            "Hadar",
+            "Han",
+            "Hintar",
+            "Holeb",
+            "Ipsing",
+            "Kappa Centauri",
+            "Kaus Australis",
+            "Kaus Borealis",
+            "Kochab",
+            "Kornephoros",
+            "Lesath",
+            "Limen",
+            "Men",
+            "Mizar",
+            "Mora",
+            "Muhlifain",
+            "Muphrid",
+            "Naper",
+            "Nunki",
+            "Orbona",
+            "Orvala",
+            "Peacock",
+            "Pherkad",
+            "Porrima",
+            "Rasalhague",
+            "Rastaban",
+            "Regulus",
+            "Sadr",
+            "Sargas",
+            "Sarin",
+            "Seginus",
+            "Shaula",
+            "Spica",
+            "Tais",
+            "Terminus",
+            "Thuban",
+            "Turais",
+            "Unukalhai",
+            "Vindemiatrix",
+            "Wei",
+            "Yed Prior",
+            "Zeta Aquilae",
+            "Zeta Centauri",
+            "Zubenelgenubi",
+            "Zubeneschamali"
+          ]
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Systems": [
+            "Chasm"
+          ],
+          "Missions": [
+            "Harvesting: Mysterious Treasure Greenrock",
+            "Skeleton Keys, Three 2"
+          ]
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quad Blaster Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Breeder Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D14-RN Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Catalytic Ramscoop": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Osprey (Flamethrower Pirate)",
+      "engines": [
+        {
+          "x": -42.5,
+          "y": 62.5,
+          "zoom": 0.8
+        },
+        {
+          "x": 42.5,
+          "y": 62.5,
+          "zoom": 0.8
+        },
+        {
+          "x": -16.5,
+          "y": 105,
+          "zoom": 0.6
+        },
+        {
+          "x": 16.5,
+          "y": 105,
+          "zoom": 0.6
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -9.5,
+          "y": -95.5,
+          "gun": ""
+        },
+        {
+          "x": 9.5,
+          "y": -95.5,
+          "gun": ""
+        },
+        {
+          "x": -25,
+          "y": -49.5,
+          "gun": ""
+        },
+        {
+          "x": 25,
+          "y": -49.5,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -15.5,
+          "y": -12,
+          "turret": ""
+        },
+        {
+          "x": 15.5,
+          "y": -12,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 40,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 80,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 80,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/osprey",
+      "thumbnail": "thumbnail/osprey",
+      "attributes": {
+        "category": "Medium Warship",
+        "cost": 4200000,
+        "shields": 7200,
+        "hull": 1600,
+        "required crew": 9,
+        "bunks": 24,
+        "mass": 630,
+        "drag": 8.9,
+        "heat dissipation": 0.54,
+        "fuel capacity": 600,
+        "cargo space": 40,
+        "outfit space": 450,
+        "weapon capacity": 180,
+        "engine capacity": 130,
+        "weapon": {
+          "blast radius": 80,
+          "shield damage": 800,
+          "hull damage": 400,
+          "hit force": 1200
+        }
+      },
+      "medium explosion": 24,
+      "large explosion": 16,
+      "small explosion": 40,
+      "tiny explosion": 28,
+      "final explode": "final explosion medium",
+      "description": "After the Blackbird gained surprising popularity as an agile light warship despite its original design as a transport, Tarazed decided to produce a new design specifically intended as a warship. The Osprey was the result. Although it is considered overpriced by most savvy pilots, it is nevertheless a perennial favorite among those who have the extra cash to spend on it.",
+      "_internalId": "official-game/endless-sky::Osprey",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "b3d0258bceec",
+      "variant": "Osprey (Flamethrower Pirate)",
+      "baseShip": "Osprey",
+      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+      "governments": {
+        "official-game/endless-sky": {
+          "Pirate": true,
+          "Free Worlds": true,
+          "Merchant": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Merchant": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Escort": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Escort": true,
+          "Bounty (Disguised)": true,
+          "Republic": true,
+          "Pirate": true,
+          "Free Worlds": true,
+          "Militia": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Bunsen.Burner": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Plasma Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Javelin Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Breeder Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D23-QP Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Javelin Storage Crate": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
     }
   ],
   "outfits": [
     {
       "name": "Bunsen Torch",
+      "plural": "Bunsen Torches",
       "category": "Hand to Hand",
       "series": "H2H",
       "index": 1021,
@@ -475,6 +2042,7 @@
     {
       "name": "Bunsen_Torch",
       "display name": "Bunsen Torch",
+      "plural": "Bunsen Torches",
       "category": "Hand to Hand",
       "series": "H2H",
       "index": 1022,
@@ -519,42 +2087,10 @@
       "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
     },
     {
-      "name": "Bunsen Projectile",
-      "weapon": {
-        "sprite": "projectile/bunsen",
-        "sprite data": {
-          "frame rate": 17,
-          "random start frame": true
-        },
-        "hit effect": "flamethrower hit",
-        "die effect": "flamethrower die",
-        "inaccuracy": 10,
-        "lifetime": 22,
-        "random lifetime": 8,
-        "damage dropoff": 0,
-        "dropoff modifier": 0.7,
-        "shield damage": 1.2,
-        "hull damage": 0.9,
-        "heat damage": 320,
-        "burn damage": 1.6
-      },
-      "governments": {
-        "Bunsen.Burner": {
-          "Bunsen.Burner": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
-        }
-      },
-      "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
-    },
-    {
       "name": "Bunsen Burner",
       "category": "Secondary Weapons",
       "series": "Secondary Weapons",
-      "index": 1158,
+      "index": 1165,
       "cost": 285000,
       "thumbnail": "outfit/bunsen burner",
       "mass": 20,
@@ -575,7 +2111,7 @@
         "lifetime": 5,
         "reload": 1,
         "firing energy": 0.1,
-        "firing fuel": 0.65,
+        "firing fuel": 0.15,
         "firing heat": 6.4,
         "submunitions": [
           {
@@ -584,7 +2120,7 @@
           }
         ]
       },
-      "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. So great are its fuel requirements that it comes with a standard fuel pod pre-installed, and has nevertheless became feasible only with the introduction of the catalytic ramscoop. Ships which lack powerful cooling systems should stay out of range at all costs.",
+      "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. The fuel requirements are so significant that it comes with a pre-installed fuel pod. Nevertheless its usage became feasible only with the introduction of the catalytic ramscoop.",
       "governments": {
         "Bunsen.Burner": {
           "Bunsen.Burner": true
@@ -601,7 +2137,7 @@
       "name": "Bunsen Burner Turret",
       "category": "Secondary Weapons",
       "series": "Secondary Weapons",
-      "index": 1159,
+      "index": 1166,
       "cost": 710000,
       "thumbnail": "outfit/bunsen burner turret",
       "mass": 26,
@@ -626,7 +2162,7 @@
         "lifetime": 5,
         "reload": 1,
         "firing energy": 0.1,
-        "firing fuel": 0.65,
+        "firing fuel": 0.2,
         "firing heat": 6.4,
         "submunitions": [
           {
@@ -635,7 +2171,7 @@
           }
         ]
       },
-      "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. So great are its fuel requirements that it comes with a standard fuel pod pre-installed, and has nevertheless became feasible only with the introduction of the catalytic ramscoop. Ships which lack powerful cooling systems should stay out of range at all costs. \tOne of the disadvantages of the flamethrower turned out to be that it's only effective when employed on capital ships which can be equipped with plenty enough fuel pods. As such ships are often slow in turning, the Bunsen Burner comes also in a turret version with high turning rate.",
+      "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. The fuel requirements are so significant that it comes with a pre-installed fuel pod. Nevertheless its usage became feasible only with the introduction of the catalytic ramscoop. \tOne of the disadvantages of the flamethrower turned out to be that it's only effective when employed on ships which are big enough to be equipped with ramscoops and several fuel pods. As such ships are often slower in turning, the Bunsen Burner comes also in a turret version with high turning rate.",
       "governments": {
         "official-game/endless-sky": {
           "Pirate": true,
@@ -674,6 +2210,317 @@
       "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
     },
     {
+      "name": "Bunsen Projectile",
+      "weapon": {
+        "sprite": "projectile/bunsen",
+        "sprite data": {
+          "frame rate": 17,
+          "random start frame": true
+        },
+        "hit effect": "flamethrower hit",
+        "die effect": "flamethrower die",
+        "inaccuracy": 10,
+        "lifetime": 22,
+        "random lifetime": 8,
+        "damage dropoff": 0,
+        "dropoff modifier": 0.7,
+        "shield damage": 1.2,
+        "hull damage": 0.9,
+        "heat damage": 256
+      },
+      "governments": {
+        "Bunsen.Burner": {
+          "Bunsen.Burner": true
+        }
+      },
+      "locations": {
+        "LixiChronikouOrious list/Bunsen.Burner": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+    },
+    {
+      "name": "Flamethrower",
+      "weapon": {
+        "firing fuel": 0.15
+      },
+      "governments": {
+        "official-game/endless-sky": {
+          "Free Worlds": true,
+          "Pirate": true,
+          "Merchant": true,
+          "Kor Sestor": true,
+          "Alpha": true,
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Zuckungs list/job.coloring": {
+          "Pirate": true,
+          "Merchant": true
+        },
+        "Blended Ships/blended-ships": {
+          "Pirate": true,
+          "Free Worlds": true,
+          "Republic": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Militia (Rogue)": true,
+          "Pirate": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Bounty": true,
+          "Republic": true,
+          "Independent (Killable)": true,
+          "Pirate": true,
+          "Free Worlds": true,
+          "Merchant": true,
+          "Escort": true,
+          "Bounty (Disguised)": true,
+          "Pirate (Rival)": true,
+          "Scar's Legion": true,
+          "Militia": true,
+          "Kor Sestor": true,
+          "Korath": true,
+          "Oathbreaker": true,
+          "Bounty Hunter": true,
+          "Independent": true,
+          "Alpha": true,
+          "Storm Seekers": true
+        },
+        "Zuckungs list/planet.map": {
+          "Avalonian Fauna": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Escort": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Kor Sestor": true
+        },
+        "Midnight Expansion/Midnight-Expansion": {
+          "Korath": true,
+          "Kor Scrappers (Hostile)": true,
+          "Kor Scrappers": true
+        },
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Scrappers": true,
+          "Kor Scrappers (Hostile)": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Smuggler's Den"
+          ],
+          "Outfitters": [
+            "Kraz Advanced"
+          ],
+          "Systems": [
+            "Acamar",
+            "Acrux",
+            "Albaldah",
+            "Albireo",
+            "Aldebaran",
+            "Aldhibain",
+            "Algieba",
+            "Algorel",
+            "Alheka",
+            "Alhena",
+            "Alioth",
+            "Alkaid",
+            "Alnasl",
+            "Alnitak",
+            "Alniyat",
+            "Alpha Arae",
+            "Alpha Centauri",
+            "Alphard",
+            "Alphecca",
+            "Alpherg",
+            "Altair",
+            "Antares",
+            "Ascella",
+            "Atria",
+            "Belenos",
+            "Beta Lupi",
+            "Betelgeuse",
+            "Boral",
+            "Canopus",
+            "Capella",
+            "Cardax",
+            "Castor",
+            "Cebalrai",
+            "Citadelle",
+            "Cor Caroli",
+            "Delta Sagittarii",
+            "Delta Velorum",
+            "Denebola",
+            "Dschubba",
+            "Eber",
+            "Elnath",
+            "Eltanin",
+            "Eteron",
+            "Fala",
+            "Fingol",
+            "Fumalsamakah",
+            "Gacrux",
+            "Gamma Corvi",
+            "Girtab",
+            "Graffias",
+            "Hadar",
+            "Han",
+            "Hintar",
+            "Holeb",
+            "Ipsing",
+            "Kappa Centauri",
+            "Kaus Australis",
+            "Kaus Borealis",
+            "Kochab",
+            "Kornephoros",
+            "Kugel",
+            "Kursa",
+            "Lesath",
+            "Limen",
+            "Lolami",
+            "Mebsuta",
+            "Men",
+            "Menkalinan",
+            "Menkent",
+            "Merak",
+            "Miaplacidus",
+            "Mirzam",
+            "Mizar",
+            "Mora",
+            "Muhlifain",
+            "Muphrid",
+            "Naper",
+            "Nihal",
+            "Nocte",
+            "Nunki",
+            "Orbona",
+            "Orvala",
+            "Peacock",
+            "Phact",
+            "Phecda",
+            "Pherkad",
+            "Phurad",
+            "Pollux",
+            "Porrima",
+            "Procyon",
+            "Rasalhague",
+            "Rastaban",
+            "Regulus",
+            "Rigel",
+            "Sadr",
+            "Saiph",
+            "Sargas",
+            "Sarin",
+            "Seginus",
+            "Shaula",
+            "Sirius",
+            "Sol",
+            "Sospi",
+            "Spica",
+            "Tais",
+            "Talita",
+            "Tania Australis",
+            "Tejat",
+            "Terminus",
+            "Thuban",
+            "Turais",
+            "Unukalhai",
+            "Vega",
+            "Vindemiatrix",
+            "Volax",
+            "Wazn",
+            "Wei",
+            "Yed Prior",
+            "Zeta Aquilae",
+            "Zeta Centauri",
+            "Zosma",
+            "Zubenelgenubi",
+            "Zubeneschamali"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "SBO1 Zagreus Station"
+          ],
+          "Outfitters": [
+            "Kraz Advanced"
+          ],
+          "ShipyardPlanets": [
+            "SBO1 Zagreus Station"
+          ]
+        },
+        "LixiChronikouOrious list/Bunsen.Burner": {
+          "Ships": [
+            "Dreadnought (Flamethrower)",
+            "Falcon (Flamethrower)",
+            "Far Osk 27 (Flamethrower)",
+            "Finch (Flamethrower)",
+            "Fury (Doombat)",
+            "Fury (Flamethrower)",
+            "Gunboat (Flamethrower)",
+            "Modified Argosy (Flamethrower)",
+            "Osprey (Flamethrower)"
+          ]
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Systems": [
+            "Archipelago",
+            "Chasm",
+            "Diyu"
+          ]
+        },
+        "Zuckungs list/planet.map": {
+          "Ships": [
+            "Avalonian Red Dragon"
+          ]
+        },
+        "Zuckungs list/boss.loot": {
+          "Systems": [
+            "Adhile"
+          ]
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Systems": [
+            "94 Merisai",
+            "Airuka",
+            "Alkxaai",
+            "Alpha Tudalip",
+            "Arau",
+            "Chasitum",
+            "Corua",
+            "Darceas",
+            "Denleitt",
+            "Ghesie",
+            "Karita",
+            "Mersat",
+            "Nardacus",
+            "Onuka",
+            "Opfrau",
+            "Paruna",
+            "Pelitol",
+            "Poreu",
+            "Porsuei",
+            "Posteli",
+            "Sedlai",
+            "Vachrau",
+            "Vefrua",
+            "Vensur"
+          ]
+        }
+      },
+      "pluginId": "LixiChronikouOrious list/Bunsen.Burner"
+    },
+    {
       "name": "Flamethrower Projectile",
       "weapon": {
         "sprite": "projectile/flamethrower",
@@ -687,11 +2534,10 @@
         "lifetime": 18,
         "random lifetime": 8,
         "damage dropoff": 0,
-        "dropoff modifier": 0.5,
+        "dropoff modifier": 0.7,
         "shield damage": 0.8,
         "hull damage": 0.7,
-        "heat damage": 200,
-        "burn damage": 1
+        "heat damage": 160
       },
       "governments": {
         "Bunsen.Burner": {
@@ -707,5 +2553,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-06-02T12:21:48.740Z"
+  "parsedAt": "2026-06-05T08:05:51.089Z"
 }
