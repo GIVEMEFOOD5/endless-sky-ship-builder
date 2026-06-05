@@ -79,11 +79,10 @@ function outfitMapToOutputFormat(outfitMap) {
   if (!outfitMap || typeof outfitMap !== 'object') return {};
   const result = {};
   for (const [name, val] of Object.entries(outfitMap)) {
-    const cleanName = name.replace(/^"|"$/g, '');
     if (typeof val === 'object' && val !== null) {
-      result[cleanName] = { count: val.count ?? 1, pluginId: val.pluginId ?? null };
+      result[name] = { count: val.count ?? 1, pluginId: val.pluginId ?? null };
     } else {
-      result[cleanName] = { count: Number(val) || 1, pluginId: null };
+      result[name] = { count: Number(val) || 1, pluginId: null };
     }
   }
   return result;
@@ -903,8 +902,8 @@ class EndlessSkyParser {
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent <= 1 && line.trim()) break;
       if (indent >= 2) {
-        const m = line.trim().match(/^"([^"]+)"(?:\s+(\d+))?/) ||
-                  line.trim().match(/^`([^`]+)`(?:\s+(\d+))?/);
+      const m = line.trim().match(/^"([^"]+)"(?:\s+(\d+))?/) ||
+                line.trim().match(/^`([^`]+)`(?:\s+(\d+))?/);
         if (m) {
           const name     = m[1];
           const count    = m[2] ? Math.max(1, parseInt(m[2], 10)) : 1;
