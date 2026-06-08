@@ -882,18 +882,26 @@ window.CompareDisplay = (() => {
     // With-outfits rule: if ANY item changed a key in the wo layer, ALL items
     // contribute their wo value (falling back to base if unchanged) for that
     // comparison. Items that don't have the value at all stay uncoloured.
+    // Sections whose names start with these prefixes are per-item detail blocks
+    // (individual outfit / weapon breakdowns) and should not be coloured.
+    function _isDetailSection(section) {
+        return section.startsWith('Outfit: ') || section.startsWith('Weapon: ');
+    }
+
     function _buildColourMap(baseMaps, outfitMaps, diffMaps, itemCount) {
         const allBaseKeys = new Map();
         for (const map of baseMaps)
-            for (const rows of Object.values(map))
-                for (const { key, label } of rows)
-                    if (!allBaseKeys.has(key)) allBaseKeys.set(key, label);
+            for (const [section, rows] of Object.entries(map))
+                if (!_isDetailSection(section))
+                    for (const { key, label } of rows)
+                        if (!allBaseKeys.has(key)) allBaseKeys.set(key, label);
 
         const allWoKeys = new Map();
         for (const dMap of diffMaps)
-            for (const rows of Object.values(dMap))
-                for (const { key, label } of rows)
-                    if (!allWoKeys.has(key)) allWoKeys.set(key, label);
+            for (const [section, rows] of Object.entries(dMap))
+                if (!_isDetailSection(section))
+                    for (const { key, label } of rows)
+                        if (!allWoKeys.has(key)) allWoKeys.set(key, label);
 
         const colourMap = {};
 
