@@ -246,17 +246,53 @@ window.CompareDisplay = (() => {
 
     // ── Per-weapon detail rows ────────────────────────────────────────────────
 
-    function _weaponDetailRows(outfitName, count, outfit, profile) {
-        const w        = outfit.weapon || {};
-        const attrMeta = _attrDefs()?.attributes || {};
-        const sps      = profile.shotsPerSecond || 0;
-        const rows     = [];
+    function _weaponDetailRows(outfitName, count, outfit, profile, qty) {
+        qty = (typeof qty === 'number' && qty >= 1) ? qty : 1;
+        const w   = outfit.weapon || {};
+        const sps = profile.shotsPerSecond || 0;
+        const rows = [];
 
-        if (count > 1) rows.push({ label: 'Count', value: `×${count}`, unit: '' });
+        // ── 1. Count ──────────────────────────────────────────────────────────
+        rows.push({ label: 'Count', value: `×${count * qty}`, unit: '' });
 
+        // ── 2. Flat outfit-level attrs (mass, cost, outfit space, etc.) ───────
+        // These are the non-weapon keys on the outfit object itself.
+        const outfitAttrSkip = new Set([
+            'name','display name','description','sprite','thumbnail','spriteData',
+            '_pluginId','_internalId','_compareTab','_hash','_variantPluginId',
+            'locations','governments','weapon','outfitMap','outfits',
+            'leaks','engines','guns','turrets','bays','reverseEngines','steeringEngines',
+        ]);
+        const src = (outfit.attributes && Object.keys(outfit.attributes).length)
+            ? { ...outfit, ...outfit.attributes } : outfit;
+
+        const flatRows = [];
+        for (const [key, val] of Object.entries(src)) {
+            if (outfitAttrSkip.has(key) || key.startsWith('_')) continue;
+            if (typeof val === 'object' || Array.isArray(val))   continue;
+            let display = null;
+            let unit    = '';
+            if (typeof val === 'boolean') {
+                display = val ? '✓' : '✗';
+            } else if (typeof val === 'number' && val !== 0) {
+                const mult = _getDisplayMultiplier(key);
+                display = _fmt(val * count * qty * mult);
+                unit    = _getDisplayUnit(key);
+            } else if (typeof val === 'string' && val.trim()) {
+                display = val.trim();
+            }
+            if (display === null) continue;
+            flatRows.push({ label: _labelOf(key), value: display, unit });
+        }
+        flatRows.sort((a, b) => a.label.localeCompare(b.label));
+        rows.push(...flatRows);
+
+        // ── 3. Weapon sub-object raw stats ────────────────────────────────────
         const weapSkip = new Set(['sprite','spriteData','sound','hit effect','fire effect',
             'die effect','live effect','submunition','submunitions','stream','cluster',
             'hardpoint sprite','hardpoint offset','icon','ammunition','ammo']);
+
+        rows.push({ label: '— Weapon Stats —', value: '', unit: '', isDivider: true });
 
         for (const [key, val] of Object.entries(w).sort((a, b) => a[0].localeCompare(b[0]))) {
             const lk = key.toLowerCase();
@@ -278,7 +314,8 @@ window.CompareDisplay = (() => {
             rows.push({ label: _labelOf(key), value: display, unit: _getDisplayUnit(key) });
         }
 
-        rows.push({ label: '— Per Second —', value: '', unit: '' });
+        // ── 4. Per-second DPS / firing costs ─────────────────────────────────
+        rows.push({ label: '— Per Second —', value: '', unit: '', isDivider: true });
         rows.push({ label: 'Shots/s', value: _fmt(sps), unit: '' });
         if (profile.effectiveRange)
             rows.push({ label: 'Range', value: _fmt(profile.effectiveRange), unit: 'px' });
@@ -286,14 +323,60 @@ window.CompareDisplay = (() => {
         for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort())
             if (dps) {
                 const label = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
-                rows.push({ label, value: _fmt(dps * count), unit: 'dmg/s' });
+                rows.push({ label, value: _fmt(dps * count * qty), unit: 'dmg/s' });
             }
 
         for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort())
             if (costVal) {
                 const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
-                rows.push({ label, value: _fmt(costVal * sps), unit: '' });
+                rows.push({ label, value: _fmt(costVal * sps * count * qty), unit: '' });
             }
+
+        // ── 5. Computed _fn_ / _derived_ stats for this outfit ────────────────
+        if (window.ComputedStats?.isReady()) {
+            try {
+                const flat = {};
+                for (const [k, v] of Object.entries(src))
+                    if (typeof v === 'number') flat[k] = v;
+                const computed = window.ComputedStats.getComputedStatsForAttrs(flat);
+                if (computed) {
+                    const computedRows = [];
+                    for (const [k, v] of Object.entries(computed)) {
+                        if (v === null || v === undefined) continue;
+                        if (typeof v === 'number' && (isNaN(v) || v === 0)) continue;
+                        if (typeof v === 'object') continue;
+                        const isComputedKey = k.startsWith('_fn_') || k.startsWith('_derived_') ||
+                                              k.startsWith('_sys_');
+                        if (!isComputedKey) continue;
+                        let display = v;
+                        let unit    = '';
+                        if (k.startsWith('_fn_')) {
+                            const fnName = k.slice(4);
+                            const scale  = _attrDefs()?.shipFunctions?.[fnName]?.displayScale;
+                            if (scale) display = v * scale;
+                            unit = _inferFnUnit(fnName);
+                            if (typeof display === 'number') display = display * count * qty;
+                        } else if (k.startsWith('_derived_energy_') || k.startsWith('_derived_heat_')) {
+                            if (typeof display === 'number') display = display * count * qty;
+                            unit = k.startsWith('_derived_energy_') ? 'e/s' : 'h/s';
+                        } else if (k.startsWith('_derived_') || k.startsWith('_sys_')) {
+                            if (typeof display === 'number') display = display * count * qty;
+                            if (k.startsWith('_sys_')) unit = '/s';
+                        }
+                        computedRows.push({
+                            label: _labelOf(k),
+                            value: typeof display === 'number' ? _fmt(display) : String(display),
+                            unit,
+                        });
+                    }
+                    if (computedRows.length) {
+                        computedRows.sort((a, b) => a.label.localeCompare(b.label));
+                        rows.push({ label: '— Computed /s —', value: '', unit: '', isDivider: true });
+                        rows.push(...computedRows);
+                    }
+                }
+            } catch (_) {}
+        }
 
         return rows;
     }
@@ -519,35 +602,21 @@ window.CompareDisplay = (() => {
                         if (!sections[sectionKey]) sections[sectionKey] = [];
                         if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
 
-                        const detailRows = _weaponDetailRows(w.outfitName, w.count, outfit, w.profile);
-                        let injectedCount = false;
+                        // Pass qty so _weaponDetailRows can scale all values correctly.
+                        // The function always emits a Count row so we never need to inject one.
+                        const detailRows = _weaponDetailRows(w.outfitName, w.count, outfit, w.profile, qty);
 
                         for (const r of detailRows) {
                             const k = `_wd_${w.outfitName}_${r.label}`;
                             if (seen.has(k)) continue;
                             seen.add(k);
-
-                            let displayVal = r.value;
-                            if (r.label === 'Count') {
-                                const base = parseInt(String(r.value).replace(/[^\d]/g, ''), 10) || w.count;
-                                displayVal = `\xd7${base * qty}`;
-                                injectedCount = true;
-                            }
-
-                            sections[sectionKey].push({ key: k, label: r.label, value: displayVal, unit: r.unit });
-                        }
-
-                        if (!injectedCount) {
-                            const countKey = `_wd_${w.outfitName}_Count`;
-                            if (!seen.has(countKey)) {
-                                seen.add(countKey);
-                                sections[sectionKey].unshift({
-                                    key:   countKey,
-                                    label: 'Count',
-                                    value: `\xd7${w.count * qty}`,
-                                    unit:  '',
-                                });
-                            }
+                            sections[sectionKey].push({
+                                key:   k,
+                                label: r.label,
+                                value: r.value,
+                                unit:  r.unit || '',
+                                ...(r.isDivider ? { isDivider: true } : {}),
+                            });
                         }
                     }
                 }
@@ -563,6 +632,8 @@ window.CompareDisplay = (() => {
                     if (!outfitName) continue;
                     const outfit = outfitIdx[outfitName];
                     if (!outfit)    continue;
+                    // Weapon outfits are fully covered by the Weapon: <name> section above
+                    if (outfit.weapon && typeof outfit.weapon === 'object') continue;
 
                     const sectionKey = `Outfit: ${outfitName}`;
                     if (!sections[sectionKey]) sections[sectionKey] = [];
