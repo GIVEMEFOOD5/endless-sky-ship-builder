@@ -28,6 +28,8 @@ window.CompareDisplay = (() => {
     let _panelOpen = false;
     let _viewMode  = 'columns';
     let _quantities = {}; // qKey(item) → integer ≥ 1
+    // Per-member qtys inside a group: groupId + '|' + memberIndex → integer ≥ 1
+    let _groupMemberQtys = {};
 
     const MAX_TEMP = 100;
 
@@ -143,6 +145,19 @@ window.CompareDisplay = (() => {
 
     function _setQty(item, n) {
         _quantities[_qKey(item)] = Math.max(1, Math.floor(n) || 1);
+        _renderPanelContent();
+    }
+
+    // ── Group member qty helpers ─────────────────────────────────────────────
+
+    function _gmKey(groupId, idx) { return groupId + '|' + idx; }
+
+    function _getGroupMemberQty(groupId, idx) {
+        return _groupMemberQtys[_gmKey(groupId, idx)] || 1;
+    }
+
+    function _setGroupMemberQty(groupId, idx, n) {
+        _groupMemberQtys[_gmKey(groupId, idx)] = Math.max(1, Math.floor(n) || 1);
         _renderPanelContent();
     }
 
@@ -500,6 +515,88 @@ window.CompareDisplay = (() => {
 
     const COMPUTED_SKIP = new Set(['_ws_hasAmmoWeapons','_totalOutfits']);
 
+
+function _buildGroupAttrMap(group, includeOutfits = true) {
+        const isShipGroup = window.CompareManager.getGroupType() === 'ship';
+
+        const resolvedMembers = group.members.map((m, i) => ({
+            item: m.item,
+            qty:  _getGroupMemberQty(group._groupId, i),
+        }));
+
+        // ── Sum each member's attrs into a combined map ───────────────────────
+        // For ships we can be asked for base-only (includeOutfits=false) or
+        // with-outfits (includeOutfits=true).  Non-ship groups always use true.
+        const combined = {}; // key → { label, numericSum, unit, section }
+
+        for (const { item, qty } of resolvedMembers) {
+            const memberMap = (isShipGroup && item.attributes)
+                ? _buildAttrMap(item, qty, includeOutfits)
+                : _buildAttrMap(item, qty, true);
+
+            for (const [section, rows] of Object.entries(memberMap)) {
+                if (_isDetailSection(section)) continue;
+                for (const { key, label, value, unit } of rows) {
+                    const n = _parseDisplayNum(value);
+                    if (n === null) {
+                        if (!combined[key]) combined[key] = { label, value, unit, section, numeric: false };
+                    } else {
+                        if (!combined[key]) combined[key] = { label, numericSum: 0, unit, section, numeric: true };
+                        combined[key].numericSum = (combined[key].numericSum || 0) + n;
+                    }
+                }
+            }
+        }
+
+        // Build section map from combined totals
+        const sections = {};
+        for (const [key, entry] of Object.entries(combined)) {
+            const s = entry.section;
+            if (!sections[s]) sections[s] = [];
+            sections[s].push({
+                key,
+                label: entry.label,
+                value: entry.numeric ? _fmt(entry.numericSum) : entry.value,
+                unit:  entry.unit || '',
+            });
+        }
+
+        // ── Per-member breakdown (only in the with-outfits pass) ─────────────
+        if (includeOutfits) {
+            for (let i = 0; i < resolvedMembers.length; i++) {
+                const { item, qty } = resolvedMembers[i];
+                const memberName    = item['display name'] || item.name || `Member ${i + 1}`;
+                const sectionKey    = `Member: ${memberName}`;
+                if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
+                sections[sectionKey] = [];
+
+                sections[sectionKey].push({
+                    key:                  `_gmqty_${group._groupId}_${i}`,
+                    label:                'Quantity',
+                    value:                `×${qty}`,
+                    unit:                 '',
+                    _isGroupMemberQtyRow: true,
+                    _groupId:             group._groupId,
+                    _memberIdx:           i,
+                });
+
+                const memberMap = _buildAttrMap(item, qty, true);
+                for (const [section, rows] of Object.entries(memberMap)) {
+                    for (const row of rows) {
+                        sections[sectionKey].push({
+                            key:   `_gm_${group._groupId}_${i}_${row.key}`,
+                            label: `${section} — ${row.label}`,
+                            value: row.value,
+                            unit:  row.unit || '',
+                        });
+                    }
+                }
+            }
+        }
+
+        return sections;
+    }
+
     // ── Build attribute map for one item ──────────────────────────────────────
     // qty: integer multiplier applied to all numeric values
     // includeOutfits: if false, only base ship attrs are used (no outfit contributions)
@@ -745,6 +842,109 @@ window.CompareDisplay = (() => {
         return sections;
     }
 
+    // ── Build attribute map for a group ─────────────────────────────────────────
+    // A group is { _isGroup, _groupId, name, members: [{ item, qty }] }.
+    // 1. Sums all members × their individual display-qty into combined sections.
+    // 2. Appends a "Member: <name>" section for each member showing its own attrs.
+
+// ── Build attribute map for a group ──────────────────────────────────────
+    // includeOutfits=false → sum only base ship hull attrs across all members
+    // includeOutfits=true  → sum full outfit-included attrs across all members,
+    //                        and append per-member breakdown sections
+    //
+    // The returned map is structurally identical to what _buildAttrMap returns
+    // so _diffSectionMaps works on it unchanged.
+
+    function _buildGroupAttrMap(group, includeOutfits = true) {
+        const isShipGroup = window.CompareManager.getGroupType() === 'ship';
+
+        const resolvedMembers = group.members.map((m, i) => ({
+            item: m.item,
+            qty:  _getGroupMemberQty(group._groupId, i),
+        }));
+
+        // For each member, get the appropriate attr map and sum into combined.
+        // We key on the attr `key` string (stable across calls for the same item)
+        // so that _diffSectionMaps can match rows between base and outfit passes.
+        const combined = {}; // key → { label, numericSum, unit, section, numeric }
+
+        for (const { item, qty } of resolvedMembers) {
+            // For ship groups respect the includeOutfits flag; outfit groups always use true
+            const useOutfits = isShipGroup ? includeOutfits : true;
+            const memberMap  = _buildAttrMap(item, qty, useOutfits);
+
+            for (const [section, rows] of Object.entries(memberMap)) {
+                // Skip per-outfit/weapon detail sections — they don't sum meaningfully
+                if (_isDetailSection(section)) continue;
+                // Also skip per-member breakdown sections from a previous pass
+                if (section.startsWith('Member: ')) continue;
+
+                for (const { key, label, value, unit } of rows) {
+                    const n = _parseDisplayNum(value);
+                    if (n === null) {
+                        // Non-numeric: keep first occurrence
+                        if (!combined[key])
+                            combined[key] = { label, value, unit, section, numeric: false };
+                    } else {
+                        if (!combined[key])
+                            combined[key] = { label, numericSum: 0, unit, section, numeric: true };
+                        combined[key].numericSum = (combined[key].numericSum || 0) + n;
+                    }
+                }
+            }
+        }
+
+        // Build section map from combined totals
+        const sections = {};
+        for (const [key, entry] of Object.entries(combined)) {
+            const s = entry.section;
+            if (!sections[s]) sections[s] = [];
+            sections[s].push({
+                key,
+                label: entry.label,
+                value: entry.numeric ? _fmt(entry.numericSum) : entry.value,
+                unit:  entry.unit || '',
+            });
+        }
+
+        // Per-member breakdown only in the with-outfits pass
+        if (includeOutfits) {
+            for (let i = 0; i < resolvedMembers.length; i++) {
+                const { item, qty } = resolvedMembers[i];
+                const memberName    = item['display name'] || item.name || `Member ${i + 1}`;
+                const sectionKey    = `Member: ${memberName}`;
+                if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
+                sections[sectionKey] = [];
+
+                // Qty spinner row
+                sections[sectionKey].push({
+                    key:                  `_gmqty_${group._groupId}_${i}`,
+                    label:                'Quantity',
+                    value:                `×${qty}`,
+                    unit:                 '',
+                    _isGroupMemberQtyRow: true,
+                    _groupId:             group._groupId,
+                    _memberIdx:           i,
+                });
+
+                // All of this member's attrs (with outfits)
+                const memberMap = _buildAttrMap(item, qty, true);
+                for (const [section, rows] of Object.entries(memberMap)) {
+                    for (const row of rows) {
+                        sections[sectionKey].push({
+                            key:   `_gm_${group._groupId}_${i}_${row.key}`,
+                            label: `${section} — ${row.label}`,
+                            value: row.value,
+                            unit:  row.unit || '',
+                        });
+                    }
+                }
+            }
+        }
+
+        return sections;
+    }
+    
     // ── Diff two section maps ─────────────────────────────────────────────────
     // Returns a map of section → rows that differ (changed value or new key).
     // Only used for ships — outfits have no sub-outfit layering.
@@ -958,7 +1158,7 @@ window.CompareDisplay = (() => {
         _refreshBar();
     }
 
-    function _refreshBar() {
+function _refreshBar() {
         const items     = window.CompareManager.getItems();
         const count     = items.length;
         const label     = document.getElementById('compareBarLabel');
@@ -994,6 +1194,20 @@ window.CompareDisplay = (() => {
         openBtn.style.display  = count > 1 ? '' : 'none';
         openLabel.textContent  = _panelOpen ? 'Close Compare ▼' : 'Open Compare ▲';
         bar.classList.toggle('compare-bar--has-items', count > 0);
+
+        // "Create Group" button
+        let createGroupBtn = document.getElementById('compareCreateGroup');
+        const singles = items.filter(i => !i._isGroup);
+        if (!createGroupBtn) {
+            createGroupBtn = document.createElement('button');
+            createGroupBtn.id        = 'compareCreateGroup';
+            createGroupBtn.className = 'compare-bar__create-group';
+            createGroupBtn.textContent = '+ Group';
+            const rightBar = document.getElementById('compareBarClear');
+            if (rightBar?.parentNode) rightBar.parentNode.insertBefore(createGroupBtn, rightBar);
+        }
+        createGroupBtn.style.display = singles.length >= 2 ? '' : 'none';
+        createGroupBtn.onclick = () => _openGroupBuilder(null);
     }
 
     // ── Panel ─────────────────────────────────────────────────────────────────
@@ -1032,6 +1246,14 @@ window.CompareDisplay = (() => {
 
         if (_viewMode === 'columns') _renderColumns(body, items);
         else                         _renderTable(body, items);
+    }
+
+    // Resolve the attr map for any list entry — single item or group
+    function _resolveAttrMap(entry, qty, includeOutfits) {
+        if (entry._isGroup) return _buildGroupAttrMap(entry);
+        return includeOutfits
+            ? _buildAttrMap(entry, qty, includeOutfits)
+            : _buildAttrMap(entry, qty, false);
     }
 
     // ── Quantity control widget ───────────────────────────────────────────────
@@ -1077,7 +1299,23 @@ window.CompareDisplay = (() => {
     // colourMap: output of _buildColourMap. itemIdx: which column this is.
     // withOutfits: use 'wo::key' colour lookup instead of 'key'.
     function _appendSectionRows(col, rows, colourMap, itemIdx, withOutfits) {
-        for (const { key, label, value, unit, isDivider } of rows) {
+        for (const rowData of rows) {
+            const { key, label, value, unit, isDivider } = rowData;
+
+            // Group member quantity spinner row
+            if (rowData._isGroupMemberQtyRow) {
+                const row = document.createElement('div');
+                row.className = 'compare-col__row compare-col__row--qty';
+                const k = document.createElement('div');
+                k.className   = 'compare-col__key';
+                k.textContent = label;
+                const qCtrl = _makeGroupMemberQtyControl(rowData._groupId, rowData._memberIdx, value);
+                row.appendChild(k);
+                row.appendChild(qCtrl);
+                col.appendChild(row);
+                continue;
+            }
+
             if ((label.startsWith('—') && !value) || isDivider) {
                 const div = document.createElement('div');
                 div.className   = 'compare-col__divider';
@@ -1104,20 +1342,55 @@ window.CompareDisplay = (() => {
         }
     }
 
+    // Inline qty spinner for a group member (no panel re-render on every keypress)
+    function _makeGroupMemberQtyControl(groupId, memberIdx, currentDisplay) {
+        const wrap = document.createElement('div');
+        wrap.className = 'compare-qty';
+
+        const dec = document.createElement('button');
+        dec.className = 'compare-qty__btn';
+        dec.textContent = '−';
+
+        const display = document.createElement('span');
+        display.className = 'compare-qty__val';
+        display.textContent = `×${_getGroupMemberQty(groupId, memberIdx)}`;
+
+        const inc = document.createElement('button');
+        inc.className = 'compare-qty__btn';
+        inc.textContent = '+';
+
+        dec.onclick = () => {
+            const n = _getGroupMemberQty(groupId, memberIdx) - 1;
+            _setGroupMemberQty(groupId, memberIdx, n);
+            display.textContent = `×${_getGroupMemberQty(groupId, memberIdx)}`;
+        };
+        inc.onclick = () => {
+            const n = _getGroupMemberQty(groupId, memberIdx) + 1;
+            _setGroupMemberQty(groupId, memberIdx, n);
+            display.textContent = `×${_getGroupMemberQty(groupId, memberIdx)}`;
+        };
+
+        wrap.appendChild(dec);
+        wrap.appendChild(display);
+        wrap.appendChild(inc);
+        return wrap;
+    }
+
     // ── Columns view ──────────────────────────────────────────────────────────
 
     function _renderColumns(container, items) {
         const isShipGroup = window.CompareManager.getGroupType() === 'ship';
 
-        // Build both base and with-outfits maps for ships; only full map for outfits
-        const baseMaps   = items.map(item => isShipGroup
-            ? _buildAttrMap(item, _getQty(item), false)
-            : _buildAttrMap(item, _getQty(item), true));
-        const outfitMaps = isShipGroup
-            ? items.map(item => _buildAttrMap(item, _getQty(item), true))
-            : baseMaps;
+        const baseMaps   = items.map(entry => entry._isGroup
+            ? _buildGroupAttrMap(entry, false)
+            : (isShipGroup ? _buildAttrMap(entry, _getQty(entry), false)
+                           : _buildAttrMap(entry, _getQty(entry), true)));
+        const outfitMaps = items.map(entry => entry._isGroup
+            ? _buildGroupAttrMap(entry, true)
+            : (isShipGroup ? _buildAttrMap(entry, _getQty(entry), true)
+                           : _buildAttrMap(entry, _getQty(entry), true)));
         const diffMaps   = isShipGroup
-            ? items.map((_, i) => _diffSectionMaps(baseMaps[i], outfitMaps[i]))
+            ? items.map((entry, i) => _diffSectionMaps(baseMaps[i], outfitMaps[i]))
             : items.map(() => ({}));
 
         const colourMap = _buildColourMap(baseMaps, outfitMaps, diffMaps, items.length);
@@ -1128,7 +1401,7 @@ window.CompareDisplay = (() => {
 
         items.forEach((item, idx) => {
             const col = document.createElement('div');
-            col.className = 'compare-col';
+            col.className = 'compare-col' + (item._isGroup ? ' compare-col--group' : '');
 
             // Header
             const header = document.createElement('div');
@@ -1137,29 +1410,100 @@ window.CompareDisplay = (() => {
             const removeBtn = document.createElement('button');
             removeBtn.className   = 'compare-col__remove';
             removeBtn.textContent = '× Remove';
-            removeBtn.onclick     = () => window.CompareManager.remove(item);
-
-            const imgEl = document.createElement('div');
-            imgEl.className = 'compare-col__img';
-            _loadThumb(item, imgEl);
+            removeBtn.onclick     = () => item._isGroup
+                ? window.CompareManager.removeGroup(item._groupId)
+                : window.CompareManager.remove(item);
 
             const nameEl = document.createElement('div');
             nameEl.className   = 'compare-col__name';
-            nameEl.textContent = item['display name'] || item.name || 'Unknown';
-
-            const subEl = document.createElement('div');
-            subEl.className   = 'compare-col__sub';
-            subEl.textContent = item['display name']
-                ? item.name
-                : (item.attributes?.category || item.category || '');
-
-            const qtyCtrl = _makeQtyControl(item);
+            nameEl.textContent = item._isGroup ? item.name : (item['display name'] || item.name || 'Unknown');
 
             header.appendChild(removeBtn);
-            header.appendChild(imgEl);
-            header.appendChild(nameEl);
-            if (subEl.textContent) header.appendChild(subEl);
-            header.appendChild(qtyCtrl);
+
+            if (item._isGroup) {
+                header.appendChild(nameEl);
+
+                const groupMeta = document.createElement('div');
+                groupMeta.className = 'compare-col__group-meta';
+
+                const memberCount = document.createElement('div');
+                memberCount.className   = 'compare-col__member-count';
+                memberCount.textContent = `${item.members.length} item${item.members.length !== 1 ? 's' : ''}`;
+
+                const editBtn = document.createElement('button');
+                editBtn.className   = 'compare-col__edit-group';
+                editBtn.textContent = '✎ Edit group';
+                editBtn.onclick     = () => _openGroupBuilder(item);
+
+                groupMeta.appendChild(memberCount);
+                groupMeta.appendChild(editBtn);
+                header.appendChild(groupMeta);
+
+                // Member list with per-member qty spinners
+                const memberList = document.createElement('div');
+                memberList.className = 'compare-col__member-list';
+
+                item.members.forEach((m, i) => {
+                    const memberName = m.item['display name'] || m.item.name || `Member ${i + 1}`;
+
+                    const row = document.createElement('div');
+                    row.className = 'compare-col__member-row';
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className   = 'compare-col__member-name';
+                    nameSpan.textContent = memberName;
+
+                    const qtyWrap = document.createElement('div');
+                    qtyWrap.className = 'compare-qty compare-qty--sm';
+
+                    const dec = document.createElement('button');
+                    dec.className   = 'compare-qty__btn';
+                    dec.textContent = '−';
+
+                    const display = document.createElement('span');
+                    display.className   = 'compare-qty__val';
+                    display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+
+                    const inc = document.createElement('button');
+                    inc.className   = 'compare-qty__btn';
+                    inc.textContent = '+';
+
+                    dec.onclick = () => {
+                        const n = _getGroupMemberQty(item._groupId, i) - 1;
+                        _setGroupMemberQty(item._groupId, i, n);
+                        display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                    };
+                    inc.onclick = () => {
+                        const n = _getGroupMemberQty(item._groupId, i) + 1;
+                        _setGroupMemberQty(item._groupId, i, n);
+                        display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                    };
+
+                    qtyWrap.appendChild(dec);
+                    qtyWrap.appendChild(display);
+                    qtyWrap.appendChild(inc);
+
+                    row.appendChild(nameSpan);
+                    row.appendChild(qtyWrap);
+                    memberList.appendChild(row);
+                });
+
+                header.appendChild(memberList);
+            } else {
+                const imgEl = document.createElement('div');
+                imgEl.className = 'compare-col__img';
+                _loadThumb(item, imgEl);
+                const subEl = document.createElement('div');
+                subEl.className   = 'compare-col__sub';
+                subEl.textContent = item['display name']
+                    ? item.name
+                    : (item.attributes?.category || item.category || '');
+                const qtyCtrl = _makeQtyControl(item);
+                header.appendChild(imgEl);
+                header.appendChild(nameEl);
+                if (subEl.textContent) header.appendChild(subEl);
+                header.appendChild(qtyCtrl);
+            }
             col.appendChild(header);
 
             // Sections — use base map as the canonical section list
@@ -1221,14 +1565,17 @@ window.CompareDisplay = (() => {
     function _renderTable(container, items) {
         const isShipGroup = window.CompareManager.getGroupType() === 'ship';
 
-        const baseMaps   = items.map(item => isShipGroup
-            ? _buildAttrMap(item, _getQty(item), false)
-            : _buildAttrMap(item, _getQty(item), true));
-        const outfitMaps = isShipGroup
-            ? items.map(item => _buildAttrMap(item, _getQty(item), true))
-            : baseMaps;
+        // Groups must use _buildGroupAttrMap; singles use _buildAttrMap
+        const baseMaps   = items.map(item => item._isGroup
+            ? _buildGroupAttrMap(item, false)
+            : (isShipGroup ? _buildAttrMap(item, _getQty(item), false)
+                           : _buildAttrMap(item, _getQty(item), true)));
+        const outfitMaps = items.map(item => item._isGroup
+            ? _buildGroupAttrMap(item, true)
+            : (isShipGroup ? _buildAttrMap(item, _getQty(item), true)
+                           : _buildAttrMap(item, _getQty(item), true)));
         const diffMaps   = isShipGroup
-            ? items.map((_, i) => _diffSectionMaps(baseMaps[i], outfitMaps[i]))
+            ? items.map((item, i) => _diffSectionMaps(baseMaps[i], outfitMaps[i]))
             : items.map(() => ({}));
 
         const colourMap = _buildColourMap(baseMaps, outfitMaps, diffMaps, items.length);
@@ -1238,7 +1585,6 @@ window.CompareDisplay = (() => {
         const sectionKeyOrder = [];
         const seenSectionKeys = new Set();
 
-        // Collect all sections from both base and outfit maps
         const allSections = [
             ...SECTION_ORDER,
             ...new Set([
@@ -1248,7 +1594,6 @@ window.CompareDisplay = (() => {
         ].filter((s, i, a) => a.indexOf(s) === i);
 
         for (const section of allSections) {
-            // --- Base rows for this section ---
             let baseSectionAdded = false;
             for (const map of baseMaps) {
                 for (const { key, label } of (map[section] || [])) {
@@ -1263,8 +1608,6 @@ window.CompareDisplay = (() => {
                 }
             }
 
-            // --- (with outfits) diff rows for this section ---
-            // Collect all diff keys across all items for this section
             let diffSectionAdded = false;
             for (const dMap of diffMaps) {
                 for (const { key, label } of (dMap[section] || [])) {
@@ -1279,7 +1622,6 @@ window.CompareDisplay = (() => {
                 }
             }
 
-            // Edge case: section only in outfit map (new section entirely from outfits)
             if (!baseSectionAdded) {
                 let outfitOnlySectionAdded = false;
                 for (const map of outfitMaps) {
@@ -1297,8 +1639,6 @@ window.CompareDisplay = (() => {
             }
         }
 
-        // Build lookup tables
-        // base lookups
         const baseLookups = baseMaps.map(map => {
             const lut = {};
             for (const [section, rows] of Object.entries(map))
@@ -1306,7 +1646,6 @@ window.CompareDisplay = (() => {
                     lut[section + '::' + key] = unit ? `${value} ${unit}` : value;
             return lut;
         });
-        // diff lookups (from outfit map, not diff map, so we get the actual outfit value)
         const outfitLookups = outfitMaps.map(map => {
             const lut = {};
             for (const [section, rows] of Object.entries(map))
@@ -1332,31 +1671,100 @@ window.CompareDisplay = (() => {
             const th = document.createElement('th');
             th.className = 'compare-table__item-header';
 
-            const img = document.createElement('div');
-            img.className = 'compare-table__thumb';
-            _loadThumb(item, img);
-
-            const nameEl = document.createElement('div');
-            nameEl.className   = 'compare-table__item-name';
-            nameEl.textContent = item['display name'] || item.name || 'Unknown';
-
-            const subEl = document.createElement('div');
-            subEl.className   = 'compare-table__item-sub';
-            subEl.textContent = item['display name']
-                ? item.name : (item.attributes?.category || item.category || '');
-
             const removeBtn = document.createElement('button');
             removeBtn.className   = 'compare-col__remove';
             removeBtn.textContent = '× Remove';
-            removeBtn.onclick     = () => window.CompareManager.remove(item);
-
-            const qtyCtrl = _makeQtyControl(item);
-
+            removeBtn.onclick     = () => item._isGroup
+                ? window.CompareManager.removeGroup(item._groupId)
+                : window.CompareManager.remove(item);
             th.appendChild(removeBtn);
-            th.appendChild(img);
-            th.appendChild(nameEl);
-            if (subEl.textContent) th.appendChild(subEl);
-            th.appendChild(qtyCtrl);
+
+            if (item._isGroup) {
+                // Group header — name + member list with per-member qty spinners
+                const nameEl = document.createElement('div');
+                nameEl.className   = 'compare-table__item-name';
+                nameEl.textContent = item.name || 'Group';
+                th.appendChild(nameEl);
+
+                const memberList = document.createElement('div');
+                memberList.className = 'compare-col__member-list';
+
+                item.members.forEach((m, i) => {
+                    const memberName = m.item['display name'] || m.item.name || `Member ${i + 1}`;
+
+                    const row = document.createElement('div');
+                    row.className = 'compare-col__member-row';
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className   = 'compare-col__member-name';
+                    nameSpan.textContent = memberName;
+
+                    const qtyWrap = document.createElement('div');
+                    qtyWrap.className = 'compare-qty compare-qty--sm';
+
+                    const dec = document.createElement('button');
+                    dec.className   = 'compare-qty__btn';
+                    dec.textContent = '−';
+
+                    const display = document.createElement('span');
+                    display.className   = 'compare-qty__val';
+                    display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+
+                    const inc = document.createElement('button');
+                    inc.className   = 'compare-qty__btn';
+                    inc.textContent = '+';
+
+                    dec.onclick = () => {
+                        const n = _getGroupMemberQty(item._groupId, i) - 1;
+                        _setGroupMemberQty(item._groupId, i, n);
+                        display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                    };
+                    inc.onclick = () => {
+                        const n = _getGroupMemberQty(item._groupId, i) + 1;
+                        _setGroupMemberQty(item._groupId, i, n);
+                        display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                    };
+
+                    qtyWrap.appendChild(dec);
+                    qtyWrap.appendChild(display);
+                    qtyWrap.appendChild(inc);
+                    row.appendChild(nameSpan);
+                    row.appendChild(qtyWrap);
+                    memberList.appendChild(row);
+                });
+
+                th.appendChild(memberList);
+
+                const editBtn = document.createElement('button');
+                editBtn.className   = 'compare-col__edit-group';
+                editBtn.style.marginTop = '8px';
+                editBtn.textContent = '✎ Edit group';
+                editBtn.onclick     = () => _openGroupBuilder(item);
+                th.appendChild(editBtn);
+
+            } else {
+                // Single item header — thumb + name + sub + qty spinner
+                const img = document.createElement('div');
+                img.className = 'compare-table__thumb';
+                _loadThumb(item, img);
+
+                const nameEl = document.createElement('div');
+                nameEl.className   = 'compare-table__item-name';
+                nameEl.textContent = item['display name'] || item.name || 'Unknown';
+
+                const subEl = document.createElement('div');
+                subEl.className   = 'compare-table__item-sub';
+                subEl.textContent = item['display name']
+                    ? item.name : (item.attributes?.category || item.category || '');
+
+                const qtyCtrl = _makeQtyControl(item);
+
+                th.appendChild(img);
+                th.appendChild(nameEl);
+                if (subEl.textContent) th.appendChild(subEl);
+                th.appendChild(qtyCtrl);
+            }
+
             headRow.appendChild(th);
         });
         thead.appendChild(headRow);
@@ -1397,9 +1805,6 @@ window.CompareDisplay = (() => {
             keyTd.textContent = entry.label;
             tr.appendChild(keyTd);
 
-            // For wo rows: if ANY item changed this key, show all items' wo values
-            // (falling back to base for items that didn't change it).
-            // Items that have no value at all show '—' and get no colour.
             const anyDiff = entry.withOutfits &&
                 diffMaps.some(dMap => (dMap[entry.section] || []).some(r => r.key === entry.key));
 
@@ -1408,7 +1813,6 @@ window.CompareDisplay = (() => {
                 let cellText = '—';
                 if (entry.withOutfits) {
                     if (anyDiff) {
-                        // Show wo value; fall back to base value if no diff for this item
                         cellText = outfitLookups[i][sk] ?? (baseLookups[i][sk] ?? '—');
                     } else {
                         cellText = '—';
@@ -1419,8 +1823,7 @@ window.CompareDisplay = (() => {
                 const colourKey = entry.withOutfits ? 'wo::' + entry.key : entry.key;
                 const lookup    = colourMap[colourKey];
                 const colourCls = (lookup && i < lookup.length) ? lookup[i] : '';
-                // Don't colour cells that ended up as '—' (missing value)
-                const applyCls = (cellText === '—') ? '' : colourCls;
+                const applyCls  = (cellText === '—') ? '' : colourCls;
                 td.className   = 'compare-table__val' +
                     (entry.withOutfits ? ' compare-table__val--with-outfits' : '') +
                     (applyCls ? ' ' + applyCls : '');
@@ -1434,6 +1837,255 @@ window.CompareDisplay = (() => {
         table.appendChild(tbody);
         wrap.appendChild(table);
         container.appendChild(wrap);
+    }
+
+    // ── Group builder modal ───────────────────────────────────────────────────
+    //
+    // Used for both Create (existingGroup = null) and Edit (existingGroup = group).
+    // Shows all current singles as checkboxes; lets user name the group.
+
+    function _openGroupBuilder(existingGroup) {
+        // Remove any existing modal
+        const old = document.getElementById('compareGroupModal');
+        if (old) old.remove();
+
+        const items   = window.CompareManager.getItems();
+        const singles = items.filter(i => !i._isGroup);
+
+        const overlay = document.createElement('div');
+        overlay.id        = 'compareGroupModal';
+        overlay.className = 'compare-modal-overlay';
+        overlay.style.cssText = [
+            'position:fixed', 'inset:0', 'z-index:10000',
+            'display:flex', 'align-items:center', 'justify-content:center',
+            'background:rgba(0,0,0,0.65)', 'backdrop-filter:blur(2px)',
+        ].join(';');
+
+        const modal = document.createElement('div');
+        modal.className = 'compare-modal';
+
+        // Detect dark/light: check body bg, then html bg, then fall back to dark
+        const _detectDark = () => {
+            for (const el of [document.body, document.documentElement]) {
+                const bg = getComputedStyle(el).backgroundColor;
+                const m  = bg.match(/\d+/g);
+                if (m && !(parseInt(m[3] ?? '1') === 0)) {
+                    return (parseInt(m[0]) + parseInt(m[1]) + parseInt(m[2])) / 3 < 128;
+                }
+                // Also check explicit style
+                if (el.style.background || el.style.backgroundColor) {
+                    const s = (el.style.background + el.style.backgroundColor).toLowerCase();
+                    if (s.includes('#f') || s.includes('white') || s.includes('255,255')) return false;
+                }
+            }
+            // Try reading a CSS variable as a proxy
+            const accent = getComputedStyle(document.documentElement).getPropertyValue('--bg') ||
+                           getComputedStyle(document.documentElement).getPropertyValue('--background') || '';
+            if (accent.includes('#f') || accent.includes('255')) return false;
+            return true; // default to dark
+        };
+        const isDark = _detectDark();
+
+        modal.style.cssText = [
+            'display:flex', 'flex-direction:column', 'gap:1rem',
+            'min-width:340px', 'max-width:520px', 'width:90vw',
+            'max-height:80vh', 'overflow-y:auto',
+            'padding:1.5rem', 'border-radius:10px',
+            'box-shadow:0 8px 32px rgba(0,0,0,0.6)',
+            isDark ? 'background:#1e2028' : 'background:#f5f6fa',
+            isDark ? 'color:#e8e8e8'     : 'color:#1a1a1a',
+            isDark ? 'border:1px solid #3a3d4a' : 'border:1px solid #c8cad0',
+        ].join(';');
+
+        const title = document.createElement('h3');
+        title.className   = 'compare-modal__title';
+        title.textContent = existingGroup ? 'Edit Group' : 'Create Group';
+        title.style.cssText = 'margin:0;font-size:1.1rem;font-weight:600;';
+
+        // Name input
+        const nameWrap = document.createElement('div');
+        nameWrap.className = 'compare-modal__field';
+        nameWrap.style.cssText = 'display:flex;flex-direction:column;gap:.3rem;';
+        const nameLabel = document.createElement('label');
+        nameLabel.textContent = 'Group name';
+        nameLabel.style.cssText = 'font-size:.8rem;opacity:.7;';
+        const nameInput = document.createElement('input');
+        nameInput.type      = 'text';
+        nameInput.className = 'compare-modal__input';
+        nameInput.style.cssText = [
+            'padding:.4rem .7rem','border-radius:5px','font-size:.9rem',
+            'background:' + (isDark ? '#2a2d38' : '#fff'),
+            'color:'      + (isDark ? '#e8e8e8' : '#1a1a1a'),
+            'border:1px solid ' + (isDark ? '#4a4d5a' : '#c0c2c8'),
+            'outline:none',
+        ].join(';');
+        nameInput.value     = existingGroup ? existingGroup.name : 'Group ' + (Date.now() % 1000);
+        nameInput.placeholder = 'Group name…';
+        nameWrap.appendChild(nameLabel);
+        nameWrap.appendChild(nameInput);
+
+        // Member list — for edit mode show existing members; for create show current singles
+        const listWrap = document.createElement('div');
+        listWrap.className = 'compare-modal__list';
+        listWrap.style.cssText = [
+            'display:flex','flex-direction:column','gap:.35rem',
+            'max-height:300px','overflow-y:auto',
+            'padding:.5rem','border-radius:6px',
+            'border:1px solid ' + (isDark ? '#3a3d4a' : '#d0d2d8'),
+            'background:' + (isDark ? '#161820' : '#eef0f5'),
+        ].join(';');
+
+        const listTitle = document.createElement('div');
+        listTitle.className   = 'compare-modal__list-title';
+        listTitle.textContent = 'Select items to include:';
+        listTitle.style.cssText = 'font-size:.75rem;opacity:.6;padding-bottom:.2rem;';
+        listWrap.appendChild(listTitle);
+
+        // Build the candidate pool
+        // For create: all singles currently in compare list
+        // For edit: all singles in compare list; pre-check those already in the group
+        const existingNames = new Set(
+            existingGroup ? existingGroup.members.map(m => m.item.name + '|' + (m.item._compareTab || '')) : []
+        );
+        const existingQtyMap = {};
+        if (existingGroup) {
+            existingGroup.members.forEach((m, i) => {
+                const k = m.item.name + '|' + (m.item._compareTab || '');
+                existingQtyMap[k] = _getGroupMemberQty(existingGroup._groupId, i);
+            });
+        }
+
+        const checkboxes = []; // { item, checkbox, qtyInput }
+        singles.forEach(item => {
+            const itemKey = item.name + '|' + (item._compareTab || '');
+            const row = document.createElement('div');
+            row.className = 'compare-modal__item-row';
+            row.style.cssText = 'display:flex;align-items:center;gap:.5rem;padding:.2rem .3rem;border-radius:4px;';
+
+            const cb = document.createElement('input');
+            cb.type    = 'checkbox';
+            cb.checked = !existingGroup || existingNames.has(itemKey);
+            cb.style.cssText = 'cursor:pointer;flex-shrink:0;';
+
+            const lbl = document.createElement('span');
+            lbl.className   = 'compare-modal__item-label';
+            lbl.textContent = item['display name'] || item.name || '?';
+            lbl.style.cssText = 'flex:1;font-size:.88rem;cursor:pointer;';
+            lbl.onclick = () => { cb.checked = !cb.checked; };
+
+            const qtyWrap = document.createElement('div');
+            qtyWrap.className = 'compare-modal__item-qty';
+
+            const qDec = document.createElement('button');
+            qDec.textContent = '−';
+            qDec.className   = 'compare-qty__btn';
+
+            const qVal = document.createElement('span');
+            qVal.className   = 'compare-qty__val';
+            const initQty    = existingQtyMap[itemKey] || 1;
+            qVal.textContent = `×${initQty}`;
+            let currentQty   = initQty;
+
+            const qInc = document.createElement('button');
+            qInc.textContent = '+';
+            qInc.className   = 'compare-qty__btn';
+
+            qDec.onclick = () => { currentQty = Math.max(1, currentQty - 1); qVal.textContent = `×${currentQty}`; };
+            qInc.onclick = () => { currentQty = currentQty + 1;               qVal.textContent = `×${currentQty}`; };
+
+            qtyWrap.appendChild(qDec);
+            qtyWrap.appendChild(qVal);
+            qtyWrap.appendChild(qInc);
+
+            row.appendChild(cb);
+            row.appendChild(lbl);
+            row.appendChild(qtyWrap);
+            listWrap.appendChild(row);
+            checkboxes.push({ item, checkbox: cb, getQty: () => currentQty });
+        });
+
+        if (singles.length === 0) {
+            const empty = document.createElement('div');
+            empty.className   = 'compare-modal__empty';
+            empty.textContent = 'No individual items in compare list to group.';
+            listWrap.appendChild(empty);
+        }
+
+        // Buttons
+        const btnRow = document.createElement('div');
+        btnRow.className = 'compare-modal__btns';
+        btnRow.style.cssText = 'display:flex;gap:.5rem;justify-content:flex-end;padding-top:.25rem;';
+
+        const _btnBase = 'padding:.4rem 1rem;border-radius:5px;cursor:pointer;font-size:.85rem;border:none;font-weight:500;';
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className   = 'compare-modal__btn compare-modal__btn--cancel';
+        cancelBtn.textContent = 'Cancel';
+        cancelBtn.style.cssText = _btnBase + (isDark ? 'background:#2a2d38;color:#c0c2c8;' : 'background:#d8dae0;color:#333;');
+        cancelBtn.onclick     = () => overlay.remove();
+
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className   = 'compare-modal__btn compare-modal__btn--confirm';
+        confirmBtn.textContent = existingGroup ? 'Save' : 'Create Group';
+        confirmBtn.style.cssText = _btnBase + 'background:#3a7bd5;color:#fff;';
+        confirmBtn.onclick     = () => {
+            const selected = checkboxes
+                .filter(c => c.checkbox.checked)
+                .map(c => ({ item: c.item, qty: c.getQty() }));
+            if (selected.length === 0) {
+                nameInput.setCustomValidity('Select at least one item.');
+                nameInput.reportValidity();
+                return;
+            }
+            const name = nameInput.value.trim() || 'Group';
+            if (existingGroup) {
+                // Rebuild group member qty map with new indices
+                const newQtys = {};
+                selected.forEach((s, i) => { newQtys[existingGroup._groupId + '|' + i] = s.qty; });
+                Object.assign(_groupMemberQtys, newQtys);
+                // Clear old indices beyond new length
+                for (let i = selected.length; i < existingGroup.members.length + 10; i++)
+                    delete _groupMemberQtys[existingGroup._groupId + '|' + i];
+                window.CompareManager.updateGroup(existingGroup._groupId, name, selected);
+            } else {
+                const group = window.CompareManager.addGroup(name, selected);
+                if (group) {
+                    // Seed the qty map with chosen quantities
+                    selected.forEach((s, i) => {
+                        _groupMemberQtys[group._groupId + '|' + i] = s.qty;
+                    });
+                }
+            }
+            overlay.remove();
+            _renderPanelContent();
+        };
+
+        // Delete button for edit mode
+        if (existingGroup) {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className   = 'compare-modal__btn compare-modal__btn--delete';
+            deleteBtn.textContent = 'Delete Group';
+            deleteBtn.style.cssText = _btnBase + 'background:#c0392b;color:#fff;margin-right:auto;';
+            deleteBtn.onclick     = () => {
+                window.CompareManager.removeGroup(existingGroup._groupId);
+                overlay.remove();
+            };
+            btnRow.appendChild(deleteBtn);
+        }
+
+        btnRow.appendChild(cancelBtn);
+        btnRow.appendChild(confirmBtn);
+
+        modal.appendChild(title);
+        modal.appendChild(nameWrap);
+        modal.appendChild(listWrap);
+        modal.appendChild(btnRow);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        // Close on overlay click outside modal
+        overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+        nameInput.focus();
+        nameInput.select();
     }
 
     // ── Sprite thumbnail ──────────────────────────────────────────────────────
@@ -1474,10 +2126,13 @@ window.CompareDisplay = (() => {
     function clearAll() {
         window.CompareManager.clear();
         _quantities = {};
+        _groupMemberQtys = {};
         closePanel();
     }
 
-    return { init, togglePanel, openPanel, closePanel, setViewMode, clearAll };
+    function openGroupBuilder() { _openGroupBuilder(null); }
+
+    return { init, togglePanel, openPanel, closePanel, setViewMode, clearAll, openGroupBuilder };
 
 })();
 

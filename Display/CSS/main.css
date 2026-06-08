@@ -3101,6 +3101,9 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     flex-shrink: 0; /* never compress — scroll instead */
 }
 
+/* ── Qty controls inside compare bar chips ────────────────────── */
+
+/* Chip grows to accommodate the spinner */
 .compare-bar__chip {
     display: inline-flex;
     align-items: center;
@@ -3115,6 +3118,59 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     flex-shrink: 0; /* full name always visible, never truncated */
 }
 
+/* Inline qty control — compact version of .compare-qty */
+.compare-bar__chip-qty {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid rgba(59, 130, 246, 0.30);
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.55);
+    flex-shrink: 0;
+}
+
+.compare-bar__chip-qty-btn {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 0.78rem;
+    line-height: 1;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+    font-weight: 700;
+    padding: 0;
+}
+.compare-bar__chip-qty-btn:first-child {
+    border-right: 1px solid rgba(59, 130, 246, 0.18);
+}
+.compare-bar__chip-qty-btn:last-child {
+    border-left: 1px solid rgba(59, 130, 246, 0.18);
+}
+.compare-bar__chip-qty-btn:hover {
+    background: rgba(59, 130, 246, 0.18);
+    color: #93c5fd;
+}
+
+.compare-bar__chip-qty-val {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #93c5fd;
+    font-variant-numeric: tabular-nums;
+    padding: 0 5px;
+    min-width: 26px;
+    text-align: center;
+    white-space: nowrap;
+    user-select: none;
+    line-height: 20px;
+}
+
 .compare-bar__chip-remove {
     background: none;
     border: none;
@@ -3127,6 +3183,61 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     transition: color 0.15s;
 }
 .compare-bar__chip-remove:hover { color: #ef4444; }
+
+/* ── Group member list in column header ─────────────────────── */
+
+.compare-col__member-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(59, 130, 246, 0.18);
+    text-align: left;
+}
+
+.compare-col__member-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 5px 8px;
+    background: rgba(15, 23, 42, 0.40);
+    border: 1px solid rgba(59, 130, 246, 0.12);
+    border-radius: var(--r-sm);
+    transition: background var(--t-fast), border-color var(--t-fast);
+}
+.compare-col__member-row:hover {
+    background: rgba(59, 130, 246, 0.10);
+    border-color: rgba(59, 130, 246, 0.28);
+}
+
+.compare-col__member-name {
+    font-size: 0.78rem;
+    color: var(--c-text-mid);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+/* Compact variant of .compare-qty for use inside the header */
+.compare-qty--sm {
+    margin-top: 0;
+    flex-shrink: 0;
+}
+.compare-qty--sm .compare-qty__btn {
+    width: 20px;
+    height: 20px;
+    font-size: 0.78rem;
+}
+.compare-qty--sm .compare-qty__val {
+    font-size: 0.65rem;
+    min-width: 26px;
+    line-height: 20px;
+    padding: 0 5px;
+}
 
 .compare-bar__right {
     display: flex;
@@ -3655,10 +3766,282 @@ body {
 /* Table header variant — same widget, just a bit more compact */
 .compare-table__item-header .compare-qty {
     margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .compare-val--best  { color: #4caf50; font-weight: 600; }
 .compare-val--worst { color: #e05252; font-weight: 600; }
+
+/* ── Group compare — modal & column additions ───────────────────
+   These rules fix the .compare-modal-overlay / .compare-modal
+   block at the bottom of main.css.  Replace the existing block
+   (the one that references --bg, --border, --accent, --bg-input)
+   with this one, which uses the established --c-* / --r-* tokens.
+   ─────────────────────────────────────────────────────────────── */
+
+/* ── Modal overlay (replaces the broken --bg / --border version) */
+.compare-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.80);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.compare-modal {
+    background: linear-gradient(135deg, rgba(15,23,42,0.97), rgba(30,41,59,0.97));
+    border: 2px solid rgba(59, 130, 246, 0.50);
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow-lg);
+    width: min(520px, 92vw);
+    max-height: 82vh;
+    overflow-y: auto;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.compare-modal__title {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--c-accent-text);
+}
+
+/* ── Name field ─────────────────────────────────────────────── */
+.compare-modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.compare-modal__field label {
+    font-size: 0.82rem;
+    color: var(--c-text-muted);
+    margin-bottom: 0;
+}
+
+.compare-modal__input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--c-surface-2);
+    border: 1px solid rgba(59, 130, 246, 0.40);
+    border-radius: var(--r-md);
+    color: var(--c-text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.compare-modal__input:focus {
+    outline: none;
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.20);
+}
+
+/* ── Member list ────────────────────────────────────────────── */
+.compare-modal__list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 8px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--c-border);
+    background: rgba(15, 23, 42, 0.40);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(59,130,246,0.40) transparent;
+}
+.compare-modal__list::-webkit-scrollbar { width: 6px; }
+.compare-modal__list::-webkit-scrollbar-track { background: rgba(15,23,42,0.40); border-radius: 3px; }
+.compare-modal__list::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.40); border-radius: 3px; }
+
+.compare-modal__list-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--c-border);
+    margin-bottom: 4px;
+    user-select: none;
+}
+
+.compare-modal__item-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: var(--r-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    background: rgba(15, 23, 42, 0.30);
+    transition: background var(--t-fast), border-color var(--t-fast);
+}
+.compare-modal__item-row:hover {
+    background: rgba(59, 130, 246, 0.12);
+    border-color: var(--c-border);
+}
+
+.compare-modal__item-row input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: var(--c-accent);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.compare-modal__item-label {
+    flex: 1;
+    font-size: 0.88rem;
+    color: var(--c-text-mid);
+    cursor: pointer;
+    user-select: none;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.compare-modal__item-qty {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid rgba(59, 130, 246, 0.30);
+    border-radius: var(--r-sm);
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.55);
+    flex-shrink: 0;
+}
+
+.compare-modal__empty {
+    color: var(--c-text-muted);
+    font-style: italic;
+    font-size: 0.85rem;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* ── Buttons row ────────────────────────────────────────────── */
+.compare-modal__btns {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding-top: 4px;
+}
+
+.compare-modal__btn {
+    padding: 8px 18px;
+    border-radius: var(--r-md);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast);
+    font-family: inherit;
+}
+
+.compare-modal__btn--cancel {
+    background: rgba(71, 85, 105, 0.70);
+    color: var(--c-text);
+    border-color: var(--c-border);
+}
+.compare-modal__btn--cancel:hover {
+    background: rgba(71, 85, 105, 1);
+}
+
+.compare-modal__btn--confirm {
+    background: linear-gradient(135deg, var(--c-accent), var(--c-accent-dark));
+    color: #fff;
+}
+.compare-modal__btn--confirm:hover {
+    background: linear-gradient(135deg, var(--c-accent-dark), #1d4ed8);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.40);
+}
+
+.compare-modal__btn--delete {
+    background: var(--c-danger);
+    color: var(--c-danger-text);
+    border-color: rgba(239, 68, 68, 0.30);
+    margin-right: auto;
+}
+.compare-modal__btn--delete:hover {
+    background: rgba(239, 68, 68, 0.30);
+    border-color: var(--c-danger-hi);
+    color: var(--c-danger-hi);
+}
+
+/* ── Group column header ────────────────────────────────────── */
+.compare-col--group .compare-col__header {
+    background: rgba(30, 41, 59, 0.80);
+    border-bottom-color: rgba(59, 130, 246, 0.25);
+}
+
+.compare-col__group-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.compare-col__member-count {
+    font-size: 0.75rem;
+    color: var(--c-text-muted);
+}
+
+.compare-col__edit-group {
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.30);
+    border-radius: var(--r-sm);
+    color: var(--c-accent-text);
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background var(--t-fast), border-color var(--t-fast);
+}
+.compare-col__edit-group:hover {
+    background: rgba(59, 130, 246, 0.25);
+    border-color: rgba(59, 130, 246, 0.55);
+}
+
+/* ── Group member qty row in column body ────────────────────── */
+.compare-col__row--qty {
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    background: rgba(59, 130, 246, 0.06);
+    border-top: 1px solid rgba(59, 130, 246, 0.12);
+}
+.compare-col__row--qty .compare-col__key {
+    font-weight: 600;
+    color: var(--c-accent-text);
+}
+
+/* ── Create Group bar button ────────────────────────────────── */
+.compare-bar__create-group {
+    padding: 5px 12px;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    border-radius: 6px;
+    background: rgba(59, 130, 246, 0.10);
+    color: var(--c-accent-text);
+    font-size: 0.78rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background var(--t-fast), border-color var(--t-fast);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.compare-bar__create-group:hover {
+    background: rgba(59, 130, 246, 0.22);
+    border-color: rgba(59, 130, 246, 0.60);
+}
 
 /* ── ≤600px: small phone ─────────────────────────────────────── */
 @media (max-width: 600px) {
