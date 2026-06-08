@@ -772,12 +772,66 @@ window.CompareDisplay = (() => {
     }
 
     // ── Colouring engine ──────────────────────────────────────────────────────
-    //
-    // Lower-is-better attribute detection.
-    const _LOWER_BETTER_RE = /\b(mass|drag|cost|heat.?generat|heat.?product|required.?crew|minimum.?crew|extra.?mass|cooling.?inefficien|scan.?interfere|cloak.?disrupt|scramble|corrosion|decay|delay|threshold|ion.?resist|slowing|disruption.?resist)\b/i;
 
-    function _isLowerBetter(label) {
-        return _LOWER_BETTER_RE.test(label);
+    // Keys that are always lower-is-better regardless of other signals.
+    const _ALWAYS_LOWER_BETTER = new Set([
+        'mass', 'drag', 'cost',
+        'energy consumption', 'fuel consumption', 'heat generation',
+        'cooling energy', 'cooling inefficiency',
+        'required crew', 'mandatory crew',
+    ]);
+
+    // Prefixes that indicate an attribute is a *cost* paid while performing
+    // an action. Combined with a cost suffix this reliably identifies lower-
+    // is-better attrs without needing to enumerate every one individually.
+    const _COST_PREFIX_RE = /^(firing |thrusting |turning |afterburner |reverse thrusting |cloaking |delayed shield |delayed hull )/;
+
+    // Suffixes that mark resource consumption (as opposed to generation).
+    const _COST_SUFFIX_RE = / (energy|heat|fuel|shields|hull)$/;
+
+    // Prefixes for resistance *costs* not already caught by isStatusResistanceCost.
+    // (All the "*  resistance energy/fuel/heat" keys have isStatusResistanceCost=true
+    // in the JSON so they are handled separately, but this catches any gaps.)
+    const _RESISTANCE_COST_RE = /^(burn|corrosion|discharge|disruption|ion|scramble|slowing|leak) resistance (energy|fuel|heat)$/;
+
+    // Determine whether lower is better for a given attribute key.
+    // attrRecord is the entry from window.attrDefs.attributes[key], or null.
+    // label is the display label (used only as a fallback for computed keys).
+    function _isLowerBetter(key, label) {
+        // Skip colouring for capacity/slot keys — they're consumed as negatives
+        // and the sign already encodes direction; colouring would be misleading.
+        const rec = _getAttrRecord(key);
+
+        // 1. Explicit JSON flags
+        if (rec?.isStatusResistanceCost) return true;
+        if (rec?.isExpectedNegative)     return false; // handled separately
+
+        // 2. Delay attributes (wait time in seconds = bad to have more of)
+        if (rec?.displayUnit === 's')    return true;
+
+        // 3. Hard-coded always-lower set
+        if (_ALWAYS_LOWER_BETTER.has(key)) return true;
+
+        // 4. Action-cost pattern: prefix + cost suffix
+        //    e.g. "thrusting energy", "firing heat", "cloaking fuel",
+        //         "afterburner shields", "delayed shield energy"
+        if (_COST_PREFIX_RE.test(key) && _COST_SUFFIX_RE.test(key)) return true;
+
+        // 5. Resistance costs not already caught by flag
+        if (_RESISTANCE_COST_RE.test(key)) return true;
+
+        // 6. "shield energy", "hull energy", "shield heat", "hull heat",
+        //    "shield fuel", "hull fuel" — costs of regen/repair, NOT outputs.
+        //    Distinguished from "shield generation" / "hull repair rate" by suffix.
+        if (/^(shield|hull) (energy|heat|fuel)$/.test(key)) return true;
+
+        // 7. Fallback for computed/internal keys: use label heuristic
+        if (key.startsWith('_')) {
+            const l = (label || key).toLowerCase();
+            if (/(cost|consumption|heat gen|delay|mass)/.test(l)) return true;
+        }
+
+        return false;
     }
 
     // Parse a display string like "1,234.5 dmg/s" → 1234.5, or null if not numeric.
@@ -846,7 +900,7 @@ window.CompareDisplay = (() => {
         for (const [key, label] of allBaseKeys) {
             const nums = Array.from({ length: itemCount }, (_, i) =>
                 _getRawFromMaps(baseMaps, i, key));
-            colourMap[key] = _colourClasses(nums, _isLowerBetter(label));
+            colourMap[key] = _colourClasses(nums, _isLowerBetter(key, label));
         }
 
         for (const [key, label] of allWoKeys) {
@@ -854,7 +908,7 @@ window.CompareDisplay = (() => {
                 const n = _getRawFromMaps(outfitMaps, i, key);
                 return n !== null ? n : _getRawFromMaps(baseMaps, i, key);
             });
-            colourMap['wo::' + key] = _colourClasses(nums, _isLowerBetter(label));
+            colourMap['wo::' + key] = _colourClasses(nums, _isLowerBetter(key, label));
         }
 
         return colourMap;
