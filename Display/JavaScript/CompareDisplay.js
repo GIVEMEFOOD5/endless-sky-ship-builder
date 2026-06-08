@@ -771,6 +771,95 @@ window.CompareDisplay = (() => {
         return diff;
     }
 
+    // ── Colouring engine ──────────────────────────────────────────────────────
+    //
+    // Lower-is-better attribute detection.
+    const _LOWER_BETTER_RE = /\b(mass|drag|cost|heat.?generat|heat.?product|required.?crew|minimum.?crew|extra.?mass|cooling.?inefficien|scan.?interfere|cloak.?disrupt|scramble|corrosion|decay|delay|threshold|ion.?resist|slowing|disruption.?resist)\b/i;
+
+    function _isLowerBetter(label) {
+        return _LOWER_BETTER_RE.test(label);
+    }
+
+    // Parse a display string like "1,234.5 dmg/s" → 1234.5, or null if not numeric.
+    function _parseDisplayNum(str) {
+        if (typeof str !== 'string' || str === '—' || str === '') return null;
+        const cleaned = str.replace(/,/g, '').trim().split(/\s+/)[0];
+        if (cleaned.startsWith('×')) return parseFloat(cleaned.slice(1));
+        const n = parseFloat(cleaned);
+        return isNaN(n) ? null : n;
+    }
+
+    // Given an array of numeric values (some may be null = missing), return
+    // an array of colour classes.
+    // Rules:
+    //   • Missing (null) → '' always
+    //   • All present values the same → all 'compare-val--best'
+    //   • Otherwise: best group → 'compare-val--best', worst → 'compare-val--worst'
+    //   • lowerBetter inverts which end is "best"
+    function _colourClasses(nums, lowerBetter) {
+        const present = nums.filter(n => n !== null);
+        if (present.length < 1) return nums.map(() => '');
+        const min = Math.min(...present);
+        const max = Math.max(...present);
+        if (min === max) return nums.map(n => n === null ? '' : 'compare-val--best');
+        const bestVal  = lowerBetter ? min : max;
+        const worstVal = lowerBetter ? max : min;
+        return nums.map(n => {
+            if (n === null)     return '';
+            if (n === bestVal)  return 'compare-val--best';
+            if (n === worstVal) return 'compare-val--worst';
+            return '';
+        });
+    }
+
+    // Helper: get the raw numeric value for a key from a map array entry.
+    function _getRawFromMaps(maps, itemIdx, key) {
+        for (const rows of Object.values(maps[itemIdx])) {
+            const r = rows.find(r => r.key === key);
+            if (r) return _parseDisplayNum(r.value);
+        }
+        return null;
+    }
+
+    // Build a colour-class lookup for all rows across all items.
+    //   colourMap[key]          → [class_item0, class_item1, ...]   (base rows)
+    //   colourMap['wo::' + key] → [class_item0, class_item1, ...]   (with-outfits rows)
+    //
+    // With-outfits rule: if ANY item changed a key in the wo layer, ALL items
+    // contribute their wo value (falling back to base if unchanged) for that
+    // comparison. Items that don't have the value at all stay uncoloured.
+    function _buildColourMap(baseMaps, outfitMaps, diffMaps, itemCount) {
+        const allBaseKeys = new Map();
+        for (const map of baseMaps)
+            for (const rows of Object.values(map))
+                for (const { key, label } of rows)
+                    if (!allBaseKeys.has(key)) allBaseKeys.set(key, label);
+
+        const allWoKeys = new Map();
+        for (const dMap of diffMaps)
+            for (const rows of Object.values(dMap))
+                for (const { key, label } of rows)
+                    if (!allWoKeys.has(key)) allWoKeys.set(key, label);
+
+        const colourMap = {};
+
+        for (const [key, label] of allBaseKeys) {
+            const nums = Array.from({ length: itemCount }, (_, i) =>
+                _getRawFromMaps(baseMaps, i, key));
+            colourMap[key] = _colourClasses(nums, _isLowerBetter(label));
+        }
+
+        for (const [key, label] of allWoKeys) {
+            const nums = Array.from({ length: itemCount }, (_, i) => {
+                const n = _getRawFromMaps(outfitMaps, i, key);
+                return n !== null ? n : _getRawFromMaps(baseMaps, i, key);
+            });
+            colourMap['wo::' + key] = _colourClasses(nums, _isLowerBetter(label));
+        }
+
+        return colourMap;
+    }
+
     // ── DOM bootstrap ─────────────────────────────────────────────────────────
 
     function init() {
@@ -923,8 +1012,10 @@ window.CompareDisplay = (() => {
 
     // ── Section row renderer (shared by columns view) ─────────────────────────
 
-    function _appendSectionRows(col, rows) {
-        for (const { label, value, unit, isDivider } of rows) {
+    // colourMap: output of _buildColourMap. itemIdx: which column this is.
+    // withOutfits: use 'wo::key' colour lookup instead of 'key'.
+    function _appendSectionRows(col, rows, colourMap, itemIdx, withOutfits) {
+        for (const { key, label, value, unit, isDivider } of rows) {
             if ((label.startsWith('—') && !value) || isDivider) {
                 const div = document.createElement('div');
                 div.className   = 'compare-col__divider';
@@ -938,7 +1029,12 @@ window.CompareDisplay = (() => {
             k.className   = 'compare-col__key';
             k.textContent = label;
             const v = document.createElement('div');
-            v.className   = 'compare-col__val';
+            let colourCls = '';
+            if (colourMap && key) {
+                const lookup = colourMap[withOutfits ? 'wo::' + key : key];
+                colourCls = (lookup && itemIdx < lookup.length) ? lookup[itemIdx] : '';
+            }
+            v.className   = 'compare-col__val' + (colourCls ? ' ' + colourCls : '');
             v.textContent = unit ? `${value} ${unit}` : value;
             row.appendChild(k);
             row.appendChild(v);
@@ -961,6 +1057,8 @@ window.CompareDisplay = (() => {
         const diffMaps   = isShipGroup
             ? items.map((_, i) => _diffSectionMaps(baseMaps[i], outfitMaps[i]))
             : items.map(() => ({}));
+
+        const colourMap = _buildColourMap(baseMaps, outfitMaps, diffMaps, items.length);
 
         const grid = document.createElement('div');
         grid.className = 'compare-columns';
@@ -1025,7 +1123,7 @@ window.CompareDisplay = (() => {
                     secHeader.className   = 'compare-col__section';
                     secHeader.textContent = section;
                     col.appendChild(secHeader);
-                    _appendSectionRows(col, baseRows);
+                    _appendSectionRows(col, baseRows, colourMap, idx, false);
                 }
 
                 // (with outfits) sub-section — only if there are differences
@@ -1034,7 +1132,7 @@ window.CompareDisplay = (() => {
                     subHeader.className   = 'compare-col__section compare-col__section--with-outfits';
                     subHeader.textContent = `${section} (with outfits)`;
                     col.appendChild(subHeader);
-                    _appendSectionRows(col, diffRows);
+                    _appendSectionRows(col, diffRows, colourMap, idx, true);
                 }
 
                 // Edge case: section only exists in outfit map (entirely new section from outfits)
@@ -1045,7 +1143,7 @@ window.CompareDisplay = (() => {
                         subHeader.className   = 'compare-col__section compare-col__section--with-outfits';
                         subHeader.textContent = `${section} (with outfits)`;
                         col.appendChild(subHeader);
-                        _appendSectionRows(col, outfitOnlyRows);
+                        _appendSectionRows(col, outfitOnlyRows, colourMap, idx, true);
                     }
                 }
             }
@@ -1070,6 +1168,8 @@ window.CompareDisplay = (() => {
         const diffMaps   = isShipGroup
             ? items.map((_, i) => _diffSectionMaps(baseMaps[i], outfitMaps[i]))
             : items.map(() => ({}));
+
+        const colourMap = _buildColourMap(baseMaps, outfitMaps, diffMaps, items.length);
 
         // Build the ordered list of row entries, interleaving base sections and
         // their (with outfits) sub-sections immediately after.
@@ -1235,17 +1335,34 @@ window.CompareDisplay = (() => {
             keyTd.textContent = entry.label;
             tr.appendChild(keyTd);
 
+            // For wo rows: if ANY item changed this key, show all items' wo values
+            // (falling back to base for items that didn't change it).
+            // Items that have no value at all show '—' and get no colour.
+            const anyDiff = entry.withOutfits &&
+                diffMaps.some(dMap => (dMap[entry.section] || []).some(r => r.key === entry.key));
+
             items.forEach((_, i) => {
                 const td = document.createElement('td');
-                td.className   = 'compare-table__val' + (entry.withOutfits ? ' compare-table__val--with-outfits' : '');
-                // For with-outfits rows, show the outfit value (or — if unchanged for this item)
+                let cellText = '—';
                 if (entry.withOutfits) {
-                    const diffRows = diffMaps[i][entry.section] || [];
-                    const hasDiff  = diffRows.some(r => r.key === entry.key);
-                    td.textContent = hasDiff ? (outfitLookups[i][sk] ?? '—') : '—';
+                    if (anyDiff) {
+                        // Show wo value; fall back to base value if no diff for this item
+                        cellText = outfitLookups[i][sk] ?? (baseLookups[i][sk] ?? '—');
+                    } else {
+                        cellText = '—';
+                    }
                 } else {
-                    td.textContent = baseLookups[i][sk] ?? '—';
+                    cellText = baseLookups[i][sk] ?? '—';
                 }
+                const colourKey = entry.withOutfits ? 'wo::' + entry.key : entry.key;
+                const lookup    = colourMap[colourKey];
+                const colourCls = (lookup && i < lookup.length) ? lookup[i] : '';
+                // Don't colour cells that ended up as '—' (missing value)
+                const applyCls = (cellText === '—') ? '' : colourCls;
+                td.className   = 'compare-table__val' +
+                    (entry.withOutfits ? ' compare-table__val--with-outfits' : '') +
+                    (applyCls ? ' ' + applyCls : '');
+                td.textContent = cellText;
                 tr.appendChild(td);
             });
 
