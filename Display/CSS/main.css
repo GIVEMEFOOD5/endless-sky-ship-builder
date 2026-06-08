@@ -3657,6 +3657,9 @@ body {
     margin-top: 8px;
 }
 
+.compare-val--best  { color: #4caf50; font-weight: 600; }
+.compare-val--worst { color: #e05252; font-weight: 600; }
+
 /* ── ≤600px: small phone ─────────────────────────────────────── */
 @media (max-width: 600px) {
     .list-row__label { min-width: 90px; font-size: 0.85rem; }
