@@ -516,7 +516,7 @@ window.CompareDisplay = (() => {
     const COMPUTED_SKIP = new Set(['_ws_hasAmmoWeapons','_totalOutfits']);
 
 
-function _buildGroupAttrMap(group, includeOutfits = true) {
+    function _buildGroupAttrMap(group, includeOutfits = true) {
         const isShipGroup = window.CompareManager.getGroupType() === 'ship';
 
         const resolvedMembers = group.members.map((m, i) => ({
@@ -525,8 +525,9 @@ function _buildGroupAttrMap(group, includeOutfits = true) {
         }));
 
         // ── Combined totals ───────────────────────────────────────────────────
-        // Sum raw numeric values across all members so we never lose precision
-        // by round-tripping through _fmt → _parseDisplayNum.
+        // Sum raw numeric values across all members without losing precision.
+        // Detail sections (Outfit: X, Weapon: X) are excluded from summing —
+        // they are per-ship breakdowns and don't aggregate meaningfully.
         // Non-numeric values keep the first occurrence (e.g. category strings).
 
         const combined = {}; // key → { label, rawSum, unit, section, numeric, strValue }
@@ -536,7 +537,8 @@ function _buildGroupAttrMap(group, includeOutfits = true) {
             const memberMap  = _buildAttrMap(item, qty, useOutfits);
 
             for (const [section, rows] of Object.entries(memberMap)) {
-                // Skip per-member internal breakdown sections
+                // Skip per-ship detail sections — only aggregate top-level stats
+                if (_isDetailSection(section)) continue;
                 if (section.startsWith('Member: ')) continue;
 
                 for (const { key, label, value, unit } of rows) {
@@ -571,29 +573,8 @@ function _buildGroupAttrMap(group, includeOutfits = true) {
             });
         }
 
-        // ── Qty spinner rows ──────────────────────────────────────────────────
-        // Inject a single "Members" section listing each ship with its qty
-        // control so the user can still adjust quantities from the panel.
-        const membersSectionKey = 'Members';
-        if (!SECTION_ORDER.includes(membersSectionKey))
-            SECTION_ORDER.unshift(membersSectionKey);
-        sections[membersSectionKey] = [];
-
-        resolvedMembers.forEach(({ item, qty }, i) => {
-            const memberName = item['display name'] || item.name || `Member ${i + 1}`;
-            sections[membersSectionKey].push({
-                key:                  `_gmqty_${group._groupId}_${i}`,
-                label:                memberName,
-                value:                `×${qty}`,
-                unit:                 '',
-                _isGroupMemberQtyRow: true,
-                _groupId:             group._groupId,
-                _memberIdx:           i,
-            });
-        });
-
         return sections;
-    }   
+    } 
     
     // ── Build attribute map for one item ──────────────────────────────────────
     // qty: integer multiplier applied to all numeric values
