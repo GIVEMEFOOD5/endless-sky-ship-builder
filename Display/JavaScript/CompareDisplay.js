@@ -524,11 +524,9 @@ window.CompareDisplay = (() => {
             qty:  _getGroupMemberQty(group._groupId, i),
         }));
 
-        // ── Combined totals ───────────────────────────────────────────────────
-        // Sum raw numeric values across all members without losing precision.
-        // Detail sections (Outfit: X, Weapon: X) are excluded from summing —
-        // they are per-ship breakdowns and don't aggregate meaningfully.
-        // Non-numeric values keep the first occurrence (e.g. category strings).
+        // ── Combined top-level stats ──────────────────────────────────────────
+        // Sum raw numeric values for all non-detail sections across members.
+        // Outfit/Weapon detail sections are handled separately below.
 
         const combined = {}; // key → { label, rawSum, unit, section, numeric, strValue }
 
@@ -537,7 +535,6 @@ window.CompareDisplay = (() => {
             const memberMap  = _buildAttrMap(item, qty, useOutfits);
 
             for (const [section, rows] of Object.entries(memberMap)) {
-                // Skip per-ship detail sections — only aggregate top-level stats
                 if (_isDetailSection(section)) continue;
                 if (section.startsWith('Member: ')) continue;
 
@@ -573,8 +570,56 @@ window.CompareDisplay = (() => {
             });
         }
 
+        // ── Outfit / Weapon detail sections ───────────────────────────────────
+        // Collect all unique outfit/weapon section names across members.
+        // For each, take the static per-outfit rows from the first member that
+        // has that outfit (stats don't change per ship — only counts do).
+        // The Count row is replaced with the sum of (install count × ship qty)
+        // across all members that carry that outfit.
+        if (includeOutfits) {
+            // Build a map: sectionKey → { rows (static), totalCount }
+            const detailSections = {}; // sectionKey → { staticRows, countSum }
+
+            for (const { item, qty } of resolvedMembers) {
+                const memberMap = _buildAttrMap(item, qty, true);
+
+                for (const [section, rows] of Object.entries(memberMap)) {
+                    if (!_isDetailSection(section)) continue;
+
+                    if (!detailSections[section]) {
+                        // First member with this outfit — store all rows as the
+                        // static template, but we'll overwrite the Count row later.
+                        detailSections[section] = {
+                            staticRows: rows,
+                            countSum:   0,
+                        };
+                        if (!SECTION_ORDER.includes(section)) SECTION_ORDER.push(section);
+                    }
+
+                    // Find the Count row value for this member and add it.
+                    // The Count row is always first and has label 'Count' or
+                    // a value like '×N'. We parse it regardless of label.
+                    const countRow = rows.find(r => r.label === 'Count');
+                    if (countRow) {
+                        const n = _parseDisplayNum(countRow.value);
+                        if (n !== null) detailSections[section].countSum += n;
+                    }
+                }
+            }
+
+            // Emit each detail section with updated Count row
+            for (const [sectionKey, { staticRows, countSum }] of Object.entries(detailSections)) {
+                sections[sectionKey] = staticRows.map(row => {
+                    if (row.label === 'Count') {
+                        return { ...row, value: `×${countSum}` };
+                    }
+                    return row;
+                });
+            }
+        }
+
         return sections;
-    } 
+    }
     
     // ── Build attribute map for one item ──────────────────────────────────────
     // qty: integer multiplier applied to all numeric values
