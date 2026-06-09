@@ -516,7 +516,7 @@ window.CompareDisplay = (() => {
     const COMPUTED_SKIP = new Set(['_ws_hasAmmoWeapons','_totalOutfits']);
 
 
-function _buildGroupAttrMap(group, includeOutfits = true) {
+    function _buildGroupAttrMap(group, includeOutfits = true) {
         const isShipGroup = window.CompareManager.getGroupType() === 'ship';
 
         const resolvedMembers = group.members.map((m, i) => ({
@@ -524,31 +524,41 @@ function _buildGroupAttrMap(group, includeOutfits = true) {
             qty:  _getGroupMemberQty(group._groupId, i),
         }));
 
-        // ── Sum each member's attrs into a combined map ───────────────────────
-        // For ships we can be asked for base-only (includeOutfits=false) or
-        // with-outfits (includeOutfits=true).  Non-ship groups always use true.
-        const combined = {}; // key → { label, numericSum, unit, section }
+        // ── Sum raw numeric values across members ─────────────────────────────
+        // Store { label, rawSum, unit, section } for numeric keys so we never
+        // parse a formatted string back to a number (which loses precision).
+        // Non-numeric values (strings, booleans rendered as ✓/✗) keep first occurrence.
+
+        const combined = {}; // key → entry
 
         for (const { item, qty } of resolvedMembers) {
-            const memberMap = (isShipGroup && item.attributes)
-                ? _buildAttrMap(item, qty, includeOutfits)
-                : _buildAttrMap(item, qty, true);
+            const useOutfits = isShipGroup ? includeOutfits : true;
+            const memberMap  = _buildAttrMap(item, qty, useOutfits);
 
             for (const [section, rows] of Object.entries(memberMap)) {
-                if (_isDetailSection(section)) continue;
+                if (section.startsWith('Member: ')) continue;
+
                 for (const { key, label, value, unit } of rows) {
-                    const n = _parseDisplayNum(value);
-                    if (n === null) {
-                        if (!combined[key]) combined[key] = { label, value, unit, section, numeric: false };
-                    } else {
-                        if (!combined[key]) combined[key] = { label, numericSum: 0, unit, section, numeric: true };
-                        combined[key].numericSum = (combined[key].numericSum || 0) + n;
+                    if (!combined[key]) {
+                        // First time we see this key — try to parse as number
+                        const n = _parseDisplayNum(value);
+                        combined[key] = {
+                            label,
+                            unit,
+                            section,
+                            numeric:  n !== null,
+                            rawSum:   n !== null ? n : null,
+                            strValue: n === null ? value : null,
+                        };
+                    } else if (combined[key].numeric) {
+                        const n = _parseDisplayNum(value);
+                        if (n !== null) combined[key].rawSum += n;
                     }
                 }
             }
         }
 
-        // Build section map from combined totals
+        // Build section map from summed totals
         const sections = {};
         for (const [key, entry] of Object.entries(combined)) {
             const s = entry.section;
@@ -556,20 +566,24 @@ function _buildGroupAttrMap(group, includeOutfits = true) {
             sections[s].push({
                 key,
                 label: entry.label,
-                value: entry.numeric ? _fmt(entry.numericSum) : entry.value,
+                value: entry.numeric ? _fmt(entry.rawSum) : entry.strValue,
                 unit:  entry.unit || '',
             });
         }
 
-        // ── Per-member breakdown (only in the with-outfits pass) ─────────────
+        // ── Per-member breakdown (with-outfits pass only) ─────────────────────
+        // Each member gets its own "Member: <name>" section showing base attrs
+        // and a separate "(with outfits)" sub-section for changed values —
+        // exactly mirroring what single ships show in the columns view.
         if (includeOutfits) {
             for (let i = 0; i < resolvedMembers.length; i++) {
                 const { item, qty } = resolvedMembers[i];
-                const memberName    = item['display name'] || item.name || `Member ${i + 1}`;
-                const sectionKey    = `Member: ${memberName}`;
+                const memberName = item['display name'] || item.name || `Member ${i + 1}`;
+                const sectionKey = `Member: ${memberName}`;
                 if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
                 sections[sectionKey] = [];
 
+                // Qty spinner row
                 sections[sectionKey].push({
                     key:                  `_gmqty_${group._groupId}_${i}`,
                     label:                'Quantity',
@@ -580,12 +594,65 @@ function _buildGroupAttrMap(group, includeOutfits = true) {
                     _memberIdx:           i,
                 });
 
-                const memberMap = _buildAttrMap(item, qty, true);
-                for (const [section, rows] of Object.entries(memberMap)) {
+                // Build base and outfit maps for this member so we can diff them
+                const memberBase   = _buildAttrMap(item, qty, false);
+                const memberOutfit = _buildAttrMap(item, qty, true);
+                const memberDiff   = _diffSectionMaps(memberBase, memberOutfit);
+
+                // Emit base rows grouped by section
+                for (const [section, rows] of Object.entries(memberBase)) {
+                    // Section sub-header
+                    sections[sectionKey].push({
+                        key:       `_gmsh_${group._groupId}_${i}_${section}`,
+                        label:     section,
+                        value:     '',
+                        unit:      '',
+                        isDivider: true,
+                    });
                     for (const row of rows) {
                         sections[sectionKey].push({
                             key:   `_gm_${group._groupId}_${i}_${row.key}`,
-                            label: `${section} — ${row.label}`,
+                            label: row.label,
+                            value: row.value,
+                            unit:  row.unit || '',
+                        });
+                    }
+
+                    // Immediately follow with (with outfits) diff rows if any
+                    const diffRows = memberDiff[section] || [];
+                    if (diffRows.length) {
+                        sections[sectionKey].push({
+                            key:       `_gmwosh_${group._groupId}_${i}_${section}`,
+                            label:     `${section} (with outfits)`,
+                            value:     '',
+                            unit:      '',
+                            isDivider: true,
+                        });
+                        for (const row of diffRows) {
+                            sections[sectionKey].push({
+                                key:   `_gmwo_${group._groupId}_${i}_${row.key}`,
+                                label: row.label,
+                                value: row.value,
+                                unit:  row.unit || '',
+                            });
+                        }
+                    }
+                }
+
+                // Any sections that only exist in the outfit map (new from outfits)
+                for (const [section, rows] of Object.entries(memberOutfit)) {
+                    if (memberBase[section]) continue; // already handled above
+                    sections[sectionKey].push({
+                        key:       `_gmwosh_${group._groupId}_${i}_${section}`,
+                        label:     `${section} (with outfits)`,
+                        value:     '',
+                        unit:      '',
+                        isDivider: true,
+                    });
+                    for (const row of rows) {
+                        sections[sectionKey].push({
+                            key:   `_gmwo_${group._groupId}_${i}_${row.key}`,
+                            label: row.label,
                             value: row.value,
                             unit:  row.unit || '',
                         });
@@ -596,7 +663,7 @@ function _buildGroupAttrMap(group, includeOutfits = true) {
 
         return sections;
     }
-
+    
     // ── Build attribute map for one item ──────────────────────────────────────
     // qty: integer multiplier applied to all numeric values
     // includeOutfits: if false, only base ship attrs are used (no outfit contributions)
@@ -841,109 +908,6 @@ function _buildGroupAttrMap(group, includeOutfits = true) {
 
         return sections;
     }
-
-    // ── Build attribute map for a group ─────────────────────────────────────────
-    // A group is { _isGroup, _groupId, name, members: [{ item, qty }] }.
-    // 1. Sums all members × their individual display-qty into combined sections.
-    // 2. Appends a "Member: <name>" section for each member showing its own attrs.
-
-// ── Build attribute map for a group ──────────────────────────────────────
-    // includeOutfits=false → sum only base ship hull attrs across all members
-    // includeOutfits=true  → sum full outfit-included attrs across all members,
-    //                        and append per-member breakdown sections
-    //
-    // The returned map is structurally identical to what _buildAttrMap returns
-    // so _diffSectionMaps works on it unchanged.
-
-    function _buildGroupAttrMap(group, includeOutfits = true) {
-        const isShipGroup = window.CompareManager.getGroupType() === 'ship';
-
-        const resolvedMembers = group.members.map((m, i) => ({
-            item: m.item,
-            qty:  _getGroupMemberQty(group._groupId, i),
-        }));
-
-        // For each member, get the appropriate attr map and sum into combined.
-        // We key on the attr `key` string (stable across calls for the same item)
-        // so that _diffSectionMaps can match rows between base and outfit passes.
-        const combined = {}; // key → { label, numericSum, unit, section, numeric }
-
-        for (const { item, qty } of resolvedMembers) {
-            // For ship groups respect the includeOutfits flag; outfit groups always use true
-            const useOutfits = isShipGroup ? includeOutfits : true;
-            const memberMap  = _buildAttrMap(item, qty, useOutfits);
-
-            for (const [section, rows] of Object.entries(memberMap)) {
-                // Skip per-outfit/weapon detail sections — they don't sum meaningfully
-                if (_isDetailSection(section)) continue;
-                // Also skip per-member breakdown sections from a previous pass
-                if (section.startsWith('Member: ')) continue;
-
-                for (const { key, label, value, unit } of rows) {
-                    const n = _parseDisplayNum(value);
-                    if (n === null) {
-                        // Non-numeric: keep first occurrence
-                        if (!combined[key])
-                            combined[key] = { label, value, unit, section, numeric: false };
-                    } else {
-                        if (!combined[key])
-                            combined[key] = { label, numericSum: 0, unit, section, numeric: true };
-                        combined[key].numericSum = (combined[key].numericSum || 0) + n;
-                    }
-                }
-            }
-        }
-
-        // Build section map from combined totals
-        const sections = {};
-        for (const [key, entry] of Object.entries(combined)) {
-            const s = entry.section;
-            if (!sections[s]) sections[s] = [];
-            sections[s].push({
-                key,
-                label: entry.label,
-                value: entry.numeric ? _fmt(entry.numericSum) : entry.value,
-                unit:  entry.unit || '',
-            });
-        }
-
-        // Per-member breakdown only in the with-outfits pass
-        if (includeOutfits) {
-            for (let i = 0; i < resolvedMembers.length; i++) {
-                const { item, qty } = resolvedMembers[i];
-                const memberName    = item['display name'] || item.name || `Member ${i + 1}`;
-                const sectionKey    = `Member: ${memberName}`;
-                if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
-                sections[sectionKey] = [];
-
-                // Qty spinner row
-                sections[sectionKey].push({
-                    key:                  `_gmqty_${group._groupId}_${i}`,
-                    label:                'Quantity',
-                    value:                `×${qty}`,
-                    unit:                 '',
-                    _isGroupMemberQtyRow: true,
-                    _groupId:             group._groupId,
-                    _memberIdx:           i,
-                });
-
-                // All of this member's attrs (with outfits)
-                const memberMap = _buildAttrMap(item, qty, true);
-                for (const [section, rows] of Object.entries(memberMap)) {
-                    for (const row of rows) {
-                        sections[sectionKey].push({
-                            key:   `_gm_${group._groupId}_${i}_${row.key}`,
-                            label: `${section} — ${row.label}`,
-                            value: row.value,
-                            unit:  row.unit || '',
-                        });
-                    }
-                }
-            }
-        }
-
-        return sections;
-    }
     
     // ── Diff two section maps ─────────────────────────────────────────────────
     // Returns a map of section → rows that differ (changed value or new key).
@@ -1158,7 +1122,7 @@ function _buildGroupAttrMap(group, includeOutfits = true) {
         _refreshBar();
     }
 
-function _refreshBar() {
+    function _refreshBar() {
         const items     = window.CompareManager.getItems();
         const count     = items.length;
         const label     = document.getElementById('compareBarLabel');
@@ -1209,7 +1173,7 @@ function _refreshBar() {
         createGroupBtn.style.display = singles.length >= 2 ? '' : 'none';
         createGroupBtn.onclick = () => _openGroupBuilder(null);
     }
-
+    
     // ── Panel ─────────────────────────────────────────────────────────────────
 
     function _injectPanel() {
