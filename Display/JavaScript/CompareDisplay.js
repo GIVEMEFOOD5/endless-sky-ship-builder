@@ -525,10 +525,10 @@ window.CompareDisplay = (() => {
         }));
 
         // ── Combined top-level stats ──────────────────────────────────────────
-        // Sum raw numeric values for all non-detail sections across members.
-        // Outfit/Weapon detail sections are handled separately below.
+        // Use each member's actual qty so aggregate stats (shields, hull, DPS
+        // totals, etc.) scale correctly when quantities change.
 
-        const combined = {}; // key → { label, rawSum, unit, section, numeric, strValue }
+        const combined = {};
 
         for (const { item, qty } of resolvedMembers) {
             const useOutfits = isShipGroup ? includeOutfits : true;
@@ -557,7 +557,6 @@ window.CompareDisplay = (() => {
             }
         }
 
-        // Build section map from summed totals
         const sections = {};
         for (const [key, entry] of Object.entries(combined)) {
             const s = entry.section;
@@ -571,35 +570,33 @@ window.CompareDisplay = (() => {
         }
 
         // ── Outfit / Weapon detail sections ───────────────────────────────────
-        // Collect all unique outfit/weapon section names across members.
-        // For each, take the static per-outfit rows from the first member that
-        // has that outfit (stats don't change per ship — only counts do).
-        // The Count row is replaced with the sum of (install count × ship qty)
-        // across all members that carry that outfit.
+        // Static stat rows are always taken from a qty=1 build so they never
+        // scale with ship quantity — only the Count row sums install count × qty.
+
         if (includeOutfits) {
-            // Build a map: sectionKey → { rows (static), totalCount }
             const detailSections = {}; // sectionKey → { staticRows, countSum }
 
             for (const { item, qty } of resolvedMembers) {
-                const memberMap = _buildAttrMap(item, qty, true);
+                // Build with qty=1 to get unscaled per-outfit stat values
+                const memberMapQty1 = _buildAttrMap(item, 1, true);
+                // Build with actual qty just to read the Count row value
+                const memberMapQtyN = _buildAttrMap(item, qty, true);
 
-                for (const [section, rows] of Object.entries(memberMap)) {
+                for (const [section, rows] of Object.entries(memberMapQty1)) {
                     if (!_isDetailSection(section)) continue;
 
                     if (!detailSections[section]) {
-                        // First member with this outfit — store all rows as the
-                        // static template, but we'll overwrite the Count row later.
                         detailSections[section] = {
-                            staticRows: rows,
+                            staticRows: rows, // unscaled stats from qty=1 build
                             countSum:   0,
                         };
                         if (!SECTION_ORDER.includes(section)) SECTION_ORDER.push(section);
                     }
 
-                    // Find the Count row value for this member and add it.
-                    // The Count row is always first and has label 'Count' or
-                    // a value like '×N'. We parse it regardless of label.
-                    const countRow = rows.find(r => r.label === 'Count');
+                    // Sum the Count from the qty-scaled build so it reflects
+                    // install count × ship quantity correctly
+                    const scaledRows = memberMapQtyN[section] || [];
+                    const countRow   = scaledRows.find(r => r.label === 'Count');
                     if (countRow) {
                         const n = _parseDisplayNum(countRow.value);
                         if (n !== null) detailSections[section].countSum += n;
@@ -607,14 +604,10 @@ window.CompareDisplay = (() => {
                 }
             }
 
-            // Emit each detail section with updated Count row
             for (const [sectionKey, { staticRows, countSum }] of Object.entries(detailSections)) {
-                sections[sectionKey] = staticRows.map(row => {
-                    if (row.label === 'Count') {
-                        return { ...row, value: `×${countSum}` };
-                    }
-                    return row;
-                });
+                sections[sectionKey] = staticRows.map(row =>
+                    row.label === 'Count' ? { ...row, value: `×${countSum}` } : row
+                );
             }
         }
 
