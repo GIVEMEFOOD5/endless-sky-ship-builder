@@ -651,7 +651,6 @@ window.CompareDisplay = (() => {
         const outfitIdx = _buildOutfitIndex();
         const isShip    = !!(item.attributes && typeof item.attributes === 'object');
 
-        // For base-only mode on outfits, behaviour is unchanged (outfits have no sub-outfits)
         const effectiveOutfitIdx = (isShip && !includeOutfits) ? null : outfitIdx;
 
         function push(key, rawVal, sectionOverride) {
@@ -693,11 +692,11 @@ window.CompareDisplay = (() => {
             const eff = _buildEffectiveAttrs(item, effectiveOutfitIdx);
             for (const [k, v] of Object.entries(eff)) push(k, v);
 
-            // 2. Hardpoints — these are intrinsic to the ship hull, same in both modes
-            if (item.guns?.length)           pushRaw('Hardpoints', 'Guns',           'Guns',           String(item.guns.length * qty), '');
-            if (item.turrets?.length)        pushRaw('Hardpoints', 'Turrets',        'Turrets',        String(item.turrets.length * qty), '');
-            if (item.engines?.length)        pushRaw('Hardpoints', 'Engines',        'Engines',        String(item.engines.length * qty), '');
-            if (item.reverseEngines?.length) pushRaw('Hardpoints', 'ReverseEngines', 'Reverse Engines',String(item.reverseEngines.length * qty), '');
+            // 2. Hardpoints
+            if (item.guns?.length)           pushRaw('Hardpoints', 'Guns',           'Guns',            String(item.guns.length * qty), '');
+            if (item.turrets?.length)        pushRaw('Hardpoints', 'Turrets',        'Turrets',         String(item.turrets.length * qty), '');
+            if (item.engines?.length)        pushRaw('Hardpoints', 'Engines',        'Engines',         String(item.engines.length * qty), '');
+            if (item.reverseEngines?.length) pushRaw('Hardpoints', 'ReverseEngines', 'Reverse Engines', String(item.reverseEngines.length * qty), '');
             if (item.bays?.length) {
                 const byType = {};
                 item.bays.forEach(b => { byType[b.type || 'Bay'] = (byType[b.type || 'Bay'] || 0) + 1; });
@@ -711,16 +710,16 @@ window.CompareDisplay = (() => {
             if (hd.maxSustainableHeatProd != null)
                 pushRawScaled('Heat (derived)', '_hd_maxSustHeat',  'Max Sustainable Heat/s', hd.maxSustainableHeatProd, '/s');
 
-            // 4. Weapon DPS + per-weapon sections — only available when outfits are included
+            // 4. Weapon DPS + per-weapon sections
             if (includeOutfits) {
                 const wData = _buildWeaponData(item, outfitIdx);
                 if (wData && wData.weaponCount) {
                     const dS = 'Weapon DPS';
-                    pushRawScaled(dS, '_ws_totalDps',    'Total DPS',    wData.totalDps,            'dmg/s');
-                    pushRawScaled(dS, '_ws_shieldDps',   'Shield DPS',   wData.shieldDps,           'dmg/s');
-                    pushRawScaled(dS, '_ws_hullDps',     'Hull DPS',     wData.hullDps,             'dmg/s');
-                    pushRaw(dS, '_ws_weaponCount', 'Weapon Types', String(wData.weaponCount),       '');
-                    pushRaw(dS, '_ws_totalMounts', 'Total Mounts', String(wData.totalWeaponMounts * qty), '');
+                    pushRawScaled(dS, '_ws_totalDps',   'Total DPS',   wData.totalDps,  'dmg/s');
+                    pushRawScaled(dS, '_ws_shieldDps',  'Shield DPS',  wData.shieldDps, 'dmg/s');
+                    pushRawScaled(dS, '_ws_hullDps',    'Hull DPS',    wData.hullDps,   'dmg/s');
+                    pushRaw(dS, '_ws_weaponCount', 'Weapon Types',  String(wData.weaponCount), '');
+                    pushRaw(dS, '_ws_totalMounts', 'Total Mounts',  String(wData.totalWeaponMounts * qty), '');
 
                     for (const [dmgKey, val] of Object.entries(wData.dpsByType || {}).sort())
                         if (val) {
@@ -734,6 +733,7 @@ window.CompareDisplay = (() => {
                             pushRawScaled('Ammo Consumption', `_ammo_${a.ammoOutfitName}`,
                                 a.ammoOutfitName, a.totalShotsPerSecond, 'rounds/s');
 
+                    // Per-weapon detail sections — stats at count=1 qty=1, only Count scaled
                     for (const w of (wData.weapons || [])) {
                         const outfit = outfitIdx[w.outfitName];
                         if (!outfit?.weapon) continue;
@@ -741,18 +741,21 @@ window.CompareDisplay = (() => {
                         if (!sections[sectionKey]) sections[sectionKey] = [];
                         if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
 
-                        // Pass qty so _weaponDetailRows can scale all values correctly.
-                        // The function always emits a Count row so we never need to inject one.
-                        const detailRows = _weaponDetailRows(w.outfitName, w.count, outfit, w.profile, qty);
+                        const detailRows = _weaponDetailRows(w.outfitName, 1, outfit, w.profile, 1);
 
                         for (const r of detailRows) {
                             const k = `_wd_${w.outfitName}_${r.label}`;
                             if (seen.has(k)) continue;
                             seen.add(k);
+
+                            const value = r.label === 'Count'
+                                ? `×${w.count * qty}`
+                                : r.value;
+
                             sections[sectionKey].push({
                                 key:   k,
                                 label: r.label,
-                                value: r.value,
+                                value,
                                 unit:  r.unit || '',
                                 ...(r.isDivider ? { isDivider: true } : {}),
                             });
@@ -760,35 +763,36 @@ window.CompareDisplay = (() => {
                     }
                 }
 
-                // 5. Per-outfit detail sections — one section per unique installed outfit,
-                //    sorted by name for a stable, predictable order.
+                // 5. Per-outfit detail sections — stats at count=1 qty=1, only Count scaled
                 const outfitSource  = item.outfitMap || item.outfits || {};
                 const outfitEntries = _outfitEntries(outfitSource);
-                // Sort by outfit name so section order is consistent across ships
                 outfitEntries.sort((a, b) => a[0].localeCompare(b[0]));
 
                 for (const [outfitName, count] of outfitEntries) {
                     if (!outfitName) continue;
                     const outfit = outfitIdx[outfitName];
                     if (!outfit)    continue;
-                    // Weapon outfits are fully covered by the Weapon: <name> section above
                     if (outfit.weapon && typeof outfit.weapon === 'object') continue;
 
                     const sectionKey = `Outfit: ${outfitName}`;
                     if (!sections[sectionKey]) sections[sectionKey] = [];
                     if (!SECTION_ORDER.includes(sectionKey)) SECTION_ORDER.push(sectionKey);
 
-                    const detailRows = _outfitDetailRows(outfitName, count, outfit, qty);
+                    const detailRows = _outfitDetailRows(outfitName, 1, outfit, 1);
 
                     for (const r of detailRows) {
-                        // Use a namespaced key to avoid collisions with top-level attrs
                         const k = `_od_${outfitName}_${r.label}`;
                         if (seen.has(k)) continue;
                         seen.add(k);
+
+                        const value = r.label === 'Count'
+                            ? `×${count * qty}`
+                            : r.value;
+
                         sections[sectionKey].push({
                             key:   k,
                             label: r.label,
-                            value: r.value,
+                            value,
                             unit:  r.unit || '',
                             ...(r.isDivider ? { isDivider: true } : {}),
                         });
@@ -797,7 +801,7 @@ window.CompareDisplay = (() => {
             }
 
         } else {
-            // Outfit — flat structure; push() handles qty scaling
+            // Outfit — flat structure
             for (const [k, v] of Object.entries(item)) {
                 if (SKIP_KEYS.has(k) || typeof v === 'object') continue;
                 push(k, v);
@@ -819,8 +823,8 @@ window.CompareDisplay = (() => {
                         if (profile.totalDps)       pushRawScaled(dS, '_ws_totalDps',  'Total DPS',  profile.totalDps,       'dmg/s');
                         if (profile.shieldDps)      pushRawScaled(dS, '_ws_shieldDps', 'Shield DPS', profile.shieldDps,      'dmg/s');
                         if (profile.hullDps)        pushRawScaled(dS, '_ws_hullDps',   'Hull DPS',   profile.hullDps,        'dmg/s');
-                        if (profile.effectiveRange) pushRaw(dS, '_ws_range',     'Range',      _fmt(profile.effectiveRange), 'px');
-                        if (profile.shotsPerSecond) pushRawScaled(dS, '_ws_sps', 'Fire Rate',  profile.shotsPerSecond, 'shots/s');
+                        if (profile.effectiveRange) pushRaw(dS, '_ws_range', 'Range', _fmt(profile.effectiveRange), 'px');
+                        if (profile.shotsPerSecond) pushRawScaled(dS, '_ws_sps', 'Fire Rate', profile.shotsPerSecond, 'shots/s');
                         for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort())
                             if (dps) {
                                 const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}`;
@@ -838,7 +842,7 @@ window.CompareDisplay = (() => {
             }
         }
 
-        // 6. Computed stats (_fn_*, _derived_*, _sys_*) for the whole ship/outfit
+        // 6. Computed stats
         try {
             let computed = null;
             if (isShip && window.ComputedStats?.isReady())
