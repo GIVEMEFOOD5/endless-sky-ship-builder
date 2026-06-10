@@ -525,8 +525,8 @@ window.CompareDisplay = (() => {
         }));
 
         // ── Combined top-level stats ──────────────────────────────────────────
-        // Use actual qty so aggregate stats scale when quantities change.
-        // Skip detail sections entirely here — handled separately below.
+        // Use actual qty so aggregate stats (shields, hull, DPS totals, etc.)
+        // scale correctly. Detail sections skipped here — handled below.
 
         const combined = {};
 
@@ -542,9 +542,7 @@ window.CompareDisplay = (() => {
                     if (!combined[key]) {
                         const n = _parseDisplayNum(value);
                         combined[key] = {
-                            label,
-                            unit,
-                            section,
+                            label, unit, section,
                             numeric:  n !== null,
                             rawSum:   n !== null ? n : null,
                             strValue: n === null ? value : null,
@@ -570,65 +568,47 @@ window.CompareDisplay = (() => {
         }
 
         // ── Outfit / Weapon detail sections ───────────────────────────────────
-        // Build static per-outfit rows with count=1, qty=1 so no stats are
-        // scaled. Then independently sum the real install counts across all
-        // members (install count × ship qty) and inject that as the Count row.
+        // Take static rows from the FIRST member that has each outfit, built
+        // with qty=1 so per-outfit stats (mass, DPS per gun, etc.) are unscaled.
+        // Keys come directly from _buildAttrMap so they match single-ship keys
+        // exactly — the table view can then align columns correctly.
+        // Only the Count row is replaced with the real summed count across all
+        // members (install count × ship qty).
 
         if (includeOutfits) {
-            const outfitIdx = _buildOutfitIndex();
-
-            // outfitName → { staticRows, countSum }
-            // Weapon outfits use _weaponDetailRows, non-weapon use _outfitDetailRows.
-            const detailMap = {};
+            // sectionKey → { rows from qty=1 build, countSum }
+            const detailSections = {};
 
             for (const { item, qty } of resolvedMembers) {
-                const outfitSource  = item.outfitMap || item.outfits || {};
-                const entries       = _outfitEntries(outfitSource);
+                // qty=1 build gives us unscaled per-outfit stat values with correct keys
+                const mapQty1 = _buildAttrMap(item, 1, true);
+                // qty=N build gives us the correctly scaled Count row
+                const mapQtyN = _buildAttrMap(item, qty, true);
 
-                for (const [outfitName, installCount] of entries) {
-                    if (!outfitName) continue;
-                    const outfit = outfitIdx[outfitName];
-                    if (!outfit)    continue;
+                for (const [section, rowsQty1] of Object.entries(mapQty1)) {
+                    if (!_isDetailSection(section)) continue;
 
-                    const isWeapon = outfit.weapon && typeof outfit.weapon === 'object';
-                    const sectionKey = isWeapon
-                        ? `Weapon: ${outfitName}`
-                        : `Outfit: ${outfitName}`;
-
-                    if (!detailMap[sectionKey]) {
-                        // Build static rows with count=1, qty=1 — no scaling at all
-                        let staticRows;
-                        if (isWeapon) {
-                            // Need a weapon profile; get it from WeaponStats if available
-                            if (window.WeaponStats) {
-                                try {
-                                    const profile = window.WeaponStats.getOutfitWeaponStats(outfit, outfitIdx);
-                                    staticRows = profile
-                                        ? _weaponDetailRows(outfitName, 1, outfit, profile, 1)
-                                        : _outfitDetailRows(outfitName, 1, outfit, 1);
-                                } catch (_) {
-                                    staticRows = _outfitDetailRows(outfitName, 1, outfit, 1);
-                                }
-                            } else {
-                                staticRows = _outfitDetailRows(outfitName, 1, outfit, 1);
-                            }
-                        } else {
-                            staticRows = _outfitDetailRows(outfitName, 1, outfit, 1);
-                        }
-
-                        detailMap[sectionKey] = { staticRows, countSum: 0 };
-
-                        if (!SECTION_ORDER.includes(sectionKey))
-                            SECTION_ORDER.push(sectionKey);
+                    if (!detailSections[section]) {
+                        // Store the qty=1 rows as the static template
+                        detailSections[section] = {
+                            staticRows: rowsQty1,
+                            countSum:   0,
+                        };
+                        if (!SECTION_ORDER.includes(section)) SECTION_ORDER.push(section);
                     }
 
-                    // Sum real install count × ship qty for the Count row
-                    detailMap[sectionKey].countSum += installCount * qty;
+                    // Find the Count row in the qty=N build and add its value
+                    const rowsQtyN  = mapQtyN[section] || [];
+                    const countRow  = rowsQtyN.find(r => r.label === 'Count');
+                    if (countRow) {
+                        const n = _parseDisplayNum(countRow.value);
+                        if (n !== null) detailSections[section].countSum += n;
+                    }
                 }
             }
 
-            // Emit each detail section, replacing the Count row with the real sum
-            for (const [sectionKey, { staticRows, countSum }] of Object.entries(detailMap)) {
+            // Emit each section: static rows but with Count replaced by real sum
+            for (const [sectionKey, { staticRows, countSum }] of Object.entries(detailSections)) {
                 sections[sectionKey] = staticRows.map(row =>
                     row.label === 'Count' ? { ...row, value: `×${countSum}` } : row
                 );
