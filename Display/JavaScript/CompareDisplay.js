@@ -801,7 +801,7 @@ window.CompareDisplay = (() => {
             }
 
         } else {
-            // Outfit — flat structure
+            // Outfit — flat structure; push() handles qty scaling for direct attrs.
             for (const [k, v] of Object.entries(item)) {
                 if (SKIP_KEYS.has(k) || typeof v === 'object') continue;
                 push(k, v);
@@ -820,10 +820,13 @@ window.CompareDisplay = (() => {
                     const profile = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
                     if (profile) {
                         const dS = 'Weapon DPS';
+                        // All per-second rates scale with qty (more copies = more DPS/cost)
                         if (profile.totalDps)       pushRawScaled(dS, '_ws_totalDps',  'Total DPS',  profile.totalDps,       'dmg/s');
                         if (profile.shieldDps)      pushRawScaled(dS, '_ws_shieldDps', 'Shield DPS', profile.shieldDps,      'dmg/s');
                         if (profile.hullDps)        pushRawScaled(dS, '_ws_hullDps',   'Hull DPS',   profile.hullDps,        'dmg/s');
+                        // Range does NOT scale — it's a property of the weapon, not additive
                         if (profile.effectiveRange) pushRaw(dS, '_ws_range', 'Range', _fmt(profile.effectiveRange), 'px');
+                        // Fire rate scales (more copies fire more shots per second total)
                         if (profile.shotsPerSecond) pushRawScaled(dS, '_ws_sps', 'Fire Rate', profile.shotsPerSecond, 'shots/s');
                         for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort())
                             if (dps) {
