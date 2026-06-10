@@ -525,9 +525,6 @@ window.CompareDisplay = (() => {
         }));
 
         // ── Combined top-level stats ──────────────────────────────────────────
-        // Use actual qty so aggregate stats (shields, hull, DPS totals, etc.)
-        // scale correctly. Detail sections skipped here — handled below.
-
         const combined = {};
 
         for (const { item, qty } of resolvedMembers) {
@@ -568,48 +565,72 @@ window.CompareDisplay = (() => {
         }
 
         // ── Outfit / Weapon detail sections ───────────────────────────────────
-        // Take static rows from the FIRST member that has each outfit, built
-        // with qty=1 so per-outfit stats (mass, DPS per gun, etc.) are unscaled.
-        // Keys come directly from _buildAttrMap so they match single-ship keys
-        // exactly — the table view can then align columns correctly.
-        // Only the Count row is replaced with the real summed count across all
-        // members (install count × ship qty).
+        // Build per-outfit rows with count=1, qty=1 so NO stats are scaled.
+        // Apply the same _od_ / _wd_ key prefixes that _buildAttrMap uses so
+        // the table view aligns group columns with single-ship columns correctly.
+        // Only the Count row is replaced with the real summed count.
 
         if (includeOutfits) {
-            // sectionKey → { rows from qty=1 build, countSum }
+            const outfitIdx = _buildOutfitIndex();
+
+            // sectionKey → { rows (count=1,qty=1, correct prefixed keys), countSum }
             const detailSections = {};
 
             for (const { item, qty } of resolvedMembers) {
-                // qty=1 build gives us unscaled per-outfit stat values with correct keys
-                const mapQty1 = _buildAttrMap(item, 1, true);
-                // qty=N build gives us the correctly scaled Count row
-                const mapQtyN = _buildAttrMap(item, qty, true);
+                const outfitSource = item.outfitMap || item.outfits || {};
+                const entries      = _outfitEntries(outfitSource);
 
-                for (const [section, rowsQty1] of Object.entries(mapQty1)) {
-                    if (!_isDetailSection(section)) continue;
+                for (const [outfitName, installCount] of entries) {
+                    if (!outfitName) continue;
+                    const outfit = outfitIdx[outfitName];
+                    if (!outfit)    continue;
 
-                    if (!detailSections[section]) {
-                        // Store the qty=1 rows as the static template
-                        detailSections[section] = {
-                            staticRows: rowsQty1,
-                            countSum:   0,
+                    const isWeapon   = outfit.weapon && typeof outfit.weapon === 'object';
+                    const sectionKey = isWeapon
+                        ? `Weapon: ${outfitName}`
+                        : `Outfit: ${outfitName}`;
+
+                    if (!detailSections[sectionKey]) {
+                        // Generate rows with count=1 and qty=1 — completely unscaled
+                        let rawRows;
+                        if (isWeapon && window.WeaponStats) {
+                            try {
+                                const profile = window.WeaponStats.getOutfitWeaponStats(outfit, outfitIdx);
+                                rawRows = profile
+                                    ? _weaponDetailRows(outfitName, 1, outfit, profile, 1)
+                                    : _outfitDetailRows(outfitName, 1, outfit, 1);
+                            } catch (_) {
+                                rawRows = _outfitDetailRows(outfitName, 1, outfit, 1);
+                            }
+                        } else {
+                            rawRows = _outfitDetailRows(outfitName, 1, outfit, 1);
+                        }
+
+                        // Apply the same key prefixes _buildAttrMap uses so the
+                        // table view can align these rows with single-ship columns.
+                        const prefix = isWeapon ? `_wd_${outfitName}_` : `_od_${outfitName}_`;
+                        const prefixedRows = rawRows.map(r => ({
+                            ...r,
+                            key: prefix + r.label,
+                        }));
+
+                        detailSections[sectionKey] = {
+                            prefixedRows,
+                            countSum: 0,
                         };
-                        if (!SECTION_ORDER.includes(section)) SECTION_ORDER.push(section);
+
+                        if (!SECTION_ORDER.includes(sectionKey))
+                            SECTION_ORDER.push(sectionKey);
                     }
 
-                    // Find the Count row in the qty=N build and add its value
-                    const rowsQtyN  = mapQtyN[section] || [];
-                    const countRow  = rowsQtyN.find(r => r.label === 'Count');
-                    if (countRow) {
-                        const n = _parseDisplayNum(countRow.value);
-                        if (n !== null) detailSections[section].countSum += n;
-                    }
+                    // Accumulate real count: install count × ship qty
+                    detailSections[sectionKey].countSum += installCount * qty;
                 }
             }
 
-            // Emit each section: static rows but with Count replaced by real sum
-            for (const [sectionKey, { staticRows, countSum }] of Object.entries(detailSections)) {
-                sections[sectionKey] = staticRows.map(row =>
+            // Emit each section with the Count row replaced by the real total
+            for (const [sectionKey, { prefixedRows, countSum }] of Object.entries(detailSections)) {
+                sections[sectionKey] = prefixedRows.map(row =>
                     row.label === 'Count' ? { ...row, value: `×${countSum}` } : row
                 );
             }
