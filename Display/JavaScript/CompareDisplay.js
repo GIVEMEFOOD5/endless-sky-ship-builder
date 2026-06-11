@@ -845,33 +845,110 @@ window.CompareDisplay = (() => {
             }
         }
 
-        // 6. Computed stats
+        // 6. Computed stats (_fn_*, _derived_*, _sys_*) for the whole ship/outfit
         try {
             let computed = null;
-            if (isShip && window.ComputedStats?.isReady())
+            if (isShip && window.ComputedStats?.isReady()) {
                 computed = window.ComputedStats.getComputedStats(item, item._pluginId);
-            else if (!isShip && window.ComputedStats?.isReady()) {
-                const flat = Object.fromEntries(Object.entries(item).filter(([, v]) => typeof v === 'number'));
+            } else if (!isShip && window.ComputedStats?.isReady()) {
+                // Build the flat numeric attribute map for this outfit
+                const OUTFIT_META_SKIP = new Set([
+                    'name','category','series','index','cost','thumbnail','sprite',
+                    'description','pluginId','governments','locations',
+                    '_internalId','_pluginId','_hash',
+                ]);
+                const flat = {};
+                for (const [k, v] of Object.entries(item)) {
+                    if (OUTFIT_META_SKIP.has(k)) continue;
+                    if (typeof v === 'number') flat[k] = v;
+                }
+                const outfitAttrKeys = new Set(Object.keys(flat));
+
                 computed = window.ComputedStats.getComputedStatsForAttrs(flat);
+
+                if (computed && window.attrDefs) {
+                    const fns     = window.attrDefs.shipFunctions     || {};
+                    const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
+                    const sysF    = window.attrDefs.systemAwareFormulas || {};
+
+                    for (const k of Object.keys(computed)) {
+                        // _fn_ keys: only keep if the function reads at least one
+                        // attribute that this outfit actually has.
+                        if (k.startsWith('_fn_')) {
+                            const fnName = k.slice(4);
+                            const fnDef  = fns[fnName];
+                            if (!fnDef) { delete computed[k]; continue; }
+                            const reads = fnDef.attributesRead || [];
+                            if (reads.length > 0 && !reads.some(a => outfitAttrKeys.has(a))) {
+                                delete computed[k];
+                            }
+                            continue;
+                        }
+
+                        // _derived_ keys: only keep if the corresponding
+                        // intermediateVar formula references an attribute the outfit has.
+                        if (k.startsWith('_derived_')) {
+                            // Strip prefix variants to recover the var name
+                            const stripped = k
+                                .replace(/^_derived_energy_/, '')
+                                .replace(/^_derived_heat_/, '')
+                                .replace(/^_derived_/, '');
+                            const formula = intVars[stripped];
+                            if (formula) {
+                                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a))) {
+                                    delete computed[k];
+                                }
+                            }
+                            continue;
+                        }
+
+                        // _sys_ keys: only keep if the systemAwareFormula
+                        // references an attribute the outfit has.
+                        if (k.startsWith('_sys_')) {
+                            // Recover the attribute key: _sys_foo_bar → "foo bar"
+                            const attrKey = k.slice(5).replace(/_/g, ' ');
+                            const formula = sysF[attrKey]?.formula;
+                            if (formula) {
+                                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a))) {
+                                    delete computed[k];
+                                }
+                            }
+                            continue;
+                        }
+                    }
+                }
             }
+
             if (computed) {
                 for (const [k, v] of Object.entries(computed)) {
                     if (COMPUTED_SKIP.has(k) || seen.has(k)) continue;
-                    if (v === null || v === undefined || (typeof v === 'number' && (isNaN(v) || v === 0))) continue;
+                    if (v === null || v === undefined) continue;
+                    if (typeof v === 'number' && (isNaN(v) || v === 0)) continue;
                     if (typeof v === 'object') continue;
-                    const isComputedKey = k.startsWith('_fn_') || k.startsWith('_derived_') ||
-                                          k.startsWith('_sys_') || k.startsWith('_ws_') ||
-                                          k.startsWith('_total') || k === '_outfitMass';
+
+                    const isComputedKey =
+                        k.startsWith('_fn_')      ||
+                        k.startsWith('_derived_') ||
+                        k.startsWith('_sys_')     ||
+                        k.startsWith('_ws_')      ||
+                        k.startsWith('_total')    ||
+                        k === '_outfitMass';
                     if (!isComputedKey) continue;
+
                     seen.add(k);
+
                     let section = 'Derived Stats';
                     if (k.startsWith('_ws_'))                                 section = 'Weapon DPS';
                     else if (k === '_outfitMass' || k === '_totalOutfitCost') section = 'General';
+
                     let display = v;
                     let unit    = '';
+
                     if (k.startsWith('_fn_')) {
                         const fnName = k.slice(4);
-                        const scale  = _attrDefs()?.shipFunctions?.[fnName]?.displayScale;
+                        const scale  = window.attrDefs?.shipFunctions?.[fnName]?.displayScale;
                         if (scale) display = v * scale;
                         unit = _inferFnUnit(fnName);
                     } else if (k.startsWith('_derived_energy_')) {
@@ -881,9 +958,16 @@ window.CompareDisplay = (() => {
                     } else if (k.startsWith('_ws_') && k.toLowerCase().includes('dps')) {
                         unit = 'dmg/s';
                     }
+
                     if (typeof display === 'number') display = display * qty;
+
                     if (!sections[section]) sections[section] = [];
-                    sections[section].push({ key: k, label: _labelOf(k), value: _fmt(display), unit });
+                    sections[section].push({
+                        key:   k,
+                        label: _labelOf(k),
+                        value: _fmt(display),
+                        unit,
+                    });
                 }
             }
         } catch (_) {}
