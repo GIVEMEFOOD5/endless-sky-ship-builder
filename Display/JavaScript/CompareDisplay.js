@@ -446,27 +446,10 @@ window.CompareDisplay = (() => {
         rows.push(...attrRows);
 
         // Computed _fn_ / _derived_ stats for this outfit
-        if (window.ComputedStats?.isReady()) {
-            try {
-                const flat = {};
-                for (const [k, v] of Object.entries(src))
-                    if (typeof v === 'number') flat[k] = v;
-
-                const outfitAttrKeys = new Set(Object.keys(flat));
-                let computed = window.ComputedStats.getComputedStatsForAttrs(flat);
-
-                // Filter: only keep computed values whose driving attributes
-                // are actually present on this outfit.
-                if (computed && window.attrDefs) {
+        if (computed && window.attrDefs) {
                     const fns     = window.attrDefs.shipFunctions              || {};
                     const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
                     const sysF    = window.attrDefs.systemAwareFormulas           || {};
-
-                    // Attributes that are present on almost every outfit (mass, outfit space)
-                    // but don't indicate that a ship-aggregate function is meaningful for
-                    // this outfit in isolation. A function that ONLY reads these keys should
-                    // not be shown on an outfit detail section.
-                    const UNIVERSAL_OUTFIT_KEYS = new Set(['mass', 'outfit space', 'weapon capacity', 'engine capacity']);
 
                     for (const k of Object.keys(computed)) {
                         if (k.startsWith('_fn_')) {
@@ -474,12 +457,18 @@ window.CompareDisplay = (() => {
                             if (!fnDef) { delete computed[k]; continue; }
                             const reads = fnDef.attributesRead || [];
                             if (reads.length === 0) { delete computed[k]; continue; }
-                            // Keep only if the outfit has at least one of the function's
-                            // attributesRead that is NOT a universal key present on every outfit.
-                            const hasNonUniversal = reads.some(a =>
-                                outfitAttrKeys.has(a) && !UNIVERSAL_OUTFIT_KEYS.has(a)
-                            );
-                            if (!hasNonUniversal) delete computed[k];
+                            // Only keep if the outfit has at least one of the
+                            // attributesRead keys AND that key is not the only
+                            // thing the function reads (i.e. it does real computation,
+                            // not just restate a single attribute).
+                            const matchingReads = reads.filter(a => outfitAttrKeys.has(a));
+                            if (matchingReads.length === 0) { delete computed[k]; continue; }
+                            // If the function reads only one attribute and the outfit
+                            // has exactly that attribute, the computed value just
+                            // restates the raw attribute — skip it.
+                            if (reads.length === 1 && matchingReads.length === 1) {
+                                delete computed[k]; continue;
+                            }
                             continue;
                         }
                         if (k.startsWith('_derived_')) {
@@ -488,28 +477,18 @@ window.CompareDisplay = (() => {
                                 .replace(/^_derived_heat_/, '')
                                 .replace(/^_derived_/, '');
                             const formula = intVars[stripped];
-                            if (formula) {
-                                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                                const hasNonUniversal = refs.some(a =>
-                                    outfitAttrKeys.has(a) && !UNIVERSAL_OUTFIT_KEYS.has(a)
-                                );
-                                if (refs.length > 0 && !hasNonUniversal) delete computed[k];
-                            } else {
-                                delete computed[k];
-                            }
+                            if (!formula) { delete computed[k]; continue; }
+                            const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                            if (refs.length === 0) { delete computed[k]; continue; }
+                            if (!refs.some(a => outfitAttrKeys.has(a))) { delete computed[k]; continue; }
                             continue;
                         }
                         if (k.startsWith('_sys_')) {
                             const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
-                            if (formula) {
-                                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                                const hasNonUniversal = refs.some(a =>
-                                    outfitAttrKeys.has(a) && !UNIVERSAL_OUTFIT_KEYS.has(a)
-                                );
-                                if (refs.length > 0 && !hasNonUniversal) delete computed[k];
-                            } else {
-                                delete computed[k];
-                            }
+                            if (!formula) { delete computed[k]; continue; }
+                            const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                            if (refs.length === 0) { delete computed[k]; continue; }
+                            if (!refs.some(a => outfitAttrKeys.has(a))) { delete computed[k]; continue; }
                             continue;
                         }
                     }
@@ -923,12 +902,10 @@ window.CompareDisplay = (() => {
         // 6. Computed stats (_fn_*, _derived_*, _sys_*) for the whole ship/outfit
         try {
             let computed = null;
-            let effectiveAttrKeys = null; // keys present on this item (for filtering)
+            let effectiveAttrKeys = null;
 
             if (isShip && window.ComputedStats?.isReady()) {
                 computed = window.ComputedStats.getComputedStats(item, item._pluginId);
-                // Build the set of effective attribute keys for filtering.
-                // Use the already-computed effective attrs (base + outfits).
                 const eff = _buildEffectiveAttrs(item, effectiveOutfitIdx);
                 effectiveAttrKeys = new Set(Object.keys(eff));
             } else if (!isShip && window.ComputedStats?.isReady()) {
@@ -946,8 +923,9 @@ window.CompareDisplay = (() => {
                 computed = window.ComputedStats.getComputedStatsForAttrs(flat);
             }
 
-            // Filter computed keys by whether the item actually has the
-            // attributes that drive each function — same logic for ships and outfits.
+            // Filter computed keys — only keep values whose driving attributes
+            // are actually present on this item, and skip functions that merely
+            // restate a single raw attribute.
             if (computed && effectiveAttrKeys && window.attrDefs) {
                 const fns     = window.attrDefs.shipFunctions              || {};
                 const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
@@ -958,8 +936,17 @@ window.CompareDisplay = (() => {
                         const fnDef = fns[k.slice(4)];
                         if (!fnDef) { delete computed[k]; continue; }
                         const reads = fnDef.attributesRead || [];
-                        if (reads.length > 0 && !reads.some(a => effectiveAttrKeys.has(a)))
-                            delete computed[k];
+                        if (reads.length === 0) { delete computed[k]; continue; }
+                        const matchingReads = reads.filter(a => effectiveAttrKeys.has(a));
+                        // No matching attributes at all — skip
+                        if (matchingReads.length === 0) { delete computed[k]; continue; }
+                        // For outfits: if only one attribute matches and the function
+                        // reads multiple attributes, it's a ship-aggregate function
+                        // that only incidentally fires — skip it.
+                        // For ships: keep everything that has any matching attribute.
+                        if (!isShip && matchingReads.length < 2 && reads.length > 1) {
+                            delete computed[k]; continue;
+                        }
                         continue;
                     }
                     if (k.startsWith('_derived_')) {
@@ -968,20 +955,18 @@ window.CompareDisplay = (() => {
                             .replace(/^_derived_heat_/, '')
                             .replace(/^_derived_/, '');
                         const formula = intVars[stripped];
-                        if (formula) {
-                            const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                            if (refs.length > 0 && !refs.some(a => effectiveAttrKeys.has(a)))
-                                delete computed[k];
-                        }
+                        if (!formula) { delete computed[k]; continue; }
+                        const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                        if (refs.length === 0) { delete computed[k]; continue; }
+                        if (!refs.some(a => effectiveAttrKeys.has(a))) { delete computed[k]; continue; }
                         continue;
                     }
                     if (k.startsWith('_sys_')) {
                         const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
-                        if (formula) {
-                            const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                            if (refs.length > 0 && !refs.some(a => effectiveAttrKeys.has(a)))
-                                delete computed[k];
-                        }
+                        if (!formula) { delete computed[k]; continue; }
+                        const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                        if (refs.length === 0) { delete computed[k]; continue; }
+                        if (!refs.some(a => effectiveAttrKeys.has(a))) { delete computed[k]; continue; }
                         continue;
                     }
                 }
