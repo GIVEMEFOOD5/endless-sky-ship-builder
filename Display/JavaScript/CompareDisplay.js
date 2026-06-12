@@ -905,32 +905,43 @@ window.CompareDisplay = (() => {
             }
 
             if (computed) {
-                for (const [k, v] of Object.entries(computed)) {
-                    if (COMPUTED_SKIP.has(k) || seen.has(k)) continue;
+                // Separate fn/derived/sys keys from everything else so we can
+                // guarantee they are processed even if a raw attr with the same
+                // name somehow ended up in seen (defensive).
+                const fnKeys = Object.keys(computed).filter(k =>
+                    k.startsWith('_fn_') ||
+                    k.startsWith('_derived_') ||
+                    k.startsWith('_sys_') ||
+                    k.startsWith('_ws_') ||
+                    k.startsWith('_total') ||
+                    k === '_outfitMass'
+                );
+
+                for (const k of fnKeys) {
+                    const v = computed[k];
+                    // Skip internal/non-display keys
+                    if (COMPUTED_SKIP.has(k)) continue;
                     if (v === null || v === undefined) continue;
                     if (typeof v === 'number' && (isNaN(v) || v === 0)) continue;
                     if (typeof v === 'object') continue;
-
-                    const isComputedKey =
-                        k.startsWith('_fn_')      ||
-                        k.startsWith('_derived_') ||
-                        k.startsWith('_sys_')     ||
-                        k.startsWith('_ws_')      ||
-                        k.startsWith('_total')    ||
-                        k === '_outfitMass';
-                    if (!isComputedKey) continue;
-
+                    // Do NOT skip if seen — for computed keys on ships, qty may
+                    // have changed since the key was last added. Remove from seen
+                    // and re-process so the qty-scaled value replaces the old one.
+                    // We identify the section and remove the stale row first.
+                    if (seen.has(k)) {
+                        // Remove stale row from its section so we can re-add scaled
+                        for (const rows of Object.values(sections)) {
+                            const idx = rows.findIndex(r => r.key === k);
+                            if (idx !== -1) { rows.splice(idx, 1); break; }
+                        }
+                        seen.delete(k);
+                    }
                     seen.add(k);
 
                     let section = 'Derived Stats';
                     if (k.startsWith('_ws_'))                                 section = 'Weapon DPS';
                     else if (k === '_outfitMass' || k === '_totalOutfitCost') section = 'General';
 
-                    // Determine raw display value and unit.
-                    // For _fn_ keys: apply displayScale first, then qty.
-                    // For all others: apply qty directly.
-                    // NOTE: _ws_ keys are already scaled per-ship by WeaponStats,
-                    // so they should also scale with qty.
                     let display = v;
                     let unit    = '';
 
@@ -938,29 +949,22 @@ window.CompareDisplay = (() => {
                         const fnName = k.slice(4);
                         const fnDef  = window.attrDefs?.shipFunctions?.[fnName];
                         const scale  = fnDef?.displayScale;
-                        // Apply displayScale to get human-readable value,
-                        // then multiply by qty (N ships = N times the contribution)
-                        display = (typeof scale === 'number' && scale !== 0 && scale !== 1)
-                            ? v * scale * qty
-                            : v * qty;
+                        display = (typeof scale === 'number' && scale !== 1 && scale !== 0)
+                            ? v * scale
+                            : v;
                         unit = _inferFnUnit(fnName);
                     } else if (k.startsWith('_derived_energy_')) {
-                        display = v * qty;
                         unit = 'e/s';
                     } else if (k.startsWith('_derived_heat_')) {
-                        display = v * qty;
                         unit = 'h/s';
                     } else if (k.startsWith('_sys_')) {
-                        display = v * qty;
                         unit = '/s';
-                    } else if (k.startsWith('_derived_')) {
-                        display = v * qty;
-                    } else {
-                        // _ws_, _total, _outfitMass etc.
-                        display = v * qty;
-                        if (k.startsWith('_ws_') && k.toLowerCase().includes('dps'))
-                            unit = 'dmg/s';
+                    } else if (k.startsWith('_ws_') && k.toLowerCase().includes('dps')) {
+                        unit = 'dmg/s';
                     }
+
+                    // Scale by qty — N ships contribute N times
+                    if (typeof display === 'number') display = display * qty;
 
                     if (!sections[section]) sections[section] = [];
                     sections[section].push({
