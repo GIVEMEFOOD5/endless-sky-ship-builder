@@ -462,13 +462,24 @@ window.CompareDisplay = (() => {
                     const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
                     const sysF    = window.attrDefs.systemAwareFormulas           || {};
 
+                    // Attributes that are present on almost every outfit (mass, outfit space)
+                    // but don't indicate that a ship-aggregate function is meaningful for
+                    // this outfit in isolation. A function that ONLY reads these keys should
+                    // not be shown on an outfit detail section.
+                    const UNIVERSAL_OUTFIT_KEYS = new Set(['mass', 'outfit space', 'weapon capacity', 'engine capacity']);
+
                     for (const k of Object.keys(computed)) {
                         if (k.startsWith('_fn_')) {
                             const fnDef = fns[k.slice(4)];
                             if (!fnDef) { delete computed[k]; continue; }
                             const reads = fnDef.attributesRead || [];
-                            if (reads.length > 0 && !reads.some(a => outfitAttrKeys.has(a)))
-                                delete computed[k];
+                            if (reads.length === 0) { delete computed[k]; continue; }
+                            // Keep only if the outfit has at least one of the function's
+                            // attributesRead that is NOT a universal key present on every outfit.
+                            const hasNonUniversal = reads.some(a =>
+                                outfitAttrKeys.has(a) && !UNIVERSAL_OUTFIT_KEYS.has(a)
+                            );
+                            if (!hasNonUniversal) delete computed[k];
                             continue;
                         }
                         if (k.startsWith('_derived_')) {
@@ -479,8 +490,12 @@ window.CompareDisplay = (() => {
                             const formula = intVars[stripped];
                             if (formula) {
                                 const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a)))
-                                    delete computed[k];
+                                const hasNonUniversal = refs.some(a =>
+                                    outfitAttrKeys.has(a) && !UNIVERSAL_OUTFIT_KEYS.has(a)
+                                );
+                                if (refs.length > 0 && !hasNonUniversal) delete computed[k];
+                            } else {
+                                delete computed[k];
                             }
                             continue;
                         }
@@ -488,14 +503,18 @@ window.CompareDisplay = (() => {
                             const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
                             if (formula) {
                                 const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a)))
-                                    delete computed[k];
+                                const hasNonUniversal = refs.some(a =>
+                                    outfitAttrKeys.has(a) && !UNIVERSAL_OUTFIT_KEYS.has(a)
+                                );
+                                if (refs.length > 0 && !hasNonUniversal) delete computed[k];
+                            } else {
+                                delete computed[k];
                             }
                             continue;
                         }
                     }
                 }
-
+                
                 if (computed) {
                     const computedRows = [];
                     for (const [k, v] of Object.entries(computed)) {
