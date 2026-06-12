@@ -663,7 +663,14 @@ window.CompareDisplay = (() => {
             const unit     = _getDisplayUnit(key);
             const entry    = _getAttrRecord(key);
 
-            const isBehaviourKey = entry?.isWeaponDataKey && !entry?.isWeaponStat;
+            // isWeaponDataKey covers both true weapon behaviour keys (reload, velocity,
+            // lifetime etc — should NOT scale with qty) AND ship movement attrs that
+            // happen to also be used in weapon data (turn, thrust — SHOULD scale).
+            // Distinguish them: if the attr has usedInShipFunctions it is a ship stat
+            // that scales with qty. Pure weapon behaviour keys have no usedInShipFunctions.
+            const isShipMovementAttr = entry?.usedInShipFunctions?.length > 0;
+            const isBehaviourKey = entry?.isWeaponDataKey && !entry?.isWeaponStat && !isShipMovementAttr;
+
             const scaledVal = (typeof rawVal === 'number' && !isBehaviourKey)
                 ? rawVal * qty
                 : rawVal;
