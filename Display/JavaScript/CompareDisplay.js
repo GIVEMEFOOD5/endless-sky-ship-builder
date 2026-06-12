@@ -851,7 +851,6 @@ window.CompareDisplay = (() => {
             if (isShip && window.ComputedStats?.isReady()) {
                 computed = window.ComputedStats.getComputedStats(item, item._pluginId);
             } else if (!isShip && window.ComputedStats?.isReady()) {
-                // Build the flat numeric attribute map for this outfit
                 const OUTFIT_META_SKIP = new Set([
                     'name','category','series','index','cost','thumbnail','sprite',
                     'description','pluginId','governments','locations',
@@ -863,32 +862,23 @@ window.CompareDisplay = (() => {
                     if (typeof v === 'number') flat[k] = v;
                 }
                 const outfitAttrKeys = new Set(Object.keys(flat));
-
                 computed = window.ComputedStats.getComputedStatsForAttrs(flat);
 
                 if (computed && window.attrDefs) {
-                    const fns     = window.attrDefs.shipFunctions     || {};
+                    const fns     = window.attrDefs.shipFunctions              || {};
                     const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
-                    const sysF    = window.attrDefs.systemAwareFormulas || {};
+                    const sysF    = window.attrDefs.systemAwareFormulas           || {};
 
                     for (const k of Object.keys(computed)) {
-                        // _fn_ keys: only keep if the function reads at least one
-                        // attribute that this outfit actually has.
                         if (k.startsWith('_fn_')) {
-                            const fnName = k.slice(4);
-                            const fnDef  = fns[fnName];
+                            const fnDef = fns[k.slice(4)];
                             if (!fnDef) { delete computed[k]; continue; }
                             const reads = fnDef.attributesRead || [];
-                            if (reads.length > 0 && !reads.some(a => outfitAttrKeys.has(a))) {
+                            if (reads.length > 0 && !reads.some(a => outfitAttrKeys.has(a)))
                                 delete computed[k];
-                            }
                             continue;
                         }
-
-                        // _derived_ keys: only keep if the corresponding
-                        // intermediateVar formula references an attribute the outfit has.
                         if (k.startsWith('_derived_')) {
-                            // Strip prefix variants to recover the var name
                             const stripped = k
                                 .replace(/^_derived_energy_/, '')
                                 .replace(/^_derived_heat_/, '')
@@ -896,24 +886,17 @@ window.CompareDisplay = (() => {
                             const formula = intVars[stripped];
                             if (formula) {
                                 const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a))) {
+                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a)))
                                     delete computed[k];
-                                }
                             }
                             continue;
                         }
-
-                        // _sys_ keys: only keep if the systemAwareFormula
-                        // references an attribute the outfit has.
                         if (k.startsWith('_sys_')) {
-                            // Recover the attribute key: _sys_foo_bar → "foo bar"
-                            const attrKey = k.slice(5).replace(/_/g, ' ');
-                            const formula = sysF[attrKey]?.formula;
+                            const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
                             if (formula) {
                                 const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a))) {
+                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a)))
                                     delete computed[k];
-                                }
                             }
                             continue;
                         }
@@ -943,29 +926,47 @@ window.CompareDisplay = (() => {
                     if (k.startsWith('_ws_'))                                 section = 'Weapon DPS';
                     else if (k === '_outfitMass' || k === '_totalOutfitCost') section = 'General';
 
+                    // Determine raw display value and unit.
+                    // For _fn_ keys: apply displayScale first, then qty.
+                    // For all others: apply qty directly.
+                    // NOTE: _ws_ keys are already scaled per-ship by WeaponStats,
+                    // so they should also scale with qty.
                     let display = v;
                     let unit    = '';
 
                     if (k.startsWith('_fn_')) {
                         const fnName = k.slice(4);
-                        const scale  = window.attrDefs?.shipFunctions?.[fnName]?.displayScale;
-                        if (scale) display = v * scale;
+                        const fnDef  = window.attrDefs?.shipFunctions?.[fnName];
+                        const scale  = fnDef?.displayScale;
+                        // Apply displayScale to get human-readable value,
+                        // then multiply by qty (N ships = N times the contribution)
+                        display = (typeof scale === 'number' && scale !== 0 && scale !== 1)
+                            ? v * scale * qty
+                            : v * qty;
                         unit = _inferFnUnit(fnName);
                     } else if (k.startsWith('_derived_energy_')) {
+                        display = v * qty;
                         unit = 'e/s';
                     } else if (k.startsWith('_derived_heat_')) {
+                        display = v * qty;
                         unit = 'h/s';
-                    } else if (k.startsWith('_ws_') && k.toLowerCase().includes('dps')) {
-                        unit = 'dmg/s';
+                    } else if (k.startsWith('_sys_')) {
+                        display = v * qty;
+                        unit = '/s';
+                    } else if (k.startsWith('_derived_')) {
+                        display = v * qty;
+                    } else {
+                        // _ws_, _total, _outfitMass etc.
+                        display = v * qty;
+                        if (k.startsWith('_ws_') && k.toLowerCase().includes('dps'))
+                            unit = 'dmg/s';
                     }
-
-                    if (typeof display === 'number') display = display * qty;
 
                     if (!sections[section]) sections[section] = [];
                     sections[section].push({
                         key:   k,
                         label: _labelOf(k),
-                        value: _fmt(display),
+                        value: typeof display === 'number' ? _fmt(display) : String(display),
                         unit,
                     });
                 }
