@@ -452,15 +452,56 @@ window.CompareDisplay = (() => {
                 for (const [k, v] of Object.entries(src))
                     if (typeof v === 'number') flat[k] = v;
 
-                const computed = window.ComputedStats.getComputedStatsForAttrs(flat);
+                const outfitAttrKeys = new Set(Object.keys(flat));
+                let computed = window.ComputedStats.getComputedStatsForAttrs(flat);
+
+                // Filter: only keep computed values whose driving attributes
+                // are actually present on this outfit.
+                if (computed && window.attrDefs) {
+                    const fns     = window.attrDefs.shipFunctions              || {};
+                    const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
+                    const sysF    = window.attrDefs.systemAwareFormulas           || {};
+
+                    for (const k of Object.keys(computed)) {
+                        if (k.startsWith('_fn_')) {
+                            const fnDef = fns[k.slice(4)];
+                            if (!fnDef) { delete computed[k]; continue; }
+                            const reads = fnDef.attributesRead || [];
+                            if (reads.length > 0 && !reads.some(a => outfitAttrKeys.has(a)))
+                                delete computed[k];
+                            continue;
+                        }
+                        if (k.startsWith('_derived_')) {
+                            const stripped = k
+                                .replace(/^_derived_energy_/, '')
+                                .replace(/^_derived_heat_/, '')
+                                .replace(/^_derived_/, '');
+                            const formula = intVars[stripped];
+                            if (formula) {
+                                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a)))
+                                    delete computed[k];
+                            }
+                            continue;
+                        }
+                        if (k.startsWith('_sys_')) {
+                            const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
+                            if (formula) {
+                                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a)))
+                                    delete computed[k];
+                            }
+                            continue;
+                        }
+                    }
+                }
+
                 if (computed) {
-                    rows.push({ label: '— Computed /s —', value: '', unit: '', isDivider: true });
                     const computedRows = [];
                     for (const [k, v] of Object.entries(computed)) {
                         if (v === null || v === undefined) continue;
                         if (typeof v === 'number' && (isNaN(v) || v === 0)) continue;
                         if (typeof v === 'object') continue;
-
                         const isComputedKey = k.startsWith('_fn_') || k.startsWith('_derived_') ||
                                               k.startsWith('_sys_');
                         if (!isComputedKey) continue;
@@ -470,15 +511,19 @@ window.CompareDisplay = (() => {
 
                         if (k.startsWith('_fn_')) {
                             const fnName = k.slice(4);
-                            const scale  = _attrDefs()?.shipFunctions?.[fnName]?.displayScale;
-                            if (scale) display = v * scale;
+                            const fnDef  = window.attrDefs?.shipFunctions?.[fnName];
+                            const scale  = fnDef?.displayScale;
+                            display = (typeof scale === 'number' && scale !== 0 && scale !== 1)
+                                ? v * scale
+                                : v;
                             unit = _inferFnUnit(fnName);
-                            // Scale by count × qty for rates
                             if (typeof display === 'number') display = display * count * qty;
-                        } else if (k.startsWith('_derived_energy_') || k.startsWith('_derived_heat_')) {
-                            // These are already per-second rates
+                        } else if (k.startsWith('_derived_energy_')) {
                             if (typeof display === 'number') display = display * count * qty;
-                            unit = k.startsWith('_derived_energy_') ? 'e/s' : 'h/s';
+                            unit = 'e/s';
+                        } else if (k.startsWith('_derived_heat_')) {
+                            if (typeof display === 'number') display = display * count * qty;
+                            unit = 'h/s';
                         } else if (k.startsWith('_derived_')) {
                             if (typeof display === 'number') display = display * count * qty;
                         } else if (k.startsWith('_sys_')) {
@@ -490,11 +535,15 @@ window.CompareDisplay = (() => {
                             label: _labelOf(k),
                             value: typeof display === 'number' ? _fmt(display) : String(display),
                             unit,
-                            key:   k,
+                            key: k,
                         });
                     }
-                    computedRows.sort((a, b) => a.label.localeCompare(b.label));
-                    rows.push(...computedRows);
+
+                    if (computedRows.length) {
+                        computedRows.sort((a, b) => a.label.localeCompare(b.label));
+                        rows.push({ label: '— Computed /s —', value: '', unit: '', isDivider: true });
+                        rows.push(...computedRows);
+                    }
                 }
             } catch (_) {}
         }
