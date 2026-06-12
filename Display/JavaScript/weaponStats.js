@@ -195,13 +195,15 @@ function _resolveEffectiveRange(w, outfitIndex, visited, depth, inheritedVelocit
 // ─────────────────────────────────────────────────────────────────────────────
 
 function _resolveShotsPerSecond(weapon) {
-    const reload      = Math.max(1, weapon.reload       || 1);
+    /*const reload      = Math.max(1, weapon.reload       || 1);
     const burstCount  = Math.max(1, weapon['burst count']  || 1);
     const burstReload = Math.max(1, weapon['burst reload'] || reload);
     const framesPerCycle = burstCount > 1
         ? (burstCount - 1) * burstReload + reload
         : reload;
-    return (burstCount / framesPerCycle) * FPS;
+    return (burstCount / framesPerCycle) * FPS;*/
+    const reload = Math.max(1, weapon.reload || 1);
+    return FPS / reload;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
