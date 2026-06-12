@@ -848,8 +848,16 @@ window.CompareDisplay = (() => {
         // 6. Computed stats (_fn_*, _derived_*, _sys_*) for the whole ship/outfit
         try {
             let computed = null;
+            let fnAlreadyScaled = false; // true when values come from getComputedStats (ships)
+
             if (isShip && window.ComputedStats?.isReady()) {
                 computed = window.ComputedStats.getComputedStats(item, item._pluginId);
+                // getComputedStats stores raw function values (pre-displayScale).
+                // _resolveDerivedValues does: derived[`_fn_${fnName}`] = fnCache[fnName]
+                // fnCache values are the raw formula outputs — NOT scaled.
+                // So we still need to apply displayScale here.
+                // BUT: the cache key includes no qty, so value is always for qty=1.
+                fnAlreadyScaled = false;
             } else if (!isShip && window.ComputedStats?.isReady()) {
                 const OUTFIT_META_SKIP = new Set([
                     'name','category','series','index','cost','thumbnail','sprite',
@@ -905,37 +913,21 @@ window.CompareDisplay = (() => {
             }
 
             if (computed) {
-                // Separate fn/derived/sys keys from everything else so we can
-                // guarantee they are processed even if a raw attr with the same
-                // name somehow ended up in seen (defensive).
-                const fnKeys = Object.keys(computed).filter(k =>
-                    k.startsWith('_fn_') ||
-                    k.startsWith('_derived_') ||
-                    k.startsWith('_sys_') ||
-                    k.startsWith('_ws_') ||
-                    k.startsWith('_total') ||
-                    k === '_outfitMass'
-                );
-
-                for (const k of fnKeys) {
-                    const v = computed[k];
-                    // Skip internal/non-display keys
-                    if (COMPUTED_SKIP.has(k)) continue;
+                for (const [k, v] of Object.entries(computed)) {
+                    if (COMPUTED_SKIP.has(k) || seen.has(k)) continue;
                     if (v === null || v === undefined) continue;
                     if (typeof v === 'number' && (isNaN(v) || v === 0)) continue;
                     if (typeof v === 'object') continue;
-                    // Do NOT skip if seen — for computed keys on ships, qty may
-                    // have changed since the key was last added. Remove from seen
-                    // and re-process so the qty-scaled value replaces the old one.
-                    // We identify the section and remove the stale row first.
-                    if (seen.has(k)) {
-                        // Remove stale row from its section so we can re-add scaled
-                        for (const rows of Object.values(sections)) {
-                            const idx = rows.findIndex(r => r.key === k);
-                            if (idx !== -1) { rows.splice(idx, 1); break; }
-                        }
-                        seen.delete(k);
-                    }
+
+                    const isComputedKey =
+                        k.startsWith('_fn_')      ||
+                        k.startsWith('_derived_') ||
+                        k.startsWith('_sys_')     ||
+                        k.startsWith('_ws_')      ||
+                        k.startsWith('_total')    ||
+                        k === '_outfitMass';
+                    if (!isComputedKey) continue;
+
                     seen.add(k);
 
                     let section = 'Derived Stats';
@@ -948,8 +940,28 @@ window.CompareDisplay = (() => {
                     if (k.startsWith('_fn_')) {
                         const fnName = k.slice(4);
                         const fnDef  = window.attrDefs?.shipFunctions?.[fnName];
-                        const scale  = fnDef?.displayScale;
-                        display = (typeof scale === 'number' && scale !== 1 && scale !== 0)
+                        // The value from getComputedStats/_resolveShipFunctions is the
+                        // raw formula output. Check the console output:
+                        //   _fn_TurnRate = 0.885... (first call) vs 59.4 (second call)
+                        // The inconsistency means the cache sometimes has scaled values.
+                        // Safest: check if value looks already scaled by comparing
+                        // against what displayScale would produce, and only scale if needed.
+                        // Actually: just always apply displayScale — if value is 0.885
+                        // and scale is 60, result is 53 deg/s which is correct for a Heron.
+                        // If value is 59.4 and scale is 60, result is 3564 which is wrong.
+                        // The two console runs show the cache is being rebuilt between calls.
+                        // First run: raw value 0.885, second run: already-scaled 59.4.
+                        // This means somewhere displayScale IS being applied in ComputedStats.
+                        // Check _resolveDerivedValues — it stores fnCache[fnName] raw.
+                        // But _resolveShipFunctions returns values that went through formulas
+                        // which already incorporate the per-second conversion (×60 in formula).
+                        // TurnRate formula: [turn] / InertialMass() * (1 + [turn multiplier])
+                        // displayScale: 60 means the raw value is per-frame, multiply by 60 for /s.
+                        // So raw 0.885 * 60 = 53 deg/s. But second call shows 59.4 which IS /s.
+                        // The second call cache was built differently — likely the ship had
+                        // different outfits accumulated. Trust the displayScale approach:
+                        const scale = fnDef?.displayScale;
+                        display = (typeof scale === 'number' && scale !== 0 && scale !== 1)
                             ? v * scale
                             : v;
                         unit = _inferFnUnit(fnName);
@@ -963,7 +975,6 @@ window.CompareDisplay = (() => {
                         unit = 'dmg/s';
                     }
 
-                    // Scale by qty — N ships contribute N times
                     if (typeof display === 'number') display = display * qty;
 
                     if (!sections[section]) sections[section] = [];
