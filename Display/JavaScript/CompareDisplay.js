@@ -855,16 +855,14 @@ window.CompareDisplay = (() => {
         // 6. Computed stats (_fn_*, _derived_*, _sys_*) for the whole ship/outfit
         try {
             let computed = null;
-            let fnAlreadyScaled = false; // true when values come from getComputedStats (ships)
+            let effectiveAttrKeys = null; // keys present on this item (for filtering)
 
             if (isShip && window.ComputedStats?.isReady()) {
                 computed = window.ComputedStats.getComputedStats(item, item._pluginId);
-                // getComputedStats stores raw function values (pre-displayScale).
-                // _resolveDerivedValues does: derived[`_fn_${fnName}`] = fnCache[fnName]
-                // fnCache values are the raw formula outputs — NOT scaled.
-                // So we still need to apply displayScale here.
-                // BUT: the cache key includes no qty, so value is always for qty=1.
-                fnAlreadyScaled = false;
+                // Build the set of effective attribute keys for filtering.
+                // Use the already-computed effective attrs (base + outfits).
+                const eff = _buildEffectiveAttrs(item, effectiveOutfitIdx);
+                effectiveAttrKeys = new Set(Object.keys(eff));
             } else if (!isShip && window.ComputedStats?.isReady()) {
                 const OUTFIT_META_SKIP = new Set([
                     'name','category','series','index','cost','thumbnail','sprite',
@@ -876,45 +874,47 @@ window.CompareDisplay = (() => {
                     if (OUTFIT_META_SKIP.has(k)) continue;
                     if (typeof v === 'number') flat[k] = v;
                 }
-                const outfitAttrKeys = new Set(Object.keys(flat));
+                effectiveAttrKeys = new Set(Object.keys(flat));
                 computed = window.ComputedStats.getComputedStatsForAttrs(flat);
+            }
 
-                if (computed && window.attrDefs) {
-                    const fns     = window.attrDefs.shipFunctions              || {};
-                    const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
-                    const sysF    = window.attrDefs.systemAwareFormulas           || {};
+            // Filter computed keys by whether the item actually has the
+            // attributes that drive each function — same logic for ships and outfits.
+            if (computed && effectiveAttrKeys && window.attrDefs) {
+                const fns     = window.attrDefs.shipFunctions              || {};
+                const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
+                const sysF    = window.attrDefs.systemAwareFormulas           || {};
 
-                    for (const k of Object.keys(computed)) {
-                        if (k.startsWith('_fn_')) {
-                            const fnDef = fns[k.slice(4)];
-                            if (!fnDef) { delete computed[k]; continue; }
-                            const reads = fnDef.attributesRead || [];
-                            if (reads.length > 0 && !reads.some(a => outfitAttrKeys.has(a)))
+                for (const k of Object.keys(computed)) {
+                    if (k.startsWith('_fn_')) {
+                        const fnDef = fns[k.slice(4)];
+                        if (!fnDef) { delete computed[k]; continue; }
+                        const reads = fnDef.attributesRead || [];
+                        if (reads.length > 0 && !reads.some(a => effectiveAttrKeys.has(a)))
+                            delete computed[k];
+                        continue;
+                    }
+                    if (k.startsWith('_derived_')) {
+                        const stripped = k
+                            .replace(/^_derived_energy_/, '')
+                            .replace(/^_derived_heat_/, '')
+                            .replace(/^_derived_/, '');
+                        const formula = intVars[stripped];
+                        if (formula) {
+                            const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                            if (refs.length > 0 && !refs.some(a => effectiveAttrKeys.has(a)))
                                 delete computed[k];
-                            continue;
                         }
-                        if (k.startsWith('_derived_')) {
-                            const stripped = k
-                                .replace(/^_derived_energy_/, '')
-                                .replace(/^_derived_heat_/, '')
-                                .replace(/^_derived_/, '');
-                            const formula = intVars[stripped];
-                            if (formula) {
-                                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a)))
-                                    delete computed[k];
-                            }
-                            continue;
+                        continue;
+                    }
+                    if (k.startsWith('_sys_')) {
+                        const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
+                        if (formula) {
+                            const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                            if (refs.length > 0 && !refs.some(a => effectiveAttrKeys.has(a)))
+                                delete computed[k];
                         }
-                        if (k.startsWith('_sys_')) {
-                            const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
-                            if (formula) {
-                                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                                if (refs.length > 0 && !refs.some(a => outfitAttrKeys.has(a)))
-                                    delete computed[k];
-                            }
-                            continue;
-                        }
+                        continue;
                     }
                 }
             }
@@ -947,27 +947,7 @@ window.CompareDisplay = (() => {
                     if (k.startsWith('_fn_')) {
                         const fnName = k.slice(4);
                         const fnDef  = window.attrDefs?.shipFunctions?.[fnName];
-                        // The value from getComputedStats/_resolveShipFunctions is the
-                        // raw formula output. Check the console output:
-                        //   _fn_TurnRate = 0.885... (first call) vs 59.4 (second call)
-                        // The inconsistency means the cache sometimes has scaled values.
-                        // Safest: check if value looks already scaled by comparing
-                        // against what displayScale would produce, and only scale if needed.
-                        // Actually: just always apply displayScale — if value is 0.885
-                        // and scale is 60, result is 53 deg/s which is correct for a Heron.
-                        // If value is 59.4 and scale is 60, result is 3564 which is wrong.
-                        // The two console runs show the cache is being rebuilt between calls.
-                        // First run: raw value 0.885, second run: already-scaled 59.4.
-                        // This means somewhere displayScale IS being applied in ComputedStats.
-                        // Check _resolveDerivedValues — it stores fnCache[fnName] raw.
-                        // But _resolveShipFunctions returns values that went through formulas
-                        // which already incorporate the per-second conversion (×60 in formula).
-                        // TurnRate formula: [turn] / InertialMass() * (1 + [turn multiplier])
-                        // displayScale: 60 means the raw value is per-frame, multiply by 60 for /s.
-                        // So raw 0.885 * 60 = 53 deg/s. But second call shows 59.4 which IS /s.
-                        // The second call cache was built differently — likely the ship had
-                        // different outfits accumulated. Trust the displayScale approach:
-                        const scale = fnDef?.displayScale;
+                        const scale  = fnDef?.displayScale;
                         display = (typeof scale === 'number' && scale !== 0 && scale !== 1)
                             ? v * scale
                             : v;
