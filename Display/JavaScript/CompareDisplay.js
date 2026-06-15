@@ -318,7 +318,12 @@ window.CompareDisplay = (() => {
 
             let display = null;
             if (typeof val === 'boolean')                    display = val ? '✓' : '✗';
-            else if (typeof val === 'number' && val !== 0)  display = _fmt(val * (_getAttrRecord(key)?.displayMultiplier ?? 1));
+            else if (typeof val === 'number' && val !== 0) {
+                // Weapon sub-object attrs are per-projectile constants — never
+                // scale by count or qty. Only outfit-level attrs (mass, cost etc)
+                // scale with count * qty.
+                display = _fmt(val * (_getDisplayMultiplier(key) ?? 1));
+            }
             else if (typeof val === 'string' && val.trim()) display = val.trim();
             else if (Array.isArray(val) && val.length)
                 display = val.map(el => typeof el === 'object' ? (el.type ?? el.name ?? JSON.stringify(el)) : String(el)).join(', ');
@@ -903,6 +908,9 @@ window.CompareDisplay = (() => {
         try {
             let computed = null;
             let effectiveAttrKeys = null;
+            const itemContext = isShip ? 'ship'
+                : (item.weapon && typeof item.weapon === 'object') ? 'weapon'
+                : 'outfit';
 
             if (isShip && window.ComputedStats?.isReady()) {
                 computed = window.ComputedStats.getComputedStats(item, item._pluginId);
@@ -919,13 +927,17 @@ window.CompareDisplay = (() => {
                     if (OUTFIT_META_SKIP.has(k)) continue;
                     if (typeof v === 'number') flat[k] = v;
                 }
+                // Only use top-level outfit attrs for filtering — NOT weapon sub-object
+                // attrs (like projectile turn, velocity, lifetime) since those are weapon
+                // behaviour keys flagged isWeaponDataKey, not ship stat drivers.
                 effectiveAttrKeys = new Set(Object.keys(flat));
                 computed = window.ComputedStats.getComputedStatsForAttrs(flat);
             }
 
             // Filter computed keys — only keep values whose driving attributes
-            // are actually present on this item, and skip functions that merely
-            // restate a single raw attribute.
+            // are actually present on this item.
+            // For pure outfits: require 2+ attributesRead matches to avoid
+            // ship-aggregate functions firing on single incidental attr matches.
             if (computed && effectiveAttrKeys && window.attrDefs) {
                 const fns     = window.attrDefs.shipFunctions              || {};
                 const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
@@ -938,12 +950,9 @@ window.CompareDisplay = (() => {
                         const reads = fnDef.attributesRead || [];
                         if (reads.length === 0) { delete computed[k]; continue; }
                         const matchingReads = reads.filter(a => effectiveAttrKeys.has(a));
-                        // No matching attributes at all — skip
                         if (matchingReads.length === 0) { delete computed[k]; continue; }
-                        // For outfits: if only one attribute matches and the function
-                        // reads multiple attributes, it's a ship-aggregate function
-                        // that only incidentally fires — skip it.
-                        // For ships: keep everything that has any matching attribute.
+                        // For pure outfits and weapon outfits: require 2+ matching reads
+                        // so ship-aggregate fns don't fire on a single attr match.
                         if (!isShip && matchingReads.length < 2 && reads.length > 1) {
                             delete computed[k]; continue;
                         }
