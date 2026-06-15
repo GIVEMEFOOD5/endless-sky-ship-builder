@@ -7,7 +7,7 @@
 // Per-item attribute layers:
 //   1. Effective attrs  — base ship attrs + all outfit contributions
 //   2. Hardpoints       — gun/turret/bay/engine counts
-//   3. Heat derived     — totalHeatCapacity, maxSustainableHeatProd
+//   3. Heat derived     — totalHeatCawpacity, maxSustainableHeatProd
 //   4. Weapon DPS       — fleet summary + per-weapon detail
 //   5. Per-outfit detail — Outfit: <name> sections for every installed outfit
 //   6. Computed stats   — _fn_*, _derived_*, _ws_* from ComputedStats
@@ -446,12 +446,20 @@ window.CompareDisplay = (() => {
             attrRows.push({ label: _labelOf(key), value: display, unit, key });
         }
 
-        // Sort attribute rows alphabetically by label for consistency
         attrRows.sort((a, b) => a.label.localeCompare(b.label));
         rows.push(...attrRows);
 
         // Computed _fn_ / _derived_ stats for this outfit
-        if (computed && window.attrDefs) {
+        if (window.ComputedStats?.isReady()) {
+            try {
+                const flat = {};
+                for (const [k, v] of Object.entries(src))
+                    if (typeof v === 'number') flat[k] = v;
+
+                const outfitAttrKeys = new Set(Object.keys(flat));
+                let computed = window.ComputedStats.getComputedStatsForAttrs(flat);
+
+                if (computed && window.attrDefs) {
                     const fns     = window.attrDefs.shipFunctions              || {};
                     const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
                     const sysF    = window.attrDefs.systemAwareFormulas           || {};
@@ -462,16 +470,9 @@ window.CompareDisplay = (() => {
                             if (!fnDef) { delete computed[k]; continue; }
                             const reads = fnDef.attributesRead || [];
                             if (reads.length === 0) { delete computed[k]; continue; }
-                            // Only keep if the outfit has at least one of the
-                            // attributesRead keys AND that key is not the only
-                            // thing the function reads (i.e. it does real computation,
-                            // not just restate a single attribute).
                             const matchingReads = reads.filter(a => outfitAttrKeys.has(a));
                             if (matchingReads.length === 0) { delete computed[k]; continue; }
-                            // If the function reads only one attribute and the outfit
-                            // has exactly that attribute, the computed value just
-                            // restates the raw attribute — skip it.
-                            if (reads.length === 1 && matchingReads.length === 1) {
+                            if (matchingReads.length < 2 && reads.length > 1) {
                                 delete computed[k]; continue;
                             }
                             continue;
@@ -498,7 +499,7 @@ window.CompareDisplay = (() => {
                         }
                     }
                 }
-                
+
                 if (computed) {
                     const computedRows = [];
                     for (const [k, v] of Object.entries(computed)) {
