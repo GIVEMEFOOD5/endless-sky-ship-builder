@@ -695,7 +695,6 @@ window.CompareDisplay = (() => {
     // ── Build attribute map for one item ──────────────────────────────────────
     // qty: integer multiplier applied to all numeric values
     // includeOutfits: if false, only base ship attrs are used (no outfit contributions)
-
     function _buildAttrMap(item, qty, includeOutfits = true) {
         qty = (typeof qty === 'number' && qty >= 1) ? qty : 1;
 
@@ -871,22 +870,36 @@ window.CompareDisplay = (() => {
                 const weapSkip = new Set(['sprite','spriteData','sound','hit effect','fire effect',
                     'die effect','submunition','submunitions','stream','cluster',
                     'hardpoint sprite','hardpoint offset','icon','ammunition','ammo']);
+
                 for (const [wk, wv] of Object.entries(item.weapon)) {
                     if (weapSkip.has(wk) || typeof wv === 'object' || Array.isArray(wv)) continue;
-                    push(wk, wv, 'Weapon DPS');
+                    // Weapon sub-object values are per-projectile constants — never
+                    // scale by qty. Use pushRaw with pre-formatted display value.
+                    if (seen.has(wk)) continue;
+                    seen.add(wk);
+                    const mult = _getDisplayMultiplier(wk);
+                    const unit = _getDisplayUnit(wk);
+                    let display;
+                    if (typeof wv === 'boolean') {
+                        display = wv ? '✓' : '✗';
+                    } else if (typeof wv === 'number') {
+                        display = _fmt(wv * mult);
+                    } else {
+                        display = String(wv);
+                    }
+                    const section = 'Weapon DPS';
+                    if (!sections[section]) sections[section] = [];
+                    sections[section].push({ key: wk, label: _labelOf(wk), value: display, unit });
                 }
 
                 if (window.WeaponStats) {
                     const profile = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
                     if (profile) {
                         const dS = 'Weapon DPS';
-                        // All per-second rates scale with qty (more copies = more DPS/cost)
                         if (profile.totalDps)       pushRawScaled(dS, '_ws_totalDps',  'Total DPS',  profile.totalDps,       'dmg/s');
                         if (profile.shieldDps)      pushRawScaled(dS, '_ws_shieldDps', 'Shield DPS', profile.shieldDps,      'dmg/s');
                         if (profile.hullDps)        pushRawScaled(dS, '_ws_hullDps',   'Hull DPS',   profile.hullDps,        'dmg/s');
-                        // Range does NOT scale — it's a property of the weapon, not additive
                         if (profile.effectiveRange) pushRaw(dS, '_ws_range', 'Range', _fmt(profile.effectiveRange), 'px');
-                        // Fire rate scales (more copies fire more shots per second total)
                         if (profile.shotsPerSecond) pushRawScaled(dS, '_ws_sps', 'Fire Rate', profile.shotsPerSecond, 'shots/s');
                         for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort())
                             if (dps) {
