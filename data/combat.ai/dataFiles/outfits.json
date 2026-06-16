@@ -234,13 +234,13 @@
   },
   {
     "name": "combat_ai_basic_energy_generation",
-    "display name": "Basic: Energy Generation +300",
-    "plural": "Basic: Energy Generation +300",
+    "display name": "Basic: Energy Generation +60",
+    "plural": "Basic: Energy Generation +60",
     "thumbnail": "outfit/unq_combat_ai",
     "category": "Combat AI Updates",
     "series": "Functional Unique",
     "index": 1100,
-    "energy generation": 5,
+    "energy generation": 1,
     "unplunderable": 1,
     "description": "This is a database update for the combat AI.",
     "governments": {
@@ -291,8 +291,8 @@
     "spike capacity": 16,
     "thunderhead capacity": 20,
     "ammo": [
-      "Korath Piercer",
-      "Korath Mine",
+      "Piercer Missile",
+      "Cluster Mine",
       "Speck Round",
       "Swarm Missile",
       "Finisher Torpedo",
@@ -305,7 +305,14 @@
       "Typhoon Torpedo",
       "Heavy Rocket",
       "Gatling Gun Ammo",
-      "Star Tail Cell"
+      "Star Tail Cell",
+      "Teciimach Canister",
+      "Nuclear Missile",
+      "EMP Torpedo",
+      "Firelight Missile",
+      "Firestorm Torpedo",
+      "High-Velocity Spike",
+      "Thunderhead Missile"
     ],
     "Nettle": "KKV",
     "Orchid": "Nuclear Missile",
@@ -336,6 +343,32 @@
     "series": "Functional Unique",
     "index": 1100,
     "operating income": 500,
+    "unplunderable": 1,
+    "description": "This is a database update for the combat AI.",
+    "governments": {
+      "combat.ai": {
+        "combat.ai": true
+      }
+    },
+    "locations": {
+      "Zuckungs list/combat.ai": {
+        "Missions": [
+          "combat_ai_lost",
+          "combat_ai_update"
+        ]
+      }
+    },
+    "pluginId": "Zuckungs list/combat.ai"
+  },
+  {
+    "name": "combat_ai_basic_keystone",
+    "display name": "Basic: Keystone",
+    "plural": "Basic: Keystone",
+    "thumbnail": "outfit/unq_combat_ai",
+    "category": "Combat AI Updates",
+    "series": "Functional Unique",
+    "index": 1100,
+    "quantum keystone": 1,
     "unplunderable": 1,
     "description": "This is a database update for the combat AI.",
     "governments": {
@@ -554,8 +587,8 @@
     "category": "Combat AI Updates",
     "series": "Functional Unique",
     "index": 1100,
-    "radar jamming": 0.25,
-    "optical jamming": 0.25,
+    "radar jamming": 0.75,
+    "optical jamming": 0.75,
     "unplunderable": 1,
     "description": "This is a database update for the combat AI.",
     "governments": {
@@ -687,8 +720,8 @@
     "category": "Combat AI Updates",
     "series": "Functional Unique",
     "index": 1100,
-    "ramscoop": 2,
-    "fuel generation": 0.07,
+    "ramscoop": 0.6,
+    "fuel generation": 0.02,
     "unplunderable": 1,
     "description": "This is a database update for the combat AI.",
     "governments": {
@@ -855,8 +888,8 @@
   },
   {
     "name": "combat_ai_special_drag_reduction",
-    "display name": "Special: Drag Reduction +0.2",
-    "plural": "Special: Drag Reduction +0.2",
+    "display name": "Special: Drag Reduction +0.5",
+    "plural": "Special: Drag Reduction +0.5",
     "thumbnail": "outfit/unq_combat_ai",
     "category": "Combat AI Updates",
     "series": "Functional Unique",
