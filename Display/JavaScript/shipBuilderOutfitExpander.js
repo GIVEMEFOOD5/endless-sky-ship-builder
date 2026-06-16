@@ -199,8 +199,11 @@ const OutfitExpander = (() => {
             if (typeof rawVal !== 'number' || rawVal === 0) continue;
 
             const meta = attrMeta[key] || {};
-            // Skip pure weapon-stat keys (they live on the weapon sub-object)
-            if (meta.isWeaponStat || meta.isWeaponDataKey) continue;
+            // Skip keys that are weapon-only — but keep keys that are also
+            // shown in outfit/ship panels (e.g. turn, thrust, which are both
+            // weapon data keys AND real outfit attributes)
+            if (meta.isWeaponStat) continue;
+            if (meta.isWeaponDataKey && !meta.shownInOutfitPanel && !meta.shownInShipPanel) continue;
             // Skip boolean flags
             if (meta.isBoolean) continue;
 
