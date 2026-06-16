@@ -2850,6 +2850,190 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     color: var(--c-success-text);
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   Outfit Expander  —  append to main.css
+   (shipBuilderOutfitExpander.js companion styles)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Wrapper: keeps row + panel together as one block ─────────────── */
+.oe-wrapper,
+.oe-picker-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4px;
+}
+
+/* Cancel the bottom margin the row normally provides itself */
+.oe-wrapper .outfit-item,
+.oe-picker-wrapper .sb-picker-row {
+    margin-bottom: 0;
+}
+
+/* ── Toggle button ────────────────────────────────────────────────── */
+.oe-toggle {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-sm);
+    color: var(--c-text-dim);
+    font-size: 0.6rem;
+    line-height: 1;
+    padding: 3px 5px;
+    cursor: pointer;
+    transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+}
+.oe-toggle:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: var(--c-border-hi);
+    color: var(--c-accent-text);
+}
+.oe-toggle[aria-expanded="true"] {
+    background: rgba(59, 130, 246, 0.20);
+    border-color: var(--c-border-hi);
+    color: var(--c-accent-text);
+}
+
+/* Picker toggle sits at the end of the row */
+.oe-toggle--picker {
+    margin-left: 8px;
+}
+
+/* ── Detail panel ─────────────────────────────────────────────────── */
+.oe-panel {
+    background: rgba(15, 23, 42, 0.70);
+    border: 1px solid var(--c-border-hi);
+    border-top: none;
+    border-radius: 0 0 var(--r-sm) var(--r-sm);
+    padding: 0 12px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.28s ease, opacity 0.22s ease, padding 0.22s ease;
+}
+.oe-panel--open {
+    max-height: 600px;
+    opacity: 1;
+    padding: 12px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+.oe-panel::-webkit-scrollbar       { width: 4px; }
+.oe-panel::-webkit-scrollbar-track { background: transparent; }
+.oe-panel::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.35); border-radius: 2px; }
+
+/* ── Outfit image ─────────────────────────────────────────────────── */
+.oe-img-wrap {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: var(--r-sm);
+    overflow: hidden;
+    border: 1px solid var(--c-border);
+    background: rgba(15, 23, 42, 0.60);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.oe-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+.oe-img-initials {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--c-text-dim);
+    letter-spacing: -0.04em;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Description text ─────────────────────────────────────────────── */
+.oe-description {
+    font-size: 0.78rem;
+    color: var(--c-text-muted);
+    line-height: 1.5;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* ── Group title (Attributes / Computed) ──────────────────────────── */
+.oe-group-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #63b3ed;
+    margin: 10px 0 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(99, 179, 237, 0.20);
+}
+.oe-group-title:first-child { margin-top: 0; }
+
+/* ── Stat grid ────────────────────────────────────────────────────── */
+.oe-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 6px;
+}
+
+/* ── Individual stat card ─────────────────────────────────────────── */
+.oe-stat-card {
+    background: var(--c-surface-3);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-sm);
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+.oe-stat-label {
+    font-size: 0.68rem;
+    color: var(--c-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.oe-stat-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--c-accent-text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+.oe-stat-unit {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--c-text-dim);
+    margin-left: 2px;
+}
+
+/* ── Empty state ──────────────────────────────────────────────────── */
+.oe-no-stats {
+    font-size: 0.82rem;
+    color: var(--c-text-dim);
+    font-style: italic;
+    padding: 4px 0;
+}
+
+/* ── Narrow screens ───────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .oe-stat-grid { grid-template-columns: 1fr 1fr; }
+    .oe-img-wrap  { width: 56px; height: 56px; }
+}
+
 /* ── ≤640px: further compacting ─────────────────────────────── */
 @media (max-width: 690px) {
     .results-compare {
