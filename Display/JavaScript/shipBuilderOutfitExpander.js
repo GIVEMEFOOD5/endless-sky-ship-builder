@@ -182,145 +182,64 @@ const OutfitExpander = (() => {
 
 function _buildStatPanel(outfit) {
     if (!outfit) return `<div class="${CLS.panel}"><div class="${CLS.noStats}">Outfit data not found.</div></div>`;
-
-    // ── Flat attrs (top-level + attributes sub-object) ─────────────────────
-    const attrs    = _flatAttrs(outfit);
-
-    // ── Run through ComputedStats exactly as DataViewer does ───────────────
-    const computed = _computeStats(attrs);
-    const attrMeta = window.attrDefs?.attributes || {};
-
-    const rawRows      = [];
-    const computedRows = [];
-    const fns          = window.attrDefs?.shipFunctions       || {};
-    const sysInfo      = window.attrDefs?.systemAwareFormulas || {};
-
-    // ── Raw attribute rows ─────────────────────────────────────────────────
-    for (const [key, rawVal] of Object.entries(attrs)) {
-        if (key.startsWith('_')) continue;
-        if (typeof rawVal !== 'number' || rawVal === 0) continue;
-        const meta = attrMeta[key] || {};
-        if (meta.isWeaponStat) continue;
-        if (meta.isWeaponDataKey && !meta.shownInOutfitPanel && !meta.shownInShipPanel) continue;
-        if (meta.isBoolean) continue;
-        const mult  = meta.displayMultiplier ?? 1;
-        const unit  = meta.displayUnit        ?? '';
-        rawRows.push({ label: _capWords(key), value: rawVal * mult, unit });
-    }
-
-    // ── Computed rows ──────────────────────────────────────────────────────
-    for (const [key, val] of Object.entries(computed)) {
-        if (!key.startsWith('_')) continue;
-        if (typeof val !== 'number' || val === 0 || isNaN(val)) continue;
-
-        if (key.startsWith('_fn_')) {
-            const fnName = key.slice(4);
-            const fn     = fns[fnName];
-            if (!fn) continue;
-            const scale = fn.displayScale ?? 1;
-            const unit  = fn.displayUnit  ?? '';
-            computedRows.push({
-                label: _capWords(fnName.replace(/([A-Z])/g, ' $1').trim()),
-                value: val * scale,
-                unit,
-            });
-            continue;
-        }
-        if (key.startsWith('_sys_')) {
-            const attrKey = key.slice(5).replace(/_/g, ' ');
-            const info    = sysInfo[attrKey] || {};
-            computedRows.push({
-                label: _capWords(attrKey) + ' (solar)',
-                value: val,
-                unit:  info.displayUnit ?? '/s',
-            });
-            continue;
-        }
-        if (key.startsWith('_derived_energy_')) {
-            computedRows.push({ label: _capWords(key.slice(16).replace(/_/g, ' ')) + ' energy/s', value: val, unit: '' });
-            continue;
-        }
-        if (key.startsWith('_derived_heat_')) {
-            computedRows.push({ label: _capWords(key.slice(14).replace(/_/g, ' ')) + ' heat/s', value: val, unit: '' });
-            continue;
-        }
-        if (key.startsWith('_derived_')) {
-            computedRows.push({
-                label: _capWords(key.slice(9).replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()),
-                value: val,
-                unit:  '',
-            });
-        }
-    }
-
-    // ── Image ──────────────────────────────────────────────────────────────
-    // Use fetchSprite exactly as DataViewer does
-    const panelId  = 'oe-panel-' + Math.random().toString(36).slice(2);
-    const imgPaneId = panelId + '-img';
-
-    let imgHtml;
-    const spritePath = outfit.thumbnail || outfit.sprite || '';
-    if (spritePath && typeof window.fetchSprite === 'function') {
-        // Placeholder while loading
-        imgHtml = `<div class="${CLS.imgWrap}" id="${imgPaneId}">
+    return `<div class="${CLS.panel}">
+        <div class="${CLS.imgWrap}">
             <div class="${CLS.imgInitials}">${_esc(
                 (outfit.name || '?').replace(/^"|"$/g, '').trim()
                     .split(/\s+/).slice(0,2).map(w => w[0] || '').join('').toUpperCase()
             )}</div>
-        </div>`;
-    } else {
-        const initials = (outfit.name || '?').replace(/^"|"$/g, '').trim()
-            .split(/\s+/).slice(0,2).map(w => w[0] || '').join('').toUpperCase();
-        imgHtml = `<div class="${CLS.imgWrap}">
-            <div class="${CLS.imgInitials}">${_esc(initials)}</div>
-        </div>`;
-    }
-
-    // ── Description ────────────────────────────────────────────────────────
-    const desc = outfit.description || (outfit.attributes || {}).description || '';
-    const descHtml = desc
-        ? `<div class="${CLS.description}">${_esc(desc)}</div>`
-        : '';
-
-    // ── Stat cards ─────────────────────────────────────────────────────────
-    function _cardHtml(row) {
-        const unitTag = row.unit
-            ? `<span class="${CLS.statUnit}">${_esc(row.unit)}</span>`
-            : '';
-        return `<div class="${CLS.statCard}">
-            <div class="${CLS.statLabel}">${_esc(row.label)}</div>
-            <div class="${CLS.statValue}">${_esc(_fmt(row.value))}${unitTag}</div>
-        </div>`;
-    }
-
-    const rawGrid = rawRows.length
-        ? `<div class="${CLS.groupTitle}">Attributes</div>
-           <div class="${CLS.statGrid}">${rawRows.map(_cardHtml).join('')}</div>`
-        : '';
-
-    const computedGrid = computedRows.length
-        ? `<div class="${CLS.groupTitle}">Computed</div>
-           <div class="${CLS.statGrid}">${computedRows.map(_cardHtml).join('')}</div>`
-        : '';
-
-    const noStats = !rawRows.length && !computedRows.length
-        ? `<div class="${CLS.noStats}">No stats available for this outfit.</div>`
-        : '';
-
-    const html = `
-<div class="${CLS.panel}" data-panel-id="${panelId}">
-    <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">
-        ${imgHtml}
-        <div style="flex:1;min-width:0;">
-            ${descHtml}
-            ${rawGrid}
-            ${computedGrid}
-            ${noStats}
         </div>
-    </div>
-</div>`;
+        <div class="oe-stats-body"></div>
+    </div>`;
+}
 
-    return html;
+function _populatePanel(panel, outfit) {
+    const pluginId = outfit._pluginId || outfit._pn || null;
+
+    // ── Image — mirrors DataViewer._loadSpriteForCard exactly ─────────────
+    const imgWrap    = panel.querySelector('.' + CLS.imgWrap);
+    const spritePath = outfit.thumbnail || outfit.sprite || null;
+
+    if (spritePath && typeof window.fetchSprite === 'function' && imgWrap) {
+        // Tell ImageGrabber which plugin to look in first
+        if (pluginId && typeof window.setCurrentPlugin === 'function') {
+            window.setCurrentPlugin(pluginId);
+        }
+        // Make sure the index is built for this plugin
+        if (typeof window.initImageIndex === 'function') {
+            window.initImageIndex(pluginId || undefined);
+        }
+
+        window.fetchSprite(spritePath, outfit.spriteData || {})
+            .then(element => {
+                if (!element || !imgWrap.isConnected) return;
+                element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+                imgWrap.innerHTML = '';
+                imgWrap.appendChild(element);
+            })
+            .catch(() => { /* keep initials */ });
+    }
+
+    // ── Stats — hand off entirely to AttributeDisplay, same as DataViewer ──
+    const statsBody = panel.querySelector('.oe-stats-body');
+    if (!statsBody) return;
+
+    if (window.AttributeDisplay?.renderAttributesTabEnhanced && window.attrDefs) {
+        statsBody.innerHTML = window.AttributeDisplay.renderAttributesTabEnhanced(
+            outfit, window.attrDefs, 'outfits', pluginId
+        );
+    } else {
+        // Bare fallback if AttributeDisplay not loaded yet
+        const attrs = { ...outfit, ...(outfit.attributes || {}) };
+        const skip  = new Set(['name','description','thumbnail','sprite','weapon','spriteData','_pluginId','_pn','_pd']);
+        let html = '<div class="attribute-grid">';
+        for (const [key, value] of Object.entries(attrs)) {
+            if (skip.has(key) || key.startsWith('_') || typeof value === 'object') continue;
+            html += `<div class="attribute"><div class="attribute-name">${_esc(key)}</div><div class="attribute-value">${_esc(String(value))}</div></div>`;
+        }
+        html += '</div>';
+        statsBody.innerHTML = html;
+    }
 }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -343,21 +262,6 @@ function _buildStatPanel(outfit) {
         _openPanels[context] = null;
     }
 
-    function _loadPanelImage(panel, outfit) {
-    const spritePath = outfit.thumbnail || outfit.sprite || '';
-    if (!spritePath || typeof window.fetchSprite !== 'function') return;
-
-    const imgWrap = panel.querySelector('.' + CLS.imgWrap);
-    if (!imgWrap) return;
-
-    window.fetchSprite(spritePath, outfit.spriteData || {}).then(element => {
-        if (!element) return; // keep initials fallback
-        element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
-        imgWrap.innerHTML = '';
-        imgWrap.appendChild(element);
-    }).catch(() => { /* keep initials */ });
-}
-    
     // Called when a tab button is clicked
 function _switchTab(btn, panelId) {
     const panel   = document.querySelector(`[data-panel-id="${panelId}"]`);
@@ -485,23 +389,19 @@ function _loadTabContent(panel, pane, tabId) {
     }
 }
     
-    function _openPanel(context, wrapper, toggle, outfitName) {
+function _openPanel(context, wrapper, toggle, outfitName) {
     _closePanel(context);
 
     const outfit = _findOutfit(outfitName);
     if (!outfit && !outfitName) return;
 
-    const panelHtml = _buildStatPanel(outfit || { name: outfitName });
     const div       = document.createElement('div');
-    div.innerHTML   = panelHtml;
+    div.innerHTML   = _buildStatPanel(outfit || { name: outfitName });
     const panel     = div.firstElementChild;
     wrapper.appendChild(panel);
 
-    // Load the first tab (attributes) immediately — it won't auto-load otherwise
-    const firstPane = panel.querySelector('.oe-tab-pane');
-    if (firstPane && firstPane.dataset.loaded === 'false') {
-        _loadTabContent(panel, firstPane, firstPane.dataset.tab);
-    }
+    // Populate image + stats now the panel is in the DOM
+    if (outfit) _populatePanel(panel, outfit);
 
     requestAnimationFrame(() => {
         requestAnimationFrame(() => panel.classList.add(CLS.panelOpen));
