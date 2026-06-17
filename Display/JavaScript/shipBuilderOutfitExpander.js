@@ -196,20 +196,16 @@ function _buildStatPanel(outfit) {
 function _populatePanel(panel, outfit) {
     const pluginId = outfit._pluginId || outfit._pn || null;
 
-    // ── Image — mirrors DataViewer._loadSpriteForCard exactly ─────────────
     const imgWrap    = panel.querySelector('.' + CLS.imgWrap);
     const spritePath = outfit.thumbnail || outfit.sprite || null;
 
     if (spritePath && typeof window.fetchSprite === 'function' && imgWrap) {
-        // Tell ImageGrabber which plugin to look in first
         if (pluginId && typeof window.setCurrentPlugin === 'function') {
             window.setCurrentPlugin(pluginId);
         }
-        // Make sure the index is built for this plugin
         if (typeof window.initImageIndex === 'function') {
             window.initImageIndex(pluginId || undefined);
         }
-
         window.fetchSprite(spritePath, outfit.spriteData || {})
             .then(element => {
                 if (!element || !imgWrap.isConnected) return;
@@ -217,31 +213,65 @@ function _populatePanel(panel, outfit) {
                 imgWrap.innerHTML = '';
                 imgWrap.appendChild(element);
             })
-            .catch(() => { /* keep initials */ });
+            .catch(() => {});
     }
 
-    // ── Stats — hand off entirely to AttributeDisplay, same as DataViewer ──
     const statsBody = panel.querySelector('.oe-stats-body');
     if (!statsBody) return;
 
-    if (window.AttributeDisplay?.renderAttributesTabEnhanced && window.attrDefs) {
-        statsBody.innerHTML = window.AttributeDisplay.renderAttributesTabEnhanced(
-            outfit, window.attrDefs, 'outfits', pluginId
-        );
-    } else {
-        // Bare fallback if AttributeDisplay not loaded yet
-        const attrs = { ...outfit, ...(outfit.attributes || {}) };
-        const skip  = new Set(['name','description','thumbnail','sprite','weapon','spriteData','_pluginId','_pn','_pd']);
-        let html = '<div class="attribute-grid">';
-        for (const [key, value] of Object.entries(attrs)) {
-            if (skip.has(key) || key.startsWith('_') || typeof value === 'object') continue;
-            html += `<div class="attribute"><div class="attribute-name">${_esc(key)}</div><div class="attribute-value">${_esc(String(value))}</div></div>`;
-        }
-        html += '</div>';
-        statsBody.innerHTML = html;
+    if (!window.AttributeDisplay?.renderAttributesTabEnhanced || !window.attrDefs) {
+        statsBody.innerHTML = '<div class="oe-no-stats">Stats unavailable — data still loading.</div>';
+        return;
     }
-}
 
+    // ── Normalise the outfit so both AttributeDisplay and ComputedStats
+    //    can find all attributes regardless of whether the data came from
+    //    a remote plugin (attributes sub-object) or local build (top-level).
+    //
+    //    AttributeDisplay (outfits branch) reads Object.entries(item) for
+    //    top-level keys, so we merge attributes sub-object up to top level.
+    //
+    //    ComputedStats.getComputedStats reads item.attributes OR top-level
+    //    numeric keys, so we also preserve the sub-object.
+    //
+    //    We also ensure _pluginId is set so calcDerivedStats doesn't skip
+    //    the getComputedStats call.
+    // ──────────────────────────────────────────────────────────────────────
+
+    const subAttrs  = outfit.attributes || {};
+    const normalised = { ...outfit };   // shallow copy — don't mutate original
+
+    // Merge sub-object attributes up to top level (only if not already present)
+    for (const [k, v] of Object.entries(subAttrs)) {
+        if (!(k in normalised)) normalised[k] = v;
+    }
+
+    // Ensure attributes sub-object is also present (ComputedStats reads it)
+    if (!normalised.attributes) normalised.attributes = subAttrs;
+
+    // Ensure _pluginId so calcDerivedStats doesn't skip getComputedStats
+    if (!normalised._pluginId && pluginId) normalised._pluginId = pluginId;
+
+    // If ComputedStats is ready, pre-warm getComputedStats so calcDerivedStats
+    // hits the cache instead of recomputing from scratch
+    if (
+        typeof window.getComputedStats === 'function' &&
+        typeof window.ComputedStats    !== 'undefined' &&
+        window.ComputedStats.isReady() &&
+        normalised._pluginId
+    ) {
+        try {
+            window.getComputedStats(normalised, normalised._pluginId);
+        } catch (e) {
+            console.warn('[OE] ComputedStats pre-warm error:', e);
+        }
+    }
+
+    statsBody.innerHTML = window.AttributeDisplay.renderAttributesTabEnhanced(
+        normalised, window.attrDefs, 'outfits', normalised._pluginId
+    );
+}
+    
     // ─────────────────────────────────────────────────────────────────────────
     //  TOGGLE LOGIC
     // ─────────────────────────────────────────────────────────────────────────
