@@ -2915,6 +2915,11 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     transition: max-height 0.28s ease, opacity 0.22s ease, padding 0.22s ease;
 }
 .oe-panel--open {
+    max-height: 600px;
+    opacity: 1;
+    padding: 12px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     display: flex;
     gap: 14px;
     align-items: flex-start;
