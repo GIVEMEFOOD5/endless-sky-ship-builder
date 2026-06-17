@@ -181,156 +181,61 @@ const OutfitExpander = (() => {
     // ─────────────────────────────────────────────────────────────────────────
 
     function _buildStatPanel(outfit) {
-        const attrs    = _flatAttrs(outfit);
-        const computed = _computeStats(attrs);
-        const attrMeta = window.attrDefs?.attributes || {};
+    if (!outfit) return `<div class="${CLS.panel}"><div class="${CLS.noStats}">Outfit data not found.</div></div>`;
 
-        // Partition keys:
-        //   - computed keys (prefixed _fn_, _derived_, _sys_) → "Computed" group
-        //   - raw numeric attr keys → matched against attrDefs for display info
-        //   - skip zero values and internal prefixes
+    const pluginId = outfit._pluginId || outfit._pn || null;
 
-        const rawRows      = [];   // { key, label, value, unit }
-        const computedRows = [];
+    // ── Tabs — same logic as DataViewer.getAvailableTabs ──────────────────
+    const tabs = [{ id: 'attributes', label: 'Attributes' }];
+    if (outfit.locations && Object.keys(outfit.locations).length > 0)
+        tabs.push({ id: 'locations', label: 'Locations' });
+    if (outfit.thumbnail)
+        tabs.push({ id: 'thumbnail', label: 'Thumbnail' });
+    if (outfit.weapon?.['hardpoint sprite'])
+        tabs.push({ id: 'hardpointSprite', label: 'Hardpoint' });
+    if (outfit.sprite || outfit.weapon?.sprite)
+        tabs.push({ id: 'sprite', label: 'Sprite' });
 
-        // ── Raw attribute rows ─────────────────────────────────────────────
-        for (const [key, rawVal] of Object.entries(attrs)) {
-            if (key.startsWith('_')) continue;
-            if (typeof rawVal !== 'number' || rawVal === 0) continue;
+    const panelId = 'oe-panel-' + Math.random().toString(36).slice(2);
 
-            const meta = attrMeta[key] || {};
-            // Skip keys that are weapon-only — but keep keys that are also
-            // shown in outfit/ship panels (e.g. turn, thrust, which are both
-            // weapon data keys AND real outfit attributes)
-            if (meta.isWeaponStat) continue;
-            if (meta.isWeaponDataKey && !meta.shownInOutfitPanel && !meta.shownInShipPanel) continue;
-            // Skip boolean flags
-            if (meta.isBoolean) continue;
+    // ── Tab bar HTML ───────────────────────────────────────────────────────
+    const tabBarHtml = tabs.length > 1
+        ? `<div class="oe-modal-tabs">
+            ${tabs.map((t, i) =>
+                `<button class="oe-modal-tab${i === 0 ? ' active' : ''}"
+                    data-panel="${panelId}" data-tab="${t.id}"
+                    onclick="OutfitExpander._switchTab(this,'${panelId}')">
+                    ${_esc(t.label)}
+                </button>`
+            ).join('')}
+           </div>`
+        : '';
 
-            const mult  = meta.displayMultiplier ?? 1;
-            const unit  = meta.displayUnit        ?? '';
-            const val   = rawVal * mult;
-            const label = _capWords(key);
-            rawRows.push({ key, label, value: val, unit });
-        }
+    // ── Tab pane stubs — content loaded on demand ──────────────────────────
+    const panesHtml = tabs.map((t, i) =>
+        `<div class="oe-tab-pane${i === 0 ? ' oe-tab-pane--active' : ''}"
+              data-panel="${panelId}" data-tab="${t.id}"
+              data-loaded="false">
+         </div>`
+    ).join('');
 
-        // ── Computed rows ──────────────────────────────────────────────────
-        const fns     = window.attrDefs?.shipFunctions || {};
-        const sysInfo = window.attrDefs?.systemAwareFormulas || {};
+    // ── Description ────────────────────────────────────────────────────────
+    const desc = outfit.description || (outfit.attributes || {}).description || '';
+    const descHtml = desc
+        ? `<div class="${CLS.description}">${_esc(desc)}</div>`
+        : '';
 
-        for (const [key, val] of Object.entries(computed)) {
-            if (!key.startsWith('_')) continue;  // raw attrs already handled
-            if (typeof val !== 'number' || val === 0 || isNaN(val)) continue;
-
-            let label = '';
-            let unit  = '';
-
-            if (key.startsWith('_fn_')) {
-                const fnName = key.slice(4);
-                const fn     = fns[fnName];
-                if (!fn) continue;
-                label = _capWords(fnName.replace(/([A-Z])/g, ' $1').trim());
-                unit  = fn.displayUnit ?? '';
-                // Apply displayScale — ComputedStats stores the raw value
-                const scale = fn.displayScale ?? 1;
-                computedRows.push({ key, label, value: val * scale, unit });
-                continue;
-            }
-
-            if (key.startsWith('_sys_')) {
-                const attrKey = key.slice(5).replace(/_/g, ' ');
-                const info    = sysInfo[attrKey] || {};
-                label = _capWords(attrKey) + ' (solar)';
-                unit  = info.displayUnit ?? '/s';
-                computedRows.push({ key, label, value: val, unit });
-                continue;
-            }
-
-            if (key.startsWith('_derived_energy_')) {
-                label = _capWords(key.slice(16).replace(/_/g, ' ')) + ' energy/s';
-                unit  = '';
-                computedRows.push({ key, label, value: val, unit });
-                continue;
-            }
-
-            if (key.startsWith('_derived_heat_')) {
-                label = _capWords(key.slice(14).replace(/_/g, ' ')) + ' heat/s';
-                unit  = '';
-                computedRows.push({ key, label, value: val, unit });
-                continue;
-            }
-
-            if (key.startsWith('_derived_')) {
-                label = _capWords(key.slice(9).replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim());
-                computedRows.push({ key, label, value: val, unit });
-                continue;
-            }
-        }
-
-        // ── Image ─────────────────────────────────────────────────────────
-        const imgSrc  = outfit.thumbnail || outfit.sprite || '';
-        const initials = (outfit.name || outfit.displayName || '?')
-            .replace(/^"|"$/g, '').trim()
-            .split(/\s+/).slice(0, 2).map(w => w[0] || '').join('').toUpperCase();
-
-        let imgHtml;
-        if (imgSrc) {
-            imgHtml = `<div class="${CLS.imgWrap}">
-                <img class="${CLS.img}" src="${_esc(imgSrc)}"
-                     alt="${_esc(outfit.name || '')}"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="${CLS.imgInitials}" style="display:none">${_esc(initials)}</div>
-            </div>`;
-        } else {
-            imgHtml = `<div class="${CLS.imgWrap}">
-                <div class="${CLS.imgInitials}">${_esc(initials)}</div>
-            </div>`;
-        }
-
-        // ── Description ───────────────────────────────────────────────────
-        const desc = outfit.description || (outfit.attributes || {}).description || '';
-        const descHtml = desc
-            ? `<div class="${CLS.description}">${_esc(desc)}</div>`
-            : '';
-
-        // ── Stat cards ────────────────────────────────────────────────────
-        function _cardHtml(row) {
-            const unitTag = row.unit
-                ? `<span class="${CLS.statUnit}">${_esc(row.unit)}</span>`
-                : '';
-            return `<div class="${CLS.statCard}">
-                <div class="${CLS.statLabel}">${_esc(row.label)}</div>
-                <div class="${CLS.statValue}">${_esc(_fmt(row.value))}${unitTag}</div>
-            </div>`;
-        }
-
-        const rawGrid = rawRows.length
-            ? `<div class="${CLS.groupTitle}">Attributes</div>
-               <div class="${CLS.statGrid}">${rawRows.map(_cardHtml).join('')}</div>`
-            : '';
-
-        const computedGrid = computedRows.length
-            ? `<div class="${CLS.groupTitle}">Computed</div>
-               <div class="${CLS.statGrid}">${computedRows.map(_cardHtml).join('')}</div>`
-            : '';
-
-        const noStats = !rawRows.length && !computedRows.length
-            ? `<div class="${CLS.noStats}">No stats available for this outfit.</div>`
-            : '';
-
-        return `
-<div class="${CLS.panel}">
-    <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">
-        ${imgHtml}
-        <div style="flex:1;min-width:0;">
-            ${descHtml}
-            ${rawGrid}
-            ${computedGrid}
-            ${noStats}
-        </div>
+    const html = `
+<div class="${CLS.panel}" data-panel-id="${panelId}" data-outfit-name="${_esc((outfit.name || '').replace(/^"|"$/g, ''))}">
+    ${tabBarHtml}
+    <div class="oe-tab-panes">
+        ${panesHtml}
     </div>
+    ${descHtml}
 </div>`;
-    }
+
+    return html;
+}
 
     // ─────────────────────────────────────────────────────────────────────────
     //  TOGGLE LOGIC
@@ -352,28 +257,159 @@ const OutfitExpander = (() => {
         _openPanels[context] = null;
     }
 
-    function _openPanel(context, wrapper, toggle, outfitName) {
-        // Close whatever was open
-        _closePanel(context);
+    // Called when a tab button is clicked
+function _switchTab(btn, panelId) {
+    const panel   = document.querySelector(`[data-panel-id="${panelId}"]`);
+    if (!panel) return;
+    const tabId   = btn.dataset.tab;
 
-        const outfit = _findOutfit(outfitName);
-        if (!outfit && !outfitName) return;
+    // Update active tab button
+    panel.querySelectorAll('.oe-modal-tab').forEach(b =>
+        b.classList.toggle('active', b.dataset.tab === tabId)
+    );
 
-        const panelHtml = _buildStatPanel(outfit || { name: outfitName });
-        const div       = document.createElement('div');
-        div.innerHTML   = panelHtml;
-        const panel     = div.firstElementChild;
-        wrapper.appendChild(panel);
+    // Show correct pane
+    panel.querySelectorAll('.oe-tab-pane').forEach(p => {
+        p.classList.toggle('oe-tab-pane--active', p.dataset.tab === tabId);
+    });
 
-        // Trigger open animation on next frame
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => panel.classList.add(CLS.panelOpen));
-        });
-
-        toggle.textContent = '▼';
-        toggle.setAttribute('aria-expanded', 'true');
-        _openPanels[context] = { wrapper, toggle };
+    // Load content if not already loaded
+    const pane = panel.querySelector(`.oe-tab-pane[data-tab="${tabId}"]`);
+    if (pane && pane.dataset.loaded === 'false') {
+        _loadTabContent(panel, pane, tabId);
     }
+}
+
+// Loads content into a pane — mirrors DataViewer.switchModalTab
+function _loadTabContent(panel, pane, tabId) {
+    pane.dataset.loaded = 'true';
+    const outfitName    = panel.dataset.outfitName;
+    const outfit        = _findOutfit(outfitName);
+    if (!outfit) {
+        pane.innerHTML = `<div class="${CLS.noStats}">Outfit data not found.</div>`;
+        return;
+    }
+
+    const pluginId = outfit._pluginId || outfit._pn || null;
+
+    if (tabId === 'attributes') {
+        // Use AttributeDisplay.renderAttributesTabEnhanced exactly like DataViewer
+        if (window.AttributeDisplay?.renderAttributesTabEnhanced && window.attrDefs) {
+            pane.innerHTML = window.AttributeDisplay.renderAttributesTabEnhanced(
+                outfit, window.attrDefs, 'outfits', pluginId
+            );
+        } else {
+            // Fallback — plain attribute grid matching DataViewer's fallback
+            const skip = new Set([
+                'name','description','thumbnail','sprite','hardpoint sprite',
+                'weapon','spriteData','_pluginId','_pn','_pd',
+            ]);
+            const attrs = { ...outfit, ...(outfit.attributes || {}) };
+            let html = '<div class="attribute-grid">';
+            for (const [key, value] of Object.entries(attrs)) {
+                if (skip.has(key) || key.startsWith('_') || typeof value === 'object') continue;
+                html += `<div class="attribute">
+                    <div class="attribute-name">${_esc(key)}</div>
+                    <div class="attribute-value">${_esc(String(value))}</div>
+                </div>`;
+            }
+            html += '</div>';
+            if (outfit.weapon) {
+                const wSkip = new Set(['sprite','spriteData','sound','hit effect',
+                    'fire effect','die effect','submunition','stream','cluster']);
+                html += '<h3 style="color:#93c5fd;margin-top:20px;">Weapon Stats</h3><div class="attribute-grid">';
+                for (const [key, value] of Object.entries(outfit.weapon)) {
+                    if (!wSkip.has(key) && typeof value !== 'object' && !Array.isArray(value))
+                        html += `<div class="attribute">
+                            <div class="attribute-name">${_esc(key)}</div>
+                            <div class="attribute-value">${_esc(String(value))}</div>
+                        </div>`;
+                }
+                html += '</div>';
+            }
+            pane.innerHTML = html;
+        }
+        return;
+    }
+
+    if (tabId === 'locations') {
+        if (window.LocationDisplay) {
+            window.LocationDisplay.renderLocationsTab(pane, outfit, pluginId);
+        } else {
+            pane.innerHTML = `<div class="${CLS.noStats}">Location display not available.</div>`;
+        }
+        return;
+    }
+
+    // Image tabs — same path map as DataViewer
+    const pathMap = {
+        thumbnail:       outfit.thumbnail,
+        sprite:          outfit.sprite || outfit.weapon?.sprite,
+        hardpointSprite: outfit.weapon?.['hardpoint sprite'],
+    };
+
+    const spritePath = pathMap[tabId];
+    if (!spritePath) {
+        pane.innerHTML = `<div class="${CLS.noStats}">No image available.</div>`;
+        return;
+    }
+
+    pane.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px;">Loading…</p>';
+
+    // Use fetchSprite exactly as DataViewer does
+    if (typeof window.fetchSprite === 'function') {
+    window.fetchSprite(spritePath, outfit.spriteData || {}).then(element => {
+    pane.innerHTML = '';
+    if (element) {
+        element.style.cssText = 'max-width:100%;max-height:200px;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'display:flex;justify-content:center;align-items:center;padding:12px;background:rgba(15,23,42,0.5);border-radius:8px;';
+        wrap.appendChild(element);
+        pane.appendChild(wrap);
+    } else {
+        // Same fallback as DataViewer._loadSpriteForCard
+        const img = document.createElement('img');
+        img.src = 'https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/endless-sky/images/outfit/unknown.png';
+        img.style.cssText = 'max-width:100%;max-height:200px;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'display:flex;justify-content:center;align-items:center;padding:12px;background:rgba(15,23,42,0.5);border-radius:8px;';
+        wrap.appendChild(img);
+        pane.appendChild(wrap);
+    }
+}).catch(() => {
+    pane.innerHTML = `<div class="${CLS.noStats}">Image failed to load.</div>`;
+});
+    } else {
+        pane.innerHTML = `<div class="${CLS.noStats}">Image loader not available.</div>`;
+    }
+}
+    
+    function _openPanel(context, wrapper, toggle, outfitName) {
+    _closePanel(context);
+
+    const outfit = _findOutfit(outfitName);
+    if (!outfit && !outfitName) return;
+
+    const panelHtml = _buildStatPanel(outfit || { name: outfitName });
+    const div       = document.createElement('div');
+    div.innerHTML   = panelHtml;
+    const panel     = div.firstElementChild;
+    wrapper.appendChild(panel);
+
+    // Load the first tab (attributes) immediately — it won't auto-load otherwise
+    const firstPane = panel.querySelector('.oe-tab-pane');
+    if (firstPane && firstPane.dataset.loaded === 'false') {
+        _loadTabContent(panel, firstPane, firstPane.dataset.tab);
+    }
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => panel.classList.add(CLS.panelOpen));
+    });
+
+    toggle.textContent = '▼';
+    toggle.setAttribute('aria-expanded', 'true');
+    _openPanels[context] = { wrapper, toggle };
+}
 
     function _handleToggle(context, wrapper, toggle, outfitName) {
         const isOpen = toggle.getAttribute('aria-expanded') === 'true';
@@ -531,7 +567,7 @@ const OutfitExpander = (() => {
         console.log('[OutfitExpander] Installed.');
     }
 
-    return { install };
+    return { install, _switchTab };
 
 })();
 
