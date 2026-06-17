@@ -668,7 +668,7 @@ function _loadTabContent(panel, pane, tabId) {
         console.log('[OutfitExpander] Installed.');
     }
 
-    return { install, _switchTab };
+    return { install };
 
 })();
 
