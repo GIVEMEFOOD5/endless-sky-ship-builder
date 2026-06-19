@@ -14,6 +14,14 @@
 //   - Self-injecting the plugin picker overlay into the DOM (no HTML duplication)
 //   - Local Builds (localStorage fleet) always shown first when ships exist
 //
+// PERSISTENCE
+// -----------
+// Active plugin selection is owned entirely by dataLoader.js, which saves to
+// 'es_sb_active_plugins' and restores it in initDefaultPlugins(). This file
+// does NOT maintain its own storage key — it syncs _activePlugins from the
+// 'pluginsChanged' event (which carries e.detail.active) and delegates all
+// saves through DataLoader._setActivePluginsSilent().
+//
 // Dependencies (must be loaded before this file):
 //   Plugin_Script.js  — provides allData, renderCards(), updateStats(),
 //                       setSorterPluginId(), setCurrentPlugin(), setEffectPlugin(),
@@ -25,11 +33,11 @@
 // ── Constants ───────────────────────────────────────────────────────────────
 
 const LOCAL_PLUGIN_ID = '__local_builds__';
-const STORAGE_KEY     = 'es_active_plugins_v1';
 
 // ── State ──────────────────────────────────────────────────────────────────
 
-// Ordered list of active plugin outputNames (first = primary)
+// Ordered list of active plugin outputNames (first = primary).
+// This is kept in sync with dataLoader.js via the pluginsChanged event.
 let _activePlugins = [];
 
 // Snapshot taken when the picker opens — restored if the user cancels
@@ -59,51 +67,34 @@ function _localBuildsHasShips() {
 
 /**
  * Re-reads the Local Builds pseudo-plugin from localStorage.
- * Fully delegates to DataLoader._buildLocalPlugin (via a silent internal refresh)
- * so that attribute coercion, outfitMap integer counts, mass/drag merging, etc.
- * are all handled in one place and never duplicated here.
- *
- * We call the internal DataLoader path that updates window.allData directly
- * WITHOUT firing 'pluginsChanged', to avoid an infinite loop.
+ * Delegates to DataLoader._refreshLocalOnly() so attribute coercion,
+ * outfitMap integer counts, mass/drag merging etc. are handled in one
+ * place and never duplicated here.
  */
 function _refreshLocalBuilds() {
     if (window.DataLoader && typeof window.DataLoader._refreshLocalOnly === 'function') {
-        // Preferred path: DataLoader exposes a side-effect-free refresh
         window.DataLoader._refreshLocalOnly();
         return;
     }
-
-    // Fallback: DataLoader hasn't exposed _refreshLocalOnly yet — call the full
-    // refreshLocalBuilds but swallow the pluginsChanged event it fires by
-    // temporarily ignoring re-entrant calls. In practice DataLoader always has
-    // _refreshLocalOnly after the fix, so this path is just a safety net.
     if (window.DataLoader && typeof window.DataLoader.refreshLocalBuilds === 'function') {
         window.DataLoader.refreshLocalBuilds();
     }
 }
 
-function _saveActivePlugins() {
-    try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(_activePlugins));
-    } catch (e) {}
+/**
+ * Persist the current active list through DataLoader so both systems
+ * share a single storage key ('es_sb_active_plugins').
+ */
+function _persistActivePlugins() {
+    if (window.DataLoader && typeof window.DataLoader._setActivePluginsSilent === 'function') {
+        window.DataLoader._setActivePluginsSilent(_activePlugins);
+    }
 }
 
-function _loadSavedActivePlugins() {
-    try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return null;
-        const parsed = JSON.parse(raw);
-        if (!Array.isArray(parsed) || parsed.length === 0) return null;
-        return parsed;
-    } catch (e) { return null; }
-}
-    
-// ── DOM injection ─────────────────────────────────────────────────────────
-//
-// Injects the plugin picker overlay into the page if it isn't already present.
+// ── DOM injection ──────────────────────────────────────────────────────────
 
 function _injectPickerOverlay() {
-    if (document.getElementById('pluginPickerOverlay')) return; // already present
+    if (document.getElementById('pluginPickerOverlay')) return;
 
     const overlay = document.createElement('div');
     overlay.id        = 'pluginPickerOverlay';
@@ -126,7 +117,6 @@ function _injectPickerOverlay() {
 
     document.body.appendChild(overlay);
 
-    // Wire up events on the injected elements
     overlay.addEventListener('click', e => {
         if (e.target === overlay) closePluginPicker();
     });
@@ -140,35 +130,29 @@ function _injectPickerOverlay() {
 
 // ── Public API ─────────────────────────────────────────────────────────────
 
-/**
- * Returns a copy of the active plugins array (ordered).
- */
 function getActivePlugins() {
     return [..._activePlugins];
 }
 
 /**
- * Returns the primary plugin (first in the list), or null.
+ * Returns the primary plugin (first non-local in the list), or null.
  * Local Builds is skipped as primary — it has no sprites/effects.
  */
 function getPrimaryPlugin() {
-    // Prefer the first non-local plugin as primary for image/effect lookups
     const nonLocal = _activePlugins.find(p => p !== LOCAL_PLUGIN_ID);
     return nonLocal || _activePlugins[0] || null;
 }
 
 /**
  * Merge items from all active plugins for a given tab.
- * Local Builds ships are always merged first (they appear at the top of lists).
+ * Local Builds ships are always merged first.
  * Each item gets a `_pluginId` property so ComputedStats can resolve outfits.
  */
 function getMergedItems(tab) {
-    // Ensure local builds data is fresh before merging
     _refreshLocalBuilds();
 
     const allData = _allData();
 
-    // Build ordered list: local first (if active), then others
     const ordered = [
         ..._activePlugins.filter(p => p === LOCAL_PLUGIN_ID),
         ..._activePlugins.filter(p => p !== LOCAL_PLUGIN_ID),
@@ -180,14 +164,13 @@ function getMergedItems(tab) {
         if (!pluginData) continue;
 
         if (outputName === LOCAL_PLUGIN_ID && tab !== 'ships' && tab !== 'variants') continue;
-        
+
         let items = [];
         if      (tab === 'ships')    items = pluginData.ships    || [];
         else if (tab === 'variants') items = pluginData.variants || [];
         else if (tab === 'outfits')  items = pluginData.outfits  || [];
         else if (tab === 'effects')  items = pluginData.effects  || [];
 
-        // Tag each item with its source plugin (don't mutate originals)
         for (const item of items) {
             merged.push({ ...item, _pluginId: outputName });
         }
@@ -211,63 +194,31 @@ async function setActivePlugins(plugins) {
 
     _activePlugins = filtered;
     if (_activePlugins.length === 0) return;
-    _saveActivePlugins(); // ← add this line
+
+    _persistActivePlugins();
     await _notifyChange();
 }
 
 /**
  * Called after data loads — selects the first available plugin.
- * Local Builds is added first if it has any saved ships.
+ * NOTE: dataLoader.js calls initDefaultPlugins() internally and fires
+ * pluginsChanged with the restored/default selection. This function is
+ * the fallback path called by DataViewer.js and the ship builder page.
+ * It does NOT attempt to restore from localStorage — that is dataLoader's job.
  */
 async function initDefaultPlugin() {
     _refreshLocalBuilds();
 
-    const allData  = _allData();
-    const allKeys  = Object.keys(allData).filter(k => k !== LOCAL_PLUGIN_ID);
-    const saved    = _loadSavedActivePlugins();
+    const keys = Object.keys(_allData()).filter(k => k !== LOCAL_PLUGIN_ID);
 
-    if (saved && saved.length > 0) {
-        // Restore saved selection — filter out any plugins no longer available
-        const valid = saved.filter(p =>
-            p === LOCAL_PLUGIN_ID ? _localBuildsHasShips() : !!allData[p]
-        );
-
-        if (valid.length > 0) {
-            // Ensure local is first if present
-            const withoutLocal = valid.filter(p => p !== LOCAL_PLUGIN_ID);
-            const withLocal    = _localBuildsHasShips() && valid.includes(LOCAL_PLUGIN_ID)
-                ? [LOCAL_PLUGIN_ID, ...withoutLocal]
-                : withoutLocal;
-
-            _activePlugins = withLocal.length > 0 ? withLocal : valid;
-
-            // If saved had no remote plugin but one is available, add the first
-            const hasRemote = _activePlugins.some(p => p !== LOCAL_PLUGIN_ID);
-            if (!hasRemote && allKeys.length > 0) {
-                _activePlugins.push(allKeys[0]);
-            }
-
-            const primary = getPrimaryPlugin();
-            if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primary);
-            if (typeof window.setEffectPlugin   === 'function') window.setEffectPlugin(primary);
-            if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
-            if (typeof window.clearComputedCache === 'function') window.clearComputedCache();
-            _renderActiveList();
-            _updateMergedStats();
-            await _renderMergedCards(true);
-            return;
-        }
-    }
-
-    // No valid saved selection — fall back to original default behaviour
     _activePlugins = [];
 
     if (_localBuildsHasShips()) {
         _activePlugins.push(LOCAL_PLUGIN_ID);
     }
 
-    if (allKeys.length > 0) {
-        _activePlugins.push(allKeys[0]);
+    if (keys.length > 0) {
+        _activePlugins.push(keys[0]);
     }
 
     if (_activePlugins.length === 0) return;
@@ -277,24 +228,26 @@ async function initDefaultPlugin() {
     if (typeof window.setEffectPlugin   === 'function') window.setEffectPlugin(primary);
     if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
     if (typeof window.clearComputedCache === 'function') window.clearComputedCache();
+
     _renderActiveList();
     _updateMergedStats();
     await _renderMergedCards(true);
 }
-    
+
 // ── Internal: notify the rest of the app ──────────────────────────────────
 
 async function _notifyChange() {
-    _saveActivePlugins();
+    // Persist via DataLoader so both systems share one key
+    _persistActivePlugins();
+
     const primary = getPrimaryPlugin();
     if (!primary) return;
 
     if (window.DataLoader && typeof window.DataLoader.setActivePlugins === 'function') {
-        // Use internal sync to avoid firing pluginsChanged again
-        window.DataLoader._setActivePluginsSilent?.(_activePlugins) 
+        window.DataLoader._setActivePluginsSilent?.(_activePlugins)
             ?? window.DataLoader.setActivePlugins(_activePlugins);
     }
-    
+
     if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primary);
     if (typeof window.setEffectPlugin   === 'function') window.setEffectPlugin(primary);
     if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
@@ -373,8 +326,7 @@ function _renderActiveList() {
             return;
         }
 
-        // Non-local plugins: skip idx=0 if local is occupying it
-        const localOffset = _activePlugins.includes(LOCAL_PLUGIN_ID) ? 1 : 0;
+        const localOffset     = _activePlugins.includes(LOCAL_PLUGIN_ID) ? 1 : 0;
         const isFirstNonLocal = idx === localOffset;
         const isLastNonLocal  = idx === _activePlugins.length - 1;
 
@@ -404,10 +356,9 @@ function _renderActiveList() {
         removeBtn.title       = 'Remove plugin';
         removeBtn.onclick = async () => {
             _activePlugins.splice(idx, 1);
-            // Keep at least one non-local plugin active
             const nonLocal = _activePlugins.filter(p => p !== LOCAL_PLUGIN_ID);
             if (nonLocal.length === 0) {
-                _activePlugins.splice(idx, 0, outputName); // re-add
+                _activePlugins.splice(idx, 0, outputName); // re-add — must keep one
                 return;
             }
             await _notifyChange();
@@ -434,7 +385,8 @@ function openPluginPicker() {
 }
 
 function closePluginPicker() {
-    _activePlugins = [..._pickerSnapshot];
+    // Restore the snapshot — user cancelled
+    _activePlugins  = [..._pickerSnapshot];
     _pickerSnapshot = [];
     document.getElementById('pluginPickerOverlay').classList.remove('plugin-overlay-visible');
 }
@@ -466,23 +418,21 @@ function _renderPluginPickerList(query) {
             localHeader.textContent = '📦 Local Builds';
             list.appendChild(localHeader);
 
-            const isActive = _activePlugins.includes(LOCAL_PLUGIN_ID);
+            const isActive  = _activePlugins.includes(LOCAL_PLUGIN_ID);
             const shipCount = (localPlugin.ships || []).length;
 
             const row = document.createElement('div');
-            row.className   = 'plugin-picker-row plugin-picker-row--local' + (isActive ? ' active' : '');
+            row.className      = 'plugin-picker-row plugin-picker-row--local' + (isActive ? ' active' : '');
             row.dataset.plugin = LOCAL_PLUGIN_ID;
 
             const checkbox = document.createElement('input');
             checkbox.type    = 'checkbox';
             checkbox.checked = isActive;
-            checkbox.style.cssText =
-                'cursor:pointer;accent-color:#3b82f6;width:16px;height:16px;flex-shrink:0;';
+            checkbox.style.cssText = 'cursor:pointer;accent-color:#3b82f6;width:16px;height:16px;flex-shrink:0;';
             checkbox.onclick  = e => e.stopPropagation();
             checkbox.onchange = () => {
                 if (checkbox.checked) {
                     if (!_activePlugins.includes(LOCAL_PLUGIN_ID)) {
-                        // Always insert local at position 0
                         _activePlugins.unshift(LOCAL_PLUGIN_ID);
                     }
                 } else {
@@ -510,7 +460,7 @@ function _renderPluginPickerList(query) {
     // ── Remote plugin groups ───────────────────────────────────────────────
     const groups = {};
     for (const [outputName, data] of Object.entries(allData)) {
-        if (outputName === LOCAL_PLUGIN_ID) continue; // handled above
+        if (outputName === LOCAL_PLUGIN_ID) continue;
         const src = data.sourceName;
         if (!groups[src]) groups[src] = [];
         groups[src].push({ outputName, data });
@@ -529,7 +479,7 @@ function _renderPluginPickerList(query) {
         anyRemoteVisible = true;
 
         const header = document.createElement('div');
-        header.className = 'plugin-picker-group-header';
+        header.className   = 'plugin-picker-group-header';
         header.textContent = sourceName;
         list.appendChild(header);
 
@@ -537,14 +487,13 @@ function _renderPluginPickerList(query) {
             const isActive = _activePlugins.includes(outputName);
 
             const row = document.createElement('div');
-            row.className = 'plugin-picker-row' + (isActive ? ' active' : '');
+            row.className      = 'plugin-picker-row' + (isActive ? ' active' : '');
             row.dataset.plugin = outputName;
 
             const checkbox = document.createElement('input');
             checkbox.type    = 'checkbox';
             checkbox.checked = isActive;
-            checkbox.style.cssText =
-                'cursor:pointer;accent-color:#3b82f6;width:16px;height:16px;flex-shrink:0;';
+            checkbox.style.cssText = 'cursor:pointer;accent-color:#3b82f6;width:16px;height:16px;flex-shrink:0;';
             checkbox.onclick  = e => e.stopPropagation();
             checkbox.onchange = () => {
                 if (checkbox.checked) {
@@ -554,8 +503,8 @@ function _renderPluginPickerList(query) {
                 } else {
                     const idx = _activePlugins.indexOf(outputName);
                     if (idx !== -1) _activePlugins.splice(idx, 1);
+                    // Must keep at least one remote plugin active
                     if (_activePlugins.filter(p => p !== LOCAL_PLUGIN_ID).length === 0) {
-                        // Must keep at least one remote plugin
                         _activePlugins.push(outputName);
                         checkbox.checked = true;
                         row.classList.add('active');
@@ -580,8 +529,10 @@ function _renderPluginPickerList(query) {
         }
     }
 
-    // Empty state — only if nothing at all rendered
-    const localRendered = localPlugin && (localPlugin.ships || []).length > 0 && (!lq || 'local builds'.includes(lq));
+    // Empty state
+    const localRendered = localPlugin &&
+        (localPlugin.ships || []).length > 0 &&
+        (!lq || 'local builds'.includes(lq));
     if (!localRendered && !anyRemoteVisible) {
         const empty = document.createElement('p');
         empty.style.cssText = 'color:#94a3b8;font-style:italic;font-size:0.9rem;padding:12px 10px;';
@@ -603,7 +554,7 @@ async function confirmPluginPicker() {
         }
     }
 
-    // Ensure at least one remote plugin active
+    // Ensure at least one remote plugin is active
     if (_activePlugins.filter(p => p !== LOCAL_PLUGIN_ID).length === 0) {
         const first = Object.keys(_allData()).find(k => k !== LOCAL_PLUGIN_ID);
         if (first) _activePlugins.push(first);
@@ -612,28 +563,37 @@ async function confirmPluginPicker() {
     await _notifyChange();
 }
 
-// ── Listen for localStorage changes (e.g. ships saved in Ship Builder) ────
-//
-// When the Ship Builder saves a ship, DataLoader fires 'pluginsChanged'.
-// We hook that to refresh our local plugin data and re-render.
+// ── Event listeners ────────────────────────────────────────────────────────
 
-document.addEventListener('pluginsChanged', () => {
+// pluginsChanged is fired by dataLoader.js with e.detail.active containing
+// the authoritative active plugin list (already restored from localStorage).
+// We sync our local _activePlugins from it so both systems stay in step.
+document.addEventListener('pluginsChanged', (e) => {
     _refreshLocalBuilds();
-    // If local now has ships and isn't active yet, add it to the front
+
+    // Sync from DataLoader's authoritative list if provided
+    if (e.detail?.active && Array.isArray(e.detail.active)) {
+        _activePlugins = [...e.detail.active];
+    }
+
+    // If local now has ships and isn't in the list, prepend it
     if (_localBuildsHasShips() && !_activePlugins.includes(LOCAL_PLUGIN_ID)) {
         _activePlugins.unshift(LOCAL_PLUGIN_ID);
-        _notifyChange();
-    } else {
-        // Just refresh the UI in case ship count changed
-        _renderActiveList();
-        _updateMergedStats();
+        // Persist the updated list and notify without firing pluginsChanged again
+        _persistActivePlugins();
     }
+
+    _renderActiveList();
+    _updateMergedStats();
 });
 
+// dataLoaded fires after all remote data is fetched. By this point
+// dataLoader.js has already called initDefaultPlugins() which restored the
+// saved selection and fired pluginsChanged — so _activePlugins is already set.
+// We only need to ensure a remote plugin is present as a safety net.
 document.addEventListener('dataLoaded', async () => {
     _refreshLocalBuilds();
 
-    // If no remote plugin is active yet, add the first available one
     const hasRemote = _activePlugins.some(p => p !== LOCAL_PLUGIN_ID);
     if (!hasRemote) {
         const firstRemote = Object.keys(_allData()).find(k => k !== LOCAL_PLUGIN_ID);
