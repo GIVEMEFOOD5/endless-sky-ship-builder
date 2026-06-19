@@ -25,6 +25,7 @@
 // ── Constants ───────────────────────────────────────────────────────────────
 
 const LOCAL_PLUGIN_ID = '__local_builds__';
+const STORAGE_KEY     = 'es_active_plugins_v1';
 
 // ── State ──────────────────────────────────────────────────────────────────
 
@@ -81,6 +82,22 @@ function _refreshLocalBuilds() {
     }
 }
 
+function _saveActivePlugins() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(_activePlugins));
+    } catch (e) {}
+}
+
+function _loadSavedActivePlugins() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed) || parsed.length === 0) return null;
+        return parsed;
+    } catch (e) { return null; }
+}
+    
 // ── DOM injection ─────────────────────────────────────────────────────────
 //
 // Injects the plugin picker overlay into the page if it isn't already present.
@@ -188,13 +205,13 @@ async function setActivePlugins(plugins) {
 
     const filtered = plugins.filter(p => p === LOCAL_PLUGIN_ID || _allData()[p]);
 
-    // Always ensure local is first if it has ships and isn't already included
     if (_localBuildsHasShips() && !filtered.includes(LOCAL_PLUGIN_ID)) {
         filtered.unshift(LOCAL_PLUGIN_ID);
     }
 
     _activePlugins = filtered;
     if (_activePlugins.length === 0) return;
+    _saveActivePlugins(); // ← add this line
     await _notifyChange();
 }
 
@@ -205,20 +222,54 @@ async function setActivePlugins(plugins) {
 async function initDefaultPlugin() {
     _refreshLocalBuilds();
 
-    const keys = Object.keys(_allData()).filter(k => k !== LOCAL_PLUGIN_ID);
+    const allData  = _allData();
+    const allKeys  = Object.keys(allData).filter(k => k !== LOCAL_PLUGIN_ID);
+    const saved    = _loadSavedActivePlugins();
 
+    if (saved && saved.length > 0) {
+        // Restore saved selection — filter out any plugins no longer available
+        const valid = saved.filter(p =>
+            p === LOCAL_PLUGIN_ID ? _localBuildsHasShips() : !!allData[p]
+        );
+
+        if (valid.length > 0) {
+            // Ensure local is first if present
+            const withoutLocal = valid.filter(p => p !== LOCAL_PLUGIN_ID);
+            const withLocal    = _localBuildsHasShips() && valid.includes(LOCAL_PLUGIN_ID)
+                ? [LOCAL_PLUGIN_ID, ...withoutLocal]
+                : withoutLocal;
+
+            _activePlugins = withLocal.length > 0 ? withLocal : valid;
+
+            // If saved had no remote plugin but one is available, add the first
+            const hasRemote = _activePlugins.some(p => p !== LOCAL_PLUGIN_ID);
+            if (!hasRemote && allKeys.length > 0) {
+                _activePlugins.push(allKeys[0]);
+            }
+
+            const primary = getPrimaryPlugin();
+            if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primary);
+            if (typeof window.setEffectPlugin   === 'function') window.setEffectPlugin(primary);
+            if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
+            if (typeof window.clearComputedCache === 'function') window.clearComputedCache();
+            _renderActiveList();
+            _updateMergedStats();
+            await _renderMergedCards(true);
+            return;
+        }
+    }
+
+    // No valid saved selection — fall back to original default behaviour
     _activePlugins = [];
 
     if (_localBuildsHasShips()) {
         _activePlugins.push(LOCAL_PLUGIN_ID);
     }
 
-    // Only add a remote plugin if one is actually loaded already
-    if (keys.length > 0) {
-        _activePlugins.push(keys[0]);
+    if (allKeys.length > 0) {
+        _activePlugins.push(allKeys[0]);
     }
 
-    // If no remote plugins yet, dataLoaded listener above will handle it
     if (_activePlugins.length === 0) return;
 
     const primary = getPrimaryPlugin();
@@ -234,6 +285,7 @@ async function initDefaultPlugin() {
 // ── Internal: notify the rest of the app ──────────────────────────────────
 
 async function _notifyChange() {
+    _saveActivePlugins();
     const primary = getPrimaryPlugin();
     if (!primary) return;
 
