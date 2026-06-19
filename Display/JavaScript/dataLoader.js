@@ -294,6 +294,8 @@ window.DataLoader = {
 
     initDefaultPlugins() {
         const saved = _loadActivePlugins();
+        console.log('[DataLoader] initDefaultPlugins — saved:', saved);
+        console.log('[DataLoader] allData keys:', Object.keys(window.allData));
         if (saved && saved.length > 0) {
             const valid = saved.filter(id =>
                 id === LOCAL_PLUGIN_ID
