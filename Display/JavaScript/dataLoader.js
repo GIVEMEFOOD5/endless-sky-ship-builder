@@ -36,7 +36,7 @@ const REPO_URL   = 'GIVEMEFOOD5/endless-sky-ship-builder';
 const BASE_URL   = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
 const LOCAL_KEY  = 'es_ship_builder_v4';
 const LOCAL_PLUGIN_ID = '__local_builds__';
-const _PLUGIN  = 'official-game/endless-sky';
+const DEFAULT_PLUGIN  = 'official-game/endless-sky';
 
 // ── Internal state ─────────────────────────────────────────
 let _ready          = false;
