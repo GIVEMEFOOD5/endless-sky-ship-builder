@@ -209,17 +209,25 @@ async function setActivePlugins(plugins) {
 async function initDefaultPlugin() {
     _refreshLocalBuilds();
 
+    // If _activePlugins is already populated (restored by DataLoader.initDefaultPlugins
+    // via pluginsChanged), don't overwrite it — just trigger a render.
+    if (_activePlugins.length > 0) {
+        const primary = getPrimaryPlugin();
+        if (typeof window.setCurrentPlugin  === 'function') window.setCurrentPlugin(primary);
+        if (typeof window.setEffectPlugin   === 'function') window.setEffectPlugin(primary);
+        if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
+        if (typeof window.clearComputedCache === 'function') window.clearComputedCache();
+        _renderActiveList();
+        _updateMergedStats();
+        await _renderMergedCards(true);
+        return;
+    }
+
+    // Nothing restored yet — fall back to first available plugin
     const keys = Object.keys(_allData()).filter(k => k !== LOCAL_PLUGIN_ID);
 
-    _activePlugins = [];
-
-    if (_localBuildsHasShips()) {
-        _activePlugins.push(LOCAL_PLUGIN_ID);
-    }
-
-    if (keys.length > 0) {
-        _activePlugins.push(keys[0]);
-    }
+    if (_localBuildsHasShips()) _activePlugins.push(LOCAL_PLUGIN_ID);
+    if (keys.length > 0)        _activePlugins.push(keys[0]);
 
     if (_activePlugins.length === 0) return;
 
@@ -228,7 +236,6 @@ async function initDefaultPlugin() {
     if (typeof window.setEffectPlugin   === 'function') window.setEffectPlugin(primary);
     if (typeof window.setSorterPluginId === 'function') window.setSorterPluginId(primary);
     if (typeof window.clearComputedCache === 'function') window.clearComputedCache();
-
     _renderActiveList();
     _updateMergedStats();
     await _renderMergedCards(true);
@@ -545,9 +552,6 @@ async function confirmPluginPicker() {
     _pickerSnapshot = [];
     document.getElementById('pluginPickerOverlay').classList.remove('plugin-overlay-visible');
 
-    console.log('[PluginManager] confirming with:', _activePlugins);
-    console.log('[PluginManager] allData keys:', Object.keys(window.allData || {}));
-
     if (_localBuildsHasShips()) {
         const idx = _activePlugins.indexOf(LOCAL_PLUGIN_ID);
         if (idx > 0) {
@@ -562,9 +566,6 @@ async function confirmPluginPicker() {
     }
 
     await _notifyChange();
-
-    console.log('[PluginManager] saved to storage:',
-        localStorage.getItem('es_sb_active_plugins'));
 }
 
 // ── Event listeners ────────────────────────────────────────────────────────
