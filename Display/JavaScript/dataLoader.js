@@ -36,7 +36,7 @@ const REPO_URL   = 'GIVEMEFOOD5/endless-sky-ship-builder';
 const BASE_URL   = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
 const LOCAL_KEY  = 'es_ship_builder_v4';
 const LOCAL_PLUGIN_ID = '__local_builds__';
-const DEFAULT_PLUGIN  = 'official-game/endless-sky';
+const _PLUGIN  = 'official-game/endless-sky';
 
 // ── Internal state ─────────────────────────────────────────
 let _ready          = false;
@@ -295,7 +295,11 @@ window.DataLoader = {
     initDefaultPlugins() {
         const saved = _loadActivePlugins();
         if (saved && saved.length > 0) {
-            const valid = saved.filter(id => id === LOCAL_PLUGIN_ID || window.allData[id]);
+            const valid = saved.filter(id =>
+                id === LOCAL_PLUGIN_ID
+                    ? !!(window.allData[LOCAL_PLUGIN_ID]?.ships?.length > 0)
+                    : !!window.allData[id]
+            );
             if (valid.length > 0) {
                 _activePlugins = valid;
                 _fireEvent('pluginsChanged', { active: [..._activePlugins] });
