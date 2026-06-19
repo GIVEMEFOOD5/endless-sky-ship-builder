@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Save Reader — Endless Sky Data Viewer</title>
+<link rel="stylesheet" href="../CSS/main.css">
+</head>
+<body>
+
+<div id="navbar-mount" data-src="NavBar.html"></div>
+<script src="../JavaScript/navLoader.js"></script>
+
+<div class="container">
+ 
+  <header class="panel">
+    <h1>💾 Save Reader</h1>
+    <p class="subtitle">Drop in a pilot save file to inspect your fleet, outfits, and account.</p>
+  </header>
+ 
+  <!-- ════════════ IMPORT / LIBRARY PANEL ════════════ -->
+  <section class="panel config-section" id="importPanel">
+    <h2 class="section-title">Saved Files</h2>
+ 
+    <div id="savesLibrary" style="margin-bottom:18px;"></div>
+ 
+    <div class="input-group" style="margin-bottom:0;">
+      <label for="fileInput">Upload a new save file (.txt)</label>
+      <div id="dropzone" class="list-row" style="cursor:pointer; padding:28px; justify-content:center; border-style:dashed; border-width:2px;">
+        <div style="text-align:center; width:100%;">
+          <div style="font-size:0.95rem; color:var(--c-text-mid); margin-bottom:4px;" id="dropzoneLabel">Click to choose a file, or drag it here</div>
+          <div style="font-size:0.82rem; color:var(--c-text-muted);">Parsed entirely in your browser and stored locally — nothing is uploaded anywhere.</div>
+        </div>
+      </div>
+      <input type="file" id="fileInput" accept=".txt" class="hidden">
+    </div>
+ 
+    <div class="error hidden" id="errorBox"></div>
+ 
+    <div class="button-group" style="margin-top:18px;">
+      <button class="btn btn-secondary hidden" id="exportJsonBtn">Export current save as JSON</button>
+      <button class="btn btn-secondary hidden" id="removeSaveBtn">Remove current save</button>
+    </div>
+  </section>
+ 
+  <!-- ════════════ RESULTS ════════════ -->
+  <div id="results" class="hidden">
+ 
+    <section class="panel" style="margin-bottom:30px;">
+      <h2 class="section-title" id="pilotName">Pilot</h2>
+      <p class="internal-name" id="pilotMeta" style="margin-top:0;"></p>
+      <div class="stats" id="statStrip"></div>
+    </section>
+ 
+    <div class="tabs" id="resultTabs">
+      <div class="tab active" data-tab="fleet">Fleet</div>
+      <div class="tab" data-tab="cargo">Cargo &amp; Storage</div>
+      <div class="tab" data-tab="account">Account &amp; Licenses</div>
+    </div>
+ 
+    <!-- Fleet tab -->
+    <div class="tab-content" id="tab-fleet">
+      <section class="search-section">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search by ship name, model, or system…">
+      </section>
+      <div class="filter-section">
+        <div class="filter-title-no-margin">Sort</div>
+        <div class="filter-options" style="margin-top:12px;">
+          <select id="sortSelect" class="text-input" style="width:auto;">
+            <option value="default">As listed</option>
+            <option value="name">Name (A–Z)</option>
+            <option value="model">Model (A–Z)</option>
+            <option value="hull">Hull (high–low)</option>
+            <option value="parked">Parked first</option>
+          </select>
+        </div>
+      </div>
+      <div class="fleet-grid" id="fleetGrid"></div>
+    </div>
+ 
+    <!-- Cargo & Storage tab -->
+    <div class="tab-content hidden" id="tab-cargo">
+      <section class="panel" style="margin-bottom:20px;">
+        <h2 class="section-title">Cargo Carried</h2>
+        <div id="cargoList"></div>
+      </section>
+      <section class="panel">
+        <h2 class="section-title">Planetary Storage</h2>
+        <div id="storageList"></div>
+      </section>
+    </div>
+ 
+    <!-- Account & Licenses tab -->
+    <div class="tab-content hidden" id="tab-account">
+      <section class="panel" style="margin-bottom:20px;">
+        <h2 class="section-title">Account</h2>
+        <div class="attribute-grid" id="accountGrid"></div>
+      </section>
+      <section class="panel">
+        <h2 class="section-title">Licenses</h2>
+        <div class="ld-pills" id="licenseList"></div>
+      </section>
+    </div>
+ 
+  </div>
+ 
+</div>
+ 
+<!-- Ship detail modal -->
+<div class="modal" id="shipModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modalShipName">—</div>
+        <div class="internal-name" id="modalShipSub" style="margin-top:4px;"></div>
+      </div>
+      <button class="btn-close btn-close--lg" id="modalCloseBtn">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+ 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+ 
+<script src="../JavaScript/esSaveParser.js"></script>
+<script src="../JavaScript/saveManager.js"></script>
+</body>
+</html>
