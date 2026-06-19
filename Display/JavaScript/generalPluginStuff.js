@@ -545,7 +545,9 @@ async function confirmPluginPicker() {
     _pickerSnapshot = [];
     document.getElementById('pluginPickerOverlay').classList.remove('plugin-overlay-visible');
 
-    // Ensure local is first if it has ships and was checked
+    console.log('[PluginManager] confirming with:', _activePlugins);
+    console.log('[PluginManager] allData keys:', Object.keys(window.allData || {}));
+
     if (_localBuildsHasShips()) {
         const idx = _activePlugins.indexOf(LOCAL_PLUGIN_ID);
         if (idx > 0) {
@@ -554,13 +556,15 @@ async function confirmPluginPicker() {
         }
     }
 
-    // Ensure at least one remote plugin is active
     if (_activePlugins.filter(p => p !== LOCAL_PLUGIN_ID).length === 0) {
         const first = Object.keys(_allData()).find(k => k !== LOCAL_PLUGIN_ID);
         if (first) _activePlugins.push(first);
     }
 
     await _notifyChange();
+
+    console.log('[PluginManager] saved to storage:',
+        localStorage.getItem('es_sb_active_plugins'));
 }
 
 // ── Event listeners ────────────────────────────────────────────────────────
