@@ -1,0 +1,814 @@
+[
+  {
+    "name": "Senza Solaria",
+    "engines": [
+      {
+        "x": 0,
+        "y": 192.5
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 0,
+        "y": -157.5,
+        "position": "zoom 2"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 37.5,
+        "y": -126,
+        "position": "left"
+      },
+      {
+        "x": -37,
+        "y": -125.5,
+        "position": "right"
+      }
+    ],
+    "guns": [
+      {
+        "x": 16,
+        "y": -193,
+        "gun": ""
+      },
+      {
+        "x": -15,
+        "y": -193,
+        "gun": ""
+      },
+      {
+        "x": 27.5,
+        "y": -192,
+        "gun": ""
+      },
+      {
+        "x": -28,
+        "y": -192,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 23,
+        "y": -136,
+        "turret": ""
+      },
+      {
+        "x": -22,
+        "y": -136,
+        "turret": ""
+      },
+      {
+        "x": 41.5,
+        "y": -134,
+        "turret": ""
+      },
+      {
+        "x": -41,
+        "y": -133,
+        "turret": ""
+      },
+      {
+        "x": 41.5,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": -41.5,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": 50,
+        "y": 1.5,
+        "turret": ""
+      },
+      {
+        "x": -51,
+        "y": 1,
+        "turret": ""
+      },
+      {
+        "x": 57.5,
+        "y": 4.5,
+        "turret": ""
+      },
+      {
+        "x": -56,
+        "y": 3,
+        "turret": ""
+      },
+      {
+        "x": 66,
+        "y": 51,
+        "turret": ""
+      },
+      {
+        "x": -66,
+        "y": 51,
+        "turret": ""
+      },
+      {
+        "x": 82,
+        "y": 52.5,
+        "turret": ""
+      },
+      {
+        "x": -80.5,
+        "y": 52,
+        "turret": ""
+      },
+      {
+        "x": 90,
+        "y": 55.5,
+        "turret": ""
+      },
+      {
+        "x": -90,
+        "y": 54.5,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -15,
+        "y": -104
+      },
+      {
+        "type": "Fighter",
+        "x": 15.5,
+        "y": -103.5
+      },
+      {
+        "type": "Drone",
+        "x": -15,
+        "y": -66
+      },
+      {
+        "type": "Fighter",
+        "x": 16,
+        "y": -65
+      },
+      {
+        "type": "Drone",
+        "x": -15,
+        "y": -27.5
+      },
+      {
+        "type": "Fighter",
+        "x": 16,
+        "y": -27.5
+      },
+      {
+        "type": "Drone",
+        "x": -14.5,
+        "y": 13
+      },
+      {
+        "type": "Fighter",
+        "x": 17,
+        "y": 11.5
+      },
+      {
+        "type": "Drone",
+        "x": -15,
+        "y": 49
+      },
+      {
+        "type": "Fighter",
+        "x": 15.5,
+        "y": 49
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 50,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/senza_solaria",
+    "thumbnail": "thumbnail/senza_solaria_thumbnail",
+    "attributes": {
+      "category": "Unclassified",
+      "cost": 22700000,
+      "shields": 50000,
+      "hull": 27500,
+      "required crew": 150,
+      "bunks": 750,
+      "mass": 2250,
+      "drag": 24.2,
+      "hull repair rate": 7,
+      "turn": 10000,
+      "thrust": 600,
+      "reverse thrust": 600,
+      "shield generation": 15,
+      "energy generation": 250,
+      "outfit scan power": 150,
+      "outfit scan efficiency": 20,
+      "tactical scan power": 100,
+      "heat dissipation": 0.8,
+      "fuel capacity": 1500,
+      "cargo space": 4400,
+      "outfit space": 4200,
+      "weapon capacity": 1700,
+      "engine capacity": 1900,
+      "heat capacity": 400000,
+      "gaslining": true,
+      "spinal mount": 4,
+      "weapon": {
+        "blast radius": 1500,
+        "shield damage": 5000,
+        "hull damage": 2500,
+        "hit force": 6000
+      }
+    },
+    "under": true,
+    "over": true,
+    "zoom": 2,
+    "small explosion": 25,
+    "medium explosion": 35,
+    "large explosion": 45,
+    "huge explosion": 30,
+    "final explode": "final explosion large",
+    "description": "A massive space station, filled to the brim with countless versions of every outfit in the galaxy. If only you had the password to the door of the storage area...",
+    "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria",
+    "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
+    "_hash": "d1e9497d94ea",
+    "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Syndicate": true
+      }
+    },
+    "locations": {
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      }
+    },
+    "outfits": {
+      "Blood of Surtr": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Blue Sun Reactor": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cryogenic Deuterium Tank": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Dark Storm Shielding": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Dragonflame Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fusion Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 40,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Collector Module": {
+        "count": 9,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Hybrid Cooling": {
+        "count": 10,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Magnetic Scoop": {
+        "count": 20,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Point Defense Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pug Biodefenses": {
+        "count": 500,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Vacuum Battery": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quarg Skylance": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Solarian Particle Waveform Turret": {
+        "count": 4,
+        "pluginId": "POOT/poot-senza-solaria"
+      },
+      "Solarian Zapper Turret": {
+        "count": 4,
+        "pluginId": "POOT/poot-senza-solaria"
+      },
+      "Systems Core (Large)": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tear of Skade": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Solarian Star Barge",
+    "engines": [
+      {
+        "x": -9.5,
+        "y": 38
+      },
+      {
+        "x": 9.5,
+        "y": 38
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 4.5,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": -3,
+        "y": -38,
+        "gun": ""
+      },
+      {
+        "x": 11.5,
+        "y": -27.5,
+        "gun": ""
+      },
+      {
+        "x": -10,
+        "y": -29.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -18,
+        "turret": ""
+      },
+      {
+        "x": 13.5,
+        "y": -2,
+        "turret": ""
+      },
+      {
+        "x": -14,
+        "y": -2,
+        "turret": ""
+      },
+      {
+        "x": 13.5,
+        "y": 15.5,
+        "turret": ""
+      },
+      {
+        "x": -14,
+        "y": 15.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/star barge",
+    "thumbnail": "thumbnail/star barge",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 1900000,
+      "shields": 6000,
+      "hull": 10000,
+      "required crew": 3,
+      "bunks": 15,
+      "mass": 400,
+      "drag": 2.2,
+      "heat dissipation": 0.77,
+      "fuel capacity": 500,
+      "cargo space": 500,
+      "outfit space": 1600,
+      "weapon capacity": 750,
+      "engine capacity": 600,
+      "weapon": {
+        "blast radius": 160,
+        "shield damage": 1600,
+        "hull damage": 800,
+        "hit force": 240
+      }
+    },
+    "over": true,
+    "small explosion": 10,
+    "medium explosion": 20,
+    "final explode": "final explosion medium",
+    "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
+    "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Star Barge",
+    "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
+    "_hash": "6be3e4dcde51",
+    "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Syndicate": true
+      }
+    },
+    "locations": {
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      }
+    },
+    "outfits": {
+      "A520 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A865 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Electron Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ka'het Nullifier": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Hybrid Cooling": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Vacuum Battery": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quasar Core": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Solarian Research Drone",
+    "engines": [
+      {
+        "x": 0.5,
+        "y": 30.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [
+      {
+        "x": 15.5,
+        "y": 4,
+        "position": "zoom .7"
+      },
+      {
+        "x": -13.5,
+        "y": 4,
+        "position": "angle 45"
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -9,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -9,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -9,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -9,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -30.5,
+        "y": -9.5,
+        "turret": ""
+      },
+      {
+        "x": 30.5,
+        "y": -9,
+        "turret": ""
+      },
+      {
+        "x": -26,
+        "y": -26,
+        "turret": ""
+      },
+      {
+        "x": 33,
+        "y": -33.5,
+        "turret": ""
+      },
+      {
+        "x": -7,
+        "y": -24.5,
+        "turret": ""
+      },
+      {
+        "x": -2,
+        "y": -38,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/science drone",
+    "thumbnail": "ship/science drone",
+    "attributes": {
+      "category": "Drone",
+      "cost": 1800000,
+      "shields": 14000,
+      "hull": 5000,
+      "automaton": 1,
+      "mass": 500,
+      "drag": 4,
+      "heat dissipation": 0.86,
+      "fuel capacity": 1500,
+      "cargo space": 150,
+      "outfit space": 2000,
+      "weapon capacity": 700,
+      "engine capacity": 900,
+      "weapon": {
+        "blast radius": 160,
+        "shield damage": 1600,
+        "hull damage": 800,
+        "hit force": 240
+      }
+    },
+    "zoom": 1.5,
+    "tiny explosion": 10,
+    "small explosion": 10,
+    "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
+    "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Research Drone",
+    "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
+    "_hash": "82ebe3755d2f",
+    "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Syndicate": true
+      }
+    },
+    "locations": {
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      }
+    },
+    "outfits": {
+      "Afterburner (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Dual Sunbeam Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Electron Beam": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Electron Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Laser": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Laser Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 20,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Inferno": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Hybrid Cooling": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Moonbeam Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overclocked Repair Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Vacuum Battery": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quasar Core": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Solarian Zapper Turret": {
+        "count": 1,
+        "pluginId": "POOT/poot-senza-solaria"
+      },
+      "Steering (Stellar Class)": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]
