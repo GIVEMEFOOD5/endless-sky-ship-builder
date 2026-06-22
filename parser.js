@@ -578,6 +578,14 @@ class EndlessSkyParser {
           continue;
         }
 
+        // ── Read display name from plugin.txt if present ──
+        const pluginRoot = root === '.' ? cloneDir : path.join(cloneDir, root);
+        const pluginTxtName = await this.readPluginTxt(pluginRoot);
+        const displayName = pluginTxtName ?? probe.name;
+        if (pluginTxtName) {
+          console.log(`  Display name from plugin.txt: "${displayName}"`);
+        }
+
         this._currentPluginId = pluginId;
 
         const shipsBefore   = this.ships.length;
@@ -594,6 +602,7 @@ class EndlessSkyParser {
 
         pluginMeta.push({
           name:         clonedPlugin.name,
+          displayName,                      // ← new
           pluginId,
           imagesDir:    clonedPlugin.imagesDir,
           cloneDir,
@@ -651,6 +660,7 @@ class EndlessSkyParser {
 
         results.push({
           name:       meta.name,
+          displayName: meta.displayName,    // ← new
           outputName: meta.name,
           pluginId:   meta.pluginId,
           repository: repoUrl,
@@ -1726,6 +1736,26 @@ class EndlessSkyParser {
     for (const variant of this.variants) resolveMap(variant.outfitMap, variant._variantPluginId);
     console.log(`  Outfit pluginId resolution: ${resolved} resolved, ${stillMissing} still missing`);
   }
+
+  async readPluginTxt(pluginRootDir) {
+  const pluginTxtPath = path.join(pluginRootDir, 'plugin.txt');
+  try {
+    const content = await fs.readFile(pluginTxtPath, 'utf8');
+    for (const line of content.split('\n')) {
+      // Must be top-level (no leading whitespace)
+      if (line.startsWith('\t') || line.startsWith(' ')) continue;
+      const trimmed = line.trim();
+      const m = trimmed.match(/^name\s+"([^"]+)"/) ||
+                trimmed.match(/^name\s+`([^`]+)`/) ||
+                trimmed.match(/^name\s+(\S+)/);
+      if (m) return m[1];
+    }
+  } catch {
+    // No plugin.txt or unreadable — fine, just return null
+  }
+  return null;
+}
+  
 }
 
 // ---------------------------------------------------------------------------
@@ -1810,19 +1840,24 @@ async function main() {
       await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(outfitsOut,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(effectsOut,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
-        plugin:     plugin.name,
-        repository: source.repository,
-        ships:      shipsOut,
-        variants:   variantsOut,
-        outfits:    outfitsOut,
-        effects:    effectsOut,
-        parsedAt:   new Date().toISOString(),
+        plugin:      meta.name,
+        displayName: plugin.displayName,    // ← new
+        repository:  source.repository,
+        ships:       shipsOut,
+        variants:    variantsOut,
+        outfits:     outfitsOut,
+        effects:     effectsOut,
+        parsedAt:    new Date().toISOString(),
       }, null, 2));
 
       console.log(`  ✓ ${shipsOut.length} ships | ${variantsOut.length} variants | ${outfitsOut.length} outfits | ${effectsOut.length} effects`);
 
       if (!dataIndex[source.name]) dataIndex[source.name] = [];
-      dataIndex[source.name].push({ outputName: plugin.outputName, displayName: plugin.name });
+      const indexEntry = { outputName: plugin.outputName };
+      if (plugin.displayName) {
+        indexEntry.displayPluginName = plugin.displayName;
+      }
+      dataIndex[source.name].push(indexEntry);
     }
 
     const indexPath = path.join(process.cwd(), 'data', 'index.json');
