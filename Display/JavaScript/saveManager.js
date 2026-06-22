@@ -144,7 +144,7 @@ function smRemoveSave(id) {
 //  for names that don't line up exactly (case, punctuation, spacing).
 // ═══════════════════════════════════════════════════════════
 
-const PLUGIN_REGISTRY_URL = '../JavaScript/pluginRegistry.json';
+const PLUGIN_REGISTRY_URL = '../plugins.json';
 
 let _pluginRegistryCache = null;
 
