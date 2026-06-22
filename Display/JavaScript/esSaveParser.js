@@ -1,5 +1,5 @@
 'use strict';
- 
+
 // ═══════════════════════════════════════════════════════════
 //  esSaveParser.js
 //
@@ -49,7 +49,7 @@
 //    _sourcePlugin,
 //  }
 // ═══════════════════════════════════════════════════════════
- 
+
 // ── Tokeniser ────────────────────────────────────────────────────────────────
 // Splits a line into tokens, respecting "quoted strings" and `backtick strings`
 function _esTok(str) {
@@ -58,7 +58,7 @@ function _esTok(str) {
   while (i < str.length) {
     const c = str[i];
     if (c === ' ' || c === '\t') { i++; continue; }
- 
+
     if (c === '"') {
       const end = str.indexOf('"', i + 1);
       if (end === -1) { tokens.push(str.slice(i)); break; }
@@ -66,7 +66,7 @@ function _esTok(str) {
       i = end + 1;
       continue;
     }
- 
+
     if (c === '`') {
       const end = str.indexOf('`', i + 1);
       if (end === -1) { tokens.push(str.slice(i)); break; }
@@ -75,7 +75,7 @@ function _esTok(str) {
       i = end + 1;
       continue;
     }
- 
+
     // bare word
     let j = i;
     while (j < str.length && str[j] !== ' ' && str[j] !== '\t') j++;
@@ -84,7 +84,7 @@ function _esTok(str) {
   }
   return tokens;
 }
- 
+
 // Strip surrounding quotes from a single token
 function _esStrip(s) {
   if (!s) return '';
@@ -95,12 +95,12 @@ function _esStrip(s) {
   }
   return s;
 }
- 
+
 // Return a clean display name (strip quotes, trim)
 function _esName(tok) {
   return _esStrip(tok || '');
 }
- 
+
 // ── Blank ship (matches shipBuilder internal format) ─────────────────────────
 function _esBlankShip() {
   return {
@@ -151,7 +151,7 @@ function _esBlankShip() {
     _sourcePlugin: null,
   };
 }
- 
+
 // ── Engine/hardpoint sub-block reader ────────────────────────────────────────
 // After pushing a new engine/reverseEngine/steeringEngine entry, subsequent
 // indented lines may carry: zoom, angle, gimbal, over, under, left, right
@@ -162,20 +162,20 @@ function _esMakeEngineEntry(coords) {
 function _esMakeSteeringEntry(coords) {
   return { coords, zoom: '', angle: '', gimbal: '', over: false, under: false, side: '' };
 }
- 
+
 // ── Bay sub-block reader ─────────────────────────────────────────────────────
 // After a bay line, indented children may carry: angle, "launch effect"
 function _esMakeBayEntry(coords) {
   return { coords, angle: '', launchEffect: '' };
 }
- 
+
 // ═══════════════════════════════════════════════════════════
 //  MAIN PARSE FUNCTION
 //  Returns { pilot, ships, storage, licenses, account, cargo }
 // ═══════════════════════════════════════════════════════════
 function parseESSaveFile(text) {
   const lines = text.split('\n');
- 
+
   // ── Result containers ──
   const result = {
     pilot: {
@@ -193,10 +193,11 @@ function parseESSaveFile(text) {
     ships: [],
     storage: [],        // [{ planet, cargo: { outfits: {name→count}, commodities: {} } }]
     licenses: [],
+    plugins: [],         // installed plugin names, exactly as written in the save file
     account: { credits: 0, score: 0, salaries: {}, history: [] },
     cargo: { outfits: {}, commodities: {} },
   };
- 
+
   // ── Parser state ──
   let topBlock    = null;   // current top-level block name
   let cur         = null;   // current ship being built
@@ -206,46 +207,46 @@ function parseESSaveFile(text) {
   let lastHP      = null;   // { type:'engine'|'reverseEngine'|'steeringEngine'|'gun'|'turret'|'bay', arr, idx }
   let lastBayArr  = null;   // pointer to the bay array being filled
   let lastBayIdx  = -1;
- 
+
   // Sprite sub-block: indent-2 lines under sprite/thumbnail are sprite params, skip them
   let inSpriteBlock = false;
- 
+
   // storage parser state
   let storageEntry   = null;   // { planet, cargo }
   let inStorageCargo = false;
   let inStorageOutfits = false;
- 
+
   // account parser state
   let inAccountSalaries = false;
   let inAccountHistory  = false;
- 
+
   // cargo (player carried) parser state
   let inTopCargo       = false;
   let inTopCargoOutfits = false;
- 
+
   // reputation block
   let inReputation = false;
- 
+
   // conditions block
   let inConditions = false;
- 
+
   // ── Line iterator ──
   for (let li = 0; li < lines.length; li++) {
     const raw    = lines[li];
     const t      = raw.trim();
     if (!t || t.startsWith('#')) continue;
- 
+
     const indent = raw.length - raw.trimStart().length;
     const toks   = _esTok(t);
     const key0   = _esStrip(toks[0] || '');
- 
+
     // ════════════════════════════════════════════════════════
     //  TOP LEVEL  (indent === 0)
     // ════════════════════════════════════════════════════════
     if (indent === 0) {
       // Close any open ship
       if (cur) { result.ships.push(cur); cur = null; }
- 
+
       // Reset all block flags
       attrBlock = false; outfitBlock = false; attrSub = null;
       lastHP = null; lastBayArr = null; lastBayIdx = -1;
@@ -254,9 +255,9 @@ function parseESSaveFile(text) {
       inAccountSalaries = false; inAccountHistory = false;
       inTopCargo = false; inTopCargoOutfits = false;
       inReputation = false; inConditions = false;
- 
+
       topBlock = key0;
- 
+
       // ── ship ──
       if (key0 === 'ship') {
         cur = _esBlankShip();
@@ -265,7 +266,7 @@ function parseESSaveFile(text) {
         cur.name       = cur._modelName;
         continue;
       }
- 
+
       // ── pilot header fields ──
       if (key0 === 'pilot')              { result.pilot.name         = toks.slice(1).map(_esName).join(' '); continue; }
       if (key0 === 'original name')    { result.pilot.originalName = toks.slice(1).map(_esName).join(' '); continue; }
@@ -277,6 +278,7 @@ function parseESSaveFile(text) {
       if (key0 === 'reputation with')  { inReputation = true; continue; }
       if (key0 === 'conditions')         { inConditions = true; continue; }
       if (key0 === 'licenses')           { topBlock = 'licenses'; continue; }
+      if (key0 === 'plugins')            { topBlock = 'plugins'; continue; }
       if (key0 === 'account')            { topBlock = 'account'; continue; }
       if (key0 === 'storage')            { topBlock = 'storage'; continue; }
       if (key0 === 'cargo')              { inTopCargo = true; topBlock = 'cargo'; continue; }
@@ -285,12 +287,12 @@ function parseESSaveFile(text) {
       if (key0 === 'changes')            { topBlock = 'changes'; continue; }  // skip
       if (key0 === 'economy')            { topBlock = 'economy'; continue; }  // skip
       if (key0 === 'visited')            { /* skip */ continue; }
- 
+
       // anything else at top level → store raw
       result.pilot.raw[key0] = toks.slice(1).join(' ');
       continue;
     }
- 
+
     // ════════════════════════════════════════════════════════
     //  SKIP BLOCKS we don't parse deeply
     // ════════════════════════════════════════════════════════
@@ -298,7 +300,7 @@ function parseESSaveFile(text) {
         topBlock === 'changes' || topBlock === 'economy') {
       continue;
     }
- 
+
     // ════════════════════════════════════════════════════════
     //  REPUTATION  (indent 1)
     // ════════════════════════════════════════════════════════
@@ -308,7 +310,7 @@ function parseESSaveFile(text) {
       result.pilot.reputations[faction] = val;
       continue;
     }
- 
+
     // ════════════════════════════════════════════════════════
     //  CONDITIONS  (indent 1)
     // ════════════════════════════════════════════════════════
@@ -318,7 +320,7 @@ function parseESSaveFile(text) {
       result.pilot.conditions[ckey] = cval;
       continue;
     }
- 
+
     // ════════════════════════════════════════════════════════
     //  LICENSES  (indent 1)
     // ════════════════════════════════════════════════════════
@@ -326,7 +328,21 @@ function parseESSaveFile(text) {
       result.licenses.push(_esName(toks[0]));
       continue;
     }
- 
+
+    // ════════════════════════════════════════════════════════
+    //  PLUGINS  (indent 1)
+    //  Save file lists bare/quoted plugin names only, e.g.:
+    //    plugins
+    //        DAIS
+    //        "KGS (Kai's GIMPed Stuff)"
+    //        Rumskib
+    //  No version/count info — just the names as the game wrote them.
+    // ════════════════════════════════════════════════════════
+    if (topBlock === 'plugins' && indent === 1) {
+      result.plugins.push(_esName(toks[0]));
+      continue;
+    }
+
     // ════════════════════════════════════════════════════════
     //  ACCOUNT  (indents 1-2)
     // ════════════════════════════════════════════════════════
@@ -346,7 +362,7 @@ function parseESSaveFile(text) {
       }
       continue;
     }
- 
+
     // ════════════════════════════════════════════════════════
     //  TOP-LEVEL CARGO  (indents 1-2)
     // ════════════════════════════════════════════════════════
@@ -363,7 +379,7 @@ function parseESSaveFile(text) {
       }
       continue;
     }
- 
+
     // ════════════════════════════════════════════════════════
     //  STORAGE  (indents 1-4)
     // ════════════════════════════════════════════════════════
@@ -386,12 +402,12 @@ function parseESSaveFile(text) {
       }
       continue;
     }
- 
+
     // ════════════════════════════════════════════════════════
     //  SHIP BLOCK
     // ════════════════════════════════════════════════════════
     if (!cur) continue;
- 
+
     // ── INDENT 1 ─────────────────────────────────────────────
     if (indent === 1) {
       // Leaving any sub-blocks
@@ -402,7 +418,7 @@ function parseESSaveFile(text) {
       lastBayArr  = null;
       lastBayIdx  = -1;
       inSpriteBlock = false;
- 
+
       if (key0 === 'name')       { cur._customName = _esName(toks[1]); cur.customName = cur._customName; continue; }
       if (key0 === 'plural')     { cur.plural    = _esName(toks[1]); continue; }
       if (key0 === 'thumbnail')  { cur.thumbnail = _esName(toks[1]); continue; }
@@ -416,27 +432,27 @@ function parseESSaveFile(text) {
       if (key0 === 'planet')     { cur._planet   = _esName(toks[1]); continue; }
       if (key0 === 'parked')     { cur._parked   = true; continue; }
       if (key0 === 'formation')  { cur._formation = _esName(toks[1]); continue; }
- 
+
       if (key0 === 'position') {
         cur._position = { x: parseFloat(toks[1]) || 0, y: parseFloat(toks[2]) || 0 };
         continue;
       }
- 
+
       if (key0 === 'sprite') {
         cur.sprite    = _esName(toks[1]);
         inSpriteBlock = true;   // next indent-2 lines are sprite animation params
         continue;
       }
- 
+
       if (key0 === 'description') {
         const para = _esName(toks.slice(1).join(' '));
         cur.description = cur.description ? cur.description + '\n' + para : para;
         continue;
       }
- 
+
       if (key0 === 'attributes') { attrBlock = true; continue; }
       if (key0 === 'outfits')    { outfitBlock = true; continue; }
- 
+
       // ── engine / reverse engine / steering engine ──
       if (key0 === 'engine') {
         const coords = toks.slice(1, 3).join(' ');
@@ -459,7 +475,7 @@ function parseESSaveFile(text) {
         lastHP = { type: 'steeringEngine', arr: cur.steeringEngines, idx: cur.steeringEngines.length - 1 };
         continue;
       }
- 
+
       // ── gun / turret ──
       if (key0 === 'gun') {
         const coords = toks.slice(1, 3).join(' ');
@@ -475,7 +491,7 @@ function parseESSaveFile(text) {
         lastHP = { type: 'turret', arr: cur.turrets, idx: cur.turrets.length - 1 };
         continue;
       }
- 
+
       // ── bay ──
       if (key0 === 'bay') {
         const bayType  = _esName(toks[1] || '');
@@ -494,7 +510,7 @@ function parseESSaveFile(text) {
         lastHP = null;  // bay sub-lines handled separately
         continue;
       }
- 
+
       // ── leak ──
       if (key0 === 'leak') {
         cur.leaks.push({
@@ -504,7 +520,7 @@ function parseESSaveFile(text) {
         });
         continue;
       }
- 
+
       // ── explode / final explode ──
       if (key0 === 'explode') {
         cur.explode.push({
@@ -520,18 +536,18 @@ function parseESSaveFile(text) {
         });
         continue;
       }
- 
+
       // Anything else at indent-1 inside a ship → extraLines
       cur.extraLines.push(raw);
       continue;
     }
- 
+
     // ── INDENT 2 ─────────────────────────────────────────────
     if (indent === 2) {
- 
+
       // Sprite animation sub-params — just skip
       if (inSpriteBlock) continue;
- 
+
       // ── engine / turret / gun sub-properties ──
       if (lastHP && lastHP.arr) {
         const entry = lastHP.arr[lastHP.idx];
@@ -546,7 +562,7 @@ function parseESSaveFile(text) {
           if (key0 === 'right') { entry.side = 'right'; continue; }
         }
       }
- 
+
       // ── bay sub-properties ──
       if (lastBayArr && lastBayIdx >= 0) {
         const bayEntry = lastBayArr[lastBayIdx];
@@ -556,11 +572,11 @@ function parseESSaveFile(text) {
           continue;
         }
       }
- 
+
       // ── attributes block ──
       if (attrBlock) {
         if (!toks.length) continue;
- 
+
         if (key0 === 'licenses') { attrSub = 'licenses'; cur.attributes.licenses = cur.attributes.licenses || {}; continue; }
         if (key0 === 'weapon')   { attrSub = 'weapon';   cur.weapon = cur.weapon || {}; continue; }
         // sprite / flare / sound sub-entries inside attributes — just skip
@@ -574,14 +590,14 @@ function parseESSaveFile(text) {
           // (the frame rate sub-line would be at indent 3, handled below)
           attrSub = null;
         }
- 
+
         const valStr = toks.slice(1).join(' ');
         if (key0 === 'mass') { cur.mass = valStr; continue; }
         if (key0 === 'drag') { cur.drag = valStr; continue; }
         cur.attributes[key0] = valStr;
         continue;
       }
- 
+
       // ── outfits block ──
       if (outfitBlock) {
         // toks[0] is the outfit name (may be quoted or bare or backtick-stripped)
@@ -596,12 +612,12 @@ function parseESSaveFile(text) {
         }
         continue;
       }
- 
+
       // fallthrough
       cur.extraLines.push(raw);
       continue;
     }
- 
+
     // ── INDENT 3 ─────────────────────────────────────────────
     if (indent === 3) {
       if (attrBlock) {
@@ -625,21 +641,21 @@ function parseESSaveFile(text) {
       cur.extraLines.push(raw);
       continue;
     }
- 
+
     // Deeper indents — skip / extraLines
     if (cur) cur.extraLines.push(raw);
   }
- 
+
   // Don't forget the last ship
   if (cur) result.ships.push(cur);
- 
+
   return result;
 }
- 
+
 // ═══════════════════════════════════════════════════════════
 //  CONVENIENCE HELPERS
 // ═══════════════════════════════════════════════════════════
- 
+
 // Convert a parsed save-file ship into the exact shape shipBuilder.js
 // uses internally (for dropping into sbFleet directly).
 function saveShipToBuilderFormat(ship) {
@@ -684,7 +700,7 @@ function saveShipToBuilderFormat(ship) {
     steeringEngines: ship.steeringEngines,
   };
 }
- 
+
 // ── Browser entry point ───────────────────────────────────────────────────────
 // Call parseESSaveFile(text) directly, or use parseSaveFileFromInput() if you
 // have a file <input> element.
@@ -694,7 +710,7 @@ async function parseSaveFileFromInput(fileInput) {
   const text = await file.text();
   return parseESSaveFile(text);
 }
- 
+
 // ── Node.js entry point ───────────────────────────────────────────────────────
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { parseESSaveFile, saveShipToBuilderFormat, parseSaveFileFromInput };
