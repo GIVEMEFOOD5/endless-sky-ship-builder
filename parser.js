@@ -1840,8 +1840,8 @@ async function main() {
       await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(outfitsOut,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(effectsOut,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
-        plugin:      meta.name,
-        displayName: plugin.displayName,    // ← new
+        plugin:      plugin.name,
+        ...(plugin.displayName ? { displayPluginName: plugin.displayName } : {}),
         repository:  source.repository,
         ships:       shipsOut,
         variants:    variantsOut,
