@@ -130,5 +130,21 @@
 <script src="../JavaScript/dataLoader.js"></script>
 <script src="../JavaScript/esSaveParser.js"></script>
 <script src="../JavaScript/saveManager.js"></script>
+<script>
+  // dataLoader.js exposes window.DataLoader but doesn't fetch anything until
+  // .load() is called. Kick that off now so window.allData is populated by
+  // the time the person imports a save and we try to match its plugins.
+  // Errors are logged explicitly here — DataLoader.load() can reject (e.g.
+  // if data/index.json 404s, or no plugin's data could be loaded at all),
+  // and an un-awaited, un-caught rejection won't always show up as a
+  // visible console error depending on the browser.
+  if (window.DataLoader && typeof window.DataLoader.load === 'function') {
+    window.DataLoader.load()
+      .then(() => console.log('[savereader] DataLoader finished loading. allData keys:', Object.keys(window.allData || {})))
+      .catch(err => console.error('[savereader] DataLoader.load() failed:', err));
+  } else {
+    console.error('[savereader] window.DataLoader is missing or has no .load() — check that ../JavaScript/dataLoader.js loaded correctly.');
+  }
+</script>
 </body>
 </html>
