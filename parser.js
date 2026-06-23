@@ -1860,7 +1860,6 @@ async function main() {
       await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(effectsOut,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
         plugin:      plugin.name,
-        ...(plugin.displayName ? { displayPluginName: plugin.displayName } : {}),
         repository:  source.repository,
         ships:       shipsOut,
         variants:    variantsOut,
@@ -1873,8 +1872,8 @@ async function main() {
 
       if (!dataIndex[source.name]) dataIndex[source.name] = [];
       const indexEntry = { outputName: plugin.outputName };
-      if (plugin.displayName) {
-        indexEntry.displayPluginName = plugin.displayName;
+      if (plugin.pluginData?.name) {
+        indexEntry.displayPluginName = plugin.pluginData.name;
       }
       dataIndex[source.name].push(indexEntry);
     }
