@@ -585,14 +585,6 @@ class EndlessSkyParser {
           console.log(`  plugin.txt name: "${pluginData.name}"`);
         }
 
-        // ── Read display name from plugin.txt if present ──
-        const pluginRoot = root === '.' ? cloneDir : path.join(cloneDir, root);
-        const pluginTxtName = await this.readPluginTxt(pluginRoot);
-        const displayName = pluginTxtName ?? probe.name;
-        if (pluginTxtName) {
-          console.log(`  Display name from plugin.txt: "${displayName}"`);
-        }
-
         this._currentPluginId = pluginId;
 
         const shipsBefore   = this.ships.length;
