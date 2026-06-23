@@ -12,18 +12,18 @@
 <script src="../JavaScript/navLoader.js"></script>
   
 <div class="container">
-
+ 
   <header class="panel">
     <h1>💾 Save Reader</h1>
     <p class="subtitle">Drop in a pilot save file to inspect your fleet, outfits, and account.</p>
   </header>
-
+ 
   <!-- ════════════ IMPORT / LIBRARY PANEL ════════════ -->
   <section class="panel config-section" id="importPanel">
     <h2 class="section-title">Saved Files</h2>
-
+ 
     <div id="savesLibrary" style="margin-bottom:18px;"></div>
-
+ 
     <div class="input-group" style="margin-bottom:0;">
       <label for="fileInput">Upload a new save file (.txt)</label>
       <div id="dropzone" class="list-row" style="cursor:pointer; padding:28px; justify-content:center; border-style:dashed; border-width:2px;">
@@ -34,30 +34,30 @@
       </div>
       <input type="file" id="fileInput" accept=".txt" class="hidden">
     </div>
-
+ 
     <div class="error hidden" id="errorBox"></div>
-
+ 
     <div class="button-group" id="resultButtons" style="margin-top:18px;">
       <button class="btn btn-secondary hidden" id="exportJsonBtn">Export current save as JSON</button>
       <button class="btn btn-secondary hidden" id="removeSaveBtn">Remove current save</button>
     </div>
   </section>
-
+ 
   <!-- ════════════ RESULTS ════════════ -->
   <div id="results" class="hidden">
-
+ 
     <section class="panel" style="margin-bottom:30px;">
       <h2 class="section-title" id="pilotName">Pilot</h2>
       <p class="internal-name" id="pilotMeta" style="margin-top:0;"></p>
       <div class="stats" id="statStrip"></div>
     </section>
-
+ 
     <div class="tabs" id="resultTabs">
       <div class="tab active" data-tab="fleet">Fleet</div>
       <div class="tab" data-tab="cargo">Cargo &amp; Storage</div>
       <div class="tab" data-tab="account">Account &amp; Licenses</div>
     </div>
-
+ 
     <!-- Fleet tab -->
     <div class="tab-content" id="tab-fleet">
       <section class="search-section">
@@ -77,7 +77,7 @@
       </div>
       <div class="fleet-grid" id="fleetGrid"></div>
     </div>
-
+ 
     <!-- Cargo & Storage tab -->
     <div class="tab-content hidden" id="tab-cargo">
       <section class="panel" style="margin-bottom:20px;">
@@ -89,7 +89,7 @@
         <div id="storageList"></div>
       </section>
     </div>
-
+ 
     <!-- Account & Licenses tab -->
     <div class="tab-content hidden" id="tab-account">
       <section class="panel" style="margin-bottom:20px;">
@@ -105,11 +105,11 @@
         <div id="pluginsPanel"></div>
       </section>
     </div>
-
+ 
   </div>
-
+ 
 </div>
-
+ 
 <!-- Ship detail modal -->
 <div class="modal" id="shipModal">
   <div class="modal-content">
@@ -123,10 +123,10 @@
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
-
+ 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
-
+ 
 <script src="../JavaScript/esSaveParser.js"></script>
 <script src="../JavaScript/saveManager.js"></script>
 </body>
