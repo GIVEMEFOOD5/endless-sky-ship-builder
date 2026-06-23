@@ -694,6 +694,34 @@ function renderAccountLicenses() {
 //  registry + currently loaded data, and offer to activate them.
 // ═══════════════════════════════════════════════════════════
 
+// Resolves once window.DataLoader has finished its initial load (or
+// immediately if DataLoader isn't present at all / already ready).
+// Without this, matching can run while remote plugin data is still being
+// fetched, making every plugin look unmatched even though it's about to load.
+function smWaitForDataLoader(timeoutMs = 15000) {
+  return new Promise(resolve => {
+    if (!window.DataLoader || typeof window.DataLoader.isReady !== 'function') {
+      resolve(false); // no DataLoader on this page at all
+      return;
+    }
+    if (window.DataLoader.isReady()) {
+      resolve(true);
+      return;
+    }
+    let done = false;
+    const finish = (ok) => {
+      if (done) return;
+      done = true;
+      resolve(ok);
+    };
+    if (typeof window.DataLoader.onReady === 'function') {
+      window.DataLoader.onReady(() => finish(true));
+    }
+    document.addEventListener('dataLoadError', () => finish(false), { once: true });
+    setTimeout(() => finish(window.DataLoader.isReady ? window.DataLoader.isReady() : false), timeoutMs);
+  });
+}
+
 async function renderPluginsPanel() {
   const box = el('pluginsPanel');
   if (!box) return;
@@ -703,6 +731,14 @@ async function renderPluginsPanel() {
     box.innerHTML = `<div class="ld-empty">No plugins were recorded in this save.</div>`;
     return;
   }
+
+  if (!window.DataLoader) {
+    box.innerHTML = `<div class="ld-empty">Plugin data isn\u2019t available on this page (dataLoader.js isn\u2019t loaded), so plugins from this save can\u2019t be matched here.</div>`;
+    return;
+  }
+
+  box.innerHTML = `<div class="ld-empty" style="padding:10px 0;">Loading plugin data\u2026</div>`;
+  await smWaitForDataLoader();
 
   box.innerHTML = `<div class="ld-empty" style="padding:10px 0;">Checking plugins against loaded data…</div>`;
 
@@ -728,11 +764,10 @@ async function renderPluginsPanel() {
         These are listed in the save but either aren't in the plugin registry, or no data is currently loaded for them on this page.
       </p>
     ` : ''}
-    ${matched.length ? `
-      <div class="button-group" style="margin-top:16px;">
-        <button class="btn btn-primary" id="activatePluginsBtn">Activate ${matched.length} matched plugin${matched.length !== 1 ? 's' : ''}</button>
-      </div>
-    ` : ''}
+    <div class="button-group" style="margin-top:16px;">
+      ${matched.length ? `<button class="btn btn-primary" id="activatePluginsBtn">Activate ${matched.length} matched plugin${matched.length !== 1 ? 's' : ''}</button>` : ''}
+      <button class="btn btn-secondary" id="recheckPluginsBtn">Re-check plugins</button>
+    </div>
   `;
 
   const activateBtn = el('activatePluginsBtn');
@@ -745,6 +780,11 @@ async function renderPluginsPanel() {
         toast('Could not activate plugins — plugin system isn\u2019t available on this page.', 'danger');
       }
     });
+  }
+
+  const recheckBtn = el('recheckPluginsBtn');
+  if (recheckBtn) {
+    recheckBtn.addEventListener('click', () => renderPluginsPanel());
   }
 }
 
