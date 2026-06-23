@@ -578,6 +578,13 @@ class EndlessSkyParser {
           continue;
         }
 
+        // ── Read plugin.txt if present ──
+        const pluginRoot = root === '.' ? cloneDir : path.join(cloneDir, root);
+        const pluginData = await this.readPluginTxt(pluginRoot);
+        if (pluginData?.name) {
+          console.log(`  plugin.txt name: "${pluginData.name}"`);
+        }
+
         // ── Read display name from plugin.txt if present ──
         const pluginRoot = root === '.' ? cloneDir : path.join(cloneDir, root);
         const pluginTxtName = await this.readPluginTxt(pluginRoot);
@@ -602,7 +609,7 @@ class EndlessSkyParser {
 
         pluginMeta.push({
           name:         clonedPlugin.name,
-          displayName,                      // ← new
+          pluginData,
           pluginId,
           imagesDir:    clonedPlugin.imagesDir,
           cloneDir,
@@ -660,7 +667,7 @@ class EndlessSkyParser {
 
         results.push({
           name:       meta.name,
-          displayName: meta.displayName,    // ← new
+          pluginData: meta.pluginData,
           outputName: meta.name,
           pluginId:   meta.pluginId,
           repository: repoUrl,
@@ -1737,23 +1744,35 @@ class EndlessSkyParser {
     console.log(`  Outfit pluginId resolution: ${resolved} resolved, ${stillMissing} still missing`);
   }
 
-  async readPluginTxt(pluginRootDir) {
+async readPluginTxt(pluginRootDir) {
   const pluginTxtPath = path.join(pluginRootDir, 'plugin.txt');
   try {
     const content = await fs.readFile(pluginTxtPath, 'utf8');
+    const result = {};
     for (const line of content.split('\n')) {
-      // Must be top-level (no leading whitespace)
       if (line.startsWith('\t') || line.startsWith(' ')) continue;
       const trimmed = line.trim();
-      const m = trimmed.match(/^name\s+"([^"]+)"/) ||
-                trimmed.match(/^name\s+`([^`]+)`/) ||
-                trimmed.match(/^name\s+(\S+)/);
-      if (m) return m[1];
+      if (!trimmed || trimmed.startsWith('#')) continue;
+
+      const m =
+        trimmed.match(/^(\w+)\s+"([^"]+)"$/) ||
+        trimmed.match(/^(\w+)\s+`([^`]+)`$/) ||
+        trimmed.match(/^(\w+)\s+(\S+)$/);
+      if (m) {
+        const key = m[1];
+        const val = m[2];
+        if (key === 'about') {
+          if (!result.about) result.about = [];
+          result.about.push(val);
+        } else {
+          result[key] = val;
+        }
+      }
     }
+    return Object.keys(result).length > 0 ? result : null;
   } catch {
-    // No plugin.txt or unreadable — fine, just return null
+    return null;
   }
-  return null;
 }
   
 }
@@ -1821,6 +1840,14 @@ async function main() {
       const pluginDir    = path.join(process.cwd(), 'data', plugin.outputName);
       const dataFilesDir = path.join(pluginDir, 'dataFiles');
       await fs.mkdir(dataFilesDir, { recursive: true });
+
+      // ── Write pluginData.json if plugin.txt was found ──
+      if (plugin.pluginData) {
+        await fs.writeFile(
+          path.join(pluginDir, 'pluginData.json'),
+          JSON.stringify(plugin.pluginData, null, 2)
+        );
+      }
 
       const shipsOut = plugin.ships.map(s => ({
         ...s, outfits: outfitMapToOutputFormat(s.outfitMap), outfitMap: undefined,
