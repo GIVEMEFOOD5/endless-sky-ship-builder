@@ -138,10 +138,17 @@ function smRemoveSave(id) {
 //
 //  The save file's `plugins` block only lists the bare folder/internal
 //  name the game wrote (e.g. "DAIS", "Rumskib", "compact_layout") — no
-//  repository info. pluginRegistry.json maps those names to a GitHub
-//  repository URL, which is the same identity DataLoader/index.json
-//  uses for sourceName. We match on that, with a couple of fallbacks
-//  for names that don't line up exactly (case, punctuation, spacing).
+//  repository info.
+//
+//  Each loaded plugin's data now lives at data/<pluginName>/pluginData.json,
+//  so <pluginName> (the folder name) is the plugin's outputName/key in
+//  window.allData — the same role it played before, just a different
+//  fetch path inside dataLoader.js. plugins.json (at the repo root) maps
+//  a save's bare plugin name to a GitHub repository URL, which we use as
+//  a last-resort identity check when the name itself doesn't line up.
+//
+//  We try several matching strategies, since the save's name, the data
+//  folder's name, and the in-game display name don't always agree:
 // ═══════════════════════════════════════════════════════════
 
 const PLUGIN_REGISTRY_URL = '../plugins.json';
@@ -156,7 +163,7 @@ async function smLoadPluginRegistry() {
     const json = await res.json();
     _pluginRegistryCache = Array.isArray(json.plugins) ? json.plugins : [];
   } catch (e) {
-    console.warn('[saveManager] Could not load pluginRegistry.json:', e);
+    console.warn('[saveManager] Could not load plugins.json:', e);
     _pluginRegistryCache = [];
   }
   return _pluginRegistryCache;
@@ -170,6 +177,24 @@ function _smNormalisePluginName(name) {
     .replace(/[\s_-]+/g, '');
 }
 
+// Strip a trailing "-main" / "-master" (GitHub's default branch zip suffix)
+// from a folder/output name before comparing, and also return the
+// "-main" variant of a save name so we can check both directions.
+function _smStripBranchSuffix(name) {
+  return String(name || '').replace(/-(main|master)$/i, '');
+}
+function _smWithMainSuffix(name) {
+  return String(name || '') + '-main';
+}
+
+// A loaded plugin's display label may come through as `displayPluginName`
+// (read from inside data/<pluginName>/pluginData.json), the older
+// `displayName` field (from index.json), or simply `name`. Check all three
+// so matching doesn't silently break if dataLoader.js's field name changes.
+function _smDisplayLabel(data) {
+  return data?.displayPluginName || data?.displayName || data?.name || '';
+}
+
 // Extract the "owner/repo" slug from a GitHub URL for identity comparison.
 function _smRepoSlug(url) {
   const m = String(url || '').match(/github\.com\/([^/]+)\/([^/]+)/i);
@@ -180,52 +205,89 @@ function _smRepoSlug(url) {
 /**
  * Given the list of bare plugin names from a save file, returns:
  *   {
- *     matched:   [{ saveName, outputName, sourceName, displayName }],
+ *     matched:   [{ saveName, outputName, sourceName, displayName, matchedBy }],
  *     unmatched: [{ saveName, reason }]   // reason: 'not-in-registry' | 'not-loaded'
  *   }
  *
+ * Match strategy, tried in this order for every save plugin name:
+ *   1. Exact (normalised) match against the loaded plugin's outputName —
+ *      this is the literal name of its folder under data/
+ *      (e.g. data/DAIS/pluginData.json → outputName "DAIS").
+ *   2. Same, but allowing either side to carry a "-main"/"-master" suffix —
+ *      covers folders saved as GitHub's default-branch zip name (e.g. "DAIS-main").
+ *   3. Exact (normalised) match against the loaded plugin's display label —
+ *      checks displayPluginName (from pluginData.json), displayName
+ *      (from index.json), and plain name — whichever field the loaded
+ *      plugin actually carries.
+ *   4. Registry lookup (plugins.json) → repository URL → repo slug →
+ *      match against outputName containing that slug. This is the fallback
+ *      for cases where the save's name, the folder name, and the display
+ *      name all differ from one another.
+ *
  * "matched" means we found a loaded plugin (window.allData key) that
- * corresponds to the save's plugin name. "unmatched" means either the
- * registry doesn't know this plugin name, or the registry knows it but
- * DataLoader hasn't loaded data for that repository (e.g. it's a
- * layout/cosmetic-only plugin with no ships/outfits/effects, or its
- * data simply isn't in the index this app pulls from).
+ * corresponds to the save's plugin name. "unmatched" means none of the
+ * four strategies found a loaded plugin for it.
  */
 async function smMatchSavePlugins(saveNames) {
   const registry = await smLoadPluginRegistry();
   const allData  = (window.allData || {});
-  const loadedEntries = Object.entries(allData).filter(([id]) => id !== (window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__'));
+  const localId  = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
+  const loadedEntries = Object.entries(allData).filter(([id]) => id !== localId);
 
   const matched   = [];
   const unmatched = [];
 
   for (const saveName of saveNames) {
-    const normSave = _smNormalisePluginName(saveName);
+    const normSave       = _smNormalisePluginName(saveName);
+    const normSaveStrip  = _smNormalisePluginName(_smStripBranchSuffix(saveName));
+    const normSaveMain   = _smNormalisePluginName(_smWithMainSuffix(saveName));
 
-    // 1 — Find the registry entry for this save name (by normalised name match)
-    const regEntry = registry.find(r => _smNormalisePluginName(r.name) === normSave);
+    let foundEntry = null;
+    let matchedBy  = null;
 
-    if (!regEntry) {
-      unmatched.push({ saveName, reason: 'not-in-registry' });
-      continue;
+    // 1 — Direct match against outputName (the literal data/<pluginName> folder name)
+    foundEntry = loadedEntries.find(([outputName]) =>
+      _smNormalisePluginName(outputName) === normSave
+    );
+    if (foundEntry) matchedBy = 'folder-name';
+
+    // 2 — Match allowing a "-main"/"-master" suffix on either side
+    if (!foundEntry) {
+      foundEntry = loadedEntries.find(([outputName]) => {
+        const normOutput      = _smNormalisePluginName(outputName);
+        const normOutputStrip = _smNormalisePluginName(_smStripBranchSuffix(outputName));
+        return normOutput === normSaveMain || normOutputStrip === normSave || normOutputStrip === normSaveStrip;
+      });
+      if (foundEntry) matchedBy = 'folder-name-main-suffix';
     }
 
-    const targetSlug = _smRepoSlug(regEntry.repository);
-
-    // 2 — Find a loaded plugin whose sourceName/displayName/outputName
-    //     corresponds to this registry entry. Try, in order:
-    //       a) outputName contains the repo slug (owner/repo) — most reliable
-    //       b) sourceName normalises to the same as the registry name
-    //       c) displayName normalises to the same as the registry name
-    let foundEntry = loadedEntries.find(([outputName]) =>
-      targetSlug && outputName.toLowerCase().includes(targetSlug)
-    );
-
+    // 3 — Match against the plugin's display label (displayPluginName / displayName)
     if (!foundEntry) {
       foundEntry = loadedEntries.find(([, data]) =>
-        _smNormalisePluginName(data.sourceName) === normSave ||
-        _smNormalisePluginName(data.displayName) === normSave
+        _smNormalisePluginName(_smDisplayLabel(data)) === normSave
       );
+      if (foundEntry) matchedBy = 'display-name';
+    }
+
+    // 4 — Registry fallback: save name → plugins.json → repository → repo slug
+    if (!foundEntry) {
+      const regEntry = registry.find(r => _smNormalisePluginName(r.name) === normSave);
+      if (regEntry) {
+        const targetSlug = _smRepoSlug(regEntry.repository);
+        foundEntry = loadedEntries.find(([outputName]) =>
+          targetSlug && outputName.toLowerCase().includes(targetSlug)
+        );
+        if (!foundEntry) {
+          // Also try matching the registry entry's own name against sourceName
+          foundEntry = loadedEntries.find(([, data]) =>
+            _smNormalisePluginName(data.sourceName) === normSave
+          );
+        }
+        if (foundEntry) matchedBy = 'registry';
+      } else if (!foundEntry) {
+        unmatched.push({ saveName, reason: 'not-in-registry' });
+        continue;
+      }
     }
 
     if (foundEntry) {
@@ -234,7 +296,8 @@ async function smMatchSavePlugins(saveNames) {
         saveName,
         outputName,
         sourceName: data.sourceName || outputName,
-        displayName: data.displayName || outputName,
+        displayName: _smDisplayLabel(data) || outputName,
+        matchedBy,
       });
     } else {
       unmatched.push({ saveName, reason: 'not-loaded' });
