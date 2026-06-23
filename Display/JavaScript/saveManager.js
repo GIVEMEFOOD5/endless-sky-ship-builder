@@ -191,6 +191,9 @@ function _smWithMainSuffix(name) {
 // (read from inside data/<pluginName>/pluginData.json), the older
 // `displayName` field (from index.json), or simply `name`. Check all three
 // so matching doesn't silently break if dataLoader.js's field name changes.
+// Returns '' if none are present — callers fall back to the folder name
+// themselves, since not every plugin folder has a pluginData.json to
+// read a name from in the first place.
 function _smDisplayLabel(data) {
   return data?.displayPluginName || data?.displayName || data?.name || '';
 }
@@ -261,7 +264,7 @@ async function smMatchSavePlugins(saveNames) {
       if (foundEntry) matchedBy = 'folder-name-main-suffix';
     }
 
-    // 3 — Match against the plugin's display label (displayPluginName / displayName)
+    // 3 — Match against the plugin's display label (displayPluginName / displayName / name)
     if (!foundEntry) {
       foundEntry = loadedEntries.find(([, data]) =>
         _smNormalisePluginName(_smDisplayLabel(data)) === normSave
