@@ -28,6 +28,15 @@
 //    'dataLoaded'      — all remote data fetched
 //    'dataLoadError'   — fetch failed
 //    'pluginsChanged'  — active plugin selection changed
+//
+//  CHANGE LOG (this revision):
+//    - Each plugin folder now also fetches data/<outputName>/pluginData.json,
+//      which carries plugin-level metadata: { name, version, about }.
+//      These are merged onto the plugin object as `name`, `version`, `about`
+//      (and `displayPluginName` as an alias for `name`, matching what other
+//      tools on this site already look for). pluginData.json missing or
+//      unfetchable is NOT an error — plenty of plugins won't have one, and
+//      ships/outfits/variants/effects loading is unaffected either way.
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -256,8 +265,10 @@ window.DataLoader = {
             .filter(([id]) => id !== LOCAL_PLUGIN_ID)
             .map(([id, p]) => ({
                 outputName:   id,
-                displayName:  p.displayName || id,
+                displayName:  p.displayPluginName || p.name || p.displayName || id,
                 sourceName:   p.sourceName  || id,
+                version:      p.version || '',
+                about:        p.about   || [],
                 shipCount:    (p.ships    || []).length,
                 variantCount: (p.variants || []).length,
                 outfitCount:  (p.outfits  || []).length,
@@ -448,6 +459,29 @@ async function _doLoad() {
                     if (variantsRes.ok) { plugin.variants = await variantsRes.json(); loaded = true; }
                     if (outfitsRes.ok)  { plugin.outfits  = await outfitsRes.json();  loaded = true; }
                     if (effectsRes.ok)  { plugin.effects  = await effectsRes.json();  loaded = true; }
+
+                    // ── pluginData.json — plugin-level metadata ──────────────
+                    // Lives at data/<outputName>/pluginData.json, sibling to the
+                    // dataFiles/ folder (NOT inside it). Typical shape:
+                    //   { "name": "...", "version": "...", "about": [...] }
+                    // This is metadata only — it never carries ships/outfits/
+                    // etc, so its absence or failure must NOT affect `loaded`
+                    // or block ships/variants/outfits/effects from being used.
+                    try {
+                        const metaRes = await fetch(`${BASE_URL}/${outputName}/pluginData.json`);
+                        if (metaRes.ok) {
+                            const meta = await metaRes.json();
+                            if (meta && typeof meta === 'object') {
+                                if (meta.name)    { plugin.name = meta.name; plugin.displayPluginName = meta.name; }
+                                if (meta.version) plugin.version = meta.version;
+                                if (meta.about)   plugin.about   = meta.about;
+                            }
+                        }
+                    } catch (metaErr) {
+                        // Not every plugin has pluginData.json — that's fine,
+                        // just means no extra metadata for it. Don't warn loudly.
+                    }
+
                     if (loaded) window.allData[outputName] = plugin;
                     else console.warn(`[DataLoader] ${outputName}: no data files, skipping`);
                 } catch (err) {
