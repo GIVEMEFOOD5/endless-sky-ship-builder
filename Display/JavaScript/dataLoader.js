@@ -439,10 +439,15 @@ async function _doLoad() {
 
         // 3 — Load each plugin
         for (const [sourceName, pluginList] of Object.entries(dataIndex)) {
-            for (const { outputName, displayName } of pluginList) {
+            for (const entry of pluginList) {
+                const { outputName, displayName, displayPluginName } = entry;
                 const plugin = {
                     sourceName,
-                    displayName: displayName || outputName,
+                    // index.json's own displayPluginName is authoritative when present
+                    // (this is the real field index.json uses — not every entry has
+                    // one, e.g. "official-game" / "DAIS" rely on outputName instead).
+                    displayPluginName: displayPluginName || null,
+                    displayName: displayName || displayPluginName || outputName,
                     outputName,
                     ships: [], variants: [], outfits: [], effects: [],
                 };
@@ -464,15 +469,23 @@ async function _doLoad() {
                     // Lives at data/<outputName>/pluginData.json, sibling to the
                     // dataFiles/ folder (NOT inside it). Typical shape:
                     //   { "name": "...", "version": "...", "about": [...] }
-                    // This is metadata only — it never carries ships/outfits/
-                    // etc, so its absence or failure must NOT affect `loaded`
-                    // or block ships/variants/outfits/effects from being used.
+                    // This is a FALLBACK for display name only — index.json's own
+                    // displayPluginName (above) takes priority when present, since
+                    // that's the field this site's index already curates. We still
+                    // always pick up version/about from here when available, and
+                    // use meta.name only if index.json had no displayPluginName.
+                    // Either way, pluginData.json missing/unfetchable must NOT
+                    // affect `loaded` or block ships/variants/outfits/effects.
                     try {
                         const metaRes = await fetch(`${BASE_URL}/${outputName}/pluginData.json`);
                         if (metaRes.ok) {
                             const meta = await metaRes.json();
                             if (meta && typeof meta === 'object') {
-                                if (meta.name)    { plugin.name = meta.name; plugin.displayPluginName = meta.name; }
+                                if (meta.name) {
+                                    plugin.name = meta.name;
+                                    if (!plugin.displayPluginName) plugin.displayPluginName = meta.name;
+                                    if (!displayName && !displayPluginName) plugin.displayName = meta.name;
+                                }
                                 if (meta.version) plugin.version = meta.version;
                                 if (meta.about)   plugin.about   = meta.about;
                             }
