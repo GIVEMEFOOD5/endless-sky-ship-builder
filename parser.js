@@ -1849,13 +1849,12 @@ async function main() {
       const dataFilesDir = path.join(pluginDir, 'dataFiles');
       await fs.mkdir(dataFilesDir, { recursive: true });
 
-      // ── Write pluginData.json if plugin.txt was found ──
-      if (plugin.pluginData) {
-        await fs.writeFile(
-          path.join(pluginDir, 'pluginData.json'),
-          JSON.stringify(plugin.pluginData, null, 2)
-        );
-      }
+      // ── Write pluginData.json — always, falling back to outputName if no plugin.txt ──
+      const pluginDataToWrite = plugin.pluginData ?? { name: plugin.outputName };
+      await fs.writeFile(
+        path.join(pluginDir, 'pluginData.json'),
+        JSON.stringify(pluginDataToWrite, null, 2)
+      );
 
       const shipsOut = plugin.ships.map(s => ({
         ...s, outfits: outfitMapToOutputFormat(s.outfitMap), outfitMap: undefined,
@@ -1887,10 +1886,10 @@ async function main() {
       console.log(`  ✓ ${shipsOut.length} ships | ${variantsOut.length} variants | ${outfitsOut.length} outfits | ${effectsOut.length} effects`);
 
       if (!dataIndex[source.name]) dataIndex[source.name] = [];
-      const indexEntry = { outputName: plugin.outputName };
-      if (plugin.pluginData?.name) {
-        indexEntry.displayPluginName = plugin.pluginData.name;
-      }
+      const indexEntry = {
+        outputName: plugin.outputName,
+        displayPluginName: plugin.pluginData?.name ?? plugin.outputName,
+      };
       dataIndex[source.name].push(indexEntry);
     }
 
