@@ -331,21 +331,28 @@ function smActivateMatchedPlugins(matched) {
 //  BOOTSTRAP — restore last-open save on page load
 // ═══════════════════════════════════════════════════════════
 
-function smBootstrap() {
+async function smBootstrap() {
   renderSavesLibrary();
 
   const curId = smGetCurrentId();
-  if (curId) {
-    const data = smGetSaveData(curId);
-    if (data) {
-      parsedSave = data;
-      currentSaveId = curId;
-      renderResults();
-      return;
-    }
+  if (!curId) return;
+
+  const data = smGetSaveData(curId);
+  if (!data) {
     // Pointer referenced a save that no longer exists in storage — clear it.
     smClearCurrentId();
+    return;
   }
+
+  parsedSave    = data;
+  currentSaveId = curId;
+
+  // Wait for DataLoader to finish fetching remote plugin data before
+  // rendering — otherwise renderPluginsPanel() runs while allData is
+  // still empty and every plugin looks unmatched.
+  await smWaitForDataLoader();
+
+  renderResults();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -698,10 +705,10 @@ function renderAccountLicenses() {
 // immediately if DataLoader isn't present at all / already ready).
 // Without this, matching can run while remote plugin data is still being
 // fetched, making every plugin look unmatched even though it's about to load.
-function smWaitForDataLoader(timeoutMs = 15000) {
+function smWaitForDataLoader() {
   return new Promise(resolve => {
     if (!window.DataLoader || typeof window.DataLoader.isReady !== 'function') {
-      resolve(false); // no DataLoader on this page at all
+      resolve(false);
       return;
     }
     if (window.DataLoader.isReady()) {
@@ -718,7 +725,6 @@ function smWaitForDataLoader(timeoutMs = 15000) {
       window.DataLoader.onReady(() => finish(true));
     }
     document.addEventListener('dataLoadError', () => finish(false), { once: true });
-    setTimeout(() => finish(window.DataLoader.isReady ? window.DataLoader.isReady() : false), timeoutMs);
   });
 }
 
