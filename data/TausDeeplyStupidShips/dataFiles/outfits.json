@@ -1,0 +1,2818 @@
+[
+  {
+    "name": "KGS Mini Blaster",
+    "display name": "Mini Blaster",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1010,
+    "cost": 9000,
+    "thumbnail": "outfit/kgs_mini_blaster",
+    "mass": 3,
+    "outfit space": -3,
+    "weapon capacity": -3,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/kgs_mini_blaster",
+      "sound": "blaster",
+      "hit effect": "kgs mini blaster impact",
+      "inaccuracy": 4.5,
+      "velocity": 10,
+      "lifetime": 40,
+      "reload": 15,
+      "firing energy": 4.5,
+      "firing heat": 14,
+      "shield damage": 6.6,
+      "hull damage": 4
+    },
+    "description": "The Energy Blaster has long been popular for its small size, allowing it to be stuffed almost anywhere. The Mini Blaster is an attempt to capitalize on this, featuring an even smaller footprint, but even more disappointing performance. \tAs with the Energy Blaster, it is decently effective in large numbers.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Anime Organization": true,
+        "Republic": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true,
+        "Bounty": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      },
+      "official-game/endless-sky": {
+        "Merchant": true,
+        "Syndicate": true
+      },
+      "Zuckungs list/job.coloring": {
+        "Merchant": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Independent (Killable)": true,
+        "Merchant": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant": true,
+        "Syndicate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ada",
+          "Albatross",
+          "Alfheim",
+          "Asgard",
+          "Bivrost",
+          "Bloodsea",
+          "Bourne",
+          "Buccaneer Bay",
+          "Chiron",
+          "Clark",
+          "Crossroads",
+          "Dancer",
+          "Delve",
+          "Earth",
+          "Farpoint",
+          "Follower",
+          "Foundry",
+          "Freedom",
+          "Furnace",
+          "Gagarin",
+          "Geminus",
+          "Geyser",
+          "Glaze",
+          "Greenrock",
+          "Greenwater",
+          "Haven",
+          "Haze",
+          "Heartland",
+          "Hephaestus",
+          "Hestia",
+          "Ingot",
+          "Jakobsen",
+          "Longjump",
+          "Luna",
+          "Maelstrom",
+          "Mainsail",
+          "Maker",
+          "Midgard",
+          "Millrace",
+          "Moonshake",
+          "Mordente-Bridi",
+          "New Argentina",
+          "New Boston",
+          "New Britain",
+          "New China",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Nifel",
+          "Nimbus",
+          "Norn",
+          "Poseidos",
+          "Prime",
+          "Reunion",
+          "Rust",
+          "Shangri-La",
+          "Shroud",
+          "Smuggler's Den",
+          "Solace",
+          "Stormhold",
+          "Sunracer",
+          "Thrall",
+          "Thule",
+          "Thunder",
+          "Tinker",
+          "Trinket",
+          "Valhalla",
+          "Wayfarer",
+          "Windblain",
+          "Zug"
+        ],
+        "Outfitters": [
+          "Basic Outfits",
+          "Common Outfits"
+        ],
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Adhara",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Aldebaran",
+          "Alderamin",
+          "Aldhibain",
+          "Algieba",
+          "Algol",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Alioth",
+          "Alkaid",
+          "Alnair",
+          "Alnasl",
+          "Alnitak",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alphecca",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Arcturus",
+          "Ascella",
+          "Aspidiske",
+          "Atria",
+          "Avior",
+          "Bellatrix",
+          "Beta Lupi",
+          "Betelgeuse",
+          "Boral",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Cebalrai",
+          "Cor Caroli",
+          "Dabih",
+          "Danoa",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Denebola",
+          "Diphda",
+          "Dschubba",
+          "Dubhe",
+          "Eber",
+          "Elnath",
+          "Eltanin",
+          "Enif",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fingol",
+          "Fomalhaut",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Gomeisa",
+          "Gorvi",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Hassaleh",
+          "Hintar",
+          "Holeb",
+          "Ildaria",
+          "Ipsing",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kugel",
+          "Kursa",
+          "Lesath",
+          "Limen",
+          "Lolami",
+          "Lurata",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mimosa",
+          "Minkar",
+          "Mintaka",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naos",
+          "Naper",
+          "Nihal",
+          "Nocte",
+          "Nunki",
+          "Orvala",
+          "Peacock",
+          "Phact",
+          "Phecda",
+          "Pherkad",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rasalhague",
+          "Rastaban",
+          "Regor",
+          "Regulus",
+          "Rigel",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Sadr",
+          "Saiph",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Spica",
+          "Suhail",
+          "Tais",
+          "Talita",
+          "Tania Australis",
+          "Tarazed",
+          "Tejat",
+          "Tortor",
+          "Turais",
+          "Umbral",
+          "Unukalhai",
+          "Vega",
+          "Vindemiatrix",
+          "Volax",
+          "Wazn",
+          "Wei",
+          "Wezen",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zosma",
+          "Zubenelgenubi",
+          "Zubeneschamali"
+        ],
+        "ShipyardPlanets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits",
+          "Common Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Sapphire"
+        ]
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "Letamos-P382S",
+          "Muxkear"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Barachen",
+          "Bardanistra",
+          "Denchrao",
+          "Eisei",
+          "Ekarai",
+          "Khoramelia",
+          "Laateli",
+          "Leroo Station",
+          "Markaai",
+          "Merschre",
+          "Mirdenheim",
+          "Ondoristra",
+          "Parton",
+          "Rodoluki",
+          "Salistra",
+          "Sayari Ring",
+          "Steirek",
+          "Tarsia",
+          "Yinachr"
+        ],
+        "Outfitters": [
+          "Basic Outfits",
+          "Common Outfits"
+        ],
+        "Systems": [
+          "Alpha Tudalip",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Jarkiiens",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Oldothe",
+          "Onuka",
+          "Opfrau",
+          "Ouchar",
+          "Paricasa",
+          "Paruna",
+          "Pechara",
+          "Pelitol",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Varfeticasa",
+          "Varisa",
+          "Vensur"
+        ],
+        "ShipyardPlanets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankaim Orbital Station",
+          "Ankulah Ship Breaking Station",
+          "CSSY-06 Ningxi Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "OAS4001 Wilkes Station",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Vinci",
+          "Yokosuka Naval Arsenal"
+        ],
+        "Outfitters": [
+          "Basic Outfits",
+          "Common Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Janus",
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Vesta",
+          "Wang Xiang Tai"
+        ],
+        "Outfitters": [
+          "Basic Outfits",
+          "Common Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Vesta"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ],
+        "Outfitters": [
+          "Common Outfits",
+          "KGS"
+        ],
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "Ships": [
+          "prot"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "KGS Gatling Snubnose",
+    "display name": "Gatling Snubnose",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1140,
+    "cost": 14000,
+    "thumbnail": "outfit/kgs_gat_snub",
+    "mass": 1,
+    "outfit space": -3,
+    "weapon capacity": -3,
+    "gun ports": -1,
+    "gatling round capacity": 1000,
+    "weapon": {
+      "sprite": "projectile/tinyflare",
+      "sprite data": {
+        "random start frame": true
+      },
+      "sound": "gatling",
+      "icon": "icon/gat",
+      "inaccuracy": 5,
+      "velocity": 16,
+      "lifetime": 1,
+      "range override": 136,
+      "reload": 7,
+      "burst count": 30,
+      "burst reload": 1,
+      "firing energy": 0.025,
+      "firing heat": 4,
+      "cluster": true,
+      "hit effect": "bullet impact",
+      "submunitions": [
+        {
+          "type": "kgs_snub_gbullet",
+          "count": 2
+        }
+      ],
+      "ammunition": [
+        {
+          "type": "Gatling Gun Ammo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "A creative pirate has chopped off most of the barrel of a Gatling Gun, resulting in a much lighter and faster firing weapon. However, the downsides are much diminished range, accuracy, and muzzle velocity, combined with a lower thermal limit and a hefty cooldown time. \tAmmunition for this weapon can be restocked at any outfitter.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Free Worlds": true
+      },
+      "Blended Ships/blended-ships": {
+        "Free Worlds": true
+      },
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Ancient Travelers": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Bounty Hunter": true,
+        "Independent": true,
+        "Alpha": true,
+        "Pirate": true,
+        "Free Worlds": true,
+        "Storm Seekers": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Buccaneer Bay",
+          "Covert",
+          "Greenrock",
+          "Haven",
+          "Mordente-Bridi",
+          "New Tortuga",
+          "Smuggler's Den",
+          "Stormhold",
+          "Thule"
+        ],
+        "Outfitters": [
+          "Pirate Advanced"
+        ],
+        "ShipyardPlanets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ],
+        "Outfitters": [
+          "Pirate Advanced"
+        ],
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Janus",
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Wang Xiang Tai"
+        ],
+        "Outfitters": [
+          "Pirate Advanced"
+        ],
+        "ShipyardPlanets": [
+          "Vesta"
+        ]
+      },
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "Ships": [
+          "Combat Microdrone"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "ShipyardPlanets": [
+          "Sapphire"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "ShipyardPlanets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "ShipyardPlanets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "ShipyardPlanets": [
+          "lidar"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "kgs_snub_gbullet",
+    "weapon": {
+      "sprite": "projectile/bullet",
+      "sprite data": {
+        "delay": 5,
+        "random start frame": true,
+        "frame rate": 0
+      },
+      "velocity": -8,
+      "random velocity": 4,
+      "lifetime": 10,
+      "random lifetime": 4,
+      "shield damage": 3,
+      "hull damage": 6,
+      "hit force": 1.5,
+      "hit effect": "bullet impact"
+    },
+    "governments": {
+      "TausDeeplyStupidShips": {
+        "TausDeeplyStupidShips": true
+      }
+    },
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Enginot",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1011,
+    "cost": 0,
+    "thumbnail": "outfit/tiny ion thruster",
+    "mass": 0,
+    "outfit space": 0,
+    "engine capacity": 0,
+    "thrust": 1,
+    "thrusting energy": 0,
+    "thrusting heat": 0,
+    "flare sprite": "effect/ion flare/tiny",
+    "flare sprite data": {
+      "frame rate": 1.2
+    },
+    "flare sound": "ion tiny",
+    "description": "This is where I'd keep my engine. IF I HAD ONE. Don't press W.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "Ships": [
+          "Really Cool Sparrow"
+        ]
+      },
+      "official-game/endless-sky": {
+        "ShipyardPlanets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "ShipyardPlanets": [
+          "Sapphire"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "ShipyardPlanets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "ShipyardPlanets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "ShipyardPlanets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "ShipyardPlanets": [
+          "Vesta"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Sidestep",
+    "display name": "Sidestep",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 2020,
+    "cost": 20000,
+    "thumbnail": "outfit/railgun",
+    "mass": 1,
+    "outfit space": -15,
+    "weapon capacity": -15,
+    "gun ports": -1,
+    "sidestep cannonball capacity": 50,
+    "weapon": {
+      "sprite": "projectile/rail slug",
+      "sprite data": {
+        "frame rate": 30
+      },
+      "icon": "icon/rail gun",
+      "sound": "ion impact",
+      "fire effect": "rail sparks",
+      "hit effect": "bullet impact",
+      "inaccuracy": 3,
+      "velocity": 10,
+      "lifetime": 1,
+      "range override": 100,
+      "reload": 60,
+      "firing energy": 3.5,
+      "firing heat": 7.2,
+      "firing force": 2500,
+      "cluster": true,
+      "ammunition": [
+        {
+          "type": "Sidestep Cannonball",
+          "count": 1
+        }
+      ]
+    },
+    "description": "The Sidestep is a short-barreled cannon designed not to cause damage, but rather to throw enough mass explosively enough to shove the ship it is mounted on sideways. Violently.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "Ships": [
+          "Merganser Sidestep Special"
+        ]
+      },
+      "official-game/endless-sky": {
+        "ShipyardPlanets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "ShipyardPlanets": [
+          "Sapphire"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "ShipyardPlanets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "ShipyardPlanets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "ShipyardPlanets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "ShipyardPlanets": [
+          "Vesta"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Sidestep Cannonball",
+    "display name": "Sidestep Cannonball",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 2020,
+    "cost": 100,
+    "thumbnail": "outfit/railslug",
+    "mass": 0.01,
+    "sidestep cannonball capacity": -1,
+    "description": "It's a cannonball.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "Ships": [
+          "Merganser Sidestep Special"
+        ]
+      },
+      "official-game/endless-sky": {
+        "ShipyardPlanets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "ShipyardPlanets": [
+          "Sapphire"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "ShipyardPlanets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "ShipyardPlanets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "ShipyardPlanets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "ShipyardPlanets": [
+          "Vesta"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Explosive Boxwing Cannon",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 5020,
+    "cost": 645000,
+    "thumbnail": "ship/boxwing",
+    "mass": 50,
+    "outfit space": -50,
+    "weapon capacity": -50,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "ship/boxwing",
+      "sprite data": {
+        "frame rate": 2
+      },
+      "sound": "rocket",
+      "icon": "ship/boxwing",
+      "hit effect": [
+        "boxwing explosion",
+        "mhd spark"
+      ],
+      "die effect": "small explosion",
+      "inaccuracy": 3,
+      "velocity": 10,
+      "lifetime": 230,
+      "reload": 60,
+      "range override": 400,
+      "firing energy": -3800,
+      "firing force": 1350,
+      "firing heat": 5800,
+      "firing hull": 60,
+      "trigger radius": 40,
+      "blast radius": 330,
+      "shield damage": 5750,
+      "hull damage": 11060,
+      "heat damage": 4920,
+      "hit force": 8400,
+      "missile strength": 800,
+      "stream": true,
+      "ammunition": [
+        {
+          "type": "Explosive Boxwing",
+          "count": 1
+        }
+      ]
+    },
+    "description": "BOXWING EXPLODE. Fill a Boxwing's cargo space with explosives, put a brick on the accelerator, and shove it out the door.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Anime Organization": true,
+        "Republic": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Alfheim",
+          "Bivrost",
+          "Bloodsea",
+          "Clark",
+          "Crossroads",
+          "Dancer",
+          "Delve",
+          "Freedom",
+          "Furnace",
+          "Gagarin",
+          "Geyser",
+          "Greenwater",
+          "Haven",
+          "Haze",
+          "Heartland",
+          "Ingot",
+          "Jakobsen",
+          "Longjump",
+          "Mainsail",
+          "Maker",
+          "Millrace",
+          "Mordente-Bridi",
+          "New Argentina",
+          "New Boston",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Nifel",
+          "Nimbus",
+          "Norn",
+          "Poseidos",
+          "Stormhold",
+          "Thrall",
+          "Thunder",
+          "Trinket",
+          "Windblain"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "Letamos-P382S",
+          "Muxkear"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Barachen",
+          "Bardanistra",
+          "Denchrao",
+          "Eisei",
+          "Ekarai",
+          "Laateli",
+          "Leroo Station",
+          "Markaai",
+          "Mirdenheim",
+          "Ondoristra",
+          "Parton",
+          "Rodoluki",
+          "Sayari Ring",
+          "Steirek",
+          "Tarsia",
+          "Yinachr"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Vinci"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Vesta"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Explosive Boxwing",
+    "display name": "Explosive Boxwing",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 2020,
+    "cost": 424000,
+    "thumbnail": "ship/boxwing",
+    "mass": 125,
+    "cargo space": -125,
+    "description": "It's a Boxwing stuffed with explosives.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Anime Organization": true,
+        "Republic": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Alfheim",
+          "Bivrost",
+          "Bloodsea",
+          "Clark",
+          "Crossroads",
+          "Dancer",
+          "Delve",
+          "Freedom",
+          "Furnace",
+          "Gagarin",
+          "Geyser",
+          "Greenwater",
+          "Haven",
+          "Haze",
+          "Heartland",
+          "Ingot",
+          "Jakobsen",
+          "Longjump",
+          "Mainsail",
+          "Maker",
+          "Millrace",
+          "Mordente-Bridi",
+          "New Argentina",
+          "New Boston",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Nifel",
+          "Nimbus",
+          "Norn",
+          "Poseidos",
+          "Stormhold",
+          "Thrall",
+          "Thunder",
+          "Trinket",
+          "Windblain"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "Letamos-P382S",
+          "Muxkear"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Barachen",
+          "Bardanistra",
+          "Denchrao",
+          "Eisei",
+          "Ekarai",
+          "Laateli",
+          "Leroo Station",
+          "Markaai",
+          "Mirdenheim",
+          "Ondoristra",
+          "Parton",
+          "Rodoluki",
+          "Sayari Ring",
+          "Steirek",
+          "Tarsia",
+          "Yinachr"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Vinci"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Vesta"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Empty Boxwing Cannon",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 5020,
+    "cost": 645000,
+    "thumbnail": "ship/boxwing",
+    "mass": 50,
+    "outfit space": -50,
+    "weapon capacity": -50,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "ship/boxwing",
+      "sprite data": {
+        "frame rate": 2
+      },
+      "sound": "rocket",
+      "icon": "ship/boxwing",
+      "hit effect": "spark",
+      "die effect": "small explosion",
+      "inaccuracy": 3,
+      "velocity": 15,
+      "lifetime": 230,
+      "reload": 60,
+      "range override": 500,
+      "firing energy": -3800,
+      "firing force": 1350,
+      "firing heat": 3800,
+      "firing hull": 60,
+      "shield damage": 1750,
+      "hull damage": 11060,
+      "hit force": 8400,
+      "missile strength": 800,
+      "penetration count": 10,
+      "stream": true,
+      "ammunition": [
+        {
+          "type": "Empty Boxwing",
+          "count": 1
+        }
+      ]
+    },
+    "description": "Just put a brick on the accelerator of a Boxwing, and shove it out the door.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Anime Organization": true,
+        "Republic": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Alfheim",
+          "Bivrost",
+          "Bloodsea",
+          "Clark",
+          "Crossroads",
+          "Dancer",
+          "Delve",
+          "Freedom",
+          "Furnace",
+          "Gagarin",
+          "Geyser",
+          "Greenwater",
+          "Haven",
+          "Haze",
+          "Heartland",
+          "Ingot",
+          "Jakobsen",
+          "Longjump",
+          "Mainsail",
+          "Maker",
+          "Millrace",
+          "Mordente-Bridi",
+          "New Argentina",
+          "New Boston",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Nifel",
+          "Nimbus",
+          "Norn",
+          "Poseidos",
+          "Stormhold",
+          "Thrall",
+          "Thunder",
+          "Trinket",
+          "Windblain"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Sapphire"
+        ]
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "Letamos-P382S",
+          "Muxkear"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Barachen",
+          "Bardanistra",
+          "Denchrao",
+          "Eisei",
+          "Ekarai",
+          "Laateli",
+          "Leroo Station",
+          "Markaai",
+          "Mirdenheim",
+          "Ondoristra",
+          "Parton",
+          "Rodoluki",
+          "Sayari Ring",
+          "Steirek",
+          "Tarsia",
+          "Yinachr"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Vinci"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Vesta"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Vesta"
+        ]
+      },
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "Ships": [
+          "Broadside"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Empty Boxwing",
+    "display name": "Empty Boxwing",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 2020,
+    "cost": 424000,
+    "thumbnail": "ship/boxwing",
+    "mass": 54,
+    "cargo space": -45,
+    "description": "It's a Boxwing with a brick tied to the accelerator.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Anime Organization": true,
+        "Republic": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Alfheim",
+          "Bivrost",
+          "Bloodsea",
+          "Clark",
+          "Crossroads",
+          "Dancer",
+          "Delve",
+          "Freedom",
+          "Furnace",
+          "Gagarin",
+          "Geyser",
+          "Greenwater",
+          "Haven",
+          "Haze",
+          "Heartland",
+          "Ingot",
+          "Jakobsen",
+          "Longjump",
+          "Mainsail",
+          "Maker",
+          "Millrace",
+          "Mordente-Bridi",
+          "New Argentina",
+          "New Boston",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Nifel",
+          "Nimbus",
+          "Norn",
+          "Poseidos",
+          "Stormhold",
+          "Thrall",
+          "Thunder",
+          "Trinket",
+          "Windblain"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "Letamos-P382S",
+          "Muxkear"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Barachen",
+          "Bardanistra",
+          "Denchrao",
+          "Eisei",
+          "Ekarai",
+          "Laateli",
+          "Leroo Station",
+          "Markaai",
+          "Mirdenheim",
+          "Ondoristra",
+          "Parton",
+          "Rodoluki",
+          "Sayari Ring",
+          "Steirek",
+          "Tarsia",
+          "Yinachr"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Vinci"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Vesta"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Compact Ion Flash Engines",
+    "plural": "Compact Ion Flash Engines",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1000,
+    "cost": 15000,
+    "thumbnail": "outfit/tiny ion engines",
+    "mass": 18,
+    "outfit space": -18,
+    "engine capacity": -18,
+    "thrust": 9.3,
+    "thrusting energy": 0.4,
+    "thrusting burn": 0.5,
+    "turn": 198,
+    "turning energy": 0.25,
+    "turning burn": 0.35,
+    "overheat damage rate": 5,
+    "flare sprite": "effect/ion flare/tiny",
+    "flare sprite data": {
+      "frame rate": 1.2
+    },
+    "flare sound": "ion tiny",
+    "steering flare sprite": "effect/ion flare/tiny",
+    "steering flare sprite data": {
+      "frame rate": 1.2
+    },
+    "steering flare sound": "ion tiny",
+    "description": "A set of combined thrusting/steering engines based on the \"X1050 Ion Engines\", further simplified and designed for flash-printing. The resulting engine technically works, but leaks and shakes so badly the microdrone it is mounted on won't survive long.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "Ships": [
+          "Combat Microdrone"
+        ]
+      },
+      "official-game/endless-sky": {
+        "ShipyardPlanets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "ShipyardPlanets": [
+          "Sapphire"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "ShipyardPlanets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "ShipyardPlanets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "ShipyardPlanets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "ShipyardPlanets": [
+          "Vesta"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Microdrone Flash Core",
+    "category": "Systems",
+    "series": "Cooling",
+    "index": 1000,
+    "cost": 10000,
+    "thumbnail": "ship/boxwing",
+    "mass": 2,
+    "outfit space": -2,
+    "heat generation": 10,
+    "description": "This brilliant yet terrible device, when supplied with enough power, is capable of building an entire microdrone around itself. Unfortunately, the resulting microdrone is likely to burn up shortly after the battery dies due to the heat produced by this core.",
+    "governments": {
+      "TausDeeplyStupidShips": {
+        "TausDeeplyStupidShips": true
+      }
+    },
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Microdrone Active Cooler",
+    "category": "Systems",
+    "series": "Cooling",
+    "index": 1000,
+    "cost": 1000,
+    "thumbnail": "ship/boxwing",
+    "mass": 1,
+    "outfit space": -1,
+    "active cooling": 20,
+    "cooling energy": 1.2,
+    "description": "Really really tiny, but really inefficient.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "Ships": [
+          "Combat Microdrone"
+        ]
+      },
+      "official-game/endless-sky": {
+        "ShipyardPlanets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "ShipyardPlanets": [
+          "Sapphire"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "ShipyardPlanets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "ShipyardPlanets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "ShipyardPlanets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "ShipyardPlanets": [
+          "Vesta"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Gyrojet",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1010,
+    "cost": 16000,
+    "thumbnail": "outfit/blaster",
+    "mass": 5,
+    "outfit space": -5,
+    "weapon capacity": -5,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/blaster",
+      "sound": "blaster",
+      "hit effect": "blaster impact",
+      "inaccuracy": 3,
+      "velocity": 5.625,
+      "lifetime": 30,
+      "reload": 60,
+      "firing energy": 50,
+      "firing heat": 70,
+      "shield damage": 200,
+      "hull damage": 250,
+      "damage dropoff": 0,
+      "dropoff modifier": 2,
+      "acceleration": 10
+    },
+    "description": "This weapon fires solid projectiles with rocket engines attached. Thus, it accelerates as it travels causing it to do more damage near its maximum range.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Anime Organization": true,
+        "Republic": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Alfheim",
+          "Bivrost",
+          "Bloodsea",
+          "Clark",
+          "Crossroads",
+          "Dancer",
+          "Delve",
+          "Freedom",
+          "Furnace",
+          "Gagarin",
+          "Geyser",
+          "Greenwater",
+          "Haven",
+          "Haze",
+          "Heartland",
+          "Ingot",
+          "Jakobsen",
+          "Longjump",
+          "Mainsail",
+          "Maker",
+          "Millrace",
+          "Mordente-Bridi",
+          "New Argentina",
+          "New Boston",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Nifel",
+          "Nimbus",
+          "Norn",
+          "Poseidos",
+          "Stormhold",
+          "Thrall",
+          "Thunder",
+          "Trinket",
+          "Windblain"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "Letamos-P382S",
+          "Muxkear"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Barachen",
+          "Bardanistra",
+          "Denchrao",
+          "Eisei",
+          "Ekarai",
+          "Laateli",
+          "Leroo Station",
+          "Markaai",
+          "Mirdenheim",
+          "Ondoristra",
+          "Parton",
+          "Rodoluki",
+          "Sayari Ring",
+          "Steirek",
+          "Tarsia",
+          "Yinachr"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Vinci"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Vesta"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Reaction Beam",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1160,
+    "cost": 720000,
+    "thumbnail": "outfit/laser",
+    "mass": 45,
+    "outfit space": -37,
+    "weapon capacity": -37,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/laser",
+      "sprite data": {
+        "frame rate": 1
+      },
+      "sound": "laser",
+      "exclude submunition damage": true,
+      "hit effect": "beam laser impact",
+      "inaccuracy": 0.1,
+      "velocity": 275,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 5,
+      "firing heat": 4.9,
+      "shield damage": 0,
+      "hull damage": 0,
+      "submunitions": [
+        {
+          "type": "Reaction Explosion",
+          "count": 1
+        }
+      ]
+    },
+    "description": "Several exotic particle beams converge at a set point and set off a huge, continuous explosion. Doesn't do a ding-dang thing if the beams don't meet, though.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Anime Organization": true,
+        "Republic": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Alfheim",
+          "Bivrost",
+          "Bloodsea",
+          "Clark",
+          "Crossroads",
+          "Dancer",
+          "Delve",
+          "Freedom",
+          "Furnace",
+          "Gagarin",
+          "Geyser",
+          "Greenwater",
+          "Haven",
+          "Haze",
+          "Heartland",
+          "Ingot",
+          "Jakobsen",
+          "Longjump",
+          "Mainsail",
+          "Maker",
+          "Millrace",
+          "Mordente-Bridi",
+          "New Argentina",
+          "New Boston",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Nifel",
+          "Nimbus",
+          "Norn",
+          "Poseidos",
+          "Stormhold",
+          "Thrall",
+          "Thunder",
+          "Trinket",
+          "Windblain"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Sapphire"
+        ]
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "Letamos-P382S",
+          "Muxkear"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Barachen",
+          "Bardanistra",
+          "Denchrao",
+          "Eisei",
+          "Ekarai",
+          "Laateli",
+          "Leroo Station",
+          "Markaai",
+          "Mirdenheim",
+          "Ondoristra",
+          "Parton",
+          "Rodoluki",
+          "Sayari Ring",
+          "Steirek",
+          "Tarsia",
+          "Yinachr"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Vinci"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Vesta"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ],
+        "ShipyardPlanets": [
+          "Vesta"
+        ]
+      },
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "Ships": [
+          "Ultra-Sick Turbo Flivver",
+          "Ultra-Sick Turbo Flivver DEBUG"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Reaction Explosion",
+    "weapon": {
+      "sprite": "projectile/thorax cannon",
+      "sprite data": {
+        "frame rate": 60,
+        "random start frame": true
+      },
+      "inaccuracy": 0.1,
+      "velocity": -50,
+      "lifetime": 1,
+      "shield damage": 7,
+      "hull damage": 2.7,
+      "hit force": 120
+    },
+    "governments": {
+      "TausDeeplyStupidShips": {
+        "TausDeeplyStupidShips": true
+      }
+    },
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Large Reaction Beam",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1160,
+    "cost": 2900000,
+    "thumbnail": "outfit/beam antimatter drive",
+    "mass": 45,
+    "outfit space": -146,
+    "weapon capacity": -146,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/electron",
+      "sprite data": {
+        "frame rate": 1
+      },
+      "sound": "laser",
+      "exclude submunition damage": true,
+      "hit effect": "heavy laser impact",
+      "inaccuracy": 0.1,
+      "velocity": 425,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 20,
+      "firing heat": 19.6,
+      "shield damage": 0,
+      "hull damage": 0,
+      "submunitions": [
+        {
+          "type": "Large Reaction Explosion",
+          "count": 1
+        }
+      ]
+    },
+    "description": "This weapon pushes the limits of what can be done with reaction beam technology. The use of a continuous explosion of this size is questionable, given how much energy it takes to sustain. As with all reaction beams, the beam itself does no damage.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Anime Organization": true,
+        "Republic": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Alfheim",
+          "Bivrost",
+          "Bloodsea",
+          "Clark",
+          "Crossroads",
+          "Dancer",
+          "Delve",
+          "Freedom",
+          "Furnace",
+          "Gagarin",
+          "Geyser",
+          "Greenwater",
+          "Haven",
+          "Haze",
+          "Heartland",
+          "Ingot",
+          "Jakobsen",
+          "Longjump",
+          "Mainsail",
+          "Maker",
+          "Millrace",
+          "Mordente-Bridi",
+          "New Argentina",
+          "New Boston",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Nifel",
+          "Nimbus",
+          "Norn",
+          "Poseidos",
+          "Stormhold",
+          "Thrall",
+          "Thunder",
+          "Trinket",
+          "Windblain"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "Letamos-P382S",
+          "Muxkear"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Barachen",
+          "Bardanistra",
+          "Denchrao",
+          "Eisei",
+          "Ekarai",
+          "Laateli",
+          "Leroo Station",
+          "Markaai",
+          "Mirdenheim",
+          "Ondoristra",
+          "Parton",
+          "Rodoluki",
+          "Sayari Ring",
+          "Steirek",
+          "Tarsia",
+          "Yinachr"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Vinci"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Vesta"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Large Reaction Explosion",
+    "weapon": {
+      "sprite": "effect/finisher impact",
+      "sprite data": {
+        "frame rate": 60,
+        "random start frame": true
+      },
+      "inaccuracy": 0.1,
+      "velocity": -400,
+      "lifetime": 1,
+      "shield damage": 24.5,
+      "hull damage": 9.45,
+      "hit force": 200
+    },
+    "governments": {
+      "TausDeeplyStupidShips": {
+        "TausDeeplyStupidShips": true
+      }
+    },
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "Plasma Gatling",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1111,
+    "cost": 333000,
+    "thumbnail": "outfit/plasma cannon",
+    "mass": 65,
+    "outfit space": -65,
+    "weapon capacity": -65,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/plasma",
+      "sprite data": {
+        "frame rate": 3
+      },
+      "sound": "plasma",
+      "hit effect": "plasma explosion",
+      "inaccuracy": 9,
+      "velocity": 15,
+      "lifetime": 25,
+      "reload": 5,
+      "burst count": 60,
+      "burst reload": 2,
+      "firing energy": 33,
+      "firing heat": 220,
+      "hit force": 40,
+      "shield damage": 59,
+      "hull damage": 18,
+      "heat damage": 220
+    },
+    "description": "Following the Pug incident, the value of dumping immense amounts of shield damage all at once became a hot topic among many involved. Thus, this weapon was born - a plasma cannon attached to a bank of capacitors allowing for a very fast, very hot, very energy-intensive burst of shield-shredding damage.",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Anime Organization": true,
+        "Republic": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Alfheim",
+          "Bivrost",
+          "Bloodsea",
+          "Clark",
+          "Crossroads",
+          "Dancer",
+          "Delve",
+          "Freedom",
+          "Furnace",
+          "Gagarin",
+          "Geyser",
+          "Greenwater",
+          "Haven",
+          "Haze",
+          "Heartland",
+          "Ingot",
+          "Jakobsen",
+          "Longjump",
+          "Mainsail",
+          "Maker",
+          "Millrace",
+          "Mordente-Bridi",
+          "New Argentina",
+          "New Boston",
+          "New Holland",
+          "New Tortuga",
+          "New Wales",
+          "Nifel",
+          "Nimbus",
+          "Norn",
+          "Poseidos",
+          "Stormhold",
+          "Thrall",
+          "Thunder",
+          "Trinket",
+          "Windblain"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Zuckungs list/galactic.capital.investment": {
+        "Planets": [
+          "Sapphire"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "Letamos-P382S",
+          "Muxkear"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Barachen",
+          "Bardanistra",
+          "Denchrao",
+          "Eisei",
+          "Ekarai",
+          "Laateli",
+          "Leroo Station",
+          "Markaai",
+          "Mirdenheim",
+          "Ondoristra",
+          "Parton",
+          "Rodoluki",
+          "Sayari Ring",
+          "Steirek",
+          "Tarsia",
+          "Yinachr"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Vinci"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Rum Cellar",
+          "Smuggler's Den",
+          "Vesta"
+        ],
+        "Outfitters": [
+          "Basic Outfits"
+        ]
+      }
+    },
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  }
+]
