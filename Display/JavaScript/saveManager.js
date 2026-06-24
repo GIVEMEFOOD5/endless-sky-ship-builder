@@ -151,7 +151,7 @@ function smRemoveSave(id) {
 //  folder's name, and the in-game display name don't always agree:
 // ═══════════════════════════════════════════════════════════
 
-const PLUGIN_REGISTRY_URL = '../plugins.json';
+const PLUGIN_REGISTRY_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/plugins.json';
 
 let _pluginRegistryCache = null;
 
@@ -317,12 +317,15 @@ async function smMatchSavePlugins(saveNames) {
  * through the plugin picker.
  */
 function smActivateMatchedPlugins(matched) {
-  if (!matched.length) return false;
   if (!window.DataLoader || typeof window.DataLoader.setActivePlugins !== 'function') {
     console.warn('[saveManager] DataLoader.setActivePlugins is not available on this page.');
     return false;
   }
+  const DEFAULT = window.DataLoader.DEFAULT_PLUGIN; // 'official-game/endless-sky'
   const outputNames = matched.map(m => m.outputName);
+  if (!outputNames.includes(DEFAULT) && window.allData?.[DEFAULT]) {
+    outputNames.unshift(DEFAULT);
+  }
   window.DataLoader.setActivePlugins(outputNames);
   return true;
 }
