@@ -157,10 +157,10 @@ function smRemoveSave(id) {
 // likely paths rather than assuming one, and log whichever one actually
 // works so it's obvious from the console if none of them do.
 const PLUGIN_REGISTRY_CANDIDATES = [
+  '../../plugins.json',
   '../plugins.json',
   './plugins.json',
   '/plugins.json',
-  '../../plugins.json',
 ];
 
 let _pluginRegistryCache = null;
