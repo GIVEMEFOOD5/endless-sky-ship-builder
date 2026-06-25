@@ -157,10 +157,10 @@ function smRemoveSave(id) {
 // likely paths rather than assuming one, and log whichever one actually
 // works so it's obvious from the console if none of them do.
 const PLUGIN_REGISTRY_CANDIDATES = [
-  '../../plugins.json',
   '../plugins.json',
   './plugins.json',
   '/plugins.json',
+  '../../plugins.json',
 ];
 
 let _pluginRegistryCache = null;
@@ -206,15 +206,56 @@ function _smWithMainSuffix(name) {
   return String(name || '') + '-main';
 }
 
+// ── Independent index.json reader ───────────────────────────────────────
+//
+// dataLoader.js (which we're not modifying) reads data/index.json but only
+// keeps each entry's `displayName` field — it never captures the real
+// `displayPluginName` field the actual index.json uses for most plugins
+// (e.g. KGS's entry has displayPluginName: "KGS (Kai's GIMPed Stuff)" but
+// no displayName at all, so dataLoader.js's `displayName || outputName`
+// falls all the way back to the bare folder name "KGS"). Since that
+// richer name never makes it into window.allData, we fetch index.json
+// ourselves here — read-only, same URL dataLoader.js already uses — and
+// build our own outputName → displayPluginName lookup purely for matching.
+const ES_DATA_INDEX_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/index.json';
+
+let _indexDisplayNameCache = null;
+
+async function smLoadIndexDisplayNames() {
+  if (_indexDisplayNameCache) return _indexDisplayNameCache;
+  const map = {};
+  try {
+    const res = await fetch(ES_DATA_INDEX_URL);
+    if (res.ok) {
+      const dataIndex = await res.json();
+      for (const pluginList of Object.values(dataIndex)) {
+        for (const entry of (pluginList || [])) {
+          if (entry?.outputName && entry?.displayPluginName) {
+            map[entry.outputName] = entry.displayPluginName;
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('[saveManager] Could not load index.json for display names:', e);
+  }
+  _indexDisplayNameCache = map;
+  return _indexDisplayNameCache;
+}
+
 // A loaded plugin's display label may come through as `displayPluginName`
 // (read from inside data/<pluginName>/pluginData.json), the older
 // `displayName` field (from index.json), or simply `name`. Check all three
 // so matching doesn't silently break if dataLoader.js's field name changes.
+// `indexDisplayNames` (outputName → displayPluginName, fetched independently
+// above) is checked first, since it's the most reliable source available
+// without modifying dataLoader.js itself.
 // Returns '' if none are present — callers fall back to the folder name
 // themselves, since not every plugin folder has a pluginData.json to
 // read a name from in the first place.
-function _smDisplayLabel(data) {
-  return data?.displayPluginName || data?.displayName || data?.name || '';
+function _smDisplayLabel(data, outputName, indexDisplayNames) {
+  return (indexDisplayNames && indexDisplayNames[outputName])
+    || data?.displayPluginName || data?.displayName || data?.name || '';
 }
 
 // Extract the "owner/repo" slug from a GitHub URL for identity comparison.
@@ -251,7 +292,8 @@ function _smRepoSlug(url) {
  * four strategies found a loaded plugin for it.
  */
 async function smMatchSavePlugins(saveNames) {
-  const registry = await smLoadPluginRegistry();
+  const registry          = await smLoadPluginRegistry();
+  const indexDisplayNames = await smLoadIndexDisplayNames();
   const allData  = (window.allData || {});
   const localId  = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
   const loadedEntries = Object.entries(allData).filter(([id]) => id !== localId);
@@ -283,10 +325,11 @@ async function smMatchSavePlugins(saveNames) {
       if (foundEntry) matchedBy = 'folder-name-main-suffix';
     }
 
-    // 3 — Match against the plugin's display label (displayPluginName / displayName / name)
+    // 3 — Match against the plugin's display label (index.json's displayPluginName,
+    // fetched independently above / pluginData.json's displayPluginName / displayName / name)
     if (!foundEntry) {
-      foundEntry = loadedEntries.find(([, data]) =>
-        _smNormalisePluginName(_smDisplayLabel(data)) === normSave
+      foundEntry = loadedEntries.find(([outputName, data]) =>
+        _smNormalisePluginName(_smDisplayLabel(data, outputName, indexDisplayNames)) === normSave
       );
       if (foundEntry) matchedBy = 'display-name';
     }
@@ -318,7 +361,7 @@ async function smMatchSavePlugins(saveNames) {
         saveName,
         outputName,
         sourceName: data.sourceName || outputName,
-        displayName: _smDisplayLabel(data) || outputName,
+        displayName: _smDisplayLabel(data, outputName, indexDisplayNames) || outputName,
         matchedBy,
       });
     } else {
