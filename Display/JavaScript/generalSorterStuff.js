@@ -207,11 +207,17 @@ function scanFieldsFromItems(tab, items) {
                             });
                         }
 
+                        const shieldDps = computed['_ws_shieldDps'] ?? 0;
+                        const hullDps   = computed['_ws_hullDps']   ?? 0;
+                        if (shieldDps || hullDps)
+                            computed['_ws_shieldHullDps'] = shieldDps + hullDps;
+                        
                         // ── Explicit per-second weapon DPS fields from WeaponStats ──
                         const WS_FIELDS = [
                             { wsKey: '_ws_totalDps',         label: 'Total DPS (with outfits)'         },
                             { wsKey: '_ws_shieldDps',        label: 'Shield DPS (with outfits)'        },
                             { wsKey: '_ws_hullDps',          label: 'Hull DPS (with outfits)'          },
+                            { wsKey: '_ws_shieldHullDps',    label: 'Shield + Hull DPS (with outfits)' },
                             { wsKey: '_ws_weaponCount',      label: 'Weapon Types (with outfits)'      },
                             { wsKey: '_ws_totalWeaponMounts',label: 'Total Weapon Mounts'              },
                         ];
