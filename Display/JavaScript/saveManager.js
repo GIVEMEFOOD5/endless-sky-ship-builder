@@ -151,21 +151,40 @@ function smRemoveSave(id) {
 //  folder's name, and the in-game display name don't always agree:
 // ═══════════════════════════════════════════════════════════
 
-const PLUGIN_REGISTRY_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/plugins.json';
+// plugins.json lives at the repo's top level, above both data/ and the
+// folder this page lives in — so '../plugins.json' is correct only if this
+// page is exactly one folder below the top level. Try a short list of
+// likely paths rather than assuming one, and log whichever one actually
+// works so it's obvious from the console if none of them do.
+const PLUGIN_REGISTRY_CANDIDATES = [
+  '../plugins.json',
+  './plugins.json',
+  '/plugins.json',
+  '../../plugins.json',
+];
 
 let _pluginRegistryCache = null;
 
 async function smLoadPluginRegistry() {
   if (_pluginRegistryCache) return _pluginRegistryCache;
-  try {
-    const res = await fetch(PLUGIN_REGISTRY_URL);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const json = await res.json();
-    _pluginRegistryCache = Array.isArray(json.plugins) ? json.plugins : [];
-  } catch (e) {
-    console.warn('[saveManager] Could not load plugins.json:', e);
-    _pluginRegistryCache = [];
+
+  for (const path of PLUGIN_REGISTRY_CANDIDATES) {
+    try {
+      const res = await fetch(path);
+      if (!res.ok) continue;
+      const json = await res.json();
+      if (Array.isArray(json.plugins)) {
+        console.log('[saveManager] Loaded plugins.json from:', path);
+        _pluginRegistryCache = json.plugins;
+        return _pluginRegistryCache;
+      }
+    } catch (e) {
+      // try the next candidate
+    }
   }
+
+  console.warn('[saveManager] Could not load plugins.json from any of:', PLUGIN_REGISTRY_CANDIDATES);
+  _pluginRegistryCache = [];
   return _pluginRegistryCache;
 }
 
@@ -310,52 +329,92 @@ async function smMatchSavePlugins(saveNames) {
   return { matched, unmatched };
 }
 
+// Finds the official Endless Sky base-game plugin's outputName directly
+// from window.allData, without relying on DataLoader.DEFAULT_PLUGIN —
+// that constant is currently 'official-game/endless-sky', but the real
+// index.json this site loads uses sourceName "official-game" with an
+// outputName of just "endless-sky", so the two never match. Rather than
+// edit dataLoader.js, we resolve it here ourselves:
+//   1. Prefer the loaded plugin whose sourceName is exactly "official-game"
+//      (this is the stable identity — the index.json group key for the
+//      base game, regardless of what its outputName/folder happens to be).
+//   2. Fall back to DataLoader.DEFAULT_PLUGIN, in case it's ever corrected
+//      or the loaded data shape changes — costs nothing to also check.
+function smFindEndlessSkyOutputName() {
+  const allData = window.allData || {};
+  const localId = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
+
+  const officialEntry = Object.entries(allData).find(
+    ([id, data]) => id !== localId && data?.sourceName === 'official-game'
+  );
+  if (officialEntry) return officialEntry[0];
+
+  const fallback = window.DataLoader?.DEFAULT_PLUGIN;
+  if (fallback && allData[fallback]) return fallback;
+
+  return null;
+}
+
 /**
- * Activates the matched plugins (plus Local Builds, handled automatically
- * by DataLoader.setActivePlugins) via the existing plugin system, so the
+ * Activates the matched plugins via the existing plugin system, so the
  * Ship Builder / Data Viewer picks them up exactly as if chosen by hand
- * through the plugin picker.
+ * through the plugin picker. Local Builds is pinned first automatically
+ * by DataLoader.setActivePlugins(); on top of that, the Endless Sky base
+ * game plugin is always placed at the front of the *remote* plugin order
+ * (i.e. right after Local Builds) if it's loaded — even if it wasn't
+ * itself one of the save's matched plugins — since it's the base game
+ * data everything else layers on top of.
  */
 function smActivateMatchedPlugins(matched) {
   if (!window.DataLoader || typeof window.DataLoader.setActivePlugins !== 'function') {
     console.warn('[saveManager] DataLoader.setActivePlugins is not available on this page.');
     return false;
   }
-  const DEFAULT = window.DataLoader.DEFAULT_PLUGIN; // 'official-game/endless-sky'
+
+  const endlessSkyOutput = smFindEndlessSkyOutputName();
   const outputNames = matched.map(m => m.outputName);
-  if (!outputNames.includes(DEFAULT) && window.allData?.[DEFAULT]) {
-    outputNames.unshift(DEFAULT);
+
+  // Always ensure Endless Sky is present and first, if it's loaded.
+  if (endlessSkyOutput) {
+    const existingIdx = outputNames.indexOf(endlessSkyOutput);
+    if (existingIdx !== -1) outputNames.splice(existingIdx, 1);
+    outputNames.unshift(endlessSkyOutput);
   }
+
+  if (!outputNames.length) return false;
+
   window.DataLoader.setActivePlugins(outputNames);
   return true;
 }
 
 // ═══════════════════════════════════════════════════════════
 //  BOOTSTRAP — restore last-open save on page load
+//
+//  This page is gated behind window.DataLoader finishing its initial
+//  load (see the inline script in savereader.html, which dispatches
+//  'saveReaderDataReady' once .load() resolves and reveals #pageContent).
+//  Nothing here runs until that fires, since plugin matching — and really
+//  the whole point of this page — depends on window.allData being populated.
 // ═══════════════════════════════════════════════════════════
 
-async function smBootstrap() {
+let _dataReady = false;
+
+function smBootstrap() {
+  _dataReady = true;
   renderSavesLibrary();
 
   const curId = smGetCurrentId();
-  if (!curId) return;
-
-  const data = smGetSaveData(curId);
-  if (!data) {
+  if (curId) {
+    const data = smGetSaveData(curId);
+    if (data) {
+      parsedSave = data;
+      currentSaveId = curId;
+      renderResults();
+      return;
+    }
     // Pointer referenced a save that no longer exists in storage — clear it.
     smClearCurrentId();
-    return;
   }
-
-  parsedSave    = data;
-  currentSaveId = curId;
-
-  // Wait for DataLoader to finish fetching remote plugin data before
-  // rendering — otherwise renderPluginsPanel() runs while allData is
-  // still empty and every plugin looks unmatched.
-  await smWaitForDataLoader();
-
-  renderResults();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -413,6 +472,16 @@ function clearError() {
 
 async function handleFile(file) {
   clearError();
+
+  // Hard backstop: #pageContent is hidden and the dropzone isn't even
+  // visible until the gate clears, but if this ever gets called before
+  // that (e.g. a stray programmatic call), refuse rather than proceed
+  // with plugin matching against an empty window.allData.
+  if (!_dataReady) {
+    showError('Still loading game and plugin data — please wait a moment and try again.');
+    return;
+  }
+
   if (!file.name.toLowerCase().endsWith('.txt')) {
     showError('That doesn\u2019t look like a .txt save file. Endless Sky save files are exported as plain text.');
     return;
@@ -708,10 +777,10 @@ function renderAccountLicenses() {
 // immediately if DataLoader isn't present at all / already ready).
 // Without this, matching can run while remote plugin data is still being
 // fetched, making every plugin look unmatched even though it's about to load.
-function smWaitForDataLoader() {
+function smWaitForDataLoader(timeoutMs = 15000) {
   return new Promise(resolve => {
     if (!window.DataLoader || typeof window.DataLoader.isReady !== 'function') {
-      resolve(false);
+      resolve(false); // no DataLoader on this page at all
       return;
     }
     if (window.DataLoader.isReady()) {
@@ -728,6 +797,7 @@ function smWaitForDataLoader() {
       window.DataLoader.onReady(() => finish(true));
     }
     document.addEventListener('dataLoadError', () => finish(false), { once: true });
+    setTimeout(() => finish(window.DataLoader.isReady ? window.DataLoader.isReady() : false), timeoutMs);
   });
 }
 
@@ -932,4 +1002,8 @@ document.querySelectorAll('#resultTabs .tab').forEach(tabEl => {
 //  INIT
 // ═══════════════════════════════════════════════════════════
 
-document.addEventListener('DOMContentLoaded', smBootstrap);
+// smBootstrap now runs once savereader.html's loading gate confirms
+// window.DataLoader has finished loading — not on DOMContentLoaded, since
+// that would run before window.allData is populated and is exactly the
+// race this whole gate exists to prevent.
+document.addEventListener('saveReaderDataReady', smBootstrap);
