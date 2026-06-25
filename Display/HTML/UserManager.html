@@ -39,8 +39,7 @@
  
     <div class="button-group" id="resultButtons" style="margin-top:18px;">
       <button class="btn btn-secondary hidden" id="exportJsonBtn">Export current save as JSON</button>
-      <button class="btn btn-primary hidden"   id="importFleetBtn">🚀 Import Fleet to Builder</button>
-      <button class="btn btn-danger hidden"    id="removeSaveBtn">Remove current save</button>
+      <button class="btn btn-secondary hidden" id="removeSaveBtn">Remove current save</button>
     </div>
   </section>
  
@@ -80,72 +79,3 @@
     </div>
  
     <!-- Cargo & Storage tab -->
-    <div class="tab-content hidden" id="tab-cargo">
-      <section class="panel" style="margin-bottom:20px;">
-        <h2 class="section-title">Cargo Carried</h2>
-        <div id="cargoList"></div>
-      </section>
-      <section class="panel">
-        <h2 class="section-title">Planetary Storage</h2>
-        <div id="storageList"></div>
-      </section>
-    </div>
- 
-    <!-- Account & Licenses tab -->
-    <div class="tab-content hidden" id="tab-account">
-      <section class="panel" style="margin-bottom:20px;">
-        <h2 class="section-title">Account</h2>
-        <div class="attribute-grid" id="accountGrid"></div>
-      </section>
-      <section class="panel" style="margin-bottom:20px;">
-        <h2 class="section-title">Licenses</h2>
-        <div class="ld-pills" id="licenseList"></div>
-      </section>
-      <section class="panel">
-        <h2 class="section-title">Plugins</h2>
-        <div id="pluginsPanel"></div>
-      </section>
-    </div>
- 
-  </div>
- 
-</div>
- 
-<!-- Ship detail modal -->
-<div class="modal" id="shipModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div>
-        <div class="modal-title" id="modalShipName">—</div>
-        <div class="internal-name" id="modalShipSub" style="margin-top:4px;"></div>
-      </div>
-      <button class="btn-close btn-close--lg" id="modalCloseBtn">&times;</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-  </div>
-</div>
- 
-<!-- Toast -->
-<div class="toast" id="toast"></div>
-
-<script src="../JavaScript/dataLoader.js"></script>
-<script src="../JavaScript/esSaveParser.js"></script>
-<script src="../JavaScript/saveManager.js"></script>
-<script>
-  // dataLoader.js exposes window.DataLoader but doesn't fetch anything until
-  // .load() is called. Kick that off now so window.allData is populated by
-  // the time the person imports a save and we try to match its plugins.
-  // Errors are logged explicitly here — DataLoader.load() can reject (e.g.
-  // if data/index.json 404s, or no plugin's data could be loaded at all),
-  // and an un-awaited, un-caught rejection won't always show up as a
-  // visible console error depending on the browser.
-  if (window.DataLoader && typeof window.DataLoader.load === 'function') {
-    window.DataLoader.load()
-      .then(() => console.log('[savereader] DataLoader finished loading. allData keys:', Object.keys(window.allData || {})))
-      .catch(err => console.error('[savereader] DataLoader.load() failed:', err));
-  } else {
-    console.error('[savereader] window.DataLoader is missing or has no .load() — check that ../JavaScript/dataLoader.js loaded correctly.');
-  }
-</script>
-</body>
-</html>
