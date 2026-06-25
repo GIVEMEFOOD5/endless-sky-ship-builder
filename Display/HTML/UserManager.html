@@ -18,7 +18,24 @@
     <p class="subtitle">Drop in a pilot save file to inspect your fleet, outfits, and account.</p>
   </header>
  
-  <!-- ════════════ IMPORT / LIBRARY PANEL ════════════ -->
+  <!-- ════════════ LOADING GATE ════════════
+       Shown until window.DataLoader finishes its initial load. Nothing
+       else on this page (uploading, switching saves, viewing results)
+       is usable until this clears, since plugin matching and the rest
+       of the page depend on window.allData being populated. -->
+  <section class="panel" id="loadingGate">
+    <div style="display:flex; align-items:center; gap:14px; padding:6px 0;">
+      <div class="spinner" style="width:22px; height:22px; border:3px solid var(--c-border); border-top-color:var(--c-accent); border-radius:50%; animation:spin 0.8s linear infinite; flex-shrink:0;"></div>
+      <div>
+        <div style="font-weight:600; color:var(--c-text);">Loading game and plugin data…</div>
+        <div style="font-size:0.85rem; color:var(--c-text-muted); margin-top:2px;">This only takes a moment. The save reader needs this before it can show your fleet or match plugins.</div>
+      </div>
+    </div>
+  </section>
+  <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+ 
+  <!-- ════════════ MAIN CONTENT — hidden until loadingGate clears ════════════ -->
+  <div id="pageContent" class="hidden">
   <section class="panel config-section" id="importPanel">
     <h2 class="section-title">Saved Files</h2>
  
@@ -79,3 +96,101 @@
     </div>
  
     <!-- Cargo & Storage tab -->
+    <div class="tab-content hidden" id="tab-cargo">
+      <section class="panel" style="margin-bottom:20px;">
+        <h2 class="section-title">Cargo Carried</h2>
+        <div id="cargoList"></div>
+      </section>
+      <section class="panel">
+        <h2 class="section-title">Planetary Storage</h2>
+        <div id="storageList"></div>
+      </section>
+    </div>
+ 
+    <!-- Account & Licenses tab -->
+    <div class="tab-content hidden" id="tab-account">
+      <section class="panel" style="margin-bottom:20px;">
+        <h2 class="section-title">Account</h2>
+        <div class="attribute-grid" id="accountGrid"></div>
+      </section>
+      <section class="panel" style="margin-bottom:20px;">
+        <h2 class="section-title">Licenses</h2>
+        <div class="ld-pills" id="licenseList"></div>
+      </section>
+      <section class="panel">
+        <h2 class="section-title">Plugins</h2>
+        <div id="pluginsPanel"></div>
+      </section>
+    </div>
+ 
+  </div>
+ 
+  </div> <!-- /#pageContent -->
+ 
+</div>
+ 
+<!-- Ship detail modal -->
+<div class="modal" id="shipModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modalShipName">—</div>
+        <div class="internal-name" id="modalShipSub" style="margin-top:4px;"></div>
+      </div>
+      <button class="btn-close btn-close--lg" id="modalCloseBtn">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+ 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+ 
+<script src="../JavaScript/dataLoader.js"></script>
+<script src="../JavaScript/esSaveParser.js"></script>
+<script src="../JavaScript/saveManager.js"></script>
+<script>
+  // dataLoader.js exposes window.DataLoader but doesn't fetch anything until
+  // .load() is called. The whole page is gated behind this — nothing here
+  // (uploading a save, switching saves, viewing results, matching plugins)
+  // is meaningful until window.allData is actually populated, so #pageContent
+  // stays hidden and #loadingGate stays visible until .load() resolves.
+  function _srShowGateError(message) {
+    const gate = document.getElementById('loadingGate');
+    if (gate) {
+      gate.innerHTML = `
+        <div style="color:var(--c-danger-text);">
+          <strong>Could not load game/plugin data.</strong>
+          <div style="font-size:0.85rem; margin-top:4px; color:var(--c-text-muted);">${message}</div>
+          <button class="btn btn-secondary" style="margin-top:12px;" onclick="location.reload()">Retry</button>
+        </div>`;
+    }
+  }
+ 
+  function _srRevealPage() {
+    const gate    = document.getElementById('loadingGate');
+    const content = document.getElementById('pageContent');
+    if (gate)    gate.classList.add('hidden');
+    if (content) content.classList.remove('hidden');
+    // Let saveManager.js know it's now safe to bootstrap (render the saves
+    // library, restore the last-open save, match plugins, etc).
+    document.dispatchEvent(new CustomEvent('saveReaderDataReady'));
+  }
+ 
+  if (window.DataLoader && typeof window.DataLoader.load === 'function') {
+    window.DataLoader.load()
+      .then(() => {
+        console.log('[savereader] DataLoader finished loading. allData keys:', Object.keys(window.allData || {}));
+        _srRevealPage();
+      })
+      .catch(err => {
+        console.error('[savereader] DataLoader.load() failed:', err);
+        _srShowGateError(err && err.message ? err.message : 'Unknown error.');
+      });
+  } else {
+    console.error('[savereader] window.DataLoader is missing or has no .load() — check that ../JavaScript/dataLoader.js loaded correctly.');
+    _srShowGateError('dataLoader.js did not load correctly on this page.');
+  }
+</script>
+</body>
+</html>
