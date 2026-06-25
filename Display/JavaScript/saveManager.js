@@ -198,12 +198,15 @@ function _smNormalisePluginName(name) {
 
 // Strip a trailing "-main" / "-master" (GitHub's default branch zip suffix)
 // from a folder/output name before comparing, and also return the
-// "-main" variant of a save name so we can check both directions.
+// "-main" and "-master" variants of a save name so we can check both
+// directions: a save name carrying the suffix matching a bare loaded
+// folder, and a bare save name matching a loaded folder that carries it.
 function _smStripBranchSuffix(name) {
   return String(name || '').replace(/-(main|master)$/i, '');
 }
-function _smWithMainSuffix(name) {
-  return String(name || '') + '-main';
+function _smWithBranchSuffixes(name) {
+  const base = String(name || '');
+  return [base + '-main', base + '-master'];
 }
 
 // ── Independent index.json reader ───────────────────────────────────────
@@ -302,9 +305,9 @@ async function smMatchSavePlugins(saveNames) {
   const unmatched = [];
 
   for (const saveName of saveNames) {
-    const normSave       = _smNormalisePluginName(saveName);
-    const normSaveStrip  = _smNormalisePluginName(_smStripBranchSuffix(saveName));
-    const normSaveMain   = _smNormalisePluginName(_smWithMainSuffix(saveName));
+    const normSave        = _smNormalisePluginName(saveName);
+    const normSaveStrip   = _smNormalisePluginName(_smStripBranchSuffix(saveName));
+    const normSaveSuffixed = _smWithBranchSuffixes(saveName).map(_smNormalisePluginName);
 
     let foundEntry = null;
     let matchedBy  = null;
@@ -320,7 +323,7 @@ async function smMatchSavePlugins(saveNames) {
       foundEntry = loadedEntries.find(([outputName]) => {
         const normOutput      = _smNormalisePluginName(outputName);
         const normOutputStrip = _smNormalisePluginName(_smStripBranchSuffix(outputName));
-        return normOutput === normSaveMain || normOutputStrip === normSave || normOutputStrip === normSaveStrip;
+        return normSaveSuffixed.includes(normOutput) || normOutputStrip === normSave || normOutputStrip === normSaveStrip;
       });
       if (foundEntry) matchedBy = 'folder-name-main-suffix';
     }
