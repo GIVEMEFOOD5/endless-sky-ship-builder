@@ -274,7 +274,7 @@ function renderFleet() {
             <span class="badge" style="background:var(--c-accent);color:#fff;font-size:0.72rem;padding:2px 9px;border-radius:10px;">${sbSaveFleet.length} ship${sbSaveFleet.length !== 1 ? 's' : ''}</span>
           </div>
           <div style="display:flex;align-items:center;gap:8px;">
-            <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();sbClearSaveFleet()" title="Clear all save ships">🗑 Clear</button>
+            <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();sbClearSaveFleet()" title="Clear all save ships">🗑</button>
             <span style="font-size:1.1rem;color:var(--c-text-dim);transition:transform .2s;" id="save-fleet-chevron">${sbSaveFleetCollapsed ? '▶' : '▼'}</span>
           </div>
         </div>
