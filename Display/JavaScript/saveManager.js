@@ -194,14 +194,15 @@ async function smLoadPluginRegistry() {
 function _smNormalisePluginName(name) {
   return String(name || '')
     .toLowerCase()
-    .replace(/[''"()]/g, '')
+    .replace(/['’"()]/g, '')
     .replace(/[\s_-]+/g, '');
 }
 function _smStripBranchSuffix(name) {
   return String(name || '').replace(/-(main|master)$/i, '');
 }
-function _smWithMainSuffix(name) {
-  return String(name || '') + '-main';
+function _smWithBranchSuffixes(name) {
+  const base = String(name || '');
+  return [base + '-main', base + '-master'];
 }
 
 const ES_DATA_INDEX_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/index.json';
@@ -250,25 +251,28 @@ async function smMatchSavePlugins(saveNames) {
   const unmatched = [];
 
   for (const saveName of saveNames) {
-    const normSave      = _smNormalisePluginName(saveName);
-    const normSaveStrip = _smNormalisePluginName(_smStripBranchSuffix(saveName));
-    const normSaveMain  = _smNormalisePluginName(_smWithMainSuffix(saveName));
+    const normSave        = _smNormalisePluginName(saveName);
+    const normSaveStrip   = _smNormalisePluginName(_smStripBranchSuffix(saveName));
+    const normSaveSuffixed = _smWithBranchSuffixes(saveName).map(_smNormalisePluginName);
 
     let foundEntry = null;
     let matchedBy  = null;
 
+    // 1 — Direct match against outputName (the literal data/<pluginName> folder name)
     foundEntry = loadedEntries.find(([outputName]) => _smNormalisePluginName(outputName) === normSave);
     if (foundEntry) matchedBy = 'folder-name';
 
+    // 2 — Match allowing a "-main"/"-master" suffix on either side
     if (!foundEntry) {
       foundEntry = loadedEntries.find(([outputName]) => {
         const normOutput      = _smNormalisePluginName(outputName);
         const normOutputStrip = _smNormalisePluginName(_smStripBranchSuffix(outputName));
-        return normOutput === normSaveMain || normOutputStrip === normSave || normOutputStrip === normSaveStrip;
+        return normSaveSuffixed.includes(normOutput) || normOutputStrip === normSave || normOutputStrip === normSaveStrip;
       });
       if (foundEntry) matchedBy = 'folder-name-main-suffix';
     }
 
+    // 3 — Match against the plugin's display label
     if (!foundEntry) {
       foundEntry = loadedEntries.find(([outputName, data]) =>
         _smNormalisePluginName(_smDisplayLabel(data, outputName, indexDisplayNames)) === normSave
@@ -276,6 +280,7 @@ async function smMatchSavePlugins(saveNames) {
       if (foundEntry) matchedBy = 'display-name';
     }
 
+    // 4 — Registry fallback: save name → plugins.json → repository → repo slug
     if (!foundEntry) {
       const regEntry = registry.find(r => _smNormalisePluginName(r.name) === normSave);
       if (regEntry) {
@@ -312,6 +317,9 @@ async function smMatchSavePlugins(saveNames) {
   return { matched, unmatched };
 }
 
+// Finds the official Endless Sky base-game plugin's outputName directly
+// from window.allData, by matching sourceName === "official-game" (the
+// stable index.json group key), with a fallback to DataLoader.DEFAULT_PLUGIN.
 function smFindEndlessSkyOutputName() {
   const allData = window.allData || {};
   const localId = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
@@ -343,6 +351,11 @@ function smActivateMatchedPlugins(matched) {
 
 // ═══════════════════════════════════════════════════════════
 //  BOOTSTRAP
+//
+//  Runs once savereader.html's loading gate confirms window.DataLoader
+//  has finished loading (it dispatches 'saveReaderDataReady' once
+//  .load() resolves and reveals #pageContent) — not on DOMContentLoaded,
+//  since that would run before window.allData is populated.
 // ═══════════════════════════════════════════════════════════
 
 let _dataReady = false;
@@ -420,6 +433,10 @@ function clearError() {
 async function handleFile(file) {
   clearError();
 
+  // Hard backstop: #pageContent is hidden and the dropzone isn't even
+  // visible until the loading gate clears, but if this is ever called
+  // before that, refuse rather than match plugins against an empty
+  // window.allData.
   if (!_dataReady) {
     showError('Still loading game and plugin data — please wait a moment and try again.');
     return;
