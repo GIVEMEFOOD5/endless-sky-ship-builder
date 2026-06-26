@@ -109,18 +109,43 @@ function _getDisplayMultiplier(key) {
 
 // ---------------------------------------------------------------------------
 // Outfit index cache
+//
+// IMPORTANT: this index is shared by BOTH tabs (ships' WeaponStats firing-cost
+// lookups, and outfits' weapon DPS/range resolution) so that submunition
+// references resolve against the SAME merged outfit set everywhere. It is
+// intentionally built to mirror ComputedStats._getOutfitIndex()'s priority
+// order as closely as possible from outside that module (current plugin
+// first, since ComputedStats._getOutfitIndex is private and not exported):
+// the active plugin's own outfits win any name collision, then everything
+// else is merged in on a first-seen basis. This cannot be byte-for-byte
+// identical to ComputedStats' internal _pluginOrder-based merge (that field
+// is private), but it removes the previous behavior where the outfits tab
+// used a totally separate, differently-ordered merge (or window._outfitIndex)
+// than the ships tab — which could pick a different same-named submunition
+// outfit between tabs in multi-plugin setups with name collisions.
 // ---------------------------------------------------------------------------
 
 function _getOutfitIndex() {
     if (_cachedOutfitIndex) return _cachedOutfitIndex;
-    if (window._outfitIndex && Object.keys(window._outfitIndex).length > 0) {
-        _cachedOutfitIndex = window._outfitIndex;
-        return _cachedOutfitIndex;
+
+    const allData = window.allData || {};
+    const merged  = {};
+
+    // 1. Current plugin's own outfits first — matches ComputedStats giving the
+    //    ship/outfit's own plugin priority over every other loaded plugin.
+    const ownPluginData = _sorterPluginId ? allData[_sorterPluginId] : null;
+    if (ownPluginData) {
+        for (const o of (ownPluginData.outfits || []))
+            if (o.name && !(o.name in merged)) merged[o.name] = o;
     }
-    const merged = {};
-    for (const pd of Object.values(window.allData || {}))
+
+    // 2. Everything else, first-seen-wins, as a fallback merge.
+    for (const [pid, pd] of Object.entries(allData)) {
+        if (pid === _sorterPluginId) continue;
         for (const o of (pd.outfits || []))
-            if (o.name) merged[o.name] = o;
+            if (o.name && !(o.name in merged)) merged[o.name] = o;
+    }
+
     _cachedOutfitIndex = merged;
     return _cachedOutfitIndex;
 }
@@ -207,12 +232,13 @@ function scanFieldsFromItems(tab, items) {
                             });
                         }
 
-                        const shieldDps = computed['_ws_shieldDps'] ?? 0;
-                        const hullDps   = computed['_ws_hullDps']   ?? 0;
-                        if (shieldDps || hullDps)
-                            computed['_ws_shieldHullDps'] = shieldDps + hullDps;
-                        
                         // ── Explicit per-second weapon DPS fields from WeaponStats ──
+                        // Always offered once ANY weapon-bearing outfit contributes to
+                        // this ship's stats — not gated on a literal `_ws_dps_*` key
+                        // being present on THIS particular item, so submunition-only
+                        // launchers (whose own _ws_dps_* breakdown keys are still
+                        // produced by WeaponStats, since it walks the submunition tree)
+                        // are never silently excluded from the picker.
                         const WS_FIELDS = [
                             { wsKey: '_ws_totalDps',         label: 'Total DPS (with outfits)'         },
                             { wsKey: '_ws_shieldDps',        label: 'Shield DPS (with outfits)'        },
@@ -221,7 +247,11 @@ function scanFieldsFromItems(tab, items) {
                             { wsKey: '_ws_weaponCount',      label: 'Weapon Types (with outfits)'      },
                             { wsKey: '_ws_totalWeaponMounts',label: 'Total Weapon Mounts'              },
                         ];
-                        // Also add any _ws_dps_* breakdown keys dynamically
+                        // Also add any _ws_dps_* breakdown keys dynamically. These are
+                        // produced by WeaponStats.resolveWeaponStats() from
+                        // dpsByType, which is itself summed from each outfit's
+                        // _calcWeaponProfile().dpsBreakdown — i.e. already walks
+                        // submunitions correctly, no change needed here to pick that up.
                         for (const key of Object.keys(computed)) {
                             if (!key.startsWith('_ws_dps_')) continue;
                             const dmgType = key.slice('_ws_dps_'.length).replace(/_/g, ' ');
@@ -232,7 +262,11 @@ function scanFieldsFromItems(tab, items) {
                         }
 
                         for (const { wsKey, label } of WS_FIELDS) {
-                            if (computed[wsKey] == null) continue;
+                            // _ws_shieldHullDps is synthesized on read (see getFieldValue),
+                            // not present on `computed` itself, so don't gate its field
+                            // entry on computed[wsKey] existing.
+                            const isSynthetic = wsKey === '_ws_shieldHullDps';
+                            if (!isSynthetic && computed[wsKey] == null) continue;
                             const id = 'ship_ws_' + keyToId(wsKey);
                             if (shipAccumSeen.has(id)) continue;
                             shipAccumSeen.add(id);
@@ -241,7 +275,8 @@ function scanFieldsFromItems(tab, items) {
                                 key:              wsKey,
                                 label,
                                 path:             null,
-                                useAccum:         true,
+                                useAccum:         !isSynthetic,
+                                isShieldHullDpsShip: isSynthetic,
                                 raw:              false,
                                 group:            'shipAccum',
                                 displayMultiplier: 1, // _ws_ keys are already /s
@@ -335,27 +370,16 @@ function scanFieldsFromItems(tab, items) {
                             group: 'weapon',
                         });
                     }
-
-                    // ── DPS field for damage keys ────────────────────────────
-                    // Only added when the weapon has an explicit reload (not a submunition)
-                    if (key.endsWith(' damage')) {
-                        const dpsId = 'weapon_dps_' + keyToId(key);
-                        if (!weaponSeen.has(dpsId)) {
-                            weaponSeen.add(dpsId);
-                            weaponFields.push({
-                                id:    dpsId,
-                                key:   key.replace(/ damage$/, ''),
-                                label: toTitleCase(key.replace(/ damage$/, '')) + ' DPS',
-                                path:  null,
-                                raw:   false,
-                                group: 'weapon',
-                                isDps: true,
-                            });
-                        }
-                    }
                 }
 
                 // ── Computed weapon summary fields ───────────────────────────
+                // Added unconditionally once item.weapon exists, regardless of
+                // which literal keys that weapon's own JSON happens to carry.
+                // This is what lets pure-launcher outfits (reload + submunition
+                // pointer, no damage keys of their own) still offer Hull/Shield/
+                // Total DPS — those are resolved via WeaponStats._calcWeaponProfile,
+                // which walks the submunition tree regardless of what's on the
+                // launcher's own weapon block.
                 if (!weaponSeen.has('weapon_computed_totalDps')) {
                     weaponSeen.add('weapon_computed_totalDps');
                     weaponFields.push({ id: 'weapon_computed_totalDps',  key: 'totalDps',       label: 'Total DPS',        path: null, group: 'weapon', isOutfitComputed: true });
@@ -364,6 +388,37 @@ function scanFieldsFromItems(tab, items) {
                     weaponFields.push({ id: 'weapon_computed_shieldHullDps', key: 'shieldHullDps', label: 'Shield + Hull DPS', path: null, group: 'weapon', isShieldHullDps: true });
                     weaponFields.push({ id: 'weapon_computed_range',     key: 'effectiveRange', label: 'Effective Range',  path: null, group: 'weapon', isOutfitComputed: true });
                     weaponFields.push({ id: 'weapon_computed_sps',       key: 'shotsPerSecond', label: 'Shots Per Second', path: null, group: 'weapon', isOutfitComputed: true });
+                }
+
+                // ── Per-damage-type DPS fields ────────────────────────────────
+                // Resolved via WeaponStats._calcWeaponProfile(...).dpsBreakdown,
+                // which is keyed by every `<x> damage` key found ANYWHERE in the
+                // submunition tree (not just on this outfit's own weapon block).
+                // Offered unconditionally (one entry per known damage type) so a
+                // page of pure launchers still lists "Hull Damage DPS" etc. in the
+                // picker, instead of only showing up when some visible outfit
+                // happens to carry that literal key on its own JSON.
+                if (window.WeaponStats && !weaponSeen.has('weapon_dps_known_types')) {
+                    weaponSeen.add('weapon_dps_known_types');
+                    const DPS_DAMAGE_TYPES = [
+                        'shield', 'hull', 'minable', 'fuel', 'heat', 'energy',
+                        'ion', 'scrambling', 'slowing', 'disruption',
+                        'discharge', 'corrosion', 'leak', 'burn',
+                    ];
+                    for (const dmgType of DPS_DAMAGE_TYPES) {
+                        const dpsId = 'weapon_dps_' + keyToId(dmgType);
+                        if (weaponSeen.has(dpsId)) continue;
+                        weaponSeen.add(dpsId);
+                        weaponFields.push({
+                            id:    dpsId,
+                            key:   dmgType,
+                            label: toTitleCase(dmgType) + ' DPS',
+                            path:  null,
+                            raw:   false,
+                            group: 'weapon',
+                            isDps: true,
+                        });
+                    }
                 }
             }
 
@@ -497,35 +552,56 @@ function setSorterItems(items) {
 // Value extraction
 //
 // Resolution order:
-//   0a. isOutfitComputed  — WeaponStats profile fields (range, sps, totalDps…)
-//   0b. isDps             — per-damage-type DPS via 60/reload * submunition tree
-//   1.  field.computed    — hardpoint count lambda
-//   2.  isComputed/useComputed — _fn_/_derived_/_sys_ via getComputedStats
-//   3.  useAccum          — accumulated attr (base + outfits) via getComputedStats
-//   4.  field.path        — raw path walk on the item
+//   0a-ii. isShieldHullDps / isShieldHullDpsShip — synthesized Shield+Hull DPS
+//   0a-i.  isFiringCost   — WeaponStats firing-cost aggregation
+//   0a.    isOutfitComputed  — WeaponStats profile fields (range, sps, totalDps…)
+//   0b.    isDps             — per-damage-type DPS, via WeaponStats._calcWeaponProfile
+//   1.     field.computed    — hardpoint count lambda
+//   2.     isComputed/useComputed — _fn_/_derived_/_sys_ via getComputedStats
+//   3.     useAccum          — accumulated attr (base + outfits) via getComputedStats
+//   4.     field.path        — raw path walk on the item
+//
+// NOTE: submunition resolution for BOTH tabs now goes exclusively through
+// WeaponStats (_calcWeaponProfile / getShipWeaponStats / resolveWeaponStats)
+// and ComputedStats (getComputedStats). Sorter.js no longer re-implements any
+// submunition-tree walking itself — it only calls into those two modules and
+// reads the fields they already expose. This removes the previous duplicate,
+// buggier walker that used a single shared `visited` Set across sibling
+// branches (which could undercount weapons whose submunition tree reconverges
+// on a shared outfit reached via more than one path).
 // ---------------------------------------------------------------------------
 
 function getFieldValue(item, field) {
 
-    // 0a-i. Shield + Hull DPS (outfit) — sum of profile.shieldDps + profile.hullDps
+    // 0a-ii. Shield + Hull DPS — OUTFITS tab.
+    // Sourced from WeaponStats._calcWeaponProfile(...), the exact same call
+    // isOutfitComputed uses for shieldDps/hullDps individually — just summed.
     if (field.isShieldHullDps) {
         if (!item.weapon || !window.WeaponStats) return undefined;
-        const profile = window.WeaponStats.getOutfitWeaponStats(item, _getOutfitIndex());
+        const profile = window.WeaponStats._calcWeaponProfile(item.weapon, item.name, _getOutfitIndex());
         if (!profile) return undefined;
         const shieldDps = profile.shieldDps ?? 0;
         const hullDps   = profile.hullDps   ?? 0;
         return (shieldDps || hullDps) ? shieldDps + hullDps : undefined;
     }
-    
-    // 0a. Outfit computed weapon profile (range, sps, totalDps, shieldDps, hullDps)
-    if (field.isOutfitComputed) {
-        if (!item.weapon || !window.WeaponStats) return undefined;
-        const profile = window.WeaponStats.getOutfitWeaponStats(item, _getOutfitIndex());
-        if (!profile) return undefined;
-        return profile[field.key] ?? undefined;
+
+    // 0a-ii. Shield + Hull DPS — SHIPS tab.
+    // Sourced from getComputedStats(...)['_ws_shieldDps'] + ['_ws_hullDps'],
+    // which ComputedStats already populates (via WeaponStats.resolveWeaponStats)
+    // by walking every outfit's full submunition tree. No new computation here,
+    // just summing two fields ComputedStats already exposes.
+    if (field.isShieldHullDpsShip) {
+        if (typeof getComputedStats !== 'function') return undefined;
+        const pluginId = item._pluginId || _sorterPluginId;
+        if (!pluginId) return undefined;
+        const stats = getComputedStats(item, pluginId);
+        if (!stats) return undefined;
+        const shieldDps = stats['_ws_shieldDps'] ?? 0;
+        const hullDps   = stats['_ws_hullDps']   ?? 0;
+        return (shieldDps || hullDps) ? shieldDps + hullDps : undefined;
     }
 
-    // 0b-i. Firing cost fields (energy/heat/fuel per second from WeaponStats)
+    // 0a-i. Firing cost fields (energy/heat/fuel per second from WeaponStats)
     if (field.isFiringCost) {
         // Value was pre-computed at scan time and stored on the field descriptor.
         // Re-compute live here so it reflects the actual item being evaluated.
@@ -548,37 +624,26 @@ function getFieldValue(item, field) {
         return undefined;
     }
 
-    // 0b. Weapon DPS — mirrors AttributeDisplay: 60/reload * full submunition tree damage
+    // 0a. Outfit computed weapon profile (range, sps, totalDps, shieldDps, hullDps)
+    if (field.isOutfitComputed) {
+        if (!item.weapon || !window.WeaponStats) return undefined;
+        const profile = window.WeaponStats.getOutfitWeaponStats(item, _getOutfitIndex());
+        if (!profile) return undefined;
+        return profile[field.key] ?? undefined;
+    }
+
+    // 0b. Weapon DPS per damage type — OUTFITS tab.
+    // Delegates entirely to WeaponStats._calcWeaponProfile(...).dpsBreakdown,
+    // which walks the full submunition tree (cycle-guarded with a per-branch
+    // cloned `visited` Set, depth-capped at 8) exactly the same way the ships
+    // tab's _ws_dps_* fields do. Sorter.js does not walk submunitions itself.
     if (field.isDps) {
-        if (!item.weapon) return undefined;
-        if (item.weapon.reload == null) return undefined; // submunitions have no reload
-
-        const weapon  = item.weapon;
-        const reload  = parseFloat(weapon.reload) || 1;
-        const sps     = 60 / reload;
-        const outfitIndex = _getOutfitIndex();
-        const visited = new Set([item.name].filter(Boolean));
-
-        function collectDamage(w, multiplier, depth) {
-            if (depth > 8) return 0;
-            const dmgKey = field.key + ' damage';
-            let total    = (parseFloat(w[dmgKey]) || 0) * multiplier;
-
-            if (!window.WeaponStats) return total;
-            const refs = window.WeaponStats._getSubmunitionRefs(w, outfitIndex);
-            for (const { subName, subCount } of refs) {
-                if (visited.has(subName)) continue;
-                const subOutfit = outfitIndex[subName];
-                if (!subOutfit?.weapon) continue;
-                visited.add(subName);
-                total += collectDamage(subOutfit.weapon, multiplier * subCount, depth + 1);
-            }
-            return total;
-        }
-
-        const totalDmgPerShot = collectDamage(weapon, 1, 0);
-        if (!totalDmgPerShot) return undefined;
-        return totalDmgPerShot * sps;
+        if (!item.weapon || !window.WeaponStats) return undefined;
+        const profile = window.WeaponStats._calcWeaponProfile(item.weapon, item.name, _getOutfitIndex());
+        if (!profile) return undefined;
+        const dmgKey = field.key + ' damage';
+        const val = profile.dpsBreakdown?.[dmgKey];
+        return (val != null && val !== 0) ? val : undefined;
     }
 
     // 1. Inline computed (hardpoint counts)
@@ -812,7 +877,8 @@ async function confirmSorterPicker() {
                     isDps:            field.isDps            || false,
                     isOutfitComputed: field.isOutfitComputed || false,
                     isFiringCost:     field.isFiringCost     || false,
-                    isShieldHullDps:  field.isShieldHullDps  || false,
+                    isShieldHullDps:     field.isShieldHullDps     || false,
+                    isShieldHullDpsShip: field.isShieldHullDpsShip || false,
                     displayMultiplier: field.displayMultiplier || 1,
                     dir:              'desc',
                 });
@@ -900,9 +966,9 @@ function renderPickerList(query) {
 
     if (sorterCurrentTab === 'ships' || sorterCurrentTab === 'variants') {
         const computed  = filtered.filter(f => f.isComputed || f.useComputed);
-        const accum     = filtered.filter(f => f.useAccum && !f.isComputed && !f.useComputed);
+        const accum     = filtered.filter(f => (f.useAccum || f.isShieldHullDpsShip) && !f.isComputed && !f.useComputed);
         const hardpoint = filtered.filter(f => f.computed && !f.isComputed && !f.useComputed && !f.useAccum);
-        const base      = filtered.filter(f => !f.isComputed && !f.useComputed && !f.computed && !f.useAccum);
+        const base      = filtered.filter(f => !f.isComputed && !f.useComputed && !f.computed && !f.useAccum && !f.isShieldHullDpsShip);
 
         groups = [
             { label: '⚡ Computed — Physics (with outfits)',     fields: computed  },
@@ -913,7 +979,7 @@ function renderPickerList(query) {
 
     } else if (sorterCurrentTab === 'outfits') {
         const outfitAttrs    = filtered.filter(f => f.group === 'outfit');
-        const weaponPerShot  = filtered.filter(f => f.group === 'weapon' && !f.isDps && !f.isOutfitComputed);
+        const weaponPerShot  = filtered.filter(f => f.group === 'weapon' && !f.isDps && !f.isOutfitComputed && !f.isShieldHullDps);
         const weaponDps      = filtered.filter(f => f.group === 'weapon' && f.isDps);
         const weaponComputed = filtered.filter(f => f.group === 'weapon' && (f.isOutfitComputed || f.isShieldHullDps));
 
