@@ -361,6 +361,7 @@ function scanFieldsFromItems(tab, items) {
                     weaponFields.push({ id: 'weapon_computed_totalDps',  key: 'totalDps',       label: 'Total DPS',        path: null, group: 'weapon', isOutfitComputed: true });
                     weaponFields.push({ id: 'weapon_computed_shieldDps', key: 'shieldDps',      label: 'Shield DPS',       path: null, group: 'weapon', isOutfitComputed: true });
                     weaponFields.push({ id: 'weapon_computed_hullDps',   key: 'hullDps',        label: 'Hull DPS',         path: null, group: 'weapon', isOutfitComputed: true });
+                    weaponFields.push({ id: 'weapon_computed_shieldHullDps', key: 'shieldHullDps', label: 'Shield + Hull DPS', path: null, group: 'weapon', isShieldHullDps: true });
                     weaponFields.push({ id: 'weapon_computed_range',     key: 'effectiveRange', label: 'Effective Range',  path: null, group: 'weapon', isOutfitComputed: true });
                     weaponFields.push({ id: 'weapon_computed_sps',       key: 'shotsPerSecond', label: 'Shots Per Second', path: null, group: 'weapon', isOutfitComputed: true });
                 }
@@ -506,6 +507,16 @@ function setSorterItems(items) {
 
 function getFieldValue(item, field) {
 
+    // 0a-i. Shield + Hull DPS (outfit) — sum of profile.shieldDps + profile.hullDps
+    if (field.isShieldHullDps) {
+        if (!item.weapon || !window.WeaponStats) return undefined;
+        const profile = window.WeaponStats.getOutfitWeaponStats(item, _getOutfitIndex());
+        if (!profile) return undefined;
+        const shieldDps = profile.shieldDps ?? 0;
+        const hullDps   = profile.hullDps   ?? 0;
+        return (shieldDps || hullDps) ? shieldDps + hullDps : undefined;
+    }
+    
     // 0a. Outfit computed weapon profile (range, sps, totalDps, shieldDps, hullDps)
     if (field.isOutfitComputed) {
         if (!item.weapon || !window.WeaponStats) return undefined;
@@ -801,6 +812,7 @@ async function confirmSorterPicker() {
                     isDps:            field.isDps            || false,
                     isOutfitComputed: field.isOutfitComputed || false,
                     isFiringCost:     field.isFiringCost     || false,
+                    isShieldHullDps:  field.isShieldHullDps  || false,
                     displayMultiplier: field.displayMultiplier || 1,
                     dir:              'desc',
                 });
@@ -903,7 +915,7 @@ function renderPickerList(query) {
         const outfitAttrs    = filtered.filter(f => f.group === 'outfit');
         const weaponPerShot  = filtered.filter(f => f.group === 'weapon' && !f.isDps && !f.isOutfitComputed);
         const weaponDps      = filtered.filter(f => f.group === 'weapon' && f.isDps);
-        const weaponComputed = filtered.filter(f => f.group === 'weapon' && f.isOutfitComputed);
+        const weaponComputed = filtered.filter(f => f.group === 'weapon' && (f.isOutfitComputed || f.isShieldHullDps));
 
         groups = [
             { label: 'Outfit Attributes',          fields: outfitAttrs    },
