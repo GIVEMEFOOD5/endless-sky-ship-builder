@@ -13,20 +13,29 @@
 //  parsing logic stays in esSaveParser.js.
 //
 //  ── localStorage keys ──────────────────────────────────────
-//    ES_SM_REGISTRY   →  JSON array of save summaries:
-//                         [{ id, label, pilotName, importedAt }]
-//    ES_SM_SAVE_<id>  →  JSON of the full parsed save object
-//    ES_SM_CURRENT    →  JSON of just the active save's id (string)
-//                         kept in its own key, separate from the
-//                         registry/save data, as requested.
+//    ES_SM_REGISTRY          →  JSON array of save summaries:
+//                                [{ id, label, pilotName, importedAt }]
+//    ES_SM_SAVE_<id>         →  JSON of the full parsed save object
+//    ES_SM_CURRENT           →  JSON of just the active save's id
+//    ES_SM_ACTIVE_SAVE_SHIPS →  Ships from the most-recently-imported
+//                                save, in shipBuilder internal format
+//                                (map-of-outfits serialisation, same as
+//                                es_ship_builder_v4). Read by
+//                                shipBuilder.js on load and merged into
+//                                sbFleet as editable ships. Ships are
+//                                tagged _fromSave:true so the builder
+//                                can badge them distinctly.
+//                                sbSave() must NOT overwrite this key —
+//                                it is managed solely by saveManager.
 // ═══════════════════════════════════════════════════════════
 
-const SM_REGISTRY_KEY = 'ES_SM_REGISTRY';
-const SM_SAVE_PREFIX  = 'ES_SM_SAVE_';
-const SM_CURRENT_KEY  = 'ES_SM_CURRENT';
+const SM_REGISTRY_KEY     = 'ES_SM_REGISTRY';
+const SM_SAVE_PREFIX      = 'ES_SM_SAVE_';
+const SM_CURRENT_KEY      = 'ES_SM_CURRENT';
+const SM_ACTIVE_SHIPS_KEY = 'ES_SM_ACTIVE_SAVE_SHIPS';
 
-let parsedSave    = null;   // the currently-loaded parsed save object
-let currentSaveId = null;   // id of the currently-loaded save
+let parsedSave    = null;
+let currentSaveId = null;
 let activeFilter  = '';
 let activeSort    = 'default';
 
@@ -77,43 +86,62 @@ function smSetSaveData(id, data) {
 }
 
 function smDeleteSaveData(id) {
-  try {
-    localStorage.removeItem(SM_SAVE_PREFIX + id);
-  } catch (e) { /* ignore */ }
+  try { localStorage.removeItem(SM_SAVE_PREFIX + id); } catch (e) { /* ignore */ }
 }
 
-// "Current save" pointer lives in its own dedicated key, separate
-// from the registry and from any individual save's data.
 function smGetCurrentId() {
   try {
     const raw = localStorage.getItem(SM_CURRENT_KEY);
     return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+function smSetCurrentId(id) {
+  try { localStorage.setItem(SM_CURRENT_KEY, JSON.stringify(id)); } catch (e) { /* ignore */ }
+}
+function smClearCurrentId() {
+  try { localStorage.removeItem(SM_CURRENT_KEY); } catch (e) { /* ignore */ }
+}
+
+// ── Active save ships ─────────────────────────────────────
+// Always stores the ships from the current save in shipBuilder
+// map format. shipBuilder reads this key separately from
+// es_ship_builder_v4 and merges the ships into sbFleet.
+// sbSave() must never write to this key.
+
+function smGetActiveSaveShips() {
+  try {
+    const raw = localStorage.getItem(SM_ACTIVE_SHIPS_KEY);
+    return raw ? JSON.parse(raw) : null;
   } catch (e) {
+    console.warn('[saveManager] Could not read active save ships:', e);
     return null;
   }
 }
-function smSetCurrentId(id) {
+
+function smSetActiveSaveShips(shipsInMapFormat) {
   try {
-    localStorage.setItem(SM_CURRENT_KEY, JSON.stringify(id));
-  } catch (e) { /* ignore */ }
+    localStorage.setItem(SM_ACTIVE_SHIPS_KEY, JSON.stringify(shipsInMapFormat));
+    return true;
+  } catch (e) {
+    console.warn('[saveManager] Could not write active save ships:', e);
+    return false;
+  }
 }
-function smClearCurrentId() {
-  try {
-    localStorage.removeItem(SM_CURRENT_KEY);
-  } catch (e) { /* ignore */ }
+
+function smClearActiveSaveShips() {
+  try { localStorage.removeItem(SM_ACTIVE_SHIPS_KEY); } catch (e) { /* ignore */ }
 }
 
 function smMakeId() {
   return 'save_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
 }
 
-// Add a freshly-parsed save to storage and make it current.
 function smAddSave(parsed, originalFileName) {
   const id = smMakeId();
   const summary = {
     id,
-    label: parsed.pilot.name || originalFileName || 'Unnamed Save',
-    pilotName: parsed.pilot.name || '',
+    label:      parsed.pilot.name || originalFileName || 'Unnamed Save',
+    pilotName:  parsed.pilot.name || '',
     importedAt: Date.now(),
   };
   const registry = smGetRegistry();
@@ -128,34 +156,13 @@ function smRemoveSave(id) {
   const registry = smGetRegistry().filter(s => s.id !== id);
   smSetRegistry(registry);
   smDeleteSaveData(id);
-  if (smGetCurrentId() === id) {
-    smClearCurrentId();
-  }
+  if (smGetCurrentId() === id) smClearCurrentId();
 }
 
 // ═══════════════════════════════════════════════════════════
 //  PLUGIN MATCHING
-//
-//  The save file's `plugins` block only lists the bare folder/internal
-//  name the game wrote (e.g. "DAIS", "Rumskib", "compact_layout") — no
-//  repository info.
-//
-//  Each loaded plugin's data now lives at data/<pluginName>/pluginData.json,
-//  so <pluginName> (the folder name) is the plugin's outputName/key in
-//  window.allData — the same role it played before, just a different
-//  fetch path inside dataLoader.js. plugins.json (at the repo root) maps
-//  a save's bare plugin name to a GitHub repository URL, which we use as
-//  a last-resort identity check when the name itself doesn't line up.
-//
-//  We try several matching strategies, since the save's name, the data
-//  folder's name, and the in-game display name don't always agree:
 // ═══════════════════════════════════════════════════════════
 
-// plugins.json lives at the repo's top level, above both data/ and the
-// folder this page lives in — so '../plugins.json' is correct only if this
-// page is exactly one folder below the top level. Try a short list of
-// likely paths rather than assuming one, and log whichever one actually
-// works so it's obvious from the console if none of them do.
 const PLUGIN_REGISTRY_CANDIDATES = [
   '../plugins.json',
   './plugins.json',
@@ -167,7 +174,6 @@ let _pluginRegistryCache = null;
 
 async function smLoadPluginRegistry() {
   if (_pluginRegistryCache) return _pluginRegistryCache;
-
   for (const path of PLUGIN_REGISTRY_CANDIDATES) {
     try {
       const res = await fetch(path);
@@ -178,50 +184,27 @@ async function smLoadPluginRegistry() {
         _pluginRegistryCache = json.plugins;
         return _pluginRegistryCache;
       }
-    } catch (e) {
-      // try the next candidate
-    }
+    } catch (e) { /* try next */ }
   }
-
   console.warn('[saveManager] Could not load plugins.json from any of:', PLUGIN_REGISTRY_CANDIDATES);
   _pluginRegistryCache = [];
   return _pluginRegistryCache;
 }
 
-// Normalise a name for loose comparison: lowercase, strip punctuation/spaces.
 function _smNormalisePluginName(name) {
   return String(name || '')
     .toLowerCase()
-    .replace(/['’"()]/g, '')
+    .replace(/[''"()]/g, '')
     .replace(/[\s_-]+/g, '');
 }
-
-// Strip a trailing "-main" / "-master" (GitHub's default branch zip suffix)
-// from a folder/output name before comparing, and also return the
-// "-main" and "-master" variants of a save name so we can check both
-// directions: a save name carrying the suffix matching a bare loaded
-// folder, and a bare save name matching a loaded folder that carries it.
 function _smStripBranchSuffix(name) {
   return String(name || '').replace(/-(main|master)$/i, '');
 }
-function _smWithBranchSuffixes(name) {
-  const base = String(name || '');
-  return [base + '-main', base + '-master'];
+function _smWithMainSuffix(name) {
+  return String(name || '') + '-main';
 }
 
-// ── Independent index.json reader ───────────────────────────────────────
-//
-// dataLoader.js (which we're not modifying) reads data/index.json but only
-// keeps each entry's `displayName` field — it never captures the real
-// `displayPluginName` field the actual index.json uses for most plugins
-// (e.g. KGS's entry has displayPluginName: "KGS (Kai's GIMPed Stuff)" but
-// no displayName at all, so dataLoader.js's `displayName || outputName`
-// falls all the way back to the bare folder name "KGS"). Since that
-// richer name never makes it into window.allData, we fetch index.json
-// ourselves here — read-only, same URL dataLoader.js already uses — and
-// build our own outputName → displayPluginName lookup purely for matching.
 const ES_DATA_INDEX_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/index.json';
-
 let _indexDisplayNameCache = null;
 
 async function smLoadIndexDisplayNames() {
@@ -246,90 +229,46 @@ async function smLoadIndexDisplayNames() {
   return _indexDisplayNameCache;
 }
 
-// A loaded plugin's display label may come through as `displayPluginName`
-// (read from inside data/<pluginName>/pluginData.json), the older
-// `displayName` field (from index.json), or simply `name`. Check all three
-// so matching doesn't silently break if dataLoader.js's field name changes.
-// `indexDisplayNames` (outputName → displayPluginName, fetched independently
-// above) is checked first, since it's the most reliable source available
-// without modifying dataLoader.js itself.
-// Returns '' if none are present — callers fall back to the folder name
-// themselves, since not every plugin folder has a pluginData.json to
-// read a name from in the first place.
 function _smDisplayLabel(data, outputName, indexDisplayNames) {
   return (indexDisplayNames && indexDisplayNames[outputName])
     || data?.displayPluginName || data?.displayName || data?.name || '';
 }
-
-// Extract the "owner/repo" slug from a GitHub URL for identity comparison.
 function _smRepoSlug(url) {
   const m = String(url || '').match(/github\.com\/([^/]+)\/([^/]+)/i);
   if (!m) return '';
   return (m[1] + '/' + m[2]).toLowerCase().replace(/\.git$/, '');
 }
 
-/**
- * Given the list of bare plugin names from a save file, returns:
- *   {
- *     matched:   [{ saveName, outputName, sourceName, displayName, matchedBy }],
- *     unmatched: [{ saveName, reason }]   // reason: 'not-in-registry' | 'not-loaded'
- *   }
- *
- * Match strategy, tried in this order for every save plugin name:
- *   1. Exact (normalised) match against the loaded plugin's outputName —
- *      this is the literal name of its folder under data/
- *      (e.g. data/DAIS/pluginData.json → outputName "DAIS").
- *   2. Same, but allowing either side to carry a "-main"/"-master" suffix —
- *      covers folders saved as GitHub's default-branch zip name (e.g. "DAIS-main").
- *   3. Exact (normalised) match against the loaded plugin's display label —
- *      checks displayPluginName (from pluginData.json), displayName
- *      (from index.json), and plain name — whichever field the loaded
- *      plugin actually carries.
- *   4. Registry lookup (plugins.json) → repository URL → repo slug →
- *      match against outputName containing that slug. This is the fallback
- *      for cases where the save's name, the folder name, and the display
- *      name all differ from one another.
- *
- * "matched" means we found a loaded plugin (window.allData key) that
- * corresponds to the save's plugin name. "unmatched" means none of the
- * four strategies found a loaded plugin for it.
- */
 async function smMatchSavePlugins(saveNames) {
   const registry          = await smLoadPluginRegistry();
   const indexDisplayNames = await smLoadIndexDisplayNames();
-  const allData  = (window.allData || {});
-  const localId  = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
-  const loadedEntries = Object.entries(allData).filter(([id]) => id !== localId);
+  const allData           = (window.allData || {});
+  const localId           = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
+  const loadedEntries     = Object.entries(allData).filter(([id]) => id !== localId);
 
   const matched   = [];
   const unmatched = [];
 
   for (const saveName of saveNames) {
-    const normSave        = _smNormalisePluginName(saveName);
-    const normSaveStrip   = _smNormalisePluginName(_smStripBranchSuffix(saveName));
-    const normSaveSuffixed = _smWithBranchSuffixes(saveName).map(_smNormalisePluginName);
+    const normSave      = _smNormalisePluginName(saveName);
+    const normSaveStrip = _smNormalisePluginName(_smStripBranchSuffix(saveName));
+    const normSaveMain  = _smNormalisePluginName(_smWithMainSuffix(saveName));
 
     let foundEntry = null;
     let matchedBy  = null;
 
-    // 1 — Direct match against outputName (the literal data/<pluginName> folder name)
-    foundEntry = loadedEntries.find(([outputName]) =>
-      _smNormalisePluginName(outputName) === normSave
-    );
+    foundEntry = loadedEntries.find(([outputName]) => _smNormalisePluginName(outputName) === normSave);
     if (foundEntry) matchedBy = 'folder-name';
 
-    // 2 — Match allowing a "-main"/"-master" suffix on either side
     if (!foundEntry) {
       foundEntry = loadedEntries.find(([outputName]) => {
         const normOutput      = _smNormalisePluginName(outputName);
         const normOutputStrip = _smNormalisePluginName(_smStripBranchSuffix(outputName));
-        return normSaveSuffixed.includes(normOutput) || normOutputStrip === normSave || normOutputStrip === normSaveStrip;
+        return normOutput === normSaveMain || normOutputStrip === normSave || normOutputStrip === normSaveStrip;
       });
       if (foundEntry) matchedBy = 'folder-name-main-suffix';
     }
 
-    // 3 — Match against the plugin's display label (index.json's displayPluginName,
-    // fetched independently above / pluginData.json's displayPluginName / displayName / name)
     if (!foundEntry) {
       foundEntry = loadedEntries.find(([outputName, data]) =>
         _smNormalisePluginName(_smDisplayLabel(data, outputName, indexDisplayNames)) === normSave
@@ -337,7 +276,6 @@ async function smMatchSavePlugins(saveNames) {
       if (foundEntry) matchedBy = 'display-name';
     }
 
-    // 4 — Registry fallback: save name → plugins.json → repository → repo slug
     if (!foundEntry) {
       const regEntry = registry.find(r => _smNormalisePluginName(r.name) === normSave);
       if (regEntry) {
@@ -346,7 +284,6 @@ async function smMatchSavePlugins(saveNames) {
           targetSlug && outputName.toLowerCase().includes(targetSlug)
         );
         if (!foundEntry) {
-          // Also try matching the registry entry's own name against sourceName
           foundEntry = loadedEntries.find(([, data]) =>
             _smNormalisePluginName(data.sourceName) === normSave
           );
@@ -363,7 +300,7 @@ async function smMatchSavePlugins(saveNames) {
       matched.push({
         saveName,
         outputName,
-        sourceName: data.sourceName || outputName,
+        sourceName:  data.sourceName || outputName,
         displayName: _smDisplayLabel(data, outputName, indexDisplayNames) || outputName,
         matchedBy,
       });
@@ -375,72 +312,37 @@ async function smMatchSavePlugins(saveNames) {
   return { matched, unmatched };
 }
 
-// Finds the official Endless Sky base-game plugin's outputName directly
-// from window.allData, without relying on DataLoader.DEFAULT_PLUGIN —
-// that constant is currently 'official-game/endless-sky', but the real
-// index.json this site loads uses sourceName "official-game" with an
-// outputName of just "endless-sky", so the two never match. Rather than
-// edit dataLoader.js, we resolve it here ourselves:
-//   1. Prefer the loaded plugin whose sourceName is exactly "official-game"
-//      (this is the stable identity — the index.json group key for the
-//      base game, regardless of what its outputName/folder happens to be).
-//   2. Fall back to DataLoader.DEFAULT_PLUGIN, in case it's ever corrected
-//      or the loaded data shape changes — costs nothing to also check.
 function smFindEndlessSkyOutputName() {
   const allData = window.allData || {};
   const localId = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
-
   const officialEntry = Object.entries(allData).find(
     ([id, data]) => id !== localId && data?.sourceName === 'official-game'
   );
   if (officialEntry) return officialEntry[0];
-
   const fallback = window.DataLoader?.DEFAULT_PLUGIN;
   if (fallback && allData[fallback]) return fallback;
-
   return null;
 }
 
-/**
- * Activates the matched plugins via the existing plugin system, so the
- * Ship Builder / Data Viewer picks them up exactly as if chosen by hand
- * through the plugin picker. Local Builds is pinned first automatically
- * by DataLoader.setActivePlugins(); on top of that, the Endless Sky base
- * game plugin is always placed at the front of the *remote* plugin order
- * (i.e. right after Local Builds) if it's loaded — even if it wasn't
- * itself one of the save's matched plugins — since it's the base game
- * data everything else layers on top of.
- */
 function smActivateMatchedPlugins(matched) {
   if (!window.DataLoader || typeof window.DataLoader.setActivePlugins !== 'function') {
     console.warn('[saveManager] DataLoader.setActivePlugins is not available on this page.');
     return false;
   }
-
   const endlessSkyOutput = smFindEndlessSkyOutputName();
   const outputNames = matched.map(m => m.outputName);
-
-  // Always ensure Endless Sky is present and first, if it's loaded.
   if (endlessSkyOutput) {
     const existingIdx = outputNames.indexOf(endlessSkyOutput);
     if (existingIdx !== -1) outputNames.splice(existingIdx, 1);
     outputNames.unshift(endlessSkyOutput);
   }
-
   if (!outputNames.length) return false;
-
   window.DataLoader.setActivePlugins(outputNames);
   return true;
 }
 
 // ═══════════════════════════════════════════════════════════
-//  BOOTSTRAP — restore last-open save on page load
-//
-//  This page is gated behind window.DataLoader finishing its initial
-//  load (see the inline script in savereader.html, which dispatches
-//  'saveReaderDataReady' once .load() resolves and reveals #pageContent).
-//  Nothing here runs until that fires, since plugin matching — and really
-//  the whole point of this page — depends on window.allData being populated.
+//  BOOTSTRAP
 // ═══════════════════════════════════════════════════════════
 
 let _dataReady = false;
@@ -453,12 +355,11 @@ function smBootstrap() {
   if (curId) {
     const data = smGetSaveData(curId);
     if (data) {
-      parsedSave = data;
+      parsedSave    = data;
       currentSaveId = curId;
       renderResults();
       return;
     }
-    // Pointer referenced a save that no longer exists in storage — clear it.
     smClearCurrentId();
   }
 }
@@ -471,7 +372,7 @@ let _toastTimer = null;
 function toast(msg, type = '') {
   const t = el('toast');
   t.textContent = msg;
-  t.className = 'toast show' + (type ? ' ' + type : '');
+  t.className   = 'toast show' + (type ? ' ' + type : '');
   clearTimeout(_toastTimer);
   _toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
 }
@@ -492,14 +393,14 @@ fileInput.addEventListener('change', e => {
   dropzone.addEventListener(evt, e => {
     e.preventDefault();
     dropzone.style.borderColor = 'var(--c-accent)';
-    dropzone.style.background = 'rgba(59,130,246,0.10)';
+    dropzone.style.background  = 'rgba(59,130,246,0.10)';
   })
 );
 ['dragleave', 'drop'].forEach(evt =>
   dropzone.addEventListener(evt, e => {
     e.preventDefault();
     dropzone.style.borderColor = '';
-    dropzone.style.background = '';
+    dropzone.style.background  = '';
   })
 );
 dropzone.addEventListener('drop', e => {
@@ -519,29 +420,25 @@ function clearError() {
 async function handleFile(file) {
   clearError();
 
-  // Hard backstop: #pageContent is hidden and the dropzone isn't even
-  // visible until the gate clears, but if this ever gets called before
-  // that (e.g. a stray programmatic call), refuse rather than proceed
-  // with plugin matching against an empty window.allData.
   if (!_dataReady) {
     showError('Still loading game and plugin data — please wait a moment and try again.');
     return;
   }
-
   if (!file.name.toLowerCase().endsWith('.txt')) {
     showError('That doesn\u2019t look like a .txt save file. Endless Sky save files are exported as plain text.');
     return;
   }
+
   try {
-    const text = await file.text();
-    const parsed = parseESSaveFile(text); // from esSaveParser.js
+    const text   = await file.text();
+    const parsed = parseESSaveFile(text);
     if (!parsed.ships.length && !parsed.pilot.name) {
       showError('No pilot or ship data was found in this file. Make sure it\u2019s an unmodified Endless Sky save.');
       return;
     }
 
     const baseName = file.name.replace(/\.txt$/i, '');
-    const id = smAddSave(parsed, baseName);
+    const id       = smAddSave(parsed, baseName);
 
     parsedSave    = parsed;
     currentSaveId = id;
@@ -557,11 +454,11 @@ async function handleFile(file) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  SAVES LIBRARY (list of stored saves + switching)
+//  SAVES LIBRARY
 // ═══════════════════════════════════════════════════════════
 
 function renderSavesLibrary() {
-  const wrap = el('savesLibrary');
+  const wrap     = el('savesLibrary');
   const registry = smGetRegistry();
 
   if (!registry.length) {
@@ -587,7 +484,7 @@ function renderSavesLibrary() {
 
   wrap.querySelectorAll('.list-row').forEach(row => {
     row.addEventListener('click', e => {
-      if (e.target.closest('.sm-delete-btn')) return; // handled separately
+      if (e.target.closest('.sm-delete-btn')) return;
       switchToSave(row.dataset.saveId);
     });
   });
@@ -623,8 +520,8 @@ function switchToSave(id) {
 
 function confirmDeleteSave(id) {
   const registry = smGetRegistry();
-  const entry = registry.find(s => s.id === id);
-  const label = entry ? entry.label : 'this save';
+  const entry    = registry.find(s => s.id === id);
+  const label    = entry ? entry.label : 'this save';
   if (!window.confirm(`Delete "${label}"? This cannot be undone.`)) return;
 
   const wasCurrent = id === currentSaveId;
@@ -647,15 +544,16 @@ function confirmDeleteSave(id) {
 
 function renderResults() {
   el('exportJsonBtn').classList.remove('hidden');
+  el('importFleetBtn').classList.remove('hidden');
   el('removeSaveBtn').classList.remove('hidden');
   el('results').classList.remove('hidden');
 
   el('pilotName').textContent = '👤 ' + (parsedSave.pilot.name || 'Unnamed Pilot');
   const loc = [parsedSave.pilot.planet, parsedSave.pilot.system].filter(Boolean).join(', ');
   el('pilotMeta').textContent = [
-    loc ? 'Location: ' + loc : null,
-    parsedSave.pilot.date ? 'Date: ' + formatDate(parsedSave.pilot.date) : null,
-    parsedSave.pilot.playtime ? 'Played: ' + formatPlaytime(parsedSave.pilot.playtime) : null,
+    loc                       ? 'Location: ' + loc                                    : null,
+    parsedSave.pilot.date     ? 'Date: '     + formatDate(parsedSave.pilot.date)      : null,
+    parsedSave.pilot.playtime ? 'Played: '   + formatPlaytime(parsedSave.pilot.playtime) : null,
   ].filter(Boolean).join('   ·   ');
 
   renderStatStrip();
@@ -688,19 +586,19 @@ function esc(s) {
 }
 
 function renderStatStrip() {
-  const ships = parsedSave.ships;
-  const active = ships.filter(s => !s._parked).length;
-  const parked = ships.length - active;
+  const ships        = parsedSave.ships;
+  const active       = ships.filter(s => !s._parked).length;
+  const parked       = ships.length - active;
   const totalOutfits = ships.reduce((sum, s) => sum + s.outfits.reduce((a, o) => a + (o.count || 1), 0), 0);
 
   const cells = [
-    { label: 'Credits', value: (parsedSave.account.credits || 0).toLocaleString() },
-    { label: 'Combat Score', value: (parsedSave.account.score || 0).toLocaleString() },
-    { label: 'Ships', value: ships.length },
-    { label: 'Active', value: active },
-    { label: 'Parked', value: parked },
+    { label: 'Credits',         value: (parsedSave.account.credits || 0).toLocaleString() },
+    { label: 'Combat Score',    value: (parsedSave.account.score   || 0).toLocaleString() },
+    { label: 'Ships',           value: ships.length },
+    { label: 'Active',          value: active },
+    { label: 'Parked',          value: parked },
     { label: 'Outfits Carried', value: totalOutfits },
-    { label: 'Licenses', value: parsedSave.licenses.length },
+    { label: 'Licenses',        value: parsedSave.licenses.length },
   ];
   el('statStrip').innerHTML = cells.map(c => `
     <div class="stat-card">
@@ -716,15 +614,15 @@ function getFilteredSortedShips() {
     const q = activeFilter.toLowerCase();
     ships = ships.filter(({ ship }) =>
       (ship._customName || '').toLowerCase().includes(q) ||
-      (ship._modelName || '').toLowerCase().includes(q) ||
-      (ship._system || '').toLowerCase().includes(q) ||
-      (ship._planet || '').toLowerCase().includes(q)
+      (ship._modelName  || '').toLowerCase().includes(q) ||
+      (ship._system     || '').toLowerCase().includes(q) ||
+      (ship._planet     || '').toLowerCase().includes(q)
     );
   }
 
   switch (activeSort) {
     case 'name':   ships.sort((a, b) => (a.ship._customName || '').localeCompare(b.ship._customName || '')); break;
-    case 'model':  ships.sort((a, b) => (a.ship._modelName || '').localeCompare(b.ship._modelName || '')); break;
+    case 'model':  ships.sort((a, b) => (a.ship._modelName  || '').localeCompare(b.ship._modelName  || '')); break;
     case 'hull':   ships.sort((a, b) => (b.ship._hull || 0) - (a.ship._hull || 0)); break;
     case 'parked': ships.sort((a, b) => (b.ship._parked ? 1 : 0) - (a.ship._parked ? 1 : 0)); break;
   }
@@ -746,7 +644,7 @@ function renderFleetGrid() {
       ? `<span style="font-size:0.7rem; background:var(--c-warn); color:var(--c-warn-text); padding:2px 8px; border-radius:10px; font-weight:600; white-space:nowrap;">Parked</span>`
       : `<span style="font-size:0.7rem; background:var(--c-success); color:var(--c-success-text); padding:2px 8px; border-radius:10px; font-weight:600; white-space:nowrap;">Active</span>`;
     const outfitCount = ship.outfits.reduce((sum, o) => sum + (o.count || 1), 0);
-    const loc = [ship._planet, ship._system].filter(Boolean).join(', ');
+    const loc         = [ship._planet, ship._system].filter(Boolean).join(', ');
 
     return `<div class="fleet-card" data-idx="${idx}">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
@@ -799,8 +697,8 @@ function renderCargoStorage() {
 function renderAccountLicenses() {
   const a = parsedSave.account;
   const cells = [
-    { label: 'Credits', value: (a.credits || 0).toLocaleString() },
-    { label: 'Combat Score', value: (a.score || 0).toLocaleString() },
+    { label: 'Credits',      value: (a.credits || 0).toLocaleString() },
+    { label: 'Combat Score', value: (a.score   || 0).toLocaleString() },
     ...Object.entries(a.salaries || {}).map(([k, v]) => ({ label: 'Salary: ' + k, value: v.toLocaleString() + ' cr' })),
   ];
   el('accountGrid').innerHTML = cells.map(c => `
@@ -815,30 +713,17 @@ function renderAccountLicenses() {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  PLUGINS PANEL — match this save's plugin list against the
-//  registry + currently loaded data, and offer to activate them.
+//  PLUGINS PANEL
 // ═══════════════════════════════════════════════════════════
 
-// Resolves once window.DataLoader has finished its initial load (or
-// immediately if DataLoader isn't present at all / already ready).
-// Without this, matching can run while remote plugin data is still being
-// fetched, making every plugin look unmatched even though it's about to load.
 function smWaitForDataLoader(timeoutMs = 15000) {
   return new Promise(resolve => {
     if (!window.DataLoader || typeof window.DataLoader.isReady !== 'function') {
-      resolve(false); // no DataLoader on this page at all
-      return;
+      resolve(false); return;
     }
-    if (window.DataLoader.isReady()) {
-      resolve(true);
-      return;
-    }
+    if (window.DataLoader.isReady()) { resolve(true); return; }
     let done = false;
-    const finish = (ok) => {
-      if (done) return;
-      done = true;
-      resolve(ok);
-    };
+    const finish = ok => { if (done) return; done = true; resolve(ok); };
     if (typeof window.DataLoader.onReady === 'function') {
       window.DataLoader.onReady(() => finish(true));
     }
@@ -856,7 +741,6 @@ async function renderPluginsPanel() {
     box.innerHTML = `<div class="ld-empty">No plugins were recorded in this save.</div>`;
     return;
   }
-
   if (!window.DataLoader) {
     box.innerHTML = `<div class="ld-empty">Plugin data isn\u2019t available on this page (dataLoader.js isn\u2019t loaded), so plugins from this save can\u2019t be matched here.</div>`;
     return;
@@ -864,7 +748,6 @@ async function renderPluginsPanel() {
 
   box.innerHTML = `<div class="ld-empty" style="padding:10px 0;">Loading plugin data\u2026</div>`;
   await smWaitForDataLoader();
-
   box.innerHTML = `<div class="ld-empty" style="padding:10px 0;">Checking plugins against loaded data…</div>`;
 
   const { matched, unmatched } = await smMatchSavePlugins(names);
@@ -895,22 +778,15 @@ async function renderPluginsPanel() {
     </div>
   `;
 
-  const activateBtn = el('activatePluginsBtn');
-  if (activateBtn) {
-    activateBtn.addEventListener('click', () => {
-      const ok = smActivateMatchedPlugins(matched);
-      if (ok) {
-        toast('Activated ' + matched.length + ' plugin(s) from this save.', 'success');
-      } else {
-        toast('Could not activate plugins — plugin system isn\u2019t available on this page.', 'danger');
-      }
-    });
-  }
-
-  const recheckBtn = el('recheckPluginsBtn');
-  if (recheckBtn) {
-    recheckBtn.addEventListener('click', () => renderPluginsPanel());
-  }
+  el('activatePluginsBtn')?.addEventListener('click', () => {
+    const ok = smActivateMatchedPlugins(matched);
+    toast(
+      ok ? 'Activated ' + matched.length + ' plugin(s) from this save.'
+         : 'Could not activate plugins — plugin system isn\u2019t available on this page.',
+      ok ? 'success' : 'danger'
+    );
+  });
+  el('recheckPluginsBtn')?.addEventListener('click', () => renderPluginsPanel());
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -919,41 +795,30 @@ async function renderPluginsPanel() {
 
 function openShipModal(idx) {
   const ship = parsedSave.ships[idx];
-  const a = ship.attributes || {};
+  const a    = ship.attributes || {};
 
   el('modalShipName').textContent = ship._customName || ship._modelName;
-  el('modalShipSub').textContent = `${ship._modelName} · ${ship._parked ? 'Parked' : 'Active'} at ${ship._planet || 'unknown'}${ship._system ? ', ' + ship._system : ''}`;
+  el('modalShipSub').textContent  = `${ship._modelName} · ${ship._parked ? 'Parked' : 'Active'} at ${ship._planet || 'unknown'}${ship._system ? ', ' + ship._system : ''}`;
 
   const quickStats = [
-    { label: 'Hull', value: fmtNum(ship._hull) },
-    { label: 'Shields', value: fmtNum(ship._shields) },
-    { label: 'Fuel', value: fmtNum(ship._fuel) },
-    { label: 'Crew', value: ship._crew ?? '—' },
-    { label: 'Guns', value: ship.guns.length },
-    { label: 'Turrets', value: ship.turrets.length },
+    { label: 'Hull',         value: fmtNum(ship._hull) },
+    { label: 'Shields',      value: fmtNum(ship._shields) },
+    { label: 'Fuel',         value: fmtNum(ship._fuel) },
+    { label: 'Crew',         value: ship._crew ?? '—' },
+    { label: 'Guns',         value: ship.guns.length },
+    { label: 'Turrets',      value: ship.turrets.length },
     { label: 'Fighter Bays', value: ship.fighters.length },
-    { label: 'Drone Bays', value: ship.drones.length },
+    { label: 'Drone Bays',   value: ship.drones.length },
   ];
 
-  const outfitChips = ship.outfits.length
-    ? `<div class="ld-pills">${ship.outfits.map(o =>
-        `<span class="ld-pill">${esc(o.name)}${o.count > 1 ? ` ×${o.count}` : ''}</span>`).join('')}</div>`
+  const outfitChips     = ship.outfits.length
+    ? `<div class="ld-pills">${ship.outfits.map(o => `<span class="ld-pill">${esc(o.name)}${o.count > 1 ? ` ×${o.count}` : ''}</span>`).join('')}</div>`
     : `<div class="ld-empty">No outfits installed.</div>`;
-
-  const gunList    = ship.guns.length    ? ship.guns.map(g => g.over ? esc(g.over) : '(empty mount)').join(', ') : null;
-  const turretList = ship.turrets.length ? ship.turrets.map(t => t.over ? esc(t.over) : '(empty mount)').join(', ') : null;
-
-  const attrKeys = Object.keys(a).filter(k => k !== 'licenses');
-  const attrCells = attrKeys.map(k => `
-    <div class="attribute">
-      <div class="attribute-name">${esc(k)}</div>
-      <div class="attribute-value">${esc(String(a[k]))}</div>
-    </div>`).join('');
-
-  const leakRows = ship.leaks.length
-    ? ship.leaks.map(l => `<div class="ad-row"><span class="ad-label">${esc(l.name)}</span><span class="ad-value">open ${l.openChance}% · spread ${l.spreadChance}%</span></div>`).join('')
-    : null;
-  const explodeStr      = ship.explode.length ? ship.explode.map(e => `${esc(e.name)} ×${e.count}`).join(', ') : null;
+  const gunList         = ship.guns.length    ? ship.guns.map(g    => g.over ? esc(g.over) : '(empty mount)').join(', ') : null;
+  const turretList      = ship.turrets.length ? ship.turrets.map(t => t.over ? esc(t.over) : '(empty mount)').join(', ') : null;
+  const attrKeys        = Object.keys(a).filter(k => k !== 'licenses');
+  const leakRows        = ship.leaks.length        ? ship.leaks.map(l        => `<div class="ad-row"><span class="ad-label">${esc(l.name)}</span><span class="ad-value">open ${l.openChance}% · spread ${l.spreadChance}%</span></div>`).join('') : null;
+  const explodeStr      = ship.explode.length      ? ship.explode.map(e      => `${esc(e.name)} ×${e.count}`).join(', ') : null;
   const finalExplodeStr = ship.finalExplode.length ? ship.finalExplode.map(e => `${esc(e.name)} ×${e.count}`).join(', ') : null;
 
   el('modalBody').innerHTML = `
@@ -964,24 +829,24 @@ function openShipModal(idx) {
           <div class="attribute-value">${esc(String(q.value))}</div>
         </div>`).join('')}
     </div>
-
     <div class="ad-section-title">Hardpoints</div>
-    ${gunList ? `<div class="ad-row"><span class="ad-label">Guns</span><span class="ad-value">${gunList}</span></div>` : ''}
+    ${gunList    ? `<div class="ad-row"><span class="ad-label">Guns</span><span class="ad-value">${gunList}</span></div>`       : ''}
     ${turretList ? `<div class="ad-row"><span class="ad-label">Turrets</span><span class="ad-value">${turretList}</span></div>` : ''}
     ${(!gunList && !turretList) ? `<div class="ld-empty">None recorded.</div>` : ''}
-
     <div class="ad-section-title">Outfits</div>
     ${outfitChips}
-
     ${attrKeys.length ? `
       <div class="ad-section-title">Attributes</div>
-      <div class="attribute-grid">${attrCells}</div>
+      <div class="attribute-grid">${attrKeys.map(k => `
+        <div class="attribute">
+          <div class="attribute-name">${esc(k)}</div>
+          <div class="attribute-value">${esc(String(a[k]))}</div>
+        </div>`).join('')}</div>
     ` : ''}
-
     ${(leakRows || explodeStr || finalExplodeStr) ? `
       <div class="ad-section-title">Effects</div>
       ${leakRows || ''}
-      ${explodeStr ? `<div class="ad-row"><span class="ad-label">Explode</span><span class="ad-value">${explodeStr}</span></div>` : ''}
+      ${explodeStr      ? `<div class="ad-row"><span class="ad-label">Explode</span><span class="ad-value">${explodeStr}</span></div>`            : ''}
       ${finalExplodeStr ? `<div class="ad-row"><span class="ad-label">Final explode</span><span class="ad-value">${finalExplodeStr}</span></div>` : ''}
     ` : ''}
   `;
@@ -998,32 +863,268 @@ document.addEventListener('keydown', e => {
 });
 
 // ═══════════════════════════════════════════════════════════
-//  SEARCH / SORT CONTROLS
+//  SEARCH / SORT
 // ═══════════════════════════════════════════════════════════
 
-el('searchInput').addEventListener('input', e => {
-  activeFilter = e.target.value;
-  renderFleetGrid();
-});
-el('sortSelect').addEventListener('change', e => {
-  activeSort = e.target.value;
-  renderFleetGrid();
-});
+el('searchInput').addEventListener('input', e => { activeFilter = e.target.value; renderFleetGrid(); });
+el('sortSelect').addEventListener('change', e => { activeSort   = e.target.value; renderFleetGrid(); });
 
 // ═══════════════════════════════════════════════════════════
-//  RESULT BUTTONS — export / remove
+//  FLEET IMPORT BRIDGE
+//
+//  Two separate localStorage targets:
+//
+//  1. ES_SM_ACTIVE_SAVE_SHIPS  ← primary target
+//       Always reflects the ships of the currently-imported
+//       save. Replaced each time a new save is imported (with
+//       a confirmation prompt if non-empty). shipBuilder reads
+//       this on load and merges ships into sbFleet as fully
+//       editable entries tagged _fromSave:true. sbSave() must
+//       never write to this key.
+//
+//  2. es_ship_builder_v4  ← optional secondary target
+//       The user's main custom-build fleet. Ships are appended
+//       or replace depending on their choice. Only touched when
+//       they explicitly confirm they want ships added here too.
 // ═══════════════════════════════════════════════════════════
+
+/** Normalise outfits from map or array → array (mirrors sbNormaliseOutfitsToArray). */
+function _smNormaliseOutfitsArray(outfits) {
+  if (!outfits) return [];
+  if (Array.isArray(outfits)) {
+    return outfits.map(o => ({
+      name:     (o.name || '').replace(/^"|"$/g, ''),
+      count:    parseInt(o.count) || 1,
+      pluginId: o.pluginId || null,
+    }));
+  }
+  if (typeof outfits === 'object') {
+    return Object.entries(outfits).map(([name, val]) => ({
+      name:     name.replace(/^"|"$/g, ''),
+      count:    typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1),
+      pluginId: typeof val === 'object' ? (val.pluginId || null)     : null,
+    }));
+  }
+  return [];
+}
+
+/**
+ * Convert one parsed-save ship into the shipBuilder internal format.
+ * Tagged with _fromSave:true so the builder can badge it distinctly.
+ */
+function smConvertShipToBuilderFormat(ship) {
+  const outfits = (ship.outfits || []).map(o => ({
+    name:     (o.name || '').replace(/^"|"$/g, ''),
+    count:    parseInt(o.count) || 1,
+    pluginId: o.pluginId || null,
+  }));
+
+  const leaks = (ship.leaks || []).map(l => ({
+    name:         String(l.name || l.effect || ''),
+    openChance:   parseInt(l.openChance)   || 0,
+    spreadChance: parseInt(l.spreadChance) || 0,
+  }));
+
+  const guns    = (ship.guns    || []).map(g => ({ coords: g.coords || '0 0', over: g.over || '' }));
+  const turrets = (ship.turrets || []).map(g => ({ coords: g.coords || '0 0', over: g.over || '' }));
+  const engines = (ship.engines || []).map(e => ({
+    coords: e.coords || '0 0',
+    zoom:   e.zoom  != null ? String(e.zoom)  : '',
+    angle:  e.angle != null ? String(e.angle) : '',
+  }));
+  const fighters     = (ship.fighters     || []).map(f => ({ coords: f.coords || '0 0', launchEffect: f.launchEffect || '' }));
+  const drones       = (ship.drones       || []).map(d => ({ coords: d.coords || '0 0', launchEffect: d.launchEffect || '' }));
+  const explode      = (ship.explode      || []).map(e => ({ name: e.name || '', count: parseInt(e.count) || 1 }));
+  const finalExplode = (ship.finalExplode || []).map(e => ({ name: e.name || '', count: parseInt(e.count) || 1 }));
+
+  // mass/drag: parser stores at top-level; shipBuilder keeps them separate from attributes{}
+  const attrs = { ...(ship.attributes || {}) };
+  const mass  = ship.mass != null && ship.mass !== '' ? String(ship.mass)
+              : attrs.mass != null ? String(attrs.mass) : '';
+  const drag  = ship.drag != null && ship.drag !== '' ? String(ship.drag)
+              : attrs.drag != null ? String(attrs.drag) : '';
+  delete attrs.mass;
+  delete attrs.drag;
+
+  const weapon = ship.weapon && typeof ship.weapon === 'object'
+    ? {
+        'blast radius':  Number(ship.weapon['blast radius']  ?? 0) || 0,
+        'shield damage': Number(ship.weapon['shield damage'] ?? 0) || 0,
+        'hull damage':   Number(ship.weapon['hull damage']   ?? 0) || 0,
+        'hit force':     Number(ship.weapon['hit force']     ?? 0) || 0,
+      }
+    : { 'blast radius': 0, 'shield damage': 0, 'hull damage': 0, 'hit force': 0 };
+
+  return {
+    id:          Date.now() + Math.random(),
+    name:        ship._modelName  || ship.name       || '',
+    customName:  ship._customName || ship.customName || '',
+    variant:     ship.variant     || '',
+    plural:      ship.plural      || '',
+    sprite:      ship.sprite      || '',
+    thumbnail:   ship.thumbnail   || '',
+    description: ship.description || '',
+    mass,
+    drag,
+    attributes:      attrs,
+    weapon,
+    outfits,
+    guns,
+    turrets,
+    drones,
+    fighters,
+    engines,
+    reverseEngines:  (ship.reverseEngines  || []),
+    steeringEngines: (ship.steeringEngines || []),
+    leaks,
+    explode,
+    finalExplode,
+    extraLines:      [...(ship.extraLines || [])],
+    _sourceShip:     ship._modelName    || null,
+    _sourcePlugin:   ship._sourcePlugin || null,
+    // Save-file runtime metadata
+    _uuid:      ship._uuid      || '',
+    _swizzle:   ship._swizzle   ?? null,
+    _crew:      ship._crew      ?? null,
+    _fuel:      ship._fuel      ?? null,
+    _shields:   ship._shields   ?? null,
+    _hull:      ship._hull      ?? null,
+    _position:  ship._position  ?? null,
+    _system:    ship._system    || '',
+    _planet:    ship._planet    || '',
+    _parked:    ship._parked    || false,
+    _formation: ship._formation || '',
+    // ← tag so shipBuilder can show a "From save" badge
+    _fromSave:  true,
+  };
+}
+
+/** Serialise a ship array into the map format sbSave() uses. */
+function _smSerialiseForBuilder(shipArray) {
+  return shipArray.map(ship => ({
+    ...ship,
+    outfits: Object.fromEntries(
+      (ship.outfits || []).map(o => [
+        o.name.replace(/^"|"$/g, ''),
+        { count: o.count ?? 1, pluginId: o.pluginId ?? null },
+      ])
+    ),
+  }));
+}
+
+/**
+ * Write converted ships to ES_SM_ACTIVE_SAVE_SHIPS.
+ * Asks the user before replacing an existing set.
+ * Returns true if written, false if cancelled.
+ */
+function smWriteActiveSaveShips(save) {
+  const existing = smGetActiveSaveShips();
+
+  if (existing && existing.length) {
+    const replace = window.confirm(
+      `Your Ship Builder already has ${existing.length} ship${existing.length !== 1 ? 's' : ''} loaded from a previous save.\n\nReplace them with the ${save.ships.length} ships from "${save.pilot.name || 'this save'}"?\n\nOK = replace  |  Cancel = keep existing`
+    );
+    if (!replace) return false;
+  }
+
+  const converted = save.ships.map(smConvertShipToBuilderFormat);
+  smSetActiveSaveShips(_smSerialiseForBuilder(converted));
+  return true;
+}
+
+/**
+ * Optionally also push ships into the main builder fleet
+ * (es_ship_builder_v4), appending or replacing as the user chooses.
+ */
+function smImportFleetToBuilder(save, mode = 'append') {
+  if (!save?.ships?.length) return { added: 0, total: 0 };
+
+  const SB_KEY = 'es_ship_builder_v4';
+  let existing = [];
+  try {
+    const raw = localStorage.getItem(SB_KEY);
+    if (raw) {
+      existing = JSON.parse(raw).map(s => ({
+        ...s,
+        outfits: _smNormaliseOutfitsArray(s.outfits),
+      }));
+    }
+  } catch (e) {
+    console.warn('[saveManager] Could not read existing builder fleet:', e);
+  }
+
+  if (mode === 'replace') existing = [];
+
+  const converted = save.ships.map(smConvertShipToBuilderFormat);
+  const merged    = [...existing, ...converted];
+
+  try {
+    localStorage.setItem(SB_KEY, JSON.stringify(_smSerialiseForBuilder(merged)));
+  } catch (e) {
+    console.warn('[saveManager] Could not write builder fleet:', e);
+    return { added: 0, total: 0 };
+  }
+
+  // Hot-reload shipBuilder if it's live on the same page
+  if (typeof sbLoad === 'function' && typeof renderFleet === 'function') {
+    sbLoad();
+    renderFleet();
+    if (typeof renderExportChecklist === 'function') renderExportChecklist();
+  }
+
+  return { added: converted.length, total: merged.length };
+}
+
+// ── Button wiring ─────────────────────────────────────────
 
 el('exportJsonBtn').addEventListener('click', () => {
   if (!parsedSave) return;
   const blob = new Blob([JSON.stringify(parsedSave, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = (parsedSave.pilot.name || 'fleet').replace(/\s+/g, '_') + '_parsed.json';
-  a.click();
+  const url  = URL.createObjectURL(blob);
+  Object.assign(document.createElement('a'), {
+    href:     url,
+    download: (parsedSave.pilot.name || 'fleet').replace(/\s+/g, '_') + '_parsed.json',
+  }).click();
   URL.revokeObjectURL(url);
   toast('Exported parsed JSON.', 'success');
+});
+
+el('importFleetBtn').addEventListener('click', () => {
+  if (!parsedSave) return;
+
+  const shipCount = parsedSave.ships.length;
+  const pilotName = parsedSave.pilot.name || 'this save';
+
+  // Step 1 — write to the dedicated active-save-ships area
+  // (asks before replacing if it's already populated)
+  const written = smWriteActiveSaveShips(parsedSave);
+  if (!written) return;
+
+  // Hot-reload the save-ships section in shipBuilder if it's live
+  if (typeof sbLoadSaveShips === 'function') sbLoadSaveShips();
+
+  // Step 2 — optionally also push into the main builder fleet
+  const alsoAddToFleet = window.confirm(
+    `${shipCount} ship${shipCount !== 1 ? 's' : ''} from "${pilotName}" are now in the Ship Builder's save-ships area.\n\nAlso copy them into your main builder fleet?\n\nOK = yes, add to main fleet  |  Cancel = save-ships area only`
+  );
+
+  if (alsoAddToFleet) {
+    const doReplace = window.confirm(
+      `Add to your existing main fleet, or replace it?\n\nOK = replace  |  Cancel = append`
+    );
+    const { added, total } = smImportFleetToBuilder(parsedSave, doReplace ? 'replace' : 'append');
+    toast(
+      added > 0
+        ? `${added} ship${added !== 1 ? 's' : ''} also added to main fleet (${total} total).`
+        : 'Main fleet import failed.',
+      added > 0 ? 'success' : 'danger'
+    );
+  } else {
+    toast(
+      `${shipCount} ship${shipCount !== 1 ? 's' : ''} loaded into Ship Builder — open the Ship Builder to edit them.`,
+      'success'
+    );
+  }
 });
 
 el('removeSaveBtn').addEventListener('click', () => {
@@ -1048,8 +1149,4 @@ document.querySelectorAll('#resultTabs .tab').forEach(tabEl => {
 //  INIT
 // ═══════════════════════════════════════════════════════════
 
-// smBootstrap now runs once savereader.html's loading gate confirms
-// window.DataLoader has finished loading — not on DOMContentLoaded, since
-// that would run before window.allData is populated and is exactly the
-// race this whole gate exists to prevent.
 document.addEventListener('saveReaderDataReady', smBootstrap);
