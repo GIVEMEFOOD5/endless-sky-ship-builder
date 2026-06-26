@@ -7,34 +7,39 @@
 //    'edit'   — edit an existing parsed/saved ship
 //    'outfit' — outfit an existing ship (starts on outfits tab)
 //
-//  FIXES:
-//    - sbRenderOutfitsList: outfit attribute lookup now checks
-//      outfit.attributes first, then top-level, matching the
-//      actual data format from remote plugin JSON files.
-//    - sbGetOutfitCapacityEffect: same fix for capacity tracking.
-//    - sbUpdateQuickStats: passes LOCAL_PLUGIN_ID so ComputedStats
-//      can find outfits from the merged index.
-//    - sbShipFromParsed: pluginId is correctly preserved on each
-//      outfit entry so ComputedStats resolves them properly.
-//    - sbSave/sbLoad: robust round-trip ensuring outfits are always
-//      stored as a map and restored as an array correctly.
-//    - Leak format: parser produces { effect, openChance, spreadChance }.
-//      shipBuilder normalises to { name, openChance, spreadChance }
-//      internally. ES output: leak "name" <openChance> <spreadChance>.
+//  Fleet storage:
+//    es_ship_builder_v4      →  main built fleet (sbFleet)
+//    ES_SM_ACTIVE_SAVE_SHIPS →  current save's ships (sbSaveFleet)
+//      sbSave() never touches ES_SM_ACTIVE_SAVE_SHIPS.
+//      sbSaveSaveShips() never touches es_ship_builder_v4.
+//      Both are loaded on init and kept in separate arrays.
+//
+//  Save-ship editing:
+//    sbEditMode === 'save' means we are editing from sbSaveFleet.
+//    saveShip() checks sbEditMode and writes to the correct store.
+//    Duplicating a save ship promotes it into sbFleet.
 // ═══════════════════════════════════════════════════════════
 
-const SB_STORAGE_KEY = 'es_ship_builder_v4';
+const SB_STORAGE_KEY      = 'es_ship_builder_v4';
+const SB_SAVE_SHIPS_KEY   = 'ES_SM_ACTIVE_SAVE_SHIPS';
 
-let sbFleet       = [];
-let sbEditIdx     = -1;
+let sbFleet       = [];       // main built fleet
+let sbSaveFleet   = [];       // ships from current save file
+let sbEditIdx     = -1;       // index in sbFleet (-1 = new)
+let sbSaveEditIdx = -1;       // index in sbSaveFleet (-1 = not editing a save ship)
+let sbEditMode    = 'built';  // 'built' | 'save'
 let sbCurrentShip = null;
-let sbMode        = 'new';
+let sbMode        = 'new';    // 'new' | 'edit' | 'outfit'
+
+// Collapse state — save fleet starts collapsed, built fleet expanded
+let sbSaveFleetCollapsed  = true;
+let sbBuiltFleetCollapsed = false;
 
 // Live data mirrors from DataViewer
 let sbAllShips   = [];
 let sbAllOutfits = [];
 let sbAllEffects = [];
-let sbAttrKeys   = [];  // sorted list of all known attribute keys
+let sbAttrKeys   = [];
 
 // ═══════════════════════════════════════════════════════════
 //  DATA BRIDGE
@@ -90,124 +95,119 @@ function sbBlank() {
   };
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
 //  LEAK NORMALISATION
-//
-//  The parser (parser.js) emits leaks as:
-//    { effect: "leak", openChance: 30, spreadChance: 50 }
-//
-//  shipBuilder stores leaks internally as:
-//    { name: "leak", openChance: 30, spreadChance: 50 }
-//
-//  The ES text format is:
-//    leak "name" <openChance> <spreadChance>
-//
-//  This helper canonicalises any of the forms that might arrive (parser
-//  format, old { name, count } format from legacy saves, raw string) into
-//  the internal format.  It never returns null — bad input becomes a
-//  zeroed-out entry so the UI still renders.
-// ─────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
 function _sbNormaliseLeak(raw) {
   if (!raw) return { name: '', openChance: 0, spreadChance: 0 };
-
-  // Parser format: { effect, openChance, spreadChance }
   if (typeof raw === 'object' && raw.effect != null) {
-    return {
-      name:        String(raw.effect),
-      openChance:  parseInt(raw.openChance)  || 0,
-      spreadChance: parseInt(raw.spreadChance) || 0,
-    };
+    return { name: String(raw.effect), openChance: parseInt(raw.openChance) || 0, spreadChance: parseInt(raw.spreadChance) || 0 };
   }
-
-  // Already internal format: { name, openChance, spreadChance }
   if (typeof raw === 'object' && raw.name != null && raw.openChance != null) {
-    return {
-      name:        String(raw.name),
-      openChance:  parseInt(raw.openChance)  || 0,
-      spreadChance: parseInt(raw.spreadChance) || 0,
-    };
+    return { name: String(raw.name), openChance: parseInt(raw.openChance) || 0, spreadChance: parseInt(raw.spreadChance) || 0 };
   }
-
-  // Legacy / manual format: { name, count } — treat count as openChance, 0 spread
   if (typeof raw === 'object' && raw.name != null) {
-    return {
-      name:        String(raw.name),
-      openChance:  parseInt(raw.count) || 0,
-      spreadChance: 0,
-    };
+    return { name: String(raw.name), openChance: parseInt(raw.count) || 0, spreadChance: 0 };
   }
-
-  // Raw string: 'leak 30 50' or '"leak" 30 50'
   if (typeof raw === 'string') {
     const tok = raw.trim().match(/^("([^"]+)"|(\S+))(?:\s+(\d+))?(?:\s+(\d+))?$/);
-    if (tok) {
-      return {
-        name:        (tok[2] || tok[3] || '').replace(/^"|"$/g, ''),
-        openChance:  parseInt(tok[4]) || 0,
-        spreadChance: parseInt(tok[5]) || 0,
-      };
-    }
+    if (tok) return { name: (tok[2] || tok[3] || '').replace(/^"|"$/g, ''), openChance: parseInt(tok[4]) || 0, spreadChance: parseInt(tok[5]) || 0 };
     return { name: raw.trim(), openChance: 0, spreadChance: 0 };
   }
-
   return { name: '', openChance: 0, spreadChance: 0 };
 }
 
 // ═══════════════════════════════════════════════════════════
-//  PERSISTENCE
+//  OUTFIT NORMALISATION
+// ═══════════════════════════════════════════════════════════
+function _sbNormaliseOutfitsToArray(outfits) {
+  if (!outfits) return [];
+  if (Array.isArray(outfits)) {
+    return outfits.map(o => ({
+      name:     (o.name || '').replace(/^"|"$/g, ''),
+      count:    parseInt(o.count) || 1,
+      pluginId: o.pluginId || null,
+    }));
+  }
+  if (typeof outfits === 'object') {
+    return Object.entries(outfits).map(([name, val]) => ({
+      name:     name.replace(/^"|"$/g, ''),
+      count:    typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1),
+      pluginId: typeof val === 'object' ? (val.pluginId || null) : null,
+    }));
+  }
+  return [];
+}
+
+// ═══════════════════════════════════════════════════════════
+//  PERSISTENCE — MAIN BUILT FLEET
 // ═══════════════════════════════════════════════════════════
 
-// sbSave() — convert internal array to map format before writing
 function sbSave() {
-    const toStore = sbFleet.map(ship => ({
-        ...ship,
-        outfits: Object.fromEntries(
-            (ship.outfits || []).map(o => [
-                o.name.replace(/^"|"$/g, ''),
-                { count: o.count ?? 1, pluginId: o.pluginId ?? null }
-            ])
-        )
-    }));
-    try { localStorage.setItem(SB_STORAGE_KEY, JSON.stringify(toStore)); } catch(e) {}
+  // Only writes to es_ship_builder_v4 — never touches ES_SM_ACTIVE_SAVE_SHIPS
+  const toStore = sbFleet.map(ship => ({
+    ...ship,
+    outfits: Object.fromEntries(
+      (ship.outfits || []).map(o => [
+        o.name.replace(/^"|"$/g, ''),
+        { count: o.count ?? 1, pluginId: o.pluginId ?? null },
+      ])
+    ),
+  }));
+  try { localStorage.setItem(SB_STORAGE_KEY, JSON.stringify(toStore)); } catch(e) {}
 }
 
-// sbLoad() — convert map format back to internal array on load
 function sbLoad() {
-    try {
-        const d = localStorage.getItem(SB_STORAGE_KEY);
-        if (d) {
-            const raw = JSON.parse(d);
-            sbFleet = raw.map(ship => ({
-                ...ship,
-                outfits: _sbNormaliseOutfitsToArray(ship.outfits),
-                leaks:   (ship.leaks || []).map(_sbNormaliseLeak),
-            }));
-        }
-    } catch(e) { sbFleet = []; }
+  try {
+    const d = localStorage.getItem(SB_STORAGE_KEY);
+    if (d) {
+      const raw = JSON.parse(d);
+      sbFleet = raw.map(ship => ({
+        ...ship,
+        outfits: _sbNormaliseOutfitsToArray(ship.outfits),
+        leaks:   (ship.leaks || []).map(_sbNormaliseLeak),
+      }));
+    }
+  } catch(e) { sbFleet = []; }
 }
 
-// FIX: centralised normaliser — always produces the array format that
-// shipBuilder's UI expects internally, regardless of whether the stored
-// data is a map (from sbSave) or already an array (legacy saves).
-function _sbNormaliseOutfitsToArray(outfits) {
-    if (!outfits) return [];
-    if (Array.isArray(outfits)) {
-        // Already array format — ensure each entry has expected shape
-        return outfits.map(o => ({
-            name:     (o.name || '').replace(/^"|"$/g, ''),
-            count:    parseInt(o.count) || 1,
-            pluginId: o.pluginId || null,
-        }));
+// ═══════════════════════════════════════════════════════════
+//  PERSISTENCE — SAVE FLEET
+//  Reads/writes ES_SM_ACTIVE_SAVE_SHIPS only.
+//  Called by saveManager via sbLoadSaveShips() for hot-reload.
+// ═══════════════════════════════════════════════════════════
+
+function sbLoadSaveShips() {
+  try {
+    const d = localStorage.getItem(SB_SAVE_SHIPS_KEY);
+    if (d) {
+      const raw = JSON.parse(d);
+      sbSaveFleet = raw.map(ship => ({
+        ...ship,
+        outfits: _sbNormaliseOutfitsToArray(ship.outfits),
+        leaks:   (ship.leaks || []).map(_sbNormaliseLeak),
+        _fromSave: true,
+      }));
+    } else {
+      sbSaveFleet = [];
     }
-    if (typeof outfits === 'object') {
-        // Map format from sbSave
-        return Object.entries(outfits).map(([name, val]) => ({
-            name:     name.replace(/^"|"$/g, ''),
-            count:    typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1),
-            pluginId: typeof val === 'object' ? (val.pluginId || null) : null,
-        }));
-    }
-    return [];
+  } catch(e) { sbSaveFleet = []; }
+  renderFleet();
+  renderExportChecklist();
+}
+
+function sbSaveSaveShips() {
+  // Only writes to ES_SM_ACTIVE_SAVE_SHIPS — never touches es_ship_builder_v4
+  const toStore = sbSaveFleet.map(ship => ({
+    ...ship,
+    outfits: Object.fromEntries(
+      (ship.outfits || []).map(o => [
+        o.name.replace(/^"|"$/g, ''),
+        { count: o.count ?? 1, pluginId: o.pluginId ?? null },
+      ])
+    ),
+  }));
+  try { localStorage.setItem(SB_SAVE_SHIPS_KEY, JSON.stringify(toStore)); } catch(e) {}
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -225,35 +225,236 @@ function showBuilderView() {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  FLEET RENDER
+//  FLEET RENDER — two collapsible sections
 // ═══════════════════════════════════════════════════════════
 function renderFleet() {
   const grid = document.getElementById('fleet-grid');
   if (!grid) return;
-  if (!sbFleet.length) {
+
+  const hasSaveShips  = sbSaveFleet.length  > 0;
+  const hasBuiltShips = sbFleet.length > 0;
+
+  if (!hasSaveShips && !hasBuiltShips) {
     grid.innerHTML = `<div class="fleet-empty"><div class="fleet-empty__icon">🛸</div>
-      <p>No ships yet. Create a new ship, outfit an existing one, or import ES data.</p></div>`;
+      <p>No ships yet. Create a new ship, outfit an existing one, or import a save file.</p></div>`;
     return;
   }
-  grid.innerHTML = sbFleet.map((s, i) => {
-    const a = s.attributes || {};
-    const src = s._sourceShip ? `<span class="badge badge-blue" style="font-size:0.65rem;margin-left:6px;">based on ${esc(s._sourceShip)}</span>` : '';
-    return `<div class="fleet-card" onclick="sbEditFleetShip(${i})">
-      <div class="fleet-card__name">${esc(s.name || 'Unnamed Ship')}${src}</div>
-      <div class="fleet-card__variant">${s.variant ? esc(s.variant) : '<em style="color:var(--c-text-dim)">No variant</em>'}</div>
-      <div class="fleet-card__stats">
-        <div class="fleet-card__stat"><div class="fleet-card__stat-label">Shields</div><div class="fleet-card__stat-value">${a.shields||'—'}</div></div>
-        <div class="fleet-card__stat"><div class="fleet-card__stat-label">Hull</div><div class="fleet-card__stat-value">${a.hull||'—'}</div></div>
-        <div class="fleet-card__stat"><div class="fleet-card__stat-label">Category</div><div class="fleet-card__stat-value" style="font-size:0.8rem;">${a.category||'—'}</div></div>
-        <div class="fleet-card__stat"><div class="fleet-card__stat-label">Outfits</div><div class="fleet-card__stat-value">${(s.outfits||[]).length}</div></div>
-      </div>
-      <div class="fleet-card__actions" onclick="event.stopPropagation()">
-        <button class="btn btn-primary btn-sm"   onclick="sbEditFleetShip(${i})">✏️ Edit</button>
-        <button class="btn btn-secondary btn-sm" onclick="sbDuplicate(${i})">⧉ Copy</button>
-        <button class="btn btn-danger btn-sm"    onclick="sbConfirmDelete(${i})">🗑</button>
-      </div>
-    </div>`;
-  }).join('');
+
+  // ── Save Fleet Section ──────────────────────────────────
+  let saveSection = '';
+  if (hasSaveShips) {
+    const saveCards = sbSaveFleet.map((s, i) => {
+      const a = s.attributes || {};
+      return `<div class="fleet-card" onclick="sbEditSaveShip(${i})">
+        <div class="fleet-card__name">
+          ${esc(s.customName || s.name || 'Unnamed Ship')}
+          <span class="badge" style="font-size:0.62rem;margin-left:6px;background:var(--c-accent);color:#fff;padding:2px 7px;border-radius:10px;vertical-align:middle;">💾 Save</span>
+          ${s._parked ? '<span class="badge" style="font-size:0.62rem;margin-left:4px;background:var(--c-warn);color:var(--c-warn-text);padding:2px 7px;border-radius:10px;vertical-align:middle;">Parked</span>' : ''}
+        </div>
+        <div class="fleet-card__variant">${esc(s.name || '')}${s._system ? ' <span style="color:var(--c-text-dim);font-size:0.78rem;">· ' + esc(s._system) + '</span>' : ''}</div>
+        <div class="fleet-card__stats">
+          <div class="fleet-card__stat"><div class="fleet-card__stat-label">Shields</div><div class="fleet-card__stat-value">${a.shields || s._shields || '—'}</div></div>
+          <div class="fleet-card__stat"><div class="fleet-card__stat-label">Hull</div><div class="fleet-card__stat-value">${a.hull || s._hull || '—'}</div></div>
+          <div class="fleet-card__stat"><div class="fleet-card__stat-label">Category</div><div class="fleet-card__stat-value" style="font-size:0.8rem;">${a.category || '—'}</div></div>
+          <div class="fleet-card__stat"><div class="fleet-card__stat-label">Outfits</div><div class="fleet-card__stat-value">${(s.outfits || []).length}</div></div>
+        </div>
+        <div class="fleet-card__actions" onclick="event.stopPropagation()">
+          <button class="btn btn-primary btn-sm"   onclick="sbEditSaveShip(${i})">✏️ Edit</button>
+          <button class="btn btn-secondary btn-sm" onclick="sbPromoteSaveShip(${i})" title="Copy into main fleet">⬆ Promote</button>
+          <button class="btn btn-danger btn-sm"    onclick="sbConfirmDeleteSaveShip(${i})">🗑</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    saveSection = `
+      <div class="fleet-section" id="save-fleet-section">
+        <div class="fleet-section-header" onclick="sbToggleSaveFleet()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--c-surface-2);border-radius:var(--r-md);margin-bottom:${sbSaveFleetCollapsed ? '0' : '12px'};user-select:none;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:1rem;font-weight:700;color:var(--c-text-hi);">💾 Current Save Fleet</span>
+            <span class="badge" style="background:var(--c-accent);color:#fff;font-size:0.72rem;padding:2px 9px;border-radius:10px;">${sbSaveFleet.length} ship${sbSaveFleet.length !== 1 ? 's' : ''}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();sbClearSaveFleet()" title="Clear all save ships">🗑 Clear</button>
+            <span style="font-size:1.1rem;color:var(--c-text-dim);transition:transform .2s;" id="save-fleet-chevron">${sbSaveFleetCollapsed ? '▶' : '▼'}</span>
+          </div>
+        </div>
+        <div id="save-fleet-cards" style="display:${sbSaveFleetCollapsed ? 'none' : 'grid'};grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px;">
+          ${saveCards}
+        </div>
+      </div>`;
+  }
+
+  // ── Built Fleet Section ─────────────────────────────────
+  let builtSection = '';
+  if (hasBuiltShips) {
+    const builtCards = sbFleet.map((s, i) => {
+      const a = s.attributes || {};
+      const src = s._sourceShip
+        ? `<span class="badge badge-blue" style="font-size:0.65rem;margin-left:6px;">based on ${esc(s._sourceShip)}</span>`
+        : '';
+      return `<div class="fleet-card" onclick="sbEditFleetShip(${i})">
+        <div class="fleet-card__name">${esc(s.name || 'Unnamed Ship')}${src}</div>
+        <div class="fleet-card__variant">${s.variant ? esc(s.variant) : '<em style="color:var(--c-text-dim)">No variant</em>'}</div>
+        <div class="fleet-card__stats">
+          <div class="fleet-card__stat"><div class="fleet-card__stat-label">Shields</div><div class="fleet-card__stat-value">${a.shields || '—'}</div></div>
+          <div class="fleet-card__stat"><div class="fleet-card__stat-label">Hull</div><div class="fleet-card__stat-value">${a.hull || '—'}</div></div>
+          <div class="fleet-card__stat"><div class="fleet-card__stat-label">Category</div><div class="fleet-card__stat-value" style="font-size:0.8rem;">${a.category || '—'}</div></div>
+          <div class="fleet-card__stat"><div class="fleet-card__stat-label">Outfits</div><div class="fleet-card__stat-value">${(s.outfits || []).length}</div></div>
+        </div>
+        <div class="fleet-card__actions" onclick="event.stopPropagation()">
+          <button class="btn btn-primary btn-sm"   onclick="sbEditFleetShip(${i})">✏️ Edit</button>
+          <button class="btn btn-secondary btn-sm" onclick="sbDuplicate(${i})">⧉ Copy</button>
+          <button class="btn btn-danger btn-sm"    onclick="sbConfirmDelete(${i})">🗑</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    builtSection = `
+      <div class="fleet-section" id="built-fleet-section">
+        <div class="fleet-section-header" onclick="sbToggleBuiltFleet()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--c-surface-2);border-radius:var(--r-md);margin-bottom:${sbBuiltFleetCollapsed ? '0' : '12px'};user-select:none;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:1rem;font-weight:700;color:var(--c-text-hi);">🛸 My Built Fleet</span>
+            <span class="badge" style="background:var(--c-surface-4);color:var(--c-text-mid);font-size:0.72rem;padding:2px 9px;border-radius:10px;">${sbFleet.length} ship${sbFleet.length !== 1 ? 's' : ''}</span>
+          </div>
+          <span style="font-size:1.1rem;color:var(--c-text-dim);transition:transform .2s;" id="built-fleet-chevron">${sbBuiltFleetCollapsed ? '▶' : '▼'}</span>
+        </div>
+        <div id="built-fleet-cards" style="display:${sbBuiltFleetCollapsed ? 'none' : 'grid'};grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px;">
+          ${builtCards}
+        </div>
+      </div>`;
+  } else if (!hasSaveShips) {
+    // neither fleet has ships — already handled above
+  } else {
+    builtSection = `
+      <div class="fleet-section" id="built-fleet-section">
+        <div class="fleet-section-header" style="padding:12px 16px;background:var(--c-surface-2);border-radius:var(--r-md);margin-bottom:0;">
+          <span style="font-size:1rem;font-weight:700;color:var(--c-text-hi);">🛸 My Built Fleet</span>
+          <span style="margin-left:10px;font-size:0.82rem;color:var(--c-text-dim);">No ships yet — create one below.</span>
+        </div>
+      </div>`;
+  }
+
+  grid.innerHTML = saveSection + builtSection;
+}
+
+// ── Collapse toggles ──────────────────────────────────────
+function sbToggleSaveFleet() {
+  sbSaveFleetCollapsed = !sbSaveFleetCollapsed;
+  const cards   = document.getElementById('save-fleet-cards');
+  const chevron = document.getElementById('save-fleet-chevron');
+  const header  = document.querySelector('#save-fleet-section .fleet-section-header');
+  if (cards)   cards.style.display   = sbSaveFleetCollapsed ? 'none' : 'grid';
+  if (chevron) chevron.textContent   = sbSaveFleetCollapsed ? '▶' : '▼';
+  if (header)  header.style.marginBottom = sbSaveFleetCollapsed ? '0' : '12px';
+}
+function sbToggleBuiltFleet() {
+  sbBuiltFleetCollapsed = !sbBuiltFleetCollapsed;
+  const cards   = document.getElementById('built-fleet-cards');
+  const chevron = document.getElementById('built-fleet-chevron');
+  const header  = document.querySelector('#built-fleet-section .fleet-section-header');
+  if (cards)   cards.style.display   = sbBuiltFleetCollapsed ? 'none' : 'grid';
+  if (chevron) chevron.textContent   = sbBuiltFleetCollapsed ? '▶' : '▼';
+  if (header)  header.style.marginBottom = sbBuiltFleetCollapsed ? '0' : '12px';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SAVE FLEET ACTIONS
+// ═══════════════════════════════════════════════════════════
+
+function sbEditSaveShip(i) {
+  sbRefreshLiveData();
+  sbMode        = 'edit';
+  sbEditMode    = 'save';
+  sbSaveEditIdx = i;
+  sbEditIdx     = -1;
+  sbCurrentShip = JSON.parse(JSON.stringify(sbSaveFleet[i]));
+  sbCurrentShip.outfits = _sbNormaliseOutfitsToArray(sbCurrentShip.outfits);
+  sbCurrentShip.leaks   = (sbCurrentShip.leaks || []).map(_sbNormaliseLeak);
+  sbPopulateBuilder();
+  showBuilderView();
+}
+
+/** Copy a save ship into the main built fleet (promotes it). */
+function sbPromoteSaveShip(i) {
+  const c = JSON.parse(JSON.stringify(sbSaveFleet[i]));
+  c.id       = Date.now() + Math.random();
+  c.outfits  = _sbNormaliseOutfitsToArray(c.outfits);
+  c.leaks    = (c.leaks || []).map(_sbNormaliseLeak);
+  c._fromSave = false;
+  sbFleet.push(c);
+  sbSave();
+  renderFleet();
+  renderExportChecklist();
+  sbToast(`"${c.customName || c.name || 'Ship'}" promoted to main fleet.`, 'success');
+}
+
+function sbConfirmDeleteSaveShip(i) {
+  const label = sbSaveFleet[i].customName || sbSaveFleet[i].name || 'Unnamed Ship';
+  document.getElementById('confirm-text').textContent =
+    `Remove "${label}" from the save fleet? This cannot be undone.`;
+  document.getElementById('confirm-ok-btn').onclick = () => {
+    sbSaveFleet.splice(i, 1);
+    sbSaveSaveShips();
+    closeModal('modal-confirm');
+    renderFleet();
+    sbToast('Ship removed from save fleet.', 'danger');
+  };
+  openModal('modal-confirm');
+}
+
+function sbClearSaveFleet() {
+  if (!sbSaveFleet.length) return;
+  document.getElementById('confirm-text').textContent =
+    `Clear all ${sbSaveFleet.length} ships from the save fleet? This cannot be undone.`;
+  document.getElementById('confirm-ok-btn').onclick = () => {
+    sbSaveFleet = [];
+    sbSaveSaveShips();
+    closeModal('modal-confirm');
+    renderFleet();
+    sbToast('Save fleet cleared.', 'danger');
+  };
+  openModal('modal-confirm');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  MAIN FLEET ACTIONS
+// ═══════════════════════════════════════════════════════════
+function sbEditFleetShip(i) {
+  sbRefreshLiveData();
+  sbMode        = 'edit';
+  sbEditMode    = 'built';
+  sbEditIdx     = i;
+  sbSaveEditIdx = -1;
+  sbCurrentShip = JSON.parse(JSON.stringify(sbFleet[i]));
+  sbCurrentShip.outfits = _sbNormaliseOutfitsToArray(sbCurrentShip.outfits);
+  sbCurrentShip.leaks   = (sbCurrentShip.leaks || []).map(_sbNormaliseLeak);
+  sbPopulateBuilder();
+  showBuilderView();
+}
+
+function sbDuplicate(i) {
+  const c = JSON.parse(JSON.stringify(sbFleet[i]));
+  c.id      = Date.now() + Math.random();
+  c.variant = (c.variant || '') + ' (Copy)';
+  c.outfits = _sbNormaliseOutfitsToArray(c.outfits);
+  c.leaks   = (c.leaks || []).map(_sbNormaliseLeak);
+  sbFleet.push(c);
+  sbSave();
+  renderFleet();
+  sbToast('Ship duplicated!', 'success');
+}
+
+function sbConfirmDelete(i) {
+  document.getElementById('confirm-text').textContent =
+    `Delete "${sbFleet[i].name || 'Unnamed Ship'}"? This cannot be undone.`;
+  document.getElementById('confirm-ok-btn').onclick = () => {
+    sbFleet.splice(i, 1);
+    sbSave();
+    closeModal('modal-confirm');
+    renderFleet();
+    sbToast('Ship deleted.', 'danger');
+  };
+  openModal('modal-confirm');
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -261,7 +462,7 @@ function renderFleet() {
 // ═══════════════════════════════════════════════════════════
 function newShip() {
   sbRefreshLiveData();
-  sbMode = 'new'; sbEditIdx = -1;
+  sbMode = 'new'; sbEditIdx = -1; sbSaveEditIdx = -1; sbEditMode = 'built';
   sbCurrentShip = sbBlank();
   sbPopulateBuilder();
   showBuilderView();
@@ -279,38 +480,6 @@ function openEditExisting() {
   if (!sbAllShips.length) { sbToast('No ship data loaded yet.', 'danger'); return; }
   sbMode = 'edit';
   sbOpenShipPicker();
-}
-
-function sbEditFleetShip(i) {
-  sbRefreshLiveData();
-  sbMode = 'edit'; sbEditIdx = i;
-  sbCurrentShip = JSON.parse(JSON.stringify(sbFleet[i]));
-  // Ensure outfits are in array format after JSON clone
-  sbCurrentShip.outfits = _sbNormaliseOutfitsToArray(sbCurrentShip.outfits);
-  sbCurrentShip.leaks   = (sbCurrentShip.leaks || []).map(_sbNormaliseLeak);
-  sbPopulateBuilder();
-  showBuilderView();
-}
-
-function sbDuplicate(i) {
-  const c = JSON.parse(JSON.stringify(sbFleet[i]));
-  c.id = Date.now() + Math.random();
-  c.variant = (c.variant || '') + ' (Copy)';
-  c.outfits = _sbNormaliseOutfitsToArray(c.outfits);
-  c.leaks   = (c.leaks || []).map(_sbNormaliseLeak);
-  sbFleet.push(c); sbSave(); renderFleet();
-  sbToast('Ship duplicated!', 'success');
-}
-
-function sbConfirmDelete(i) {
-  document.getElementById('confirm-text').textContent =
-    `Delete "${sbFleet[i].name || 'Unnamed Ship'}"? This cannot be undone.`;
-  document.getElementById('confirm-ok-btn').onclick = () => {
-    sbFleet.splice(i, 1); sbSave();
-    closeModal('modal-confirm'); renderFleet();
-    sbToast('Ship deleted.', 'danger');
-  };
-  openModal('modal-confirm');
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -359,7 +528,7 @@ function sbPickShip(encoded) {
   closeModal('modal-sb-ship-picker');
   const src = JSON.parse(decodeURIComponent(escape(atob(encoded))));
   sbCurrentShip = sbShipFromParsed(src);
-  sbEditIdx = -1;
+  sbEditIdx = -1; sbSaveEditIdx = -1; sbEditMode = 'built';
   sbPopulateBuilder();
   showBuilderView();
   if (sbMode === 'outfit') sbSwitchTab('outfits');
@@ -380,11 +549,8 @@ function sbShipFromParsed(src) {
     for (const [k, v] of Object.entries(src.attributes)) {
       if (k === 'mass' || k === 'drag') continue;
       if (k === 'weapon') continue;
-      if (k === 'licenses' && typeof v === 'object') {
-        s.attributes[k] = v;
-      } else if (typeof v !== 'object') {
-        s.attributes[k] = String(v);
-      }
+      if (k === 'licenses' && typeof v === 'object') { s.attributes[k] = v; }
+      else if (typeof v !== 'object') { s.attributes[k] = String(v); }
     }
   }
 
@@ -414,74 +580,39 @@ function sbShipFromParsed(src) {
     }
   } else if (Array.isArray(outfitSource)) {
     for (const o of outfitSource) {
-      s.outfits.push({
-        name:     (o.name || '').replace(/^"|"$/g, ''),
-        count:    parseInt(o.count) || 1,
-        pluginId: o.pluginId || sourcePluginId,
-      });
+      s.outfits.push({ name: (o.name || '').replace(/^"|"$/g, ''), count: parseInt(o.count) || 1, pluginId: o.pluginId || sourcePluginId });
     }
   }
 
   for (const g of (src.guns || [])) {
-    const coords = [g.x, g.y].filter(v => v != null).join(' ') || '0 0';
-    const over   = g.gun || g.over || g.weapon || '';
-    s.guns.push({ coords, over });
+    s.guns.push({ coords: [g.x, g.y].filter(v => v != null).join(' ') || '0 0', over: g.gun || g.over || g.weapon || '' });
   }
-
   for (const g of (src.turrets || [])) {
-    const coords = [g.x, g.y].filter(v => v != null).join(' ') || '0 0';
-    const over   = g.turret || g.over || g.weapon || '';
-    s.turrets.push({ coords, over });
+    s.turrets.push({ coords: [g.x, g.y].filter(v => v != null).join(' ') || '0 0', over: g.turret || g.over || g.weapon || '' });
   }
-
   for (const e of (src.engines || [])) {
-    s.engines.push({
-      coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0',
-      zoom:   e.zoom  != null ? String(e.zoom)  : '',
-      angle:  e.angle != null ? String(e.angle) : '',
-    });
+    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', zoom: e.zoom != null ? String(e.zoom) : '', angle: e.angle != null ? String(e.angle) : '' });
   }
-
   for (const b of (src.bays || [])) {
-    const coords       = [b.x, b.y].filter(v => v != null).join(' ') || '0 0';
+    const coords = [b.x, b.y].filter(v => v != null).join(' ') || '0 0';
     const launchEffect = b['launch effect'] || '';
-    if (b.type === 'Fighter' || b.category === 'fighter') {
-      s.fighters.push({ coords, launchEffect });
-    } else if (b.type === 'Drone' || b.category === 'drone') {
-      s.drones.push({ coords, launchEffect });
-    }
+    if (b.type === 'Fighter' || b.category === 'fighter') s.fighters.push({ coords, launchEffect });
+    else if (b.type === 'Drone' || b.category === 'drone') s.drones.push({ coords, launchEffect });
   }
+  for (const l of (src.leaks || [])) s.leaks.push(_sbNormaliseLeak(l));
 
-  // ── Leaks ──────────────────────────────────────────────────────────────────
-  // Parser format:  { effect: "leak", openChance: 30, spreadChance: 50 }
-  // Internal format: { name: "leak", openChance: 30, spreadChance: 50 }
-  for (const l of (src.leaks || [])) {
-    s.leaks.push(_sbNormaliseLeak(l));
-  }
-
-  // ── Explode ────────────────────────────────────────────────────────────────
   const explodeSrc = src.explode || [];
-  for (const e of explodeSrc) {
-    s.explode.push({
-      name:  typeof e === 'string' ? e : (e.name || 'tiny explosion'),
-      count: e.count || 1,
-    });
-  }
-  // Named explosion keys (both remote plugin JSON and ES parser formats)
+  for (const e of explodeSrc) s.explode.push({ name: typeof e === 'string' ? e : (e.name || 'tiny explosion'), count: e.count || 1 });
   for (const key of ['tiny explosion','small explosion','medium explosion','large explosion','huge explosion']) {
     if (src[key] != null) s.explode.push({ name: key, count: Number(src[key]) });
   }
 
-  // ── Final explode ──────────────────────────────────────────────────────────
   const finalSrc = src.finalExplode || src['final explode'] || [];
   if (typeof finalSrc === 'string') {
     s.finalExplode.push({ name: finalSrc.replace(/^"|"$/g, ''), count: 1 });
   } else {
     for (const e of (Array.isArray(finalSrc) ? finalSrc : [])) {
-      s.finalExplode.push({
-        name:  typeof e === 'string' ? e.replace(/^"|"$/g, '') : (e.name || 'final explosion large'),
-        count: e.count || 1,
-      });
+      s.finalExplode.push({ name: typeof e === 'string' ? e.replace(/^"|"$/g, '') : (e.name || 'final explosion large'), count: e.count || 1 });
     }
   }
 
@@ -496,14 +627,20 @@ function sbPopulateBuilder() {
   const s = sbCurrentShip;
   const modeLabel = { new: '✏️ New Ship', edit: '✏️ Edit Ship', outfit: '🔧 Outfit Ship' }[sbMode] || '';
   const titleEl = document.getElementById('builder-page-title');
-  if (titleEl) titleEl.textContent = s.name ? `${modeLabel}: ${s.name}` : modeLabel;
+  if (titleEl) titleEl.textContent = s.name ? `${modeLabel}: ${s.customName || s.name}` : modeLabel;
 
   const subtitleEl = document.getElementById('builder-page-subtitle');
   if (subtitleEl) subtitleEl.textContent = {
     new:    'Define your ship from scratch.',
-    edit:   'Edit attributes, metadata, and hardpoints.',
+    edit:   sbEditMode === 'save' ? 'Editing a ship from your save file.' : 'Edit attributes, metadata, and hardpoints.',
     outfit: 'Manage outfits on this ship.',
   }[sbMode] || '';
+
+  // Show a banner when editing a save ship
+  const saveBanner = document.getElementById('sb-save-edit-banner');
+  if (saveBanner) {
+    saveBanner.style.display = (sbMode === 'edit' && sbEditMode === 'save') ? '' : 'none';
+  }
 
   const idSide = document.getElementById('sidebar-identity');
   const deSide = document.getElementById('sidebar-description');
@@ -545,9 +682,53 @@ function onBuilderChange() {
   s.description = document.getElementById('ship-description').value;
   const titleEl = document.getElementById('builder-page-title');
   const modeLabel = { new: '✏️ New Ship', edit: '✏️ Edit Ship', outfit: '🔧 Outfit Ship' }[sbMode] || '';
-  if (titleEl) titleEl.textContent = s.name ? `${modeLabel}: ${s.name}` : modeLabel;
+  if (titleEl) titleEl.textContent = s.name ? `${modeLabel}: ${s.customName || s.name}` : modeLabel;
   sbUpdateQuickStats();
   sbRenderRaw();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SAVE SHIP — routes to correct store based on sbEditMode
+// ═══════════════════════════════════════════════════════════
+function saveShip() {
+  onBuilderChange();
+  if (!sbCurrentShip.name) {
+    sbToast('Ship must have a name.', 'danger');
+    document.getElementById('ship-name').focus();
+    return;
+  }
+
+  if (sbEditMode === 'save') {
+    // Write back into sbSaveFleet and ES_SM_ACTIVE_SAVE_SHIPS
+    const copy = JSON.parse(JSON.stringify(sbCurrentShip));
+    copy._fromSave = true;
+    if (sbSaveEditIdx === -1) {
+      sbSaveFleet.push(copy);
+      sbSaveEditIdx = sbSaveFleet.length - 1;
+    } else {
+      sbSaveFleet[sbSaveEditIdx] = copy;
+    }
+    sbSaveSaveShips();
+    const titleEl = document.getElementById('builder-page-title');
+    if (titleEl) titleEl.textContent = `✏️ Editing: ${sbCurrentShip.customName || sbCurrentShip.name}`;
+    sbToast('Save ship updated!', 'success');
+  } else {
+    // Write into sbFleet and es_ship_builder_v4
+    const copy = JSON.parse(JSON.stringify(sbCurrentShip));
+    if (sbEditIdx === -1) {
+      sbFleet.push(copy);
+      sbEditIdx = sbFleet.length - 1;
+    } else {
+      sbFleet[sbEditIdx] = copy;
+    }
+    sbSave();
+    if (window.DataLoader && window.DataLoader.refreshLocalBuilds) {
+      window.DataLoader.refreshLocalBuilds();
+    }
+    const titleEl = document.getElementById('builder-page-title');
+    if (titleEl) titleEl.textContent = `✏️ Editing: ${sbCurrentShip.name}`;
+    sbToast('Ship saved!', 'success');
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -578,33 +759,18 @@ function sbFindOutfit(outfitName) {
   return lookup[outfitName.replace(/^"|"$/g, '')] || null;
 }
 
-// FIX: outfit data from remote plugin JSON has attributes in an `attributes`
-// sub-object (e.g. outfit.attributes['outfit space']). The old code only
-// checked the top-level outfit object, so capacity values were always 0.
 function sbGetOutfitAttrValue(outfitName, attrKey) {
   const o = sbFindOutfit(outfitName);
   if (!o) return 0;
-  // Check attributes sub-object first (remote plugin format), then top-level
-  let val = (o.attributes && o.attributes[attrKey] != null)
-    ? o.attributes[attrKey]
-    : o[attrKey];
+  let val = (o.attributes && o.attributes[attrKey] != null) ? o.attributes[attrKey] : o[attrKey];
   if (val == null) return 0;
   const n = Number(val);
   return isNaN(n) ? 0 : n;
 }
 
-function sbGetOutfitCapacityEffect(outfitName, capacityKey) {
-  return sbGetOutfitAttrValue(outfitName, capacityKey);
-}
-
-function sbGetOutfitCapacityCost(outfitName, capacityKey) {
-  const effect = sbGetOutfitCapacityEffect(outfitName, capacityKey);
-  return effect < 0 ? Math.abs(effect) : 0;
-}
-
-function sbGetOutfitSize(outfitName) {
-  return sbGetOutfitCapacityCost(outfitName, 'outfit space');
-}
+function sbGetOutfitCapacityEffect(outfitName, capacityKey) { return sbGetOutfitAttrValue(outfitName, capacityKey); }
+function sbGetOutfitCapacityCost(outfitName, capacityKey)   { const e = sbGetOutfitCapacityEffect(outfitName, capacityKey); return e < 0 ? Math.abs(e) : 0; }
+function sbGetOutfitSize(outfitName)    { return sbGetOutfitCapacityCost(outfitName, 'outfit space'); }
 
 function sbUsedCapacity(capacityKey) {
   if (!sbCurrentShip) return 0;
@@ -620,10 +786,7 @@ function sbUsedEngineCapacity() { return sbUsedCapacity('engine capacity'); }
 function sbUsedWeaponCapacity() { return sbUsedCapacity('weapon capacity'); }
 function sbUsedCargoSpace()     { return sbUsedCapacity('cargo space'); }
 
-function sbShipCapacity(key) {
-  if (!sbCurrentShip) return 0;
-  return Number((sbCurrentShip.attributes || {})[key]) || 0;
-}
+function sbShipCapacity(key) { return Number((sbCurrentShip?.attributes || {})[key]) || 0; }
 function sbMaxOutfitSpace()    { return sbShipCapacity('outfit space'); }
 function sbMaxEngineCapacity() { return sbShipCapacity('engine capacity'); }
 function sbMaxWeaponCapacity() { return sbShipCapacity('weapon capacity'); }
@@ -656,14 +819,12 @@ function sbCapacityBarHTML(label, used, max) {
 function sbRenderOutfitSpaceBar() {
   const el = document.getElementById('outfit-space-bar-wrap');
   if (!el || !sbCurrentShip) return;
-
   const bars = [
-    { label: 'Outfit Space',     used: sbUsedOutfitSpace(),    max: sbMaxOutfitSpace() },
-    { label: 'Engine Capacity',  used: sbUsedEngineCapacity(), max: sbMaxEngineCapacity() },
-    { label: 'Weapon Capacity',  used: sbUsedWeaponCapacity(), max: sbMaxWeaponCapacity() },
-    { label: 'Cargo Space',      used: sbUsedCargoSpace(),     max: sbMaxCargoSpace() },
+    { label: 'Outfit Space',    used: sbUsedOutfitSpace(),    max: sbMaxOutfitSpace() },
+    { label: 'Engine Capacity', used: sbUsedEngineCapacity(), max: sbMaxEngineCapacity() },
+    { label: 'Weapon Capacity', used: sbUsedWeaponCapacity(), max: sbMaxWeaponCapacity() },
+    { label: 'Cargo Space',     used: sbUsedCargoSpace(),     max: sbMaxCargoSpace() },
   ].filter(b => b.max > 0);
-
   if (!bars.length) { el.style.display = 'none'; return; }
   el.style.display = '';
   el.innerHTML = bars.map(b => sbCapacityBarHTML(b.label, b.used, b.max)).join('');
@@ -700,9 +861,7 @@ function sbValidateAttrValue(key, rawValue) {
   const v = parseFloat(rawValue);
   if (isNaN(v)) return { ok: true };
   if (SB_SIGNED_ATTRS.has(key)) return { ok: true };
-  if (v < 0) {
-    return { ok: false, message: `"${key}" cannot be negative. Use a value ≥ 0.` };
-  }
+  if (v < 0) return { ok: false, message: `"${key}" cannot be negative. Use a value ≥ 0.` };
   return { ok: true };
 }
 
@@ -719,9 +878,7 @@ function sbSyncHardpoints(key, newVal) {
   if (target > current) {
     const toAdd = target - current;
     sbCurrentShip[hp.field] = sbCurrentShip[hp.field] || [];
-    for (let i = 0; i < toAdd; i++) {
-      sbCurrentShip[hp.field].push({ coords: '0 0', over: '' });
-    }
+    for (let i = 0; i < toAdd; i++) sbCurrentShip[hp.field].push({ coords: '0 0', over: '' });
     sbToast(`Added ${toAdd} ${hp.label} port${toAdd > 1 ? 's' : ''} at 0 0 — set coordinates in Guns & Turrets tab`, 'success');
     sbRenderGunsTurrets();
     return true;
@@ -731,17 +888,15 @@ function sbSyncHardpoints(key, newVal) {
 
 function sbAutoSlotWeapons(outfitName, count, outfitObj) {
   if (!outfitObj) return;
-  const gunCost     = _sbGetPortCost(outfitObj, 'gun ports');
-  const turretCost  = _sbGetPortCost(outfitObj, 'turret mounts');
-  if (gunCost > 0)    _sbFillEmptyPorts(sbCurrentShip.guns,    outfitName, gunCost * count);
+  const gunCost    = _sbGetPortCost(outfitObj, 'gun ports');
+  const turretCost = _sbGetPortCost(outfitObj, 'turret mounts');
+  if (gunCost    > 0) _sbFillEmptyPorts(sbCurrentShip.guns,    outfitName, gunCost * count);
   if (turretCost > 0) _sbFillEmptyPorts(sbCurrentShip.turrets, outfitName, turretCost * count);
 }
 
-// FIX: port cost lookup now checks outfit.attributes first
 function _sbGetPortCost(outfitObj, portKey) {
   let val = (outfitObj.attributes && outfitObj.attributes[portKey] != null)
-    ? outfitObj.attributes[portKey]
-    : outfitObj[portKey];
+    ? outfitObj.attributes[portKey] : outfitObj[portKey];
   if (val == null) return 0;
   const n = Number(val);
   return n < 0 ? Math.abs(n) : 0;
@@ -753,10 +908,7 @@ function _sbFillEmptyPorts(hardpoints, outfitName, needed) {
   let filled = 0;
   for (const hp of hardpoints) {
     if (filled >= needed) break;
-    if (!hp.over || hp.over.trim() === '') {
-      hp.over = clean;
-      filled++;
-    }
+    if (!hp.over || hp.over.trim() === '') { hp.over = clean; filled++; }
   }
 }
 
@@ -774,38 +926,26 @@ function sbUpdateAttrVal(inp) {
     return;
   }
   inp.style.borderColor = '';
-
-  if (key === 'mass') {
-    sbCurrentShip.mass = val;
-  } else if (key === 'drag') {
-    sbCurrentShip.drag = val;
-  } else {
-    sbCurrentShip.attributes[key] = val;
-    const changed = sbSyncHardpoints(key, val);
-    if (changed) sbRenderAttrList();
-  }
-
+  if (key === 'mass') { sbCurrentShip.mass = val; }
+  else if (key === 'drag') { sbCurrentShip.drag = val; }
+  else { sbCurrentShip.attributes[key] = val; const changed = sbSyncHardpoints(key, val); if (changed) sbRenderAttrList(); }
   sbUpdateQuickStats();
   sbRenderOutfitSpaceBar();
   sbRenderRaw();
 }
 
 function sbRemoveAttr(k) {
-  if (k === 'mass') {
-    sbCurrentShip.mass = '';
-  } else if (k === 'drag') {
-    sbCurrentShip.drag = '';
-  } else {
-    delete sbCurrentShip.attributes[k];
-  }
+  if (k === 'mass') sbCurrentShip.mass = '';
+  else if (k === 'drag') sbCurrentShip.drag = '';
+  else delete sbCurrentShip.attributes[k];
   sbRenderAttrList(); sbUpdateQuickStats(); sbRenderRaw();
 }
 
 function sbUpdateQuickStats() {
   const el = document.getElementById('quick-stats');
   if (!el || !sbCurrentShip) return;
-  const s  = sbCurrentShip;
-  const a  = s.attributes || {};
+  const s = sbCurrentShip;
+  const a = s.attributes || {};
 
   const oUsed = sbUsedOutfitSpace(),    oMax = sbMaxOutfitSpace();
   const eUsed = sbUsedEngineCapacity(), eMax = sbMaxEngineCapacity();
@@ -814,24 +954,24 @@ function sbUpdateQuickStats() {
 
   function capVal(used, max) {
     if (max <= 0) return '—';
-    const over = used > max;
+    const over  = used > max;
     const color = over ? 'var(--c-danger-hi)' : 'var(--c-accent-text)';
     return `<span style="color:${color}">${used}/${max}</span>`;
   }
 
   const qs = [
-    { label: 'Shields',       value: a.shields            || '—' },
-    { label: 'Hull',          value: a.hull               || '—' },
-    { label: 'Mass',          value: s.mass || a.mass     || '—' },
-    { label: 'Outfit Space',  value: capVal(oUsed, oMax) },
-    { label: 'Engine Cap.',   value: capVal(eUsed, eMax) },
-    { label: 'Weapon Cap.',   value: capVal(wUsed, wMax) },
-    { label: 'Cargo Space',   value: capVal(cUsed, cMax) },
-    { label: 'Guns',          value: (s.guns     || []).length },
-    { label: 'Turrets',       value: (s.turrets  || []).length },
-    { label: 'Drones',        value: (s.drones   || []).length },
-    { label: 'Fighters',      value: (s.fighters || []).length },
-    { label: 'Engines',       value: (s.engines  || []).length },
+    { label: 'Shields',      value: a.shields         || '—' },
+    { label: 'Hull',         value: a.hull            || '—' },
+    { label: 'Mass',         value: s.mass || a.mass  || '—' },
+    { label: 'Outfit Space', value: capVal(oUsed, oMax) },
+    { label: 'Engine Cap.',  value: capVal(eUsed, eMax) },
+    { label: 'Weapon Cap.',  value: capVal(wUsed, wMax) },
+    { label: 'Cargo Space',  value: capVal(cUsed, cMax) },
+    { label: 'Guns',         value: (s.guns     || []).length },
+    { label: 'Turrets',      value: (s.turrets  || []).length },
+    { label: 'Drones',       value: (s.drones   || []).length },
+    { label: 'Fighters',     value: (s.fighters || []).length },
+    { label: 'Engines',      value: (s.engines  || []).length },
   ];
 
   el.innerHTML = qs.map(q =>
@@ -840,8 +980,6 @@ function sbUpdateQuickStats() {
 
   sbRenderOutfitSpaceBar();
 
-  // FIX: update computed stats display using the merged outfit index.
-  // Pass LOCAL_PLUGIN_ID so ComputedStats.getOutfitIndex searches all plugins.
   if (typeof getComputedStats === 'function' && sbCurrentShip) {
     const LOCAL_ID = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
     const computed = getComputedStats(sbCurrentShip, LOCAL_ID);
@@ -956,16 +1094,9 @@ function confirmAddAttr() {
   if (!k) { sbToast('Please enter a key.', 'danger'); return; }
   const check = sbValidateAttrValue(k, v);
   if (!check.ok) { sbToast(check.message, 'danger'); return; }
-
-  if (k === 'mass') {
-    sbCurrentShip.mass = v;
-  } else if (k === 'drag') {
-    sbCurrentShip.drag = v;
-  } else {
-    sbCurrentShip.attributes[k] = v;
-    sbSyncHardpoints(k, v);
-  }
-
+  if (k === 'mass') sbCurrentShip.mass = v;
+  else if (k === 'drag') sbCurrentShip.drag = v;
+  else { sbCurrentShip.attributes[k] = v; sbSyncHardpoints(k, v); }
   closeModal('modal-add-attr');
   sbRenderAttrList(); sbUpdateQuickStats(); sbRenderRaw();
 }
@@ -1008,21 +1139,15 @@ function sbRenderOutfitsList() {
       { key: 'weapon capacity', label: 'wpn' },
       { key: 'cargo space',     label: 'cargo' },
     ];
-    const costTags = capDefs
-      .map(c => {
-        // FIX: use sbGetOutfitCapacityEffect which now checks attributes sub-object
-        const effect = sbGetOutfitCapacityEffect(rawName, c.key);
-        if (effect === 0) return '';
-        const total = Math.abs(effect) * count;
-        const isGrant = effect > 0;
-        const style = isGrant
-          ? 'background:rgba(72,187,120,0.15);color:#68d391;border-color:rgba(72,187,120,0.3);'
-          : '';
-        const prefix = isGrant ? '+' : '';
-        return `<span class="sb-outfit-size" title="${isGrant ? 'grants' : 'uses'} ${c.key}" style="${style}">${prefix}${Math.abs(effect)}${count > 1 ? `×${count}=${prefix}${total}` : ''} ${c.label}</span>`;
-      })
-      .filter(Boolean)
-      .join('');
+    const costTags = capDefs.map(c => {
+      const effect = sbGetOutfitCapacityEffect(rawName, c.key);
+      if (effect === 0) return '';
+      const total  = Math.abs(effect) * count;
+      const isGrant = effect > 0;
+      const style  = isGrant ? 'background:rgba(72,187,120,0.15);color:#68d391;border-color:rgba(72,187,120,0.3);' : '';
+      const prefix = isGrant ? '+' : '';
+      return `<span class="sb-outfit-size" title="${isGrant ? 'grants' : 'uses'} ${c.key}" style="${style}">${prefix}${Math.abs(effect)}${count > 1 ? `×${count}=${prefix}${total}` : ''} ${c.label}</span>`;
+    }).filter(Boolean).join('');
 
     return `<div class="outfit-item">
       <span class="outfit-item__name" title="${esc(rawName)}">${esc(rawName)}</span>
@@ -1038,9 +1163,8 @@ function sbRenderOutfitsList() {
 
 function openAddOutfit() {
   sbRefreshLiveData();
-  if (sbAllOutfits.length) {
-    sbOpenOutfitPicker();
-  } else {
+  if (sbAllOutfits.length) { sbOpenOutfitPicker(); }
+  else {
     document.getElementById('new-outfit-name').value  = '';
     document.getElementById('new-outfit-count').value = '1';
     openModal('modal-add-outfit');
@@ -1065,28 +1189,18 @@ function sbUpdateOutfitCount(i, v) {
   const oldCount = parseInt(sbCurrentShip.outfits[i].count) || 1;
   const diff     = newCount - oldCount;
   const rawName  = sbCurrentShip.outfits[i].name.replace(/^"|"$/g, '');
-
   if (diff > 0) {
-    if (!sbCheckOutfitSpace(rawName, diff)) {
-      const inputs = document.querySelectorAll('.outfit-item__count');
-      if (inputs[i]) inputs[i].value = oldCount;
-      return;
-    }
-    const outfitObj = sbFindOutfit(rawName);
-    sbAutoSlotWeapons(rawName, diff, outfitObj);
-  } else if (diff < 0) {
-    _sbUnslotWeapons(rawName, Math.abs(diff));
-  }
-
+    if (!sbCheckOutfitSpace(rawName, diff)) { const inputs = document.querySelectorAll('.outfit-item__count'); if (inputs[i]) inputs[i].value = oldCount; return; }
+    sbAutoSlotWeapons(rawName, diff, sbFindOutfit(rawName));
+  } else if (diff < 0) { _sbUnslotWeapons(rawName, Math.abs(diff)); }
   sbCurrentShip.outfits[i].count = newCount;
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
 }
 
 function sbRemoveOutfit(i) {
-  const outfit   = sbCurrentShip.outfits[i];
-  const rawName  = outfit.name.replace(/^"|"$/g, '');
-  const count    = parseInt(outfit.count) || 1;
-  _sbUnslotWeapons(rawName, count);
+  const outfit  = sbCurrentShip.outfits[i];
+  const rawName = outfit.name.replace(/^"|"$/g, '');
+  _sbUnslotWeapons(rawName, parseInt(outfit.count) || 1);
   sbCurrentShip.outfits.splice(i, 1);
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
 }
@@ -1096,10 +1210,7 @@ function _sbUnslotWeapons(outfitName, count) {
   let remaining = count;
   for (const arr of [sbCurrentShip.guns, sbCurrentShip.turrets]) {
     for (let i = (arr||[]).length - 1; i >= 0 && remaining > 0; i--) {
-      if ((arr[i].over || '').replace(/^"|"$/g, '').trim() === clean) {
-        arr[i].over = '';
-        remaining--;
-      }
+      if ((arr[i].over || '').replace(/^"|"$/g, '').trim() === clean) { arr[i].over = ''; remaining--; }
     }
   }
 }
@@ -1107,10 +1218,10 @@ function _sbUnslotWeapons(outfitName, count) {
 function sbAutoSlotAllOutfits(s) {
   if (!sbAllOutfits.length) return;
   for (const o of (s.outfits || [])) {
-    const rawName  = o.name.replace(/^"|"$/g, '');
+    const rawName   = o.name.replace(/^"|"$/g, '');
     const outfitObj = sbFindOutfit(rawName);
     if (!outfitObj) continue;
-    const count = parseInt(o.count) || 1;
+    const count      = parseInt(o.count) || 1;
     const gunCost    = _sbGetPortCost(outfitObj, 'gun ports');
     const turretCost = _sbGetPortCost(outfitObj, 'turret mounts');
     if (gunCost    > 0) _sbFillEmptyPorts(s.guns,    rawName, gunCost    * count);
@@ -1118,9 +1229,7 @@ function sbAutoSlotAllOutfits(s) {
   }
 }
 
-function _sbEmptyPortCount(hardpoints) {
-  return (hardpoints || []).filter(hp => !hp.over || hp.over.trim() === '').length;
-}
+function _sbEmptyPortCount(hardpoints) { return (hardpoints || []).filter(hp => !hp.over || hp.over.trim() === '').length; }
 
 function sbCheckOutfitSpace(outfitName, count) {
   const capacityChecks = [
@@ -1134,46 +1243,22 @@ function sbCheckOutfitSpace(outfitName, count) {
     const effect = sbGetOutfitCapacityEffect(outfitName, c.key);
     if (effect >= 0) continue;
     const cost    = Math.abs(effect);
-    const adding  = cost * count;
-    const newUsed = c.used + adding;
-    if (newUsed > c.max) {
-      const free = Math.max(0, c.max - c.used);
-      sbToast(`Not enough ${c.label}. Need ${adding}, have ${free} free.`, 'danger');
-      return false;
-    }
+    const newUsed = c.used + cost * count;
+    if (newUsed > c.max) { sbToast(`Not enough ${c.label}. Need ${cost * count}, have ${Math.max(0, c.max - c.used)} free.`, 'danger'); return false; }
   }
-
   const outfitObj = sbFindOutfit(outfitName);
   if (outfitObj) {
     const gunCost    = _sbGetPortCost(outfitObj, 'gun ports');
     const turretCost = _sbGetPortCost(outfitObj, 'turret mounts');
-
-    if (gunCost > 0) {
-      const needed    = gunCost * count;
-      const freeGuns  = _sbEmptyPortCount(sbCurrentShip.guns);
-      if (freeGuns < needed) {
-        sbToast(`Not enough gun ports. Need ${needed} empty port${needed > 1 ? 's' : ''}, only ${freeGuns} available.`, 'danger');
-        return false;
-      }
-    }
-
-    if (turretCost > 0) {
-      const needed       = turretCost * count;
-      const freeTurrets  = _sbEmptyPortCount(sbCurrentShip.turrets);
-      if (freeTurrets < needed) {
-        sbToast(`Not enough turret mounts. Need ${needed} empty mount${needed > 1 ? 's' : ''}, only ${freeTurrets} available.`, 'danger');
-        return false;
-      }
-    }
+    if (gunCost > 0) { const needed = gunCost * count; const freeGuns = _sbEmptyPortCount(sbCurrentShip.guns); if (freeGuns < needed) { sbToast(`Not enough gun ports. Need ${needed}, only ${freeGuns} available.`, 'danger'); return false; } }
+    if (turretCost > 0) { const needed = turretCost * count; const freeTurrets = _sbEmptyPortCount(sbCurrentShip.turrets); if (freeTurrets < needed) { sbToast(`Not enough turret mounts. Need ${needed}, only ${freeTurrets} available.`, 'danger'); return false; } }
   }
-
   return true;
 }
 
-// ── Outfit picker (live data) ─────────────────────────────
+// ── Outfit picker ─────────────────────────────────────────
 function sbOpenOutfitPicker() {
   const list = document.getElementById('sb-outfit-picker-list');
-
   const caps = {
     'outfit space':    sbMaxOutfitSpace()    - sbUsedOutfitSpace(),
     'engine capacity': sbMaxEngineCapacity() - sbUsedEngineCapacity(),
@@ -1192,12 +1277,8 @@ function sbOpenOutfitPicker() {
     const freeTurrets = _sbEmptyPortCount(sbCurrentShip.turrets);
     if ((sbCurrentShip.guns    || []).length > 0) lines.push(`Guns: ${freeGuns} port${freeGuns !== 1 ? 's' : ''} free`);
     if ((sbCurrentShip.turrets || []).length > 0) lines.push(`Turrets: ${freeTurrets} mount${freeTurrets !== 1 ? 's' : ''} free`);
-    if (lines.length) {
-      spaceInfoEl.textContent = lines.join('  ·  ');
-      spaceInfoEl.style.display = '';
-    } else {
-      spaceInfoEl.style.display = 'none';
-    }
+    spaceInfoEl.textContent = lines.join('  ·  ');
+    spaceInfoEl.style.display = lines.length ? '' : 'none';
   }
 
   const byPlugin = {};
@@ -1215,65 +1296,34 @@ function sbOpenOutfitPicker() {
     <div class="sb-picker-group">
       <div class="sb-picker-group-label">${esc(plugin)}</div>
       ${outfits.map(o => {
-        const name  = o.name || o.displayName || '';
-        const cat   = o.category || (o.attributes && o.attributes.category) || '';
-        const cost  = (o.cost || (o.attributes && o.attributes.cost))
-          ? `${Number(o.cost || o.attributes.cost).toLocaleString()} cr` : '';
-
+        const name = o.name || o.displayName || '';
+        const cat  = o.category || (o.attributes && o.attributes.category) || '';
+        const cost = (o.cost || (o.attributes && o.attributes.cost)) ? `${Number(o.cost || o.attributes.cost).toLocaleString()} cr` : '';
         const costBadges = [];
         let wouldBlock = false;
-
         for (const [capKey, free] of Object.entries(caps)) {
-          const effect  = sbGetOutfitCapacityEffect(name, capKey);
+          const effect = sbGetOutfitCapacityEffect(name, capKey);
           if (effect === 0) continue;
-          const maxVal  = sbShipCapacity(capKey);
+          const maxVal = sbShipCapacity(capKey);
           if (maxVal <= 0) continue;
-
-          const shortLabels = {
-            'outfit space':'sp','engine capacity':'eng',
-            'weapon capacity':'wpn','cargo space':'cargo'
-          };
-
+          const shortLabels = { 'outfit space':'sp','engine capacity':'eng','weapon capacity':'wpn','cargo space':'cargo' };
           if (effect < 0) {
             const capCost = Math.abs(effect);
             const over = capCost > free;
             if (over) wouldBlock = true;
-            costBadges.push(
-              `<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${capCost} ${shortLabels[capKey]||capKey}</span>`
-            );
+            costBadges.push(`<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${capCost} ${shortLabels[capKey]||capKey}</span>`);
           } else {
-            costBadges.push(
-              `<span class="sb-picker-size" style="background:rgba(72,187,120,0.15);color:#68d391;border-color:rgba(72,187,120,0.3);">+${effect} ${shortLabels[capKey]||capKey}</span>`
-            );
+            costBadges.push(`<span class="sb-picker-size" style="background:rgba(72,187,120,0.15);color:#68d391;border-color:rgba(72,187,120,0.3);">+${effect} ${shortLabels[capKey]||capKey}</span>`);
           }
         }
-
         const gunCost    = _sbGetPortCost(o, 'gun ports');
         const turretCost = _sbGetPortCost(o, 'turret mounts');
-        if (gunCost > 0 && hasGunPorts) {
-          const over = gunCost > freeGunsForPicker;
-          if (over) wouldBlock = true;
-          costBadges.push(
-            `<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${gunCost} gun${gunCost > 1 ? 's' : ''}</span>`
-          );
-        }
-        if (turretCost > 0 && hasTurretPorts) {
-          const over = turretCost > freeTurretsForPicker;
-          if (over) wouldBlock = true;
-          costBadges.push(
-            `<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${turretCost} turret${turretCost > 1 ? 's' : ''}</span>`
-          );
-        }
-
-        const pluginId = o._pn || null;
-        const encoded  = btoa(unescape(encodeURIComponent(JSON.stringify({ name, pluginId }))));
-        return `<div class="sb-picker-row${wouldBlock ? ' sb-picker-row--over' : ''}"
-          onclick="sbAddOutfitFromPicker('${encoded}')">
+        if (gunCost > 0 && hasGunPorts)    { const over = gunCost > freeGunsForPicker;    if (over) wouldBlock = true; costBadges.push(`<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${gunCost} gun${gunCost > 1 ? 's' : ''}</span>`); }
+        if (turretCost > 0 && hasTurretPorts) { const over = turretCost > freeTurretsForPicker; if (over) wouldBlock = true; costBadges.push(`<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${turretCost} turret${turretCost > 1 ? 's' : ''}</span>`); }
+        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify({ name, pluginId: o._pn || null }))));
+        return `<div class="sb-picker-row${wouldBlock ? ' sb-picker-row--over' : ''}" onclick="sbAddOutfitFromPicker('${encoded}')">
           <span class="sb-picker-name">${esc(name || 'Unknown')}</span>
-          <span class="sb-picker-meta" style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
-            ${esc([cat, cost].filter(Boolean).join(' · '))}
-            ${costBadges.join('')}
-          </span>
+          <span class="sb-picker-meta" style="display:flex;align-items:center;gap:4px;flex-shrink:0;">${esc([cat, cost].filter(Boolean).join(' · '))}${costBadges.join('')}</span>
         </div>`;
       }).join('')}
     </div>`).join('');
@@ -1300,24 +1350,19 @@ function sbAddOutfitFromPicker(encoded) {
   const count    = parseInt(document.getElementById('sb-outfit-count-input').value) || 1;
   if (!sbCheckOutfitSpace(rawName, count)) return;
   const existing = sbCurrentShip.outfits.find(o => o.name === rawName);
-  if (existing) {
-    existing.count += count;
-    if (!existing.pluginId && pluginId) existing.pluginId = pluginId;
-  } else {
-    sbCurrentShip.outfits.push({ name: rawName, count, pluginId });
-  }
-  const outfitObj = sbFindOutfit(rawName);
-  sbAutoSlotWeapons(rawName, count, outfitObj);
+  if (existing) { existing.count += count; if (!existing.pluginId && pluginId) existing.pluginId = pluginId; }
+  else { sbCurrentShip.outfits.push({ name: rawName, count, pluginId }); }
+  sbAutoSlotWeapons(rawName, count, sbFindOutfit(rawName));
   closeModal('modal-sb-outfit-picker');
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
 }
 
 // ═══════════════════════════════════════════════════════════
-//  GUNS / TURRETS / BAYS
+//  GUNS / TURRETS / BAYS / ENGINES
 // ═══════════════════════════════════════════════════════════
 function sbRenderGunsTurrets() {
-  sbRenderHP('guns',    'guns-list',    'gun',     true);
-  sbRenderHP('turrets', 'turrets-list', 'turret',  true);
+  sbRenderHP('guns',    'guns-list',    'gun',    true);
+  sbRenderHP('turrets', 'turrets-list', 'turret', true);
   sbRenderBays('drones',   'drones-list',   'drone');
   sbRenderBays('fighters', 'fighters-list', 'fighter');
   sbRenderEngines();
@@ -1327,165 +1372,105 @@ function sbRenderHP(field, elId, label, showOver) {
   const el = document.getElementById(elId); if (!el) return;
   const items = sbCurrentShip[field] || [];
   const count = items.length;
-  const header = count > 0
-    ? `<div class="sb-hp-count-badge">${count} ${label}${count !== 1 ? 's' : ''}</div>`
-    : '';
-  el.innerHTML = header + (items.length ? items.map((g, i) =>
-    `<div class="outfit-item" style="gap:4px;">
-      <span class="sb-hp-idx">${i + 1}</span>
-      <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;"
-        type="text" value="${esc(g.coords||'')}" placeholder="x y"
-        onchange="sbUpdateHP('${field}',${i},'coords',this.value)">
-      ${showOver ? `<input class="text-input" style="width:140px;padding:4px 6px;font-size:0.78rem;"
-        type="text" value="${esc(g.over||'')}" placeholder='outfit "Name"'
-        onchange="sbUpdateHP('${field}',${i},'over',this.value)">` : ''}
-      <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('${field}',${i})">✕</button>
-    </div>`
-  ).join('') : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No ${label}s defined.</div>`);
+  el.innerHTML = (count > 0 ? `<div class="sb-hp-count-badge">${count} ${label}${count !== 1 ? 's' : ''}</div>` : '') +
+    (items.length ? items.map((g, i) =>
+      `<div class="outfit-item" style="gap:4px;">
+        <span class="sb-hp-idx">${i + 1}</span>
+        <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.coords||'')}" placeholder="x y" onchange="sbUpdateHP('${field}',${i},'coords',this.value)">
+        ${showOver ? `<input class="text-input" style="width:140px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.over||'')}" placeholder='outfit "Name"' onchange="sbUpdateHP('${field}',${i},'over',this.value)">` : ''}
+        <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('${field}',${i})">✕</button>
+      </div>`).join('')
+    : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No ${label}s defined.</div>`);
 }
 
 function sbRenderBays(field, elId, label) {
   const el = document.getElementById(elId); if (!el) return;
   const items = sbCurrentShip[field] || [];
   const count = items.length;
-  const header = count > 0
-    ? `<div class="sb-hp-count-badge">${count} ${label} bay${count !== 1 ? 's' : ''}</div>`
-    : '';
-  el.innerHTML = header + (items.length ? items.map((b, i) =>
-    `<div class="outfit-item" style="gap:4px;">
-      <span class="sb-hp-idx">${i + 1}</span>
-      <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;"
-        type="text" value="${esc(b.coords||'')}" placeholder="x y"
-        onchange="sbUpdateHP('${field}',${i},'coords',this.value)">
-      <input class="text-input" style="width:160px;padding:4px 6px;font-size:0.78rem;"
-        type="text" value="${esc(b.launchEffect||'')}" placeholder='launch effect'
-        onchange="sbUpdateHP('${field}',${i},'launchEffect',this.value)">
-      <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('${field}',${i})">✕</button>
-    </div>`
-  ).join('') : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No ${label} bays defined.</div>`);
+  el.innerHTML = (count > 0 ? `<div class="sb-hp-count-badge">${count} ${label} bay${count !== 1 ? 's' : ''}</div>` : '') +
+    (items.length ? items.map((b, i) =>
+      `<div class="outfit-item" style="gap:4px;">
+        <span class="sb-hp-idx">${i + 1}</span>
+        <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(b.coords||'')}" placeholder="x y" onchange="sbUpdateHP('${field}',${i},'coords',this.value)">
+        <input class="text-input" style="width:160px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(b.launchEffect||'')}" placeholder="launch effect" onchange="sbUpdateHP('${field}',${i},'launchEffect',this.value)">
+        <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('${field}',${i})">✕</button>
+      </div>`).join('')
+    : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No ${label} bays defined.</div>`);
 }
 
 function sbRenderEngines() {
   const el = document.getElementById('engines-list'); if (!el) return;
   const items = sbCurrentShip.engines || [];
   const count = items.length;
-  const header = count > 0
-    ? `<div class="sb-hp-count-badge">${count} engine point${count !== 1 ? 's' : ''}</div>`
-    : '';
-  el.innerHTML = header + (items.length ? items.map((e, i) =>
-    `<div class="outfit-item" style="gap:4px;">
-      <span class="sb-hp-idx">${i + 1}</span>
-      <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;"
-        type="text" value="${esc(e.coords||'')}" placeholder="x y"
-        onchange="sbUpdateHP('engines',${i},'coords',this.value)">
-      <input class="text-input" style="width:68px;padding:4px 6px;font-size:0.78rem;"
-        type="number" step="0.1" value="${esc(e.zoom||'')}" placeholder="zoom"
-        onchange="sbUpdateHP('engines',${i},'zoom',this.value)">
-      <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('engines',${i})">✕</button>
-    </div>`
-  ).join('') : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No engine points defined.</div>`);
+  el.innerHTML = (count > 0 ? `<div class="sb-hp-count-badge">${count} engine point${count !== 1 ? 's' : ''}</div>` : '') +
+    (items.length ? items.map((e, i) =>
+      `<div class="outfit-item" style="gap:4px;">
+        <span class="sb-hp-idx">${i + 1}</span>
+        <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(e.coords||'')}" placeholder="x y" onchange="sbUpdateHP('engines',${i},'coords',this.value)">
+        <input class="text-input" style="width:68px;padding:4px 6px;font-size:0.78rem;" type="number" step="0.1" value="${esc(e.zoom||'')}" placeholder="zoom" onchange="sbUpdateHP('engines',${i},'zoom',this.value)">
+        <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('engines',${i})">✕</button>
+      </div>`).join('')
+    : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No engine points defined.</div>`);
 }
 
 function addGunTurret(type) {
-  if (type === 'engine') {
-    (sbCurrentShip.engines = sbCurrentShip.engines || []).push({ coords:'0 0', zoom:'', angle:'' });
-    sbRenderEngines(); sbRenderRaw(); return;
-  }
-  if (type === 'drone' || type === 'fighter') {
-    const field = type === 'drone' ? 'drones' : 'fighters';
-    (sbCurrentShip[field] = sbCurrentShip[field] || []).push({ coords:'0 0', launchEffect:'' });
-    sbRenderBays(field, `${field}-list`, type); sbRenderRaw(); return;
-  }
+  if (type === 'engine')  { (sbCurrentShip.engines  = sbCurrentShip.engines  || []).push({ coords:'0 0', zoom:'', angle:'' }); sbRenderEngines(); sbRenderRaw(); return; }
+  if (type === 'drone')   { (sbCurrentShip.drones    = sbCurrentShip.drones   || []).push({ coords:'0 0', launchEffect:'' }); sbRenderBays('drones',   'drones-list',   'drone');   sbRenderRaw(); return; }
+  if (type === 'fighter') { (sbCurrentShip.fighters  = sbCurrentShip.fighters || []).push({ coords:'0 0', launchEffect:'' }); sbRenderBays('fighters', 'fighters-list', 'fighter'); sbRenderRaw(); return; }
   const field = { gun:'guns', turret:'turrets' }[type];
   if (!field) return;
   (sbCurrentShip[field] = sbCurrentShip[field] || []).push({ coords:'0 0', over:'' });
   sbRenderHP(field, `${field}-list`, type, true); sbRenderRaw();
 }
 function sbUpdateHP(f, i, p, v) { sbCurrentShip[f][i][p] = v; sbRenderRaw(); }
-function sbRemoveHP(f, i) {
-  sbCurrentShip[f].splice(i,1);
-  sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
-}
+function sbRemoveHP(f, i) { sbCurrentShip[f].splice(i,1); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw(); }
 
 // ═══════════════════════════════════════════════════════════
 //  LEAKS
 // ═══════════════════════════════════════════════════════════
-
 function sbRenderLeaksList() {
   const el = document.getElementById('leaks-list'); if (!el) return;
   const leaks = sbCurrentShip.leaks || [];
   el.innerHTML = leaks.length ? leaks.map((l, i) => `
-<div class="outfit-item" style="display:grid;grid-template-columns:1fr 60px 60px 28px;gap:4px;align-items:center;">
+    <div class="outfit-item" style="display:grid;grid-template-columns:1fr 60px 60px 28px;gap:4px;align-items:center;">
       <span class="outfit-item__name" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(l.name || '')}">${esc(l.name || '')}</span>
-      <input class="outfit-item__count" type="number" min="0" max="100"
-        value="${esc(String(l.openChance ?? 0))}" style="width:100%;text-align:center;"
-        onchange="sbUpdateLeakField(${i}, 'openChance', this.value)"
-        title="Open chance (0–100)">
-      <input class="outfit-item__count" type="number" min="0" max="100"
-        value="${esc(String(l.spreadChance ?? 0))}" style="width:100%;text-align:center;"
-        onchange="sbUpdateLeakField(${i}, 'spreadChance', this.value)"
-        title="Spread chance (0–100)">
+      <input class="outfit-item__count" type="number" min="0" max="100" value="${esc(String(l.openChance ?? 0))}" style="width:100%;text-align:center;" onchange="sbUpdateLeakField(${i}, 'openChance', this.value)" title="Open chance (0–100)">
+      <input class="outfit-item__count" type="number" min="0" max="100" value="${esc(String(l.spreadChance ?? 0))}" style="width:100%;text-align:center;" onchange="sbUpdateLeakField(${i}, 'spreadChance', this.value)" title="Spread chance (0–100)">
       <button class="btn btn-danger btn-xs" onclick="sbRemoveLeak(${i})">✕</button>
     </div>`).join('')
   : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No leak effects.</div>`;
 }
-
-function sbUpdateLeakField(i, field, v) {
-  sbCurrentShip.leaks[i][field] = parseInt(v) || 0;
-  sbRenderLeaksList(); sbRenderRaw();
-}
-
-// Keep old sbUpdateLeak as an alias in case anything else calls it
+function sbUpdateLeakField(i, field, v) { sbCurrentShip.leaks[i][field] = parseInt(v) || 0; sbRenderLeaksList(); sbRenderRaw(); }
 function sbUpdateLeak(i, v) { sbUpdateLeakField(i, 'openChance', v); }
-
-function sbRemoveLeak(i) {
-  sbCurrentShip.leaks.splice(i, 1);
-  sbRenderLeaksList(); sbRenderRaw();
-}
+function sbRemoveLeak(i) { sbCurrentShip.leaks.splice(i, 1); sbRenderLeaksList(); sbRenderRaw(); }
 
 function sbOpenEffectPicker(targetField) {
   sbRefreshLiveData();
-  const list = document.getElementById('sb-effect-picker-list');
+  const list    = document.getElementById('sb-effect-picker-list');
   const titleEl = document.getElementById('sb-effect-picker-title');
   if (titleEl) titleEl.textContent = targetField === 'leaks' ? 'Add Leak Effect' : 'Add Effect';
-
   const byPlugin = {};
-  for (const e of sbAllEffects) {
-    const key = e._pd || e._pn || 'Unknown';
-    (byPlugin[key] = byPlugin[key] || []).push(e);
-  }
-
+  for (const e of sbAllEffects) { const key = e._pd || e._pn || 'Unknown'; (byPlugin[key] = byPlugin[key] || []).push(e); }
   if (!sbAllEffects.length) {
     list.innerHTML = '<div style="color:var(--c-text-dim);font-size:0.88rem;padding:12px;">No effects loaded yet.</div>';
   } else {
     list.innerHTML = Object.entries(byPlugin).map(([plugin, effects]) => `
       <div class="sb-picker-group">
         <div class="sb-picker-group-label">${esc(plugin)}</div>
-        ${effects.map(e => {
-          const name = e.name || '';
-          return `<div class="sb-picker-row" data-effect-name="${esc(name)}" data-effect-field="${esc(targetField)}">
-          <span class="sb-picker-name">${esc(name || 'Unknown')}</span>
-        </div>`;
-        }).join('')}
+        ${effects.map(e => `<div class="sb-picker-row" data-effect-name="${esc(e.name || '')}" data-effect-field="${esc(targetField)}"><span class="sb-picker-name">${esc(e.name || 'Unknown')}</span></div>`).join('')}
       </div>`).join('');
   }
-
   document.getElementById('sb-effect-picker-search').value = '';
   document.getElementById('sb-effect-count-input').value   = '1';
   document.getElementById('modal-sb-effect-picker').dataset.targetField = targetField;
-
-  // Wire up click delegation on the list — avoids all inline quoting issues
   const listEl = document.getElementById('sb-effect-picker-list');
-  const newList = listEl.cloneNode(true); // cloneNode removes old listeners
+  const newList = listEl.cloneNode(true);
   listEl.parentNode.replaceChild(newList, listEl);
   newList.addEventListener('click', e => {
-      const row = e.target.closest('.sb-picker-row');
-      if (!row) return;
-      const effectName  = row.dataset.effectName;
-      const effectField = row.dataset.effectField;
-      if (effectName) sbAddEffectFromPicker(JSON.stringify(effectName), effectField);
+    const row = e.target.closest('.sb-picker-row');
+    if (!row) return;
+    if (row.dataset.effectName) sbAddEffectFromPicker(JSON.stringify(row.dataset.effectName), row.dataset.effectField);
   });
-
   openModal('modal-sb-effect-picker');
 }
 
@@ -1503,39 +1488,27 @@ function sbAddEffectFromPicker(nameJson, targetField) {
   const name  = JSON.parse(nameJson);
   const count = parseInt(document.getElementById('sb-effect-count-input').value) || 1;
   const field = document.getElementById('modal-sb-effect-picker').dataset.targetField || targetField;
-
   if (field === 'leaks') {
-    // New leaks always start with openChance = count (picker "count" field repurposed as openChance),
-    // spreadChance = 0. User can edit both in the leak list afterwards.
     const existing = (sbCurrentShip.leaks || []).find(l => l.name === name);
-    if (existing) {
-      existing.openChance = (existing.openChance || 0) + count;
-    } else {
-      (sbCurrentShip.leaks = sbCurrentShip.leaks || []).push({
-        name, openChance: count, spreadChance: 0,
-      });
-    }
-    closeModal('modal-sb-effect-picker');
-    sbRenderLeaksList(); sbRenderRaw();
+    if (existing) existing.openChance = (existing.openChance || 0) + count;
+    else (sbCurrentShip.leaks = sbCurrentShip.leaks || []).push({ name, openChance: count, spreadChance: 0 });
+    closeModal('modal-sb-effect-picker'); sbRenderLeaksList(); sbRenderRaw();
   } else if (field === 'explode') {
     const existing = (sbCurrentShip.explode || []).find(e => e.name === name);
-    if (existing) { existing.count += count; }
-    else { (sbCurrentShip.explode = sbCurrentShip.explode || []).push({ name, count }); }
-    closeModal('modal-sb-effect-picker');
-    sbRenderExplodeLists(); sbRenderRaw();
+    if (existing) existing.count += count;
+    else (sbCurrentShip.explode = sbCurrentShip.explode || []).push({ name, count });
+    closeModal('modal-sb-effect-picker'); sbRenderExplodeLists(); sbRenderRaw();
   } else if (field === 'finalExplode') {
     const existing = (sbCurrentShip.finalExplode || []).find(e => e.name === name);
-    if (existing) { existing.count += count; }
-    else { (sbCurrentShip.finalExplode = sbCurrentShip.finalExplode || []).push({ name, count }); }
-    closeModal('modal-sb-effect-picker');
-    sbRenderExplodeLists(); sbRenderRaw();
+    if (existing) existing.count += count;
+    else (sbCurrentShip.finalExplode = sbCurrentShip.finalExplode || []).push({ name, count });
+    closeModal('modal-sb-effect-picker'); sbRenderExplodeLists(); sbRenderRaw();
   }
 }
 
 // ═══════════════════════════════════════════════════════════
 //  WEAPON SUB-BLOCK
 // ═══════════════════════════════════════════════════════════
-
 const SB_WEAPON_FIELDS = ['blast radius', 'shield damage', 'hull damage', 'hit force'];
 
 function sbRenderWeaponBlock() {
@@ -1544,11 +1517,9 @@ function sbRenderWeaponBlock() {
   el.innerHTML = SB_WEAPON_FIELDS.map(k => `
     <div class="attr-row">
       <span class="attr-key">${esc(k)}</span>
-      <input class="attr-val-input" type="number" step="1" value="${esc(String(w[k] ?? 0))}"
-        data-wkey="${esc(k)}" onchange="sbUpdateWeaponField(this)" onblur="sbUpdateWeaponField(this)">
+      <input class="attr-val-input" type="number" step="1" value="${esc(String(w[k] ?? 0))}" data-wkey="${esc(k)}" onchange="sbUpdateWeaponField(this)" onblur="sbUpdateWeaponField(this)">
     </div>`).join('');
 }
-
 function sbUpdateWeaponField(inp) {
   if (!sbCurrentShip.weapon) sbCurrentShip.weapon = {};
   sbCurrentShip.weapon[inp.dataset.wkey] = parseFloat(inp.value) || 0;
@@ -1558,41 +1529,29 @@ function sbUpdateWeaponField(inp) {
 // ═══════════════════════════════════════════════════════════
 //  EXPLODE
 // ═══════════════════════════════════════════════════════════
-function sbRenderExplodeLists() {
-  sbRenderExplodeList('explode',      'explode-list');
-  sbRenderExplodeList('finalExplode', 'final-explode-list');
-  sbRenderLeaksList();
-}
+function sbRenderExplodeLists() { sbRenderExplodeList('explode','explode-list'); sbRenderExplodeList('finalExplode','final-explode-list'); sbRenderLeaksList(); }
 function sbRenderExplodeList(field, elId) {
   const el = document.getElementById(elId); if (!el) return;
   const items = sbCurrentShip[field] || [];
   el.innerHTML = items.length ? items.map((e, i) =>
     `<div class="outfit-item">
       <span class="outfit-item__name">${esc(e.name || '')}</span>
-      <input class="outfit-item__count" type="number" min="1" value="${esc(String(e.count || 1))}"
-        onchange="sbUpdateExplode('${field}',${i},'count',this.value)">
+      <input class="outfit-item__count" type="number" min="1" value="${esc(String(e.count || 1))}" onchange="sbUpdateExplode('${field}',${i},'count',this.value)">
       <button class="btn btn-danger btn-xs" onclick="sbRemoveExplode('${field}',${i})">✕</button>
-    </div>`
-  ).join('') : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">None.</div>`;
+    </div>`).join('')
+  : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">None.</div>`;
 }
-function addExplodeEffect(type) {
-  sbOpenEffectPicker(type === 'explode' ? 'explode' : 'finalExplode');
-}
-function addLeakEffect() {
-  sbOpenEffectPicker('leaks');
-}
-function sbUpdateExplode(f, i, p, v) {
-  sbCurrentShip[f][i][p] = p === 'count' ? (parseInt(v) || 1) : v; sbRenderRaw();
-}
+function addExplodeEffect(type) { sbOpenEffectPicker(type === 'explode' ? 'explode' : 'finalExplode'); }
+function addLeakEffect()        { sbOpenEffectPicker('leaks'); }
+function sbUpdateExplode(f, i, p, v) { sbCurrentShip[f][i][p] = p === 'count' ? (parseInt(v) || 1) : v; sbRenderRaw(); }
 function sbRemoveExplode(f, i) { sbCurrentShip[f].splice(i, 1); sbRenderExplodeLists(); sbRenderRaw(); }
 
 // ═══════════════════════════════════════════════════════════
 //  ES GENERATOR
 // ═══════════════════════════════════════════════════════════
 function sbGenerateES(s) {
-  const T  = '\t';
-  const TT = '\t\t';
-  const L  = [];
+  const T = '\t', TT = '\t\t';
+  const L = [];
 
   L.push(`ship "${s.name || 'Unnamed'}"${s.variant ? ' ' + s.variant : ''}`);
   if (s.plural)    L.push(`${T}plural "${s.plural}"`);
@@ -1606,42 +1565,26 @@ function sbGenerateES(s) {
 
   if (attrKeys.length || hasMass || hasDrag) {
     L.push(`${T}attributes`);
-
-    if (attrs.category != null) {
-      L.push(`${TT}category "${attrs.category}"`);
-    }
-
+    if (attrs.category != null) L.push(`${TT}category "${attrs.category}"`);
     if (attrs.licenses && typeof attrs.licenses === 'object') {
       const licKeys = Object.keys(attrs.licenses);
-      if (licKeys.length) {
-        L.push(`${TT}licenses`);
-        for (const lic of licKeys) L.push(`${TT}${T}"${lic}"`);
-      }
+      if (licKeys.length) { L.push(`${TT}licenses`); for (const lic of licKeys) L.push(`${TT}${T}"${lic}"`); }
     }
-
     if (hasMass) L.push(`${TT}mass ${s.mass}`);
     if (hasDrag) L.push(`${TT}drag ${s.drag}`);
-
-    const SKIP = new Set(['category', 'licenses', 'mass', 'drag', 'weapon']);
+    const SKIP = new Set(['category','licenses','mass','drag','weapon']);
     for (const k of attrKeys) {
       if (SKIP.has(k)) continue;
       const v = attrs[k];
       if (v === '' || v == null) continue;
-      const vStr   = String(v);
-      const isNum  = /^-?[0-9]*\.?[0-9]+$/.test(vStr);
-      const valOut = isNum ? vStr : `"${vStr}"`;
-      L.push(`${TT}"${k}" ${valOut}`);
+      const vStr  = String(v);
+      const isNum = /^-?[0-9]*\.?[0-9]+$/.test(vStr);
+      L.push(`${TT}"${k}" ${isNum ? vStr : `"${vStr}"`}`);
     }
-
     const w = s.weapon || {};
-    const hasWeapon = Object.values(w).some(v => Number(v) !== 0);
-    if (hasWeapon) {
+    if (Object.values(w).some(v => Number(v) !== 0)) {
       L.push(`${TT}weapon`);
-      for (const wk of SB_WEAPON_FIELDS) {
-        const wv = w[wk];
-        if (wv == null || Number(wv) === 0) continue;
-        L.push(`${TT}\t"${wk}" ${wv}`);
-      }
+      for (const wk of SB_WEAPON_FIELDS) { const wv = w[wk]; if (wv == null || Number(wv) === 0) continue; L.push(`${TT}\t"${wk}" ${wv}`); }
     }
   }
 
@@ -1656,64 +1599,27 @@ function sbGenerateES(s) {
 
   for (const e of (s.engines || [])) {
     const parts = (e.coords || '0 0').split(/\s+/);
-    const x = parts[0] || '0', y = parts[1] || '0';
-    const zoom = e.zoom && e.zoom !== '' ? ` ${e.zoom}` : '';
-    L.push(`${T}engine ${x} ${y}${zoom}`);
+    L.push(`${T}engine ${parts[0] || '0'} ${parts[1] || '0'}${e.zoom && e.zoom !== '' ? ' ' + e.zoom : ''}`);
   }
+  for (const g of (s.guns    || [])) { const raw = (g.over || '').trim().replace(/^"|"$/g, ''); L.push(`${T}gun ${g.coords || '0 0'}${raw ? ` "${raw}"` : ''}`); }
+  for (const g of (s.turrets || [])) { const raw = (g.over || '').trim().replace(/^"|"$/g, ''); L.push(`${T}turret ${g.coords || '0 0'}${raw ? ` "${raw}"` : ''}`); }
+  for (const d of (s.drones   || [])) { const p = (d.coords || '0 0').split(/\s+/); L.push(`${T}bay "Drone" ${p[0]||'0'} ${p[1]||'0'}`); if (d.launchEffect) L.push(`${TT}"launch effect" "${d.launchEffect}"`); }
+  for (const f of (s.fighters || [])) { const p = (f.coords || '0 0').split(/\s+/); L.push(`${T}bay "Fighter" ${p[0]||'0'} ${p[1]||'0'}`); if (f.launchEffect) L.push(`${TT}"launch effect" "${f.launchEffect}"`); }
 
-  for (const g of (s.guns || [])) {
-    const raw  = (g.over || '').trim().replace(/^"|"$/g, '');
-    const over = raw ? ` "${raw}"` : '';
-    L.push(`${T}gun ${g.coords || '0 0'}${over}`);
-  }
-
-  for (const g of (s.turrets || [])) {
-    const raw  = (g.over || '').trim().replace(/^"|"$/g, '');
-    const over = raw ? ` "${raw}"` : '';
-    L.push(`${T}turret ${g.coords || '0 0'}${over}`);
-  }
-
-  for (const d of (s.drones || [])) {
-    const parts = (d.coords || '0 0').split(/\s+/);
-    L.push(`${T}bay "Drone" ${parts[0] || '0'} ${parts[1] || '0'}`);
-    if (d.launchEffect) L.push(`${TT}"launch effect" "${d.launchEffect}"`);
-  }
-
-  for (const f of (s.fighters || [])) {
-    const parts = (f.coords || '0 0').split(/\s+/);
-    L.push(`${T}bay "Fighter" ${parts[0] || '0'} ${parts[1] || '0'}`);
-    if (f.launchEffect) L.push(`${TT}"launch effect" "${f.launchEffect}"`);
-  }
-
-  // ── Leaks ──────────────────────────────────────────────────────────────────
-  // ES format: leak "effectName" <openChance> <spreadChance>
-  // Internal:  { name, openChance, spreadChance }
   for (const l of (s.leaks || [])) {
     if (!l.name) continue;
-    const nameOut     = l.name.includes(' ') ? `"${l.name}"` : l.name;
-    const openChance  = parseInt(l.openChance)  || 0;
-    const spreadChance = parseInt(l.spreadChance) || 0;
-    L.push(`${T}leak ${nameOut} ${openChance} ${spreadChance}`);
+    const nameOut = l.name.includes(' ') ? `"${l.name}"` : l.name;
+    L.push(`${T}leak ${nameOut} ${parseInt(l.openChance) || 0} ${parseInt(l.spreadChance) || 0}`);
   }
-
-  for (const e of (s.explode || [])) {
-    const count = parseInt(e.count) || 1;
-    L.push(`${T}explode "${e.name}"${count > 1 ? ' ' + count : ''}`);
-  }
-
-  for (const e of (s.finalExplode || [])) {
-    L.push(`${T}"final explode" "${e.name}"`);
-  }
+  for (const e of (s.explode      || [])) L.push(`${T}explode "${e.name}"${(parseInt(e.count)||1) > 1 ? ' ' + e.count : ''}`);
+  for (const e of (s.finalExplode || [])) L.push(`${T}"final explode" "${e.name}"`);
 
   if (s.description) {
-    const paras = s.description.split(/\n/);
-    for (const para of paras) {
+    for (const para of s.description.split(/\n/)) {
       if (para.trim() !== '') L.push(`${T}description "${para}"`);
     }
   }
-
   for (const l of (s.extraLines || [])) L.push(l);
-
   return L.join('\n');
 }
 
@@ -1721,153 +1627,64 @@ function sbGenerateES(s) {
 //  ES PARSER
 // ═══════════════════════════════════════════════════════════
 function sbParseES(text) {
-  const ships = []; let cur = null;
-  let block = null;
-  let subblock = null;
-  let lastBay = null;
-
+  const ships = []; let cur = null, block = null, subblock = null, lastBay = null;
   const flush = () => { if (cur) ships.push(cur); };
-
   for (const raw of text.split('\n')) {
-    const t      = raw.trim();
+    const t = raw.trim();
     if (!t || t.startsWith('#')) continue;
     const indent = raw.length - raw.trimStart().length;
-
     if (indent === 0) {
       const m = t.match(/^ship\s+("([^"]+)"|(\S+))\s*(.*)$/);
-      if (m) {
-        flush();
-        cur = sbBlank();
-        cur.name    = m[2] || m[3] || '';
-        cur.variant = (m[4] || '').trim();
-        block = null; subblock = null; lastBay = null;
-        continue;
-      }
+      if (m) { flush(); cur = sbBlank(); cur.name = m[2] || m[3] || ''; cur.variant = (m[4] || '').trim(); block = null; subblock = null; lastBay = null; continue; }
       flush(); cur = null; continue;
     }
     if (!cur) continue;
-
     if (indent === 1) {
       block = null; subblock = null; lastBay = null;
-
-      if (t.startsWith('sprite '))           { cur.sprite      = sbStripQ(t.slice(7));  continue; }
-      if (t.startsWith('thumbnail '))        { cur.thumbnail   = sbStripQ(t.slice(10)); continue; }
-      if (t.startsWith('plural '))           { cur.plural      = sbStripQ(t.slice(7));  continue; }
-      if (t === 'attributes')                { block = 'attributes'; continue; }
-      if (t === 'outfits')                   { block = 'outfits';    continue; }
-
-      if (t.startsWith('description ')) {
-        const para = sbStripQ(t.slice(12));
-        cur.description = cur.description ? cur.description + '\n' + para : para;
-        continue;
-      }
-
-      if (t.startsWith('engine ')) {
-        const p = sbTok(t.slice(7));
-        cur.engines.push({
-          coords: p.slice(0, 2).join(' '),
-          zoom:   p[2] || '',
-          angle:  p[3] || '',
-        });
-        continue;
-      }
-
-      if (t.startsWith('gun '))    { sbPHP(cur, 'guns',    t.slice(4)); continue; }
-      if (t.startsWith('turret ')) { sbPHP(cur, 'turrets', t.slice(7)); continue; }
-
-      if (t.startsWith('bay ')) {
-        const p    = sbTok(t.slice(4));
-        const type = sbStripQ(p[0] || '');
-        const coords = p.slice(1, 3).join(' ');
-        if (type === 'Fighter') {
-          cur.fighters.push({ coords, launchEffect: '' });
-          lastBay = { field: 'fighters', idx: cur.fighters.length - 1 };
-        } else {
-          cur.drones.push({ coords, launchEffect: '' });
-          lastBay = { field: 'drones', idx: cur.drones.length - 1 };
-        }
-        continue;
-      }
-
-      if (t === 'drone')   { cur.drones.push({ coords: '', launchEffect: '' }); continue; }
-      if (t === 'fighter') { cur.fighters.push({ coords: '', launchEffect: '' }); continue; }
-
-      // ── leak "name" <openChance> <spreadChance> ──────────────────────────
-      if (t.startsWith('leak ')) {
-        const p = sbTok(t.slice(5));
-        cur.leaks.push({
-          name:        sbStripQ(p[0] || ''),
-          openChance:  parseInt(p[1]) || 0,
-          spreadChance: parseInt(p[2]) || 0,
-        });
-        continue;
-      }
-
-      if (t.startsWith('explode '))          { sbPEx(cur, 'explode',      t.slice(8));  continue; }
-      if (t.startsWith('"final explode" '))  { sbPEx(cur, 'finalExplode', t.slice(16)); continue; }
-
+      if (t.startsWith('sprite '))          { cur.sprite = sbStripQ(t.slice(7)); continue; }
+      if (t.startsWith('thumbnail '))       { cur.thumbnail = sbStripQ(t.slice(10)); continue; }
+      if (t.startsWith('plural '))          { cur.plural = sbStripQ(t.slice(7)); continue; }
+      if (t === 'attributes')               { block = 'attributes'; continue; }
+      if (t === 'outfits')                  { block = 'outfits'; continue; }
+      if (t.startsWith('description '))     { const para = sbStripQ(t.slice(12)); cur.description = cur.description ? cur.description + '\n' + para : para; continue; }
+      if (t.startsWith('engine '))          { const p = sbTok(t.slice(7)); cur.engines.push({ coords: p.slice(0,2).join(' '), zoom: p[2] || '', angle: p[3] || '' }); continue; }
+      if (t.startsWith('gun '))             { sbPHP(cur, 'guns',    t.slice(4)); continue; }
+      if (t.startsWith('turret '))          { sbPHP(cur, 'turrets', t.slice(7)); continue; }
+      if (t.startsWith('bay '))             { const p = sbTok(t.slice(4)); const type = sbStripQ(p[0]||''); const coords = p.slice(1,3).join(' '); if (type === 'Fighter') { cur.fighters.push({ coords, launchEffect:'' }); lastBay = { field:'fighters', idx: cur.fighters.length-1 }; } else { cur.drones.push({ coords, launchEffect:'' }); lastBay = { field:'drones', idx: cur.drones.length-1 }; } continue; }
+      if (t === 'drone')                    { cur.drones.push({ coords:'', launchEffect:'' }); continue; }
+      if (t === 'fighter')                  { cur.fighters.push({ coords:'', launchEffect:'' }); continue; }
+      if (t.startsWith('leak '))            { const p = sbTok(t.slice(5)); cur.leaks.push({ name: sbStripQ(p[0]||''), openChance: parseInt(p[1])||0, spreadChance: parseInt(p[2])||0 }); continue; }
+      if (t.startsWith('explode '))         { sbPEx(cur, 'explode',      t.slice(8));  continue; }
+      if (t.startsWith('"final explode" ')) { sbPEx(cur, 'finalExplode', t.slice(16)); continue; }
       cur.extraLines.push(raw); continue;
     }
-
     if (indent === 2) {
-      if (lastBay && t.startsWith('"launch effect"')) {
-        const p   = sbTok(t);
-        const val = sbStripQ(p[1] || '');
-        cur[lastBay.field][lastBay.idx].launchEffect = val;
-        continue;
-      }
-
+      if (lastBay && t.startsWith('"launch effect"')) { const p = sbTok(t); cur[lastBay.field][lastBay.idx].launchEffect = sbStripQ(p[1]||''); continue; }
       if (block === 'attributes') {
-        const p = sbTok(t);
-        if (!p.length) continue;
+        const p = sbTok(t); if (!p.length) continue;
         const key = sbStripQ(p[0]);
-
         if (key === 'licenses') { subblock = 'licenses'; continue; }
-        if (key === 'weapon')   { subblock = 'weapon';   cur.weapon = cur.weapon || {}; continue; }
-
+        if (key === 'weapon')   { subblock = 'weapon'; cur.weapon = cur.weapon || {}; continue; }
         const val = p.slice(1).join(' ');
         if (key === 'mass') { cur.mass = val; continue; }
         if (key === 'drag') { cur.drag = val; continue; }
-        cur.attributes[key] = val;
-        continue;
+        cur.attributes[key] = val; continue;
       }
-
-      if (block === 'outfits') {
-        const p = sbTok(t);
-        if (p.length) {
-          const name  = p[0].startsWith('"') ? p[0] : `"${p[0]}"`;
-          cur.outfits.push({ name, count: parseInt(p[1]) || 1, pluginId: null });
-        }
-        continue;
-      }
-
+      if (block === 'outfits') { const p = sbTok(t); if (p.length) { const name = p[0].startsWith('"') ? p[0] : `"${p[0]}"`; cur.outfits.push({ name, count: parseInt(p[1])||1, pluginId: null }); } continue; }
       cur.extraLines.push(raw); continue;
     }
-
     if (indent === 3 && block === 'attributes') {
-      const p   = sbTok(t);
-      const key = sbStripQ(p[0] || '');
-      const val = p.slice(1).join(' ');
-
-      if (subblock === 'licenses') {
-        cur.attributes.licenses = cur.attributes.licenses || {};
-        cur.attributes.licenses[key] = true;
-        continue;
-      }
-      if (subblock === 'weapon') {
-        cur.weapon = cur.weapon || {};
-        cur.weapon[key] = parseFloat(val) || 0;
-        continue;
-      }
+      const p = sbTok(t); const key = sbStripQ(p[0]||''); const val = p.slice(1).join(' ');
+      if (subblock === 'licenses') { cur.attributes.licenses = cur.attributes.licenses || {}; cur.attributes.licenses[key] = true; continue; }
+      if (subblock === 'weapon')   { cur.weapon = cur.weapon || {}; cur.weapon[key] = parseFloat(val) || 0; continue; }
     }
-
     cur.extraLines.push(raw);
   }
   flush();
   return ships;
 }
-function sbPHP(cur, f, rest) { const p=sbTok(rest); cur[f].push({coords:p.slice(0,2).join(' '),over:p.slice(2).join(' ')}); }
-function sbPEx(cur, f, rest) { const p=sbTok(rest); const name=sbStripQ(p[0]||'tiny explosion'); (cur[f]=cur[f]||[]).push({name, count:parseInt(p[1])||1}); }
+function sbPHP(cur, f, rest) { const p=sbTok(rest); cur[f].push({ coords:p.slice(0,2).join(' '), over:p.slice(2).join(' ') }); }
+function sbPEx(cur, f, rest) { const p=sbTok(rest); (cur[f]=cur[f]||[]).push({ name:sbStripQ(p[0]||'tiny explosion'), count:parseInt(p[1])||1 }); }
 function sbTok(str) {
   const t=[]; let i=0;
   while(i<str.length){
@@ -1902,40 +1719,39 @@ function copyOutput() {
     .then(() => sbToast('Copied!', 'success')).catch(() => sbToast('Copy failed.', 'danger'));
 }
 
-function saveShip() {
-  onBuilderChange();
-  if (!sbCurrentShip.name) { sbToast('Ship must have a name.', 'danger'); document.getElementById('ship-name').focus(); return; }
-  if (sbEditIdx === -1) { sbFleet.push(JSON.parse(JSON.stringify(sbCurrentShip))); sbEditIdx = sbFleet.length - 1; }
-  else sbFleet[sbEditIdx] = JSON.parse(JSON.stringify(sbCurrentShip));
-  sbSave();
-  if (window.DataLoader && window.DataLoader.refreshLocalBuilds) {
-    window.DataLoader.refreshLocalBuilds();
-  }
-  const titleEl = document.getElementById('builder-page-title');
-  if (titleEl) titleEl.textContent = `✏️ Editing: ${sbCurrentShip.name}`;
-  sbToast('Ship saved!', 'success');
-}
-
 // ═══════════════════════════════════════════════════════════
 //  EXPORT
 // ═══════════════════════════════════════════════════════════
 function renderExportChecklist() {
   const cl = document.getElementById('export-checklist'); if (!cl) return;
-  if (!sbFleet.length) { cl.innerHTML='<div style="color:var(--c-text-muted);font-style:italic;">No ships in fleet.</div>'; return; }
-  cl.innerHTML = sbFleet.map((s,i) =>
+  const allShips = [
+    ...sbSaveFleet.map((s, i) => ({ s, key: `save-${i}`,  label: (s.customName || s.name || 'Unnamed') + ' 💾' })),
+    ...sbFleet.map(    (s, i) => ({ s, key: `built-${i}`, label: s.name || 'Unnamed' })),
+  ];
+  if (!allShips.length) { cl.innerHTML='<div style="color:var(--c-text-muted);font-style:italic;">No ships in any fleet.</div>'; return; }
+  cl.innerHTML = allShips.map(({ s, key, label }) =>
     `<label style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--r-sm);background:var(--c-surface-3);margin-bottom:6px;cursor:pointer;">
-      <input type="checkbox" id="export-chk-${i}" checked style="accent-color:var(--c-accent);width:16px;height:16px;">
-      <span style="font-size:0.92rem;color:var(--c-text-mid);">${esc(s.name||'Unnamed')} <span style="color:var(--c-text-dim);font-size:0.82rem;">${esc(s.variant||'')}</span></span>
+      <input type="checkbox" id="export-chk-${key}" checked style="accent-color:var(--c-accent);width:16px;height:16px;">
+      <span style="font-size:0.92rem;color:var(--c-text-mid);">${esc(label)} <span style="color:var(--c-text-dim);font-size:0.82rem;">${esc(s.variant||'')}</span></span>
     </label>`
   ).join('');
 }
+
 function sbGetExportText() {
-  return sbFleet.filter((_,i)=>document.getElementById(`export-chk-${i}`)?.checked).map(s=>sbGenerateES(s)).join('\n\n');
+  const allShips = [
+    ...sbSaveFleet.map((s, i) => ({ s, key: `save-${i}` })),
+    ...sbFleet.map(    (s, i) => ({ s, key: `built-${i}` })),
+  ];
+  return allShips
+    .filter(({ key }) => document.getElementById(`export-chk-${key}`)?.checked)
+    .map(({ s }) => sbGenerateES(s))
+    .join('\n\n');
 }
+
 function generateExport() { const el=document.getElementById('export-output'); if(el) el.textContent=sbGetExportText()||'(No ships selected)'; }
 function copyExport()     { const t=sbGetExportText(); if(!t){sbToast('Nothing to copy.','danger');return;} navigator.clipboard.writeText(t).then(()=>sbToast('Copied!','success')).catch(()=>sbToast('Copy failed.','danger')); }
 function downloadExport() { const t=sbGetExportText(); if(!t){sbToast('Nothing to export.','danger');return;} sbDL(t,'ships.txt'); sbToast('Downloaded ships.txt','success'); }
-function exportAll()      { const t=sbFleet.map(s=>sbGenerateES(s)).join('\n\n'); if(!t){sbToast('No ships.','danger');return;} sbDL(t,'fleet.txt'); sbToast('Downloaded fleet.txt','success'); }
+function exportAll()      { const t=[...sbSaveFleet,...sbFleet].map(s=>sbGenerateES(s)).join('\n\n'); if(!t){sbToast('No ships.','danger');return;} sbDL(t,'fleet.txt'); sbToast('Downloaded fleet.txt','success'); }
 function sbDL(text, name) { const u=URL.createObjectURL(new Blob([text],{type:'text/plain'})); Object.assign(document.createElement('a'),{href:u,download:name}).click(); URL.revokeObjectURL(u); }
 
 // ═══════════════════════════════════════════════════════════
@@ -1972,6 +1788,7 @@ function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').re
 // ═══════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   sbLoad();
+  sbLoadSaveShips();
   renderFleet();
   renderExportChecklist();
   initBuilderTabs();
@@ -1998,12 +1815,8 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('[shipBuilder] dataLoader.js not loaded — outfit/ship pickers will be empty.');
   }
 
-  document.addEventListener('pluginsChanged', () => {
-    sbRefreshLiveData();
-  });
+  document.addEventListener('pluginsChanged', () => { sbRefreshLiveData(); });
+  document.addEventListener('dataLoaded',     () => { sbRefreshLiveData(); });
 
-  document.addEventListener('dataLoaded', () => {
-    sbRefreshLiveData();
-  });
   SBS.hookIntoBuilder();
 });
