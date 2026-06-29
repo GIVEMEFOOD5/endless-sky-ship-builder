@@ -38,6 +38,19 @@
 //   calling getComputedStats() on each visible ship and scanning the result —
 //   so the list is always driven entirely by what is on screen.
 //
+// ── Per-outfit-space fields (outfits tab only) ────────────────────────────────
+//
+//   For each numeric top-level outfit attribute discovered by the normal raw
+//   outfit scan (other than 'outfit space' itself), a second derived field is
+//   offered that divides that attribute by the item's own 'outfit space'
+//   value — e.g. "Mass per Outfit Space", "Fuel Capacity per Outfit Space".
+//   This re-uses the exact same key/path discovered during the raw scan, so
+//   it stays fully dynamic: no attribute names are hardcoded, and any new
+//   numeric outfit attribute that appears in the data automatically gets a
+//   matching per-space field. Items without a usable 'outfit space' value
+//   (e.g. licenses) simply resolve to no value for these fields, the same way
+//   any other missing stat does.
+//
 // ── Field cache ──────────────────────────────────────────────────────────────
 //
 //   The field list for each tab is cached keyed by tab name.
@@ -86,6 +99,13 @@ const COMPUTED_PREFIXES = ['_fn_', '_derived_', '_sys_'];
 function isComputedKey(key) {
     return COMPUTED_PREFIXES.some(p => key.startsWith(p));
 }
+
+// Key used as the divisor for "per outfit space" fields. This is just a
+// normal top-level numeric outfit attribute — it is discovered the same way
+// as every other raw outfit field by the scan below. Naming it here only
+// tells the per-space pass which already-discovered field to divide by; it
+// does not add anything that wasn't already going to be scanned.
+const OUTFIT_SPACE_KEY = 'outfit space';
 
 // ---------------------------------------------------------------------------
 // Attribute display multiplier helper
@@ -175,12 +195,14 @@ function scanFieldsFromItems(tab, items) {
     const outfitSeen     = new Set();
     const weaponSeen     = new Set();
     const effectSeen     = new Set();
+    const perSpaceSeen   = new Set();
 
     const shipBaseFields  = [];
     const shipAccumFields = [];
     const outfitFields    = [];
     const weaponFields    = [];
     const effectFields    = [];
+    const perSpaceFields  = [];
 
     for (const item of (items || [])) {
 
@@ -335,17 +357,45 @@ function scanFieldsFromItems(tab, items) {
                 if (SKIP_TOP_LEVEL.has(key)) continue;
                 if (typeof val !== 'number')  continue;
                 if (key.startsWith('_'))       continue;
+
                 const id = 'raw_' + keyToId(key);
-                if (outfitSeen.has(id)) continue;
-                outfitSeen.add(id);
+                if (!outfitSeen.has(id)) {
+                    outfitSeen.add(id);
+                    const mult = _getDisplayMultiplier(key);
+                    outfitFields.push({
+                        id,
+                        key,
+                        label:             toTitleCase(key),
+                        path:              [key],
+                        raw:               true,
+                        group:             'outfit',
+                        displayMultiplier: mult,
+                    });
+                }
+
+                // ── Per-outfit-space variant ──────────────────────────────────
+                // Built from the SAME raw key just discovered above — not a
+                // separate hardcoded list, so any numeric outfit attribute
+                // automatically gets a matching "per Outfit Space" field.
+                // Skips the space attribute itself (dividing it by itself is
+                // meaningless), and is only offered once some currently-visible
+                // item actually has a usable (nonzero numeric) 'outfit space'
+                // value to divide by — items that lack one (e.g. licenses)
+                // just won't produce a value for it at read time either way.
+                if (key === OUTFIT_SPACE_KEY) continue;
+                const perSpaceId = 'per_space_' + keyToId(key);
+                if (perSpaceSeen.has(perSpaceId)) continue;
+                if (typeof item[OUTFIT_SPACE_KEY] !== 'number' || item[OUTFIT_SPACE_KEY] === 0) continue;
+                perSpaceSeen.add(perSpaceId);
                 const mult = _getDisplayMultiplier(key);
-                outfitFields.push({
-                    id,
+                perSpaceFields.push({
+                    id:                perSpaceId,
                     key,
-                    label:             toTitleCase(key),
+                    label:             toTitleCase(key) + ' per Outfit Space',
                     path:              [key],
-                    raw:               true,
-                    group:             'outfit',
+                    raw:               false,
+                    isPerOutfitSpace:  true,
+                    group:             'outfitPerSpace',
                     displayMultiplier: mult,
                 });
             }
@@ -449,6 +499,7 @@ function scanFieldsFromItems(tab, items) {
         outfitFields:    outfitFields.sort(alpha),
         weaponFields:    weaponFields.sort(alpha),
         effectFields:    effectFields.sort(alpha),
+        perSpaceFields:  perSpaceFields.sort(alpha),
     };
 }
 
@@ -482,7 +533,7 @@ function buildFieldsForTab(tab, items) {
     const isShipLike = tab === 'ships' || tab === 'variants';
     const isOutfits  = tab === 'outfits';
 
-    const { shipBaseFields, shipAccumFields, outfitFields, weaponFields, effectFields } =
+    const { shipBaseFields, shipAccumFields, outfitFields, weaponFields, effectFields, perSpaceFields } =
         scanFieldsFromItems(tab, items);
 
     const all    = [];
@@ -498,8 +549,9 @@ function buildFieldsForTab(tab, items) {
         }
 
     } else if (isOutfits) {
-        for (const f of outfitFields) add(f);
-        for (const f of weaponFields) add(f);
+        for (const f of outfitFields)   add(f);
+        for (const f of weaponFields)   add(f);
+        for (const f of perSpaceFields) add(f);
 
     } else {
         for (const f of effectFields) add(f);
@@ -552,6 +604,8 @@ function setSorterItems(items) {
 // Value extraction
 //
 // Resolution order:
+//   0a-iii. isPerOutfitSpace — raw outfit attribute divided by that same
+//           item's own 'outfit space' value
 //   0a-ii. isShieldHullDps / isShieldHullDpsShip — synthesized Shield+Hull DPS
 //   0a-i.  isFiringCost   — WeaponStats firing-cost aggregation
 //   0a.    isOutfitComputed  — WeaponStats profile fields (range, sps, totalDps…)
@@ -572,6 +626,23 @@ function setSorterItems(items) {
 // ---------------------------------------------------------------------------
 
 function getFieldValue(item, field) {
+
+    // 0a-iii. Per-outfit-space ratio — OUTFITS tab.
+    // Walks field.path on the raw item to get the numerator (same walk as
+    // case 4 below), then divides by this item's own 'outfit space' value,
+    // read fresh from the item rather than anything cached at scan time.
+    if (field.isPerOutfitSpace) {
+        const space = item[OUTFIT_SPACE_KEY];
+        if (typeof space !== 'number' || space === 0) return undefined;
+        let obj = item;
+        for (const k of field.path) {
+            if (obj == null) return undefined;
+            obj = obj[k];
+        }
+        if (typeof obj !== 'number') return undefined;
+        const mult = field.displayMultiplier || _getDisplayMultiplier(field.key);
+        return (obj * mult) / space;
+    }
 
     // 0a-ii. Shield + Hull DPS — OUTFITS tab.
     // Sourced from WeaponStats._calcWeaponProfile(...), the exact same call
@@ -879,6 +950,7 @@ async function confirmSorterPicker() {
                     isFiringCost:     field.isFiringCost     || false,
                     isShieldHullDps:     field.isShieldHullDps     || false,
                     isShieldHullDpsShip: field.isShieldHullDpsShip || false,
+                    isPerOutfitSpace:    field.isPerOutfitSpace    || false,
                     displayMultiplier: field.displayMultiplier || 1,
                     dir:              'desc',
                 });
@@ -979,15 +1051,17 @@ function renderPickerList(query) {
 
     } else if (sorterCurrentTab === 'outfits') {
         const outfitAttrs    = filtered.filter(f => f.group === 'outfit');
+        const perSpace       = filtered.filter(f => f.group === 'outfitPerSpace');
         const weaponPerShot  = filtered.filter(f => f.group === 'weapon' && !f.isDps && !f.isOutfitComputed && !f.isShieldHullDps);
         const weaponDps      = filtered.filter(f => f.group === 'weapon' && f.isDps);
         const weaponComputed = filtered.filter(f => f.group === 'weapon' && (f.isOutfitComputed || f.isShieldHullDps));
 
         groups = [
-            { label: 'Outfit Attributes',          fields: outfitAttrs    },
-            { label: '⚡ Weapon — Computed Stats',  fields: weaponComputed },
-            { label: '💥 Weapon — DPS',             fields: weaponDps      },
-            { label: '🎯 Weapon — Per Shot',        fields: weaponPerShot  },
+            { label: 'Outfit Attributes',                fields: outfitAttrs    },
+            { label: '📐 Efficiency (per Outfit Space)',  fields: perSpace       },
+            { label: '⚡ Weapon — Computed Stats',        fields: weaponComputed },
+            { label: '💥 Weapon — DPS',                   fields: weaponDps      },
+            { label: '🎯 Weapon — Per Shot',              fields: weaponPerShot  },
         ];
 
     } else {
