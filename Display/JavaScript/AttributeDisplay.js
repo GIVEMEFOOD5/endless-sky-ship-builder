@@ -751,9 +751,15 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
                             .find(k => weapon[k] !== undefined);
         const val = searchKey !== undefined ? parseFloat(weapon[searchKey] ?? 0) : 0;
         if (!val) continue;
-        push(getLabel(dmgKey), val,       'dmg/shot', dmgKey + '__shot');
-        push(getLabel(dmgKey), val * sps, 'dmg/s',    dmgKey + '__dps');
-
+        // Status effect damage types (ion, scrambling, disruption, slowing, discharge,
+        // corrosion, burn, leak) are stored as raw accumulation values but the game
+        // displays them scaled by ×100 — they represent percentage-based status
+        // accumulation. Look up the displayMultiplier from attrDefs to get the correct
+        // scale automatically, falling back to 1 for normal damage types.
+        const rec  = attrDefs ? getAttrRecord(attrDefs, dmgKey) : null;
+        const mult = rec?.displayMultiplier ?? 1;
+        push(getLabel(dmgKey), val * mult,        'dmg/shot', dmgKey + '__shot');
+        push(getLabel(dmgKey), val * mult * sps,  'dmg/s',    dmgKey + '__dps');
     }
 
     // ── Anti-missile ──────────────────────────────────────────────────────────
