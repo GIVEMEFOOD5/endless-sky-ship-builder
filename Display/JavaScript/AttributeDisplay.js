@@ -577,7 +577,7 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     ? weapon.submunitions.reduce((s, e) => s + (e?.count ?? 1), 0)
     : 1;
 
-    const effectiveSps = rootSps * totalSubCount;
+    const effectiveSps = rootSps; //* totalSubCount;
     
     const queue = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
     const sections = [];
