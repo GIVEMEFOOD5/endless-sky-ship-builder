@@ -472,10 +472,10 @@
     "large explosion": 70,
     "huge explosion": 20,
     "final explode": "final explosion large",
-    "description": "Some Korath scrappers are more interested in harvesting raw materials rather than technology. The Devar'ur is their attempt to streamline the collection process. The Korath Incinerator is integrated into the ship and cannot be removed.",
+    "description": "Some Korath scrappers are more interested in harvesting raw materials rather than technology. The Devar'ur is their attempt to streamline the collection process. The Scrap Incinerator is integrated into the ship and cannot be removed.",
     "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Devourer",
     "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
-    "_hash": "f7d5bdc1d567",
+    "_hash": "dfdd47979bbc",
     "variant": "Korath Devourer (Infested)",
     "baseShip": "Korath Devourer",
     "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
@@ -664,7 +664,6 @@
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Independent": true,
-        "Independent (Killable)": true,
         "Korath": true
       },
       "Zuckungs list/bunrodea.missions": {
@@ -5819,8 +5818,8 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       }
@@ -6008,7 +6007,6 @@
         "Bounty": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate": true,
         "Bounty (Disguised)": true,
         "Merchant": true,
         "Bounty Hunter": true,
@@ -6201,8 +6199,8 @@
         "Ancient Travelers": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate": true,
         "Merchant": true,
+        "Pirate": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true
       }
@@ -6549,7 +6547,6 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate": true,
         "Bounty Hunter": true,
         "Republic": true,
         "Bounty": true,
@@ -6719,13 +6716,13 @@
     "description": "Korath Scrappers who scavenge in the Scrapyard are using the technology they find to customize their ships.",
     "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Palavret Tek",
     "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
-    "_hash": "f80bf6d67dbf",
+    "_hash": "ae9faaf26531",
     "variant": "Korath Raider (Scrapyard)",
     "baseShip": "Palavret Tek",
     "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
     "governments": {
-      "Midnight-Scrapyard": {
-        "Midnight-Scrapyard": true
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true
       }
     },
     "locations": {
@@ -6755,7 +6752,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Piercer Missile": {
-        "count": 62,
+        "count": 392,
         "pluginId": "official-game/endless-sky"
       },
       "Double Plasma Core": {
@@ -6791,7 +6788,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Korath Sentinel": {
-        "count": 5,
+        "count": 4,
         "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
       },
       "Thruster (Planetary Class)": {
@@ -6813,7 +6810,7 @@
     }
   },
   {
-    "name": "Palavret Tek (Korath Scrapper (shields))",
+    "name": "Palavret Tek (shields)",
     "engines": [
       {
         "x": -20,
@@ -6931,18 +6928,22 @@
     "description": "Korath Scrappers who scavenge in the Scrapyard are using the technology they find to customize their ships.",
     "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Palavret Tek",
     "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
-    "_hash": "f80bf6d67dbf",
-    "variant": "Korath Scrapper (shields)",
+    "_hash": "ae9faaf26531",
+    "variant": "Palavret Tek (shields)",
     "baseShip": "Palavret Tek",
     "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
     "governments": {
-      "Midnight-Scrapyard": {
-        "Midnight-Scrapyard": true
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       }
     },
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "_deprecated/unused": true
+        "Missions": [
+          "First Contact: Blight Shadows",
+          "Scrapyard: Factory Scrapper"
+        ]
       }
     },
     "outfits": {
@@ -6967,7 +6968,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Piercer Missile": {
-        "count": 62,
+        "count": 392,
         "pluginId": "official-game/endless-sky"
       },
       "Double Plasma Core": {
@@ -7003,7 +7004,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Korath Sentinel": {
-        "count": 5,
+        "count": 4,
         "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
       },
       "Thruster (Planetary Class)": {
@@ -7025,7 +7026,7 @@
     }
   },
   {
-    "name": "Palavret Tek (Korath Scrapper (weapons))",
+    "name": "Palavret Tek (weapons)",
     "engines": [
       {
         "x": -20,
@@ -7153,18 +7154,22 @@
     "description": "Korath Scrappers who scavenge in the Scrapyard are using the technology they find to customize their ships.",
     "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Palavret Tek",
     "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
-    "_hash": "f80bf6d67dbf",
-    "variant": "Korath Scrapper (weapons)",
+    "_hash": "ae9faaf26531",
+    "variant": "Palavret Tek (weapons)",
     "baseShip": "Palavret Tek",
     "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
     "governments": {
-      "Midnight-Scrapyard": {
-        "Midnight-Scrapyard": true
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       }
     },
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "_deprecated/unused": true
+        "Missions": [
+          "First Contact: Blight Shadows",
+          "Scrapyard: Factory Scrapper"
+        ]
       }
     },
     "outfits": {
@@ -7189,7 +7194,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Piercer Missile": {
-        "count": 62,
+        "count": 392,
         "pluginId": "official-game/endless-sky"
       },
       "Double Plasma Core": {
@@ -7225,7 +7230,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Korath Sentinel": {
-        "count": 5,
+        "count": 4,
         "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
       },
       "Thruster (Planetary Class)": {
@@ -7247,7 +7252,7 @@
     }
   },
   {
-    "name": "Palavret Tek (Korath Scrapper (engines))",
+    "name": "Palavret Tek (engines)",
     "engines": [
       {
         "x": -26,
@@ -7365,18 +7370,22 @@
     "description": "Korath Scrappers who scavenge in the Scrapyard are using the technology they find to customize their ships.",
     "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Palavret Tek",
     "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
-    "_hash": "f80bf6d67dbf",
-    "variant": "Korath Scrapper (engines)",
+    "_hash": "ae9faaf26531",
+    "variant": "Palavret Tek (engines)",
     "baseShip": "Palavret Tek",
     "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
     "governments": {
-      "Midnight-Scrapyard": {
-        "Midnight-Scrapyard": true
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       }
     },
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "_deprecated/unused": true
+        "Missions": [
+          "First Contact: Blight Shadows",
+          "Scrapyard: Factory Scrapper"
+        ]
       }
     },
     "outfits": {
@@ -7401,7 +7410,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Piercer Missile": {
-        "count": 62,
+        "count": 392,
         "pluginId": "official-game/endless-sky"
       },
       "Double Plasma Core": {
@@ -7437,7 +7446,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Korath Sentinel": {
-        "count": 5,
+        "count": 4,
         "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
       },
       "Thruster (Planetary Class)": {
@@ -7459,7 +7468,7 @@
     }
   },
   {
-    "name": "Palavret Tek (Korath Scrapper (carrier))",
+    "name": "Palavret Tek (carrier)",
     "engines": [
       {
         "x": -20,
@@ -7587,18 +7596,22 @@
     "description": "Korath Scrappers who scavenge in the Scrapyard are using the technology they find to customize their ships.",
     "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Palavret Tek",
     "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
-    "_hash": "f80bf6d67dbf",
-    "variant": "Korath Scrapper (carrier)",
+    "_hash": "ae9faaf26531",
+    "variant": "Palavret Tek (carrier)",
     "baseShip": "Palavret Tek",
     "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
     "governments": {
-      "Midnight-Scrapyard": {
-        "Midnight-Scrapyard": true
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       }
     },
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "_deprecated/unused": true
+        "Missions": [
+          "First Contact: Blight Shadows",
+          "Scrapyard: Factory Scrapper"
+        ]
       }
     },
     "outfits": {
@@ -7623,7 +7636,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Piercer Missile": {
-        "count": 62,
+        "count": 392,
         "pluginId": "official-game/endless-sky"
       },
       "Double Plasma Core": {
@@ -7659,7 +7672,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Korath Sentinel": {
-        "count": 5,
+        "count": 4,
         "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
       },
       "Thruster (Planetary Class)": {
@@ -7803,16 +7816,17 @@
     "large explosion": 50,
     "huge explosion": 15,
     "final explode": "final explosion large",
-    "description": "Korath Scrappers who scavenge in the Scrapyard are using the technology they find to customize their ships. \tThis Rano'erek Tek has enhanced shield strength and hull durability. Upgraded automation in its operations keeps the ships crew requirements low.",
+    "description": "Korath Scrappers who scavenge in the Scrapyard are using the technology they find to customize their ships. \tThis Rano'erek Tek has enhanced shield strength and hull durability. Upgraded automation in its operations keeps the ship's crew requirements low.",
     "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Rano'erek Tek",
     "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
-    "_hash": "52ed528168d5",
+    "_hash": "2e9b17de1f36",
     "variant": "Korath Dredger (Scrapper)",
     "baseShip": "Rano'erek Tek",
     "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
     "governments": {
-      "Midnight-Scrapyard": {
-        "Midnight-Scrapyard": true
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       }
     },
     "locations": {
@@ -8029,8 +8043,8 @@
     "baseShip": "Rano'erek Ik",
     "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
     "governments": {
-      "Midnight-Scrapyard": {
-        "Midnight-Scrapyard": true
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true
       }
     },
     "locations": {
@@ -8280,7 +8294,7 @@
       {
         "type": "Fighter",
         "x": 0,
-        "y": 0,
+        "y": 6,
         "under": true
       }
     ],
@@ -8299,10 +8313,10 @@
       "heat dissipation": 0.42,
       "fuel capacity": 400,
       "cargo space": 107,
-      "outfit space": 994,
-      "weapon capacity": 344,
+      "outfit space": 940,
+      "weapon capacity": 386,
       "engine capacity": 161,
-      "self destruct": 0.8,
+      "self destruct": 0.7000000000000001,
       "ramscoop": 3,
       "weapon": {
         "blast radius": 380,
@@ -8375,7 +8389,11 @@
         "pluginId": "official-game/endless-sky"
       },
       "Systems Core (Large)": {
-        "count": 2,
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "Large Heat Shunt": {
@@ -8390,11 +8408,19 @@
         "count": 3,
         "pluginId": "official-game/endless-sky"
       },
+      "Security Node": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Thruster (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
       "Thruster (Planetary Class)": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Steering (Stellar Class)": {
+      "Steering (Planetary Class)": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       }
@@ -8462,7 +8488,7 @@
       {
         "type": "Fighter",
         "x": 0,
-        "y": 0,
+        "y": 12,
         "under": true
       }
     ],
@@ -8481,10 +8507,10 @@
       "heat dissipation": 0.52,
       "fuel capacity": 400,
       "cargo space": 78,
-      "outfit space": 857,
-      "weapon capacity": 297,
+      "outfit space": 803,
+      "weapon capacity": 339,
       "engine capacity": 145,
-      "self destruct": 0.79,
+      "self destruct": 0.6900000000000001,
       "ramscoop": 3,
       "weapon": {
         "blast radius": 340,
@@ -8552,7 +8578,11 @@
         "pluginId": "official-game/endless-sky"
       },
       "Systems Core (Large)": {
-        "count": 2,
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "Large Heat Shunt": {
@@ -8562,6 +8592,10 @@
       "Reasoning Node": {
         "count": 3,
         "pluginId": "official-game/endless-sky"
+      },
+      "Security Node": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
       "Thruster (Planetary Class)": {
         "count": 1,
@@ -8634,7 +8668,7 @@
       {
         "type": "Fighter",
         "x": 0,
-        "y": 0,
+        "y": 27.5,
         "under": true
       }
     ],
@@ -8653,10 +8687,10 @@
       "heat dissipation": 0.65,
       "fuel capacity": 400,
       "cargo space": 53,
-      "outfit space": 713,
-      "weapon capacity": 248,
+      "outfit space": 659,
+      "weapon capacity": 290,
       "engine capacity": 132,
-      "self destruct": 0.77,
+      "self destruct": 0.67,
       "ramscoop": 3,
       "weapon": {
         "blast radius": 320,
@@ -8712,6 +8746,14 @@
       }
     },
     "outfits": {
+      "Cluster Mine Layer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cluster Mine": {
+        "count": 82,
+        "pluginId": "official-game/endless-sky"
+      },
       "Shield Disruptor Turret": {
         "count": 2,
         "pluginId": "official-game/endless-sky"
@@ -8725,10 +8767,6 @@
         "pluginId": "official-game/endless-sky"
       },
       "Generator (Inferno Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Large)": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
@@ -12898,8 +12936,16 @@
       }
     },
     "outfits": {
-      "Husk-Slice": {
+      "Piercer Missile Launcher": {
         "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Piercer Missile Rack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Piercer Missile": {
+        "count": 295,
         "pluginId": "official-game/endless-sky"
       },
       "Generator (Furnace Class)": {
@@ -12914,7 +12960,7 @@
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Reasoning Node": {
+      "Control Transceiver": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
@@ -14778,20 +14824,20 @@
       }
     },
     "outfits": {
-      "Cluster Mine Layer": {
+      "Thermal Repeater": {
         "count": 2,
         "pluginId": "official-game/endless-sky"
       },
-      "Cluster Mine": {
-        "count": 82,
+      "Banisher Grav-Turret": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Shield Disruptor Turret": {
-        "count": 2,
+      "Grab-Strike Turret": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Husk-Slice Turret": {
-        "count": 3,
+      "Warder Anti-Missile": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "Double Plasma Core": {
@@ -14806,8 +14852,8 @@
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Reasoning Node": {
-        "count": 2,
+      "Control Transceiver": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "Thruster (Planetary Class)": {
@@ -15330,16 +15376,20 @@
       }
     },
     "outfits": {
+      "Korath Detainer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
       "Banisher Grav-Turret": {
         "count": 2,
         "pluginId": "official-game/endless-sky"
       },
       "Grab-Strike Turret": {
-        "count": 2,
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "Warder Anti-Missile": {
-        "count": 2,
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "Triple Plasma Core": {
@@ -15917,12 +15967,16 @@
       }
     },
     "outfits": {
+      "Korath Detainer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
       "Banisher Grav-Turret": {
-        "count": 4,
+        "count": 3,
         "pluginId": "official-game/endless-sky"
       },
       "Warder Anti-Missile": {
-        "count": 3,
+        "count": 2,
         "pluginId": "official-game/endless-sky"
       },
       "Triple Plasma Core": {
@@ -17846,8 +17900,11 @@
     "locations": {
       "official-game/endless-sky": {
         "Systems": [
+          "Chikatip",
           "Dokdobaru",
+          "Hesselpost",
           "Kashikt",
+          "Meftarkata",
           "Sevrelect",
           "Sumprast"
         ]
@@ -19415,10 +19472,10 @@
     "large explosion": 70,
     "huge explosion": 20,
     "final explode": "final explosion large",
-    "description": "Some Korath scrappers are more interested in harvesting raw materials rather than technology. The Devar'ur is their attempt to streamline the collection process. The Korath Incinerator is integrated into the ship and cannot be removed.",
+    "description": "Some Korath scrappers are more interested in harvesting raw materials rather than technology. The Devar'ur is their attempt to streamline the collection process. The Scrap Incinerator is integrated into the ship and cannot be removed.",
     "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Devourer",
     "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
-    "_hash": "f7d5bdc1d567",
+    "_hash": "dfdd47979bbc",
     "variant": "Korath Devourer (alternate)",
     "baseShip": "Korath Devourer",
     "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
@@ -20967,7 +21024,6 @@
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Independent": true,
-        "Independent (Killable)": true,
         "Korath": true,
         "Alpha": true,
         "Pirate": true,

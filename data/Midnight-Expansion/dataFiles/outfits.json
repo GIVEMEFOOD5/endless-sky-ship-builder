@@ -1,7 +1,678 @@
 [
   {
+    "name": "Future Tech License",
+    "category": "Licenses",
+    "thumbnail": "outfit/unknown",
+    "description": "This is beyond your technical understanding. You'll have to research this on your own to figure it out.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quantum Torpedo Access Temporary",
+    "display name": "Quantum Torpedo Tech",
+    "plural": "Quantum Torpedo Techs",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "licenses": {
+      "Future Tech": true
+    },
+    "cost": 2800000,
+    "thumbnail": "outfit/tech quantum torpedo",
+    "base research rate": 0,
+    "requires Quantum Torpedo": 1,
+    "requires Ammo Basics": 1,
+    "requires Ammo Expertise": 1,
+    "requires Research Data": 1,
+    "requires Research Data (Bio)": 1,
+    "requires Research Data (Chem)": 1,
+    "requires Research Data (Phys)": 1,
+    "description": "This technical manual details how to manufacture Quantum Torpedoes. Having this makes it possible for any outfitter to offer Star Tail Cells even if it is normally not stocked there. \tThis is beyond your technical understanding. You'll have to reverse engineer this tech using your own foundational knowledge as a guide. \tThis tech can be researched instead of purchased. (Hover/Tap the attributes below for more details.) \tAfter this is acquired it can be found in the Licenses area in future visits to the outfitter.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quantum Torpedo Tech License",
+    "display name": "Quantum Torpedo Tech",
+    "plural": "Quantum Torpedo Techs",
+    "category": "Licenses",
+    "series": "Technology",
+    "licenses": {
+      "Future Tech": true
+    },
+    "thumbnail": "outfit/tech quantum torpedo",
+    "base research rate": 0,
+    "requires Star Tail Cell": 1,
+    "requires Ammo Basics": 1,
+    "requires Ammo Expertise": 1,
+    "requires Research Data": 1,
+    "requires Research Data (Bio)": 1,
+    "requires Research Data (Chem)": 1,
+    "requires Research Data (Phys)": 1,
+    "description": "This technical manual details how to manufacture Quantum Torpedoes. Having this makes it possible for any outfitter to offer Star Tail Cells even if it is normally not stocked there.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quantum Drive (Damaged)",
+    "category": "Systems",
+    "cost": 1000000,
+    "thumbnail": "outfit/midnight quantum drive",
+    "mass": 30,
+    "outfit space": -30,
+    "jump drive": 1,
+    "jump speed": 0.6,
+    "jump fuel": 200,
+    "jump range": 150,
+    "jump effect": "quantum drive",
+    "fused circuits": 1,
+    "reinstall": -1,
+    "unique": 1,
+    "description": "The Quantum Drive allows travel to any point in time and space... When it's working properly. This damaged Quantum Drive still makes it possible to travel over distances beyond what can be achieved with a regular Jump Drive.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Electron Ion Turret",
+    "category": "Turrets",
+    "cost": 1800000,
+    "thumbnail": "outfit/electron ion turret",
+    "mass": 59,
+    "outfit space": -59,
+    "weapon capacity": -59,
+    "turret mounts": -1,
+    "required crew": 1,
+    "unique": 1,
+    "weapon": {
+      "sprite": "projectile/2x electron ion",
+      "sprite data": {
+        "frame rate": 60
+      },
+      "hardpoint sprite": "hardpoint/electron ion",
+      "hardpoint offset": 8,
+      "sound": "electron beam",
+      "hit effect": "electron ion impact",
+      "inaccuracy": 0.3,
+      "turret turn": 1.2,
+      "velocity": 450,
+      "lifetime": 1,
+      "reload": 1,
+      "firing energy": 20,
+      "firing heat": 36,
+      "shield damage": 24,
+      "hull damage": 33,
+      "ion damage": 0.05,
+      "scrambling damage": 0.05
+    },
+    "description": "The internal diagnostic program indicates that it is a Tarazed test model prototype. But all of the listed log entries are in the future instead of the past.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Heavy Double Anti-Missile",
+    "category": "Turrets",
+    "cost": 325000,
+    "thumbnail": "outfit/heavy anti-missile double",
+    "mass": 43,
+    "outfit space": -43,
+    "weapon capacity": -43,
+    "turret mounts": -1,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/heavy anti-missile double",
+      "hardpoint offset": 5,
+      "hit effect": "large anti-missile",
+      "anti-missile": 8,
+      "velocity": 200,
+      "lifetime": 1,
+      "reload": 3,
+      "firing energy": 10,
+      "firing heat": 5
+    },
+    "description": "A few customers have expressed an interest in buying a Heavy Double Anti-Missile Turret in the past. But in market research surveys it has never beaten demand for some form of Particle Turret.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Refurbished Fusion Cannon",
+    "category": "Secondary Weapons",
+    "cost": 160000000,
+    "thumbnail": "outfit/refurbished fusion cannon",
+    "mass": 145,
+    "outfit space": -144,
+    "weapon capacity": -144,
+    "gun ports": -1,
+    "spinal mount": -1,
+    "required crew": 18,
+    "unique": 1,
+    "weapon": {
+      "sprite": "projectile/fusion gun bolt",
+      "sprite data": {
+        "no repeat": true,
+        "frame rate": 0.25,
+        "scale": 1.5
+      },
+      "sound": "dragonflame",
+      "icon": "icon/dragonflame",
+      "fire effect": "fusion cannon fire",
+      "die effect": "fusion cannon cloud",
+      "hit effect": [
+        "fusion cannon impact",
+        "fusion cannonspark",
+        "fusion cannon explosion 1",
+        "fusion cannon explosion 2",
+        "fusion cannon explosion 3",
+        "fusion cannon nuke"
+      ],
+      "live effect": "fusion cannon cloud",
+      "inaccuracy": 0.2,
+      "velocity": 66,
+      "lifetime": 30,
+      "reload": 60,
+      "firing energy": 7500,
+      "firing heat": 9000,
+      "firing fuel": 150,
+      "shield damage": 330,
+      "hull damage": 495,
+      "piercing": 0.3,
+      "disruption damage": 7.5,
+      "hit force": 225,
+      "missile strength": 15
+    },
+    "description": "There is an old faded piece of paper attached to the targeting control panel: \t\"We've done our best to restore this old Prototype Fusion Cannon to a functional state. I'm glad I was able to end my career on a high note. Make sure you come back from this mission in one piece. You won't want to miss my retirement party!\" - Barmy",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quantum Torpedo",
+    "plural": "Quantum Torpedoes",
+    "series": "Ammunition",
+    "index": 1052,
+    "category": "Ammunition",
+    "cost": 2800,
+    "thumbnail": "outfit/quantum torpedo",
+    "mass": 0.5,
+    "quantum torpedo capacity": -1,
+    "description": "Quantum Torpedoes are ammunition for the Quantum Torpedo Launcher. Each Quantum Torpedo Launcher can hold 30 of them. You cannot install torpedoes unless you have also installed a launcher to fire them from.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quantum Torpedo Rack",
+    "plural": "Quantum Torpedo Racks",
+    "category": "Ammunition",
+    "series": "Ammunition",
+    "index": 1053,
+    "cost": 21000,
+    "thumbnail": "outfit/quantum torpedo storage",
+    "mass": 3,
+    "outfit space": -9,
+    "quantum torpedo capacity": 15,
+    "ammo": "Quantum Torpedo",
+    "description": "The Quantum Torpedo Storage Rack is used to store extra ammunition for Quantum Torpedo Launchers.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quantum Torpedo Depot",
+    "plural": "Quantum Torpedo Depots",
+    "series": "Ammunition",
+    "index": 1054,
+    "category": "Ammunition",
+    "cost": 63000,
+    "thumbnail": "outfit/quantum torpedo depot",
+    "mass": 9,
+    "cargo space": -40,
+    "quantum torpedo capacity": 45,
+    "ammo": "Quantum Torpedo",
+    "required crew": 1,
+    "description": "The Quantum Torpedo Storage Depot stages extra ammunition in your cargo bay for weapons that use Quantum Torpedoes. The ammunition is ready to be withdrawn for use. Storing it this way uses more cargo space than if it were packed away in sealed crates. An extra crewmember is required to maintain inventory.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quantum Torpedo Launcher",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1110,
+    "cost": 520000,
+    "thumbnail": "outfit/quantum torpedo launcher",
+    "mass": 25,
+    "outfit space": -40,
+    "weapon capacity": -40,
+    "gun ports": -1,
+    "quantum torpedo capacity": 30,
+    "unique": 1,
+    "weapon": {
+      "sprite": "projectile/quantum torpedo",
+      "sprite data": {
+        "frame rate": 2,
+        "random start frame": true
+      },
+      "sound": "torpedo-ver8",
+      "icon": "icon/quantum torpedo",
+      "fire effect": "emp torpedo fire",
+      "hit effect": "quantum torpedo hit",
+      "die effect": "blue tiny explosion",
+      "inaccuracy": 5,
+      "velocity": 6,
+      "lifetime": 1600,
+      "reload": 120,
+      "firing energy": 2,
+      "firing heat": 45,
+      "acceleration": 0.15,
+      "drag": 0.015,
+      "turn": 1.5,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "optical tracking": 0.9,
+      "shield damage": 880,
+      "hull damage": 880,
+      "hit force": 450,
+      "phasing": true,
+      "piercing": 1,
+      "ammunition": [
+        {
+          "type": "Quantum Torpedo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "Quantum Torpedoes are able to quantum shift though obstacles that block line of sight to the target. This effect also negates anti-missile defenses and penetrates shields. The manufacturer is unknown.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Quantum Torpedo Pod",
+    "category": "Secondary Weapons",
+    "series": "Secondary Weapons",
+    "index": 1100,
+    "cost": 200000,
+    "thumbnail": "outfit/quantum torpedo pod",
+    "mass": 6,
+    "outfit space": -12,
+    "weapon capacity": -12,
+    "gun ports": -1,
+    "quantum torpedo capacity": 3,
+    "unique": 1,
+    "weapon": {
+      "sprite": "projectile/quantum torpedo",
+      "sprite data": {
+        "frame rate": 2,
+        "random start frame": true
+      },
+      "sound": "torpedo-ver8",
+      "icon": "icon/quantum torpedo",
+      "fire effect": "emp torpedo fire",
+      "hit effect": "quantum torpedo hit",
+      "die effect": "blue tiny explosion",
+      "inaccuracy": 5,
+      "velocity": 6,
+      "lifetime": 1100,
+      "reload": 252,
+      "burst count": 3,
+      "burst reload": 120,
+      "firing energy": 2,
+      "firing heat": 45,
+      "acceleration": 0.15,
+      "drag": 0.015,
+      "turn": 1.5,
+      "homing": {
+        "leading": true,
+        "throttle control": true
+      },
+      "optical tracking": 0.9,
+      "shield damage": 880,
+      "hull damage": 880,
+      "hit force": 450,
+      "phasing": true,
+      "piercing": 1,
+      "ammunition": [
+        {
+          "type": "Quantum Torpedo",
+          "count": 1
+        }
+      ]
+    },
+    "description": "Quantum Torpedoes are able to quantum shift though obstacles that block line of sight to the target. This effect also negates anti-missile defenses and penetrates shields. The manufacturer is unknown. \tPods enable fighters and other light craft to carry small quantities of Torpedoes into battle while retaining enough space for other weapons. Large ships are better off with full-size launchers.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Vacuum Ramscoop",
+    "category": "Systems",
+    "cost": 480000,
+    "thumbnail": "outfit/vacuum ramscoop",
+    "mass": 16,
+    "outfit space": -16,
+    "ramscoop": 10,
+    "solar collection": -0.1,
+    "solar heat": 1.5,
+    "unique": 1,
+    "description": "This Vacuum Ramscoop aggressively collects fuel from the solar wind, but loses power and generates heat while it does so. Though it appears to be a product of Deep Sky, none of their outfitters recognize it.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Modified S-270 Regenerator",
+    "category": "Systems",
+    "cost": 260000,
+    "thumbnail": "outfit/small regenerator mod",
+    "mass": 12,
+    "outfit space": -12,
+    "shield generation": 0.72,
+    "shield energy": 0.66,
+    "shield heat": 0.6,
+    "energy consumption": 0.33,
+    "heat generation": 2.2,
+    "unique": 1,
+    "description": "This modified S-270 regenerator restores shields more quickly but drains more energy and runs hotter than the standard version.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Modified S-970 Regenerator",
+    "category": "Systems",
+    "cost": 960000,
+    "thumbnail": "outfit/large regenerator mod",
+    "mass": 37,
+    "outfit space": -37,
+    "shield generation": 2.76,
+    "shield energy": 2.53,
+    "shield heat": 2.3,
+    "energy consumption": 0.99,
+    "heat generation": 6.6,
+    "unique": 1,
+    "description": "This modified S-970 regenerator restores shields more quickly but drains more energy and runs hotter than the standard version.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "S-KR53 Hull Repair System",
+    "category": "Systems",
+    "cost": 1810000,
+    "thumbnail": "outfit/syndicate hull repair medium",
+    "mass": 53,
+    "outfit space": -53,
+    "hull repair rate": 0.2,
+    "hull energy": 0.2,
+    "hull heat": 0.3,
+    "delayed hull repair rate": 0.4,
+    "delayed hull energy": 0.4,
+    "delayed hull heat": 0.6,
+    "repair delay": 60,
+    "unique": 1,
+    "description": "This hull repair system from Syndicate Systems is more advanced than anything in their catalogue and should be a top seller. Strangely, any Syndicate sales representative who is asked about this product claims it doesn't exist.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "North Wind Helium",
+    "category": "Systems",
+    "cost": 180000,
+    "thumbnail": "outfit/north wind helium",
+    "mass": 50,
+    "outfit space": -50,
+    "cooling": 69,
+    "active cooling": 40,
+    "cooling energy": 2.9,
+    "unique": 1,
+    "description": "While bulkier than the industry standard Liquid Helium Cooler, this new system offers additional emergency cooling if the ship starts to overheat.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "Apocalypse Core",
+    "category": "Power",
+    "series": "Generators",
+    "index": 1131,
+    "cost": 9900000,
+    "thumbnail": "outfit/armageddon hai",
+    "mass": 150,
+    "outfit space": -150,
+    "energy generation": 29.2,
+    "heat generation": 65,
+    "description": "This appears to be a collaboration between Lovelace Labs and Turner Inc. However, this product does not appear in either company's catalogue.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
+    "name": "A510 Atomic Engines",
+    "plural": "A510 Atomic Engines",
+    "category": "Engines",
+    "cost": 1485000,
+    "thumbnail": "outfit/atomic engines large",
+    "mass": 101,
+    "outfit space": -101,
+    "engine capacity": -101,
+    "thrust": 81.9,
+    "thrusting energy": 8.3,
+    "thrusting heat": 17.4,
+    "turn": 2101,
+    "turning energy": 4.1,
+    "turning heat": 10.5,
+    "flare sprite": "effect/atomic flare/large",
+    "flare sprite data": {
+      "frame rate": 11
+    },
+    "flare sound": "atomic large",
+    "steering flare sprite": "effect/atomic flare/large",
+    "steering flare sprite data": {
+      "frame rate": 11
+    },
+    "unique": 1,
+    "steering flare sound": "atomic large",
+    "description": "This compact steering and thrusting engine isn't as efficient as separate atomic thruster and steering engines of similar size. But using this can free up a considerable amount of space for other outfits or weapons. It seems like this should be a popular product, but Deep Sky outfitters have never heard of it.",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Anachronism"
+        ]
+      }
+    },
+    "pluginId": "Midnight Expansion/Midnight-Expansion"
+  },
+  {
     "name": "Scattershot Ammo Access Temporary License",
     "display name": "Scattershot Ammo Tech",
+    "plural": "Scattershot Ammo Techs",
     "category": "Ammunition",
     "series": "Ammunition",
     "index": 99999,
@@ -14,7 +685,7 @@
     "requires Gatling Ammo Tech": 1,
     "requires Scattershot Ammo": 1,
     "requires Ammo Basics": 1,
-    "description": "This technical manual details how to manufacture Scattershot Ammo. Having this makes it possible for any outfitter to offer Scattershot Ammo even if it is normally not stocked there. \tThe version available for purchase is written in an alien language you don't understand... \tThis tech can be researched instead of purchased. (Hover/Tap the attributes below for more details.) \tAfter this is acquired it can be found in the Licenses area when at the outfitter.",
+    "description": "This technical manual details how to manufacture Scattershot Ammo. Having this makes it possible for any outfitter to offer Scattershot Ammo even if it is normally not stocked there. \tThe version available for purchase is written in an alien language you don't understand... \tThis tech can be researched instead of purchased. (Hover/Tap the attributes below for more details.) \tAfter this is acquired it can be found in the Licenses area in future visits to the outfitter.",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -30,6 +701,7 @@
   {
     "name": "Scattershot Ammo Tech License",
     "display name": "High Caliber Ammo Tech",
+    "plural": "High Caliber Ammo Techs",
     "category": "Licenses",
     "series": "Technology",
     "index": 99999,
@@ -108,17 +780,22 @@
       },
       "official-game/endless-sky": {
         "Systems": [
+          "Asikafarnut",
           "Chimitarp",
+          "Eneremprukt",
           "Eshkoshtar",
           "Farbutero",
           "Faronektu",
           "Feroteri",
+          "Ferukistek",
           "Fornarep",
           "Kaliptari",
           "Korsmanath",
           "Mekislepti",
+          "Mesuket",
           "Salipastart",
           "Sepetrosk",
+          "Silikatakfar",
           "Similisti"
         ]
       }
@@ -660,14 +1337,6 @@
           "Korath World-Ship B (Shock-Strike)",
           "Korath World-Ship C (Shock-Strike)"
         ]
-      },
-      "official-game/endless-sky": {
-        "Systems": [
-          "Dokdobaru",
-          "Kashikt",
-          "Sevrelect",
-          "Sumprast"
-        ]
       }
     },
     "pluginId": "Midnight Expansion/Midnight-Expansion"
@@ -774,7 +1443,6 @@
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Hai (Unfettered)": true,
-        "Hai (Friendly Unfettered)": true,
         "Pirate": true,
         "Storm Seekers": true
       },
@@ -804,15 +1472,11 @@
           "Water Scorpion (Tracker)"
         ]
       },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "ShipyardPlanets": [
-          "Oldhome"
-        ]
-      },
       "official-game/endless-sky": {
         "Systems": [
           "Bore Fah",
           "Bote Asu",
+          "Chy'chra",
           "Da Ent",
           "Da Lest",
           "Due Yoot",
@@ -827,6 +1491,7 @@
           "Io Mann",
           "Lom Tahr",
           "Mei Yohn",
+          "Prakacha'a",
           "Rati Cal",
           "Ula Mon",
           "Uwa Fahn",
@@ -836,6 +1501,11 @@
           "Waypoint",
           "Ya Hai",
           "Zuba Zub"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Mah Duum"
         ]
       }
     },
@@ -911,12 +1581,12 @@
     "cargo space": 360,
     "cooling": 12,
     "scan interference": 99,
-    "cargo scan opacity": 150,
-    "scan concealment": 180,
+    "cargo scan opacity": 180,
+    "scan concealment": 90,
     "integrated systems": 1,
     "reinstall": -1,
     "unplunderable": 1,
-    "description": "These cargo storage cylinders are designed to contain hazardous radioactive waste. Their internal structure also interferes with incoming scans enough to almost completely block all of them.",
+    "description": "These cargo storage cylinders are designed to contain hazardous radioactive waste. Their internal structure also interferes with incoming scans enough to completely conceal a portion of cargo carried while making the rest harder to scan.",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Bounty": true,
@@ -937,19 +1607,208 @@
         ]
       },
       "official-game/endless-sky": {
-        "ShipyardPlanets": [
-          "Haven"
-        ],
         "Systems": [
+          "Acamar",
+          "Achernar",
+          "Acrux",
+          "Adhara",
+          "Al Dhanab",
+          "Albaldah",
+          "Albireo",
+          "Aldebaran",
+          "Alderamin",
+          "Aldhibain",
+          "Algieba",
+          "Algol",
+          "Algorel",
+          "Alheka",
+          "Alhena",
+          "Alioth",
+          "Alkaid",
+          "Alnasl",
+          "Alniyat",
+          "Alpha Arae",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alphecca",
+          "Alpheratz",
           "Alpherg",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Arcturus",
+          "Ascella",
+          "Aspidiske",
+          "Atria",
+          "Avior",
           "Belenos",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Cebalrai",
           "Citadelle",
-          "Fumalsamakah"
+          "Cor Caroli",
+          "Dabih",
+          "Delta Capricorni",
+          "Delta Sagittarii",
+          "Delta Velorum",
+          "Denebola",
+          "Diphda",
+          "Dschubba",
+          "Dubhe",
+          "Eber",
+          "Elnath",
+          "Eltanin",
+          "Enif",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Fumalsamakah",
+          "Gacrux",
+          "Gamma Corvi",
+          "Girtab",
+          "Gomeisa",
+          "Graffias",
+          "Hadar",
+          "Hamal",
+          "Han",
+          "Holeb",
+          "Ildaria",
+          "Izar",
+          "Kappa Centauri",
+          "Kaus Australis",
+          "Kaus Borealis",
+          "Kochab",
+          "Kornephoros",
+          "Kraz",
+          "Kursa",
+          "Lesath",
+          "Lurata",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Menkent",
+          "Merak",
+          "Miaplacidus",
+          "Mimosa",
+          "Minkar",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Mizar",
+          "Moktar",
+          "Mora",
+          "Muhlifain",
+          "Muphrid",
+          "Naos",
+          "Nihal",
+          "Peacock",
+          "Phact",
+          "Phecda",
+          "Pherkad",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Rasalhague",
+          "Rastaban",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Rutilicus",
+          "Sabik",
+          "Sadalmelik",
+          "Sadalsuud",
+          "Saiph",
+          "Sargas",
+          "Sarin",
+          "Scheat",
+          "Schedar",
+          "Seginus",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Spica",
+          "Suhail",
+          "Tais",
+          "Talita",
+          "Tania Australis",
+          "Tarazed",
+          "Tejat",
+          "Turais",
+          "Unukalhai",
+          "Vega",
+          "Vindemiatrix",
+          "Volax",
+          "Wazn",
+          "Wei",
+          "Wezen",
+          "Yed Prior",
+          "Zaurak",
+          "Zeta Aquilae",
+          "Zeta Centauri",
+          "Zosma",
+          "Zubenelgenubi",
+          "Zubeneschamali"
         ]
       },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "ShipyardPlanets": [
-          "Leroo Station"
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
         ]
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -1163,14 +2022,13 @@
     },
     "description": "Shock Wave Blasters were originally the weapon of choice for the Hai Imperial Guard. They eventually fell out of favor as pulse and ion technology rose to prominence. \tThe ionized plasma fired from these weapons is composed of charged particles that are extremely volatile. They lose cohesion after only a short distance of flight, making them less effective against distant targets.",
     "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true,
         "Hai (Unfettered)": true,
         "Pirate": true,
         "Storm Seekers": true
-      },
-      "official-game/endless-sky": {
-        "Hai (Unfettered)": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
@@ -1197,16 +2055,19 @@
           "Water Scorpion (Tracker)"
         ]
       },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "ShipyardPlanets": [
-          "Oldhome"
-        ]
-      },
       "official-game/endless-sky": {
         "Systems": [
+          "Chy'chra",
           "Ehma Ti",
           "Hi Yahr",
+          "Prakacha'a",
+          "Wah Ki",
           "Wah Yoot"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Mah Duum"
         ]
       }
     },
@@ -1319,14 +2180,13 @@
     },
     "description": "Shock Wave Blasters are no longer utilized in modern Hai fleets, but have seen a resurgence among Unfettered raiders. Mounting two of these weapons on a rotating turret base is a recent Unfettered innovation.",
     "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Hai (Friendly Unfettered)": true,
         "Hai (Unfettered)": true,
         "Pirate": true,
         "Storm Seekers": true
-      },
-      "official-game/endless-sky": {
-        "Hai (Unfettered)": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
@@ -1349,16 +2209,19 @@
           "Water Scorpion (Tracker)"
         ]
       },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "ShipyardPlanets": [
-          "Oldhome"
-        ]
-      },
       "official-game/endless-sky": {
         "Systems": [
+          "Chy'chra",
           "Ehma Ti",
           "Hi Yahr",
+          "Prakacha'a",
+          "Wah Ki",
           "Wah Yoot"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Mah Duum"
         ]
       }
     },

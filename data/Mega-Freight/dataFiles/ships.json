@@ -56093,6 +56093,546 @@
     }
   },
   {
+    "name": "MGF: RRS-031 Growler",
+    "engines": [
+      {
+        "x": 20.5,
+        "y": 97.5
+      },
+      {
+        "x": -20.5,
+        "y": 97.5
+      },
+      {
+        "x": 40.5,
+        "y": 120.5
+      },
+      {
+        "x": -40.5,
+        "y": 120.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 17.5,
+        "y": -103.5,
+        "gun": ""
+      },
+      {
+        "x": -17.5,
+        "y": -103.5,
+        "gun": ""
+      },
+      {
+        "x": 31,
+        "y": -60.5,
+        "gun": ""
+      },
+      {
+        "x": -31,
+        "y": -60.5,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -85,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 40
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 40
+      }
+    ],
+    "display name": "RRS-031 Growler",
+    "sprite": "ship/mgf vrr growler",
+    "thumbnail": "thumbnail/mgf vrr growler thumb",
+    "attributes": {
+      "category": "Transport",
+      "cost": 5150000,
+      "shields": 5300,
+      "hull": 1300,
+      "required crew": 6,
+      "bunks": 32,
+      "mass": 450,
+      "drag": 6.2,
+      "heat dissipation": 0.4,
+      "fuel capacity": 900,
+      "cargo space": 50,
+      "outfit space": 360,
+      "weapon capacity": 140,
+      "engine capacity": 160,
+      "weapon": {
+        "blast radius": 51,
+        "shield damage": 510,
+        "hull damage": 255,
+        "hit force": 765
+      }
+    },
+    "zoom": 0.7,
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 25,
+    "large explosion": 10,
+    "final explode": "final explosion medium",
+    "description": "The Growler is more of a large personal yatch for the weathly than a transport. Equipped with four Particle Cannons to deal with pirates if required.",
+    "_internalId": "Mega Freight/Mega-Freight::MGF: RRS-031 Growler",
+    "_pluginId": "Mega Freight/Mega-Freight",
+    "_hash": "bab1e96b3604",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      }
+    },
+    "outfits": {
+      "Particle Cannon": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "MGF: MR-W4 Reactor": {
+        "count": 1,
+        "pluginId": "Mega Freight/Mega-Freight"
+      },
+      "KP-6 Photovoltaic Array": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Luxury Accommodations": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "MGF: HE-R103 Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "Mega Freight/Mega-Freight"
+      },
+      "MGF: HE-R103 Hybrid Steering": {
+        "count": 1,
+        "pluginId": "Mega Freight/Mega-Freight"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "MGF: RRS-009 Clematis",
+    "engines": [
+      {
+        "x": 11.5,
+        "y": 68
+      },
+      {
+        "x": -11.5,
+        "y": 68
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 19.5,
+        "y": 9,
+        "gun": ""
+      },
+      {
+        "x": -19.5,
+        "y": 9,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 80,
+        "spreadChance": 80
+      }
+    ],
+    "display name": "RRS-009 Clematis",
+    "sprite": "ship/mgf vrr clematis",
+    "thumbnail": "thumbnail/mgf vrr clematis thumb",
+    "attributes": {
+      "category": "Transport",
+      "cost": 980000,
+      "shields": 3400,
+      "hull": 500,
+      "required crew": 1,
+      "bunks": 5,
+      "mass": 150,
+      "drag": 1.6,
+      "heat dissipation": 0.79,
+      "fuel capacity": 600,
+      "cargo space": 20,
+      "outfit space": 180,
+      "weapon capacity": 20,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 30,
+        "shield damage": 300,
+        "hull damage": 150,
+        "hit force": 450
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 15,
+    "final explode": "final explosion small",
+    "description": "VRR Shipyard's luxury transport. Well known for their dampened living area that can significantly reduce felt inertia and silence out all but the largest atomic engines.",
+    "_internalId": "Mega Freight/Mega-Freight::MGF: RRS-009 Clematis",
+    "_pluginId": "Mega Freight/Mega-Freight",
+    "_hash": "201fe04244ac",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      }
+    },
+    "outfits": {
+      "MGF: MR-W2 Reactor": {
+        "count": 1,
+        "pluginId": "Mega Freight/Mega-Freight"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "MGF: HE-R103 Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "Mega Freight/Mega-Freight"
+      },
+      "MGF: HE-R102 Hybrid Steering": {
+        "count": 1,
+        "pluginId": "Mega Freight/Mega-Freight"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
     "name": "UDV-1 Packet",
     "engines": [
       {
@@ -64121,7 +64661,7 @@
       "heat dissipation": 0.5,
       "fuel capacity": 500,
       "cargo space": 20,
-      "outfit space": 1020,
+      "outfit space": 1060,
       "weapon capacity": 500,
       "engine capacity": 150,
       "weapon": {
@@ -64140,7 +64680,7 @@
     "description": "A step up from the Vanguard featuring even more frontal guns.",
     "_internalId": "Mega Freight/Mega-Freight::AP-7 Sentinel",
     "_pluginId": "Mega Freight/Mega-Freight",
-    "_hash": "ea043de342d3",
+    "_hash": "1fb40b0d7fbc",
     "governments": {
       "Mega Freight/Mega-Freight": {
         "MGF: Bounty Hunter (AntiMHL)": true,
@@ -67646,7 +68186,7 @@
     }
   },
   {
-    "name": "Ranseur Class",
+    "name": "MGF: Ranseur Class",
     "engines": [
       {
         "x": -54,
@@ -68556,39 +69096,25 @@
     "huge explosion": 10,
     "final explode": "final explosion large",
     "description": "The Ranseur Class is considered a sub-class of Spetum with several major improvements across the broad.",
-    "_internalId": "Mega Freight/Mega-Freight::Ranseur Class",
+    "_internalId": "Mega Freight/Mega-Freight::MGF: Ranseur Class",
     "_pluginId": "Mega Freight/Mega-Freight",
     "_hash": "1b1d7df6301a",
     "governments": {
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Sayari Plushie": true
+      "Mega-Freight": {
+        "Mega-Freight": true
       }
     },
     "locations": {
-      "official-game/endless-sky": {
-        "Planets": [
-          "Geminus"
-        ]
-      },
-      "Zuckungs list/vague.improvements": {
-        "Planets": [
-          "Geminus"
-        ]
-      },
       "Kai's list/KGS": {
         "Planets": [
           "KGS"
         ]
       },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+      "Galactic War/Galactic-War": {
         "Planets": [
-          "Laateli"
-        ]
-      },
-      "Mega Freight/Mega-Freight": {
-        "Planets": [
-          "Canaveral Naval Yard",
-          "Nordlin Navy Yard"
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
         ]
       }
     },
@@ -82447,7 +82973,7 @@
     "description": "Pirate Galley is less of a ship but rather a class of scraps quickly cobbled together into what could barely be called a ship by some pirates. Other than questionable quality, it's characterized by large amount of weapon installation and horrid shielding efficiency. Creation of these scrap heaps appear to be desperate solution to larger and more heavily armed merchant convoys.",
     "_internalId": "Mega Freight/Mega-Freight::MGF: Pirate Galley",
     "_pluginId": "Mega Freight/Mega-Freight",
-    "_hash": "28568e8ba38b",
+    "_hash": "26e89252e3ee",
     "governments": {
       "Mega-Freight": {
         "Mega-Freight": true
@@ -82529,9 +83055,9 @@
         "count": 3,
         "pluginId": "Mega Freight/Mega-Freight"
       },
-      "Fission Reactor": {
+      "MGF: Overclocked Fission Reactor": {
         "count": 2,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": "Mega Freight/Mega-Freight"
       },
       "LP144a Battery Pack": {
         "count": 1,
@@ -82782,7 +83308,7 @@
     "description": "A larger variant of the Pirate Galleys. These Galleons can pack a larger array of armaments and are usually quite a lot tougher than Pirate Galley making it much more of a threat to shipping. While it could be easily defeated by modern warships, it can be a disaster for most merchant fleets lacking such heavy escort.",
     "_internalId": "Mega Freight/Mega-Freight::MGF: Pirate Galleon",
     "_pluginId": "Mega Freight/Mega-Freight",
-    "_hash": "931a07b84458",
+    "_hash": "ec41931ce9f3",
     "governments": {
       "Mega-Freight": {
         "Mega-Freight": true
@@ -82868,9 +83394,9 @@
         "count": 4,
         "pluginId": "Mega Freight/Mega-Freight"
       },
-      "Fission Reactor": {
+      "MGF: Overclocked Fission Reactor": {
         "count": 3,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": "Mega Freight/Mega-Freight"
       },
       "LP576a Battery Pack": {
         "count": 2,
@@ -84122,6 +84648,298 @@
       "X4200 Ion Steering": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "MGF: RRS-016 Archer",
+    "engines": [
+      {
+        "x": 13,
+        "y": 36
+      },
+      {
+        "x": -13,
+        "y": 36
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -29,
+        "gun": ""
+      },
+      {
+        "x": 20.5,
+        "y": -25.5,
+        "gun": ""
+      },
+      {
+        "x": -20.5,
+        "y": -25.5,
+        "gun": ""
+      },
+      {
+        "x": 31.5,
+        "y": -21,
+        "gun": ""
+      },
+      {
+        "x": -31.5,
+        "y": -21,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 7,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 40
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 40
+      }
+    ],
+    "display name": "RRS-016 Archer",
+    "sprite": "ship/mgf vrr archer",
+    "thumbnail": "thumbnail/mgf vrr archer thumb",
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 3200000,
+      "shields": 4400,
+      "hull": 1700,
+      "required crew": 2,
+      "bunks": 6,
+      "mass": 200,
+      "drag": 4.2,
+      "heat dissipation": 0.71,
+      "fuel capacity": 600,
+      "cargo space": 20,
+      "outfit space": 300,
+      "weapon capacity": 100,
+      "engine capacity": 120,
+      "weapon": {
+        "blast radius": 51,
+        "shield damage": 510,
+        "hull damage": 255,
+        "hit force": 765
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 25,
+    "large explosion": 2,
+    "final explode": "final explosion medium",
+    "description": "Expensive and powerful light warship from VRR Shipyard. Also occasionally used as personal transport by some. Rarely seen outside of Paradise Worlds due to cost of operating one.",
+    "_internalId": "Mega Freight/Mega-Freight::MGF: RRS-016 Archer",
+    "_pluginId": "Mega Freight/Mega-Freight",
+    "_hash": "93c486d147fc",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      }
+    },
+    "outfits": {
+      "Sidewinder Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 45,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Laser": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "MGF: MR-W4 Reactor": {
+        "count": 1,
+        "pluginId": "Mega Freight/Mega-Freight"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Luxury Accommodations": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "MGF: HE-R103 Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "Mega Freight/Mega-Freight"
+      },
+      "MGF: HE-R104 Hybrid Steering": {
+        "count": 1,
+        "pluginId": "Mega Freight/Mega-Freight"
       },
       "Hyperdrive": {
         "count": 1,

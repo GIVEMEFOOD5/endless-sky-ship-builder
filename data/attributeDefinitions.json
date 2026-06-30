@@ -16,7 +16,7 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-06-24T20:14:46.874Z",
+    "generatedAt": "2026-06-30T07:48:22.811Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
@@ -2459,48 +2459,64 @@
       "key": "ion damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
+      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "scrambling damage": {
       "key": "scrambling damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
+      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "slowing damage": {
       "key": "slowing damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
+      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "disruption damage": {
       "key": "disruption damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
+      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "discharge damage": {
       "key": "discharge damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
+      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "corrosion damage": {
       "key": "corrosion damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
+      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "leak damage": {
       "key": "leak damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
+      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "burn damage": {
       "key": "burn damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
+      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "% shield damage": {
@@ -3714,7 +3730,7 @@
     "ship outlines in shops": "Controls the display of your fleet ship icons when in the shipyard or outfitter.\n\n- \"fancy\": applies a sobel filter to all ships. This can result in high GPU load for large fleets and/or on low performance computers.\n\n- \"fast\": just uses the ship's sprite.",
     "ship outlines in hud": "Controls the display of your flagship and target ship icons in the HUD.\n\n- \"fancy\": applies a sobel filter to the sprites. This can result in high GPU load for some ships on very old or low performance computers.\n\n- \"fast\": just uses the ship's sprite.",
     "cloaked ship outlines": "Controls the display of cloaked escorts.\n\n- \"fancy\": causes the ship to become transparent and applies a red outline.\n\n- \"fast\": simply shifts the ship to being red.",
-    "linear filter": "Use a standard linear interpolation filter to make sprites look smoother. (Requires game restart.)",
+    "texture filtering": "Choose the interpolation method used when sampling textures. (Requires game restart.)\n\n- \"linear\": produces a smoother, fuzzier image.\n\n- \"nearest\": produces a sharper, blockier image",
     "show status overlays": "Display status overlays over top of all ships when in flight. Status overlays display a ship's shields and hull.\n\n- \"off\": overlays never appear.\n\n- \"always on\": overlays always appear.\n\n- \"damaged\": overlays only appear on ships that have taken damage.\n\n- \"on hit\": overlays appear for a short time on ships that have just taken damage.\n\n- \"--\": this setting is broken down by ship category in the sub-settings below.",
     "show flagship overlay": "Display a status overlay over top of your flagship when in flight.",
     "show escort overlays": "Display status overlays over top of your escorts when in flight.",

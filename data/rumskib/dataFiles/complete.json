@@ -3926,6 +3926,7 @@
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Escort": true,
+          "Bounty": true,
           "Merchant": true
         }
       },
@@ -6170,8 +6171,14 @@
       "baseShip": "Ladybug",
       "_variantPluginId": "Rumskib/rumskib",
       "governments": {
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Hai (Friendly Unfettered)": true
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        },
+        "POOT/poot-senza-solaria_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -6791,14 +6798,8 @@
       "baseShip": "Sea Scorpion",
       "_variantPluginId": "Rumskib/rumskib",
       "governments": {
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
-          "Syndicate": true
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Hai (Unfettered)": true
         }
       },
       "locations": {
@@ -6966,6 +6967,9 @@
           "Pirate": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate": true,
+          "Independent (Killable)": true,
+          "Bounty Hunter": true,
           "Pirate (Rivals)": true
         }
       },
@@ -7638,21 +7642,8 @@
       "baseShip": "Selii'mar",
       "_variantPluginId": "Rumskib/rumskib",
       "governments": {
-        "official-game/endless-sky": {
-          "Builder": true
-        },
         "Lost In Midnight/Lost-in-Midnight": {
-          "Phenomenon (dangerous)": true,
           "Grave Diggers": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
-          "Syndicate": true
         }
       },
       "locations": {
@@ -9829,134 +9820,66 @@
           "Outfitters": [
             "Kraz Advanced"
           ],
+          "ShipyardPlanets": [
+            "Rust",
+            "Zug"
+          ],
           "Systems": [
             "Acamar",
-            "Acrux",
-            "Albaldah",
-            "Albireo",
             "Aldebaran",
-            "Aldhibain",
             "Algieba",
             "Algorel",
             "Alheka",
             "Alhena",
-            "Alioth",
-            "Alkaid",
-            "Alnasl",
             "Alnitak",
-            "Alniyat",
-            "Alpha Arae",
             "Alpha Centauri",
             "Alphard",
-            "Alphecca",
-            "Alpherg",
             "Altair",
-            "Antares",
-            "Ascella",
-            "Atria",
-            "Belenos",
-            "Beta Lupi",
             "Betelgeuse",
-            "Boral",
             "Canopus",
             "Capella",
             "Cardax",
             "Castor",
-            "Cebalrai",
-            "Citadelle",
             "Cor Caroli",
-            "Delta Sagittarii",
             "Delta Velorum",
             "Denebola",
-            "Dschubba",
-            "Eber",
             "Elnath",
-            "Eltanin",
             "Eteron",
             "Fala",
             "Fingol",
-            "Fumalsamakah",
             "Gacrux",
-            "Gamma Corvi",
-            "Girtab",
-            "Graffias",
-            "Hadar",
-            "Han",
-            "Hintar",
-            "Holeb",
-            "Ipsing",
-            "Kappa Centauri",
-            "Kaus Australis",
-            "Kaus Borealis",
-            "Kochab",
-            "Kornephoros",
             "Kugel",
             "Kursa",
-            "Lesath",
-            "Limen",
             "Lolami",
             "Mebsuta",
-            "Men",
             "Menkalinan",
             "Menkent",
             "Merak",
             "Miaplacidus",
             "Mirzam",
-            "Mizar",
             "Mora",
-            "Muhlifain",
             "Muphrid",
-            "Naper",
             "Nihal",
             "Nocte",
-            "Nunki",
-            "Orbona",
-            "Orvala",
-            "Peacock",
             "Phact",
             "Phecda",
-            "Pherkad",
             "Phurad",
             "Pollux",
             "Porrima",
             "Procyon",
-            "Rasalhague",
-            "Rastaban",
             "Regulus",
             "Rigel",
-            "Sadr",
             "Saiph",
-            "Sargas",
-            "Sarin",
-            "Seginus",
-            "Shaula",
             "Sirius",
             "Sol",
             "Sospi",
-            "Spica",
-            "Tais",
             "Talita",
             "Tania Australis",
             "Tejat",
-            "Terminus",
-            "Thuban",
-            "Turais",
-            "Unukalhai",
             "Vega",
-            "Vindemiatrix",
             "Volax",
             "Wazn",
-            "Wei",
-            "Yed Prior",
-            "Zeta Aquilae",
-            "Zeta Centauri",
-            "Zosma",
-            "Zubenelgenubi",
-            "Zubeneschamali"
-          ],
-          "ShipyardPlanets": [
-            "Rust",
-            "Zug"
+            "Zosma"
           ]
         },
         "Kai's list/KGS": {
@@ -10548,16 +10471,16 @@
           "Republic": true,
           "Free Worlds": true,
           "Pirate (Rivals)": true,
-          "Independent (Killable)": true,
           "Escort": true,
           "Pirate (Rival)": true,
           "Scar's Legion": true,
-          "Bounty Hunter (licensed)": true,
+          "Independent": true,
           "Deep": true,
+          "Merchant (Hostile)": true,
           "Militia": true,
           "Syndicate": true,
+          "Independent (Killable)": true,
           "Syndicate (Extremist)": true,
-          "Independent": true,
           "Bounty": true,
           "Korath": true
         },
@@ -11357,7 +11280,6 @@
             "Falcon (Patrol)",
             "Falcon (Prisoner Transport)",
             "Falcon (Quad Mod Blaster)",
-            "Falcon (Quantum Vacuum Battery)",
             "Falcon (Tarazed Lab)",
             "Firebird (Missile)",
             "Frigate (Flare)",
@@ -11391,6 +11313,7 @@
             "MGF: Nasprite (Nasprite (Swordfish))",
             "MGF: Nasprite (Nasprite (Syndicate Border Patrol))",
             "Marauder Behemoth (Insurgent Subjugation Gear)",
+            "Marauder Behemoth (Secret Prototype)",
             "Modified Argosy (Missile)",
             "Monolith Lesser",
             "Nasprite (MGF: Nasprite (MGF: SD1 Regenerator))",
@@ -11420,7 +11343,8 @@
             "TS-1L260 Mieusbar (Proton)",
             "TS-CH0 Kratzbal (Plasma Steering)",
             "Typ057 Lanzhou (Missile)",
-            "Vanguard (Missile)"
+            "Vanguard (Missile)",
+            "Volary (Heavy)"
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
@@ -11431,7 +11355,7 @@
           ],
           "ShipyardPlanets": [
             "Rust",
-            "Smuggler's Den"
+            "Valhalla"
           ],
           "Ships": [
             "Arachne Station",
@@ -11453,6 +11377,7 @@
             "Titania Station",
             "Triton Station",
             "Typhon Station",
+            "Volary",
             "Wyvern Station"
           ]
         },
@@ -11730,11 +11655,10 @@
         "Lost In Midnight/Lost-in-Midnight": {
           "Pirate (Rivals)": true,
           "Merchant": true,
-          "Bounty Hunter (licensed)": true,
-          "Free Worlds": true,
           "Bounty": true,
           "Independent (Killable)": true,
           "Pirate": true,
+          "Free Worlds": true,
           "Oathbreaker": true,
           "Republic": true,
           "Escort": true,
@@ -11743,6 +11667,7 @@
           "Bounty (Disguised)": true,
           "Pirate (Rival)": true,
           "Scar's Legion": true,
+          "Merchant (Hostile)": true,
           "Syndicate": true,
           "Creature Hunter": true,
           "Bounty Hunter": true,
@@ -11827,11 +11752,8 @@
             "Luna",
             "New Tortuga",
             "Prime",
-            "Reunion",
-            "Shangri-La",
             "Smuggler's Den",
-            "Sunracer",
-            "Tinker"
+            "Sunracer"
           ],
           "Systems": [
             "Acamar",
@@ -12327,38 +12249,6 @@
             "Valkirus Solaris Station"
           ]
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "ShipyardPlanets": [
-            "Smuggler's Den",
-            "Valhalla"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ],
-          "Ships": [
-            "Arachne Station",
-            "Broadsword",
-            "Carabao",
-            "Charon Station",
-            "Charybdis Station",
-            "Fenrir Station",
-            "Huginn Station",
-            "Hydra Station",
-            "Kraken Station",
-            "Leviathan Station",
-            "Muninn Station",
-            "Oberon Station",
-            "Phoenix Station",
-            "Smuggler's Den",
-            "Starcadia",
-            "Titania Station",
-            "Triton Station",
-            "Typhon Station",
-            "Wyvern Station"
-          ]
-        },
         "Fire Corporation/Fire-Corporation": {
           "Systems": [
             "Hidden Queen"
@@ -12394,7 +12284,39 @@
             "Raven (Turner Power)",
             "Saryd Traveler (pirate)",
             "Typ064 Xuchang (Anti Missile)",
-            "Typ064 Xuchang (Missile)"
+            "Typ064 Xuchang (Missile)",
+            "Volary (Heavy)"
+          ]
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Systems": [
+            "Archipelago",
+            "Chasm",
+            "Diyu"
+          ],
+          "Ships": [
+            "Arachne Station",
+            "Broadsword",
+            "Carabao",
+            "Charon Station",
+            "Charybdis Station",
+            "Fenrir Station",
+            "Huginn Station",
+            "Hydra Station",
+            "Kraken Station",
+            "Leviathan Station",
+            "Muninn Station",
+            "Oberon Station",
+            "Phoenix Station",
+            "Smuggler's Den",
+            "Starcadia",
+            "Titania Station",
+            "Triton Station",
+            "Typhon Station",
+            "Wyvern Station"
+          ],
+          "ShipyardPlanets": [
+            "Smuggler's Den"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -12566,20 +12488,19 @@
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Merchant": true,
-          "Independent (Killable)": true,
           "Oathbreaker": true,
           "Escort": true,
           "Republic": true,
           "Pirate": true,
           "Independent": true,
           "Free Worlds": true,
-          "Bounty (Disguised)": true,
+          "Independent (Killable)": true,
           "Bounty Hunter": true,
           "Pirate (Rivals)": true,
           "Militia": true,
           "Creature Hunter": true,
-          "Bounty Hunter (licensed)": true,
-          "Bounty": true
+          "Bounty": true,
+          "Bounty (Disguised)": true
         },
         "Zuckungs list/job.coloring": {
           "Merchant": true,
@@ -14170,5 +14091,5 @@
       "pluginId": "Rumskib/rumskib"
     }
   ],
-  "parsedAt": "2026-06-24T20:14:44.525Z"
+  "parsedAt": "2026-06-30T07:48:21.001Z"
 }

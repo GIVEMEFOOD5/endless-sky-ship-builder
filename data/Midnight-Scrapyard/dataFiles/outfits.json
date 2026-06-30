@@ -335,6 +335,7 @@
   {
     "name": "Korath Fireswarm Access Temporary License",
     "display name": "Fireswarm Missile Tech",
+    "plural": "Fireswarm Missile Techs",
     "category": "Ammunition",
     "series": "Ammunition",
     "index": 4015,
@@ -350,7 +351,7 @@
     "requires Research Data": 1,
     "requires Research Data (Chem)": 1,
     "requires Research Data (Phys)": 1,
-    "description": "This technical manual details how to manufacture Fireswarm Missiles. Having this makes it possible for any outfitter to offer Fireswarm Missiles even if it is normally not stocked there. \tThe version available for purchase is written in an alien language you don't understand... \tThis tech can be researched instead of purchased. (Hover/Tap the attributes below for more details.) \tAfter this is acquired it can be found in the Licenses area when at the outfitter.",
+    "description": "This technical manual details how to manufacture Fireswarm Missiles. Having this makes it possible for any outfitter to offer Fireswarm Missiles even if it is normally not stocked there. \tThe version available for purchase is written in an alien language you don't understand... \tThis tech can be researched instead of purchased. (Hover/Tap the attributes below for more details.) \tAfter this is acquired it can be found in the Licenses area in future visits to the outfitter.",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
@@ -366,6 +367,7 @@
   {
     "name": "Korath Fireswarm Tech License",
     "display name": "Fireswarm Missile Tech",
+    "plural": "Fireswarm Missile Techs",
     "category": "Licenses",
     "series": "Technology",
     "index": 4015,
@@ -617,7 +619,7 @@
     "ammo": "Korath Fireswarm",
     "energy generation": 0.2,
     "heat generation": 1,
-    "description": "These storage shells hold additional Fireswarm Missiles for the Fireswarm Launcher. \tEach Fireswarm Nest includes a power charger to keep stored Fireswarms ready for launch. They also plug into your ships power systems, allowing surplus energy to be used elsewhere.",
+    "description": "These storage shells hold additional Fireswarm Missiles for the Fireswarm Launcher. \tEach Fireswarm Nest includes a power charger to keep stored Fireswarms ready for launch. They also plug into your ship's power systems, allowing surplus energy to be used elsewhere.",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Efret": true
@@ -932,16 +934,12 @@
       "drag": 0.1,
       "turn": 1.7,
       "inaccuracy": 5,
-      "homing": {
-        "leading": true,
-        "throttle control": true
-      },
+      "homing": true,
       "infrared tracking": 0.5,
       "shield damage": 95,
       "hull damage": 95,
       "heat damage": 180,
       "burn damage": 1,
-      "corrosion damage": 0.2,
       "hit force": 60,
       "missile strength": 3
     },
@@ -1062,7 +1060,7 @@
       "minable damage": 1200,
       "prospecting": 4200
     },
-    "description": "A giant smelter. Ships and asteroids go in. Melted metal comes out.",
+    "description": "A giant smelter built into the Devar'ur's forward section. Ships and asteroids go in. Melted metal comes out. The inner surface of the chamber reflects and concentrates the heat, magnifying it to be more intense than it would be if allowed to disperse outside.",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Scrappers": true,
@@ -1130,15 +1128,13 @@
     },
     "description": "The Scattermine Deployer is a crude device for deploying a cloud of stationary mines along the ship's wake. One drawback of deploying the mines in this manner is that premature detonation can damage the ship dropping the mines.",
     "governments": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Korath (Civilian)": true
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
       }
     },
     "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Ships": [
-          "Korbatar Makwar"
-        ]
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
       }
     },
     "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
@@ -1453,16 +1449,16 @@
     "engine capacity": -12,
     "fuel capacity": 250,
     "ramscoop": 0.63,
-    "afterburner thrust": 57.75,
+    "afterburner thrust": 51.975,
     "afterburner energy": 1.5,
     "afterburner heat": 15.63,
-    "afterburner fuel": 0.0938,
+    "afterburner fuel": 0.1876,
     "afterburner effect": "korath afterburner small",
     "description": "This older afterburner design was once a common sight in Korath space. \tKorath afterburners pump super-heated hyperspace fuel directly into a thruster's plasma stream, resulting in a phenomenal explosion that nearly melts the thruster.",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "Kor Scrappers": true,
-        "Kor Scrappers (Hostile)": true
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       },
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true,
@@ -1758,10 +1754,14 @@
     "outfit space": -2,
     "capture defense": 9.6,
     "unplunderable": 1,
-    "description": "A semi autonomous robot made with Sestor technology, these defense droids patrol high security areas on the ships of experienced Kor scrapper crews.",
+    "description": "A semi autonomous robot assembled with Sestor technology, these defense droids patrol high security areas on the ships of Kor scrapper crews.",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true,
+        "Kor Scrappers (Hostile)": true
       }
     },
     "locations": {
@@ -1782,6 +1782,7 @@
   },
   {
     "name": "Slicer Torch",
+    "plural": "Slicer Torches",
     "category": "Hand to Hand",
     "series": "H2H",
     "index": 4000,

@@ -112,6 +112,11 @@
     "cooling": 21,
     "description": "After the introduction of the Ionic Blaster and the consequential need of more reactors to power them, the Williwaw cooling wasn't anymore always enough. They developed this cooling outfit to avoid overheating when they want to use many Ionic Blasters at once.",
     "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Hai (Unfettered)": true,
+        "Pirate": true,
+        "Storm Seekers": true
+      },
       "POOT/poot-senza-solaria": {
         "Syndicate": true
       },
@@ -126,11 +131,6 @@
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate": true,
-        "Storm Seekers": true,
-        "Hai (Unfettered)": true
       }
     },
     "locations": {
@@ -292,6 +292,11 @@
         "Outfitters": [
           "Hai Advanced"
         ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Mah Duum"
+        ]
       }
     },
     "pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
@@ -391,12 +396,6 @@
         "Hai (Unfettered)": true,
         "Hai (Unfettered Wanderer Tribute)": true
       },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Sayari Plushie": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "MGF: NGK Security": true
-      },
       "POOT/poot-senza-solaria": {
         "Syndicate": true
       },
@@ -406,13 +405,15 @@
       "POOT/poot-senza-solaria_senza_solaria": {
         "Syndicate": true
       },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true
+      },
       "Rumskib/rumskib": {
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Hai (Unfettered)": true,
         "Independent": true,
-        "Independent (Killable)": true,
         "Pirate": true,
         "Storm Seekers": true,
         "Hai (Friendly Unfettered)": true
@@ -478,12 +479,10 @@
         "ShipyardPlanets": [
           "Cloudfire",
           "Darkcloak",
-          "Foundry",
           "Giverstone",
           "Greenwater",
           "Hai-home",
           "Heartvalley",
-          "Hephaestus",
           "Icelake",
           "Makerplace",
           "Stonebreak"
@@ -654,22 +653,12 @@
           "Oldhome"
         ],
         "Systems": [
-          "Archipelago",
           "Mah Duum"
         ]
       },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "ShipyardPlanets": [
-          "Markaai"
-        ],
         "Systems": [
           "Darceas"
-        ]
-      },
-      "Mega Freight/Mega-Freight": {
-        "ShipyardPlanets": [
-          "Ourea Naval Arsenal",
-          "Yokosuka Naval Arsenal"
         ]
       }
     },
@@ -805,10 +794,11 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true,
+        "Pirate": true,
         "Oathbreaker": true,
         "Bounty Hunter": true,
         "Republic": true,

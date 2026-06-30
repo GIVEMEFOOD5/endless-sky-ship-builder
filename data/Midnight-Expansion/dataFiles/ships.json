@@ -1,5 +1,263 @@
 [
   {
+    "name": "Anachronism",
+    "engines": [
+      {
+        "x": 0,
+        "y": 198
+      },
+      {
+        "x": -66,
+        "y": 190
+      },
+      {
+        "x": 66,
+        "y": 190
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -117,
+        "y": 152,
+        "position": "zoom .5"
+      },
+      {
+        "x": 117,
+        "y": 152,
+        "position": "zoom .5"
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -110,
+        "y": 170,
+        "position": "left"
+      },
+      {
+        "x": 110,
+        "y": 170,
+        "position": "right"
+      },
+      {
+        "x": -15,
+        "y": -112,
+        "position": "right"
+      },
+      {
+        "x": 15,
+        "y": -112,
+        "position": "left"
+      },
+      {
+        "x": -11,
+        "y": -132,
+        "position": "right"
+      },
+      {
+        "x": 11,
+        "y": -132,
+        "position": "left"
+      },
+      {
+        "x": -9,
+        "y": -152,
+        "position": "right"
+      },
+      {
+        "x": 9,
+        "y": -152,
+        "position": "left"
+      }
+    ],
+    "guns": [
+      {
+        "x": -0.5,
+        "y": -190,
+        "gun": ""
+      },
+      {
+        "x": 0.5,
+        "y": -190,
+        "gun": ""
+      },
+      {
+        "x": -1,
+        "y": -190,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -190,
+        "gun": ""
+      },
+      {
+        "x": 1,
+        "y": -190,
+        "gun": ""
+      },
+      {
+        "x": -0.5,
+        "y": -190,
+        "gun": ""
+      },
+      {
+        "x": 0.5,
+        "y": -190,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 115,
+        "turret": ""
+      },
+      {
+        "x": -72,
+        "y": 156,
+        "turret": ""
+      },
+      {
+        "x": 72,
+        "y": 156,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": 171,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/AESmisc caster",
+    "thumbnail": "thumbnail/AESmisc caster",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 3000000,
+      "shields": 60000,
+      "hull": 25000,
+      "required crew": 60,
+      "bunks": 90,
+      "mass": 360,
+      "drag": 9.3,
+      "heat dissipation": 0.5,
+      "fuel capacity": 800,
+      "cargo space": 50,
+      "outfit space": 985,
+      "weapon capacity": 501,
+      "engine capacity": 158,
+      "fused circuits": -1,
+      "spinal mount": 1,
+      "cloak": 0.01,
+      "cloaking energy": 2,
+      "cloaking fuel": 0.4,
+      "cloak phasing": 1,
+      "weapon": {
+        "blast radius": 250,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "zoom": 0.5,
+    "blue tiny explosion": 24,
+    "blue small explosion": 32,
+    "blue medium explosion": 60,
+    "blue large explosion": 120,
+    "final explode": "final explosion large",
+    "description": "Constructed by an unknown manufacturer, the Anachronism is an enigma from the future.",
+    "_internalId": "Midnight Expansion/Midnight-Expansion::Anachronism",
+    "_pluginId": "Midnight Expansion/Midnight-Expansion",
+    "_hash": "46caa860086a",
+    "governments": {
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
+      }
+    },
+    "locations": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Missions": [
+          "Midnight Anachronism 3"
+        ]
+      }
+    },
+    "outfits": {
+      "Electron Ion Turret": {
+        "count": 2,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Heavy Double Anti-Missile": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Refurbished Fusion Cannon": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quantum Torpedo Launcher": {
+        "count": 2,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quantum Torpedo Pod": {
+        "count": 4,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quantum Torpedo Rack": {
+        "count": 6,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quantum Torpedo Depot": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quantum Torpedo": {
+        "count": 207,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Apocalypse Core": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "TP144q Battery Pack": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Modified S-270 Regenerator": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Modified S-970 Regenerator": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "S-KR53 Hull Repair System": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "North Wind Helium": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Vacuum Ramscoop": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quantum Bloodstone": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "A510 Atomic Engines": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      },
+      "Quantum Drive (Damaged)": {
+        "count": 1,
+        "pluginId": "Midnight Expansion/Midnight-Expansion"
+      }
+    }
+  },
+  {
     "name": "Korath Warlord",
     "engines": [
       {
@@ -1537,13 +1795,134 @@
     },
     "locations": {
       "official-game/endless-sky": {
-        "Planets": [
-          "Haven"
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
         ]
       },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Planets": [
-          "Leroo Station"
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
         ]
       }
     },
@@ -1731,14 +2110,11 @@
       }
     },
     "locations": {
-      "official-game/endless-sky": {
-        "Planets": [
-          "Haven"
-        ]
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Planets": [
-          "Leroo Station"
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
         ]
       }
     },
@@ -1918,7 +2294,7 @@
     "description": "A Firebird-based ship design produced at the Wei Shipyards centuries ago, the Rukh was a vessel that qualifies as a middle ground between medium and heavy warships. Betelgeuse Shipyards sued their competitor at Wei for patent infringement shortly after the Republic was formed. The court judgement left Wei Shipyards bankrupt and production of the Rukh abruptly ceased.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "045a4ceaa0d8",
+    "_hash": "26297e66a97e",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -1926,24 +2302,20 @@
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Planets": [
-          "Janus",
-          "Rum Cellar",
-          "Wang Xiang Tai"
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
         ]
       }
     },
     "outfits": {
-      "Energy Cannon": {
+      "Twin Modified Blaster": {
         "count": 4,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": "official-game/endless-sky"
       },
-      "Energy Cannon Turret": {
-        "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
-      },
-      "Anti-Missile Turret": {
-        "count": 1,
+      "Modified Blaster Turret": {
+        "count": 3,
         "pluginId": "official-game/endless-sky"
       },
       "Meteor Missile Launcher": {
@@ -1951,11 +2323,11 @@
         "pluginId": "official-game/endless-sky"
       },
       "Meteor Missile": {
-        "count": 165,
+        "count": 105,
         "pluginId": "official-game/endless-sky"
       },
       "Meteor Missile Box": {
-        "count": 7,
+        "count": 3,
         "pluginId": "official-game/endless-sky"
       },
       "Fission Reactor": {
@@ -1974,25 +2346,17 @@
         "count": 1,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
-      "Small Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
       "Water Coolant System": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Laser Rifle": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fragmentation Grenades": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Antique Rifle": {
+      "Large Radar Jammer": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 11,
+        "pluginId": "official-game/endless-sky"
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -2306,17 +2670,15 @@
     "description": "The Water Scorpion was an ancient strike vessel that Hai warlords deployed to patrol their conquered territories. They declined in popularity with the rise of the Shield Beetle. Centuries later, memories of this ship would inspire the Unfettered to design the Sea Scorpion.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Water Scorpion",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "f6d1fc63dc09",
+    "_hash": "ebcc073e7a0f",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
       }
     },
     "locations": {
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Planets": [
-          "Oldhome"
-        ]
+      "Midnight Expansion/Midnight-Expansion": {
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -2356,10 +2718,6 @@
         "count": 2,
         "pluginId": "official-game/endless-sky"
       },
-      "Cargo Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
       "Value Detector": {
         "count": 2,
         "pluginId": "official-game/endless-sky"
@@ -2375,6 +2733,10 @@
       "\"Bondir\" Atomic Thruster": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
+      },
+      "Modified Hyperdrive (Hai)": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
       }
     }
   },
@@ -4883,7 +5245,7 @@
     "description": "One of the last great Korath battleships from the height of the war that drove their species to near extinction, the Korbatar Makwar is an engine of destruction that dominates conventional battlefields. \tThe number of these battleships which are still in operation can be counted on one hand. Korath shipyards are fully capable of assembling more Korbatar Makwars, but the exile from Korath space has forced them to prioritize construction of Korsmanath A'awojs and other support vessels instead. A small, but vocal, group of Navarchs continue to lobby various planning committees for construction of new Korbatar Makwars. But the civilian government refuses to capitulate to their demands.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korbatar Makwar",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "691405fcf37b",
+    "_hash": "1267a64ec5c3",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Korath (Civilian)": true
@@ -4907,7 +5269,11 @@
         "pluginId": "official-game/endless-sky"
       },
       "Cluster Mine": {
-        "count": 170,
+        "count": 610,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cluster Mine Layer": {
+        "count": 10,
         "pluginId": "official-game/endless-sky"
       },
       "Cluster Mine Rack": {
@@ -4923,11 +5289,11 @@
         "pluginId": "official-game/endless-sky"
       },
       "Firestorm Torpedo": {
-        "count": 78,
+        "count": 51,
         "pluginId": "official-game/endless-sky"
       },
       "Firestorm Torpedo Rack": {
-        "count": 3,
+        "count": 2,
         "pluginId": "official-game/endless-sky"
       },
       "Fuel Processor": {
@@ -4946,10 +5312,6 @@
         "count": 1,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
-      "Korath Scattermine": {
-        "count": 10,
-        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
-      },
       "Langrage Hyper-Heaver": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
@@ -4963,7 +5325,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Microbot Defense Station": {
-        "count": 108,
+        "count": 105,
         "pluginId": "official-game/endless-sky"
       },
       "Plasma Core": {
@@ -4999,7 +5361,7 @@
         "pluginId": "official-game/endless-sky"
       },
       "Thermal Repeater Rifle": {
-        "count": 1200,
+        "count": 1210,
         "pluginId": "official-game/endless-sky"
       },
       "Thermal Scorcher": {

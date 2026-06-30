@@ -44,7 +44,7 @@
     "name": "dark cloud a",
     "sprite": "effect/dark cloud a",
     "sprite data": {
-      "random start frame": true
+      "scale": 2
     },
     "lifetime": 1000,
     "random velocity": 1,
@@ -53,6 +53,9 @@
   {
     "name": "dark cloud b",
     "sprite": "effect/dark cloud b",
+    "sprite data": {
+      "scale": 2
+    },
     "lifetime": 900,
     "random velocity": 1,
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
@@ -60,6 +63,9 @@
   {
     "name": "dark cloud c",
     "sprite": "effect/dark cloud c",
+    "sprite data": {
+      "scale": 2
+    },
     "lifetime": 800,
     "random velocity": 1,
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
@@ -67,6 +73,9 @@
   {
     "name": "dark cloud d",
     "sprite": "effect/dark cloud d",
+    "sprite data": {
+      "scale": 2
+    },
     "lifetime": 700,
     "random velocity": 1,
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
@@ -74,6 +83,9 @@
   {
     "name": "dark cloud e",
     "sprite": "effect/dark cloud e",
+    "sprite data": {
+      "scale": 2
+    },
     "lifetime": 600,
     "random velocity": 1,
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
@@ -207,6 +219,114 @@
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
   },
   {
+    "name": "jump drive flame",
+    "sprite": "effect/explosion/small",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "lifetime": 200,
+    "random spin": 2,
+    "velocity scale": 0,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "magma belcher trail",
+    "sprite": "effect/afterburner",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "scale": 1.5
+    },
+    "lifetime": 20,
+    "random angle": 30,
+    "random spin": 10,
+    "random velocity": 4,
+    "velocity scale": 1,
+    "absolute angle": 180,
+    "absolute velocity": 0,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "burning ember trail",
+    "sprite": "effect/afterburner",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 10,
+    "random angle": 30,
+    "random spin": 10,
+    "random velocity": 1,
+    "velocity scale": 0.9,
+    "absolute angle": 180,
+    "absolute velocity": 0,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "core flame die",
+    "sprite": "effect/explosion/medium",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "random start frame": true
+    },
+    "lifetime": 24,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 2,
+    "random velocity": 0.4,
+    "velocity scale": 0.4,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "core flame hit",
+    "sprite": "effect/explosion/large",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "random start frame": true
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 3,
+    "random velocity": 0.6,
+    "velocity scale": 0.4,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "spontaneous combustion fire",
+    "sound": "flamethrower",
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "combustion torpedo fire",
+    "sprite": "effect/sidewinder fire",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30,
+      "scale": 1.5
+    },
+    "lifetime": 9,
+    "random velocity": 2,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "combustion ring",
+    "sprite": "effect/combustion ring",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 7
+    },
+    "lifetime": 60,
+    "random angle": 360,
+    "random frame rate": 6,
+    "random velocity": 4,
+    "velocity scale": 0.1,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
     "name": "paradox propulsion",
     "sprite": "effect/paradox propulsion",
     "sprite data": {
@@ -325,6 +445,68 @@
   {
     "name": "digester splatter",
     "sound": "medium_explosion-ver8",
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "green medium explosion",
+    "sprite": "effect/explosion/green/medium",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "sound": "explosion medium",
+    "lifetime": 28,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 3,
+    "random velocity": 0.6,
+    "velocity scale": 0.4,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "green large explosion",
+    "sprite": "effect/explosion/green/large",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "sound": "explosion large",
+    "lifetime": 32,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 4,
+    "random velocity": 0.8,
+    "velocity scale": 0.4,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "green huge explosion",
+    "sprite": "effect/explosion/green/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "sound": "explosion huge",
+    "lifetime": 36,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 5,
+    "random velocity": 1,
+    "velocity scale": 0.4,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "pincer beast shatter",
+    "sprite": "effect/pincer beast shatter",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 12
+    },
+    "sound": "pincer beast die",
+    "lifetime": 60,
+    "velocity scale": 0.15,
+    "random velocity": 0.4,
+    "random angle": 360,
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
   },
   {
@@ -764,6 +946,16 @@
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
   },
   {
+    "name": "junk tractor",
+    "sprite": "effect/plunder beam",
+    "sprite data": {
+      "frame rate": 3
+    },
+    "lifetime": 1,
+    "velocity scale": 1,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
     "name": "kludge impact",
     "sprite": "effect/kludge impact",
     "sprite data": {
@@ -773,6 +965,16 @@
     "lifetime": 7,
     "random angle": 40,
     "velocity scale": -0.05,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "plunder beam",
+    "sprite": "effect/plunder beam",
+    "sprite data": {
+      "frame rate": 3.5
+    },
+    "lifetime": 1,
+    "velocity scale": 1,
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
   },
   {
@@ -826,30 +1028,15 @@
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
   },
   {
-    "name": "hypernuke trail",
-    "sprite": "effect/afterburner",
-    "sprite data": {
-      "no repeat": true,
-      "frame rate": 30
-    },
-    "sound": "afterburner",
-    "lifetime": 20,
-    "random angle": 30,
-    "random spin": 10,
-    "random velocity": 1,
-    "velocity scale": 1,
-    "absolute angle": 180,
-    "absolute velocity": 0,
-    "pluginId": "Lost In Midnight/Lost-in-Midnight"
-  },
-  {
     "name": "hypernuke smoke",
     "sprite": "effect/smoke",
     "sprite data": {
       "no repeat": true,
-      "scale": 0.4
+      "scale": 0.5,
+      "frame rate": 2
     },
-    "lifetime": 40,
+    "sound": "afterburner",
+    "lifetime": 720,
     "random angle": 30,
     "random spin": 10,
     "random velocity": 1,
@@ -956,7 +1143,7 @@
     "name": "scavenger tractor beam",
     "sprite": "effect/scavenger tractor beam",
     "sprite data": {
-      "frame rate": 3.5
+      "frame rate": 4
     },
     "lifetime": 1,
     "velocity scale": 1,
@@ -1113,6 +1300,31 @@
     "random angle": 2,
     "random spin": 10,
     "absolute velocity": -1.5,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "manifold drive fire",
+    "sprite": "effect/jump drive",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "lifetime": 7,
+    "random angle": 360,
+    "random spin": 20,
+    "velocity scale": 1,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "manifold drive hit",
+    "sprite": "effect/jump drive",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 10
+    },
+    "lifetime": 25,
+    "random angle": 360,
+    "velocity scale": 0.00001,
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
   },
   {

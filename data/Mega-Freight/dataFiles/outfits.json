@@ -80,7 +80,7 @@
     "weapon": {
       "hardpoint sprite": "hardpoint/mgf lirniu turret hp",
       "hardpoint offset": 10,
-      "sound": "large explosion",
+      "sound": "explosion large",
       "fire effect": [
         "ion impact",
         "lirniu laser"
@@ -141,14 +141,14 @@
     "shield generation": 12,
     "hull repair": 6,
     "weapon": {
-      "sprite": "projectile/large explosion",
+      "sprite": "effect/large explosion",
       "sprite data": {
         "start frame": 0,
         "frame rate": 0
       },
       "hardpoint sprite": "hardpoint/mgf eollei turret hp",
       "hardpoint offset": 10,
-      "sound": "large explosion",
+      "sound": "explosion large",
       "live effect": "eollei smoke",
       "hit effect": [
         "nuke explosion",
@@ -218,7 +218,7 @@
       },
       "hardpoint sprite": "hardpoint/mgf ichruh turret hp",
       "hardpoint offset": 10,
-      "sound": "small explosion",
+      "sound": "explosion small",
       "hit effect": [
         "nuke explosion",
         "volhex impact 1",
@@ -700,6 +700,7 @@
   {
     "name": "MGF: Tarazed Secret Cargo",
     "display name": "Tarazed Tech",
+    "plural": "Tarazed Techs",
     "category": "Special",
     "cost": 0,
     "thumbnail": "outfit/unknown",
@@ -6742,7 +6743,7 @@
     "thumbnail": "outfit/mgf jaivana shell",
     "mass": 0.4,
     "v2k basilisk shell capacity": -1,
-    "description": ".",
+    "description": "Ammunition for V2000 Basilisk Cannon.",
     "governments": {
       "Mega-Freight": {
         "Mega-Freight": true
@@ -7165,6 +7166,54 @@
     "pluginId": "Mega Freight/Mega-Freight"
   },
   {
+    "name": "Stormhold Carronade",
+    "category": "Guns",
+    "cost": 95000,
+    "thumbnail": "outfit/mgf pirate carronade",
+    "mass": 10,
+    "outfit space": -10,
+    "weapon capacity": -10,
+    "gun ports": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/stormholdcarronade proj",
+      "fire effect": "tiny explosion",
+      "hit effect": "small explosion",
+      "inaccuracy 8": {
+        "uniform": true
+      },
+      "velocity": 14,
+      "lifetime": 42,
+      "reload": 16,
+      "firing energy": 14,
+      "firing heat": 30,
+      "firing force": 12,
+      "hit force": 30,
+      "shield damage": 27.8,
+      "hull damage": 42.8,
+      "fade out": 10
+    },
+    "description": "A short-ranged rapid firing cannons made to quickly shred armour.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
     "name": "Stormhold Carronade Turret",
     "category": "Turrets",
     "cost": 342000,
@@ -7218,6 +7267,60 @@
     "pluginId": "Mega Freight/Mega-Freight"
   },
   {
+    "name": "Vkan Revolver Cannon",
+    "category": "Guns",
+    "cost": 98000,
+    "thumbnail": "outfit/mgf pirate revolver cannon",
+    "mass": 27,
+    "outfit space": -27,
+    "weapon capacity": -27,
+    "gun ports": -1,
+    "required crew": 1,
+    "weapon": {
+      "sprite": "projectile/stormholdcarronade proj",
+      "sprite data": {
+        "scale": 0.6
+      },
+      "fire effect": "flame",
+      "hit effect": "small explosion",
+      "inaccuracy 6.5": {
+        "narrow": true
+      },
+      "velocity": 17,
+      "lifetime": 43,
+      "random velocity": 1,
+      "random lifetime": 10,
+      "range override": 800,
+      "reload": 6,
+      "firing energy": 10,
+      "firing heat": 23,
+      "firing force": 6,
+      "hit force": 10,
+      "shield damage": 28.6,
+      "hull damage": 12.2,
+      "fade out": 10
+    },
+    "description": "A pirate's replica of an old weapon. Used as mid-ranged general-purpose turret against ships and fighter.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
     "name": "Vkan Revolver Cannon Turret",
     "category": "Turrets",
     "cost": 142000,
@@ -7234,9 +7337,9 @@
       },
       "hardpoint sprite": "hardpoint/mgf pirate revolver cannon turret hp",
       "hardpoint offset": 8,
-      "fire effect": "tiny explosion",
+      "fire effect": "flame",
       "hit effect": "small explosion",
-      "inaccuracy 4.5": {
+      "inaccuracy 7.5": {
         "narrow": true
       },
       "turret turn": 1.7,
@@ -8203,11 +8306,15 @@
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate": true,
         "Bounty Hunter": true,
         "Republic": true,
         "Bounty": true,
-        "Pirate (Rivals)": true
+        "Pirate (Rivals)": true,
+        "Pirate": true,
+        "Independent (Killable)": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Pirate": true
       }
     },
     "locations": {
@@ -8238,6 +8345,7 @@
           "AGT-31 Xencar (Xencar (EPB3-2))",
           "AGT-31 Xencar (Xencar (NGK))",
           "Headhunter (LunaWine Long Range Escort, Burst Particle)",
+          "Marauder Leviathan (MGF: Weapons 1)",
           "Quicksilver (EPB3-2)"
         ],
         "ShipyardPlanets": [
@@ -8399,8 +8507,8 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       }
@@ -9036,8 +9144,9 @@
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Syndicate (Extremist)": true,
+        "Independent (Killable)": true,
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       },
@@ -9463,8 +9572,8 @@
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       }
@@ -11436,7 +11545,9 @@
         "Pirate": true,
         "Merchant": true,
         "Syndicate": true,
-        "Republic": true
+        "Republic": true,
+        "Lunarium (Hidden)": true,
+        "Escort": true
       },
       "Zuckungs list/job.coloring": {
         "Merchant": true,
@@ -11470,7 +11581,9 @@
         "Syndicate": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true,
-        "Scar's Legion": true
+        "Scar's Legion": true,
+        "Merchant": true,
+        "Escort": true
       },
       "Rumskib/rumskib": {
         "Pirate": true
@@ -11493,6 +11606,7 @@
       },
       "Mega Freight/Mega-Freight": {
         "Ships": [
+          "Argosy (MGF: Pulse Blaster, Shield Maxed)",
           "Berserker (MGF: Pulse Blaster)",
           "Berserker (MGF: Pulse Blaster, SD0 Regenerator)",
           "Fury (MGF: Pulse Blaster)",
@@ -11593,8 +11707,8 @@
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Scar's Legion": true,
-        "Pirate": true,
         "Merchant": true,
+        "Pirate": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true
       },
@@ -11732,11 +11846,12 @@
         "Ancient Travelers": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate": true,
         "Merchant": true,
+        "Pirate": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true,
         "Bounty (Disguised)": true,
+        "Merchant (Hostile)": true,
         "Pirate (Rival)": true
       },
       "Rumskib/rumskib": {
@@ -11869,6 +11984,7 @@
         "Pirate": true,
         "Free Worlds": true,
         "Bounty (Disguised)": true,
+        "Merchant (Hostile)": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       },
@@ -12012,6 +12128,105 @@
     "pluginId": "Mega Freight/Mega-Freight"
   },
   {
+    "name": "MGF: uLO-61 Decimator Cannon",
+    "display name": "uLO-61 Decimator Cannon",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 2035,
+    "cost": 270000,
+    "thumbnail": "outfit/mgf hai decimator",
+    "mass": 98,
+    "outfit space": -98,
+    "weapon capacity": -98,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/mgf_pulse_blaster_heavy",
+      "sprite data": {},
+      "sound": "pulse",
+      "hit effect": "pulse impact",
+      "inaccuracy": 3,
+      "velocity": 22,
+      "lifetime": 91,
+      "reload": 60,
+      "firing energy": 20,
+      "firing heat": 45,
+      "shield damage": 341,
+      "hull damage": 641,
+      "corrosion damage": 10
+    },
+    "description": "A large and powerful cannon that also deals additional hull damage for a short period after impacting the hull.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: Tripulse Shredder Turret",
+    "display name": "Tripulse Shredder Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 2020,
+    "cost": 610000,
+    "thumbnail": "outfit/mgf hai tripulse turret",
+    "mass": 51,
+    "outfit space": -51,
+    "weapon capacity": -51,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/mgf hai tripulse turret hp",
+      "hardpoint offset": 15,
+      "sprite": "projectile/pulse",
+      "sound": "pulse",
+      "hit effect": "pulse impact",
+      "turret turn": 1.2,
+      "inaccuracy": 5,
+      "velocity": 15,
+      "lifetime": 30,
+      "reload": 6,
+      "burst count": 36,
+      "burst reload": 4,
+      "cluster": true,
+      "firing energy": 25,
+      "firing heat": 60,
+      "shield damage": 45,
+      "hull damage": 34
+    },
+    "description": "An early stage in the development of better and faster weaponry to rival that of the Wanderers, the Tripulse Shredder consists of three Pulse Cannons in a single housing. Advancements in cooling capabilities have reduced the heat generated by each shot at the cost of drawing slightly more power. Additionally, the single shared housing results in a less consistent firing pattern, limiting it to bursts. These factors have made the Tripulse Shredder a popular hit-and-run weapon among the Unfettered.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
     "name": "V47 Plasma-Railgun",
     "category": "Guns",
     "cost": 1960000,
@@ -12132,9 +12347,7 @@
       },
       "Mega Freight/Mega-Freight": {
         "Ships": [
-          "Claymore Class",
-          "MGF: Claymore Class",
-          "Ranseur Class"
+          "MGF: Ranseur Class (Ranseur Class (ZOE: Shield))"
         ],
         "ShipyardPlanets": [
           "Canaveral Naval Yard",
@@ -12450,6 +12663,7 @@
           "Lovelace Advanced"
         ],
         "Ships": [
+          "MGF: Ranseur Class (Ranseur Class (ZOE: Shield))",
           "MGF: Spetum Class (Spetum Class (Mark II))",
           "MGF: Spetum Class (Spetum Class (Mark II, Jump))",
           "MGF: Spetum Class (Spetum Class (Mark II, ShieldRegen))",
@@ -12564,7 +12778,8 @@
       },
       "Mega Freight/Mega-Freight": {
         "Ships": [
-          "MGF: Dulle Griet Class (Dulle Griet Class (Early))"
+          "MGF: Dulle Griet Class (Dulle Griet Class (Early))",
+          "MGF: Ranseur Class (Ranseur Class (ZOE: Shield))"
         ],
         "ShipyardPlanets": [
           "Canaveral Naval Yard",
@@ -13142,7 +13357,8 @@
       },
       "Mega Freight/Mega-Freight": {
         "Ships": [
-          "MGF: Dulle Griet Class (Dulle Griet Class (Early))"
+          "MGF: Dulle Griet Class (Dulle Griet Class (Early))",
+          "MGF: Ranseur Class (Ranseur Class (ZOE: Shield))"
         ],
         "ShipyardPlanets": [
           "Canaveral Naval Yard",
@@ -14183,6 +14399,86 @@
     "locations": {
       "Mega Freight/Mega-Freight": {
         "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: KC-12 Scorcher",
+    "display name": "KC-12 Scorcher",
+    "category": "Guns",
+    "cost": 51000,
+    "thumbnail": "outfit/mgf scrocher gun",
+    "mass": 7,
+    "outfit space": -7,
+    "weapon capacity": -7,
+    "gun ports": -1,
+    "heat generation": 1.2,
+    "weapon": {
+      "sprite": "projectile/mgf scorcher shot",
+      "sound": "mgf scorcher fire",
+      "hit effect": "plasma explosion",
+      "live effect": "mgf scorcher trail",
+      "inaccuracy": 6,
+      "velocity": 14,
+      "lifetime": 60,
+      "reload": 25,
+      "hit force": 10,
+      "shield damage": 54,
+      "hull damage": 12,
+      "heat damage": 88,
+      "firing energy": 32,
+      "firing heat": 55,
+      "damage dropoff": 450,
+      "fade out": 10
+    },
+    "description": "A hybrid of plasma and blaster weapon, the scorcher deals considerable heat damage in addition to its high shield damage. Due to various factors, scorcher bolts are relatively more stable and can reach far longer range than the weapons they derived from. It is almost exclusively used by NBSL Group ships.",
+    "governments": {
+      "Mega Freight/Mega-Freight": {
+        "MGF: NBSL": true,
+        "Republic": true,
+        "Navy (Oathkeeper)": true
+      },
+      "official-game/endless-sky": {
+        "Republic": true,
+        "Navy (Oathkeeper)": true,
+        "Free Worlds": true
+      },
+      "Blended Ships/blended-ships": {
+        "Republic": true,
+        "Free Worlds": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Oathbreaker": true,
+        "Republic": true,
+        "Pirate": true,
+        "Oathbreaker Expeditionary": true,
+        "Bounty Hunter": true,
+        "Independent": true,
+        "Alpha": true,
+        "Free Worlds": true,
+        "Storm Seekers": true
+      },
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Ancient Travelers": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Ships": [
+          "Finch (MGF: NBSL)",
+          "Lance (MGF: NBSL)"
+        ]
       }
     },
     "pluginId": "Mega Freight/Mega-Freight"
@@ -17684,6 +17980,8 @@
   {
     "name": "CMX-12 Anti-Missile",
     "category": "Turrets",
+    "series": "Anti-Missile",
+    "index": 1090,
     "cost": 590000,
     "thumbnail": "outfit/emx55 flak turret",
     "mass": 48,
@@ -17842,6 +18140,8 @@
   },
   {
     "name": "CMX-63 Kavacha Anti-Missile",
+    "series": "Anti-Missile",
+    "index": 1100,
     "category": "Turrets",
     "cost": 590000,
     "thumbnail": "outfit/mgf kavacha antimissile",
@@ -18056,6 +18356,21 @@
       }
     },
     "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
       "Mega Freight/Mega-Freight": {
         "Ships": [
           "GKS-48 Zummenstoss (Atomics)",
@@ -18072,13 +18387,6 @@
       "Kai's list/KGS": {
         "ShipyardPlanets": [
           "KGS"
-        ]
-      },
-      "Galactic War/Galactic-War": {
-        "ShipyardPlanets": [
-          "GW Plugins",
-          "Galactic War",
-          "Thing"
         ]
       },
       "official-game/endless-sky": {
@@ -18233,6 +18541,21 @@
       }
     },
     "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
       "Mega Freight/Mega-Freight": {
         "Ships": [
           "GKS-48 Zummenstoss (Atomics)",
@@ -18250,13 +18573,6 @@
       "Kai's list/KGS": {
         "ShipyardPlanets": [
           "KGS"
-        ]
-      },
-      "Galactic War/Galactic-War": {
-        "ShipyardPlanets": [
-          "GW Plugins",
-          "Galactic War",
-          "Thing"
         ]
       },
       "official-game/endless-sky": {
@@ -18415,8 +18731,120 @@
     "pluginId": "Mega Freight/Mega-Freight"
   },
   {
+    "name": "MGF: GAM-112 Gun",
+    "display name": "GAM-112 Gun",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1052,
+    "cost": 49000,
+    "thumbnail": "outfit/mgf bw mk112 gun",
+    "mass": 7,
+    "outfit space": -7,
+    "weapon capacity": -7,
+    "gun ports": -1,
+    "weapon": {
+      "sound": "mgf j13",
+      "sprite": "projectile/mgf j13 proj",
+      "sprite data": {
+        "scale": 1
+      },
+      "fire effect": "tiny explosion",
+      "hit effect": "medium explosion",
+      "inaccuracy": 0.1,
+      "velocity": 17,
+      "lifetime": 45,
+      "firing energy": 12,
+      "firing force": 5,
+      "firing heat": 32,
+      "reload": 60,
+      "hit force": 10,
+      "shield damage": 50,
+      "hull damage": 36,
+      "fade out": 5
+    },
+    "description": "Small anti-shield gun.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: GAM-112 Rotary Cannon",
+    "display name": "GAM-112 Rotary Cannon",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 1305,
+    "cost": 450000,
+    "thumbnail": "outfit/mgf bw mk112 rotary",
+    "mass": 56,
+    "outfit space": -56,
+    "weapon capacity": -56,
+    "gun ports": -1,
+    "weapon": {
+      "sound": "mgf j13",
+      "sprite": "projectile/mgf j13 proj",
+      "sprite data": {
+        "scale": 1
+      },
+      "fire effect": "flame",
+      "hit effect": "medium explosion",
+      "inaccuracy 5": {
+        "wide": true
+      },
+      "random velocity": 2,
+      "velocity": 17,
+      "lifetime": 45,
+      "firing energy": 12,
+      "firing force": 5,
+      "firing heat": 32,
+      "reload": 7,
+      "burst reload": 5,
+      "burst count": 8,
+      "hit force": 10,
+      "shield damage": 50,
+      "hull damage": 36,
+      "fade out": 5,
+      "cluster": true
+    },
+    "description": "Large rotary cannon that can utterly annihilate shields in a few burst.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
     "name": "KC-421 Parapet Anti-Missile",
     "category": "Turrets",
+    "series": "Anti-Missile",
+    "index": 1060,
     "cost": 480000,
     "thumbnail": "outfit/mgf kc421 antimissile",
     "mass": 65,
@@ -23756,7 +24184,7 @@
     "name": "Arashi Missile",
     "category": "Ammunition",
     "cost": 500,
-    "thumbnail": "outfit/sidewinder missile",
+    "thumbnail": "outfit/sidewinder",
     "mass": 0.05,
     "arashi missile capacity": -1,
     "description": "Ammo for Arashi SMLS",
@@ -24814,6 +25242,427 @@
     "pluginId": "Mega Freight/Mega-Freight"
   },
   {
+    "name": "MGF: MR-W2 Reactor",
+    "display name": "MR-W4 Reactor",
+    "category": "Power",
+    "series": "Generators",
+    "index": 1085,
+    "cost": 770000,
+    "thumbnail": "outfit/mgf mrw2 reactor",
+    "mass": 31,
+    "outfit space": -31,
+    "energy generation": 3.8,
+    "heat generation": 12.6,
+    "description": "A small nuclear reactor from VRR Power Solutions showing off their millenia of expertise in nuclear power. While far from efficiency of larger reactors it is small enough to even fit into some larger interceptors.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Ships": [
+          "MGF: RRS-009 Clematis (Racing)"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: MR-W4 Reactor",
+    "display name": "MR-W4 Reactor",
+    "category": "Power",
+    "series": "Generators",
+    "index": 1093,
+    "cost": 920000,
+    "thumbnail": "outfit/mgf mrw4 reactor",
+    "mass": 39,
+    "outfit space": -39,
+    "energy generation": 5,
+    "heat generation": 13.2,
+    "description": "A small yet cool running reactor.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Ships": [
+          "MGF: RRS-016 Archer",
+          "MGF: RRS-031 Growler"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: MR-W8 Reactor",
+    "display name": "MR-W8 Reactor",
+    "category": "Power",
+    "series": "Generators",
+    "index": 1106,
+    "cost": 2120000,
+    "thumbnail": "outfit/mgf mrw8 reactor",
+    "mass": 76,
+    "outfit space": -76,
+    "energy generation": 10.13,
+    "heat generation": 23.8,
+    "description": "A cool running reactor from VRR Power.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: MR-W8V Reactor",
+    "display name": "MR-W8V Reactor",
+    "category": "Power",
+    "series": "Generators",
+    "index": 1107,
+    "cost": 4020000,
+    "thumbnail": "outfit/mgf mrw8v reactor",
+    "mass": 79,
+    "outfit space": -79,
+    "energy generation": 13.1,
+    "heat generation": 34.1,
+    "description": "A more powerful variant of VRR Power's MR-W8 reactor. Expensive and rarely built, most often available only on the months towards the end of the year.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
     "name": "MGF: ATCN Reactor",
     "display name": "ATCN Reactor",
     "category": "Power",
@@ -25673,6 +26522,187 @@
       "Kai's list/KGS": {
         "ShipyardPlanets": [
           "KGS"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: Overclocked Fission Reactor",
+    "display name": "Overclocked Fission Reactor",
+    "category": "Power",
+    "series": "Generators",
+    "index": 1101,
+    "cost": 1800000,
+    "thumbnail": "outfit/fission",
+    "mass": 68,
+    "outfit space": -68,
+    "energy generation": 11.4,
+    "heat generation": 33.1,
+    "overheat damage threshold": 0.01,
+    "overheat damage rate": 5,
+    "description": "A massively overclocked fission reactor with many safety and limits removed. Will damage the ship if slightly overheated. Very illegal if caught in Republic space.",
+    "governments": {
+      "Capitalis Major/Capitalis-Major": {
+        "Bounty Hunter": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Syndicate (Extremist)": true,
+        "Independent (Killable)": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Ships": [
+          "Marauder Manta (MGF: Engines, Javelin)"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Al Dhanab",
+          "Alcyone",
+          "Alderamin",
+          "Algenib",
+          "Algol",
+          "Almach",
+          "Alnair",
+          "Alpha Hydri",
+          "Alpheratz",
+          "Ankaa",
+          "Atik",
+          "Durax",
+          "Gamma Cassiopeiae",
+          "Gienah",
+          "Hamal",
+          "Kugel",
+          "Matar",
+          "Menkar",
+          "Misam",
+          "Oblate",
+          "Persian",
+          "Ruchbah",
+          "Scheat",
+          "Schedar",
+          "Shaula",
+          "Sheratan",
+          "Zaurak"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "Systems": [
+          "Nashira"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: Overclocked Breeder Reactor",
+    "display name": "Overclocked Breeder Reactor",
+    "category": "Power",
+    "series": "Generators",
+    "index": 1111,
+    "cost": 3100000,
+    "thumbnail": "outfit/breeder",
+    "mass": 85,
+    "outfit space": -85,
+    "energy generation": 13.1,
+    "heat generation": 45,
+    "overheat damage threshold": 0.01,
+    "overheat damage rate": 7,
+    "description": "A massively overclocked breeder reactor with many safety and limits removed. Will damage the ship if slightly overheated. Very illegal if caught in Republic space.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: Overclocked Fusion Reactor",
+    "display name": "Overclocked Fusion Reactor",
+    "category": "Power",
+    "series": "Generators",
+    "index": 1121,
+    "cost": 5800000,
+    "thumbnail": "outfit/fusion",
+    "mass": 109,
+    "outfit space": -109,
+    "energy generation": 21.9,
+    "heat generation": 52,
+    "overheat damage threshold": 0.05,
+    "overheat damage rate": 10,
+    "description": "A massively overclocked fusion reactor with many safety and limits removed. Despite the technology being much safer fission reactors, pirates still manage to make it harm the ship if overheated somehow. Very illegal if caught in Republic space.",
+    "governments": {
+      "official-game/endless-sky": {
+        "Pirate": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Pirate": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Pirate": true,
+        "Independent (Killable)": true,
+        "Bounty Hunter": true,
+        "Pirate (Rivals)": true,
+        "Syndicate (Extremist)": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Escort": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Ships": [
+          "Marauder Leviathan (MGF: Weapons 1)",
+          "Marauder Splinter (MGF: Weapons 1)"
         ]
       }
     },
@@ -26696,6 +27726,7 @@
     "locations": {
       "Mega Freight/Mega-Freight": {
         "Ships": [
+          "MGF: Ranseur Class",
           "Ranseur Class"
         ],
         "ShipyardPlanets": [
@@ -26721,6 +27752,13 @@
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "ShipyardPlanets": [
           "Laateli"
+        ]
+      },
+      "Galactic War/Galactic-War": {
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
         ]
       }
     },
@@ -26981,7 +28019,7 @@
     "thumbnail": "outfit/mgf devil shield",
     "mass": 264,
     "outfit space": -264,
-    "shield generation": 12.8,
+    "shield generation": 20.75,
     "shield energy": 29.7,
     "shield heat": 79.7,
     "shield fuel": 0.01,
@@ -27034,7 +28072,7 @@
     "thumbnail": "outfit/mgf inferno repair",
     "mass": 131,
     "outfit space": -131,
-    "hull repair rate": 6.3,
+    "hull repair rate": 9.7,
     "hull energy": 14.5,
     "hull heat": 56.5,
     "hull fuel": -0.01,
@@ -27665,8 +28703,8 @@
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       }
@@ -27770,8 +28808,8 @@
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       }
@@ -27866,8 +28904,8 @@
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       }
@@ -27962,8 +29000,8 @@
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       }
@@ -28192,7 +29230,8 @@
         "Escort": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Syndicate (Extremist)": true
+        "Syndicate (Extremist)": true,
+        "Independent (Killable)": true
       }
     },
     "locations": {
@@ -29393,6 +30432,7 @@
         "Escort": true,
         "Pirate": true,
         "Free Worlds": true,
+        "Merchant (Hostile)": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       },
@@ -29533,8 +30573,8 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       }
@@ -29851,6 +30891,7 @@
         "Pirate": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true,
+        "Merchant (Hostile)": true,
         "Merchant": true,
         "Pirate (Rival)": true
       },
@@ -30181,8 +31222,8 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true
       }
@@ -30644,6 +31685,21 @@
       }
     },
     "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
       "Mega Freight/Mega-Freight": {
         "Ships": [
           "MGF: Dulle Griet Class (Dulle Griet Class (Early))"
@@ -30746,13 +31802,6 @@
       "Zuckungs list/boss.loot": {
         "Systems": [
           "Adhile"
-        ]
-      },
-      "Galactic War/Galactic-War": {
-        "ShipyardPlanets": [
-          "GW Plugins",
-          "Galactic War",
-          "Thing"
         ]
       }
     },
@@ -34402,6 +35451,1002 @@
     "pluginId": "Mega Freight/Mega-Freight"
   },
   {
+    "name": "MGF: HE-R101 Hybrid Thruster",
+    "display name": "HE-R101 Hybrid Thruster",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1411,
+    "cost": 18000,
+    "thumbnail": "outfit/mgf he101 thruster",
+    "mass": 18,
+    "outfit space": -18,
+    "engine capacity": -18,
+    "thrust": 15.3,
+    "thrusting energy": 0.65,
+    "thrusting heat": 0.95,
+    "flare sprite": "effect/ion flare/tiny",
+    "flare sprite data": {
+      "frame rate": 1.2
+    },
+    "flare sound": "ion tiny",
+    "afterburner thrust": 22,
+    "afterburner energy": 1.8,
+    "afterburner heat": 2.3,
+    "afterburner effect": "ionic afterburner",
+    "description": "VRR Engine's efficient thruster that is also capable of boosting into higher trust when required.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: HE-R102 Hybrid Thruster",
+    "display name": "HE-R102 Hybrid Thruster",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1421,
+    "cost": 79380,
+    "thumbnail": "outfit/mgf he102 thruster",
+    "mass": 35,
+    "outfit space": -35,
+    "engine capacity": -35,
+    "thrust": 31.998,
+    "thrusting energy": 1.391,
+    "thrusting heat": 2.272,
+    "flare sprite": "effect/ion flare/small",
+    "flare sprite data": {
+      "frame rate": 1.2
+    },
+    "flare sound": "ion small",
+    "afterburner thrust": 46,
+    "afterburner energy": 3.851,
+    "afterburner heat": 5.502,
+    "afterburner effect": "ionic afterburner",
+    "description": "VRR Engine's efficient thruster that is also capable of boosting into higher trust when required.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: HE-R103 Hybrid Thruster",
+    "display name": "HE-R103 Hybrid Thruster",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1431,
+    "cost": 167000,
+    "thumbnail": "outfit/mgf he103 thruster",
+    "mass": 44,
+    "outfit space": -44,
+    "engine capacity": -44,
+    "thrust": 40.969,
+    "thrusting energy": 1.768,
+    "thrusting heat": 2.955,
+    "flare sprite": "effect/ion flare/medium",
+    "flare sprite data": {
+      "frame rate": 1.2
+    },
+    "flare sound": "ion medium",
+    "afterburner thrust": 59,
+    "afterburner energy": 4.896,
+    "afterburner heat": 7.155,
+    "afterburner effect": "ionic afterburner",
+    "description": "VRR Engine's efficient thruster that is also capable of boosting into higher trust when required.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Ships": [
+          "MGF: RRS-009 Clematis",
+          "MGF: RRS-016 Archer",
+          "MGF: RRS-031 Growler"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: HE-R104 Hybrid Thruster",
+    "display name": "HE-R104 Hybrid Thruster",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1441,
+    "cost": 350000,
+    "thumbnail": "outfit/mgf he104 thruster",
+    "mass": 55,
+    "outfit space": -55,
+    "engine capacity": -55,
+    "thrust": 52.961,
+    "thrusting energy": 2.286,
+    "thrusting heat": 3.905,
+    "flare sprite": "effect/ion flare/large",
+    "flare sprite data": {
+      "frame rate": 1.2
+    },
+    "flare sound": "ion large",
+    "afterburner thrust": 76,
+    "afterburner energy": 6.33,
+    "afterburner heat": 9.454,
+    "afterburner effect": "ionic afterburner",
+    "description": "VRR Engine's efficient thruster that is also capable of boosting into higher trust when required.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: HE-R105 Hybrid Thruster",
+    "display name": "HE-R105 Hybrid Thruster",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1451,
+    "cost": 735000,
+    "thumbnail": "outfit/mgf he105 thruster",
+    "mass": 69,
+    "outfit space": -69,
+    "engine capacity": -69,
+    "thrust": 68.348,
+    "thrusting energy": 2.975,
+    "thrusting heat": 5.189,
+    "flare sprite": "effect/ion flare/huge",
+    "flare sprite data": {
+      "frame rate": 1.2
+    },
+    "flare sound": "ion huge",
+    "afterburner thrust": 98,
+    "afterburner energy": 8.237,
+    "afterburner heat": 12.562,
+    "afterburner effect": "ionic afterburner",
+    "description": "VRR Engine's efficient thruster that is also capable of boosting into higher trust when required.",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: HE-R101 Hybrid Steering",
+    "display name": "HE-R101 Hybrid Steering",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1410,
+    "cost": 12000,
+    "thumbnail": "outfit/mgf he101 steering",
+    "mass": 13,
+    "outfit space": -13,
+    "engine capacity": -13,
+    "turn": 325,
+    "turning energy": 0.31,
+    "turning heat": 0.65,
+    "steering flare sprite": "effect/ion flare/tiny",
+    "steering flare sprite data": {
+      "frame rate": 1.2
+    },
+    "steering flare sound": "ion tiny",
+    "description": "VRR Engine's efficient steering engines",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: HE-R102 Hybrid Steering",
+    "display name": "HE-R102 Hybrid Steering",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1420,
+    "cost": 233000,
+    "thumbnail": "outfit/mgf he102 steering",
+    "mass": 31,
+    "outfit space": -31,
+    "engine capacity": -31,
+    "turn": 791,
+    "turning energy": 0.74,
+    "turning heat": 1.44,
+    "steering flare sprite": "effect/ion flare/small",
+    "steering flare sprite data": {
+      "frame rate": 1.1
+    },
+    "steering flare sound": "ion small",
+    "description": "VRR Engine's efficient steering engines",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Ships": [
+          "MGF: RRS-009 Clematis"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: HE-R103 Hybrid Steering",
+    "display name": "HE-R103 Hybrid Steering",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1430,
+    "cost": 490000,
+    "thumbnail": "outfit/mgf he103 steering",
+    "mass": 39,
+    "outfit space": -39,
+    "engine capacity": -39,
+    "turn": 1003,
+    "turning energy": 0.925,
+    "turning heat": 1.8,
+    "steering flare sprite": "effect/ion flare/medium",
+    "steering flare sprite data": {
+      "frame rate": 1
+    },
+    "steering flare sound": "ion medium",
+    "description": "VRR Engine's efficient steering engines",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Ships": [
+          "MGF: RRS-031 Growler"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: HE-R104 Hybrid Steering",
+    "display name": "HE-R104 Hybrid Steering",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1440,
+    "cost": 1029000,
+    "thumbnail": "outfit/mgf he104 steering",
+    "mass": 49,
+    "outfit space": -49,
+    "engine capacity": -49,
+    "turn": 1295,
+    "turning energy": 1.88,
+    "turning heat": 3.55,
+    "steering flare sprite": "effect/ion flare/large",
+    "steering flare sprite data": {
+      "frame rate": 0.9
+    },
+    "steering flare sound": "ion large",
+    "description": "VRR Engine's efficient steering engines",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ],
+        "ShipyardPlanets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Ships": [
+          "MGF: RRS-016 Archer"
+        ]
+      },
+      "Kai's list/KGS": {
+        "ShipyardPlanets": [
+          "KGS"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Acamar",
+          "Achernar",
+          "Adhara",
+          "Al Dhanab",
+          "Aldebaran",
+          "Alderamin",
+          "Algieba",
+          "Algol",
+          "Alheka",
+          "Alhena",
+          "Alpha Centauri",
+          "Alpha Hydri",
+          "Alphard",
+          "Alpheratz",
+          "Altair",
+          "Aludra",
+          "Ankaa",
+          "Aspidiske",
+          "Avior",
+          "Bellatrix",
+          "Betelgeuse",
+          "Canopus",
+          "Capella",
+          "Caph",
+          "Cardax",
+          "Castor",
+          "Delta Capricorni",
+          "Denebola",
+          "Diphda",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Eteron",
+          "Fala",
+          "Fomalhaut",
+          "Gomeisa",
+          "Hamal",
+          "Kursa",
+          "Markab",
+          "Markeb",
+          "Matar",
+          "Mebsuta",
+          "Menkalinan",
+          "Menkar",
+          "Merak",
+          "Miaplacidus",
+          "Mirach",
+          "Mirfak",
+          "Mirzam",
+          "Moktar",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Phecda",
+          "Phurad",
+          "Polaris",
+          "Pollux",
+          "Porrima",
+          "Procyon",
+          "Regor",
+          "Rigel",
+          "Ruchbah",
+          "Saiph",
+          "Scheat",
+          "Schedar",
+          "Sheratan",
+          "Sirius",
+          "Sol",
+          "Sospi",
+          "Suhail",
+          "Talita",
+          "Tania Australis",
+          "Tejat",
+          "Vega",
+          "Volax",
+          "Wazn",
+          "Wezen",
+          "Zaurak",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Aixafer",
+          "Aljuik",
+          "Alkxaai",
+          "Arau",
+          "Arket",
+          "Corua",
+          "Darceas",
+          "Daxter",
+          "Denleitt",
+          "Deriato",
+          "Deriie",
+          "Finduue",
+          "Gensokyo",
+          "Illumina",
+          "Illuria",
+          "Jalak",
+          "Jarkiiens",
+          "Karita",
+          "Kolicasa",
+          "Lakodelfraddi",
+          "Lesarkei",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Paricasa",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Posteli",
+          "Raidei",
+          "Sedlai",
+          "Sprooe",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Varisa",
+          "Vefrua",
+          "Vensur",
+          "Zarkxaa"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
+    "name": "MGF: HE-R105 Hybrid Steering",
+    "display name": "HE-R105 Hybrid Steering",
+    "category": "Engines",
+    "series": "Engines",
+    "index": 1450,
+    "cost": 2161000,
+    "thumbnail": "outfit/mgf he105 steering",
+    "mass": 61,
+    "outfit space": -61,
+    "engine capacity": -61,
+    "turn": 1676,
+    "turning energy": 2.2,
+    "turning heat": 4,
+    "steering flare sprite": "effect/ion flare/huge",
+    "steering flare sprite data": {
+      "frame rate": 0.9
+    },
+    "steering flare sound": "ion huge",
+    "description": "VRR Engine's efficient steering engines",
+    "governments": {
+      "Mega-Freight": {
+        "Mega-Freight": true
+      }
+    },
+    "locations": {
+      "Galactic War/Galactic-War": {
+        "Planets": [
+          "GW Plugins",
+          "Galactic War",
+          "Thing"
+        ],
+        "Outfitters": [
+          "developer"
+        ]
+      }
+    },
+    "pluginId": "Mega Freight/Mega-Freight"
+  },
+  {
     "name": "LC-90 Adaptive Engine",
     "category": "Engines",
     "series": "Engines",
@@ -34887,6 +36932,7 @@
     "locations": {
       "Mega Freight/Mega-Freight": {
         "Ships": [
+          "MGF: Ranseur Class (Ranseur Class (ZOE: Shield))",
           "MGF: Spetum Class (Spetum Class (Mark II))",
           "MGF: Spetum Class (Spetum Class (Mark II, Jump))",
           "MGF: Spetum Class (Spetum Class (Mark II, ShieldRegen))",

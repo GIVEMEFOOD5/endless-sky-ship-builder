@@ -158,10 +158,11 @@
         "Bounty": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant (Hostile)": true,
         "Merchant": true,
-        "Pirate": true,
         "Pirate (Rival)": true,
-        "Pirate (Rivals)": true
+        "Pirate (Rivals)": true,
+        "Hai (Unfettered)": true
       }
     },
     "locations": {
@@ -322,6 +323,9 @@
     "ion resistance": 0.22,
     "description": "These shield generators are much faster than the classic ones, can't generate shield during a fight.",
     "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Hai (Unfettered)": true
+      },
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true
       }
@@ -354,6 +358,9 @@
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true,
         "Bounty": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Hai (Unfettered)": true
       }
     },
     "locations": {
@@ -492,10 +499,11 @@
         "Ancient Travelers": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate": true,
         "Merchant": true,
+        "Pirate": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true,
+        "Merchant (Hostile)": true,
         "Pirate (Rival)": true
       },
       "Zuckungs list/galactic.capital.investment": {
@@ -598,10 +606,11 @@
         "Ancient Travelers": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate": true,
         "Merchant": true,
+        "Pirate": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true,
+        "Merchant (Hostile)": true,
         "Pirate (Rival)": true
       },
       "Zuckungs list/galactic.capital.investment": {
@@ -702,6 +711,7 @@
         "Pirate": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true,
+        "Merchant (Hostile)": true,
         "Pirate (Rival)": true,
         "Bounty Hunter": true,
         "Republic": true,
@@ -794,12 +804,12 @@
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Scar's Legion": true,
-        "Pirate": true,
         "Merchant": true,
         "Deep": true,
         "Pirate (Rivals)": true,
         "Pirate (Rival)": true,
         "Scar's Legion (Killable)": true,
+        "Pirate": true,
         "Bounty": true,
         "Bounty Hunter": true,
         "Alpha": true,
@@ -1046,11 +1056,7 @@
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Pirate": true,
-        "Pirate (Rivals)": true,
         "Merchant": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Sayari Plushie": true
       }
     },
     "locations": {
@@ -1059,35 +1065,101 @@
           "Buckler"
         ]
       },
-      "official-game/endless-sky": {
-        "ShipyardPlanets": [
-          "Asgard",
-          "Follower",
-          "Geminus",
-          "Haze",
-          "Midgard",
-          "Norn",
-          "Valhalla"
-        ]
-      },
-      "Kai's list/KGS": {
-        "ShipyardPlanets": [
-          "KGS"
-        ]
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "ShipyardPlanets": [
-          "Markaai"
-        ]
-      },
       "Lost In Midnight/Lost-in-Midnight": {
         "ShipyardPlanets": [
+          "Smuggler's Den",
           "Wang Xiang Tai"
         ],
         "Systems": [
           "Archipelago",
           "Chasm",
           "Diyu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Adhara",
+          "Alheka",
+          "Almaaz",
+          "Alnilam",
+          "Alnitak",
+          "Alphard",
+          "Aludra",
+          "Arneb",
+          "Aspidiske",
+          "Avior",
+          "Betelgeuse",
+          "Cardax",
+          "Danoa",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Fala",
+          "Gomeisa",
+          "Gorvi",
+          "Hassaleh",
+          "Hatysa",
+          "Kursa",
+          "Lolami",
+          "Markeb",
+          "Mebsuta",
+          "Men",
+          "Mintaka",
+          "Mirzam",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Rajak",
+          "Regor",
+          "Rigel",
+          "Saiph",
+          "Shaula",
+          "Sospi",
+          "Suhail",
+          "Sumar",
+          "Tania Australis",
+          "Tortor",
+          "Unagi",
+          "Volax",
+          "Wezen",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Alkxaai",
+          "Alpha Tudalip",
+          "Arau",
+          "Arket",
+          "Denleitt",
+          "Ghesie",
+          "Illumina",
+          "Karita",
+          "Kolicasa",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Opfrau",
+          "Paricasa",
+          "Paruna",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Sedlai",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Vefrua"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
         ]
       }
     },
@@ -1165,11 +1237,7 @@
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Pirate": true,
-        "Pirate (Rivals)": true,
         "Merchant": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Sayari Plushie": true
       }
     },
     "locations": {
@@ -1178,35 +1246,101 @@
           "Buckler"
         ]
       },
-      "official-game/endless-sky": {
-        "ShipyardPlanets": [
-          "Asgard",
-          "Follower",
-          "Geminus",
-          "Haze",
-          "Midgard",
-          "Norn",
-          "Valhalla"
-        ]
-      },
-      "Kai's list/KGS": {
-        "ShipyardPlanets": [
-          "KGS"
-        ]
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "ShipyardPlanets": [
-          "Markaai"
-        ]
-      },
       "Lost In Midnight/Lost-in-Midnight": {
         "ShipyardPlanets": [
+          "Smuggler's Den",
           "Wang Xiang Tai"
         ],
         "Systems": [
           "Archipelago",
           "Chasm",
           "Diyu"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Adhara",
+          "Alheka",
+          "Almaaz",
+          "Alnilam",
+          "Alnitak",
+          "Alphard",
+          "Aludra",
+          "Arneb",
+          "Aspidiske",
+          "Avior",
+          "Betelgeuse",
+          "Cardax",
+          "Danoa",
+          "Dubhe",
+          "Elnath",
+          "Epsilon Leonis",
+          "Fala",
+          "Gomeisa",
+          "Gorvi",
+          "Hassaleh",
+          "Hatysa",
+          "Kursa",
+          "Lolami",
+          "Markeb",
+          "Mebsuta",
+          "Men",
+          "Mintaka",
+          "Mirzam",
+          "Naos",
+          "Nihal",
+          "Phact",
+          "Rajak",
+          "Regor",
+          "Rigel",
+          "Saiph",
+          "Shaula",
+          "Sospi",
+          "Suhail",
+          "Sumar",
+          "Tania Australis",
+          "Tortor",
+          "Unagi",
+          "Volax",
+          "Wezen",
+          "Zosma"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Systems": [
+          "94 Merisai",
+          "Airuka",
+          "Alkxaai",
+          "Alpha Tudalip",
+          "Arau",
+          "Arket",
+          "Denleitt",
+          "Ghesie",
+          "Illumina",
+          "Karita",
+          "Kolicasa",
+          "Lesokicasa",
+          "Littike",
+          "Mersat",
+          "Nardacus",
+          "Oldothe",
+          "Onuka",
+          "Opfrau",
+          "Paricasa",
+          "Paruna",
+          "Pelitol",
+          "Poreu",
+          "Porsuei",
+          "Sedlai",
+          "Suerolii",
+          "Telicasa",
+          "Vachrau",
+          "Vefrua"
+        ]
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Systems": [
+          "Hidden Queen"
         ]
       }
     },
