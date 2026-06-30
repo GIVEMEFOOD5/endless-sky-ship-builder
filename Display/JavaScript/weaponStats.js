@@ -192,6 +192,14 @@ function _resolveEffectiveRange(w, outfitIndex, visited, depth, inheritedVelocit
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  SHOTS PER SECOND  — same as battleSim
+//
+//  A weapon only has a meaningful refire rate if it actually declares one
+//  (`reload` or `burst reload`). Weapons with neither — e.g. a one-shot
+//  detonation like a nuke submunition fired once and never again — do not
+//  refire at all, so shots-per-second must be 0, not silently defaulted to
+//  "fires every single frame" (60/s). The previous `weapon.reload || 1`
+//  fallback conflated "no reload key present" with "reloads in 1 frame",
+//  which inflated every DPS figure for such weapons by 60×.
 // ─────────────────────────────────────────────────────────────────────────────
 
 function _resolveShotsPerSecond(weapon) {
@@ -202,7 +210,9 @@ function _resolveShotsPerSecond(weapon) {
         ? (burstCount - 1) * burstReload + reload
         : reload;
     return (burstCount / framesPerCycle) * FPS;*/
-    const reload = Math.max(1, weapon.reload || 1);
+    const hasRefireRate = weapon.reload != null || weapon['burst reload'] != null;
+    if (!hasRefireRate) return 0;
+    const reload = Math.max(1, weapon.reload ?? weapon['burst reload'] ?? 1);
     return FPS / reload;
 }
 
@@ -225,6 +235,10 @@ function _calcWeaponProfile(weapon, outfitName, outfitIndex) {
         if (val) firingCosts[key] = val;
     }
 
+    // dpsBreakdown / totalDps are only meaningful when sps > 0 (the weapon
+    // actually refires). For a one-shot weapon (sps === 0) these stay at 0
+    // rather than reporting "damage × 0" being mistaken for "no damage" —
+    // damagePerShot below still carries the real, correct per-shot figures.
     const dpsBreakdown = {};
     let totalDps = 0;
     for (const [key, val] of Object.entries(dmgPerShot)) {
