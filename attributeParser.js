@@ -909,10 +909,21 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
     const a = ensure(key);
     a.isBoolean = true; a.description = desc; a.shownInOutfitPanel = true;
   }
+  // Status-effect damage types accumulate and decay at 1%/frame.
+  // The game displays them scaled ×100 (total effect = dose / 0.01).
+  const STATUS_DAMAGE_MULTIPLIER_100 = new Set([
+    'ion damage', 'scrambling damage', 'disruption damage', 'slowing damage',
+    'discharge damage', 'corrosion damage', 'burn damage', 'leak damage',
+  ]);
+
   for (const { key, unit } of oidData.valueNames) {
     const a = ensure(key);
     a.isWeaponStat = true; a.shownInOutfitPanel = true;
     if (unit) a.displayUnit = unit;
+    if (STATUS_DAMAGE_MULTIPLIER_100.has(key)) {
+      a.displayMultiplier = 100;
+      a.displayUnit = '';
+    }
   }
   for (const key of oidData.percentNames) {
     ensure(key).isWeaponStat = true;
