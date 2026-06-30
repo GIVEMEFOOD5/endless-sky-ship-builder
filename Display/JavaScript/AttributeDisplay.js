@@ -11,6 +11,8 @@
 //   • Outfit attribute contributions shown on ship panels (which outfit adds what)
 //   • Effect wear-off times calculated from resistance values
 //   • Outfit-to-ship attribute bonuses shown in a dedicated section
+//   • One-shot weapons (no reload / no refire) show damage-per-shot only,
+//     not an inflated "damage × 60" per-second figure
 
 const SECTION_ORDER = [
     'Licenses', 'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
@@ -540,8 +542,12 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext, plugin
 
     if (wRows.length) html += buildSection(sectionTitle, wRows);
 
-    // Pass rootReload so DPS uses the firing weapon's reload, not the submunition's
-    const effectiveReload = rootReload || (parseFloat(weapon.reload ?? 1) || 1);
+    // Pass rootReload so DPS uses the firing weapon's reload, not the submunition's.
+    // IMPORTANT: do NOT default a missing reload to 1 here — that would make a
+    // one-shot weapon (no reload key, never refires) look like it fires 60
+    // times a second. Pass the raw value through (possibly undefined) and let
+    // calcWeaponDerived decide whether a refire rate exists at all.
+    const effectiveReload = rootReload != null ? rootReload : weapon.reload;
     const wDerived = calcWeaponDerived(attrDefs, weapon, pluginId, effectiveReload);
     if (wDerived.length) html += buildSection(`${sectionTitle} — Derived`, wDerived.map(d => attrRow(d.label, d.value, d.unit, '', 'derived')));
     return html;
@@ -569,10 +575,15 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     let html = '';
     const totalDamage = {}, visited = new Set();
 
-    // Root reload drives DPS for the entire chain
-    const rootReload = (parseFloat(weapon.reload ?? 1) || 1);
-    const rootSps = 60 / rootReload;
-    
+    // Root reload drives DPS for the entire chain. A weapon with no reload
+    // key (and no burst reload either) is a one-shot weapon — it is fired
+    // once and never refires, so there is no "shots per second" to speak of.
+    // rootReload stays undefined/0 in that case rather than silently
+    // defaulting to 1 frame (which would imply 60 shots/sec).
+    const hasRefireRate = weapon.reload != null || weapon['burst reload'] != null;
+    const rootReload = hasRefireRate ? (parseFloat(weapon.reload ?? weapon['burst reload']) || 0) : 0;
+    const rootSps = rootReload > 0 ? 60 / rootReload : 0;
+
     const totalSubCount = Array.isArray(weapon.submunitions) && weapon.submunitions.length > 0
     ? weapon.submunitions.reduce((s, e) => s + (e?.count ?? 1), 0)
     : 1;
@@ -652,9 +663,11 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
         }
     }
 
-    // Render each section — pass rootReload so submunition DPS is correct
+    // Render each section — pass rootReload so submunition DPS is correct.
+    // rootReload may be 0 here (one-shot weapon), which is intentional —
+    // renderWeaponStats/calcWeaponDerived treat 0/undefined as "no refire".
     for (const { weapon: w, outfit: o, title } of sections)
-        html += renderWeaponStats(attrDefs, w, title, o, pluginId, rootReload);
+        html += renderWeaponStats(attrDefs, w, title, o, pluginId, rootReload || undefined);
 
     // ── Per-shot total damage across full chain ───────────────────────────────
     if (sections.length > 1 && Object.keys(totalDamage).length > 0) {
@@ -665,16 +678,22 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
             html += buildSection('Total Damage Per Shot (full chain)', perShotRows);
 
         // ── Total DPS across full chain ───────────────────────────────────────
-        const dpsRows = Object.entries(totalDamage)
-            .filter(([, v]) => v !== 0)
-            .map(([k, v]) => attrRow(
-                getLabel(k).replace(/ Damage$/, '') + ' DPS',
-                fmtNum(v * effectiveSps),
-                'dmg/s',
-                ''
-            ));
-        if (dpsRows.length)
-            html += buildSection(`Total DPS (${fmtNum(rootSps)} shots/s)`, dpsRows);
+        // Only meaningful if the root weapon actually refires. A one-shot
+        // chain (e.g. a single nuke detonation with no reload) has no
+        // sustained DPS — showing "Total Damage Per Shot" above is already
+        // the correct and complete picture for it.
+        if (effectiveSps > 0) {
+            const dpsRows = Object.entries(totalDamage)
+                .filter(([, v]) => v !== 0)
+                .map(([k, v]) => attrRow(
+                    getLabel(k).replace(/ Damage$/, '') + ' DPS',
+                    fmtNum(v * effectiveSps),
+                    'dmg/s',
+                    ''
+                ));
+            if (dpsRows.length)
+                html += buildSection(`Total DPS (${fmtNum(rootSps)} shots/s)`, dpsRows);
+        }
     }
 
     return html;
@@ -690,9 +709,16 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
         seen.add(key); results.push({ label, value: fmtNum(value), unit: unit || '' });
     }
 
-    // Use provided rootReload (from firing weapon), fall back to own reload only for root weapons
-    const reload = rootReload || (parseFloat(weapon.reload ?? 1) || 1);
-    const sps    = 60 / reload;
+    // A weapon only has a meaningful "shots per second" if it (or its root
+    // firing weapon, via rootReload) actually has a reload/burst-reload
+    // value. Previously a missing reload silently defaulted to 1 frame,
+    // which made one-shot weapons (e.g. a single detonation with no refire,
+    // like a nuke submunition) look like they fire 60 times a second and
+    // inflated every "dmg/s" figure by 60×. Now: no refire rate → no DPS
+    // rows are pushed at all, only the correct per-shot damage.
+    const hasRefireRate = rootReload != null || weapon.reload != null || weapon['burst reload'] != null;
+    const reload = hasRefireRate ? (parseFloat(rootReload ?? weapon.reload ?? weapon['burst reload']) || 0) : 0;
+    const sps    = reload > 0 ? 60 / reload : 0;
     const burstCount  = parseFloat(weapon['burst count']  ?? 1) || 1;
     const burstReload = parseFloat(weapon['burst reload']  ?? reload) || reload;
 
@@ -732,15 +758,19 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
     if (range > 0) push('Range', range, 'px');
 
     // ── Fire rate (only meaningful on root weapon which has reload) ───────────
-    if (weapon.reload != null) {
-        push('Fire Rate', 60 / reload, 'shots/s');
+    if (sps > 0) {
+        push('Fire Rate', sps, 'shots/s');
         if (burstCount > 1) {
             const framesPerCycle = (burstCount - 1) * burstReload + reload;
-            push('Sustained Rate', (burstCount / framesPerCycle) * 60, 'shots/s');
+            if (framesPerCycle > 0) push('Sustained Rate', (burstCount / framesPerCycle) * 60, 'shots/s');
         }
     }
 
-    // ── Per-shot damage on THIS node (not DPS — chain totals shown separately)
+    // ── Per-shot damage on THIS node ──────────────────────────────────────────
+    // dmg/shot is always shown (it's well-defined even for a one-shot weapon).
+    // dmg/s is only pushed when sps > 0 — i.e. the weapon actually refires —
+    // so a single-detonation weapon like a nuke shows its real damage once,
+    // not damage × 60.
     const damageTypes = attrDefs?.weapon?.damageTypes?.length
         ? attrDefs.weapon.damageTypes
         : Object.keys(weapon).filter(k => k.endsWith(' damage')).map(k => k.replace(/ damage$/, ''));
@@ -759,7 +789,7 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
         const rec  = attrDefs ? getAttrRecord(attrDefs, dmgKey) : null;
         const mult = rec?.displayMultiplier ?? 1;
         push(getLabel(dmgKey), val * mult,        'dmg/shot', dmgKey + '__shot');
-        push(getLabel(dmgKey), val * mult * sps,  'dmg/s',    dmgKey + '__dps');
+        if (sps > 0) push(getLabel(dmgKey), val * mult * sps,  'dmg/s',    dmgKey + '__dps');
     }
 
     // ── Anti-missile ──────────────────────────────────────────────────────────
@@ -770,13 +800,15 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
     }
 
     // ── Firing costs per second (data-driven — any "firing *" key) ────────────
+    // Same logic: per-shot cost is always meaningful, per-second cost only if
+    // the weapon actually refires.
     for (const [key, rawVal] of Object.entries(weapon)) {
         if (typeof rawVal !== 'number') continue;
         if (!key.startsWith('firing ') && !key.startsWith('relative firing ')) continue;
         if (!rawVal) continue;
         const label = getLabel(key);
         push(label, rawVal,       '/shot', key + '__shot');
-        push(label, rawVal * sps, '/s',    key + '__ps');
+        if (sps > 0) push(label, rawVal * sps, '/s',    key + '__ps');
     }
     
     // ── Status effect doses ───────────────────────────────────────────────────
