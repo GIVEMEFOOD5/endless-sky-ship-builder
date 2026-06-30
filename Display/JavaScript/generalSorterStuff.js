@@ -38,18 +38,23 @@
 //   calling getComputedStats() on each visible ship and scanning the result —
 //   so the list is always driven entirely by what is on screen.
 //
-// ── Per-outfit-space fields (outfits tab only) ────────────────────────────────
+// ── Per-divisor efficiency fields (outfits tab only) ──────────────────────────
 //
 //   For each numeric top-level outfit attribute discovered by the normal raw
-//   outfit scan (other than 'outfit space' itself), a second derived field is
-//   offered that divides that attribute by the item's own 'outfit space'
-//   value — e.g. "Mass per Outfit Space", "Fuel Capacity per Outfit Space".
-//   This re-uses the exact same key/path discovered during the raw scan, so
-//   it stays fully dynamic: no attribute names are hardcoded, and any new
-//   numeric outfit attribute that appears in the data automatically gets a
-//   matching per-space field. Items without a usable 'outfit space' value
-//   (e.g. licenses) simply resolve to no value for these fields, the same way
-//   any other missing stat does.
+//   outfit scan, a derived "per X" field is offered for each divisor in
+//   PER_DIVISOR_KEYS (outfit space, cargo space, weapon capacity, engine
+//   capacity, mass) — e.g. "Mass per Outfit Space", "Fuel Capacity per Cargo
+//   Space". For weapon-bearing outfits, the same divisors also generate
+//   "<damage type> DPS per X" and "Total DPS per X" fields, sourced from the
+//   exact same WeaponStats._calcWeaponProfile / getOutfitWeaponStats calls
+//   the plain DPS fields already use — only the division is new, no new
+//   damage math. This re-uses the exact same keys discovered during the raw
+//   scan, so it stays fully dynamic: no attribute names are hardcoded beyond
+//   the divisor list itself, and any new numeric outfit attribute that
+//   appears in the data automatically gets matching per-divisor fields.
+//   Items without a usable divisor value (e.g. licenses lacking 'mass') just
+//   resolve to no value for those fields, the same way any other missing
+//   stat does.
 //
 // ── Field cache ──────────────────────────────────────────────────────────────
 //
@@ -100,12 +105,20 @@ function isComputedKey(key) {
     return COMPUTED_PREFIXES.some(p => key.startsWith(p));
 }
 
-// Key used as the divisor for "per outfit space" fields. This is just a
-// normal top-level numeric outfit attribute — it is discovered the same way
-// as every other raw outfit field by the scan below. Naming it here only
-// tells the per-space pass which already-discovered field to divide by; it
-// does not add anything that wasn't already going to be scanned.
-const OUTFIT_SPACE_KEY = 'outfit space';
+// Keys used as divisors for "per X" efficiency fields. Each is just a normal
+// top-level numeric outfit attribute (or, for mass, present on virtually
+// every outfit) — discovered the same way as every other raw outfit field by
+// the scan below. Listing them here only tells the per-divisor pass which
+// already-discovered fields to divide by; it does not add anything that
+// wasn't already going to be scanned. label is the short name used in the
+// generated group header and field labels (e.g. "Mass per Engine Capacity").
+const PER_DIVISOR_KEYS = [
+    { key: 'outfit space',    label: 'Outfit Space'    },
+    { key: 'cargo space',     label: 'Cargo Space'     },
+    { key: 'weapon capacity', label: 'Weapon Capacity' },
+    { key: 'engine capacity', label: 'Engine Capacity' },
+    { key: 'mass',            label: 'Mass'            },
+];
 
 // ---------------------------------------------------------------------------
 // Attribute display multiplier helper
@@ -195,14 +208,14 @@ function scanFieldsFromItems(tab, items) {
     const outfitSeen     = new Set();
     const weaponSeen     = new Set();
     const effectSeen     = new Set();
-    const perSpaceSeen   = new Set();
+    const perDivSeen     = new Set(); // dedupe across both raw-attr and weapon-damage per-divisor fields
 
     const shipBaseFields  = [];
     const shipAccumFields = [];
     const outfitFields    = [];
     const weaponFields    = [];
     const effectFields    = [];
-    const perSpaceFields  = [];
+    const perDivFields    = [];
 
     for (const item of (items || [])) {
 
@@ -373,31 +386,37 @@ function scanFieldsFromItems(tab, items) {
                     });
                 }
 
-                // ── Per-outfit-space variant ──────────────────────────────────
+                // ── Per-divisor efficiency variants ────────────────────────────
                 // Built from the SAME raw key just discovered above — not a
                 // separate hardcoded list, so any numeric outfit attribute
-                // automatically gets a matching "per Outfit Space" field.
-                // Skips the space attribute itself (dividing it by itself is
-                // meaningless), and is only offered once some currently-visible
-                // item actually has a usable (nonzero numeric) 'outfit space'
-                // value to divide by — items that lack one (e.g. licenses)
-                // just won't produce a value for it at read time either way.
-                if (key === OUTFIT_SPACE_KEY) continue;
-                const perSpaceId = 'per_space_' + keyToId(key);
-                if (perSpaceSeen.has(perSpaceId)) continue;
-                if (typeof item[OUTFIT_SPACE_KEY] !== 'number' || item[OUTFIT_SPACE_KEY] === 0) continue;
-                perSpaceSeen.add(perSpaceId);
-                const mult = _getDisplayMultiplier(key);
-                perSpaceFields.push({
-                    id:                perSpaceId,
-                    key,
-                    label:             toTitleCase(key) + ' per Outfit Space',
-                    path:              [key],
-                    raw:               false,
-                    isPerOutfitSpace:  true,
-                    group:             'outfitPerSpace',
-                    displayMultiplier: mult,
-                });
+                // automatically gets a matching "per X" field for each divisor
+                // in PER_DIVISOR_KEYS. A divisor never gets compared against
+                // itself (e.g. no "Mass per Mass"), and a field is only offered
+                // once some currently-visible item actually has a usable
+                // (nonzero numeric) value for that divisor — items lacking one
+                // (e.g. licenses lacking 'outfit space') just won't produce a
+                // value for it at read time either way.
+                for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                    if (key === divKey) continue;
+                    const divVal = item[divKey];
+                    if (typeof divVal !== 'number' || divVal === 0) continue;
+                    const perDivId = 'per_' + keyToId(divKey) + '_' + keyToId(key);
+                    if (perDivSeen.has(perDivId)) continue;
+                    perDivSeen.add(perDivId);
+                    const mult = _getDisplayMultiplier(key);
+                    perDivFields.push({
+                        id:                perDivId,
+                        key,
+                        label:             toTitleCase(key) + ' per ' + divLabel,
+                        path:              [key],
+                        raw:               false,
+                        isPerDivisor:      true,
+                        divisorKey:        divKey,
+                        divisorLabel:      divLabel,
+                        group:             'outfitPerDiv',
+                        displayMultiplier: mult,
+                    });
+                }
             }
 
             // ── Numeric fields inside item.weapon ────────────────────────────
@@ -469,6 +488,61 @@ function scanFieldsFromItems(tab, items) {
                             isDps: true,
                         });
                     }
+
+                    // ── Per-divisor weapon damage & DPS efficiency fields ─────
+                    // Reuses the exact same WeaponStats._calcWeaponProfile(...)
+                    // .dpsBreakdown resolution as the plain DPS fields above —
+                    // Sorter.js still does not walk submunitions itself, it
+                    // only divides an already-resolved DPS value by the
+                    // outfit's own divisor attribute (outfit space, cargo
+                    // space, weapon capacity, engine capacity, or mass).
+                    // Offered per damage type per divisor, only once some
+                    // currently-visible item has both a weapon and a usable
+                    // nonzero value for that divisor.
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        const divVal = item[divKey];
+                        if (typeof divVal !== 'number' || divVal === 0) continue;
+                        for (const dmgType of DPS_DAMAGE_TYPES) {
+                            const perDivDpsId = 'weapon_dps_per_' + keyToId(divKey) + '_' + keyToId(dmgType);
+                            if (!perDivSeen.has(perDivDpsId)) {
+                                perDivSeen.add(perDivDpsId);
+                                perDivFields.push({
+                                    id:           perDivDpsId,
+                                    key:          dmgType,
+                                    label:        toTitleCase(dmgType) + ' DPS per ' + divLabel,
+                                    path:         null,
+                                    raw:          false,
+                                    isDpsPerDivisor: true,
+                                    divisorKey:   divKey,
+                                    divisorLabel: divLabel,
+                                    group:        'weaponPerDiv',
+                                });
+                            }
+                        }
+                    }
+                }
+                // ── Total DPS per divisor ───────────────────────────────────────
+                // Same idea, but against the summed totalDps weapon-computed
+                // field rather than a single damage type — the headline
+                // "how much damage per unit of space/mass does this weapon do"
+                // number, sourced from WeaponStats.getOutfitWeaponStats.
+                for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                    const divVal = item[divKey];
+                    if (typeof divVal !== 'number' || divVal === 0) continue;
+                    const totalDpsPerDivId = 'weapon_total_dps_per_' + keyToId(divKey);
+                    if (perDivSeen.has(totalDpsPerDivId)) continue;
+                    perDivSeen.add(totalDpsPerDivId);
+                    perDivFields.push({
+                        id:              totalDpsPerDivId,
+                        key:             'totalDps',
+                        label:           'Total DPS per ' + divLabel,
+                        path:            null,
+                        raw:             false,
+                        isOutfitComputedPerDivisor: true,
+                        divisorKey:      divKey,
+                        divisorLabel:    divLabel,
+                        group:           'weaponPerDiv',
+                    });
                 }
             }
 
@@ -499,7 +573,7 @@ function scanFieldsFromItems(tab, items) {
         outfitFields:    outfitFields.sort(alpha),
         weaponFields:    weaponFields.sort(alpha),
         effectFields:    effectFields.sort(alpha),
-        perSpaceFields:  perSpaceFields.sort(alpha),
+        perDivFields:    perDivFields.sort(alpha),
     };
 }
 
@@ -533,7 +607,7 @@ function buildFieldsForTab(tab, items) {
     const isShipLike = tab === 'ships' || tab === 'variants';
     const isOutfits  = tab === 'outfits';
 
-    const { shipBaseFields, shipAccumFields, outfitFields, weaponFields, effectFields, perSpaceFields } =
+    const { shipBaseFields, shipAccumFields, outfitFields, weaponFields, effectFields, perDivFields } =
         scanFieldsFromItems(tab, items);
 
     const all    = [];
@@ -549,9 +623,9 @@ function buildFieldsForTab(tab, items) {
         }
 
     } else if (isOutfits) {
-        for (const f of outfitFields)   add(f);
-        for (const f of weaponFields)   add(f);
-        for (const f of perSpaceFields) add(f);
+        for (const f of outfitFields) add(f);
+        for (const f of weaponFields) add(f);
+        for (const f of perDivFields) add(f);
 
     } else {
         for (const f of effectFields) add(f);
@@ -604,8 +678,11 @@ function setSorterItems(items) {
 // Value extraction
 //
 // Resolution order:
-//   0a-iii. isPerOutfitSpace — raw outfit attribute divided by that same
-//           item's own 'outfit space' value
+//   0a-vi. isOutfitComputedPerDivisor — total weapon DPS divided by a divisor
+//          attribute (outfit space, cargo space, weapon/engine capacity, mass)
+//   0a-v.  isDpsPerDivisor — per-damage-type DPS divided by a divisor attribute
+//   0a-iv. isPerDivisor — raw outfit attribute divided by a divisor attribute
+//   0a-iii. (reserved)
 //   0a-ii. isShieldHullDps / isShieldHullDpsShip — synthesized Shield+Hull DPS
 //   0a-i.  isFiringCost   — WeaponStats firing-cost aggregation
 //   0a.    isOutfitComputed  — WeaponStats profile fields (range, sps, totalDps…)
@@ -627,13 +704,14 @@ function setSorterItems(items) {
 
 function getFieldValue(item, field) {
 
-    // 0a-iii. Per-outfit-space ratio — OUTFITS tab.
+    // 0a-iv. Per-divisor raw outfit attribute ratio — OUTFITS tab.
     // Walks field.path on the raw item to get the numerator (same walk as
-    // case 4 below), then divides by this item's own 'outfit space' value,
+    // case 4 below), then divides by this item's own divisor attribute value
+    // (outfit space, cargo space, weapon capacity, engine capacity, or mass),
     // read fresh from the item rather than anything cached at scan time.
-    if (field.isPerOutfitSpace) {
-        const space = item[OUTFIT_SPACE_KEY];
-        if (typeof space !== 'number' || space === 0) return undefined;
+    if (field.isPerDivisor) {
+        const divisor = item[field.divisorKey];
+        if (typeof divisor !== 'number' || divisor === 0) return undefined;
         let obj = item;
         for (const k of field.path) {
             if (obj == null) return undefined;
@@ -641,7 +719,40 @@ function getFieldValue(item, field) {
         }
         if (typeof obj !== 'number') return undefined;
         const mult = field.displayMultiplier || _getDisplayMultiplier(field.key);
-        return (obj * mult) / space;
+        return (obj * mult) / divisor;
+    }
+
+    // 0a-v. Per-divisor weapon damage-type DPS — OUTFITS tab.
+    // Sourced from the exact same WeaponStats._calcWeaponProfile(...)
+    // .dpsBreakdown lookup the plain isDps fields use (see case 0b below);
+    // this just divides that already-resolved value by the item's own
+    // divisor attribute. No new damage math — same submunition-tree walk,
+    // same cycle guards, just reused and divided.
+    if (field.isDpsPerDivisor) {
+        if (!item.weapon || !window.WeaponStats) return undefined;
+        const divisor = item[field.divisorKey];
+        if (typeof divisor !== 'number' || divisor === 0) return undefined;
+        const profile = window.WeaponStats._calcWeaponProfile(item.weapon, item.name, _getOutfitIndex());
+        if (!profile) return undefined;
+        const dmgKey = field.key + ' damage';
+        const val = profile.dpsBreakdown?.[dmgKey];
+        if (val == null || val === 0) return undefined;
+        return val / divisor;
+    }
+
+    // 0a-vi. Per-divisor total weapon DPS — OUTFITS tab.
+    // Sourced from WeaponStats.getOutfitWeaponStats(...), the exact same call
+    // isOutfitComputed uses for the plain "Total DPS" field — just divided by
+    // the item's own divisor attribute instead of displayed alone.
+    if (field.isOutfitComputedPerDivisor) {
+        if (!item.weapon || !window.WeaponStats) return undefined;
+        const divisor = item[field.divisorKey];
+        if (typeof divisor !== 'number' || divisor === 0) return undefined;
+        const profile = window.WeaponStats.getOutfitWeaponStats(item, _getOutfitIndex());
+        if (!profile) return undefined;
+        const val = profile[field.key];
+        if (val == null || val === 0) return undefined;
+        return val / divisor;
     }
 
     // 0a-ii. Shield + Hull DPS — OUTFITS tab.
@@ -950,7 +1061,11 @@ async function confirmSorterPicker() {
                     isFiringCost:     field.isFiringCost     || false,
                     isShieldHullDps:     field.isShieldHullDps     || false,
                     isShieldHullDpsShip: field.isShieldHullDpsShip || false,
-                    isPerOutfitSpace:    field.isPerOutfitSpace    || false,
+                    isPerDivisor:                field.isPerDivisor                || false,
+                    isDpsPerDivisor:             field.isDpsPerDivisor             || false,
+                    isOutfitComputedPerDivisor:  field.isOutfitComputedPerDivisor  || false,
+                    divisorKey:                  field.divisorKey                 || null,
+                    divisorLabel:                field.divisorLabel               || null,
                     displayMultiplier: field.displayMultiplier || 1,
                     dir:              'desc',
                 });
@@ -1051,17 +1166,19 @@ function renderPickerList(query) {
 
     } else if (sorterCurrentTab === 'outfits') {
         const outfitAttrs    = filtered.filter(f => f.group === 'outfit');
-        const perSpace       = filtered.filter(f => f.group === 'outfitPerSpace');
+        const perDivAttr     = filtered.filter(f => f.group === 'outfitPerDiv');
+        const perDivWeapon   = filtered.filter(f => f.group === 'weaponPerDiv');
         const weaponPerShot  = filtered.filter(f => f.group === 'weapon' && !f.isDps && !f.isOutfitComputed && !f.isShieldHullDps);
         const weaponDps      = filtered.filter(f => f.group === 'weapon' && f.isDps);
         const weaponComputed = filtered.filter(f => f.group === 'weapon' && (f.isOutfitComputed || f.isShieldHullDps));
 
         groups = [
             { label: 'Outfit Attributes',                fields: outfitAttrs    },
-            { label: '📐 Efficiency (per Outfit Space)',  fields: perSpace       },
+            { label: '📐 Efficiency (per Outfit Space, Cargo, etc.)', fields: perDivAttr   },
             { label: '⚡ Weapon — Computed Stats',        fields: weaponComputed },
             { label: '💥 Weapon — DPS',                   fields: weaponDps      },
             { label: '🎯 Weapon — Per Shot',              fields: weaponPerShot  },
+            { label: '💥📐 Weapon DPS — Efficiency',      fields: perDivWeapon   },
         ];
 
     } else {
