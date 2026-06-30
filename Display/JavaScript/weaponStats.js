@@ -211,7 +211,7 @@ function _resolveShotsPerSecond(weapon) {
         : reload;
     return (burstCount / framesPerCycle) * FPS;*/
     const hasRefireRate = weapon.reload != null || weapon['burst reload'] != null;
-    if (!hasRefireRate) return 0;
+    if (!hasRefireRate) return 1;
     const reload = Math.max(1, weapon.reload ?? weapon['burst reload'] ?? 1);
     return FPS / reload;
 }
