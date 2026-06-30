@@ -195,6 +195,17 @@ function toTitleCase(str) {
     return str.replace(/\b\w/g, c => c.toUpperCase());
 }
 
+// Normalizes the sign of a per-divisor ratio so it reflects the sign of the
+// underlying attribute, not an artifact of dividing by a negative divisor
+// (e.g. 'cargo space' is negative on outfits that expand cargo capacity).
+// Positive numerator → positive result. Negative numerator → negative
+// result. Zero stays zero. This only touches the sign, never the magnitude.
+function _signedPerDivisor(numerator, ratio) {
+    if (ratio === 0 || isNaN(ratio)) return ratio;
+    const mag = Math.abs(ratio);
+    return numerator < 0 ? -mag : mag;
+}
+
 // ---------------------------------------------------------------------------
 // Dynamic field scanner
 // ---------------------------------------------------------------------------
@@ -439,6 +450,34 @@ function scanFieldsFromItems(tab, items) {
                             group: 'weapon',
                         });
                     }
+
+                    // ── Per-divisor variant of this weapon attribute ──────────
+                    // Covers every numeric weapon attribute, not just damage —
+                    // firing costs (energy/heat/fuel per shot), inaccuracy,
+                    // hit force, blast radius, velocity, lifetime, reload,
+                    // burst count, or any other "*  " key on the weapon block,
+                    // any modded/custom one included, since this loop is
+                    // driven by whatever keys actually exist on the item, not
+                    // a hardcoded list. Sign-normalized the same way as the
+                    // raw outfit-attribute per-divisor fields.
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        const divVal = item[divKey];
+                        if (typeof divVal !== 'number' || divVal === 0) continue;
+                        const perDivWeaponAttrId = 'weapon_attr_per_' + keyToId(divKey) + '_' + keyToId(key);
+                        if (perDivSeen.has(perDivWeaponAttrId)) continue;
+                        perDivSeen.add(perDivWeaponAttrId);
+                        perDivFields.push({
+                            id:                perDivWeaponAttrId,
+                            key,
+                            label:             toTitleCase(key) + ' per ' + divLabel,
+                            path:              ['weapon', key],
+                            raw:               false,
+                            isPerDivisor:      true,
+                            divisorKey:        divKey,
+                            divisorLabel:      divLabel,
+                            group:             'weaponPerDiv',
+                        });
+                    }
                 }
 
                 // ── Computed weapon summary fields ───────────────────────────
@@ -463,18 +502,22 @@ function scanFieldsFromItems(tab, items) {
                 // Resolved via WeaponStats._calcWeaponProfile(...).dpsBreakdown,
                 // which is keyed by every `<x> damage` key found ANYWHERE in the
                 // submunition tree (not just on this outfit's own weapon block).
-                // Offered unconditionally (one entry per known damage type) so a
-                // page of pure launchers still lists "Hull Damage DPS" etc. in the
-                // picker, instead of only showing up when some visible outfit
-                // happens to carry that literal key on its own JSON.
-                if (window.WeaponStats && !weaponSeen.has('weapon_dps_known_types')) {
-                    weaponSeen.add('weapon_dps_known_types');
-                    const DPS_DAMAGE_TYPES = [
-                        'shield', 'hull', 'minable', 'fuel', 'heat', 'energy',
-                        'ion', 'scrambling', 'slowing', 'disruption',
-                        'discharge', 'corrosion', 'leak', 'burn',
-                    ];
-                    for (const dmgType of DPS_DAMAGE_TYPES) {
+                // The damage-type list itself is now discovered dynamically per
+                // item from that same dpsBreakdown, rather than from a fixed
+                // hardcoded list — so a damage type that only appears on a
+                // submunition several levels deep (or a modded/custom damage
+                // type not in any static list) still gets its own DPS field
+                // and per-divisor efficiency fields, exactly like every other
+                // dynamically-discovered field in this file.
+                if (window.WeaponStats) {
+                    const profileForTypes = window.WeaponStats._calcWeaponProfile(item.weapon, item.name, _getOutfitIndex());
+                    const discoveredDmgTypes = profileForTypes
+                        ? Object.keys(profileForTypes.dpsBreakdown || {})
+                            .filter(k => k.endsWith(' damage'))
+                            .map(k => k.slice(0, -' damage'.length))
+                        : [];
+
+                    for (const dmgType of discoveredDmgTypes) {
                         const dpsId = 'weapon_dps_' + keyToId(dmgType);
                         if (weaponSeen.has(dpsId)) continue;
                         weaponSeen.add(dpsId);
@@ -496,13 +539,14 @@ function scanFieldsFromItems(tab, items) {
                     // only divides an already-resolved DPS value by the
                     // outfit's own divisor attribute (outfit space, cargo
                     // space, weapon capacity, engine capacity, or mass).
-                    // Offered per damage type per divisor, only once some
-                    // currently-visible item has both a weapon and a usable
-                    // nonzero value for that divisor.
+                    // Offered per discovered damage type per divisor (so
+                    // submunition-only damage types get these too), only once
+                    // some currently-visible item has both a weapon and a
+                    // usable nonzero value for that divisor.
                     for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
                         const divVal = item[divKey];
                         if (typeof divVal !== 'number' || divVal === 0) continue;
-                        for (const dmgType of DPS_DAMAGE_TYPES) {
+                        for (const dmgType of discoveredDmgTypes) {
                             const perDivDpsId = 'weapon_dps_per_' + keyToId(divKey) + '_' + keyToId(dmgType);
                             if (!perDivSeen.has(perDivDpsId)) {
                                 perDivSeen.add(perDivDpsId);
@@ -719,7 +763,8 @@ function getFieldValue(item, field) {
         }
         if (typeof obj !== 'number') return undefined;
         const mult = field.displayMultiplier || _getDisplayMultiplier(field.key);
-        return (obj * mult) / divisor;
+        const numerator = obj * mult;
+        return _signedPerDivisor(numerator, numerator / divisor);
     }
 
     // 0a-v. Per-divisor weapon damage-type DPS — OUTFITS tab.
@@ -737,7 +782,7 @@ function getFieldValue(item, field) {
         const dmgKey = field.key + ' damage';
         const val = profile.dpsBreakdown?.[dmgKey];
         if (val == null || val === 0) return undefined;
-        return val / divisor;
+        return _signedPerDivisor(val, val / divisor);
     }
 
     // 0a-vi. Per-divisor total weapon DPS — OUTFITS tab.
@@ -752,7 +797,7 @@ function getFieldValue(item, field) {
         if (!profile) return undefined;
         const val = profile[field.key];
         if (val == null || val === 0) return undefined;
-        return val / divisor;
+        return _signedPerDivisor(val, val / divisor);
     }
 
     // 0a-ii. Shield + Hull DPS — OUTFITS tab.
@@ -1167,7 +1212,8 @@ function renderPickerList(query) {
     } else if (sorterCurrentTab === 'outfits') {
         const outfitAttrs    = filtered.filter(f => f.group === 'outfit');
         const perDivAttr     = filtered.filter(f => f.group === 'outfitPerDiv');
-        const perDivWeapon   = filtered.filter(f => f.group === 'weaponPerDiv');
+        const perDivWeaponDps   = filtered.filter(f => f.group === 'weaponPerDiv' && (f.isDpsPerDivisor || f.isOutfitComputedPerDivisor));
+        const perDivWeaponAttr  = filtered.filter(f => f.group === 'weaponPerDiv' && f.isPerDivisor);
         const weaponPerShot  = filtered.filter(f => f.group === 'weapon' && !f.isDps && !f.isOutfitComputed && !f.isShieldHullDps);
         const weaponDps      = filtered.filter(f => f.group === 'weapon' && f.isDps);
         const weaponComputed = filtered.filter(f => f.group === 'weapon' && (f.isOutfitComputed || f.isShieldHullDps));
@@ -1178,7 +1224,8 @@ function renderPickerList(query) {
             { label: '⚡ Weapon — Computed Stats',        fields: weaponComputed },
             { label: '💥 Weapon — DPS',                   fields: weaponDps      },
             { label: '🎯 Weapon — Per Shot',              fields: weaponPerShot  },
-            { label: '💥📐 Weapon DPS — Efficiency',      fields: perDivWeapon   },
+            { label: '💥📐 Weapon DPS — Efficiency',      fields: perDivWeaponDps  },
+            { label: '🔥📐 Weapon Attributes — Efficiency (firing costs, blast radius, etc.)', fields: perDivWeaponAttr },
         ];
 
     } else {
