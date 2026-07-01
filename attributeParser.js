@@ -948,7 +948,7 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
     a.isBoolean = true; a.description = desc; a.shownInOutfitPanel = true;
   }
 
-  for (const { key, unit } of oidData.valueNames) {
+  for (const { key, unit, displayMultiplier } of oidData.valueNames) {
     const a = ensure(key);
     a.isWeaponStat = true; a.shownInOutfitPanel = true;
     if (unit) a.displayUnit = unit;
