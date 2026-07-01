@@ -361,6 +361,44 @@ function parseOutfitInfoDisplay(src) {
       r.valueNames.push({ key: m[1], unit: m[2] || null });
   }
 
+  // The game builds a `values` vector in UpdateAttributes() where some
+  // entries are multiplied inline (e.g. weapon->IonDamage() * 100.).
+  // These multipliers are NOT in the SCALE map — they're baked into the
+  // values array construction alongside VALUE_NAMES. Parse them out and
+  // attach them to the matching valueNames entries so the display layer
+  // can apply the correct scale without hardcoding anything.
+  //
+  // Strategy: find the `values = {` block, split it into lines, and for
+  // each line extract the optional `* N.` multiplier. The lines correspond
+  // positionally to VALUE_NAMES entries.
+  const valuesBlockMatch = src.match(/vector<double>\s+values\s*=\s*\{([\s\S]*?)\};/);
+  if (valuesBlockMatch && r.valueNames.length > 0) {
+    // Each entry is one comma-separated expression, possibly spanning one line.
+    // Split on commas that are not inside parentheses.
+    const block = valuesBlockMatch[1];
+    const entries = [];
+    let depth = 0, current = '';
+    for (const ch of block) {
+      if (ch === '(') { depth++; current += ch; }
+      else if (ch === ')') { depth--; current += ch; }
+      else if (ch === ',' && depth === 0) { entries.push(current.trim()); current = ''; }
+      else current += ch;
+    }
+    if (current.trim()) entries.push(current.trim());
+
+    // For each entry, look for a trailing `* 100.` or `* 100` multiplier.
+    // We only care about the multiplier magnitude, not the accessor name.
+    for (let i = 0; i < entries.length && i < r.valueNames.length; i++) {
+      const multMatch = entries[i].match(/\*\s*([\d.]+)\s*\.?\s*$/);
+      if (multMatch) {
+        const mult = parseFloat(multMatch[1]);
+        if (!isNaN(mult) && mult !== 1) {
+          r.valueNames[i].displayMultiplier = mult;
+        }
+      }
+    }
+  }
+
   for (const [field, target] of [['PERCENT_NAMES', r.percentNames], ['OTHER_NAMES', r.otherNames]]) {
     const match = src.match(new RegExp(`${field}\\s*=\\s*\\{([\\s\\S]*?)\\};`));
     if (match) {
@@ -909,22 +947,14 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
     const a = ensure(key);
     a.isBoolean = true; a.description = desc; a.shownInOutfitPanel = true;
   }
-  // Status-effect damage types accumulate and decay at 1%/frame.
-  // The game displays them scaled ×100 (total effect = dose / 0.01).
-  const STATUS_DAMAGE_MULTIPLIER_100 = new Set([
-    'ion damage', 'scrambling damage', 'disruption damage', 'slowing damage',
-    'discharge damage', 'corrosion damage', 'burn damage', 'leak damage',
-  ]);
 
   for (const { key, unit } of oidData.valueNames) {
     const a = ensure(key);
     a.isWeaponStat = true; a.shownInOutfitPanel = true;
     if (unit) a.displayUnit = unit;
-    if (STATUS_DAMAGE_MULTIPLIER_100.has(key)) {
-      a.displayMultiplier = 100;
-      a.displayUnit = '';
-    }
+    if (displayMultiplier) a.displayMultiplier = displayMultiplier;
   }
+  
   for (const key of oidData.percentNames) {
     ensure(key).isWeaponStat = true;
     ensure(key).displayUnit  = '%';
