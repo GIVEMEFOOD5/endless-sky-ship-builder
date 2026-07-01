@@ -553,11 +553,15 @@ function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext, plugin
     return html;
 }
 
-function collectDamage(weapon, multiplier = 1) {
+function collectDamage(weapon, multiplier = 1, attrDefs = null) {
     const dmg = {};
     for (const [key, val] of Object.entries(weapon || {})) {
         if (typeof val !== 'number') continue;
-        if (key.endsWith(' damage') || key === 'anti-missile' || key === 'blast radius') dmg[key] = (dmg[key] || 0) + val * multiplier;
+        if (key.endsWith(' damage') || key === 'anti-missile' || key === 'blast radius') {
+            const rec  = attrDefs ? getAttrRecord(attrDefs, key) : null;
+            const mult = rec?.displayMultiplier ?? 1;
+            dmg[key] = (dmg[key] || 0) + val * mult * multiplier;
+        }
     }
     return dmg;
 }
@@ -596,7 +600,7 @@ function renderWeaponChain(attrDefs, weapon, pluginId) {
     while (queue.length > 0) {
         const { weapon: w, outfit: o, title, multiplier, depth } = queue.shift();
         sections.push({ weapon: w, outfit: o, title, multiplier });
-        mergeInto(totalDamage, collectDamage(w, multiplier));
+        mergeInto(totalDamage, collectDamage(w, multiplier, attrDefs));
 
         if (depth >= 8) continue;
 
