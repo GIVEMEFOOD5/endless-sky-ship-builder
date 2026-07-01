@@ -16,7 +16,7 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-07-01T03:32:12.454Z",
+    "generatedAt": "2026-07-01T08:02:31.527Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
@@ -2460,7 +2460,6 @@
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
       "displayMultiplier": 100,
-      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "scrambling damage": {
@@ -2468,7 +2467,6 @@
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
       "displayMultiplier": 100,
-      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "slowing damage": {
@@ -2476,7 +2474,6 @@
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
       "displayMultiplier": 100,
-      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "disruption damage": {
@@ -2484,7 +2481,6 @@
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
       "displayMultiplier": 100,
-      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "discharge damage": {
@@ -2492,7 +2488,6 @@
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
       "displayMultiplier": 100,
-      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "corrosion damage": {
@@ -2500,7 +2495,6 @@
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
       "displayMultiplier": 100,
-      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "leak damage": {
@@ -2508,7 +2502,6 @@
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
       "displayMultiplier": 100,
-      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "burn damage": {
@@ -2516,20 +2509,21 @@
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
       "displayMultiplier": 100,
-      "displayUnit": "",
       "isWeaponDataKey": true
     },
     "% shield damage": {
       "key": "% shield damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "% hull damage": {
       "key": "% hull damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "% minable damage": {
       "key": "% minable damage",
@@ -2541,19 +2535,22 @@
       "key": "% fuel damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "% heat damage": {
       "key": "% heat damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "% energy damage": {
       "key": "% energy damage",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "firing energy": {
       "key": "firing energy",
@@ -2589,79 +2586,92 @@
       "key": "firing ion",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
       "isWeaponDataKey": true
     },
     "firing scramble": {
       "key": "firing scramble",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
       "isWeaponDataKey": true
     },
     "firing slowing": {
       "key": "firing slowing",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
       "isWeaponDataKey": true
     },
     "firing disruption": {
       "key": "firing disruption",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
       "isWeaponDataKey": true
     },
     "firing discharge": {
       "key": "firing discharge",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
       "isWeaponDataKey": true
     },
     "firing corrosion": {
       "key": "firing corrosion",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
       "isWeaponDataKey": true
     },
     "firing leak": {
       "key": "firing leak",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
       "isWeaponDataKey": true
     },
     "firing burn": {
       "key": "firing burn",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
+      "displayMultiplier": 100,
       "isWeaponDataKey": true
     },
     "% firing energy": {
       "key": "% firing energy",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "% firing heat": {
       "key": "% firing heat",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "% firing fuel": {
       "key": "% firing fuel",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "% firing hull": {
       "key": "% firing hull",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "% firing shields": {
       "key": "% firing shields",
       "isWeaponStat": true,
       "shownInOutfitPanel": true,
-      "displayUnit": "%"
+      "displayUnit": "%",
+      "displayMultiplier": 100
     },
     "tracking": {
       "key": "tracking",
@@ -6939,43 +6949,53 @@
       },
       {
         "key": "ion damage",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "scrambling damage",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "slowing damage",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "disruption damage",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "discharge damage",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "corrosion damage",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "leak damage",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "burn damage",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "% shield damage",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       },
       {
         "key": "% hull damage",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       },
       {
         "key": "% minable damage",
@@ -6983,15 +7003,18 @@
       },
       {
         "key": "% fuel damage",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       },
       {
         "key": "% heat damage",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       },
       {
         "key": "% energy damage",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       },
       {
         "key": "firing energy",
@@ -7015,55 +7038,68 @@
       },
       {
         "key": "firing ion",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "firing scramble",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "firing slowing",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "firing disruption",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "firing discharge",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "firing corrosion",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "firing leak",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "firing burn",
-        "unit": null
+        "unit": null,
+        "displayMultiplier": 100
       },
       {
         "key": "% firing energy",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       },
       {
         "key": "% firing heat",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       },
       {
         "key": "% firing fuel",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       },
       {
         "key": "% firing hull",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       },
       {
         "key": "% firing shields",
-        "unit": "%"
+        "unit": "%",
+        "displayMultiplier": 100
       }
     ],
     "percentNames": [
