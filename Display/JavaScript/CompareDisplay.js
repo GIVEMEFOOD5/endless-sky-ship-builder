@@ -33,11 +33,25 @@ window.CompareDisplay = (() => {
 
     const MAX_TEMP = 100;
 
+    const PER_DIVISOR_KEYS = [
+        { key: 'outfit space',    label: 'Outfit Space'    },
+        { key: 'cargo space',     label: 'Cargo Space'     },
+        { key: 'weapon capacity', label: 'Weapon Capacity' },
+        { key: 'engine capacity', label: 'Engine Capacity' },
+        { key: 'mass',            label: 'Mass'            },
+    ];
+
+    function _signedPerDivisor(numerator, ratio) {
+        if (ratio === 0 || isNaN(ratio)) return ratio;
+        const mag = Math.abs(ratio);
+        return numerator < 0 ? -mag : mag;
+    }
+    
     const SECTION_ORDER = [
-        'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
+        'General', 'Attribute Efficiency', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
         'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
-        'Hardpoints', 'Heat (derived)', 'Weapon DPS', 'Ammo Consumption',
-        'Derived Stats', 'Other',
+        'Hardpoints', 'Heat (derived)', 'Weapon DPS', 'Weapon DPS — Efficiency',
+        'Ammo Consumption', 'Derived Stats', 'Other',
     ];
 
     const SECTION_PATTERNS = [
@@ -866,6 +880,39 @@ window.CompareDisplay = (() => {
                 push(k, v);
             }
 
+            // Per-divisor efficiency for every numeric top-level outfit attribute.
+            // Same divisor list, same sign-normalization rule as the weapon DPS
+            // efficiency section below. Not scaled by qty — like DPS/mass, e.g.
+            // "Cost per Mass" is the same ratio whether qty is ×1 or ×5, since
+            // both the numerator and the divisor scale together.
+            //
+            // Deliberately reads item[k] directly rather than looping over
+            // item.weapon — weapon sub-object values (damage per shot,
+            // inaccuracy, velocity, etc.) are per-projectile constants, not
+            // outfit-level quantities, and dividing raw per-shot damage by
+            // mass is exactly the "damage per shot per mass" confusion we
+            // removed from Sorter.js earlier. Those get their own DPS-based
+            // efficiency rows in the weapon section instead.
+            const attrEffSection = 'Attribute Efficiency';
+            for (const [k, v] of Object.entries(item)) {
+                if (SKIP_KEYS.has(k) || typeof v !== 'number' || v === 0) continue;
+                const mult      = _getDisplayMultiplier(k);
+                const numerator = v * mult;
+                for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                    if (k === divKey) continue;
+                    const divisor = item[divKey];
+                    if (typeof divisor !== 'number' || divisor === 0) continue;
+                    const ratio = _signedPerDivisor(numerator, numerator / divisor);
+                    pushRaw(
+                        attrEffSection,
+                        `_attr_${k.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
+                        `${_labelOf(k)} per ${divLabel}`,
+                        _fmt(ratio),
+                        _getDisplayUnit(k)
+                    );
+                }
+            }
+            
             if (item.weapon && typeof item.weapon === 'object') {
                 const weapSkip = new Set(['sprite','spriteData','sound','hit effect','fire effect',
                     'die effect','submunition','submunitions','stream','cluster',
