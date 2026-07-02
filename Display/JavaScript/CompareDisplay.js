@@ -48,10 +48,10 @@ window.CompareDisplay = (() => {
     }
     
     const SECTION_ORDER = [
-        'General', 'Attribute Efficiency', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
+        'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
         'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
         'Hardpoints', 'Heat (derived)', 'Weapon DPS', 'Weapon DPS — Efficiency',
-        'Ammo Consumption', 'Derived Stats', 'Other',
+        'Ammo Consumption', 'Derived Stats', 'Other', 'Attribute Efficiency',
     ];
 
     const SECTION_PATTERNS = [
@@ -880,38 +880,48 @@ window.CompareDisplay = (() => {
                 push(k, v);
             }
 
-            // Per-divisor efficiency for every numeric top-level outfit attribute.
-            // Same divisor list, same sign-normalization rule as the weapon DPS
-            // efficiency section below. Not scaled by qty — like DPS/mass, e.g.
-            // "Cost per Mass" is the same ratio whether qty is ×1 or ×5, since
-            // both the numerator and the divisor scale together.
-            //
-            // Deliberately reads item[k] directly rather than looping over
-            // item.weapon — weapon sub-object values (damage per shot,
-            // inaccuracy, velocity, etc.) are per-projectile constants, not
-            // outfit-level quantities, and dividing raw per-shot damage by
-            // mass is exactly the "damage per shot per mass" confusion we
-            // removed from Sorter.js earlier. Those get their own DPS-based
-            // efficiency rows in the weapon section instead.
+            // Per-divisor efficiency for every numeric attribute — both the
+            // outfit's own top-level attrs (cost, mass, capacities, etc.) AND
+            // everything inside item.weapon (damage types, velocity, lifetime,
+            // reload, firing costs, etc). Labelled "(per shot)" for anything
+            // sourced from the weapon sub-object, since those are per-projectile
+            // constants — this keeps it visually distinct from the DPS-based
+            // ratios in "Weapon DPS — Efficiency" (DPS is time-averaged, these
+            // are not), the exact distinction we fixed in Sorter.js earlier.
             const attrEffSection = 'Attribute Efficiency';
-            for (const [k, v] of Object.entries(item)) {
-                if (SKIP_KEYS.has(k) || typeof v !== 'number' || v === 0) continue;
-                const mult      = _getDisplayMultiplier(k);
-                const numerator = v * mult;
-                for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                    if (k === divKey) continue;
-                    const divisor = item[divKey];
-                    if (typeof divisor !== 'number' || divisor === 0) continue;
-                    const ratio = _signedPerDivisor(numerator, numerator / divisor);
-                    pushRaw(
-                        attrEffSection,
-                        `_attr_${k.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
-                        `${_labelOf(k)} per ${divLabel}`,
-                        _fmt(ratio),
-                        _getDisplayUnit(k)
-                    );
+            const weapEffSkip = new Set([
+                'sprite', 'sprite data', 'spriteData', 'sound', 'hit effect',
+                'fire effect', 'die effect', 'live effect', 'target effect',
+                'submunition', 'submunitions', 'stream', 'cluster',
+                'hardpoint sprite', 'hardpoint offset', 'icon', 'ammunition', 'ammo',
+            ]);
+
+            function _pushAttrEffRows(sourceObj, keyPrefix, labelSuffix) {
+                for (const [k, v] of Object.entries(sourceObj)) {
+                    if (SKIP_KEYS.has(k) || weapEffSkip.has(k)) continue;
+                    if (typeof v !== 'number' || v === 0)        continue;
+                    const mult      = _getDisplayMultiplier(k);
+                    const numerator = v * mult;
+                    const baseLabel = _labelOf(k) + labelSuffix;
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        if (k === divKey) continue;
+                        const divisor = item[divKey];
+                        if (typeof divisor !== 'number' || divisor === 0) continue;
+                        const ratio = _signedPerDivisor(numerator, numerator / divisor);
+                        pushRaw(
+                            attrEffSection,
+                            `${keyPrefix}${k.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
+                            `${baseLabel} per ${divLabel}`,
+                            _fmt(ratio),
+                            _getDisplayUnit(k)
+                        );
+                    }
                 }
             }
+
+            _pushAttrEffRows(item, '_attr_', '');
+            if (item.weapon && typeof item.weapon === 'object')
+                _pushAttrEffRows(item.weapon, '_wattr_', ' (per shot)');
             
             if (item.weapon && typeof item.weapon === 'object') {
                 const weapSkip = new Set(['sprite','spriteData','sound','hit effect','fire effect',
