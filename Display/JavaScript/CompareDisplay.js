@@ -903,6 +903,13 @@ window.CompareDisplay = (() => {
                 }
             }
 
+            // Compute the weapon profile once — reused by both the efficiency
+            // section below and the "Weapon DPS" section further down, instead
+            // of calling getOutfitWeaponStats twice for the same outfit.
+            const weaponProfile = (item.weapon && typeof item.weapon === 'object' && window.WeaponStats)
+                ? window.WeaponStats.getOutfitWeaponStats(item, outfitIdx)
+                : null;
+            
             // Per-divisor efficiency for CALCULATED per-second weapon values —
             // fire rate and firing costs, sourced from WeaponStats exactly like
             // the "Weapon DPS" section above. Deliberately NOT looping over raw
@@ -912,8 +919,9 @@ window.CompareDisplay = (() => {
             // per-second form — dividing those by mass is the same "per shot"
             // confusion we removed from Sorter.js.
             if (item.weapon && typeof item.weapon === 'object' && window.WeaponStats) {
-                const profile = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
-                if (profile) {
+                //const profile = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
+                if (weaponProfile) {
+                    const profile = weaponProfile;
                     const sps = profile.shotsPerSecond || 0;
 
                     if (sps) {
@@ -1010,9 +1018,9 @@ window.CompareDisplay = (() => {
                     sections[section].push({ key: wk, label: _labelOf(wk), value: display, unit });
                 }
 
-                if (window.WeaponStats) {
-                    const profile = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
-                    if (profile) {
+                if (weaponProfile) {
+                    const profile = weaponProfile;
+                    {
                         const dS = 'Weapon DPS';
                         if (profile.totalDps)       pushRawScaled(dS, '_ws_totalDps',  'Total DPS',  profile.totalDps,       'dmg/s');
                         if (profile.shieldDps)      pushRawScaled(dS, '_ws_shieldDps', 'Shield DPS', profile.shieldDps,      'dmg/s');
