@@ -880,48 +880,109 @@ window.CompareDisplay = (() => {
                 push(k, v);
             }
 
-            // Per-divisor efficiency for every numeric attribute — both the
-            // outfit's own top-level attrs (cost, mass, capacities, etc.) AND
-            // everything inside item.weapon (damage types, velocity, lifetime,
-            // reload, firing costs, etc). Labelled "(per shot)" for anything
-            // sourced from the weapon sub-object, since those are per-projectile
-            // constants — this keeps it visually distinct from the DPS-based
-            // ratios in "Weapon DPS — Efficiency" (DPS is time-averaged, these
-            // are not), the exact distinction we fixed in Sorter.js earlier.
+            // Per-divisor efficiency for top-level outfit attributes (cost,
+            // mass, capacities, etc.) — these are static quantities, not
+            // per-shot, so dividing them directly is meaningful as-is.
             const attrEffSection = 'Attribute Efficiency';
-            const weapEffSkip = new Set([
-                'sprite', 'sprite data', 'spriteData', 'sound', 'hit effect',
-                'fire effect', 'die effect', 'live effect', 'target effect',
-                'submunition', 'submunitions', 'stream', 'cluster',
-                'hardpoint sprite', 'hardpoint offset', 'icon', 'ammunition', 'ammo',
-            ]);
-
-            function _pushAttrEffRows(sourceObj, keyPrefix, labelSuffix) {
-                for (const [k, v] of Object.entries(sourceObj)) {
-                    if (SKIP_KEYS.has(k) || weapEffSkip.has(k)) continue;
-                    if (typeof v !== 'number' || v === 0)        continue;
-                    const mult      = _getDisplayMultiplier(k);
-                    const numerator = v * mult;
-                    const baseLabel = _labelOf(k) + labelSuffix;
-                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                        if (k === divKey) continue;
-                        const divisor = item[divKey];
-                        if (typeof divisor !== 'number' || divisor === 0) continue;
-                        const ratio = _signedPerDivisor(numerator, numerator / divisor);
-                        pushRaw(
-                            attrEffSection,
-                            `${keyPrefix}${k.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
-                            `${baseLabel} per ${divLabel}`,
-                            _fmt(ratio),
-                            _getDisplayUnit(k)
-                        );
-                    }
+            for (const [k, v] of Object.entries(item)) {
+                if (SKIP_KEYS.has(k) || typeof v !== 'number' || v === 0) continue;
+                const mult      = _getDisplayMultiplier(k);
+                const numerator = v * mult;
+                for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                    if (k === divKey) continue;
+                    const divisor = item[divKey];
+                    if (typeof divisor !== 'number' || divisor === 0) continue;
+                    const ratio = _signedPerDivisor(numerator, numerator / divisor);
+                    pushRaw(
+                        attrEffSection,
+                        `_attr_${k.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
+                        `${_labelOf(k)} per ${divLabel}`,
+                        _fmt(ratio),
+                        _getDisplayUnit(k)
+                    );
                 }
             }
 
-            _pushAttrEffRows(item, '_attr_', '');
-            if (item.weapon && typeof item.weapon === 'object')
-                _pushAttrEffRows(item.weapon, '_wattr_', ' (per shot)');
+            // Per-divisor efficiency for CALCULATED per-second weapon values —
+            // fire rate and firing costs, sourced from WeaponStats exactly like
+            // the "Weapon DPS" section above. Deliberately NOT looping over raw
+            // item.weapon attributes here: damage is already covered (as DPS)
+            // in "Weapon DPS — Efficiency", and things like inaccuracy, velocity,
+            // and blast radius are per-projectile constants with no meaningful
+            // per-second form — dividing those by mass is the same "per shot"
+            // confusion we removed from Sorter.js.
+            if (item.weapon && typeof item.weapon === 'object' && window.WeaponStats) {
+                const profile = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
+                if (profile) {
+                    const sps = profile.shotsPerSecond || 0;
+
+                    if (sps) {
+                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                            const divisor = item[divKey];
+                            if (typeof divisor !== 'number' || divisor === 0) continue;
+                            const ratio = _signedPerDivisor(sps, sps / divisor);
+                            pushRaw(attrEffSection,
+                                `_wcalc_sps_per_${divKey.replace(/\s+/g, '_')}`,
+                                `Fire Rate per ${divLabel}`, _fmt(ratio), 'shots/s');
+                        }
+                    }
+
+                    for (const [costKey, costVal] of Object.entries(profile.firingCosts || {})) {
+                        if (!costVal) continue;
+                        const perSecond = costVal * sps;
+                        const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
+                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                            const divisor = item[divKey];
+                            if (typeof divisor !== 'number' || divisor === 0) continue;
+                            const ratio = _signedPerDivisor(perSecond, perSecond / divisor);
+                            pushRaw(attrEffSection,
+                                `_wcalc_${costKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
+                                `${label} per ${divLabel}`, _fmt(ratio), '');
+                        }
+                    }
+
+                    // ── Restored: DPS per divisor (Weapon DPS — Efficiency) ─────
+                    const dpsEffSection = 'Weapon DPS — Efficiency';
+                    if (profile.totalDps) {
+                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                            const divisor = item[divKey];
+                            if (typeof divisor !== 'number' || divisor === 0) continue;
+                            const ratio = _signedPerDivisor(profile.totalDps, profile.totalDps / divisor);
+                            pushRaw(dpsEffSection, `_ws_totalDps_per_${divKey.replace(/\s+/g,'_')}`,
+                                `Total DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
+                        }
+                    }
+                    if (profile.shieldDps) {
+                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                            const divisor = item[divKey];
+                            if (typeof divisor !== 'number' || divisor === 0) continue;
+                            const ratio = _signedPerDivisor(profile.shieldDps, profile.shieldDps / divisor);
+                            pushRaw(dpsEffSection, `_ws_shieldDps_per_${divKey.replace(/\s+/g,'_')}`,
+                                `Shield DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
+                        }
+                    }
+                    if (profile.hullDps) {
+                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                            const divisor = item[divKey];
+                            if (typeof divisor !== 'number' || divisor === 0) continue;
+                            const ratio = _signedPerDivisor(profile.hullDps, profile.hullDps / divisor);
+                            pushRaw(dpsEffSection, `_ws_hullDps_per_${divKey.replace(/\s+/g,'_')}`,
+                                `Hull DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
+                        }
+                    }
+                    for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort()) {
+                        if (!dps) continue;
+                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                            const divisor = item[divKey];
+                            if (typeof divisor !== 'number' || divisor === 0) continue;
+                            const ratio  = _signedPerDivisor(dps, dps / divisor);
+                            const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g,'_')}`;
+                            const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ` DPS per ${divLabel}`;
+                            pushRaw(dpsEffSection, safeKey, label, _fmt(ratio), 'dmg/s');
+                        }
+                    }
+                }
+            }
             
             if (item.weapon && typeof item.weapon === 'object') {
                 const weapSkip = new Set(['sprite','spriteData','sound','hit effect','fire effect',
