@@ -228,21 +228,42 @@ function _calcWeaponProfile(weapon, outfitName, outfitIndex) {
     const dmgPerShot = _resolveSubmunitionDamage(w, outfitIndex, visited, 0);
     const range      = _resolveEffectiveRange(w, outfitIndex, new Set([outfitName].filter(Boolean)), 0, 0);
 
-    const COST_KEYS = ['firing energy', 'firing heat', 'firing fuel', 'firing hull', 'firing shields'];
+    // Discover firing costs dynamically — no hardcoded key list. Any key on
+    // the weapon block starting with "firing " that attributeDefinitions.json
+    // flags as isWeaponStat is a genuine per-shot cost (energy/heat/fuel/hull/
+    // shields/ion/scramble/slowing/disruption/discharge/corrosion/leak/burn,
+    // or any new one the data adds later — this doesn't need updating when
+    // the game adds more). "firing force" is deliberately excluded by this
+    // same mechanism: it's isWeaponDataKey but not isWeaponStat, since it's a
+    // knockback value, not a rate cost — attrDefs.json data draws that line,
+    // not this file. Falls back to accepting all "firing "-prefixed numeric
+    // keys if attrDefs isn't available, since without the flag there's no
+    // other way to tell cost keys apart from non-cost ones.
+    const attrDefs = window.attrDefs?.attributes || null;
     const firingCosts = {};
-    for (const key of COST_KEYS) {
-        const val = w[key] || 0;
-        if (val) firingCosts[key] = val;
+    for (const [key, val] of Object.entries(w)) {
+        if (!key.startsWith('firing ')) continue;
+        if (typeof val !== 'number' || !val) continue;
+        if (attrDefs && attrDefs[key] && !attrDefs[key].isWeaponStat) continue;
+        firingCosts[key] = val;
     }
 
-    // dpsBreakdown / totalDps are only meaningful when sps > 0 (the weapon
-    // actually refires). For a one-shot weapon (sps === 0) these stay at 0
-    // rather than reporting "damage × 0" being mistaken for "no damage" —
-    // damagePerShot below still carries the real, correct per-shot figures.
+    // Apply each damage type's own displayMultiplier — read dynamically from
+    // attrDefs by the damage key itself (e.g. "ion damage" -> 100), the same
+    // way every other displayed attribute in Sorter.js/CompareDisplay.js
+    // already gets its multiplier. Status-effect damage types (ion,
+    // scrambling, slowing, disruption, discharge, corrosion, leak, burn) are
+    // stored internally as small fractions and rescaled by attrDefs for
+    // display; shield/hull damage have no multiplier defined (default 1), so
+    // this doesn't change their existing correct behaviour. Doing this here,
+    // once, means every consumer (dpsBreakdown, totalDps, shieldDps,
+    // hullDps — in Sorter.js, CompareDisplay.js, everywhere) is correct
+    // automatically, with nothing to keep in sync elsewhere.
     const dpsBreakdown = {};
     let totalDps = 0;
     for (const [key, val] of Object.entries(dmgPerShot)) {
-        const dps = val * sps;
+        const mult = attrDefs?.[key]?.displayMultiplier ?? 1;
+        const dps  = val * sps * mult;
         dpsBreakdown[key] = dps;
         totalDps += dps;
     }
