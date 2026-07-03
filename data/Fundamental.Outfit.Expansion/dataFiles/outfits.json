@@ -20,16 +20,12 @@
       },
       "sound": "ionball",
       "fire effect": "finisher sparks",
-      "hit effect": [
-        "ionball ring",
-        "ionball impact",
-        "ionball fragment"
-      ],
-      "live effect": [
-        "ionball spark",
-        "ionball trail",
-        "ionball twinkle"
-      ],
+      "hit effect": "ionball ring",
+      "hit effect 2": "ionball impact",
+      "hit effect 3": "ionball fragment",
+      "live effect": "ionball spark",
+      "live effect 2": "ionball trail",
+      "live effect 3": "ionball twinkle",
       "inaccuracy": 3,
       "velocity": 8,
       "lifetime": 90,
@@ -91,16 +87,12 @@
       "hardpoint sprite": "hardpoint/blaster barrage",
       "sound": "ionball",
       "fire effect": "finisher sparks",
-      "hit effect": [
-        "ionball ring",
-        "ionball impact",
-        "ionball fragment"
-      ],
-      "live effect": [
-        "ionball spark",
-        "ionball trail",
-        "ionball twinkle"
-      ],
+      "hit effect": "ionball ring",
+      "hit effect 2": "ionball impact",
+      "hit effect 3": "ionball fragment",
+      "live effect": "ionball spark",
+      "live effect 2": "ionball trail",
+      "live effect 3": "ionball twinkle",
       "inaccuracy": 3,
       "turret turn": 0.9,
       "velocity": 8,
@@ -3646,12 +3638,12 @@
       "icon": "icon/heavy rocket turret icon",
       "sound": "rocket",
       "hit effect": "heavy rocket hit",
-      "turret turn": 1.3,
+      "turret turn": "1.3 # was 1.0 before v10.11",
       "lifetime": 1,
       "velocity override": 8,
       "range override": 1000,
       "reload": 240,
-      "firing energy": 1,
+      "firing energy": "1 # Not doubled since it being 1 implies heavy rockets are only supposed to require \"any energy at all\" to fire and not a specific amount.",
       "firing heat": 500,
       "cluster": true,
       "submunitions": [
@@ -3876,7 +3868,7 @@
       "velocity override": 11,
       "range override": 3850,
       "reload": 80,
-      "firing energy": 1,
+      "firing energy": "1 # Not doubled since it being 1 implies Meteors are only supposed to require \"any energy at all\" to fire and not a specific amount.",
       "firing heat": 40,
       "homing": {
         "blindspot": true
@@ -4307,21 +4299,19 @@
       },
       "sound": "sidewinder",
       "icon": "icon/sidewinder vls icon",
-      "fire effect": [
-        "torpedo fire",
-        "sidewinder fire"
-      ],
+      "fire effect": "torpedo fire",
+      "fire effect 2": "sidewinder fire",
       "die effect": "missile death",
       "hit effect": "missile hit",
       "turret turn": 0.0001,
       "inaccuracy 180 # 360 is more intuitive but technically incorrect, inaccuracy applies to both sides of the arc.": {
         "uniform": true
       },
-      "velocity": 1.4,
+      "velocity": "1.4   # flight velocity (acceleration/drag) /10",
       "lifetime": 350,
       "range override": 4900,
-      "reload": 30,
-      "burst reload": 6,
+      "reload": "30      # launcher /2",
+      "burst reload": "6 # launcher reload /10",
       "burst count": 16,
       "firing energy": 1,
       "firing heat": 15,
@@ -4560,7 +4550,7 @@
       "sound": "mining laser",
       "hit effect": "beam laser impact",
       "inaccuracy": 0.35,
-      "turret turn": 3.4,
+      "turret turn": "3.4 # based on the -1.0 progression for dual > quad blaster turrets # was 3.3 before v10.11 based on -0.5 progression",
       "velocity": 200,
       "lifetime": 1,
       "reload": 1,
@@ -4765,7 +4755,7 @@
       "burst count": 3,
       "burst reload": 10,
       "reload": 160,
-      "firing energy": 1,
+      "firing energy": "1 # Not increased since it being 1 implies Meteors are only supposed to require \"any energy at all\" to fire and not a specific amount.",
       "firing heat": 60,
       "homing": {
         "blindspot": true
@@ -5995,7 +5985,7 @@
     "name": "Sidewinder Missile Launcher",
     "weapon": {
       "burst count": 4,
-      "burst reload": 20
+      "burst reload": "20 # slower since they rotate out on a cylinder"
     },
     "governments": {
       "Mega Freight/Mega-Freight": {
@@ -9650,7 +9640,7 @@
     "name": "Cluster Mine Layer",
     "weapon": {
       "burst count": 3,
-      "burst reload": 45
+      "burst reload": "45 # slower to spread mines out more as ship moves"
     },
     "governments": {
       "POOT/poot-senza-solaria": {
@@ -9955,7 +9945,7 @@
   {
     "name": "Hai Tracker Pod",
     "weapon": {
-      "burst count": 12,
+      "burst count": "12 # not sure if it's 12 or 13",
       "burst reload": 10,
       "stream": "# more beneficial to use this mode now, to maintain hit force on target and avoid launching such a dense flurry of missiles that earlier ones in the volley push the target out of range of the following ones"
     },
@@ -11199,7 +11189,7 @@
     "name": "External Launch Tube",
     "weapon": {
       "burst count": 3,
-      "burst reload": 30
+      "burst reload": "30 # slower due to massive investment per missile"
     },
     "governments": {
       "official-game/endless-sky": {
@@ -14009,6 +13999,7 @@
       "sound": "heavy blaster",
       "hardpoint sprite": "hardpoint/blaster heavy turret",
       "hardpoint offset": 0,
+      "hardpoint offset 2": 12,
       "hit effect": "blaster impact",
       "inaccuracy": 3,
       "turret turn": 1.8,
@@ -14197,11 +14188,9 @@
       "sound": "nuke",
       "stream": true,
       "icon": "icon/nuke",
-      "hit effect": [
-        "nuke explosion",
-        "nuke residue fast",
-        "nuke residue slow"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "nuke residue fast",
+      "hit effect 3": "nuke residue slow",
       "die effect": "missile death",
       "inaccuracy": 1.5,
       "velocity": 6,

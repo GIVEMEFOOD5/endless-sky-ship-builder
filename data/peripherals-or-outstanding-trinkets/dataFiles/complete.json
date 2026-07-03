@@ -7,19 +7,27 @@
       "engines": [
         {
           "x": -204,
-          "y": -456
+          "y": -456,
+          "angle": 12,
+          "zoom": 2
         },
         {
           "x": 204,
-          "y": -456
+          "y": -456,
+          "angle": -12,
+          "zoom": 2
         },
         {
           "x": -177,
-          "y": -426
+          "y": -426,
+          "angle": 9,
+          "zoom": 2
         },
         {
           "x": 177,
-          "y": -426
+          "y": -426,
+          "angle": -9,
+          "zoom": 2
         }
       ],
       "reverseEngines": [],
@@ -27,29 +35,37 @@
         {
           "x": -6,
           "y": 450,
-          "position": "zoom 1.25"
+          "angle": 90,
+          "left": true,
+          "zoom": 1.25
         },
         {
           "x": 6,
           "y": 450,
-          "position": "zoom 1.25"
+          "angle": -90,
+          "right": true,
+          "zoom": 1.25
         },
         {
           "x": -36,
           "y": -324,
-          "position": "zoom 1.25"
+          "angle": 90,
+          "right": true,
+          "zoom": 1.25
         },
         {
           "x": 36,
           "y": -324,
-          "position": "zoom 1.25"
+          "angle": -90,
+          "left": true,
+          "zoom": 1.25
         }
       ],
       "guns": [
         {
           "x": 0,
           "y": -384,
-          "gun": ""
+          "gun": "Plasmadyne Scoop"
         },
         {
           "x": 75,
@@ -86,92 +102,110 @@
         {
           "x": 78,
           "y": -401.5,
-          "turret": ""
+          "turret": "Prismatic Optical Laser Turret (POOT)",
+          "over": true
         },
         {
           "x": -75.5,
           "y": -415,
-          "turret": ""
+          "turret": "Prismatic Optical Laser Turret (POOT)",
+          "over": true
         },
         {
           "x": 28.5,
           "y": -324,
-          "turret": ""
+          "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+          "over": true
         },
         {
           "x": -27.5,
           "y": -325.5,
-          "turret": ""
+          "turret": "",
+          "over": true
         },
         {
           "x": 34.5,
           "y": 170,
-          "turret": ""
+          "turret": "",
+          "over": true
         },
         {
           "x": -35,
           "y": 170.5,
-          "turret": ""
+          "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+          "over": true
         },
         {
           "x": -40,
           "y": 330.5,
-          "turret": ""
+          "turret": "",
+          "over": true
         },
         {
           "x": 40,
           "y": 330.5,
-          "turret": ""
+          "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+          "over": true
         },
         {
           "x": 16,
           "y": -250,
-          "turret": ""
+          "turret": "",
+          "over": true
         },
         {
           "x": -16,
           "y": -250.5,
-          "turret": ""
+          "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+          "over": true
         },
         {
           "x": 16.5,
           "y": -157.5,
-          "turret": ""
+          "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+          "over": true
         },
         {
           "x": -15.5,
           "y": -157.5,
-          "turret": ""
+          "turret": "",
+          "over": true
         },
         {
           "x": 16,
           "y": -52,
-          "turret": ""
+          "turret": "",
+          "over": true
         },
         {
           "x": -15.5,
           "y": -50,
-          "turret": ""
+          "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+          "over": true
         },
         {
           "x": 16,
           "y": 24.5,
-          "turret": ""
+          "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+          "over": true
         },
         {
           "x": -15,
           "y": 24.5,
-          "turret": ""
+          "turret": "",
+          "over": true
         },
         {
           "x": 15.5,
           "y": 99,
-          "turret": ""
+          "turret": "",
+          "over": true
         },
         {
           "x": -15,
           "y": 98.5,
-          "turret": ""
+          "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+          "over": true
         }
       ],
       "bays": [
@@ -414,9 +448,6 @@
           "hit force": 12000
         }
       },
-      "angle": -9,
-      "zoom": 2,
-      "over": true,
       "tiny explosion": 15,
       "small explosion": 12,
       "medium explosion": 9,
@@ -427,7 +458,7 @@
       "description": "This was once an Avgi sublight starship, now it is the ULTIMATE party machine.",
       "_internalId": "POOT/peripherals-or-outstanding-trinkets::Party-fied Tachytia (POOT)",
       "_pluginId": "POOT/peripherals-or-outstanding-trinkets",
-      "_hash": "27e2e0e78520",
+      "_hash": "5722e6e4eaab",
       "governments": {
         "POOT/poot-senza-solaria": {
           "Syndicate": true
@@ -553,23 +584,43 @@
       "engines": [
         {
           "x": 8.5,
-          "y": 772
+          "y": 772,
+          "zoom": 5,
+          "angle": 0,
+          "gimbal": 0,
+          "under": true
         },
         {
           "x": 151,
-          "y": 713.5
+          "y": 713.5,
+          "zoom": 5,
+          "angle": 0,
+          "gimbal": 0,
+          "under": true
         },
         {
           "x": -139,
-          "y": 713.5
+          "y": 713.5,
+          "zoom": 5,
+          "angle": 0,
+          "gimbal": 0,
+          "under": true
         },
         {
           "x": 291,
-          "y": 715.5
+          "y": 715.5,
+          "zoom": 5,
+          "angle": 0,
+          "gimbal": 0,
+          "under": true
         },
         {
           "x": -277,
-          "y": 713.5
+          "y": 713.5,
+          "zoom": 5,
+          "angle": 0,
+          "gimbal": 0,
+          "under": true
         }
       ],
       "reverseEngines": [],
@@ -578,604 +629,724 @@
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Pug T5 Deepspace Zapper (POOT)",
+          "under": true
         },
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Pug T5 Deepspace Zapper (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Pug T5 Deepspace Zapper (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Pug T5 Deepspace Zapper (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Pug T5 Deepspace Zapper (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Pug T3 Helios (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Pug T3 Helios (POOT)",
+          "under": true
         },
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Pug T3 Helios (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Pug T3 Helios (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Pug T3 Helios (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Quarg Heavy Astral Ribault (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Quarg Heavy Astral Ribault (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Quarg Heavy Astral Ribault (POOT)",
+          "under": true
         },
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Quarg Heavy Astral Ribault (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Quarg Heavy Astral Ribault (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Quarg Elite Celestial Culverin (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Quarg Elite Celestial Culverin (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Quarg Elite Celestial Culverin (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Quarg Elite Celestial Culverin (POOT)",
+          "under": true
         },
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Quarg Elite Celestial Culverin (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Korath Tripulse Detainer (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Nuclear Missile Assembling Chamber (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Quarg Harbinger (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Quarg Harbinger (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Quarg Harbinger (POOT)",
+          "under": true
         },
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Quarg Harbinger (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Quarg Harbinger (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         },
         {
           "x": 184,
           "y": -772.5,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         },
         {
           "x": -185,
           "y": -772.5,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         },
         {
           "x": 372.5,
           "y": -773,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         },
         {
           "x": -370,
           "y": -773,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         },
         {
           "x": 557.5,
           "y": -773,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         },
         {
           "x": -551,
           "y": -772.5,
-          "gun": ""
+          "gun": "Triple Neutron Torpedo Launcher (POOT)",
+          "under": true
         }
       ],
       "turrets": [
         {
           "x": 1,
           "y": -649.5,
-          "turret": ""
+          "turret": "Twin Neutron Beam Turret (POOT)",
+          "over": true
         },
         {
           "x": -1,
           "y": 508.5,
-          "turret": ""
+          "turret": "Dual Proton Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": -580,
           "y": -72.5,
-          "turret": ""
+          "turret": "Dual Proton Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": 579,
           "y": -70.5,
-          "turret": ""
+          "turret": "Dual Proton Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": 39,
           "y": -689.5,
-          "turret": ""
+          "turret": "Twin Neutron Beam Turret (POOT)",
+          "over": true
         },
         {
           "x": -40,
           "y": -687.5,
-          "turret": ""
+          "turret": "Twin Neutron Beam Turret (POOT)",
+          "over": true
         },
         {
           "x": -40,
           "y": -608.5,
-          "turret": ""
+          "turret": "Twin Neutron Beam Turret (POOT)",
+          "over": true
         },
         {
           "x": 38,
           "y": -609.5,
-          "turret": ""
+          "turret": "Twin Neutron Beam Turret (POOT)",
+          "over": true
         },
         {
           "x": -541,
           "y": -108.5,
-          "turret": ""
+          "turret": "Dual Proton Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": -620,
           "y": -109.5,
-          "turret": ""
+          "turret": "Dual Proton Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": -619,
           "y": -30.5,
-          "turret": ""
+          "turret": "Twin Superheavy Blaster Turret (POOT)",
+          "over": true
         },
         {
           "x": -539,
           "y": -31.5,
-          "turret": ""
+          "turret": "Twin Superheavy Blaster Turret (POOT)",
+          "over": true
         },
         {
           "x": 538,
           "y": -110.5,
-          "turret": ""
+          "turret": "Twin Superheavy Blaster Turret (POOT)",
+          "over": true
         },
         {
           "x": 617,
           "y": -110.5,
-          "turret": ""
+          "turret": "Twin Superheavy Blaster Turret (POOT)",
+          "over": true
         },
         {
           "x": 538,
           "y": -28.5,
-          "turret": ""
+          "turret": "Twin Superheavy Blaster Turret (POOT)",
+          "over": true
         },
         {
           "x": 619,
           "y": -30.5,
-          "turret": ""
+          "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+          "over": true
         },
         {
           "x": -39,
           "y": 468.5,
-          "turret": ""
+          "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+          "over": true
         },
         {
           "x": 40,
           "y": 471.5,
-          "turret": ""
+          "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+          "over": true
         },
         {
           "x": -39,
           "y": 550.5,
-          "turret": ""
+          "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+          "over": true
         },
         {
           "x": 38,
           "y": 549.5,
-          "turret": ""
+          "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+          "over": true
         },
         {
           "x": 1,
           "y": -649.5,
-          "turret": ""
+          "turret": "Ionic Infusion Twin Turret (POOT)",
+          "over": true
         },
         {
           "x": -1,
           "y": 508.5,
-          "turret": ""
+          "turret": "Ionic Infusion Twin Turret (POOT)",
+          "over": true
         },
         {
           "x": -580,
           "y": -72.5,
-          "turret": ""
+          "turret": "Ionic Infusion Twin Turret (POOT)",
+          "over": true
         },
         {
           "x": 579,
           "y": -70.5,
-          "turret": ""
+          "turret": "Ionic Infusion Twin Turret (POOT)",
+          "over": true
         },
         {
           "x": 39,
           "y": -689.5,
-          "turret": ""
+          "turret": "Ionic Infusion Twin Turret (POOT)",
+          "over": true
         },
         {
           "x": -40,
           "y": -687.5,
-          "turret": ""
+          "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+          "over": true
         },
         {
           "x": -40,
           "y": -608.5,
-          "turret": ""
+          "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+          "over": true
         },
         {
           "x": 38,
           "y": -609.5,
-          "turret": ""
+          "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+          "over": true
         },
         {
           "x": -541,
           "y": -108.5,
-          "turret": ""
+          "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+          "over": true
         },
         {
           "x": -620,
           "y": -109.5,
-          "turret": ""
+          "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+          "over": true
         },
         {
           "x": -619,
           "y": -30.5,
-          "turret": ""
+          "turret": "Korath Wildfire (POOT)",
+          "over": true
         },
         {
           "x": -539,
           "y": -31.5,
-          "turret": ""
+          "turret": "Korath Wildfire (POOT)",
+          "over": true
         },
         {
           "x": 538,
           "y": -110.5,
-          "turret": ""
+          "turret": "Korath Wildfire (POOT)",
+          "over": true
         },
         {
           "x": 617,
           "y": -110.5,
-          "turret": ""
+          "turret": "Korath Wildfire (POOT)",
+          "over": true
         },
         {
           "x": 538,
           "y": -28.5,
-          "turret": ""
+          "turret": "Korath Wildfire (POOT)",
+          "over": true
         },
         {
           "x": 619,
           "y": -30.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": -39,
           "y": 468.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": 40,
           "y": 471.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": -39,
           "y": 550.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": 38,
           "y": 549.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": 1,
           "y": -649.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": -1,
           "y": 508.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": -580,
           "y": -72.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": 579,
           "y": -70.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": 39,
           "y": -689.5,
-          "turret": ""
+          "turret": "Plasma Flamethrower Turret (POOT)",
+          "over": true
         },
         {
           "x": -40,
           "y": -687.5,
-          "turret": ""
+          "turret": "Dual Particle Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": -40,
           "y": -608.5,
-          "turret": ""
+          "turret": "Dual Particle Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": 38,
           "y": -609.5,
-          "turret": ""
+          "turret": "Dual Particle Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": -541,
           "y": -108.5,
-          "turret": ""
+          "turret": "Dual Particle Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": -620,
           "y": -109.5,
-          "turret": ""
+          "turret": "Dual Particle Heavy Turret (POOT)",
+          "over": true
         },
         {
           "x": -619,
           "y": -30.5,
-          "turret": ""
+          "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+          "over": true
         },
         {
           "x": -539,
           "y": -31.5,
-          "turret": ""
+          "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+          "over": true
         },
         {
           "x": 538,
           "y": -110.5,
-          "turret": ""
+          "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+          "over": true
         },
         {
           "x": 617,
           "y": -110.5,
-          "turret": ""
+          "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+          "over": true
         },
         {
           "x": 538,
           "y": -28.5,
-          "turret": ""
+          "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+          "over": true
         },
         {
           "x": 619,
           "y": -30.5,
-          "turret": ""
+          "turret": "Quarg Vindicator Turret (POOT)",
+          "over": true
         },
         {
           "x": -39,
           "y": 468.5,
-          "turret": ""
+          "turret": "Quarg Vindicator Turret (POOT)",
+          "over": true
         },
         {
           "x": 40,
           "y": 471.5,
-          "turret": ""
+          "turret": "Quarg Vindicator Turret (POOT)",
+          "over": true
         },
         {
           "x": -39,
           "y": 550.5,
-          "turret": ""
+          "turret": "Quarg Vindicator Turret (POOT)",
+          "over": true
         },
         {
           "x": 38,
           "y": 549.5,
-          "turret": ""
+          "turret": "Quarg Vindicator Turret (POOT)",
+          "over": true
         }
       ],
       "bays": [
@@ -1609,18 +1780,13 @@
           "hit force": 25000
         }
       },
-      "zoom": 5,
-      "angle": 0,
-      "gimbal": 0,
-      "under": true,
-      "over": true,
       "large explosion": 40,
       "huge explosion": 150,
       "final explode": "final explosion huge",
       "description": "If you believe in the cube, the cube will believe in you...",
       "_internalId": "POOT/peripherals-or-outstanding-trinkets::THE CUBE (Poot)",
       "_pluginId": "POOT/peripherals-or-outstanding-trinkets",
-      "_hash": "396b279ca1a0",
+      "_hash": "e689a3236f92",
       "governments": {
         "POOT/poot-senza-solaria": {
           "Syndicate": true
@@ -1871,14 +2037,12 @@
         "icon": "poot-exp/icon/prototype_fusion_cannon",
         "fire effect": "fusion cannon fire",
         "die effect": "fusion cannon cloud",
-        "hit effect": [
-          "fusion cannon impact",
-          "fusion cannonspark",
-          "fusion cannon explosion 1",
-          "fusion cannon explosion 2",
-          "fusion cannon explosion 3",
-          "fusion cannon nuke"
-        ],
+        "hit effect": "fusion cannon impact",
+        "hit effect 2": "fusion cannonspark",
+        "hit effect 3": "fusion cannon explosion 1",
+        "hit effect 4": "fusion cannon explosion 2",
+        "hit effect 5": "fusion cannon explosion 3",
+        "hit effect 6": "fusion cannon nuke",
         "live effect": "fusion cannon cloud",
         "inaccuracy": 0.2,
         "velocity": 66,
@@ -19184,11 +19348,9 @@
         },
         "sound": "optical laser",
         "fire effect": "blue laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "blue laser reflection",
-          "blue laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "blue laser reflection",
+        "hit effect 3": "blue laser scattering",
         "velocity": 1500,
         "lifetime": 1,
         "reload": 1,
@@ -19201,6 +19363,7 @@
         "hull damage": 6,
         "heat damage": 6,
         "damage dropoff": 0,
+        "damage dropoff 2": 1500,
         "dropoff modifier": 0
       },
       "description": "This lightweight laser can be fed a beam of light from a lasing generator, which is then combined and focused to produce an intense beam ideal for damaging other ships. By pulsing thousands of times each second, the beam can create thermal and mechanical shocks in the target material, enhancing its ability to drill through armor. Unlike the advanced beam weapons used by some other species, this laser is subject to the effects of diffraction, causing its damage to become less intense with distance while also rendering it invisible. However, precise optics allow the beam to be targeted from an exceptional range, despite the tenuous damage at the edge of the laser's reach. \tThe laser itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator is needed to run this laser, providing enough power to support a single Blue Laser.",
@@ -19326,11 +19489,9 @@
         },
         "sound": "optical laser",
         "fire effect": "red laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "red laser reflection",
-          "red laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "red laser reflection",
+        "hit effect 3": "red laser scattering",
         "velocity": 2000,
         "lifetime": 1,
         "reload": 1,
@@ -19343,6 +19504,7 @@
         "hull damage": 12,
         "heat damage": 12,
         "damage dropoff": 0,
+        "damage dropoff 2": 2000,
         "dropoff modifier": 0
       },
       "description": "A direct upgrade to the Blue Optical Laser, this stronger Optical Laser is a staple amongst Avgi pilots. Capable of sustaining photons for a longer distance and with a higher damage output, while also being more energy efficient than others of its size. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -19468,11 +19630,9 @@
         },
         "sound": "optical laser",
         "fire effect": "red laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "red laser reflection",
-          "red laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "red laser reflection",
+        "hit effect 3": "red laser scattering",
         "velocity": 2000,
         "lifetime": 1,
         "reload": 1,
@@ -19484,6 +19644,7 @@
         "hull damage": 12,
         "heat damage": 12,
         "damage dropoff": 0,
+        "damage dropoff 2": 2000,
         "dropoff modifier": 0
       },
       "description": "A direct upgrade to the Blue Optical Laser, this stronger Optical Laser is a staple amongst Avgi pilots. Capable of sustaining photons for a longer distance and with a higher damage output, while also being more energy efficient than others of its size. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -19609,11 +19770,9 @@
         },
         "sound": "optical laser",
         "fire effect": "red laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "red laser reflection",
-          "red laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "red laser reflection",
+        "hit effect 3": "red laser scattering",
         "velocity": 3000,
         "lifetime": 1,
         "reload": 1,
@@ -19626,6 +19785,7 @@
         "hull damage": 36,
         "heat damage": 36,
         "damage dropoff": 0,
+        "damage dropoff 2": 3000,
         "dropoff modifier": 0
       },
       "description": "A large triple-lensed Red Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -19736,11 +19896,9 @@
         },
         "sound": "optical laser",
         "fire effect": "red laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "red laser reflection",
-          "red laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "red laser reflection",
+        "hit effect 3": "red laser scattering",
         "velocity": 3000,
         "lifetime": 1,
         "reload": 1,
@@ -19752,6 +19910,7 @@
         "hull damage": 36,
         "heat damage": 36,
         "damage dropoff": 0,
+        "damage dropoff 2": 3000,
         "dropoff modifier": 0
       },
       "description": "A large triple-lensed Red Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -19862,11 +20021,9 @@
         },
         "sound": "optical laser",
         "fire effect": "purple laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "purple laser reflection",
-          "purple laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "purple laser reflection",
+        "hit effect 3": "purple laser scattering",
         "velocity": 3500,
         "lifetime": 1,
         "reload": 1,
@@ -19879,6 +20036,7 @@
         "hull damage": 12,
         "heat damage": 12,
         "damage dropoff": 0,
+        "damage dropoff 2": 2500,
         "dropoff modifier": 0.6
       },
       "description": "An optical laser turret with a notably longer range, and energy consumption. The photonic beam within its internal system is more stable than other lasers of its size, but requires notably more Optical power. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -20004,11 +20162,9 @@
         },
         "sound": "optical laser",
         "fire effect": "purple laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "purple laser reflection",
-          "purple laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "purple laser reflection",
+        "hit effect 3": "purple laser scattering",
         "velocity": 3500,
         "lifetime": 1,
         "reload": 1,
@@ -20020,6 +20176,7 @@
         "hull damage": 12,
         "heat damage": 12,
         "damage dropoff": 0,
+        "damage dropoff 2": 2500,
         "dropoff modifier": 0.6
       },
       "description": "An optical laser turret with a notably longer range, and energy consumption. The photonic beam within its internal system is more stable than other lasers of its size, but requires notably more Optical power. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -20145,11 +20302,9 @@
         },
         "sound": "optical laser",
         "fire effect": "purple laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "purple laser reflection",
-          "purple laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "purple laser reflection",
+        "hit effect 3": "purple laser scattering",
         "velocity": 5250,
         "lifetime": 1,
         "reload": 1,
@@ -20162,6 +20317,7 @@
         "hull damage": 36,
         "heat damage": 36,
         "damage dropoff": 0,
+        "damage dropoff 2": 3750,
         "dropoff modifier": 0.6
       },
       "description": "A large triple-lensed Purple Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -20272,11 +20428,9 @@
         },
         "sound": "optical laser",
         "fire effect": "purple laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "purple laser reflection",
-          "purple laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "purple laser reflection",
+        "hit effect 3": "purple laser scattering",
         "velocity": 5250,
         "lifetime": 1,
         "reload": 1,
@@ -20288,6 +20442,7 @@
         "hull damage": 36,
         "heat damage": 36,
         "damage dropoff": 0,
+        "damage dropoff 2": 3750,
         "dropoff modifier": 0.6
       },
       "description": "A triple-lensed Purple Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -20398,11 +20553,9 @@
         },
         "sound": "optical laser",
         "fire effect": "orange laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "orange laser reflection",
-          "orange laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "orange laser reflection",
+        "hit effect 3": "orange laser scattering",
         "velocity": 1250,
         "lifetime": 1,
         "reload": 1,
@@ -20415,6 +20568,7 @@
         "hull damage": 18,
         "heat damage": 18,
         "damage dropoff": 500,
+        "damage dropoff 2": 1250,
         "dropoff modifier": 0.6
       },
       "description": "A heavy modification to the Red Optical Laser, this stronger Optical Laser has a more concentrated beam of photons, dealing more damage to its targets, while also reducing its range. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -20536,11 +20690,9 @@
         },
         "sound": "optical laser",
         "fire effect": "orange laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "orange laser reflection",
-          "orange laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "orange laser reflection",
+        "hit effect 3": "orange laser scattering",
         "velocity": 1250,
         "lifetime": 1,
         "reload": 1,
@@ -20552,6 +20704,7 @@
         "hull damage": 18,
         "heat damage": 18,
         "damage dropoff": 500,
+        "damage dropoff 2": 1250,
         "dropoff modifier": 0.6
       },
       "description": "A heavy modification to the Red Optical Laser, this stronger Optical Laser has a more concentrated beam of photons, dealing more damage to its targets, while also reducing its range. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -20673,11 +20826,9 @@
         },
         "sound": "optical laser",
         "fire effect": "orange laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "orange laser reflection",
-          "orange laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "orange laser reflection",
+        "hit effect 3": "orange laser scattering",
         "velocity": 1875,
         "lifetime": 1,
         "reload": 1,
@@ -20690,6 +20841,7 @@
         "hull damage": 54,
         "heat damage": 54,
         "damage dropoff": 625,
+        "damage dropoff 2": 1875,
         "dropoff modifier": 0.6
       },
       "description": "A large triple-lensed Orange Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -20800,11 +20952,9 @@
         },
         "sound": "optical laser",
         "fire effect": "orange laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "orange laser reflection",
-          "orange laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "orange laser reflection",
+        "hit effect 3": "orange laser scattering",
         "velocity": 1875,
         "lifetime": 1,
         "reload": 1,
@@ -20816,6 +20966,7 @@
         "hull damage": 54,
         "heat damage": 54,
         "damage dropoff": 625,
+        "damage dropoff 2": 1875,
         "dropoff modifier": 0.6
       },
       "description": "A large triple-lensed Orange Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -20926,11 +21077,9 @@
         },
         "sound": "optical laser",
         "fire effect": "white laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "white laser reflection",
-          "white laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "white laser reflection",
+        "hit effect 3": "white laser scattering",
         "velocity": 2400,
         "lifetime": 1,
         "reload": 1,
@@ -20943,6 +21092,7 @@
         "hull damage": 12,
         "heat damage": 12,
         "damage dropoff": 1000,
+        "damage dropoff 2": 2200,
         "dropoff modifier": 0.9
       },
       "description": "A heavy modification to the Red Optical Laser, this heavy duty Optical Laser has a stronger beam, longer range, but is much larger than some of its alternatives. While it does use a decent bit of energy, the laser is able to stay focused and centralized for longer, resulting in less damage lost over distance. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -21064,11 +21214,9 @@
         },
         "sound": "optical laser",
         "fire effect": "white laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "white laser reflection",
-          "white laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "white laser reflection",
+        "hit effect 3": "white laser scattering",
         "velocity": 2400,
         "lifetime": 1,
         "reload": 1,
@@ -21080,6 +21228,7 @@
         "hull damage": 12,
         "heat damage": 12,
         "damage dropoff": 1500,
+        "damage dropoff 2": 2200,
         "dropoff modifier": 0.9
       },
       "description": "A heavy modification to the Red Optical Laser, this optimized Optical Laser has a very stable beam, being able to stay focused and centralized for longer, resulting in less damage lost over distance. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -21201,11 +21350,9 @@
         },
         "sound": "optical laser",
         "fire effect": "white laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "white laser reflection",
-          "white laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "white laser reflection",
+        "hit effect 3": "white laser scattering",
         "velocity": 3600,
         "lifetime": 1,
         "reload": 1,
@@ -21218,6 +21365,7 @@
         "hull damage": 36,
         "heat damage": 36,
         "damage dropoff": 1500,
+        "damage dropoff 2": 3300,
         "dropoff modifier": 0.9
       },
       "description": "A large triple-lensed White Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -21328,11 +21476,9 @@
         },
         "sound": "optical laser",
         "fire effect": "white laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "white laser reflection",
-          "white laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "white laser reflection",
+        "hit effect 3": "white laser scattering",
         "velocity": 3600,
         "lifetime": 1,
         "reload": 1,
@@ -21344,6 +21490,7 @@
         "hull damage": 36,
         "heat damage": 36,
         "damage dropoff": 1500,
+        "damage dropoff 2": 3300,
         "dropoff modifier": 0.9
       },
       "description": "A large triple-lensed White Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -21454,11 +21601,9 @@
         },
         "sound": "optical laser",
         "fire effect": "green-p laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "green-p laser reflection",
-          "green-p laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "green-p laser reflection",
+        "hit effect 3": "green-p laser scattering",
         "velocity": 2750,
         "lifetime": 1,
         "reload": 6,
@@ -21473,6 +21618,7 @@
         "hull damage": 80,
         "heat damage": 80,
         "damage dropoff": 1000,
+        "damage dropoff 2": 2750,
         "dropoff modifier": 0.5,
         "cluster": true
       },
@@ -21588,11 +21734,9 @@
         },
         "sound": "optical laser",
         "fire effect": "green-p laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "green-p laser reflection",
-          "green-p laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "green-p laser reflection",
+        "hit effect 3": "green-p laser scattering",
         "velocity": 2750,
         "lifetime": 1,
         "reload": 6,
@@ -21606,6 +21750,7 @@
         "hull damage": 80,
         "heat damage": 80,
         "damage dropoff": 1000,
+        "damage dropoff 2": 2750,
         "dropoff modifier": 0.5,
         "cluster": true
       },
@@ -21721,11 +21866,9 @@
         },
         "sound": "optical laser",
         "fire effect": "green-p laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "green-p laser reflection",
-          "green-p laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "green-p laser reflection",
+        "hit effect 3": "green-p laser scattering",
         "velocity": 4075,
         "lifetime": 1,
         "reload": 6,
@@ -21740,6 +21883,7 @@
         "hull damage": 240,
         "heat damage": 240,
         "damage dropoff": 1000,
+        "damage dropoff 2": 2750,
         "dropoff modifier": 0.5,
         "cluster": true
       },
@@ -21851,11 +21995,9 @@
         },
         "sound": "optical laser",
         "fire effect": "green-p laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "green-p laser reflection",
-          "green-p laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "green-p laser reflection",
+        "hit effect 3": "green-p laser scattering",
         "velocity": 4075,
         "lifetime": 1,
         "reload": 6,
@@ -21869,6 +22011,7 @@
         "hull damage": 240,
         "heat damage": 240,
         "damage dropoff": 1000,
+        "damage dropoff 2": 2750,
         "dropoff modifier": 0.5,
         "cluster": true
       },
@@ -21980,11 +22123,9 @@
         },
         "sound": "optical laser",
         "fire effect": "green-p laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "green-p laser reflection",
-          "green-p laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "green-p laser reflection",
+        "hit effect 3": "green-p laser scattering",
         "velocity": 1500,
         "lifetime": 1,
         "reload": 1,
@@ -21997,6 +22138,7 @@
         "hull damage": 16.667,
         "heat damage": 16.667,
         "damage dropoff": 1000,
+        "damage dropoff 2": 1500,
         "dropoff modifier": 0.2
       },
       "description": "A heavily modified and updated version of the Blue Optical Laser. This modified Optical Laser has significantly upgraded peripherals and internal controls, alowing it to heavily optimize its concentration of energy into a very precise beam. While it does use a significant amount of energy and lacks the range of some other Optical Lasers, it does offer potent damage. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -22122,11 +22264,9 @@
         },
         "sound": "optical laser",
         "fire effect": "blue-p laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "blue-p laser reflection",
-          "blue-p laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "blue-p laser reflection",
+        "hit effect 3": "blue-p laser scattering",
         "velocity": 1500,
         "lifetime": 1,
         "reload": 1,
@@ -22138,6 +22278,7 @@
         "hull damage": 16.667,
         "heat damage": 16.667,
         "damage dropoff": 1000,
+        "damage dropoff 2": 1500,
         "dropoff modifier": 0.4
       },
       "description": "A heavily modified and updated version of the Blue Optical Laser. This modified Optical Laser has significantly upgraded peripherals and internal controls, alowing it to heavily optimize its concentration of energy into a very potent beam. While it does use a significant amount of energy and lacks the range of some other Optical Lasers, it does offer potent damage. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -22263,11 +22404,9 @@
         },
         "sound": "optical laser",
         "fire effect": "green-p laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "green-p laser reflection",
-          "green-p laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "green-p laser reflection",
+        "hit effect 3": "green-p laser scattering",
         "velocity": 2250,
         "lifetime": 1,
         "reload": 1,
@@ -22280,6 +22419,7 @@
         "hull damage": 50,
         "heat damage": 50,
         "damage dropoff": 1500,
+        "damage dropoff 2": 2250,
         "dropoff modifier": 0.2
       },
       "description": "A large triple-lensed Deep Blue Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -22390,11 +22530,9 @@
         },
         "sound": "optical laser",
         "fire effect": "blue-p laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "blue-p laser reflection",
-          "blue-p laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "blue-p laser reflection",
+        "hit effect 3": "blue-p laser scattering",
         "velocity": 2250,
         "lifetime": 1,
         "reload": 1,
@@ -22406,6 +22544,7 @@
         "hull damage": 50,
         "heat damage": 50,
         "damage dropoff": 1500,
+        "damage dropoff 2": 2250,
         "dropoff modifier": 0.2
       },
       "description": "A large triple-lensed Deep Blue Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -22516,11 +22655,9 @@
         },
         "sound": "optical laser",
         "fire effect": "cyan laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "cyan laser reflection",
-          "cyan laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "cyan laser reflection",
+        "hit effect 3": "cyan laser scattering",
         "velocity": 2000,
         "lifetime": 1,
         "reload": 1,
@@ -22534,6 +22671,7 @@
         "hull damage": 3,
         "heat damage": 6,
         "damage dropoff": 1200,
+        "damage dropoff 2": 2000,
         "dropoff modifier": 0.1
       },
       "description": "A heavy modification to the Red Optical Laser, this distorting Optical Laser has a very strong efffect against shields, while being very ineffective against hull armor. The heavy modifications on this optic laser cause it to run far cooler than other Optic Lasers of similar size. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -22648,11 +22786,9 @@
         },
         "sound": "optical laser",
         "fire effect": "cyan laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "cyan laser reflection",
-          "cyan laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "cyan laser reflection",
+        "hit effect 3": "cyan laser scattering",
         "velocity": 2400,
         "lifetime": 1,
         "reload": 1,
@@ -22665,6 +22801,7 @@
         "hull damage": 3,
         "heat damage": 6,
         "damage dropoff": 1200,
+        "damage dropoff 2": 2000,
         "dropoff modifier": 0.1
       },
       "description": "A heavy modification to the Red Optical Laser, this distorting Optical Laser has a very strong efffect against shields, while being very ineffective against hull armor. The heavy modifications on this optic laser cause it to run far cooler than other Optic Lasers of similar size. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -22779,11 +22916,9 @@
         },
         "sound": "optical laser",
         "fire effect": "cyan laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "cyan laser reflection",
-          "cyan laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "cyan laser reflection",
+        "hit effect 3": "cyan laser scattering",
         "velocity": 3600,
         "lifetime": 1,
         "reload": 1,
@@ -22797,6 +22932,7 @@
         "hull damage": 9,
         "heat damage": 18,
         "damage dropoff": 1800,
+        "damage dropoff 2": 3600,
         "dropoff modifier": 0.1
       },
       "description": "A large triple-lensed Cyan Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -22907,11 +23043,9 @@
         },
         "sound": "optical laser",
         "fire effect": "cyan laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "cyan laser reflection",
-          "cyan laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "cyan laser reflection",
+        "hit effect 3": "cyan laser scattering",
         "velocity": 3600,
         "lifetime": 1,
         "reload": 1,
@@ -22924,6 +23058,7 @@
         "hull damage": 9,
         "heat damage": 18,
         "damage dropoff": 1800,
+        "damage dropoff 2": 3600,
         "dropoff modifier": 0.1
       },
       "description": "A large triple-lensed Cyan Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -23034,11 +23169,9 @@
         },
         "sound": "optical laser",
         "fire effect": "yellow laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "yellow laser reflection",
-          "yellow laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "yellow laser reflection",
+        "hit effect 3": "yellow laser scattering",
         "velocity": 2400,
         "lifetime": 1,
         "reload": 1,
@@ -23052,6 +23185,7 @@
         "piercing": 0.1,
         "heat damage": 6,
         "damage dropoff": 1200,
+        "damage dropoff 2": 2400,
         "dropoff modifier": 0.1
       },
       "description": "A heavily modified Optic Laser. this dense Optical Laser has a very strong efffect against hull armor, while being very ineffective against a ship's shields. The heavy modifications on this optic laser cause it to run far cooler than other Optic Lasers of similar size. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -23166,11 +23300,9 @@
         },
         "sound": "optical laser",
         "fire effect": "yellow laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "yellow laser reflection",
-          "yellow laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "yellow laser reflection",
+        "hit effect 3": "yellow laser scattering",
         "velocity": 2400,
         "lifetime": 1,
         "reload": 1,
@@ -23183,6 +23315,7 @@
         "piercing": 0.1,
         "heat damage": 6,
         "damage dropoff": 1200,
+        "damage dropoff 2": 2400,
         "dropoff modifier": 0.1
       },
       "description": "A heavily modified Optic Laser. this dense Optical Laser has a very strong efffect against hull armor, while being very ineffective against a ship's shields. The heavy modifications on this optic laser cause it to run far cooler than other Optic Lasers of similar size. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -23297,11 +23430,9 @@
         },
         "sound": "optical laser",
         "fire effect": "yellow laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "yellow laser reflection",
-          "yellow laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "yellow laser reflection",
+        "hit effect 3": "yellow laser scattering",
         "velocity": 3600,
         "lifetime": 1,
         "reload": 1,
@@ -23315,6 +23446,7 @@
         "piercing": 0.1,
         "heat damage": 18,
         "damage dropoff": 1800,
+        "damage dropoff 2": 3600,
         "dropoff modifier": 0.1
       },
       "description": "A large triple-lensed Yellow Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -23425,11 +23557,9 @@
         },
         "sound": "optical laser",
         "fire effect": "yellow laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "yellow laser reflection",
-          "yellow laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "yellow laser reflection",
+        "hit effect 3": "yellow laser scattering",
         "velocity": 3600,
         "lifetime": 1,
         "reload": 1,
@@ -23442,6 +23572,7 @@
         "piercing": 0.1,
         "heat damage": 18,
         "damage dropoff": 1800,
+        "damage dropoff 2": 3600,
         "dropoff modifier": 0.1
       },
       "description": "A large triple-lensed Yellow Optical Laser Turret capable of outputing three times the amount of photons in a more stable beam. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -23548,11 +23679,9 @@
       "weapon": {
         "sound": "optical laser",
         "fire effect": "magenta laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "magenta laser reflection",
-          "magenta laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "magenta laser reflection",
+        "hit effect 3": "magenta laser scattering",
         "velocity": 2500,
         "lifetime": 1,
         "reload": 1,
@@ -23565,6 +23694,7 @@
         "hull damage": 12,
         "heat damage": 12,
         "damage dropoff": 0,
+        "damage dropoff 2": 2500,
         "dropoff modifier": 0,
         "penetration count": 10
       },
@@ -23687,11 +23817,9 @@
         },
         "sound": "optical laser",
         "fire effect": "magenta laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "magenta laser reflection",
-          "magenta laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "magenta laser reflection",
+        "hit effect 3": "magenta laser scattering",
         "velocity": 2500,
         "lifetime": 1,
         "reload": 1,
@@ -23703,6 +23831,7 @@
         "hull damage": 12,
         "heat damage": 12,
         "damage dropoff": 0,
+        "damage dropoff 2": 2500,
         "dropoff modifier": 0,
         "penetration count": 10
       },
@@ -23821,11 +23950,9 @@
       "weapon": {
         "sound": "optical laser",
         "fire effect": "magenta laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "magenta laser reflection",
-          "magenta laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "magenta laser reflection",
+        "hit effect 3": "magenta laser scattering",
         "velocity": 3750,
         "lifetime": 1,
         "reload": 1,
@@ -23838,6 +23965,7 @@
         "hull damage": 36,
         "heat damage": 36,
         "damage dropoff": 0,
+        "damage dropoff 2": 3750,
         "dropoff modifier": 0,
         "penetration count": 25
       },
@@ -23949,11 +24077,9 @@
         },
         "sound": "optical laser",
         "fire effect": "magenta laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "magenta laser reflection",
-          "magenta laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "magenta laser reflection",
+        "hit effect 3": "magenta laser scattering",
         "velocity": 3750,
         "lifetime": 1,
         "reload": 1,
@@ -23965,6 +24091,7 @@
         "hull damage": 36,
         "heat damage": 36,
         "damage dropoff": 0,
+        "damage dropoff 2": 3750,
         "dropoff modifier": 0,
         "penetration count": 25
       },
@@ -24072,11 +24199,9 @@
       "weapon": {
         "sound": "moonbeam",
         "fire effect": "dark laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "dark laser reflection",
-          "dark laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "dark laser reflection",
+        "hit effect 3": "dark laser scattering",
         "velocity": 3500,
         "lifetime": 1,
         "reload": 1,
@@ -24089,6 +24214,7 @@
         "hull damage": 4,
         "hit force": -50,
         "damage dropoff": 250,
+        "damage dropoff 2": 2000,
         "dropoff modifier": 0
       },
       "description": "An particle colliding optical laser. This optical laser launches photons at incredible speeds into one another at a targeted point, resulting in a narrow trail of subatomic black holes forming for a brief instant, causing anything unfortunate enough within range to be pulled towards the rapid particle collisions. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -24195,11 +24321,9 @@
         },
         "sound": "moonbeam",
         "fire effect": "dark laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "dark laser reflection",
-          "dark laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "dark laser reflection",
+        "hit effect 3": "dark laser scattering",
         "velocity": 3500,
         "lifetime": 1,
         "reload": 1,
@@ -24211,6 +24335,7 @@
         "hull damage": 4,
         "hit force": -50,
         "damage dropoff": 250,
+        "damage dropoff 2": 2000,
         "dropoff modifier": 0
       },
       "description": "An particle colliding optical laser. This optical laser launches photons at incredible speeds into one another at a targeted point, resulting in a narrow trail of subatomic black holes forming for a brief instant, causing anything unfortunate enough within range to be pulled towards the rapid particle collisions. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator or Stacked Optical Lasing Generator are needed to run this turret.",
@@ -24313,11 +24438,9 @@
       "weapon": {
         "sound": "moonbeam",
         "fire effect": "dark laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "heavy dark laser reflection",
-          "heavy dark laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "heavy dark laser reflection",
+        "hit effect 3": "heavy dark laser scattering",
         "velocity": 4000,
         "lifetime": 1,
         "reload": 1,
@@ -24331,6 +24454,7 @@
         "hit force": -200,
         "firing force": -100,
         "damage dropoff": 1500,
+        "damage dropoff 2": 4000,
         "dropoff modifier": 0.1,
         "blast radius": 250,
         "safe": 250
@@ -24439,11 +24563,9 @@
         },
         "sound": "moonbeam",
         "fire effect": "dark laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "heavy dark laser reflection",
-          "heavy dark laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "heavy dark laser reflection",
+        "hit effect 3": "heavy dark laser scattering",
         "velocity": 4000,
         "lifetime": 1,
         "reload": 1,
@@ -24456,6 +24578,7 @@
         "hit force": -200,
         "firing force": -100,
         "damage dropoff": 1500,
+        "damage dropoff 2": 4000,
         "dropoff modifier": 0.1,
         "blast radius": 250,
         "safe": 250
@@ -24564,11 +24687,9 @@
         },
         "sound": "optical laser",
         "fire effect": "rainbow laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "rainbow laser reflection",
-          "rainbow laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "rainbow laser reflection",
+        "hit effect 3": "rainbow laser scattering",
         "velocity": 5000,
         "lifetime": 1,
         "reload": 1,
@@ -24669,11 +24790,9 @@
         },
         "sound": "optical laser",
         "fire effect": "rainbow laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "rainbow laser reflection",
-          "rainbow laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "rainbow laser reflection",
+        "hit effect 3": "rainbow laser scattering",
         "velocity": 5000,
         "lifetime": 1,
         "reload": 1,
@@ -24808,11 +24927,9 @@
         },
         "sound": "optical laser",
         "fire effect": "mini rainbow laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "mini rainbow laser reflection",
-          "rainbow laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "mini rainbow laser reflection",
+        "hit effect 3": "rainbow laser scattering",
         "velocity": 5000,
         "lifetime": 1,
         "reload": 1,
@@ -24913,11 +25030,9 @@
         },
         "sound": "optical laser",
         "fire effect": "mini rainbow laser glare",
-        "hit effect": [
-          "laser ejecta",
-          "mini rainbow laser reflection",
-          "rainbow laser scattering"
-        ],
+        "hit effect": "laser ejecta",
+        "hit effect 2": "mini rainbow laser reflection",
+        "hit effect 3": "rainbow laser scattering",
         "velocity": 5000,
         "lifetime": 1,
         "reload": 1,
@@ -25401,10 +25516,8 @@
           "frame rate": 15,
           "no repeat": true
         },
-        "hit effect": [
-          "bremsstrahlung (POOT)",
-          "nuclear spallation (POOT)"
-        ],
+        "hit effect": "bremsstrahlung (POOT)",
+        "hit effect 2": "nuclear spallation (POOT)",
         "velocity": 300,
         "random velocity": -210,
         "lifetime": 12,
@@ -25992,10 +26105,8 @@
         },
         "hardpoint offset": 20,
         "sound": "poot-exp/heavy_bombardment",
-        "hit effect": [
-          "bombardment impact",
-          "bombardment heavy explosion (POOT)"
-        ],
+        "hit effect": "bombardment impact",
+        "hit effect 2": "bombardment heavy explosion (POOT)",
         "inaccuracy": 4,
         "velocity": 30,
         "random velocity": 2,
@@ -26097,10 +26208,8 @@
         },
         "hardpoint offset": 20,
         "sound": "poot-exp/heavy_bombardment",
-        "hit effect": [
-          "bombardment impact",
-          "bombardment heavy explosion (POOT)"
-        ],
+        "hit effect": "bombardment impact",
+        "hit effect 2": "bombardment heavy explosion (POOT)",
         "turret turn": 2.1,
         "inaccuracy": 2,
         "velocity": 30,
@@ -26198,10 +26307,8 @@
           "no repeat": true
         },
         "sound": "poot-exp/heavy_bombardment",
-        "hit effect": [
-          "bombardment impact",
-          "bombardment heavy explosion (POOT)"
-        ],
+        "hit effect": "bombardment impact",
+        "hit effect 2": "bombardment heavy explosion (POOT)",
         "inaccuracy": 4,
         "velocity": 30,
         "random velocity": 2,
@@ -26303,10 +26410,8 @@
         },
         "hardpoint offset": 30,
         "sound": "poot-exp/heavy_bombardment",
-        "hit effect": [
-          "bombardment impact",
-          "bombardment heavy explosion (POOT)"
-        ],
+        "hit effect": "bombardment impact",
+        "hit effect 2": "bombardment heavy explosion (POOT)",
         "turret turn": 2.1,
         "inaccuracy": 2,
         "velocity": 30,
@@ -29927,13 +30032,11 @@
           "frame rate": 30
         },
         "sound": "poot-exp/heavy_ion",
-        "hit effect": [
-          "ion infusion impact 1 (POOT)",
-          "ion infusion impact 2 (POOT)",
-          "ion infusion spark (POOT)",
-          "ion infusion spark 2 (POOT)",
-          "ion infusion spark 3 (POOT)"
-        ],
+        "hit effect": "ion infusion impact 1 (POOT)",
+        "hit effect 2": "ion infusion impact 2 (POOT)",
+        "hit effect 3": "ion infusion spark (POOT)",
+        "hit effect 4": "ion infusion spark 2 (POOT)",
+        "hit effect 5": "ion infusion spark 3 (POOT)",
         "inaccuracy": 1,
         "velocity": 55,
         "lifetime": 70,
@@ -30053,13 +30156,11 @@
           "frame rate": 30
         },
         "sound": "poot-exp/heavy_ion",
-        "hit effect": [
-          "ion infusion impact 1 (POOT)",
-          "ion infusion impact 2 (POOT)",
-          "ion infusion spark (POOT)",
-          "ion infusion spark 2 (POOT)",
-          "ion infusion spark 3 (POOT)"
-        ],
+        "hit effect": "ion infusion impact 1 (POOT)",
+        "hit effect 2": "ion infusion impact 2 (POOT)",
+        "hit effect 3": "ion infusion spark (POOT)",
+        "hit effect 4": "ion infusion spark 2 (POOT)",
+        "hit effect 5": "ion infusion spark 3 (POOT)",
         "turret turn": 1.5,
         "inaccuracy": 1,
         "velocity": 55,
@@ -30176,13 +30277,11 @@
           "frame rate": 30
         },
         "sound": "poot-exp/heavy_ion",
-        "hit effect": [
-          "ion infusion impact 1 (POOT)",
-          "ion infusion impact 2 (POOT)",
-          "ion infusion spark (POOT)",
-          "ion infusion spark 2 (POOT)",
-          "ion infusion spark 3 (POOT)"
-        ],
+        "hit effect": "ion infusion impact 1 (POOT)",
+        "hit effect 2": "ion infusion impact 2 (POOT)",
+        "hit effect 3": "ion infusion spark (POOT)",
+        "hit effect 4": "ion infusion spark 2 (POOT)",
+        "hit effect 5": "ion infusion spark 3 (POOT)",
         "inaccuracy": 1,
         "velocity": 55,
         "lifetime": 70,
@@ -30284,13 +30383,11 @@
           "frame rate": 30
         },
         "sound": "poot-exp/heavy_ion",
-        "hit effect": [
-          "ion infusion impact 1 (POOT)",
-          "ion infusion impact 2 (POOT)",
-          "ion infusion spark (POOT)",
-          "ion infusion spark 2 (POOT)",
-          "ion infusion spark 3 (POOT)"
-        ],
+        "hit effect": "ion infusion impact 1 (POOT)",
+        "hit effect 2": "ion infusion impact 2 (POOT)",
+        "hit effect 3": "ion infusion spark (POOT)",
+        "hit effect 4": "ion infusion spark 2 (POOT)",
+        "hit effect 5": "ion infusion spark 3 (POOT)",
         "turret turn": 1.5,
         "inaccuracy": 1,
         "velocity": 55,
@@ -30888,14 +30985,12 @@
         "icon": "poot-exp/icon/prototype_fusion_cannon",
         "fire effect": "fusion cannon fire",
         "die effect": "fusion cannon cloud",
-        "hit effect": [
-          "fusion cannon impact",
-          "fusion cannonspark",
-          "fusion cannon explosion 1",
-          "fusion cannon explosion 2",
-          "fusion cannon explosion 3",
-          "fusion cannon nuke"
-        ],
+        "hit effect": "fusion cannon impact",
+        "hit effect 2": "fusion cannonspark",
+        "hit effect 3": "fusion cannon explosion 1",
+        "hit effect 4": "fusion cannon explosion 2",
+        "hit effect 5": "fusion cannon explosion 3",
+        "hit effect 6": "fusion cannon nuke",
         "live effect": "fusion cannon cloud",
         "turret turn": 1.4,
         "inaccuracy": 0.2,
@@ -31003,14 +31098,12 @@
         "icon": "poot-exp/icon/prototype_fusion_cannon",
         "fire effect": "fusion cannon fire",
         "die effect": "fusion cannon cloud",
-        "hit effect": [
-          "fusion cannon impact",
-          "fusion cannonspark",
-          "fusion cannon explosion 1",
-          "fusion cannon explosion 2",
-          "fusion cannon explosion 3",
-          "fusion cannon nuke"
-        ],
+        "hit effect": "fusion cannon impact",
+        "hit effect 2": "fusion cannonspark",
+        "hit effect 3": "fusion cannon explosion 1",
+        "hit effect 4": "fusion cannon explosion 2",
+        "hit effect 5": "fusion cannon explosion 3",
+        "hit effect 6": "fusion cannon nuke",
         "live effect": "mini fusion cannon cloud",
         "inaccuracy": 0.2,
         "velocity": 66,
@@ -31155,14 +31248,12 @@
         "icon": "poot-exp/icon/prototype_fusion_cannon",
         "fire effect": "mini fusion cannon fire",
         "die effect": "mini fusion cannon cloud",
-        "hit effect": [
-          "mini fusion cannon impact",
-          "fusion cannonspark",
-          "mini fusion cannon explosion 1",
-          "mini fusion cannon explosion 2",
-          "mini fusion cannon explosion 3",
-          "mini fusion cannon nuke"
-        ],
+        "hit effect": "mini fusion cannon impact",
+        "hit effect 2": "fusion cannonspark",
+        "hit effect 3": "mini fusion cannon explosion 1",
+        "hit effect 4": "mini fusion cannon explosion 2",
+        "hit effect 5": "mini fusion cannon explosion 3",
+        "hit effect 6": "mini fusion cannon nuke",
         "live effect": "mini fusion cannon cloud",
         "turret turn": 1.4,
         "inaccuracy": 0.2,
@@ -31306,14 +31397,12 @@
         "icon": "poot-exp/icon/proton_fusion_cannon",
         "fire effect": "proton fusion cannon fire",
         "die effect": "proton fusion cannon cloud",
-        "hit effect": [
-          "proton fusion cannon impact",
-          "fusion cannonspark",
-          "proton fusion cannon explosion 1",
-          "proton fusion cannon explosion 2",
-          "proton fusion cannon explosion 3",
-          "proton fusion cannon nuke"
-        ],
+        "hit effect": "proton fusion cannon impact",
+        "hit effect 2": "fusion cannonspark",
+        "hit effect 3": "proton fusion cannon explosion 1",
+        "hit effect 4": "proton fusion cannon explosion 2",
+        "hit effect 5": "proton fusion cannon explosion 3",
+        "hit effect 6": "proton fusion cannon nuke",
         "live effect": "proton fusion cannon cloud",
         "inaccuracy": 0.2,
         "velocity": 50,
@@ -31460,14 +31549,12 @@
         "icon": "poot-exp/icon/proton_fusion_cannon",
         "fire effect": "proton fusion cannon fire",
         "die effect": "proton fusion cannon cloud",
-        "hit effect": [
-          "proton fusion cannon impact",
-          "fusion cannonspark",
-          "proton fusion cannon explosion 1",
-          "proton fusion cannon explosion 2",
-          "proton fusion cannon explosion 3",
-          "proton fusion cannon nuke"
-        ],
+        "hit effect": "proton fusion cannon impact",
+        "hit effect 2": "fusion cannonspark",
+        "hit effect 3": "proton fusion cannon explosion 1",
+        "hit effect 4": "proton fusion cannon explosion 2",
+        "hit effect 5": "proton fusion cannon explosion 3",
+        "hit effect 6": "proton fusion cannon nuke",
         "live effect": "proton fusion cannon cloud",
         "turret turn": 1.4,
         "inaccuracy": 0.2,
@@ -31611,14 +31698,12 @@
         "icon": "poot-exp/icon/nuclear_fusion_cannon",
         "fire effect": "nuclear fusion cannon fire",
         "die effect": "nuclear fusion cannon cloud",
-        "hit effect": [
-          "nuclear fusion cannon impact",
-          "fusion cannonspark",
-          "nuclear fusion cannon explosion 1",
-          "nuclear fusion cannon explosion 2",
-          "nuclear fusion cannon explosion 3",
-          "nuclear fusion cannon nuke"
-        ],
+        "hit effect": "nuclear fusion cannon impact",
+        "hit effect 2": "fusion cannonspark",
+        "hit effect 3": "nuclear fusion cannon explosion 1",
+        "hit effect 4": "nuclear fusion cannon explosion 2",
+        "hit effect 5": "nuclear fusion cannon explosion 3",
+        "hit effect 6": "nuclear fusion cannon nuke",
         "live effect": "nuclear fusion cannon cloud",
         "inaccuracy": 0.12,
         "velocity": 55,
@@ -31768,14 +31853,12 @@
         "icon": "poot-exp/icon/nuclear_fusion_cannon",
         "fire effect": "nuclear fusion cannon fire",
         "die effect": "nuclear fusion cannon cloud",
-        "hit effect": [
-          "nuclear fusion cannon impact",
-          "fusion cannonspark",
-          "nuclear fusion cannon explosion 1",
-          "nuclear fusion cannon explosion 2",
-          "nuclear fusion cannon explosion 3",
-          "nuclear fusion cannon nuke"
-        ],
+        "hit effect": "nuclear fusion cannon impact",
+        "hit effect 2": "fusion cannonspark",
+        "hit effect 3": "nuclear fusion cannon explosion 1",
+        "hit effect 4": "nuclear fusion cannon explosion 2",
+        "hit effect 5": "nuclear fusion cannon explosion 3",
+        "hit effect 6": "nuclear fusion cannon nuke",
         "live effect": "nuclear fusion cannon cloud",
         "turret turn": 1.4,
         "inaccuracy": 0.12,
@@ -33024,6 +33107,7 @@
         },
         "hardpoint sprite": "poot-exp/hardpoint/heavy_mining_turret",
         "hardpoint offset": 0.7,
+        "hardpoint offset 2": 8,
         "sound": "mining laser",
         "hit effect": "heavy laser impact",
         "inaccuracy": 0.35,
@@ -33302,6 +33386,7 @@
         },
         "hardpoint sprite": "poot-exp/hardpoint/electron_mining_turret",
         "hardpoint offset": 0.7,
+        "hardpoint offset 2": 8,
         "sound": "electron beam",
         "hit effect": "electron impact",
         "inaccuracy": 0.35,
@@ -36055,10 +36140,8 @@
           "frame rate": 3
         },
         "sound": "explosion tiny",
-        "hit effect": [
-          "heavy plasma explosion",
-          "heavy plasma explosion 2"
-        ],
+        "hit effect": "heavy plasma explosion",
+        "hit effect 2": "heavy plasma explosion 2",
         "inaccuracy": 0.5,
         "velocity": 25,
         "lifetime": 75,
@@ -36209,10 +36292,8 @@
         },
         "hardpoint offset": 46,
         "sound": "explosion tiny",
-        "hit effect": [
-          "heavy plasma explosion",
-          "heavy plasma explosion 2"
-        ],
+        "hit effect": "heavy plasma explosion",
+        "hit effect 2": "heavy plasma explosion 2",
         "inaccuracy": 0.5,
         "turret turn": 1.4,
         "velocity": 25,
@@ -36359,10 +36440,8 @@
           "frame rate": 3
         },
         "sound": "explosion tiny",
-        "hit effect": [
-          "heavy plasma explosion",
-          "heavy plasma explosion 2"
-        ],
+        "hit effect": "heavy plasma explosion",
+        "hit effect 2": "heavy plasma explosion 2",
         "inaccuracy": 0.5,
         "velocity": 25,
         "lifetime": 75,
@@ -36464,10 +36543,8 @@
         },
         "hardpoint offset": 46,
         "sound": "explosion tiny",
-        "hit effect": [
-          "heavy plasma explosion",
-          "heavy plasma explosion 2"
-        ],
+        "hit effect": "heavy plasma explosion",
+        "hit effect 2": "heavy plasma explosion 2",
         "inaccuracy": 0.5,
         "turret turn": 1.4,
         "velocity": 25,
@@ -36564,10 +36641,8 @@
           "scale": 2
         },
         "sound": "poot-exp/heavy_particle",
-        "hit effect": [
-          "heavy particle impact",
-          "medium particle explosion"
-        ],
+        "hit effect": "heavy particle impact",
+        "hit effect 2": "medium particle explosion",
         "inaccuracy": 0.5,
         "velocity": 45,
         "lifetime": 60,
@@ -36702,10 +36777,8 @@
         },
         "hardpoint offset": 42,
         "sound": "poot-exp/heavy_particle",
-        "hit effect": [
-          "heavy particle impact",
-          "medium particle explosion"
-        ],
+        "hit effect": "heavy particle impact",
+        "hit effect 2": "medium particle explosion",
         "inaccuracy": 0.5,
         "turret turn": 1.4,
         "velocity": 45,
@@ -36836,10 +36909,8 @@
           "scale": 2
         },
         "sound": "poot-exp/heavy_particle",
-        "hit effect": [
-          "heavy particle impact",
-          "medium particle explosion"
-        ],
+        "hit effect": "heavy particle impact",
+        "hit effect 2": "medium particle explosion",
         "inaccuracy": 0.5,
         "velocity": 45,
         "lifetime": 60,
@@ -36939,10 +37010,8 @@
         },
         "hardpoint offset": 42,
         "sound": "poot-exp/heavy_particle",
-        "hit effect": [
-          "heavy particle impact",
-          "medium particle explosion"
-        ],
+        "hit effect": "heavy particle impact",
+        "hit effect 2": "medium particle explosion",
         "inaccuracy": 0.5,
         "turret turn": 1.5,
         "velocity": 45,
@@ -37782,6 +37851,7 @@
           "scale": 1.6
         },
         "hardpoint offset": -1,
+        "hardpoint offset 2": 30,
         "sound": "poot-exp/neutron_beam",
         "hit effect": "neutron impact",
         "inaccuracy": 0.1,
@@ -38864,6 +38934,7 @@
         },
         "hardpoint sprite": "poot-exp/hardpoint/superheavy_mining_turret",
         "hardpoint offset": 0.9,
+        "hardpoint offset 2": 17,
         "sound": "mining laser",
         "hit effect": "beam laser impact",
         "turret turn": 3.6,
@@ -39115,6 +39186,7 @@
         },
         "hardpoint sprite": "poot-exp/hardpoint/superheavy_corite_mining_turret",
         "hardpoint offset": 0.9,
+        "hardpoint offset 2": 17,
         "sound": "mining laser",
         "hit effect": "beam laser impact",
         "inaccuracy": 0.1,
@@ -40918,11 +40990,9 @@
         "icon": "poot-exp/icon/neutron_atomic",
         "live effect": "neutron torpedo atomic trail",
         "fire effect": "neutron torpedo fire",
-        "hit effect": [
-          "neutron torpedo atomic explosion",
-          "neutron torpedo residue slow",
-          "neutron torpedo residue fast"
-        ],
+        "hit effect": "neutron torpedo atomic explosion",
+        "hit effect 2": "neutron torpedo residue slow",
+        "hit effect 3": "neutron torpedo residue fast",
         "die effect": "tiny explosion",
         "inaccuracy": 0.2,
         "velocity": 12,
@@ -42152,10 +42222,7 @@
         "hit effect": "missile hit",
         "inaccuracy": 4,
         "velocity": 14,
-        "lifetime": [
-          1,
-          350
-        ],
+        "lifetime": 1,
         "reload": 9,
         "burst count": 20,
         "burst reload": 6,
@@ -42168,6 +42235,7 @@
           "leading": true,
           "throttle control": true
         },
+        "lifetime 2": 350,
         "radar tracking": 0.9,
         "shield damage": 260,
         "hull damage": 180,
@@ -42307,10 +42375,7 @@
         "turret turn": 2,
         "inaccuracy": 4,
         "velocity": 14,
-        "lifetime": [
-          1,
-          350
-        ],
+        "lifetime": 1,
         "reload": 9,
         "burst count": 20,
         "burst reload": 6,
@@ -42323,6 +42388,7 @@
           "leading": true,
           "throttle control": true
         },
+        "lifetime 2": 350,
         "radar tracking": 0.9,
         "shield damage": 260,
         "hull damage": 180,
@@ -43203,11 +43269,9 @@
         "sound": "nuke",
         "stream": true,
         "icon": "icon/nuke",
-        "hit effect": [
-          "nuke explosion",
-          "nuke residue fast",
-          "nuke residue slow"
-        ],
+        "hit effect": "nuke explosion",
+        "hit effect 2": "nuke residue fast",
+        "hit effect 3": "nuke residue slow",
         "die effect": "missile death",
         "inaccuracy": 1,
         "velocity": 6,
@@ -43354,11 +43418,9 @@
         "sound": "nuke",
         "stream": true,
         "icon": "icon/nuke",
-        "hit effect": [
-          "nuke explosion",
-          "nuke residue fast",
-          "nuke residue slow"
-        ],
+        "hit effect": "nuke explosion",
+        "hit effect 2": "nuke residue fast",
+        "hit effect 3": "nuke residue slow",
         "die effect": "missile death",
         "inaccuracy": 1,
         "turret turn": 1,
@@ -45566,10 +45628,8 @@
           "frame rate": 2.5
         },
         "sound": "detainer",
-        "hit effect": [
-          "detainer impact",
-          "detainer smoke"
-        ],
+        "hit effect": "detainer impact",
+        "hit effect 2": "detainer smoke",
         "live effect": "detainer sparks",
         "inaccuracy": 0.5,
         "velocity": 14,
@@ -47870,10 +47930,8 @@
           "frame rate": 5
         },
         "sound": "poot-exp/korath_heavy_repeater",
-        "hit effect": [
-          "heavy repeater impact (POOT)",
-          "heavy repeater explosion (POOT)"
-        ],
+        "hit effect": "heavy repeater impact (POOT)",
+        "hit effect 2": "heavy repeater explosion (POOT)",
         "live effect": "heavy repeater trail (POOT)",
         "inaccuracy": 2.2,
         "velocity": 40,
@@ -47980,10 +48038,8 @@
           "frame rate": 5
         },
         "sound": "poot-exp/korath_heavy_repeater",
-        "hit effect": [
-          "heavy repeater impact (POOT)",
-          "heavy repeater explosion (POOT)"
-        ],
+        "hit effect": "heavy repeater impact (POOT)",
+        "hit effect 2": "heavy repeater explosion (POOT)",
         "live effect": "heavy repeater trail (POOT)",
         "inaccuracy": 2.2,
         "velocity": 40,
@@ -48094,10 +48150,8 @@
         },
         "hardpoint offset": 20,
         "sound": "poot-exp/korath_heavy_repeater",
-        "hit effect": [
-          "heavy repeater impact (POOT)",
-          "heavy repeater explosion (POOT)"
-        ],
+        "hit effect": "heavy repeater impact (POOT)",
+        "hit effect 2": "heavy repeater explosion (POOT)",
         "live effect": "heavy repeater trail (POOT)",
         "turret turn": 2,
         "inaccuracy": 2.2,
@@ -48205,10 +48259,8 @@
           "frame rate": 5
         },
         "sound": "poot-exp/korath_heavy_repeater",
-        "hit effect": [
-          "heavy repeater impact (POOT)",
-          "heavy repeater explosion (POOT)"
-        ],
+        "hit effect": "heavy repeater impact (POOT)",
+        "hit effect 2": "heavy repeater explosion (POOT)",
         "live effect": "heavy repeater trail (POOT)",
         "inaccuracy": 2.2,
         "velocity": 40,
@@ -48317,10 +48369,8 @@
         },
         "hardpoint offset": 20,
         "sound": "poot-exp/korath_heavy_repeater",
-        "hit effect": [
-          "heavy repeater impact (POOT)",
-          "heavy repeater explosion (POOT)"
-        ],
+        "hit effect": "heavy repeater impact (POOT)",
+        "hit effect 2": "heavy repeater explosion (POOT)",
         "live effect": "heavy repeater trail (POOT)",
         "turret turn": 2.2,
         "inaccuracy": 2.2,
@@ -55358,10 +55408,8 @@
         "sound": "poot-exp/pug_tracer",
         "hit effect": "seeker impact",
         "die effect": "seeker impact",
-        "live effect": [
-          "pug deepspace seeker trail (POOT)",
-          "pug deepspace seeker trail (POOT)"
-        ],
+        "live effect": "pug deepspace seeker trail (POOT)",
+        "live effect 2": "pug deepspace seeker trail (POOT)",
         "inaccuracy": 2,
         "velocity": 25,
         "lifetime": 500,
@@ -55467,10 +55515,8 @@
         "sound": "poot-exp/pug_tracer",
         "hit effect": "seeker impact",
         "die effect": "seeker impact",
-        "live effect": [
-          "pug deepspace seeker trail (POOT)",
-          "pug deepspace seeker trail (POOT)"
-        ],
+        "live effect": "pug deepspace seeker trail (POOT)",
+        "live effect 2": "pug deepspace seeker trail (POOT)",
         "inaccuracy": 2,
         "velocity": 25,
         "lifetime": 500,
@@ -55614,10 +55660,8 @@
         "sound": "poot-exp/pug_tracer",
         "hit effect": "seeker impact",
         "die effect": "seeker impact",
-        "live effect": [
-          "pug deepspace seeker trail (POOT)",
-          "pug deepspace seeker trail (POOT)"
-        ],
+        "live effect": "pug deepspace seeker trail (POOT)",
+        "live effect 2": "pug deepspace seeker trail (POOT)",
         "turret turn": 2,
         "inaccuracy": 2,
         "velocity": 25,
@@ -56786,10 +56830,8 @@
           "scale": 1.25
         },
         "fire effect": "gridfire fire",
-        "hit effect": [
-          "gridfire hit",
-          "gridfire cloud"
-        ],
+        "hit effect": "gridfire hit",
+        "hit effect 2": "gridfire cloud",
         "sound": "gridfire",
         "velocity": 1770,
         "lifetime": 1,
@@ -56883,10 +56925,8 @@
           "scale": 1.25
         },
         "fire effect": "gridfire fire",
-        "hit effect": [
-          "gridfire hit",
-          "gridfire cloud"
-        ],
+        "hit effect": "gridfire hit",
+        "hit effect 2": "gridfire cloud",
         "sound": "gridfire",
         "velocity": 1770,
         "lifetime": 1,
@@ -56977,11 +57017,9 @@
       "unique": 1,
       "weapon": {
         "fire effect": "gridfire fire",
-        "hit effect": [
-          "gridfire hit",
-          "pug archaic gridfire cloud",
-          "gridfire cloud"
-        ],
+        "hit effect": "gridfire hit",
+        "hit effect 2": "pug archaic gridfire cloud",
+        "hit effect 3": "gridfire cloud",
         "sound": "gridfire",
         "phasing": true,
         "velocity": 2150,
@@ -57078,10 +57116,8 @@
           "scale": 1.2
         },
         "fire effect": "gridfire fire",
-        "hit effect": [
-          "gridfire hit",
-          "gridfire cloud"
-        ],
+        "hit effect": "gridfire hit",
+        "hit effect 2": "gridfire cloud",
         "sound": "gridfire",
         "phasing": true,
         "velocity": 2150,
@@ -57176,11 +57212,9 @@
       "unique": 1,
       "weapon": {
         "fire effect": "pug helios fire",
-        "hit effect": [
-          "pug helios hit",
-          "pug helios cloud",
-          "pug helios cloud stationary"
-        ],
+        "hit effect": "pug helios hit",
+        "hit effect 2": "pug helios cloud",
+        "hit effect 3": "pug helios cloud stationary",
         "sound": "gridfire",
         "phasing": true,
         "velocity": 2650,
@@ -57314,11 +57348,9 @@
           "scale": 1
         },
         "fire effect": "pug helios fire",
-        "hit effect": [
-          "pug helios hit",
-          "pug helios cloud",
-          "pug helios cloud stationary"
-        ],
+        "hit effect": "pug helios hit",
+        "hit effect 2": "pug helios cloud",
+        "hit effect 3": "pug helios cloud stationary",
         "sound": "gridfire",
         "phasing": true,
         "velocity": 2650,
@@ -57414,11 +57446,9 @@
       "unique": 1,
       "weapon": {
         "fire effect": "pug t5 helios fire",
-        "hit effect": [
-          "pug t5 helios hit",
-          "pug t5 helios cloud dynamic",
-          "pug t5 helios cloud stationary"
-        ],
+        "hit effect": "pug t5 helios hit",
+        "hit effect 2": "pug t5 helios cloud dynamic",
+        "hit effect 3": "pug t5 helios cloud stationary",
         "sound": "gridfire",
         "phasing": true,
         "velocity": 4500,
@@ -57518,11 +57548,9 @@
           "scale": 1.5
         },
         "fire effect": "pug t5 helios fire",
-        "hit effect": [
-          "pug t5 helios hit",
-          "pug t5 helios cloud dynamic",
-          "pug t5 helios cloud stationary"
-        ],
+        "hit effect": "pug t5 helios hit",
+        "hit effect 2": "pug t5 helios cloud dynamic",
+        "hit effect 3": "pug t5 helios cloud stationary",
         "sound": "gridfire",
         "phasing": true,
         "velocity": 4500,
@@ -57841,10 +57869,8 @@
         "sound": "poot-exp/revenant_lance",
         "hit effect": "pug small revenant impact (POOT)",
         "die effect": "pug small revenant impact (POOT)",
-        "live effect": [
-          "pug revenant live (POOT)",
-          "pug revenant live 2 (POOT)"
-        ],
+        "live effect": "pug revenant live (POOT)",
+        "live effect 2": "pug revenant live 2 (POOT)",
         "fire effect": "pug small revenant fire (POOT)",
         "turret turn": 2,
         "inaccuracy": 0.1,
@@ -57953,12 +57979,10 @@
         "sound": "poot-exp/revenant_lance",
         "hit effect": "pug revenant impact (POOT)",
         "die effect": "pug revenant impact (POOT)",
-        "live effect": [
-          "pug revenant live (POOT)",
-          "pug revenant live 2 (POOT)",
-          "pug revenant live (POOT)",
-          "pug revenant live 2 (POOT)"
-        ],
+        "live effect": "pug revenant live (POOT)",
+        "live effect 2": "pug revenant live 2 (POOT)",
+        "live effect 3": "pug revenant live (POOT)",
+        "live effect 4": "pug revenant live 2 (POOT)",
         "fire effect": "pug small revenant fire (POOT)",
         "turret turn": 2,
         "inaccuracy": 0.1,
@@ -58066,10 +58090,8 @@
         "sound": "poot-exp/revenant_lance",
         "hit effect": "pug revenant impact (POOT)",
         "die effect": "pug revenant impact (POOT)",
-        "live effect": [
-          "pug revenant live (POOT)",
-          "pug revenant live 2 (POOT)"
-        ],
+        "live effect": "pug revenant live (POOT)",
+        "live effect 2": "pug revenant live 2 (POOT)",
         "fire effect": "pug small revenant fire (POOT)",
         "turret turn": 2,
         "arc": 35,
@@ -58178,10 +58200,8 @@
         "sound": "poot-exp/revenant_lance",
         "hit effect": "pug revenant impact (POOT)",
         "die effect": "pug revenant impact (POOT)",
-        "live effect": [
-          "pug revenant live (POOT)",
-          "pug revenant live 2 (POOT)"
-        ],
+        "live effect": "pug revenant live (POOT)",
+        "live effect 2": "pug revenant live 2 (POOT)",
         "fire effect": "pug small revenant fire (POOT)",
         "turret turn": 2,
         "arc": 35,
@@ -58291,10 +58311,8 @@
         "sound": "poot-exp/revenant_lance",
         "hit effect": "pug revenant impact (POOT)",
         "die effect": "pug revenant impact (POOT)",
-        "live effect": [
-          "pug revenant live (POOT)",
-          "pug revenant live 2 (POOT)"
-        ],
+        "live effect": "pug revenant live (POOT)",
+        "live effect 2": "pug revenant live 2 (POOT)",
         "fire effect": "pug small revenant fire (POOT)",
         "turret turn": 2,
         "inaccuracy": 0.1,
@@ -58402,10 +58420,8 @@
         "sound": "poot-exp/revenant_lance",
         "hit effect": "pug revenant impact (POOT)",
         "die effect": "pug revenant impact (POOT)",
-        "live effect": [
-          "pug revenant live (POOT)",
-          "pug revenant live 2 (POOT)"
-        ],
+        "live effect": "pug revenant live (POOT)",
+        "live effect 2": "pug revenant live 2 (POOT)",
         "fire effect": "pug small revenant fire (POOT)",
         "turret turn": 2,
         "arc": 35,
@@ -58515,10 +58531,8 @@
         "sound": "poot-exp/revenant_lance",
         "hit effect": "pug revenant impact (POOT)",
         "die effect": "pug revenant impact (POOT)",
-        "live effect": [
-          "pug revenant live (POOT)",
-          "pug revenant live 2 (POOT)"
-        ],
+        "live effect": "pug revenant live (POOT)",
+        "live effect 2": "pug revenant live 2 (POOT)",
         "fire effect": "pug small revenant fire (POOT)",
         "turret turn": 2,
         "inaccuracy": 0.1,
@@ -60388,10 +60402,8 @@
         "hardpoint offset": 10,
         "sound": "ranseur",
         "fire effect": "ranseur",
-        "hit effect": [
-          "jump drive",
-          "disruptor impact"
-        ],
+        "hit effect": "jump drive",
+        "hit effect 2": "disruptor impact",
         "turret turn": 1.8,
         "lifetime": 1,
         "reload": 100,
@@ -60482,10 +60494,8 @@
       "weapon": {
         "sound": "ranseur",
         "fire effect": "ranseur",
-        "hit effect": [
-          "jump drive",
-          "disruptor impact"
-        ],
+        "hit effect": "jump drive",
+        "hit effect 2": "disruptor impact",
         "lifetime": 1,
         "reload": 30,
         "velocity": 600,
@@ -60578,10 +60588,8 @@
         "hardpoint offset": 10,
         "sound": "ranseur",
         "fire effect": "ranseur",
-        "hit effect": [
-          "jump drive",
-          "disruptor impact"
-        ],
+        "hit effect": "jump drive",
+        "hit effect 2": "disruptor impact",
         "turret turn": 1.8,
         "lifetime": 1,
         "reload": 30,
@@ -60667,10 +60675,8 @@
           "frame rate": 30,
           "no repeat": true
         },
-        "hit effect": [
-          "jump drive",
-          "disruptor impact"
-        ],
+        "hit effect": "jump drive",
+        "hit effect 2": "disruptor impact",
         "lifetime": 11,
         "firing energy": 3500,
         "firing heat": 125,
@@ -60712,10 +60718,8 @@
         "hardpoint offset": 15,
         "sound": "ranseur",
         "fire effect": "elite ranseur (POOT)",
-        "hit effect": [
-          "jump drive",
-          "disruptor impact"
-        ],
+        "hit effect": "jump drive",
+        "hit effect 2": "disruptor impact",
         "turret turn": 1.8,
         "arc": 45,
         "lifetime": 1,
@@ -60813,10 +60817,8 @@
         "hardpoint offset": 15,
         "sound": "ranseur",
         "fire effect": "elite ranseur (POOT)",
-        "hit effect": [
-          "jump drive",
-          "disruptor impact"
-        ],
+        "hit effect": "jump drive",
+        "hit effect 2": "disruptor impact",
         "turret turn": 1.8,
         "lifetime": 1,
         "reload": 240,
@@ -60915,10 +60917,8 @@
           "rewind": true
         },
         "sound": "culverin",
-        "hit effect": [
-          "culverin hit",
-          "elite culverin hit sound (POOT)"
-        ],
+        "hit effect": "culverin hit",
+        "hit effect 2": "elite culverin hit sound (POOT)",
         "die effect": "culverin die",
         "lifetime": 1000,
         "reload": 75,
@@ -61066,10 +61066,8 @@
         },
         "hardpoint offset": 15,
         "sound": "culverin",
-        "hit effect": [
-          "culverin hit",
-          "elite culverin hit sound (POOT)"
-        ],
+        "hit effect": "culverin hit",
+        "hit effect 2": "elite culverin hit sound (POOT)",
         "die effect": "culverin die",
         "lifetime": 1000,
         "turret turn": 2,
@@ -61479,18 +61477,14 @@
           "rewind": true
         },
         "sound": "torpedo",
-        "hit effect": [
-          "quarg harbinger die (POOT)",
-          "quarg harbinger die 2 (POOT)",
-          "quarg harbinger mini blast slow",
-          "quarg harbinger mini blast fast"
-        ],
-        "die effect": [
-          "quarg harbinger die (POOT)",
-          "quarg harbinger die 2 (POOT)",
-          "quarg harbinger mini blast slow",
-          "quarg harbinger mini blast fast"
-        ],
+        "hit effect": "quarg harbinger die (POOT)",
+        "hit effect 2": "quarg harbinger die 2 (POOT)",
+        "hit effect 3": "quarg harbinger mini blast slow",
+        "hit effect 4": "quarg harbinger mini blast fast",
+        "die effect": "quarg harbinger die (POOT)",
+        "die effect 2": "quarg harbinger die 2 (POOT)",
+        "die effect 3": "quarg harbinger mini blast slow",
+        "die effect 4": "quarg harbinger mini blast fast",
         "lifetime": 20,
         "velocity": 0,
         "drag": 0.05,
@@ -61678,11 +61672,9 @@
           "frame rate": 30
         },
         "sound": "ember tear",
-        "hit effect": [
-          "ember tear spark",
-          "ember tear impact",
-          "ember tear vortex"
-        ],
+        "hit effect": "ember tear spark",
+        "hit effect 2": "ember tear impact",
+        "hit effect 3": "ember tear vortex",
         "fire effect": "ember tear fire",
         "velocity": 800,
         "inaccuracy": 0,
@@ -61788,11 +61780,9 @@
           "frame rate": 30
         },
         "sound": "ember tear",
-        "hit effect": [
-          "ember tear spark",
-          "ember monsoon impact",
-          "ember monsoon vortex"
-        ],
+        "hit effect": "ember tear spark",
+        "hit effect 2": "ember monsoon impact",
+        "hit effect 3": "ember monsoon vortex",
         "fire effect": "ember monsoon fire",
         "velocity": 2000,
         "inaccuracy": 0,
@@ -61896,11 +61886,9 @@
           "frame rate": 30
         },
         "sound": "ember tear",
-        "hit effect": [
-          "ember monsoon spark",
-          "ember monsoon impact",
-          "ember monsoon vortex"
-        ],
+        "hit effect": "ember monsoon spark",
+        "hit effect 2": "ember monsoon impact",
+        "hit effect 3": "ember monsoon vortex",
         "fire effect": "ember monsoon fire",
         "icon": "poot-exp/icon/embermonsoon",
         "velocity": 2000,
@@ -62002,11 +61990,9 @@
         "sound": "dragonflame",
         "icon": "icon/dragonflame",
         "fire effect": "dragonflame",
-        "hit effect": [
-          "bright hit",
-          "dragonflame plasma",
-          "dragonflame debris"
-        ],
+        "hit effect": "bright hit",
+        "hit effect 2": "dragonflame plasma",
+        "hit effect 3": "dragonflame debris",
         "turret turn": 1.8,
         "velocity": 2000,
         "lifetime": 1,
@@ -62105,11 +62091,9 @@
         "sound": "dragonflame",
         "icon": "icon/dragonflame",
         "fire effect": "overcharged_dragonflame",
-        "hit effect": [
-          "overcharged bright hit",
-          "dragonflame plasma",
-          "dragonflame debris"
-        ],
+        "hit effect": "overcharged bright hit",
+        "hit effect 2": "dragonflame plasma",
+        "hit effect 3": "dragonflame debris",
         "velocity": 4000,
         "lifetime": 1,
         "reload": 240,
@@ -62208,11 +62192,9 @@
         "sound": "dragonflame",
         "icon": "icon/dragonflame",
         "fire effect": "overcharged_dragonflame",
-        "hit effect": [
-          "overcharged bright hit",
-          "dragonflame plasma",
-          "dragonflame debris"
-        ],
+        "hit effect": "overcharged bright hit",
+        "hit effect 2": "dragonflame plasma",
+        "hit effect 3": "dragonflame debris",
         "turret turn": 1.8,
         "velocity": 4000,
         "lifetime": 1,
@@ -63313,11 +63295,9 @@
         },
         "sound": "moonbeam",
         "fire effect": "moonbeam fleck",
-        "hit effect": [
-          "duskbeam fire (POOT)",
-          "moonbeam impact",
-          "sunbeam impact"
-        ],
+        "hit effect": "duskbeam fire (POOT)",
+        "hit effect 2": "moonbeam impact",
+        "hit effect 3": "sunbeam impact",
         "inaccuracy": 0.4,
         "velocity": 675,
         "lifetime": 1,
@@ -63433,11 +63413,9 @@
         },
         "sound": "moonbeam",
         "fire effect": "moonbeam fleck",
-        "hit effect": [
-          "duskbeam fire (POOT)",
-          "moonbeam impact",
-          "sunbeam impact"
-        ],
+        "hit effect": "duskbeam fire (POOT)",
+        "hit effect 2": "moonbeam impact",
+        "hit effect 3": "sunbeam impact",
         "inaccuracy": 0.4,
         "velocity": 675,
         "lifetime": 1,
@@ -66164,5 +66142,5 @@
       "pluginId": "POOT/peripherals-or-outstanding-trinkets"
     }
   ],
-  "parsedAt": "2026-07-01T08:02:29.426Z"
+  "parsedAt": "2026-07-03T07:56:12.293Z"
 }

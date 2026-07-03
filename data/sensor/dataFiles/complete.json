@@ -1152,11 +1152,9 @@
         "sound": "nuke",
         "stream": true,
         "icon": "icon/nuke",
-        "hit effect": [
-          "nuke explosion",
-          "nuke residue fast",
-          "nuke residue slow"
-        ],
+        "hit effect": "nuke explosion",
+        "hit effect 2": "nuke residue fast",
+        "hit effect 3": "nuke residue slow",
         "die effect": "missile death",
         "inaccuracy": 10,
         "velocity": 6,
@@ -1325,11 +1323,7 @@
       "javelin capacity": 100,
       "weapon": {
         "sprite": "projectile/shardactive",
-        "homing": [
-          2,
-          1,
-          4
-        ],
+        "homing": 2,
         "icon": "icon/rail gun",
         "sound": "ion impact",
         "fire effect": "rail sparks",
@@ -1342,9 +1336,11 @@
         "turn": 5,
         "lifetime": 700,
         "reload": 120,
+        "homing 2": 1,
         "firing energy": 100,
         "firing heat": 2,
         "firing fuel": 5,
+        "homing 3": 4,
         "infrared tracking": 0.65,
         "radar tracking": 1,
         "optical tracking": 0.1,
@@ -1881,11 +1877,7 @@
       "javelin capacity": 100,
       "weapon": {
         "sprite": "projectile/shardinactive",
-        "homing": [
-          2,
-          1,
-          2
-        ],
+        "homing": 2,
         "icon": "icon/rail gun",
         "sound": "ion impact",
         "fire effect": "rail sparks",
@@ -1899,9 +1891,11 @@
         "lifetime": 60,
         "stream": true,
         "reload": 120,
+        "homing 2": 1,
         "firing energy": 100,
         "firing heat": 2,
         "firing fuel": 5,
+        "homing 3": 2,
         "infrared tracking": 0.65,
         "radar tracking": 1,
         "optical tracking": 0.1,
@@ -2118,11 +2112,9 @@
         "sound": "nuke",
         "stream": true,
         "icon": "icon/nuke",
-        "hit effect": [
-          "nuke explosion",
-          "nuke residue fast",
-          "nuke residue slow"
-        ],
+        "hit effect": "nuke explosion",
+        "hit effect 2": "nuke residue fast",
+        "hit effect 3": "nuke residue slow",
         "die effect": "missile death",
         "inaccuracy": 1,
         "velocity": 6,
@@ -2331,6 +2323,7 @@
         "random lifetime": 8,
         "velocity": 10,
         "damage dropoff": 0,
+        "damage dropoff 2": 198,
         "dropoff modifier": 0.5,
         "shield damage": 10.8,
         "hull damage": 10.7,
@@ -2601,5 +2594,5 @@
       "pluginId": "sensor/sensor"
     }
   ],
-  "parsedAt": "2026-07-01T08:02:29.352Z"
+  "parsedAt": "2026-07-03T07:56:12.201Z"
 }

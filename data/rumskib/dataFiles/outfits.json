@@ -339,6 +339,7 @@
       "lifetime": 18,
       "random lifetime": 8,
       "damage dropoff": 0,
+      "damage dropoff 2": 198,
       "dropoff modifier": 0.5,
       "shield damage": 0.8,
       "hull damage": 0.7,
@@ -614,11 +615,9 @@
         "no repeat": true,
         "frame rate": 0.25
       },
-      "hit effect": [
-        "nuke explosion",
-        "nuke residue fast",
-        "nuke residue slow"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "nuke residue fast",
+      "hit effect 3": "nuke residue slow",
       "die effect": "missile death",
       "fused": true,
       "safe": true,
@@ -3704,6 +3703,7 @@
       },
       "hardpoint sprite": "hardpoint/laser turret quad",
       "hardpoint offset": -0.5,
+      "hardpoint offset 2": 8,
       "sound": "laser",
       "hit effect": "beam laser impact",
       "inaccuracy": 0.5,

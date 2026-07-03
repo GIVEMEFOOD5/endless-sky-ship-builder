@@ -17,37 +17,37 @@
       {
         "x": -13.5,
         "y": -36.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 13.5,
         "y": -36.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": -24.5,
         "y": -29.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 24.5,
         "y": -29.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 0,
         "y": -27.5,
-        "gun": ""
+        "gun": "Nucleolysis Beam"
       },
       {
         "x": -28,
         "y": -19.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 28,
         "y": -19.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       }
     ],
     "turrets": [],
@@ -100,7 +100,7 @@
     "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to be much more heavily armed than most others of its kind.",
     "_internalId": "official-game/endless-sky::Aberrant Chomper",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "d27da7dde549",
+    "_hash": "c4216c61e4a7",
     "variant": "Aberrant Chomper (crunched)",
     "baseShip": "Aberrant Chomper",
     "_variantPluginId": "LixiChronikouOrious list/Jaws",
@@ -310,22 +310,22 @@
       {
         "x": -16.5,
         "y": -8.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 16.5,
         "y": -8.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": -13,
         "y": -3.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 13,
         "y": -3.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       }
     ],
     "turrets": [],
@@ -378,7 +378,7 @@
     "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to be lighter and capable of higher speeds than most other Aberrant ships, yet it still carries an enlarged armament.",
     "_internalId": "official-game/endless-sky::Aberrant Hugger",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "4cea1f8316b6",
+    "_hash": "c0d6835bc40e",
     "variant": "Aberrant Hugger (crunched)",
     "baseShip": "Aberrant Hugger",
     "_variantPluginId": "LixiChronikouOrious list/Jaws",
@@ -439,19 +439,23 @@
     "engines": [
       {
         "x": -14,
-        "y": 37.5
+        "y": 37.5,
+        "zoom": 1.5
       },
       {
         "x": 14,
-        "y": 37.5
+        "y": 37.5,
+        "zoom": 1.5
       },
       {
         "x": -6.5,
-        "y": 39.5
+        "y": 39.5,
+        "zoom": 1.5
       },
       {
         "x": 6.5,
-        "y": 39.5
+        "y": 39.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -460,12 +464,12 @@
       {
         "x": -14.5,
         "y": -63.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 14.5,
         "y": -63.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       }
     ],
     "turrets": [
@@ -521,7 +525,6 @@
         "hit force": 2800
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 8,
     "small explosion": 14,
     "medium explosion": 26,
@@ -530,7 +533,7 @@
     "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to have grown extra thrusters around a lean, sleek fuselage.",
     "_internalId": "official-game/endless-sky::Aberrant Longfellow",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "b3291800c0da",
+    "_hash": "5ec835878625",
     "variant": "Aberrant Longfellow (crunched)",
     "baseShip": "Aberrant Longfellow",
     "_variantPluginId": "LixiChronikouOrious list/Jaws",
@@ -601,22 +604,24 @@
       {
         "x": -10.5,
         "y": -42.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 10.5,
         "y": -42.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": -24,
         "y": 30,
-        "gun": ""
+        "gun": "Aberrant Spiker",
+        "angle": -90
       },
       {
         "x": 24,
         "y": 30,
-        "gun": ""
+        "gun": "Aberrant Spiker",
+        "angle": 90
       }
     ],
     "turrets": [],
@@ -661,7 +666,6 @@
         "hit force": 2800
       }
     },
-    "angle": 90,
     "tiny explosion": 8,
     "small explosion": 14,
     "medium explosion": 26,
@@ -670,7 +674,7 @@
     "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant in particular seems to be in the process of growing more elongated, and has a tougher hull than most other variants.",
     "_internalId": "official-game/endless-sky::Aberrant Icebreaker",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "206bfd3d6618",
+    "_hash": "d18cb810d56f",
     "variant": "Aberrant Icebreaker (crunched)",
     "baseShip": "Aberrant Icebreaker",
     "_variantPluginId": "LixiChronikouOrious list/Jaws",
@@ -756,27 +760,29 @@
       {
         "x": -2,
         "y": -37,
-        "gun": ""
+        "gun": "Nucleolysis Beam"
       },
       {
         "x": 16,
         "y": -37,
-        "gun": ""
+        "gun": "Nucleolysis Beam"
       },
       {
         "x": -25,
         "y": -17.5,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": -34,
         "y": 25,
-        "gun": ""
+        "gun": "Aberrant Spiker",
+        "angle": -90
       },
       {
         "x": 32,
         "y": 32,
-        "gun": ""
+        "gun": "Aberrant Spiker",
+        "angle": 90
       }
     ],
     "turrets": [
@@ -832,7 +838,6 @@
         "hit force": 3800
       }
     },
-    "angle": 90,
     "tiny explosion": 8,
     "small explosion": 14,
     "medium explosion": 26,
@@ -841,7 +846,7 @@
     "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. Something appears to have gone terribly wrong in the germination of this variant. It is a lopsided, deformed mass of malformed material, which survives only through sheer luck.",
     "_internalId": "official-game/endless-sky::Aberrant Trip",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "3c68be156e95",
+    "_hash": "a4d95d966a66",
     "variant": "Aberrant Trip (crunched)",
     "baseShip": "Aberrant Trip",
     "_variantPluginId": "LixiChronikouOrious list/Jaws",
@@ -931,42 +936,44 @@
       {
         "x": -8.5,
         "y": -42,
-        "gun": ""
+        "gun": "Nucleolysis Beam"
       },
       {
         "x": 8.5,
         "y": -42,
-        "gun": ""
+        "gun": "Nucleolysis Beam"
       },
       {
         "x": -25,
         "y": -31,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 25,
         "y": -31,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": -35.5,
         "y": -22,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": 35.5,
         "y": -22,
-        "gun": ""
+        "gun": "Ka'het Ravager Beam"
       },
       {
         "x": -43,
         "y": 25,
-        "gun": ""
+        "gun": "Aberrant Spiker",
+        "angle": -90
       },
       {
         "x": 43,
         "y": 25,
-        "gun": ""
+        "gun": "Aberrant Spiker",
+        "angle": 90
       }
     ],
     "turrets": [
@@ -1027,7 +1034,6 @@
         "hit force": 3800
       }
     },
-    "angle": 90,
     "tiny explosion": 8,
     "small explosion": 14,
     "medium explosion": 26,
@@ -1036,7 +1042,7 @@
     "description": "This appears to be some kind of organo-metallic entity, made from a strange mosaic of organic tissue, conventional material, and an exotic matter that defies conventional analysis. This variant seems to be a composite of two or three individuals, fused together into a single mass.",
     "_internalId": "official-game/endless-sky::Aberrant Triplet",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "3100a7169bad",
+    "_hash": "b661f61d1e67",
     "variant": "Aberrant Triplet (crunched)",
     "baseShip": "Aberrant Triplet",
     "_variantPluginId": "LixiChronikouOrious list/Jaws",

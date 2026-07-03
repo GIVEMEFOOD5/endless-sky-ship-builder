@@ -56,12 +56,13 @@
       {
         "x": 1,
         "y": 16.4,
-        "turret": ""
+        "turret": "Mining Laser Turret"
       },
       {
         "x": 1,
         "y": 16.4,
-        "turret": ""
+        "turret": "Anti-Missile Turret",
+        "under": true
       }
     ],
     "bays": [],
@@ -100,7 +101,6 @@
         "hit force": 1200
       }
     },
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 30,
     "medium explosion": 25,
@@ -109,7 +109,7 @@
     "description": "An early YT-series prototype that predates the production line. The cheapest hull in CEC's catalog — crew-hungry for its size, with limited weapons and weaker shields than anything else bearing the Corellian name. Comes stock with mining lasers and an asteroid scanner. Most surviving examples end up on the frontier, in the hands of miners and salvagers who value the modular design over polish.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Prospector",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "7ef507377b1d",
+    "_hash": "111ec598ed57",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Merchant": true,
@@ -258,7 +258,8 @@
       {
         "x": 1,
         "y": 12.9,
-        "turret": ""
+        "turret": "",
+        "under": true
       }
     ],
     "bays": [],
@@ -302,7 +303,6 @@
         "hit force": 1350
       }
     },
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 32,
     "medium explosion": 28,
@@ -311,7 +311,7 @@
     "description": "A pirate-modified YT-series freighter built for speed and discretion. Exceptionally strong shields paired with a fragile hull — devastating while shields hold, desperate if they drop. Fast enough to choose its fights, with stealth plating, jammers, and a full sensor suite. Only three crew needed. Available exclusively through unofficial channels.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Vagabond",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "9b1c96e22a18",
+    "_hash": "575486447fcd",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Pirate": true
@@ -463,7 +463,8 @@
       {
         "x": 0,
         "y": 10.9,
-        "turret": ""
+        "turret": "",
+        "under": true
       }
     ],
     "bays": [],
@@ -507,7 +508,6 @@
         "hit force": 1500
       }
     },
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 32,
     "medium explosion": 28,
@@ -516,7 +516,7 @@
     "description": "A pirate raider built for boarding actions, with the strongest shields of any Corellian freighter. Heavy crew complement with boarding marines and a brig for prisoners. Slower than the Vagabond but significantly tougher — trades speed for durability and cargo space for plunder storage. Rarely seen without a Vagabond nearby.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Privateer",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "85d5f4d86c82",
+    "_hash": "14435749ec79",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Pirate": true
@@ -626,7 +626,8 @@
       {
         "x": 1,
         "y": 8.9,
-        "turret": ""
+        "turret": "",
+        "under": true
       }
     ],
     "bays": [],
@@ -670,7 +671,6 @@
         "hit force": 1200
       }
     },
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 30,
     "medium explosion": 24,
@@ -679,7 +679,7 @@
     "description": "A glass cannon strike craft built on a heavily modified YT-1300 hull. Atomic engines and twin heavy lasers make it extremely fast and hard-hitting, but its paper-thin hull means a shield failure is almost certainly fatal. A ship for skilled pilots only.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Striker",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "befc68d4a66c",
+    "_hash": "8f987dab16f1",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Pirate": true,
@@ -832,7 +832,8 @@
       {
         "x": 0.1,
         "y": 30.2,
-        "turret": ""
+        "turret": "",
+        "under": true
       }
     ],
     "bays": [],
@@ -876,7 +877,6 @@
         "hit force": 1725
       }
     },
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 34,
     "medium explosion": 28,
@@ -885,7 +885,7 @@
     "description": "CEC's flagship combat yacht — four proton guns, exceptional shielding, and enough bunks and cargo space to serve as a mobile headquarters. More expensive than the Firebird or Osprey but trades raw firepower for versatility. A ship for independent operators who need a single hull that can fight, haul, and carry passengers.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Vanguard",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "4f4b18fd043f",
+    "_hash": "709b03d212f4",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Merchant": true,
@@ -1007,7 +1007,8 @@
       {
         "x": -2,
         "y": 18.4,
-        "turret": ""
+        "turret": "",
+        "under": true
       }
     ],
     "bays": [],
@@ -1046,7 +1047,6 @@
         "hit force": 1200
       }
     },
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 34,
     "medium explosion": 28,
@@ -1055,7 +1055,7 @@
     "description": "CEC's entry-level production freighter. Better shields, hull, and cargo than the Hauler at a higher price, with a single gun and dual turrets. A solid workhorse for trade routes — enough defense to discourage casual raiders, not enough to win a real fight.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Cargo",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "dd810975bf34",
+    "_hash": "6337e2fce699",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Merchant": true,
@@ -1156,12 +1156,13 @@
       {
         "x": -0.5,
         "y": 15.9,
-        "turret": ""
+        "turret": "Quad Blaster Turret"
       },
       {
         "x": -0.5,
         "y": 16.4,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret",
+        "under": true
       }
     ],
     "bays": [],
@@ -1205,7 +1206,6 @@
         "hit force": 1350
       }
     },
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 34,
     "medium explosion": 28,
@@ -1214,7 +1214,7 @@
     "description": "The most popular ship in CEC's catalog — a modular freighter that solidly outperforms the Argosy in hull and cargo at the cost of fewer hardpoints and weaker shields. Generous outfit space and balanced design make it the go-to platform for independent captains who want room to grow.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Trader",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "5898b1a8e0e6",
+    "_hash": "f9f6154698cc",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Merchant": true,
@@ -1328,7 +1328,8 @@
       {
         "x": 0,
         "y": 10.9,
-        "turret": ""
+        "turret": "",
+        "under": true
       }
     ],
     "bays": [],
@@ -1372,7 +1373,6 @@
         "hit force": 1575
       }
     },
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 36,
     "medium explosion": 30,
@@ -1382,7 +1382,7 @@
     "description": "CEC's premium freighter, competing with the Mule at a lower price point. Offers better hull and cargo capacity but weaker shields and less outfit space. A step up from the YT-1300 for established merchants hauling valuable cargo through dangerous space.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Merchantman",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "80d515070e4a",
+    "_hash": "eb5862b2a235",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Merchant": true,
@@ -1490,12 +1490,14 @@
       {
         "x": -31,
         "y": -54.6,
-        "turret": ""
+        "turret": "",
+        "under": true
       },
       {
         "x": 31,
         "y": -54.6,
-        "turret": ""
+        "turret": "",
+        "under": true
       },
       {
         "x": -31,
@@ -1520,12 +1522,14 @@
       {
         "x": -44,
         "y": 48.4,
-        "turret": ""
+        "turret": "",
+        "under": true
       },
       {
         "x": 44,
         "y": 48.4,
-        "turret": ""
+        "turret": "",
+        "under": true
       }
     ],
     "bays": [
@@ -1577,7 +1581,6 @@
         "hit force": 2250
       }
     },
-    "under": true,
     "tiny explosion": 15,
     "small explosion": 30,
     "medium explosion": 35,
@@ -1587,7 +1590,7 @@
     "description": "A spherical combat platform with eight turrets, a drone bay, and almost no cargo space. Built for convoy escort and station defense rather than hauling. Glacially slow but nearly impossible to flank, with the thickest hull in the Corellian lineup.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Fortress",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "a7ca31fed52c",
+    "_hash": "b440eb8ab81d",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Merchant": true,
@@ -1663,7 +1666,7 @@
       {
         "x": 0.4,
         "y": -14.5,
-        "gun": ""
+        "gun": "Beam Laser"
       }
     ],
     "turrets": [],
@@ -1692,7 +1695,7 @@
     "description": "A compact beam drone built by Corellian Engineering as a companion for their Fortress escort platform. Sturdier than the Republic's Combat Drone and available without a Navy license, it carries the same Beam Laser in a reinforced hull. CEC's chief engineer calls it 'the simplest thing we build.' \tDrones do not come equipped with a hyperdrive. You cannot carry a drone unless you have a ship in your fleet with a drone bay.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::CEC Beam Drone",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "c4e859db29d8",
+    "_hash": "1ad6d597f3aa",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Merchant": true,
@@ -1776,12 +1779,14 @@
       {
         "x": -40.5,
         "y": -7.6,
-        "turret": ""
+        "turret": "",
+        "under": true
       },
       {
         "x": 38.5,
         "y": -7.1,
-        "turret": ""
+        "turret": "",
+        "under": true
       }
     ],
     "bays": [],
@@ -1825,7 +1830,6 @@
         "hit force": 1875
       }
     },
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 36,
     "medium explosion": 30,
@@ -1835,7 +1839,7 @@
     "description": "A combat conversion of the YT-1100 hull with four turrets and heavy armor plating at the expense of nearly all cargo space. Demands the largest crew of any Corellian ship. Popular with militia and escort services as an affordable, combat-ready alternative to purpose-built warships.",
     "_internalId": "Corellian Shipyard/corellian-shipyard::Corellian Ironclad",
     "_pluginId": "Corellian Shipyard/corellian-shipyard",
-    "_hash": "f73610cf1a58",
+    "_hash": "05bdba5aff32",
     "governments": {
       "Corellian Shipyard/corellian-shipyard": {
         "Merchant": true,

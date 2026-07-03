@@ -8,102 +8,120 @@
       },
       {
         "x": -66,
-        "y": 190
+        "y": 190,
+        "zoom": 0.5
       },
       {
         "x": 66,
-        "y": 190
+        "y": 190,
+        "zoom": 0.5
       }
     ],
     "reverseEngines": [
       {
         "x": -117,
         "y": 152,
-        "position": "zoom .5"
+        "zoom": 0.5
       },
       {
         "x": 117,
         "y": 152,
-        "position": "zoom .5"
+        "zoom": 0.5
       }
     ],
     "steeringEngines": [
       {
         "x": -110,
         "y": 170,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": 90,
+        "left": true
       },
       {
         "x": 110,
         "y": 170,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 270,
+        "right": true
       },
       {
         "x": -15,
         "y": -112,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "right": true
       },
       {
         "x": 15,
         "y": -112,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 270,
+        "left": true
       },
       {
         "x": -11,
         "y": -132,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "right": true
       },
       {
         "x": 11,
         "y": -132,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 270,
+        "left": true
       },
       {
         "x": -9,
         "y": -152,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "right": true
       },
       {
         "x": 9,
         "y": -152,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 270,
+        "left": true
       }
     ],
     "guns": [
       {
         "x": -0.5,
         "y": -190,
-        "gun": ""
+        "gun": "Quantum Torpedo Pod"
       },
       {
         "x": 0.5,
         "y": -190,
-        "gun": ""
+        "gun": "Quantum Torpedo Pod"
       },
       {
         "x": -1,
         "y": -190,
-        "gun": ""
+        "gun": "Quantum Torpedo Launcher"
       },
       {
         "x": 0,
         "y": -190,
-        "gun": ""
+        "gun": "Refurbished Fusion Cannon"
       },
       {
         "x": 1,
         "y": -190,
-        "gun": ""
+        "gun": "Quantum Torpedo Launcher"
       },
       {
         "x": -0.5,
         "y": -190,
-        "gun": ""
+        "gun": "Quantum Torpedo Pod"
       },
       {
         "x": 0.5,
         "y": -190,
-        "gun": ""
+        "gun": "Quantum Torpedo Pod"
       }
     ],
     "turrets": [
@@ -115,17 +133,17 @@
       {
         "x": -72,
         "y": 156,
-        "turret": ""
+        "turret": "Electron Ion Turret"
       },
       {
         "x": 72,
         "y": 156,
-        "turret": ""
+        "turret": "Electron Ion Turret"
       },
       {
         "x": 0,
         "y": 171,
-        "turret": ""
+        "turret": "Heavy Double Anti-Missile"
       }
     ],
     "bays": [],
@@ -160,7 +178,6 @@
         "hit force": 1500
       }
     },
-    "zoom": 0.5,
     "blue tiny explosion": 24,
     "blue small explosion": 32,
     "blue medium explosion": 60,
@@ -169,7 +186,7 @@
     "description": "Constructed by an unknown manufacturer, the Anachronism is an enigma from the future.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Anachronism",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "46caa860086a",
+    "_hash": "5dc9aa2a6246",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -299,76 +316,76 @@
       {
         "x": -78,
         "y": 221,
-        "position": "right"
+        "right": true
       },
       {
         "x": 78,
         "y": 221,
-        "position": "left"
+        "left": true
       }
     ],
     "guns": [
       {
         "x": -11,
         "y": -323,
-        "gun": ""
+        "gun": "Fire-Lance"
       },
       {
         "x": 11,
         "y": -323,
-        "gun": ""
+        "gun": "Fire-Lance"
       },
       {
         "x": -22,
         "y": -272,
-        "gun": ""
+        "gun": "Korath Disruptor Gun"
       },
       {
         "x": 22,
         "y": -272,
-        "gun": ""
+        "gun": "Korath Disruptor Gun"
       }
     ],
     "turrets": [
       {
         "x": -50,
         "y": -261,
-        "turret": ""
+        "turret": "Husk-Slice Turret"
       },
       {
         "x": 50,
         "y": -261,
-        "turret": ""
+        "turret": "Husk-Slice Turret"
       },
       {
         "x": -52,
         "y": -238,
-        "turret": ""
+        "turret": "Shield Disruptor Turret"
       },
       {
         "x": 52,
         "y": -238,
-        "turret": ""
+        "turret": "Shield Disruptor Turret"
       },
       {
         "x": -54,
         "y": -210,
-        "turret": ""
+        "turret": "Husk-Slice Turret"
       },
       {
         "x": 54,
         "y": -210,
-        "turret": ""
+        "turret": "Husk-Slice Turret"
       },
       {
         "x": -57,
         "y": -181,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 57,
         "y": -181,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       }
     ],
     "bays": [],
@@ -412,7 +429,7 @@
     "description": "After gaining access to Sestor and Mereti technology, the Exiles have developed this new ship. Unlike the Palavret or Rano'erek, this is a true war machine.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korath Warlord",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "09bbba9d8d84",
+    "_hash": "997ef11ebe18",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Korath": true,
@@ -495,11 +512,13 @@
     "engines": [
       {
         "x": -57.5,
-        "y": 297
+        "y": 297,
+        "over": true
       },
       {
         "x": 57.5,
-        "y": 297
+        "y": 297,
+        "over": true
       },
       {
         "x": -31.5,
@@ -528,76 +547,76 @@
       {
         "x": -57.5,
         "y": 297,
-        "position": "over"
+        "over": true
       },
       {
         "x": 57.5,
         "y": 297,
-        "position": "over"
+        "over": true
       }
     ],
     "guns": [
       {
         "x": -11.5,
         "y": -319.5,
-        "gun": ""
+        "gun": "Piercer Missile Launcher"
       },
       {
         "x": 11.5,
         "y": -319.5,
-        "gun": ""
+        "gun": "Piercer Missile Launcher"
       }
     ],
     "turrets": [
       {
         "x": -50.5,
         "y": -259.5,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": 50.5,
         "y": -259.5,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": -52,
         "y": -235.5,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": 52,
         "y": -235.5,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": -54.5,
         "y": -207.5,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": 54.5,
         "y": -207.5,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": -55,
         "y": -178.5,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": 55,
         "y": -178.5,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": -53,
         "y": -152.5,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 53,
         "y": -152.5,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -50.5,
@@ -612,22 +631,22 @@
       {
         "x": -123.5,
         "y": 201,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": -102.5,
         "y": 201,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 102.5,
         "y": 201,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 123.5,
         "y": 201,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       }
     ],
     "bays": [],
@@ -661,7 +680,6 @@
         "hit force": 9500
       }
     },
-    "over": true,
     "huge explosion": 20,
     "large explosion": 60,
     "medium explosion": 90,
@@ -671,7 +689,7 @@
     "description": "An unfinished prototype under development by the Kor Sestor at the time their network was shut down. Its deployment into the Sestor fleets could have shifted the balance of power in their war with the Mereti.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Prateskar 711",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "6434f097035f",
+    "_hash": "62a59b4700fc",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Sestor": true,
@@ -767,41 +785,41 @@
       {
         "x": -149,
         "y": 97,
-        "position": "right"
+        "right": true
       },
       {
         "x": 149,
         "y": 97,
-        "position": "left"
+        "left": true
       }
     ],
     "guns": [
       {
         "x": -22,
         "y": -143,
-        "gun": ""
+        "gun": "Korath Disruptor Gun"
       },
       {
         "x": 22,
         "y": -143,
-        "gun": ""
+        "gun": "Husk-Slice"
       }
     ],
     "turrets": [
       {
         "x": 91,
         "y": -102,
-        "turret": ""
+        "turret": "Husk-Slice Turret"
       },
       {
         "x": -121,
         "y": 86,
-        "turret": ""
+        "turret": "Husk-Slice Turret"
       },
       {
         "x": 54,
         "y": 138,
-        "turret": ""
+        "turret": "Shield Disruptor Turret"
       }
     ],
     "bays": [],
@@ -840,7 +858,7 @@
     "description": "The next step in the evolution of the Kor Mereti war-machine is the Model 1024, somewhat improved beyond a perfect ring. Sporting minimal armament with a sudden conversion to a cargo hauling vessel, this was obviously developed after the Kor Mereti gained sapience and diverted their focus to less self-destructive endeavors.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Model 1024",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "f186e86e10e6",
+    "_hash": "0576260d10dd",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Mereti": true,
@@ -1077,25 +1095,29 @@
         "x": -31,
         "y": -207,
         "zoom": 0.6,
-        "position": "right"
+        "angle": 60,
+        "right": true
       },
       {
         "x": 31,
         "y": -207,
         "zoom": 0.6,
-        "position": "left"
+        "angle": 300,
+        "left": true
       },
       {
         "x": -99,
         "y": 131,
         "zoom": 0.6,
-        "position": "left"
+        "angle": 155,
+        "left": true
       },
       {
         "x": 99,
         "y": 131,
         "zoom": 0.6,
-        "position": "right"
+        "angle": 205,
+        "right": true
       }
     ],
     "guns": [
@@ -1109,37 +1131,37 @@
       {
         "x": -31,
         "y": -207,
-        "turret": ""
+        "turret": "Skydagger"
       },
       {
         "x": 31,
         "y": -207,
-        "turret": ""
+        "turret": "Skydagger"
       },
       {
         "x": 0,
         "y": -156,
-        "turret": ""
+        "turret": "Stratospear"
       },
       {
         "x": -48,
         "y": -99,
-        "turret": ""
+        "turret": "Skydagger"
       },
       {
         "x": 48,
         "y": -99,
-        "turret": ""
+        "turret": "Skydagger"
       },
       {
         "x": -68,
         "y": 9,
-        "turret": ""
+        "turret": "Skydagger"
       },
       {
         "x": 68,
         "y": 9,
-        "turret": ""
+        "turret": "Skydagger"
       }
     ],
     "bays": [],
@@ -1178,7 +1200,7 @@
     "description": "Despite their enormous population, civilian Quarg are seldom seen travelling from one of their rings to another via ships. When they need to do so, however, these massive transports are at their disposal. While most think of the Quarg as a peaceful species, the large number of weapon mounts on the Taniwha hint at its violent past as a troop carrier.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Quarg Seakraken",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "06277cdcabd6",
+    "_hash": "130572ea5515",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Quarg": true
@@ -1261,24 +1283,24 @@
       {
         "x": 0,
         "y": -70,
-        "gun": ""
+        "gun": "Quarg Culverin"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -1,
-        "turret": ""
+        "turret": "Quarg Anti-Missile"
       },
       {
         "x": -18,
         "y": 37.5,
-        "turret": ""
+        "turret": "Quarg Skydagger"
       },
       {
         "x": 18,
         "y": 37.5,
-        "turret": ""
+        "turret": "Quarg Skydagger"
       }
     ],
     "bays": [],
@@ -1317,7 +1339,7 @@
     "description": "The Quarg use this as a small patrol and scouting vessel. They typically travel in squadrons escorting other Quarg vessels to prevent the theft of Quarg technology.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Quarg Wardrake",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "55ae49176870",
+    "_hash": "01c47fcfbcfa",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Quarg": true
@@ -1409,54 +1431,54 @@
       {
         "x": -14.5,
         "y": -63.5,
-        "gun": ""
+        "gun": "Quarg Ranseur"
       },
       {
         "x": 14.5,
         "y": -63.5,
-        "gun": ""
+        "gun": "Quarg Ranseur"
       },
       {
         "x": -75,
         "y": 45.5,
-        "gun": ""
+        "gun": "Quarg Culverin"
       },
       {
         "x": 75,
         "y": 45.5,
-        "gun": ""
+        "gun": "Quarg Culverin"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -17.5,
-        "turret": ""
+        "turret": "Quarg Skydagger"
       },
       {
         "x": 0,
         "y": -35.5,
-        "turret": ""
+        "turret": "Quarg Skydagger"
       },
       {
         "x": -27,
         "y": 64.5,
-        "turret": ""
+        "turret": "Quarg Skydagger"
       },
       {
         "x": 27,
         "y": 64.5,
-        "turret": ""
+        "turret": "Quarg Skydagger"
       },
       {
         "x": -66.5,
         "y": 73,
-        "turret": ""
+        "turret": "Quarg Anti-Missile"
       },
       {
         "x": 66.5,
         "y": 73,
-        "turret": ""
+        "turret": "Quarg Anti-Missile"
       }
     ],
     "bays": [],
@@ -1483,7 +1505,7 @@
     "description": "The Warwyvern was used by the Quarg as a medium warship during times of war. Rarely seen among their fleets today, Warwyverns still remain on standby to defend Quarg ringworlds from external threats.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Quarg Warwyvern",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "2a85cf6f9ac8",
+    "_hash": "3900c2f54a41",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -1571,24 +1593,24 @@
       {
         "x": -12,
         "y": -80,
-        "gun": ""
+        "gun": "Quarg Culverin"
       },
       {
         "x": 12,
         "y": -80,
-        "gun": ""
+        "gun": "Quarg Culverin"
       }
     ],
     "turrets": [
       {
         "x": -34,
         "y": 24,
-        "turret": ""
+        "turret": "Quarg Anti-Missile"
       },
       {
         "x": 34,
         "y": 24,
-        "turret": ""
+        "turret": "Quarg Anti-Missile"
       }
     ],
     "bays": [],
@@ -1621,7 +1643,7 @@
     "description": "With over twice the cargo capacity of the largest human freighters, Skyswifts are old freighters the Quarg use mostly to transport materials in bulk.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Quarg Skyswift",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "6f276aee648b",
+    "_hash": "7101ea75891c",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Quarg": true
@@ -1702,34 +1724,36 @@
       {
         "x": -48.5,
         "y": -9.5,
-        "gun": ""
+        "gun": "Meteor Missile Launcher",
+        "parallel": true
       },
       {
         "x": 48.5,
         "y": -9.5,
-        "gun": ""
+        "gun": "Meteor Missile Launcher",
+        "parallel": true
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": 37,
-        "turret": ""
+        "turret": "Tractor Beam"
       },
       {
         "x": -11.5,
         "y": 51,
-        "turret": ""
+        "turret": "Quad Blaster Turret"
       },
       {
         "x": 11.5,
         "y": 51,
-        "turret": ""
+        "turret": "Quad Blaster Turret"
       },
       {
         "x": 0,
         "y": 65,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       }
     ],
     "bays": [],
@@ -1778,7 +1802,6 @@
         "hit force": 2100
       }
     },
-    "parallel": true,
     "small explosion": 15,
     "medium explosion": 25,
     "large explosion": 35,
@@ -1787,7 +1810,7 @@
     "description": "The Garbage Scow is an ancient ship: developed hundreds of years ago to transport radioactive materials across human space, it had lost importance with the introduction of generalised and better armed haulers like the Bulk Freighter and the Behemoth. Some still operate legitimately, carrying waste away to designated disposal sites. But many of these freighters have wound up in the hands of smugglers after the discovery that the internal structure of their Radiological Containment cylinders are very efficient at hiding cargo from being scanned.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "11abc52d8a94",
+    "_hash": "5dd7cfcb5c46",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -2018,34 +2041,36 @@
       {
         "x": -48.5,
         "y": -9.5,
-        "gun": ""
+        "gun": "Stinger Missile Launcher",
+        "parallel": true
       },
       {
         "x": 48.5,
         "y": -9.5,
-        "gun": ""
+        "gun": "Stinger Missile Launcher",
+        "parallel": true
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": 37,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       },
       {
         "x": -11.5,
         "y": 51,
-        "turret": ""
+        "turret": "Quad Turbo Blaster Turret"
       },
       {
         "x": 11.5,
         "y": 51,
-        "turret": ""
+        "turret": "Quad Turbo Blaster Turret"
       },
       {
         "x": 0,
         "y": 65,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       }
     ],
     "bays": [],
@@ -2094,7 +2119,6 @@
         "hit force": 2100
       }
     },
-    "parallel": true,
     "small explosion": 15,
     "medium explosion": 25,
     "large explosion": 35,
@@ -2103,7 +2127,7 @@
     "description": "When the Radiological Containment cylinders on a Garbage Scow have been damaged beyond repair, removing them is often easier than finding a replacement. This transforms the Garbage Scow into a compact medium warship.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Modified Garbage Scow",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "7eaa846ea8d6",
+    "_hash": "1038b69da09e",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -2199,32 +2223,32 @@
       {
         "x": -13.5,
         "y": -92,
-        "gun": ""
+        "gun": "Twin Modified Blaster"
       },
       {
         "x": 13.5,
         "y": -92,
-        "gun": ""
+        "gun": "Twin Modified Blaster"
       },
       {
         "x": -43.5,
         "y": 15,
-        "gun": ""
+        "gun": "Twin Modified Blaster"
       },
       {
         "x": 43.5,
         "y": 15,
-        "gun": ""
+        "gun": "Twin Modified Blaster"
       },
       {
         "x": -58,
         "y": 25,
-        "gun": ""
+        "gun": "Meteor Missile Launcher"
       },
       {
         "x": 58,
         "y": 25,
-        "gun": ""
+        "gun": "Meteor Missile Launcher"
       }
     ],
     "turrets": [
@@ -2294,7 +2318,7 @@
     "description": "A Firebird-based ship design produced at the Wei Shipyards centuries ago, the Rukh was a vessel that qualifies as a middle ground between medium and heavy warships. Betelgeuse Shipyards sued their competitor at Wei for patent infringement shortly after the Republic was formed. The court judgement left Wei Shipyards bankrupt and production of the Rukh abruptly ceased.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "26297e66a97e",
+    "_hash": "2fff236be22b",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -2422,7 +2446,7 @@
       {
         "x": 0,
         "y": -39.5,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       },
       {
         "x": -8,
@@ -2485,7 +2509,7 @@
     "description": "After the discovery of the original blueprints for the Rukh, mechanics were able to combine that data with modern ship design principles to further optimize the design for combat.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Marauder Rukh",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "7e4267cd27bd",
+    "_hash": "0b2812fb4eb7",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -2568,19 +2592,23 @@
     "engines": [
       {
         "x": -17,
-        "y": 77
+        "y": 77,
+        "zoom": 0.6
       },
       {
         "x": 17,
-        "y": 77
+        "y": 77,
+        "zoom": 0.6
       },
       {
         "x": -39,
-        "y": 68
+        "y": 68,
+        "zoom": 0.4
       },
       {
         "x": 39,
-        "y": 68
+        "y": 68,
+        "zoom": 0.4
       }
     ],
     "reverseEngines": [],
@@ -2589,39 +2617,39 @@
       {
         "x": 0,
         "y": -79,
-        "gun": ""
+        "gun": "Heavy Pulse Cannon"
       },
       {
         "x": -15,
         "y": -67,
-        "gun": ""
+        "gun": "Pulse Cannon"
       },
       {
         "x": 15,
         "y": -67,
-        "gun": ""
+        "gun": "Pulse Cannon"
       },
       {
         "x": -26,
         "y": -54,
-        "gun": ""
+        "gun": "Pulse Cannon"
       },
       {
         "x": 26,
         "y": -54,
-        "gun": ""
+        "gun": "Pulse Cannon"
       }
     ],
     "turrets": [
       {
         "x": -20,
         "y": -16,
-        "turret": ""
+        "turret": "Chameleon Anti-Missile"
       },
       {
         "x": 20,
         "y": -16,
-        "turret": ""
+        "turret": "Chameleon Anti-Missile"
       }
     ],
     "bays": [],
@@ -2661,7 +2689,6 @@
         "hit force": 1260
       }
     },
-    "zoom": 0.4,
     "tiny explosion": 24,
     "small explosion": 50,
     "medium explosion": 30,
@@ -2670,7 +2697,7 @@
     "description": "The Water Scorpion was an ancient strike vessel that Hai warlords deployed to patrol their conquered territories. They declined in popularity with the rise of the Shield Beetle. Centuries later, memories of this ship would inspire the Unfettered to design the Sea Scorpion.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Water Scorpion",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "ebcc073e7a0f",
+    "_hash": "2e20beb63505",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -2791,191 +2818,195 @@
         "x": -430,
         "y": 136,
         "zoom": 0.6,
-        "position": "right"
+        "right": true
       },
       {
         "x": -409,
         "y": 132,
         "zoom": 0.8,
-        "position": "right"
+        "right": true
       },
       {
         "x": -388,
         "y": 130,
         "zoom": 0.6,
-        "position": "right"
+        "right": true
       },
       {
         "x": 388,
         "y": 130,
         "zoom": 0.6,
-        "position": "left"
+        "left": true
       },
       {
         "x": 430,
         "y": 136,
         "zoom": 0.6,
-        "position": "left"
+        "left": true
       },
       {
         "x": 409,
         "y": 132,
         "zoom": 0.8,
-        "position": "left"
+        "left": true
       }
     ],
     "guns": [
       {
         "x": -34,
         "y": -390,
-        "gun": ""
+        "gun": "Digger Mining Beam"
       },
       {
         "x": 34,
         "y": -390,
-        "gun": ""
+        "gun": "Digger Mining Beam"
       },
       {
         "x": -54,
         "y": -382,
-        "gun": ""
+        "gun": "Digger Mining Beam"
       },
       {
         "x": 54,
         "y": -382,
-        "gun": ""
+        "gun": "Digger Mining Beam"
       },
       {
         "x": -92,
         "y": -349,
-        "gun": ""
+        "gun": "Korath Fireswarm Launcher",
+        "angle": -40
       },
       {
         "x": 92,
         "y": -349,
-        "gun": ""
+        "gun": "Korath Fireswarm Launcher",
+        "angle": 40
       },
       {
         "x": -134,
         "y": -298,
-        "gun": ""
+        "gun": "Korath Fireswarm Launcher",
+        "angle": -45
       },
       {
         "x": 134,
         "y": -298,
-        "gun": ""
+        "gun": "Korath Fireswarm Launcher",
+        "angle": 45
       }
     ],
     "turrets": [
       {
         "x": -47,
         "y": -404,
-        "turret": ""
+        "turret": "Langrage Hyper-Heaver"
       },
       {
         "x": 47,
         "y": -404,
-        "turret": ""
+        "turret": "Langrage Hyper-Heaver"
       },
       {
         "x": -131,
         "y": -349,
-        "turret": ""
+        "turret": "Korath Shocker Turret"
       },
       {
         "x": 131,
         "y": -349,
-        "turret": ""
+        "turret": "Korath Shocker Turret"
       },
       {
         "x": -275,
         "y": -311,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 275,
         "y": -311,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": -293,
         "y": -298,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 293,
         "y": -298,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -407,
         "y": -53,
-        "turret": ""
+        "turret": "Korath Shocker Turret"
       },
       {
         "x": 407,
         "y": -53,
-        "turret": ""
+        "turret": "Korath Shocker Turret"
       },
       {
         "x": -410,
         "y": -27,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 410,
         "y": -27,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": -333,
         "y": 191,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 333,
         "y": 191,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -319,
         "y": 209,
-        "turret": ""
+        "turret": "Korath Shocker Turret"
       },
       {
         "x": 319,
         "y": 209,
-        "turret": ""
+        "turret": "Korath Shocker Turret"
       },
       {
         "x": -201,
         "y": 317,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 201,
         "y": 317,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": -183,
         "y": 330,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 183,
         "y": 330,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -11,
         "y": 397,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 11,
         "y": 397,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       }
     ],
     "bays": [],
@@ -3008,7 +3039,6 @@
         "hit force": 12000
       }
     },
-    "angle": 45,
     "fighter -241 -129 under": {
       "angle": -90,
       "launch effect": "korath internal"
@@ -3114,7 +3144,7 @@
     "description": "The Tevah-Ark Coracle is a mobile habitat store house of DNA samples for all the life forms once native to Korath space. Its deployment after centuries of being on standby brings hope for the Kor Efret to restoring the ruined Korath worlds.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Tevah-Ark Coracle",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "5854bcdcc31e",
+    "_hash": "986c1e942c29",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Efret": true
@@ -3255,112 +3285,122 @@
     "engines": [
       {
         "x": -41,
-        "y": 251
+        "y": 251,
+        "zoom": 1.2
       },
       {
         "x": 41,
-        "y": 251
+        "y": 251,
+        "zoom": 1.2
       },
       {
         "x": -97,
-        "y": 252
+        "y": 252,
+        "zoom": 0.8
       },
       {
         "x": 97,
-        "y": 252
+        "y": 252,
+        "zoom": 0.8
       }
     ],
     "reverseEngines": [
       {
         "x": -97,
         "y": -2,
-        "position": "zoom .8"
+        "zoom": 0.8
       },
       {
         "x": 97,
         "y": -2,
-        "position": "zoom .8"
+        "zoom": 0.8
       }
     ],
     "steeringEngines": [
       {
         "x": -97,
         "y": 252,
-        "position": "zoom .8"
+        "right": true,
+        "zoom": 0.8
       },
       {
         "x": 97,
         "y": 252,
-        "position": "zoom .8"
+        "left": true,
+        "zoom": 0.8
       },
       {
         "x": -97,
         "y": -2,
-        "position": "angle 180"
+        "left": true,
+        "zoom": 1.2,
+        "angle": 180
       },
       {
         "x": 97,
         "y": -2,
-        "position": "angle 180"
+        "right": true,
+        "zoom": 1.2,
+        "angle": 180
       }
     ],
     "guns": [
       {
         "x": 0,
         "y": -103,
-        "gun": ""
+        "gun": "Langrage Hyper-Launcher"
       }
     ],
     "turrets": [
       {
         "x": -71,
         "y": -201,
-        "turret": ""
+        "turret": "Digger Mining Turret"
       },
       {
         "x": 71,
         "y": -201,
-        "turret": ""
+        "turret": "Digger Mining Turret"
       },
       {
         "x": -160,
         "y": -110,
-        "turret": ""
+        "turret": "Shock-Strike Turret"
       },
       {
         "x": 160,
         "y": -110,
-        "turret": ""
+        "turret": "Shock-Strike Turret"
       },
       {
         "x": -129,
         "y": -15,
-        "turret": ""
+        "turret": "Shock-Strike Turret"
       },
       {
         "x": 129,
         "y": -14,
-        "turret": ""
+        "turret": "Shock-Strike Turret"
       },
       {
         "x": -173,
         "y": 109,
-        "turret": ""
+        "turret": "Shock-Strike Turret"
       },
       {
         "x": 173,
         "y": 109,
-        "turret": ""
+        "turret": "Shock-Strike Turret"
       },
       {
         "x": -158,
         "y": 228,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 158,
         "y": 228,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       }
     ],
     "bays": [
@@ -3416,7 +3456,6 @@
         "hit force": 22000
       }
     },
-    "zoom": 0.8,
     "tiny explosion": 180,
     "small explosion": 80,
     "medium explosion": 90,
@@ -3426,7 +3465,7 @@
     "description": "\tThe microbot-powered grinder on this older model Ikatila'ej operates internally rather than taking in detritus directly from outside the ship. But this version of the ship is more durable than newer designs.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Ikatila'ej Eldar",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "6ec3611aa562",
+    "_hash": "4fa7cff4aeb3",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true
@@ -3535,87 +3574,97 @@
     "engines": [
       {
         "x": -149,
-        "y": 197
+        "y": 197,
+        "zoom": 0.8
       },
       {
         "x": 149,
-        "y": 197
+        "y": 197,
+        "zoom": 0.8
       },
       {
         "x": -39,
-        "y": 204
+        "y": 204,
+        "zoom": 1.2
       },
       {
         "x": 39,
-        "y": 204
+        "y": 204,
+        "zoom": 1.2
       }
     ],
     "reverseEngines": [
       {
         "x": -48,
         "y": -215,
-        "position": "zoom .8"
+        "zoom": 0.8
       },
       {
         "x": 48,
         "y": -215,
-        "position": "zoom .8"
+        "zoom": 0.8
       }
     ],
     "steeringEngines": [
       {
         "x": -149,
         "y": 197,
-        "position": "zoom 1.2"
+        "right": true,
+        "zoom": 1.2
       },
       {
         "x": 149,
         "y": 197,
-        "position": "zoom 1.2"
+        "left": true,
+        "zoom": 1.2
       },
       {
         "x": -149,
         "y": 95,
-        "position": "angle 180"
+        "left": true,
+        "zoom": 0.8,
+        "angle": 180
       },
       {
         "x": 149,
         "y": 95,
-        "position": "angle 180"
+        "right": true,
+        "zoom": 0.8,
+        "angle": 180
       }
     ],
     "guns": [
       {
         "x": -65,
         "y": 0,
-        "gun": ""
+        "gun": "Langrage Hyper-Launcher"
       }
     ],
     "turrets": [
       {
         "x": -126,
         "y": -166,
-        "turret": ""
+        "turret": "Digger Mining Turret"
       },
       {
         "x": 126,
         "y": -166,
-        "turret": ""
+        "turret": "Digger Mining Turret"
       },
       {
         "x": -88,
         "y": 38,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 88,
         "y": 38,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 0,
         "y": 157,
-        "turret": ""
+        "turret": "Shock-Strike Turret"
       }
     ],
     "bays": [
@@ -3659,7 +3708,6 @@
         "hit force": 20000
       }
     },
-    "zoom": 1.2,
     "tiny explosion": 30,
     "small explosion": 45,
     "medium explosion": 50,
@@ -3669,7 +3717,7 @@
     "description": "This militarized variant of the Rai'alorej-Class Refuge operates as a mobile medical center. It has many of the facilities found on the regular model. Missing are the incubators and nurseries intended for civilian use.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Rai'alorej Makwar",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "5e23e2840565",
+    "_hash": "415722dd3b05",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true
@@ -3785,24 +3833,26 @@
       {
         "x": -57,
         "y": -250,
-        "position": "zoom .5"
+        "zoom": 0.5
       },
       {
         "x": 57,
         "y": -250,
-        "position": "zoom .5"
+        "zoom": 0.5
       }
     ],
     "steeringEngines": [
       {
         "x": -171,
         "y": 235,
-        "position": "zoom .6"
+        "right": true,
+        "zoom": 0.6
       },
       {
         "x": 171,
         "y": 235,
-        "position": "zoom .6"
+        "left": true,
+        "zoom": 0.6
       }
     ],
     "guns": [
@@ -3816,52 +3866,52 @@
       {
         "x": -134,
         "y": -198,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 134,
         "y": -198,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": -158,
         "y": -187,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 158,
         "y": -187,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -104,
         "y": 30,
-        "turret": ""
+        "turret": "Korath Shock-Strike"
       },
       {
         "x": 104,
         "y": 30,
-        "turret": ""
+        "turret": "Korath Shock-Strike"
       },
       {
         "x": -104,
         "y": 60,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 104,
         "y": 60,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -17,
         "y": 181,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 17,
         "y": 181,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       }
     ],
     "bays": [
@@ -3922,7 +3972,7 @@
     "description": "The Korath World Crafter manufactures parts, medicine, medical equipment, and sufficient food for bare sustenance. Onboard, there are incubators, nurseries, and hospitals.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korath World Crafter",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "f26138805e8e",
+    "_hash": "56c9efd6b7ca",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -4017,109 +4067,113 @@
       },
       {
         "x": -105,
-        "y": 281
+        "y": 281,
+        "zoom": 0.7
       },
       {
         "x": 105,
-        "y": 281
+        "y": 281,
+        "zoom": 0.7
       }
     ],
     "reverseEngines": [
       {
         "x": -193,
         "y": 42,
-        "position": "zoom 0.6"
+        "zoom": 0.6
       },
       {
         "x": 193,
         "y": 42,
-        "position": "zoom 0.6"
+        "zoom": 0.6
       }
     ],
     "steeringEngines": [
       {
         "x": -105,
         "y": 281,
-        "position": "zoom 0.7"
+        "right": true,
+        "zoom": 0.7
       },
       {
         "x": 105,
         "y": 281,
-        "position": "zoom 0.7"
+        "left": true,
+        "zoom": 0.7
       }
     ],
     "guns": [
       {
         "x": 0,
         "y": -265,
-        "gun": ""
+        "gun": "Korath Waste Launcher"
       }
     ],
     "turrets": [
       {
         "x": -78,
         "y": -220,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": 78,
         "y": -220,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": -176,
         "y": -120,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 176,
         "y": -120,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 0,
         "y": -114,
-        "turret": ""
+        "turret": "Korath Shock-Strike"
       },
       {
         "x": -142,
         "y": -17,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 142,
         "y": -17,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 0,
         "y": 17,
-        "turret": ""
+        "turret": "Korath Shock-Strike"
       },
       {
         "x": -189,
         "y": 119,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 189,
         "y": 119,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 0,
         "y": 180,
-        "turret": ""
+        "turret": "Korath Shock-Strike"
       },
       {
         "x": -173,
         "y": 248,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 173,
         "y": 248,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       }
     ],
     "bays": [],
@@ -4154,7 +4208,6 @@
         "hit force": 27000
       }
     },
-    "zoom": 0.7,
     "fighter": 175,
     "tiny explosion": 180,
     "small explosion": 80,
@@ -4165,7 +4218,7 @@
     "description": "The World Forger is factory ship; a millennia-old ship design that has improved in every generation. At the height of the Korath war, these ships created drones and clouds of combat nanites. Today, its facilities produce basic living supplies and ship parts.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korath World Forger",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "976e3c30ae6f",
+    "_hash": "c6e8bf58a8ff",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -4302,156 +4355,156 @@
         "x": -430,
         "y": 136,
         "zoom": 0.6,
-        "position": "right"
+        "right": true
       },
       {
         "x": -409,
         "y": 132,
         "zoom": 0.8,
-        "position": "right"
+        "right": true
       },
       {
         "x": -388,
         "y": 130,
         "zoom": 0.6,
-        "position": "right"
+        "right": true
       },
       {
         "x": 388,
         "y": 130,
         "zoom": 0.6,
-        "position": "left"
+        "left": true
       },
       {
         "x": 430,
         "y": 136,
         "zoom": 0.6,
-        "position": "left"
+        "left": true
       },
       {
         "x": 409,
         "y": 132,
         "zoom": 0.8,
-        "position": "left"
+        "left": true
       }
     ],
     "guns": [
       {
         "x": 0,
         "y": -400,
-        "gun": ""
+        "gun": "Korath Waste Launcher"
       }
     ],
     "turrets": [
       {
         "x": -47,
         "y": -404,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": 47,
         "y": -404,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": -131,
         "y": -349,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 131,
         "y": -349,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": -275,
         "y": -311,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 275,
         "y": -311,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -293,
         "y": -298,
-        "turret": ""
+        "turret": "Korath Shock-Strike"
       },
       {
         "x": 293,
         "y": -298,
-        "turret": ""
+        "turret": "Korath Shock-Strike"
       },
       {
         "x": -407,
         "y": -53,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": 407,
         "y": -53,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": -410,
         "y": -27,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 410,
         "y": -27,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": -333,
         "y": 191,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 333,
         "y": 191,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -319,
         "y": 209,
-        "turret": ""
+        "turret": "Korath Shock-Strike"
       },
       {
         "x": 319,
         "y": 209,
-        "turret": ""
+        "turret": "Korath Shock-Strike"
       },
       {
         "x": -201,
         "y": 317,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": 201,
         "y": 317,
-        "turret": ""
+        "turret": "Thermal Repeater Turret"
       },
       {
         "x": -183,
         "y": 330,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 183,
         "y": 330,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": -11,
         "y": 397,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 11,
         "y": 397,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       }
     ],
     "bays": [],
@@ -4497,7 +4550,7 @@
     "description": "The Korath Exiles built these vast ships as their main population centers. In addition to living space, each Korath World Shaper has industrial and hydroponics capacity sufficient for bare subsistence of its inhabitants.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korath World Shaper",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "e6a42b5ab35b",
+    "_hash": "2b4d5b365226",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -4601,49 +4654,49 @@
       {
         "x": -26,
         "y": -180,
-        "gun": ""
+        "gun": "Inhibitor Cannon"
       },
       {
         "x": 26,
         "y": -180,
-        "gun": ""
+        "gun": "Inhibitor Cannon"
       },
       {
         "x": 44,
         "y": -110,
-        "gun": ""
+        "gun": "Inhibitor Cannon"
       },
       {
         "x": -44,
         "y": -110,
-        "gun": ""
+        "gun": "Inhibitor Cannon"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -11,
-        "turret": ""
+        "turret": "Point Defense Turret"
       },
       {
         "x": -13,
         "y": 60,
-        "turret": ""
+        "turret": "Thrasher Turret"
       },
       {
         "x": 13,
         "y": 60,
-        "turret": ""
+        "turret": "Thrasher Turret"
       },
       {
         "x": -56,
         "y": 140,
-        "turret": ""
+        "turret": "Point Defense Turret"
       },
       {
         "x": 56,
         "y": 140,
-        "turret": ""
+        "turret": "Point Defense Turret"
       }
     ],
     "bays": [
@@ -4716,7 +4769,7 @@
     "description": "The Avialae is an early example of Remnant ship development. Its design function still has traces of principles from ancestral human space. As they acclimated to life in the Ember Wastes many Prefects determined that mass production of big Utility ships was a waste of resources. Instead they chose to focus on filling their fleets with smaller, more specialized, models.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Avialae",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "095508fe03ee",
+    "_hash": "c818bfe38446",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -4822,12 +4875,12 @@
       {
         "x": -51,
         "y": -35,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 51,
         "y": -35,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       }
     ],
     "bays": [],
@@ -4866,7 +4919,7 @@
     "description": "This freighter is used by new Kor Sestor colonies to harvest and transport raw materials.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Ekfar Tek 23",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "b20ca0fdd34d",
+    "_hash": "cd02df065ab3",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Sestor": true
@@ -4972,238 +5025,264 @@
       {
         "x": -92.5,
         "y": -302,
-        "position": "over"
+        "over": true
       },
       {
         "x": 92.5,
         "y": -302,
-        "position": "over"
+        "over": true
       }
     ],
     "steeringEngines": [
       {
         "x": -110,
         "y": -435,
-        "position": "\"zoom\" .5"
+        "right": true,
+        "angle": 90,
+        "zoom": 0.5
       },
       {
         "x": 110,
         "y": -435,
-        "position": "\"zoom\" .5"
+        "left": true,
+        "angle": -90,
+        "zoom": 0.5
       },
       {
         "x": -110,
         "y": -379,
-        "position": "\"zoom\" .5"
+        "right": true,
+        "angle": 90,
+        "zoom": 0.5
       },
       {
         "x": 110,
         "y": -379,
-        "position": "\"zoom\" .5"
+        "left": true,
+        "angle": -90,
+        "zoom": 0.5
       },
       {
         "x": -87.5,
         "y": 299,
-        "position": "\"zoom\" .5"
+        "left": true,
+        "angle": 90,
+        "zoom": 0.5
       },
       {
         "x": 87.5,
         "y": 299,
-        "position": "\"zoom\" .5"
+        "right": true,
+        "angle": -90,
+        "zoom": 0.5
       },
       {
         "x": -87.5,
         "y": 327,
-        "position": "\"zoom\" .5"
+        "left": true,
+        "angle": 90,
+        "zoom": 0.5
       },
       {
         "x": 87.5,
         "y": 327,
-        "position": "\"zoom\" .5"
+        "right": true,
+        "angle": -90,
+        "zoom": 0.5
       }
     ],
     "guns": [
       {
         "x": -90,
         "y": -497,
-        "gun": ""
+        "gun": "Thermal Scorcher"
       },
       {
         "x": 90,
         "y": -497,
-        "gun": ""
+        "gun": "Thermal Scorcher"
       },
       {
         "x": -69,
         "y": -497,
-        "gun": ""
+        "gun": "Thermal Scorcher"
       },
       {
         "x": 69,
         "y": -497,
-        "gun": ""
+        "gun": "Thermal Scorcher"
       },
       {
         "x": -55.5,
         "y": -497,
-        "gun": ""
+        "gun": "Thermal Scorcher"
       },
       {
         "x": 55.5,
         "y": -497,
-        "gun": ""
+        "gun": "Thermal Scorcher"
       },
       {
         "x": -180,
         "y": -135,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 270
       },
       {
         "x": 180,
         "y": -135,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 90
       },
       {
         "x": -180,
         "y": -97,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 270
       },
       {
         "x": 180,
         "y": -97,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 90
       },
       {
         "x": -180,
         "y": -59,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 270
       },
       {
         "x": 180,
         "y": -59,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 90
       },
       {
         "x": -180,
         "y": -21,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 270
       },
       {
         "x": 180,
         "y": -21,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 90
       },
       {
         "x": -180,
         "y": 17,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 270
       },
       {
         "x": 180,
         "y": 17,
-        "gun": ""
+        "gun": "Cluster Mine Layer",
+        "angle": 90
       }
     ],
     "turrets": [
       {
         "x": -81.5,
         "y": -477,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 81.5,
         "y": -477,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 0,
         "y": -243.5,
-        "turret": ""
+        "turret": "Firestorm Battery"
       },
       {
         "x": -139.5,
         "y": -159.5,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 139.5,
         "y": -159.5,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -110,
         "y": -141,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 110,
         "y": -141,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 0,
         "y": -58,
-        "turret": ""
+        "turret": "Firestorm Battery"
       },
       {
         "x": -99.5,
         "y": -43.5,
-        "turret": ""
+        "turret": "Thermal Scorcher Turret"
       },
       {
         "x": 99.5,
         "y": -43.5,
-        "turret": ""
+        "turret": "Thermal Scorcher Turret"
       },
       {
         "x": 0,
         "y": 54,
-        "turret": ""
+        "turret": "Firestorm Battery"
       },
       {
         "x": -97.5,
         "y": 67.5,
-        "turret": ""
+        "turret": "Thermal Scorcher Turret"
       },
       {
         "x": 97.5,
         "y": 67.5,
-        "turret": ""
+        "turret": "Thermal Scorcher Turret"
       },
       {
         "x": -97.5,
         "y": 153.5,
-        "turret": ""
+        "turret": "Thermal Scorcher Turret"
       },
       {
         "x": 97.5,
         "y": 153.5,
-        "turret": ""
+        "turret": "Thermal Scorcher Turret"
       },
       {
         "x": 0,
         "y": 160,
-        "turret": ""
+        "turret": "Langrage Hyper-Heaver"
       },
       {
         "x": -119,
         "y": 198.5,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 119,
         "y": 198.5,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": -32.5,
         "y": 270,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 32.5,
         "y": 270,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       }
     ],
     "bays": [],
@@ -5235,7 +5314,6 @@
         "hit force": 45000
       }
     },
-    "angle": 90,
     "tiny explosion": 30,
     "small explosion": 45,
     "medium explosion": 50,
@@ -5245,7 +5323,7 @@
     "description": "One of the last great Korath battleships from the height of the war that drove their species to near extinction, the Korbatar Makwar is an engine of destruction that dominates conventional battlefields. \tThe number of these battleships which are still in operation can be counted on one hand. Korath shipyards are fully capable of assembling more Korbatar Makwars, but the exile from Korath space has forced them to prioritize construction of Korsmanath A'awojs and other support vessels instead. A small, but vocal, group of Navarchs continue to lobby various planning committees for construction of new Korbatar Makwars. But the civilian government refuses to capitulate to their demands.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korbatar Makwar",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "1267a64ec5c3",
+    "_hash": "13c7110833b4",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Korath (Civilian)": true
@@ -5408,34 +5486,34 @@
       {
         "x": -6,
         "y": -119,
-        "gun": ""
+        "gun": "Energy Cannon"
       },
       {
         "x": 6,
         "y": -119,
-        "gun": ""
+        "gun": "Energy Cannon"
       },
       {
         "x": -18,
         "y": -90,
-        "gun": ""
+        "gun": "Meteor Missile Pod"
       },
       {
         "x": 18,
         "y": -90,
-        "gun": ""
+        "gun": "Meteor Missile Pod"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -10,
-        "turret": ""
+        "turret": "Energy Cannon Turret"
       },
       {
         "x": 0,
         "y": 44,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       }
     ],
     "bays": [],
@@ -5487,7 +5565,7 @@
     "description": "The Cargo Star was a proprietary freighter used by Starwell Shipping Corporation before it was bought out by the Syndicate in a hostile corporate takeover. Many of the technologies and design principles from this ship can be found in the modern designs of Syndicate Shipyards. \tMost Cargo Stars that survived the Alpha Wars did so by having extensive modifications made to strengthen their hull, shields, and weapon capacity.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Modified Cargo Star",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "ea3807f2ad24",
+    "_hash": "53a3af9b13d1",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Merchant": true
@@ -5612,22 +5690,22 @@
       {
         "x": -23,
         "y": -42,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 23,
         "y": -42,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": -74,
         "y": 11,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       },
       {
         "x": 74,
         "y": 11,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       }
     ],
     "bays": [
@@ -5671,7 +5749,7 @@
     "description": "The Sku'uta is a Korath reconnaissance ship intended for quick forays into hostile territory.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Korath Scouter",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "743a0df7dfb7",
+    "_hash": "784c6a027ade",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Korath": true
@@ -5754,39 +5832,39 @@
       {
         "x": 0,
         "y": -114,
-        "gun": ""
+        "gun": "EMP Torpedo Bay"
       },
       {
         "x": -19,
         "y": -74,
-        "gun": ""
+        "gun": "Inhibitor Cannon"
       },
       {
         "x": 19,
         "y": -74,
-        "gun": ""
+        "gun": "Inhibitor Cannon"
       },
       {
         "x": -24,
         "y": -57,
-        "gun": ""
+        "gun": "Inhibitor Cannon"
       },
       {
         "x": 24,
         "y": -57,
-        "gun": ""
+        "gun": "Inhibitor Cannon"
       }
     ],
     "turrets": [
       {
         "x": -17,
         "y": -7,
-        "turret": ""
+        "turret": "Point Defense Turret"
       },
       {
         "x": 17,
         "y": -7,
-        "turret": ""
+        "turret": "Point Defense Turret"
       }
     ],
     "bays": [],
@@ -5848,7 +5926,7 @@
     "description": "Shortly after development of the Starling, Remnant ship crafters attempted to apply the design principles they learned towards a medium warship. The Magpie was one functional result of this endeavor. \tThere was an unforeseen problem with trying to apply the alien cloaking technology they had access to with a bigger ship: a noticeable increase in consumption of energy and fuel. Until the shipyards solve this problem, larger ships with cloaking will remain a rare sight in Remnant fleets. \tThe cloaking technology is built into the Magpie's hull; it cannot be removed or transferred to another ship.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Magpie",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "62a8243381ba",
+    "_hash": "059abd521648",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true
@@ -6033,49 +6111,49 @@
       {
         "x": 0,
         "y": -162,
-        "gun": ""
+        "gun": "Twin Torpedo Pod"
       },
       {
         "x": -50,
         "y": -27,
-        "gun": ""
+        "gun": "Twin Turbo Blaster"
       },
       {
         "x": 50,
         "y": -27,
-        "gun": ""
+        "gun": "Twin Turbo Blaster"
       },
       {
         "x": -64,
         "y": 2,
-        "gun": ""
+        "gun": "Twin Turbo Blaster"
       },
       {
         "x": 64,
         "y": 2,
-        "gun": ""
+        "gun": "Twin Turbo Blaster"
       }
     ],
     "turrets": [
       {
         "x": -19,
         "y": -17,
-        "turret": ""
+        "turret": "Quad Turbo Blaster Turret"
       },
       {
         "x": 19,
         "y": -17,
-        "turret": ""
+        "turret": "Quad Turbo Blaster Turret"
       },
       {
         "x": -62,
         "y": 97,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       },
       {
         "x": 62,
         "y": 97,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       }
     ],
     "bays": [
@@ -6139,7 +6217,7 @@
     "description": "The Ogopogo is a rare variant of the Leviathan heavy warship. It is slower than normal Leviathans, weighed down by thick layers of additional armor and shield emitters. Half the cargo bay has been altered to launch drones. And somehow, an extra gun port was jammed into the ship's prow, allowing it to carry another weapon into battle.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Ogopogo",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "ab23fe609948",
+    "_hash": "4775014f12cb",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Bounty Hunter": true
@@ -6258,42 +6336,42 @@
       {
         "x": -39,
         "y": -51,
-        "turret": ""
+        "turret": "Proton Turret"
       },
       {
         "x": 39,
         "y": -51,
-        "turret": ""
+        "turret": "Proton Turret"
       },
       {
         "x": 0,
         "y": -10.5,
-        "turret": ""
+        "turret": "Proton Turret"
       },
       {
         "x": -65,
         "y": 1,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       },
       {
         "x": 65,
         "y": 1,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       },
       {
         "x": 0,
         "y": 19.5,
-        "turret": ""
+        "turret": "Proton Turret"
       },
       {
         "x": -39,
         "y": 52.5,
-        "turret": ""
+        "turret": "Proton Turret"
       },
       {
         "x": 39,
         "y": 52.5,
-        "turret": ""
+        "turret": "Proton Turret"
       }
     ],
     "bays": [
@@ -6383,7 +6461,7 @@
     "description": "The Wretched Hive is a Protector that was heavily modified by pirates to act as a carrier. The gun ports were removed while the remaining internal weapon circuitry was rerouted through the cargo bay to make space for housing a swarm of drones. Thick armor plating has been added to the hull while additional engine space was made available to offset the added mass and drag.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Wretched Hive",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "24dd1df21337",
+    "_hash": "e66bdb6f4ab3",
     "governments": {
       "Midnight-Expansion": {
         "Midnight-Expansion": true

@@ -876,15 +876,11 @@
         "frame rate": 3
       },
       "sound": "optical laser",
-      "fire effect": [
-        "orange laser glare",
-        "red laser flicker"
-      ],
-      "hit effect": [
-        "laser ejecta",
-        "red laser reflection",
-        "red laser scattering"
-      ],
+      "fire effect": "orange laser glare",
+      "fire effect 2": "red laser flicker",
+      "hit effect": "laser ejecta",
+      "hit effect 2": "red laser reflection",
+      "hit effect 3": "red laser scattering",
       "velocity": 1600,
       "lifetime": 1,
       "reload": 1,
@@ -898,6 +894,7 @@
       "heat damage": 9,
       "burn damage": 0.03,
       "damage dropoff": 0,
+      "damage dropoff 2": 1600,
       "dropoff modifier": 0
     },
     "description": "The three lasers mounted on this heavy turret are effective at smelting asteroids and harvesting other interstellar resources. They also generate more heat than most other Avgi lasers, both on the ship they are installed on as well as any ship they strike. An optical lasing generator is integrated into the weapon, contributing to its considerable size and weight.",
@@ -969,17 +966,13 @@
       "hardpoint offset": 3,
       "sound": "optical laser",
       "fire effect": "prismatic laser glare",
-      "die effect": [
-        "laser ejecta",
-        "green laser reflection",
-        "green laser scattering"
-      ],
-      "hit effect": [
-        "blue laser reflection",
-        "red laser reflection",
-        "blue laser scattering",
-        "red laser scattering"
-      ],
+      "die effect": "laser ejecta",
+      "die effect 2": "green laser reflection",
+      "hit effect": "blue laser reflection",
+      "hit effect 2": "red laser reflection",
+      "die effect 3": "green laser scattering",
+      "hit effect 3": "blue laser scattering",
+      "hit effect 4": "red laser scattering",
       "anti-missile": 2,
       "velocity": 1200,
       "lifetime": 1,
@@ -1059,15 +1052,11 @@
         "frame rate": 3
       },
       "sound": "optical laser",
-      "fire effect": [
-        "red laser glare",
-        "red laser flicker"
-      ],
-      "hit effect": [
-        "laser ejecta",
-        "red laser reflection",
-        "red laser scattering"
-      ],
+      "fire effect": "red laser glare",
+      "fire effect 2": "red laser flicker",
+      "hit effect": "laser ejecta",
+      "hit effect 2": "red laser reflection",
+      "hit effect 3": "red laser scattering",
       "velocity": 1600,
       "lifetime": 1,
       "reload": 1,
@@ -1079,6 +1068,7 @@
       "prospecting": 1.5,
       "heat damage": 6,
       "damage dropoff": 0,
+      "damage dropoff 2": 1600,
       "dropoff modifier": 0
     },
     "description": "This specialized gun was designed for smelting asteroids and harvesting other interstellar resources. An optical lasing generator is integrated into the weapon, making it simpler to install but less compatible with modern Avgi laser weapons.",
@@ -2079,10 +2069,8 @@
       "icon": "icon/finisher",
       "fire effect": "finisher sparks",
       "live effect": "finisher trail",
-      "hit effect": [
-        "finisher impact",
-        "finisher fragment"
-      ],
+      "hit effect": "finisher impact",
+      "hit effect 2": "finisher fragment",
       "die effect": "small explosion",
       "inaccuracy": 6,
       "velocity": 9,
@@ -3309,10 +3297,8 @@
       "icon": "icon/combustion torpedo",
       "live effect": "hypernuke smoke",
       "fire effect": "combustion torpedo fire",
-      "hit effect": [
-        "nuke explosion",
-        "combustion ring"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "combustion ring",
       "die effect": "tiny explosion",
       "inaccuracy": 1,
       "velocity": 9,
@@ -4957,13 +4943,11 @@
       "velocity override": 6,
       "lifetime": 11000,
       "range override": 66000,
-      "acceleration": [
-        0.01,
-        0.1
-      ],
+      "acceleration": 0.01,
       "inaccuracy": 40,
       "turret turn": 4,
       "reload": 1200,
+      "acceleration 2": 0.1,
       "drag": 0.015,
       "turn": 1,
       "homing": true,
@@ -6349,14 +6333,10 @@
       "reload": 100,
       "blast radius": 100,
       "split range": 200,
-      "hit effect": [
-        "void spark",
-        "spatial hazard"
-      ],
-      "die effect": [
-        "void spark",
-        "spatial hazard"
-      ],
+      "hit effect": "void spark",
+      "die effect": "void spark",
+      "hit effect 2": "spatial hazard",
+      "die effect 2": "spatial hazard",
       "submunitions": [
         {
           "type": "Weft Storm Weapon Submunition",
@@ -6391,18 +6371,12 @@
       "corrosion damage": 0.015,
       "shield damage": 5,
       "piercing": 0.25,
-      "target effect": [
-        "spatial hazard",
-        "void spark tiny"
-      ],
-      "hit effect": [
-        "void spark",
-        "spatial hazard"
-      ],
-      "die effect": [
-        "void spark",
-        "spatial hazard"
-      ]
+      "target effect": "spatial hazard",
+      "target effect 2": "void spark tiny",
+      "hit effect": "void spark",
+      "die effect": "void spark",
+      "hit effect 2": "spatial hazard",
+      "die effect 2": "spatial hazard"
     },
     "governments": {
       "Lost-in-Midnight": {
@@ -7611,15 +7585,11 @@
       "hardpoint sprite": "hardpoint/genesis flak cannon",
       "hardpoint offset": 18,
       "sound": "explosion small",
-      "hit effect": [
-        "flak explosion",
-        "flak smoke slow",
-        "flak smoke fast"
-      ],
-      "fire effect": [
-        "flak muzzle flash",
-        "flak muzzle smoke"
-      ],
+      "hit effect": "flak explosion",
+      "hit effect 2": "flak smoke slow",
+      "hit effect 3": "flak smoke fast",
+      "fire effect": "flak muzzle flash",
+      "fire effect 2": "flak muzzle smoke",
       "die effect": "flak die",
       "icon": "icon/flak shell",
       "inaccuracy": 1,
@@ -7685,11 +7655,9 @@
       "hardpoint sprite": "hardpoint/frozen shard turret",
       "hardpoint offset": 18,
       "sound": "tiny_explosion-ver8",
-      "hit effect": [
-        "frozen shard hit",
-        "frost cloud slow",
-        "frost cloud fast"
-      ],
+      "hit effect": "frozen shard hit",
+      "hit effect 2": "frost cloud slow",
+      "hit effect 3": "frost cloud fast",
       "fire effect": "frozen shard launch",
       "die effect": "frost cloud slow",
       "icon": "icon/frozen shard",
@@ -7951,11 +7919,9 @@
       "sound": "nuke",
       "stream": true,
       "icon": "icon/atom",
-      "hit effect": [
-        "nuke explosion",
-        "nuke residue fast",
-        "nuke residue slow"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "nuke residue fast",
+      "hit effect 3": "nuke residue slow",
       "die effect": "missile death",
       "inaccuracy": 1,
       "velocity": 6,
@@ -9582,10 +9548,8 @@
       "sound": "tracker",
       "icon": "icon/displacer",
       "fire effect": "tracker fire",
-      "hit effect": [
-        "tracker impact",
-        "tracker cloud"
-      ],
+      "hit effect": "tracker impact",
+      "hit effect 2": "tracker cloud",
       "die effect": "tracker impact",
       "inaccuracy": 18,
       "velocity": 14,
@@ -9677,14 +9641,12 @@
       "stream": true,
       "icon": "icon/hai nutcracker",
       "fire effect": "emp torpedo fire",
-      "hit effect": [
-        "nuke explosion",
-        "emp ring",
-        "emp spark",
-        "ionball ring",
-        "ionball impact",
-        "ionball fragment"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "emp ring",
+      "hit effect 3": "emp spark",
+      "hit effect 4": "ionball ring",
+      "hit effect 5": "ionball impact",
+      "hit effect 6": "ionball fragment",
       "die effect": "tiny explosion",
       "inaccuracy": 1,
       "velocity": 14,
@@ -29615,6 +29577,7 @@
       },
       "hardpoint sprite": "hardpoint/tri laser turret",
       "hardpoint offset": -0.5,
+      "hardpoint offset 2": 8,
       "sound": "laser",
       "hit effect": "beam laser impact",
       "inaccuracy": 0.5,
@@ -30644,15 +30607,11 @@
       "sound": "asteroid catapult",
       "icon": "icon/masteroid",
       "fire effect": "finisher sparks",
-      "hit effect": [
-        "piercer impact",
-        "ionball fragment"
-      ],
-      "live effect": [
-        "ionball spark",
-        "ionball trail",
-        "ionball twinkle"
-      ],
+      "hit effect": "piercer impact",
+      "hit effect 2": "ionball fragment",
+      "live effect": "ionball spark",
+      "live effect 2": "ionball trail",
+      "live effect 3": "ionball twinkle",
       "missile strength": 200,
       "inaccuracy": 0.2,
       "velocity": 18,
@@ -30771,11 +30730,9 @@
       "stream": true,
       "icon": "icon/hypernuke",
       "live effect": "hypernuke smoke",
-      "hit effect": [
-        "nuke explosion",
-        "nuke residue fast",
-        "nuke residue slow"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "nuke residue fast",
+      "hit effect 3": "nuke residue slow",
       "die effect": "missile death",
       "inaccuracy": 2,
       "velocity": 12,
@@ -31308,12 +31265,10 @@
       "sound": "rocket",
       "stream": true,
       "icon": "icon/inferno rocket",
-      "hit effect": [
-        "inferno rocket hit",
-        "inferno rocket burn large",
-        "inferno rocket burn medium",
-        "inferno rocket burn small"
-      ],
+      "hit effect": "inferno rocket hit",
+      "hit effect 2": "inferno rocket burn large",
+      "hit effect 3": "inferno rocket burn medium",
+      "hit effect 4": "inferno rocket burn small",
       "target effect": "flame",
       "die effect": "medium explosion",
       "inaccuracy": 1,
@@ -31561,12 +31516,10 @@
       },
       "sound": "rocket",
       "icon": "icon/inferno rocket",
-      "hit effect": [
-        "inferno rocket hit",
-        "inferno rocket burn large",
-        "inferno rocket burn medium",
-        "inferno rocket burn small"
-      ],
+      "hit effect": "inferno rocket hit",
+      "hit effect 2": "inferno rocket burn large",
+      "hit effect 3": "inferno rocket burn medium",
+      "hit effect 4": "inferno rocket burn small",
       "target effect": "flame",
       "die effect": "medium explosion",
       "inaccuracy": 1,
@@ -34874,11 +34827,9 @@
     "unplunderable": 1,
     "weapon": {
       "icon": "icon/thermo detonator",
-      "hit effect": [
-        "nuke explosion",
-        "nuke residue fast",
-        "nuke residue slow"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "nuke residue fast",
+      "hit effect 3": "nuke residue slow",
       "die effect": "fail sound",
       "inaccuracy": 0,
       "turret turn": 60,
@@ -37382,16 +37333,12 @@
       "sound": "ionball",
       "icon": "icon/negator",
       "fire effect": "finisher sparks",
-      "hit effect": [
-        "ionball ring",
-        "ionball impact",
-        "ionball fragment"
-      ],
-      "live effect": [
-        "ionball spark",
-        "ionball trail",
-        "ionball twinkle"
-      ],
+      "hit effect": "ionball ring",
+      "hit effect 2": "ionball impact",
+      "hit effect 3": "ionball fragment",
+      "live effect": "ionball spark",
+      "live effect 2": "ionball trail",
+      "live effect 3": "ionball twinkle",
       "inaccuracy": 0.4,
       "velocity": 18,
       "lifetime": 200,
@@ -39161,11 +39108,9 @@
       "sound": "thermal obliterator",
       "icon": "icon/t-obliterator",
       "fire effect": "fusion cannon fire",
-      "hit effect": [
-        "fusion cannon explosion 1",
-        "fusion cannon explosion 2",
-        "fusion cannon explosion 3"
-      ],
+      "hit effect": "fusion cannon explosion 1",
+      "hit effect 2": "fusion cannon explosion 2",
+      "hit effect 3": "fusion cannon explosion 3",
       "die effect": "thermal obliterator death",
       "inaccuracy": 4,
       "velocity": 26,
@@ -39214,10 +39159,8 @@
         "frame rate": 5
       },
       "sound": "thermal scorcher",
-      "hit effect": [
-        "thermal scorcher impact",
-        "thermal scorcher smoke"
-      ],
+      "hit effect": "thermal scorcher impact",
+      "hit effect 2": "thermal scorcher smoke",
       "inaccuracy": 4,
       "velocity": 13,
       "lifetime": 120,
@@ -39295,10 +39238,8 @@
       "hardpoint offset": 7,
       "turret turn": 1.3,
       "sound": "thermal scorcher",
-      "hit effect": [
-        "thermal scorcher impact",
-        "thermal scorcher smoke"
-      ],
+      "hit effect": "thermal scorcher impact",
+      "hit effect 2": "thermal scorcher smoke",
       "inaccuracy": 4,
       "velocity": 13,
       "lifetime": 120,
@@ -39496,11 +39437,9 @@
       "sound": "minelayer",
       "icon": "icon/magnetic mine",
       "fire effect": "magnetic mine fire",
-      "hit effect": [
-        "ionball ring",
-        "ionball impact",
-        "ionball fragment"
-      ],
+      "hit effect": "ionball ring",
+      "hit effect 2": "ionball impact",
+      "hit effect 3": "ionball fragment",
       "live effect": "magnetic mine spark",
       "die effect": "ion impact",
       "inaccuracy": 10,
@@ -40671,10 +40610,8 @@
       "inaccuracy": 0.3,
       "turret turn": 2.5,
       "velocity": 640,
-      "lifetime": [
-        1,
-        1
-      ],
+      "lifetime": 1,
+      "lifetime 2": 1,
       "reload": 1,
       "firing energy": 5.4,
       "firing heat": 2.8,
@@ -40853,10 +40790,8 @@
         "delay": 6
       },
       "sound": "zapper",
-      "hit effect": [
-        "zapper impact",
-        "ion impact"
-      ],
+      "hit effect": "zapper impact",
+      "hit effect 2": "ion impact",
       "inaccuracy": 0.3,
       "velocity": 320,
       "lifetime": 1,
@@ -40908,10 +40843,8 @@
       "hardpoint sprite": "hardpoint/pug zapper turret",
       "hardpoint offset": 7,
       "sound": "zapper",
-      "hit effect": [
-        "zapper impact",
-        "ion impact"
-      ],
+      "hit effect": "zapper impact",
+      "hit effect 2": "ion impact",
       "inaccuracy": 0.3,
       "turret turn": 2.5,
       "velocity": 320,
@@ -41560,11 +41493,9 @@
     "weapon": {
       "sound": "elysian trident",
       "fire effect": "elysian trident",
-      "hit effect": [
-        "jump drive",
-        "disruptor impact",
-        "elysian trident impact"
-      ],
+      "hit effect": "jump drive",
+      "hit effect 2": "disruptor impact",
+      "hit effect 3": "elysian trident impact",
       "lifetime": 1,
       "reload": 180,
       "velocity": 1200,
@@ -43321,10 +43252,8 @@
     "unplunderable": 1,
     "weapon": {
       "sound": "composer",
-      "hit effect": [
-        "composed",
-        "drained"
-      ],
+      "hit effect": "composed",
+      "hit effect 2": "drained",
       "inaccuracy": 45,
       "velocity": 660,
       "lifetime": 1,

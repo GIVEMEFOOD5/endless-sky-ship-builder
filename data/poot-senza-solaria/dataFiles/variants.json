@@ -4,130 +4,153 @@
     "engines": [
       {
         "x": 0,
-        "y": 192.5
+        "y": 192.5,
+        "zoom": 2
       }
     ],
     "reverseEngines": [
       {
         "x": 0,
         "y": -157.5,
-        "position": "zoom 2"
+        "zoom": 2
       }
     ],
     "steeringEngines": [
       {
         "x": 37.5,
         "y": -126,
-        "position": "left"
+        "angle": -45,
+        "left": true
       },
       {
         "x": -37,
         "y": -125.5,
-        "position": "right"
+        "angle": 45,
+        "right": true
       }
     ],
     "guns": [
       {
         "x": 16,
         "y": -193,
-        "gun": ""
+        "gun": "Dragonflame Cannon",
+        "under": true
       },
       {
         "x": -15,
         "y": -193,
-        "gun": ""
+        "gun": "Dragonflame Cannon",
+        "under": true
       },
       {
         "x": 27.5,
         "y": -192,
-        "gun": ""
+        "gun": "",
+        "under": true
       },
       {
         "x": -28,
         "y": -192,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
       {
         "x": 23,
         "y": -136,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": -22,
         "y": -136,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       },
       {
         "x": 41.5,
         "y": -134,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": -41,
         "y": -133,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": 41.5,
         "y": 1,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": -41.5,
         "y": 1,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": 50,
         "y": 1.5,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": -51,
         "y": 1,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": 57.5,
         "y": 4.5,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": -56,
         "y": 3,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": 66,
         "y": 51,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": -66,
         "y": 51,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": 82,
         "y": 52.5,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       },
       {
         "x": -80.5,
         "y": 52,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": 90,
         "y": 55.5,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       },
       {
         "x": -90,
         "y": 54.5,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       }
     ],
     "bays": [
@@ -235,9 +258,6 @@
         "hit force": 6000
       }
     },
-    "under": true,
-    "over": true,
-    "zoom": 2,
     "small explosion": 25,
     "medium explosion": 35,
     "large explosion": 45,
@@ -246,7 +266,7 @@
     "description": "A massive space station, filled to the brim with countless versions of every outfit in the galaxy. If only you had the password to the door of the storage area...",
     "_internalId": "POOT/poot-senza-solaria::Senza Solaria",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "c31d6b4591b6",
+    "_hash": "d99fce805038",
     "variant": "Senza Solaria II (PRA)",
     "baseShip": "Senza Solaria",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -385,27 +405,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -440,14 +465,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Quick Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -554,27 +578,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -609,14 +638,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Plentiful Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -723,27 +751,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -778,14 +811,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Searching Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -892,27 +924,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -947,14 +984,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Powerful Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -1061,27 +1097,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -1116,14 +1157,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Collecting Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -1195,7 +1235,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -1203,12 +1244,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -1296,13 +1341,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "4a21483800cb",
+    "_hash": "b432a305ceae",
     "variant": "Intelligent Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -1402,7 +1446,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -1410,12 +1455,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -1503,13 +1552,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "4a21483800cb",
+    "_hash": "b432a305ceae",
     "variant": "Egotistical Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -1609,7 +1657,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -1617,12 +1666,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -1710,13 +1763,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "4a21483800cb",
+    "_hash": "b432a305ceae",
     "variant": "Thorough Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -1816,7 +1868,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -1824,12 +1877,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -1917,13 +1974,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "4a21483800cb",
+    "_hash": "b432a305ceae",
     "variant": "Purposeful Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -2023,7 +2079,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -2031,12 +2088,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -2124,13 +2185,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria",
-    "_hash": "4a21483800cb",
+    "_hash": "b432a305ceae",
     "variant": "Observant Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria",
@@ -2230,130 +2290,153 @@
     "engines": [
       {
         "x": 0,
-        "y": 192.5
+        "y": 192.5,
+        "zoom": 2
       }
     ],
     "reverseEngines": [
       {
         "x": 0,
         "y": -157.5,
-        "position": "zoom 2"
+        "zoom": 2
       }
     ],
     "steeringEngines": [
       {
         "x": 37.5,
         "y": -126,
-        "position": "left"
+        "angle": -45,
+        "left": true
       },
       {
         "x": -37,
         "y": -125.5,
-        "position": "right"
+        "angle": 45,
+        "right": true
       }
     ],
     "guns": [
       {
         "x": 16,
         "y": -193,
-        "gun": ""
+        "gun": "Dragonflame Cannon",
+        "under": true
       },
       {
         "x": -15,
         "y": -193,
-        "gun": ""
+        "gun": "Dragonflame Cannon",
+        "under": true
       },
       {
         "x": 27.5,
         "y": -192,
-        "gun": ""
+        "gun": "",
+        "under": true
       },
       {
         "x": -28,
         "y": -192,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
       {
         "x": 23,
         "y": -136,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": -22,
         "y": -136,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       },
       {
         "x": 41.5,
         "y": -134,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": -41,
         "y": -133,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": 41.5,
         "y": 1,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": -41.5,
         "y": 1,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": 50,
         "y": 1.5,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": -51,
         "y": 1,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": 57.5,
         "y": 4.5,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": -56,
         "y": 3,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": 66,
         "y": 51,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": -66,
         "y": 51,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": 82,
         "y": 52.5,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       },
       {
         "x": -80.5,
         "y": 52,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": 90,
         "y": 55.5,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       },
       {
         "x": -90,
         "y": 54.5,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       }
     ],
     "bays": [
@@ -2461,9 +2544,6 @@
         "hit force": 6000
       }
     },
-    "under": true,
-    "over": true,
-    "zoom": 2,
     "small explosion": 25,
     "medium explosion": 35,
     "large explosion": 45,
@@ -2472,7 +2552,7 @@
     "description": "A massive space station, filled to the brim with countless versions of every outfit in the galaxy. If only you had the password to the door of the storage area...",
     "_internalId": "POOT/endless_sky_senza_solaria::Senza Solaria",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "d1e9497d94ea",
+    "_hash": "8dff3de2321a",
     "variant": "Senza Solaria II (PRA)",
     "baseShip": "Senza Solaria",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -2611,27 +2691,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -2666,14 +2751,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Quick Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -2780,27 +2864,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -2835,14 +2924,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Plentiful Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -2949,27 +3037,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -3004,14 +3097,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Searching Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -3118,27 +3210,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -3173,14 +3270,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Powerful Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -3287,27 +3383,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -3342,14 +3443,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Collecting Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -3421,7 +3521,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -3429,12 +3530,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -3522,13 +3627,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Intelligent Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -3628,7 +3732,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -3636,12 +3741,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -3729,13 +3838,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Egotistical Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -3835,7 +3943,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -3843,12 +3952,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -3936,13 +4049,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Thorough Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -4042,7 +4154,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -4050,12 +4163,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -4143,13 +4260,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Purposeful Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -4249,7 +4365,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -4257,12 +4374,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -4350,13 +4471,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/endless_sky_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/endless_sky_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Observant Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/endless_sky_senza_solaria",
@@ -4456,130 +4576,153 @@
     "engines": [
       {
         "x": 0,
-        "y": 192.5
+        "y": 192.5,
+        "zoom": 2
       }
     ],
     "reverseEngines": [
       {
         "x": 0,
         "y": -157.5,
-        "position": "zoom 2"
+        "zoom": 2
       }
     ],
     "steeringEngines": [
       {
         "x": 37.5,
         "y": -126,
-        "position": "left"
+        "angle": -45,
+        "left": true
       },
       {
         "x": -37,
         "y": -125.5,
-        "position": "right"
+        "angle": 45,
+        "right": true
       }
     ],
     "guns": [
       {
         "x": 16,
         "y": -193,
-        "gun": ""
+        "gun": "Dragonflame Cannon",
+        "under": true
       },
       {
         "x": -15,
         "y": -193,
-        "gun": ""
+        "gun": "Dragonflame Cannon",
+        "under": true
       },
       {
         "x": 27.5,
         "y": -192,
-        "gun": ""
+        "gun": "",
+        "under": true
       },
       {
         "x": -28,
         "y": -192,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
       {
         "x": 23,
         "y": -136,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": -22,
         "y": -136,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       },
       {
         "x": 41.5,
         "y": -134,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": -41,
         "y": -133,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": 41.5,
         "y": 1,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": -41.5,
         "y": 1,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": 50,
         "y": 1.5,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": -51,
         "y": 1,
-        "turret": ""
+        "turret": "Quarg Skylance",
+        "over": true
       },
       {
         "x": 57.5,
         "y": 4.5,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": -56,
         "y": 3,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": 66,
         "y": 51,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": -66,
         "y": 51,
-        "turret": ""
+        "turret": "Solarian Particle Waveform Turret",
+        "over": true
       },
       {
         "x": 82,
         "y": 52.5,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       },
       {
         "x": -80.5,
         "y": 52,
-        "turret": ""
+        "turret": "Point Defense Turret",
+        "over": true
       },
       {
         "x": 90,
         "y": 55.5,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       },
       {
         "x": -90,
         "y": 54.5,
-        "turret": ""
+        "turret": "Solarian Zapper Turret",
+        "over": true
       }
     ],
     "bays": [
@@ -4687,9 +4830,6 @@
         "hit force": 6000
       }
     },
-    "under": true,
-    "over": true,
-    "zoom": 2,
     "small explosion": 25,
     "medium explosion": 35,
     "large explosion": 45,
@@ -4698,7 +4838,7 @@
     "description": "A massive space station, filled to the brim with countless versions of every outfit in the galaxy. If only you had the password to the door of the storage area...",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "d1e9497d94ea",
+    "_hash": "8dff3de2321a",
     "variant": "Senza Solaria II (PRA)",
     "baseShip": "Senza Solaria",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -4837,27 +4977,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -4892,14 +5037,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Quick Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -5006,27 +5150,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -5061,14 +5210,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Plentiful Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -5175,27 +5323,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -5230,14 +5383,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Searching Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -5344,27 +5496,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -5399,14 +5556,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Powerful Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -5513,27 +5669,32 @@
       {
         "x": 0,
         "y": -18,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 13.5,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": -2,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": 13.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       },
       {
         "x": -14,
         "y": 15.5,
-        "turret": ""
+        "turret": "Electron Turret",
+        "over": true
       }
     ],
     "bays": [],
@@ -5568,14 +5729,13 @@
         "hit force": 240
       }
     },
-    "over": true,
     "small explosion": 10,
     "medium explosion": 20,
     "final explode": "final explosion medium",
     "description": "The Syndicate CT-50 Star Barge is little more than a cluster of cargo containers with an engine at one end and a cockpit on the other. It is a slow and ugly ship, but it can carry enough cargo to earn its captain a steady income even in parts of the galaxy where it is hard to find passengers to carry or courier missions. \tBecause they often carry valuable cargo, and because they are too slow to evade any attackers, Star Barges are a common target of pirates.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Star Barge",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "6be3e4dcde51",
+    "_hash": "3975602fdfdf",
     "variant": "Collecting Donater (PRA)",
     "baseShip": "Solarian Star Barge",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -5647,7 +5807,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -5655,12 +5816,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -5748,13 +5913,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Intelligent Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -5854,7 +6018,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -5862,12 +6027,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -5955,13 +6124,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Egotistical Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -6061,7 +6229,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -6069,12 +6238,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -6162,13 +6335,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Thorough Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -6268,7 +6440,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -6276,12 +6449,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -6369,13 +6546,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Purposeful Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",
@@ -6475,7 +6651,8 @@
     "engines": [
       {
         "x": 0.5,
-        "y": 30.5
+        "y": 30.5,
+        "zoom": 1.5
       }
     ],
     "reverseEngines": [],
@@ -6483,12 +6660,16 @@
       {
         "x": 15.5,
         "y": 4,
-        "position": "zoom .7"
+        "left": true,
+        "angle": -45,
+        "zoom": 0.7
       },
       {
         "x": -13.5,
         "y": 4,
-        "position": "angle 45"
+        "zoom": 0.7,
+        "right": true,
+        "angle": 45
       }
     ],
     "guns": [
@@ -6576,13 +6757,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.5,
     "tiny explosion": 10,
     "small explosion": 10,
     "description": "With space for neither cargo nor passengers nor heavy weaponry, the Flivver's only selling point is speed. Flivvers are sold mostly to wealthy individuals who want to be able to travel the stars without needing to share a bunk room on a merchant transport with common people.",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Research Drone",
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
-    "_hash": "82ebe3755d2f",
+    "_hash": "77039e53564a",
     "variant": "Observant Researcher (PRA)",
     "baseShip": "Solarian Research Drone",
     "_variantPluginId": "POOT/poot-senza-solaria_senza_solaria",

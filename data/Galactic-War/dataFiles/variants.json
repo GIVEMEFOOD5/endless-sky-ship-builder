@@ -4,11 +4,17 @@
     "engines": [
       {
         "x": -39,
-        "y": 526.5
+        "y": 526.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 39,
-        "y": 526.5
+        "y": 526.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -16,32 +22,50 @@
       {
         "x": 108,
         "y": 444.5,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": -90,
+        "under": true,
+        "right": true
       },
       {
         "x": -108,
         "y": 444.5,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 223.5,
         "y": -484,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -223.5,
         "y": -484,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 240,
         "y": -424,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -93,
+        "under": true,
+        "left": true
       },
       {
         "x": -240,
         "y": -424,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 93,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [],
@@ -397,9 +421,6 @@
     "bay \"Pocket Heavy Warship\" 0 -198": {
       "under": true
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 36,
     "medium explosion": 24,
@@ -409,7 +430,7 @@
     "description": "Akralva mobile shipyard to provide their vanguards full repair capability and manufacture new ships right behind the frontline to quickly replenish their force.",
     "_internalId": "Galactic War/Galactic-War::Zikurch",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "42e5339436cf",
+    "_hash": "d0b72934b3ba",
     "variant": "Zikurch (Fighter)",
     "baseShip": "Zikurch",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -467,45 +488,67 @@
     "engines": [
       {
         "x": 29,
-        "y": 292
+        "y": 292,
+        "zoom": 1,
+        "angle": 0,
+        "over": true
       },
       {
         "x": -29,
-        "y": 292
+        "y": 292,
+        "zoom": 1,
+        "angle": 0,
+        "over": true
       }
     ],
     "reverseEngines": [
       {
         "x": 14,
         "y": -190,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -14,
         "y": -190,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": 46.5,
         "y": -220,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -46.5,
         "y": -220,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 68,
         "y": 258.5,
-        "position": "right"
+        "zoom": 0.7,
+        "angle": -95,
+        "under": true,
+        "right": true
       },
       {
         "x": -68,
         "y": 258.5,
-        "position": "left"
+        "zoom": 0.7,
+        "angle": 95,
+        "under": true,
+        "left": true
       }
     ],
     "guns": [
@@ -522,22 +565,22 @@
       {
         "x": -26.5,
         "y": -174.5,
-        "gun": ""
+        "gun": "#over"
       },
       {
         "x": 26.5,
         "y": -174.5,
-        "gun": ""
+        "gun": "#over"
       },
       {
         "x": -8.5,
         "y": -144.5,
-        "gun": ""
+        "gun": "#over"
       },
       {
         "x": 8.5,
         "y": -144.5,
-        "gun": ""
+        "gun": "#over"
       },
       {
         "x": -50.5,
@@ -604,12 +647,12 @@
       {
         "x": 0,
         "y": -53.5,
-        "turret": ""
+        "turret": "Vekrevira Turret"
       },
       {
         "x": 0,
         "y": -19,
-        "turret": ""
+        "turret": "Vekrevira Turret"
       },
       {
         "x": -68,
@@ -682,9 +725,6 @@
         "hit force": 1260
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "over": true,
     "tiny explosion": 18,
     "small explosion": 36,
     "medium explosion": 24,
@@ -693,7 +733,7 @@
     "description": "Akralva battleship, the rarest ship among Akralva fleets, its frontal guns will spell doom for who ever stand in its way.",
     "_internalId": "Galactic War/Galactic-War::Helgirvas",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "f4e9e2cbe225",
+    "_hash": "cd5eaa48f111",
     "variant": "Helgirvas (Pocket HW)",
     "baseShip": "Helgirvas",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -764,11 +804,17 @@
     "engines": [
       {
         "x": -35,
-        "y": 186.5
+        "y": 186.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 29.5,
-        "y": 183.5
+        "y": 183.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -784,22 +830,22 @@
       {
         "x": -13,
         "y": -116.5,
-        "turret": ""
+        "turret": "Ganoau Anti-Missile"
       },
       {
         "x": 36,
         "y": -101.5,
-        "turret": ""
+        "turret": "Dels Sokak Cannon Turret"
       },
       {
         "x": -30.5,
         "y": 71.5,
-        "turret": ""
+        "turret": "Kotdar Turret"
       },
       {
         "x": 36.5,
         "y": 71,
-        "turret": ""
+        "turret": "Kotdar Turret"
       }
     ],
     "bays": [
@@ -860,9 +906,6 @@
         "hit force": 4500
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 45,
     "medium explosion": 50,
@@ -872,7 +915,7 @@
     "description": "One of the few Irbor Sefora's warship design. It lacks the distinct cargo pods found in other freighters of the same shipyard as the Dacar is intended to be used as heavily armed freighter capable of defending it self in an event of an attack.",
     "_internalId": "Galactic War/Galactic-War::Dels Dacar",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "d0776c224781",
+    "_hash": "a44db160b78e",
     "variant": "Dacar heavy",
     "baseShip": "Dels Dacar",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -945,11 +988,17 @@
     "engines": [
       {
         "x": -35,
-        "y": 186.5
+        "y": 186.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 29.5,
-        "y": 183.5
+        "y": 183.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -965,22 +1014,22 @@
       {
         "x": -13,
         "y": -116.5,
-        "turret": ""
+        "turret": "Ganoau Anti-Missile"
       },
       {
         "x": 36,
         "y": -101.5,
-        "turret": ""
+        "turret": "Dels Sokak Cannon Turret"
       },
       {
         "x": -30.5,
         "y": 71.5,
-        "turret": ""
+        "turret": "Kotdar Turret"
       },
       {
         "x": 36.5,
         "y": 71,
-        "turret": ""
+        "turret": "Kotdar Turret"
       }
     ],
     "bays": [
@@ -1041,9 +1090,6 @@
         "hit force": 4500
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 45,
     "medium explosion": 50,
@@ -1053,7 +1099,7 @@
     "description": "One of the few Irbor Sefora's warship design. It lacks the distinct cargo pods found in other freighters of the same shipyard as the Dacar is intended to be used as heavily armed freighter capable of defending it self in an event of an attack.",
     "_internalId": "Galactic War/Galactic-War::Dels Dacar",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "d0776c224781",
+    "_hash": "a44db160b78e",
     "variant": "Dacar Tehru",
     "baseShip": "Dels Dacar",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -1130,45 +1176,67 @@
     "engines": [
       {
         "x": -45,
-        "y": 307
+        "y": 307,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 45,
-        "y": 307
+        "y": 307,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -34.5,
         "y": -311,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 34.5,
         "y": -311,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -57,
         "y": -266,
-        "position": "right"
+        "zoom": 1,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 57,
         "y": -266,
-        "position": "left"
+        "zoom": 1,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -82.5,
         "y": 258.5,
-        "position": "right"
+        "zoom": 1,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 82.5,
         "y": 258.5,
-        "position": "left"
+        "zoom": 1,
+        "angle": -90,
+        "under": true,
+        "left": true
       }
     ],
     "guns": [
@@ -1185,34 +1253,42 @@
       {
         "x": -77,
         "y": -77,
-        "gun": ""
+        "gun": "",
+        "angle": -90,
+        "parallel": true
       },
       {
         "x": 77,
         "y": -77,
-        "gun": ""
+        "gun": "",
+        "angle": 90,
+        "parallel": true
       },
       {
         "x": -79.5,
         "y": -53,
-        "gun": ""
+        "gun": "",
+        "angle": -90,
+        "parallel": true
       },
       {
         "x": 79.5,
         "y": -53,
-        "gun": ""
+        "gun": "",
+        "angle": 90,
+        "parallel": true
       }
     ],
     "turrets": [
       {
         "x": -43.5,
         "y": -193.5,
-        "turret": ""
+        "turret": "Skue-8 Turret"
       },
       {
         "x": 43.5,
         "y": -193.5,
-        "turret": ""
+        "turret": "Ganoau Anti-Missile"
       },
       {
         "x": -49.5,
@@ -1237,12 +1313,12 @@
       {
         "x": -109,
         "y": 147.5,
-        "turret": ""
+        "turret": "Ganoau Anti-Missile"
       },
       {
         "x": 109,
         "y": 147.5,
-        "turret": ""
+        "turret": "Skue-8 Turret"
       }
     ],
     "bays": [
@@ -1395,10 +1471,6 @@
         "hit force": 5400
       }
     },
-    "angle": 0,
-    "parallel": true,
-    "zoom": 1,
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 36,
     "medium explosion": 17,
@@ -1408,7 +1480,7 @@
     "description": "Primary carrier deployed by Prada Kaote and one of the largest warship used by Dels. It is designed to fight in a fleet along with other warships and deploy drones and figthers as distraction and additional firepower.",
     "_internalId": "Galactic War/Galactic-War::Dels Darca",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "8eb0918eb718",
+    "_hash": "e27e34c062f5",
     "variant": "Darca Offensive",
     "baseShip": "Dels Darca",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -1471,19 +1543,26 @@
     "engines": [
       {
         "x": 0,
-        "y": 38
+        "y": 38,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 150,
+        "under": true
       },
       {
         "x": 7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 210,
+        "under": true
       }
     ],
     "steeringEngines": [],
@@ -1536,15 +1615,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 15,
     "small explosion": 5,
     "description": "Light and fast interceptor made by Firklee as cheap, entry level combat ship for those that prefers riskier life or occasionally fielded by Dardornai as reconaissance ship as well as serving as additional escort in a pinch. Though the ship is one of the most fragile in the area, its' Type-F hyperdrive allows it to quickly escape in battles it can't win.",
     "_internalId": "Galactic War/Galactic-War::Dels Desin",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "6da5e61a94f3",
+    "_hash": "edb4c491357d",
     "variant": "Desin Miner",
     "baseShip": "Dels Desin",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -1596,19 +1672,26 @@
     "engines": [
       {
         "x": 0,
-        "y": 38
+        "y": 38,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 150,
+        "under": true
       },
       {
         "x": 7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 210,
+        "under": true
       }
     ],
     "steeringEngines": [],
@@ -1661,15 +1744,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 15,
     "small explosion": 5,
     "description": "Light and fast interceptor made by Firklee as cheap, entry level combat ship for those that prefers riskier life or occasionally fielded by Dardornai as reconaissance ship as well as serving as additional escort in a pinch. Though the ship is one of the most fragile in the area, its' Type-F hyperdrive allows it to quickly escape in battles it can't win.",
     "_internalId": "Galactic War/Galactic-War::Dels Desin",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "6da5e61a94f3",
+    "_hash": "edb4c491357d",
     "variant": "Desin TC5",
     "baseShip": "Dels Desin",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -1721,19 +1801,26 @@
     "engines": [
       {
         "x": 0,
-        "y": 38
+        "y": 38,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 150,
+        "under": true
       },
       {
         "x": 7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 210,
+        "under": true
       }
     ],
     "steeringEngines": [],
@@ -1786,15 +1873,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 15,
     "small explosion": 5,
     "description": "Light and fast interceptor made by Firklee as cheap, entry level combat ship for those that prefers riskier life or occasionally fielded by Dardornai as reconaissance ship as well as serving as additional escort in a pinch. Though the ship is one of the most fragile in the area, its' Type-F hyperdrive allows it to quickly escape in battles it can't win.",
     "_internalId": "Galactic War/Galactic-War::Dels Desin",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "6da5e61a94f3",
+    "_hash": "edb4c491357d",
     "variant": "Desin Skue8",
     "baseShip": "Dels Desin",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -1846,19 +1930,26 @@
     "engines": [
       {
         "x": 0,
-        "y": 38
+        "y": 38,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 150,
+        "under": true
       },
       {
         "x": 7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 210,
+        "under": true
       }
     ],
     "steeringEngines": [],
@@ -1911,15 +2002,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 15,
     "small explosion": 5,
     "description": "Light and fast interceptor made by Firklee as cheap, entry level combat ship for those that prefers riskier life or occasionally fielded by Dardornai as reconaissance ship as well as serving as additional escort in a pinch. Though the ship is one of the most fragile in the area, its' Type-F hyperdrive allows it to quickly escape in battles it can't win.",
     "_internalId": "Galactic War/Galactic-War::Dels Desin",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "6da5e61a94f3",
+    "_hash": "edb4c491357d",
     "variant": "Desin Aserap",
     "baseShip": "Dels Desin",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -1979,41 +2067,60 @@
     "engines": [
       {
         "x": 0,
-        "y": 54
+        "y": 54,
+        "zoom": 1.2,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -25.5,
         "y": -6,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 25.5,
         "y": -6,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -25.5,
         "y": -6,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 180,
+        "under": true,
+        "left": true
       },
       {
         "x": 25.5,
         "y": -6,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 180,
+        "under": true,
+        "left": true
       },
       {
         "x": -25.5,
         "y": 20,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 0,
+        "under": true,
+        "right": true
       },
       {
         "x": 25.5,
         "y": 20,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 0,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -2055,15 +2162,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1.2,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 10,
     "description": "Derkeela's heavier alternative to Firklee Desin. Though less agile, in exchange the Derso is equipped with heavier armament and shieldingy and rely on it to eliminate their enemies before they do so to them. It saw some success but most ended up in the hands of the Ufulre who often have to deal with the heavily armed Kaote patrols. While Dardornai commander have expressed interest in the ship the logistic remains a major problem as the most of Derkeela shipyard is located very far from Dardornai territory.",
     "_internalId": "Galactic War/Galactic-War::Dels Derso",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "ceaed289751a",
+    "_hash": "3f25c75ccace",
     "variant": "Ufulre Derso",
     "baseShip": "Dels Derso",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -2122,19 +2226,26 @@
     "engines": [
       {
         "x": 0,
-        "y": 38
+        "y": 38,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 150,
+        "under": true
       },
       {
         "x": 7.5,
         "y": -15.5,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 210,
+        "under": true
       }
     ],
     "steeringEngines": [],
@@ -2187,15 +2298,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 15,
     "small explosion": 5,
     "description": "Light and fast interceptor made by Firklee as cheap, entry level combat ship for those that prefers riskier life or occasionally fielded by Dardornai as reconaissance ship as well as serving as additional escort in a pinch. Though the ship is one of the most fragile in the area, its' Type-F hyperdrive allows it to quickly escape in battles it can't win.",
     "_internalId": "Galactic War/Galactic-War::Dels Desin",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "6da5e61a94f3",
+    "_hash": "edb4c491357d",
     "variant": "Ufulre Desin",
     "baseShip": "Dels Desin",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -2255,7 +2363,10 @@
     "engines": [
       {
         "x": 0,
-        "y": 48
+        "y": 48,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -2319,15 +2430,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 10,
     "description": "Irbor Sefora attempts at interceptor turns out to be borderline light escort trading most of its agility for armour, shielding, and armaments. Ekdor is largely favored by the merchants for their larger fuel tank that allow them to keep up more with the long ranged freighters.",
     "_internalId": "Galactic War/Galactic-War::Dels Ekdor",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "634d704df830",
+    "_hash": "30ee6cfb73da",
     "variant": "Ekdor Skue8",
     "baseShip": "Dels Ekdor",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -2378,7 +2486,10 @@
     "engines": [
       {
         "x": 0,
-        "y": 48
+        "y": 48,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -2442,15 +2553,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 10,
     "description": "Irbor Sefora attempts at interceptor turns out to be borderline light escort trading most of its agility for armour, shielding, and armaments. Ekdor is largely favored by the merchants for their larger fuel tank that allow them to keep up more with the long ranged freighters.",
     "_internalId": "Galactic War/Galactic-War::Dels Ekdor",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "634d704df830",
+    "_hash": "30ee6cfb73da",
     "variant": "Ekdor Georlen",
     "baseShip": "Dels Ekdor",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -2509,19 +2617,31 @@
     "engines": [
       {
         "x": -13,
-        "y": 173
+        "y": 173,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -41,
-        "y": 148
+        "y": 148,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 17,
-        "y": 162
+        "y": 162,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 41.5,
-        "y": 161.5
+        "y": 161.5,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -2530,7 +2650,7 @@
       {
         "x": -14,
         "y": -174,
-        "gun": ""
+        "gun": "Dakte-1 Launcher"
       },
       {
         "x": -7,
@@ -2540,7 +2660,7 @@
       {
         "x": 62.5,
         "y": -66,
-        "gun": ""
+        "gun": "Dakte-1 Launcher"
       },
       {
         "x": 62.5,
@@ -2596,15 +2716,12 @@
         "hit force": 180
       }
     },
-    "zoom": 0.6,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 12,
     "description": "As Dels colony expands further, Eudaion was released to satisfy the need for long range freighter.",
     "_internalId": "Galactic War/Galactic-War::Dels Eudaion",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "43f67dad35c3",
+    "_hash": "46a77621ea76",
     "variant": "Eudaion Shield",
     "baseShip": "Dels Eudaion",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -2663,19 +2780,31 @@
     "engines": [
       {
         "x": -13,
-        "y": 173
+        "y": 173,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -41,
-        "y": 148
+        "y": 148,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 17,
-        "y": 162
+        "y": 162,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 41.5,
-        "y": 161.5
+        "y": 161.5,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -2684,7 +2813,7 @@
       {
         "x": -14,
         "y": -174,
-        "gun": ""
+        "gun": "Dakte-1 Launcher"
       },
       {
         "x": -7,
@@ -2694,7 +2823,7 @@
       {
         "x": 62.5,
         "y": -66,
-        "gun": ""
+        "gun": "Dakte-1 Launcher"
       },
       {
         "x": 62.5,
@@ -2750,15 +2879,12 @@
         "hit force": 180
       }
     },
-    "zoom": 0.6,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 12,
     "description": "As Dels colony expands further, Eudaion was released to satisfy the need for long range freighter.",
     "_internalId": "Galactic War/Galactic-War::Dels Eudaion",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "43f67dad35c3",
+    "_hash": "46a77621ea76",
     "variant": "Eudaion Engine",
     "baseShip": "Dels Eudaion",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -2821,19 +2947,31 @@
     "engines": [
       {
         "x": -16.5,
-        "y": 93.5
+        "y": 93.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 16.5,
-        "y": 93.5
+        "y": 93.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -32.5,
-        "y": 78
+        "y": 78,
+        "zoom": 0.7,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 32.5,
-        "y": 78
+        "y": 78,
+        "zoom": 0.7,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -2901,9 +3039,6 @@
         "hit force": 180
       }
     },
-    "zoom": 0.7,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 10,
     "small explosion": 5,
     "medium explosion": 17,
@@ -2913,7 +3048,7 @@
     "description": "A more recent frigate commissioned by Prada Kaote to be used as their new long range patrol ship and replace the aging Secsen.",
     "_internalId": "Galactic War/Galactic-War::Dels Uldeor",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "dd860982b6a0",
+    "_hash": "178449769f23",
     "variant": "Uldeor (Kotdar)",
     "baseShip": "Dels Uldeor",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -2976,7 +3111,10 @@
     "engines": [
       {
         "x": 0,
-        "y": 48
+        "y": 48,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -3040,15 +3178,12 @@
         "hit force": 240
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 10,
     "description": "Irbor Sefora attempts at interceptor turns out to be borderline light escort trading most of its agility for armour, shielding, and armaments. Ekdor is largely favored by the merchants for their larger fuel tank that allow them to keep up more with the long ranged freighters.",
     "_internalId": "Galactic War/Galactic-War::Dels Ekdor",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "634d704df830",
+    "_hash": "30ee6cfb73da",
     "variant": "Ufulre Ekdor",
     "baseShip": "Dels Ekdor",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -3107,11 +3242,17 @@
     "engines": [
       {
         "x": -8,
-        "y": 64
+        "y": 64,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 8,
-        "y": 64
+        "y": 64,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -3171,9 +3312,6 @@
         "hit force": 650
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "medium explosion": 24,
     "large explosion": 6,
     "tiny explosion": 28,
@@ -3181,7 +3319,7 @@
     "description": "Puda Der shipyard Secsen is the mainstay of the Kaote patrols for many years, only not too long ago it was considered outdated enough some surplus were sold on the civilian market. Though, despite the age and dated design many Secsen remains in service of the Kaote navy.",
     "_internalId": "Galactic War/Galactic-War::Dels Secsen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "f1255feb6f10",
+    "_hash": "11f50972138d",
     "variant": "Ufulre Secsen",
     "baseShip": "Dels Secsen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -3247,11 +3385,17 @@
     "engines": [
       {
         "x": -8,
-        "y": 64
+        "y": 64,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 8,
-        "y": 64
+        "y": 64,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -3311,9 +3455,6 @@
         "hit force": 650
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "medium explosion": 24,
     "large explosion": 6,
     "tiny explosion": 28,
@@ -3321,7 +3462,7 @@
     "description": "Puda Der shipyard Secsen is the mainstay of the Kaote patrols for many years, only not too long ago it was considered outdated enough some surplus were sold on the civilian market. Though, despite the age and dated design many Secsen remains in service of the Kaote navy.",
     "_internalId": "Galactic War/Galactic-War::Dels Secsen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "f1255feb6f10",
+    "_hash": "11f50972138d",
     "variant": "Ufulre Secsen Shield",
     "baseShip": "Dels Secsen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -3387,11 +3528,17 @@
     "engines": [
       {
         "x": -8,
-        "y": 64
+        "y": 64,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 8,
-        "y": 64
+        "y": 64,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -3451,9 +3598,6 @@
         "hit force": 650
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "medium explosion": 24,
     "large explosion": 6,
     "tiny explosion": 28,
@@ -3461,7 +3605,7 @@
     "description": "Puda Der shipyard Secsen is the mainstay of the Kaote patrols for many years, only not too long ago it was considered outdated enough some surplus were sold on the civilian market. Though, despite the age and dated design many Secsen remains in service of the Kaote navy.",
     "_internalId": "Galactic War/Galactic-War::Dels Secsen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "f1255feb6f10",
+    "_hash": "11f50972138d",
     "variant": "Ufulre Secsen Vokkar",
     "baseShip": "Dels Secsen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -3519,11 +3663,17 @@
     "engines": [
       {
         "x": -8.5,
-        "y": 62.5
+        "y": 62.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 8.5,
-        "y": 62.5
+        "y": 62.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -3578,9 +3728,6 @@
         "hit force": 1000
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "medium explosion": 24,
     "large explosion": 6,
     "tiny explosion": 28,
@@ -3588,7 +3735,7 @@
     "description": "An attack craft designed to bombard and destroy larger warships with big guns. Largely preferred by the Dardornai navy who have to constantly deal with hostile alien and their seemingly limitless supply of large warships.",
     "_internalId": "Galactic War/Galactic-War::Dels Senro",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "3dfb97c1a75d",
+    "_hash": "2259decc24a3",
     "variant": "Ufulre Senro",
     "baseShip": "Dels Senro",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -3653,11 +3800,17 @@
     "engines": [
       {
         "x": -8.5,
-        "y": 62.5
+        "y": 62.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 8.5,
-        "y": 62.5
+        "y": 62.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -3712,9 +3865,6 @@
         "hit force": 1000
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "medium explosion": 24,
     "large explosion": 6,
     "tiny explosion": 28,
@@ -3722,7 +3872,7 @@
     "description": "An attack craft designed to bombard and destroy larger warships with big guns. Largely preferred by the Dardornai navy who have to constantly deal with hostile alien and their seemingly limitless supply of large warships.",
     "_internalId": "Galactic War/Galactic-War::Dels Senro",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "3dfb97c1a75d",
+    "_hash": "2259decc24a3",
     "variant": "Ufulre Senro Blaster",
     "baseShip": "Dels Senro",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -3791,11 +3941,17 @@
     "engines": [
       {
         "x": -35,
-        "y": 186.5
+        "y": 186.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 29.5,
-        "y": 183.5
+        "y": 183.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -3811,22 +3967,22 @@
       {
         "x": -13,
         "y": -116.5,
-        "turret": ""
+        "turret": "Ganoau Anti-Missile"
       },
       {
         "x": 36,
         "y": -101.5,
-        "turret": ""
+        "turret": "Dels Sokak Cannon Turret"
       },
       {
         "x": -30.5,
         "y": 71.5,
-        "turret": ""
+        "turret": "Kotdar Turret"
       },
       {
         "x": 36.5,
         "y": 71,
-        "turret": ""
+        "turret": "Kotdar Turret"
       }
     ],
     "bays": [
@@ -3887,9 +4043,6 @@
         "hit force": 4500
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 45,
     "medium explosion": 50,
@@ -3899,7 +4052,7 @@
     "description": "One of the few Irbor Sefora's warship design. It lacks the distinct cargo pods found in other freighters of the same shipyard as the Dacar is intended to be used as heavily armed freighter capable of defending it self in an event of an attack.",
     "_internalId": "Galactic War/Galactic-War::Dels Dacar",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "d0776c224781",
+    "_hash": "a44db160b78e",
     "variant": "Ufulre Dacar",
     "baseShip": "Dels Dacar",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -3984,45 +4137,67 @@
     "engines": [
       {
         "x": -33.5,
-        "y": 196
+        "y": 196,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 33.5,
-        "y": 196
+        "y": 196,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -29,
         "y": -201,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 29,
         "y": -201,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -39.5,
         "y": -161.5,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 100,
+        "over": true,
+        "right": true
       },
       {
         "x": 39.5,
         "y": -161.5,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": 260,
+        "over": true,
+        "left": true
       },
       {
         "x": -62,
         "y": 174,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 62,
         "y": 174,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 270,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -4061,12 +4236,12 @@
       {
         "x": -66.5,
         "y": -48,
-        "turret": ""
+        "turret": "Kroom Anti-Missile Turret"
       },
       {
         "x": 66.5,
         "y": -48,
-        "turret": ""
+        "turret": "Kroom Anti-Missile Turret"
       },
       {
         "x": -52,
@@ -4091,7 +4266,7 @@
       {
         "x": -9.5,
         "y": -122.5,
-        "turret": ""
+        "turret": "Kroom Anti-Missile Turret"
       }
     ],
     "bays": [
@@ -4160,9 +4335,6 @@
         "hit force": 3900
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 45,
     "medium explosion": 50,
@@ -4172,7 +4344,7 @@
     "description": "Kroom Kakaima cruiser with a small squadron of support fighters used for many role across the Kakaima Navy.",
     "_internalId": "Galactic War/Galactic-War::Grokva",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "b7051cbd45a7",
+    "_hash": "a930b67fb7a7",
     "variant": "Grokva (Dels)",
     "baseShip": "Grokva",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -4302,11 +4474,17 @@
     "engines": [
       {
         "x": -16.5,
-        "y": 131
+        "y": 131,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 16.5,
-        "y": 131
+        "y": 131,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -4379,9 +4557,6 @@
         "hit force": 8550
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "fighter": 0,
     "tiny explosion": 15,
     "small explosion": 15,
@@ -4390,7 +4565,7 @@
     "description": "Koi is a Donko fighter carrier.",
     "_internalId": "Galactic War/Galactic-War::Donko Koi",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "34c12116ec41",
+    "_hash": "2afb9ad3fce2",
     "variant": "Koi (Drone)",
     "baseShip": "Donko Koi",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -4416,11 +4591,17 @@
     "engines": [
       {
         "x": -16.5,
-        "y": 131
+        "y": 131,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 16.5,
-        "y": 131
+        "y": 131,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -4493,9 +4674,6 @@
         "hit force": 8550
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "fighter": 0,
     "tiny explosion": 15,
     "small explosion": 15,
@@ -4504,7 +4682,7 @@
     "description": "Koi is a Donko fighter carrier.",
     "_internalId": "Galactic War/Galactic-War::Donko Koi",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "34c12116ec41",
+    "_hash": "2afb9ad3fce2",
     "variant": "Koi (Freighter)",
     "baseShip": "Donko Koi",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -4530,11 +4708,17 @@
     "engines": [
       {
         "x": -16.5,
-        "y": 152.5
+        "y": 152.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 16.5,
-        "y": 152.5
+        "y": 152.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -4565,12 +4749,12 @@
       {
         "x": -20.5,
         "y": -122,
-        "turret": ""
+        "turret": "J4 KED Turret"
       },
       {
         "x": 20.5,
         "y": -122,
-        "turret": ""
+        "turret": "J4 KED Turret"
       },
       {
         "x": -21,
@@ -4595,7 +4779,7 @@
       {
         "x": 0,
         "y": -22.5,
-        "turret": ""
+        "turret": "Barmott Anti-Missile"
       }
     ],
     "bays": [],
@@ -4627,9 +4811,6 @@
         "hit force": 8550
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 15,
     "small explosion": 15,
     "medium explosion": 10,
@@ -4637,7 +4818,7 @@
     "description": "Before the development of Sao, this ship were the vanguard of Donko's force filling the role of multipurpose cruiser.",
     "_internalId": "Galactic War/Galactic-War::Donko Senka",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "b18cfdbf7065",
+    "_hash": "f1a8ee7c0007",
     "variant": "Senka (Laser)",
     "baseShip": "Donko Senka",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -4711,55 +4892,83 @@
     "engines": [
       {
         "x": -25,
-        "y": 95.5
+        "y": 95.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 25,
-        "y": 95.5
+        "y": 95.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -12.5,
         "y": -103.5,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 12.5,
         "y": -103.5,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -12,
         "y": -111,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 12,
         "y": -111,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -34,
         "y": -69.5,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 34,
         "y": -69.5,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -13.5,
         "y": 111.5,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 13.5,
         "y": 111.5,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -4848,9 +5057,6 @@
         "hit force": 600
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 10,
     "small explosion": 20,
     "medium explosion": 15,
@@ -4858,7 +5064,7 @@
     "description": "Makerurader Warship",
     "_internalId": "Galactic War/Galactic-War::Ertezkaral",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "5bda2c08acb8",
+    "_hash": "4dc0ac322931",
     "variant": "Ertezkaral (Anti-Fighter)",
     "baseShip": "Ertezkaral",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -4986,55 +5192,83 @@
     "engines": [
       {
         "x": -25,
-        "y": 95.5
+        "y": 95.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 25,
-        "y": 95.5
+        "y": 95.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -12.5,
         "y": -103.5,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 12.5,
         "y": -103.5,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -12,
         "y": -111,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 12,
         "y": -111,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -34,
         "y": -69.5,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 34,
         "y": -69.5,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -13.5,
         "y": 111.5,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 13.5,
         "y": 111.5,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -5123,9 +5357,6 @@
         "hit force": 600
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 10,
     "small explosion": 20,
     "medium explosion": 15,
@@ -5133,7 +5364,7 @@
     "description": "Makerurader Warship",
     "_internalId": "Galactic War/Galactic-War::Ertezkaral",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "5bda2c08acb8",
+    "_hash": "4dc0ac322931",
     "variant": "Ertezkaral (Heavy)",
     "baseShip": "Ertezkaral",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -5290,84 +5521,84 @@
       {
         "x": -65,
         "y": -99.5,
-        "gun": ""
+        "gun": "Atarkor Missile"
       },
       {
         "x": 65,
         "y": -98,
-        "gun": ""
+        "gun": "Atarkor Missile"
       },
       {
         "x": -48.5,
         "y": -163,
-        "gun": ""
+        "gun": "Aranut Missile"
       },
       {
         "x": 49.5,
         "y": -163,
-        "gun": ""
+        "gun": "Aranut Missile"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -92.5,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": 0,
         "y": -44,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": -73,
         "y": -53,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": 72,
         "y": -53,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": -72.5,
         "y": 4.5,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": 73,
         "y": 5,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": -73,
         "y": 63.5,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": 72,
         "y": 63,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": -80,
         "y": -23.5,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       },
       {
         "x": 79.5,
         "y": -24,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       },
       {
         "x": -67,
         "y": 121,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       },
       {
         "x": 62.5,
         "y": 122,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       }
     ],
     "bays": [],
@@ -5407,7 +5638,7 @@
     "description": "A Longrange weapon platform made by Erm, they mostly stay behind stronger ships and attack from range with their deadly artillery and missiles.",
     "_internalId": "Galactic War/Galactic-War::Hordanler",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "f92ff3fce31a",
+    "_hash": "8d0adb442102",
     "variant": "Hordanler Anti-Fighter",
     "baseShip": "Hordanler",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -5498,44 +5729,44 @@
       {
         "x": -28,
         "y": -16,
-        "gun": ""
+        "gun": "Atmas Missile"
       },
       {
         "x": -21,
         "y": -23,
-        "gun": ""
+        "gun": "Aranut Missile"
       },
       {
         "x": 21,
         "y": -23,
-        "gun": ""
+        "gun": "Aranut Missile"
       },
       {
         "x": 28,
         "y": -16,
-        "gun": ""
+        "gun": "Atmas Missile"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -28,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": 0,
         "y": 51,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": -24.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       },
       {
         "x": 25.5,
         "y": 15,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       }
     ],
     "bays": [],
@@ -5572,7 +5803,7 @@
     "description": "Ernar is a light warship built by Erm to mainly to support large ships by applying various of distruption on the enemy ship and take their shields down.",
     "_internalId": "Galactic War/Galactic-War::Ernar",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "d82481b21c39",
+    "_hash": "83cab16f89dc",
     "variant": "Ernar Offensive",
     "baseShip": "Ernar",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -5672,44 +5903,44 @@
       {
         "x": -28,
         "y": -16,
-        "gun": ""
+        "gun": "Aranut Missile"
       },
       {
         "x": -21,
         "y": -23,
-        "gun": ""
+        "gun": "Aranut Missile"
       },
       {
         "x": 21,
         "y": -23,
-        "gun": ""
+        "gun": "Aranut Missile"
       },
       {
         "x": 28,
         "y": -16,
-        "gun": ""
+        "gun": "Aranut Missile"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -28,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": 0,
         "y": 51,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": -24.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       },
       {
         "x": 25.5,
         "y": 15,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       }
     ],
     "bays": [],
@@ -5746,7 +5977,7 @@
     "description": "Ernar is a light warship built by Erm to mainly to support large ships by applying various of distruption on the enemy ship and take their shields down.",
     "_internalId": "Galactic War/Galactic-War::Ernar",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "d82481b21c39",
+    "_hash": "83cab16f89dc",
     "variant": "Ernar Offensive(S)",
     "baseShip": "Ernar",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -5825,44 +6056,44 @@
       {
         "x": -28,
         "y": -16,
-        "gun": ""
+        "gun": "Atmas Missile"
       },
       {
         "x": -21,
         "y": -23,
-        "gun": ""
+        "gun": "Atmas Missile"
       },
       {
         "x": 21,
         "y": -23,
-        "gun": ""
+        "gun": "Atmas Missile"
       },
       {
         "x": 28,
         "y": -16,
-        "gun": ""
+        "gun": "Atmas Missile"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -28,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": 0,
         "y": 51,
-        "turret": ""
+        "turret": "Kaiza Anti-Fighter Turret"
       },
       {
         "x": -24.5,
         "y": 15.5,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       },
       {
         "x": 25.5,
         "y": 15,
-        "turret": ""
+        "turret": "Erm Missile Guard"
       }
     ],
     "bays": [],
@@ -5899,7 +6130,7 @@
     "description": "Ernar is a light warship built by Erm to mainly to support large ships by applying various of distruption on the enemy ship and take their shields down.",
     "_internalId": "Galactic War/Galactic-War::Ernar",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "d82481b21c39",
+    "_hash": "83cab16f89dc",
     "variant": "Ernar Offensive(A)",
     "baseShip": "Ernar",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -5965,11 +6196,17 @@
     "engines": [
       {
         "x": 7,
-        "y": 55
+        "y": 55,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -7,
-        "y": 55
+        "y": 55,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -6016,14 +6253,11 @@
       "engine capacity": 60,
       "energy capacity": 8000
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "smoke": 50,
     "description": "Gargoor'an escort.",
     "_internalId": "Galactic War/Galactic-War::Akyonur",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "7e15a16204d4",
+    "_hash": "ce0a1cef177f",
     "variant": "Akyonur (Hull)",
     "baseShip": "Akyonur",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -6091,11 +6325,17 @@
     "engines": [
       {
         "x": 7,
-        "y": 55
+        "y": 55,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -7,
-        "y": 55
+        "y": 55,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -6142,14 +6382,11 @@
       "engine capacity": 60,
       "energy capacity": 8000
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "smoke": 50,
     "description": "Gargoor'an escort.",
     "_internalId": "Galactic War/Galactic-War::Akyonur",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "7e15a16204d4",
+    "_hash": "ce0a1cef177f",
     "variant": "Akyonur (Missile)",
     "baseShip": "Akyonur",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -6187,19 +6424,31 @@
     "engines": [
       {
         "x": 12.5,
-        "y": 49
+        "y": 49,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -12.5,
-        "y": 49
+        "y": 49,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 37,
-        "y": 37
+        "y": 37,
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -37,
-        "y": 37
+        "y": 37,
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -6277,14 +6526,11 @@
       "engine capacity": 120,
       "energy capacity": 14000
     },
-    "zoom": 0.5,
-    "angle": 0,
-    "under": true,
     "smoke": 150,
     "description": "Gargoor'an warship.",
     "_internalId": "Galactic War/Galactic-War::Bwehoke",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "6f964f88f5b0",
+    "_hash": "b6884b290488",
     "variant": "Bwehoke (Hull)",
     "baseShip": "Bwehoke",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -6356,7 +6602,10 @@
     "engines": [
       {
         "x": 0,
-        "y": 16.5
+        "y": 16.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -6413,14 +6662,11 @@
       "engine capacity": 60,
       "energy capacity": 2000
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "smoke": 50,
     "description": "Gargoor'an fighter/bomber.",
     "_internalId": "Galactic War/Galactic-War::Iurenoa",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "a7fac065ca8a",
+    "_hash": "f2745fc94916",
     "variant": "Iurenoa (Hull)",
     "baseShip": "Iurenoa",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -6501,7 +6747,10 @@
     "engines": [
       {
         "x": 0,
-        "y": 16.5
+        "y": 16.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -6558,14 +6807,11 @@
       "engine capacity": 60,
       "energy capacity": 2000
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "smoke": 50,
     "description": "Gargoor'an fighter/bomber.",
     "_internalId": "Galactic War/Galactic-War::Iurenoa",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "a7fac065ca8a",
+    "_hash": "f2745fc94916",
     "variant": "Iurenoa (Missile)",
     "baseShip": "Iurenoa",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -6603,15 +6849,24 @@
     "engines": [
       {
         "x": 0,
-        "y": 58
+        "y": 58,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 12,
-        "y": 58.5
+        "y": 58.5,
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -12,
-        "y": 58.5
+        "y": 58.5,
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -6619,12 +6874,18 @@
       {
         "x": 12.5,
         "y": 59.5,
-        "position": "right"
+        "zoom": 0.4,
+        "angle": 35,
+        "under": true,
+        "right": true
       },
       {
         "x": -12.5,
         "y": 59.5,
-        "position": "left"
+        "zoom": 0.4,
+        "angle": -35,
+        "under": true,
+        "left": true
       }
     ],
     "guns": [
@@ -6673,7 +6934,7 @@
       {
         "x": 0,
         "y": 9,
-        "turret": ""
+        "turret": "Noilcor-06 Blaster Turret"
       }
     ],
     "bays": [],
@@ -6702,16 +6963,13 @@
         "hit force": 450
       }
     },
-    "zoom": 0.5,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 10,
     "small explosion": 20,
     "medium explosion": 15,
     "description": "Geeva escort ship developed shortly after the evacuation for light escort role to deal with occasional Kroom raid. It comes with large number of ports for the its size allowing it to be equipped in various way for whatever task the Geeva require.",
     "_internalId": "Galactic War/Galactic-War::Kinika",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "d7f8ea8414e7",
+    "_hash": "ec962fc2abd6",
     "variant": "Kinika (Zilnor)",
     "baseShip": "Kinika",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -6957,15 +7215,24 @@
     "engines": [
       {
         "x": 0,
-        "y": 58
+        "y": 58,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 12,
-        "y": 58.5
+        "y": 58.5,
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -12,
-        "y": 58.5
+        "y": 58.5,
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -6973,12 +7240,18 @@
       {
         "x": 12.5,
         "y": 59.5,
-        "position": "right"
+        "zoom": 0.4,
+        "angle": 35,
+        "under": true,
+        "right": true
       },
       {
         "x": -12.5,
         "y": 59.5,
-        "position": "left"
+        "zoom": 0.4,
+        "angle": -35,
+        "under": true,
+        "left": true
       }
     ],
     "guns": [
@@ -7027,7 +7300,7 @@
       {
         "x": 0,
         "y": 9,
-        "turret": ""
+        "turret": "Noilcor-06 Blaster Turret"
       }
     ],
     "bays": [],
@@ -7056,16 +7329,13 @@
         "hit force": 450
       }
     },
-    "zoom": 0.5,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 10,
     "small explosion": 20,
     "medium explosion": 15,
     "description": "Geeva escort ship developed shortly after the evacuation for light escort role to deal with occasional Kroom raid. It comes with large number of ports for the its size allowing it to be equipped in various way for whatever task the Geeva require.",
     "_internalId": "Galactic War/Galactic-War::Kinika",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "d7f8ea8414e7",
+    "_hash": "ec962fc2abd6",
     "variant": "Kinika (Vytorn)",
     "baseShip": "Kinika",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -7311,11 +7581,13 @@
     "engines": [
       {
         "x": -10.5,
-        "y": 47
+        "y": 47,
+        "zoom": 0.7
       },
       {
         "x": 10.5,
-        "y": 47
+        "y": 47,
+        "zoom": 0.7
       },
       {
         "x": 0,
@@ -7369,14 +7641,13 @@
         "hit force": 450
       }
     },
-    "zoom": 0.7,
     "tiny explosion": 10,
     "small explosion": 20,
     "medium explosion": 15,
     "description": "Small Geeva personal transport. Used by some Geeva individuals to travel across space quickly.",
     "_internalId": "Galactic War/Galactic-War::Vanli",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "580b813a43b0",
+    "_hash": "6c07db6dbaea",
     "variant": "Vanli (Zilnor)",
     "baseShip": "Vanli",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -7679,45 +7950,67 @@
     "engines": [
       {
         "x": -33.5,
-        "y": 196
+        "y": 196,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 33.5,
-        "y": 196
+        "y": 196,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -29,
         "y": -201,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 29,
         "y": -201,
-        "position": "under"
+        "zoom": 0.5,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -39.5,
         "y": -161.5,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 100,
+        "over": true,
+        "right": true
       },
       {
         "x": 39.5,
         "y": -161.5,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": 260,
+        "over": true,
+        "left": true
       },
       {
         "x": -62,
         "y": 174,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 62,
         "y": 174,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 270,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -7756,12 +8049,12 @@
       {
         "x": -66.5,
         "y": -48,
-        "turret": ""
+        "turret": "Kroom Anti-Missile Turret"
       },
       {
         "x": 66.5,
         "y": -48,
-        "turret": ""
+        "turret": "Kroom Anti-Missile Turret"
       },
       {
         "x": -52,
@@ -7786,7 +8079,7 @@
       {
         "x": -9.5,
         "y": -122.5,
-        "turret": ""
+        "turret": "Kroom Anti-Missile Turret"
       }
     ],
     "bays": [
@@ -7855,9 +8148,6 @@
         "hit force": 3900
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "small explosion": 45,
     "medium explosion": 50,
@@ -7867,7 +8157,7 @@
     "description": "Kroom Kakaima cruiser with a small squadron of support fighters used for many role across the Kakaima Navy.",
     "_internalId": "Galactic War/Galactic-War::Grokva",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "b7051cbd45a7",
+    "_hash": "a930b67fb7a7",
     "variant": "Grokva (Heavy)",
     "baseShip": "Grokva",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -8155,49 +8445,74 @@
     "engines": [
       {
         "x": 0,
-        "y": 59.5
+        "y": 59.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -13,
-        "y": 58
+        "y": 58,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 13,
-        "y": 58
+        "y": 58,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -52,
         "y": -3,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 52,
         "y": -3,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -52,
         "y": -3,
-        "position": "right"
+        "zoom": 0.4,
+        "angle": 180,
+        "under": true,
+        "right": true
       },
       {
         "x": 52,
         "y": -3,
-        "position": "left"
+        "zoom": 0.4,
+        "angle": 180,
+        "under": true,
+        "left": true
       },
       {
         "x": -52,
         "y": 7,
-        "position": "left"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true,
+        "left": true
       },
       {
         "x": 52,
         "y": 7,
-        "position": "right"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -8255,9 +8570,6 @@
         "hit force": 1080
       }
     },
-    "zoom": 0.6,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 10,
     "small explosion": 20,
     "medium explosion": 15,
@@ -8265,7 +8577,7 @@
     "description": "Rather recent Kroom light weapon platform developed to deliver the most firepower in cheapest ship. Mostly meant to deal with new enemies like the Dels and Eraders",
     "_internalId": "Galactic War/Galactic-War::Garokka",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "1a5af3de1999",
+    "_hash": "7127c4b52f06",
     "variant": "Garokka (Light)",
     "baseShip": "Garokka",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -8521,49 +8833,74 @@
     "engines": [
       {
         "x": 0,
-        "y": 59.5
+        "y": 59.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": -13,
-        "y": 58
+        "y": 58,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 13,
-        "y": 58
+        "y": 58,
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -52,
         "y": -3,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 52,
         "y": -3,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -52,
         "y": -3,
-        "position": "right"
+        "zoom": 0.4,
+        "angle": 180,
+        "under": true,
+        "right": true
       },
       {
         "x": 52,
         "y": -3,
-        "position": "left"
+        "zoom": 0.4,
+        "angle": 180,
+        "under": true,
+        "left": true
       },
       {
         "x": -52,
         "y": 7,
-        "position": "left"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true,
+        "left": true
       },
       {
         "x": 52,
         "y": 7,
-        "position": "right"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -8621,9 +8958,6 @@
         "hit force": 1080
       }
     },
-    "zoom": 0.6,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 10,
     "small explosion": 20,
     "medium explosion": 15,
@@ -8631,7 +8965,7 @@
     "description": "Rather recent Kroom light weapon platform developed to deliver the most firepower in cheapest ship. Mostly meant to deal with new enemies like the Dels and Eraders",
     "_internalId": "Galactic War/Galactic-War::Garokka",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "1a5af3de1999",
+    "_hash": "7127c4b52f06",
     "variant": "Garokka (Heavy)",
     "baseShip": "Garokka",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -8895,15 +9229,24 @@
     "engines": [
       {
         "x": -9.5,
-        "y": 34
+        "y": 34,
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 9.5,
-        "y": 34
+        "y": 34,
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 0,
-        "y": 28.5
+        "y": 28.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -8948,15 +9291,12 @@
         "hit force": 180
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 15,
     "small explosion": 5,
     "description": "Kroom fighter used primarily for chasing down interceptors and provide distraction.",
     "_internalId": "Galactic War/Galactic-War::Girok",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "84247c1fa5ec",
+    "_hash": "f7a73465d136",
     "variant": "Girok Torpedo",
     "baseShip": "Girok",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -9002,45 +9342,67 @@
     "engines": [
       {
         "x": -11.5,
-        "y": 41.5
+        "y": 41.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 11.5,
-        "y": 41.5
+        "y": 41.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -20,
         "y": -10,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 20,
         "y": -10,
-        "position": "under"
+        "zoom": 0.4,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -20,
         "y": -10,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 180,
+        "under": true,
+        "left": true
       },
       {
         "x": 20,
         "y": -10,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 180,
+        "under": true,
+        "right": true
       },
       {
         "x": -20,
         "y": 34.5,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 0,
+        "under": true,
+        "right": true
       },
       {
         "x": 20,
         "y": 34.5,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 0,
+        "under": true,
+        "left": true
       }
     ],
     "guns": [
@@ -9093,9 +9455,6 @@
         "hit force": 1260
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 36,
     "medium explosion": 24,
@@ -9104,7 +9463,7 @@
     "description": "A small Kumakk fighter for asteroid mining, often as training for young pilots or recreation rather than required as a job.",
     "_internalId": "Galactic War/Galactic-War::Kasoulek",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "ecadb6892670",
+    "_hash": "7aabbf82dce8",
     "variant": "Kasoulek (Explorer)",
     "baseShip": "Kasoulek",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -9158,61 +9517,92 @@
     "engines": [
       {
         "x": 0,
-        "y": 267.5
+        "y": 267.5,
+        "zoom": 2,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -33,
         "y": -249.5,
-        "position": "under"
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 33,
         "y": -249.5,
-        "position": "under"
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -57,
         "y": -195,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 57,
         "y": -195,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -56.5,
         "y": -182,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 56.5,
         "y": -182,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -65.5,
         "y": 214,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 65.5,
         "y": 214,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "right": true
       },
       {
         "x": -62.5,
         "y": 231,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 62.5,
         "y": 231,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -9241,7 +9631,7 @@
       {
         "x": 0,
         "y": -169.5,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": -36.5,
@@ -9256,27 +9646,27 @@
       {
         "x": -38,
         "y": -69,
-        "turret": ""
+        "turret": "Ko'lorke Missile Shield"
       },
       {
         "x": 38,
         "y": -69,
-        "turret": ""
+        "turret": "Ko'lorke Missile Shield"
       },
       {
         "x": 0,
         "y": -36,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": -68,
         "y": 14,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": 68,
         "y": 14,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": -62.5,
@@ -9326,9 +9716,6 @@
         "hit force": 1260
       }
     },
-    "zoom": 2,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 36,
     "medium explosion": 24,
@@ -9337,7 +9724,7 @@
     "description": "Kumakk primary guard warship. Also commonly used as mobile laboratory and science vessel due to their space and protection.",
     "_internalId": "Galactic War/Galactic-War::Akolucor",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "62727fc8b9f9",
+    "_hash": "7dc4d8e6738d",
     "variant": "Akolucor (Heavy)",
     "baseShip": "Akolucor",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -9504,61 +9891,92 @@
     "engines": [
       {
         "x": 0,
-        "y": 267.5
+        "y": 267.5,
+        "zoom": 2,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -33,
         "y": -249.5,
-        "position": "under"
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 33,
         "y": -249.5,
-        "position": "under"
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -57,
         "y": -195,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 57,
         "y": -195,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -56.5,
         "y": -182,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 56.5,
         "y": -182,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -65.5,
         "y": 214,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 65.5,
         "y": 214,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "right": true
       },
       {
         "x": -62.5,
         "y": 231,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 62.5,
         "y": 231,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -9587,7 +10005,7 @@
       {
         "x": 0,
         "y": -169.5,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": -36.5,
@@ -9602,27 +10020,27 @@
       {
         "x": -38,
         "y": -69,
-        "turret": ""
+        "turret": "Ko'lorke Missile Shield"
       },
       {
         "x": 38,
         "y": -69,
-        "turret": ""
+        "turret": "Ko'lorke Missile Shield"
       },
       {
         "x": 0,
         "y": -36,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": -68,
         "y": 14,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": 68,
         "y": 14,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": -62.5,
@@ -9672,9 +10090,6 @@
         "hit force": 1260
       }
     },
-    "zoom": 2,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 36,
     "medium explosion": 24,
@@ -9683,7 +10098,7 @@
     "description": "Kumakk primary guard warship. Also commonly used as mobile laboratory and science vessel due to their space and protection.",
     "_internalId": "Galactic War/Galactic-War::Akolucor",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "62727fc8b9f9",
+    "_hash": "7dc4d8e6738d",
     "variant": "Akolucor (Ro'ohrek)",
     "baseShip": "Akolucor",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -9850,61 +10265,92 @@
     "engines": [
       {
         "x": 0,
-        "y": 267.5
+        "y": 267.5,
+        "zoom": 2,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -33,
         "y": -249.5,
-        "position": "under"
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 33,
         "y": -249.5,
-        "position": "under"
+        "zoom": 0.6,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -57,
         "y": -195,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 57,
         "y": -195,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -56.5,
         "y": -182,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": 56.5,
         "y": -182,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": -65.5,
         "y": 214,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 65.5,
         "y": 214,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "right": true
       },
       {
         "x": -62.5,
         "y": 231,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 90,
+        "under": true,
+        "left": true
       },
       {
         "x": 62.5,
         "y": 231,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": -90,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -9933,7 +10379,7 @@
       {
         "x": 0,
         "y": -169.5,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": -36.5,
@@ -9948,27 +10394,27 @@
       {
         "x": -38,
         "y": -69,
-        "turret": ""
+        "turret": "Ko'lorke Missile Shield"
       },
       {
         "x": 38,
         "y": -69,
-        "turret": ""
+        "turret": "Ko'lorke Missile Shield"
       },
       {
         "x": 0,
         "y": -36,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": -68,
         "y": 14,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": 68,
         "y": 14,
-        "turret": ""
+        "turret": "Ku'alno Turret"
       },
       {
         "x": -62.5,
@@ -10018,9 +10464,6 @@
         "hit force": 1260
       }
     },
-    "zoom": 2,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 18,
     "small explosion": 36,
     "medium explosion": 24,
@@ -10029,7 +10472,7 @@
     "description": "Kumakk primary guard warship. Also commonly used as mobile laboratory and science vessel due to their space and protection.",
     "_internalId": "Galactic War/Galactic-War::Akolucor",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "62727fc8b9f9",
+    "_hash": "7dc4d8e6738d",
     "variant": "Akolucor (Explorer)",
     "baseShip": "Akolucor",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -10113,57 +10556,57 @@
       {
         "x": 0,
         "y": 0,
-        "turret": ""
+        "turret": "Nuru Vordai"
       },
       {
         "x": 0,
         "y": -70,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": -65.5,
         "y": -21.5,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": 65.5,
         "y": -21.5,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": -39,
         "y": 54.5,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": 39,
         "y": 54.5,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": 0,
         "y": -70,
-        "turret": ""
+        "turret": "Nuru Manli (AM)"
       },
       {
         "x": -65.5,
         "y": -21.5,
-        "turret": ""
+        "turret": "Nuru Manli (AM)"
       },
       {
         "x": 65.5,
         "y": -21.5,
-        "turret": ""
+        "turret": "Nuru Manli (AM)"
       },
       {
         "x": -39,
         "y": 54.5,
-        "turret": ""
+        "turret": "Nuru Manli (AM)"
       },
       {
         "x": 39,
         "y": 54.5,
-        "turret": ""
+        "turret": "Nuru Manli (AM)"
       }
     ],
     "bays": [],
@@ -10214,7 +10657,7 @@
     "description": "Unlike regular spaceship, Nuru ships lacks of any identifiable weapon yet it is capable of damaging hostile ships.",
     "_internalId": "Galactic War/Galactic-War::Ar Pu Haa",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "f2b9f2688303",
+    "_hash": "8c9255d21109",
     "variant": "Ar Pu Haa (Vordai)",
     "baseShip": "Ar Pu Haa",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -10298,27 +10741,27 @@
       {
         "x": -44.5,
         "y": -26,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": 44.5,
         "y": -26,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": 0,
         "y": 51.5,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": -67,
         "y": 40,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": 67,
         "y": 40,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": -44.5,
@@ -10348,7 +10791,7 @@
       {
         "x": 0,
         "y": 0,
-        "turret": ""
+        "turret": "Nuru Manli"
       },
       {
         "x": 0,
@@ -10358,17 +10801,17 @@
       {
         "x": -45,
         "y": 26,
-        "turret": ""
+        "turret": "Nuru Vordai"
       },
       {
         "x": 45,
         "y": 26,
-        "turret": ""
+        "turret": "Nuru Vordai"
       },
       {
         "x": 0,
         "y": -52.5,
-        "turret": ""
+        "turret": "Nuru Vordai"
       }
     ],
     "bays": [],
@@ -10481,11 +10924,17 @@
     "engines": [
       {
         "x": -11,
-        "y": 27.5
+        "y": 27.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 11,
-        "y": 27.5
+        "y": 27.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -10539,14 +10988,11 @@
         "hit force": 480
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "description": "A heavier version of Gosat.",
     "_internalId": "Galactic War/Galactic-War::Qoro(S) Ganoth",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "f19880813fad",
+    "_hash": "aa536876b9d4",
     "variant": "Ganoth Mixed",
     "baseShip": "Qoro(S) Ganoth",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -10593,11 +11039,17 @@
     "engines": [
       {
         "x": -11,
-        "y": 27.5
+        "y": 27.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 11,
-        "y": 27.5
+        "y": 27.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -10651,14 +11103,11 @@
         "hit force": 480
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "description": "A heavier version of Gosat.",
     "_internalId": "Galactic War/Galactic-War::Qoro(S) Ganoth",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "f19880813fad",
+    "_hash": "aa536876b9d4",
     "variant": "Ganoth Bomber",
     "baseShip": "Qoro(S) Ganoth",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -10701,11 +11150,17 @@
     "engines": [
       {
         "x": -13.5,
-        "y": 24
+        "y": 24,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 13.5,
-        "y": 24
+        "y": 24,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -10747,14 +11202,11 @@
         "hit force": 480
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 20,
     "description": "These are cheap fighters to be deployed en masse and overwhelm the enemy in combat.",
     "_internalId": "Galactic War/Galactic-War::Qoro(S) Gasat",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "9973e39db2d4",
+    "_hash": "04ace12ff40a",
     "variant": "Gasat Bomber",
     "baseShip": "Qoro(S) Gasat",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -10902,17 +11354,17 @@
       {
         "x": -26.5,
         "y": -37,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": 26.5,
         "y": -37,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -0.5,
         "y": -29,
-        "gun": ""
+        "gun": "Anor Missile"
       }
     ],
     "turrets": [
@@ -10964,7 +11416,7 @@
     "description": "Revos Cargo ship.",
     "_internalId": "Galactic War/Galactic-War::Revos Caosma",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "bf1759f5069a",
+    "_hash": "a5145b76dfe7",
     "variant": "Caosma (Transport)",
     "baseShip": "Revos Caosma",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -11027,49 +11479,49 @@
       {
         "x": -13,
         "y": -31,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": 17,
         "y": -31,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": 10.5,
         "y": -36,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -5.5,
         "y": -36,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -12.5,
         "y": -2,
-        "gun": ""
+        "gun": "Anor Missile"
       },
       {
         "x": 15,
         "y": -3.5,
-        "gun": ""
+        "gun": "Anor Missile"
       }
     ],
     "turrets": [
       {
         "x": -21,
         "y": -14,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       },
       {
         "x": 24.5,
         "y": -13,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       },
       {
         "x": 1.5,
         "y": 6.5,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       }
     ],
     "bays": [],
@@ -11109,7 +11561,7 @@
     "description": "Revos Warship sometimes found in a patrol, usually deployed only when needed.",
     "_internalId": "Galactic War/Galactic-War::Revos Mokla",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "b4388212a233",
+    "_hash": "9b69c1333319",
     "variant": "Mokla (Botavu)",
     "baseShip": "Revos Mokla",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -11176,49 +11628,49 @@
       {
         "x": -13,
         "y": -31,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": 17,
         "y": -31,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": 10.5,
         "y": -36,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -5.5,
         "y": -36,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -12.5,
         "y": -2,
-        "gun": ""
+        "gun": "Anor Missile"
       },
       {
         "x": 15,
         "y": -3.5,
-        "gun": ""
+        "gun": "Anor Missile"
       }
     ],
     "turrets": [
       {
         "x": -21,
         "y": -14,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       },
       {
         "x": 24.5,
         "y": -13,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       },
       {
         "x": 1.5,
         "y": 6.5,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       }
     ],
     "bays": [],
@@ -11258,7 +11710,7 @@
     "description": "Revos Warship sometimes found in a patrol, usually deployed only when needed.",
     "_internalId": "Galactic War/Galactic-War::Revos Mokla",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "b4388212a233",
+    "_hash": "9b69c1333319",
     "variant": "Mokla (Barviska)",
     "baseShip": "Revos Mokla",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -11325,49 +11777,49 @@
       {
         "x": -13,
         "y": -31,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": 17,
         "y": -31,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": 10.5,
         "y": -36,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -5.5,
         "y": -36,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -12.5,
         "y": -2,
-        "gun": ""
+        "gun": "Anor Missile"
       },
       {
         "x": 15,
         "y": -3.5,
-        "gun": ""
+        "gun": "Anor Missile"
       }
     ],
     "turrets": [
       {
         "x": -21,
         "y": -14,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       },
       {
         "x": 24.5,
         "y": -13,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       },
       {
         "x": 1.5,
         "y": 6.5,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       }
     ],
     "bays": [],
@@ -11407,7 +11859,7 @@
     "description": "Revos Warship sometimes found in a patrol, usually deployed only when needed.",
     "_internalId": "Galactic War/Galactic-War::Revos Mokla",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "b4388212a233",
+    "_hash": "9b69c1333319",
     "variant": "Mokla (E Resist)",
     "baseShip": "Revos Mokla",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -11474,24 +11926,24 @@
       {
         "x": 17.5,
         "y": -25.5,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -19,
         "y": -26,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -0.5,
         "y": -1,
-        "gun": ""
+        "gun": "Anor Missile"
       }
     ],
     "turrets": [
       {
         "x": -0.5,
         "y": -9,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       }
     ],
     "bays": [],
@@ -11531,7 +11983,7 @@
     "description": "Automated interceptor used by Revos often for escort. They can also be deployed in large number in response to a threat.",
     "_internalId": "Galactic War/Galactic-War::Revos Rova",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "6b43ef54ebce",
+    "_hash": "7fc85dd03966",
     "variant": "Rova (Fast)",
     "baseShip": "Revos Rova",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -11598,24 +12050,24 @@
       {
         "x": 17.5,
         "y": -25.5,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -19,
         "y": -26,
-        "gun": ""
+        "gun": "Kechon Beam"
       },
       {
         "x": -0.5,
         "y": -1,
-        "gun": ""
+        "gun": "Anor Missile"
       }
     ],
     "turrets": [
       {
         "x": -0.5,
         "y": -9,
-        "turret": ""
+        "turret": "Vubeto Anti-Missile"
       }
     ],
     "bays": [],
@@ -11655,7 +12107,7 @@
     "description": "Automated interceptor used by Revos often for escort. They can also be deployed in large number in response to a threat.",
     "_internalId": "Galactic War/Galactic-War::Revos Rova",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "6b43ef54ebce",
+    "_hash": "7fc85dd03966",
     "variant": "Rova (E Resist)",
     "baseShip": "Revos Rova",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -11714,34 +12166,34 @@
       {
         "x": 0,
         "y": -91,
-        "gun": ""
+        "gun": "Lymaou Launcher"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -4.5,
-        "turret": ""
+        "turret": "Taroun Deflector"
       },
       {
         "x": 0,
         "y": -4.5,
-        "turret": ""
+        "turret": "Taroun Missile Interceptor"
       },
       {
         "x": 0,
         "y": -4.5,
-        "turret": ""
+        "turret": "Urmou Launcher"
       },
       {
         "x": 33.5,
         "y": -43.5,
-        "turret": ""
+        "turret": "Serulan Turret"
       },
       {
         "x": -32,
         "y": -43.5,
-        "turret": ""
+        "turret": "Serulan Turret"
       }
     ],
     "bays": [],
@@ -11791,7 +12243,7 @@
     "description": "Taroun light warship, usually found in patrol and scout fleets. While armed, these ships are not meant for combat.",
     "_internalId": "Galactic War/Galactic-War::Taroun Oresu",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "177687f8c5e3",
+    "_hash": "51289fb03166",
     "variant": "Oresu (Offense)",
     "baseShip": "Taroun Oresu",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -11854,39 +12306,39 @@
       {
         "x": -21,
         "y": -170,
-        "gun": ""
+        "gun": "Lymaou Launcher"
       },
       {
         "x": 21,
         "y": -170,
-        "gun": ""
+        "gun": "Lymaou Launcher"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -39,
-        "turret": ""
+        "turret": "Taroun Deflector"
       },
       {
         "x": 0,
         "y": -39,
-        "turret": ""
+        "turret": "Taroun Missile Interceptor"
       },
       {
         "x": 0,
         "y": -39,
-        "turret": ""
+        "turret": "Urmou Launcher"
       },
       {
         "x": -39,
         "y": -39,
-        "turret": ""
+        "turret": "Serulan Turret"
       },
       {
         "x": 39,
         "y": -39,
-        "turret": ""
+        "turret": "Serulan Turret"
       }
     ],
     "bays": [],
@@ -11938,7 +12390,7 @@
     "description": "Mostly a bigger version of Oresu",
     "_internalId": "Galactic War/Galactic-War::Taroun Eroun",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "50e1715872d6",
+    "_hash": "df475c2ec2e6",
     "variant": "Eroun (Offense)",
     "baseShip": "Taroun Eroun",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -12001,39 +12453,39 @@
       {
         "x": -21,
         "y": -170,
-        "gun": ""
+        "gun": "Lymaou Launcher"
       },
       {
         "x": 21,
         "y": -170,
-        "gun": ""
+        "gun": "Lymaou Launcher"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -39,
-        "turret": ""
+        "turret": "Taroun Deflector"
       },
       {
         "x": 0,
         "y": -39,
-        "turret": ""
+        "turret": "Taroun Missile Interceptor"
       },
       {
         "x": 0,
         "y": -39,
-        "turret": ""
+        "turret": "Urmou Launcher"
       },
       {
         "x": -39,
         "y": -39,
-        "turret": ""
+        "turret": "Serulan Turret"
       },
       {
         "x": 39,
         "y": -39,
-        "turret": ""
+        "turret": "Serulan Turret"
       }
     ],
     "bays": [],
@@ -12085,7 +12537,7 @@
     "description": "Mostly a bigger version of Oresu",
     "_internalId": "Galactic War/Galactic-War::Taroun Eroun",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "50e1715872d6",
+    "_hash": "df475c2ec2e6",
     "variant": "Eroun (OffenseII)",
     "baseShip": "Taroun Eroun",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -12139,11 +12591,17 @@
     "engines": [
       {
         "x": -22,
-        "y": 204.5
+        "y": 204.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 22,
-        "y": 204.5
+        "y": 204.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -12153,7 +12611,7 @@
       {
         "x": 0,
         "y": -34,
-        "turret": ""
+        "turret": "Larpauron Turret"
       },
       {
         "x": 0,
@@ -12168,7 +12626,7 @@
       {
         "x": 0,
         "y": 36.5,
-        "turret": ""
+        "turret": "Larpauron Turret"
       }
     ],
     "bays": [],
@@ -12213,15 +12671,12 @@
         "hit force": 30000
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "smoke": 50,
     "final explode": "final explosion large",
     "description": "Taroun autonomous freighter.",
     "_internalId": "Galactic War/Galactic-War::Taroun Ulkoura",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "b86a767dfd9c",
+    "_hash": "8882bfaede69",
     "variant": "Taroun Ulkoura (Cloak)",
     "baseShip": "Taroun Ulkoura",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -12483,19 +12938,19 @@
       {
         "x": -17.5,
         "y": -186.5,
-        "gun": ""
+        "gun": "Vuskchet Cannon"
       },
       {
         "x": 17.5,
         "y": -186.5,
-        "gun": ""
+        "gun": "Vuskchet Cannon"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -75.5,
-        "turret": ""
+        "turret": "Vuskchet Turret"
       },
       {
         "x": 0,
@@ -12558,7 +13013,7 @@
     "description": "Common freighter used by both Tehru fraction.",
     "_internalId": "Galactic War/Galactic-War::Tehru Vurbck",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "1802dab1436a",
+    "_hash": "fd046c681e66",
     "variant": "Vurbck (Varsrel)",
     "baseShip": "Tehru Vurbck",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -12631,17 +13086,19 @@
       {
         "x": 0,
         "y": -58,
-        "gun": ""
+        "gun": "Ultaka StarFlare"
       },
       {
         "x": -29,
         "y": 19,
-        "gun": ""
+        "gun": "",
+        "angle": -15
       },
       {
         "x": 29,
         "y": 19,
-        "gun": ""
+        "gun": "",
+        "angle": 15
       }
     ],
     "turrets": [
@@ -12653,7 +13110,7 @@
       {
         "x": 0,
         "y": 0,
-        "turret": ""
+        "turret": "Ultaka Visual Scrambler"
       }
     ],
     "bays": [],
@@ -12697,7 +13154,6 @@
         "hit force": 1500
       }
     },
-    "angle": 15,
     "tiny explosion": 12,
     "small explosion": 16,
     "medium explosion": 30,
@@ -12706,7 +13162,7 @@
     "description": ".",
     "_internalId": "Galactic War/Galactic-War::Ultaka Olmhri",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "ce9d4bcee4eb",
+    "_hash": "8b6ae1946f3a",
     "variant": "Ultaka Olmhri (Nova)",
     "baseShip": "Ultaka Olmhri",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -12756,14 +13212,19 @@
     "engines": [
       {
         "x": 0,
-        "y": 374
+        "y": 374,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": 0,
         "y": 374,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [],
@@ -12798,37 +13259,37 @@
       {
         "x": 0,
         "y": 13,
-        "turret": ""
+        "turret": "Ve'raun defense"
       },
       {
         "x": -33.5,
         "y": -290.5,
-        "turret": ""
+        "turret": "Urxesh Summoner"
       },
       {
         "x": 33.5,
         "y": -290.5,
-        "turret": ""
+        "turret": "Urxesh Summoner"
       },
       {
         "x": -160.5,
         "y": 3,
-        "turret": ""
+        "turret": "Arvasr Sweeper"
       },
       {
         "x": 160.5,
         "y": 3,
-        "turret": ""
+        "turret": "Arvasr Sweeper"
       },
       {
         "x": -160.5,
         "y": 58.5,
-        "turret": ""
+        "turret": "Arvasr Sweeper"
       },
       {
         "x": 160.5,
         "y": 58.5,
-        "turret": ""
+        "turret": "Arvasr Sweeper"
       },
       {
         "x": -162,
@@ -12892,14 +13353,11 @@
         "hit force": 7600
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "ultaka gate drive": 50,
     "description": "Exotic Ultaka warship widely believed to be just a myth, or rather most who saw it never returns.",
     "_internalId": "Galactic War/Galactic-War::Ultaka Vyvis",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "f8c740ac4346",
+    "_hash": "dc25fa740314",
     "variant": "Vyvis Thwarter",
     "baseShip": "Ultaka Vyvis",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -12926,23 +13384,33 @@
     "engines": [
       {
         "x": -17.5,
-        "y": 49
+        "y": 49,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 17.5,
-        "y": 49
+        "y": 49,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -18,
         "y": -14.5,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 18,
         "y": -14.5,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [],
@@ -12993,16 +13461,13 @@
         "hit force": 300
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 60,
     "small explosion": 40,
     "medium explosion": 30,
     "big explosion": 10,
     "_internalId": "Galactic War/Galactic-War::Ultaka Hunter",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "e54135189421",
+    "_hash": "654b50619f7c",
     "variant": "Hunter UP1",
     "baseShip": "Ultaka Hunter",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -13053,45 +13518,67 @@
     "engines": [
       {
         "x": -26,
-        "y": 111
+        "y": 111,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 26,
-        "y": 111
+        "y": 111,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -20.5,
         "y": -94.5,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 20.5,
         "y": -94.5,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -22,
         "y": -88.5,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": 22,
         "y": -88.5,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": -39.5,
         "y": 33.5,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": 39.5,
         "y": 33.5,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 90,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -13115,7 +13602,7 @@
       {
         "x": 0,
         "y": -69.5,
-        "turret": ""
+        "turret": "U20-B anti missile"
       }
     ],
     "bays": [],
@@ -13146,9 +13633,6 @@
         "hit force": 1500
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 12,
     "small explosion": 16,
     "medium explosion": 30,
@@ -13156,7 +13640,7 @@
     "huge explosion": 20,
     "_internalId": "Galactic War/Galactic-War::Ultaka Dominator",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "8c1e648bb1be",
+    "_hash": "c5618408a230",
     "variant": "Dominator UP1",
     "baseShip": "Ultaka Dominator",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -13215,45 +13699,67 @@
     "engines": [
       {
         "x": -26,
-        "y": 111
+        "y": 111,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 26,
-        "y": 111
+        "y": 111,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [
       {
         "x": -20.5,
         "y": -94.5,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 20.5,
         "y": -94.5,
-        "position": "under"
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "steeringEngines": [
       {
         "x": -22,
         "y": -88.5,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": 22,
         "y": -88.5,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 90,
+        "under": true,
+        "right": true
       },
       {
         "x": -39.5,
         "y": 33.5,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": -90,
+        "under": true,
+        "left": true
       },
       {
         "x": 39.5,
         "y": 33.5,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 90,
+        "under": true,
+        "right": true
       }
     ],
     "guns": [
@@ -13277,7 +13783,7 @@
       {
         "x": 0,
         "y": -69.5,
-        "turret": ""
+        "turret": "U20-B anti missile"
       }
     ],
     "bays": [],
@@ -13308,9 +13814,6 @@
         "hit force": 1500
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 12,
     "small explosion": 16,
     "medium explosion": 30,
@@ -13318,7 +13821,7 @@
     "huge explosion": 20,
     "_internalId": "Galactic War/Galactic-War::Ultaka Dominator",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "8c1e648bb1be",
+    "_hash": "c5618408a230",
     "variant": "Dominator UP1a",
     "baseShip": "Ultaka Dominator",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -13377,11 +13880,17 @@
     "engines": [
       {
         "x": -48,
-        "y": 340.5
+        "y": 340.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 48,
-        "y": 340.5
+        "y": 340.5,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -13402,17 +13911,17 @@
       {
         "x": 0,
         "y": -289,
-        "turret": ""
+        "turret": "M20G Turret"
       },
       {
         "x": 0,
         "y": -249.5,
-        "turret": ""
+        "turret": "M20G Turret"
       },
       {
         "x": 0,
         "y": -200.5,
-        "turret": ""
+        "turret": "M20G Turret"
       },
       {
         "x": -81,
@@ -13427,12 +13936,12 @@
       {
         "x": -81,
         "y": -37.5,
-        "turret": ""
+        "turret": "M20G Turret"
       },
       {
         "x": 81,
         "y": -37.5,
-        "turret": ""
+        "turret": "M20G Turret"
       },
       {
         "x": -81,
@@ -13447,12 +13956,12 @@
       {
         "x": -125,
         "y": -20,
-        "turret": ""
+        "turret": "U20-B anti missile"
       },
       {
         "x": 125,
         "y": -20,
-        "turret": ""
+        "turret": "U20-B anti missile"
       },
       {
         "x": -72.5,
@@ -13477,7 +13986,7 @@
       {
         "x": 0,
         "y": 187,
-        "turret": ""
+        "turret": "M20G Turret"
       }
     ],
     "bays": [],
@@ -13510,9 +14019,6 @@
         "hit force": 1500
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "tiny explosion": 12,
     "small explosion": 16,
     "medium explosion": 30,
@@ -13521,7 +14027,7 @@
     "description": "",
     "_internalId": "Galactic War/Galactic-War::Ultaka Conqueror",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "96e01bdaae04",
+    "_hash": "3fef8681f410",
     "variant": "Conqueror UP1",
     "baseShip": "Ultaka Conqueror",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -13606,7 +14112,7 @@
       {
         "x": 0,
         "y": -29,
-        "gun": ""
+        "gun": "DZ-5 Micro Darklance"
       },
       {
         "x": 5.5,
@@ -13716,149 +14222,149 @@
       {
         "x": -89.5,
         "y": -163,
-        "gun": ""
+        "gun": "Eundorrel Cannon"
       },
       {
         "x": 89,
         "y": -162.5,
-        "gun": ""
+        "gun": "Eundorrel Cannon"
       },
       {
         "x": -89,
         "y": -145,
-        "gun": ""
+        "gun": "Eundorrel Cannon"
       },
       {
         "x": 90,
         "y": -143.5,
-        "gun": ""
+        "gun": "Eundorrel Cannon"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -161,
-        "turret": ""
+        "turret": "Zymar Turret"
       },
       {
         "x": 0,
         "y": -22,
-        "turret": ""
+        "turret": "Zymar Turret"
       },
       {
         "x": 0,
         "y": 247,
-        "turret": ""
+        "turret": "Zymar Turret"
       },
       {
         "x": -38,
         "y": 54.5,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": 37.5,
         "y": 55,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": -47,
         "y": 77,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": 47.5,
         "y": 77,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": -47.5,
         "y": 107.5,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": 46.5,
         "y": 107.5,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": -47.5,
         "y": 129.5,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": 47,
         "y": 130,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": -46,
         "y": 161,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": 47.5,
         "y": 161,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": -37,
         "y": 184,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": 37,
         "y": 183.5,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": -77.5,
         "y": -83.5,
-        "turret": ""
+        "turret": "Syfar-3 Turret"
       },
       {
         "x": 76,
         "y": -80,
-        "turret": ""
+        "turret": "Syfar-3 Turret"
       },
       {
         "x": -84,
         "y": -25,
-        "turret": ""
+        "turret": "Syfar-3 Turret"
       },
       {
         "x": 84,
         "y": -24,
-        "turret": ""
+        "turret": "Syfar-3 Turret"
       },
       {
         "x": 44,
         "y": -296,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": -44,
         "y": -298,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": -83.5,
         "y": 37,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": 80,
         "y": 36,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": -38.5,
         "y": 326,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": 37.5,
         "y": 325,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -13912,7 +14418,7 @@
     "description": "[N] A more recent cruiser for anti-captial role.",
     "_internalId": "Galactic War/Galactic-War::ZM-5422 Karloz",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "ceb342e11224",
+    "_hash": "4b7cb221d9a6",
     "variant": "Karloz Drone",
     "baseShip": "ZM-5422 Karloz",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -13978,15 +14484,24 @@
     "engines": [
       {
         "x": -80,
-        "y": 734
+        "y": 734,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 80,
-        "y": 734
+        "y": 734,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       },
       {
         "x": 0,
-        "y": 740
+        "y": 740,
+        "zoom": 1,
+        "angle": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -14052,32 +14567,32 @@
       {
         "x": -8,
         "y": 4,
-        "turret": ""
+        "turret": "Rozzen VLS Array"
       },
       {
         "x": 8,
         "y": 4,
-        "turret": ""
+        "turret": "Rozzen VLS Array"
       },
       {
         "x": -74,
         "y": 26,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": 74,
         "y": 26,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": -70,
         "y": 292,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": 70,
         "y": 292,
-        "turret": ""
+        "turret": "Ginal Turret"
       },
       {
         "x": 0,
@@ -14092,42 +14607,42 @@
       {
         "x": -8,
         "y": 4,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": 8,
         "y": 4,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": -90,
         "y": -576,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": 90,
         "y": -576,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": -156,
         "y": -210,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": 156,
         "y": -210,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": -170,
         "y": 498,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": 170,
         "y": 498,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [
@@ -14329,15 +14844,12 @@
         "hit force": 85000
       }
     },
-    "zoom": 1,
-    "angle": 0,
-    "under": true,
     "nuke explosion": 25,
     "final explode": "final explosion large",
     "description": "[A] A more recent battlecarrier design.",
     "_internalId": "Galactic War/Galactic-War::ZN-7681 Eaxes",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2fa74ed969f8",
+    "_hash": "be2cdf34d5d6",
     "variant": "Eaxes Dissector",
     "baseShip": "ZN-7681 Eaxes",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -14412,27 +14924,27 @@
       {
         "x": 0,
         "y": -29.5,
-        "gun": ""
+        "gun": "Xin rotary cannon"
       },
       {
         "x": 10.5,
         "y": -10,
-        "gun": ""
+        "gun": "Kuzaun Missile"
       },
       {
         "x": -10.5,
         "y": -10,
-        "gun": ""
+        "gun": "Kuzaun Missile"
       },
       {
         "x": -18,
         "y": -5,
-        "gun": ""
+        "gun": "Kuzaun Missile"
       },
       {
         "x": 18,
         "y": -5,
-        "gun": ""
+        "gun": "Kuzaun Missile"
       }
     ],
     "turrets": [
@@ -14481,7 +14993,7 @@
     "description": "[K]",
     "_internalId": "Galactic War/Galactic-War::AF-18 Zyon",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "6f63ae5b5ec8",
+    "_hash": "2bac64773661",
     "variant": "AF-18 Zyon (Interceptor)",
     "baseShip": "AF-18 Zyon",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -14547,37 +15059,39 @@
       {
         "x": -30,
         "y": -54.5,
-        "turret": ""
+        "turret": "Mrag Turret"
       },
       {
         "x": 30,
         "y": -54.5,
-        "turret": ""
+        "turret": "Mrag Turret"
       },
       {
         "x": -28,
         "y": 45,
-        "turret": ""
+        "turret": "Asflecr Tractor"
       },
       {
         "x": 28,
         "y": 45,
-        "turret": ""
+        "turret": "Asflecr Tractor"
       },
       {
         "x": 0,
         "y": 0,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       },
       {
         "x": 0,
         "y": -33.5,
-        "turret": ""
+        "turret": "DZ-84 Darklance Turret",
+        "under": true
       },
       {
         "x": 0,
         "y": 22.5,
-        "turret": ""
+        "turret": "DZ-84 Darklance Turret",
+        "under": true
       }
     ],
     "bays": [],
@@ -14622,13 +15136,12 @@
         "hit force": 900
       }
     },
-    "under": true,
     "drone": -28.5,
     "nuke explosion": 3,
     "description": "A light patrol vessel also a used for transport and cargo. These are extremely old design and each of these in service for longer than many civilizations past and present. Aside some refit, these ships are mostly the same as when they're fresh out of the factory.",
     "_internalId": "Galactic War/Galactic-War::RZ-621-02 Razor",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "30421ff20a68",
+    "_hash": "18a96f611c13",
     "variant": "Miner Razor",
     "baseShip": "RZ-621-02 Razor",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -14725,7 +15238,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -14737,7 +15251,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -14782,12 +15296,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 1",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -14876,7 +15389,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -14888,7 +15402,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -14933,12 +15447,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ S1",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -15031,7 +15544,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -15043,7 +15557,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -15088,12 +15602,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 1a",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -15186,7 +15699,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -15198,7 +15712,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -15243,12 +15757,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 1b",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -15341,7 +15854,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -15353,7 +15867,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -15398,12 +15912,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Dark Blaster",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -15492,7 +16005,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -15504,7 +16018,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -15549,12 +16063,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 2",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -15647,7 +16160,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -15659,7 +16173,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -15704,12 +16218,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 2a",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -15798,7 +16311,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -15810,7 +16324,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -15855,12 +16369,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 2b",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -15919,7 +16432,7 @@
       {
         "x": -36.5,
         "y": -52,
-        "gun": ""
+        "gun": "Fernai Shotgun"
       },
       {
         "x": -36.5,
@@ -15929,7 +16442,7 @@
       {
         "x": 34,
         "y": -51,
-        "gun": ""
+        "gun": "Fernai Shotgun"
       },
       {
         "x": 34,
@@ -15961,7 +16474,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -16006,12 +16519,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 3",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -16070,7 +16582,7 @@
       {
         "x": -36.5,
         "y": -52,
-        "gun": ""
+        "gun": "Fernai Shotgun"
       },
       {
         "x": -36.5,
@@ -16080,7 +16592,7 @@
       {
         "x": 34,
         "y": -51,
-        "gun": ""
+        "gun": "Fernai Shotgun"
       },
       {
         "x": 34,
@@ -16112,7 +16624,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -16157,12 +16669,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 3a",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -16251,7 +16762,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -16263,7 +16775,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -16308,12 +16820,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 4",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",
@@ -16402,7 +16913,8 @@
       {
         "x": 0,
         "y": 21.5,
-        "gun": ""
+        "gun": "",
+        "under": true
       }
     ],
     "turrets": [
@@ -16414,7 +16926,7 @@
       {
         "x": 0,
         "y": 34.5,
-        "turret": ""
+        "turret": "ZIS Anti-Missile System"
       }
     ],
     "bays": [],
@@ -16459,12 +16971,11 @@
         "hit force": 180
       }
     },
-    "under": true,
     "nuke explosion": 1,
     "description": "Ancient fighter designed by Zis that are no longer in production. Once the mainstay of the Zis Navy both for interception and delivering heavy payload. Now it is mostly found in non-combat roles far behind the battlefield and occasionally deployed to combat weaker enemies.",
     "_internalId": "Galactic War/Galactic-War::VK-35 Katen",
     "_pluginId": "Galactic War/Galactic-War",
-    "_hash": "2f0006612919",
+    "_hash": "5c586316d6de",
     "variant": "Katen Civ 4b",
     "baseShip": "VK-35 Katen",
     "_variantPluginId": "Galactic War/Galactic-War",

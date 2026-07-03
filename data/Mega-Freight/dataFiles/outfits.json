@@ -18,11 +18,9 @@
       "hardpoint sprite": "hardpoint/mgf volhex turret hp",
       "hardpoint offset": 20,
       "sound": "torpedo",
-      "hit effect": [
-        "nuke explosion",
-        "volhex impact 1",
-        "volhex impact 2"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "volhex impact 1",
+      "hit effect 3": "volhex impact 2",
       "fire effect": "large explosion",
       "inaccuracy": 7,
       "turret turn": 0.8,
@@ -81,10 +79,8 @@
       "hardpoint sprite": "hardpoint/mgf lirniu turret hp",
       "hardpoint offset": 10,
       "sound": "explosion large",
-      "fire effect": [
-        "ion impact",
-        "lirniu laser"
-      ],
+      "fire effect": "ion impact",
+      "fire effect 2": "lirniu laser",
       "inaccuracy": 2,
       "turret turn": 1.6,
       "velocity": 1000,
@@ -150,11 +146,9 @@
       "hardpoint offset": 10,
       "sound": "explosion large",
       "live effect": "eollei smoke",
-      "hit effect": [
-        "nuke explosion",
-        "volhex impact 1",
-        "volhex impact 2"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "volhex impact 1",
+      "hit effect 3": "volhex impact 2",
       "inaccuracy": 2,
       "turret turn": 1.1,
       "velocity": 25,
@@ -219,12 +213,10 @@
       "hardpoint sprite": "hardpoint/mgf ichruh turret hp",
       "hardpoint offset": 10,
       "sound": "explosion small",
-      "hit effect": [
-        "nuke explosion",
-        "volhex impact 1",
-        "volhex impact 2",
-        "ion impact"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "volhex impact 1",
+      "hit effect 3": "volhex impact 2",
+      "hit effect 4": "ion impact",
       "inaccuracy": 3,
       "turret turn": 2.5,
       "velocity": 25,
@@ -286,10 +278,8 @@
       "hardpoint sprite": "hardpoint/mgf pilkam turret hp",
       "hardpoint offset": 10,
       "sound": "typhoon",
-      "hit effect": [
-        "volhex impact 1",
-        "volhex impact 2"
-      ],
+      "hit effect": "volhex impact 1",
+      "hit effect 2": "volhex impact 2",
       "die effect": "pilkam fire",
       "inaccuracy": 0.1,
       "turret turn": 0.5,
@@ -344,11 +334,9 @@
         "no repeat": true,
         "frame rate": 0
       },
-      "hit effect": [
-        "nuke explosion",
-        "volhex impact 1",
-        "volhex impact 2"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "volhex impact 1",
+      "hit effect 3": "volhex impact 2",
       "fire effect": "pilkam fire",
       "velocity": 45,
       "lifetime": 600,
@@ -374,15 +362,11 @@
       "sprite data": {
         "frame rate": 0
       },
-      "live effect": [
-        "silchu smoke",
-        "silchu smoke"
-      ],
-      "hit effect": [
-        "nuke explosion",
-        "volhex impact 1",
-        "volhex impact 2"
-      ],
+      "live effect": "silchu smoke",
+      "live effect 2": "silchu smoke",
+      "hit effect": "nuke explosion",
+      "hit effect 2": "volhex impact 1",
+      "hit effect 3": "volhex impact 2",
       "velocity": 25,
       "random velocity": 1,
       "acceleration": 4,
@@ -2047,10 +2031,8 @@
       "sound": "explosion tiny",
       "hardpoint sprite": "hardpoint/mgf kotroger turret",
       "hardpoint offset": 80,
-      "hit effect": [
-        "smoke",
-        "mgf kotroger bucket"
-      ],
+      "hit effect": "smoke",
+      "hit effect 2": "mgf kotroger bucket",
       "inaccuracy": 0,
       "velocity": 200,
       "lifetime": 1,
@@ -7588,10 +7570,8 @@
     "gun ports": -1,
     "weapon": {
       "sound": "mgf chainsaw",
-      "hit effect": [
-        "smoke",
-        "nano spark"
-      ],
+      "hit effect": "smoke",
+      "hit effect 2": "nano spark",
       "hardpoint sprite": "hardpoint/mgf chainsaw hp",
       "hardpoint offset": 2,
       "velocity": 2,
@@ -10658,24 +10638,20 @@
     "weapon": {
       "sound": "exp314 railcannon",
       "icon": "icon/mwg1 icon",
-      "hit effect": [
-        "yamato laser impact",
-        "yamato laser impact ring 1",
-        "yamato laser impact ring 2",
-        "yamato laser impact ring 3",
-        "yamato laser impact ring 4",
-        "yamato laser impact explosion"
-      ],
-      "fire effect": [
-        "yamato laser fire",
-        "yamato laser fire2",
-        "yamato laser beam"
-      ],
+      "hit effect": "yamato laser impact",
+      "hit effect 2": "yamato laser impact ring 1",
+      "hit effect 3": "yamato laser impact ring 2",
+      "hit effect 4": "yamato laser impact ring 3",
+      "hit effect 5": "yamato laser impact ring 4",
+      "hit effect 6": "yamato laser impact explosion",
+      "fire effect": "yamato laser fire",
+      "fire effect 2": "yamato laser fire2",
+      "fire effect 3": "yamato laser beam",
       "trigger radius": 190,
       "inaccuracy": 0.05,
       "velocity": 3500,
       "lifetime": 1,
-      "reload": 1080,
+      "reload": "1080 #((1080 * 10) / 60) / 60 ~= 3 mins",
       "burst count": 10,
       "burst reload": 1,
       "firing energy": 9580,
@@ -12927,15 +12903,13 @@
       "sprite": "projectile/exp314 projectile",
       "sound": "exp314 railcannon",
       "icon": "icon/template",
-      "hit effect": [
-        "exp314 railcannon hit",
-        "exp314 railcannon hit2a",
-        "exp314 railcannon hit2b",
-        "exp314 railcannon hit3a",
-        "exp314 railcannon hit3b",
-        "exp314 railcannon hit3a sl",
-        "exp314 railcannon hit3b sl"
-      ],
+      "hit effect": "exp314 railcannon hit",
+      "hit effect 2": "exp314 railcannon hit2a",
+      "hit effect 3": "exp314 railcannon hit2b",
+      "hit effect 4": "exp314 railcannon hit3a",
+      "hit effect 5": "exp314 railcannon hit3b",
+      "hit effect 6": "exp314 railcannon hit3a sl",
+      "hit effect 7": "exp314 railcannon hit3b sl",
       "fire effect": "exp314 railcannon fire",
       "inaccuracy": 0.05,
       "velocity": 85,
@@ -12949,7 +12923,7 @@
       "hull damage": 10430,
       "penetration count": 3,
       "piercing": 0.2,
-      "blast radius": 12,
+      "blast radius": "12 # so it shows on radar",
       "safe": true
     },
     "description": "Extremely large railgun with long range developed to be used by some of the Navy's largest warship to bombard their targets from afar as they approach. With sheer mass and velocity projectile from this weapon is capable of penetrating through ships and damage others behind it.",
@@ -13092,15 +13066,13 @@
       "sprite": "projectile/exp314 projectile",
       "sound": "exp314 railcannon",
       "icon": "icon/template",
-      "hit effect": [
-        "exp314 railcannon hit",
-        "exp314 railcannon hit2a",
-        "exp314 railcannon hit2b",
-        "exp314 railcannon hit3a",
-        "exp314 railcannon hit3b",
-        "exp314 railcannon hit3a sl",
-        "exp314 railcannon hit3b sl"
-      ],
+      "hit effect": "exp314 railcannon hit",
+      "hit effect 2": "exp314 railcannon hit2a",
+      "hit effect 3": "exp314 railcannon hit2b",
+      "hit effect 4": "exp314 railcannon hit3a",
+      "hit effect 5": "exp314 railcannon hit3b",
+      "hit effect 6": "exp314 railcannon hit3a sl",
+      "hit effect 7": "exp314 railcannon hit3b sl",
       "fire effect": "exp314 railcannon fire",
       "inaccuracy": 0.05,
       "velocity": 85,
@@ -13979,10 +13951,8 @@
       "sound": "exp314 railcannon",
       "icon": "icon/template",
       "hit effect": "huge explosion",
-      "fire effect": [
-        "ge5006 fire 1",
-        "ge5006 fire 2"
-      ],
+      "fire effect": "ge5006 fire 1",
+      "fire effect 2": "ge5006 fire 2",
       "inaccuracy": 3,
       "velocity": 35,
       "lifetime": 60,
@@ -14042,10 +14012,8 @@
       "sound": "exp314 railcannon",
       "icon": "icon/template",
       "hit effect": "huge explosion",
-      "fire effect": [
-        "ge5006 fire 1",
-        "ge5006 fire 2"
-      ],
+      "fire effect": "ge5006 fire 1",
+      "fire effect 2": "ge5006 fire 2",
       "inaccuracy": 2.5,
       "velocity": 32,
       "lifetime": 50,
@@ -14430,6 +14398,7 @@
       "firing energy": 32,
       "firing heat": 55,
       "damage dropoff": 450,
+      "damage dropoff 2": 800,
       "fade out": 10
     },
     "description": "A hybrid of plasma and blaster weapon, the scorcher deals considerable heat damage in addition to its high shield damage. Due to various factors, scorcher bolts are relatively more stable and can reach far longer range than the weapons they derived from. It is almost exclusively used by NBSL Group ships.",
@@ -14515,6 +14484,7 @@
       "firing energy": 32,
       "firing heat": 55,
       "damage dropoff": 450,
+      "damage dropoff 2": 800,
       "fade out": 10
     },
     "description": "A hybrid of plasma and blaster weapon, the scorcher deals considerable heat damage in addition to its high shield damage. Due to various factors, scorcher bolts are relatively more stable and can reach far longer range than the weapons they derived from. It is almost exclusively used by NBSL Group ships.",
@@ -19066,10 +19036,8 @@
       "sound": "typhoon",
       "icon": "icon/typhoon",
       "fire effect": "typhoon fire",
-      "hit effect": [
-        "torpedo hit",
-        "large explosion"
-      ],
+      "hit effect": "torpedo hit",
+      "hit effect 2": "large explosion",
       "die effect": "tiny explosion",
       "inaccuracy": 5,
       "velocity": 0,
@@ -19998,10 +19966,8 @@
       "sound": "sidewinder",
       "icon": "icon/feiyu icon",
       "fire effect": "sidewinder fire",
-      "live effect": [
-        "feiyu flare",
-        "bombbox smoke"
-      ],
+      "live effect": "feiyu flare",
+      "live effect 2": "bombbox smoke",
       "die effect": "missile death",
       "hit effect": "missile hit",
       "inaccuracy": 4.5,
@@ -20503,10 +20469,8 @@
       "sound": "sidewinder",
       "icon": "icon/feiyu icon",
       "fire effect": "sidewinder fire",
-      "live effect": [
-        "feiyu flare",
-        "bombbox smoke"
-      ],
+      "live effect": "feiyu flare",
+      "live effect 2": "bombbox smoke",
       "die effect": "missile death",
       "hit effect": "missile hit",
       "turret turn": 1.5,
@@ -22765,10 +22729,8 @@
       },
       "sound": "sidewinder",
       "lifetime": 60,
-      "live effect": [
-        "bombbox flare",
-        "bombbox smoke"
-      ],
+      "live effect": "bombbox flare",
+      "live effect 2": "bombbox smoke",
       "fire effect": "sidewinder fire",
       "die effect": "missile death",
       "hit effect": "missile hit",
@@ -23617,11 +23579,9 @@
       "sound": "sidewinder",
       "stream": true,
       "icon": "icon/mgf spearfish vls icon",
-      "live effect": [
-        "spearfish flare",
-        "spearfish smoke",
-        "spearfish smoke"
-      ],
+      "live effect": "spearfish flare",
+      "live effect 2": "spearfish smoke",
+      "live effect 3": "spearfish smoke",
       "fire effect": "smoke",
       "hit effect": "huge explosion",
       "turret turn": 360,
@@ -23823,11 +23783,9 @@
       "sound": "sidewinder",
       "stream": true,
       "icon": "icon/mgf spearfish icon",
-      "live effect": [
-        "spearfish flare",
-        "spearfish smoke",
-        "spearfish smoke"
-      ],
+      "live effect": "spearfish flare",
+      "live effect 2": "spearfish smoke",
+      "live effect 3": "spearfish smoke",
       "fire effect": "smoke",
       "hit effect": "huge explosion",
       "range override": 5875,
@@ -24046,10 +24004,8 @@
       "sound": "mgf eteron launch",
       "stream": true,
       "icon": "icon/mgf eteron icon",
-      "live effect": [
-        "ah5 eteron flare",
-        "ah5 eteron trail"
-      ],
+      "live effect": "ah5 eteron flare",
+      "live effect 2": "ah5 eteron trail",
       "fire effect": "smoke",
       "hit effect": "huge explosion",
       "inaccuracy": 1,
@@ -24132,15 +24088,11 @@
       "stream": true,
       "icon": "icon/nuke",
       "fire effect": "smoke",
-      "live effect": [
-        "bombbox flare",
-        "bombbox smoke"
-      ],
-      "hit effect": [
-        "nuke explosion",
-        "nuke residue fast",
-        "nuke residue slow"
-      ],
+      "live effect": "bombbox flare",
+      "live effect 2": "bombbox smoke",
+      "hit effect": "nuke explosion",
+      "hit effect 2": "nuke residue fast",
+      "hit effect 3": "nuke residue slow",
       "die effect": "huge explosion",
       "inaccuracy": 1,
       "velocity": 10,
@@ -24563,10 +24515,8 @@
     "name": "chiryu penetrator proj-5",
     "weapon": {
       "sprite": "projectile/mgf chiryu proj",
-      "hit effect": [
-        "heavy rocket hit",
-        "nuke explosion"
-      ],
+      "hit effect": "heavy rocket hit",
+      "hit effect 2": "nuke explosion",
       "die effect": "small explosion",
       "live effect": "mgf itano trail",
       "lifetime": 1,
@@ -25094,6 +25044,7 @@
     "weapon": {
       "hardpoint sprite": "hardpoint/mgf hai railgun turret hp",
       "hardpoint offset": -1,
+      "hardpoint offset 2": 4,
       "sprite": "projectile/rail slug",
       "sprite data": {
         "frame rate": 30

@@ -15,12 +15,12 @@
       {
         "x": -19,
         "y": 51,
-        "position": "over"
+        "over": true
       },
       {
         "x": 19,
         "y": 51,
-        "position": "over"
+        "over": true
       }
     ],
     "steeringEngines": [],
@@ -33,7 +33,7 @@
       {
         "x": -24,
         "y": -76,
-        "gun": ""
+        "gun": "Sidewinder Missile Launcher"
       },
       {
         "x": 24,
@@ -45,12 +45,12 @@
       {
         "x": -21.5,
         "y": 2.5,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       },
       {
         "x": 21.5,
         "y": 2.5,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       }
     ],
     "bays": [],
@@ -98,7 +98,7 @@
     "description": "The Star Queen is a relic of a more peaceful period of galactic history: a luxury liner for high-end tourists. Every cabin has its own mini-bar, and the bathrooms have marble tile and showers that use actual hot water instead of chemicals or sonic vibrations. \tIn support of environmental movements across the galaxy, all Star Queens come standard with an array of solar panels as their only source of energy as opposed to more popular power generators such as fuel cells or nuclear reactors that produce some amount of waste. Although some argue that this is a pointless move given the prevalence of clean fusion reactors, others have applauded it and cited the prohibitive costs of fusion reactors as a reason for using solar panels.",
     "_internalId": "official-game/endless-sky::Star Queen",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "12ddafe03845",
+    "_hash": "7646adf56e25",
     "variant": "Star Queen (Discount)",
     "baseShip": "Star Queen",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -185,12 +185,12 @@
       {
         "x": -19,
         "y": 51,
-        "position": "over"
+        "over": true
       },
       {
         "x": 19,
         "y": 51,
-        "position": "over"
+        "over": true
       }
     ],
     "steeringEngines": [],
@@ -203,7 +203,7 @@
       {
         "x": -24,
         "y": -76,
-        "gun": ""
+        "gun": "Sidewinder Missile Launcher"
       },
       {
         "x": 24,
@@ -215,12 +215,12 @@
       {
         "x": -21.5,
         "y": 2.5,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       },
       {
         "x": 21.5,
         "y": 2.5,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       }
     ],
     "bays": [],
@@ -268,7 +268,7 @@
     "description": "The Star Queen is a relic of a more peaceful period of galactic history: a luxury liner for high-end tourists. Every cabin has its own mini-bar, and the bathrooms have marble tile and showers that use actual hot water instead of chemicals or sonic vibrations. \tIn support of environmental movements across the galaxy, all Star Queens come standard with an array of solar panels as their only source of energy as opposed to more popular power generators such as fuel cells or nuclear reactors that produce some amount of waste. Although some argue that this is a pointless move given the prevalence of clean fusion reactors, others have applauded it and cited the prohibitive costs of fusion reactors as a reason for using solar panels.",
     "_internalId": "official-game/endless-sky::Star Queen",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "12ddafe03845",
+    "_hash": "7646adf56e25",
     "variant": "Star Queen (Fake Discount)",
     "baseShip": "Star Queen",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -482,12 +482,12 @@
       {
         "x": -6,
         "y": -39.5,
-        "gun": ""
+        "gun": "Particle Cannon"
       },
       {
         "x": 6,
         "y": -39.5,
-        "gun": ""
+        "gun": "Particle Cannon"
       }
     ],
     "turrets": [],
@@ -529,7 +529,7 @@
     "description": "The Megaparsec Quicksilver is a warship built around a single concept: to design the smallest and fastest ship capable of carrying two Particle Cannons. Because of its speed, reverse thrusters, and long weapons range, the Quicksilver can keep a safe distance from most targets and bombard them with particle bursts until they are destroyed. The focus on its weaponry left the Quicksilver with no room for even the most basic shield generator. Unfortunately the Headhunter eventually surpassed the original design intent, but the Quicksilver's better durability to cost ratio, and the existence of long-term contracts, has kept it in use with Syndicate security forces.",
     "_internalId": "official-game/endless-sky::Quicksilver",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "d5efdaefbc64",
+    "_hash": "3dcec1c8f9d7",
     "variant": "Quicksilver (no particle cannon)",
     "baseShip": "Quicksilver",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -617,12 +617,12 @@
       {
         "x": -9,
         "y": -154,
-        "position": "zoom 0.7"
+        "zoom": 0.7
       },
       {
         "x": 9,
         "y": -154,
-        "position": "zoom 0.7"
+        "zoom": 0.7
       }
     ],
     "steeringEngines": [],
@@ -630,44 +630,46 @@
       {
         "x": 32.5,
         "y": -1,
-        "gun": ""
+        "gun": "Firelight Missile Bank",
+        "angle": 60
       },
       {
         "x": -32.5,
         "y": -1,
-        "gun": ""
+        "gun": "Firelight Missile Bank",
+        "angle": 300
       }
     ],
     "turrets": [
       {
         "x": -10,
         "y": -143,
-        "turret": ""
+        "turret": "Grab-Strike Turret"
       },
       {
         "x": 10,
         "y": -143,
-        "turret": ""
+        "turret": "Grab-Strike Turret"
       },
       {
         "x": -36,
         "y": -141,
-        "turret": ""
+        "turret": "Grab-Strike Turret"
       },
       {
         "x": 36,
         "y": -141,
-        "turret": ""
+        "turret": "Grab-Strike Turret"
       },
       {
         "x": 0,
         "y": 41,
-        "turret": ""
+        "turret": "Banisher Grav-Turret"
       },
       {
         "x": 0,
         "y": 94,
-        "turret": ""
+        "turret": "Warder Anti-Missile"
       }
     ],
     "bays": [
@@ -713,7 +715,6 @@
       "self destruct": 1,
       "absolute threshold": 3500
     },
-    "angle": 300,
     "tiny explosion": 20,
     "small explosion": 45,
     "medium explosion": 50,
@@ -723,7 +724,7 @@
     "description": "Successive raider designs have been the Korath warship of choice for plundering neighboring species for generations. Named for a celebrated captain who gave her life to ensure her crippled vessel made it back to port with its desperately needed cargo of stolen fish, the Palavret-Class Raiding Ship continues that grim tradition. \tLike all Exile ships, the Palavret has been adapted to house as many Korath as possible, as comfortably as possible, inflating its size beyond similarly armed warships. The spaceborne construction techniques employed allow for the ship's easy replacement, facilitating continued raids of nearby systems.",
     "_internalId": "official-game/endless-sky::Palavret",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "6bf6783cdd15",
+    "_hash": "9348a707b344",
     "variant": "Korath Raider (no pilfering)",
     "baseShip": "Palavret",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -850,39 +851,39 @@
       {
         "x": -68.5,
         "y": -33,
-        "gun": ""
+        "gun": "Meteor Missile Launcher"
       },
       {
         "x": 68.5,
         "y": -33,
-        "gun": ""
+        "gun": "Meteor Missile Launcher"
       },
       {
         "x": -20,
         "y": -31,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": 20,
         "y": -31,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": -26.5,
         "y": -30,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": 26.5,
         "y": -30,
-        "gun": ""
+        "gun": "Plasma Cannon"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -28,
-        "turret": ""
+        "turret": "Quad Blaster Turret"
       }
     ],
     "bays": [],
@@ -919,7 +920,7 @@
     "description": "After the Syndicate released their Vanguard Heavy Warship, the Manta fell somewhat out of favor due to its lack of ability to mount any anti-missile turrets. The owner of this Manta rectified that, added some extra armor plating and shield emitters, and rearranged some of the internals to yield a little more outfit space. Dry tonnage alone keeps it from being classified as a heavy warship.",
     "_internalId": "official-game/endless-sky::Marauder Manta",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "41f619ccfff5",
+    "_hash": "f62e0aedde87",
     "variant": "Marauder Manta (Range)",
     "baseShip": "Marauder Manta",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -957,34 +958,34 @@
       {
         "x": -11,
         "y": -125,
-        "gun": ""
+        "gun": "Sidewinder Missile Launcher"
       },
       {
         "x": 11,
         "y": -125,
-        "gun": ""
+        "gun": "Sidewinder Missile Launcher"
       }
     ],
     "turrets": [
       {
         "x": -22,
         "y": -53.5,
-        "turret": ""
+        "turret": "Heavy Laser Turret"
       },
       {
         "x": 19.5,
         "y": -39,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       },
       {
         "x": 20,
         "y": 33,
-        "turret": ""
+        "turret": "Heavy Laser Turret"
       },
       {
         "x": -20.5,
         "y": 103.5,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       }
     ],
     "bays": [
@@ -1044,7 +1045,7 @@
     "description": "The Mule is as much of a hodgepodge as its looks suggest. The Lionheart ship designers combined a good deal of cargo space with a decent amount of weaponry and even a fighter bay, and ended up with a ship that is mostly used as a freighter but can also be used as a warship because of its heavy armament and shields. This hodgepodge nature has its downside, though, namely its high crew requirement and the fact that any dedicated ship of the same cost will do better in a specialized role than the Mule will.",
     "_internalId": "official-game/endless-sky::Mule",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "dd565399efa6",
+    "_hash": "db8bebf7b6fb",
     "variant": "Mule (rubbish)",
     "baseShip": "Mule",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -1121,22 +1122,22 @@
       {
         "x": -13.5,
         "y": -35.5,
-        "gun": ""
+        "gun": "Heavy Laser"
       },
       {
         "x": 13.5,
         "y": -35.5,
-        "gun": ""
+        "gun": "Heavy Laser"
       },
       {
         "x": -21,
         "y": -28,
-        "gun": ""
+        "gun": "Torpedo Launcher"
       },
       {
         "x": 21,
         "y": -28,
-        "gun": ""
+        "gun": "Sidewinder Missile Launcher"
       }
     ],
     "turrets": [],
@@ -1186,7 +1187,7 @@
     "description": "The Lionheart Raven is their most popular warship, an agile and elegant vessel that can nevertheless deal out and absorb considerable damage. Ravens are a favorite ship for bounty hunters, because they are more than a match for pirate interceptors and can be used by a skilled pilot to take down much larger ships as well.",
     "_internalId": "official-game/endless-sky::Raven",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "2ccde85fa9d0",
+    "_hash": "ba422ca219d3",
     "variant": "Raven (rubbish)",
     "baseShip": "Raven",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -1270,39 +1271,39 @@
       {
         "x": -52.5,
         "y": -0.5,
-        "gun": ""
+        "gun": "Heavy Rocket Launcher"
       },
       {
         "x": -52.5,
         "y": -0.5,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": 52.5,
         "y": -0.5,
-        "gun": ""
+        "gun": "Heavy Rocket Launcher"
       },
       {
         "x": 52.5,
         "y": -0.5,
-        "gun": ""
+        "gun": "Plasma Cannon"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": 0.5,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       },
       {
         "x": -35.5,
         "y": 29.5,
-        "turret": ""
+        "turret": "Blaster Turret"
       },
       {
         "x": 35.5,
         "y": 29.5,
-        "turret": ""
+        "turret": "Blaster Turret"
       }
     ],
     "bays": [],
@@ -1356,7 +1357,7 @@
     "description": "The Southbound Shipyards Bastion is designed as a heavy defense platform to accompany freighter convoys, in addition to having enough cargo capacity to serve as a freighter in its own right. Because of its heavy armament, it is classified as a warship rather than a freighter.",
     "_internalId": "official-game/endless-sky::Bastion",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "6e328fdfa222",
+    "_hash": "eaacdff2f5b7",
     "variant": "Bastion (rubbish)",
     "baseShip": "Bastion",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -1629,34 +1630,34 @@
       {
         "x": -22,
         "y": -37,
-        "gun": ""
+        "gun": "Heavy Laser"
       },
       {
         "x": 22.5,
         "y": -37,
-        "gun": ""
+        "gun": "Heavy Laser"
       },
       {
         "x": -22,
         "y": -37,
-        "gun": ""
+        "gun": "Meteor Missile Launcher"
       },
       {
         "x": 22.5,
         "y": -37,
-        "gun": ""
+        "gun": "Meteor Missile Launcher"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -12.5,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       },
       {
         "x": 0,
         "y": 9.5,
-        "turret": ""
+        "turret": "Heavy Laser Turret"
       }
     ],
     "bays": [],
@@ -1705,7 +1706,7 @@
     "description": "The Argosy has long been a favorite ship for pirates, who have come up with many tricks for modifying them to be more suitable as warships.",
     "_internalId": "official-game/endless-sky::Modified Argosy",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "7b5d33ad4e99",
+    "_hash": "8c6dbe31fd6c",
     "variant": "Modified Argosy (fuelled)",
     "baseShip": "Modified Argosy",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -1959,17 +1960,17 @@
       {
         "x": 0,
         "y": -5,
-        "turret": ""
+        "turret": "Korath Warder"
       },
       {
         "x": -37,
         "y": 4,
-        "turret": ""
+        "turret": "Blaze-Pike Turret (modified)"
       },
       {
         "x": 37,
         "y": 4,
-        "turret": ""
+        "turret": "Blaze-Pike Turret (modified)"
       }
     ],
     "bays": [],
@@ -2011,7 +2012,7 @@
     "description": "The Megaparsec Bounder is a scout ship and courier, designed not for battle but for carrying passengers and small amounts of cargo across large distances quickly.",
     "_internalId": "official-game/endless-sky::Bounder",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "a35c0612d81c",
+    "_hash": "54c082c5b7c7",
     "variant": "Bounder (alpha)",
     "baseShip": "Bounder",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -2098,17 +2099,17 @@
       {
         "x": 0,
         "y": -5,
-        "turret": ""
+        "turret": "Korath Warder"
       },
       {
         "x": -37,
         "y": 4,
-        "turret": ""
+        "turret": "Blaze-Pike Turret (modified)"
       },
       {
         "x": 37,
         "y": 4,
-        "turret": ""
+        "turret": "Blaze-Pike Turret (modified)"
       }
     ],
     "bays": [],
@@ -2152,7 +2153,7 @@
     "description": "The Megaparsec Bounder is a scout ship and courier, designed not for battle but for carrying passengers and small amounts of cargo across large distances quickly.",
     "_internalId": "official-game/endless-sky::Bounder",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "a35c0612d81c",
+    "_hash": "54c082c5b7c7",
     "variant": "Bounder (fleeing alpha)",
     "baseShip": "Bounder",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
@@ -2248,7 +2249,7 @@
       {
         "x": 0,
         "y": -96,
-        "gun": ""
+        "gun": "Inhibitor Cannon"
       },
       {
         "x": -7,
@@ -2265,7 +2266,7 @@
       {
         "x": 0,
         "y": 26,
-        "turret": ""
+        "turret": "Point Defense Turret"
       }
     ],
     "bays": [],
@@ -2328,7 +2329,7 @@
     "description": "While the Starling was the first successful ship to use technology derived from alien ruins, the Gull is the most recent. The current increase in Korath activities has caused foraging for resources to become a risky endeavor, forcing the Remnant to develop a specialized freighter for hauling cargo from remote sites without revealing their presence to hostile aliens. \tThe Gull has quickly proven its worth, allowing the Starling fleets to return to riskier activities while the Gull takes over the hazardous convoy routes. It is now the primary element of the Remnant's extra-territorial resource operations. \tThe cloaking technology is built into the Gull's hull; it cannot be removed or transferred to another ship.",
     "_internalId": "official-game/endless-sky::Gull",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "7fa9692ed15d",
+    "_hash": "2cb8e81cd829",
     "variant": "Gull (Analogue)",
     "baseShip": "Gull",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",

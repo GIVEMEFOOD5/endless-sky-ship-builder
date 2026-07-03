@@ -17,34 +17,34 @@
       {
         "x": -28,
         "y": -34,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": 28,
         "y": -34,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": -39,
         "y": -19,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": 39,
         "y": -19,
-        "gun": ""
+        "gun": "Plasma Cannon"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -44,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       },
       {
         "x": 0,
         "y": -2.5,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       }
     ],
     "bays": [],
@@ -81,7 +81,7 @@
     "description": "The age old design of the Firebird was once one of the most common ships during the Alpha Wars. As such it was one of the few designs the Humans that fled to Sheragi space had access to. After half a millennium this ship has recieved heavy design tweaks to make it better able to stand up against the Behemoth Sheragi warships.",
     "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Shio Firebird",
     "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_hash": "6f5c312c2ab9",
+    "_hash": "39490bdc0631",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Merchant": true,
@@ -183,44 +183,44 @@
       {
         "x": -39.5,
         "y": -33,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": 39.5,
         "y": -33,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": -51,
         "y": -21,
-        "gun": ""
+        "gun": "Plasma Cannon"
       },
       {
         "x": 51,
         "y": -21,
-        "gun": ""
+        "gun": "Plasma Cannon"
       }
     ],
     "turrets": [
       {
         "x": -14.5,
         "y": -11.5,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 14.5,
         "y": -11.5,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": -26,
         "y": 11.5,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       },
       {
         "x": 26,
         "y": 11.5,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       }
     ],
     "bays": [],
@@ -257,7 +257,7 @@
     "description": "The Leviathan has been in service for a long time, and with 500 years of extra development alongside Sheragi ships this ship is now capable of holding its own against some of the smaller Sheragi warships.",
     "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Shio Leviathan",
     "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_hash": "fd82095ccee2",
+    "_hash": "a2d2f52c7aa2",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Merchant": true,
@@ -365,49 +365,53 @@
       {
         "x": 65,
         "y": -111,
-        "gun": ""
+        "gun": "",
+        "angle": 40
       },
       {
         "x": -72,
         "y": -97.5,
-        "gun": ""
+        "gun": "",
+        "angle": 320
       },
       {
         "x": -66.5,
         "y": 61,
-        "gun": ""
+        "gun": "",
+        "angle": 270
       },
       {
         "x": 78,
         "y": 64,
-        "gun": ""
+        "gun": "",
+        "angle": 90
       }
     ],
     "turrets": [
       {
         "x": 10,
         "y": -136.5,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": -21.5,
         "y": -57.5,
-        "turret": ""
+        "turret": "Heavy Anti-Missile Turret"
       },
       {
         "x": 51,
         "y": 101,
-        "turret": ""
+        "turret": "Anti-Missile Turret"
       },
       {
         "x": -63.5,
         "y": 120,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 52.5,
         "y": 143,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       }
     ],
     "bays": [
@@ -473,7 +477,6 @@
         "hit force": 3900
       }
     },
-    "angle": 90,
     "small explosion": 25,
     "medium explosion": 35,
     "large explosion": 45,
@@ -482,7 +485,7 @@
     "description": "The Tycho Crater Cooperative's Dromedary was one of the foremost colonization ships during the early era before piracy became rampant and triggered the necessity for city-ships to be more combat-oriented. These ships incorporate extensive hydroponics, large construction equipment installations, and hundreds of densely packed \"dream cells\" built to transport people in bulk.",
     "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Dromedary",
     "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_hash": "9affafbda0ec",
+    "_hash": "4476caadac79",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Merchant": true
@@ -815,133 +818,167 @@
     "engines": [
       {
         "x": 83,
-        "y": 275
+        "y": 275,
+        "zoom": 1.3,
+        "over": true
       },
       {
         "x": -83,
-        "y": 275
+        "y": 275,
+        "zoom": 1.3,
+        "over": true
       },
       {
         "x": 0,
-        "y": 279
+        "y": 279,
+        "zoom": 1.35,
+        "over": true
       }
     ],
     "reverseEngines": [
       {
         "x": -123.5,
         "y": 163.5,
-        "position": "over"
+        "zoom": 0.6,
+        "angle": 335,
+        "over": true
       },
       {
         "x": 123.5,
         "y": 163.5,
-        "position": "over"
+        "zoom": 0.6,
+        "angle": 25,
+        "over": true
       }
     ],
     "steeringEngines": [
       {
         "x": -123.5,
         "y": 163.5,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": 155,
+        "over": true,
+        "left": true
       },
       {
         "x": 123.5,
         "y": 163.5,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 205,
+        "over": true,
+        "right": true
       },
       {
         "x": -34.5,
         "y": -221.5,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 60,
+        "over": true,
+        "right": true
       },
       {
         "x": -39,
         "y": -193.5,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 60,
+        "over": true,
+        "right": true
       },
       {
         "x": -43.5,
         "y": -165.5,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 60,
+        "over": true,
+        "right": true
       },
       {
         "x": 34.5,
         "y": -221.5,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": 300,
+        "over": true,
+        "left": true
       },
       {
         "x": 39,
         "y": -193.5,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": 300,
+        "over": true,
+        "left": true
       },
       {
         "x": 43.5,
         "y": -165.5,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": 300,
+        "over": true,
+        "left": true
       }
     ],
     "guns": [
       {
         "x": -96,
         "y": -23,
-        "gun": ""
+        "gun": "Kinetic Spear Launcher"
       },
       {
         "x": 96,
         "y": -23,
-        "gun": ""
+        "gun": "Kinetic Spear Launcher"
       }
     ],
     "turrets": [
       {
         "x": -18,
         "y": -41.5,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 18,
         "y": -41.5,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": -70,
         "y": 70.5,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 70,
         "y": 70.5,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": -95,
         "y": 168,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 95,
         "y": 168,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": -16.5,
         "y": -111,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 16.5,
         "y": -111,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 0,
         "y": 114,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       },
       {
         "x": 0,
         "y": 183,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       }
     ],
     "bays": [],
@@ -971,8 +1008,6 @@
         "hit force": 11495
       }
     },
-    "zoom": 1.35,
-    "over": true,
     "tiny explosion": 60,
     "small explosion": 26,
     "medium explosion": 47,
@@ -983,7 +1018,7 @@
     "description": "A powerful Sheragi warship designed to break through enemy lines. The few flaws in its design are made up for by its immense size, making it one of the most powerful warships you've ever seen. With the collaboration between Human and Sheragi engineering this ship is the the most efficient warship in the Sheragi arsenal.",
     "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Platinum Spear :SRR",
     "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_hash": "85f01daf8269",
+    "_hash": "4bb0416b65c8",
     "governments": {
       "Sheragi.Rebirth.Redux": {
         "Sheragi.Rebirth.Redux": true
@@ -1050,123 +1085,145 @@
     "engines": [
       {
         "x": -174,
-        "y": 100
+        "y": 100,
+        "zoom": 0.75,
+        "over": true
       },
       {
         "x": 174,
-        "y": 100
+        "y": 100,
+        "zoom": 0.75,
+        "over": true
       },
       {
         "x": 0,
-        "y": 167
+        "y": 167,
+        "zoom": 1.2,
+        "over": true
       }
     ],
     "reverseEngines": [
       {
         "x": -177,
         "y": -41,
-        "position": "over"
+        "zoom": 0.5,
+        "angle": 335,
+        "over": true
       },
       {
         "x": 177,
         "y": -41,
-        "position": "over"
+        "zoom": 0.5,
+        "angle": 25,
+        "over": true
       }
     ],
     "steeringEngines": [
       {
         "x": -177,
         "y": -41,
-        "position": "left"
+        "zoom": 0.4,
+        "angle": 155,
+        "over": true,
+        "left": true
       },
       {
         "x": 177,
         "y": -41,
-        "position": "right"
+        "zoom": 0.4,
+        "angle": 205,
+        "over": true,
+        "right": true
       },
       {
         "x": -33,
         "y": -142,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 130,
+        "over": true,
+        "right": true
       },
       {
         "x": 33,
         "y": -142,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": 230,
+        "over": true,
+        "left": true
       }
     ],
     "guns": [
       {
         "x": -156.5,
         "y": -76.5,
-        "gun": ""
+        "gun": "Shard Fabricator"
       },
       {
         "x": 156.5,
         "y": -76.5,
-        "gun": ""
+        "gun": "Shard Fabricator"
       },
       {
         "x": -147,
         "y": -55,
-        "gun": ""
+        "gun": "Shard Fabricator"
       },
       {
         "x": 147,
         "y": -55,
-        "gun": ""
+        "gun": "Shard Fabricator"
       },
       {
         "x": -80,
         "y": -72,
-        "gun": ""
+        "gun": "Shard Fabricator"
       },
       {
         "x": 80,
         "y": -72,
-        "gun": ""
+        "gun": "Shard Fabricator"
       },
       {
         "x": -69,
         "y": -121,
-        "gun": ""
+        "gun": "Shard Fabricator"
       },
       {
         "x": 69,
         "y": -121,
-        "gun": ""
+        "gun": "Shard Fabricator"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -0.5,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 0,
         "y": 70,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": -99,
         "y": 70,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 99,
         "y": 70,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": -171.5,
         "y": -9.5,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       },
       {
         "x": 171.5,
         "y": -9.5,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       }
     ],
     "bays": [
@@ -1247,8 +1304,6 @@
         "hit force": 8748
       }
     },
-    "zoom": 1.2,
-    "over": true,
     "tiny explosion": 60,
     "small explosion": 26,
     "medium explosion": 47,
@@ -1259,7 +1314,7 @@
     "description": "A powerful Sheragi carrier designed to quickly deploy fighters to swarm enemy ships. The ship comes equipped with a more powerful version of the repair system the Black Diamonds use. This increases its survivability, providing time for the fighters to finish off the enemy.",
     "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Gold Shield :SRR",
     "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_hash": "a73c0cc23857",
+    "_hash": "a3b45417fafc",
     "governments": {
       "Sheragi.Rebirth.Redux": {
         "Sheragi.Rebirth.Redux": true
@@ -1318,69 +1373,103 @@
     "engines": [
       {
         "x": 83,
-        "y": 275
+        "y": 275,
+        "zoom": 1.3,
+        "over": true
       },
       {
         "x": -83,
-        "y": 275
+        "y": 275,
+        "zoom": 1.3,
+        "over": true
       },
       {
         "x": 0,
-        "y": 279
+        "y": 279,
+        "zoom": 1.35,
+        "over": true
       }
     ],
     "reverseEngines": [
       {
         "x": -123.5,
         "y": 163.5,
-        "position": "over"
+        "zoom": 0.6,
+        "angle": 335,
+        "over": true
       },
       {
         "x": 123.5,
         "y": 163.5,
-        "position": "over"
+        "zoom": 0.6,
+        "angle": 25,
+        "over": true
       }
     ],
     "steeringEngines": [
       {
         "x": -123.5,
         "y": 163.5,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": 155,
+        "over": true,
+        "left": true
       },
       {
         "x": 123.5,
         "y": 163.5,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": 205,
+        "over": true,
+        "right": true
       },
       {
         "x": -34.5,
         "y": -221.5,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 60,
+        "over": true,
+        "right": true
       },
       {
         "x": -39,
         "y": -193.5,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 60,
+        "over": true,
+        "right": true
       },
       {
         "x": -43.5,
         "y": -165.5,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 60,
+        "over": true,
+        "right": true
       },
       {
         "x": 34.5,
         "y": -221.5,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": 300,
+        "over": true,
+        "left": true
       },
       {
         "x": 39,
         "y": -193.5,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": 300,
+        "over": true,
+        "left": true
       },
       {
         "x": 43.5,
         "y": -165.5,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": 300,
+        "over": true,
+        "left": true
       }
     ],
     "guns": [
@@ -1394,42 +1483,42 @@
       {
         "x": -18,
         "y": -41.5,
-        "turret": ""
+        "turret": "Sheragi Pulse Beam Turret"
       },
       {
         "x": 18,
         "y": -41.5,
-        "turret": ""
+        "turret": "Sheragi Pulse Beam Turret"
       },
       {
         "x": -70,
         "y": 70.5,
-        "turret": ""
+        "turret": "Sheragi Pulse Beam Turret"
       },
       {
         "x": 70,
         "y": 70.5,
-        "turret": ""
+        "turret": "Sheragi Pulse Beam Turret"
       },
       {
         "x": -95,
         "y": 168,
-        "turret": ""
+        "turret": "Sheragi Pulse Beam Turret"
       },
       {
         "x": 95,
         "y": 168,
-        "turret": ""
+        "turret": "Sheragi Pulse Beam Turret"
       },
       {
         "x": 0,
         "y": 114,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       },
       {
         "x": 0,
         "y": 183,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       }
     ],
     "bays": [],
@@ -1460,8 +1549,6 @@
         "hit force": 11495
       }
     },
-    "zoom": 1.35,
-    "over": true,
     "tiny explosion": 60,
     "small explosion": 26,
     "medium explosion": 47,
@@ -1472,7 +1559,7 @@
     "description": "For its original Sheragi masters, this warship was home to around 100 individuals. For others, however, that number more than doubles, bringing it on par with the largest city ships.",
     "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Opal Glaive :SRR",
     "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_hash": "94a1b283af4c",
+    "_hash": "6f1cb92e2af1",
     "governments": {
       "Sheragi.Rebirth.Redux": {
         "Sheragi.Rebirth.Redux": true
@@ -1519,7 +1606,9 @@
     "engines": [
       {
         "x": 0,
-        "y": 76
+        "y": 76,
+        "zoom": 1.3,
+        "over": true
       }
     ],
     "reverseEngines": [],
@@ -1527,46 +1616,58 @@
       {
         "x": 51,
         "y": 43,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 225,
+        "over": true,
+        "right": true
       },
       {
         "x": 51,
         "y": -2.5,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 315,
+        "over": true,
+        "left": true
       },
       {
         "x": -51,
         "y": 43,
-        "position": "left"
+        "zoom": 0.3,
+        "angle": 135,
+        "over": true,
+        "left": true
       },
       {
         "x": -51,
         "y": -2.5,
-        "position": "right"
+        "zoom": 0.3,
+        "angle": 45,
+        "over": true,
+        "right": true
       }
     ],
     "guns": [
       {
         "x": 0,
         "y": -77,
-        "gun": ""
+        "gun": "Particle Waveform Cannon"
       },
       {
         "x": 45,
         "y": -11,
-        "gun": ""
+        "gun": "Heavy Ion Cyclotron"
       },
       {
         "x": -45,
         "y": -11,
-        "gun": ""
+        "gun": "Heavy Ion Cyclotron"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": 27.5,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       }
     ],
     "bays": [],
@@ -1596,8 +1697,6 @@
         "hit force": 1500
       }
     },
-    "zoom": 1.3,
-    "over": true,
     "tiny explosion": 16,
     "small explosion": 40,
     "medium explosion": 28,
@@ -1606,7 +1705,7 @@
     "description": "The Sheragi, despite being large creatures have managed to create a warship of relatively small size. It has space for passengers while still remaining, somehow, functional.",
     "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Bronze Edge :SRR",
     "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_hash": "9e7a365faac5",
+    "_hash": "25eacf136a22",
     "governments": {
       "Sheragi.Rebirth.Redux": {
         "Sheragi.Rebirth.Redux": true
@@ -1669,49 +1768,69 @@
     "engines": [
       {
         "x": -95,
-        "y": -50
+        "y": -50,
+        "zoom": 0.6,
+        "over": true
       },
       {
         "x": 95,
-        "y": -50
+        "y": -50,
+        "zoom": 0.6,
+        "over": true
       },
       {
         "x": 0,
-        "y": 172
+        "y": 172,
+        "zoom": 0.9,
+        "over": true
       }
     ],
     "reverseEngines": [
       {
         "x": -68,
         "y": -144,
-        "position": "over"
+        "zoom": 0.35,
+        "angle": 335,
+        "over": true
       },
       {
         "x": 68,
         "y": -144,
-        "position": "over"
+        "zoom": 0.35,
+        "angle": 25,
+        "over": true
       }
     ],
     "steeringEngines": [
       {
         "x": -68,
         "y": -144,
-        "position": "left"
+        "zoom": 0.35,
+        "angle": 155,
+        "over": true,
+        "left": true
       },
       {
         "x": 68,
         "y": -144,
-        "position": "right"
+        "zoom": 0.35,
+        "angle": 205,
+        "over": true,
+        "right": true
       },
       {
         "x": -95,
         "y": -50,
-        "position": "right"
+        "zoom": 0.5,
+        "over": true,
+        "right": true
       },
       {
         "x": 95,
         "y": -50,
-        "position": "left"
+        "zoom": 0.5,
+        "over": true,
+        "left": true
       }
     ],
     "guns": [],
@@ -1719,17 +1838,17 @@
       {
         "x": -22,
         "y": -117,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 22,
         "y": -117,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 0,
         "y": 66.5,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       }
     ],
     "bays": [],
@@ -1760,8 +1879,6 @@
         "hit force": 4950
       }
     },
-    "zoom": 0.9,
-    "over": true,
     "tiny explosion": 60,
     "small explosion": 36,
     "medium explosion": 55,
@@ -1771,7 +1888,7 @@
     "description": "This Sheragi freighter outclasses any other freighter merely through its size. The Ruby Hammer was designed to cross the empty and dangerous space full of ion storms seperating Eden in two. Its unique hull shape helps provide some ion resistance.",
     "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Ruby Hammer :SRR",
     "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_hash": "8d3e2c711eec",
+    "_hash": "dafa78e0ecd2",
     "governments": {
       "Sheragi.Rebirth.Redux": {
         "Sheragi.Rebirth.Redux": true
@@ -1822,97 +1939,123 @@
     "engines": [
       {
         "x": -43,
-        "y": 159
+        "y": 159,
+        "zoom": 0.9,
+        "over": true
       },
       {
         "x": 43,
-        "y": 159
+        "y": 159,
+        "zoom": 0.9,
+        "over": true
       },
       {
         "x": -139,
-        "y": 128
+        "y": 128,
+        "zoom": 0.6,
+        "angle": 28,
+        "over": true
       },
       {
         "x": 139,
-        "y": 128
+        "y": 128,
+        "zoom": 0.6,
+        "angle": 332,
+        "over": true
       }
     ],
     "reverseEngines": [
       {
         "x": -84,
         "y": -7,
-        "position": "over"
+        "zoom": 0.6,
+        "angle": 335,
+        "over": true
       },
       {
         "x": 84,
         "y": -7,
-        "position": "over"
+        "zoom": 0.6,
+        "angle": 25,
+        "over": true
       }
     ],
     "steeringEngines": [
       {
         "x": -139,
         "y": 128,
-        "position": "right"
+        "zoom": 0.85,
+        "angle": 28,
+        "over": true,
+        "right": true
       },
       {
         "x": 139,
         "y": 128,
-        "position": "left"
+        "zoom": 0.85,
+        "angle": 332,
+        "over": true,
+        "left": true
       },
       {
         "x": -84,
         "y": -7,
-        "position": "left"
+        "zoom": 0.6,
+        "angle": 155,
+        "over": true,
+        "left": true
       },
       {
         "x": 84,
         "y": -7,
-        "position": "right"
+        "zoom": 0.6,
+        "angle": 205,
+        "over": true,
+        "right": true
       }
     ],
     "guns": [
       {
         "x": -56,
         "y": -155,
-        "gun": ""
+        "gun": "Particle Waveform Cannon"
       },
       {
         "x": 56,
         "y": -155,
-        "gun": ""
+        "gun": "Particle Waveform Cannon"
       }
     ],
     "turrets": [
       {
         "x": 0,
         "y": -95,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 0,
         "y": -26,
-        "turret": ""
+        "turret": "Sheragi Anti-Missile"
       },
       {
         "x": -47,
         "y": -2,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 47,
         "y": -2,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": -67,
         "y": 53,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       },
       {
         "x": 67,
         "y": 53,
-        "turret": ""
+        "turret": "Particle Waveform Turret"
       }
     ],
     "bays": [],
@@ -1942,9 +2085,6 @@
         "hit force": 4950
       }
     },
-    "zoom": 0.6,
-    "over": true,
-    "angle": 332,
     "tiny explosion": 55,
     "small explosion": 40,
     "medium explosion": 56,
@@ -1954,7 +2094,7 @@
     "description": "This Sheragi warship is the mainstay of the Sheragi military, providing the combat power neccesary while remaining cost effective enough that it can be present in numbers within the battlefield.",
     "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::White Brand :SRR",
     "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_hash": "c3c8daf62b1f",
+    "_hash": "c385b7b301be",
     "governments": {
       "Sheragi.Rebirth.Redux": {
         "Sheragi.Rebirth.Redux": true

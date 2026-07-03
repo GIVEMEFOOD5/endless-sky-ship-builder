@@ -180,10 +180,8 @@
       "sprite": "projectile/vretlure projectile",
       "sound": "tracker",
       "hit effect": "piercer explosion",
-      "live effect": [
-        "vretlure a",
-        "vretlure b"
-      ],
+      "live effect": "vretlure a",
+      "live effect 2": "vretlure b",
       "fire effect": "vretlure b",
       "inaccuracy": 0.5,
       "velocity": 23,
@@ -7428,6 +7426,7 @@
       "heat damage": 40,
       "piercing": 0.3,
       "damage dropoff": 50,
+      "damage dropoff 2": 150,
       "parallel": true
     },
     "description": "A short-ranged burst laser. While not the most powerful of its size, it can partially pierce through shields. Though, the damage drops significantly over range.",
@@ -15912,10 +15911,8 @@
       "sprite": "projectile/hasus missile",
       "sound": "piercer",
       "icon": "icon/hasus",
-      "hit effect": [
-        "ionic afterburner",
-        "piercer impact"
-      ],
+      "hit effect": "ionic afterburner",
+      "hit effect 2": "piercer impact",
       "die effect": "piercer impact",
       "inaccuracy": 5,
       "velocity": 16,
@@ -16071,17 +16068,12 @@
     "weapon": {
       "sprite": "projectile/marley",
       "sound": "utvr40 fire",
-      "Nurbote": 1,
       "icon": "icon/hasus",
-      "fire effect": [
-        "coran fire",
-        "coran spark"
-      ],
+      "fire effect": "coran fire",
+      "fire effect 2": "coran spark",
       "live effect": "rail sparks",
-      "hit effect": [
-        "coran spark",
-        "coran fire"
-      ],
+      "hit effect": "coran spark",
+      "hit effect 2": "coran fire",
       "inaccuracy": 0.1,
       "velocity": 25,
       "lifetime": 400,
@@ -16092,7 +16084,13 @@
       "shield damage": 6500,
       "hull damage": 5880,
       "piercing": 1.5,
-      "disruption damage": 200
+      "disruption damage": 200,
+      "ammunition": [
+        {
+          "type": "Nurbote",
+          "count": 1
+        }
+      ]
     },
     "description": "Donko large cannon that use Nurbote mineral found in their area as ammuniton. The projectile can penetrate shields and disrupt its function.",
     "governments": {
@@ -16150,12 +16148,17 @@
     "turret mounts": -1,
     "weapon": {
       "hit effect": "donko anti-missile",
-      "Nurbote": 1,
       "anti-missile": 350,
       "velocity": 400,
       "lifetime": 1,
       "reload": 45,
-      "firing energy": 50
+      "firing energy": 50,
+      "ammunition": [
+        {
+          "type": "Nurbote",
+          "count": 1
+        }
+      ]
     },
     "description": "Hard-hitting anti missile that requires ammo to fire.",
     "governments": {
@@ -19121,11 +19124,9 @@
     "weapon": {
       "sprite": "projectile/gw green beam",
       "sound": "gw edistort4",
-      "hit effect": [
-        "masenar impact",
-        "kuakuran hit"
-      ],
+      "hit effect": "masenar impact",
       "live effect": "kuakuran trail",
+      "hit effect 2": "kuakuran hit",
       "inaccuracy": 2,
       "velocity": 25,
       "lifetime": 20,
@@ -23812,6 +23813,7 @@
       "firing heat": 80,
       "hit force": 40,
       "damage dropoff": 300,
+      "damage dropoff 2": 600,
       "shield damage": 100,
       "hull damage": 43,
       "piercing": 0.05,
@@ -38862,10 +38864,8 @@
       "lifetime": 1,
       "inaccuracy": 0,
       "fire effect": "vordai fire",
-      "hit effect": [
-        "vordai hit dust",
-        "vordai hit spark"
-      ],
+      "hit effect": "vordai hit dust",
+      "hit effect 2": "vordai hit spark",
       "velocity": 300,
       "burst reload": 1,
       "burst count": 5,
@@ -42957,15 +42957,11 @@
     "weapon": {
       "sprite": "projectile/lymaou",
       "die effect": "drak bolt impact",
-      "hit effect": [
-        "lymaou impact",
-        "nuke explosion"
-      ],
-      "live effect": [
-        "lymaou trail",
-        "antimatter spark",
-        "antimatter dust"
-      ],
+      "hit effect": "lymaou impact",
+      "hit effect 2": "nuke explosion",
+      "live effect": "lymaou trail",
+      "live effect 2": "antimatter spark",
+      "live effect 3": "antimatter dust",
       "inaccuracy": 1,
       "velocity": 35,
       "lifetime": 750,
@@ -44546,10 +44542,8 @@
       "sprite": "projectile/ronc",
       "icon": "icon/javelin",
       "fire effect": "ronc fire",
-      "hit effect": [
-        "tiny explosion",
-        "smoke"
-      ],
+      "hit effect": "tiny explosion",
+      "hit effect 2": "smoke",
       "live effect": "ronc dust",
       "inaccuracy": 2.1,
       "velocity": 30,
@@ -44603,10 +44597,8 @@
       "turret turn": 4,
       "icon": "icon/javelin",
       "fire effect": "ronc fire",
-      "hit effect": [
-        "tiny explosion",
-        "smoke"
-      ],
+      "hit effect": "tiny explosion",
+      "hit effect 2": "smoke",
       "live effect": "ronc dust",
       "inaccuracy": 2.1,
       "velocity": 30,
@@ -47892,16 +47884,12 @@
         "no repeat": true
       },
       "sound": "ultaka nova bombard fire",
-      "hit effect": [
-        "ultaka nova hit 3",
-        "ultaka nova hit eff1",
-        "ultaka nova hit eff2"
-      ],
-      "die effect": [
-        "ultaka nova hit eff1",
-        "ultaka nova hit eff2",
-        "ultaka nova hit 3"
-      ],
+      "hit effect": "ultaka nova hit 3",
+      "hit effect 2": "ultaka nova hit eff1",
+      "hit effect 3": "ultaka nova hit eff2",
+      "die effect": "ultaka nova hit eff1",
+      "die effect 2": "ultaka nova hit eff2",
+      "die effect 3": "ultaka nova hit 3",
       "inaccuracy": 3,
       "turret turn": 1.8,
       "velocity": 60,
@@ -48489,10 +48477,8 @@
       "inaccuracy": 0,
       "velocity": 30,
       "lifetime": 600,
-      "hit effect": [
-        "antimatter dust",
-        "nuke explosion"
-      ],
+      "hit effect": "antimatter dust",
+      "hit effect 2": "nuke explosion",
       "hit force": 9600,
       "shield damage": 3000000,
       "hull damage": 3000000,
@@ -48533,10 +48519,8 @@
       "inaccuracy": 0,
       "velocity": 75,
       "lifetime": 2000,
-      "hit effect": [
-        "antimatter dust",
-        "ultaka cosmic ripper hit"
-      ],
+      "hit effect": "antimatter dust",
+      "hit effect 2": "ultaka cosmic ripper hit",
       "reload": 200,
       "burst count": 3,
       "burst reload": 12,
@@ -50085,10 +50069,8 @@
       "inaccuracy": 0.1,
       "velocity": 12,
       "lifetime": 200,
-      "hit effect": [
-        "antimatter dust",
-        "nuke explosion"
-      ],
+      "hit effect": "antimatter dust",
+      "hit effect 2": "nuke explosion",
       "reload": 150,
       "firing energy": 5010,
       "firing heat": 2870,
@@ -50166,10 +50148,8 @@
       "velocity": 12,
       "lifetime": 200,
       "fire effect": "Ultaka AM fire",
-      "hit effect": [
-        "antimatter dust",
-        "nuke explosion"
-      ],
+      "hit effect": "antimatter dust",
+      "hit effect 2": "nuke explosion",
       "reload": 75,
       "firing energy": 2505,
       "firing heat": 1470,
@@ -50240,10 +50220,8 @@
       "inaccuracy": 0.1,
       "velocity": 22,
       "lifetime": 300,
-      "hit effect": [
-        "ultaka vanquisher hit",
-        "ultaka vanquisher hit2"
-      ],
+      "hit effect": "ultaka vanquisher hit",
+      "hit effect 2": "ultaka vanquisher hit2",
       "reload": 300,
       "firing energy": 9010,
       "firing heat": 8870,
@@ -50319,14 +50297,10 @@
       "inaccuracy": 0,
       "velocity": 20,
       "lifetime": 600,
-      "fire effect": [
-        "ultaka destroyer fire",
-        "ultaka riftspire"
-      ],
-      "hit effect": [
-        "antimatter dust",
-        "nuke explosion"
-      ],
+      "fire effect": "ultaka destroyer fire",
+      "fire effect 2": "ultaka riftspire",
+      "hit effect": "antimatter dust",
+      "hit effect 2": "nuke explosion",
       "reload": 300,
       "firing energy": 90100,
       "firing heat": 88700,
@@ -50555,10 +50529,8 @@
       "inaccuracy": 0.1,
       "velocity": 20,
       "lifetime": 300,
-      "hit effect": [
-        "antimatter dust",
-        "nuke explosion"
-      ],
+      "hit effect": "antimatter dust",
+      "hit effect 2": "nuke explosion",
       "reload": 200,
       "firing energy": 500,
       "firing heat": 270,
@@ -52068,10 +52040,8 @@
       "inaccuracy": 0.08,
       "velocity": 5000,
       "lifetime": 1,
-      "hit effect": [
-        "urxesh live",
-        "ultaka cosmic ripper hit"
-      ],
+      "hit effect": "urxesh live",
+      "hit effect 2": "ultaka cosmic ripper hit",
       "sound": "gw urza impact",
       "reload": 930,
       "firing energy": 5520,
@@ -52201,7 +52171,7 @@
         "start frame": 1
       },
       "velocity": -60,
-      "turn": -3,
+      "turn": "-3 #Turn in total of 180 degree to go to wait 1 position.",
       "lifetime": 61,
       "phasing": true,
       "submunitions": [
@@ -59801,7 +59771,7 @@
       "firing heat": 20,
       "shield damage": 10000,
       "hull damage": 25000,
-      "relative fuel damage": 0.01,
+      "relative fuel damage": ".01 #That'd be too OP.",
       "relative energy damage": 0.01,
       "safe": true,
       "piercing": 5
@@ -60019,10 +59989,8 @@
       "hit force": 15000,
       "blast radius": 1050,
       "trigger radius": 1050,
-      "die effect": [
-        "insilra push die",
-        "insilra push die2"
-      ],
+      "die effect": "insilra push die",
+      "die effect 2": "insilra push die2",
       "lifetime": 1,
       "gravitational": true,
       "safe": true
@@ -60725,11 +60693,9 @@
       "sound": "nuke",
       "stream": true,
       "icon": "icon/nuke",
-      "hit effect": [
-        "nuke explosion",
-        "nuke residue fast",
-        "nuke residue slow"
-      ],
+      "hit effect": "nuke explosion",
+      "hit effect 2": "nuke residue fast",
+      "hit effect 3": "nuke residue slow",
       "die effect": "missile death",
       "inaccuracy": 0.5,
       "velocity": 12,
@@ -62430,12 +62396,10 @@
       "lifetime": 88,
       "reload": 180,
       "firing energy": 5,
-      "firing force": [
-        150,
-        150
-      ],
+      "firing force": 150,
       "firing heat": 240,
       "hit force": 150,
+      "firing force 2": 150,
       "shield damage": 900,
       "hull damage": 2100,
       "blast radius": 55,
@@ -62505,12 +62469,10 @@
       "burst reload": 20,
       "burst count": 2,
       "firing energy": 5,
-      "firing force": [
-        150,
-        150
-      ],
+      "firing force": 150,
       "firing heat": 240,
       "hit force": 150,
+      "firing force 2": 150,
       "shield damage": 900,
       "hull damage": 2100,
       "blast radius": 55,
@@ -63178,14 +63140,10 @@
       "sprite": "projectile/ronc",
       "icon": "icon/javelin",
       "fire effect": "ronc fire",
-      "hit effect": [
-        "tiny explosion",
-        "smoke"
-      ],
-      "live effect": [
-        "ronc dust",
-        "ronc flare"
-      ],
+      "hit effect": "tiny explosion",
+      "hit effect 2": "smoke",
+      "live effect": "ronc dust",
+      "live effect 2": "ronc flare",
       "inaccuracy": 4,
       "velocity": 30,
       "random velocity": 2,
@@ -63347,14 +63305,10 @@
       "turret turn": 4,
       "icon": "icon/javelin",
       "fire effect": "ronc fire",
-      "hit effect": [
-        "tiny explosion",
-        "smoke"
-      ],
-      "live effect": [
-        "ronc dust",
-        "ronc flare"
-      ],
+      "hit effect": "tiny explosion",
+      "hit effect 2": "smoke",
+      "live effect": "ronc dust",
+      "live effect 2": "ronc flare",
       "inaccuracy": 8,
       "velocity": 30,
       "random velocity": 2,

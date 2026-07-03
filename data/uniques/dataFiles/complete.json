@@ -193,22 +193,26 @@
         {
           "x": 65,
           "y": -111,
-          "gun": ""
+          "gun": "",
+          "angle": 40
         },
         {
           "x": -72,
           "y": -97.5,
-          "gun": ""
+          "gun": "",
+          "angle": 320
         },
         {
           "x": -66.5,
           "y": 61,
-          "gun": ""
+          "gun": "",
+          "angle": 270
         },
         {
           "x": 78,
           "y": 64,
-          "gun": ""
+          "gun": "",
+          "angle": 90
         }
       ],
       "turrets": [
@@ -302,7 +306,6 @@
           "hit force": 3900
         }
       },
-      "angle": 90,
       "small explosion": 25,
       "medium explosion": 35,
       "large explosion": 45,
@@ -311,7 +314,7 @@
       "description": "The Tycho Crater Cooperative's Dromedary was one of the foremost colonization ships during the early era before piracy became rampant and triggered the necessity for city-ships to be more combat-oriented. These ships incorporate extensive hydroponics, large construction equipment installations, and hundreds of densely packed \"dream cells\" built to transport people in bulk.",
       "_internalId": "Zuckungs list/uniques::Dromedary",
       "_pluginId": "Zuckungs list/uniques",
-      "_hash": "33f75e930202",
+      "_hash": "2322ee8a4de3",
       "governments": {
         "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
           "Merchant": true
@@ -426,22 +429,26 @@
         {
           "x": 65,
           "y": -111,
-          "gun": ""
+          "gun": "",
+          "angle": 40
         },
         {
           "x": -72,
           "y": -97.5,
-          "gun": ""
+          "gun": "",
+          "angle": 320
         },
         {
           "x": -66.5,
           "y": 61,
-          "gun": ""
+          "gun": "",
+          "angle": 270
         },
         {
           "x": 78,
           "y": 64,
-          "gun": ""
+          "gun": "",
+          "angle": 90
         }
       ],
       "turrets": [
@@ -536,7 +543,6 @@
           "hit force": 3900
         }
       },
-      "angle": 90,
       "small explosion": 25,
       "medium explosion": 35,
       "large explosion": 45,
@@ -545,7 +551,7 @@
       "description": "The Tycho Crater Cooperative's Dromedary was one of the foremost colonization ships during the early era before piracy became rampant and triggered the necessity for city-ships to be more combat-oriented. These ships incorporate extensive hydroponics, large construction equipment installations, and hundreds of densely packed \"dream cells\" built to transport people in bulk.",
       "_internalId": "Zuckungs list/uniques::Dromedary (wreck)",
       "_pluginId": "Zuckungs list/uniques",
-      "_hash": "fc2fc927ac99",
+      "_hash": "3993acedb7a7",
       "governments": {
         "Zuckungs list/uniques": {
           "derelict ship": true
@@ -882,39 +888,48 @@
       "engines": [
         {
           "x": 0,
-          "y": 481.5
+          "y": 481.5,
+          "zoom": 1.7
         },
         {
           "x": -135.5,
-          "y": 444
+          "y": 444,
+          "zoom": 1.6
         },
         {
           "x": 135.5,
-          "y": 444
+          "y": 444,
+          "zoom": 1.6
         },
         {
           "x": -88.5,
-          "y": 430.5
+          "y": 430.5,
+          "zoom": 0.7
         },
         {
           "x": 88.5,
-          "y": 430.5
+          "y": 430.5,
+          "zoom": 0.7
         },
         {
           "x": -77,
-          "y": 436
+          "y": 436,
+          "zoom": 0.7
         },
         {
           "x": 77,
-          "y": 436
+          "y": 436,
+          "zoom": 0.7
         },
         {
           "x": -46,
-          "y": 454.5
+          "y": 454.5,
+          "zoom": 0.8
         },
         {
           "x": 46,
-          "y": 454.5
+          "y": 454.5,
+          "zoom": 0.8
         }
       ],
       "reverseEngines": [
@@ -943,186 +958,208 @@
         {
           "x": -90,
           "y": -464,
-          "position": "angle 180"
+          "zoom": 0.7,
+          "left": true,
+          "angle": 180
         },
         {
           "x": 90,
           "y": -464,
-          "position": "angle 180"
+          "zoom": 0.7,
+          "right": true,
+          "angle": 180
         },
         {
           "x": -115.5,
           "y": -445.5,
-          "position": "angle 180"
+          "zoom": 0.6,
+          "left": true,
+          "angle": 180
         },
         {
           "x": 115.5,
           "y": -445.5,
-          "position": "angle 180"
+          "zoom": 0.6,
+          "right": true,
+          "angle": 180
         },
         {
           "x": -152.5,
           "y": -270,
-          "position": "zoom 0.6"
+          "angle": 45,
+          "right": true,
+          "zoom": 0.6
         },
         {
           "x": 152.5,
           "y": -270,
-          "position": "zoom 0.6"
+          "angle": 315,
+          "left": true,
+          "zoom": 0.6
         },
         {
           "x": -172,
           "y": 169,
-          "position": "zoom 0.6"
+          "angle": 135,
+          "left": true,
+          "zoom": 0.6
         },
         {
           "x": 172,
           "y": 169,
-          "position": "zoom 0.6"
+          "angle": 225,
+          "right": true,
+          "zoom": 0.6
         },
         {
           "x": -135.5,
           "y": 444,
-          "position": "right"
+          "zoom": 1.2,
+          "right": true
         },
         {
           "x": 135.5,
           "y": 444,
-          "position": "left"
+          "zoom": 1.2,
+          "left": true
         }
       ],
       "guns": [
         {
           "x": -170,
           "y": -104,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 315
         },
         {
           "x": 170,
           "y": -104,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 45
         },
         {
           "x": -178,
           "y": -84,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 290
         },
         {
           "x": 178,
           "y": -84,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 70
         }
       ],
       "turrets": [
         {
           "x": -19.5,
           "y": -438.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 19.5,
           "y": -438.5,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -178,
           "y": -332,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": 178,
           "y": -332,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": -186,
           "y": -285.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 186,
           "y": -285.5,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -131.5,
           "y": -173.5,
-          "turret": ""
+          "turret": "Langrage Hyper-Heaver"
         },
         {
           "x": 131.5,
           "y": -173.5,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": -131.5,
           "y": -156,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": 131.5,
           "y": -156,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": 46,
           "y": -12,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -16.5,
           "y": 16,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 62,
           "y": 128,
-          "turret": ""
+          "turret": "Langrage Hyper-Heaver"
         },
         {
           "x": -75.5,
           "y": 162.5,
-          "turret": ""
+          "turret": "Firestorm Battery"
         },
         {
           "x": -204.5,
           "y": 200,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 204.5,
           "y": 200,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -192.5,
           "y": 257.5,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": 192.5,
           "y": 257.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": -72.5,
           "y": 338.5,
-          "turret": ""
+          "turret": "Langrage Hyper-Heaver"
         },
         {
           "x": 72.5,
           "y": 338.5,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": -95.5,
           "y": 365.5,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": 95.5,
           "y": 365.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         }
       ],
       "bays": [
@@ -1336,8 +1373,6 @@
           "hit force": 22500
         }
       },
-      "zoom": 0.8,
-      "angle": 70,
       "tiny explosion": 30,
       "small explosion": 45,
       "medium explosion": 50,
@@ -1347,7 +1382,7 @@
       "description": "Korsmanath A'awojs, named in memory of the Korath home system, are massive nomadic habitats that hold much of their remaining population. True flying cities, they could be self-contained miniature worlds were it not for their heavy defensive armament and reliance on unsustainable materials, methods, and sources of power. \tCommission of new Korsmanath A'awojs is a resource-demanding, labor-intensive, painstaking process fraught with political intrigue. Navarchs fight with the civilian government for resources and yard time they would rather devote to building raiding and defensive fleets, civilians vie with each other for a place on the next ship, and planning committees argue with engineers over what methods and technologies to use. This leads to construction delays, corner-cutting, and over-militarization of the design at best, and violent feuds at worst.",
       "_internalId": "Zuckungs list/uniques::unq uncap Korsmanath A'awoj (wreck)",
       "_pluginId": "Zuckungs list/uniques",
-      "_hash": "354a5b3214de",
+      "_hash": "861e22e4b2bf",
       "governments": {
         "Zuckungs list/uniques": {
           "derelict ship": true
@@ -1456,39 +1491,48 @@
       "engines": [
         {
           "x": 0,
-          "y": 481.5
+          "y": 481.5,
+          "zoom": 1.7
         },
         {
           "x": -135.5,
-          "y": 444
+          "y": 444,
+          "zoom": 1.6
         },
         {
           "x": 135.5,
-          "y": 444
+          "y": 444,
+          "zoom": 1.6
         },
         {
           "x": -88.5,
-          "y": 430.5
+          "y": 430.5,
+          "zoom": 0.7
         },
         {
           "x": 88.5,
-          "y": 430.5
+          "y": 430.5,
+          "zoom": 0.7
         },
         {
           "x": -77,
-          "y": 436
+          "y": 436,
+          "zoom": 0.7
         },
         {
           "x": 77,
-          "y": 436
+          "y": 436,
+          "zoom": 0.7
         },
         {
           "x": -46,
-          "y": 454.5
+          "y": 454.5,
+          "zoom": 0.8
         },
         {
           "x": 46,
-          "y": 454.5
+          "y": 454.5,
+          "zoom": 0.8
         }
       ],
       "reverseEngines": [
@@ -1517,186 +1561,208 @@
         {
           "x": -90,
           "y": -464,
-          "position": "angle 180"
+          "zoom": 0.7,
+          "left": true,
+          "angle": 180
         },
         {
           "x": 90,
           "y": -464,
-          "position": "angle 180"
+          "zoom": 0.7,
+          "right": true,
+          "angle": 180
         },
         {
           "x": -115.5,
           "y": -445.5,
-          "position": "angle 180"
+          "zoom": 0.6,
+          "left": true,
+          "angle": 180
         },
         {
           "x": 115.5,
           "y": -445.5,
-          "position": "angle 180"
+          "zoom": 0.6,
+          "right": true,
+          "angle": 180
         },
         {
           "x": -152.5,
           "y": -270,
-          "position": "zoom 0.6"
+          "angle": 45,
+          "right": true,
+          "zoom": 0.6
         },
         {
           "x": 152.5,
           "y": -270,
-          "position": "zoom 0.6"
+          "angle": 315,
+          "left": true,
+          "zoom": 0.6
         },
         {
           "x": -172,
           "y": 169,
-          "position": "zoom 0.6"
+          "angle": 135,
+          "left": true,
+          "zoom": 0.6
         },
         {
           "x": 172,
           "y": 169,
-          "position": "zoom 0.6"
+          "angle": 225,
+          "right": true,
+          "zoom": 0.6
         },
         {
           "x": -135.5,
           "y": 444,
-          "position": "right"
+          "zoom": 1.2,
+          "right": true
         },
         {
           "x": 135.5,
           "y": 444,
-          "position": "left"
+          "zoom": 1.2,
+          "left": true
         }
       ],
       "guns": [
         {
           "x": -170,
           "y": -104,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 315
         },
         {
           "x": 170,
           "y": -104,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 45
         },
         {
           "x": -178,
           "y": -84,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 290
         },
         {
           "x": 178,
           "y": -84,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 70
         }
       ],
       "turrets": [
         {
           "x": -19.5,
           "y": -438.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 19.5,
           "y": -438.5,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -178,
           "y": -332,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": 178,
           "y": -332,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": -186,
           "y": -285.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 186,
           "y": -285.5,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -131.5,
           "y": -173.5,
-          "turret": ""
+          "turret": "Langrage Hyper-Heaver"
         },
         {
           "x": 131.5,
           "y": -173.5,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": -131.5,
           "y": -156,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": 131.5,
           "y": -156,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": 46,
           "y": -12,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -16.5,
           "y": 16,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 62,
           "y": 128,
-          "turret": ""
+          "turret": "Langrage Hyper-Heaver"
         },
         {
           "x": -75.5,
           "y": 162.5,
-          "turret": ""
+          "turret": "Firestorm Battery"
         },
         {
           "x": -204.5,
           "y": 200,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 204.5,
           "y": 200,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -192.5,
           "y": 257.5,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": 192.5,
           "y": 257.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": -72.5,
           "y": 338.5,
-          "turret": ""
+          "turret": "Langrage Hyper-Heaver"
         },
         {
           "x": 72.5,
           "y": 338.5,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": -95.5,
           "y": 365.5,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": 95.5,
           "y": 365.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         }
       ],
       "bays": [
@@ -1909,8 +1975,6 @@
           "hit force": 22500
         }
       },
-      "zoom": 0.8,
-      "angle": 70,
       "tiny explosion": 30,
       "small explosion": 45,
       "medium explosion": 50,
@@ -1920,7 +1984,7 @@
       "description": "Korsmanath A'awojs, named in memory of the Korath home system, are massive nomadic habitats that hold much of their remaining population. True flying cities, they could be self-contained miniature worlds were it not for their heavy defensive armament and reliance on unsustainable materials, methods, and sources of power. \tCommission of new Korsmanath A'awojs is a resource-demanding, labor-intensive, painstaking process fraught with political intrigue. Navarchs fight with the civilian government for resources and yard time they would rather devote to building raiding and defensive fleets, civilians vie with each other for a place on the next ship, and planning committees argue with engineers over what methods and technologies to use. This leads to construction delays, corner-cutting, and over-militarization of the design at best, and violent feuds at worst.",
       "_internalId": "Zuckungs list/uniques::unq Korsmanath A'awoj (wreck)",
       "_pluginId": "Zuckungs list/uniques",
-      "_hash": "425cad279f0e",
+      "_hash": "e61bffe95941",
       "governments": {
         "Zuckungs list/uniques": {
           "derelict ship": true
@@ -2054,34 +2118,34 @@
         {
           "x": -22,
           "y": -37,
-          "gun": ""
+          "gun": "Energy Blaster"
         },
         {
           "x": -22,
           "y": -37,
-          "gun": ""
+          "gun": "Meteor Missile Launcher"
         },
         {
           "x": 22,
           "y": -37,
-          "gun": ""
+          "gun": "Energy Blaster"
         },
         {
           "x": 22,
           "y": -37,
-          "gun": ""
+          "gun": "Meteor Missile Launcher"
         }
       ],
       "turrets": [
         {
           "x": 0,
           "y": -12.5,
-          "turret": ""
+          "turret": "Blaster Turret"
         },
         {
           "x": 0,
           "y": 9.5,
-          "turret": ""
+          "turret": "Anti-Missile Turret"
         }
       ],
       "bays": [],
@@ -2131,7 +2195,7 @@
       "description": "You should not be seeing the description of this ship.",
       "_internalId": "Zuckungs list/uniques::fluffy Planet Destroyer",
       "_pluginId": "Zuckungs list/uniques",
-      "_hash": "e1755d26c65c",
+      "_hash": "a8ff499e0d85",
       "governments": {
         "Zuckungs list/uniques": {
           "Derelict 2": true
@@ -2225,34 +2289,34 @@
         {
           "x": -22,
           "y": -37,
-          "gun": ""
+          "gun": "Energy Blaster"
         },
         {
           "x": -22,
           "y": -37,
-          "gun": ""
+          "gun": "Meteor Missile Launcher"
         },
         {
           "x": 22,
           "y": -37,
-          "gun": ""
+          "gun": "Energy Blaster"
         },
         {
           "x": 22,
           "y": -37,
-          "gun": ""
+          "gun": "Meteor Missile Launcher"
         }
       ],
       "turrets": [
         {
           "x": 0,
           "y": -12.5,
-          "turret": ""
+          "turret": "Blaster Turret"
         },
         {
           "x": 0,
           "y": 9.5,
-          "turret": ""
+          "turret": "Anti-Missile Turret"
         }
       ],
       "bays": [],
@@ -2302,7 +2366,7 @@
       "description": "You should not be seeing the description of this ship.",
       "_internalId": "Zuckungs list/uniques::fluffy Mega Freighter",
       "_pluginId": "Zuckungs list/uniques",
-      "_hash": "9b6cd86ab3b0",
+      "_hash": "43967ff40eaa",
       "governments": {
         "Zuckungs list/uniques": {
           "Derelict 2": true
@@ -2398,34 +2462,34 @@
         {
           "x": -22,
           "y": -37,
-          "gun": ""
+          "gun": "Energy Blaster"
         },
         {
           "x": -22,
           "y": -37,
-          "gun": ""
+          "gun": "Meteor Missile Launcher"
         },
         {
           "x": 22,
           "y": -37,
-          "gun": ""
+          "gun": "Energy Blaster"
         },
         {
           "x": 22,
           "y": -37,
-          "gun": ""
+          "gun": "Meteor Missile Launcher"
         }
       ],
       "turrets": [
         {
           "x": 0,
           "y": -12.5,
-          "turret": ""
+          "turret": "Blaster Turret"
         },
         {
           "x": 0,
           "y": 9.5,
-          "turret": ""
+          "turret": "Anti-Missile Turret"
         }
       ],
       "bays": [],
@@ -2474,7 +2538,7 @@
       "description": "The Argosy from Southbound Shipyards is very popular with merchants not because of its capacity, which is actually slightly smaller than the Syndicate Freighter, but because it can hold its own in combat even against a small pirate fleet. \tThe Argosy is also a very easy ship to upgrade with faster engines or more powerful weapons as needed, so many privately owned Argosies have very different capabilities than the stock model.",
       "_internalId": "official-game/endless-sky::Argosy",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "d7e08f3ef3b0",
+      "_hash": "1e5a77226501",
       "variant": "Argosy (Explorer)",
       "baseShip": "Argosy",
       "_variantPluginId": "Zuckungs list/uniques",
@@ -2553,39 +2617,48 @@
       "engines": [
         {
           "x": 0,
-          "y": 481.5
+          "y": 481.5,
+          "zoom": 1.7
         },
         {
           "x": -135.5,
-          "y": 444
+          "y": 444,
+          "zoom": 1.6
         },
         {
           "x": 135.5,
-          "y": 444
+          "y": 444,
+          "zoom": 1.6
         },
         {
           "x": -88.5,
-          "y": 430.5
+          "y": 430.5,
+          "zoom": 0.7
         },
         {
           "x": 88.5,
-          "y": 430.5
+          "y": 430.5,
+          "zoom": 0.7
         },
         {
           "x": -77,
-          "y": 436
+          "y": 436,
+          "zoom": 0.7
         },
         {
           "x": 77,
-          "y": 436
+          "y": 436,
+          "zoom": 0.7
         },
         {
           "x": -46,
-          "y": 454.5
+          "y": 454.5,
+          "zoom": 0.8
         },
         {
           "x": 46,
-          "y": 454.5
+          "y": 454.5,
+          "zoom": 0.8
         }
       ],
       "reverseEngines": [
@@ -2614,186 +2687,208 @@
         {
           "x": -90,
           "y": -464,
-          "position": "angle 180"
+          "zoom": 0.7,
+          "left": true,
+          "angle": 180
         },
         {
           "x": 90,
           "y": -464,
-          "position": "angle 180"
+          "zoom": 0.7,
+          "right": true,
+          "angle": 180
         },
         {
           "x": -115.5,
           "y": -445.5,
-          "position": "angle 180"
+          "zoom": 0.6,
+          "left": true,
+          "angle": 180
         },
         {
           "x": 115.5,
           "y": -445.5,
-          "position": "angle 180"
+          "zoom": 0.6,
+          "right": true,
+          "angle": 180
         },
         {
           "x": -152.5,
           "y": -270,
-          "position": "zoom 0.6"
+          "angle": 45,
+          "right": true,
+          "zoom": 0.6
         },
         {
           "x": 152.5,
           "y": -270,
-          "position": "zoom 0.6"
+          "angle": 315,
+          "left": true,
+          "zoom": 0.6
         },
         {
           "x": -172,
           "y": 169,
-          "position": "zoom 0.6"
+          "angle": 135,
+          "left": true,
+          "zoom": 0.6
         },
         {
           "x": 172,
           "y": 169,
-          "position": "zoom 0.6"
+          "angle": 225,
+          "right": true,
+          "zoom": 0.6
         },
         {
           "x": -135.5,
           "y": 444,
-          "position": "right"
+          "zoom": 1.2,
+          "right": true
         },
         {
           "x": 135.5,
           "y": 444,
-          "position": "left"
+          "zoom": 1.2,
+          "left": true
         }
       ],
       "guns": [
         {
           "x": -170,
           "y": -104,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 315
         },
         {
           "x": 170,
           "y": -104,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 45
         },
         {
           "x": -178,
           "y": -84,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 290
         },
         {
           "x": 178,
           "y": -84,
-          "gun": ""
+          "gun": "Firelight Missile Bank",
+          "angle": 70
         }
       ],
       "turrets": [
         {
           "x": -19.5,
           "y": -438.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 19.5,
           "y": -438.5,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -178,
           "y": -332,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": 178,
           "y": -332,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": -186,
           "y": -285.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 186,
           "y": -285.5,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -131.5,
           "y": -173.5,
-          "turret": ""
+          "turret": "Langrage Hyper-Heaver"
         },
         {
           "x": 131.5,
           "y": -173.5,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": -131.5,
           "y": -156,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": 131.5,
           "y": -156,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": 46,
           "y": -12,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -16.5,
           "y": 16,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 62,
           "y": 128,
-          "turret": ""
+          "turret": "Langrage Hyper-Heaver"
         },
         {
           "x": -75.5,
           "y": 162.5,
-          "turret": ""
+          "turret": "Firestorm Battery"
         },
         {
           "x": -204.5,
           "y": 200,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": 204.5,
           "y": 200,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": -192.5,
           "y": 257.5,
-          "turret": ""
+          "turret": "Warder Anti-Missile"
         },
         {
           "x": 192.5,
           "y": 257.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         },
         {
           "x": -72.5,
           "y": 338.5,
-          "turret": ""
+          "turret": "Langrage Hyper-Heaver"
         },
         {
           "x": 72.5,
           "y": 338.5,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": -95.5,
           "y": 365.5,
-          "turret": ""
+          "turret": "Korath Inferno"
         },
         {
           "x": 95.5,
           "y": 365.5,
-          "turret": ""
+          "turret": "Banisher Grav-Turret"
         }
       ],
       "bays": [
@@ -3006,8 +3101,6 @@
           "hit force": 22500
         }
       },
-      "zoom": 0.8,
-      "angle": 70,
       "tiny explosion": 30,
       "small explosion": 45,
       "medium explosion": 50,
@@ -3017,7 +3110,7 @@
       "description": "Korsmanath A'awojs, named in memory of the Korath home system, are massive nomadic habitats that hold much of their remaining population. True flying cities, they could be self-contained miniature worlds were it not for their heavy defensive armament and reliance on unsustainable materials, methods, and sources of power. \tCommission of new Korsmanath A'awojs is a resource-demanding, labor-intensive, painstaking process fraught with political intrigue. Navarchs fight with the civilian government for resources and yard time they would rather devote to building raiding and defensive fleets, civilians vie with each other for a place on the next ship, and planning committees argue with engineers over what methods and technologies to use. This leads to construction delays, corner-cutting, and over-militarization of the design at best, and violent feuds at worst.",
       "_internalId": "official-game/endless-sky::Korsmanath A'awoj",
       "_pluginId": "official-game/endless-sky",
-      "_hash": "ffe2e2c30170",
+      "_hash": "f2def540726c",
       "variant": "Korsmanath A'awoj (Jump)",
       "baseShip": "Korsmanath A'awoj",
       "_variantPluginId": "Zuckungs list/uniques",
@@ -4117,5 +4210,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-07-01T08:02:29.170Z"
+  "parsedAt": "2026-07-03T07:56:11.967Z"
 }

@@ -4,19 +4,27 @@
     "engines": [
       {
         "x": -204,
-        "y": -456
+        "y": -456,
+        "angle": 12,
+        "zoom": 2
       },
       {
         "x": 204,
-        "y": -456
+        "y": -456,
+        "angle": -12,
+        "zoom": 2
       },
       {
         "x": -177,
-        "y": -426
+        "y": -426,
+        "angle": 9,
+        "zoom": 2
       },
       {
         "x": 177,
-        "y": -426
+        "y": -426,
+        "angle": -9,
+        "zoom": 2
       }
     ],
     "reverseEngines": [],
@@ -24,29 +32,37 @@
       {
         "x": -6,
         "y": 450,
-        "position": "zoom 1.25"
+        "angle": 90,
+        "left": true,
+        "zoom": 1.25
       },
       {
         "x": 6,
         "y": 450,
-        "position": "zoom 1.25"
+        "angle": -90,
+        "right": true,
+        "zoom": 1.25
       },
       {
         "x": -36,
         "y": -324,
-        "position": "zoom 1.25"
+        "angle": 90,
+        "right": true,
+        "zoom": 1.25
       },
       {
         "x": 36,
         "y": -324,
-        "position": "zoom 1.25"
+        "angle": -90,
+        "left": true,
+        "zoom": 1.25
       }
     ],
     "guns": [
       {
         "x": 0,
         "y": -384,
-        "gun": ""
+        "gun": "Plasmadyne Scoop"
       },
       {
         "x": 75,
@@ -83,92 +99,110 @@
       {
         "x": 78,
         "y": -401.5,
-        "turret": ""
+        "turret": "Prismatic Optical Laser Turret (POOT)",
+        "over": true
       },
       {
         "x": -75.5,
         "y": -415,
-        "turret": ""
+        "turret": "Prismatic Optical Laser Turret (POOT)",
+        "over": true
       },
       {
         "x": 28.5,
         "y": -324,
-        "turret": ""
+        "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+        "over": true
       },
       {
         "x": -27.5,
         "y": -325.5,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 34.5,
         "y": 170,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": -35,
         "y": 170.5,
-        "turret": ""
+        "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+        "over": true
       },
       {
         "x": -40,
         "y": 330.5,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 40,
         "y": 330.5,
-        "turret": ""
+        "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+        "over": true
       },
       {
         "x": 16,
         "y": -250,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": -16,
         "y": -250.5,
-        "turret": ""
+        "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+        "over": true
       },
       {
         "x": 16.5,
         "y": -157.5,
-        "turret": ""
+        "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+        "over": true
       },
       {
         "x": -15.5,
         "y": -157.5,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 16,
         "y": -52,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": -15.5,
         "y": -50,
-        "turret": ""
+        "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+        "over": true
       },
       {
         "x": 16,
         "y": 24.5,
-        "turret": ""
+        "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+        "over": true
       },
       {
         "x": -15,
         "y": 24.5,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": 15.5,
         "y": 99,
-        "turret": ""
+        "turret": "",
+        "over": true
       },
       {
         "x": -15,
         "y": 98.5,
-        "turret": ""
+        "turret": "Mini Prismatic Optical Laser Turret (POOT)",
+        "over": true
       }
     ],
     "bays": [
@@ -411,9 +445,6 @@
         "hit force": 12000
       }
     },
-    "angle": -9,
-    "zoom": 2,
-    "over": true,
     "tiny explosion": 15,
     "small explosion": 12,
     "medium explosion": 9,
@@ -424,7 +455,7 @@
     "description": "This was once an Avgi sublight starship, now it is the ULTIMATE party machine.",
     "_internalId": "POOT/peripherals-or-outstanding-trinkets::Party-fied Tachytia (POOT)",
     "_pluginId": "POOT/peripherals-or-outstanding-trinkets",
-    "_hash": "27e2e0e78520",
+    "_hash": "5722e6e4eaab",
     "governments": {
       "POOT/poot-senza-solaria": {
         "Syndicate": true
@@ -550,23 +581,43 @@
     "engines": [
       {
         "x": 8.5,
-        "y": 772
+        "y": 772,
+        "zoom": 5,
+        "angle": 0,
+        "gimbal": 0,
+        "under": true
       },
       {
         "x": 151,
-        "y": 713.5
+        "y": 713.5,
+        "zoom": 5,
+        "angle": 0,
+        "gimbal": 0,
+        "under": true
       },
       {
         "x": -139,
-        "y": 713.5
+        "y": 713.5,
+        "zoom": 5,
+        "angle": 0,
+        "gimbal": 0,
+        "under": true
       },
       {
         "x": 291,
-        "y": 715.5
+        "y": 715.5,
+        "zoom": 5,
+        "angle": 0,
+        "gimbal": 0,
+        "under": true
       },
       {
         "x": -277,
-        "y": 713.5
+        "y": 713.5,
+        "zoom": 5,
+        "angle": 0,
+        "gimbal": 0,
+        "under": true
       }
     ],
     "reverseEngines": [],
@@ -575,604 +626,724 @@
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Pug T5 Twin Deepspace Tracer (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Pug T5 Deepspace Zapper (POOT)",
+        "under": true
       },
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Pug T5 Deepspace Zapper (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Pug T5 Deepspace Zapper (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Pug T5 Deepspace Zapper (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Pug T5 Deepspace Zapper (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Pug T3 Helios (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Pug T3 Helios (POOT)",
+        "under": true
       },
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Pug T3 Helios (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Pug T3 Helios (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Pug T3 Helios (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Quarg Heavy Astral Ribault (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Quarg Heavy Astral Ribault (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Quarg Heavy Astral Ribault (POOT)",
+        "under": true
       },
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Quarg Heavy Astral Ribault (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Quarg Heavy Astral Ribault (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Quarg Elite Celestial Culverin (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Quarg Elite Celestial Culverin (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Quarg Elite Celestial Culverin (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Quarg Elite Celestial Culverin (POOT)",
+        "under": true
       },
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Quarg Elite Celestial Culverin (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Korath Tripulse Detainer (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Nuclear Missile Assembling Chamber (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Quarg Harbinger (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Quarg Harbinger (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Quarg Harbinger (POOT)",
+        "under": true
       },
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Quarg Harbinger (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Quarg Harbinger (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       },
       {
         "x": 184,
         "y": -772.5,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       },
       {
         "x": -185,
         "y": -772.5,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       },
       {
         "x": 372.5,
         "y": -773,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       },
       {
         "x": -370,
         "y": -773,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       },
       {
         "x": 557.5,
         "y": -773,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       },
       {
         "x": -551,
         "y": -772.5,
-        "gun": ""
+        "gun": "Triple Neutron Torpedo Launcher (POOT)",
+        "under": true
       }
     ],
     "turrets": [
       {
         "x": 1,
         "y": -649.5,
-        "turret": ""
+        "turret": "Twin Neutron Beam Turret (POOT)",
+        "over": true
       },
       {
         "x": -1,
         "y": 508.5,
-        "turret": ""
+        "turret": "Dual Proton Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": -580,
         "y": -72.5,
-        "turret": ""
+        "turret": "Dual Proton Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": 579,
         "y": -70.5,
-        "turret": ""
+        "turret": "Dual Proton Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": 39,
         "y": -689.5,
-        "turret": ""
+        "turret": "Twin Neutron Beam Turret (POOT)",
+        "over": true
       },
       {
         "x": -40,
         "y": -687.5,
-        "turret": ""
+        "turret": "Twin Neutron Beam Turret (POOT)",
+        "over": true
       },
       {
         "x": -40,
         "y": -608.5,
-        "turret": ""
+        "turret": "Twin Neutron Beam Turret (POOT)",
+        "over": true
       },
       {
         "x": 38,
         "y": -609.5,
-        "turret": ""
+        "turret": "Twin Neutron Beam Turret (POOT)",
+        "over": true
       },
       {
         "x": -541,
         "y": -108.5,
-        "turret": ""
+        "turret": "Dual Proton Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": -620,
         "y": -109.5,
-        "turret": ""
+        "turret": "Dual Proton Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": -619,
         "y": -30.5,
-        "turret": ""
+        "turret": "Twin Superheavy Blaster Turret (POOT)",
+        "over": true
       },
       {
         "x": -539,
         "y": -31.5,
-        "turret": ""
+        "turret": "Twin Superheavy Blaster Turret (POOT)",
+        "over": true
       },
       {
         "x": 538,
         "y": -110.5,
-        "turret": ""
+        "turret": "Twin Superheavy Blaster Turret (POOT)",
+        "over": true
       },
       {
         "x": 617,
         "y": -110.5,
-        "turret": ""
+        "turret": "Twin Superheavy Blaster Turret (POOT)",
+        "over": true
       },
       {
         "x": 538,
         "y": -28.5,
-        "turret": ""
+        "turret": "Twin Superheavy Blaster Turret (POOT)",
+        "over": true
       },
       {
         "x": 619,
         "y": -30.5,
-        "turret": ""
+        "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+        "over": true
       },
       {
         "x": -39,
         "y": 468.5,
-        "turret": ""
+        "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+        "over": true
       },
       {
         "x": 40,
         "y": 471.5,
-        "turret": ""
+        "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+        "over": true
       },
       {
         "x": -39,
         "y": 550.5,
-        "turret": ""
+        "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+        "over": true
       },
       {
         "x": 38,
         "y": 549.5,
-        "turret": ""
+        "turret": "Modified \"Octogatler\" Gatling Turret (POOT)",
+        "over": true
       },
       {
         "x": 1,
         "y": -649.5,
-        "turret": ""
+        "turret": "Ionic Infusion Twin Turret (POOT)",
+        "over": true
       },
       {
         "x": -1,
         "y": 508.5,
-        "turret": ""
+        "turret": "Ionic Infusion Twin Turret (POOT)",
+        "over": true
       },
       {
         "x": -580,
         "y": -72.5,
-        "turret": ""
+        "turret": "Ionic Infusion Twin Turret (POOT)",
+        "over": true
       },
       {
         "x": 579,
         "y": -70.5,
-        "turret": ""
+        "turret": "Ionic Infusion Twin Turret (POOT)",
+        "over": true
       },
       {
         "x": 39,
         "y": -689.5,
-        "turret": ""
+        "turret": "Ionic Infusion Twin Turret (POOT)",
+        "over": true
       },
       {
         "x": -40,
         "y": -687.5,
-        "turret": ""
+        "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+        "over": true
       },
       {
         "x": -40,
         "y": -608.5,
-        "turret": ""
+        "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+        "over": true
       },
       {
         "x": 38,
         "y": -609.5,
-        "turret": ""
+        "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+        "over": true
       },
       {
         "x": -541,
         "y": -108.5,
-        "turret": ""
+        "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+        "over": true
       },
       {
         "x": -620,
         "y": -109.5,
-        "turret": ""
+        "turret": "Heavy Thermal \"Threepeater\" Turret (POOT)",
+        "over": true
       },
       {
         "x": -619,
         "y": -30.5,
-        "turret": ""
+        "turret": "Korath Wildfire (POOT)",
+        "over": true
       },
       {
         "x": -539,
         "y": -31.5,
-        "turret": ""
+        "turret": "Korath Wildfire (POOT)",
+        "over": true
       },
       {
         "x": 538,
         "y": -110.5,
-        "turret": ""
+        "turret": "Korath Wildfire (POOT)",
+        "over": true
       },
       {
         "x": 617,
         "y": -110.5,
-        "turret": ""
+        "turret": "Korath Wildfire (POOT)",
+        "over": true
       },
       {
         "x": 538,
         "y": -28.5,
-        "turret": ""
+        "turret": "Korath Wildfire (POOT)",
+        "over": true
       },
       {
         "x": 619,
         "y": -30.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": -39,
         "y": 468.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": 40,
         "y": 471.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": -39,
         "y": 550.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": 38,
         "y": 549.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": 1,
         "y": -649.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": -1,
         "y": 508.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": -580,
         "y": -72.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": 579,
         "y": -70.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": 39,
         "y": -689.5,
-        "turret": ""
+        "turret": "Plasma Flamethrower Turret (POOT)",
+        "over": true
       },
       {
         "x": -40,
         "y": -687.5,
-        "turret": ""
+        "turret": "Dual Particle Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": -40,
         "y": -608.5,
-        "turret": ""
+        "turret": "Dual Particle Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": 38,
         "y": -609.5,
-        "turret": ""
+        "turret": "Dual Particle Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": -541,
         "y": -108.5,
-        "turret": ""
+        "turret": "Dual Particle Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": -620,
         "y": -109.5,
-        "turret": ""
+        "turret": "Dual Particle Heavy Turret (POOT)",
+        "over": true
       },
       {
         "x": -619,
         "y": -30.5,
-        "turret": ""
+        "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+        "over": true
       },
       {
         "x": -539,
         "y": -31.5,
-        "turret": ""
+        "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+        "over": true
       },
       {
         "x": 538,
         "y": -110.5,
-        "turret": ""
+        "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+        "over": true
       },
       {
         "x": 617,
         "y": -110.5,
-        "turret": ""
+        "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+        "over": true
       },
       {
         "x": 538,
         "y": -28.5,
-        "turret": ""
+        "turret": "Quarg Elite Celestial Culverin Turret (POOT)",
+        "over": true
       },
       {
         "x": 619,
         "y": -30.5,
-        "turret": ""
+        "turret": "Quarg Vindicator Turret (POOT)",
+        "over": true
       },
       {
         "x": -39,
         "y": 468.5,
-        "turret": ""
+        "turret": "Quarg Vindicator Turret (POOT)",
+        "over": true
       },
       {
         "x": 40,
         "y": 471.5,
-        "turret": ""
+        "turret": "Quarg Vindicator Turret (POOT)",
+        "over": true
       },
       {
         "x": -39,
         "y": 550.5,
-        "turret": ""
+        "turret": "Quarg Vindicator Turret (POOT)",
+        "over": true
       },
       {
         "x": 38,
         "y": 549.5,
-        "turret": ""
+        "turret": "Quarg Vindicator Turret (POOT)",
+        "over": true
       }
     ],
     "bays": [
@@ -1606,18 +1777,13 @@
         "hit force": 25000
       }
     },
-    "zoom": 5,
-    "angle": 0,
-    "gimbal": 0,
-    "under": true,
-    "over": true,
     "large explosion": 40,
     "huge explosion": 150,
     "final explode": "final explosion huge",
     "description": "If you believe in the cube, the cube will believe in you...",
     "_internalId": "POOT/peripherals-or-outstanding-trinkets::THE CUBE (Poot)",
     "_pluginId": "POOT/peripherals-or-outstanding-trinkets",
-    "_hash": "396b279ca1a0",
+    "_hash": "e689a3236f92",
     "governments": {
       "POOT/poot-senza-solaria": {
         "Syndicate": true

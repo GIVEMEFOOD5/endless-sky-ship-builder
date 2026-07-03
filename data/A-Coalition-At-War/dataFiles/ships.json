@@ -4,155 +4,195 @@
     "engines": [
       {
         "x": 83,
-        "y": 275
+        "y": 275,
+        "zoom": 1.3,
+        "angle": 0,
+        "over": true
       },
       {
         "x": 132,
-        "y": 282
+        "y": 282,
+        "zoom": 0.8,
+        "angle": 0,
+        "over": true
       },
       {
         "x": -83,
-        "y": 275
+        "y": 275,
+        "zoom": 1.3,
+        "angle": 0,
+        "over": true
       },
       {
         "x": -132,
-        "y": 282
+        "y": 282,
+        "zoom": 0.8,
+        "angle": 0,
+        "over": true
       }
     ],
     "reverseEngines": [
       {
         "x": -131,
         "y": 136,
-        "position": "over"
+        "zoom": 0.6,
+        "angle": -24.99939,
+        "over": true
       },
       {
         "x": 131,
         "y": 136,
-        "position": "over"
+        "zoom": 0.6,
+        "angle": -335.00061,
+        "over": true
       }
     ],
     "steeringEngines": [
       {
         "x": -131,
         "y": 136,
-        "position": "left"
+        "zoom": 0.5,
+        "angle": 155.00061,
+        "over": true,
+        "left": true
       },
       {
         "x": 131,
         "y": 136,
-        "position": "right"
+        "zoom": 0.5,
+        "angle": -155.00061,
+        "over": true,
+        "right": true
       },
       {
         "x": -34.5,
         "y": -221.5,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 60.001831,
+        "over": true,
+        "right": true
       },
       {
         "x": -39,
         "y": -193.5,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 60.001831,
+        "over": true,
+        "right": true
       },
       {
         "x": -43.5,
         "y": -165.5,
-        "position": "right"
+        "zoom": 0.2,
+        "angle": 60.001831,
+        "over": true,
+        "right": true
       },
       {
         "x": 34.5,
         "y": -221.5,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": -60.001831,
+        "over": true,
+        "left": true
       },
       {
         "x": 39,
         "y": -193.5,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": -60.001831,
+        "over": true,
+        "left": true
       },
       {
         "x": 43.5,
         "y": -165.5,
-        "position": "left"
+        "zoom": 0.2,
+        "angle": -60.001831,
+        "over": true,
+        "left": true
       }
     ],
     "guns": [
       {
         "x": -36.5,
         "y": -160.5,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": 25,
         "y": -165,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": -52.5,
         "y": -91.5,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": 51,
         "y": -91.5,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": -62.5,
         "y": -29.5,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": 58.5,
         "y": -32.5,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": -84.5,
         "y": 41,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": 82,
         "y": 36.5,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": -98,
         "y": 94,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": 96,
         "y": 86,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": -122.5,
         "y": 136.5,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": 116.5,
         "y": 136,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": -144,
         "y": 181,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": 144,
         "y": 179,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": -75,
         "y": -13.5,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       },
       {
         "x": 74,
         "y": -9,
-        "gun": ""
+        "gun": "Finisher Maegrolain"
       }
     ],
     "turrets": [],
@@ -196,9 +236,6 @@
     "shields": 216000,
     "hull": 108000,
     "position": 305.35426,
-    "zoom": 0.8,
-    "angle": 0,
-    "over": true,
     "huge explosion": 42,
     "large explosion": 39,
     "medium explosion": 47,
@@ -209,7 +246,7 @@
     "description": "The Heliarch know their ships are no match for Quarg, so they used the best of Quarg and Sheragi tech combined with their most advanced technologies to create a superweapon. It remains to be seen whether the billions of credits spent in production are worth it.",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Heliarch Longsword",
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
-    "_hash": "36c47caaffa8",
+    "_hash": "8c16a26e746f",
     "governments": {
       "A Coalition at War/A-Coalition-At-War": {
         "Heliarch": true
@@ -409,42 +446,42 @@
       {
         "x": -58.5,
         "y": -143.5,
-        "turret": ""
+        "turret": "Quarg Skylance"
       },
       {
         "x": -127,
         "y": -60.5,
-        "turret": ""
+        "turret": "Quarg Skylance"
       },
       {
         "x": 60,
         "y": -142,
-        "turret": ""
+        "turret": "Quarg Anti-Missile"
       },
       {
         "x": 127.5,
         "y": -62,
-        "turret": ""
+        "turret": "Quarg Anti-Missile"
       },
       {
         "x": -145.5,
         "y": 90,
-        "turret": ""
+        "turret": "Quarg Skylance"
       },
       {
         "x": 148.5,
         "y": 94.5,
-        "turret": ""
+        "turret": "Quarg Skylance"
       },
       {
         "x": -139,
         "y": 245,
-        "turret": ""
+        "turret": "Quarg Anti-Missile"
       },
       {
         "x": 138,
         "y": 247.5,
-        "turret": ""
+        "turret": "Quarg Anti-Missile"
       }
     ],
     "bays": [],
@@ -488,7 +525,7 @@
     "description": "The Skydragon is twice as powerful as the Skylark. It was built as an answer to the Heliarch Longsword.",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Quarg Skydragon",
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
-    "_hash": "b2fd529e7c0b",
+    "_hash": "f6df8f3802ba",
     "governments": {
       "A Coalition at War/A-Coalition-At-War": {
         "Quarg": true
