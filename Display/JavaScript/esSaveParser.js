@@ -20,13 +20,13 @@
 //    attributes: {},
 //    weapon: { 'blast radius', 'shield damage', 'hull damage', 'hit force' },
 //    outfits:      [{ name, count, pluginId }],
-//    guns:         [{ coords, over }],
-//    turrets:      [{ coords, over }],
-//    drones:       [{ coords, launchEffect }],
-//    fighters:     [{ coords, launchEffect }],
-//    engines:      [{ coords, zoom, angle, gimbal, over, under }],
-//    reverseEngines: [{ coords, zoom, angle, gimbal, over, under }],
-//    steeringEngines:[{ coords, zoom, angle, gimbal, over, under, side }],
+//    guns:         [{ coords, over, extra }],
+//    turrets:      [{ coords, over, extra }],
+//    drones:       [{ coords, launchEffect, extra }],
+//    fighters:     [{ coords, launchEffect, extra }],
+//    engines:      [{ coords, zoom, angle, gimbal, over, under, extra }],
+//    reverseEngines: [{ coords, zoom, angle, gimbal, over, under, extra }],
+//    steeringEngines:[{ coords, zoom, angle, gimbal, over, under, side, extra }],
 //    leaks:        [{ name, openChance, spreadChance }],
 //    explode:      [{ name, count }],
 //    finalExplode: [{ name, count }],
@@ -48,6 +48,18 @@
 //    _sourceShip,
 //    _sourcePlugin,
 //  }
+//
+//  `extra` on every hardpoint entry (guns/turrets/engines/reverseEngines/
+//  steeringEngines/bays) is a generic, non-hardcoded attribute bag using
+//  EXACTLY the same naming convention as the main data parser (parser.js):
+//    - multiple numbers on ONE sub-block line (e.g. `arc -90 50`) become
+//      a nested object: { arc: { arc_1: -90, arc_2: 50 } }
+//    - the same attribute key appearing again on a LATER, separate line
+//      becomes a flat sibling key: "hit force", "hit force_2", ...
+//    - a single value stays a plain scalar: { zoom: 1 }
+//  This is what lets a ship round-trip through save-file import → the ship
+//  builder → raw ES text export without losing or corrupting any
+//  hardpoint/weapon attribute, however unusual.
 // ═══════════════════════════════════════════════════════════
 
 // ── Tokeniser ────────────────────────────────────────────────────────────────
@@ -99,6 +111,67 @@ function _esStrip(s) {
 // Return a clean display name (strip quotes, trim)
 function _esName(tok) {
   return _esStrip(tok || '');
+}
+
+// ── Generic numeric-aware attribute-line parser / merger ─────────────────────
+// Mirrors parser.js's parseNumericAwareLine + mergeAttributeValue exactly, so
+// every hardpoint/weapon attribute captured from a save file uses the same
+// naming convention as the main plugin-data parser. Kept as a self-contained
+// copy (rather than a shared import) since this file also runs standalone in
+// Node via module.exports, with no guarantee parser.js is loaded alongside it.
+
+// Parse a single attribute line into [key, values], where `values` is always
+// an array — one entry per number/word found — so the caller can tell
+// "one line with several numbers" apart from "a single value".
+function _esAttrLine(stripped) {
+  let key, rest;
+  const qk = stripped.match(/^"([^"]+)"\s*(.*)$/) ||
+             stripped.match(/^`([^`]+)`\s*(.*)$/) ||
+             stripped.match(/^'([^']+)'\s*(.*)$/);
+  if (qk) {
+    key = qk[1]; rest = qk[2].trim();
+  } else {
+    const sp = stripped.indexOf(' ');
+    if (sp === -1) { key = stripped; rest = ''; }
+    else { key = stripped.slice(0, sp); rest = stripped.slice(sp + 1).trim(); }
+  }
+  if (!key) return null;
+  if (rest === '') return [key, [true]];
+
+  const qv = rest.match(/^"([^"]+)"$/) || rest.match(/^`([^`]+)`$/) || rest.match(/^'([^']+)'$/);
+  if (qv) return [key, [qv[1]]];
+
+  const qvPlus = rest.match(/^"([^"]+)"\s+(.+)$/) ||
+                 rest.match(/^`([^`]+)`\s+(.+)$/) ||
+                 rest.match(/^'([^']+)'\s+(.+)$/);
+  if (qvPlus) return [key, [qvPlus[1]]];
+
+  const tokens = rest.split(/\s+/);
+  const isNumericToken = t => /^-?[\d.]+$/.test(t);
+  if (tokens.every(isNumericToken)) {
+    return [key, tokens.map(t => parseFloat(t))];
+  }
+
+  return [key, [rest]];
+}
+
+// Merge a parsed occurrence into an attribute bag:
+//   - multiple values from ONE line  → nested { key: { key_1, key_2, ... } }
+//   - the SAME key on a later line   → flat sibling { key, key_2, ... }
+function _esMergeAttr(data, key, values) {
+  let outerKey = key;
+  if (outerKey in data) {
+    let n = 2;
+    while ((`${key}_${n}`) in data) n++;
+    outerKey = `${key}_${n}`;
+  }
+  if (values.length === 1) {
+    data[outerKey] = values[0];
+  } else {
+    const nested = {};
+    values.forEach((v, idx) => { nested[`${outerKey}_${idx + 1}`] = v; });
+    data[outerKey] = nested;
+  }
 }
 
 // ── Blank ship (matches shipBuilder internal format) ─────────────────────────
@@ -153,20 +226,26 @@ function _esBlankShip() {
 }
 
 // ── Engine/hardpoint sub-block reader ────────────────────────────────────────
-// After pushing a new engine/reverseEngine/steeringEngine entry, subsequent
-// indented lines may carry: zoom, angle, gimbal, over, under, left, right
-// We track the last-pushed entry per array with { arr, idx }.
+// After pushing a new engine/reverseEngine/steeringEngine/gun/turret entry,
+// subsequent indented lines carry arbitrary attributes (zoom, angle, gimbal,
+// arc, under, over, left, right, or anything else a plugin/save might use).
+// Everything lands in `extra` (see the naming convention note at the top of
+// this file); a handful of well-known keys are ALSO mirrored onto dedicated
+// convenience fields so existing code that reads e.g. `e.zoom`/`e.angle`
+// directly keeps working unchanged.
 function _esMakeEngineEntry(coords) {
-  return { coords, zoom: '', angle: '', gimbal: '', over: false, under: false };
+  return { coords, zoom: '', angle: '', gimbal: '', over: false, under: false, extra: {} };
 }
 function _esMakeSteeringEntry(coords) {
-  return { coords, zoom: '', angle: '', gimbal: '', over: false, under: false, side: '' };
+  return { coords, zoom: '', angle: '', gimbal: '', over: false, under: false, side: '', extra: {} };
 }
 
 // ── Bay sub-block reader ─────────────────────────────────────────────────────
-// After a bay line, indented children may carry: angle, "launch effect"
+// After a bay line, indented children may carry: angle, "launch effect", and
+// potentially anything else (over/under/left/right/parallel...) which lands
+// in `extra`.
 function _esMakeBayEntry(coords) {
-  return { coords, angle: '', launchEffect: '' };
+  return { coords, angle: '', launchEffect: '', extra: {} };
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -457,6 +536,11 @@ function parseESSaveFile(text) {
       if (key0 === 'engine') {
         const coords = toks.slice(1, 3).join(' ');
         const entry  = _esMakeEngineEntry(coords);
+        // Optional inline zoom as a 3rd token: `engine x y [zoom]`
+        if (toks[3] != null && toks[3] !== '') {
+          const z = parseFloat(toks[3]);
+          if (!isNaN(z)) { entry.zoom = z; entry.extra.zoom = z; }
+        }
         cur.engines.push(entry);
         lastHP = { type: 'engine', arr: cur.engines, idx: cur.engines.length - 1 };
         continue;
@@ -464,6 +548,10 @@ function parseESSaveFile(text) {
       if (key0 === 'reverse engine') {
         const coords = toks.slice(1, 3).join(' ');
         const entry  = _esMakeEngineEntry(coords);
+        if (toks[3] != null && toks[3] !== '') {
+          const z = parseFloat(toks[3]);
+          if (!isNaN(z)) { entry.zoom = z; entry.extra.zoom = z; }
+        }
         cur.reverseEngines.push(entry);
         lastHP = { type: 'reverseEngine', arr: cur.reverseEngines, idx: cur.reverseEngines.length - 1 };
         continue;
@@ -471,6 +559,10 @@ function parseESSaveFile(text) {
       if (key0 === 'steering engine') {
         const coords = toks.slice(1, 3).join(' ');
         const entry  = _esMakeSteeringEntry(coords);
+        if (toks[3] != null && toks[3] !== '') {
+          const z = parseFloat(toks[3]);
+          if (!isNaN(z)) { entry.zoom = z; entry.extra.zoom = z; }
+        }
         cur.steeringEngines.push(entry);
         lastHP = { type: 'steeringEngine', arr: cur.steeringEngines, idx: cur.steeringEngines.length - 1 };
         continue;
@@ -480,14 +572,14 @@ function parseESSaveFile(text) {
       if (key0 === 'gun') {
         const coords = toks.slice(1, 3).join(' ');
         const over   = toks[3] ? _esName(toks[3]) : '';
-        cur.guns.push({ coords, over });
+        cur.guns.push({ coords, over, extra: {} });
         lastHP = { type: 'gun', arr: cur.guns, idx: cur.guns.length - 1 };
         continue;
       }
       if (key0 === 'turret') {
         const coords = toks.slice(1, 3).join(' ');
         const over   = toks[3] ? _esName(toks[3]) : '';
-        cur.turrets.push({ coords, over });
+        cur.turrets.push({ coords, over, extra: {} });
         lastHP = { type: 'turret', arr: cur.turrets, idx: cur.turrets.length - 1 };
         continue;
       }
@@ -512,6 +604,11 @@ function parseESSaveFile(text) {
       }
 
       // ── leak ──
+      // Format is a fixed, well-known triple: leak "effectName" openChance
+      // spreadChance. Both numbers are captured directly by position (not
+      // through the generic attribute parser) since there's no ambiguity
+      // to resolve here — this shape never had the "only the first number
+      // survives" bug that affected open-ended attributes like `arc`.
       if (key0 === 'leak') {
         cur.leaks.push({
           name:         _esName(toks[1] || ''),
@@ -549,26 +646,49 @@ function parseESSaveFile(text) {
       if (inSpriteBlock) continue;
 
       // ── engine / turret / gun sub-properties ──
+      // Every value is captured generically into `extra` using the same
+      // nested-object (multi-number-on-one-line) / flat-sibling (repeated
+      // key) convention as parser.js. A handful of well-known keys are
+      // ALSO mirrored onto dedicated convenience fields — but only for
+      // engines/reverse/steering engines, where there's no naming clash.
+      // For guns/turrets, `over` already means "the outfit mounted here"
+      // (captured from the gun/turret line itself), so a bare `over` or
+      // `under` flag underneath one is kept ONLY in `extra` to avoid
+      // silently overwriting the outfit name with a boolean.
       if (lastHP && lastHP.arr) {
         const entry = lastHP.arr[lastHP.idx];
-        if (key0 === 'zoom')   { entry.zoom   = toks[1] || ''; continue; }
-        if (key0 === 'angle')  { entry.angle  = toks[1] || ''; continue; }
-        if (key0 === 'gimbal') { entry.gimbal = toks[1] || ''; continue; }
-        if (key0 === 'over')   { entry.over   = true;          continue; }
-        if (key0 === 'under')  { entry.under  = true;          continue; }
-        // steering direction
-        if (lastHP.type === 'steeringEngine') {
-          if (key0 === 'left')  { entry.side = 'left';  continue; }
-          if (key0 === 'right') { entry.side = 'right'; continue; }
+        entry.extra = entry.extra || {};
+        const parsed = _esAttrLine(t);
+        if (parsed) {
+          const [k, v] = parsed;
+          _esMergeAttr(entry.extra, k, v);
+          if (lastHP.type !== 'gun' && lastHP.type !== 'turret') {
+            const scalar = v.length === 1 ? v[0] : null;
+            if (k === 'zoom'   && scalar != null && entry.zoom   === '') entry.zoom   = scalar;
+            if (k === 'angle'  && scalar != null && entry.angle  === '') entry.angle  = scalar;
+            if (k === 'gimbal' && scalar != null && entry.gimbal === '') entry.gimbal = scalar;
+            if (k === 'over')  entry.over  = true;
+            if (k === 'under') entry.under = true;
+            if (lastHP.type === 'steeringEngine') {
+              if (k === 'left')  entry.side = 'left';
+              if (k === 'right') entry.side = 'right';
+            }
+          }
+          continue;
         }
       }
 
       // ── bay sub-properties ──
       if (lastBayArr && lastBayIdx >= 0) {
         const bayEntry = lastBayArr[lastBayIdx];
-        if (key0 === 'angle') { bayEntry.angle = toks[1] || ''; continue; }
-        if (key0 === 'launch effect') {
-          bayEntry.launchEffect = _esName(toks[1] || '');
+        bayEntry.extra = bayEntry.extra || {};
+        const parsed = _esAttrLine(t);
+        if (parsed) {
+          const [k, v] = parsed;
+          const scalar = v.length === 1 ? v[0] : null;
+          if (k === 'launch effect') { bayEntry.launchEffect = scalar != null ? scalar : v.join(' '); continue; }
+          if (k === 'angle' && bayEntry.angle === '' && scalar != null) { bayEntry.angle = scalar; continue; }
+          _esMergeAttr(bayEntry.extra, k, v);
           continue;
         }
       }
@@ -626,7 +746,16 @@ function parseESSaveFile(text) {
           continue;
         }
         if (attrSub === 'weapon') {
-          cur.weapon[_esName(toks[0])] = parseFloat(toks[1]) || 0;
+          // Same generic, nested/sibling-naming attribute merge as the
+          // outfit weapon blocks in parser.js — a ship's own `weapon`
+          // block (self-destruct/collision damage) can in principle carry
+          // multi-number or repeated attributes too, and this keeps every
+          // value instead of silently dropping all but the first number.
+          const parsed = _esAttrLine(t);
+          if (parsed) {
+            const [k, v] = parsed;
+            _esMergeAttr(cur.weapon, k, v);
+          }
           continue;
         }
         // sub-params of flare sprites (frame rate, rewind, etc.) — skip
@@ -635,8 +764,8 @@ function parseESSaveFile(text) {
       // Steering engine left/right can appear at indent 3 in some formats
       if (lastHP && lastHP.type === 'steeringEngine') {
         const entry = lastHP.arr[lastHP.idx];
-        if (key0 === 'left')  { entry.side = 'left';  continue; }
-        if (key0 === 'right') { entry.side = 'right'; continue; }
+        if (key0 === 'left')  { entry.side = 'left';  entry.extra.left  = true; continue; }
+        if (key0 === 'right') { entry.side = 'right'; entry.extra.right = true; continue; }
       }
       cur.extraLines.push(raw);
       continue;
@@ -673,11 +802,13 @@ function saveShipToBuilderFormat(ship) {
     attributes:  { ...ship.attributes },
     weapon:      { ...ship.weapon },
     outfits:     ship.outfits.map(o => ({ ...o })),
-    guns:        ship.guns.map(g => ({ coords: g.coords, over: g.over })),
-    turrets:     ship.turrets.map(g => ({ coords: g.coords, over: g.over })),
-    drones:      ship.drones.map(d => ({ coords: d.coords, launchEffect: d.launchEffect })),
-    fighters:    ship.fighters.map(f => ({ coords: f.coords, launchEffect: f.launchEffect })),
-    engines:     ship.engines.map(e => ({ coords: e.coords, zoom: e.zoom, angle: e.angle })),
+    guns:        ship.guns.map(g => ({ coords: g.coords, over: g.over, extra: { ...(g.extra || {}) } })),
+    turrets:     ship.turrets.map(g => ({ coords: g.coords, over: g.over, extra: { ...(g.extra || {}) } })),
+    drones:      ship.drones.map(d => ({ coords: d.coords, launchEffect: d.launchEffect, extra: { ...(d.extra || {}) } })),
+    fighters:    ship.fighters.map(f => ({ coords: f.coords, launchEffect: f.launchEffect, extra: { ...(f.extra || {}) } })),
+    engines:     ship.engines.map(e => ({ coords: e.coords, zoom: e.zoom, angle: e.angle, gimbal: e.gimbal, extra: { ...(e.extra || {}) } })),
+    reverseEngines:  ship.reverseEngines.map(e => ({ coords: e.coords, zoom: e.zoom, angle: e.angle, gimbal: e.gimbal, extra: { ...(e.extra || {}) } })),
+    steeringEngines: ship.steeringEngines.map(e => ({ coords: e.coords, zoom: e.zoom, angle: e.angle, gimbal: e.gimbal, side: e.side, extra: { ...(e.extra || {}) } })),
     leaks:       ship.leaks.map(l => ({ ...l })),
     explode:     ship.explode.map(e => ({ ...e })),
     finalExplode: ship.finalExplode.map(e => ({ ...e })),
@@ -696,8 +827,6 @@ function saveShipToBuilderFormat(ship) {
     _planet:     ship._planet,
     _parked:     ship._parked,
     _formation:  ship._formation,
-    reverseEngines:  ship.reverseEngines,
-    steeringEngines: ship.steeringEngines,
   };
 }
 
@@ -713,5 +842,5 @@ async function parseSaveFileFromInput(fileInput) {
 
 // ── Node.js entry point ───────────────────────────────────────────────────────
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { parseESSaveFile, saveShipToBuilderFormat, parseSaveFileFromInput };
+  module.exports = { parseESSaveFile, saveShipToBuilderFormat, parseSaveFileFromInput, _esAttrLine, _esMergeAttr };
 }
