@@ -10058,8 +10058,10 @@
         "inaccuracy": 20,
         "lifetime": 18,
         "random lifetime": 8,
-        "damage dropoff": 0,
-        "damage dropoff 2": 198,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 198
+        },
         "dropoff modifier": 0.5,
         "shield damage": 0.8,
         "hull damage": 0.7,
@@ -10336,8 +10338,8 @@
           "frame rate": 0.25
         },
         "hit effect": "nuke explosion",
-        "hit effect 2": "nuke residue fast",
-        "hit effect 3": "nuke residue slow",
+        "hit effect_2": "nuke residue fast",
+        "hit effect_3": "nuke residue slow",
         "die effect": "missile death",
         "fused": true,
         "safe": true,
@@ -13422,8 +13424,10 @@
           "frame rate": 1
         },
         "hardpoint sprite": "hardpoint/laser turret quad",
-        "hardpoint offset": -0.5,
-        "hardpoint offset 2": 8,
+        "hardpoint offset": {
+          "hardpoint offset_1": -0.5,
+          "hardpoint offset_2": 8
+        },
         "sound": "laser",
         "hit effect": "beam laser impact",
         "inaccuracy": 0.5,
@@ -14146,5 +14150,5 @@
       "pluginId": "Rumskib/rumskib"
     }
   ],
-  "parsedAt": "2026-07-03T07:56:12.197Z"
+  "parsedAt": "2026-07-03T13:00:17.833Z"
 }

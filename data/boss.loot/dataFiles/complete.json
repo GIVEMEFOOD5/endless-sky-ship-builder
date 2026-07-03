@@ -2036,7 +2036,7 @@
         "velocity": 10,
         "lifetime": 1,
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "reload": 203,
         "firing energy": 5960,
@@ -2073,7 +2073,7 @@
         "hardpoint sprite": "hardpoint/pug gridfire turret",
         "fire effect": "gridfire fire",
         "hit effect": "gridfire hit",
-        "hit effect 2": "gridfire cloud",
+        "hit effect_2": "gridfire cloud",
         "phasing": true,
         "velocity": 1440,
         "lifetime": 1,
@@ -2196,11 +2196,11 @@
         "fire effect": "fusion cannon fire",
         "die effect": "fusion cannon cloud",
         "hit effect": "fusion cannon impact",
-        "hit effect 2": "fusion cannonspark",
-        "hit effect 3": "fusion cannon explosion 1",
-        "hit effect 4": "fusion cannon explosion 2",
-        "hit effect 5": "fusion cannon explosion 3",
-        "hit effect 6": "fusion cannon nuke",
+        "hit effect_2": "fusion cannonspark",
+        "hit effect_3": "fusion cannon explosion 1",
+        "hit effect_4": "fusion cannon explosion 2",
+        "hit effect_5": "fusion cannon explosion 3",
+        "hit effect_6": "fusion cannon nuke",
         "live effect": "fusion cannon cloud",
         "inaccuracy": 0.2,
         "velocity": 66,
@@ -2489,7 +2489,7 @@
         "icon": "icon/piercer",
         "fire effect": "piercer fire",
         "hit effect": "piercer impact",
-        "hit effect 2": "piercer explosion",
+        "hit effect_2": "piercer explosion",
         "die effect": "piercer explosion",
         "inaccuracy": 3,
         "velocity": 18,
@@ -2947,8 +2947,8 @@
         "sound": "optical laser",
         "fire effect": "blue laser glare",
         "hit effect": "laser ejecta",
-        "hit effect 2": "blue laser reflection",
-        "hit effect 3": "blue laser scattering",
+        "hit effect_2": "blue laser reflection",
+        "hit effect_3": "blue laser scattering",
         "velocity": 1500,
         "lifetime": 1,
         "reload": 1,
@@ -2959,8 +2959,10 @@
         "shield damage": 5.59,
         "hull damage": 7.98,
         "heat damage": 7.98,
-        "damage dropoff": 0,
-        "damage dropoff 2": 1500,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 1500
+        },
         "dropoff modifier": 0
       },
       "description": "This lightweight turret can be fed a beam of light from a lasing generator, which is then combined and focused to produce an intense beam ideal for damaging other ships. By pulsing thousands of times each second, the beam can create thermal and mechanical shocks in the target material, enhancing its ability to drill through armor. Unlike the advanced beam weapons used by some other species, this laser is subject to the effects of diffraction, causing its damage to become less intense with distance while also rendering it invisible. However, precise optics allow the beam to be targeted from an exceptional range, despite the tenuous damage at the edge of the laser's reach. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator is needed to run this turret, providing enough power to support a single Blue Laser.",
@@ -3002,9 +3004,9 @@
         "sound": "optical laser",
         "fire effect": "uv laser glare",
         "hit effect": "laser ejecta",
-        "hit effect 2": "laser explosion",
-        "hit effect 3": "uv laser reflection",
-        "hit effect 4": "uv laser scattering",
+        "hit effect_2": "laser explosion",
+        "hit effect_3": "uv laser reflection",
+        "hit effect_4": "uv laser scattering",
         "velocity": 2100,
         "lifetime": 1,
         "reload": 1,
@@ -3017,8 +3019,10 @@
         "hull damage": 23.94,
         "heat damage": 23.94,
         "hit force": 3,
-        "damage dropoff": 0,
-        "damage dropoff 2": 2100,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 2100
+        },
         "dropoff modifier": 0
       },
       "governments": {
@@ -3089,7 +3093,7 @@
           "no repeat": true
         },
         "hit effect": "bremsstrahlung",
-        "hit effect 2": "nuclear spallation",
+        "hit effect_2": "nuclear spallation",
         "velocity": 300,
         "random velocity": -240,
         "lifetime": 9,
@@ -3170,7 +3174,7 @@
           "no repeat": true
         },
         "hit effect": "bremsstrahlung",
-        "hit effect 2": "nuclear spallation",
+        "hit effect_2": "nuclear spallation",
         "velocity": 300,
         "random velocity": -210,
         "lifetime": 12,
@@ -3228,7 +3232,7 @@
         "homing": true,
         "optical tracking": 0.72,
         "range override": 600,
-        "stream 2": true,
+        "stream_2": true,
         "submunitions": [
           {
             "type": "Ophrys Terminal(T1)",
@@ -3280,7 +3284,7 @@
         "sound": "nuke",
         "icon": "icon/orchid",
         "fire effect": "sidewinder fire",
-        "fire effect 2": "speckle fire",
+        "fire effect_2": "speckle fire",
         "inaccuracy": 1.2,
         "velocity": 6,
         "lifetime": 15,
@@ -3621,8 +3625,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 15,
         "drag": 3,
@@ -3659,8 +3663,8 @@
           "rewind": true
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "nettle split",
         "lifetime": 180,
         "acceleration": 0.3,
@@ -3672,6 +3676,7 @@
         },
         "radar tracking": 0.9,
         "split range": 300,
+        "submunition_2": "Orchid Boost Stage Expended",
         "missile strength": 36,
         "submunitions": [
           {
@@ -3704,8 +3709,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 180,
         "acceleration": 0.03,
@@ -3747,8 +3752,8 @@
           "rewind": true
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "nettle split",
         "lifetime": 300,
         "acceleration": 0.3,
@@ -3760,6 +3765,7 @@
         },
         "radar tracking": 0.9,
         "split range": 600,
+        "submunition_2": "Orchid Divert Stage Expended",
         "missile strength": 24,
         "submunitions": [
           {
@@ -3792,8 +3798,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 180,
         "acceleration": 0.12,
@@ -3887,8 +3893,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 240,
         "acceleration": 0.006,
@@ -4067,11 +4073,11 @@
         "sound": "thorax cannon",
         "fire effect": "torpedo fire",
         "live effect": "yellow spark",
-        "live effect 2": "yellow spark trail",
-        "live effect 3": "yellow spark twinkle",
+        "live effect_2": "yellow spark trail",
+        "live effect_3": "yellow spark twinkle",
         "hit effect": "finisher impact",
-        "hit effect 2": "yellow spark",
-        "hit effect 3": "yellow spark fragment",
+        "hit effect_2": "yellow spark",
+        "hit effect_3": "yellow spark fragment",
         "inaccuracy": 0,
         "velocity": 15,
         "lifetime": 120,
@@ -4281,7 +4287,7 @@
         "icon": "icon/finisher",
         "fire effect": "finisher sparks",
         "hit effect": "finisher impact",
-        "hit effect 2": "finisher fragment",
+        "hit effect_2": "finisher fragment",
         "die effect": "finisher fragment",
         "inaccuracy": 5,
         "velocity": 10,
@@ -4348,7 +4354,7 @@
         "icon": "icon/finisher",
         "fire effect": "finisher sparks",
         "hit effect": "finisher impact",
-        "hit effect 2": "finisher fragment",
+        "hit effect_2": "finisher fragment",
         "die effect": "finisher fragment",
         "inaccuracy": 6,
         "velocity": 9,
@@ -4401,7 +4407,7 @@
         },
         "live effect": "finisher trail",
         "hit effect": "finisher impact",
-        "hit effect 2": "finisher fragment",
+        "hit effect_2": "finisher fragment",
         "die effect": "small explosion",
         "lifetime": 500,
         "acceleration": 1,
@@ -4920,7 +4926,7 @@
         "velocity": 20,
         "lifetime": 1,
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "reload": 187,
         "firing energy": 5610,
@@ -4967,7 +4973,7 @@
         "velocity": 20,
         "lifetime": 1,
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "reload": 187,
         "firing energy": 5610,
@@ -5011,9 +5017,9 @@
           "random start frame": true
         },
         "live effect": "antimatter spark",
-        "live effect 2": "antimatter dust",
+        "live effect_2": "antimatter dust",
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "inaccuracy": 1,
         "lifetime": 499,
@@ -5045,9 +5051,9 @@
           "random start frame": true
         },
         "live effect": "antimatter spark",
-        "live effect 2": "antimatter dust",
+        "live effect_2": "antimatter dust",
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "inaccuracy": 1,
         "lifetime": 1000,
@@ -5201,8 +5207,10 @@
       "weapon": {
         "sprite": "projectile/irate",
         "hardpoint sprite": "hardpoint/irate",
-        "hardpoint offset": -0.8,
-        "hardpoint offset 2": 12,
+        "hardpoint offset": {
+          "hardpoint offset_1": -0.8,
+          "hardpoint offset_2": 12
+        },
         "sound": "irate",
         "fire effect": "irate fire",
         "live effect": "irate smoke",
@@ -6196,7 +6204,7 @@
         "icon": "icon/tracker",
         "fire effect": "tracker fire",
         "hit effect": "tracker impact",
-        "hit effect 2": "tracker cloud",
+        "hit effect_2": "tracker cloud",
         "die effect": "tracker impact",
         "inaccuracy": 20,
         "velocity": 14,
@@ -6683,8 +6691,10 @@
           "frame rate": 1
         },
         "hardpoint sprite": "hardpoint/laser turret",
-        "hardpoint offset": -0.5,
-        "hardpoint offset 2": 8,
+        "hardpoint offset": {
+          "hardpoint offset_1": -0.5,
+          "hardpoint offset_2": 8
+        },
         "sound": "laser",
         "hit effect": "beam laser impact",
         "inaccuracy": 0.5,
@@ -6862,8 +6872,10 @@
           "frame rate": 1
         },
         "hardpoint sprite": "hardpoint/mining laser turret",
-        "hardpoint offset": 0.7,
-        "hardpoint offset 2": 8,
+        "hardpoint offset": {
+          "hardpoint offset_1": 0.7,
+          "hardpoint offset_2": 8
+        },
         "sound": "mining laser",
         "hit effect": "beam laser impact",
         "inaccuracy": 0.35,
@@ -7338,8 +7350,10 @@
         "inaccuracy": 20,
         "lifetime": 18,
         "random lifetime": 8,
-        "damage dropoff": 0,
-        "damage dropoff 2": 198,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 198
+        },
         "dropoff modifier": 0.5,
         "shield damage": 1.06,
         "hull damage": 0.93,
@@ -8159,8 +8173,8 @@
         "stream": true,
         "icon": "icon/nuke",
         "hit effect": "nuke explosion",
-        "hit effect 2": "nuke residue fast",
-        "hit effect 3": "nuke residue slow",
+        "hit effect_2": "nuke residue fast",
+        "hit effect_3": "nuke residue slow",
         "die effect": "missile death",
         "inaccuracy": 1,
         "velocity": 6,
@@ -8776,7 +8790,7 @@
         "sprite": "projectile/asteroid weapon live",
         "inaccuracy": 360,
         "hit effect": "detainer impact",
-        "hit effect 2": "detainer smoke",
+        "hit effect_2": "detainer smoke",
         "die effect": "tiny explosion",
         "turn": 6,
         "homing": {
@@ -8862,6 +8876,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper2 print",
         "submunitions": [
           {
             "type": "creeper1 static(T1)",
@@ -8931,6 +8946,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper3 print",
         "submunitions": [
           {
             "type": "creeper2 static(T1)",
@@ -9000,6 +9016,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper4 print",
         "submunitions": [
           {
             "type": "creeper3 static(T1)",
@@ -9069,6 +9086,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper5 print",
         "submunitions": [
           {
             "type": "creeper4 static(T1)",
@@ -9138,6 +9156,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper6 print",
         "submunitions": [
           {
             "type": "creeper5 static(T1)",
@@ -9207,6 +9226,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper7 print",
         "submunitions": [
           {
             "type": "creeper6 static(T1)",
@@ -9276,6 +9296,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper8 print",
         "submunitions": [
           {
             "type": "creeper7 static(T1)",
@@ -9345,6 +9366,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper9 print",
         "submunitions": [
           {
             "type": "creeper8 static(T1)",
@@ -9414,6 +9436,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper10 print",
         "submunitions": [
           {
             "type": "creeper9 static(T1)",
@@ -9483,6 +9506,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper11 print",
         "submunitions": [
           {
             "type": "creeper10 static(T1)",
@@ -9552,6 +9576,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper12 print",
         "submunitions": [
           {
             "type": "creeper11 static(T1)",
@@ -9621,6 +9646,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper13 print",
         "submunitions": [
           {
             "type": "creeper12 static(T1)",
@@ -9690,6 +9716,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper14 print",
         "submunitions": [
           {
             "type": "creeper13 static(T1)",
@@ -9759,6 +9786,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper15 print",
         "submunitions": [
           {
             "type": "creeper14 static(T1)",
@@ -9929,6 +9957,7 @@
         "drag": 0.1,
         "acceleration": 1,
         "lifetime": 2000,
+        "submunition_2": "spin1 print left",
         "fire effect": "asteroid glow",
         "split range": 400,
         "reload": 150,
@@ -9979,6 +10008,7 @@
         "drag": 0.1,
         "turn": -5,
         "lifetime": 40,
+        "submunition_2": "spin2 print left",
         "submunitions": [
           {
             "type": "track1 print right(T1)",
@@ -10018,6 +10048,7 @@
         "drag": 0.1,
         "turn": 5,
         "lifetime": 40,
+        "submunition_2": "spin2 print right",
         "submunitions": [
           {
             "type": "track1 print left(T1)",
@@ -10060,6 +10091,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin2 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T1)",
@@ -10106,6 +10138,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin2 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T1)",
@@ -10149,6 +10182,7 @@
         "drag": 0.1,
         "turn": -5,
         "lifetime": 40,
+        "submunition_2": "spin3 print left",
         "submunitions": [
           {
             "type": "track2 print right(T1)",
@@ -10188,6 +10222,7 @@
         "drag": 0.1,
         "turn": 5,
         "lifetime": 40,
+        "submunition_2": "spin3 print right",
         "submunitions": [
           {
             "type": "track2 print left(T1)",
@@ -10230,6 +10265,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin3 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T1)",
@@ -10276,6 +10312,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin3 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T1)",
@@ -10319,6 +10356,7 @@
         "drag": 0.1,
         "turn": -5,
         "lifetime": 40,
+        "submunition_2": "spin4 print left",
         "submunitions": [
           {
             "type": "track3 print right(T1)",
@@ -10358,6 +10396,7 @@
         "drag": 0.1,
         "turn": 5,
         "lifetime": 40,
+        "submunition_2": "spin4 print right",
         "submunitions": [
           {
             "type": "track3 print left(T1)",
@@ -10400,6 +10439,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin4 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T1)",
@@ -10446,6 +10486,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin4 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T1)",
@@ -11042,6 +11083,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep2 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11083,6 +11125,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep3 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11124,6 +11167,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep4 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11165,6 +11209,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep5 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11206,6 +11251,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep6 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11247,6 +11293,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep7 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11288,6 +11335,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep8 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11329,6 +11377,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep9 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11370,6 +11419,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep10 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11411,6 +11461,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep11 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11452,6 +11503,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep12 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11493,6 +11545,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep13 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11534,6 +11587,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep14 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11575,6 +11629,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep15 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11616,6 +11671,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep16 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11657,6 +11713,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep17 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11698,6 +11755,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep18 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11739,6 +11797,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep19 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11780,6 +11839,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep20 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11821,6 +11881,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep21 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11862,6 +11923,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep22 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11903,6 +11965,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep23 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11944,6 +12007,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep24 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -11985,6 +12049,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep25 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12026,6 +12091,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep26 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12067,6 +12133,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep27 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12108,6 +12175,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep28 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12149,6 +12217,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep29 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12190,6 +12259,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep30 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12231,6 +12301,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep31 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12272,6 +12343,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep32 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12313,6 +12385,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep33 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12354,6 +12427,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep34 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12395,6 +12469,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep35 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12436,6 +12511,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep36 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12477,6 +12553,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep37 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12518,6 +12595,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep38 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12559,6 +12637,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep39 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12600,6 +12679,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep40 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12641,6 +12721,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep41 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12682,6 +12763,7 @@
         "corrosion damage": -1.4,
         "hull damage": -66.5,
         "slowing damage": -11.97,
+        "submunition_2": "wep42 print",
         "submunitions": [
           {
             "type": "wep static(T1)",
@@ -12847,6 +12929,7 @@
     {
       "name": "asteroid fragment(T1)",
       "weapon": {
+        "submunition_2": "spin1 print left",
         "inaccuracy": 360,
         "velocity": -65,
         "random velocity": 20,
@@ -12978,11 +13061,11 @@
         "sound": "ionball",
         "fire effect": "finisher sparks",
         "hit effect": "ionball ring",
-        "hit effect 2": "ionball impact",
-        "hit effect 3": "ionball fragment",
+        "hit effect_2": "ionball impact",
+        "hit effect_3": "ionball fragment",
         "live effect": "ionball spark",
-        "live effect 2": "ionball trail",
-        "live effect 3": "ionball twinkle",
+        "live effect_2": "ionball trail",
+        "live effect_3": "ionball twinkle",
         "inaccuracy": 0.2,
         "velocity": 9,
         "lifetime": 200,
@@ -13243,8 +13326,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "inaccuracy": 4,
         "velocity": 7,
@@ -13308,7 +13391,7 @@
         "sound": "rocket",
         "icon": "icon/mhd",
         "hit effect": "mhd explosion",
-        "hit effect 2": "mhd spark",
+        "hit effect_2": "mhd spark",
         "die effect": "small explosion",
         "inaccuracy": 3,
         "velocity": 12,
@@ -13820,7 +13903,7 @@
         "icon": "icon/piercer",
         "fire effect": "piercer fire",
         "hit effect": "piercer impact",
-        "hit effect 2": "piercer explosion",
+        "hit effect_2": "piercer explosion",
         "die effect": "piercer death",
         "inaccuracy": 1.5,
         "velocity": 18,
@@ -13875,7 +13958,7 @@
         },
         "sound": "detainer",
         "hit effect": "detainer impact",
-        "hit effect 2": "detainer smoke",
+        "hit effect_2": "detainer smoke",
         "live effect": "detainer sparks",
         "inaccuracy": 0.5,
         "velocity": 14,
@@ -14720,7 +14803,7 @@
         "hardpoint sprite": "hardpoint/pug gridfire turret",
         "fire effect": "gridfire fire",
         "hit effect": "gridfire hit",
-        "hit effect 2": "gridfire cloud",
+        "hit effect_2": "gridfire cloud",
         "sound": "gridfire",
         "phasing": true,
         "velocity": 1440,
@@ -14860,7 +14943,7 @@
         "sound": "ranseur",
         "fire effect": "ranseur",
         "hit effect": "jump drive",
-        "hit effect 2": "disruptor impact",
+        "hit effect_2": "disruptor impact",
         "lifetime": 1,
         "reload": 100,
         "velocity": 600,
@@ -15353,8 +15436,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "stream": true,
         "reload": 330,
@@ -15426,8 +15509,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "stream": true,
         "safe": true,
@@ -15500,8 +15583,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "safe": true,
         "burst count": 3,
@@ -15573,8 +15656,8 @@
         },
         "sound": "ember tear",
         "hit effect": "ember tear spark",
-        "hit effect 2": "ember tear impact",
-        "hit effect 3": "ember tear vortex",
+        "hit effect_2": "ember tear impact",
+        "hit effect_3": "ember tear vortex",
         "fire effect": "ember tear fire",
         "velocity": 800,
         "inaccuracy": 0,
@@ -15774,7 +15857,7 @@
       "weapon": {
         "sound": "composer",
         "hit effect": "composed",
-        "hit effect 2": "drained",
+        "hit effect_2": "drained",
         "inaccuracy": 45,
         "velocity": 660,
         "lifetime": 1,
@@ -15886,8 +15969,8 @@
         "icon": "icon/dragonflame",
         "fire effect": "dragonflame",
         "hit effect": "bright hit",
-        "hit effect 2": "dragonflame plasma",
-        "hit effect 3": "dragonflame debris",
+        "hit effect_2": "dragonflame plasma",
+        "hit effect_3": "dragonflame debris",
         "velocity": 2000,
         "lifetime": 1,
         "reload": 180,
@@ -16603,7 +16686,7 @@
         "sound": "sjeja lance",
         "icon": "icon/hv spike",
         "fire effect": "moonbeam fleck",
-        "fire effect 2": "electron impact",
+        "fire effect_2": "electron impact",
         "hit effect": "torpedo hit",
         "cluster": true,
         "velocity": 320,
@@ -16771,8 +16854,10 @@
           "frame rate": 30
         },
         "hardpoint sprite": "hardpoint/sunbeam turret",
-        "hardpoint offset": -2,
-        "hardpoint offset 2": 12,
+        "hardpoint offset": {
+          "hardpoint offset_1": -2,
+          "hardpoint offset_2": 12
+        },
         "sound": "sunbeam",
         "hit effect": "sunbeam impact",
         "inaccuracy": 0.2,
@@ -17069,7 +17154,7 @@
         "hardpoint sprite": "hardpoint/pug gridfire turret",
         "fire effect": "gridfire fire",
         "hit effect": "gridfire hit",
-        "hit effect 2": "gridfire cloud",
+        "hit effect_2": "gridfire cloud",
         "phasing": true,
         "velocity": 1440,
         "lifetime": 1,
@@ -17192,11 +17277,11 @@
         "fire effect": "fusion cannon fire",
         "die effect": "fusion cannon cloud",
         "hit effect": "fusion cannon impact",
-        "hit effect 2": "fusion cannonspark",
-        "hit effect 3": "fusion cannon explosion 1",
-        "hit effect 4": "fusion cannon explosion 2",
-        "hit effect 5": "fusion cannon explosion 3",
-        "hit effect 6": "fusion cannon nuke",
+        "hit effect_2": "fusion cannonspark",
+        "hit effect_3": "fusion cannon explosion 1",
+        "hit effect_4": "fusion cannon explosion 2",
+        "hit effect_5": "fusion cannon explosion 3",
+        "hit effect_6": "fusion cannon nuke",
         "live effect": "fusion cannon cloud",
         "inaccuracy": 0.2,
         "velocity": 66,
@@ -17485,7 +17570,7 @@
         "icon": "icon/piercer",
         "fire effect": "piercer fire",
         "hit effect": "piercer impact",
-        "hit effect 2": "piercer explosion",
+        "hit effect_2": "piercer explosion",
         "die effect": "piercer explosion",
         "inaccuracy": 3,
         "velocity": 18,
@@ -17943,8 +18028,8 @@
         "sound": "optical laser",
         "fire effect": "blue laser glare",
         "hit effect": "laser ejecta",
-        "hit effect 2": "blue laser reflection",
-        "hit effect 3": "blue laser scattering",
+        "hit effect_2": "blue laser reflection",
+        "hit effect_3": "blue laser scattering",
         "velocity": 1500,
         "lifetime": 1,
         "reload": 1,
@@ -17955,8 +18040,10 @@
         "shield damage": 6.97,
         "hull damage": 9.96,
         "heat damage": 9.96,
-        "damage dropoff": 0,
-        "damage dropoff 2": 1500,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 1500
+        },
         "dropoff modifier": 0
       },
       "description": "This lightweight turret can be fed a beam of light from a lasing generator, which is then combined and focused to produce an intense beam ideal for damaging other ships. By pulsing thousands of times each second, the beam can create thermal and mechanical shocks in the target material, enhancing its ability to drill through armor. Unlike the advanced beam weapons used by some other species, this laser is subject to the effects of diffraction, causing its damage to become less intense with distance while also rendering it invisible. However, precise optics allow the beam to be targeted from an exceptional range, despite the tenuous damage at the edge of the laser's reach. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator is needed to run this turret, providing enough power to support a single Blue Laser.",
@@ -17998,9 +18085,9 @@
         "sound": "optical laser",
         "fire effect": "uv laser glare",
         "hit effect": "laser ejecta",
-        "hit effect 2": "laser explosion",
-        "hit effect 3": "uv laser reflection",
-        "hit effect 4": "uv laser scattering",
+        "hit effect_2": "laser explosion",
+        "hit effect_3": "uv laser reflection",
+        "hit effect_4": "uv laser scattering",
         "velocity": 2100,
         "lifetime": 1,
         "reload": 1,
@@ -18013,8 +18100,10 @@
         "hull damage": 29.88,
         "heat damage": 29.88,
         "hit force": 3,
-        "damage dropoff": 0,
-        "damage dropoff 2": 2100,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 2100
+        },
         "dropoff modifier": 0
       },
       "governments": {
@@ -18085,7 +18174,7 @@
           "no repeat": true
         },
         "hit effect": "bremsstrahlung",
-        "hit effect 2": "nuclear spallation",
+        "hit effect_2": "nuclear spallation",
         "velocity": 300,
         "random velocity": -240,
         "lifetime": 9,
@@ -18166,7 +18255,7 @@
           "no repeat": true
         },
         "hit effect": "bremsstrahlung",
-        "hit effect 2": "nuclear spallation",
+        "hit effect_2": "nuclear spallation",
         "velocity": 300,
         "random velocity": -210,
         "lifetime": 12,
@@ -18224,7 +18313,7 @@
         "homing": true,
         "optical tracking": 0.72,
         "range override": 600,
-        "stream 2": true,
+        "stream_2": true,
         "submunitions": [
           {
             "type": "Ophrys Terminal(T2)",
@@ -18276,7 +18365,7 @@
         "sound": "nuke",
         "icon": "icon/orchid",
         "fire effect": "sidewinder fire",
-        "fire effect 2": "speckle fire",
+        "fire effect_2": "speckle fire",
         "inaccuracy": 1.2,
         "velocity": 6,
         "lifetime": 15,
@@ -18617,8 +18706,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 15,
         "drag": 3,
@@ -18655,8 +18744,8 @@
           "rewind": true
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "nettle split",
         "lifetime": 180,
         "acceleration": 0.3,
@@ -18668,6 +18757,7 @@
         },
         "radar tracking": 0.9,
         "split range": 300,
+        "submunition_2": "Orchid Boost Stage Expended",
         "missile strength": 36,
         "submunitions": [
           {
@@ -18700,8 +18790,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 180,
         "acceleration": 0.03,
@@ -18743,8 +18833,8 @@
           "rewind": true
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "nettle split",
         "lifetime": 300,
         "acceleration": 0.3,
@@ -18756,6 +18846,7 @@
         },
         "radar tracking": 0.9,
         "split range": 600,
+        "submunition_2": "Orchid Divert Stage Expended",
         "missile strength": 24,
         "submunitions": [
           {
@@ -18788,8 +18879,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 180,
         "acceleration": 0.12,
@@ -18883,8 +18974,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 240,
         "acceleration": 0.006,
@@ -19063,11 +19154,11 @@
         "sound": "thorax cannon",
         "fire effect": "torpedo fire",
         "live effect": "yellow spark",
-        "live effect 2": "yellow spark trail",
-        "live effect 3": "yellow spark twinkle",
+        "live effect_2": "yellow spark trail",
+        "live effect_3": "yellow spark twinkle",
         "hit effect": "finisher impact",
-        "hit effect 2": "yellow spark",
-        "hit effect 3": "yellow spark fragment",
+        "hit effect_2": "yellow spark",
+        "hit effect_3": "yellow spark fragment",
         "inaccuracy": 0,
         "velocity": 15,
         "lifetime": 120,
@@ -19277,7 +19368,7 @@
         "icon": "icon/finisher",
         "fire effect": "finisher sparks",
         "hit effect": "finisher impact",
-        "hit effect 2": "finisher fragment",
+        "hit effect_2": "finisher fragment",
         "die effect": "finisher fragment",
         "inaccuracy": 5,
         "velocity": 10,
@@ -19344,7 +19435,7 @@
         "icon": "icon/finisher",
         "fire effect": "finisher sparks",
         "hit effect": "finisher impact",
-        "hit effect 2": "finisher fragment",
+        "hit effect_2": "finisher fragment",
         "die effect": "finisher fragment",
         "inaccuracy": 6,
         "velocity": 9,
@@ -19397,7 +19488,7 @@
         },
         "live effect": "finisher trail",
         "hit effect": "finisher impact",
-        "hit effect 2": "finisher fragment",
+        "hit effect_2": "finisher fragment",
         "die effect": "small explosion",
         "lifetime": 500,
         "acceleration": 1,
@@ -19916,7 +20007,7 @@
         "velocity": 20,
         "lifetime": 1,
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "reload": 187,
         "firing energy": 5610,
@@ -19963,7 +20054,7 @@
         "velocity": 20,
         "lifetime": 1,
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "reload": 187,
         "firing energy": 5610,
@@ -20007,9 +20098,9 @@
           "random start frame": true
         },
         "live effect": "antimatter spark",
-        "live effect 2": "antimatter dust",
+        "live effect_2": "antimatter dust",
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "inaccuracy": 1,
         "lifetime": 499,
@@ -20041,9 +20132,9 @@
           "random start frame": true
         },
         "live effect": "antimatter spark",
-        "live effect 2": "antimatter dust",
+        "live effect_2": "antimatter dust",
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "inaccuracy": 1,
         "lifetime": 1000,
@@ -20197,8 +20288,10 @@
       "weapon": {
         "sprite": "projectile/irate",
         "hardpoint sprite": "hardpoint/irate",
-        "hardpoint offset": -0.8,
-        "hardpoint offset 2": 12,
+        "hardpoint offset": {
+          "hardpoint offset_1": -0.8,
+          "hardpoint offset_2": 12
+        },
         "sound": "irate",
         "fire effect": "irate fire",
         "live effect": "irate smoke",
@@ -21192,7 +21285,7 @@
         "icon": "icon/tracker",
         "fire effect": "tracker fire",
         "hit effect": "tracker impact",
-        "hit effect 2": "tracker cloud",
+        "hit effect_2": "tracker cloud",
         "die effect": "tracker impact",
         "inaccuracy": 20,
         "velocity": 14,
@@ -21679,8 +21772,10 @@
           "frame rate": 1
         },
         "hardpoint sprite": "hardpoint/laser turret",
-        "hardpoint offset": -0.5,
-        "hardpoint offset 2": 8,
+        "hardpoint offset": {
+          "hardpoint offset_1": -0.5,
+          "hardpoint offset_2": 8
+        },
         "sound": "laser",
         "hit effect": "beam laser impact",
         "inaccuracy": 0.5,
@@ -21858,8 +21953,10 @@
           "frame rate": 1
         },
         "hardpoint sprite": "hardpoint/mining laser turret",
-        "hardpoint offset": 0.7,
-        "hardpoint offset 2": 8,
+        "hardpoint offset": {
+          "hardpoint offset_1": 0.7,
+          "hardpoint offset_2": 8
+        },
         "sound": "mining laser",
         "hit effect": "beam laser impact",
         "inaccuracy": 0.35,
@@ -22334,8 +22431,10 @@
         "inaccuracy": 20,
         "lifetime": 18,
         "random lifetime": 8,
-        "damage dropoff": 0,
-        "damage dropoff 2": 198,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 198
+        },
         "dropoff modifier": 0.5,
         "shield damage": 1.33,
         "hull damage": 1.16,
@@ -23155,8 +23254,8 @@
         "stream": true,
         "icon": "icon/nuke",
         "hit effect": "nuke explosion",
-        "hit effect 2": "nuke residue fast",
-        "hit effect 3": "nuke residue slow",
+        "hit effect_2": "nuke residue fast",
+        "hit effect_3": "nuke residue slow",
         "die effect": "missile death",
         "inaccuracy": 1,
         "velocity": 6,
@@ -23772,7 +23871,7 @@
         "sprite": "projectile/asteroid weapon live",
         "inaccuracy": 360,
         "hit effect": "detainer impact",
-        "hit effect 2": "detainer smoke",
+        "hit effect_2": "detainer smoke",
         "die effect": "tiny explosion",
         "turn": 6,
         "homing": {
@@ -23858,6 +23957,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper2 print",
         "submunitions": [
           {
             "type": "creeper1 static(T2)",
@@ -23927,6 +24027,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper3 print",
         "submunitions": [
           {
             "type": "creeper2 static(T2)",
@@ -23996,6 +24097,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper4 print",
         "submunitions": [
           {
             "type": "creeper3 static(T2)",
@@ -24065,6 +24167,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper5 print",
         "submunitions": [
           {
             "type": "creeper4 static(T2)",
@@ -24134,6 +24237,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper6 print",
         "submunitions": [
           {
             "type": "creeper5 static(T2)",
@@ -24203,6 +24307,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper7 print",
         "submunitions": [
           {
             "type": "creeper6 static(T2)",
@@ -24272,6 +24377,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper8 print",
         "submunitions": [
           {
             "type": "creeper7 static(T2)",
@@ -24341,6 +24447,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper9 print",
         "submunitions": [
           {
             "type": "creeper8 static(T2)",
@@ -24410,6 +24517,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper10 print",
         "submunitions": [
           {
             "type": "creeper9 static(T2)",
@@ -24479,6 +24587,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper11 print",
         "submunitions": [
           {
             "type": "creeper10 static(T2)",
@@ -24548,6 +24657,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper12 print",
         "submunitions": [
           {
             "type": "creeper11 static(T2)",
@@ -24617,6 +24727,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper13 print",
         "submunitions": [
           {
             "type": "creeper12 static(T2)",
@@ -24686,6 +24797,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper14 print",
         "submunitions": [
           {
             "type": "creeper13 static(T2)",
@@ -24755,6 +24867,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper15 print",
         "submunitions": [
           {
             "type": "creeper14 static(T2)",
@@ -24925,6 +25038,7 @@
         "drag": 0.1,
         "acceleration": 1,
         "lifetime": 2000,
+        "submunition_2": "spin1 print left",
         "fire effect": "asteroid glow",
         "split range": 400,
         "reload": 150,
@@ -24975,6 +25089,7 @@
         "drag": 0.1,
         "turn": -5,
         "lifetime": 40,
+        "submunition_2": "spin2 print left",
         "submunitions": [
           {
             "type": "track1 print right(T2)",
@@ -25014,6 +25129,7 @@
         "drag": 0.1,
         "turn": 5,
         "lifetime": 40,
+        "submunition_2": "spin2 print right",
         "submunitions": [
           {
             "type": "track1 print left(T2)",
@@ -25056,6 +25172,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin2 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T2)",
@@ -25102,6 +25219,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin2 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T2)",
@@ -25145,6 +25263,7 @@
         "drag": 0.1,
         "turn": -5,
         "lifetime": 40,
+        "submunition_2": "spin3 print left",
         "submunitions": [
           {
             "type": "track2 print right(T2)",
@@ -25184,6 +25303,7 @@
         "drag": 0.1,
         "turn": 5,
         "lifetime": 40,
+        "submunition_2": "spin3 print right",
         "submunitions": [
           {
             "type": "track2 print left(T2)",
@@ -25226,6 +25346,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin3 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T2)",
@@ -25272,6 +25393,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin3 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T2)",
@@ -25315,6 +25437,7 @@
         "drag": 0.1,
         "turn": -5,
         "lifetime": 40,
+        "submunition_2": "spin4 print left",
         "submunitions": [
           {
             "type": "track3 print right(T2)",
@@ -25354,6 +25477,7 @@
         "drag": 0.1,
         "turn": 5,
         "lifetime": 40,
+        "submunition_2": "spin4 print right",
         "submunitions": [
           {
             "type": "track3 print left(T2)",
@@ -25396,6 +25520,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin4 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T2)",
@@ -25442,6 +25567,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin4 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T2)",
@@ -26038,6 +26164,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep2 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26079,6 +26206,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep3 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26120,6 +26248,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep4 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26161,6 +26290,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep5 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26202,6 +26332,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep6 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26243,6 +26374,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep7 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26284,6 +26416,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep8 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26325,6 +26458,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep9 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26366,6 +26500,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep10 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26407,6 +26542,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep11 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26448,6 +26584,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep12 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26489,6 +26626,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep13 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26530,6 +26668,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep14 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26571,6 +26710,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep15 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26612,6 +26752,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep16 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26653,6 +26794,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep17 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26694,6 +26836,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep18 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26735,6 +26878,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep19 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26776,6 +26920,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep20 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26817,6 +26962,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep21 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26858,6 +27004,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep22 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26899,6 +27046,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep23 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26940,6 +27088,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep24 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -26981,6 +27130,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep25 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27022,6 +27172,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep26 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27063,6 +27214,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep27 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27104,6 +27256,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep28 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27145,6 +27298,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep29 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27186,6 +27340,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep30 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27227,6 +27382,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep31 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27268,6 +27424,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep32 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27309,6 +27466,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep33 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27350,6 +27508,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep34 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27391,6 +27550,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep35 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27432,6 +27592,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep36 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27473,6 +27634,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep37 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27514,6 +27676,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep38 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27555,6 +27718,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep39 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27596,6 +27760,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep40 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27637,6 +27802,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep41 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27678,6 +27844,7 @@
         "corrosion damage": -1.4,
         "hull damage": -83,
         "slowing damage": -14.94,
+        "submunition_2": "wep42 print",
         "submunitions": [
           {
             "type": "wep static(T2)",
@@ -27843,6 +28010,7 @@
     {
       "name": "asteroid fragment(T2)",
       "weapon": {
+        "submunition_2": "spin1 print left",
         "inaccuracy": 360,
         "velocity": -65,
         "random velocity": 20,
@@ -27974,11 +28142,11 @@
         "sound": "ionball",
         "fire effect": "finisher sparks",
         "hit effect": "ionball ring",
-        "hit effect 2": "ionball impact",
-        "hit effect 3": "ionball fragment",
+        "hit effect_2": "ionball impact",
+        "hit effect_3": "ionball fragment",
         "live effect": "ionball spark",
-        "live effect 2": "ionball trail",
-        "live effect 3": "ionball twinkle",
+        "live effect_2": "ionball trail",
+        "live effect_3": "ionball twinkle",
         "inaccuracy": 0.2,
         "velocity": 9,
         "lifetime": 200,
@@ -28239,8 +28407,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "inaccuracy": 4,
         "velocity": 7,
@@ -28304,7 +28472,7 @@
         "sound": "rocket",
         "icon": "icon/mhd",
         "hit effect": "mhd explosion",
-        "hit effect 2": "mhd spark",
+        "hit effect_2": "mhd spark",
         "die effect": "small explosion",
         "inaccuracy": 3,
         "velocity": 12,
@@ -28816,7 +28984,7 @@
         "icon": "icon/piercer",
         "fire effect": "piercer fire",
         "hit effect": "piercer impact",
-        "hit effect 2": "piercer explosion",
+        "hit effect_2": "piercer explosion",
         "die effect": "piercer death",
         "inaccuracy": 1.5,
         "velocity": 18,
@@ -28871,7 +29039,7 @@
         },
         "sound": "detainer",
         "hit effect": "detainer impact",
-        "hit effect 2": "detainer smoke",
+        "hit effect_2": "detainer smoke",
         "live effect": "detainer sparks",
         "inaccuracy": 0.5,
         "velocity": 14,
@@ -29716,7 +29884,7 @@
         "hardpoint sprite": "hardpoint/pug gridfire turret",
         "fire effect": "gridfire fire",
         "hit effect": "gridfire hit",
-        "hit effect 2": "gridfire cloud",
+        "hit effect_2": "gridfire cloud",
         "sound": "gridfire",
         "phasing": true,
         "velocity": 1440,
@@ -29856,7 +30024,7 @@
         "sound": "ranseur",
         "fire effect": "ranseur",
         "hit effect": "jump drive",
-        "hit effect 2": "disruptor impact",
+        "hit effect_2": "disruptor impact",
         "lifetime": 1,
         "reload": 100,
         "velocity": 600,
@@ -30349,8 +30517,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "stream": true,
         "reload": 330,
@@ -30422,8 +30590,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "stream": true,
         "safe": true,
@@ -30496,8 +30664,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "safe": true,
         "burst count": 3,
@@ -30569,8 +30737,8 @@
         },
         "sound": "ember tear",
         "hit effect": "ember tear spark",
-        "hit effect 2": "ember tear impact",
-        "hit effect 3": "ember tear vortex",
+        "hit effect_2": "ember tear impact",
+        "hit effect_3": "ember tear vortex",
         "fire effect": "ember tear fire",
         "velocity": 800,
         "inaccuracy": 0,
@@ -30770,7 +30938,7 @@
       "weapon": {
         "sound": "composer",
         "hit effect": "composed",
-        "hit effect 2": "drained",
+        "hit effect_2": "drained",
         "inaccuracy": 45,
         "velocity": 660,
         "lifetime": 1,
@@ -30882,8 +31050,8 @@
         "icon": "icon/dragonflame",
         "fire effect": "dragonflame",
         "hit effect": "bright hit",
-        "hit effect 2": "dragonflame plasma",
-        "hit effect 3": "dragonflame debris",
+        "hit effect_2": "dragonflame plasma",
+        "hit effect_3": "dragonflame debris",
         "velocity": 2000,
         "lifetime": 1,
         "reload": 180,
@@ -31599,7 +31767,7 @@
         "sound": "sjeja lance",
         "icon": "icon/hv spike",
         "fire effect": "moonbeam fleck",
-        "fire effect 2": "electron impact",
+        "fire effect_2": "electron impact",
         "hit effect": "torpedo hit",
         "cluster": true,
         "velocity": 320,
@@ -31767,8 +31935,10 @@
           "frame rate": 30
         },
         "hardpoint sprite": "hardpoint/sunbeam turret",
-        "hardpoint offset": -2,
-        "hardpoint offset 2": 12,
+        "hardpoint offset": {
+          "hardpoint offset_1": -2,
+          "hardpoint offset_2": 12
+        },
         "sound": "sunbeam",
         "hit effect": "sunbeam impact",
         "inaccuracy": 0.2,
@@ -32065,7 +32235,7 @@
         "hardpoint sprite": "hardpoint/pug gridfire turret",
         "fire effect": "gridfire fire",
         "hit effect": "gridfire hit",
-        "hit effect 2": "gridfire cloud",
+        "hit effect_2": "gridfire cloud",
         "phasing": true,
         "velocity": 1440,
         "lifetime": 1,
@@ -32188,11 +32358,11 @@
         "fire effect": "fusion cannon fire",
         "die effect": "fusion cannon cloud",
         "hit effect": "fusion cannon impact",
-        "hit effect 2": "fusion cannonspark",
-        "hit effect 3": "fusion cannon explosion 1",
-        "hit effect 4": "fusion cannon explosion 2",
-        "hit effect 5": "fusion cannon explosion 3",
-        "hit effect 6": "fusion cannon nuke",
+        "hit effect_2": "fusion cannonspark",
+        "hit effect_3": "fusion cannon explosion 1",
+        "hit effect_4": "fusion cannon explosion 2",
+        "hit effect_5": "fusion cannon explosion 3",
+        "hit effect_6": "fusion cannon nuke",
         "live effect": "fusion cannon cloud",
         "inaccuracy": 0.2,
         "velocity": 66,
@@ -32481,7 +32651,7 @@
         "icon": "icon/piercer",
         "fire effect": "piercer fire",
         "hit effect": "piercer impact",
-        "hit effect 2": "piercer explosion",
+        "hit effect_2": "piercer explosion",
         "die effect": "piercer explosion",
         "inaccuracy": 3,
         "velocity": 18,
@@ -32939,8 +33109,8 @@
         "sound": "optical laser",
         "fire effect": "blue laser glare",
         "hit effect": "laser ejecta",
-        "hit effect 2": "blue laser reflection",
-        "hit effect 3": "blue laser scattering",
+        "hit effect_2": "blue laser reflection",
+        "hit effect_3": "blue laser scattering",
         "velocity": 1500,
         "lifetime": 1,
         "reload": 1,
@@ -32951,8 +33121,10 @@
         "shield damage": 8.4,
         "hull damage": 12,
         "heat damage": 12,
-        "damage dropoff": 0,
-        "damage dropoff 2": 1500,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 1500
+        },
         "dropoff modifier": 0
       },
       "description": "This lightweight turret can be fed a beam of light from a lasing generator, which is then combined and focused to produce an intense beam ideal for damaging other ships. By pulsing thousands of times each second, the beam can create thermal and mechanical shocks in the target material, enhancing its ability to drill through armor. Unlike the advanced beam weapons used by some other species, this laser is subject to the effects of diffraction, causing its damage to become less intense with distance while also rendering it invisible. However, precise optics allow the beam to be targeted from an exceptional range, despite the tenuous damage at the edge of the laser's reach. \tThe turret itself only contains the optics needed to synthesize, focus, and target the beam, allowing the laser light to be produced elsewhere. Because of this, an Optical Lasing Generator is needed to run this turret, providing enough power to support a single Blue Laser.",
@@ -32994,9 +33166,9 @@
         "sound": "optical laser",
         "fire effect": "uv laser glare",
         "hit effect": "laser ejecta",
-        "hit effect 2": "laser explosion",
-        "hit effect 3": "uv laser reflection",
-        "hit effect 4": "uv laser scattering",
+        "hit effect_2": "laser explosion",
+        "hit effect_3": "uv laser reflection",
+        "hit effect_4": "uv laser scattering",
         "velocity": 2100,
         "lifetime": 1,
         "reload": 1,
@@ -33009,8 +33181,10 @@
         "hull damage": 36,
         "heat damage": 36,
         "hit force": 3,
-        "damage dropoff": 0,
-        "damage dropoff 2": 2100,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 2100
+        },
         "dropoff modifier": 0
       },
       "governments": {
@@ -33081,7 +33255,7 @@
           "no repeat": true
         },
         "hit effect": "bremsstrahlung",
-        "hit effect 2": "nuclear spallation",
+        "hit effect_2": "nuclear spallation",
         "velocity": 300,
         "random velocity": -240,
         "lifetime": 9,
@@ -33162,7 +33336,7 @@
           "no repeat": true
         },
         "hit effect": "bremsstrahlung",
-        "hit effect 2": "nuclear spallation",
+        "hit effect_2": "nuclear spallation",
         "velocity": 300,
         "random velocity": -210,
         "lifetime": 12,
@@ -33220,7 +33394,7 @@
         "homing": true,
         "optical tracking": 0.72,
         "range override": 600,
-        "stream 2": true,
+        "stream_2": true,
         "submunitions": [
           {
             "type": "Ophrys Terminal(T3)",
@@ -33272,7 +33446,7 @@
         "sound": "nuke",
         "icon": "icon/orchid",
         "fire effect": "sidewinder fire",
-        "fire effect 2": "speckle fire",
+        "fire effect_2": "speckle fire",
         "inaccuracy": 1.2,
         "velocity": 6,
         "lifetime": 15,
@@ -33613,8 +33787,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 15,
         "drag": 3,
@@ -33651,8 +33825,8 @@
           "rewind": true
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "nettle split",
         "lifetime": 180,
         "acceleration": 0.3,
@@ -33664,6 +33838,7 @@
         },
         "radar tracking": 0.9,
         "split range": 300,
+        "submunition_2": "Orchid Boost Stage Expended",
         "missile strength": 36,
         "submunitions": [
           {
@@ -33696,8 +33871,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 180,
         "acceleration": 0.03,
@@ -33739,8 +33914,8 @@
           "rewind": true
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "nettle split",
         "lifetime": 300,
         "acceleration": 0.3,
@@ -33752,6 +33927,7 @@
         },
         "radar tracking": 0.9,
         "split range": 600,
+        "submunition_2": "Orchid Divert Stage Expended",
         "missile strength": 24,
         "submunitions": [
           {
@@ -33784,8 +33960,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 180,
         "acceleration": 0.12,
@@ -33879,8 +34055,8 @@
           "scale": 0.5
         },
         "hit effect": "thermonuclear flash",
-        "hit effect 2": "prompt radiation",
-        "hit effect 3": "fission fragments",
+        "hit effect_2": "prompt radiation",
+        "hit effect_3": "fission fragments",
         "die effect": "missile death",
         "lifetime": 240,
         "acceleration": 0.006,
@@ -34059,11 +34235,11 @@
         "sound": "thorax cannon",
         "fire effect": "torpedo fire",
         "live effect": "yellow spark",
-        "live effect 2": "yellow spark trail",
-        "live effect 3": "yellow spark twinkle",
+        "live effect_2": "yellow spark trail",
+        "live effect_3": "yellow spark twinkle",
         "hit effect": "finisher impact",
-        "hit effect 2": "yellow spark",
-        "hit effect 3": "yellow spark fragment",
+        "hit effect_2": "yellow spark",
+        "hit effect_3": "yellow spark fragment",
         "inaccuracy": 0,
         "velocity": 15,
         "lifetime": 120,
@@ -34273,7 +34449,7 @@
         "icon": "icon/finisher",
         "fire effect": "finisher sparks",
         "hit effect": "finisher impact",
-        "hit effect 2": "finisher fragment",
+        "hit effect_2": "finisher fragment",
         "die effect": "finisher fragment",
         "inaccuracy": 5,
         "velocity": 10,
@@ -34340,7 +34516,7 @@
         "icon": "icon/finisher",
         "fire effect": "finisher sparks",
         "hit effect": "finisher impact",
-        "hit effect 2": "finisher fragment",
+        "hit effect_2": "finisher fragment",
         "die effect": "finisher fragment",
         "inaccuracy": 6,
         "velocity": 9,
@@ -34393,7 +34569,7 @@
         },
         "live effect": "finisher trail",
         "hit effect": "finisher impact",
-        "hit effect 2": "finisher fragment",
+        "hit effect_2": "finisher fragment",
         "die effect": "small explosion",
         "lifetime": 500,
         "acceleration": 1,
@@ -34912,7 +35088,7 @@
         "velocity": 20,
         "lifetime": 1,
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "reload": 187,
         "firing energy": 5610,
@@ -34959,7 +35135,7 @@
         "velocity": 20,
         "lifetime": 1,
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "reload": 187,
         "firing energy": 5610,
@@ -35003,9 +35179,9 @@
           "random start frame": true
         },
         "live effect": "antimatter spark",
-        "live effect 2": "antimatter dust",
+        "live effect_2": "antimatter dust",
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "inaccuracy": 1,
         "lifetime": 499,
@@ -35037,9 +35213,9 @@
           "random start frame": true
         },
         "live effect": "antimatter spark",
-        "live effect 2": "antimatter dust",
+        "live effect_2": "antimatter dust",
         "hit effect": "antimatter dust",
-        "hit effect 2": "nuke explosion",
+        "hit effect_2": "nuke explosion",
         "safe": true,
         "inaccuracy": 1,
         "lifetime": 1000,
@@ -35193,8 +35369,10 @@
       "weapon": {
         "sprite": "projectile/irate",
         "hardpoint sprite": "hardpoint/irate",
-        "hardpoint offset": -0.8,
-        "hardpoint offset 2": 12,
+        "hardpoint offset": {
+          "hardpoint offset_1": -0.8,
+          "hardpoint offset_2": 12
+        },
         "sound": "irate",
         "fire effect": "irate fire",
         "live effect": "irate smoke",
@@ -36188,7 +36366,7 @@
         "icon": "icon/tracker",
         "fire effect": "tracker fire",
         "hit effect": "tracker impact",
-        "hit effect 2": "tracker cloud",
+        "hit effect_2": "tracker cloud",
         "die effect": "tracker impact",
         "inaccuracy": 20,
         "velocity": 14,
@@ -36675,8 +36853,10 @@
           "frame rate": 1
         },
         "hardpoint sprite": "hardpoint/laser turret",
-        "hardpoint offset": -0.5,
-        "hardpoint offset 2": 8,
+        "hardpoint offset": {
+          "hardpoint offset_1": -0.5,
+          "hardpoint offset_2": 8
+        },
         "sound": "laser",
         "hit effect": "beam laser impact",
         "inaccuracy": 0.5,
@@ -36854,8 +37034,10 @@
           "frame rate": 1
         },
         "hardpoint sprite": "hardpoint/mining laser turret",
-        "hardpoint offset": 0.7,
-        "hardpoint offset 2": 8,
+        "hardpoint offset": {
+          "hardpoint offset_1": 0.7,
+          "hardpoint offset_2": 8
+        },
         "sound": "mining laser",
         "hit effect": "beam laser impact",
         "inaccuracy": 0.35,
@@ -37330,8 +37512,10 @@
         "inaccuracy": 20,
         "lifetime": 18,
         "random lifetime": 8,
-        "damage dropoff": 0,
-        "damage dropoff 2": 198,
+        "damage dropoff": {
+          "damage dropoff_1": 0,
+          "damage dropoff_2": 198
+        },
         "dropoff modifier": 0.5,
         "shield damage": 1.6,
         "hull damage": 1.4,
@@ -38151,8 +38335,8 @@
         "stream": true,
         "icon": "icon/nuke",
         "hit effect": "nuke explosion",
-        "hit effect 2": "nuke residue fast",
-        "hit effect 3": "nuke residue slow",
+        "hit effect_2": "nuke residue fast",
+        "hit effect_3": "nuke residue slow",
         "die effect": "missile death",
         "inaccuracy": 1,
         "velocity": 6,
@@ -38768,7 +38952,7 @@
         "sprite": "projectile/asteroid weapon live",
         "inaccuracy": 360,
         "hit effect": "detainer impact",
-        "hit effect 2": "detainer smoke",
+        "hit effect_2": "detainer smoke",
         "die effect": "tiny explosion",
         "turn": 6,
         "homing": {
@@ -38854,6 +39038,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper2 print",
         "submunitions": [
           {
             "type": "creeper1 static(T3)",
@@ -38923,6 +39108,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper3 print",
         "submunitions": [
           {
             "type": "creeper2 static(T3)",
@@ -38992,6 +39178,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper4 print",
         "submunitions": [
           {
             "type": "creeper3 static(T3)",
@@ -39061,6 +39248,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper5 print",
         "submunitions": [
           {
             "type": "creeper4 static(T3)",
@@ -39130,6 +39318,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper6 print",
         "submunitions": [
           {
             "type": "creeper5 static(T3)",
@@ -39199,6 +39388,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper7 print",
         "submunitions": [
           {
             "type": "creeper6 static(T3)",
@@ -39268,6 +39458,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper8 print",
         "submunitions": [
           {
             "type": "creeper7 static(T3)",
@@ -39337,6 +39528,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper9 print",
         "submunitions": [
           {
             "type": "creeper8 static(T3)",
@@ -39406,6 +39598,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper10 print",
         "submunitions": [
           {
             "type": "creeper9 static(T3)",
@@ -39475,6 +39668,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper11 print",
         "submunitions": [
           {
             "type": "creeper10 static(T3)",
@@ -39544,6 +39738,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper12 print",
         "submunitions": [
           {
             "type": "creeper11 static(T3)",
@@ -39613,6 +39808,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper13 print",
         "submunitions": [
           {
             "type": "creeper12 static(T3)",
@@ -39682,6 +39878,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper14 print",
         "submunitions": [
           {
             "type": "creeper13 static(T3)",
@@ -39751,6 +39948,7 @@
         "turn": -8,
         "hit effect": "seeker impact",
         "lifetime": 5,
+        "submunition_2": "creeper15 print",
         "submunitions": [
           {
             "type": "creeper14 static(T3)",
@@ -39921,6 +40119,7 @@
         "drag": 0.1,
         "acceleration": 1,
         "lifetime": 2000,
+        "submunition_2": "spin1 print left",
         "fire effect": "asteroid glow",
         "split range": 400,
         "reload": 150,
@@ -39971,6 +40170,7 @@
         "drag": 0.1,
         "turn": -5,
         "lifetime": 40,
+        "submunition_2": "spin2 print left",
         "submunitions": [
           {
             "type": "track1 print right(T3)",
@@ -40010,6 +40210,7 @@
         "drag": 0.1,
         "turn": 5,
         "lifetime": 40,
+        "submunition_2": "spin2 print right",
         "submunitions": [
           {
             "type": "track1 print left(T3)",
@@ -40052,6 +40253,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin2 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T3)",
@@ -40098,6 +40300,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin2 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T3)",
@@ -40141,6 +40344,7 @@
         "drag": 0.1,
         "turn": -5,
         "lifetime": 40,
+        "submunition_2": "spin3 print left",
         "submunitions": [
           {
             "type": "track2 print right(T3)",
@@ -40180,6 +40384,7 @@
         "drag": 0.1,
         "turn": 5,
         "lifetime": 40,
+        "submunition_2": "spin3 print right",
         "submunitions": [
           {
             "type": "track2 print left(T3)",
@@ -40222,6 +40427,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin3 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T3)",
@@ -40268,6 +40474,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin3 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T3)",
@@ -40311,6 +40518,7 @@
         "drag": 0.1,
         "turn": -5,
         "lifetime": 40,
+        "submunition_2": "spin4 print left",
         "submunitions": [
           {
             "type": "track3 print right(T3)",
@@ -40350,6 +40558,7 @@
         "drag": 0.1,
         "turn": 5,
         "lifetime": 40,
+        "submunition_2": "spin4 print right",
         "submunitions": [
           {
             "type": "track3 print left(T3)",
@@ -40392,6 +40601,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin4 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T3)",
@@ -40438,6 +40648,7 @@
         "lifetime": 550,
         "inaccuracy": 5,
         "split range": 180,
+        "submunition_2": "spin4 print left",
         "submunitions": [
           {
             "type": "asteroid laser 1(T3)",
@@ -41034,6 +41245,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep2 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41075,6 +41287,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep3 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41116,6 +41329,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep4 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41157,6 +41371,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep5 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41198,6 +41413,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep6 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41239,6 +41455,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep7 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41280,6 +41497,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep8 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41321,6 +41539,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep9 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41362,6 +41581,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep10 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41403,6 +41623,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep11 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41444,6 +41665,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep12 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41485,6 +41707,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep13 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41526,6 +41749,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep14 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41567,6 +41791,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep15 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41608,6 +41833,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep16 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41649,6 +41875,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep17 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41690,6 +41917,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep18 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41731,6 +41959,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep19 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41772,6 +42001,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep20 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41813,6 +42043,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep21 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41854,6 +42085,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep22 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41895,6 +42127,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep23 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41936,6 +42169,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep24 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -41977,6 +42211,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep25 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42018,6 +42253,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep26 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42059,6 +42295,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep27 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42100,6 +42337,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep28 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42141,6 +42379,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep29 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42182,6 +42421,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep30 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42223,6 +42463,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep31 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42264,6 +42505,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep32 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42305,6 +42547,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep33 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42346,6 +42589,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep34 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42387,6 +42631,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep35 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42428,6 +42673,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep36 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42469,6 +42715,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep37 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42510,6 +42757,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep38 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42551,6 +42799,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep39 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42592,6 +42841,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep40 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42633,6 +42883,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep41 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42674,6 +42925,7 @@
         "corrosion damage": -1.4,
         "hull damage": -100,
         "slowing damage": -18,
+        "submunition_2": "wep42 print",
         "submunitions": [
           {
             "type": "wep static(T3)",
@@ -42839,6 +43091,7 @@
     {
       "name": "asteroid fragment(T3)",
       "weapon": {
+        "submunition_2": "spin1 print left",
         "inaccuracy": 360,
         "velocity": -65,
         "random velocity": 20,
@@ -42970,11 +43223,11 @@
         "sound": "ionball",
         "fire effect": "finisher sparks",
         "hit effect": "ionball ring",
-        "hit effect 2": "ionball impact",
-        "hit effect 3": "ionball fragment",
+        "hit effect_2": "ionball impact",
+        "hit effect_3": "ionball fragment",
         "live effect": "ionball spark",
-        "live effect 2": "ionball trail",
-        "live effect 3": "ionball twinkle",
+        "live effect_2": "ionball trail",
+        "live effect_3": "ionball twinkle",
         "inaccuracy": 0.2,
         "velocity": 9,
         "lifetime": 200,
@@ -43235,8 +43488,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "inaccuracy": 4,
         "velocity": 7,
@@ -43300,7 +43553,7 @@
         "sound": "rocket",
         "icon": "icon/mhd",
         "hit effect": "mhd explosion",
-        "hit effect 2": "mhd spark",
+        "hit effect_2": "mhd spark",
         "die effect": "small explosion",
         "inaccuracy": 3,
         "velocity": 12,
@@ -43812,7 +44065,7 @@
         "icon": "icon/piercer",
         "fire effect": "piercer fire",
         "hit effect": "piercer impact",
-        "hit effect 2": "piercer explosion",
+        "hit effect_2": "piercer explosion",
         "die effect": "piercer death",
         "inaccuracy": 1.5,
         "velocity": 18,
@@ -43867,7 +44120,7 @@
         },
         "sound": "detainer",
         "hit effect": "detainer impact",
-        "hit effect 2": "detainer smoke",
+        "hit effect_2": "detainer smoke",
         "live effect": "detainer sparks",
         "inaccuracy": 0.5,
         "velocity": 14,
@@ -44712,7 +44965,7 @@
         "hardpoint sprite": "hardpoint/pug gridfire turret",
         "fire effect": "gridfire fire",
         "hit effect": "gridfire hit",
-        "hit effect 2": "gridfire cloud",
+        "hit effect_2": "gridfire cloud",
         "sound": "gridfire",
         "phasing": true,
         "velocity": 1440,
@@ -44852,7 +45105,7 @@
         "sound": "ranseur",
         "fire effect": "ranseur",
         "hit effect": "jump drive",
-        "hit effect 2": "disruptor impact",
+        "hit effect_2": "disruptor impact",
         "lifetime": 1,
         "reload": 100,
         "velocity": 600,
@@ -45345,8 +45598,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "stream": true,
         "reload": 330,
@@ -45418,8 +45671,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "stream": true,
         "safe": true,
@@ -45492,8 +45745,8 @@
         "icon": "icon/emp",
         "fire effect": "emp torpedo fire",
         "hit effect": "nuke explosion",
-        "hit effect 2": "emp ring",
-        "hit effect 3": "emp spark",
+        "hit effect_2": "emp ring",
+        "hit effect_3": "emp spark",
         "die effect": "tiny explosion",
         "safe": true,
         "burst count": 3,
@@ -45565,8 +45818,8 @@
         },
         "sound": "ember tear",
         "hit effect": "ember tear spark",
-        "hit effect 2": "ember tear impact",
-        "hit effect 3": "ember tear vortex",
+        "hit effect_2": "ember tear impact",
+        "hit effect_3": "ember tear vortex",
         "fire effect": "ember tear fire",
         "velocity": 800,
         "inaccuracy": 0,
@@ -45766,7 +46019,7 @@
       "weapon": {
         "sound": "composer",
         "hit effect": "composed",
-        "hit effect 2": "drained",
+        "hit effect_2": "drained",
         "inaccuracy": 45,
         "velocity": 660,
         "lifetime": 1,
@@ -45878,8 +46131,8 @@
         "icon": "icon/dragonflame",
         "fire effect": "dragonflame",
         "hit effect": "bright hit",
-        "hit effect 2": "dragonflame plasma",
-        "hit effect 3": "dragonflame debris",
+        "hit effect_2": "dragonflame plasma",
+        "hit effect_3": "dragonflame debris",
         "velocity": 2000,
         "lifetime": 1,
         "reload": 180,
@@ -46595,7 +46848,7 @@
         "sound": "sjeja lance",
         "icon": "icon/hv spike",
         "fire effect": "moonbeam fleck",
-        "fire effect 2": "electron impact",
+        "fire effect_2": "electron impact",
         "hit effect": "torpedo hit",
         "cluster": true,
         "velocity": 320,
@@ -46763,8 +47016,10 @@
           "frame rate": 30
         },
         "hardpoint sprite": "hardpoint/sunbeam turret",
-        "hardpoint offset": -2,
-        "hardpoint offset 2": 12,
+        "hardpoint offset": {
+          "hardpoint offset_1": -2,
+          "hardpoint offset_2": 12
+        },
         "sound": "sunbeam",
         "hit effect": "sunbeam impact",
         "inaccuracy": 0.2,
@@ -47066,5 +47321,5 @@
       "pluginId": "Zuckungs list/boss.loot"
     }
   ],
-  "parsedAt": "2026-07-03T07:56:11.612Z"
+  "parsedAt": "2026-07-03T13:00:17.204Z"
 }

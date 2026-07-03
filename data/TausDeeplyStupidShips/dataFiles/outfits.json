@@ -1080,7 +1080,7 @@
       "sound": "rocket",
       "icon": "ship/boxwing",
       "hit effect": "boxwing explosion",
-      "hit effect 2": "mhd spark",
+      "hit effect_2": "mhd spark",
       "die effect": "small explosion",
       "inaccuracy": 3,
       "velocity": 10,
@@ -2041,8 +2041,10 @@
       "firing heat": 70,
       "shield damage": 200,
       "hull damage": 250,
-      "damage dropoff": 0,
-      "damage dropoff 2": 500,
+      "damage dropoff": {
+        "damage dropoff_1": 0,
+        "damage dropoff_2": 500
+      },
       "dropoff modifier": 2,
       "acceleration": 10
     },

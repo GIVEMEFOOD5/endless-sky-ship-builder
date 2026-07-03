@@ -181,7 +181,7 @@
       "sound": "tracker",
       "hit effect": "piercer explosion",
       "live effect": "vretlure a",
-      "live effect 2": "vretlure b",
+      "live effect_2": "vretlure b",
       "fire effect": "vretlure b",
       "inaccuracy": 0.5,
       "velocity": 23,
@@ -7425,8 +7425,10 @@
       "minable damage": 1.2,
       "heat damage": 40,
       "piercing": 0.3,
-      "damage dropoff": 50,
-      "damage dropoff 2": 150,
+      "damage dropoff": {
+        "damage dropoff_1": 50,
+        "damage dropoff_2": 150
+      },
       "parallel": true
     },
     "description": "A short-ranged burst laser. While not the most powerful of its size, it can partially pierce through shields. Though, the damage drops significantly over range.",
@@ -15679,6 +15681,7 @@
       "hardpoint offset": 1,
       "sound": "gw blance",
       "hit effect": "jump drive",
+      "submunition_2": "lar die effect",
       "inaccuracy": 0.1,
       "turret turn": 3,
       "velocity": 500,
@@ -15912,7 +15915,7 @@
       "sound": "piercer",
       "icon": "icon/hasus",
       "hit effect": "ionic afterburner",
-      "hit effect 2": "piercer impact",
+      "hit effect_2": "piercer impact",
       "die effect": "piercer impact",
       "inaccuracy": 5,
       "velocity": 16,
@@ -16070,10 +16073,10 @@
       "sound": "utvr40 fire",
       "icon": "icon/hasus",
       "fire effect": "coran fire",
-      "fire effect 2": "coran spark",
+      "fire effect_2": "coran spark",
       "live effect": "rail sparks",
       "hit effect": "coran spark",
-      "hit effect 2": "coran fire",
+      "hit effect_2": "coran fire",
       "inaccuracy": 0.1,
       "velocity": 25,
       "lifetime": 400,
@@ -19126,7 +19129,7 @@
       "sound": "gw edistort4",
       "hit effect": "masenar impact",
       "live effect": "kuakuran trail",
-      "hit effect 2": "kuakuran hit",
+      "hit effect_2": "kuakuran hit",
       "inaccuracy": 2,
       "velocity": 25,
       "lifetime": 20,
@@ -23812,8 +23815,10 @@
       "firing energy": 40,
       "firing heat": 80,
       "hit force": 40,
-      "damage dropoff": 300,
-      "damage dropoff 2": 600,
+      "damage dropoff": {
+        "damage dropoff_1": 300,
+        "damage dropoff_2": 600
+      },
       "shield damage": 100,
       "hull damage": 43,
       "piercing": 0.05,
@@ -36041,6 +36046,8 @@
     "weapon": {
       "sound": "gw edistort2",
       "fire effect": "typhoon fire",
+      "submunition_2": "ro'ohrek med",
+      "submunition_3": "ro'ohrek large",
       "inaccuracy": 0.1,
       "turret turn": 3.2,
       "velocity": 15,
@@ -38865,7 +38872,7 @@
       "inaccuracy": 0,
       "fire effect": "vordai fire",
       "hit effect": "vordai hit dust",
-      "hit effect 2": "vordai hit spark",
+      "hit effect_2": "vordai hit spark",
       "velocity": 300,
       "burst reload": 1,
       "burst count": 5,
@@ -42958,10 +42965,10 @@
       "sprite": "projectile/lymaou",
       "die effect": "drak bolt impact",
       "hit effect": "lymaou impact",
-      "hit effect 2": "nuke explosion",
+      "hit effect_2": "nuke explosion",
       "live effect": "lymaou trail",
-      "live effect 2": "antimatter spark",
-      "live effect 3": "antimatter dust",
+      "live effect_2": "antimatter spark",
+      "live effect_3": "antimatter dust",
       "inaccuracy": 1,
       "velocity": 35,
       "lifetime": 750,
@@ -44135,6 +44142,7 @@
       "sound": "sidewinder",
       "icon": "icon/varsrel",
       "hit effect": "small explosion",
+      "submunition_2": "varsrel 1",
       "inaccuracy": 0.1,
       "range override": 1200,
       "velocity": 100,
@@ -44213,6 +44221,7 @@
         "frame rate": 0,
         "start frame": 1
       },
+      "submunition_2": "varsrel 2",
       "hit effect": "small explosion",
       "lifetime": 20,
       "drag": 0.13,
@@ -44278,6 +44287,7 @@
         "frame rate": 0,
         "start frame": 2
       },
+      "submunition_2": "varsrel 3",
       "hit effect": "small explosion",
       "lifetime": 20,
       "drag": 0.1,
@@ -44343,6 +44353,7 @@
         "frame rate": 0,
         "start frame": 3
       },
+      "submunition_2": "varsrel 4",
       "hit effect": "small explosion",
       "lifetime": 20,
       "drag": 0.1,
@@ -44543,7 +44554,7 @@
       "icon": "icon/javelin",
       "fire effect": "ronc fire",
       "hit effect": "tiny explosion",
-      "hit effect 2": "smoke",
+      "hit effect_2": "smoke",
       "live effect": "ronc dust",
       "inaccuracy": 2.1,
       "velocity": 30,
@@ -44598,7 +44609,7 @@
       "icon": "icon/javelin",
       "fire effect": "ronc fire",
       "hit effect": "tiny explosion",
-      "hit effect 2": "smoke",
+      "hit effect_2": "smoke",
       "live effect": "ronc dust",
       "inaccuracy": 2.1,
       "velocity": 30,
@@ -47885,11 +47896,11 @@
       },
       "sound": "ultaka nova bombard fire",
       "hit effect": "ultaka nova hit 3",
-      "hit effect 2": "ultaka nova hit eff1",
-      "hit effect 3": "ultaka nova hit eff2",
+      "hit effect_2": "ultaka nova hit eff1",
+      "hit effect_3": "ultaka nova hit eff2",
       "die effect": "ultaka nova hit eff1",
-      "die effect 2": "ultaka nova hit eff2",
-      "die effect 3": "ultaka nova hit 3",
+      "die effect_2": "ultaka nova hit eff2",
+      "die effect_3": "ultaka nova hit 3",
       "inaccuracy": 3,
       "turret turn": 1.8,
       "velocity": 60,
@@ -48478,7 +48489,7 @@
       "velocity": 30,
       "lifetime": 600,
       "hit effect": "antimatter dust",
-      "hit effect 2": "nuke explosion",
+      "hit effect_2": "nuke explosion",
       "hit force": 9600,
       "shield damage": 3000000,
       "hull damage": 3000000,
@@ -48520,7 +48531,7 @@
       "velocity": 75,
       "lifetime": 2000,
       "hit effect": "antimatter dust",
-      "hit effect 2": "ultaka cosmic ripper hit",
+      "hit effect_2": "ultaka cosmic ripper hit",
       "reload": 200,
       "burst count": 3,
       "burst reload": 12,
@@ -50070,7 +50081,7 @@
       "velocity": 12,
       "lifetime": 200,
       "hit effect": "antimatter dust",
-      "hit effect 2": "nuke explosion",
+      "hit effect_2": "nuke explosion",
       "reload": 150,
       "firing energy": 5010,
       "firing heat": 2870,
@@ -50149,7 +50160,7 @@
       "lifetime": 200,
       "fire effect": "Ultaka AM fire",
       "hit effect": "antimatter dust",
-      "hit effect 2": "nuke explosion",
+      "hit effect_2": "nuke explosion",
       "reload": 75,
       "firing energy": 2505,
       "firing heat": 1470,
@@ -50221,7 +50232,7 @@
       "velocity": 22,
       "lifetime": 300,
       "hit effect": "ultaka vanquisher hit",
-      "hit effect 2": "ultaka vanquisher hit2",
+      "hit effect_2": "ultaka vanquisher hit2",
       "reload": 300,
       "firing energy": 9010,
       "firing heat": 8870,
@@ -50298,9 +50309,9 @@
       "velocity": 20,
       "lifetime": 600,
       "fire effect": "ultaka destroyer fire",
-      "fire effect 2": "ultaka riftspire",
+      "fire effect_2": "ultaka riftspire",
       "hit effect": "antimatter dust",
-      "hit effect 2": "nuke explosion",
+      "hit effect_2": "nuke explosion",
       "reload": 300,
       "firing energy": 90100,
       "firing heat": 88700,
@@ -50530,7 +50541,7 @@
       "velocity": 20,
       "lifetime": 300,
       "hit effect": "antimatter dust",
-      "hit effect 2": "nuke explosion",
+      "hit effect_2": "nuke explosion",
       "reload": 200,
       "firing energy": 500,
       "firing heat": 270,
@@ -51569,6 +51580,7 @@
     "weapon": {
       "velocity": 1,
       "turret turn": 20,
+      "submunition_2": "urxesh spawner 2",
       "range override": 5000,
       "velocity override": 50,
       "sound": "gw edistort5",
@@ -51701,6 +51713,7 @@
       "velocity": 300,
       "live effect": "urxesh live",
       "phasing": true,
+      "submunition_2": "urxesh print 1b",
       "submunitions": [
         {
           "type": "urxesh turn 1a",
@@ -51756,6 +51769,7 @@
       "velocity": 300,
       "live effect": "urxesh live",
       "phasing": true,
+      "submunition_2": "urxesh print 2b",
       "submunitions": [
         {
           "type": "urxesh turn 2a",
@@ -52041,7 +52055,7 @@
       "velocity": 5000,
       "lifetime": 1,
       "hit effect": "urxesh live",
-      "hit effect 2": "ultaka cosmic ripper hit",
+      "hit effect_2": "ultaka cosmic ripper hit",
       "sound": "gw urza impact",
       "reload": 930,
       "firing energy": 5520,
@@ -52138,6 +52152,7 @@
       },
       "lifetime": 10,
       "velocity": 60,
+      "submunition_2": "hausiar wait 2",
       "phasing": true,
       "submunitions": [
         {
@@ -52266,6 +52281,7 @@
       },
       "lifetime": 10,
       "velocity": 60,
+      "submunition_2": "hausiar wait 3",
       "phasing": true,
       "submunitions": [
         {
@@ -52331,6 +52347,7 @@
       },
       "lifetime": 10,
       "velocity": 60,
+      "submunition_2": "hausiar wait 4",
       "phasing": true,
       "submunitions": [
         {
@@ -55775,6 +55792,7 @@
       "turret turn": 180,
       "icon": "icon/sikarl",
       "hit effect": "small explosion",
+      "submunition_2": "sikarl 1",
       "inaccuracy": 0.1,
       "range override": 1200,
       "split range": 480,
@@ -55839,6 +55857,7 @@
         "frame rate": 0,
         "start frame": 2
       },
+      "submunition_2": "sikarl 2",
       "hit effect": "small explosion",
       "split range": 425,
       "lifetime": 1,
@@ -55906,6 +55925,7 @@
         "frame rate": 0,
         "start frame": 1
       },
+      "submunition_2": "sikarl 3",
       "hit effect": "small explosion",
       "split range": 425,
       "lifetime": 1,
@@ -55973,6 +55993,7 @@
         "frame rate": 0,
         "start frame": 0
       },
+      "submunition_2": "sikarl 4",
       "hit effect": "small explosion",
       "split range": 425,
       "lifetime": 1,
@@ -56040,6 +56061,7 @@
         "frame rate": 0,
         "start frame": 0
       },
+      "submunition_2": "sikarl 5",
       "hit effect": "small explosion",
       "split range": 425,
       "lifetime": 1,
@@ -56108,6 +56130,7 @@
         "frame rate": 0,
         "start frame": 0
       },
+      "submunition_2": "sikarl 6",
       "hit effect": "small explosion",
       "split range": 500,
       "lifetime": 1,
@@ -56176,6 +56199,7 @@
         "frame rate": 0,
         "start frame": 0
       },
+      "submunition_2": "sikarl 7",
       "hit effect": "small explosion",
       "split range": 500,
       "lifetime": 1,
@@ -56244,6 +56268,7 @@
         "frame rate": 0,
         "start frame": 0
       },
+      "submunition_2": "sikarl 8",
       "hit effect": "small explosion",
       "split range": 500,
       "lifetime": 1,
@@ -56312,6 +56337,7 @@
         "frame rate": 0,
         "start frame": 0
       },
+      "submunition_2": "sikarl 9",
       "hit effect": "small explosion",
       "split range": 500,
       "lifetime": 1,
@@ -56380,6 +56406,7 @@
         "frame rate": 0,
         "start frame": 0
       },
+      "submunition_2": "sikarl 10",
       "hit effect": "small explosion",
       "split range": 500,
       "lifetime": 1,
@@ -59820,6 +59847,7 @@
       "hardpoint offset": 0,
       "turret turn": 360,
       "fire effect": "insilra fire2",
+      "submunition_2": "insilra push delay",
       "range override": 1800,
       "velocity override": 2000,
       "lifetime": 1,
@@ -59872,6 +59900,7 @@
       "blast radius": 2000,
       "trigger radius": 2000,
       "lifetime": 2,
+      "submunition_2": "insilra pull2 delay",
       "no damage scaling": true,
       "gravitational": true,
       "safe": true,
@@ -59990,7 +60019,7 @@
       "blast radius": 1050,
       "trigger radius": 1050,
       "die effect": "insilra push die",
-      "die effect 2": "insilra push die2",
+      "die effect_2": "insilra push die2",
       "lifetime": 1,
       "gravitational": true,
       "safe": true
@@ -60545,6 +60574,7 @@
       "reload": 1,
       "firing energy": 0.5,
       "firing heat": 1.2,
+      "submunition_2": "xinbullet 2",
       "cluster": true,
       "hit effect": "bullet impact",
       "submunitions": [
@@ -60694,8 +60724,8 @@
       "stream": true,
       "icon": "icon/nuke",
       "hit effect": "nuke explosion",
-      "hit effect 2": "nuke residue fast",
-      "hit effect 3": "nuke residue slow",
+      "hit effect_2": "nuke residue fast",
+      "hit effect_3": "nuke residue slow",
       "die effect": "missile death",
       "inaccuracy": 0.5,
       "velocity": 12,
@@ -62399,7 +62429,7 @@
       "firing force": 150,
       "firing heat": 240,
       "hit force": 150,
-      "firing force 2": 150,
+      "firing force_2": 150,
       "shield damage": 900,
       "hull damage": 2100,
       "blast radius": 55,
@@ -62472,7 +62502,7 @@
       "firing force": 150,
       "firing heat": 240,
       "hit force": 150,
-      "firing force 2": 150,
+      "firing force_2": 150,
       "shield damage": 900,
       "hull damage": 2100,
       "blast radius": 55,
@@ -63141,9 +63171,9 @@
       "icon": "icon/javelin",
       "fire effect": "ronc fire",
       "hit effect": "tiny explosion",
-      "hit effect 2": "smoke",
+      "hit effect_2": "smoke",
       "live effect": "ronc dust",
-      "live effect 2": "ronc flare",
+      "live effect_2": "ronc flare",
       "inaccuracy": 4,
       "velocity": 30,
       "random velocity": 2,
@@ -63306,9 +63336,9 @@
       "icon": "icon/javelin",
       "fire effect": "ronc fire",
       "hit effect": "tiny explosion",
-      "hit effect 2": "smoke",
+      "hit effect_2": "smoke",
       "live effect": "ronc dust",
-      "live effect 2": "ronc flare",
+      "live effect_2": "ronc flare",
       "inaccuracy": 8,
       "velocity": 30,
       "random velocity": 2,
@@ -66630,6 +66660,7 @@
   {
     "name": "anshru spawn delay 1 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 2 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66659,6 +66690,7 @@
   {
     "name": "anshru spawn delay 2 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 3 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66688,6 +66720,7 @@
   {
     "name": "anshru spawn delay 3 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 4 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66717,6 +66750,7 @@
   {
     "name": "anshru spawn delay 4 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 5 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66746,6 +66780,7 @@
   {
     "name": "anshru spawn delay 5 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 6 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66775,6 +66810,7 @@
   {
     "name": "anshru spawn delay 6 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 7 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66804,6 +66840,7 @@
   {
     "name": "anshru spawn delay 7 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 8 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66833,6 +66870,7 @@
   {
     "name": "anshru spawn delay 8 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 9 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66862,6 +66900,7 @@
   {
     "name": "anshru spawn delay 9 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 10 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66891,6 +66930,7 @@
   {
     "name": "anshru spawn delay 10 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 11 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66920,6 +66960,7 @@
   {
     "name": "anshru spawn delay 11 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 12 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66949,6 +66990,7 @@
   {
     "name": "anshru spawn delay 12 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 13 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -66978,6 +67020,7 @@
   {
     "name": "anshru spawn delay 13 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 14 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67007,6 +67050,7 @@
   {
     "name": "anshru spawn delay 14 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 15 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67036,6 +67080,7 @@
   {
     "name": "anshru spawn delay 15 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 16 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67065,6 +67110,7 @@
   {
     "name": "anshru spawn delay 16 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 17 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67094,6 +67140,7 @@
   {
     "name": "anshru spawn delay 17 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 18 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67123,6 +67170,7 @@
   {
     "name": "anshru spawn delay 18 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 19 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67152,6 +67200,7 @@
   {
     "name": "anshru spawn delay 19 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 20 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67181,6 +67230,7 @@
   {
     "name": "anshru spawn delay 20 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 21 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67210,6 +67260,7 @@
   {
     "name": "anshru spawn delay 21 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 22 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67239,6 +67290,7 @@
   {
     "name": "anshru spawn delay 22 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 23 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67268,6 +67320,7 @@
   {
     "name": "anshru spawn delay 23 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 24 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67297,6 +67350,7 @@
   {
     "name": "anshru spawn delay 24 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 25 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67326,6 +67380,7 @@
   {
     "name": "anshru spawn delay 25 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 26 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67355,6 +67410,7 @@
   {
     "name": "anshru spawn delay 26 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 27 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67384,6 +67440,7 @@
   {
     "name": "anshru spawn delay 27 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 28 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67413,6 +67470,7 @@
   {
     "name": "anshru spawn delay 28 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 29 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67442,6 +67500,7 @@
   {
     "name": "anshru spawn delay 29 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 30 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67471,6 +67530,7 @@
   {
     "name": "anshru spawn delay 30 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 31 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67500,6 +67560,7 @@
   {
     "name": "anshru spawn delay 31 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 32 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67529,6 +67590,7 @@
   {
     "name": "anshru spawn delay 32 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 33 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67558,6 +67620,7 @@
   {
     "name": "anshru spawn delay 33 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 34 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67587,6 +67650,7 @@
   {
     "name": "anshru spawn delay 34 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 35 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67616,6 +67680,7 @@
   {
     "name": "anshru spawn delay 35 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 36 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67645,6 +67710,7 @@
   {
     "name": "anshru spawn delay 36 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 37 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67674,6 +67740,7 @@
   {
     "name": "anshru spawn delay 37 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 38 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67703,6 +67770,7 @@
   {
     "name": "anshru spawn delay 38 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 39 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67732,6 +67800,7 @@
   {
     "name": "anshru spawn delay 39 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 40 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67761,6 +67830,7 @@
   {
     "name": "anshru spawn delay 40 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 41 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67790,6 +67860,7 @@
   {
     "name": "anshru spawn delay 41 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 42 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67819,6 +67890,7 @@
   {
     "name": "anshru spawn delay 42 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 43 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67848,6 +67920,7 @@
   {
     "name": "anshru spawn delay 43 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 44 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67877,6 +67950,7 @@
   {
     "name": "anshru spawn delay 44 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 45 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67906,6 +67980,7 @@
   {
     "name": "anshru spawn delay 45 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 46 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67935,6 +68010,7 @@
   {
     "name": "anshru spawn delay 46 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 47 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67964,6 +68040,7 @@
   {
     "name": "anshru spawn delay 47 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 48 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -67993,6 +68070,7 @@
   {
     "name": "anshru spawn delay 48 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 49 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68022,6 +68100,7 @@
   {
     "name": "anshru spawn delay 49 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 50 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68051,6 +68130,7 @@
   {
     "name": "anshru spawn delay 50 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 51 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68080,6 +68160,7 @@
   {
     "name": "anshru spawn delay 51 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 52 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68109,6 +68190,7 @@
   {
     "name": "anshru spawn delay 52 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 53 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68138,6 +68220,7 @@
   {
     "name": "anshru spawn delay 53 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 54 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68167,6 +68250,7 @@
   {
     "name": "anshru spawn delay 54 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 55 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68196,6 +68280,7 @@
   {
     "name": "anshru spawn delay 55 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 56 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68225,6 +68310,7 @@
   {
     "name": "anshru spawn delay 56 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 57 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68254,6 +68340,7 @@
   {
     "name": "anshru spawn delay 57 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 58 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68283,6 +68370,7 @@
   {
     "name": "anshru spawn delay 58 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 59 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68312,6 +68400,7 @@
   {
     "name": "anshru spawn delay 59 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 60 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68341,6 +68430,7 @@
   {
     "name": "anshru spawn delay 60 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 61 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68370,6 +68460,7 @@
   {
     "name": "anshru spawn delay 61 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 62 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68399,6 +68490,7 @@
   {
     "name": "anshru spawn delay 62 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 63 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68428,6 +68520,7 @@
   {
     "name": "anshru spawn delay 63 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 64 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68457,6 +68550,7 @@
   {
     "name": "anshru spawn delay 64 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 65 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68486,6 +68580,7 @@
   {
     "name": "anshru spawn delay 65 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 66 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68515,6 +68610,7 @@
   {
     "name": "anshru spawn delay 66 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 67 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68544,6 +68640,7 @@
   {
     "name": "anshru spawn delay 67 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 68 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68573,6 +68670,7 @@
   {
     "name": "anshru spawn delay 68 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 69 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68602,6 +68700,7 @@
   {
     "name": "anshru spawn delay 69 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 70 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68631,6 +68730,7 @@
   {
     "name": "anshru spawn delay 70 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 71 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68660,6 +68760,7 @@
   {
     "name": "anshru spawn delay 71 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 72 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68689,6 +68790,7 @@
   {
     "name": "anshru spawn delay 72 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 73 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68718,6 +68820,7 @@
   {
     "name": "anshru spawn delay 73 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 74 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68747,6 +68850,7 @@
   {
     "name": "anshru spawn delay 74 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 75 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68776,6 +68880,7 @@
   {
     "name": "anshru spawn delay 75 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 76 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68805,6 +68910,7 @@
   {
     "name": "anshru spawn delay 76 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 77 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68834,6 +68940,7 @@
   {
     "name": "anshru spawn delay 77 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 78 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68863,6 +68970,7 @@
   {
     "name": "anshru spawn delay 78 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 79 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68892,6 +69000,7 @@
   {
     "name": "anshru spawn delay 79 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 80 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68921,6 +69030,7 @@
   {
     "name": "anshru spawn delay 80 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 81 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68950,6 +69060,7 @@
   {
     "name": "anshru spawn delay 81 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 82 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -68979,6 +69090,7 @@
   {
     "name": "anshru spawn delay 82 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 83 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69008,6 +69120,7 @@
   {
     "name": "anshru spawn delay 83 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 84 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69037,6 +69150,7 @@
   {
     "name": "anshru spawn delay 84 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 85 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69066,6 +69180,7 @@
   {
     "name": "anshru spawn delay 85 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 86 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69095,6 +69210,7 @@
   {
     "name": "anshru spawn delay 86 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 87 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69124,6 +69240,7 @@
   {
     "name": "anshru spawn delay 87 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 88 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69153,6 +69270,7 @@
   {
     "name": "anshru spawn delay 88 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 89 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69182,6 +69300,7 @@
   {
     "name": "anshru spawn delay 89 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 90 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69211,6 +69330,7 @@
   {
     "name": "anshru spawn delay 90 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 91 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69240,6 +69360,7 @@
   {
     "name": "anshru spawn delay 91 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 92 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69269,6 +69390,7 @@
   {
     "name": "anshru spawn delay 92 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 93 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69298,6 +69420,7 @@
   {
     "name": "anshru spawn delay 93 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 94 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69327,6 +69450,7 @@
   {
     "name": "anshru spawn delay 94 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 95 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69356,6 +69480,7 @@
   {
     "name": "anshru spawn delay 95 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 96 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69385,6 +69510,7 @@
   {
     "name": "anshru spawn delay 96 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 97 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69414,6 +69540,7 @@
   {
     "name": "anshru spawn delay 97 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 98 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69443,6 +69570,7 @@
   {
     "name": "anshru spawn delay 98 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 99 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69472,6 +69600,7 @@
   {
     "name": "anshru spawn delay 99 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 100 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69501,6 +69630,7 @@
   {
     "name": "anshru spawn delay 100 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 101 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69530,6 +69660,7 @@
   {
     "name": "anshru spawn delay 101 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 102 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69559,6 +69690,7 @@
   {
     "name": "anshru spawn delay 102 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 103 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69588,6 +69720,7 @@
   {
     "name": "anshru spawn delay 103 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 104 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69617,6 +69750,7 @@
   {
     "name": "anshru spawn delay 104 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 105 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69646,6 +69780,7 @@
   {
     "name": "anshru spawn delay 105 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 106 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69675,6 +69810,7 @@
   {
     "name": "anshru spawn delay 106 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 107 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69704,6 +69840,7 @@
   {
     "name": "anshru spawn delay 107 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 108 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69733,6 +69870,7 @@
   {
     "name": "anshru spawn delay 108 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 109 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69762,6 +69900,7 @@
   {
     "name": "anshru spawn delay 109 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 110 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69791,6 +69930,7 @@
   {
     "name": "anshru spawn delay 110 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 111 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69820,6 +69960,7 @@
   {
     "name": "anshru spawn delay 111 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 112 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69849,6 +69990,7 @@
   {
     "name": "anshru spawn delay 112 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 113 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69878,6 +70020,7 @@
   {
     "name": "anshru spawn delay 113 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 114 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69907,6 +70050,7 @@
   {
     "name": "anshru spawn delay 114 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 115 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69936,6 +70080,7 @@
   {
     "name": "anshru spawn delay 115 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 116 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69965,6 +70110,7 @@
   {
     "name": "anshru spawn delay 116 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 117 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -69994,6 +70140,7 @@
   {
     "name": "anshru spawn delay 117 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 118 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70023,6 +70170,7 @@
   {
     "name": "anshru spawn delay 118 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 119 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70052,6 +70200,7 @@
   {
     "name": "anshru spawn delay 119 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 120 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70081,6 +70230,7 @@
   {
     "name": "anshru spawn delay 120 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 121 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70110,6 +70260,7 @@
   {
     "name": "anshru spawn delay 121 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 122 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70139,6 +70290,7 @@
   {
     "name": "anshru spawn delay 122 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 123 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70168,6 +70320,7 @@
   {
     "name": "anshru spawn delay 123 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 124 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70197,6 +70350,7 @@
   {
     "name": "anshru spawn delay 124 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 125 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70226,6 +70380,7 @@
   {
     "name": "anshru spawn delay 125 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 126 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70255,6 +70410,7 @@
   {
     "name": "anshru spawn delay 126 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 127 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70284,6 +70440,7 @@
   {
     "name": "anshru spawn delay 127 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 128 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70313,6 +70470,7 @@
   {
     "name": "anshru spawn delay 128 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 129 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70342,6 +70500,7 @@
   {
     "name": "anshru spawn delay 129 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 130 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70371,6 +70530,7 @@
   {
     "name": "anshru spawn delay 130 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 131 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70400,6 +70560,7 @@
   {
     "name": "anshru spawn delay 131 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 132 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70429,6 +70590,7 @@
   {
     "name": "anshru spawn delay 132 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 133 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70458,6 +70620,7 @@
   {
     "name": "anshru spawn delay 133 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 134 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70487,6 +70650,7 @@
   {
     "name": "anshru spawn delay 134 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 135 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70516,6 +70680,7 @@
   {
     "name": "anshru spawn delay 135 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 136 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70545,6 +70710,7 @@
   {
     "name": "anshru spawn delay 136 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 137 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70574,6 +70740,7 @@
   {
     "name": "anshru spawn delay 137 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 138 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70603,6 +70770,7 @@
   {
     "name": "anshru spawn delay 138 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 139 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70632,6 +70800,7 @@
   {
     "name": "anshru spawn delay 139 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 140 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70661,6 +70830,7 @@
   {
     "name": "anshru spawn delay 140 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 141 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70690,6 +70860,7 @@
   {
     "name": "anshru spawn delay 141 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 142 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70719,6 +70890,7 @@
   {
     "name": "anshru spawn delay 142 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 143 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70748,6 +70920,7 @@
   {
     "name": "anshru spawn delay 143 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 144 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70777,6 +70950,7 @@
   {
     "name": "anshru spawn delay 144 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 145 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70806,6 +70980,7 @@
   {
     "name": "anshru spawn delay 145 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 146 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70835,6 +71010,7 @@
   {
     "name": "anshru spawn delay 146 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 147 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70864,6 +71040,7 @@
   {
     "name": "anshru spawn delay 147 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 148 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70893,6 +71070,7 @@
   {
     "name": "anshru spawn delay 148 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 149 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70922,6 +71100,7 @@
   {
     "name": "anshru spawn delay 149 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 150 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70951,6 +71130,7 @@
   {
     "name": "anshru spawn delay 150 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 151 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -70980,6 +71160,7 @@
   {
     "name": "anshru spawn delay 151 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 152 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71009,6 +71190,7 @@
   {
     "name": "anshru spawn delay 152 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 153 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71038,6 +71220,7 @@
   {
     "name": "anshru spawn delay 153 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 154 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71067,6 +71250,7 @@
   {
     "name": "anshru spawn delay 154 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 155 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71096,6 +71280,7 @@
   {
     "name": "anshru spawn delay 155 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 156 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71125,6 +71310,7 @@
   {
     "name": "anshru spawn delay 156 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 157 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71154,6 +71340,7 @@
   {
     "name": "anshru spawn delay 157 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 158 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71183,6 +71370,7 @@
   {
     "name": "anshru spawn delay 158 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 159 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71212,6 +71400,7 @@
   {
     "name": "anshru spawn delay 159 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 160 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71241,6 +71430,7 @@
   {
     "name": "anshru spawn delay 160 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 161 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71270,6 +71460,7 @@
   {
     "name": "anshru spawn delay 161 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 162 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71299,6 +71490,7 @@
   {
     "name": "anshru spawn delay 162 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 163 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71328,6 +71520,7 @@
   {
     "name": "anshru spawn delay 163 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 164 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71357,6 +71550,7 @@
   {
     "name": "anshru spawn delay 164 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 165 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71386,6 +71580,7 @@
   {
     "name": "anshru spawn delay 165 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 166 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71415,6 +71610,7 @@
   {
     "name": "anshru spawn delay 166 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 167 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71444,6 +71640,7 @@
   {
     "name": "anshru spawn delay 167 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 168 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71473,6 +71670,7 @@
   {
     "name": "anshru spawn delay 168 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 169 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71502,6 +71700,7 @@
   {
     "name": "anshru spawn delay 169 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 170 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71531,6 +71730,7 @@
   {
     "name": "anshru spawn delay 170 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 171 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71560,6 +71760,7 @@
   {
     "name": "anshru spawn delay 171 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 172 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71589,6 +71790,7 @@
   {
     "name": "anshru spawn delay 172 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 173 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71618,6 +71820,7 @@
   {
     "name": "anshru spawn delay 173 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 174 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71647,6 +71850,7 @@
   {
     "name": "anshru spawn delay 174 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 175 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71676,6 +71880,7 @@
   {
     "name": "anshru spawn delay 175 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 176 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71705,6 +71910,7 @@
   {
     "name": "anshru spawn delay 176 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 177 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71734,6 +71940,7 @@
   {
     "name": "anshru spawn delay 177 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 178 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71763,6 +71970,7 @@
   {
     "name": "anshru spawn delay 178 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 179 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71792,6 +72000,7 @@
   {
     "name": "anshru spawn delay 179 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 180 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71821,6 +72030,7 @@
   {
     "name": "anshru spawn delay 180 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 181 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71850,6 +72060,7 @@
   {
     "name": "anshru spawn delay 181 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 182 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71879,6 +72090,7 @@
   {
     "name": "anshru spawn delay 182 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 183 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71908,6 +72120,7 @@
   {
     "name": "anshru spawn delay 183 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 184 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71937,6 +72150,7 @@
   {
     "name": "anshru spawn delay 184 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 185 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71966,6 +72180,7 @@
   {
     "name": "anshru spawn delay 185 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 186 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -71995,6 +72210,7 @@
   {
     "name": "anshru spawn delay 186 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 187 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72024,6 +72240,7 @@
   {
     "name": "anshru spawn delay 187 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 188 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72053,6 +72270,7 @@
   {
     "name": "anshru spawn delay 188 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 189 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72082,6 +72300,7 @@
   {
     "name": "anshru spawn delay 189 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 190 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72111,6 +72330,7 @@
   {
     "name": "anshru spawn delay 190 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 191 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72140,6 +72360,7 @@
   {
     "name": "anshru spawn delay 191 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 192 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72169,6 +72390,7 @@
   {
     "name": "anshru spawn delay 192 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 193 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72198,6 +72420,7 @@
   {
     "name": "anshru spawn delay 193 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 194 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72227,6 +72450,7 @@
   {
     "name": "anshru spawn delay 194 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 195 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72256,6 +72480,7 @@
   {
     "name": "anshru spawn delay 195 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 196 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72285,6 +72510,7 @@
   {
     "name": "anshru spawn delay 196 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 197 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72314,6 +72540,7 @@
   {
     "name": "anshru spawn delay 197 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 198 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72343,6 +72570,7 @@
   {
     "name": "anshru spawn delay 198 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 199 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72372,6 +72600,7 @@
   {
     "name": "anshru spawn delay 199 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 200 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72401,6 +72630,7 @@
   {
     "name": "anshru spawn delay 200 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 201 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72430,6 +72660,7 @@
   {
     "name": "anshru spawn delay 201 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 202 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72459,6 +72690,7 @@
   {
     "name": "anshru spawn delay 202 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 203 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72488,6 +72720,7 @@
   {
     "name": "anshru spawn delay 203 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 204 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72517,6 +72750,7 @@
   {
     "name": "anshru spawn delay 204 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 205 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72546,6 +72780,7 @@
   {
     "name": "anshru spawn delay 205 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 206 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72575,6 +72810,7 @@
   {
     "name": "anshru spawn delay 206 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 207 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72604,6 +72840,7 @@
   {
     "name": "anshru spawn delay 207 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 208 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72633,6 +72870,7 @@
   {
     "name": "anshru spawn delay 208 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 209 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72662,6 +72900,7 @@
   {
     "name": "anshru spawn delay 209 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 210 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72691,6 +72930,7 @@
   {
     "name": "anshru spawn delay 210 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 211 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72720,6 +72960,7 @@
   {
     "name": "anshru spawn delay 211 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 212 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72749,6 +72990,7 @@
   {
     "name": "anshru spawn delay 212 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 213 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72778,6 +73020,7 @@
   {
     "name": "anshru spawn delay 213 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 214 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72807,6 +73050,7 @@
   {
     "name": "anshru spawn delay 214 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 215 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72836,6 +73080,7 @@
   {
     "name": "anshru spawn delay 215 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 216 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72865,6 +73110,7 @@
   {
     "name": "anshru spawn delay 216 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 217 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72894,6 +73140,7 @@
   {
     "name": "anshru spawn delay 217 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 218 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72923,6 +73170,7 @@
   {
     "name": "anshru spawn delay 218 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 219 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72952,6 +73200,7 @@
   {
     "name": "anshru spawn delay 219 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 220 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -72981,6 +73230,7 @@
   {
     "name": "anshru spawn delay 220 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 221 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73010,6 +73260,7 @@
   {
     "name": "anshru spawn delay 221 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 222 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73039,6 +73290,7 @@
   {
     "name": "anshru spawn delay 222 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 223 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73068,6 +73320,7 @@
   {
     "name": "anshru spawn delay 223 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 224 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73097,6 +73350,7 @@
   {
     "name": "anshru spawn delay 224 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 225 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73126,6 +73380,7 @@
   {
     "name": "anshru spawn delay 225 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 226 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73155,6 +73410,7 @@
   {
     "name": "anshru spawn delay 226 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 227 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73184,6 +73440,7 @@
   {
     "name": "anshru spawn delay 227 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 228 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73213,6 +73470,7 @@
   {
     "name": "anshru spawn delay 228 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 229 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73242,6 +73500,7 @@
   {
     "name": "anshru spawn delay 229 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 230 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73271,6 +73530,7 @@
   {
     "name": "anshru spawn delay 230 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 231 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73300,6 +73560,7 @@
   {
     "name": "anshru spawn delay 231 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 232 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73329,6 +73590,7 @@
   {
     "name": "anshru spawn delay 232 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 233 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73358,6 +73620,7 @@
   {
     "name": "anshru spawn delay 233 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 234 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73387,6 +73650,7 @@
   {
     "name": "anshru spawn delay 234 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 235 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73416,6 +73680,7 @@
   {
     "name": "anshru spawn delay 235 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 236 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73445,6 +73710,7 @@
   {
     "name": "anshru spawn delay 236 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 237 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73474,6 +73740,7 @@
   {
     "name": "anshru spawn delay 237 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 238 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73503,6 +73770,7 @@
   {
     "name": "anshru spawn delay 238 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 239 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73532,6 +73800,7 @@
   {
     "name": "anshru spawn delay 239 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 240 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73561,6 +73830,7 @@
   {
     "name": "anshru spawn delay 240 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 241 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73590,6 +73860,7 @@
   {
     "name": "anshru spawn delay 241 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 242 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73619,6 +73890,7 @@
   {
     "name": "anshru spawn delay 242 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 243 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73648,6 +73920,7 @@
   {
     "name": "anshru spawn delay 243 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 244 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73677,6 +73950,7 @@
   {
     "name": "anshru spawn delay 244 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 245 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73706,6 +73980,7 @@
   {
     "name": "anshru spawn delay 245 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 246 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73735,6 +74010,7 @@
   {
     "name": "anshru spawn delay 246 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 247 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73764,6 +74040,7 @@
   {
     "name": "anshru spawn delay 247 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 248 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73793,6 +74070,7 @@
   {
     "name": "anshru spawn delay 248 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 249 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73822,6 +74100,7 @@
   {
     "name": "anshru spawn delay 249 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 250 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73851,6 +74130,7 @@
   {
     "name": "anshru spawn delay 250 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 251 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73880,6 +74160,7 @@
   {
     "name": "anshru spawn delay 251 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 252 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73909,6 +74190,7 @@
   {
     "name": "anshru spawn delay 252 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 253 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73938,6 +74220,7 @@
   {
     "name": "anshru spawn delay 253 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 254 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73967,6 +74250,7 @@
   {
     "name": "anshru spawn delay 254 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 255 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -73996,6 +74280,7 @@
   {
     "name": "anshru spawn delay 255 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 256 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74025,6 +74310,7 @@
   {
     "name": "anshru spawn delay 256 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 257 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74054,6 +74340,7 @@
   {
     "name": "anshru spawn delay 257 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 258 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74083,6 +74370,7 @@
   {
     "name": "anshru spawn delay 258 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 259 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74112,6 +74400,7 @@
   {
     "name": "anshru spawn delay 259 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 260 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74141,6 +74430,7 @@
   {
     "name": "anshru spawn delay 260 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 261 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74170,6 +74460,7 @@
   {
     "name": "anshru spawn delay 261 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 262 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74199,6 +74490,7 @@
   {
     "name": "anshru spawn delay 262 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 263 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74228,6 +74520,7 @@
   {
     "name": "anshru spawn delay 263 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 264 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74257,6 +74550,7 @@
   {
     "name": "anshru spawn delay 264 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 265 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74286,6 +74580,7 @@
   {
     "name": "anshru spawn delay 265 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 266 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74315,6 +74610,7 @@
   {
     "name": "anshru spawn delay 266 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 267 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74344,6 +74640,7 @@
   {
     "name": "anshru spawn delay 267 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 268 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74373,6 +74670,7 @@
   {
     "name": "anshru spawn delay 268 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 269 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74402,6 +74700,7 @@
   {
     "name": "anshru spawn delay 269 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 270 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74431,6 +74730,7 @@
   {
     "name": "anshru spawn delay 270 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 271 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74460,6 +74760,7 @@
   {
     "name": "anshru spawn delay 271 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 272 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74489,6 +74790,7 @@
   {
     "name": "anshru spawn delay 272 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 273 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74518,6 +74820,7 @@
   {
     "name": "anshru spawn delay 273 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 274 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74547,6 +74850,7 @@
   {
     "name": "anshru spawn delay 274 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 275 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74576,6 +74880,7 @@
   {
     "name": "anshru spawn delay 275 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 276 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74605,6 +74910,7 @@
   {
     "name": "anshru spawn delay 276 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 277 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74634,6 +74940,7 @@
   {
     "name": "anshru spawn delay 277 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 278 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74663,6 +74970,7 @@
   {
     "name": "anshru spawn delay 278 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 279 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74692,6 +75000,7 @@
   {
     "name": "anshru spawn delay 279 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 280 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74721,6 +75030,7 @@
   {
     "name": "anshru spawn delay 280 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 281 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74750,6 +75060,7 @@
   {
     "name": "anshru spawn delay 281 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 282 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74779,6 +75090,7 @@
   {
     "name": "anshru spawn delay 282 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 283 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74808,6 +75120,7 @@
   {
     "name": "anshru spawn delay 283 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 284 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74837,6 +75150,7 @@
   {
     "name": "anshru spawn delay 284 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 285 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74866,6 +75180,7 @@
   {
     "name": "anshru spawn delay 285 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 286 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74895,6 +75210,7 @@
   {
     "name": "anshru spawn delay 286 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 287 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74924,6 +75240,7 @@
   {
     "name": "anshru spawn delay 287 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 288 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74953,6 +75270,7 @@
   {
     "name": "anshru spawn delay 288 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 289 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -74982,6 +75300,7 @@
   {
     "name": "anshru spawn delay 289 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 290 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75011,6 +75330,7 @@
   {
     "name": "anshru spawn delay 290 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 291 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75040,6 +75360,7 @@
   {
     "name": "anshru spawn delay 291 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 292 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75069,6 +75390,7 @@
   {
     "name": "anshru spawn delay 292 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 293 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75098,6 +75420,7 @@
   {
     "name": "anshru spawn delay 293 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 294 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75127,6 +75450,7 @@
   {
     "name": "anshru spawn delay 294 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 295 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75156,6 +75480,7 @@
   {
     "name": "anshru spawn delay 295 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 296 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75185,6 +75510,7 @@
   {
     "name": "anshru spawn delay 296 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 297 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75214,6 +75540,7 @@
   {
     "name": "anshru spawn delay 297 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 298 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75243,6 +75570,7 @@
   {
     "name": "anshru spawn delay 298 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 299 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75272,6 +75600,7 @@
   {
     "name": "anshru spawn delay 299 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 300 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75301,6 +75630,7 @@
   {
     "name": "anshru spawn delay 300 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 301 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75330,6 +75660,7 @@
   {
     "name": "anshru spawn delay 301 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 302 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75359,6 +75690,7 @@
   {
     "name": "anshru spawn delay 302 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 303 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75388,6 +75720,7 @@
   {
     "name": "anshru spawn delay 303 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 304 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75417,6 +75750,7 @@
   {
     "name": "anshru spawn delay 304 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 305 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75446,6 +75780,7 @@
   {
     "name": "anshru spawn delay 305 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 306 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75475,6 +75810,7 @@
   {
     "name": "anshru spawn delay 306 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 307 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75504,6 +75840,7 @@
   {
     "name": "anshru spawn delay 307 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 308 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75533,6 +75870,7 @@
   {
     "name": "anshru spawn delay 308 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 309 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75562,6 +75900,7 @@
   {
     "name": "anshru spawn delay 309 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 310 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75591,6 +75930,7 @@
   {
     "name": "anshru spawn delay 310 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 311 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75620,6 +75960,7 @@
   {
     "name": "anshru spawn delay 311 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 312 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75649,6 +75990,7 @@
   {
     "name": "anshru spawn delay 312 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 313 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75678,6 +76020,7 @@
   {
     "name": "anshru spawn delay 313 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 314 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75707,6 +76050,7 @@
   {
     "name": "anshru spawn delay 314 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 315 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75736,6 +76080,7 @@
   {
     "name": "anshru spawn delay 315 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 316 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75765,6 +76110,7 @@
   {
     "name": "anshru spawn delay 316 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 317 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75794,6 +76140,7 @@
   {
     "name": "anshru spawn delay 317 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 318 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75823,6 +76170,7 @@
   {
     "name": "anshru spawn delay 318 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 319 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75852,6 +76200,7 @@
   {
     "name": "anshru spawn delay 319 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 320 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75881,6 +76230,7 @@
   {
     "name": "anshru spawn delay 320 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 321 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75910,6 +76260,7 @@
   {
     "name": "anshru spawn delay 321 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 322 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75939,6 +76290,7 @@
   {
     "name": "anshru spawn delay 322 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 323 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75968,6 +76320,7 @@
   {
     "name": "anshru spawn delay 323 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 324 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -75997,6 +76350,7 @@
   {
     "name": "anshru spawn delay 324 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 325 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76026,6 +76380,7 @@
   {
     "name": "anshru spawn delay 325 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 326 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76055,6 +76410,7 @@
   {
     "name": "anshru spawn delay 326 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 327 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76084,6 +76440,7 @@
   {
     "name": "anshru spawn delay 327 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 328 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76113,6 +76470,7 @@
   {
     "name": "anshru spawn delay 328 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 329 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76142,6 +76500,7 @@
   {
     "name": "anshru spawn delay 329 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 330 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76171,6 +76530,7 @@
   {
     "name": "anshru spawn delay 330 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 331 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76200,6 +76560,7 @@
   {
     "name": "anshru spawn delay 331 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 332 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76229,6 +76590,7 @@
   {
     "name": "anshru spawn delay 332 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 333 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76258,6 +76620,7 @@
   {
     "name": "anshru spawn delay 333 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 334 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76287,6 +76650,7 @@
   {
     "name": "anshru spawn delay 334 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 335 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76316,6 +76680,7 @@
   {
     "name": "anshru spawn delay 335 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 336 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76345,6 +76710,7 @@
   {
     "name": "anshru spawn delay 336 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 337 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76374,6 +76740,7 @@
   {
     "name": "anshru spawn delay 337 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 338 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76403,6 +76770,7 @@
   {
     "name": "anshru spawn delay 338 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 339 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76432,6 +76800,7 @@
   {
     "name": "anshru spawn delay 339 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 340 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76461,6 +76830,7 @@
   {
     "name": "anshru spawn delay 340 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 341 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76490,6 +76860,7 @@
   {
     "name": "anshru spawn delay 341 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 342 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76519,6 +76890,7 @@
   {
     "name": "anshru spawn delay 342 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 343 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76548,6 +76920,7 @@
   {
     "name": "anshru spawn delay 343 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 344 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76577,6 +76950,7 @@
   {
     "name": "anshru spawn delay 344 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 345 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76606,6 +76980,7 @@
   {
     "name": "anshru spawn delay 345 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 346 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76635,6 +77010,7 @@
   {
     "name": "anshru spawn delay 346 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 347 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76664,6 +77040,7 @@
   {
     "name": "anshru spawn delay 347 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 348 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76693,6 +77070,7 @@
   {
     "name": "anshru spawn delay 348 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 349 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76722,6 +77100,7 @@
   {
     "name": "anshru spawn delay 349 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 350 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76751,6 +77130,7 @@
   {
     "name": "anshru spawn delay 350 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 351 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76780,6 +77160,7 @@
   {
     "name": "anshru spawn delay 351 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 352 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76809,6 +77190,7 @@
   {
     "name": "anshru spawn delay 352 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 353 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76838,6 +77220,7 @@
   {
     "name": "anshru spawn delay 353 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 354 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76867,6 +77250,7 @@
   {
     "name": "anshru spawn delay 354 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 355 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76896,6 +77280,7 @@
   {
     "name": "anshru spawn delay 355 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 356 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76925,6 +77310,7 @@
   {
     "name": "anshru spawn delay 356 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 357 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76954,6 +77340,7 @@
   {
     "name": "anshru spawn delay 357 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 358 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -76983,6 +77370,7 @@
   {
     "name": "anshru spawn delay 358 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 359 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -77012,6 +77400,7 @@
   {
     "name": "anshru spawn delay 359 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 360 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -77041,6 +77430,7 @@
   {
     "name": "anshru spawn delay 360 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 361 ",
       "lifetime": 2,
       "phasing": true,
       "turn": 1,
@@ -98684,6 +99074,7 @@
       "sound": "typhoon",
       "turret turn": 180,
       "hit effect": "huge explosion",
+      "submunition_2": "anshru spawn delay 1 ",
       "inaccuracy": 0.1,
       "range override": 1800,
       "split range": 800,
@@ -98777,6 +99168,7 @@
   {
     "name": "anshru spawn delay 1 ",
     "weapon": {
+      "submunition_2": "anshru spawn delay 2 ",
       "lifetime": 5,
       "phasing": true,
       "turn": 0.2,
@@ -98926,6 +99318,7 @@
       "sound": "proton",
       "turret turn": 180,
       "hit effect": "huge explosion",
+      "submunition_2": "dahur begin spawn R",
       "inaccuracy": 0.1,
       "velocity override": 35,
       "range override": 1800,
@@ -99123,6 +99516,7 @@
         "frame rate": 22
       },
       "lifetime": 30,
+      "submunition_2": "dahur turn L 1",
       "phasing": true,
       "velocity": 5,
       "submunitions": [
@@ -99156,6 +99550,7 @@
         "frame rate": 22
       },
       "lifetime": 14,
+      "submunition_2": "dahur turn L 2",
       "phasing": true,
       "submunitions": [
         {
@@ -99188,6 +99583,7 @@
         "frame rate": 22
       },
       "lifetime": 14,
+      "submunition_2": "dahur turn L 3",
       "phasing": true,
       "submunitions": [
         {
@@ -99220,6 +99616,7 @@
         "frame rate": 22
       },
       "lifetime": 14,
+      "submunition_2": "dahur turn L 4",
       "phasing": true,
       "submunitions": [
         {
@@ -99401,6 +99798,9 @@
     "name": "dahur arming L 1",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 70,
       "submunitions": [
         {
@@ -99437,6 +99837,9 @@
     "name": "dahur arming L 2",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 56,
       "submunitions": [
         {
@@ -99473,6 +99876,9 @@
     "name": "dahur arming L 3",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 41,
       "submunitions": [
         {
@@ -99509,6 +99915,9 @@
     "name": "dahur arming L 4",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 27,
       "submunitions": [
         {
@@ -99545,6 +99954,9 @@
     "name": "dahur arming L 5",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 12,
       "submunitions": [
         {
@@ -99656,6 +100068,9 @@
     "name": "dahur arming R 1 1 ",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 2 ",
       "lifetime": 3,
       "submunitions": [
         {
@@ -99692,6 +100107,9 @@
     "name": "dahur arming R 1 2 ",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 3 ",
       "lifetime": 3,
       "submunitions": [
         {
@@ -99728,6 +100146,8 @@
     "name": "dahur arming R 1 3 ",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
       "lifetime": 3,
       "submunitions": [
         {
@@ -99884,6 +100304,7 @@
         "frame rate": 22
       },
       "lifetime": 30,
+      "submunition_2": "dahur turn R 1",
       "phasing": true,
       "velocity": 5,
       "submunitions": [
@@ -99917,6 +100338,7 @@
         "frame rate": 22
       },
       "lifetime": 14,
+      "submunition_2": "dahur turn R 2",
       "phasing": true,
       "submunitions": [
         {
@@ -99949,6 +100371,7 @@
         "frame rate": 22
       },
       "lifetime": 14,
+      "submunition_2": "dahur turn R 3",
       "phasing": true,
       "submunitions": [
         {
@@ -99981,6 +100404,7 @@
         "frame rate": 22
       },
       "lifetime": 14,
+      "submunition_2": "dahur turn R 4",
       "phasing": true,
       "submunitions": [
         {
@@ -100162,6 +100586,9 @@
     "name": "dahur arming R 1",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 70,
       "submunitions": [
         {
@@ -100198,6 +100625,9 @@
     "name": "dahur arming R 2",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 56,
       "submunitions": [
         {
@@ -100234,6 +100664,9 @@
     "name": "dahur arming R 3",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 41,
       "submunitions": [
         {
@@ -100270,6 +100703,9 @@
     "name": "dahur arming R 4",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 27,
       "submunitions": [
         {
@@ -100306,6 +100742,9 @@
     "name": "dahur arming R 5",
     "weapon": {
       "sprite": "projectile/dahur spawn",
+      "submunition_2": "dahur gun 2",
+      "submunition_3": "dahur gun 3",
+      "submunition_4": "dahur arming R 1 1 ",
       "lifetime": 12,
       "submunitions": [
         {
