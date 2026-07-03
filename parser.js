@@ -1292,9 +1292,10 @@ class EndlessSkyParser {
    * instead of being attached to the specific hardpoint they belong to.
    */
   /**
-   * Parse a single attribute line into a [key, value] pair, correctly
-   * capturing ALL numeric values present rather than truncating at the
-   * first one.
+   * Parse a single attribute line into a [key, values] pair, where
+   * `values` is always an array — one entry per number/word found on the
+   * line — so the caller can tell "one line with several numbers" apart
+   * from "a single value" without losing anything.
    *
    * Unlike parseKeyValue (built for simple single-value "key value"
    * lines), attributes on weapons, turrets, guns, engines, and bays
@@ -1307,12 +1308,12 @@ class EndlessSkyParser {
    * hardcoded anywhere — it works the same way for any key.
    *
    * Handles:
-   *   - bare flags:        under / over / parallel / left / right → true
-   *   - single numeric:    zoom 1.3 / angle -50                  → number
+   *   - bare flags:        under / over / parallel / left / right → [true]
+   *   - single numeric:    zoom 1.3 / angle -50                  → [1.3]
    *   - multi numeric:     arc -90 50                            → [-90, 50]
    *     (any count of numbers is supported, not just two or three)
-   *   - quoted string:     "launch effect" "human internal"      → string
-   *   - quoted + trailing extra (e.g. a count) → the quoted value,
+   *   - quoted string:     "launch effect" "human internal"      → ["human internal"]
+   *   - quoted + trailing extra (e.g. a count) → just the quoted value,
    *     matching this parser's existing behavior elsewhere of not
    *     tracking that trailing count.
    */
@@ -1329,56 +1330,69 @@ class EndlessSkyParser {
       else { key = stripped.slice(0, sp); rest = stripped.slice(sp + 1).trim(); }
     }
     if (!key) return null;
-    if (rest === '') return [key, true];
+    if (rest === '') return [key, [true]];
 
     const qv = rest.match(/^"([^"]+)"$/) || rest.match(/^`([^`]+)`$/) || rest.match(/^'([^']+)'$/);
-    if (qv) return [key, qv[1]];
+    if (qv) return [key, [qv[1]]];
 
     // Quoted value with a trailing extra token (e.g. a repeat count) —
     // keep just the quoted value, matching prior lossy-but-safe behavior.
     const qvPlus = rest.match(/^"([^"]+)"\s+(.+)$/) ||
                    rest.match(/^`([^`]+)`\s+(.+)$/) ||
                    rest.match(/^'([^']+)'\s+(.+)$/);
-    if (qvPlus) return [key, qvPlus[1]];
+    if (qvPlus) return [key, [qvPlus[1]]];
 
     const tokens = rest.split(/\s+/);
     const isNumericToken = t => /^-?[\d.]+$/.test(t);
     if (tokens.every(isNumericToken)) {
-      const nums = tokens.map(t => parseFloat(t));
-      return [key, nums.length === 1 ? nums[0] : nums];
+      return [key, tokens.map(t => parseFloat(t))];
     }
 
-    return [key, rest];
+    return [key, [rest]];
   }
 
   /**
-   * Merge a parsed value into an attributes object using a generic,
-   * NON-HARDCODED naming convention so every value ends up individually
-   * addressable by name instead of being buried in an array:
+   * Merge a parsed attribute occurrence into an attributes object using a
+   * generic, NON-HARDCODED naming convention that distinguishes two
+   * different situations:
    *
-   *   - The first value seen for a key keeps the plain key name
-   *     (e.g. `zoom` → data.zoom), so simple single-value attributes are
-   *     completely unchanged from before.
-   *   - Every value after that — whether it came from several numbers on
-   *     ONE line (e.g. `arc -90 50` → arc, "arc 2") or from the SAME key
-   *     appearing again on a later line with a different value (e.g. two
-   *     separate `zoom` lines) — gets a numbered suffix: "<key> 2",
-   *     "<key> 3", and so on, in the order encountered.
+   *   1. MULTIPLE NUMBERS ON ONE LINE (e.g. `arc -90 50`) become a nested
+   *      object, keyed the same as the attribute, with one numbered
+   *      sub-field per value:
+   *          "arc": { "arc_1": -90, "arc_2": 50 }
+   *      This keeps every value individually named — "even if there are
+   *      three numbers in a row" (e.g. `velocity 12 5 3`) each one gets
+   *      its own suitably-named field: velocity_1, velocity_2, velocity_3.
    *
-   * This works identically for any attribute name and any number of
-   * repeats/values — nothing about specific keys (arc, zoom, angle...)
-   * is special-cased.
+   *   2. THE SAME KEY APPEARING AGAIN ON A LATER, SEPARATE LINE (e.g. two
+   *      independent `"hit force" ...` lines with different values)
+   *      becomes a flat SIBLING key instead of overwriting the first:
+   *      the first occurrence keeps the plain name, and every occurrence
+   *      after that gets a numbered suffix:
+   *          "hit force": 300, "hit force_2": 450
+   *
+   *   These two rules combine cleanly: if a REPEATED line also happens to
+   *   carry multiple numbers itself, that occurrence's nested sub-fields
+   *   are named off of ITS OWN (possibly suffixed) key, e.g. a second
+   *   `arc -10 10` line would produce
+   *          "arc_2": { "arc_2_1": -10, "arc_2_2": 10 }
+   *
+   * Nothing about specific attribute names (arc, zoom, angle, hit force...)
+   * is special-cased — this works identically for any key.
    */
-  mergeAttributeValue(data, key, value) {
-    const values = Array.isArray(value) ? value : [value];
-    for (const v of values) {
-      if (!(key in data)) {
-        data[key] = v;
-        continue;
-      }
+  mergeAttributeValue(data, key, values) {
+    let outerKey = key;
+    if (outerKey in data) {
       let n = 2;
-      while ((`${key} ${n}`) in data) n++;
-      data[`${key} ${n}`] = v;
+      while ((`${key}_${n}`) in data) n++;
+      outerKey = `${key}_${n}`;
+    }
+    if (values.length === 1) {
+      data[outerKey] = values[0];
+    } else {
+      const nested = {};
+      values.forEach((v, idx) => { nested[`${outerKey}_${idx + 1}`] = v; });
+      data[outerKey] = nested;
     }
   }
 
