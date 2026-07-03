@@ -1113,7 +1113,12 @@ class EndlessSkyParser {
           const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
           if (nextIndent > currentIndent) {
             const key = stripped.replace(/["`]/g, '');
-            const [nd, ni] = this.parseBlock(lines, i + 1, options);
+            // Weapon blocks (on outfits AND on ships, e.g. self-destruct/
+            // collision damage) commonly carry multi-number attributes.
+            // Turn on the same non-hardcoded, numeric-aware parsing used
+            // for hardpoints for this key and everything nested inside it.
+            const nestedOptions = (key === 'weapon') ? { ...options, numericAware: true } : options;
+            const [nd, ni] = this.parseBlock(lines, i + 1, nestedOptions);
             if (key in data) {
               if (!Array.isArray(data[key])) data[key] = [data[key]];
               data[key].push(nd);
@@ -1137,14 +1142,23 @@ class EndlessSkyParser {
             i++; continue;
         }
 
-        const kv = this.parseKeyValue(stripped);
-        if (kv) {
-          const [k, v] = kv;
-          if (k in data) {
-            if (!Array.isArray(data[k])) data[k] = [data[k]];
-            data[k].push(v);
-          } else { data[k] = v; }
-          i++; continue;
+        if (options.numericAware) {
+          const kv = this.parseNumericAwareLine(stripped);
+          if (kv) {
+            const [k, v] = kv;
+            this.mergeAttributeValue(data, k, v);
+            i++; continue;
+          }
+        } else {
+          const kv = this.parseKeyValue(stripped);
+          if (kv) {
+            const [k, v] = kv;
+            if (k in data) {
+              if (!Array.isArray(data[k])) data[k] = [data[k]];
+              data[k].push(v);
+            } else { data[k] = v; }
+            i++; continue;
+          }
         }
         descriptionLines.push(stripped);
       }
@@ -1259,52 +1273,186 @@ class EndlessSkyParser {
     return [{}, i + 1];
   }
 
+  /**
+   * Consume an indented sub-block that follows a hardpoint line (engine,
+   * reverse/steering engine, gun, turret, bay) and merge every key/value
+   * pair it contains into `data`.
+   *
+   * Handles both forms found in the data files:
+   *   - bare boolean flags, e.g. `under`, `over`, `parallel`
+   *   - "key value" pairs, e.g. `zoom 1.3`, `angle 90`, `"launch effect" "human internal"`
+   *
+   * A repeated key becomes an array (matching the convention used by
+   * parseBlock elsewhere), so nothing is silently overwritten.
+   *
+   * Without this, sub-block lines like `zoom 1` or `under` were left
+   * dangling for the caller's generic line-by-line parser to pick up,
+   * which caused them to be mis-attributed as top-level ship/variant
+   * attributes (e.g. a stray `zoom` or `under` key on the ship itself)
+   * instead of being attached to the specific hardpoint they belong to.
+   */
+  /**
+   * Parse a single attribute line into a [key, value] pair, correctly
+   * capturing ALL numeric values present rather than truncating at the
+   * first one.
+   *
+   * Unlike parseKeyValue (built for simple single-value "key value"
+   * lines), attributes on weapons, turrets, guns, engines, and bays
+   * frequently carry MULTIPLE numeric values on a single line — most
+   * notably `arc <minAngle> <maxAngle>`, e.g. `arc -90 50`. Routing
+   * these through parseKeyValue silently drops everything after the
+   * first number (parseFloat stops at the first space), so `arc -90 50`
+   * was becoming `arc: -90` with the 50 lost entirely. This parser keeps
+   * every numeric token, however many there are, with no attribute name
+   * hardcoded anywhere — it works the same way for any key.
+   *
+   * Handles:
+   *   - bare flags:        under / over / parallel / left / right → true
+   *   - single numeric:    zoom 1.3 / angle -50                  → number
+   *   - multi numeric:     arc -90 50                            → [-90, 50]
+   *     (any count of numbers is supported, not just two or three)
+   *   - quoted string:     "launch effect" "human internal"      → string
+   *   - quoted + trailing extra (e.g. a count) → the quoted value,
+   *     matching this parser's existing behavior elsewhere of not
+   *     tracking that trailing count.
+   */
+  parseNumericAwareLine(stripped) {
+    let key, rest;
+    const qk = stripped.match(/^"([^"]+)"\s*(.*)$/) ||
+               stripped.match(/^`([^`]+)`\s*(.*)$/) ||
+               stripped.match(/^'([^']+)'\s*(.*)$/);
+    if (qk) {
+      key = qk[1]; rest = qk[2].trim();
+    } else {
+      const sp = stripped.indexOf(' ');
+      if (sp === -1) { key = stripped; rest = ''; }
+      else { key = stripped.slice(0, sp); rest = stripped.slice(sp + 1).trim(); }
+    }
+    if (!key) return null;
+    if (rest === '') return [key, true];
+
+    const qv = rest.match(/^"([^"]+)"$/) || rest.match(/^`([^`]+)`$/) || rest.match(/^'([^']+)'$/);
+    if (qv) return [key, qv[1]];
+
+    // Quoted value with a trailing extra token (e.g. a repeat count) —
+    // keep just the quoted value, matching prior lossy-but-safe behavior.
+    const qvPlus = rest.match(/^"([^"]+)"\s+(.+)$/) ||
+                   rest.match(/^`([^`]+)`\s+(.+)$/) ||
+                   rest.match(/^'([^']+)'\s+(.+)$/);
+    if (qvPlus) return [key, qvPlus[1]];
+
+    const tokens = rest.split(/\s+/);
+    const isNumericToken = t => /^-?[\d.]+$/.test(t);
+    if (tokens.every(isNumericToken)) {
+      const nums = tokens.map(t => parseFloat(t));
+      return [key, nums.length === 1 ? nums[0] : nums];
+    }
+
+    return [key, rest];
+  }
+
+  /**
+   * Merge a parsed value into an attributes object using a generic,
+   * NON-HARDCODED naming convention so every value ends up individually
+   * addressable by name instead of being buried in an array:
+   *
+   *   - The first value seen for a key keeps the plain key name
+   *     (e.g. `zoom` → data.zoom), so simple single-value attributes are
+   *     completely unchanged from before.
+   *   - Every value after that — whether it came from several numbers on
+   *     ONE line (e.g. `arc -90 50` → arc, "arc 2") or from the SAME key
+   *     appearing again on a later line with a different value (e.g. two
+   *     separate `zoom` lines) — gets a numbered suffix: "<key> 2",
+   *     "<key> 3", and so on, in the order encountered.
+   *
+   * This works identically for any attribute name and any number of
+   * repeats/values — nothing about specific keys (arc, zoom, angle...)
+   * is special-cased.
+   */
+  mergeAttributeValue(data, key, value) {
+    const values = Array.isArray(value) ? value : [value];
+    for (const v of values) {
+      if (!(key in data)) {
+        data[key] = v;
+        continue;
+      }
+      let n = 2;
+      while ((`${key} ${n}`) in data) n++;
+      data[`${key} ${n}`] = v;
+    }
+  }
+
+  parseHardpointAttributes(lines, i, baseIndent, data) {
+    if (i + 1 >= lines.length) return i + 1;
+    const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+    if (nextIndent <= baseIndent) return i + 1;
+    i++;
+    while (i < lines.length) {
+      const line = lines[i];
+      if (!line.trim()) { i++; continue; }
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent <= baseIndent) break;
+      const kv = this.parseNumericAwareLine(line.trim());
+      if (kv) {
+        const [k, v] = kv;
+        this.mergeAttributeValue(data, k, v);
+      }
+      i++;
+    }
+    return i;
+  }
+
   parseHardpoint(stripped, lines, i, baseIndent) {
-    if (stripped.match(/^["'`]?engine["'`]?\s+(-?\d+)/)) {
+    if (stripped.match(/^["'`]?engine["'`]?\s+(-?[\d.]+)/)) {
       const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
       const d = { x: +p[0], y: +p[1] };
-      if (p[2]) d.zoom = +p[2];
-      return ['engines', d, i + 1];
+      if (p[2] !== undefined && p[2] !== '') d.zoom = +p[2];
+      const ni = this.parseHardpointAttributes(lines, i, baseIndent, d);
+      return ['engines', d, ni];
     }
-    if (stripped.match(/^["'`]?reverse engine["'`]?\s+(-?\d+)/)) {
+    if (stripped.match(/^["'`]?reverse engine["'`]?\s+(-?[\d.]+)/)) {
       const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(2);
       const d = { x: +p[0], y: +p[1] };
-      if (p[2]) d.zoom = +p[2];
-      return ['reverseEngines', d, this.parseOptionalNestedProperty(lines, i, baseIndent, d, 'position')];
+      if (p[2] !== undefined && p[2] !== '') d.zoom = +p[2];
+      const ni = this.parseHardpointAttributes(lines, i, baseIndent, d);
+      return ['reverseEngines', d, ni];
     }
-    if (stripped.match(/^["'`]?steering engine["'`]?\s+(-?\d+)/)) {
+    if (stripped.match(/^["'`]?steering engine["'`]?\s+(-?[\d.]+)/)) {
       const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(2);
       const d = { x: +p[0], y: +p[1] };
-      if (p[2]) d.zoom = +p[2];
-      return ['steeringEngines', d, this.parseOptionalNestedProperty(lines, i, baseIndent, d, 'position')];
+      if (p[2] !== undefined && p[2] !== '') d.zoom = +p[2];
+      const ni = this.parseHardpointAttributes(lines, i, baseIndent, d);
+      return ['steeringEngines', d, ni];
     }
-    if (stripped.match(/^["'`]?gun["'`]?\s+(-?\d+)/)) {
-      const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
-      return ['guns', { x: +p[0], y: +p[1], gun: '' }, i + 1];
+    // gun <x> <y> ["Outfit Name"]  — the outfit name is optional and may be
+    // quoted (names with spaces) or bare (single-word names).
+    const gunMatch = stripped.match(
+      /^["'`]?gun["'`]?\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s+(?:"([^"]+)"|`([^`]+)`|'([^']+)'|([^\s"'`]+)))?\s*$/
+    );
+    if (gunMatch) {
+      const [, xs, ys, q1, q2, q3, bare] = gunMatch;
+      const outfitName = q1 ?? q2 ?? q3 ?? bare ?? '';
+      const d = { x: +xs, y: +ys, gun: outfitName };
+      const ni = this.parseHardpointAttributes(lines, i, baseIndent, d);
+      return ['guns', d, ni];
     }
-    if (stripped.match(/^["'`]?turret["'`]?\s+(-?\d+)/)) {
-      const p = stripped.replace(/["'`]/g, '').split(/\s+/).slice(1);
-      return ['turrets', { x: +p[0], y: +p[1], turret: '' }, i + 1];
+    // turret <x> <y> ["Outfit Name"]  — same shape as gun.
+    const turretMatch = stripped.match(
+      /^["'`]?turret["'`]?\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s+(?:"([^"]+)"|`([^`]+)`|'([^']+)'|([^\s"'`]+)))?\s*$/
+    );
+    if (turretMatch) {
+      const [, xs, ys, q1, q2, q3, bare] = turretMatch;
+      const outfitName = q1 ?? q2 ?? q3 ?? bare ?? '';
+      const d = { x: +xs, y: +ys, turret: outfitName };
+      const ni = this.parseHardpointAttributes(lines, i, baseIndent, d);
+      return ['turrets', d, ni];
     }
     const bm = stripped.match(/^["'`]?bay["'`]?\s+["'`]?([^"'`\s]+)["'`]?\s+(-?\d+\.?\d*)\s+(-?\d+\.?\d*)(?:\s+(.+))?/);
     if (bm) {
       const d = { type: bm[1], x: +bm[2], y: +bm[3] };
       if (bm[4]) d.position = bm[4];
-      if (i + 1 < lines.length) {
-        const ni = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-        if (ni > baseIndent) {
-          i++;
-          while (i < lines.length) {
-            const bl = lines[i], bli = bl.length - bl.replace(/^\t+/, '').length;
-            if (bli <= baseIndent) break;
-            const kv = this.parseKeyValue(bl.trim());
-            if (kv) d[kv[0]] = kv[1];
-            i++;
-          }
-          return ['bays', d, i];
-        }
-      }
-      return ['bays', d, i + 1];
+      const ni = this.parseHardpointAttributes(lines, i, baseIndent, d);
+      return ['bays', d, ni];
     }
     return null;
   }
@@ -1324,23 +1472,6 @@ class EndlessSkyParser {
       openChance:   parseInt(m[2], 10),
       spreadChance: parseInt(m[3], 10),
     };
-  }
-
-  parseOptionalNestedProperty(lines, i, baseIndent, data, prop) {
-    if (i + 1 < lines.length) {
-      const ni = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
-      if (ni > baseIndent) {
-        i++;
-        while (i < lines.length) {
-          const pl = lines[i], pi2 = pl.length - pl.replace(/^\t+/, '').length;
-          if (pi2 <= baseIndent) break;
-          if (pl.trim()) data[prop] = pl.trim();
-          i++;
-        }
-        return i;
-      }
-    }
-    return i + 1;
   }
 
   skipIndentedBlock(lines, i, baseIndent) {
