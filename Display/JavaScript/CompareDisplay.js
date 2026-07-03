@@ -362,8 +362,10 @@ window.CompareDisplay = (() => {
 
         for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort())
             if (costVal) {
+                const mult  = _getDisplayMultiplier(costKey);
                 const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
-                rows.push({ label, value: _fmt(costVal * sps * count * qty), unit: '' });
+                pushRawScaled(dS, `_ws_cost_${costKey.replace(/\s+/g,'_')}`, label,
+                    costVal * profile.shotsPerSecond * mult, _getDisplayUnit(costKey));
             }
 
         // ── 5. Computed _fn_ / _derived_ stats for this outfit ────────────────
@@ -903,95 +905,114 @@ window.CompareDisplay = (() => {
                 }
             }
 
-            // Compute the weapon profile once — reused by both the efficiency
-            // section below and the "Weapon DPS" section further down, instead
-            // of calling getOutfitWeaponStats twice for the same outfit.
+            // Compute the weapon profile once — reused by the efficiency
+            // section, the DPS-per-divisor section, and the plain "Weapon DPS"
+            // section further down, instead of calling getOutfitWeaponStats
+            // three times for the same outfit.
             const weaponProfile = (item.weapon && typeof item.weapon === 'object' && window.WeaponStats)
                 ? window.WeaponStats.getOutfitWeaponStats(item, outfitIdx)
                 : null;
-            
+
             // Per-divisor efficiency for CALCULATED per-second weapon values —
-            // fire rate and firing costs, sourced from WeaponStats exactly like
-            // the "Weapon DPS" section above. Deliberately NOT looping over raw
-            // item.weapon attributes here: damage is already covered (as DPS)
-            // in "Weapon DPS — Efficiency", and things like inaccuracy, velocity,
-            // and blast radius are per-projectile constants with no meaningful
-            // per-second form — dividing those by mass is the same "per shot"
-            // confusion we removed from Sorter.js.
-            if (item.weapon && typeof item.weapon === 'object' && window.WeaponStats) {
-                //const profile = window.WeaponStats.getOutfitWeaponStats(item, outfitIdx);
-                if (weaponProfile) {
-                    const profile = weaponProfile;
-                    const sps = profile.shotsPerSecond || 0;
+            // fire rate, firing costs, and ammo consumption, all sourced from
+            // WeaponStats exactly like the "Weapon DPS" section. Deliberately
+            // NOT looping over raw item.weapon attributes here: damage is
+            // already covered (as DPS) below, and things like inaccuracy,
+            // velocity, and blast radius are per-projectile constants with no
+            // meaningful per-second form — dividing those by mass is the same
+            // "per shot" confusion we removed from Sorter.js.
+            if (weaponProfile) {
+                const profile = weaponProfile;
+                const sps = profile.shotsPerSecond || 0;
 
-                    if (sps) {
-                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                            const divisor = item[divKey];
-                            if (typeof divisor !== 'number' || divisor === 0) continue;
-                            const ratio = _signedPerDivisor(sps, sps / divisor);
-                            pushRaw(attrEffSection,
-                                `_wcalc_sps_per_${divKey.replace(/\s+/g, '_')}`,
-                                `Fire Rate per ${divLabel}`, _fmt(ratio), 'shots/s');
-                        }
+                if (sps) {
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        const divisor = item[divKey];
+                        if (typeof divisor !== 'number' || divisor === 0) continue;
+                        const ratio = _signedPerDivisor(sps, sps / divisor);
+                        pushRaw(attrEffSection,
+                            `_wcalc_sps_per_${divKey.replace(/\s+/g, '_')}`,
+                            `Fire Rate per ${divLabel}`, _fmt(ratio), 'shots/s');
                     }
+                }
 
-                    for (const [costKey, costVal] of Object.entries(profile.firingCosts || {})) {
-                        if (!costVal) continue;
-                        const perSecond = costVal * sps;
-                        const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
-                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                            const divisor = item[divKey];
-                            if (typeof divisor !== 'number' || divisor === 0) continue;
-                            const ratio = _signedPerDivisor(perSecond, perSecond / divisor);
-                            pushRaw(attrEffSection,
-                                `_wcalc_${costKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
-                                `${label} per ${divLabel}`, _fmt(ratio), '');
-                        }
+                for (const [costKey, costVal] of Object.entries(profile.firingCosts || {})) {
+                    if (!costVal) continue;
+                    const mult       = _getDisplayMultiplier(costKey);
+                    const perSecond  = costVal * sps * mult;
+                    const label      = _labelOf(costKey.replace(/^firing /, '')) + '/s';
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        const divisor = item[divKey];
+                        if (typeof divisor !== 'number' || divisor === 0) continue;
+                        const ratio = _signedPerDivisor(perSecond, perSecond / divisor);
+                        pushRaw(attrEffSection,
+                            `_wcalc_${costKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
+                            `${label} per ${divLabel}`, _fmt(ratio), _getDisplayUnit(costKey));
                     }
+                }
 
-                    // ── Restored: DPS per divisor (Weapon DPS — Efficiency) ─────
-                    const dpsEffSection = 'Weapon DPS — Efficiency';
-                    if (profile.totalDps) {
-                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                            const divisor = item[divKey];
-                            if (typeof divisor !== 'number' || divisor === 0) continue;
-                            const ratio = _signedPerDivisor(profile.totalDps, profile.totalDps / divisor);
-                            pushRaw(dpsEffSection, `_ws_totalDps_per_${divKey.replace(/\s+/g,'_')}`,
-                                `Total DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
-                        }
+                // Ammo consumption rate — the last "firing"-derived quantity
+                // besides fire rate and firing costs. Same shape as firing
+                // costs (per-shot quantity × sps = per-second rate), sourced
+                // from profile.ammoPerShot/hasAmmo instead of firingCosts.
+                if (profile.hasAmmo && sps) {
+                    const ammoPerSecond = (profile.ammoPerShot || 1) * sps;
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        const divisor = item[divKey];
+                        if (typeof divisor !== 'number' || divisor === 0) continue;
+                        const ratio = _signedPerDivisor(ammoPerSecond, ammoPerSecond / divisor);
+                        pushRaw(attrEffSection,
+                            `_wcalc_ammo_per_${divKey.replace(/\s+/g, '_')}`,
+                            `Ammo Consumption per ${divLabel}`, _fmt(ratio), 'rounds/s');
                     }
-                    if (profile.shieldDps) {
-                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                            const divisor = item[divKey];
-                            if (typeof divisor !== 'number' || divisor === 0) continue;
-                            const ratio = _signedPerDivisor(profile.shieldDps, profile.shieldDps / divisor);
-                            pushRaw(dpsEffSection, `_ws_shieldDps_per_${divKey.replace(/\s+/g,'_')}`,
-                                `Shield DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
-                        }
+                }
+
+                // ── DPS per divisor (Weapon DPS — Efficiency) ─────────────────
+                const dpsEffSection = 'Weapon DPS — Efficiency';
+                if (profile.totalDps) {
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        const divisor = item[divKey];
+                        if (typeof divisor !== 'number' || divisor === 0) continue;
+                        const ratio = _signedPerDivisor(profile.totalDps, profile.totalDps / divisor);
+                        pushRaw(dpsEffSection, `_ws_totalDps_per_${divKey.replace(/\s+/g,'_')}`,
+                            `Total DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
                     }
-                    if (profile.hullDps) {
-                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                            const divisor = item[divKey];
-                            if (typeof divisor !== 'number' || divisor === 0) continue;
-                            const ratio = _signedPerDivisor(profile.hullDps, profile.hullDps / divisor);
-                            pushRaw(dpsEffSection, `_ws_hullDps_per_${divKey.replace(/\s+/g,'_')}`,
-                                `Hull DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
-                        }
+                }
+                if (profile.shieldDps) {
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        const divisor = item[divKey];
+                        if (typeof divisor !== 'number' || divisor === 0) continue;
+                        const ratio = _signedPerDivisor(profile.shieldDps, profile.shieldDps / divisor);
+                        pushRaw(dpsEffSection, `_ws_shieldDps_per_${divKey.replace(/\s+/g,'_')}`,
+                            `Shield DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
                     }
-                    for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort()) {
-                        if (!dps) continue;
-                        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                            const divisor = item[divKey];
-                            if (typeof divisor !== 'number' || divisor === 0) continue;
-                            const ratio  = _signedPerDivisor(dps, dps / divisor);
-                            const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g,'_')}`;
-                            const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ` DPS per ${divLabel}`;
-                            pushRaw(dpsEffSection, safeKey, label, _fmt(ratio), 'dmg/s');
-                        }
+                }
+                if (profile.hullDps) {
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        const divisor = item[divKey];
+                        if (typeof divisor !== 'number' || divisor === 0) continue;
+                        const ratio = _signedPerDivisor(profile.hullDps, profile.hullDps / divisor);
+                        pushRaw(dpsEffSection, `_ws_hullDps_per_${divKey.replace(/\s+/g,'_')}`,
+                            `Hull DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
+                    }
+                }
+                // Every OTHER damage type (shield/hull already handled explicitly
+                // above — skipping them here prevents the duplicate "Shield DPS
+                // per Mass" / "Hull DPS per Mass" rows that showed up before).
+                for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort()) {
+                    if (!dps) continue;
+                    if (dmgKey === 'shield damage' || dmgKey === 'hull damage') continue;
+                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        const divisor = item[divKey];
+                        if (typeof divisor !== 'number' || divisor === 0) continue;
+                        const ratio  = _signedPerDivisor(dps, dps / divisor);
+                        const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g,'_')}`;
+                        const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ` DPS per ${divLabel}`;
+                        pushRaw(dpsEffSection, safeKey, label, _fmt(ratio), 'dmg/s');
                     }
                 }
             }
-            
+
             if (item.weapon && typeof item.weapon === 'object') {
                 const weapSkip = new Set(['sprite','spriteData','sound','hit effect','fire effect',
                     'die effect','submunition','submunitions','stream','cluster',
@@ -1020,26 +1041,24 @@ window.CompareDisplay = (() => {
 
                 if (weaponProfile) {
                     const profile = weaponProfile;
-                    {
-                        const dS = 'Weapon DPS';
-                        if (profile.totalDps)       pushRawScaled(dS, '_ws_totalDps',  'Total DPS',  profile.totalDps,       'dmg/s');
-                        if (profile.shieldDps)      pushRawScaled(dS, '_ws_shieldDps', 'Shield DPS', profile.shieldDps,      'dmg/s');
-                        if (profile.hullDps)        pushRawScaled(dS, '_ws_hullDps',   'Hull DPS',   profile.hullDps,        'dmg/s');
-                        if (profile.effectiveRange) pushRaw(dS, '_ws_range', 'Range', _fmt(profile.effectiveRange), 'px');
-                        if (profile.shotsPerSecond) pushRawScaled(dS, '_ws_sps', 'Fire Rate', profile.shotsPerSecond, 'shots/s');
-                        for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort())
-                            if (dps) {
-                                const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}`;
-                                const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
-                                pushRawScaled(dS, safeKey, label, dps, 'dmg/s');
-                            }
-                        for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort())
-                            if (costVal) {
-                                const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
-                                pushRawScaled(dS, `_ws_cost_${costKey.replace(/\s+/g,'_')}`, label,
-                                    costVal * profile.shotsPerSecond, '');
-                            }
-                    }
+                    const dS = 'Weapon DPS';
+                    if (profile.totalDps)       pushRawScaled(dS, '_ws_totalDps',  'Total DPS',  profile.totalDps,       'dmg/s');
+                    if (profile.shieldDps)      pushRawScaled(dS, '_ws_shieldDps', 'Shield DPS', profile.shieldDps,      'dmg/s');
+                    if (profile.hullDps)        pushRawScaled(dS, '_ws_hullDps',   'Hull DPS',   profile.hullDps,        'dmg/s');
+                    if (profile.effectiveRange) pushRaw(dS, '_ws_range', 'Range', _fmt(profile.effectiveRange), 'px');
+                    if (profile.shotsPerSecond) pushRawScaled(dS, '_ws_sps', 'Fire Rate', profile.shotsPerSecond, 'shots/s');
+                    for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort())
+                        if (dps) {
+                            const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}`;
+                            const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
+                            pushRawScaled(dS, safeKey, label, dps, 'dmg/s');
+                        }
+                    for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort())
+                        if (costVal) {
+                            const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
+                            pushRawScaled(dS, `_ws_cost_${costKey.replace(/\s+/g,'_')}`, label,
+                                costVal * profile.shotsPerSecond, '');
+                        }
                 }
             }
         }
