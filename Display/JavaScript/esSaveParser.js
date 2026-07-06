@@ -698,7 +698,19 @@ function parseESSaveFile(text) {
         if (!toks.length) continue;
 
         if (key0 === 'licenses') { attrSub = 'licenses'; cur.attributes.licenses = cur.attributes.licenses || {}; continue; }
-        if (key0 === 'weapon')   { attrSub = 'weapon';   cur.weapon = cur.weapon || {}; continue; }
+        if (key0 === 'weapon')   {
+          attrSub = 'weapon';
+          // _esBlankShip() pre-fills cur.weapon with placeholder zeros for
+          // the 4 well-known fields. If we merge real values into that
+          // object as-is, _esMergeAttr sees "blast radius" already
+          // present (as the placeholder 0) and wrongly treats the first
+          // REAL value as a second occurrence, shifting everything into
+          // "_2"/"_3". Since we now know this ship actually has its own
+          // weapon block, clear the placeholder first so the real values
+          // land on their plain, unsuffixed keys.
+          cur.weapon = {};
+          continue;
+        }
         // sprite / flare / sound sub-entries inside attributes — just skip
         if (key0 === 'flare sprite' || key0 === 'reverse flare sprite' ||
             key0 === 'steering flare sprite' || key0 === 'flare sound' ||
