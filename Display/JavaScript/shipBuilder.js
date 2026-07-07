@@ -585,19 +585,35 @@ function sbShipFromParsed(src) {
   }
 
   for (const g of (src.guns || [])) {
-    s.guns.push({ coords: [g.x, g.y].filter(v => v != null).join(' ') || '0 0', over: g.gun || g.over || g.weapon || '' });
+    const over  = g.gun || g.over || g.weapon || '';
+    const attrs = _sbParsedHardpointToAttrs(g, ['x','y','gun','over','weapon']);
+    s.guns.push({ coords: [g.x, g.y].filter(v => v != null).join(' ') || '0 0', over, attrs: Object.keys(attrs).length ? attrs : undefined });
   }
   for (const g of (src.turrets || [])) {
-    s.turrets.push({ coords: [g.x, g.y].filter(v => v != null).join(' ') || '0 0', over: g.turret || g.over || g.weapon || '' });
+    const over  = g.turret || g.over || g.weapon || '';
+    const attrs = _sbParsedHardpointToAttrs(g, ['x','y','turret','over','weapon']);
+    s.turrets.push({ coords: [g.x, g.y].filter(v => v != null).join(' ') || '0 0', over, attrs: Object.keys(attrs).length ? attrs : undefined });
   }
   for (const e of (src.engines || [])) {
-    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', zoom: e.zoom != null ? String(e.zoom) : '', angle: e.angle != null ? String(e.angle) : '' });
+    const attrs = _sbParsedHardpointToAttrs(e, ['x','y','zoom']);
+    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', zoom: e.zoom != null ? String(e.zoom) : '', type: 'engine', attrs: Object.keys(attrs).length ? attrs : undefined });
+  }
+  for (const e of (src.reverseEngines || [])) {
+    const attrs = _sbParsedHardpointToAttrs(e, ['x','y','zoom']);
+    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', zoom: e.zoom != null ? String(e.zoom) : '', type: 'reverse', attrs: Object.keys(attrs).length ? attrs : undefined });
+  }
+  for (const e of (src.steeringEngines || [])) {
+    const attrs = _sbParsedHardpointToAttrs(e, ['x','y','zoom']);
+    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', zoom: e.zoom != null ? String(e.zoom) : '', type: 'steering', attrs: Object.keys(attrs).length ? attrs : undefined });
   }
   for (const b of (src.bays || [])) {
     const coords = [b.x, b.y].filter(v => v != null).join(' ') || '0 0';
     const launchEffect = b['launch effect'] || '';
-    if (b.type === 'Fighter' || b.category === 'fighter') s.fighters.push({ coords, launchEffect });
-    else if (b.type === 'Drone' || b.category === 'drone') s.drones.push({ coords, launchEffect });
+    const position = b.position || '';
+    const attrs = _sbParsedHardpointToAttrs(b, ['x','y','type','category','launch effect','position']);
+    const bayObj = { coords, launchEffect, position, attrs: Object.keys(attrs).length ? attrs : undefined };
+    if (b.type === 'Fighter' || b.category === 'fighter') s.fighters.push(bayObj);
+    else if (b.type === 'Drone' || b.category === 'drone') s.drones.push(bayObj);
   }
   for (const l of (src.leaks || [])) s.leaks.push(_sbNormaliseLeak(l));
 
@@ -618,6 +634,56 @@ function sbShipFromParsed(src) {
 
   sbAutoSlotAllOutfits(s);
   return s;
+}
+
+// ─────────────────────────────────────────────────────────
+//  Converts a parser.js-shaped hardpoint object (which uses
+//  "arc": {arc_1:-90, arc_2:50} for multi-number lines, and
+//  "under" / "under_2" for repeated-key occurrences — see
+//  PARSER_DOCUMENTATION.md §5.2-§5.4) into our internal
+//  { key: [occurrence, occurrence, ...] } shape, where each
+//  occurrence is `true` (bare flag) or an array of values.
+// ─────────────────────────────────────────────────────────
+function _sbParsedHardpointToAttrs(obj, excludeKeys) {
+  const attrs = {};
+  if (!obj || typeof obj !== 'object') return attrs;
+  const exSet = new Set(excludeKeys || []);
+  const baseOccurrences = {}; // base key -> { occurrenceIndex: rawValue }
+
+  for (const [k, v] of Object.entries(obj)) {
+    if (exSet.has(k)) continue;
+    const m = k.match(/^(.*)_(\d+)$/);
+    if (m && Object.prototype.hasOwnProperty.call(obj, m[1]) && !exSet.has(m[1])) {
+      // Repeated occurrence of an already-seen base key (e.g. "under_2", "zoom_2")
+      const base = m[1];
+      const n    = parseInt(m[2], 10);
+      baseOccurrences[base] = baseOccurrences[base] || {};
+      baseOccurrences[base][n] = v;
+      continue;
+    }
+    baseOccurrences[k] = baseOccurrences[k] || {};
+    baseOccurrences[k][1] = v;
+  }
+
+  for (const [base, occMap] of Object.entries(baseOccurrences)) {
+    const indices = Object.keys(occMap).map(Number).sort((a, b) => a - b);
+    attrs[base] = indices.map(idx => {
+      const val = occMap[idx];
+      if (val === true) return true;
+      if (val && typeof val === 'object') {
+        // Nested multi-value object for a single line, e.g. {arc_1:-90, arc_2:50}
+        return Object.entries(val)
+          .sort((a, b) => {
+            const na = parseInt((a[0].match(/_(\d+)$/) || [])[1]) || 0;
+            const nb = parseInt((b[0].match(/_(\d+)$/) || [])[1]) || 0;
+            return na - nb;
+          })
+          .map(([, vv]) => vv);
+      }
+      return [val];
+    });
+  }
+  return attrs;
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1368,17 +1434,153 @@ function sbRenderGunsTurrets() {
   sbRenderEngines();
 }
 
+// ─────────────────────────────────────────────────────────
+//  GENERIC HARDPOINT SUB-ATTRIBUTES (angle, arc, under, zoom,
+//  etc. — see PARSER_DOCUMENTATION.md §5.2-§5.4). Stored as
+//  hp.attrs = { key: [occurrence, occurrence, ...] } where an
+//  occurrence is `true` (bare flag, e.g. "under") or an array
+//  of values (one entry per number/word on that line).
+// ─────────────────────────────────────────────────────────
+function _sbParseHardpointAttrLine(rawLine) {
+  const p = sbTok(rawLine.trim());
+  if (!p.length) return null;
+  const key = sbStripQ(p[0]);
+  if (!key) return null;
+  const rest = p.slice(1);
+  if (!rest.length) return { key, occurrence: true };
+  const allNumeric = rest.every(tok => /^-?[0-9]*\.?[0-9]+$/.test(tok));
+  if (allNumeric) return { key, occurrence: rest.map(Number) };
+  return { key, occurrence: rest.map(sbStripQ) };
+}
+
+function _sbAttrsToESLines(attrs, indent) {
+  const lines = [];
+  if (!attrs) return lines;
+  for (const [key, occurrences] of Object.entries(attrs)) {
+    const qk = /\s/.test(key) ? `"${key}"` : key;
+    for (const occ of (occurrences || [])) {
+      if (occ === true) { lines.push(`${indent}${qk}`); continue; }
+      if (Array.isArray(occ)) {
+        const vals = occ.map(v => (/^-?[0-9]*\.?[0-9]+$/.test(String(v))) ? String(v) : `"${v}"`).join(' ');
+        lines.push(`${indent}${qk}${vals ? ' ' + vals : ''}`);
+      }
+    }
+  }
+  return lines;
+}
+
+function _sbAttrsSummaryHTML(field, idx, attrs) {
+  if (!attrs) return '';
+  const tags = [];
+  for (const [k, occs] of Object.entries(attrs)) {
+    (occs || []).forEach((occ, oi) => {
+      const label = occ === true ? k : `${k} ${occ.join(' ')}`;
+      tags.push(`<span class="sb-outfit-size" style="cursor:pointer;" title="Click to remove" onclick="sbRemoveHPAttr('${field}',${idx},'${esc(k).replace(/'/g,"\\'")}',${oi})">${esc(label)} ✕</span>`);
+    });
+  }
+  return tags.length ? `<div style="width:100%;display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;">${tags.join('')}</div>` : '';
+}
+
+// ── Hardpoint Extra Attributes modal (angle, arc, under, zoom, ...) ──────
+let _sbHPAttrTarget = null; // { field, idx }
+let _sbHPAttrValues = [];   // value boxes currently being composed for the "add line" row
+
+function sbOpenHPAttrEditor(field, idx) {
+  _sbHPAttrTarget = { field, idx };
+  const titleEl = document.getElementById('sb-hp-attrs-title');
+  if (titleEl) titleEl.textContent = `Extra Attributes — ${field} #${idx + 1}`;
+  document.getElementById('sb-hp-attr-key').value = '';
+  _sbHPAttrValues = []; // defaults to no value boxes (a bare flag) until the user adds one
+  sbRenderHPAttrValueBoxes();
+  sbRenderHPAttrsModalList();
+  openModal('modal-sb-hp-attrs');
+}
+
+function sbRenderHPAttrValueBoxes() {
+  const el = document.getElementById('sb-hp-attr-values');
+  if (!el) return;
+  el.innerHTML = _sbHPAttrValues.map((v, i) => `
+    <span style="display:inline-flex;align-items:center;gap:2px;">
+      <input class="text-input" type="text" style="width:70px;padding:4px 6px;font-size:0.8rem;" value="${esc(v)}" onchange="sbUpdateHPAttrValueBox(${i},this.value)">
+      <button class="btn btn-danger btn-xs" onclick="sbRemoveHPAttrValueBox(${i})">✕</button>
+    </span>`).join('');
+}
+function sbAddHPAttrValueBox()        { _sbHPAttrValues.push(''); sbRenderHPAttrValueBoxes(); }
+function sbUpdateHPAttrValueBox(i, v) { _sbHPAttrValues[i] = v; }
+function sbRemoveHPAttrValueBox(i)    { _sbHPAttrValues.splice(i, 1); sbRenderHPAttrValueBoxes(); }
+
+function sbRenderHPAttrsModalList() {
+  const el = document.getElementById('sb-hp-attrs-list');
+  if (!el || !_sbHPAttrTarget) return;
+  const { field, idx } = _sbHPAttrTarget;
+  const hp = sbCurrentShip[field] && sbCurrentShip[field][idx];
+  const attrs = hp ? hp.attrs : null;
+  if (!attrs || !Object.keys(attrs).length) {
+    el.innerHTML = '<div style="color:var(--c-text-muted);font-size:0.86rem;font-style:italic;">No extra attributes yet.</div>';
+    return;
+  }
+  const rows = [];
+  for (const [k, occs] of Object.entries(attrs)) {
+    (occs || []).forEach((occ, oi) => {
+      const label = occ === true ? k : `${k} ${occ.join(' ')}`;
+      rows.push(`<div class="attr-row">
+        <span class="attr-key">${esc(label)}</span>
+        <button class="btn btn-danger btn-xs" onclick="sbRemoveHPAttrFromModal('${field}',${idx},'${esc(k).replace(/'/g,"\\'")}',${oi})">✕</button>
+      </div>`);
+    });
+  }
+  el.innerHTML = rows.join('');
+}
+
+function sbConfirmAddHPAttr() {
+  if (!_sbHPAttrTarget) return;
+  const { field, idx } = _sbHPAttrTarget;
+  const key = document.getElementById('sb-hp-attr-key').value.trim();
+  if (!key) { sbToast('Please enter a key.', 'danger'); return; }
+  const cleanVals = _sbHPAttrValues.map(v => v.trim()).filter(v => v !== '');
+  const occurrence = cleanVals.length
+    ? cleanVals.map(v => (/^-?[0-9]*\.?[0-9]+$/.test(v)) ? Number(v) : v)
+    : true;
+  const hp = sbCurrentShip[field] && sbCurrentShip[field][idx];
+  if (!hp) return;
+  hp.attrs = hp.attrs || {};
+  (hp.attrs[key] = hp.attrs[key] || []).push(occurrence);
+
+  document.getElementById('sb-hp-attr-key').value = '';
+  _sbHPAttrValues = [];
+  sbRenderHPAttrValueBoxes();
+  sbRenderHPAttrsModalList();
+  sbRenderGunsTurrets();
+  sbRenderRaw();
+}
+
+function sbRemoveHPAttr(field, idx, key, occIdx) {
+  const hp = sbCurrentShip[field] && sbCurrentShip[field][idx];
+  if (!hp || !hp.attrs || !hp.attrs[key]) return;
+  hp.attrs[key].splice(occIdx, 1);
+  if (!hp.attrs[key].length) delete hp.attrs[key];
+  sbRenderGunsTurrets();
+  sbRenderRaw();
+}
+
+function sbRemoveHPAttrFromModal(field, idx, key, occIdx) {
+  sbRemoveHPAttr(field, idx, key, occIdx);
+  sbRenderHPAttrsModalList();
+}
+
 function sbRenderHP(field, elId, label, showOver) {
   const el = document.getElementById(elId); if (!el) return;
   const items = sbCurrentShip[field] || [];
   const count = items.length;
   el.innerHTML = (count > 0 ? `<div class="sb-hp-count-badge">${count} ${label}${count !== 1 ? 's' : ''}</div>` : '') +
     (items.length ? items.map((g, i) =>
-      `<div class="outfit-item" style="gap:4px;">
+      `<div class="outfit-item" style="gap:4px;flex-wrap:wrap;">
         <span class="sb-hp-idx">${i + 1}</span>
-        <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.coords||'')}" placeholder="x y" onchange="sbUpdateHP('${field}',${i},'coords',this.value)">
+        <input class="text-input" style="flex:1;min-width:70px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.coords||'')}" placeholder="x y" onchange="sbUpdateHP('${field}',${i},'coords',this.value)">
         ${showOver ? `<input class="text-input" style="width:140px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.over||'')}" placeholder='outfit "Name"' onchange="sbUpdateHP('${field}',${i},'over',this.value)">` : ''}
+        <button class="btn btn-secondary btn-xs" onclick="sbOpenHPAttrEditor('${field}',${i})" title="Extra attributes (angle, arc, under, zoom...)">⚙</button>
         <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('${field}',${i})">✕</button>
+        ${_sbAttrsSummaryHTML(field, i, g.attrs)}
       </div>`).join('')
     : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No ${label}s defined.</div>`);
 }
@@ -1389,14 +1591,19 @@ function sbRenderBays(field, elId, label) {
   const count = items.length;
   el.innerHTML = (count > 0 ? `<div class="sb-hp-count-badge">${count} ${label} bay${count !== 1 ? 's' : ''}</div>` : '') +
     (items.length ? items.map((b, i) =>
-      `<div class="outfit-item" style="gap:4px;">
+      `<div class="outfit-item" style="gap:4px;flex-wrap:wrap;">
         <span class="sb-hp-idx">${i + 1}</span>
-        <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(b.coords||'')}" placeholder="x y" onchange="sbUpdateHP('${field}',${i},'coords',this.value)">
-        <input class="text-input" style="width:160px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(b.launchEffect||'')}" placeholder="launch effect" onchange="sbUpdateHP('${field}',${i},'launchEffect',this.value)">
+        <input class="text-input" style="flex:1;min-width:70px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(b.coords||'')}" placeholder="x y" onchange="sbUpdateHP('${field}',${i},'coords',this.value)">
+        <input class="text-input" style="width:150px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(b.launchEffect||'')}" placeholder="launch effect" onchange="sbUpdateHP('${field}',${i},'launchEffect',this.value)">
+        <input class="text-input" style="width:72px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(b.position||'')}" placeholder="left/right" title="Optional position token (4th value on the bay line)" onchange="sbUpdateHP('${field}',${i},'position',this.value)">
+        <button class="btn btn-secondary btn-xs" onclick="sbOpenHPAttrEditor('${field}',${i})" title="Extra attributes">⚙</button>
         <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('${field}',${i})">✕</button>
+        ${_sbAttrsSummaryHTML(field, i, b.attrs)}
       </div>`).join('')
     : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No ${label} bays defined.</div>`);
 }
+
+const SB_ENGINE_TYPE_LABEL = { engine: 'Engine', reverse: 'Reverse', steering: 'Steering' };
 
 function sbRenderEngines() {
   const el = document.getElementById('engines-list'); if (!el) return;
@@ -1404,19 +1611,24 @@ function sbRenderEngines() {
   const count = items.length;
   el.innerHTML = (count > 0 ? `<div class="sb-hp-count-badge">${count} engine point${count !== 1 ? 's' : ''}</div>` : '') +
     (items.length ? items.map((e, i) =>
-      `<div class="outfit-item" style="gap:4px;">
+      `<div class="outfit-item" style="gap:4px;flex-wrap:wrap;">
         <span class="sb-hp-idx">${i + 1}</span>
-        <input class="text-input" style="flex:1;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(e.coords||'')}" placeholder="x y" onchange="sbUpdateHP('engines',${i},'coords',this.value)">
+        <select class="text-input" style="width:96px;padding:4px 6px;font-size:0.76rem;" onchange="sbUpdateHP('engines',${i},'type',this.value)" title="Engine, reverse engine, or steering engine">
+          ${['engine','reverse','steering'].map(t => `<option value="${t}" ${(e.type||'engine')===t?'selected':''}>${SB_ENGINE_TYPE_LABEL[t]}</option>`).join('')}
+        </select>
+        <input class="text-input" style="flex:1;min-width:70px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(e.coords||'')}" placeholder="x y" onchange="sbUpdateHP('engines',${i},'coords',this.value)">
         <input class="text-input" style="width:68px;padding:4px 6px;font-size:0.78rem;" type="number" step="0.1" value="${esc(e.zoom||'')}" placeholder="zoom" onchange="sbUpdateHP('engines',${i},'zoom',this.value)">
+        <button class="btn btn-secondary btn-xs" onclick="sbOpenHPAttrEditor('engines',${i})" title="Extra attributes (angle, under...)">⚙</button>
         <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('engines',${i})">✕</button>
+        ${_sbAttrsSummaryHTML('engines', i, e.attrs)}
       </div>`).join('')
     : `<div style="color:var(--c-text-dim);font-size:0.82rem;font-style:italic;padding:6px 0;">No engine points defined.</div>`);
 }
 
 function addGunTurret(type) {
-  if (type === 'engine')  { (sbCurrentShip.engines  = sbCurrentShip.engines  || []).push({ coords:'0 0', zoom:'', angle:'' }); sbRenderEngines(); sbRenderRaw(); return; }
-  if (type === 'drone')   { (sbCurrentShip.drones    = sbCurrentShip.drones   || []).push({ coords:'0 0', launchEffect:'' }); sbRenderBays('drones',   'drones-list',   'drone');   sbRenderRaw(); return; }
-  if (type === 'fighter') { (sbCurrentShip.fighters  = sbCurrentShip.fighters || []).push({ coords:'0 0', launchEffect:'' }); sbRenderBays('fighters', 'fighters-list', 'fighter'); sbRenderRaw(); return; }
+  if (type === 'engine')  { (sbCurrentShip.engines  = sbCurrentShip.engines  || []).push({ coords:'0 0', zoom:'', type:'engine' }); sbRenderEngines(); sbRenderRaw(); return; }
+  if (type === 'drone')   { (sbCurrentShip.drones    = sbCurrentShip.drones   || []).push({ coords:'0 0', launchEffect:'', position:'' }); sbRenderBays('drones',   'drones-list',   'drone');   sbRenderRaw(); return; }
+  if (type === 'fighter') { (sbCurrentShip.fighters  = sbCurrentShip.fighters || []).push({ coords:'0 0', launchEffect:'', position:'' }); sbRenderBays('fighters', 'fighters-list', 'fighter'); sbRenderRaw(); return; }
   const field = { gun:'guns', turret:'turrets' }[type];
   if (!field) return;
   (sbCurrentShip[field] = sbCurrentShip[field] || []).push({ coords:'0 0', over:'' });
@@ -1549,6 +1761,12 @@ function sbRemoveExplode(f, i) { sbCurrentShip[f].splice(i, 1); sbRenderExplodeL
 // ═══════════════════════════════════════════════════════════
 //  ES GENERATOR
 // ═══════════════════════════════════════════════════════════
+function _sbEngineKeyword(type) {
+  if (type === 'reverse')  return '"reverse engine"';
+  if (type === 'steering') return '"steering engine"';
+  return 'engine';
+}
+
 function sbGenerateES(s) {
   const T = '\t', TT = '\t\t';
   const L = [];
@@ -1597,14 +1815,36 @@ function sbGenerateES(s) {
     }
   }
 
+  // Engines (including reverse/steering variants) — inline zoom stays on the
+  // hardpoint line itself; everything else (angle, under, arc, repeats, ...)
+  // round-trips generically through attrs (see §5.2-§5.4 of the parser docs).
   for (const e of (s.engines || [])) {
     const parts = (e.coords || '0 0').split(/\s+/);
-    L.push(`${T}engine ${parts[0] || '0'} ${parts[1] || '0'}${e.zoom && e.zoom !== '' ? ' ' + e.zoom : ''}`);
+    L.push(`${T}${_sbEngineKeyword(e.type)} ${parts[0] || '0'} ${parts[1] || '0'}${e.zoom && e.zoom !== '' ? ' ' + e.zoom : ''}`);
+    L.push(..._sbAttrsToESLines(e.attrs, TT));
   }
-  for (const g of (s.guns    || [])) { const raw = (g.over || '').trim().replace(/^"|"$/g, ''); L.push(`${T}gun ${g.coords || '0 0'}${raw ? ` "${raw}"` : ''}`); }
-  for (const g of (s.turrets || [])) { const raw = (g.over || '').trim().replace(/^"|"$/g, ''); L.push(`${T}turret ${g.coords || '0 0'}${raw ? ` "${raw}"` : ''}`); }
-  for (const d of (s.drones   || [])) { const p = (d.coords || '0 0').split(/\s+/); L.push(`${T}bay "Drone" ${p[0]||'0'} ${p[1]||'0'}`); if (d.launchEffect) L.push(`${TT}"launch effect" "${d.launchEffect}"`); }
-  for (const f of (s.fighters || [])) { const p = (f.coords || '0 0').split(/\s+/); L.push(`${T}bay "Fighter" ${p[0]||'0'} ${p[1]||'0'}`); if (f.launchEffect) L.push(`${TT}"launch effect" "${f.launchEffect}"`); }
+  for (const g of (s.guns    || [])) {
+    const raw = (g.over || '').trim().replace(/^"|"$/g, '');
+    L.push(`${T}gun ${g.coords || '0 0'}${raw ? ` "${raw}"` : ''}`);
+    L.push(..._sbAttrsToESLines(g.attrs, TT));
+  }
+  for (const g of (s.turrets || [])) {
+    const raw = (g.over || '').trim().replace(/^"|"$/g, '');
+    L.push(`${T}turret ${g.coords || '0 0'}${raw ? ` "${raw}"` : ''}`);
+    L.push(..._sbAttrsToESLines(g.attrs, TT));
+  }
+  for (const d of (s.drones   || [])) {
+    const p = (d.coords || '0 0').split(/\s+/);
+    L.push(`${T}bay "Drone" ${p[0]||'0'} ${p[1]||'0'}${d.position ? ' ' + d.position : ''}`);
+    if (d.launchEffect) L.push(`${TT}"launch effect" "${d.launchEffect}"`);
+    L.push(..._sbAttrsToESLines(d.attrs, TT));
+  }
+  for (const f of (s.fighters || [])) {
+    const p = (f.coords || '0 0').split(/\s+/);
+    L.push(`${T}bay "Fighter" ${p[0]||'0'} ${p[1]||'0'}${f.position ? ' ' + f.position : ''}`);
+    if (f.launchEffect) L.push(`${TT}"launch effect" "${f.launchEffect}"`);
+    L.push(..._sbAttrsToESLines(f.attrs, TT));
+  }
 
   for (const l of (s.leaks || [])) {
     if (!l.name) continue;
@@ -1627,7 +1867,7 @@ function sbGenerateES(s) {
 //  ES PARSER
 // ═══════════════════════════════════════════════════════════
 function sbParseES(text) {
-  const ships = []; let cur = null, block = null, subblock = null, lastBay = null;
+  const ships = []; let cur = null, block = null, subblock = null, lastHardpoint = null;
   const flush = () => { if (cur) ships.push(cur); };
   for (const raw of text.split('\n')) {
     const t = raw.trim();
@@ -1635,31 +1875,51 @@ function sbParseES(text) {
     const indent = raw.length - raw.trimStart().length;
     if (indent === 0) {
       const m = t.match(/^ship\s+("([^"]+)"|(\S+))\s*(.*)$/);
-      if (m) { flush(); cur = sbBlank(); cur.name = m[2] || m[3] || ''; cur.variant = (m[4] || '').trim(); block = null; subblock = null; lastBay = null; continue; }
+      if (m) { flush(); cur = sbBlank(); cur.name = m[2] || m[3] || ''; cur.variant = (m[4] || '').trim(); block = null; subblock = null; lastHardpoint = null; continue; }
       flush(); cur = null; continue;
     }
     if (!cur) continue;
     if (indent === 1) {
-      block = null; subblock = null; lastBay = null;
+      block = null; subblock = null; lastHardpoint = null;
       if (t.startsWith('sprite '))          { cur.sprite = sbStripQ(t.slice(7)); continue; }
       if (t.startsWith('thumbnail '))       { cur.thumbnail = sbStripQ(t.slice(10)); continue; }
       if (t.startsWith('plural '))          { cur.plural = sbStripQ(t.slice(7)); continue; }
       if (t === 'attributes')               { block = 'attributes'; continue; }
       if (t === 'outfits')                  { block = 'outfits'; continue; }
       if (t.startsWith('description '))     { const para = sbStripQ(t.slice(12)); cur.description = cur.description ? cur.description + '\n' + para : para; continue; }
-      if (t.startsWith('engine '))          { const p = sbTok(t.slice(7)); cur.engines.push({ coords: p.slice(0,2).join(' '), zoom: p[2] || '', angle: p[3] || '' }); continue; }
-      if (t.startsWith('gun '))             { sbPHP(cur, 'guns',    t.slice(4)); continue; }
-      if (t.startsWith('turret '))          { sbPHP(cur, 'turrets', t.slice(7)); continue; }
-      if (t.startsWith('bay '))             { const p = sbTok(t.slice(4)); const type = sbStripQ(p[0]||''); const coords = p.slice(1,3).join(' '); if (type === 'Fighter') { cur.fighters.push({ coords, launchEffect:'' }); lastBay = { field:'fighters', idx: cur.fighters.length-1 }; } else { cur.drones.push({ coords, launchEffect:'' }); lastBay = { field:'drones', idx: cur.drones.length-1 }; } continue; }
-      if (t === 'drone')                    { cur.drones.push({ coords:'', launchEffect:'' }); continue; }
-      if (t === 'fighter')                  { cur.fighters.push({ coords:'', launchEffect:'' }); continue; }
+      if (t.startsWith('"reverse engine"'))  { const p = sbTok(t).slice(1); cur.engines.push({ coords: p.slice(0,2).join(' '), zoom: p[2] || '', type: 'reverse' }); lastHardpoint = { field:'engines', idx: cur.engines.length-1 }; continue; }
+      if (t.startsWith('"steering engine"')) { const p = sbTok(t).slice(1); cur.engines.push({ coords: p.slice(0,2).join(' '), zoom: p[2] || '', type: 'steering' }); lastHardpoint = { field:'engines', idx: cur.engines.length-1 }; continue; }
+      if (t.startsWith('engine '))          { const p = sbTok(t).slice(1); cur.engines.push({ coords: p.slice(0,2).join(' '), zoom: p[2] || '', type: 'engine' }); lastHardpoint = { field:'engines', idx: cur.engines.length-1 }; continue; }
+      if (t.startsWith('gun '))             { sbPHP(cur, 'guns',    t.slice(4)); lastHardpoint = { field:'guns',    idx: cur.guns.length-1    }; continue; }
+      if (t.startsWith('turret '))          { sbPHP(cur, 'turrets', t.slice(7)); lastHardpoint = { field:'turrets', idx: cur.turrets.length-1 }; continue; }
+      if (t.startsWith('bay '))             {
+        const p = sbTok(t.slice(4));
+        const type = sbStripQ(p[0]||'');
+        const coords = p.slice(1,3).join(' ');
+        const position = p[3] ? sbStripQ(p[3]) : '';
+        if (type === 'Fighter') { cur.fighters.push({ coords, launchEffect:'', position }); lastHardpoint = { field:'fighters', idx: cur.fighters.length-1 }; }
+        else { cur.drones.push({ coords, launchEffect:'', position }); lastHardpoint = { field:'drones', idx: cur.drones.length-1 }; }
+        continue;
+      }
+      if (t === 'drone')                    { cur.drones.push({ coords:'', launchEffect:'', position:'' }); continue; }
+      if (t === 'fighter')                  { cur.fighters.push({ coords:'', launchEffect:'', position:'' }); continue; }
       if (t.startsWith('leak '))            { const p = sbTok(t.slice(5)); cur.leaks.push({ name: sbStripQ(p[0]||''), openChance: parseInt(p[1])||0, spreadChance: parseInt(p[2])||0 }); continue; }
       if (t.startsWith('explode '))         { sbPEx(cur, 'explode',      t.slice(8));  continue; }
       if (t.startsWith('"final explode" ')) { sbPEx(cur, 'finalExplode', t.slice(16)); continue; }
       cur.extraLines.push(raw); continue;
     }
     if (indent === 2) {
-      if (lastBay && t.startsWith('"launch effect"')) { const p = sbTok(t); cur[lastBay.field][lastBay.idx].launchEffect = sbStripQ(p[1]||''); continue; }
+      if (lastHardpoint && t.startsWith('"launch effect"')) { const p = sbTok(t); cur[lastHardpoint.field][lastHardpoint.idx].launchEffect = sbStripQ(p[1]||''); continue; }
+      if (lastHardpoint && block === null) {
+        // Generic hardpoint sub-attribute (angle, arc, under, repeated zoom, ...)
+        const parsed = _sbParseHardpointAttrLine(t);
+        if (parsed) {
+          const hp = cur[lastHardpoint.field][lastHardpoint.idx];
+          hp.attrs = hp.attrs || {};
+          (hp.attrs[parsed.key] = hp.attrs[parsed.key] || []).push(parsed.occurrence);
+          continue;
+        }
+      }
       if (block === 'attributes') {
         const p = sbTok(t); if (!p.length) continue;
         const key = sbStripQ(p[0]);
