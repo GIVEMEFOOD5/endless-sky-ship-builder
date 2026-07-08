@@ -916,16 +916,16 @@ function sbShipFromParsed(src) {
     s.turrets.push({ coords: [g.x, g.y].filter(v => v != null).join(' ') || '0 0', over, attrs: Object.keys(attrs).length ? attrs : undefined });
   }
   for (const e of (src.engines || [])) {
-    const attrs = _sbParsedHardpointToAttrs(e, ['x','y','zoom']);
-    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', zoom: e.zoom != null ? String(e.zoom) : '', type: 'engine', attrs: Object.keys(attrs).length ? attrs : undefined });
+    const attrs = _sbParsedHardpointToAttrs(e, ['x','y']);
+    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', type: 'engine', attrs: Object.keys(attrs).length ? attrs : undefined });
   }
   for (const e of (src.reverseEngines || [])) {
-    const attrs = _sbParsedHardpointToAttrs(e, ['x','y','zoom']);
-    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', zoom: e.zoom != null ? String(e.zoom) : '', type: 'reverse', attrs: Object.keys(attrs).length ? attrs : undefined });
+    const attrs = _sbParsedHardpointToAttrs(e, ['x','y']);
+    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', type: 'reverse', attrs: Object.keys(attrs).length ? attrs : undefined });
   }
   for (const e of (src.steeringEngines || [])) {
-    const attrs = _sbParsedHardpointToAttrs(e, ['x','y','zoom']);
-    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', zoom: e.zoom != null ? String(e.zoom) : '', type: 'steering', attrs: Object.keys(attrs).length ? attrs : undefined });
+    const attrs = _sbParsedHardpointToAttrs(e, ['x','y']);
+    s.engines.push({ coords: [e.x, e.y].filter(v => v != null).join(' ') || '0 0', type: 'steering', attrs: Object.keys(attrs).length ? attrs : undefined });
   }
   for (const b of (src.bays || [])) {
     const coords = [b.x, b.y].filter(v => v != null).join(' ') || '0 0';
@@ -1790,6 +1790,22 @@ function _sbAttrsToESLines(attrs, indent) {
   return lines;
 }
 
+// Pulls the first occurrence of `key` out of an attrs object so it can be
+// written inline on the hardpoint's own line (e.g. engine zoom). Any
+// additional occurrences of that same key are left behind and still emitted
+// as their own indented lines.
+function _sbExtractInlineToken(attrs, key) {
+  if (!attrs || !attrs[key] || !attrs[key].length) return { value: '', rest: attrs };
+  const occs  = attrs[key];
+  const first = occs[0];
+  const value = (first === true) ? '' : first.join(' ');
+  const rest  = { ...attrs };
+  const remaining = occs.slice(1);
+  if (remaining.length) rest[key] = remaining;
+  else delete rest[key];
+  return { value, rest };
+}
+
 function _sbAttrsSummaryHTML(field, idx, attrs) {
   if (!attrs) return '';
   const tags = [];
@@ -1938,8 +1954,7 @@ function sbRenderEngines() {
           ${['engine','reverse','steering'].map(t => `<option value="${t}" ${(e.type||'engine')===t?'selected':''}>${SB_ENGINE_TYPE_LABEL[t]}</option>`).join('')}
         </select>
         <input class="text-input" style="flex:1;min-width:70px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(e.coords||'')}" placeholder="x y" onchange="sbUpdateHP('engines',${i},'coords',this.value)">
-        <input class="text-input" style="width:68px;padding:4px 6px;font-size:0.78rem;" type="number" step="0.1" value="${esc(e.zoom||'')}" placeholder="zoom" onchange="sbUpdateHP('engines',${i},'zoom',this.value)">
-        <button class="btn btn-secondary btn-xs" onclick="sbOpenHPAttrEditor('engines',${i})" title="Extra attributes (angle, under...)">⚙</button>
+        <button class="btn btn-secondary btn-xs" onclick="sbOpenHPAttrEditor('engines',${i})" title="Extra attributes (zoom, angle, under...)">⚙</button>
         <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('engines',${i})">✕</button>
         ${_sbAttrsSummaryHTML('engines', i, e.attrs)}
       </div>`).join('')
@@ -1947,7 +1962,7 @@ function sbRenderEngines() {
 }
 
 function addGunTurret(type) {
-  if (type === 'engine')  { (sbCurrentShip.engines  = sbCurrentShip.engines  || []).push({ coords:'0 0', zoom:'', type:'engine' }); sbRenderEngines(); sbRenderRaw(); return; }
+  if (type === 'engine')  { (sbCurrentShip.engines  = sbCurrentShip.engines  || []).push({ coords:'0 0', type:'engine' }); sbRenderEngines(); sbRenderRaw(); return; }
   if (type === 'drone')   { (sbCurrentShip.drones    = sbCurrentShip.drones   || []).push({ coords:'0 0', launchEffect:'', position:'' }); sbRenderBays('drones',   'drones-list',   'drone');   sbRenderRaw(); return; }
   if (type === 'fighter') { (sbCurrentShip.fighters  = sbCurrentShip.fighters || []).push({ coords:'0 0', launchEffect:'', position:'' }); sbRenderBays('fighters', 'fighters-list', 'fighter'); sbRenderRaw(); return; }
   const field = { gun:'guns', turret:'turrets' }[type];
@@ -2136,13 +2151,16 @@ function sbGenerateES(s) {
     }
   }
 
-  // Engines (including reverse/steering variants) — inline zoom stays on the
-  // hardpoint line itself; everything else (angle, under, arc, repeats, ...)
-  // round-trips generically through attrs (see §5.2-§5.4 of the parser docs).
+  // Engines (including reverse/steering variants) — zoom is edited through
+  // the extra-attributes popup like everything else, but the first zoom
+  // value is written inline on the hardpoint line itself to match the ES
+  // format; any further occurrences and all other attrs (angle, under,
+  // arc, ...) round-trip generically (see §5.2-§5.4 of the parser docs).
   for (const e of (s.engines || [])) {
     const parts = (e.coords || '0 0').split(/\s+/);
-    L.push(`${T}${_sbEngineKeyword(e.type)} ${parts[0] || '0'} ${parts[1] || '0'}${e.zoom && e.zoom !== '' ? ' ' + e.zoom : ''}`);
-    L.push(..._sbAttrsToESLines(e.attrs, TT));
+    const { value: zoomVal, rest: engineAttrs } = _sbExtractInlineToken(e.attrs, 'zoom');
+    L.push(`${T}${_sbEngineKeyword(e.type)} ${parts[0] || '0'} ${parts[1] || '0'}${zoomVal !== '' ? ' ' + zoomVal : ''}`);
+    L.push(..._sbAttrsToESLines(engineAttrs, TT));
   }
   for (const g of (s.guns    || [])) {
     const raw = (g.over || '').trim().replace(/^"|"$/g, '');
@@ -2208,9 +2226,9 @@ function sbParseES(text) {
       if (t === 'attributes')               { block = 'attributes'; continue; }
       if (t === 'outfits')                  { block = 'outfits'; continue; }
       if (t.startsWith('description '))     { const para = sbStripQ(t.slice(12)); cur.description = cur.description ? cur.description + '\n' + para : para; continue; }
-      if (t.startsWith('"reverse engine"'))  { const p = sbTok(t).slice(1); cur.engines.push({ coords: p.slice(0,2).join(' '), zoom: p[2] || '', type: 'reverse' }); lastHardpoint = { field:'engines', idx: cur.engines.length-1 }; continue; }
-      if (t.startsWith('"steering engine"')) { const p = sbTok(t).slice(1); cur.engines.push({ coords: p.slice(0,2).join(' '), zoom: p[2] || '', type: 'steering' }); lastHardpoint = { field:'engines', idx: cur.engines.length-1 }; continue; }
-      if (t.startsWith('engine '))          { const p = sbTok(t).slice(1); cur.engines.push({ coords: p.slice(0,2).join(' '), zoom: p[2] || '', type: 'engine' }); lastHardpoint = { field:'engines', idx: cur.engines.length-1 }; continue; }
+      if (t.startsWith('"reverse engine"'))  { lastHardpoint = _sbPushEngine(cur, t, 'reverse');  continue; }
+      if (t.startsWith('"steering engine"')) { lastHardpoint = _sbPushEngine(cur, t, 'steering'); continue; }
+      if (t.startsWith('engine '))          { lastHardpoint = _sbPushEngine(cur, t, 'engine');   continue; }
       if (t.startsWith('gun '))             { sbPHP(cur, 'guns',    t.slice(4)); lastHardpoint = { field:'guns',    idx: cur.guns.length-1    }; continue; }
       if (t.startsWith('turret '))          { sbPHP(cur, 'turrets', t.slice(7)); lastHardpoint = { field:'turrets', idx: cur.turrets.length-1 }; continue; }
       if (t.startsWith('bay '))             {
@@ -2263,6 +2281,16 @@ function sbParseES(text) {
   }
   flush();
   return ships;
+}
+function _sbPushEngine(cur, t, type) {
+  const p = sbTok(t).slice(1);
+  const eObj = { coords: p.slice(0, 2).join(' '), type };
+  if (p[2] != null && p[2] !== '') {
+    const n = Number(p[2]);
+    eObj.attrs = { zoom: [[isNaN(n) ? p[2] : n]] };
+  }
+  cur.engines.push(eObj);
+  return { field: 'engines', idx: cur.engines.length - 1 };
 }
 function sbPHP(cur, f, rest) { const p=sbTok(rest); cur[f].push({ coords:p.slice(0,2).join(' '), over:p.slice(2).join(' ') }); }
 function sbPEx(cur, f, rest) { const p=sbTok(rest); (cur[f]=cur[f]||[]).push({ name:sbStripQ(p[0]||'tiny explosion'), count:parseInt(p[1])||1 }); }
