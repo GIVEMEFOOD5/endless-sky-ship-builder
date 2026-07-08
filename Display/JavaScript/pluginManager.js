@@ -9,19 +9,40 @@
 
    Also polls parse-status.json to show when the GitHub Action is
    running, and blocks saves during that window.
+
+   Entries can be one of two types:
+     "git"     — a GitHub repository, cloned by the parser via git
+     "archive" — a .zip/.tar/.tar.gz/.tgz/.tar.bz2 uploaded through
+                 this page straight to Vercel Blob storage, then
+                 committed into rawData/ in the repo. May contain
+                 multiple plugins; the parser detects all of them.
    ═══════════════════════════════════════════════════════════════ */
 
 'use strict';
+
+// This project has no build step (plain <script> tags, no bundler), so we
+// can't use a bare "@vercel/blob/client" specifier — browsers can't resolve
+// that without a bundler. esm.sh re-serves npm packages as browser-ready
+// ESM, so this works with zero build tooling. Pin the version so a future
+// @vercel/blob release can't silently change behaviour under you.
+import { upload } from 'https://esm.sh/@vercel/blob@0.27.1/client';
 
 /* ── Paths ───────────────────────────────────────────────────── */
 const PLUGINS_JSON_PATH = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
 const PARSE_STATUS_PATH = 'https://api.github.com/repos/givemefood5/endless-sky-ship-builder/contents/parse-status.json';
 
-/* ── Vercel backend endpoint ─────────────────────────────────── */
-const BACKEND_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/update-json';
+/* ── Vercel backend endpoints ────────────────────────────────── */
+const BACKEND_URL        = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/update-json';
+const BLOB_UPLOAD_URL    = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/blob-upload';
+const COMMIT_ARCHIVE_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/commit-archive';
 
 /* ── Optional shared secret (must match SECRET_KEY in Vercel env) */
 const UPDATE_SECRET = null;
+
+/* ── Archive upload constraints (mirrors the server-side check —
+   the server is authoritative, this is just instant client feedback) */
+const MAX_ARCHIVE_BYTES = 90 * 1024 * 1024; // 90 MB
+const ALLOWED_ARCHIVE_EXTENSIONS = ['.zip', '.tar.gz', '.tgz', '.tar.bz2', '.tbz2', '.tar'];
 
 /* ── Poll intervals ──────────────────────────────────────────── */
 const POLL_INTERVAL_RUNNING    = 30_000;  // 30 s  — while parse is active
@@ -49,6 +70,14 @@ function normaliseRepository(raw) {
     return null;
 }
 
+function detectArchiveExtension(filename) {
+    const lower = (filename || '').toLowerCase();
+    for (const ext of ALLOWED_ARCHIVE_EXTENSIONS) {
+        if (lower.endsWith(ext)) return ext;
+    }
+    return null;
+}
+
 function esc(str) {
     return String(str)
         .replace(/&/g, '&amp;')
@@ -65,6 +94,11 @@ function highlight(str, query) {
         new RegExp(`(${safeQuery})`, 'gi'),
         '<mark class="search-hl">$1</mark>'
     );
+}
+
+function formatBytes(bytes) {
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -92,6 +126,9 @@ class PluginStore {
         this._plugins = obj.plugins.map(p => ({
             name:       String(p.name       || '').trim(),
             repository: String(p.repository || '').trim(),
+            // Existing entries without a "type" field are git repos —
+            // that was the only kind before archive support existed.
+            type:       p.type === 'archive' ? 'archive' : 'git',
         }));
         this._notify();
     }
@@ -100,6 +137,28 @@ class PluginStore {
         return [...this._plugins, ...this._pending];
     }
 
+    _checkNameAndRepoUnique(trimName, repoValue, { skipListIndex = null } = {}) {
+        const lower = trimName.toLowerCase();
+        const lists = [
+            { items: this._plugins, label: null },
+            { items: this._pending, label: 'awaiting save' },
+        ];
+        for (const { items, label } of lists) {
+            for (let i = 0; i < items.length; i++) {
+                if (skipListIndex && skipListIndex.items === items && skipListIndex.index === i) continue;
+                const p = items[i];
+                if (p.name.toLowerCase() === lower) {
+                    return `A plugin named "${p.name}" already exists${label ? ` (${label})` : ''}.`;
+                }
+                if (repoValue && p.repository === repoValue) {
+                    return `That repository/archive is already listed as "${p.name}"${label ? ` (${label})` : ''}.`;
+                }
+            }
+        }
+        return null;
+    }
+
+    /* ── Add a git-repository plugin (unchanged behaviour) ───────── */
     addPlugin(name, repo) {
         const trimName = (name || '').trim();
         if (!trimName) return { ok: false, error: 'Plugin name cannot be empty.' };
@@ -107,17 +166,28 @@ class PluginStore {
         const normRepo = normaliseRepository(repo);
         if (!normRepo) return { ok: false, error: 'Invalid repository — use  username/repo  or a full GitHub URL.' };
 
-        const lower = trimName.toLowerCase();
-        for (const list of [this._plugins, this._pending]) {
-            for (const p of list) {
-                if (p.name.toLowerCase() === lower)
-                    return { ok: false, error: `A plugin named "${p.name}" already exists.` };
-                if (p.repository === normRepo)
-                    return { ok: false, error: `That repository is already listed as "${p.name}".` };
-            }
-        }
+        const err = this._checkNameAndRepoUnique(trimName, normRepo);
+        if (err) return { ok: false, error: err };
 
-        this._pending.push({ name: trimName, repository: normRepo });
+        this._pending.push({ name: trimName, repository: normRepo, type: 'git' });
+        this._notify();
+        return { ok: true };
+    }
+
+    /* ── Add an archive plugin. `archiveUrl` is already a resolved
+       raw.githubusercontent.com URL — the caller (UI) is responsible
+       for actually performing the upload+commit before calling this;
+       this method just registers the resulting entry, same as addPlugin
+       registers a git repo URL. ─────────────────────────────────── */
+    addArchivePlugin(name, archiveUrl) {
+        const trimName = (name || '').trim();
+        if (!trimName) return { ok: false, error: 'Plugin name cannot be empty.' };
+        if (!archiveUrl) return { ok: false, error: 'Missing archive URL.' };
+
+        const err = this._checkNameAndRepoUnique(trimName, archiveUrl);
+        if (err) return { ok: false, error: err };
+
+        this._pending.push({ name: trimName, repository: archiveUrl, type: 'archive' });
         this._notify();
         return { ok: true };
     }
@@ -129,25 +199,27 @@ class PluginStore {
         const trimName = (name || '').trim();
         if (!trimName) return { ok: false, error: 'Plugin name cannot be empty.' };
 
+        const existing = this._plugins[index];
+
+        // Archive entries keep their uploaded file — only the display
+        // name can be changed here. Re-uploading a replacement archive
+        // is done via "remove, then add" rather than in-place editing,
+        // to keep this edit path simple and unambiguous.
+        if (existing.type === 'archive') {
+            const err = this._checkNameAndRepoUnique(trimName, null, { skipListIndex: { items: this._plugins, index } });
+            if (err) return { ok: false, error: err };
+            this._plugins[index] = { ...existing, name: trimName };
+            this._notify();
+            return { ok: true };
+        }
+
         const normRepo = normaliseRepository(repo);
         if (!normRepo) return { ok: false, error: 'Invalid repository — use  username/repo  or a full GitHub URL.' };
 
-        const lower = trimName.toLowerCase();
-        for (let i = 0; i < this._plugins.length; i++) {
-            if (i === index) continue;
-            if (this._plugins[i].name.toLowerCase() === lower)
-                return { ok: false, error: `A plugin named "${this._plugins[i].name}" already exists.` };
-            if (this._plugins[i].repository === normRepo)
-                return { ok: false, error: `That repository is already listed as "${this._plugins[i].name}".` };
-        }
-        for (const p of this._pending) {
-            if (p.name.toLowerCase() === lower)
-                return { ok: false, error: `A plugin named "${p.name}" is awaiting save.` };
-            if (p.repository === normRepo)
-                return { ok: false, error: `That repository is awaiting save as "${p.name}".` };
-        }
+        const err = this._checkNameAndRepoUnique(trimName, normRepo, { skipListIndex: { items: this._plugins, index } });
+        if (err) return { ok: false, error: err };
 
-        this._plugins[index] = { name: trimName, repository: normRepo };
+        this._plugins[index] = { name: trimName, repository: normRepo, type: 'git' };
         this._notify();
         return { ok: true };
     }
@@ -159,25 +231,23 @@ class PluginStore {
         const trimName = (name || '').trim();
         if (!trimName) return { ok: false, error: 'Plugin name cannot be empty.' };
 
+        const existing = this._pending[index];
+
+        if (existing.type === 'archive') {
+            const err = this._checkNameAndRepoUnique(trimName, null, { skipListIndex: { items: this._pending, index } });
+            if (err) return { ok: false, error: err };
+            this._pending[index] = { ...existing, name: trimName };
+            this._notify();
+            return { ok: true };
+        }
+
         const normRepo = normaliseRepository(repo);
         if (!normRepo) return { ok: false, error: 'Invalid repository — use  username/repo  or a full GitHub URL.' };
 
-        const lower = trimName.toLowerCase();
-        for (const p of this._plugins) {
-            if (p.name.toLowerCase() === lower)
-                return { ok: false, error: `A plugin named "${p.name}" already exists.` };
-            if (p.repository === normRepo)
-                return { ok: false, error: `That repository is already listed as "${p.name}".` };
-        }
-        for (let i = 0; i < this._pending.length; i++) {
-            if (i === index) continue;
-            if (this._pending[i].name.toLowerCase() === lower)
-                return { ok: false, error: `A plugin named "${this._pending[i].name}" already exists.` };
-            if (this._pending[i].repository === normRepo)
-                return { ok: false, error: `That repository is already listed as "${this._pending[i].name}".` };
-        }
+        const err = this._checkNameAndRepoUnique(trimName, normRepo, { skipListIndex: { items: this._pending, index } });
+        if (err) return { ok: false, error: err };
 
-        this._pending[index] = { name: trimName, repository: normRepo };
+        this._pending[index] = { name: trimName, repository: normRepo, type: 'git' };
         this._notify();
         return { ok: true };
     }
@@ -232,14 +302,68 @@ class PluginStore {
 }
 
 /* ══════════════════════════════════════════════════════════════
+   ArchiveUploader
+   Handles the two-step upload: browser → Vercel Blob directly,
+   then a small POST to /api/commit-archive to land it in GitHub.
+   ══════════════════════════════════════════════════════════════ */
+class ArchiveUploader {
+    static async upload(file, pluginName, onProgress) {
+        const ext = detectArchiveExtension(file.name);
+        if (!ext) {
+            return { ok: false, error: `Unsupported file type. Allowed: ${ALLOWED_ARCHIVE_EXTENSIONS.join(', ')}` };
+        }
+        if (file.size > MAX_ARCHIVE_BYTES) {
+            return { ok: false, error: `File is ${formatBytes(file.size)}, which exceeds the 90MB limit.` };
+        }
+
+        let blobResult;
+        try {
+            const clientPayload = UPDATE_SECRET ? JSON.stringify({ secret: UPDATE_SECRET }) : undefined;
+            blobResult = await upload(file.name, file, {
+                access:            'public',
+                handleUploadUrl:   BLOB_UPLOAD_URL,
+                clientPayload,
+                onUploadProgress:  (event) => {
+                    if (onProgress && typeof event.percentage === 'number') {
+                        onProgress(event.percentage / 100);
+                    }
+                },
+            });
+        } catch (err) {
+            return { ok: false, error: `Upload failed: ${err.message}` };
+        }
+
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (UPDATE_SECRET) headers['X-Update-Secret'] = UPDATE_SECRET;
+
+            const res = await fetch(COMMIT_ARCHIVE_URL, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({
+                    blobUrl:    blobResult.url,
+                    pluginName: pluginName,
+                    fileName:   file.name,
+                }),
+            });
+
+            let data;
+            try { data = await res.json(); } catch { data = {}; }
+
+            if (!res.ok) {
+                return { ok: false, error: data.error || `Server error ${res.status} committing archive.` };
+            }
+
+            return { ok: true, rawUrl: data.rawUrl };
+
+        } catch (networkErr) {
+            return { ok: false, error: `Network error committing archive: ${networkErr.message}` };
+        }
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
    ParseStatusMonitor
-   
-   Two modes:
-     - "on-demand"  → GitHub Contents API (accurate, costs quota)
-                      Called only on page load and before a save/remove.
-     - "pages-poll" → GitHub Pages raw URL (free, ~1-10 min CDN lag)
-                      Used only while a job is confirmed/optimistically
-                      running, polling every 15 s until idle.
    ══════════════════════════════════════════════════════════════ */
 
 const PARSE_STATUS_API_PATH =
@@ -269,16 +393,12 @@ class ParseStatusMonitor {
     onChange(fn) { this._listeners.push(fn); }
     _notify()    { this._listeners.forEach(fn => fn()); }
 
-    /* ── Public: call on page-load and before every save/remove ─
-       Returns the fresh status string so callers can gate on it. */
 async poll() {
-    // Step 1: try GitHub Pages (free, no rate limit)
     try {
         const res = await fetch(PARSE_STATUS_PAGES_PATH + '?t=' + Date.now());
         if (res.ok) {
             const data = await res.json();
             if (data.status === 'running') {
-                // Pages says running — trust it, no need to hit the API
                 this._applyStatus(data);
                 this._startPagesPoll();
                 return this._status;
@@ -288,7 +408,6 @@ async poll() {
         // Pages unreachable — fall through to API
     }
 
-    // Step 2: Pages said idle (or failed) — confirm with the API
     try {
         const res = await fetch(PARSE_STATUS_API_PATH + '?t=' + Date.now(), {
             headers: {
@@ -312,7 +431,6 @@ async poll() {
     return this._status;
 }
 
-/* ── Shared status applier ───────────────────────────────────── */
 _applyStatus(data) {
     const newStatus = data.status || null;
 
@@ -322,7 +440,6 @@ _applyStatus(data) {
         this._optimisticTimer = null;
     }
 
-    // Don't drop out of running while optimistic and API still says idle
     if (newStatus === 'idle' && this._status === 'running' && !this._confirmedRunning) {
         return;
     }
@@ -343,15 +460,12 @@ _applyStatus(data) {
     }
 }
 
-    /* ── Called immediately after a save so UI shows "running" ─
-       before GitHub Actions even starts.                        */
     forceOptimisticRunning() {
         const previousStatus   = this._status;
         this._status           = 'running';
         this._confirmedRunning = false;
         this._notify();
 
-        // Safety net: revert if neither API nor Pages ever confirms running
         clearTimeout(this._optimisticTimer);
         this._optimisticTimer = setTimeout(() => {
             if (!this._confirmedRunning) {
@@ -359,14 +473,13 @@ _applyStatus(data) {
                 this._notify();
             }
             this._optimisticTimer = null;
-        }, 180_000); // 3 min
+        }, 180_000);
 
         this._startPagesPoll();
     }
 
-    /* ── Pages polling — only runs while job is running ──────── */
     _startPagesPoll() {
-        this._stopPagesPoll(); // clear any existing timer
+        this._stopPagesPoll();
         this._pagesPollTimer = setTimeout(() => this._pollPages(), PAGES_POLL_INTERVAL);
     }
 
@@ -387,12 +500,10 @@ async _pollPages() {
                 clearTimeout(this._optimisticTimer);
                 this._optimisticTimer = null;
                 this._notify();
-                // Still running — keep polling Pages
                 this._pagesPollTimer = setTimeout(() => this._pollPages(), PAGES_POLL_INTERVAL);
                 return;
             }
 
-            // Pages says idle — verify with the API before unlocking
             const apiRes = await fetch(PARSE_STATUS_API_PATH + '?t=' + Date.now(), {
                 headers: {
                     'Accept':               'application/vnd.github+json',
@@ -404,13 +515,10 @@ async _pollPages() {
             const apiData  = JSON.parse(atob(envelope.content.replace(/\n/g, '')));
 
             if (apiData.status === 'idle') {
-                // Both agree — job is done
                 this._applyStatus(apiData);
-                // Stop polling — job is done
                 return;
             }
 
-            // API still says running — Pages CDN is stale, keep polling
             this._confirmedRunning = true;
             this._pagesPollTimer = setTimeout(() => this._pollPages(), PAGES_POLL_INTERVAL);
             return;
@@ -452,17 +560,29 @@ class PluginManagerUI {
         this.searchEl         = document.getElementById('pluginSearch');
         this.parseBarEl       = document.getElementById('parseStatusBar');
 
+        this.sourceTypeGitBtn     = document.getElementById('sourceTypeGitBtn');
+        this.sourceTypeArchiveBtn = document.getElementById('sourceTypeArchiveBtn');
+        this.repoGroup            = document.getElementById('repoGroup');
+        this.archiveGroup         = document.getElementById('archiveGroup');
+        this.archiveFileInput     = document.getElementById('archiveFile');
+        this.archiveDropZone      = document.getElementById('archiveDropZone');
+        this.archiveFileLabel     = document.getElementById('archiveFileLabel');
+        this.archiveProgressWrap  = document.getElementById('archiveProgressWrap');
+        this.archiveProgressBar   = document.getElementById('archiveProgressBar');
+
         this._editIndex   = null;
         this._editPending = null;
         this._statusTimer = null;
         this._searchQuery = '';
+        this._sourceType  = 'git';
+        this._selectedFile = null;
+        this._uploading    = false;
 
         this._bindEvents();
         this.store.onChange(()   => this._render());
         this.monitor.onChange(() => this._updateParseBar());
     }
 
-    /* ── Events ──────────────────────────────────────────────── */
 _bindEvents() {
     this.addBtn.addEventListener('click',   () => this._handleAddOrEdit());
     this.clearBtn.addEventListener('click', () => this._handleClear());
@@ -477,9 +597,107 @@ _bindEvents() {
         this._searchQuery = '';
         this._render();
     });
+
+    if (this.sourceTypeGitBtn && this.sourceTypeArchiveBtn) {
+        this.sourceTypeGitBtn.addEventListener('click', () => this._setSourceType('git'));
+        this.sourceTypeArchiveBtn.addEventListener('click', () => this._setSourceType('archive'));
+    }
+
+    if (this.archiveFileInput) {
+        this.archiveFileInput.addEventListener('change', () => {
+            const file = this.archiveFileInput.files?.[0] || null;
+            this._handleFileSelected(file);
+        });
+    }
+
+    if (this.archiveDropZone) {
+        this.archiveDropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            this.archiveDropZone.classList.add('dragover');
+        });
+        this.archiveDropZone.addEventListener('dragleave', () => {
+            this.archiveDropZone.classList.remove('dragover');
+        });
+        this.archiveDropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            this.archiveDropZone.classList.remove('dragover');
+            const file = e.dataTransfer?.files?.[0] || null;
+            this._handleFileSelected(file);
+        });
+    }
 }
 
-    /* ── Parse status bar ────────────────────────────────────── */
+    _setSourceType(type) {
+        if (this._editIndex !== null || this._editPending !== null) {
+            this._clearInputs();
+        }
+        this._sourceType = type;
+        this._selectedFile = null;
+        if (this.archiveFileInput) this.archiveFileInput.value = '';
+        this._updateSourceTypeUI();
+    }
+
+    _updateSourceTypeUI() {
+        const isArchive = this._sourceType === 'archive';
+        if (this.repoGroup)    this.repoGroup.style.display    = isArchive ? 'none' : '';
+        if (this.archiveGroup) this.archiveGroup.style.display = isArchive ? '' : 'none';
+        if (this.sourceTypeGitBtn && this.sourceTypeArchiveBtn) {
+            this.sourceTypeGitBtn.classList.toggle('active', !isArchive);
+            this.sourceTypeArchiveBtn.classList.toggle('active', isArchive);
+        }
+        this._renderFileLabel();
+    }
+
+    _handleFileSelected(file) {
+        if (!file) { this._selectedFile = null; this._renderFileLabel(); return; }
+
+        const lower = file.name.toLowerCase();
+        const validExt = ALLOWED_ARCHIVE_EXTENSIONS.some(ext => lower.endsWith(ext));
+        if (!validExt) {
+            this._showStatus(`Unsupported file type. Allowed: ${ALLOWED_ARCHIVE_EXTENSIONS.join(', ')}`, 'error');
+            this._selectedFile = null;
+            if (this.archiveFileInput) this.archiveFileInput.value = '';
+            this._renderFileLabel();
+            return;
+        }
+
+        if (file.size > MAX_ARCHIVE_BYTES) {
+            this._showStatus(
+                `"${file.name}" is ${formatBytes(file.size)} — the limit is 90MB. Please upload a smaller archive.`,
+                'error'
+            );
+            this._selectedFile = null;
+            if (this.archiveFileInput) this.archiveFileInput.value = '';
+            this._renderFileLabel();
+            return;
+        }
+
+        this._selectedFile = file;
+        this._showStatus('', '');
+        this._renderFileLabel();
+    }
+
+    _renderFileLabel() {
+        if (!this.archiveFileLabel) return;
+        if (this._selectedFile) {
+            this.archiveFileLabel.textContent = `${this._selectedFile.name} (${formatBytes(this._selectedFile.size)})`;
+        } else {
+            this.archiveFileLabel.textContent = 'No file selected — drag & drop or click to choose (.zip, .tar, .tar.gz, .tgz, .tar.bz2 — max 90MB)';
+        }
+    }
+
+    _setUploadProgress(fraction) {
+        if (!this.archiveProgressWrap || !this.archiveProgressBar) return;
+        this.archiveProgressWrap.style.display = 'block';
+        this.archiveProgressBar.style.width = `${Math.round(fraction * 100)}%`;
+    }
+
+    _hideUploadProgress() {
+        if (!this.archiveProgressWrap) return;
+        this.archiveProgressWrap.style.display = 'none';
+        this.archiveProgressBar.style.width = '0%';
+    }
+
     _updateParseBar() {
         if (!this.parseBarEl) return;
         const status = this.monitor.status;
@@ -498,14 +716,12 @@ _bindEvents() {
             this.saveBtn.disabled = false;
 
         } else {
-            // null = unknown (first load or fetch failed)
             this.parseBarEl.className = 'parse-status-bar parse-status--idle';
             this.parseBarEl.innerHTML = `⏳ <strong>Checking parser status…</strong>`;
             this.saveBtn.disabled = false;
         }
     }
 
-   /* ── Gate: poll API, show modal if running, return bool ─────── */
 async _checkBeforeSave() {
     this.saveBtn.disabled = true;
     this._showStatus('Checking parser status…', 'info');
@@ -521,10 +737,20 @@ async _checkBeforeSave() {
     return true;
 }
 
-    /* ── Add / edit ──────────────────────────────────────────── */
-    _handleAddOrEdit() {
-        let result;
+    async _handleAddOrEdit() {
+        if (this._uploading) return;
 
+        const isNewArchiveAdd =
+            this._sourceType === 'archive' &&
+            this._editIndex === null &&
+            this._editPending === null;
+
+        if (isNewArchiveAdd) {
+            await this._handleArchiveAdd();
+            return;
+        }
+
+        let result;
         if (this._editPending !== null) {
             result = this.store.editPending(this._editPending, this.nameInput.value, this.repoInput.value);
         } else if (this._editIndex !== null) {
@@ -540,8 +766,49 @@ async _checkBeforeSave() {
         this._showStatus(wasEditing ? 'Plugin updated.' : 'Plugin staged — save when ready.', 'success');
     }
 
+    async _handleArchiveAdd() {
+        const trimName = (this.nameInput.value || '').trim();
+        if (!trimName) { this._showStatus('Plugin name cannot be empty.', 'error'); return; }
+        if (!this._selectedFile) { this._showStatus('Please choose an archive file to upload.', 'error'); return; }
+
+        this._uploading = true;
+        this.addBtn.disabled = true;
+        this._setUploadProgress(0);
+        this._showStatus('Uploading archive…', 'info');
+
+        const result = await ArchiveUploader.upload(
+            this._selectedFile,
+            trimName,
+            (fraction) => {
+                this._setUploadProgress(fraction);
+                this._showStatus(`Uploading archive… ${Math.round(fraction * 100)}%`, 'info');
+            }
+        );
+
+        this._uploading = false;
+        this.addBtn.disabled = false;
+        this._hideUploadProgress();
+
+        if (!result.ok) {
+            this._showStatus(result.error, 'error');
+            return;
+        }
+
+        const addResult = this.store.addArchivePlugin(trimName, result.rawUrl);
+        if (!addResult.ok) {
+            this._showStatus(
+                `Archive uploaded and committed, but could not stage it (${addResult.error}). ` +
+                `The file is already in rawData/ at ${result.rawUrl} — you may need to add it manually.`,
+                'error'
+            );
+            return;
+        }
+
+        this._clearInputs();
+        this._showStatus('Archive uploaded and staged — save when ready.', 'success');
+    }
+
    _showParserRunningModal() {
-    // Remove any existing modal
     document.getElementById('parserRunningModal')?.remove();
 
     const overlay = document.createElement('div');
@@ -591,8 +858,7 @@ async _checkBeforeSave() {
     document.body.appendChild(overlay);
     this._showStatus('', '');
 }
-   
-    /* ── Clear ───────────────────────────────────────────────── */
+
     _handleClear() {
         this._clearInputs();
         this._showStatus('', '');
@@ -633,30 +899,50 @@ async _handleRemoveSave(removedName) {
     this.monitor.forceOptimisticRunning();
 }
 
-    /* ── Start editing an active plugin ─────────────────────── */
     _startEdit(index) {
         const p = this.store.plugins[index];
         if (!p) return;
         this._editIndex       = index;
         this._editPending     = null;
+        this._sourceType      = p.type === 'archive' ? 'archive' : 'git';
         this.nameInput.value  = p.name;
-        this.repoInput.value  = p.repository;
+        this.repoInput.value  = p.type === 'archive' ? '' : p.repository;
         this.addBtn.innerHTML = '<span>✏️</span> Save Changes';
+        this._updateSourceTypeUI();
+        if (p.type === 'archive') {
+            if (this.archiveGroup) this.archiveGroup.style.display = 'none';
+            if (this.repoGroup)    this.repoGroup.style.display    = 'none';
+        }
         this.nameInput.focus();
-        this._showStatus(`Editing active: ${p.name}`, 'info');
+        this._showStatus(
+            p.type === 'archive'
+                ? `Editing archive entry: ${p.name} (rename only — remove & re-upload to replace the file)`
+                : `Editing active: ${p.name}`,
+            'info'
+        );
     }
 
-    /* ── Start editing a pending plugin ─────────────────────── */
     _startEditPending(index) {
         const p = this.store.pending[index];
         if (!p) return;
         this._editPending     = index;
         this._editIndex       = null;
+        this._sourceType      = p.type === 'archive' ? 'archive' : 'git';
         this.nameInput.value  = p.name;
-        this.repoInput.value  = p.repository;
+        this.repoInput.value  = p.type === 'archive' ? '' : p.repository;
         this.addBtn.innerHTML = '<span>✏️</span> Save Changes';
+        this._updateSourceTypeUI();
+        if (p.type === 'archive') {
+            if (this.archiveGroup) this.archiveGroup.style.display = 'none';
+            if (this.repoGroup)    this.repoGroup.style.display    = 'none';
+        }
         this.nameInput.focus();
-        this._showStatus(`Editing staged: ${p.name}`, 'info');
+        this._showStatus(
+            p.type === 'archive'
+                ? `Editing staged archive entry: ${p.name} (rename only)`
+                : `Editing staged: ${p.name}`,
+            'info'
+        );
     }
 
     _clearInputs() {
@@ -665,15 +951,22 @@ async _handleRemoveSave(removedName) {
         this.nameInput.value  = '';
         this.repoInput.value  = '';
         this.addBtn.innerHTML = '<span>📥</span> Add Plugin';
+        this._selectedFile    = null;
+        if (this.archiveFileInput) this.archiveFileInput.value = '';
+        this._updateSourceTypeUI();
     }
 
-    /* ── Render both lists ───────────────────────────────────── */
     _render() {
         this._renderActive();
         this._renderPending();
     }
 
-    /* ── Render active list ──────────────────────────────────── */
+    _sourceBadge(type) {
+        return type === 'archive'
+            ? `<span class="source-type-badge source-type--archive" title="Uploaded archive">📦 archive</span>`
+            : `<span class="source-type-badge source-type--git" title="Git repository">🔗 git</span>`;
+    }
+
     _renderActive() {
         const plugins = this.store.plugins;
         const query   = this._searchQuery.toLowerCase();
@@ -708,7 +1001,7 @@ async _handleRemoveSave(removedName) {
             row.className = 'sorter-row';
             row.innerHTML = `
                 <div class="sorter-label">
-                    <span class="plugin-list-name">${highlight(p.name, this._searchQuery)}</span>
+                    <span class="plugin-list-name">${highlight(p.name, this._searchQuery)} ${this._sourceBadge(p.type)}</span>
                     <span class="plugin-list-repo">${highlight(p.repository, this._searchQuery)}</span>
                 </div>
                 <button class="btn-action plugin-edit-btn" data-i="${realIndex}" title="Edit">✏️</button>
@@ -735,7 +1028,6 @@ async _handleRemoveSave(removedName) {
         });
     }
 
-    /* ── Render pending list + show/hide the panel ───────────── */
     _renderPending() {
         const pending = this.store.pending;
 
@@ -755,7 +1047,7 @@ async _handleRemoveSave(removedName) {
             row.className = 'sorter-row';
             row.innerHTML = `
                 <div class="sorter-label">
-                    <span class="plugin-list-name">${esc(p.name)}</span>
+                    <span class="plugin-list-name">${esc(p.name)} ${this._sourceBadge(p.type)}</span>
                     <span class="plugin-list-repo">${esc(p.repository)}</span>
                 </div>
                 <button class="btn-action plugin-edit-btn" data-i="${i}" title="Edit">✏️</button>
@@ -781,7 +1073,6 @@ async _handleRemoveSave(removedName) {
         });
     }
 
-    /* ── Status banner (auto-hides on success) ───────────────── */
     _showStatus(msg, type) {
         if (!this.statusEl) return;
         clearTimeout(this._statusTimer);
@@ -808,17 +1099,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const ui      = new PluginManagerUI(store, monitor);
 
     ui._updateParseBar();
+    ui._updateSourceTypeUI();
 
     window.pluginStore  = store;
     window.parseMonitor = monitor;
 
-    // Load plugins and poll status in parallel — neither blocks the other
     const [pluginsResult] = await Promise.allSettled([
         fetch(PLUGINS_JSON_PATH).then(r => {
             if (!r.ok) throw new Error(`HTTP ${r.status}`);
             return r.json();
         }),
-        monitor.poll(), // on-load API check — if running, starts pages polling automatically
+        monitor.poll(),
     ]);
 
     if (pluginsResult.status === 'fulfilled') {
