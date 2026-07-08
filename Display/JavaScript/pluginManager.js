@@ -611,6 +611,9 @@ _bindEvents() {
     }
 
     if (this.archiveDropZone) {
+        this.archiveDropZone.addEventListener('click', () => {
+           this.archiveFileInput?.click();
+        });
         this.archiveDropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             this.archiveDropZone.classList.add('dragover');
