@@ -24,8 +24,11 @@
 // can't use a bare "@vercel/blob/client" specifier — browsers can't resolve
 // that without a bundler. esm.sh re-serves npm packages as browser-ready
 // ESM, so this works with zero build tooling. Pin the version so a future
-// @vercel/blob release can't silently change behaviour under you.
-import { upload } from 'https://esm.sh/@vercel/blob@0.27.1/client';
+// @vercel/blob release can't silently change behaviour under you — and
+// keep this in sync with the @vercel/blob version in the Vercel project's
+// package.json. A mismatch between client and server versions here caused
+// a 400 Bad Request on the direct-to-storage upload in earlier testing.
+import { upload } from 'https://esm.sh/@vercel/blob@2.6.1/client';
 
 /* ── Paths ───────────────────────────────────────────────────── */
 const PLUGINS_JSON_PATH = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
@@ -612,8 +615,9 @@ _bindEvents() {
 
     if (this.archiveDropZone) {
         this.archiveDropZone.addEventListener('click', () => {
-           this.archiveFileInput?.click();
+            if (this.archiveFileInput) this.archiveFileInput.click();
         });
+
         this.archiveDropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             this.archiveDropZone.classList.add('dragover');
