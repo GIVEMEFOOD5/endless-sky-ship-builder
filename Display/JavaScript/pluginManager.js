@@ -32,9 +32,9 @@ const PLUGINS_JSON_PATH = 'https://givemefood5.github.io/endless-sky-ship-builde
 const PARSE_STATUS_PATH = 'https://api.github.com/repos/givemefood5/endless-sky-ship-builder/contents/parse-status.json';
 
 /* ── Vercel backend endpoints ────────────────────────────────── */
-const BACKEND_URL        = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/update-json';
-const BLOB_UPLOAD_URL    = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/blob-upload';
-const COMMIT_ARCHIVE_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/commit-archive';
+const BACKEND_URL        = 'https://vercel-for-endless-sky-ship-builder-name-was-taken.vercel.app/api/update-json';
+const BLOB_UPLOAD_URL    = 'https://vercel-for-endless-sky-ship-builder-name-was-taken.vercel.app/api/blob-upload';
+const COMMIT_ARCHIVE_URL = 'https://vercel-for-endless-sky-ship-builder-name-was-taken.vercel.app/api/commit-archive';
 
 /* ── Optional shared secret (must match SECRET_KEY in Vercel env) */
 const UPDATE_SECRET = null;
