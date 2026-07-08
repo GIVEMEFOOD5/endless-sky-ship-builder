@@ -37,6 +37,9 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Install parser dependencies
+        run: npm install adm-zip tar --no-save
+
       - name: Clear existing data folder
         run: |
           git rm -r --cached data/ --quiet || true
