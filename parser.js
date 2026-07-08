@@ -2,8 +2,11 @@
 // Parses ship, variant, outfit, and effect data from GitHub repositories.
 // Uses sparse Git clones (data/ + images/ only) instead of the GitHub API,
 // which avoids rate limits and the 100k-file tree truncation limit.
+// Also supports "archive" sources: a .zip / .tar / .tar.gz / .tgz uploaded
+// to rawData/ in the repo, which may itself contain one or more plugins.
 
 const https           = require('https');
+const http            = require('http');
 const SpeciesResolver = require('./speciesResolver');
 const LocationResolver = require('./locationResolver');
 const { parseAttributes } = require('./attributeParser');
@@ -13,6 +16,8 @@ const path            = require('path');
 const { exec: execCallback } = require('child_process');
 const { promisify }   = require('util');
 const exec            = promisify(execCallback);
+const AdmZip          = require('adm-zip');
+const tar             = require('tar');
 
 // ---------------------------------------------------------------------------
 // Helper: sparse-clone specific folders from a repo
@@ -43,6 +48,91 @@ async function sparseClone(repoGitUrl, branch, targetDir, folders) {
   await exec(`git -C "${targetDir}" sparse-checkout init --cone`);
   await exec(`git -C "${targetDir}" sparse-checkout set ${folders.map(f => `"${f}"`).join(' ')}`);
   await exec(`git -C "${targetDir}" checkout ${branch}`);
+}
+
+// ---------------------------------------------------------------------------
+// Archive download + extraction helpers
+// ---------------------------------------------------------------------------
+
+// Recognised archive extensions, in the order they should be tested
+// (longest/most-specific suffix first, e.g. ".tar.gz" before ".gz").
+const ARCHIVE_EXTENSIONS = ['.tar.gz', '.tgz', '.tar.bz2', '.tbz2', '.tar', '.zip'];
+
+function detectArchiveExtension(urlOrName) {
+  const lower = urlOrName.toLowerCase().split('?')[0];
+  for (const ext of ARCHIVE_EXTENSIONS) {
+    if (lower.endsWith(ext)) return ext;
+  }
+  return null;
+}
+
+/**
+ * Download a URL to a local file, following redirects (raw.githubusercontent.com
+ * and similar CDNs may 301/302 redirect). Caps followed redirects at 5.
+ */
+function downloadToFile(url, destPath, redirectsLeft = 5) {
+  return new Promise((resolve, reject) => {
+    const client = url.startsWith('https://') ? https : http;
+    const options = { headers: { 'User-Agent': 'endless-sky-parser' } };
+    client.get(url, options, (res) => {
+      if ([301, 302, 303, 307, 308].includes(res.statusCode) && res.headers.location) {
+        res.resume();
+        if (redirectsLeft <= 0) {
+          reject(new Error(`Too many redirects fetching ${url}`));
+          return;
+        }
+        downloadToFile(res.headers.location, destPath, redirectsLeft - 1).then(resolve, reject);
+        return;
+      }
+      if (res.statusCode !== 200) {
+        res.resume();
+        reject(new Error(`Failed to download ${url}: HTTP ${res.statusCode}`));
+        return;
+      }
+      const fsSync = require('fs');
+      const fileStream = fsSync.createWriteStream(destPath);
+      res.pipe(fileStream);
+      fileStream.on('finish', () => fileStream.close(() => resolve()));
+      fileStream.on('error', reject);
+    }).on('error', reject);
+  });
+}
+
+/**
+ * Extract a downloaded archive file to destDir, based on its extension.
+ * Supports .zip (via adm-zip) and .tar / .tar.gz / .tgz / .tar.bz2 / .tbz2
+ * (via the `tar` package — note: .tar.bz2 requires the OS `bzip2` to be on
+ * PATH since the `tar` package itself only handles gzip natively; if bzip2
+ * isn't available this will throw and the plugin will be skipped with a
+ * clear error rather than silently producing an empty plugin).
+ */
+async function extractArchive(archivePath, destDir, ext) {
+  await fs.mkdir(destDir, { recursive: true });
+
+  if (ext === '.zip') {
+    const zip = new AdmZip(archivePath);
+    zip.extractAllTo(destDir, true);
+    return;
+  }
+
+  if (ext === '.tar' || ext === '.tar.gz' || ext === '.tgz') {
+    await tar.extract({ file: archivePath, cwd: destDir });
+    return;
+  }
+
+  if (ext === '.tar.bz2' || ext === '.tbz2') {
+    // The `tar` package doesn't decompress bzip2 itself; shell out to bzip2 + tar.
+    try {
+      await exec(`bzip2 -dc "${archivePath}" | tar -x -C "${destDir}"`);
+    } catch (err) {
+      throw new Error(
+        `Failed to extract .tar.bz2 archive (is bzip2 installed on the runner?): ${err.message}`
+      );
+    }
+    return;
+  }
+
+  throw new Error(`Unsupported archive extension: ${ext}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -515,6 +605,111 @@ class EndlessSkyParser {
     console.log('  ✓ Images done');
   }
 
+  /**
+   * Shared per-plugin-folder processing, used by both the git sparse-clone
+   * path (parseRepository) and the archive path (parseArchiveSource).
+   * `clonedPlugin` is one entry as returned by detectPlugins():
+   *   { name, dataDir, imagesDir, pluginRootInRepo }
+   * `pluginRoot` is the absolute path to the plugin's root folder (parent of
+   * its data/ and images/ folders) — used to look for plugin.txt.
+   * Returns a "meta" object matching the shape used by parseRepository's
+   * pluginMeta array, minus the fields the caller fills in itself
+   * (cloneDir for later cleanup is left to the caller).
+   */
+  async _parsePluginFolder(clonedPlugin, pluginId, pluginRoot) {
+    const pluginData = await this.readPluginTxt(pluginRoot);
+    if (pluginData?.name) {
+      console.log(`  plugin.txt name: "${pluginData.name}"`);
+    }
+
+    this._currentPluginId = pluginId;
+
+    const shipsBefore   = this.ships.length;
+    const outfitsBefore = this.outfits.length;
+    const effectsBefore = this.effects.length;
+
+    const txtFiles = await this.findTxtFiles(clonedPlugin.dataDir);
+    console.log(`  Parsing ${txtFiles.length} data files...`);
+    for (const f of txtFiles) {
+      this.parseFileContent(await fs.readFile(f, 'utf8'), f, clonedPlugin.dataDir);
+    }
+
+    console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects`);
+
+    return {
+      name:         clonedPlugin.name,
+      pluginData,
+      pluginId,
+      imagesDir:    clonedPlugin.imagesDir,
+      shipsBefore,
+      shipsAfter:   this.ships.length,
+      outfitsBefore,
+      outfitsAfter: this.outfits.length,
+      effectsBefore,
+      effectsAfter: this.effects.length
+    };
+  }
+
+  /**
+   * Given a list of pluginMeta entries (as produced by _parsePluginFolder)
+   * that all belong to the same source, process pending variants, copy
+   * images, and build the final `results` array in the same shape
+   * parseRepository() returns — so callers (main()) don't need to branch
+   * on whether a source came from git or an archive.
+   */
+  async _finalisePluginBatch(pluginMeta, repoPendingBefore, sourceIdentifier) {
+    this._currentPluginId = null;
+
+    for (const pv of this.pendingVariants.slice(repoPendingBefore)) {
+      pv.repoShipsAfter = this.ships.length;
+    }
+
+    const repoPending = this.pendingVariants.slice(repoPendingBefore);
+    console.log(`\n  Processing ${repoPending.length} variants from this source against ${this.ships.length} total ships (across all sources)...`);
+    this.processVariants(repoPending);
+    console.log(`  → ${this.variants.length} total variants kept so far`);
+
+    const results = [];
+
+    for (const meta of pluginMeta) {
+      const pluginShips   = this.ships.slice(meta.shipsBefore,   meta.shipsAfter);
+      const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
+      const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
+
+      const pluginShipNames = new Set(pluginShips.map(s => s.name));
+      const pluginVariants  = this.variants.filter(v =>
+        pluginShipNames.has(v.baseShip) || (v._variantPluginId === meta.pluginId)
+      );
+
+      const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
+                      pluginOutfits.length === 0 && pluginEffects.length === 0;
+
+      if (isEmpty) {
+        console.log(`  Skipping "${meta.name}" - no parseable content found.`);
+        continue;
+      }
+
+      console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
+
+      const destImagesDir = path.join(process.cwd(), 'data', meta.name, 'images');
+      await this.copyImagesForPlugin(meta.imagesDir, destImagesDir, pluginShips, pluginVariants, pluginOutfits, pluginEffects);
+
+      results.push({
+        name:       meta.name,
+        pluginData: meta.pluginData,
+        outputName: meta.name,
+        pluginId:   meta.pluginId,
+        repository: sourceIdentifier,
+        ships:      pluginShips,
+        variants:   pluginVariants,
+        outfits:    pluginOutfits,
+        effects:    pluginEffects,
+      });
+    }
+
+    return results;
+  }
+
   async parseRepository(repoUrl, sourceName = null) {
     const urlMatch = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
     if (!urlMatch) throw new Error('Invalid GitHub URL: ' + repoUrl);
@@ -548,14 +743,11 @@ class EndlessSkyParser {
 
     console.log(`Found ${probePlugins.length} plugin(s): ${probePlugins.map(p => p.name).join(', ')}`);
 
-    const repoShipsBefore   = this.ships.length;
-    const repoOutfitsBefore = this.outfits.length;
-    const repoEffectsBefore = this.effects.length;
     const repoPendingBefore = this.pendingVariants.length;
-
-    this._currentRepoShipsBefore = repoShipsBefore;
+    this._currentRepoShipsBefore = this.ships.length;
 
     const pluginMeta = [];
+    const cloneDirs  = [];
 
     for (const probe of probePlugins) {
       console.log(`\n  ── Plugin: ${probe.name} ──`);
@@ -569,6 +761,7 @@ class EndlessSkyParser {
       try {
         console.log(`  Sparse cloning data/ and images/...`);
         await sparseClone(repoGitUrl, branch, cloneDir, foldersToClone);
+        cloneDirs.push(cloneDir);
 
         const clonedPlugins = await this.detectPlugins(cloneDir, repo);
         const clonedPlugin  = clonedPlugins.find(p => p.name === probe.name) || clonedPlugins[0];
@@ -578,104 +771,87 @@ class EndlessSkyParser {
           continue;
         }
 
-        // ── Read plugin.txt if present ──
         const pluginRoot = root === '.' ? cloneDir : path.join(cloneDir, root);
-        const pluginData = await this.readPluginTxt(pluginRoot);
-        if (pluginData?.name) {
-          console.log(`  plugin.txt name: "${pluginData.name}"`);
-        }
-
-        this._currentPluginId = pluginId;
-
-        const shipsBefore   = this.ships.length;
-        const outfitsBefore = this.outfits.length;
-        const effectsBefore = this.effects.length;
-
-        const txtFiles = await this.findTxtFiles(clonedPlugin.dataDir);
-        console.log(`  Parsing ${txtFiles.length} data files...`);
-        for (const f of txtFiles) {
-          this.parseFileContent(await fs.readFile(f, 'utf8'), f, clonedPlugin.dataDir);
-        }
-
-        console.log(`  → +${this.ships.length - shipsBefore} ships, +${this.outfits.length - outfitsBefore} outfits, +${this.effects.length - effectsBefore} effects (${this.pendingVariants.length - repoPendingBefore} variants pending for this repo)`);
-
-        pluginMeta.push({
-          name:         clonedPlugin.name,
-          pluginData,
-          pluginId,
-          imagesDir:    clonedPlugin.imagesDir,
-          cloneDir,
-          shipsBefore,
-          shipsAfter:   this.ships.length,
-          outfitsBefore,
-          outfitsAfter: this.outfits.length,
-          effectsBefore,
-          effectsAfter: this.effects.length
-        });
+        const meta = await this._parsePluginFolder(clonedPlugin, pluginId, pluginRoot);
+        pluginMeta.push(meta);
 
       } catch (err) {
-        await fs.rm(cloneDir, { recursive: true, force: true });
+        for (const d of cloneDirs) await fs.rm(d, { recursive: true, force: true });
         throw err;
       }
     }
 
     this._currentRepoShipsAfter = this.ships.length;
-    this._currentPluginId = null;
 
-    for (const pv of this.pendingVariants.slice(repoPendingBefore)) {
-      pv.repoShipsAfter = this._currentRepoShipsAfter;
+    try {
+      return await this._finalisePluginBatch(pluginMeta, repoPendingBefore, repoUrl);
+    } finally {
+      for (const d of cloneDirs) await fs.rm(d, { recursive: true, force: true });
+    }
+  }
+
+  /**
+   * Archive-source counterpart to parseRepository(). `archiveUrl` should
+   * point at a downloadable .zip / .tar / .tar.gz / .tgz / .tar.bz2 file
+   * (typically something committed under rawData/ in the repo and served
+   * via raw.githubusercontent.com). The archive may contain MULTIPLE
+   * plugins (any number of data/ folders anywhere inside it) — every one
+   * found is parsed and returned, same as a multi-plugin git repository.
+   */
+  async parseArchiveSource(archiveUrl, sourceName = null) {
+    const ext = detectArchiveExtension(archiveUrl);
+    if (!ext) {
+      throw new Error(
+        `Could not determine archive type for "${archiveUrl}". ` +
+        `Supported extensions: ${ARCHIVE_EXTENSIONS.join(', ')}`
+      );
     }
 
-    const repoPending = this.pendingVariants.slice(repoPendingBefore);
-    console.log(`\n  Processing ${repoPending.length} variants from this repo against ${this.ships.length} total ships (across all repos)...`);
-    this.processVariants(repoPending);
-    console.log(`  → ${this.variants.length} total variants kept so far`);
+    console.log(`\nScanning archive: ${archiveUrl}`);
 
-    const results = [];
+    const workDir      = path.join(process.cwd(), `.tmp-archive-${sourceName}-${Date.now()}`);
+    const downloadPath = path.join(workDir, `download${ext}`);
+    const extractDir   = path.join(workDir, 'extracted');
 
-    for (const meta of pluginMeta) {
-      try {
-        const pluginShips   = this.ships.slice(meta.shipsBefore,   meta.shipsAfter);
-        const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
-        const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
+    await fs.mkdir(workDir, { recursive: true });
 
-        const pluginShipNames = new Set(pluginShips.map(s => s.name));
-        const pluginVariants  = this.variants.filter(v =>
-          pluginShipNames.has(v.baseShip) || (v._variantPluginId === meta.pluginId)
-        );
+    try {
+      console.log(`  Downloading archive...`);
+      await downloadToFile(archiveUrl, downloadPath);
 
-        const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
-                        pluginOutfits.length === 0 && pluginEffects.length === 0;
+      console.log(`  Extracting (${ext})...`);
+      await extractArchive(downloadPath, extractDir, ext);
 
-        if (isEmpty) {
-          console.log(`  Skipping "${meta.name}" - no parseable content found.`);
-          continue;
-        }
+      const detectedPlugins = await this.detectPlugins(extractDir, sourceName);
 
-        console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
-
-        const destImagesDir = path.join(process.cwd(), 'data', meta.name, 'images');
-        await this.copyImagesForPlugin(meta.imagesDir, destImagesDir, pluginShips, pluginVariants, pluginOutfits, pluginEffects);
-
-        results.push({
-          name:       meta.name,
-          pluginData: meta.pluginData,
-          outputName: meta.name,
-          pluginId:   meta.pluginId,
-          repository: repoUrl,
-          ships:      pluginShips,
-          variants:   pluginVariants,
-          outfits:    pluginOutfits,
-          effects:    pluginEffects,
-          owner, repo, branch
-        });
-
-      } finally {
-        await fs.rm(meta.cloneDir, { recursive: true, force: true });
+      if (detectedPlugins.length === 0) {
+        console.log('  No valid plugin data folders detected inside archive.');
+        return [];
       }
-    }
 
-    return results;
+      console.log(`  Found ${detectedPlugins.length} plugin(s) in archive: ${detectedPlugins.map(p => p.name).join(', ')}`);
+
+      const repoPendingBefore = this.pendingVariants.length;
+      this._currentRepoShipsBefore = this.ships.length;
+
+      const pluginMeta = [];
+      for (const clonedPlugin of detectedPlugins) {
+        console.log(`\n  ── Plugin: ${clonedPlugin.name} ──`);
+        const pluginId    = `${sourceName}/${clonedPlugin.name}`;
+        const pluginRoot  = clonedPlugin.pluginRootInRepo === '.'
+          ? extractDir
+          : path.join(extractDir, clonedPlugin.pluginRootInRepo);
+        const meta = await this._parsePluginFolder(clonedPlugin, pluginId, pluginRoot);
+        pluginMeta.push(meta);
+      }
+
+      this._currentRepoShipsAfter = this.ships.length;
+
+      return await this._finalisePluginBatch(pluginMeta, repoPendingBefore, archiveUrl);
+
+    } finally {
+      await fs.rm(workDir, { recursive: true, force: true });
+    }
   }
 
   parseFileContent(content, filePath, dataDir) {
@@ -1954,9 +2130,22 @@ async function main() {
       console.log(`\n${'='.repeat(60)}`);
       console.log(`Source: ${source.name}  |  ${source.repository}`);
       console.log('='.repeat(60));
+
+      // "archive" sources (or a repository URL ending in a known archive
+      // extension, as a fallback if `type` wasn't set) are parsed via the
+      // download+extract path instead of git sparse-clone. Everything
+      // downstream (dataIndex, file writing, species/location resolution)
+      // is identical — parseArchiveSource returns the same result shape
+      // as parseRepository.
+      const isArchive =
+        source.type === 'archive' ||
+        detectArchiveExtension(source.repository || '') !== null;
+
       let results;
       try {
-        results = await sharedParser.parseRepository(source.repository, source.name);
+        results = isArchive
+          ? await sharedParser.parseArchiveSource(source.repository, source.name)
+          : await sharedParser.parseRepository(source.repository, source.name);
       } catch (err) {
         console.error(`  Error processing "${source.name}": ${err.message}`);
         console.error(err.stack);
