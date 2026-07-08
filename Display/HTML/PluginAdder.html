@@ -22,6 +22,28 @@
             word-break: break-all;
         }
 
+        /* ── Source type badge (git vs archive) ────────────────── */
+        .source-type-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 1px 8px;
+            border-radius: 10px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .source-type--git {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--c-accent-text);
+            border: 1px solid var(--c-border-hi);
+        }
+        .source-type--archive {
+            background: rgba(168, 85, 247, 0.15);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.35);
+        }
+
         /* ── Status banner ─────────────────────────────────────── */
         .status-msg {
             padding: 12px 16px;
@@ -223,6 +245,73 @@
             cursor: not-allowed;
             pointer-events: none;
         }
+
+        /* ── Source type toggle (Git repo vs Upload archive) ────── */
+        .source-type-toggle {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .source-type-toggle .toggle-btn {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: var(--r-md);
+            border: 1px solid var(--c-border);
+            background: var(--c-surface);
+            color: var(--c-text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .source-type-toggle .toggle-btn.active {
+            border-color: var(--c-accent);
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--c-accent-text);
+        }
+
+        /* ── Archive drop zone ──────────────────────────────────── */
+        .archive-drop-zone {
+            border: 2px dashed var(--c-border);
+            border-radius: var(--r-md);
+            padding: 24px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+            background: var(--c-input-bg, var(--c-surface));
+        }
+        .archive-drop-zone:hover,
+        .archive-drop-zone.dragover {
+            border-color: var(--c-accent);
+            background: rgba(59, 130, 246, 0.08);
+        }
+        .archive-drop-zone .drop-icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        #archiveFileLabel {
+            font-size: 0.85rem;
+            color: var(--c-text-muted);
+            word-break: break-all;
+        }
+
+        /* ── Upload progress bar ───────────────────────────────── */
+        #archiveProgressWrap {
+            display: none;
+            margin-top: 12px;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--c-surface);
+            overflow: hidden;
+            border: 1px solid var(--c-border);
+        }
+        #archiveProgressBar {
+            height: 100%;
+            width: 0%;
+            background: var(--c-accent);
+            transition: width 0.2s ease;
+        }
     </style>
 </head>
 <body>
@@ -237,8 +326,8 @@
         <h1>🚀 Endless Sky Plugin Manager</h1>
         <p class="subtitle">Add and manage your plugin repositories globally.</p>
         <div class="wip-notice">
-            ⚠️ <strong>WARNING</strong> — These settings are global. Multi-plugin repository support is active
-            (tested with Zuckungs list ♥). Parsing all repositories may take a moment(15 mins at the time I updated this) — please be patient!
+            ⚠️ <strong>WARNING</strong> — These settings are global. Multi-plugin repository AND multi-plugin
+            archive support is active. Parsing all repositories may take a moment(15 mins at the time I updated this) — please be patient!
             <br><br>
             <strong>ANY CHANGES WILL TAKE EFFECT ACROSS ALL INSTANCES OF THIS PLUGIN!</strong>
             Please do not remove plugins unless you are testing your own!
@@ -247,7 +336,13 @@
 
     <!-- ── Add / Edit plugin ──────────────────────────────────── -->
     <div class="panel config-section">
-        <h2 class="section-title">⚙️ Add Plugin Repository</h2>
+        <h2 class="section-title">⚙️ Add Plugin Source</h2>
+
+        <!-- Git repo vs Upload archive toggle -->
+        <div class="source-type-toggle">
+            <button type="button" class="toggle-btn active" id="sourceTypeGitBtn">🔗 Git Repository</button>
+            <button type="button" class="toggle-btn" id="sourceTypeArchiveBtn">📦 Upload Archive</button>
+        </div>
 
         <div class="input-group" id="nameGroup">
             <label for="pluginName">Plugin Name</label>
@@ -256,6 +351,7 @@
                    autocomplete="off" spellcheck="false">
         </div>
 
+        <!-- Git repository input (hidden when in archive mode) -->
         <div class="input-group" id="repoGroup">
             <label for="repoUrl">
                 GitHub Repository URL
@@ -266,6 +362,22 @@
             <input class="text-input" type="text" id="repoUrl"
                    placeholder="e.g., zuckung/endless-sky-plugins"
                    autocomplete="off" spellcheck="false">
+        </div>
+
+        <!-- Archive upload input (hidden when in git mode) -->
+        <div class="input-group" id="archiveGroup" style="display:none;">
+            <label>
+                Plugin Archive
+                <span style="color:var(--c-text-muted);font-weight:400">
+                    (.zip, .tar, .tar.gz, .tgz, .tar.bz2 &nbsp;—&nbsp; max 90MB &nbsp;—&nbsp; may contain multiple plugins)
+                </span>
+            </label>
+            <div class="archive-drop-zone" id="archiveDropZone">
+                <span class="drop-icon">📦</span>
+                <span id="archiveFileLabel">No file selected — drag &amp; drop or click to choose (.zip, .tar, .tar.gz, .tgz, .tar.bz2 — max 90MB)</span>
+            </div>
+            <input type="file" id="archiveFile" accept=".zip,.tar,.tar.gz,.tgz,.tar.bz2,.tbz2" style="display:none;">
+            <div id="archiveProgressWrap"><div id="archiveProgressBar"></div></div>
         </div>
 
         <div class="button-group">
@@ -345,6 +457,8 @@
 </div>
 
 <!-- ── JS ─────────────────────────────────────────────────────── -->
-<script src="../JavaScript/pluginManager.js"></script>
+<!-- type="module" is REQUIRED now — pluginManager.js uses ESM
+     `import { upload } from '@vercel/blob/client'` -->
+<script type="module" src="../JavaScript/pluginManager.js"></script>
 </body>
 </html>
