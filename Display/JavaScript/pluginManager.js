@@ -38,6 +38,7 @@ const PARSE_STATUS_PATH = 'https://api.github.com/repos/givemefood5/endless-sky-
 const BACKEND_URL        = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/update-json';
 const BLOB_UPLOAD_URL    = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/blob-upload';
 const COMMIT_ARCHIVE_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/commit-archive';
+const DELETE_ARCHIVE_URL = 'https://vercel-for-endless-sky-ship-builder.vercel.app/api/delete-archive';
 
 /* ── Optional shared secret (must match SECRET_KEY in Vercel env) */
 const UPDATE_SECRET = null;
@@ -361,6 +362,39 @@ class ArchiveUploader {
 
         } catch (networkErr) {
             return { ok: false, error: `Network error committing archive: ${networkErr.message}` };
+        }
+    }
+
+    /**
+     * Delete the underlying file from rawData/ in GitHub. Used when the
+     * user removes an "archive"-type plugin entry, so the upload doesn't
+     * sit around unreferenced forever. Failures here are logged but don't
+     * block the plugin removal itself — a leftover file in rawData/ is
+     * harmless clutter, not a correctness problem, so we don't want a
+     * network hiccup here to prevent someone from removing a plugin.
+     */
+    static async deleteArchive(rawUrl) {
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (UPDATE_SECRET) headers['X-Update-Secret'] = UPDATE_SECRET;
+
+            const res = await fetch(DELETE_ARCHIVE_URL, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({ rawUrl }),
+            });
+
+            let data;
+            try { data = await res.json(); } catch { data = {}; }
+
+            if (!res.ok) {
+                return { ok: false, error: data.error || `Server error ${res.status} deleting archive.` };
+            }
+
+            return { ok: true };
+
+        } catch (networkErr) {
+            return { ok: false, error: `Network error deleting archive: ${networkErr.message}` };
         }
     }
 }
@@ -889,7 +923,7 @@ async _handleSave() {
     this.monitor.forceOptimisticRunning();
 }
 
-async _handleRemoveSave(removedName) {
+async _handleRemoveSave(removedName, removedPlugin) {
     const canProceed = await this._checkBeforeSave();
     if (!canProceed) return;
 
@@ -900,6 +934,22 @@ async _handleRemoveSave(removedName) {
         this.saveBtn.disabled = false;
         this._showStatus('Remove failed: ' + (result.error || ''), 'error');
         return;
+    }
+
+    // Only delete the underlying rawData/ file AFTER plugins.json has
+    // successfully been saved without this entry — deleting first would
+    // risk leaving a dangling reference if the save step then failed.
+    if (removedPlugin?.type === 'archive' && removedPlugin.repository) {
+        const delResult = await ArchiveUploader.deleteArchive(removedPlugin.repository);
+        if (!delResult.ok) {
+            console.warn(`Could not delete rawData file for "${removedName}": ${delResult.error}`);
+            this._showStatus(
+                `"${removedName}" removed and saved, but its uploaded file could not be deleted (${delResult.error}). You may want to remove it manually from rawData/.`,
+                'error'
+            );
+            this.monitor.forceOptimisticRunning();
+            return;
+        }
     }
 
     this._showStatus(`"${removedName}" removed and saved.`, 'success');
@@ -1023,11 +1073,12 @@ async _handleRemoveSave(removedName) {
             row.querySelector('.plugin-rm-btn').addEventListener('click', e => {
                 e.stopPropagation();
                 const idx  = +e.currentTarget.dataset.i;
-                const name = this.store.plugins[idx]?.name ?? 'this plugin';
+                const removedPlugin = this.store.plugins[idx];
+                const name = removedPlugin?.name ?? 'this plugin';
                 if (confirm(`Remove "${name}"?`)) {
                     if (this._editIndex === idx) this._clearInputs();
                     const result = this.store.removePlugin(idx);
-                    if (result.ok) this._handleRemoveSave(name);
+                    if (result.ok) this._handleRemoveSave(name, removedPlugin);
                 }
             });
 
@@ -1069,10 +1120,22 @@ async _handleRemoveSave(removedName) {
             row.querySelector('.plugin-rm-btn').addEventListener('click', e => {
                 e.stopPropagation();
                 const idx  = +e.currentTarget.dataset.i;
-                const name = this.store.pending[idx]?.name ?? 'this plugin';
+                const removedPlugin = this.store.pending[idx];
+                const name = removedPlugin?.name ?? 'this plugin';
                 if (confirm(`Remove "${name}" from the pending list?`)) {
                     if (this._editPending === idx) this._clearInputs();
                     this.store.removePending(idx);
+                    // The pending entry was never saved into plugins.json, but if
+                    // it's an archive, the file itself was already committed to
+                    // rawData/ at upload time — clean that up now so it doesn't
+                    // sit around unreferenced forever.
+                    if (removedPlugin?.type === 'archive' && removedPlugin.repository) {
+                        ArchiveUploader.deleteArchive(removedPlugin.repository).then(result => {
+                            if (!result.ok) {
+                                console.warn(`Could not delete rawData file for "${name}": ${result.error}`);
+                            }
+                        });
+                    }
                 }
             });
 
