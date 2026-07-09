@@ -38,7 +38,7 @@ jobs:
           node-version: '22'
 
       - name: Install parser dependencies
-        run: npm install adm-zip tar --no-save
+        run: npm install adm-zip tar --prefix /tmp/parser-deps --no-save
 
       - name: Clear existing data folder
         run: |
@@ -48,6 +48,7 @@ jobs:
       - name: Run parser
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_PATH: /tmp/parser-deps/node_modules
         run: node parser.js
 
       - name: Commit parsed data
