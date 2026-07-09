@@ -16,7 +16,7 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-07-03T23:22:19.964Z",
+    "generatedAt": "2026-07-09T07:39:12.412Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
@@ -3761,7 +3761,7 @@
     "automatic aiming": "Automatically turn your ship towards your target to aim fixed weapons.",
     "automatic firing": "Automatically fire your primary weapons if your enemy is within the weapon's range.",
     "turret tracking": "The strategy that your fleet's turrets use when targeting hostiles.\n\n- \"focused\": all turrets will attack the same target.\n\n- \"opportunistic\": turrets will target ships that they are nearest to aiming at, allowing multiple hostiles to be engaged at once.",
-    "target asteroid based on": "The strategy that the \"Select nearest asteroid\" control uses for selecting asteroids.\n\n- \"proximity\": selects the nearest asteroid.\n\n- \"value\": selects the highest value asteroid.",
+    "asteroid targeting": "The strategy that the \"Select nearest asteroid\" control uses for selecting asteroids.\n\n- \"proximity\": selects the nearest asteroid.\n\n- \"expected value\": selects the asteroid with the highest expected value of all drops when destroyed.\n\n- \"quality\": selects the asteroid with the highest value ore.",
     "boarding target priority": "The strategy that the \"Board selected ship\" control uses for selecting ships when you have none targeted.\n\n- \"proximity\": selects the nearest ship.\n\n- \"value\": selects the highest value ship, with the value being estimated if you haven't scanned the outfits of the ship.\n\n- \"mixed\": accounts for the value divided by the distance to the ship.",
     "escorts expend ammo": "The strategy that your escorts use for determining when to fire their secondary weapons. Able to be toggled by the \"Fleet: Toggle ammo usage\" control.\n\n- \"never\": your escorts will never use their secondary weapons.\n\n- \"frugal\": your escorts will only fire their secondary weapons when their HP is low or the hostiles in the system are stronger than your fleet and friendlies.\n\n- \"always\": your escorts will always use their secondary weapons when firing.",
     "flotsam collection": "Control which of your ships can pick up flotsam (cargo floating in space). Flotsam is picked up automatically when your ships overlap it.\n\n- \"off\": your ships will never pick up flotsam.\n\n- \"flagship only\": only your flagship will pick up flotsam.\n\n- \"escorts only\": only your escorts will pick up flotsam.\n\n- \"on\": your entire fleet will pick up flotsam.",

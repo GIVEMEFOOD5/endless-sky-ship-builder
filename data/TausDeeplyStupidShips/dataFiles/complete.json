@@ -2848,17 +2848,17 @@
         {
           "x": -6,
           "y": -35.5,
-          "gun": ""
+          "gun": "Improved Shard Fabricator"
         },
         {
           "x": 6,
           "y": -35.5,
-          "gun": ""
+          "gun": "Improved Shard Fabricator"
         },
         {
           "x": 0,
           "y": -35.5,
-          "gun": ""
+          "gun": "Reaction Beam"
         }
       ],
       "turrets": [],
@@ -2875,18 +2875,18 @@
       "attributes": {
         "category": "Interceptor",
         "cost": 1800000,
-        "shields": 14000,
+        "shields": 9900,
         "hull": 2000,
         "required crew": 1,
-        "bunks": 3,
-        "mass": 90,
-        "drag": 1.05,
+        "bunks": 1,
+        "mass": 86,
+        "drag": 1.15,
         "heat dissipation": 0.86,
         "fuel capacity": 500,
         "cargo space": 15,
-        "outfit space": 185,
-        "weapon capacity": 60,
-        "engine capacity": 64,
+        "outfit space": 232,
+        "weapon capacity": 64,
+        "engine capacity": 59,
         "weapon": {
           "blast radius": 16,
           "shield damage": 160,
@@ -2899,7 +2899,7 @@
       "description": "If not Flivver, why Flivver-shaped?",
       "_internalId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips::Ultra-Sick Turbo Flivver",
       "_pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips",
-      "_hash": "7dd7925c2e8e",
+      "_hash": "c868ea32fda5",
       "governments": {
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
           "Sayari Plushie": true,
@@ -2989,15 +2989,19 @@
           "count": 1,
           "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
         },
-        "Ka'het MHD Generator": {
+        "Improved Shard Fabricator": {
           "count": 2,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
         },
-        "Supercapacitor": {
+        "Plasma Core": {
           "count": 1,
           "pluginId": "official-game/endless-sky"
         },
-        "Small Heat Shunt": {
+        "Crystal Capacitor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Ka'het Support Cooling": {
           "count": 1,
           "pluginId": "official-game/endless-sky"
         },
@@ -3005,7 +3009,7 @@
           "count": 1,
           "pluginId": "official-game/endless-sky"
         },
-        "Crucible-Class Steering": {
+        "Large Steering Module": {
           "count": 1,
           "pluginId": "official-game/endless-sky"
         },
@@ -3014,10 +3018,6 @@
           "pluginId": "official-game/endless-sky"
         },
         "Bellows-Class Afterburner": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Hyperdrive": {
           "count": 1,
           "pluginId": "official-game/endless-sky"
         },
@@ -6501,6 +6501,279 @@
         }
       },
       "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+    },
+    {
+      "name": "Improved Shard Fabricator",
+      "category": "Secondary Weapons",
+      "series": "Secondary Weapons",
+      "index": 13010,
+      "cost": 330000,
+      "thumbnail": "outfit/shard",
+      "mass": 30,
+      "outfit space": -15,
+      "weapon capacity": -13,
+      "gun ports": -1,
+      "operating costs": 150,
+      "weapon": {
+        "sprite": "projectile/shardactive",
+        "sprite data": {
+          "frame rate": 30,
+          "random start frame": true
+        },
+        "sound": "grab-strike",
+        "icon": "icon/shard",
+        "fire effect": "basic launch",
+        "hit effect": "improved shard impact",
+        "inaccuracy": 80,
+        "velocity": 12,
+        "lifetime": 40,
+        "random lifetime": 20,
+        "reload": 6,
+        "firing energy": 40,
+        "firing ion": 2,
+        "firing heat": 60,
+        "acceleration": 1.5,
+        "drag": 0.1,
+        "turn": 8,
+        "homing": {
+          "leading": true,
+          "throttle control": true
+        },
+        "radar tracking": 0.8,
+        "missile strength": 1,
+        "submunitions": [
+          {
+            "type": "improved shard inactive",
+            "count": 1
+          }
+        ]
+      },
+      "description": "Advances in flash-printing techniques, combined with Sheragi Shard Fabricator technology, have produced this weapon. It is capable of sustaining a far higher fire rate than the original, but with mounting energy debt.",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Anime Organization": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true,
+          "Syndicate": true
+        },
+        "sensor/sensor": {
+          "sensor": true
+        }
+      },
+      "locations": {
+        "official-game/endless-sky": {
+          "Planets": [
+            "Alfheim",
+            "Bivrost",
+            "Bloodsea",
+            "Clark",
+            "Crossroads",
+            "Dancer",
+            "Delve",
+            "Freedom",
+            "Furnace",
+            "Gagarin",
+            "Geyser",
+            "Greenwater",
+            "Haven",
+            "Haze",
+            "Heartland",
+            "Ingot",
+            "Jakobsen",
+            "Longjump",
+            "Mainsail",
+            "Maker",
+            "Millrace",
+            "Mordente-Bridi",
+            "New Argentina",
+            "New Boston",
+            "New Holland",
+            "New Tortuga",
+            "New Wales",
+            "Nifel",
+            "Nimbus",
+            "Norn",
+            "Poseidos",
+            "Stormhold",
+            "Thrall",
+            "Thunder",
+            "Trinket",
+            "Windblain"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "ShipyardPlanets": [
+            "Ada",
+            "Chiron",
+            "Clark",
+            "Delve",
+            "Foundry",
+            "Freedom",
+            "Geminus",
+            "Glaze",
+            "Greenwater",
+            "Hephaestus",
+            "Luna",
+            "Mainsail",
+            "Midgard",
+            "New Boston",
+            "New Britain",
+            "New Tortuga",
+            "Reunion",
+            "Rust",
+            "Sunracer",
+            "Tinker",
+            "Valhalla",
+            "Wayfarer",
+            "Zug"
+          ]
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "Planets": [
+            "Sapphire"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "ShipyardPlanets": [
+            "Sapphire"
+          ]
+        },
+        "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+          "Planets": [
+            "Haven"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ]
+        },
+        "Galactic War/Galactic-War": {
+          "Planets": [
+            "Letamos-P382S",
+            "Muxkear"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ]
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Planets": [
+            "Barachen",
+            "Bardanistra",
+            "Denchrao",
+            "Eisei",
+            "Ekarai",
+            "Laateli",
+            "Leroo Station",
+            "Markaai",
+            "Mirdenheim",
+            "Ondoristra",
+            "Parton",
+            "Rodoluki",
+            "Sayari Ring",
+            "Steirek",
+            "Tarsia",
+            "Yinachr"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "ShipyardPlanets": [
+            "Ekarai",
+            "Kestrix II",
+            "Khoramelia",
+            "Laateli",
+            "Markaai",
+            "Parton"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Ankulah Ship Breaking Station",
+            "Vinci"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "ShipyardPlanets": [
+            "Ankulah Ship Breaking Station",
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
+          ]
+        },
+        "sensor/sensor": {
+          "Planets": [
+            "lidar"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "ShipyardPlanets": [
+            "lidar"
+          ]
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Planets": [
+            "Rum Cellar",
+            "Vesta"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "ShipyardPlanets": [
+            "Vesta"
+          ]
+        },
+        "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+          "Ships": [
+            "Ultra-Sick Turbo Flivver"
+          ]
+        },
+        "Kai's list/KGS": {
+          "ShipyardPlanets": [
+            "KGS"
+          ]
+        }
+      },
+      "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+    },
+    {
+      "name": "improved shard inactive",
+      "weapon": {
+        "sprite": "projectile/shardinactive",
+        "sprite data": {
+          "frame rate": 5,
+          "random start frame": true
+        },
+        "hit effect": "shard impact",
+        "die effect": "missile death",
+        "lifetime": 60,
+        "random lifetime": 40,
+        "hit force": 30,
+        "shield damage": 43,
+        "hull damage": 57
+      },
+      "governments": {
+        "TausDeeplyStupidShips": {
+          "TausDeeplyStupidShips": true
+        }
+      },
+      "locations": {
+        "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
     }
   ],
   "effects": [
@@ -6546,7 +6819,19 @@
       "random velocity": 1,
       "velocity scale": 0.2,
       "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+    },
+    {
+      "name": "improved shard impact",
+      "sprite": "effect/particle impact",
+      "sprite data": {
+        "no repeat": true,
+        "frame rate": 30
+      },
+      "sound": "explosion tiny",
+      "lifetime": 30,
+      "velocity scale": 0,
+      "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
     }
   ],
-  "parsedAt": "2026-07-03T23:22:19.164Z"
+  "parsedAt": "2026-07-09T07:39:06.889Z"
 }
