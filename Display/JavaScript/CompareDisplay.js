@@ -280,14 +280,6 @@ window.CompareDisplay = (() => {
         const w   = outfit.weapon || {};
         const sps = profile.shotsPerSecond || 0;
         const rows = [];
-
-        function pushRawScaled(section, key, label, rawNum, unit) {
-            if (seen.has(key)) return;
-            seen.add(key);
-            if (!sections[section]) sections[section] = [];
-            const display = typeof rawNum === 'number' ? _fmt(rawNum * qty) : String(rawNum);
-            sections[section].push({ key, label, value: display, unit: unit || '' });
-        }
         
         // ── 1. Count ──────────────────────────────────────────────────────────
         rows.push({ label: 'Count', value: `×${count * qty}`, unit: '' });
@@ -366,15 +358,6 @@ window.CompareDisplay = (() => {
             if (dps) {
                 const label = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
                 rows.push({ label, value: _fmt(dps * count * qty), unit: 'dmg/s' });
-            }
-        
-        const dS = 'Weapon DPS';
-        for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort())
-            if (costVal) {
-                const mult  = _getDisplayMultiplier(costKey);
-                const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
-                pushRawScaled(dS, `_ws_cost_${costKey.replace(/\s+/g,'_')}`, label,
-                    costVal * profile.shotsPerSecond * mult, _getDisplayUnit(costKey));
             }
 
         // ── 5. Computed _fn_ / _derived_ stats for this outfit ────────────────
