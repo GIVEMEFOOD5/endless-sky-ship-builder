@@ -367,7 +367,8 @@ window.CompareDisplay = (() => {
                 const label = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
                 rows.push({ label, value: _fmt(dps * count * qty), unit: 'dmg/s' });
             }
-
+        
+        const dS = 'Weapon DPS';
         for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort())
             if (costVal) {
                 const mult  = _getDisplayMultiplier(costKey);
