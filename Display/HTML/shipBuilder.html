@@ -383,7 +383,8 @@
     <p style="color:var(--c-text-muted);font-size:0.82rem;margin-bottom:10px;">
       These are the indented lines under this hardpoint in the .txt file — e.g. <code>angle -50</code>,
       <code>arc -90 50</code>, or a bare flag like <code>under</code>. Any key, any number of values,
-      and repeated keys are all supported.
+      and repeated keys are all supported. Click ✎ next to a line below to load it back into the fields
+      and edit it in place.
     </p>
     <div id="sb-hp-attrs-list" style="margin-bottom:14px;"></div>
     <hr class="divider">
@@ -397,8 +398,9 @@
       <button class="btn btn-xs btn-secondary" onclick="sbAddHPAttrValueBox()">+ Value</button>
     </div>
     <div class="btn-group btn-group-right">
+      <button class="btn btn-secondary" id="sb-hp-attr-cancel-edit-btn" style="display:none;" onclick="sbCancelHPAttrEdit()">✕ Cancel Edit</button>
       <button class="btn btn-secondary" onclick="closeModal('modal-sb-hp-attrs')">Close</button>
-      <button class="btn btn-primary"   onclick="sbConfirmAddHPAttr()">+ Add Line</button>
+      <button class="btn btn-primary"   id="sb-hp-attr-confirm-btn" onclick="sbConfirmAddHPAttr()">+ Add Line</button>
     </div>
   </div>
 </div>
