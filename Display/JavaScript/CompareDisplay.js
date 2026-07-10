@@ -281,6 +281,14 @@ window.CompareDisplay = (() => {
         const sps = profile.shotsPerSecond || 0;
         const rows = [];
 
+        function pushRawScaled(section, key, label, rawNum, unit) {
+            if (seen.has(key)) return;
+            seen.add(key);
+            if (!sections[section]) sections[section] = [];
+            const display = typeof rawNum === 'number' ? _fmt(rawNum * qty) : String(rawNum);
+            sections[section].push({ key, label, value: display, unit: unit || '' });
+        }
+        
         // ── 1. Count ──────────────────────────────────────────────────────────
         rows.push({ label: 'Count', value: `×${count * qty}`, unit: '' });
 
