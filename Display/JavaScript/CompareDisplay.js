@@ -46,12 +46,12 @@ window.CompareDisplay = (() => {
         const mag = Math.abs(ratio);
         return numerator < 0 ? -mag : mag;
     }
-    
+
     const SECTION_ORDER = [
         'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
         'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
         'Hardpoints', 'Heat (derived)', 'Weapon DPS', 'Weapon DPS — Efficiency',
-        'Ammo Consumption', 'Derived Stats', 'Other', 'Attribute Efficiency',
+        'Ammo Consumption', 'Derived Stats', 'Other',
     ];
 
     const SECTION_PATTERNS = [
@@ -882,48 +882,22 @@ window.CompareDisplay = (() => {
                 push(k, v);
             }
 
-            // Per-divisor efficiency for top-level outfit attributes (cost,
-            // mass, capacities, etc.) — these are static quantities, not
-            // per-shot, so dividing them directly is meaningful as-is.
-            const attrEffSection = 'Attribute Efficiency';
-            for (const [k, v] of Object.entries(item)) {
-                if (SKIP_KEYS.has(k) || typeof v !== 'number' || v === 0) continue;
-                const mult      = _getDisplayMultiplier(k);
-                const numerator = v * mult;
-                for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                    if (k === divKey) continue;
-                    const divisor = item[divKey];
-                    if (typeof divisor !== 'number' || divisor === 0) continue;
-                    const ratio = _signedPerDivisor(numerator, numerator / divisor);
-                    pushRaw(
-                        attrEffSection,
-                        `_attr_${k.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
-                        `${_labelOf(k)} per ${divLabel}`,
-                        _fmt(ratio),
-                        _getDisplayUnit(k)
-                    );
-                }
-            }
-
-            // Compute the weapon profile once — reused by the efficiency
-            // section, the DPS-per-divisor section, and the plain "Weapon DPS"
-            // section further down, instead of calling getOutfitWeaponStats
-            // three times for the same outfit.
+            // Weapon profile — reused by the per-divisor efficiency section
+            // and the plain "Weapon DPS" section further down.
             const weaponProfile = (item.weapon && typeof item.weapon === 'object' && window.WeaponStats)
                 ? window.WeaponStats.getOutfitWeaponStats(item, outfitIdx)
                 : null;
 
             // Per-divisor efficiency for CALCULATED per-second weapon values —
-            // fire rate, firing costs, and ammo consumption, all sourced from
-            // WeaponStats exactly like the "Weapon DPS" section. Deliberately
-            // NOT looping over raw item.weapon attributes here: damage is
-            // already covered (as DPS) below, and things like inaccuracy,
-            // velocity, and blast radius are per-projectile constants with no
-            // meaningful per-second form — dividing those by mass is the same
-            // "per shot" confusion we removed from Sorter.js.
+            // fire rate, firing costs, ammo consumption, and DPS, all sourced
+            // from WeaponStats. This covers "weapon data per mass / outfit
+            // space / etc" — NOT the generic per-attribute ratios (those were
+            // removed; things like "index per mass" or "cost per outfit space"
+            // are no longer computed).
             if (weaponProfile) {
                 const profile = weaponProfile;
                 const sps = profile.shotsPerSecond || 0;
+                const attrEffSection = 'Weapon DPS — Efficiency';
 
                 if (sps) {
                     for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
@@ -967,14 +941,13 @@ window.CompareDisplay = (() => {
                     }
                 }
 
-                // ── DPS per divisor (Weapon DPS — Efficiency) ─────────────────
-                const dpsEffSection = 'Weapon DPS — Efficiency';
+                // ── DPS per divisor ────────────────────────────────────────────
                 if (profile.totalDps) {
                     for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
                         const divisor = item[divKey];
                         if (typeof divisor !== 'number' || divisor === 0) continue;
                         const ratio = _signedPerDivisor(profile.totalDps, profile.totalDps / divisor);
-                        pushRaw(dpsEffSection, `_ws_totalDps_per_${divKey.replace(/\s+/g,'_')}`,
+                        pushRaw(attrEffSection, `_ws_totalDps_per_${divKey.replace(/\s+/g,'_')}`,
                             `Total DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
                     }
                 }
@@ -983,7 +956,7 @@ window.CompareDisplay = (() => {
                         const divisor = item[divKey];
                         if (typeof divisor !== 'number' || divisor === 0) continue;
                         const ratio = _signedPerDivisor(profile.shieldDps, profile.shieldDps / divisor);
-                        pushRaw(dpsEffSection, `_ws_shieldDps_per_${divKey.replace(/\s+/g,'_')}`,
+                        pushRaw(attrEffSection, `_ws_shieldDps_per_${divKey.replace(/\s+/g,'_')}`,
                             `Shield DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
                     }
                 }
@@ -992,13 +965,13 @@ window.CompareDisplay = (() => {
                         const divisor = item[divKey];
                         if (typeof divisor !== 'number' || divisor === 0) continue;
                         const ratio = _signedPerDivisor(profile.hullDps, profile.hullDps / divisor);
-                        pushRaw(dpsEffSection, `_ws_hullDps_per_${divKey.replace(/\s+/g,'_')}`,
+                        pushRaw(attrEffSection, `_ws_hullDps_per_${divKey.replace(/\s+/g,'_')}`,
                             `Hull DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
                     }
                 }
                 // Every OTHER damage type (shield/hull already handled explicitly
-                // above — skipping them here prevents the duplicate "Shield DPS
-                // per Mass" / "Hull DPS per Mass" rows that showed up before).
+                // above — skipping them here prevents duplicate "Shield DPS
+                // per Mass" / "Hull DPS per Mass" rows).
                 for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort()) {
                     if (!dps) continue;
                     if (dmgKey === 'shield damage' || dmgKey === 'hull damage') continue;
@@ -1008,7 +981,7 @@ window.CompareDisplay = (() => {
                         const ratio  = _signedPerDivisor(dps, dps / divisor);
                         const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g,'_')}`;
                         const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ` DPS per ${divLabel}`;
-                        pushRaw(dpsEffSection, safeKey, label, _fmt(ratio), 'dmg/s');
+                        pushRaw(attrEffSection, safeKey, label, _fmt(ratio), 'dmg/s');
                     }
                 }
             }
@@ -1282,7 +1255,7 @@ window.CompareDisplay = (() => {
         // 7. Fallback for computed/internal keys: use label heuristic
         if (key.startsWith('_')) {
             const l = (label || key).toLowerCase();
-            if (/(cost|consumption|heat gen|delay|mass)/.test(l)) return true;
+            if (/(cost|consumption|heat gen|delay|mass)/.test(l)) return true;
         }
 
         return false;
@@ -1512,6 +1485,33 @@ window.CompareDisplay = (() => {
 
     // ── Quantity control widget ───────────────────────────────────────────────
 
+    // Creates the numeric <input> used inside a qty spinner, so quantity can be
+    // typed directly as well as changed via the +/- buttons. getVal/setVal read
+    // and write the underlying quantity value.
+    function _makeQtyInput(getVal, setVal) {
+        const input = document.createElement('input');
+        input.type      = 'number';
+        input.min       = '1';
+        input.step      = '1';
+        input.className = 'compare-qty__val compare-qty__input';
+        input.value     = getVal();
+
+        const commit = () => {
+            const n = parseInt(input.value, 10);
+            setVal(!isNaN(n) && n >= 1 ? n : 1);
+            input.value = getVal();
+        };
+        input.addEventListener('change', commit);
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') input.blur();
+        });
+        // Prevent clicks/typing in the input from bubbling to row/column
+        // click handlers elsewhere in the UI.
+        input.addEventListener('click', e => e.stopPropagation());
+
+        return input;
+    }
+
     function _makeQtyControl(item) {
         const wrap = document.createElement('div');
         wrap.className = 'compare-qty';
@@ -1521,9 +1521,14 @@ window.CompareDisplay = (() => {
         dec.textContent = '−';
         dec.title       = 'Decrease quantity';
 
-        const display = document.createElement('span');
-        display.className = 'compare-qty__val';
-        display.textContent = `×${_getQty(item)}`;
+        const prefix = document.createElement('span');
+        prefix.className   = 'compare-qty__prefix';
+        prefix.textContent = '×';
+
+        const input = _makeQtyInput(
+            () => _getQty(item),
+            (n) => _setQty(item, n)
+        );
 
         const inc = document.createElement('button');
         inc.className   = 'compare-qty__btn';
@@ -1533,17 +1538,18 @@ window.CompareDisplay = (() => {
         dec.onclick = () => {
             const newQty = _getQty(item) - 1;
             _setQty(item, newQty);
-            display.textContent = `×${_getQty(item)}`;
+            input.value = _getQty(item);
         };
 
         inc.onclick = () => {
             const newQty = _getQty(item) + 1;
             _setQty(item, newQty);
-            display.textContent = `×${_getQty(item)}`;
+            input.value = _getQty(item);
         };
 
         wrap.appendChild(dec);
-        wrap.appendChild(display);
+        wrap.appendChild(prefix);
+        wrap.appendChild(input);
         wrap.appendChild(inc);
         return wrap;
     }
@@ -1605,9 +1611,14 @@ window.CompareDisplay = (() => {
         dec.className = 'compare-qty__btn';
         dec.textContent = '−';
 
-        const display = document.createElement('span');
-        display.className = 'compare-qty__val';
-        display.textContent = `×${_getGroupMemberQty(groupId, memberIdx)}`;
+        const prefix = document.createElement('span');
+        prefix.className   = 'compare-qty__prefix';
+        prefix.textContent = '×';
+
+        const input = _makeQtyInput(
+            () => _getGroupMemberQty(groupId, memberIdx),
+            (n) => _setGroupMemberQty(groupId, memberIdx, n)
+        );
 
         const inc = document.createElement('button');
         inc.className = 'compare-qty__btn';
@@ -1616,16 +1627,17 @@ window.CompareDisplay = (() => {
         dec.onclick = () => {
             const n = _getGroupMemberQty(groupId, memberIdx) - 1;
             _setGroupMemberQty(groupId, memberIdx, n);
-            display.textContent = `×${_getGroupMemberQty(groupId, memberIdx)}`;
+            input.value = _getGroupMemberQty(groupId, memberIdx);
         };
         inc.onclick = () => {
             const n = _getGroupMemberQty(groupId, memberIdx) + 1;
             _setGroupMemberQty(groupId, memberIdx, n);
-            display.textContent = `×${_getGroupMemberQty(groupId, memberIdx)}`;
+            input.value = _getGroupMemberQty(groupId, memberIdx);
         };
 
         wrap.appendChild(dec);
-        wrap.appendChild(display);
+        wrap.appendChild(prefix);
+        wrap.appendChild(input);
         wrap.appendChild(inc);
         return wrap;
     }
@@ -1714,9 +1726,14 @@ window.CompareDisplay = (() => {
                     dec.className   = 'compare-qty__btn';
                     dec.textContent = '−';
 
-                    const display = document.createElement('span');
-                    display.className   = 'compare-qty__val';
-                    display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                    const prefix = document.createElement('span');
+                    prefix.className   = 'compare-qty__prefix';
+                    prefix.textContent = '×';
+
+                    const input = _makeQtyInput(
+                        () => _getGroupMemberQty(item._groupId, i),
+                        (n) => _setGroupMemberQty(item._groupId, i, n)
+                    );
 
                     const inc = document.createElement('button');
                     inc.className   = 'compare-qty__btn';
@@ -1725,16 +1742,17 @@ window.CompareDisplay = (() => {
                     dec.onclick = () => {
                         const n = _getGroupMemberQty(item._groupId, i) - 1;
                         _setGroupMemberQty(item._groupId, i, n);
-                        display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                        input.value = _getGroupMemberQty(item._groupId, i);
                     };
                     inc.onclick = () => {
                         const n = _getGroupMemberQty(item._groupId, i) + 1;
                         _setGroupMemberQty(item._groupId, i, n);
-                        display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                        input.value = _getGroupMemberQty(item._groupId, i);
                     };
 
                     qtyWrap.appendChild(dec);
-                    qtyWrap.appendChild(display);
+                    qtyWrap.appendChild(prefix);
+                    qtyWrap.appendChild(input);
                     qtyWrap.appendChild(inc);
 
                     row.appendChild(nameSpan);
@@ -1960,9 +1978,14 @@ window.CompareDisplay = (() => {
                     dec.className   = 'compare-qty__btn';
                     dec.textContent = '−';
 
-                    const display = document.createElement('span');
-                    display.className   = 'compare-qty__val';
-                    display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                    const prefix = document.createElement('span');
+                    prefix.className   = 'compare-qty__prefix';
+                    prefix.textContent = '×';
+
+                    const input = _makeQtyInput(
+                        () => _getGroupMemberQty(item._groupId, i),
+                        (n) => _setGroupMemberQty(item._groupId, i, n)
+                    );
 
                     const inc = document.createElement('button');
                     inc.className   = 'compare-qty__btn';
@@ -1971,16 +1994,17 @@ window.CompareDisplay = (() => {
                     dec.onclick = () => {
                         const n = _getGroupMemberQty(item._groupId, i) - 1;
                         _setGroupMemberQty(item._groupId, i, n);
-                        display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                        input.value = _getGroupMemberQty(item._groupId, i);
                     };
                     inc.onclick = () => {
                         const n = _getGroupMemberQty(item._groupId, i) + 1;
                         _setGroupMemberQty(item._groupId, i, n);
-                        display.textContent = `×${_getGroupMemberQty(item._groupId, i)}`;
+                        input.value = _getGroupMemberQty(item._groupId, i);
                     };
 
                     qtyWrap.appendChild(dec);
-                    qtyWrap.appendChild(display);
+                    qtyWrap.appendChild(prefix);
+                    qtyWrap.appendChild(input);
                     qtyWrap.appendChild(inc);
                     row.appendChild(nameSpan);
                     row.appendChild(qtyWrap);
@@ -2234,21 +2258,27 @@ window.CompareDisplay = (() => {
             qDec.textContent = '−';
             qDec.className   = 'compare-qty__btn';
 
-            const qVal = document.createElement('span');
-            qVal.className   = 'compare-qty__val';
-            const initQty    = existingQtyMap[itemKey] || 1;
-            qVal.textContent = `×${initQty}`;
-            let currentQty   = initQty;
+            const qPrefix = document.createElement('span');
+            qPrefix.className   = 'compare-qty__prefix';
+            qPrefix.textContent = '×';
+
+            const initQty  = existingQtyMap[itemKey] || 1;
+            let currentQty = initQty;
+            const qInput = _makeQtyInput(
+                () => currentQty,
+                (n) => { currentQty = n; }
+            );
 
             const qInc = document.createElement('button');
             qInc.textContent = '+';
             qInc.className   = 'compare-qty__btn';
 
-            qDec.onclick = () => { currentQty = Math.max(1, currentQty - 1); qVal.textContent = `×${currentQty}`; };
-            qInc.onclick = () => { currentQty = currentQty + 1;               qVal.textContent = `×${currentQty}`; };
+            qDec.onclick = () => { currentQty = Math.max(1, currentQty - 1); qInput.value = currentQty; };
+            qInc.onclick = () => { currentQty = currentQty + 1;              qInput.value = currentQty; };
 
             qtyWrap.appendChild(qDec);
-            qtyWrap.appendChild(qVal);
+            qtyWrap.appendChild(qPrefix);
+            qtyWrap.appendChild(qInput);
             qtyWrap.appendChild(qInc);
 
             row.appendChild(cb);
