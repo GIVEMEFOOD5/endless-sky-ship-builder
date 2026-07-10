@@ -1819,18 +1819,28 @@ function _sbAttrsSummaryHTML(field, idx, attrs) {
 }
 
 // ── Hardpoint Extra Attributes modal (angle, arc, under, zoom, ...) ──────
-let _sbHPAttrTarget = null; // { field, idx }
-let _sbHPAttrValues = [];   // value boxes currently being composed for the "add line" row
+let _sbHPAttrTarget = null;  // { field, idx }
+let _sbHPAttrValues = [];    // value boxes currently being composed for the "add/edit line" row
+let _sbHPAttrEditing = null; // { key, occIdx } — set while an existing line is loaded for editing
 
 function sbOpenHPAttrEditor(field, idx) {
   _sbHPAttrTarget = { field, idx };
+  _sbHPAttrEditing = null;
   const titleEl = document.getElementById('sb-hp-attrs-title');
   if (titleEl) titleEl.textContent = `Extra Attributes — ${field} #${idx + 1}`;
   document.getElementById('sb-hp-attr-key').value = '';
   _sbHPAttrValues = []; // defaults to no value boxes (a bare flag) until the user adds one
   sbRenderHPAttrValueBoxes();
   sbRenderHPAttrsModalList();
+  sbUpdateHPAttrComposeUI();
   openModal('modal-sb-hp-attrs');
+}
+
+function sbUpdateHPAttrComposeUI() {
+  const btn = document.getElementById('sb-hp-attr-confirm-btn');
+  const cancelBtn = document.getElementById('sb-hp-attr-cancel-edit-btn');
+  if (btn) btn.textContent = _sbHPAttrEditing ? '✓ Update Line' : '+ Add Line';
+  if (cancelBtn) cancelBtn.style.display = _sbHPAttrEditing ? '' : 'none';
 }
 
 function sbRenderHPAttrValueBoxes() {
@@ -1860,13 +1870,39 @@ function sbRenderHPAttrsModalList() {
   for (const [k, occs] of Object.entries(attrs)) {
     (occs || []).forEach((occ, oi) => {
       const label = occ === true ? k : `${k} ${occ.join(' ')}`;
-      rows.push(`<div class="attr-row">
+      const isEditing = _sbHPAttrEditing && _sbHPAttrEditing.key === k && _sbHPAttrEditing.occIdx === oi;
+      rows.push(`<div class="attr-row"${isEditing ? ' style="outline:1px solid var(--c-accent);border-radius:var(--r-sm);"' : ''}>
         <span class="attr-key">${esc(label)}</span>
+        <button class="btn btn-secondary btn-xs" onclick="sbEditHPAttrFromModal('${field}',${idx},'${esc(k).replace(/'/g,"\\'")}',${oi})" title="Edit this line">✎</button>
         <button class="btn btn-danger btn-xs" onclick="sbRemoveHPAttrFromModal('${field}',${idx},'${esc(k).replace(/'/g,"\\'")}',${oi})">✕</button>
       </div>`);
     });
   }
   el.innerHTML = rows.join('');
+}
+
+// Loads an existing hardpoint attribute line back into the compose fields so
+// it can be edited, rather than only being deletable and re-addable.
+function sbEditHPAttrFromModal(field, idx, key, occIdx) {
+  const hp = sbCurrentShip[field] && sbCurrentShip[field][idx];
+  if (!hp || !hp.attrs || !hp.attrs[key] || hp.attrs[key][occIdx] === undefined) return;
+  const occ = hp.attrs[key][occIdx];
+  document.getElementById('sb-hp-attr-key').value = key;
+  _sbHPAttrValues = (occ === true) ? [] : occ.map(v => String(v));
+  _sbHPAttrEditing = { key, occIdx };
+  sbRenderHPAttrValueBoxes();
+  sbRenderHPAttrsModalList();
+  sbUpdateHPAttrComposeUI();
+  document.getElementById('sb-hp-attr-key').focus();
+}
+
+function sbCancelHPAttrEdit() {
+  _sbHPAttrEditing = null;
+  document.getElementById('sb-hp-attr-key').value = '';
+  _sbHPAttrValues = [];
+  sbRenderHPAttrValueBoxes();
+  sbRenderHPAttrsModalList();
+  sbUpdateHPAttrComposeUI();
 }
 
 function sbConfirmAddHPAttr() {
@@ -1881,12 +1917,25 @@ function sbConfirmAddHPAttr() {
   const hp = sbCurrentShip[field] && sbCurrentShip[field][idx];
   if (!hp) return;
   hp.attrs = hp.attrs || {};
+
+  // If a line was loaded for editing, remove the old occurrence first so we
+  // replace it rather than appending a duplicate.
+  if (_sbHPAttrEditing) {
+    const { key: oldKey, occIdx: oldOccIdx } = _sbHPAttrEditing;
+    if (hp.attrs[oldKey] && hp.attrs[oldKey][oldOccIdx] !== undefined) {
+      hp.attrs[oldKey].splice(oldOccIdx, 1);
+      if (!hp.attrs[oldKey].length) delete hp.attrs[oldKey];
+    }
+    _sbHPAttrEditing = null;
+  }
+
   (hp.attrs[key] = hp.attrs[key] || []).push(occurrence);
 
   document.getElementById('sb-hp-attr-key').value = '';
   _sbHPAttrValues = [];
   sbRenderHPAttrValueBoxes();
   sbRenderHPAttrsModalList();
+  sbUpdateHPAttrComposeUI();
   sbRenderGunsTurrets();
   sbRenderRaw();
 }
@@ -1901,6 +1950,15 @@ function sbRemoveHPAttr(field, idx, key, occIdx) {
 }
 
 function sbRemoveHPAttrFromModal(field, idx, key, occIdx) {
+  // If the line being removed is the one currently loaded for editing,
+  // clear the compose fields so we don't try to "update" a deleted line.
+  if (_sbHPAttrEditing && _sbHPAttrEditing.key === key && _sbHPAttrEditing.occIdx === occIdx) {
+    _sbHPAttrEditing = null;
+    document.getElementById('sb-hp-attr-key').value = '';
+    _sbHPAttrValues = [];
+    sbRenderHPAttrValueBoxes();
+    sbUpdateHPAttrComposeUI();
+  }
   sbRemoveHPAttr(field, idx, key, occIdx);
   sbRenderHPAttrsModalList();
 }
