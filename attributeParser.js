@@ -3,24 +3,59 @@
 /**
  * attributeParser.js — Endless Sky Attribute Parser
  *
- * Changes vs previous version:
+ * ─────────────────────────────────────────────────────────────────────────
+ *  NEW IN THIS VERSION: full-codebase discovery before targeted parsing
+ * ─────────────────────────────────────────────────────────────────────────
  *
- *  NEW: parseTooltips(src)
- *    Parses data/_ui/tooltips.txt into a Map: attributeKey → tooltip string.
- *    Keys are normalised: trailing colon stripped, lowercased, trimmed.
- *    Multi-paragraph tips are joined with a single newline.
- *    The raw Map is also exposed as result.tooltips for direct frontend use.
+ *  Previously this parser only ever looked at a hardcoded list of ~12 files
+ *  (SOURCE_FILES). Anything that reads or writes outfit/ship attributes
+ *  outside those files — e.g. Armament/Hardpoint gun & turret handling,
+ *  AI combat-behaviour thresholds, boarding-combat code, cargo/crew
+ *  handling — was invisible to the dictionary, forever, silently.
  *
- *  NEW: mergeTooltipsIntoAttributes(attrs, tooltipMap)
- *    Writes a `tooltip` field onto every attribute entry that has a matching
- *    entry in the tooltip file.  All existing fields are untouched.
+ *  This version adds a DISCOVERY PHASE that runs before any targeted
+ *  parsing:
  *
- *  UPDATED: parseAttributes()
- *    Fetches tooltips.txt, calls parseTooltips + mergeTooltipsIntoAttributes,
- *    and adds result.tooltips (plain key→string object) to the JSON output.
- *    Every other section of the output is identical to the previous version.
+ *    1. discoverRelevantSourceFiles() pulls the full recursive file tree
+ *       of the live repo (one GitHub Trees API call), filters to every
+ *       .cpp/.h under source/, fetches each candidate's raw content, and
+ *       tests it against a set of attribute-access patterns
+ *       (attributes.Get(, Attributes().Get(, .Set(", Attributes().Mass(),
+ *       etc). Anything that matches is "relevant" — regardless of whether
+ *       a human ever added it to a hardcoded list.
  *
- * Everything else below is unchanged from the previous version.
+ *    2. The result is cached to disk (discoveredSourceFiles.json) with a
+ *       timestamp, so routine runs don't re-scan ~300 files every time.
+ *       Re-discovery happens automatically once the cache is stale
+ *       (default 7 days) or when --rescan is passed on the CLI.
+ *
+ *    3. The dozen "seed" files that already have bespoke parsers
+ *       (Ship.cpp, Outfit.cpp/h, Weapon.cpp/h, OutfitInfoDisplay.cpp,
+ *       ShipInfoDisplay.cpp, DamageDealt.cpp/h, ShipJumpNavigation.cpp/h)
+ *       keep their hand-tuned extraction logic untouched — those follow
+ *       hand-authored formats (SCALE_LABELS, BOOLEAN_ATTRIBUTES,
+ *       VALUE_NAMES, MINIMUM_OVERRIDES) that only targeted regexes can
+ *       read correctly. They are excluded from the generic discovery
+ *       pass so they don't get parsed twice / conflictingly.
+ *
+ *    4. Every OTHER discovered file is parsed generically via
+ *       extractAllClassFunctionBodies() / parseGenericSourceFile() — a
+ *       version of the existing function-body extractor that is not
+ *       locked to one class prefix, so it will pick up e.g. Armament::,
+ *       Hardpoint::, AI::, CargoHold::, or any future class without
+ *       needing to be told its name in advance.
+ *
+ *    5. Any attribute key found only in a newly-discovered file (i.e. it
+ *       never showed up in OutfitInfoDisplay/ShipInfoDisplay/etc.) gets
+ *       a dictionary entry created for it on the spot, tagged
+ *       `usedInOtherSystems: ["ClassName::fnName", ...]` and
+ *       `discoveredOnly: true` so you can immediately see what the old
+ *       hardcoded-file-list approach was missing.
+ *
+ *  Everything from the previous version (tooltip parsing, damage-type
+ *  detail building, status-effect decay modelling, system-aware solar
+ *  formulas) is unchanged and still runs exactly as before.
+ * ─────────────────────────────────────────────────────────────────────────
  */
 
 const https = require('https');
@@ -29,6 +64,7 @@ const path  = require('path');
 
 const ES_RAW  = 'https://raw.githubusercontent.com/endless-sky/endless-sky/master/source';
 const ES_DATA = 'https://raw.githubusercontent.com/endless-sky/endless-sky/master/data';
+const ES_API_TREE = 'https://api.github.com/repos/endless-sky/endless-sky/git/trees/master?recursive=1';
 
 const SOURCE_FILES = {
   outfitInfoDisplay: `${ES_RAW}/OutfitInfoDisplay.cpp`,
@@ -45,6 +81,18 @@ const SOURCE_FILES = {
   jumpNavH:          `${ES_RAW}/ShipJumpNavigation.h`,
 };
 
+// Paths (relative to source/) already covered by a bespoke parser above.
+// Excluded from the generic discovery pass so they aren't parsed twice.
+const SEED_PATHS = new Set([
+  'source/OutfitInfoDisplay.cpp',
+  'source/ShipInfoDisplay.cpp',
+  'source/Ship.cpp', 'source/Ship.h',
+  'source/Outfit.cpp', 'source/Outfit.h',
+  'source/Weapon.cpp', 'source/Weapon.h',
+  'source/DamageDealt.cpp', 'source/DamageDealt.h',
+  'source/ShipJumpNavigation.cpp', 'source/ShipJumpNavigation.h',
+]);
+
 const DATA_FILES = {
   solSystem: `${ES_DATA}/human/Sol.txt`,
   tooltips:  `${ES_DATA}/_ui/tooltips.txt`,
@@ -54,10 +102,22 @@ const DATA_FILES = {
 // HTTP fetch
 // ---------------------------------------------------------------------------
 
-function fetchText(url) {
+function fetchText(url, headers = {}) {
   return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      if (res.statusCode !== 200) { reject(new Error(`HTTP ${res.statusCode}`)); return; }
+    const opts = {
+      headers: {
+        'User-Agent': 'endless-sky-attribute-parser',
+        ...headers,
+      },
+    };
+    https.get(url, opts, res => {
+      // Follow a single redirect hop (GitHub occasionally issues these).
+      if (res.statusCode === 301 || res.statusCode === 302) {
+        const loc = res.headers.location;
+        res.resume();
+        if (loc) { fetchText(loc, headers).then(resolve, reject); return; }
+      }
+      if (res.statusCode !== 200) { reject(new Error(`HTTP ${res.statusCode} for ${url}`)); return; }
       const chunks = [];
       res.on('data', c => chunks.push(c));
       res.on('end',  () => resolve(Buffer.concat(chunks).toString('utf8')));
@@ -66,27 +126,123 @@ function fetchText(url) {
   });
 }
 
+// Simple bounded-concurrency worker pool. Keeps discovery well under
+// GitHub's abuse-detection thresholds without needing a queue library.
+async function withPool(items, worker, concurrency = 8, onProgress) {
+  const results = new Array(items.length);
+  let idx = 0, done = 0;
+  async function runOne() {
+    while (idx < items.length) {
+      const i = idx++;
+      try { results[i] = await worker(items[i], i); }
+      catch (err) { results[i] = { __error: err.message }; }
+      done++;
+      if (onProgress) onProgress(done, items.length);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, runOne));
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// NEW: discoverRelevantSourceFiles(cacheFile, opts)
+//
+// Scans the ENTIRE live source/ tree (not just SOURCE_FILES) and returns
+// every .cpp/.h file that actually touches outfit/ship attributes, whether
+// or not a human ever added it to a hardcoded list.
+// ---------------------------------------------------------------------------
+
+const ATTR_ACCESS_PATTERNS = [
+  /\battributes?(?:\.|->)Get\s*\(/,
+  /\bAttributes\s*\(\s*\)\s*(?:\.|->)\s*Get\s*\(/,
+  /\bbaseAttributes(?:\.|->)Get\s*\(/,
+  /\battributes?(?:\.|->)Set\s*\(\s*"/,
+  /\bAttributes\s*\(\s*\)\s*(?:\.|->)\s*Mass\s*\(/,
+  /\bship(?:\.|->)Attributes\s*\(\s*\)/,
+  /\boutfit(?:\.|->)Attributes\s*\(\s*\)/,
+  /\boutfit(?:\.|->)Get\s*\(\s*"/,
+];
+
+function looksAttributeRelevant(src) {
+  return ATTR_ACCESS_PATTERNS.some(re => re.test(src));
+}
+
+async function discoverRelevantSourceFiles(cacheFile, opts = {}) {
+  const maxAgeMs = opts.maxAgeMs ?? 7 * 24 * 60 * 60 * 1000; // 7 days
+  const forceRescan = !!opts.forceRescan;
+
+  if (!forceRescan) {
+    try {
+      const cached = JSON.parse(await fs.readFile(cacheFile, 'utf8'));
+      if ((Date.now() - cached.scannedAt) < maxAgeMs) {
+        console.log(`  Using cached discovery from ${new Date(cached.scannedAt).toISOString()} ` +
+          `(${cached.relevantFiles.length} relevant / ${cached.totalCandidates} scanned). Pass --rescan to force a fresh scan.`);
+        return cached;
+      }
+    } catch (_) { /* no cache yet, or unreadable — do a fresh scan */ }
+  }
+
+  console.log('  Fetching full source/ file tree from GitHub API...');
+  const authHeaders = process.env.GITHUB_TOKEN ? { Authorization: `token ${process.env.GITHUB_TOKEN}` } : {};
+  let treeJson;
+  try {
+    treeJson = JSON.parse(await fetchText(ES_API_TREE, authHeaders));
+  } catch (err) {
+    console.log(`  ✗  Could not fetch repo tree (${err.message}). ` +
+      `Falling back to the seed file list only — discovery skipped this run.`);
+    return { scannedAt: Date.now(), totalCandidates: 0, relevantFiles: [], scannedPaths: [], failed: true };
+  }
+
+  if (treeJson.truncated)
+    console.log('  ⚠  GitHub truncated the tree response — some deeply nested files may be missed.');
+
+  const candidates = (treeJson.tree || [])
+    .filter(e => e.type === 'blob' && e.path.startsWith('source/') && /\.(cpp|h)$/i.test(e.path))
+    .filter(e => !SEED_PATHS.has(e.path));
+
+  console.log(`  ${candidates.length} candidate files under source/ (excluding ${SEED_PATHS.size} seed files already parsed by name)`);
+
+  const relevantFiles = [];
+  const scannedPaths  = [];
+  const contentCache  = {}; // path -> content, reused immediately by the parse phase below
+
+  await withPool(candidates, async (entry) => {
+    const rawUrl = `${ES_RAW}/${entry.path.replace(/^source\//, '')}`;
+    const content = await fetchText(rawUrl);
+    scannedPaths.push(entry.path);
+    if (looksAttributeRelevant(content)) {
+      relevantFiles.push({ path: entry.path, size: content.length, sha: entry.sha });
+      contentCache[entry.path] = content;
+    }
+  }, 8, (done, total) => {
+    if (done % 25 === 0 || done === total) process.stdout.write(`\r  Scanned ${done}/${total}...`);
+  });
+  console.log(`\r  Scanned ${scannedPaths.length}/${candidates.length} — ` +
+    `${relevantFiles.length} files reference outfit/ship attributes and weren't in the old hardcoded list`);
+
+  const record = {
+    scannedAt: Date.now(),
+    totalCandidates: candidates.length,
+    relevantFiles: relevantFiles.map(({ path: p, size, sha }) => ({ path: p, size, sha })),
+    scannedPaths,
+  };
+  try {
+    await fs.mkdir(path.dirname(cacheFile), { recursive: true });
+    await fs.writeFile(cacheFile, JSON.stringify(record, null, 2), 'utf8');
+  } catch (_) { /* non-fatal — discovery still returned in-memory */ }
+
+  // Attach in-memory content so the caller doesn't have to re-fetch files
+  // it just downloaded a moment ago (only populated on a fresh scan).
+  record._contentCache = contentCache;
+  return record;
+}
+
 // ---------------------------------------------------------------------------
 // parseTooltips(src)
 //
-// Parses the Endless Sky tooltips.txt data file format:
-//
-//   tip "key name:"
-//     `First paragraph of tooltip text.`
-//     `Optional second paragraph (rare but exists).`
-//
-// Returns a Map<string, string>:
-//   key   — attribute key, normalised: trailing colon stripped, lowercased,
-//            trimmed.  Matches the keys used everywhere else in this parser.
-//   value — full tooltip text, paragraphs joined with '\n\n'.
-//
-// Design notes:
-//   - Backtick strings are the ES data format for multi-line / paragraph text.
-//   - A single tip block may have multiple backtick paragraphs; they are
-//     concatenated so the frontend gets one clean string.
-//   - Lines that are blank or contain only whitespace between tip blocks are
-//     ignored.
-//   - No changes to any existing parser output.
+// Parses data/_ui/tooltips.txt into a Map: attributeKey → tooltip string.
+// Keys are normalised: trailing colon stripped, lowercased, trimmed.
+// Multi-paragraph tips are joined with a single newline.
 // ---------------------------------------------------------------------------
 
 function parseTooltips(src) {
@@ -108,17 +264,13 @@ function parseTooltips(src) {
   for (const rawLine of lines) {
     const line = rawLine;
 
-    // New tip block: tip "some key:"
     const tipMatch = line.match(/^tip\s+"([^"]+)"\s*$/);
     if (tipMatch) {
       flush();
-      // Normalise key: strip trailing colon, lowercase, trim whitespace
       currentKey = tipMatch[1].replace(/:$/, '').trim().toLowerCase();
       continue;
     }
 
-    // Backtick paragraph belonging to the current tip
-    // ES format: \t`text` or just `text`
     const backtickMatch = line.match(/^\s*`([^`]*)`\s*$/);
     if (backtickMatch && currentKey !== null) {
       const text = backtickMatch[1].trim();
@@ -126,28 +278,17 @@ function parseTooltips(src) {
       continue;
     }
 
-    // A non-tip, non-backtick line resets current block
-    // (guards against malformed files, though in practice blank lines appear)
     if (line.trim() !== '' && !line.startsWith('\t') && !line.startsWith(' ')) {
       flush();
     }
   }
 
-  flush(); // handle last block
+  flush();
   return tooltipMap;
 }
 
 // ---------------------------------------------------------------------------
 // mergeTooltipsIntoAttributes(attrs, tooltipMap)
-//
-// Adds a `tooltip` field to each attribute entry that has a matching key in
-// tooltipMap.  All existing fields are completely untouched.
-//
-// The attribute dictionary uses keys like "acceleration", "shields", etc.
-// The tooltip file uses the same keys (normalised identically), so lookup
-// is a direct Map.get().
-//
-// Returns nothing — mutates attrs in place.
 // ---------------------------------------------------------------------------
 
 function mergeTooltipsIntoAttributes(attrs, tooltipMap) {
@@ -161,14 +302,18 @@ function mergeTooltipsIntoAttributes(attrs, tooltipMap) {
 // Sentinelizer — replaces attributes.Get("key") with ⟦key⟧ brackets
 // ---------------------------------------------------------------------------
 
+// Matches both dot (ship.Attributes()) and arrow (outfit->Attributes())
+// accessors — arrow notation is extremely common in pointer-heavy code like
+// Armament/Hardpoint, which the discovery phase now reaches, so both forms
+// need to sentinelize identically or those files silently lose every
+// attribute reference.
 function sentinelizeGetCalls(src) {
   return src
-    .replace(/\battributes?\.Get\s*\(\s*"([^"]+)"\s*\)/g,             (_, k) => `\u27e6${k}\u27e7`)
-    .replace(/\bship\.Attributes\(\)\.Get\s*\(\s*"([^"]+)"\s*\)/g,   (_, k) => `\u27e6${k}\u27e7`)
-    .replace(/\boutfit\.Attributes\(\)\.Get\s*\(\s*"([^"]+)"\s*\)/g, (_, k) => `\u27e6${k}\u27e7`)
-    .replace(/\bbaseAttributes\.Get\s*\(\s*"([^"]+)"\s*\)/g,         (_, k) => `\u27e6${k}\u27e7`)
-    .replace(/\battributes?\.Mass\s*\(\s*\)/g,           () => `\u27e6mass\u27e7`)
-    .replace(/\bship\.Attributes\(\)\.Mass\s*\(\s*\)/g, () => `\u27e6mass\u27e7`);
+    .replace(/\battributes?(?:\.|->)Get\s*\(\s*"([^"]+)"\s*\)/g,                 (_, k) => `\u27e6${k}\u27e7`)
+    .replace(/\b\w+(?:\.|->)Attributes\s*\(\s*\)(?:\.|->)Get\s*\(\s*"([^"]+)"\s*\)/g, (_, k) => `\u27e6${k}\u27e7`)
+    .replace(/\bbaseAttributes(?:\.|->)Get\s*\(\s*"([^"]+)"\s*\)/g,              (_, k) => `\u27e6${k}\u27e7`)
+    .replace(/\battributes?(?:\.|->)Mass\s*\(\s*\)/g,                () => `\u27e6mass\u27e7`)
+    .replace(/\b\w+(?:\.|->)Attributes\s*\(\s*\)(?:\.|->)Mass\s*\(\s*\)/g, () => `\u27e6mass\u27e7`);
 }
 
 function extractVarMap(sentBody) {
@@ -229,10 +374,9 @@ function extractAllAttributeKeys(src) {
   const sentSrc = sentinelizeGetCalls(src);
   for (const re of [
     /\u27e6([^\u27e7]+)\u27e7/g,
-    /\battributes?\.Get\s*\(\s*"([^"]+)"\s*\)/g,
-    /\bbaseAttributes?\.Get\s*\(\s*"([^"]+)"\s*\)/g,
-    /\bship\.Attributes\(\)\.Get\s*\(\s*"([^"]+)"\s*\)/g,
-    /\boutfit\.Attributes\(\)\.Get\s*\(\s*"([^"]+)"\s*\)/g,
+    /\battributes?(?:\.|->)Get\s*\(\s*"([^"]+)"\s*\)/g,
+    /\bbaseAttributes?(?:\.|->)Get\s*\(\s*"([^"]+)"\s*\)/g,
+    /\b\w+(?:\.|->)Attributes\s*\(\s*\)(?:\.|->)Get\s*\(\s*"([^"]+)"\s*\)/g,
   ]) {
     let m;
     const target = re.source.includes('\u27e6') ? sentSrc : src;
@@ -243,14 +387,14 @@ function extractAllAttributeKeys(src) {
 
 function extractSetKeys(src) {
   const keys = new Set();
-  const re = /\battributes?\.Set\s*\(\s*"([^"]+)"\s*/g;
+  const re = /\battributes?(?:\.|->)Set\s*\(\s*"([^"]+)"\s*/g;
   let m;
   while ((m = re.exec(src)) !== null) keys.add(m[1]);
   return [...keys].sort();
 }
 
 // ---------------------------------------------------------------------------
-// C++ function body extractor
+// C++ function body extractor — fixed class prefix (used for seed files)
 // ---------------------------------------------------------------------------
 
 function extractFunctionBodies(src, classPrefix) {
@@ -274,6 +418,70 @@ function extractFunctionBodies(src, classPrefix) {
       bodies[fnName] = { returnType: m[1].trim(), params: m[3].trim(), isConst: !!m[4], body };
   }
   return bodies;
+}
+
+// ---------------------------------------------------------------------------
+// NEW: extractAllClassFunctionBodies(src)
+//
+// Class-agnostic version of extractFunctionBodies. Matches
+// "AnyClassName::AnyMethodName(...) { ... }" for EVERY class defined in
+// the file, without needing to be told the class name in advance. This is
+// what lets a newly-discovered file (Armament.cpp, AI.cpp, whatever) get
+// parsed correctly with zero prior knowledge of what classes it contains.
+// ---------------------------------------------------------------------------
+
+const NON_CLASS_KEYWORDS = new Set(['if', 'for', 'while', 'switch', 'catch', 'else']);
+
+function extractAllClassFunctionBodies(src) {
+  const bodies = {};
+  const sigRe = /(?:^|\n)[ \t]*((?:[\w:<>*&~][ \w:<>*&~]*?)\s+)(\w+)::(\w+)\s*\(([^)]*)\)\s*(const\s*)?(?:noexcept\s*)?\{/g;
+  let m;
+  while ((m = sigRe.exec(src)) !== null) {
+    const className = m[2];
+    const fnName    = m[3];
+    if (NON_CLASS_KEYWORDS.has(className)) continue; // filter obvious false positives
+    const bodyStart = m.index + m[0].length;
+    let depth = 1, i = bodyStart;
+    while (i < src.length && depth > 0) {
+      if (src[i] === '{') depth++;
+      else if (src[i] === '}') depth--;
+      i++;
+    }
+    const body = src.slice(bodyStart, i - 1).trim();
+    const key  = `${className}::${fnName}`;
+    if (!bodies[key] || body.length > bodies[key].body.length)
+      bodies[key] = { className, fnName, returnType: m[1].trim(), params: m[4].trim(), isConst: !!m[5], body };
+  }
+  return bodies;
+}
+
+// ---------------------------------------------------------------------------
+// NEW: parseGenericSourceFile(src, filePath)
+//
+// Runs a newly-discovered file through the class-agnostic extractor and
+// returns { ClassName: { fnName: {...} } } in the same shape parseShipCpp
+// already produces for Ship::, so downstream code (annotateShipFunctionScales
+// etc.) can be reused unmodified if you ever want to fold these in further.
+// ---------------------------------------------------------------------------
+
+function parseGenericSourceFile(src, filePath) {
+  const bodies  = extractAllClassFunctionBodies(src);
+  const byClass = {};
+  for (const { className, fnName, body, returnType, params, isConst } of Object.values(bodies)) {
+    const returns  = extractReturns(body);
+    const attrKeys = extractAllAttributeKeys(body);
+    const setKeys  = extractSetKeys(body);
+    if (attrKeys.length === 0 && setKeys.length === 0 && returns.length === 0) continue;
+    if (!byClass[className]) byClass[className] = {};
+    byClass[className][fnName] = {
+      returnType, params, isConst,
+      sourceFile: filePath,
+      attributesRead: attrKeys,
+      attributesSet:  setKeys,
+      formulas: returns.map(ret => ({ rawReturn: ret, formula: buildFormula(ret, body) })),
+    };
+  }
+  return byClass;
 }
 
 function extractReturns(body) {
@@ -361,20 +569,8 @@ function parseOutfitInfoDisplay(src) {
       r.valueNames.push({ key: m[1], unit: m[2] || null });
   }
 
-  // The game builds a `values` vector in UpdateAttributes() where some
-  // entries are multiplied inline (e.g. weapon->IonDamage() * 100.).
-  // These multipliers are NOT in the SCALE map — they're baked into the
-  // values array construction alongside VALUE_NAMES. Parse them out and
-  // attach them to the matching valueNames entries so the display layer
-  // can apply the correct scale without hardcoding anything.
-  //
-  // Strategy: find the `values = {` block, split it into lines, and for
-  // each line extract the optional `* N.` multiplier. The lines correspond
-  // positionally to VALUE_NAMES entries.
   const valuesBlockMatch = src.match(/vector<double>\s+values\s*=\s*\{([\s\S]*?)\};/);
   if (valuesBlockMatch && r.valueNames.length > 0) {
-    // Each entry is one comma-separated expression, possibly spanning one line.
-    // Split on commas that are not inside parentheses.
     const block = valuesBlockMatch[1];
     const entries = [];
     let depth = 0, current = '';
@@ -386,8 +582,6 @@ function parseOutfitInfoDisplay(src) {
     }
     if (current.trim()) entries.push(current.trim());
 
-    // For each entry, look for a trailing `* 100.` or `* 100` multiplier.
-    // We only care about the multiplier magnitude, not the accessor name.
     for (let i = 0; i < entries.length && i < r.valueNames.length; i++) {
       const multMatch = entries[i].match(/\*\s*([\d.]+)\s*\.?\s*$/);
       if (multMatch) {
@@ -1041,12 +1235,49 @@ function buildAttributeDictionary_withDmgTypes(
 }
 
 // ---------------------------------------------------------------------------
+// NEW: mergeDiscoveredSystemsIntoAttributes(attrs, otherSystems)
+//
+// Walks every class/function found by the generic discovery pass and:
+//   - creates a bare dictionary entry for any attribute key that ISN'T
+//     already known (tagged discoveredOnly: true) — these are exactly the
+//     attributes the old hardcoded-file-list approach would have silently
+//     missed entirely.
+//   - tags every attribute (known or new) with usedInOtherSystems so you
+//     can see every class/function outside Ship/Outfit/Weapon that reads it.
+// ---------------------------------------------------------------------------
+
+function mergeDiscoveredSystemsIntoAttributes(attrs, otherSystems) {
+  const newlyDiscovered = new Set();
+  for (const [className, fns] of Object.entries(otherSystems)) {
+    for (const [fnName, fnData] of Object.entries(fns)) {
+      const tag = `${className}::${fnName}`;
+      for (const key of (fnData.attributesRead || [])) {
+        const isNew = !attrs[key];
+        const a = attrs[key] || (attrs[key] = { key, discoveredOnly: true });
+        if (isNew) newlyDiscovered.add(key);
+        if (!a.usedInOtherSystems) a.usedInOtherSystems = [];
+        if (!a.usedInOtherSystems.includes(tag)) a.usedInOtherSystems.push(tag);
+      }
+      for (const key of (fnData.attributesSet || [])) {
+        const isNew = !attrs[key];
+        const a = attrs[key] || (attrs[key] = { key, discoveredOnly: true });
+        if (isNew) newlyDiscovered.add(key);
+        if (!a.setInOtherSystems) a.setInOtherSystems = [];
+        if (!a.setInOtherSystems.includes(tag)) a.setInOtherSystems.push(tag);
+      }
+    }
+  }
+  return [...newlyDiscovered].sort();
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
-async function parseAttributes(outputDir) {
+async function parseAttributes(outputDir, cliOpts = {}) {
   const outDir  = outputDir || path.join(process.cwd(), 'data');
   const outFile = path.join(outDir, 'attributeDefinitions.json');
+  const discoveryCacheFile = path.join(outDir, 'discoveredSourceFiles.json');
   await fs.mkdir(outDir, { recursive: true });
 
   console.log('\n' + '='.repeat(60));
@@ -1076,7 +1307,6 @@ async function parseAttributes(outputDir) {
     console.log(`✗  ${err.message} (using default solar power 1.0)`);
   }
 
-  // ── NEW: fetch and parse tooltips ────────────────────────────────────────
   let tooltipMap = new Map();
   process.stdout.write(`  Fetching tooltips.txt           `);
   try {
@@ -1086,9 +1316,8 @@ async function parseAttributes(outputDir) {
   } catch (err) {
     console.log(`✗  ${err.message} (tooltips unavailable)`);
   }
-  // ────────────────────────────────────────────────────────────────────────
 
-  console.log('\n  Parsing...');
+  console.log('\n  Parsing seed files (bespoke extractors)...');
 
   const oidData = sources.outfitInfoDisplay
     ? parseOutfitInfoDisplay(sources.outfitInfoDisplay)
@@ -1126,13 +1355,57 @@ async function parseAttributes(outputDir) {
     statusEffectDecay, damageTypeDetails
   );
 
-  // ── NEW: merge tooltips into every matching attribute entry ──────────────
   mergeTooltipsIntoAttributes(attributes, tooltipMap);
   const tipsMatched = Object.values(attributes).filter(a => a.tooltip).length;
   console.log(`  Tooltips merged    ${tipsMatched} / ${Object.keys(attributes).length} attributes matched`);
-  // ────────────────────────────────────────────────────────────────────────
+  console.log(`\n  Unified dictionary (seed files only): ${Object.keys(attributes).length} unique attribute keys`);
 
-  console.log(`\n  Unified dictionary: ${Object.keys(attributes).length} unique attribute keys`);
+  // ── NEW: discovery phase — scan the ENTIRE source/ tree ──────────────────
+  console.log('\n  Discovering attribute usage across the full codebase...');
+  const discovery = await discoverRelevantSourceFiles(discoveryCacheFile, {
+    forceRescan: !!cliOpts.rescan,
+  });
+
+  const otherSystems = {};
+  let discoveredParseFailures = 0;
+
+  if (discovery.relevantFiles?.length) {
+    console.log(`  Parsing ${discovery.relevantFiles.length} newly-discovered files generically...`);
+    const contentCache = discovery._contentCache || {};
+
+    await withPool(discovery.relevantFiles, async (entry) => {
+      let content = contentCache[entry.path];
+      if (!content) {
+        const rawUrl = `${ES_RAW}/${entry.path.replace(/^source\//, '')}`;
+        content = await fetchText(rawUrl);
+      }
+      const parsed = parseGenericSourceFile(content, entry.path);
+      for (const [className, fns] of Object.entries(parsed)) {
+        if (!otherSystems[className]) otherSystems[className] = {};
+        Object.assign(otherSystems[className], fns);
+      }
+    }, 8).then(results => {
+      discoveredParseFailures = results.filter(r => r && r.__error).length;
+    });
+
+    const classCount = Object.keys(otherSystems).length;
+    const fnCount     = Object.values(otherSystems).reduce((n, fns) => n + Object.keys(fns).length, 0);
+    console.log(`  ${classCount} classes / ${fnCount} functions found outside the seed files` +
+      (discoveredParseFailures ? ` (${discoveredParseFailures} files failed to fetch and were skipped)` : ''));
+  } else if (discovery.failed) {
+    console.log('  Discovery phase skipped (tree fetch failed) — dictionary reflects seed files only.');
+  } else {
+    console.log('  No additional attribute-reading files found outside the seed list.');
+  }
+
+  const newlyDiscoveredKeys = mergeDiscoveredSystemsIntoAttributes(attributes, otherSystems);
+  if (newlyDiscoveredKeys.length) {
+    console.log(`  ⚠  ${newlyDiscoveredKeys.length} attribute key(s) exist ONLY in discovered files ` +
+      `— never appeared in OutfitInfoDisplay/ShipInfoDisplay/Outfit.cpp/Weapon.cpp:`);
+    console.log('     ' + newlyDiscoveredKeys.slice(0, 20).join(', ') + (newlyDiscoveredKeys.length > 20 ? ', …' : ''));
+  }
+
+  console.log(`\n  Unified dictionary (seed + discovered): ${Object.keys(attributes).length} unique attribute keys`);
 
   const systemAwareFormulas = {
     'solar collection': { formula: '[solar collection] * solar_power', displayScale: 60, displayUnit: '/s',
@@ -1143,7 +1416,6 @@ async function parseAttributes(outputDir) {
       description: 'Fuel scooped per second.', referencePower: systemContext.referenceSolarPower },
   };
 
-  // Convert tooltipMap to a plain object for JSON output
   const tooltipsObject = Object.fromEntries(tooltipMap);
 
   const result = {
@@ -1156,8 +1428,22 @@ async function parseAttributes(outputDir) {
         'FnName() calls refer to other ship functions.',
         'Multi-branch functions have one formula entry per return statement.',
       ],
+      discovery: {
+        scannedAt: discovery.scannedAt ? new Date(discovery.scannedAt).toISOString() : null,
+        totalCandidatesScanned: discovery.totalCandidates ?? 0,
+        relevantFilesFound: discovery.relevantFiles?.length ?? 0,
+        relevantFilePaths: (discovery.relevantFiles || []).map(f => f.path),
+        newlyDiscoveredAttributeKeys: newlyDiscoveredKeys,
+        note: 'discovery scans the ENTIRE source/ tree (not a hardcoded list) for attribute-access ' +
+          'patterns, caches results, and re-scans automatically after 7 days or when --rescan is passed. ' +
+          'Files already covered by a bespoke parser (see SEED_PATHS) are excluded from this generic pass.',
+      },
       notes: [
-        'Zero hardcoding: all data extracted from C++ source and data files.',
+        'Zero hardcoding of WHICH files matter: discovery scans every .cpp/.h under source/ and ' +
+          'keeps whatever actually reads/writes attributes, not a maintained list.',
+        'The dozen seed files still use bespoke, hand-tuned extraction (SCALE_LABELS, BOOLEAN_ATTRIBUTES, ' +
+          'VALUE_NAMES, MINIMUM_OVERRIDES) because only targeted regexes can read those exact formats.',
+        'Everything else is parsed generically via extractAllClassFunctionBodies — any class, any file.',
         'damageTypeDetails: shieldInteraction parsed from Ship.cpp TakeDamage().',
         'Descriptor lookup uses damageKey base, not label, fixing Ion/Ionization mismatch.',
         'Status decay: stat = max(0, 0.99*stat - min(R, 0.99*stat)) each frame.',
@@ -1168,9 +1454,10 @@ async function parseAttributes(outputDir) {
     },
     systemContext,
     systemAwareFormulas,
-    attributes,       // ← each matching entry now has a .tooltip field
-    tooltips: tooltipsObject,  // ← NEW: flat key→string lookup for frontend use
+    attributes,
+    tooltips: tooltipsObject,
     shipFunctions: shipFns,
+    otherSystems, // ← NEW: every class/function found by the discovery pass, keyed by class name
     shipDisplay: {
       energyHeatTable:  shipDisplay.tableRows,
       labelValuePairs:  shipDisplay.attributeLabels,
@@ -1211,12 +1498,20 @@ async function parseAttributes(outputDir) {
 
   await fs.writeFile(outFile, JSON.stringify(result, null, 2), 'utf8');
   console.log(`\n✓  Written → ${outFile}`);
-  console.log(`   attributes: ${Object.keys(result.attributes).length}  shipFunctions: ${Object.keys(result.shipFunctions).length}  tooltips: ${Object.keys(result.tooltips).length}`);
+  console.log(`   attributes: ${Object.keys(result.attributes).length}  ` +
+    `shipFunctions: ${Object.keys(result.shipFunctions).length}  ` +
+    `otherSystems classes: ${Object.keys(result.otherSystems).length}  ` +
+    `tooltips: ${Object.keys(result.tooltips).length}`);
   console.log('='.repeat(60) + '\n');
   return result;
 }
 
-if (require.main === module)
-  parseAttributes().catch(err => { console.error('Error:', err); process.exit(1); });
+if (require.main === module) {
+  const cliOpts = { rescan: process.argv.includes('--rescan') };
+  parseAttributes(undefined, cliOpts).catch(err => { console.error('Error:', err); process.exit(1); });
+}
 
-module.exports = { parseAttributes, parseTooltips, mergeTooltipsIntoAttributes };
+module.exports = {
+  parseAttributes, parseTooltips, mergeTooltipsIntoAttributes,
+  discoverRelevantSourceFiles, parseGenericSourceFile, extractAllClassFunctionBodies,
+};
