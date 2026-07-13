@@ -7,10 +7,10 @@
 // Per-item attribute layers:
 //   1. Effective attrs  — base ship attrs + all outfit contributions
 //   2. Hardpoints       — gun/turret/bay/engine counts
-//   3. Heat derived     — totalHeatCawpacity, maxSustainableHeatProd
-//   4. Weapon DPS       — fleet summary + per-weapon detail
+//   3. Heat derived      — totalHeatCawpacity, maxSustainableHeatProd
+//   4. Weapon DPS        — fleet summary + per-weapon detail
 //   5. Per-outfit detail — Outfit: <name> sections for every installed outfit
-//   6. Computed stats   — _fn_*, _derived_*, _ws_* from ComputedStats
+//   6. Computed stats    — _fn_*, _derived_*, _ws_* from ComputedStats
 //
 // Quantity multiplier:
 //   Each item has a ×N spinner in its column/table header.
@@ -40,6 +40,20 @@ window.CompareDisplay = (() => {
         { key: 'engine capacity', label: 'Engine Capacity' },
         { key: 'mass',            label: 'Mass'            },
     ];
+
+    // Calculated-stat keys (as produced by ComputedStats / _labelOf) to hide from
+    // the "Attribute Efficiency" section (non-weapon calculated outfit stats).
+    // This is the ONLY hard-coded exclusion point for that section.
+    const PER_DIVISOR_EXCLUDE_NONWEAPON = new Set([
+        // e.g. '_fn_someComputedStat',
+    ]);
+
+    // Calculated-stat keys to hide from the "Weapon Efficiency" section
+    // (derived weapon stats: fire rate, DPS, firing costs, ammo consumption).
+    // This is the ONLY hard-coded exclusion point for that section.
+    const PER_DIVISOR_EXCLUDE_WEAPON = new Set([
+        // e.g. 'total dps',
+    ]);
 
     function _signedPerDivisor(numerator, ratio) {
         if (ratio === 0 || isNaN(ratio)) return ratio;
@@ -280,7 +294,7 @@ window.CompareDisplay = (() => {
         const w   = outfit.weapon || {};
         const sps = profile.shotsPerSecond || 0;
         const rows = [];
-        
+
         // ── 1. Count ──────────────────────────────────────────────────────────
         rows.push({ label: 'Count', value: `×${count * qty}`, unit: '' });
 
@@ -358,6 +372,17 @@ window.CompareDisplay = (() => {
             if (dps) {
                 const label = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
                 rows.push({ label, value: _fmt(dps * count * qty), unit: 'dmg/s' });
+            }
+
+        for (const [costKey, costVal] of Object.entries(profile.firingCosts || {}).sort())
+            if (costVal) {
+                const mult  = _getDisplayMultiplier(costKey);
+                const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
+                rows.push({
+                    label,
+                    value: _fmt(costVal * profile.shotsPerSecond * count * qty * mult),
+                    unit: _getDisplayUnit(costKey),
+                });
             }
 
         // ── 5. Computed _fn_ / _derived_ stats for this outfit ────────────────
@@ -880,101 +905,93 @@ window.CompareDisplay = (() => {
                 ? window.WeaponStats.getOutfitWeaponStats(item, outfitIdx)
                 : null;
 
-            // Per-divisor efficiency for CALCULATED per-second weapon values —
-            // fire rate, firing costs, ammo consumption, and DPS, all sourced
-            // from WeaponStats. This covers "weapon data per mass / outfit
-            // space / etc" — NOT the generic per-attribute ratios (those were
-            // removed; things like "index per mass" or "cost per outfit space"
-            // are no longer computed).
-            if (weaponProfile) {
-                const profile = weaponProfile;
-                const sps = profile.shotsPerSecond || 0;
-                const attrEffSection = 'Weapon DPS — Efficiency';
+            // ── Generic per-divisor efficiency (CALCULATED STATS ONLY) ───────
+            // Every *calculated/derived* stat (_fn_ / _derived_ / _sys_, plus
+            // WeaponStats-derived per-second weapon numbers) gets a "<stat> per
+            // <divisor>" row for each of PER_DIVISOR_KEYS (Mass, Outfit Space,
+            // Cargo Space, Weapon Capacity, Engine Capacity). Raw flat attributes
+            // are NOT included here — only computed stats are.
+            //
+            // Two sections:
+            //   • "Weapon Efficiency"    — derived per-second weapon stats
+            //                              (fire rate, DPS, firing costs, ammo
+            //                              consumption) computed from item.weapon.
+            //   • "Attribute Efficiency" — computed/derived outfit stats
+            //                              (_fn_ / _derived_ / _sys_) driven by
+            //                              this outfit's own attributes.
+            //
+            // The ONLY hard-coded exclusions are PER_DIVISOR_EXCLUDE_NONWEAPON
+            // and PER_DIVISOR_EXCLUDE_WEAPON, declared near the top of the file.
+            {
+                const nonWeaponSection = 'Attribute Efficiency';
+                const weaponSection    = 'Weapon Efficiency';
 
-                if (sps) {
+                const pushRatios = (section, numKey, numLabel, numVal) => {
+                    if (typeof numVal !== 'number' || !numVal || isNaN(numVal)) return;
                     for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                        if (numKey === divKey) continue; // don't divide something by itself
                         const divisor = item[divKey];
                         if (typeof divisor !== 'number' || divisor === 0) continue;
-                        const ratio = _signedPerDivisor(sps, sps / divisor);
-                        pushRaw(attrEffSection,
-                            `_wcalc_sps_per_${divKey.replace(/\s+/g, '_')}`,
-                            `Fire Rate per ${divLabel}`, _fmt(ratio), 'shots/s');
+                        const ratio = _signedPerDivisor(numVal, numVal / divisor);
+                        pushRaw(section,
+                            `_pd_${numKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
+                            `${numLabel} per ${divLabel}`, _fmt(ratio), '');
+                    }
+                };
+
+                // 1. Non-weapon: calculated stats only (_fn_ / _derived_ / _sys_).
+                if (window.ComputedStats?.isReady()) {
+                    const flat = {};
+                    for (const [k, v] of Object.entries(item))
+                        if (typeof v === 'number') flat[k] = v;
+
+                    let calcStats = {};
+                    try { calcStats = window.ComputedStats.getComputedStatsForAttrs(flat) || {}; }
+                    catch (_) { calcStats = {}; }
+
+                    for (const [k, v] of Object.entries(calcStats)) {
+                        if (typeof v !== 'number' || isNaN(v) || v === 0) continue;
+                        const isCalcKey = k.startsWith('_fn_') || k.startsWith('_derived_') || k.startsWith('_sys_');
+                        if (!isCalcKey) continue;
+                        if (PER_DIVISOR_EXCLUDE_NONWEAPON.has(k)) continue;
+                        pushRatios(nonWeaponSection, k, _labelOf(k), v * _getDisplayMultiplier(k));
                     }
                 }
 
-                for (const [costKey, costVal] of Object.entries(profile.firingCosts || {})) {
-                    if (!costVal) continue;
-                    const mult       = _getDisplayMultiplier(costKey);
-                    const perSecond  = costVal * sps * mult;
-                    const label      = _labelOf(costKey.replace(/^firing /, '')) + '/s';
-                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                        const divisor = item[divKey];
-                        if (typeof divisor !== 'number' || divisor === 0) continue;
-                        const ratio = _signedPerDivisor(perSecond, perSecond / divisor);
-                        pushRaw(attrEffSection,
-                            `_wcalc_${costKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g, '_')}`,
-                            `${label} per ${divLabel}`, _fmt(ratio), _getDisplayUnit(costKey));
-                    }
-                }
+                // 2. Weapon: calculated/derived stats only (fire rate, DPS, firing
+                //    costs, ammo consumption) — raw per-shot weapon constants
+                //    (velocity, lifetime, reload etc) are intentionally excluded.
+                if (item.weapon && typeof item.weapon === 'object' && weaponProfile) {
+                    const profile = weaponProfile;
+                    const sps     = profile.shotsPerSecond || 0;
 
-                // Ammo consumption rate — the last "firing"-derived quantity
-                // besides fire rate and firing costs. Same shape as firing
-                // costs (per-shot quantity × sps = per-second rate), sourced
-                // from profile.ammoPerShot/hasAmmo instead of firingCosts.
-                if (profile.hasAmmo && sps) {
-                    const ammoPerSecond = (profile.ammoPerShot || 1) * sps;
-                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                        const divisor = item[divKey];
-                        if (typeof divisor !== 'number' || divisor === 0) continue;
-                        const ratio = _signedPerDivisor(ammoPerSecond, ammoPerSecond / divisor);
-                        pushRaw(attrEffSection,
-                            `_wcalc_ammo_per_${divKey.replace(/\s+/g, '_')}`,
-                            `Ammo Consumption per ${divLabel}`, _fmt(ratio), 'rounds/s');
-                    }
-                }
+                    if (!PER_DIVISOR_EXCLUDE_WEAPON.has('shots per second'))
+                        pushRatios(weaponSection, 'shots per second', 'Fire Rate', sps);
 
-                // ── DPS per divisor ────────────────────────────────────────────
-                if (profile.totalDps) {
-                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                        const divisor = item[divKey];
-                        if (typeof divisor !== 'number' || divisor === 0) continue;
-                        const ratio = _signedPerDivisor(profile.totalDps, profile.totalDps / divisor);
-                        pushRaw(attrEffSection, `_ws_totalDps_per_${divKey.replace(/\s+/g,'_')}`,
-                            `Total DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
+                    if (!PER_DIVISOR_EXCLUDE_WEAPON.has('total dps'))
+                        pushRatios(weaponSection, 'total dps', 'Total DPS', profile.totalDps);
+                    if (!PER_DIVISOR_EXCLUDE_WEAPON.has('shield dps'))
+                        pushRatios(weaponSection, 'shield dps', 'Shield DPS', profile.shieldDps);
+                    if (!PER_DIVISOR_EXCLUDE_WEAPON.has('hull dps'))
+                        pushRatios(weaponSection, 'hull dps', 'Hull DPS', profile.hullDps);
+
+                    for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {})) {
+                        if (dmgKey === 'shield damage' || dmgKey === 'hull damage') continue; // covered above
+                        if (PER_DIVISOR_EXCLUDE_WEAPON.has(dmgKey)) continue;
+                        const label = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
+                        pushRatios(weaponSection, `dps_${dmgKey}`, label, dps);
                     }
-                }
-                if (profile.shieldDps) {
-                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                        const divisor = item[divKey];
-                        if (typeof divisor !== 'number' || divisor === 0) continue;
-                        const ratio = _signedPerDivisor(profile.shieldDps, profile.shieldDps / divisor);
-                        pushRaw(attrEffSection, `_ws_shieldDps_per_${divKey.replace(/\s+/g,'_')}`,
-                            `Shield DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
+
+                    for (const [costKey, costVal] of Object.entries(profile.firingCosts || {})) {
+                        if (PER_DIVISOR_EXCLUDE_WEAPON.has(costKey)) continue;
+                        const mult      = _getDisplayMultiplier(costKey);
+                        const label     = _labelOf(costKey.replace(/^firing /, '')) + '/s';
+                        pushRatios(weaponSection, costKey, label, costVal * sps * mult);
                     }
-                }
-                if (profile.hullDps) {
-                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                        const divisor = item[divKey];
-                        if (typeof divisor !== 'number' || divisor === 0) continue;
-                        const ratio = _signedPerDivisor(profile.hullDps, profile.hullDps / divisor);
-                        pushRaw(attrEffSection, `_ws_hullDps_per_${divKey.replace(/\s+/g,'_')}`,
-                            `Hull DPS per ${divLabel}`, _fmt(ratio), 'dmg/s');
-                    }
-                }
-                // Every OTHER damage type (shield/hull already handled explicitly
-                // above — skipping them here prevents duplicate "Shield DPS
-                // per Mass" / "Hull DPS per Mass" rows).
-                for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort()) {
-                    if (!dps) continue;
-                    if (dmgKey === 'shield damage' || dmgKey === 'hull damage') continue;
-                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
-                        const divisor = item[divKey];
-                        if (typeof divisor !== 'number' || divisor === 0) continue;
-                        const ratio  = _signedPerDivisor(dps, dps / divisor);
-                        const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}_per_${divKey.replace(/\s+/g,'_')}`;
-                        const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ` DPS per ${divLabel}`;
-                        pushRaw(attrEffSection, safeKey, label, _fmt(ratio), 'dmg/s');
-                    }
+
+                    if (profile.hasAmmo && sps && !PER_DIVISOR_EXCLUDE_WEAPON.has('ammo consumption'))
+                        pushRatios(weaponSection, 'ammo consumption', 'Ammo Consumption',
+                            (profile.ammoPerShot || 1) * sps);
                 }
             }
 
