@@ -41,16 +41,16 @@ window.CompareDisplay = (() => {
         { key: 'mass',            label: 'Mass'            },
     ];
 
-    // Calculated-stat keys (as produced by ComputedStats / _labelOf) to hide from
-    // the "Attribute Efficiency" section (non-weapon calculated outfit stats).
-    // This is the ONLY hard-coded exclusion point for that section.
+    // ── Last-resort manual overrides ────────────────────────────────────────
+    // Everything about which stats get a per-divisor ratio is decided from
+    // attrDefs metadata (see _isRatioEligible below) — NOT from attribute
+    // names hardcoded here. These two sets exist only as an escape hatch for
+    // the rare case where the metadata-driven check still lets through a
+    // stat that doesn't make sense as a ratio; add a computed-stat key here
+    // (e.g. '_fn_someStat' or 'total dps') only if you actually hit one.
     const PER_DIVISOR_EXCLUDE_NONWEAPON = new Set([
         // e.g. '_fn_someComputedStat',
     ]);
-
-    // Calculated-stat keys to hide from the "Weapon Efficiency" section
-    // (derived weapon stats: fire rate, DPS, firing costs, ammo consumption).
-    // This is the ONLY hard-coded exclusion point for that section.
     const PER_DIVISOR_EXCLUDE_WEAPON = new Set([
         // e.g. 'total dps',
     ]);
@@ -64,8 +64,8 @@ window.CompareDisplay = (() => {
     const SECTION_ORDER = [
         'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
         'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
-        'Hardpoints', 'Heat (derived)', 'Weapon DPS', 'Weapon DPS — Efficiency',
-        'Ammo Consumption', 'Derived Stats', 'Other',
+        'Hardpoints', 'Heat (derived)', 'Weapon DPS', 'Weapon Efficiency',
+        'Attribute Efficiency', 'Ammo Consumption', 'Derived Stats', 'Other',
     ];
 
     const SECTION_PATTERNS = [
@@ -159,6 +159,40 @@ window.CompareDisplay = (() => {
         }
         return s.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ')
                 .replace(/\s+/g, ' ').replace(/^./, c => c.toUpperCase()).trim();
+    }
+
+    // ── Ratio eligibility (metadata-driven — no attribute names hardcoded) ────
+    //
+    // Determines the effective display unit for ANY key — raw attribute or
+    // computed (_fn_ / _derived_ / _sys_) — purely by reading attrDefs.
+    function _effectiveUnit(key) {
+        if (key.startsWith('_fn_')) {
+            const fnDef = _attrDefs()?.shipFunctions?.[key.slice(4)];
+            return fnDef?.displayUnit || _inferFnUnit(key.slice(4));
+        }
+        if (key.startsWith('_derived_energy_')) return 'e/s';
+        if (key.startsWith('_derived_heat_'))   return 'h/s';
+        if (key.startsWith('_derived_'))        return '';
+        if (key.startsWith('_sys_'))            return '/s';
+        return _getDisplayUnit(key);
+    }
+
+    // Decide whether a numerator is worth turning into a "<stat> per
+    // <divisor>" ratio, using ONLY attrDefs metadata:
+    //   • boolean attrs (isBoolean)              → excluded (0/1 isn't a rate)
+    //   • percentage-unit stats ('%', '%/s')      → excluded (ratio of a
+    //                                                percentage against a
+    //                                                capacity is meaningless)
+    //   • everything else numeric                 → eligible
+    // The two PER_DIVISOR_EXCLUDE_* sets are consulted last, as a manual
+    // override for edge cases the metadata doesn't capture.
+    function _isRatioEligible(key, excludeSet) {
+        if (excludeSet.has(key)) return false;
+        const rec = _getAttrRecord(key);
+        if (rec?.isBoolean) return false;
+        const unit = _effectiveUnit(key);
+        if (unit === '%' || unit === '%/s') return false;
+        return true;
     }
 
     // ── Quantity helpers ──────────────────────────────────────────────────────
@@ -905,12 +939,17 @@ window.CompareDisplay = (() => {
                 ? window.WeaponStats.getOutfitWeaponStats(item, outfitIdx)
                 : null;
 
-            // ── Generic per-divisor efficiency (CALCULATED STATS ONLY) ───────
+            // ── Generic per-divisor efficiency ────────────────────────────────
             // Every *calculated/derived* stat (_fn_ / _derived_ / _sys_, plus
             // WeaponStats-derived per-second weapon numbers) gets a "<stat> per
             // <divisor>" row for each of PER_DIVISOR_KEYS (Mass, Outfit Space,
-            // Cargo Space, Weapon Capacity, Engine Capacity). Raw flat attributes
-            // are NOT included here — only computed stats are.
+            // Cargo Space, Weapon Capacity, Engine Capacity).
+            //
+            // Which stats qualify is decided ENTIRELY by _isRatioEligible()
+            // above, which reads attrDefs metadata (isBoolean, displayUnit) —
+            // no attribute names are hardcoded in this block. The two
+            // PER_DIVISOR_EXCLUDE_* sets near the top of the file are the only
+            // manual override, for edge cases the metadata doesn't catch.
             //
             // Two sections:
             //   • "Weapon Efficiency"    — derived per-second weapon stats
@@ -919,15 +958,13 @@ window.CompareDisplay = (() => {
             //   • "Attribute Efficiency" — computed/derived outfit stats
             //                              (_fn_ / _derived_ / _sys_) driven by
             //                              this outfit's own attributes.
-            //
-            // The ONLY hard-coded exclusions are PER_DIVISOR_EXCLUDE_NONWEAPON
-            // and PER_DIVISOR_EXCLUDE_WEAPON, declared near the top of the file.
             {
                 const nonWeaponSection = 'Attribute Efficiency';
                 const weaponSection    = 'Weapon Efficiency';
 
-                const pushRatios = (section, numKey, numLabel, numVal) => {
+                const pushRatios = (section, numKey, numLabel, numVal, excludeSet) => {
                     if (typeof numVal !== 'number' || !numVal || isNaN(numVal)) return;
+                    if (!_isRatioEligible(numKey, excludeSet)) return;
                     for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
                         if (numKey === divKey) continue; // don't divide something by itself
                         const divisor = item[divKey];
@@ -953,8 +990,7 @@ window.CompareDisplay = (() => {
                         if (typeof v !== 'number' || isNaN(v) || v === 0) continue;
                         const isCalcKey = k.startsWith('_fn_') || k.startsWith('_derived_') || k.startsWith('_sys_');
                         if (!isCalcKey) continue;
-                        if (PER_DIVISOR_EXCLUDE_NONWEAPON.has(k)) continue;
-                        pushRatios(nonWeaponSection, k, _labelOf(k), v * _getDisplayMultiplier(k));
+                        pushRatios(nonWeaponSection, k, _labelOf(k), v * _getDisplayMultiplier(k), PER_DIVISOR_EXCLUDE_NONWEAPON);
                     }
                 }
 
@@ -965,33 +1001,26 @@ window.CompareDisplay = (() => {
                     const profile = weaponProfile;
                     const sps     = profile.shotsPerSecond || 0;
 
-                    if (!PER_DIVISOR_EXCLUDE_WEAPON.has('shots per second'))
-                        pushRatios(weaponSection, 'shots per second', 'Fire Rate', sps);
-
-                    if (!PER_DIVISOR_EXCLUDE_WEAPON.has('total dps'))
-                        pushRatios(weaponSection, 'total dps', 'Total DPS', profile.totalDps);
-                    if (!PER_DIVISOR_EXCLUDE_WEAPON.has('shield dps'))
-                        pushRatios(weaponSection, 'shield dps', 'Shield DPS', profile.shieldDps);
-                    if (!PER_DIVISOR_EXCLUDE_WEAPON.has('hull dps'))
-                        pushRatios(weaponSection, 'hull dps', 'Hull DPS', profile.hullDps);
+                    pushRatios(weaponSection, 'shots per second', 'Fire Rate', sps, PER_DIVISOR_EXCLUDE_WEAPON);
+                    pushRatios(weaponSection, 'total dps', 'Total DPS', profile.totalDps, PER_DIVISOR_EXCLUDE_WEAPON);
+                    pushRatios(weaponSection, 'shield dps', 'Shield DPS', profile.shieldDps, PER_DIVISOR_EXCLUDE_WEAPON);
+                    pushRatios(weaponSection, 'hull dps', 'Hull DPS', profile.hullDps, PER_DIVISOR_EXCLUDE_WEAPON);
 
                     for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {})) {
                         if (dmgKey === 'shield damage' || dmgKey === 'hull damage') continue; // covered above
-                        if (PER_DIVISOR_EXCLUDE_WEAPON.has(dmgKey)) continue;
                         const label = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
-                        pushRatios(weaponSection, `dps_${dmgKey}`, label, dps);
+                        pushRatios(weaponSection, `dps_${dmgKey}`, label, dps, PER_DIVISOR_EXCLUDE_WEAPON);
                     }
 
                     for (const [costKey, costVal] of Object.entries(profile.firingCosts || {})) {
-                        if (PER_DIVISOR_EXCLUDE_WEAPON.has(costKey)) continue;
-                        const mult      = _getDisplayMultiplier(costKey);
-                        const label     = _labelOf(costKey.replace(/^firing /, '')) + '/s';
-                        pushRatios(weaponSection, costKey, label, costVal * sps * mult);
+                        const mult  = _getDisplayMultiplier(costKey);
+                        const label = _labelOf(costKey.replace(/^firing /, '')) + '/s';
+                        pushRatios(weaponSection, costKey, label, costVal * sps * mult, PER_DIVISOR_EXCLUDE_WEAPON);
                     }
 
-                    if (profile.hasAmmo && sps && !PER_DIVISOR_EXCLUDE_WEAPON.has('ammo consumption'))
+                    if (profile.hasAmmo && sps)
                         pushRatios(weaponSection, 'ammo consumption', 'Ammo Consumption',
-                            (profile.ammoPerShot || 1) * sps);
+                            (profile.ammoPerShot || 1) * sps, PER_DIVISOR_EXCLUDE_WEAPON);
                 }
             }
 
