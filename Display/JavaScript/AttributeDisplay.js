@@ -861,7 +861,7 @@ function groupBySection(attrDefs, entries) {
     for (const { key, value } of entries) {
         const rawVal = parseFloat(value);
         if (value === '' || value == null) continue;
-        if (!isNaN(rawVal) && rawVal === 0) continue;   // ← the missing filter
+        if (item._isLocalBuild && !isNaN(rawVal) && rawVal === 0) continue;
 
         const rec     = getAttrRecord(attrDefs, key);
         const section = getSection(attrDefs, key);
