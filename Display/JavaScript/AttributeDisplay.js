@@ -859,9 +859,12 @@ function attrRow(label, displayValue, unit, tipAttrs, extra) {
 function groupBySection(attrDefs, entries) {
     const sections = {};
     for (const { key, value } of entries) {
+        const rawVal = parseFloat(value);
+        if (value === '' || value == null) continue;
+        if (!isNaN(rawVal) && rawVal === 0) continue;   // ← the missing filter
+
         const rec     = getAttrRecord(attrDefs, key);
         const section = getSection(attrDefs, key);
-        const rawVal  = parseFloat(value);
         const dispVal = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * (rec?.displayMultiplier ?? 1));
         if (!sections[section]) sections[section] = [];
         sections[section].push(attrRow(getLabel(key), dispVal, rec?.displayUnit ?? '', tooltipContent(rec)));
