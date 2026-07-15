@@ -1121,7 +1121,7 @@ window.CompareDisplay = (() => {
                     if (profile.effectiveRange) pushRaw(dS, '_ws_range', 'Range', _fmt(profile.effectiveRange), 'px');
                     if (profile.shotsPerSecond) pushRawScaled(dS, '_ws_sps', 'Fire Rate', profile.shotsPerSecond, 'shots/s');
                     for (const [dmgKey, dps] of Object.entries(profile.dpsBreakdown || {}).sort())
-                        if (dps) {
+                        if (dps && dmgKey !== 'shield damage' && dmgKey !== 'hull damage') {
                             const safeKey = `_ws_dps_${dmgKey.replace(/\s+/g, '_')}`;
                             const label   = _labelOf(dmgKey.replace(/ damage$/, '')) + ' DPS';
                             pushRawScaled(dS, safeKey, label, dps, 'dmg/s');
