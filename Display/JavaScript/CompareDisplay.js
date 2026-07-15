@@ -195,6 +195,64 @@ window.CompareDisplay = (() => {
         return true;
     }
 
+    // ── Computed-stat relevance filter ────────────────────────────────────────
+    //
+    // window.ComputedStats evaluates every ship-function formula generically,
+    // defaulting any missing attribute to 0 — so e.g. CoolingEfficiency() or
+    // RequiredCrew() still "resolve" to some constant even for an outfit that
+    // has neither "cooling inefficiency" nor "required crew" set at all. That's
+    // correct behaviour for ComputedStats (it doesn't know which attributes are
+    // "real" for a given item) — the filtering has to happen here, using
+    // attrDefs' own attributesRead / formula-reference metadata to check
+    // whether THIS item's attributes actually feed the stat.
+    //
+    // Mutates and returns `computed` with irrelevant keys removed.
+    function _filterComputedStats(computed, effectiveAttrKeys, isShip) {
+        if (!computed || !effectiveAttrKeys || !window.attrDefs) return computed;
+        const fns     = window.attrDefs.shipFunctions              || {};
+        const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
+        const sysF    = window.attrDefs.systemAwareFormulas           || {};
+
+        for (const k of Object.keys(computed)) {
+            if (k.startsWith('_fn_')) {
+                const fnDef = fns[k.slice(4)];
+                if (!fnDef) { delete computed[k]; continue; }
+                const reads = fnDef.attributesRead || [];
+                if (reads.length === 0) { delete computed[k]; continue; }
+                const matchingReads = reads.filter(a => effectiveAttrKeys.has(a));
+                if (matchingReads.length === 0) { delete computed[k]; continue; }
+                // For pure outfits: require 2+ matching reads so ship-aggregate
+                // fns (Drag, RequiredCrew, CrewValue, InertialMass, ...) don't
+                // fire off a single incidental attr match.
+                if (!isShip && matchingReads.length < 2 && reads.length > 1) {
+                    delete computed[k]; continue;
+                }
+                continue;
+            }
+            if (k.startsWith('_derived_')) {
+                const stripped = k
+                    .replace(/^_derived_energy_/, '')
+                    .replace(/^_derived_heat_/, '')
+                    .replace(/^_derived_/, '');
+                const formula = intVars[stripped];
+                if (!formula) { delete computed[k]; continue; }
+                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                if (refs.length === 0) { delete computed[k]; continue; }
+                if (!refs.some(a => effectiveAttrKeys.has(a))) { delete computed[k]; continue; }
+                continue;
+            }
+            if (k.startsWith('_sys_')) {
+                const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
+                if (!formula) { delete computed[k]; continue; }
+                const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+                if (refs.length === 0) { delete computed[k]; continue; }
+                if (!refs.some(a => effectiveAttrKeys.has(a))) { delete computed[k]; continue; }
+                continue;
+            }
+        }
+        return computed;
+    }
+
     // ── Quantity helpers ──────────────────────────────────────────────────────
 
     function _qKey(item) {
@@ -976,15 +1034,19 @@ window.CompareDisplay = (() => {
                     }
                 };
 
-                // 1. Non-weapon: calculated stats only (_fn_ / _derived_ / _sys_).
+                // 1. Non-weapon: calculated stats only (_fn_ / _derived_ / _sys_),
+                //    filtered down to those this outfit's own attributes actually
+                //    drive — see _filterComputedStats above.
                 if (window.ComputedStats?.isReady()) {
                     const flat = {};
                     for (const [k, v] of Object.entries(item))
                         if (typeof v === 'number') flat[k] = v;
+                    const effectiveAttrKeys = new Set(Object.keys(flat));
 
                     let calcStats = {};
                     try { calcStats = window.ComputedStats.getComputedStatsForAttrs(flat) || {}; }
                     catch (_) { calcStats = {}; }
+                    _filterComputedStats(calcStats, effectiveAttrKeys, false);
 
                     for (const [k, v] of Object.entries(calcStats)) {
                         if (typeof v !== 'number' || isNaN(v) || v === 0) continue;
@@ -1105,51 +1167,10 @@ window.CompareDisplay = (() => {
             }
 
             // Filter computed keys — only keep values whose driving attributes
-            // are actually present on this item.
-            // For pure outfits: require 2+ attributesRead matches to avoid
-            // ship-aggregate functions firing on single incidental attr matches.
-            if (computed && effectiveAttrKeys && window.attrDefs) {
-                const fns     = window.attrDefs.shipFunctions              || {};
-                const intVars = window.attrDefs.shipDisplay?.intermediateVars || {};
-                const sysF    = window.attrDefs.systemAwareFormulas           || {};
-
-                for (const k of Object.keys(computed)) {
-                    if (k.startsWith('_fn_')) {
-                        const fnDef = fns[k.slice(4)];
-                        if (!fnDef) { delete computed[k]; continue; }
-                        const reads = fnDef.attributesRead || [];
-                        if (reads.length === 0) { delete computed[k]; continue; }
-                        const matchingReads = reads.filter(a => effectiveAttrKeys.has(a));
-                        if (matchingReads.length === 0) { delete computed[k]; continue; }
-                        // For pure outfits and weapon outfits: require 2+ matching reads
-                        // so ship-aggregate fns don't fire on a single attr match.
-                        if (!isShip && matchingReads.length < 2 && reads.length > 1) {
-                            delete computed[k]; continue;
-                        }
-                        continue;
-                    }
-                    if (k.startsWith('_derived_')) {
-                        const stripped = k
-                            .replace(/^_derived_energy_/, '')
-                            .replace(/^_derived_heat_/, '')
-                            .replace(/^_derived_/, '');
-                        const formula = intVars[stripped];
-                        if (!formula) { delete computed[k]; continue; }
-                        const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                        if (refs.length === 0) { delete computed[k]; continue; }
-                        if (!refs.some(a => effectiveAttrKeys.has(a))) { delete computed[k]; continue; }
-                        continue;
-                    }
-                    if (k.startsWith('_sys_')) {
-                        const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
-                        if (!formula) { delete computed[k]; continue; }
-                        const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-                        if (refs.length === 0) { delete computed[k]; continue; }
-                        if (!refs.some(a => effectiveAttrKeys.has(a))) { delete computed[k]; continue; }
-                        continue;
-                    }
-                }
-            }
+            // are actually present on this item. Shared with the ratio block
+            // above so both places apply identical logic (see _filterComputedStats).
+            if (computed && effectiveAttrKeys)
+                _filterComputedStats(computed, effectiveAttrKeys, isShip);
 
             if (computed) {
                 for (const [k, v] of Object.entries(computed)) {
