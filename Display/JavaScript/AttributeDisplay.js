@@ -13,33 +13,12 @@
 //   • Outfit-to-ship attribute bonuses shown in a dedicated section
 //   • One-shot weapons (no reload / no refire) show damage-per-shot only,
 //     not an inflated "damage × 60" per-second figure
-
-const SECTION_ORDER = [
-    'Licenses', 'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
-    'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
-    'Weapon Stats', 'Derived Stats', 'Other',
-];
-
-const SECTION_PATTERNS = [
-    [/^(shields?|hull|shield generation|hull repair|shield energy|hull energy|shield heat|hull heat|shield fuel|hull fuel|shield delay|depleted|repair delay|disabled repair|threshold|absolute threshold|hull multiplier|shield multiplier)/, 'Shields & Hull'],
-    [/^(energy|solar|fuel|cooling|ramscoop|heat generation|heat capacity|heat dissipation)/, 'Energy'],
-    [/^(thrust|turn|reverse|afterburner|engine)/, 'Engines'],
-    [/^(jump|hyperdrive|scram|warp)/, 'Jump'],
-    [/^(cargo|outfit space|weapon capacity|drone|fighter|mass reduction)/, 'Cargo'],
-    [/^(required crew|bunks|crew equivalent|extra mass)/, 'Crew'],
-    [/^(cargo scan|outfit scan|tactical scan|asteroid scan|scan interference)/, 'Scanning'],
-    [/^(cloak)/, 'Cloaking'],
-    [/resistance$/, 'Resistance'],
-    [/protection$|damage reduction/, 'Protection'],
-    [/^(drag|mass|cost|category|automaton|capture|nanobot|gaslining|atmosphere|spinal|remnant)/, 'General'],
-    [/^(licenses)/, 'Licenses'],
-];
-
-function inferSection(key) {
-    const k = key.toLowerCase();
-    for (const [re, section] of SECTION_PATTERNS) { if (re.test(k)) return section; }
-    return 'Other';
-}
+//
+// Section grouping (which attribute lands in which named section, e.g.
+// "Shields & Hull", "Energy", "Jump"...) is delegated entirely to the
+// shared AttributeSections.js module (window.AttributeSections), so this
+// panel groups attributes identically to CompareDisplay.js and
+// shipBuilderStats.js. Load attributeSections.js BEFORE this file.
 
 function getAttrRecord(attrDefs, key) {
     const attrs = attrDefs?.attributes || {};
@@ -51,20 +30,7 @@ function getLabel(key) {
 }
 
 function getSection(attrDefs, key) {
-    const rec = getAttrRecord(attrDefs, key);
-    if (!rec) return inferSection(key);
-    const fns = rec.usedInShipFunctions || [];
-    if (fns.some(f => /MaxVelocity|Acceleration|TurnRate|Drag|InertialMass|Reverse/.test(f))) {
-        const k = key.toLowerCase();
-        if (/thrust|turn|reverse|afterburner|engine/.test(k)) return 'Engines';
-        if (/drag|inertia/.test(k)) return 'General';
-    }
-    if (fns.some(f => /MaxShields|MaxHull|MinimumHull/.test(f))) return 'Shields & Hull';
-    if (fns.some(f => /IdleHeat|CoolingEfficiency|HeatDissipation|MaximumHeat/.test(f))) return 'Energy';
-    if (fns.some(f => /CloakingSpeed/.test(f))) return 'Cloaking';
-    if (fns.some(f => /Jump|Nav/.test(f))) return 'Jump';
-    if (rec.isWeaponStat) return 'Weapon Stats';
-    return inferSection(key);
+    return window.AttributeSections.classify(attrDefs, key);
 }
 
 function getStacking(attrDefs, key) {
@@ -236,13 +202,22 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     const fnResolver      = Object.fromEntries(Object.entries(fnCache).map(([k, v]) => [k, String(v)]));
     const knownDisplayFns = _buildKnownDisplayFns(attrDefs);
 
-    function push(label, rawValue, displayScale, unit, formulaStr, isComputedOutfit) {
+    // `section` ties each derived value to the canonical AttributeSections
+    // bucket it's related to (e.g. a computed "Max Shields" gets 'Shields &
+    // Hull', same as the raw "shields"/"shield generation" attributes that
+    // drive it), so the renderer can place derived stats alongside their
+    // raw counterparts instead of a single undifferentiated pile.
+    function push(label, rawValue, displayScale, unit, formulaStr, isComputedOutfit, section) {
         const scale = (typeof displayScale === 'number' && displayScale > 0) ? displayScale : 1;
         const value = rawValue * scale;
         if (isNaN(value) || value === 0) return;
         if (seen.has(label)) return;
         seen.add(label);
-        results.push({ label, value: fmtNum(value), unit: unit || '', formula: formulaStr || '', isComputedOutfit: !!isComputedOutfit });
+        results.push({
+            label, value: fmtNum(value), unit: unit || '', formula: formulaStr || '',
+            isComputedOutfit: !!isComputedOutfit,
+            section: section || 'Derived Stats',
+        });
     }
 
     // ── 1. Ship function formulas ─────────────────────────────────────────────
@@ -253,62 +228,68 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         const rawVal  = fnCache[fnName] ?? evalFormulaDisplay(formula, attrs, fnResolver);
         if (isNaN(rawVal) || rawVal === 0) continue;
 
-        const scale  = fnData.displayScale  ?? 1;
-        const unit   = fnData.displayUnit   ?? '';
-        const prefix = fnData.labelPrefix   ?? '';
-        const label  = prefix + fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim();
+        const scale   = fnData.displayScale  ?? 1;
+        const unit    = fnData.displayUnit   ?? '';
+        const prefix  = fnData.labelPrefix   ?? '';
+        const label   = prefix + fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim();
+        const section = window.AttributeSections.classifyComputedKey(attrDefs, `_fn_${fnName}`);
 
         if (fnName === 'IdleHeat') {
             const maxHeat = fnCache['MaximumHeat'] ?? 0;
             if (maxHeat > 0) {
                 const heatPct = rawVal / maxHeat * 100;
-                push('Idle Heat %', heatPct, 1, '%', formula);
+                push('Idle Heat %', heatPct, 1, '%', formula, false, section);
             }
-            push(label, rawVal, scale, '', formula);
+            push(label, rawVal, scale, '', formula, false, section);
             continue;
         }
 
-        push(label, rawVal, scale, '', formula);
+        push(label, rawVal, scale, '', formula, false, section);
         renderedFnKeys.add(`_fn_${fnName}`);
     }
 
-    // ── 2. Energy/heat table rows ─────────────────────────────────────────────
+    // ── 2. Energy/heat table rows — always Energy-domain by definition ───────
     for (const row of tableRows) {
         if (!row.label) continue;
         const eVal = evalFormulaDisplay(row.energyFormula, attrs, fnResolver);
         const hVal = evalFormulaDisplay(row.heatFormula,   attrs, fnResolver);
-        if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy`, eVal, 1, '/s', row.energyFormula);
-        if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat`,   hVal, 1, '/s', row.heatFormula);
+        if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy`, eVal, 1, '/s', row.energyFormula, false, 'Energy');
+        if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat`,   hVal, 1, '/s', row.heatFormula, false, 'Energy');
     }
 
     // ── 3. Label/value pairs from ShipInfoDisplay ─────────────────────────────
     for (const pair of labelPairs) {
         if (!pair.label || !pair.formula) continue;
         const val = evalFormulaDisplay(pair.formula, attrs, fnResolver);
-        if (!isNaN(val) && val !== 0) push(pair.label, val, 1, '', pair.formula);
+        if (!isNaN(val) && val !== 0) {
+            const section = /licen[cs]e/i.test(pair.label)
+                ? 'Licenses'
+                : (window.AttributeSections.matchDomainWord(pair.label) || 'General');
+            push(pair.label, val, 1, '', pair.formula, false, section);
+        }
     }
 
-    // ── 4. Time-to-full ───────────────────────────────────────────────────────
+    // ── 4. Time-to-full — Shields & Hull ──────────────────────────────────────
     const shieldRegen = parseFloat(attrs['shield generation'] ?? 0) * 60;
     const hullRepair  = parseFloat(attrs['hull repair rate']  ?? 0) * 60;
     const maxShields  = fnCache['MaxShields'] ?? 0;
     const maxHull     = fnCache['MaxHull']    ?? 0;
-    if (maxShields && shieldRegen) push('Time to Full Shields', maxShields / shieldRegen, 1, 's');
-    if (maxHull    && hullRepair)  push('Time to Full Hull',    maxHull    / hullRepair,  1, 's');
+    if (maxShields && shieldRegen) push('Time to Full Shields', maxShields / shieldRegen, 1, 's', '', false, 'Shields & Hull');
+    if (maxHull    && hullRepair)  push('Time to Full Hull',    maxHull    / hullRepair,  1, 's', '', false, 'Shields & Hull');
 
-    // ── 5. Scan ranges (derived from scan power) ──────────────────────────────
+    // ── 5. Scan ranges (derived from scan power) — Scanning ───────────────────
     for (const [key] of Object.entries(attrDefs?.attributes || {})) {
         if (!key.endsWith('scan power')) continue;
         const val = parseFloat(attrs[key] ?? 0);
         if (!val) continue;
-        push(getLabel(key).replace(' Power', ' Range'), 100 * Math.sqrt(val), 1, 'px', `100 * sqrt([${key}])`);
+        push(getLabel(key).replace(' Power', ' Range'), 100 * Math.sqrt(val), 1, 'px', `100 * sqrt([${key}])`, false, 'Scanning');
     }
 
-    // ── 6. Scan evasion ───────────────────────────────────────────────────────
+    // ── 6. Scan evasion — Scanning ────────────────────────────────────────────
     const si = parseFloat(attrs['scan interference'] ?? 0);
-    if (si) push('Scan Evasion', si / (1 + si) * 100, 1, '%');
+    if (si) push('Scan Evasion', si / (1 + si) * 100, 1, '%', '', false, 'Scanning');
 
-    // ── 7. System-aware stats (solar, ramscoop) ───────────────────────────────
+    // ── 7. System-aware stats (solar, ramscoop) — Energy ──────────────────────
     const sysFormulas = attrDefs?.systemAwareFormulas || {};
     const solar = attrDefs?.systemContext?.referenceSolarPower ?? 1.0;
     for (const [attrKey, info] of Object.entries(sysFormulas)) {
@@ -318,7 +299,7 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         if (isNaN(rawVal) || rawVal === 0) continue;
         const displayVal = rawVal * (info.displayScale ?? 1);
         const label = getLabel(attrKey) + ' (at solar ×' + solar + ')';
-        push(label, displayVal, 1, info.displayUnit ?? '/s', info.formula);
+        push(label, displayVal, 1, info.displayUnit ?? '/s', info.formula, false, 'Energy');
     }
 
     // ── 8. Computed stats from ComputedStats.js ───────────────────────────────
@@ -344,14 +325,15 @@ function calcDerivedStats(attrDefs, item, pluginId) {
                 if (ivar && shouldSuppressIntermediateVar(varName, ivar)) continue;
             }
 
-            const label = computedKeyToLabel(statKey);
+            const label   = computedKeyToLabel(statKey);
+            const section = window.AttributeSections.classifyComputedKey(attrDefs, statKey);
             if (seen.has(label)) {
                 const existing = results.find(r => r.label === label);
-                if (existing) { existing.value = fmtNum(displayVal); existing.isComputedOutfit = true; }
+                if (existing) { existing.value = fmtNum(displayVal); existing.isComputedOutfit = true; existing.section = section; }
                 continue;
             }
             seen.add(label);
-            results.push({ label, value: fmtNum(displayVal), unit: '', formula: '', isComputedOutfit: true });
+            results.push({ label, value: fmtNum(displayVal), unit: '', formula: '', isComputedOutfit: true, section });
         }
     }
 
@@ -861,7 +843,7 @@ function groupBySection(attrDefs, entries) {
     for (const { key, value } of entries) {
         const rawVal = parseFloat(value);
         if (value === '' || value == null) continue;
-        if (!isNaN(rawVal) && rawVal === 0) continue;
+        if (item._isLocalBuild && !isNaN(rawVal) && rawVal === 0) continue;
 
         const rec     = getAttrRecord(attrDefs, key);
         const section = getSection(attrDefs, key);
@@ -874,7 +856,7 @@ function groupBySection(attrDefs, entries) {
 
 function renderSections(sections) {
     let out = '';
-    const keys = [...new Set([...SECTION_ORDER, ...Object.keys(sections)])];
+    const keys = window.AttributeSections.orderSections(Object.keys(sections));
     for (const s of keys) { if (sections[s]?.length) out += buildSection(s, sections[s]); }
     return out;
 }
@@ -912,7 +894,9 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
             .map(([k, v]) => ({ key: k, value: v }));
         if (attrs.licenses && typeof attrs.licenses === 'object')
             html += buildSection('General', [attrRow('Licenses', Object.keys(attrs.licenses).join(', '), '', '')]);
-        html += renderSections(groupBySection(attrDefs, entries));
+
+        // Raw attribute sections, keyed by canonical section name.
+        const sections = groupBySection(attrDefs, entries);
 
         const hpRows = [];
         for (const [field, label] of [['guns','Guns'],['turrets','Turrets'],['engines','Engines'],['reverseEngines','Reverse Engines'],['steeringEngines','Steering Engines']]) {
@@ -923,7 +907,34 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
             item.bays.forEach(b => { byType[b.type] = (byType[b.type] || 0) + 1; });
             Object.entries(byType).forEach(([t, n]) => hpRows.push(attrRow(`${t} Bays`, n, '', '')));
         }
-        if (hpRows.length) html += buildSection('Hardpoints', hpRows);
+        if (hpRows.length) (sections['Hardpoints'] = sections['Hardpoints'] || []).push(...hpRows);
+
+        // Derived / computed stats are merged into the section they're
+        // related to (e.g. a computed "Max Shields" lands under "Shields &
+        // Hull" next to the raw attributes that drive it) rather than a
+        // single undifferentiated "Derived Stats" pile. Stats that change
+        // once outfits are factored in (isComputedOutfit) get their own
+        // "(with outfits)" sub-header within that same section — the same
+        // pattern CompareDisplay.js uses for base-vs-with-outfits rows.
+        const derived = calcDerivedStats(attrDefs, item, pluginId);
+        const withOutfitsSections = {};
+        for (const d of derived) {
+            const tip = d.isComputedOutfit
+                ? (d.formula ? `Includes installed outfit contributions | Formula: ${d.formula}` : 'Includes installed outfit contributions')
+                : d.formula;
+            const row = attrRow(d.isComputedOutfit ? `⚡ ${d.label}` : d.label, d.value, d.unit, tooltipContent(null, tip), 'derived');
+            const target = d.isComputedOutfit ? withOutfitsSections : sections;
+            (target[d.section] = target[d.section] || []).push(row);
+        }
+
+        const allSectionNames = window.AttributeSections.orderSections(
+            [...new Set([...Object.keys(sections), ...Object.keys(withOutfitsSections)])]
+        );
+        for (const section of allSectionNames) {
+            if (sections[section]?.length) html += buildSection(section, sections[section]);
+            if (withOutfitsSections[section]?.length)
+                html += buildSection(`${section} (with outfits)`, withOutfitsSections[section]);
+        }
 
         const outfitMap = item.outfitMap || item.outfits || {};
         if (Object.keys(outfitMap).length) {
@@ -935,19 +946,6 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
                 });
             html += buildSection('Outfits', outfitRows);
             html += renderOutfitContributions(attrDefs, item, pluginId);
-        }
-
-        const derived = calcDerivedStats(attrDefs, item, pluginId);
-        if (derived.length) {
-            const baseRows = derived.filter(d => !d.isComputedOutfit).map(d => attrRow(d.label, d.value, d.unit, tooltipContent(null, d.formula), 'derived'));
-            const computedRows = derived.filter(d => d.isComputedOutfit).map(d => {
-                const tip = d.formula
-                    ? `Includes installed outfit contributions | Formula: ${d.formula}`
-                    : 'Includes installed outfit contributions';
-                return attrRow(`⚡ ${d.label}`, d.value, d.unit, tooltipContent(null, tip), 'derived');
-            });
-            if (baseRows.length)     html += buildSection('Derived Stats', baseRows);
-            if (computedRows.length) html += buildSection('Derived Stats (with Outfits)', computedRows);
         }
 
         // Show effect wear-off for the ship's resistances
