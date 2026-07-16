@@ -1,6 +1,6 @@
 'use strict';
 
-// ─── AttributeSections.js ─────────────────────────────────────────────
+// ─── AttributeSections.js (v2) ─────────────────────────────────────────────
 //
 // SINGLE SOURCE OF TRUTH for grouping attribute keys into display sections.
 // Used by CompareDisplay.js, AttributeDisplay.js, and shipBuilderStats.js so
@@ -177,5 +177,75 @@ window.AttributeSections = (() => {
             .filter(key => wanted.has(classify(attrDefs, key, overrides)));
     }
 
-    return { SECTION_ORDER, classify, groupKeys, orderSections, keysInSections };
+    /** Public access to the domain-word matcher, for callers that need to
+     * classify free text (a function name, a display label) rather than a
+     * real attribute key — e.g. AttributeDisplay.js placing a computed stat
+     * next to the raw attributes it's related to. Returns a section name or
+     * null if nothing matched. */
+    function matchDomainWord(text) {
+        return _matchDomain(text);
+    }
+
+    /**
+     * Classify a COMPUTED stat key (as produced by ComputedStats.js / the
+     * calcDerivedStats helpers) into the same canonical section its driving
+     * raw attribute(s) belong to — so e.g. the computed "Max Shields" value
+     * lands next to the raw "shields" / "shield generation" attributes
+     * instead of in a separate undifferentiated "Derived Stats" pile.
+     *
+     * Priority:
+     *   1. _fn_<ShipFunctionName>       — classify() each attribute the real
+     *                                      Ship:: function reads; first
+     *                                      non-'Other' result wins. Falls
+     *                                      back to matching the function's
+     *                                      own name (e.g. "MaxShields").
+     *   2. _derived_energy_ / _derived_heat_ — always 'Energy' (that's what
+     *                                      the prefix means).
+     *   3. _derived_<var>               — classify() the attributes referenced
+     *                                      by that intermediate var's formula.
+     *   4. _sys_*                       — system-aware formulas (solar
+     *                                      collection, ramscoop) → 'Energy'.
+     *   5. _ws_* / _ammo_* / *dps*      — 'Weapon DPS'.
+     *   6. _outfitMass / _totalOutfitCost / _totalOutfits → 'General'.
+     *   7. Fallback: domain-word match on the key text, else 'Derived Stats'.
+     */
+    function classifyComputedKey(attrDefs, key) {
+        if (!key) return 'Derived Stats';
+
+        if (key.startsWith('_fn_')) {
+            const fnName = key.slice(4);
+            const fnDef  = attrDefs?.shipFunctions?.[fnName];
+            for (const attrKey of (fnDef?.attributesRead || [])) {
+                const section = classify(attrDefs, attrKey);
+                if (section && section !== 'Other') return section;
+            }
+            return _matchDomain(fnName) || 'Derived Stats';
+        }
+
+        if (key.startsWith('_derived_energy_') || key.startsWith('_derived_heat_')) return 'Energy';
+
+        if (key.startsWith('_derived_')) {
+            const varName = key.slice('_derived_'.length);
+            const formula = attrDefs?.shipDisplay?.intermediateVars?.[varName];
+            const refs = formula ? [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]) : [];
+            for (const attrKey of refs) {
+                const section = classify(attrDefs, attrKey);
+                if (section && section !== 'Other') return section;
+            }
+            return _matchDomain(varName) || 'Derived Stats';
+        }
+
+        if (key.startsWith('_sys_')) return 'Energy';
+
+        if (key.startsWith('_ws_') || key.startsWith('_ammo_') || /dps/i.test(key)) return 'Weapon DPS';
+
+        if (key === '_outfitMass' || key === '_totalOutfitCost' || key === '_totalOutfits') return 'General';
+
+        return _matchDomain(key) || 'Derived Stats';
+    }
+
+    return {
+        SECTION_ORDER, classify, groupKeys, orderSections, keysInSections,
+        matchDomainWord, classifyComputedKey,
+    };
 })();
