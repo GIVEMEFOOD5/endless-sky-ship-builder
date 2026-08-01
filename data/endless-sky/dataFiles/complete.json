@@ -88191,6 +88191,9 @@
           "Systems": [
             "Maspa-Sado"
           ],
+          "Planets": [
+            "Vade-Kella-Kaska"
+          ],
           "Missions": [
             "Midnight Successor Stolsaqra-Sosrue"
           ]
@@ -154585,9 +154588,48 @@
       },
       "locations": {
         "official-game/endless-sky": {
+          "Systems": [
+            "Al Dhanab",
+            "Alcyone",
+            "Alderamin",
+            "Algenib",
+            "Algol",
+            "Almach",
+            "Alnair",
+            "Alpha Hydri",
+            "Alpheratz",
+            "Ankaa",
+            "Atik",
+            "Durax",
+            "Gamma Cassiopeiae",
+            "Gienah",
+            "Hamal",
+            "Kugel",
+            "Matar",
+            "Menkar",
+            "Misam",
+            "Oblate",
+            "Persian",
+            "Ruchbah",
+            "Scheat",
+            "Schedar",
+            "Shaula",
+            "Sheratan",
+            "Zaurak"
+          ],
           "Missions": [
             "FW Prisoner Parole",
             "FW Prisoner Parole 2"
+          ]
+        },
+        "Fire Corporation/Fire-Corporation": {
+          "Systems": [
+            "Hidden Queen"
+          ]
+        },
+        "Rumskib/rumskib": {
+          "Systems": [
+            "Nashira"
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
@@ -155419,8 +155461,46 @@
         }
       },
       "locations": {
-        "Zuckungs list/ship.cores": {
-          "_deprecated/unused": true
+        "official-game/endless-sky": {
+          "Systems": [
+            "Al Dhanab",
+            "Alcyone",
+            "Alderamin",
+            "Algenib",
+            "Algol",
+            "Almach",
+            "Alnair",
+            "Alpha Hydri",
+            "Alpheratz",
+            "Ankaa",
+            "Atik",
+            "Durax",
+            "Gamma Cassiopeiae",
+            "Gienah",
+            "Hamal",
+            "Kugel",
+            "Matar",
+            "Menkar",
+            "Misam",
+            "Oblate",
+            "Persian",
+            "Ruchbah",
+            "Scheat",
+            "Schedar",
+            "Shaula",
+            "Sheratan",
+            "Zaurak"
+          ]
+        },
+        "Fire Corporation/Fire-Corporation": {
+          "Systems": [
+            "Hidden Queen"
+          ]
+        },
+        "Rumskib/rumskib": {
+          "Systems": [
+            "Nashira"
+          ]
         }
       },
       "outfits": {
@@ -233491,12 +233571,19 @@
           "Avgi": true,
           "Avgi (Dissonance)": true,
           "Avgi (Wandering Fleet)": true,
-          "Avgi (Dissonance Angry)": true
+          "Avgi (Dissonance Angry)": true,
+          "Hai (Unfettered)": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Avgi (Dissonance)": true,
           "Avgi": true,
-          "Avgi (Twilight Guard)": true
+          "Avgi (Twilight Guard)": true,
+          "Hai (Unfettered Civilians)": true,
+          "Pirate": true,
+          "Storm Seekers": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Bounty Hunter": true
         }
       },
       "locations": {
@@ -233609,6 +233696,7 @@
             "Prismaios (Orchid)",
             "Refraktos (Excimer)",
             "Refraktos (UREB)",
+            "Shield Beetle (Weapon Collector)",
             "Undsyni (Harvester)",
             "Undsyni (Plasmadyne)",
             "Undsyni (Tanker)"
@@ -243104,17 +243192,24 @@
           "Bunrodea (Megasa)": true,
           "Bunrodea": true,
           "Bunrodea (Erabu)": true,
-          "Bunrodea (Guard)": true
+          "Bunrodea (Guard)": true,
+          "Hai (Unfettered)": true
         },
         "Zuckungs list/bunrodea.missions": {
           "Bunrodea (Criminal)": true,
           "Bunrodea": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
-          "Bunrodea": true
+          "Bunrodea": true,
+          "Hai (Unfettered Civilians)": true,
+          "Pirate": true,
+          "Storm Seekers": true
         },
         "Blended Ships/blended-ships": {
           "Arena": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Bounty Hunter": true
         }
       },
       "locations": {
@@ -243140,7 +243235,8 @@
           ],
           "Ships": [
             "Carabao (Quash Abandoned)",
-            "Chigiriki (KGS Twin Mandible Cannon)"
+            "Chigiriki (KGS Twin Mandible Cannon)",
+            "Shield Beetle (Weapon Collector)"
           ],
           "ShipyardPlanets": [
             "Bosunothro",
@@ -249420,6 +249516,18 @@
         },
         "Tugderic's Addons/Tugderics-Addons": {
           "Black Beards": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true,
+          "Syndicate": true
+        },
+        "sensor/sensor": {
+          "sensor": true
         }
       },
       "locations": {
@@ -249518,18 +249626,41 @@
             "Shield Beetle (Azure)"
           ],
           "ShipyardPlanets": [
+            "Ada",
             "Ahr",
             "Bank of Blugtad",
             "Blue Interior",
             "Bright Echo",
+            "Chiron",
             "Chosen Nexus",
+            "Clark",
+            "Delve",
             "Far Home",
+            "Foundry",
+            "Freedom",
+            "Geminus",
+            "Glaze",
+            "Greenwater",
             "Hammer of Debrugt",
+            "Hephaestus",
             "Ki Patek Ka",
+            "Luna",
+            "Mainsail",
             "Market of Gupta",
+            "Midgard",
+            "New Boston",
+            "New Britain",
+            "New Tortuga",
             "Remote Blue",
+            "Reunion",
+            "Rust",
             "Saros",
-            "Starting Rubin"
+            "Starting Rubin",
+            "Sunracer",
+            "Tinker",
+            "Valhalla",
+            "Wayfarer",
+            "Zug"
           ],
           "Systems": [
             "1 Axis",
@@ -249772,6 +249903,50 @@
         "Lost In Midnight/Lost-in-Midnight": {
           "Ships": [
             "Kimek Bramble"
+          ],
+          "ShipyardPlanets": [
+            "Vesta"
+          ]
+        },
+        "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+          "Ships": [
+            "Ultra-Sick Turbo Flivver DEBUG"
+          ]
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "ShipyardPlanets": [
+            "Sapphire"
+          ]
+        },
+        "Kai's list/KGS": {
+          "ShipyardPlanets": [
+            "KGS"
+          ]
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "ShipyardPlanets": [
+            "Ekarai",
+            "Kestrix II",
+            "Khoramelia",
+            "Laateli",
+            "Markaai",
+            "Parton"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "ShipyardPlanets": [
+            "Ankulah Ship Breaking Station",
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
+          ]
+        },
+        "sensor/sensor": {
+          "ShipyardPlanets": [
+            "lidar"
           ]
         }
       },
@@ -257359,6 +257534,17 @@
         },
         "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Hai (Unfettered Civilians)": true,
+          "Pirate": true,
+          "Storm Seekers": true
+        },
+        "official-game/endless-sky": {
+          "Hai (Unfettered)": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Bounty Hunter": true
         }
       },
       "locations": {
@@ -257368,6 +257554,9 @@
           ],
           "Outfitters": [
             "Lunarium Basics"
+          ],
+          "Ships": [
+            "Shield Beetle (Weapon Collector)"
           ]
         },
         "POOT/poot-senza-solaria": {
@@ -257664,7 +257853,7 @@
         "shield damage": 22,
         "hull damage": 25
       },
-      "description": "The Bombardment Cannon was designed during the original war with the Quarg, in order to give Heliarch civilian ships a way to strike Quarg warships from a safe distance. But now, as with all their weapons, its use is limited to Heliarch warships.",
+      "description": "The Bombardment Cannon was designed during the original war with the Quarg, in order to give Coalition civilian ships a way to strike Quarg warships from a safe distance. But now, as with all their weapons, its use is limited to Heliarch warships.",
       "governments": {
         "POOT/poot-senza-solaria": {
           "Syndicate": true
@@ -270869,10 +271058,19 @@
           "Gegno Scin": true,
           "Gegno Scin (Neutral)": true,
           "Gegno Scin (Combative)": true,
-          "Gegno": true
+          "Gegno": true,
+          "Hai (Unfettered)": true
         },
         "Zuckungs list/gegno.pirates": {
           "Gegno Pirates": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Hai (Unfettered Civilians)": true,
+          "Pirate": true,
+          "Storm Seekers": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Bounty Hunter": true
         }
       },
       "locations": {
@@ -270892,6 +271090,7 @@
             "Kyanite (Guile)",
             "Kyanite (Thermal Scrap)",
             "Mica (Thermal Scrap)",
+            "Shield Beetle (Weapon Collector)",
             "Tridymite (Thermal Scrap)"
           ],
           "ShipyardPlanets": [
@@ -275447,6 +275646,27 @@
       "tracker capacity": -1,
       "description": "This is ammunition for a Tracker Pod.",
       "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Anime Organization": true,
+          "Republic": true,
+          "Yuyuko Saigyouji (Hostile)": true,
+          "Yuyuko Saigyouji": true,
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "Bounty": true,
+          "Scar's Legion (Killable)": true,
+          "Scar's Legion": true,
+          "Escort": true,
+          "MGF: Minotaurs": true,
+          "MGF: NGK Security": true,
+          "Syndicate": true
+        },
+        "sensor/sensor": {
+          "sensor": true
+        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
@@ -275529,22 +275749,6 @@
           "Free Worlds": true,
           "Arena": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji (Hostile)": true,
-          "Yuyuko Saigyouji": true,
-          "Sayari Plushie": true,
-          "Pirate": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "Bounty": true,
-          "Scar's Legion (Killable)": true,
-          "Scar's Legion": true,
-          "Escort": true,
-          "MGF: Minotaurs": true,
-          "Republic": true,
-          "MGF: NGK Security": true,
-          "Syndicate": true
-        },
         "Zuckungs list/heavy.traffic": {
           "Merchant": true
         },
@@ -275553,29 +275757,62 @@
         },
         "Zuckungs list/uniques": {
           "Pirate": true
-        },
-        "sensor/sensor": {
-          "sensor": true
         }
       },
       "locations": {
         "official-game/endless-sky": {
           "Planets": [
+            "Alfheim",
             "Allhome",
+            "Bivrost",
+            "Bloodsea",
+            "Clark",
             "Cloudfire",
+            "Crossroads",
+            "Dancer",
             "Darkcloak",
+            "Delve",
+            "Freedom",
+            "Furnace",
+            "Gagarin",
+            "Geyser",
             "Giverstone",
             "Greenwater",
             "Greymoon",
             "Hai-home",
+            "Haven",
+            "Haze",
+            "Heartland",
             "Heartvalley",
             "Icelake",
+            "Ingot",
+            "Jakobsen",
+            "Longjump",
+            "Mainsail",
+            "Maker",
             "Makerplace",
+            "Millrace",
+            "Mordente-Bridi",
+            "New Argentina",
+            "New Boston",
+            "New Holland",
+            "New Tortuga",
+            "New Wales",
             "Newhome",
+            "Nifel",
+            "Nimbus",
+            "Norn",
+            "Poseidos",
             "Snowfeather",
-            "Stonebreak"
+            "Stonebreak",
+            "Stormhold",
+            "Thrall",
+            "Thunder",
+            "Trinket",
+            "Windblain"
           ],
           "Outfitters": [
+            "Basic Outfits",
             "Hai Advanced",
             "Hai Basics",
             "Hai Intermediate",
@@ -275868,9 +276105,11 @@
         },
         "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
           "Planets": [
-            "Darkcloak"
+            "Darkcloak",
+            "Haven"
           ],
           "Outfitters": [
+            "Basic Outfits",
             "Hai Unfettered"
           ],
           "Ships": [
@@ -275960,20 +276199,108 @@
             "Valkirus Solaris Station"
           ]
         },
-        "Zuckungs list/ship.cores": {
+        "Zuckungs list/galactic.capital.investment": {
+          "Planets": [
+            "Sapphire"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "ShipyardPlanets": [
+            "Sapphire"
+          ]
+        },
+        "Galactic War/Galactic-War": {
+          "Planets": [
+            "Letamos-P382S",
+            "Muxkear"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "ShipyardPlanets": [
+            "GW Plugins",
+            "Galactic War",
+            "Thing"
+          ]
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Planets": [
+            "Barachen",
+            "Bardanistra",
+            "Denchrao",
+            "Eisei",
+            "Ekarai",
+            "Laateli",
+            "Leroo Station",
+            "Markaai",
+            "Mirdenheim",
+            "Ondoristra",
+            "Parton",
+            "Rodoluki",
+            "Sayari Ring",
+            "Steirek",
+            "Tarsia",
+            "Yinachr"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "Systems": [
+            "Darceas",
+            "Illumina"
+          ],
+          "ShipyardPlanets": [
+            "Ekarai",
+            "Kestrix II",
+            "Khoramelia",
+            "Laateli",
+            "Markaai",
+            "Parton"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "Planets": [
+            "Ankulah Ship Breaking Station",
+            "Vinci"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
           "Ships": [
-            "Centipede",
-            "Cicada",
-            "Ladybug",
-            "Marauder Fury",
-            "Sea Scorpion",
-            "Shield Beetle",
-            "Solifuge",
-            "Violin Spider",
-            "Water Bug"
+            "AYS-17 Proetida",
+            "AYS-19 Peytoia",
+            "oU112 Altuella"
+          ],
+          "ShipyardPlanets": [
+            "Ankulah Ship Breaking Station",
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
+          ]
+        },
+        "sensor/sensor": {
+          "Planets": [
+            "lidar"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
+          "ShipyardPlanets": [
+            "lidar"
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "Planets": [
+            "Rum Cellar",
+            "Vesta"
+          ],
+          "Outfitters": [
+            "Basic Outfits"
+          ],
           "Systems": [
             "Archipelago",
             "Cthogha",
@@ -275989,18 +276316,17 @@
             "Titan Beetle"
           ]
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Systems": [
-            "Darceas",
-            "Illumina"
-          ],
-          "ShipyardPlanets": [
-            "Ekarai",
-            "Kestrix II",
-            "Khoramelia",
-            "Laateli",
-            "Markaai",
-            "Parton"
+        "Zuckungs list/ship.cores": {
+          "Ships": [
+            "Centipede",
+            "Cicada",
+            "Ladybug",
+            "Marauder Fury",
+            "Sea Scorpion",
+            "Shield Beetle",
+            "Solifuge",
+            "Violin Spider",
+            "Water Bug"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -276107,45 +276433,12 @@
             "mOctave's Plugins "
           ]
         },
-        "Mega Freight/Mega-Freight": {
-          "Ships": [
-            "AYS-17 Proetida",
-            "AYS-19 Peytoia",
-            "oU112 Altuella"
-          ],
-          "ShipyardPlanets": [
-            "Ankulah Ship Breaking Station",
-            "Canaveral Naval Yard",
-            "GS1 Galaxy Station",
-            "Nordlin Navy Yard",
-            "Ourea Naval Arsenal",
-            "SBO1 Zagreus Station",
-            "Yokosuka Naval Arsenal"
-          ]
-        },
-        "Galactic War/Galactic-War": {
-          "ShipyardPlanets": [
-            "GW Plugins",
-            "Galactic War",
-            "Thing"
-          ]
-        },
         "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
           "Ships": [
             "Rav"
           ],
           "ShipyardPlanets": [
             "Makerplace"
-          ]
-        },
-        "Zuckungs list/galactic.capital.investment": {
-          "ShipyardPlanets": [
-            "Sapphire"
-          ]
-        },
-        "sensor/sensor": {
-          "ShipyardPlanets": [
-            "lidar"
           ]
         }
       },
@@ -297842,6 +298135,7 @@
             "Modified Firebird (Smuggled Cargo)",
             "Modified Firebird (Smuggler)",
             "Modified Hawk (Miner)",
+            "Modified Shard (Afterburner)",
             "Osprey (Remnant B)",
             "Osprey (Remnant)",
             "Raven (Afterburner)",
@@ -301382,6 +301676,7 @@
             "Scrapper (Mod Blaster)",
             "Scrapper (Smuggler)",
             "Scrapper (Turbo Blaster)",
+            "Shard (Smuggler)",
             "Shuttle (Flare)",
             "Shuttle (KGS Javelin Micro Pod)",
             "Shuttle (KGS Mini Blaster)",
@@ -302004,6 +302299,7 @@
             "Parapet",
             "Plunder",
             "Rampart",
+            "Shard",
             "Stingray"
           ]
         },
@@ -302325,7 +302621,8 @@
         "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
           "Ships": [
             "Left Hook",
-            "prot"
+            "prot",
+            "tecc"
           ]
         }
       },
@@ -302774,6 +303071,7 @@
             "Scout (Spotlight)",
             "Scout (Turbo Blaster)",
             "Scout (Turner Power)",
+            "Sliver (Smuggler)",
             "Splinter (Derelict)",
             "Splinter (Flare)",
             "Splinter (Heavy Blaster)",
@@ -303413,6 +303711,7 @@
             "Modified Firebird",
             "Modified Saber",
             "Patrolboat",
+            "Sliver",
             "Star King"
           ]
         },
@@ -306966,6 +307265,7 @@
             "Scrapper (Rakin)",
             "Scrapper (Smuggler)",
             "Scrapper (Turbo Blaster)",
+            "Shard (Smuggler)",
             "Shuttle (Flare)",
             "Shuttle (KGS Javelin Micro Pod)",
             "Shuttle (KGS Mini Blaster)",
@@ -307575,6 +307875,7 @@
             "Missileboat",
             "Modified Enforcer",
             "Patrolboat",
+            "Shard",
             "Stingray"
           ]
         },
@@ -307898,7 +308199,8 @@
             "Galaga",
             "Left Hook",
             "prot",
-            "protecc"
+            "protecc",
+            "tecc"
           ]
         }
       },
@@ -308347,6 +308649,7 @@
             "Scout (Spotlight)",
             "Scout (Turbo Blaster)",
             "Scout (Turner Power)",
+            "Sliver (Smuggler)",
             "Splinter (Derelict)",
             "Splinter (Flare)",
             "Splinter (Heavy Blaster)",
@@ -308972,6 +309275,7 @@
             "Parapet",
             "Plunder",
             "Rampart",
+            "Sliver",
             "Star King"
           ]
         },
@@ -311386,6 +311690,8 @@
             "SV40-n Navilel (MGF: Heavy Pulse Blaster, SD1 Regenerator)",
             "SV80-n Catirfel (Feiyu)",
             "SV80-n Catirfel (Proton)",
+            "Shard (Smuggler)",
+            "Sliver (Smuggler)",
             "Space Shuttle (Engines)",
             "Star Queen (Sails)",
             "TQK-20 Qaytas (White Sugar)"
@@ -311751,6 +312057,8 @@
             "Oberon Station",
             "Palisade",
             "Rampart",
+            "Shard",
+            "Sliver",
             "Titania Station"
           ]
         },
@@ -313370,6 +313678,7 @@
             "Modified Hawk (Stinger)",
             "Modified Hawk (Turbo Blaster)",
             "Modified Hogshead (Modified Blaster)",
+            "Modified Hogshead (Smuggler)",
             "Modified Hogshead (Used)",
             "Modified Quicksilver (Kludge Blaster)",
             "Modified Saber (CCOR)",
@@ -317679,6 +317988,7 @@
             "Modified Hawk (Stinger)",
             "Modified Hawk (Turbo Blaster)",
             "Modified Hogshead (Modified Blaster)",
+            "Modified Hogshead (Smuggler)",
             "Modified Hogshead (Used)",
             "Modified Quicksilver (Kludge Blaster)",
             "Modified Saber (CCOR)",
@@ -322956,6 +323266,10 @@
             "Modified Argosy (Snatcher Alt)",
             "Modified Argosy (Snatcher)",
             "Modified Hawk (Speedy)",
+            "Modified Shard (Afterburner)",
+            "Modified Shard (Shields)",
+            "Modified Shard (Smuggler)",
+            "Modified Sliver (Smuggler)",
             "Nest (Sidewinder)",
             "Pond Strider (Electron)",
             "Pond Strider (Particle)",
@@ -323342,6 +323656,8 @@
             "Marauder Manta",
             "Marauder Quicksilver",
             "Marauder Splinter",
+            "Modified Shard",
+            "Modified Sliver",
             "Star Explorer"
           ],
           "ShipyardPlanets": [
@@ -326877,6 +327193,9 @@
             "Mercator :LCS (Miner)",
             "Modified Argosy (Sheragi Counterfeit)",
             "Modified Hawk (Speedy)",
+            "Modified Shard (Afterburner)",
+            "Modified Shard (Shields)",
+            "Modified Shard (Smuggler)",
             "Quicksilver (FOE 1)",
             "Quicksilver (FOE 2)",
             "Quicksilver (Mark II)",
@@ -327249,6 +327568,7 @@
             "Marauder Arrow",
             "Marauder Quicksilver",
             "Metropolis",
+            "Modified Shard",
             "Municipality"
           ],
           "ShipyardPlanets": [
@@ -328736,6 +329056,7 @@
             "Marauder Splinter (Weapons)",
             "Marauder Vanguard (Plasma Charge)",
             "Marauder Vanguard (Secret Prototype)",
+            "Modified Sliver (Smuggler)",
             "Monolith Lesser",
             "PF-80 Intrepid (Atomic, Jacks)",
             "Solifuge (Electron)",
@@ -329165,6 +329486,7 @@
             "Marauder Manta",
             "Marauder Splinter",
             "Marauder Vanguard",
+            "Modified Sliver",
             "Strategos"
           ],
           "ShipyardPlanets": [
@@ -330067,6 +330389,7 @@
             "Marauder Carrier (Inferno Rocket)",
             "Marauder Cruiser (Inferno Rocket)",
             "Marauder Kestrel (Kestrel (Bloodwind))",
+            "Modified Sliver (Smuggler)",
             "Mule (Cudgel)",
             "Star Explorer (Biohazard)",
             "Star Explorer (Hai)",
@@ -330408,6 +330731,8 @@
             "Kraken Station",
             "Leviathan Station",
             "Marauder Behemoth",
+            "Modified Shard",
+            "Modified Sliver",
             "Muninn Station",
             "Phoenix Station",
             "Smuggler's Den",
@@ -331860,6 +332185,7 @@
             "Muninn Station",
             "Parade Float",
             "Phoenix Station",
+            "Shard",
             "Triton Station"
           ],
           "ShipyardPlanets": [
@@ -338800,7 +339126,8 @@
             "Galaga",
             "Left Hook",
             "Really Cool Sparrow",
-            "prot"
+            "prot",
+            "tecc"
           ]
         }
       },
@@ -339194,6 +339521,7 @@
             "Scout (Bounty Hunter)",
             "Scout (MGF: Pulse Blaster)",
             "Scout (Speedy)",
+            "Shard (Smuggler)",
             "Shuttle Pod (Fire Support)",
             "Space Shuttle (Shields)",
             "Stingray (Kludge Blaster)",
@@ -339811,6 +340139,7 @@
             "Modified Saber",
             "Parade Float",
             "Patrolboat",
+            "Shard",
             "Stingray"
           ]
         },
@@ -340659,6 +340988,7 @@
             "Modified Hauler (Turbo Blaster)",
             "Modified Hauler II (Turbo Blaster)",
             "Modified Hauler III (Turbo Blaster)",
+            "Modified Hogshead (Smuggler)",
             "Mule (Eden)",
             "Mule (Flare)",
             "Mule (Hai Engines)",
@@ -342107,6 +342437,7 @@
             "Modified Argosy (Blaster)",
             "Modified Argosy (Gatling)",
             "Modified Bactrian (Remnant)",
+            "Modified Sliver (Smuggler)",
             "Mule (Cudgel)",
             "Mule (Hai Limit Breaker)",
             "Mule (Hai Weapons)",
@@ -342135,6 +342466,7 @@
             "SV40-n Navilel (MGF: Heavy Pulse Blaster)",
             "Skein (Catalytic)",
             "Skein (Plasma Missile)",
+            "Sliver (Smuggler)",
             "Splinter (FOE 1)",
             "Splinter (Flare)",
             "Splinter (Heavy Blaster)",
@@ -342842,7 +343174,9 @@
             "Mastodon",
             "Mega Freighter",
             "Modified Skein",
+            "Modified Sliver",
             "Phoenix Station",
+            "Sliver",
             "Star Explorer",
             "Starcadia",
             "Triton Station"
@@ -346612,7 +346946,9 @@
             "Shadow Hawk",
             "Shadow Osprey",
             "Shadow Raven",
+            "Shard",
             "Shield Fortress",
+            "Sliver",
             "Star King",
             "Stingray",
             "Titania Station",
@@ -350504,8 +350840,7 @@
           "Coalition Bounty (Disguised)": true,
           "Hai Merchant (Sympathizers)": true,
           "Derelict (Killable)": true,
-          "Oathbreaker Expeditionary": true,
-          "Shadow House Rogue": true
+          "Oathbreaker Expeditionary": true
         },
         "Zuckungs list/uniques": {
           "Derelict 2": true,
@@ -351565,6 +351900,7 @@
             "Modified Hawk (Speedy)",
             "Modified Hawk (Turbo Blaster)",
             "Modified Quicksilver (Kludge Blaster)",
+            "Modified Sliver (Smuggler)",
             "Modified Tachytia (WV-51)",
             "Mule (Eden)",
             "Mule (Flare)",
@@ -351820,7 +352156,6 @@
             "Stolsaqra (Military)",
             "Stolsaqra (Mission Escort)",
             "Stolsaqra (Short-Range)",
-            "Stolsaqra-Sosrue (Plate)",
             "Stolsaqra-Sosrue (Stealth)",
             "Storm Seeker Reborn",
             "Strong Wind (Hai Crew)",
@@ -354717,6 +355052,8 @@
             "Modified Roost",
             "Modified Saber",
             "Modified Skein",
+            "Modified Sliver",
+            "Myaede-Sosrue",
             "Ojde-Sado",
             "Outrider",
             "Palisade",
@@ -354729,6 +355066,7 @@
             "Rampart",
             "Rancor",
             "Scrounger",
+            "Sliver",
             "Spring Leaf",
             "Starbus",
             "Stingray",
@@ -357120,7 +357458,8 @@
             "Really Cool Sparrow",
             "Ultra-Sick Turbo Flivver DEBUG",
             "prot",
-            "protecc"
+            "protecc",
+            "tecc"
           ],
           "ShipyardPlanets": [
             "Makerplace"
@@ -357776,6 +358115,7 @@
             "Senator :LCS (Atomic Proton)",
             "Shrike (Gravedigger)",
             "Shrike (Thrasher)",
+            "Sliver (Smuggler)",
             "Splinter (Smuggler)",
             "Star Explorer (Pirate)",
             "Star Queen (Fake Discount)",
@@ -366817,6 +367157,8 @@
             "Ra'at Ik 621 (Shock Strike)",
             "Rainmaker (FOE)",
             "Recruiter (Derelict)",
+            "Ruby Hammer :SRR (Ruby Hammer (PWave))",
+            "Ruby Hammer :SRR (Ruby Hammer (Pulse))",
             "Rukh (Heavy)",
             "Rumskib Marauder Behemoth (Derelict)",
             "Saber (assembly)",
@@ -368626,6 +368968,8 @@
             "Modified Hauler (Turbo Blaster)",
             "Modified Hauler II (Turbo Blaster)",
             "Modified Hauler III (Turbo Blaster)",
+            "Modified Shard (Smuggler)",
+            "Modified Sliver (Smuggler)",
             "Moonbeam (Our Lady)",
             "Myaede (Mining)",
             "Nest (Miner)",
@@ -368640,6 +368984,7 @@
             "Scrounger (Tractor)",
             "Sea Scorpion (Bloodstone)",
             "Sea Scorpion (Ion Flash)",
+            "Sliver (Smuggler)",
             "Splinter (Miner)",
             "Splinter (Smuggler)",
             "Splinter (Tractor Beam)",
@@ -369755,14 +370100,14 @@
             "Undsyni"
           ]
         },
-        "Rumskib/rumskib": {
-          "Systems": [
-            "Nashira"
-          ]
-        },
         "Fire Corporation/Fire-Corporation": {
           "Systems": [
             "Hidden Queen"
+          ]
+        },
+        "Rumskib/rumskib": {
+          "Systems": [
+            "Nashira"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -372171,6 +372516,8 @@
             "Modified Argosy (Snatcher Alt)",
             "Modified Argosy (Snatcher)",
             "Modified Argosy (used slaver)",
+            "Modified Shard (Shields)",
+            "Modified Sliver (Smuggler)",
             "Nest (Korath)",
             "Ra'at Ik 621 (Automata)",
             "Ra'at Ik 621 (Storm)",
@@ -372179,9 +372526,11 @@
             "Ra'gru Ik 618 (Sestor)",
             "Ra'gru Ik 618 (Storm)",
             "Roost (Korath)",
+            "Shard (Smuggler)",
             "Shield Beetle (Police)",
             "Shield Beetle (Police, Ancestral)",
             "Shield Beetle (Police, Ion Flash)",
+            "Sliver (Smuggler)",
             "Star Explorer (Biohazard)",
             "Star Explorer (Jump)",
             "Star Explorer (Korath)",
@@ -372502,7 +372851,9 @@
           "Ships": [
             "Far'itar",
             "Infiltrator",
+            "Ironbird",
             "Marauder Carrier",
+            "Modified Sliver",
             "Patrolboat",
             "Sa'ifar",
             "Star Explorer",
@@ -372748,6 +373099,14 @@
             "Hidden Queen"
           ]
         },
+        "Rumskib/rumskib": {
+          "Systems": [
+            "Nashira"
+          ],
+          "Ships": [
+            "Rumskib Destroyer"
+          ]
+        },
         "Zuckungs list/ship.merging": {
           "Ships": [
             "Carrier (T1)",
@@ -372845,14 +373204,6 @@
           "ShipyardPlanets": [
             "Blended Ships ",
             "mOctave's Plugins "
-          ]
-        },
-        "Rumskib/rumskib": {
-          "Systems": [
-            "Nashira"
-          ],
-          "Ships": [
-            "Rumskib Destroyer"
           ]
         }
       },
@@ -373059,6 +373410,7 @@
             "Kasichara A'awoj (Jump)",
             "Korsmanath A'awoj (Jump Special)",
             "Korsmanath A'awoj (Special)",
+            "Sliver (Smuggler)",
             "Star Explorer (Hai)",
             "Star Explorer (Jump)",
             "Star Explorer (Korath)",
@@ -373502,7 +373854,10 @@
             "Lovelace Basics"
           ],
           "Systems": [
+            "Archipelago",
+            "Chasm",
             "Cthogha",
+            "Diyu",
             "Mah Duum"
           ],
           "Ships": [
@@ -373512,6 +373867,8 @@
             "Genesis Transport",
             "Mastodon",
             "Oberon Station",
+            "Shard",
+            "Sliver",
             "Star Explorer",
             "Star King",
             "Titania Station"
@@ -374037,12 +374394,11 @@
           "Militia": true,
           "Scar's Legion (Killable)": true,
           "Genesis": true,
-          "Shadow House": true,
           "Oathbreaker Expeditionary": true,
           "Merchant (Hostile)": true,
           "Korath": true,
           "Phenomenon (dangerous)": true,
-          "Shadow House Rogue": true
+          "Shadow House": true
         },
         "Capitalis Major/Capitalis-Major": {
           "Bounty Hunter": true,
@@ -374323,6 +374679,8 @@
             "ICV-122 Cherokee (Torpedo)",
             "Kasoulek (Explorer)",
             "Kestrel (Battle Engines)",
+            "Kvelqde-Kiitaa (Coilgun Turret)",
+            "Kvelqde-Sosrue (Ojet Turret)",
             "Kvelqde-Sosrue (Stealth)",
             "Leviathan (Quad Turbo Blaster)",
             "Leviathan (Turbo Blaster)",
@@ -374358,6 +374716,7 @@
             "Modified Garbage Scow (Quad Blaster)",
             "Moonbeam (Our Lady)",
             "Mule (Hai Trafficker)",
+            "Myaede (Nefa Coilguns)",
             "Osprey (FOE Bomber)",
             "Osprey (Flamethrower Pirate)",
             "Osprey (Flamethrower)",
@@ -374386,8 +374745,6 @@
             "Star Explorer (Korath)",
             "Star Queen (Hai Trafficker)",
             "Stolsaqra (Mission Escort)",
-            "Stolsaqra-Sosrue (Plate)",
-            "Stolsaqra-Sosrue (Stealth)",
             "Sunracer (Javelin)",
             "Sunracer (Plasma Afterburner)",
             "TS-650 Herrenbal (Herrenbal (Long Range))",
@@ -374902,7 +375259,6 @@
             "Marauder Argosy",
             "Marauder Sparrow",
             "Modified Enforcer",
-            "Ojde-Sado",
             "Shadow Hawk",
             "Star Explorer",
             "Stolsaqra-Sosrue"
@@ -375639,6 +375995,7 @@
             "Modified Enforcer (Smuggler)",
             "Modified Firebird (Smuggled Cargo)",
             "Modified Firebird (Smuggler)",
+            "Modified Hogshead (Smuggler)",
             "Moonbeam (Our Lady)",
             "Protector (Korath)",
             "Quicksilver (Korath)",
@@ -375656,6 +376013,8 @@
             "Saryd Visitor (Blaster)",
             "Scrapper (Smuggler)",
             "Scrounger (Smuggler)",
+            "Shard (Smuggler)",
+            "Sliver (Smuggler)",
             "Splinter (Korath)",
             "Splinter (Quad Mod Blaster)",
             "Splinter (Smuggler)",
@@ -376934,8 +377293,13 @@
             "Modified Garbage Scow (Quad Blaster)",
             "Modified Hogshead (Modified Blaster)",
             "Modified Hogshead (Modified Hyperdrive)",
+            "Modified Hogshead (Smuggler)",
             "Modified Hogshead (Used)",
             "Modified Saber (CCOR)",
+            "Modified Shard (Afterburner)",
+            "Modified Shard (Shields)",
+            "Modified Shard (Smuggler)",
+            "Modified Sliver (Smuggler)",
             "Monitor (Energy Cannon)",
             "Monolith Lesser",
             "Mule (Cudgel)",
@@ -377063,6 +377427,7 @@
             "Skein (Plasma Missile)",
             "Skein (Sabotaged)",
             "Skein (Sidewinder)",
+            "Sliver (Smuggler)",
             "Splinter (Derelict)",
             "Splinter (Flare)",
             "Splinter (Heavy Blaster)",
@@ -377837,7 +378202,9 @@
             "Modified Hogshead",
             "Modified Nest",
             "Modified Roost",
+            "Modified Shard",
             "Modified Skein",
+            "Modified Sliver",
             "Municipality",
             "Muninn Station",
             "Oberon Station",
@@ -377852,6 +378219,7 @@
             "Shadow Osprey",
             "Shadow Raven",
             "Shield Fortress",
+            "Sliver",
             "Smuggler's Den",
             "Star Explorer",
             "Starcadia",
@@ -380729,6 +381097,8 @@
             "Marauder Splinter (Weapons)",
             "Marauder Vanguard (Secret Prototype)",
             "Modified Clipper (Zephyr)",
+            "Modified Hogshead (Smuggler)",
+            "Modified Sliver (Smuggler)",
             "Shield Beetle (Minotaurs II)"
           ],
           "Systems": [
@@ -380847,7 +381217,8 @@
             "Marauder Firebird",
             "Marauder Leviathan",
             "Marauder Manta",
-            "Marauder Splinter"
+            "Marauder Splinter",
+            "Modified Sliver"
           ],
           "ShipyardPlanets": [
             "Smuggler's Den"
@@ -384585,8 +384956,7 @@
         "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
           "Ships": [
             "Combat Microdrone",
-            "Rav",
-            "Ultra-Sick Turbo Flivver DEBUG"
+            "Rav"
           ],
           "ShipyardPlanets": [
             "Makerplace"
@@ -385189,11 +385559,13 @@
             "Scrapper (Spotlight)",
             "Scrapper (Timeskip)",
             "Scrounger (Timeskip)",
+            "Shard (Smuggler)",
             "Shuttle (Flare)",
             "Shuttle (KGS Javelin Micro Pod)",
             "Shuttle (KGS Mini Blaster)",
             "Shuttle (Kamikaze)",
             "Shuttle (Spotlight)",
+            "Sliver (Smuggler)",
             "Space Shuttle (Engines)",
             "Space Shuttle (Shields)",
             "Space Shuttle (Weapons)",
@@ -385879,6 +386251,8 @@
             "Prefecture",
             "Rampart",
             "Scrounger",
+            "Shard",
+            "Sliver",
             "Star King",
             "Starbus",
             "Stingray",
@@ -386482,7 +386856,8 @@
           "Ships": [
             "Galaga",
             "Really Cool Sparrow",
-            "prot"
+            "prot",
+            "tecc"
           ]
         }
       },
@@ -387040,7 +387415,11 @@
             "Modified Hauler (Turbo Blaster)",
             "Modified Hauler II (Turbo Blaster)",
             "Modified Hauler III (Turbo Blaster)",
+            "Modified Hogshead (Smuggler)",
             "Modified Hogshead (Used)",
+            "Modified Shard (Afterburner)",
+            "Modified Shard (Shields)",
+            "Modified Shard (Smuggler)",
             "Mule (Cudgel)",
             "Mule (Eden)",
             "Mule (Flare)",
@@ -387743,6 +388122,7 @@
             "Modified Nest",
             "Modified Roost",
             "Modified Saber",
+            "Modified Shard",
             "Modified Skein",
             "Parade Float",
             "Star Explorer",
@@ -388920,6 +389300,7 @@
             "Modified Garbage Scow (Heavy)",
             "Modified Garbage Scow (Proton)",
             "Modified Garbage Scow (Quad Blaster)",
+            "Modified Sliver (Smuggler)",
             "Nest (Sidewinder)",
             "Osprey (FOE Laser)",
             "Patrolboat (Used)",
@@ -389569,6 +389950,7 @@
             "Modified Aerie",
             "Modified Bactrian",
             "Modified Firebird",
+            "Modified Sliver",
             "Oberon Station",
             "Patrolboat",
             "Plexus",
@@ -393047,9 +393429,11 @@
             "Scrapper (Ankulah Scout)",
             "Scrapper (Ankulah)",
             "Shadow Falcon (B)",
+            "Shard (Smuggler)",
             "Shuttle Pod (Fire Support)",
             "Shuttle Pod (Passenger)",
             "Shuttle Pod (Pirate)",
+            "Sliver (Smuggler)",
             "Splinter (Proton Turret-ATS)",
             "Star Explorer (Pirate)",
             "Star King (Hai Engines)",
@@ -393514,7 +393898,9 @@
             "Parapet",
             "Rampart",
             "Shadow Falcon",
+            "Shard",
             "Shuttle Pod",
+            "Sliver",
             "Smuggler's Den",
             "Star King",
             "Titania Station",
@@ -394183,6 +394569,7 @@
             "Shuttle (KGS Mini Blaster)",
             "Shuttle (Kamikaze)",
             "Shuttle (Spotlight)",
+            "Sliver (Smuggler)",
             "Sparrow (Black Death)",
             "Sparrow (Chainsaw)",
             "Sparrow (Espion)",
@@ -394789,6 +395176,7 @@
             "Marauder Barb",
             "Outrider",
             "Pirate Drone",
+            "Sliver",
             "Starbus",
             "Striker Drone",
             "Subsidurius"
@@ -395114,6 +395502,11 @@
         "Midnight Expansion/Midnight-Expansion": {
           "Ships": [
             "Locust"
+          ]
+        },
+        "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+          "Ships": [
+            "tecc"
           ]
         }
       },
@@ -399312,6 +399705,10 @@
             "Modified Hawk (Rocket)",
             "Modified Hawk (Stinger)",
             "Modified Quicksilver (Kludge Blaster)",
+            "Modified Shard (Afterburner)",
+            "Modified Shard (Shields)",
+            "Modified Shard (Smuggler)",
+            "Modified Sliver (Smuggler)",
             "Mule (Turbo Blaster)",
             "Plunder (Kludge Blaster)",
             "Quicksilver (Black Death)",
@@ -399737,6 +400134,8 @@
             "Kraken Station",
             "Mega Freighter",
             "Modified Quicksilver",
+            "Modified Shard",
+            "Modified Sliver",
             "Oberon Station",
             "Patrolboat",
             "Smuggler's Den",
@@ -400398,6 +400797,7 @@
             "Modified Argosy (Shields Missile)",
             "Modified Clipper (Zephyr)",
             "Modified Hawk (Speedy)",
+            "Modified Hogshead (Smuggler)",
             "Modified Hogshead (Used)",
             "Nest (Miner)",
             "Nest (Plasma Missile)",
@@ -408482,6 +408882,7 @@
             "Modified Firebird (Sidewinder)",
             "Modified Firebird (Smuggled Cargo)",
             "Modified Firebird (Smuggler)",
+            "Modified Hogshead (Smuggler)",
             "Saber (CCOR Gatling)",
             "Scrapper (Flare)",
             "Scrapper (Smuggler)",
@@ -409332,6 +409733,7 @@
             "Light Freighter (Blasters)",
             "Marauder Falcon (Engines, Electron Beam)",
             "Modified Saber (Inferno Rockets)",
+            "Modified Sliver (Smuggler)",
             "Monitor (Energy Cannon)",
             "Osprey (Patrol)",
             "S-PT06 Harukaze (Armed)",
@@ -409918,7 +410320,8 @@
             "Kraken Station",
             "Light Freighter",
             "Mastodon",
-            "Metropolis"
+            "Metropolis",
+            "Modified Sliver"
           ]
         },
         "sensor/sensor": {
@@ -410516,6 +410919,7 @@
             "Modified Argosy (Black Death)",
             "Modified Argosy (Blaster)",
             "Modified Argosy (Shields Blaster)",
+            "Modified Hogshead (Smuggler)",
             "Nest (Plasma Missile)",
             "Nest (Sidewinder)",
             "Osprey (Flamethrower)",
@@ -419775,6 +420179,11 @@
             "Zarkxaa"
           ]
         },
+        "Fire Corporation/Fire-Corporation": {
+          "Systems": [
+            "Hidden Queen"
+          ]
+        },
         "Rumskib/rumskib": {
           "Systems": [
             "Nashira"
@@ -419786,11 +420195,6 @@
             "Ada",
             "Shroud",
             "Tinker"
-          ]
-        },
-        "Fire Corporation/Fire-Corporation": {
-          "Systems": [
-            "Hidden Queen"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -421330,6 +421734,10 @@
             "Modified Hauler III (Turbo Blaster)",
             "Modified Hogshead (Modified Hyperdrive)",
             "Modified Saber (Turbo Inferno Rockets)",
+            "Modified Shard (Afterburner)",
+            "Modified Shard (Shields)",
+            "Modified Shard (Smuggler)",
+            "Modified Sliver (Smuggler)",
             "Monitor (Energy Cannon)",
             "Mule (Cudgel)",
             "Mule (Flare)",
@@ -421369,9 +421777,11 @@
             "Scout (Speedy)",
             "Scout (Turbo Blaster)",
             "Scout (Turner Power)",
+            "Shard (Smuggler)",
             "Skein (Catalytic)",
             "Skein (Plasma Missile)",
             "Skein (Sidewinder)",
+            "Sliver (Smuggler)",
             "Splinter (Flare)",
             "Splinter (Heavy Blaster)",
             "Splinter (Inferno Rockets)",
@@ -421941,11 +422351,14 @@
             "Modified Hauler II",
             "Modified Hauler III",
             "Modified Saber",
+            "Modified Shard",
             "Modified Skein",
             "Municipality",
             "Palisade",
             "Parapet",
             "Rampart",
+            "Shard",
+            "Sliver",
             "Starcadia",
             "Volary",
             "War Hauler"
@@ -423111,6 +423524,7 @@
             "Modified Cargo Star (Smuggler)",
             "Modified Firebird (Hai Shields)",
             "Modified Hogshead (Modified Blaster)",
+            "Modified Hogshead (Smuggler)",
             "Modified Hogshead (Used)",
             "Monolith Lesser",
             "Mule (Eden)",
@@ -423932,6 +424346,7 @@
             "Modified Nest",
             "Modified Roost",
             "Modified Skein",
+            "Modified Sliver",
             "Muninn Station",
             "Oberon Station",
             "Phoenix Station",
@@ -425793,6 +426208,7 @@
             "Marauder Manta (Weapons)",
             "Marauder Raven (Weapons)",
             "Marauder Splinter (Secret Prototype)",
+            "Modified Shard (Afterburner)",
             "Quicksilver (Proton)",
             "Quicksilver (Rangphenn Escort)",
             "Shield Beetle (Proton)",
@@ -430010,6 +430426,7 @@
             "Modified Hauler II (Turbo Blaster)",
             "Modified Hauler III (Turbo Blaster)",
             "Modified Hogshead (Modified Blaster)",
+            "Modified Hogshead (Smuggler)",
             "Modified Hogshead (Used)",
             "Modified Saber (Turbo Blaster)",
             "Mule (Turbo Blaster)",
@@ -433358,6 +433775,7 @@
             "Modified Buckler (Meteor)",
             "Modified Cargo Star (Smuggler)",
             "Modified Hogshead (Modified Blaster)",
+            "Modified Hogshead (Smuggler)",
             "Modified Hogshead (Used)",
             "Modified Saber (Turbo Blaster)",
             "Protector (Korath)",
@@ -434367,6 +434785,7 @@
             "Modified Buckler (Sidewinder)",
             "Modified Clipper (Bounty Hunter)",
             "Modified Firebird (Sidewinder)",
+            "Modified Shard (Shields)",
             "Mule (Flare)",
             "Mule (Hai Engines)",
             "Mule (Heavy)",
@@ -434960,8 +435379,11 @@
             "Marauder Carrier",
             "Mega Freighter",
             "Modified Bactrian",
+            "Modified Shard",
+            "Modified Sliver",
             "Outrider",
             "Plunder",
+            "Sliver",
             "Star King",
             "Stingray",
             "Volary"
@@ -436025,6 +436447,7 @@
           ],
           "Ships": [
             "Longsword",
+            "Modified Sliver",
             "Plunder",
             "Stingray"
           ]
@@ -436501,6 +436924,7 @@
             "Mega Freighter (Proton)",
             "Messor :LCS (Atomic Gunboat)",
             "Modified Firebird (Sidewinder)",
+            "Modified Shard (Shields)",
             "Mule (Flare)",
             "Mule (Hai Engines)",
             "Mule (Heavy)",
@@ -437046,6 +437470,9 @@
             "Marauder Carrier",
             "Mega Freighter",
             "Modified Bactrian",
+            "Modified Shard",
+            "Modified Sliver",
+            "Sliver",
             "Star King",
             "Volary"
           ]
@@ -454956,10 +455383,17 @@
         },
         "official-game/endless-sky": {
           "Hicemus": true,
-          "Incipias Civilian": true
+          "Incipias Civilian": true,
+          "Hai (Unfettered)": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "Hai (Unfettered Civilians)": true,
+          "Pirate": true,
+          "Storm Seekers": true,
           "Hicemus": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Bounty Hunter": true
         }
       },
       "locations": {
@@ -454974,7 +455408,8 @@
             "Castellanus (Military)",
             "Nimbus (Mining)",
             "Nimbus FTL",
-            "Nimbus FTL Midnight"
+            "Nimbus FTL Midnight",
+            "Shield Beetle (Weapon Collector)"
           ],
           "ShipyardPlanets": [
             "Pon'tes"
@@ -465107,18 +465542,6 @@
         },
         "Midnight Expansion/Midnight-Expansion": {
           "Grave Diggers": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Pirate": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "Republic": true,
-          "MGF: NGK Security": true,
-          "Syndicate": true
-        },
-        "sensor/sensor": {
-          "sensor": true
         }
       },
       "locations": {
@@ -465342,32 +465765,9 @@
             "Whirlwind"
           ],
           "ShipyardPlanets": [
-            "Ada",
             "Aventine",
             "Caelian",
-            "Chiron",
-            "Clark",
-            "Delve",
-            "Foundry",
-            "Freedom",
-            "Geminus",
-            "Glaze",
-            "Greenwater",
-            "Hephaestus",
-            "Luna",
-            "Mainsail",
-            "Midgard",
-            "New Boston",
-            "New Britain",
-            "New Tortuga",
-            "Reunion",
-            "Rust",
-            "Sunracer",
-            "Tinker",
-            "Valhalla",
-            "Viminal",
-            "Wayfarer",
-            "Zug"
+            "Viminal"
           ],
           "Missions": [
             "Ka'het: Another Death in the Graveyard 1B",
@@ -465399,8 +465799,7 @@
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "ShipyardPlanets": [
-            "Parii'het",
-            "Vesta"
+            "Parii'het"
           ],
           "Systems": [
             "Watcher's Nest"
@@ -465445,47 +465844,6 @@
             "Selii'mar (T7)",
             "Selii'mar (T8)",
             "Selii'mar (T9)"
-          ]
-        },
-        "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
-          "Ships": [
-            "Ultra-Sick Turbo Flivver DEBUG"
-          ]
-        },
-        "Zuckungs list/galactic.capital.investment": {
-          "ShipyardPlanets": [
-            "Sapphire"
-          ]
-        },
-        "Kai's list/KGS": {
-          "ShipyardPlanets": [
-            "KGS"
-          ]
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "ShipyardPlanets": [
-            "Ekarai",
-            "Kestrix II",
-            "Khoramelia",
-            "Laateli",
-            "Markaai",
-            "Parton"
-          ]
-        },
-        "Mega Freight/Mega-Freight": {
-          "ShipyardPlanets": [
-            "Ankulah Ship Breaking Station",
-            "Canaveral Naval Yard",
-            "GS1 Galaxy Station",
-            "Nordlin Navy Yard",
-            "Ourea Naval Arsenal",
-            "SBO1 Zagreus Station",
-            "Yokosuka Naval Arsenal"
-          ]
-        },
-        "sensor/sensor": {
-          "ShipyardPlanets": [
-            "lidar"
           ]
         }
       },
@@ -473388,7 +473746,8 @@
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
           "Yuyuko Saigyouji": true,
           "Sayari Plushie": true,
-          "Yuyuko Saigyouji (Hostile)": true
+          "Yuyuko Saigyouji (Hostile)": true,
+          "Pirate": true
         },
         "Capitalis Major/Capitalis-Major": {
           "Kor Sestor": true,
@@ -473409,7 +473768,10 @@
           "Pirate": true
         },
         "Mega Freight/Mega-Freight": {
-          "MGF: Minotaurs": true
+          "MGF: Minotaurs": true,
+          "Republic": true,
+          "MGF: NGK Security": true,
+          "Syndicate": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Syndicate": true,
@@ -473429,6 +473791,9 @@
         },
         "Zuckungs list/galactic.capital.investment": {
           "Pirate": true
+        },
+        "sensor/sensor": {
+          "sensor": true
         }
       },
       "locations": {
@@ -473707,6 +474072,31 @@
             "Sobarati",
             "Stercutus",
             "Sumprast"
+          ],
+          "ShipyardPlanets": [
+            "Ada",
+            "Chiron",
+            "Clark",
+            "Delve",
+            "Foundry",
+            "Freedom",
+            "Geminus",
+            "Glaze",
+            "Greenwater",
+            "Hephaestus",
+            "Luna",
+            "Mainsail",
+            "Midgard",
+            "New Boston",
+            "New Britain",
+            "New Tortuga",
+            "Reunion",
+            "Rust",
+            "Sunracer",
+            "Tinker",
+            "Valhalla",
+            "Wayfarer",
+            "Zug"
           ]
         },
         "Zuckungs list/ship.cores": {
@@ -473967,11 +474357,50 @@
             "Ember Nightmare",
             "Kestrel Prototype",
             "Sa'ifar"
+          ],
+          "ShipyardPlanets": [
+            "Vesta"
           ]
         },
         "POOT/peripherals-or-outstanding-trinkets": {
           "Ships": [
             "Party-fied Tachytia (POOT)"
+          ]
+        },
+        "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+          "Ships": [
+            "Ultra-Sick Turbo Flivver DEBUG"
+          ]
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "ShipyardPlanets": [
+            "Sapphire"
+          ]
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "ShipyardPlanets": [
+            "Ekarai",
+            "Kestrix II",
+            "Khoramelia",
+            "Laateli",
+            "Markaai",
+            "Parton"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "ShipyardPlanets": [
+            "Ankulah Ship Breaking Station",
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
+          ]
+        },
+        "sensor/sensor": {
+          "ShipyardPlanets": [
+            "lidar"
           ]
         }
       },
@@ -512262,8 +512691,7 @@
         "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
           "Ships": [
             "Merganser Sidestep Special",
-            "Ultra-Sick Turbo Flivver",
-            "Ultra-Sick Turbo Flivver DEBUG"
+            "Ultra-Sick Turbo Flivver"
           ]
         },
         "Zuckungs list/galactic.capital.investment": {
@@ -512358,6 +512786,18 @@
         },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Remnant": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true,
+          "Syndicate": true
+        },
+        "sensor/sensor": {
+          "sensor": true
         }
       },
       "locations": {
@@ -512419,9 +512859,32 @@
             "Wren (Research)"
           ],
           "ShipyardPlanets": [
+            "Ada",
             "Aventine",
             "Caelian",
-            "Viminal"
+            "Chiron",
+            "Clark",
+            "Delve",
+            "Foundry",
+            "Freedom",
+            "Geminus",
+            "Glaze",
+            "Greenwater",
+            "Hephaestus",
+            "Luna",
+            "Mainsail",
+            "Midgard",
+            "New Boston",
+            "New Britain",
+            "New Tortuga",
+            "Reunion",
+            "Rust",
+            "Sunracer",
+            "Tinker",
+            "Valhalla",
+            "Viminal",
+            "Wayfarer",
+            "Zug"
           ],
           "Systems": [
             "Arculus",
@@ -512589,6 +513052,45 @@
           ],
           "Systems": [
             "Archipelago"
+          ],
+          "ShipyardPlanets": [
+            "Vesta"
+          ]
+        },
+        "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+          "Ships": [
+            "Ultra-Sick Turbo Flivver DEBUG"
+          ]
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "ShipyardPlanets": [
+            "Sapphire"
+          ]
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "ShipyardPlanets": [
+            "Ekarai",
+            "Kestrix II",
+            "Khoramelia",
+            "Laateli",
+            "Markaai",
+            "Parton"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "ShipyardPlanets": [
+            "Ankulah Ship Breaking Station",
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
+          ]
+        },
+        "sensor/sensor": {
+          "ShipyardPlanets": [
+            "lidar"
           ]
         }
       },
@@ -513276,8 +513778,7 @@
         },
         "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
           "Ships": [
-            "Merganser Sidestep Special",
-            "Ultra-Sick Turbo Flivver DEBUG"
+            "Merganser Sidestep Special"
           ]
         },
         "Zuckungs list/galactic.capital.investment": {
@@ -513364,6 +513865,18 @@
         },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Remnant": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true,
+          "MGF: NGK Security": true,
+          "Syndicate": true
+        },
+        "sensor/sensor": {
+          "sensor": true
         }
       },
       "locations": {
@@ -513415,9 +513928,32 @@
             "Wren (Research)"
           ],
           "ShipyardPlanets": [
+            "Ada",
             "Aventine",
             "Caelian",
-            "Viminal"
+            "Chiron",
+            "Clark",
+            "Delve",
+            "Foundry",
+            "Freedom",
+            "Geminus",
+            "Glaze",
+            "Greenwater",
+            "Hephaestus",
+            "Luna",
+            "Mainsail",
+            "Midgard",
+            "New Boston",
+            "New Britain",
+            "New Tortuga",
+            "Reunion",
+            "Rust",
+            "Sunracer",
+            "Tinker",
+            "Valhalla",
+            "Viminal",
+            "Wayfarer",
+            "Zug"
           ],
           "Systems": [
             "Arculus",
@@ -513586,6 +514122,45 @@
           ],
           "Systems": [
             "Archipelago"
+          ],
+          "ShipyardPlanets": [
+            "Vesta"
+          ]
+        },
+        "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+          "Ships": [
+            "Ultra-Sick Turbo Flivver DEBUG"
+          ]
+        },
+        "Zuckungs list/galactic.capital.investment": {
+          "ShipyardPlanets": [
+            "Sapphire"
+          ]
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "ShipyardPlanets": [
+            "Ekarai",
+            "Kestrix II",
+            "Khoramelia",
+            "Laateli",
+            "Markaai",
+            "Parton"
+          ]
+        },
+        "Mega Freight/Mega-Freight": {
+          "ShipyardPlanets": [
+            "Ankulah Ship Breaking Station",
+            "Canaveral Naval Yard",
+            "GS1 Galaxy Station",
+            "Nordlin Navy Yard",
+            "Ourea Naval Arsenal",
+            "SBO1 Zagreus Station",
+            "Yokosuka Naval Arsenal"
+          ]
+        },
+        "sensor/sensor": {
+          "ShipyardPlanets": [
+            "lidar"
           ]
         }
       },
@@ -515666,6 +516241,10 @@
             "Aerie (Eden)",
             "Aerie (Shio)",
             "Berserker (Eden)",
+            "Bronze Edge :SRR (Bronze Edge (Cyclotron))",
+            "Bronze Edge :SRR (Bronze Edge (PWave))",
+            "Bronze Edge :SRR (Bronze Edge (Pulse))",
+            "Bronze Edge :SRR (Lleisgarir Hardri)",
             "Scout (Eden)"
           ],
           "ShipyardPlanets": [
@@ -515821,7 +516400,44 @@
           "ShipyardPlanets": [
             "  Sheragi",
             " Sheragi",
-            "Everything "
+            "Arytissi",
+            "Bekim",
+            "Daarnik",
+            "Everything ",
+            "Inhelk",
+            "Reskafar",
+            "Thaczil",
+            "Vehallar"
+          ],
+          "Systems": [
+            "Adun",
+            "Aegra",
+            "Andowinor",
+            "Bevnol",
+            "Boonagev",
+            "Cotuir",
+            "Crayiss",
+            "Douhvy",
+            "Drehlnik",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "Gethrisja",
+            "Gomla",
+            "I'gra",
+            "Khazayob",
+            "Lyrik",
+            "Myink",
+            "Nelithral",
+            "Okraz",
+            "Pronlel",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Utih",
+            "Xiekivi",
+            "Xiilek"
           ]
         },
         "POOT/poot-senza-solaria": {
@@ -515905,8 +516521,14 @@
         "official-game/endless-sky": {
           "Ships": [
             "Emerald Sword (Modern) :SRR",
+            "Gold Shield :SRR (Gold Shield (Cyclotron))",
+            "Gold Shield :SRR (Gold Shield (Pulse))",
+            "Gold Shield :SRR (Gold Shield (Pwave))",
             "Opal Glaive :SRR (Opal Glaive (Light) :SRR)",
-            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)"
+            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)",
+            "Platinum Spear :SRR (Platinum Spear (PWave))",
+            "Platinum Spear :SRR (Platinum Spear (Pulse))",
+            "Platinum Spear :SRR (Platinum Spear (Shields))"
           ]
         },
         "Zuckungs list/ship.cores": {
@@ -516153,8 +516775,14 @@
             "Aerie (Eden)",
             "Aerie (Shio)",
             "Bactrian (Eden)",
+            "Bronze Edge :SRR (Bronze Edge (Cyclotron))",
+            "Bronze Edge :SRR (Bronze Edge (PWave))",
+            "Bronze Edge :SRR (Bronze Edge (Pulse))",
+            "Bronze Edge :SRR (Lleisgarir Hardri)",
             "Emerald Sword (Modern) :SRR",
             "Mule (Eden)",
+            "Ruby Hammer :SRR (Ruby Hammer (PWave))",
+            "Ruby Hammer :SRR (Ruby Hammer (Pulse))",
             "Scout (Eden)"
           ]
         },
@@ -516250,7 +516878,44 @@
           "ShipyardPlanets": [
             "  Sheragi",
             " Sheragi",
-            "Everything "
+            "Arytissi",
+            "Bekim",
+            "Daarnik",
+            "Everything ",
+            "Inhelk",
+            "Reskafar",
+            "Thaczil",
+            "Vehallar"
+          ],
+          "Systems": [
+            "Adun",
+            "Aegra",
+            "Andowinor",
+            "Bevnol",
+            "Boonagev",
+            "Cotuir",
+            "Crayiss",
+            "Douhvy",
+            "Drehlnik",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "Gethrisja",
+            "Gomla",
+            "I'gra",
+            "Khazayob",
+            "Lyrik",
+            "Myink",
+            "Nelithral",
+            "Okraz",
+            "Pronlel",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Utih",
+            "Xiekivi",
+            "Xiilek"
           ]
         },
         "POOT/poot-senza-solaria": {
@@ -516349,8 +517014,17 @@
         "official-game/endless-sky": {
           "Ships": [
             "Emerald Sword (Modern) :SRR",
+            "Gold Shield :SRR (Gold Shield (Cyclotron))",
+            "Gold Shield :SRR (Gold Shield (Pulse))",
+            "Gold Shield :SRR (Gold Shield (Pwave))",
             "Opal Glaive :SRR (Opal Glaive (Light) :SRR)",
-            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)"
+            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)",
+            "Platinum Spear :SRR (Platinum Spear (PWave))",
+            "Platinum Spear :SRR (Platinum Spear (Pulse))",
+            "Platinum Spear :SRR (Platinum Spear (Shields))",
+            "Ruby Hammer :SRR (Ruby Hammer (PWave))",
+            "Ruby Hammer :SRR (Ruby Hammer (Pulse))",
+            "White Brand :SRR (White Brand (Pulse))"
           ]
         },
         "Zuckungs list/ship.cores": {
@@ -516729,7 +517403,44 @@
           "ShipyardPlanets": [
             "  Sheragi",
             " Sheragi",
-            "Everything "
+            "Arytissi",
+            "Bekim",
+            "Daarnik",
+            "Everything ",
+            "Inhelk",
+            "Reskafar",
+            "Thaczil",
+            "Vehallar"
+          ],
+          "Systems": [
+            "Adun",
+            "Aegra",
+            "Andowinor",
+            "Bevnol",
+            "Boonagev",
+            "Cotuir",
+            "Crayiss",
+            "Douhvy",
+            "Drehlnik",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "Gethrisja",
+            "Gomla",
+            "I'gra",
+            "Khazayob",
+            "Lyrik",
+            "Myink",
+            "Nelithral",
+            "Okraz",
+            "Pronlel",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Utih",
+            "Xiekivi",
+            "Xiilek"
           ]
         },
         "POOT/poot-senza-solaria": {
@@ -516822,8 +517533,14 @@
         "official-game/endless-sky": {
           "Ships": [
             "Emerald Sword (Modern) :SRR",
+            "Gold Shield :SRR (Gold Shield (Cyclotron))",
+            "Gold Shield :SRR (Gold Shield (Pulse))",
+            "Gold Shield :SRR (Gold Shield (Pwave))",
             "Opal Glaive :SRR (Opal Glaive (Light) :SRR)",
-            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)"
+            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)",
+            "Platinum Spear :SRR (Platinum Spear (PWave))",
+            "Platinum Spear :SRR (Platinum Spear (Pulse))",
+            "Platinum Spear :SRR (Platinum Spear (Shields))"
           ]
         },
         "Zuckungs list/ship.cores": {
@@ -517061,10 +517778,21 @@
         "official-game/endless-sky": {
           "Ships": [
             "Bactrian (Eden)",
+            "Bronze Edge :SRR (Bronze Edge (Cyclotron))",
+            "Bronze Edge :SRR (Bronze Edge (PWave))",
+            "Bronze Edge :SRR (Bronze Edge (Pulse))",
+            "Bronze Edge :SRR (Lleisgarir Hardri)",
             "Carabao (Quash Abandoned)",
             "Emerald Sword (Modern) :SRR",
+            "Gold Shield :SRR (Gold Shield (Cyclotron))",
+            "Gold Shield :SRR (Gold Shield (Pulse))",
+            "Gold Shield :SRR (Gold Shield (Pwave))",
             "Opal Glaive :SRR (Opal Glaive (Light) :SRR)",
-            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)"
+            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)",
+            "Platinum Spear :SRR (Platinum Spear (PWave))",
+            "Platinum Spear :SRR (Platinum Spear (Pulse))",
+            "Platinum Spear :SRR (Platinum Spear (Shields))",
+            "White Brand :SRR (White Brand (Pulse))"
           ]
         },
         "Zuckungs list/ship.cores": {
@@ -517183,6 +517911,27 @@
           ],
           "Outfitters": [
             "Sheragi Advanced"
+          ],
+          "Systems": [
+            "Adun",
+            "Bevnol",
+            "Cotuir",
+            "Crayiss",
+            "Eavak",
+            "Elbakiw",
+            "Eligne",
+            "I'gra",
+            "Khazayob",
+            "Lyrik",
+            "Myink",
+            "Okraz",
+            "Sini",
+            "Ssifisv",
+            "Sulta",
+            "Tobor",
+            "Utih",
+            "Xiekivi",
+            "Xiilek"
           ]
         },
         "POOT/poot-senza-solaria": {
@@ -517406,19 +518155,46 @@
           "ShipyardPlanets": [
             "  Sheragi",
             " Sheragi",
+            "Arytissi",
+            "Bekim",
+            "Daarnik",
+            "Degis",
             "Everything ",
-            "Shio"
+            "Fekiw",
+            "Inhelk",
+            "Reskafar",
+            "Shio",
+            "Skatuch",
+            "Thaczil",
+            "Vehallar"
           ],
           "Systems": [
             "Adun",
+            "Aegra",
+            "Andowinor",
             "Bevnol",
+            "Boonagev",
+            "Cotuir",
+            "Crayiss",
+            "Douhvy",
+            "Drehlnik",
             "Eavak",
+            "Elbakiw",
             "Eligne",
+            "Gethrisja",
+            "Gomla",
+            "I'gra",
             "Khazayob",
+            "Lyrik",
+            "Myink",
+            "Nelithral",
             "Okraz",
+            "Pronlel",
             "Sini",
             "Ssifisv",
+            "Sulta",
             "Tobor",
+            "Utih",
             "Xiekivi",
             "Xiilek"
           ]
@@ -517504,9 +518280,18 @@
         "official-game/endless-sky": {
           "Ships": [
             "Bactrian (Eden)",
+            "Bronze Edge :SRR (Bronze Edge (Pulse))",
+            "Bronze Edge :SRR (Lleisgarir Hardri)",
             "Emerald Sword (Modern) :SRR",
+            "Gold Shield :SRR (Gold Shield (Cyclotron))",
+            "Gold Shield :SRR (Gold Shield (Pulse))",
+            "Gold Shield :SRR (Gold Shield (Pwave))",
             "Opal Glaive :SRR (Opal Glaive (Light) :SRR)",
-            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)"
+            "Opal Glaive :SRR (Opal Glaive (Shadow) :SRR)",
+            "Platinum Spear :SRR (Platinum Spear (PWave))",
+            "Platinum Spear :SRR (Platinum Spear (Pulse))",
+            "Platinum Spear :SRR (Platinum Spear (Shields))",
+            "White Brand :SRR (White Brand (Pulse))"
           ]
         },
         "Zuckungs list/ship.cores": {
@@ -517651,21 +518436,43 @@
           "ShipyardPlanets": [
             "  Sheragi",
             " Sheragi",
+            "Arytissi",
+            "Bekim",
+            "Daarnik",
             "Everything ",
-            "Shio"
+            "Inhelk",
+            "Reskafar",
+            "Shio",
+            "Thaczil",
+            "Vehallar"
           ],
           "Systems": [
             "Adun",
+            "Aegra",
+            "Andowinor",
             "Bevnol",
+            "Boonagev",
+            "Cotuir",
+            "Crayiss",
+            "Douhvy",
+            "Drehlnik",
             "Eavak",
             "Elbakiw",
             "Eligne",
+            "Gethrisja",
+            "Gomla",
+            "I'gra",
             "Khazayob",
+            "Lyrik",
+            "Myink",
+            "Nelithral",
             "Okraz",
+            "Pronlel",
             "Sini",
             "Ssifisv",
             "Sulta",
             "Tobor",
+            "Utih",
             "Xiekivi",
             "Xiilek"
           ]
@@ -517752,8 +518559,12 @@
           "Ships": [
             "Aerie (Eden)",
             "Bactrian (Eden)",
+            "Bronze Edge :SRR (Bronze Edge (Cyclotron))",
             "Emerald Sword (Modern) :SRR",
-            "Mule (Eden)"
+            "Mule (Eden)",
+            "Platinum Spear :SRR (Platinum Spear (PWave))",
+            "Platinum Spear :SRR (Platinum Spear (Shields))",
+            "Ruby Hammer :SRR (Ruby Hammer (PWave))"
           ]
         },
         "Zuckungs list/ship.cores": {
@@ -518299,6 +519110,11 @@
         },
         "official-game/endless-sky": {
           "Ships": [
+            "Bronze Edge :SRR (Bronze Edge (Cyclotron))",
+            "Bronze Edge :SRR (Bronze Edge (Pulse))",
+            "Bronze Edge :SRR (Lleisgarir Hardri)",
+            "Gold Shield :SRR (Gold Shield (Cyclotron))",
+            "Gold Shield :SRR (Gold Shield (Pwave))",
             "Gull (Analogue)"
           ]
         },
@@ -518567,8 +519383,10 @@
           "Ships": [
             "Kvelqde (Mining)",
             "Kvelqde-Khora (Mining)",
+            "Stolsaqra (Fajet Coilguns)",
             "Stolsaqra (Military)",
             "Stolsaqra (Mission Escort)",
+            "Stolsaqra (Nejet Coilguns)",
             "Stolsaqra (Short-Range)",
             "Stolsaqra-Sosrue (Plate)",
             "Stolsaqra-Sosrue (Stealth)"
@@ -518748,8 +519566,7 @@
         "Lost In Midnight/Lost-in-Midnight": {
           "Phenomenon (dangerous)": true,
           "New Houses": true,
-          "Shadow House": true,
-          "Shadow House Rogue": true
+          "Shadow House": true
         }
       },
       "locations": {
@@ -518768,13 +519585,18 @@
           ],
           "Ships": [
             "Kvelqde (Violent)",
+            "Kvelqde-Khora (Nefa Coilguns)",
+            "Kvelqde-Kiitaa (Coilgun Turret)",
             "Kvelqde-Kiitaa (OC)",
+            "Kvelqde-Sosrue (Ojet Turret)",
             "Kvelqde-Sosrue (Stealth)",
             "Kvelqde-Sosrue (Tundra)",
             "Kvelqde-Sosrue (Veldt)",
             "Myaede (Mining)",
             "Myaede (Mining, Defensive)",
+            "Myaede (Nefa Coilguns)",
             "Myaede (Violent)",
+            "Myaede-Sosrue (Pristine)",
             "Nnaatej (Defensive)",
             "Ojde (Mining)",
             "Vujlet (Aggressive)"
@@ -518898,15 +519720,16 @@
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
+          ],
           "Systems": [
             "Maspa-Sado"
           ],
           "Ships": [
             "Kvelqde-Kiitaa",
-            "Kvelqde-Sosrue"
-          ],
-          "ShipyardPlanets": [
-            "Vade-Kella-Kaska"
+            "Kvelqde-Sosrue",
+            "Myaede-Sosrue"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -519558,9 +520381,12 @@
           "Ships": [
             "Kvelqde (Mining)",
             "Kvelqde (Violent)",
+            "Kvelqde-Kiitaa (Coilgun Turret)",
             "Kvelqde-Kiitaa (OC)",
             "Myaede (Mining)",
             "Nnaatej (Defensive)",
+            "Stolsaqra (Fajet Coilguns)",
+            "Stolsaqra (Nejet Coilguns)",
             "Stolsaqra-Sosrue (Plate)",
             "Stolsaqra-Sosrue (Stealth)"
           ],
@@ -519676,6 +520502,7 @@
           ],
           "Ships": [
             "Kvelqde-Kiitaa",
+            "Myaede-Sosrue",
             "Stolsaqra-Sosrue"
           ],
           "ShipyardPlanets": [
@@ -519786,6 +520613,7 @@
           "Ships": [
             "Kaskhorade (Brawler)",
             "Kvelqde (Mining)",
+            "Myaede (Nefa Coilguns)",
             "Nnaatej (Defensive)",
             "Stolsaqra (Short-Range)"
           ],
@@ -519904,6 +520732,11 @@
             "Vujlet (T8)",
             "Vujlet (T9)"
           ]
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Systems": [
+            "Maspa-Sado"
+          ]
         }
       },
       "pluginId": "official-game/endless-sky"
@@ -519951,8 +520784,7 @@
           "Phenomenon (dangerous)": true,
           "Old Houses": true,
           "New Houses": true,
-          "Shadow House": true,
-          "Shadow House Rogue": true
+          "Shadow House": true
         }
       },
       "locations": {
@@ -519974,13 +520806,18 @@
             "Aaulqra (Sniper)",
             "Kvelqde (Mining)",
             "Kvelqde-Khora (Mining)",
+            "Kvelqde-Khora (Nefa Coilguns)",
+            "Kvelqde-Sosrue (Ojet Turret)",
             "Kvelqde-Sosrue (Stealth)",
             "Kvelqde-Sosrue (Tundra)",
             "Kvelqde-Sosrue (Veldt)",
             "Myaede (Mining)",
+            "Myaede (Nefa Coilguns)",
             "Nnaatej (Defensive)",
+            "Stolsaqra (Fajet Coilguns)",
             "Stolsaqra (Military)",
             "Stolsaqra (Mission Escort)",
+            "Stolsaqra (Nejet Coilguns)",
             "Stolsaqra-Sosrue (Plate)",
             "Stolsaqra-Sosrue (Stealth)"
           ],
@@ -520095,15 +520932,16 @@
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
+          ],
           "Systems": [
             "Maspa-Sado"
           ],
           "Ships": [
             "Kvelqde-Sosrue",
+            "Myaede-Sosrue",
             "Stolsaqra-Sosrue"
-          ],
-          "ShipyardPlanets": [
-            "Vade-Kella-Kaska"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -520191,7 +521029,8 @@
           "Syndicate": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
-          "Phenomenon (dangerous)": true
+          "Phenomenon (dangerous)": true,
+          "Shadow House": true
         }
       },
       "locations": {
@@ -520206,6 +521045,7 @@
           "Ships": [
             "Myaede (Mining, Defensive)",
             "Myaede (Violent)",
+            "Myaede-Sosrue (Pristine)",
             "Ojde (Mining)"
           ],
           "ShipyardPlanets": [
@@ -520324,6 +521164,9 @@
         "Lost In Midnight/Lost-in-Midnight": {
           "Systems": [
             "Maspa-Sado"
+          ],
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -520409,8 +521252,7 @@
           "New Houses": true,
           "Phenomenon (dangerous)": true,
           "Grave Diggers": true,
-          "Shadow House": true,
-          "Shadow House Rogue": true
+          "Shadow House": true
         },
         "Blended Ships/blended-ships": {
           "Arena": true
@@ -520437,13 +521279,15 @@
           ],
           "Ships": [
             "Kvelqde-Khora (Mining)",
+            "Kvelqde-Khora (Nefa Coilguns)",
+            "Kvelqde-Sosrue (Ojet Turret)",
             "Kvelqde-Sosrue (Stealth)",
             "Kvelqde-Sosrue (Tundra)",
             "Kvelqde-Sosrue (Veldt)",
             "Myaede (Violent)",
             "Selii'mar (Zoura)",
-            "Stolsaqra-Sosrue (Plate)",
-            "Stolsaqra-Sosrue (Stealth)",
+            "Stolsaqra (Fajet Coilguns)",
+            "Stolsaqra (Nejet Coilguns)",
             "Veusade (Surveillance)",
             "Vujlet (Aggressive)"
           ],
@@ -520567,15 +521411,15 @@
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
+          ],
           "Systems": [
             "Maspa-Sado"
           ],
           "Ships": [
             "Kvelqde-Sosrue",
             "Stolsaqra-Sosrue"
-          ],
-          "ShipyardPlanets": [
-            "Vade-Kella-Kaska"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -521789,8 +522633,8 @@
             "Successor Civilian"
           ],
           "Ships": [
-            "Ejniisde",
-            "Nnaatej"
+            "Myaede-Sosrue (Pristine)",
+            "Stolsaqra-Sosrue (Plate)"
           ],
           "ShipyardPlanets": [
             "Aava-Aasa-Khora",
@@ -521925,7 +522769,11 @@
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Ships": [
+            "Myaede-Sosrue",
             "Ojde-Sado"
+          ],
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
           ]
         }
       },
@@ -522360,8 +523208,7 @@
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Phenomenon (dangerous)": true,
-          "Shadow House": true,
-          "Shadow House Rogue": true
+          "Shadow House": true
         }
       },
       "locations": {
@@ -522384,12 +523231,17 @@
           "Ships": [
             "Kvelqde (Violent)",
             "Kvelqde-Khora (Mining)",
+            "Kvelqde-Khora (Nefa Coilguns)",
+            "Kvelqde-Kiitaa (Coilgun Turret)",
             "Kvelqde-Kiitaa (OC)",
+            "Kvelqde-Sosrue (Ojet Turret)",
             "Kvelqde-Sosrue (Stealth)",
             "Kvelqde-Sosrue (Tundra)",
             "Kvelqde-Sosrue (Veldt)",
+            "Stolsaqra (Fajet Coilguns)",
             "Stolsaqra (Military)",
             "Stolsaqra (Mission Escort)",
+            "Stolsaqra (Nejet Coilguns)",
             "Stolsaqra (Short-Range)",
             "Stolsaqra-Sosrue (Plate)",
             "Stolsaqra-Sosrue (Stealth)"
@@ -522504,6 +523356,9 @@
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
+          ],
           "Systems": [
             "Maspa-Sado"
           ],
@@ -522511,9 +523366,6 @@
             "Kvelqde-Kiitaa",
             "Kvelqde-Sosrue",
             "Stolsaqra-Sosrue"
-          ],
-          "ShipyardPlanets": [
-            "Vade-Kella-Kaska"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -522601,8 +523453,7 @@
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Phenomenon (dangerous)": true,
-          "Shadow House": true,
-          "Shadow House Rogue": true
+          "Shadow House": true
         }
       },
       "locations": {
@@ -522625,11 +523476,16 @@
           "Ships": [
             "Kvelqde (Violent)",
             "Kvelqde-Khora (Mining)",
+            "Kvelqde-Khora (Nefa Coilguns)",
+            "Kvelqde-Kiitaa (Coilgun Turret)",
             "Kvelqde-Kiitaa (OC)",
+            "Kvelqde-Sosrue (Ojet Turret)",
             "Kvelqde-Sosrue (Stealth)",
             "Kvelqde-Sosrue (Tundra)",
             "Kvelqde-Sosrue (Veldt)",
+            "Stolsaqra (Fajet Coilguns)",
             "Stolsaqra (Military)",
+            "Stolsaqra (Nejet Coilguns)",
             "Stolsaqra (Short-Range)",
             "Stolsaqra-Sosrue (Plate)",
             "Stolsaqra-Sosrue (Stealth)"
@@ -522745,6 +523601,9 @@
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
+          ],
           "Systems": [
             "Maspa-Sado"
           ],
@@ -522752,9 +523611,6 @@
             "Kvelqde-Kiitaa",
             "Kvelqde-Sosrue",
             "Stolsaqra-Sosrue"
-          ],
-          "ShipyardPlanets": [
-            "Vade-Kella-Kaska"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -522878,10 +523734,15 @@
             "Aaulqra (Brawler)",
             "Kvelqde (Violent)",
             "Kvelqde-Khora (Mining)",
+            "Kvelqde-Khora (Nefa Coilguns)",
+            "Kvelqde-Kiitaa (Coilgun Turret)",
             "Kvelqde-Kiitaa (OC)",
             "Myaede (Mining)",
+            "Myaede (Nefa Coilguns)",
+            "Stolsaqra (Fajet Coilguns)",
             "Stolsaqra (Military)",
             "Stolsaqra (Mission Escort)",
+            "Stolsaqra (Nejet Coilguns)",
             "Stolsaqra (Short-Range)"
           ],
           "Systems": [
@@ -523000,14 +523861,14 @@
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
+          ],
           "Systems": [
             "Maspa-Sado"
           ],
           "Ships": [
             "Kvelqde-Kiitaa"
-          ],
-          "ShipyardPlanets": [
-            "Vade-Kella-Kaska"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -523130,7 +523991,8 @@
         "Lost In Midnight/Lost-in-Midnight": {
           "Old Houses": true,
           "New Houses": true,
-          "Phenomenon (dangerous)": true
+          "Phenomenon (dangerous)": true,
+          "Shadow House": true
         },
         "Zuckungs list/licenses": {
           "Derelict (Boardable)": true
@@ -523159,7 +524021,9 @@
             "Kaskhorade (Brawler)",
             "Myaede (Mining)",
             "Myaede (Mining, Defensive)",
+            "Myaede (Nefa Coilguns)",
             "Myaede (Violent)",
+            "Myaede-Sosrue (Pristine)",
             "Nnaatej (Defensive)",
             "Ojde (Mining)",
             "Vujlet (Aggressive)",
@@ -523282,6 +524146,12 @@
         "Lost In Midnight/Lost-in-Midnight": {
           "Systems": [
             "Maspa-Sado"
+          ],
+          "Ships": [
+            "Myaede-Sosrue"
+          ],
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -523399,7 +524269,8 @@
         "Lost In Midnight/Lost-in-Midnight": {
           "New Houses": true,
           "Old Houses": true,
-          "Phenomenon (dangerous)": true
+          "Phenomenon (dangerous)": true,
+          "Shadow House": true
         },
         "Zuckungs list/licenses": {
           "Derelict (Boardable)": true
@@ -523428,7 +524299,9 @@
             "Kaskhorade (Brawler)",
             "Myaede (Mining)",
             "Myaede (Mining, Defensive)",
+            "Myaede (Nefa Coilguns)",
             "Myaede (Violent)",
+            "Myaede-Sosrue (Pristine)",
             "Nnaatej (Defensive)",
             "Stolsaqra (Mission Escort)",
             "Vujlet (Aggressive)",
@@ -523552,6 +524425,12 @@
         "Lost In Midnight/Lost-in-Midnight": {
           "Systems": [
             "Maspa-Sado"
+          ],
+          "Ships": [
+            "Myaede-Sosrue"
+          ],
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -525202,7 +526081,8 @@
           "New Houses": true,
           "House Seineq": true,
           "House Myurej": true,
-          "House Sioeora": true
+          "House Sioeora": true,
+          "Hai (Unfettered)": true
         },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
@@ -525217,8 +526097,10 @@
           "Old Houses": true,
           "New Houses": true,
           "Shadow House": true,
-          "Bounty Hunter": true,
+          "Hai (Unfettered Civilians)": true,
           "Pirate": true,
+          "Storm Seekers": true,
+          "Bounty Hunter": true,
           "Pirate (Rivals)": true,
           "Independent (Killable)": true,
           "Oathbreaker": true
@@ -525228,6 +526110,9 @@
         },
         "Blended Ships/blended-ships": {
           "Arena": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Bounty Hunter": true
         }
       },
       "locations": {
@@ -525245,7 +526130,8 @@
           ],
           "Ships": [
             "Carabao (Quash Abandoned)",
-            "Marauder Frigate (Kinetic Rail Rifle)"
+            "Marauder Frigate (Kinetic Rail Rifle)",
+            "Shield Beetle (Weapon Collector)"
           ],
           "Systems": [
             "Aaura-Kaska",
@@ -526243,8 +527129,7 @@
           "Syndicate": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
-          "Phenomenon (dangerous)": true,
-          "Shadow House": true
+          "Phenomenon (dangerous)": true
         }
       },
       "locations": {
@@ -526259,9 +527144,7 @@
           ],
           "Ships": [
             "Kvelqde-Khora (Mining)",
-            "Myaede (Mining, Defensive)",
-            "Stolsaqra-Sosrue (Plate)",
-            "Stolsaqra-Sosrue (Stealth)"
+            "Myaede (Mining, Defensive)"
           ],
           "Systems": [
             "Aaura-Kaska",
@@ -526666,8 +527549,7 @@
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Phenomenon (dangerous)": true,
-          "Shadow House": true,
-          "Shadow House Rogue": true
+          "Shadow House": true
         }
       },
       "locations": {
@@ -526789,14 +527671,14 @@
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
+          ],
           "Systems": [
             "Maspa-Sado"
           ],
           "Ships": [
             "Kvelqde-Sosrue"
-          ],
-          "ShipyardPlanets": [
-            "Vade-Kella-Kaska"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -526873,8 +527755,7 @@
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Phenomenon (dangerous)": true,
-          "Shadow House": true,
-          "Shadow House Rogue": true
+          "Shadow House": true
         }
       },
       "locations": {
@@ -526988,15 +527869,15 @@
           ]
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "ShipyardPlanets": [
+            "Vade-Kella-Kaska"
+          ],
           "Systems": [
             "Maspa-Sado"
           ],
           "Ships": [
             "Kvelqde-Sosrue",
-            "Ojde-Sado"
-          ],
-          "ShipyardPlanets": [
-            "Vade-Kella-Kaska"
+            "Myaede-Sosrue"
           ]
         },
         "Zuckungs list/ship.merging": {
@@ -539558,5 +540439,5 @@
       "pluginId": "official-game/endless-sky"
     }
   ],
-  "parsedAt": "2026-07-13T12:08:18.717Z"
+  "parsedAt": "2026-08-01T02:31:03.341Z"
 }

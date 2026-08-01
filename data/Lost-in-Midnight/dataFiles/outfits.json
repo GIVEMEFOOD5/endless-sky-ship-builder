@@ -9797,7 +9797,7 @@
       },
       "icon": "icon/tracker",
       "arc": 0.001,
-      "turret turn": 0.001,
+      "turret turn": 0.0001,
       "inaccuracy": 10,
       "velocity": 15,
       "lifetime": 235,
@@ -11989,9 +11989,15 @@
           "Flivver (Sunracer Afterburner)",
           "Marauder Cruiser (Inferno Rocket)",
           "Marauder Wasp (Afterburner)",
+          "Modified Shard (Afterburner)",
           "Sunracer (Atomic Afterburner)",
           "Sunracer (Ion Afterburner)",
           "Sunracer (Sunracer Afterburner)"
+        ],
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
         ]
       }
     },
@@ -13773,6 +13779,9 @@
           "Modified Saber (CCOR)",
           "Modified Saber (Turbo Blaster)",
           "Modified Saber (Turbo Inferno Rockets)",
+          "Modified Shard (Afterburner)",
+          "Modified Shard (Shields)",
+          "Modified Shard (Smuggler)",
           "Mule (Turbo Blaster)",
           "Patrolboat (Turbo Blaster)",
           "Patrolboat (Used)",
@@ -15427,9 +15436,15 @@
           "Modified Enforcer (Smuggled Cargo)",
           "Modified Enforcer (Smuggler)",
           "Modified Firebird (Smuggler)",
+          "Modified Hogshead (Smuggler)",
+          "Modified Shard (Shields)",
+          "Modified Shard (Smuggler)",
+          "Modified Sliver (Smuggler)",
           "Scrounger (Smuggler)",
           "Shadow Hawk (B)",
           "Shadow Raven (B)",
+          "Shard (Smuggler)",
+          "Sliver (Smuggler)",
           "Splinter (Smuggler)",
           "Star Barge (Smuggler)",
           "Sunder (Smuggler)"
@@ -28685,20 +28700,24 @@
         "frame rate": 3
       },
       "sound": "plasma",
-      "hit effect": "plasma cluster explosion",
+      "hit effect": "plasma charge explosion",
       "inaccuracy": 1,
-      "velocity": 12,
-      "lifetime": 45,
+      "velocity": 24,
+      "lifetime": 20,
+      "random lifetime": 2.5,
+      "range override": 540,
       "reload": 36,
       "firing energy": 60,
       "firing heat": 360,
-      "hit force": 90,
-      "shield damage": 126,
-      "hull damage": 50,
-      "heat damage": 680,
-      "cluster": true
+      "cluster": true,
+      "submunitions": [
+        {
+          "type": "Plasma Charge Burnout",
+          "count": 4
+        }
+      ]
     },
-    "description": "The Plasma Charge Cannon has been modified to take advantage of concentrated firing mounts. The power and range of each shot has increased at the expense of increasing the weapon's charge up time. \tThis weapon is set to fire in \"cluster\" mode, synchronizing its rate of fire when multiple copies are installed together.",
+    "description": "The Plasma Charge Cannon has been modified to take advantage of concentrated firing mounts. The power and range of each shot has increased at the expense of increasing the weapon's charge up time and the projectile destabilizing at extreme distances. \tThis weapon is set to fire in \"cluster\" mode, synchronizing its rate of fire when multiple copies are installed together.",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Independent (Killable)": true,
@@ -28749,6 +28768,33 @@
         "Missions": [
           "Plasma Cluster Cannons"
         ]
+      }
+    },
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "Plasma Charge Burnout",
+    "weapon": {
+      "sprite": "projectile/plasma burnout",
+      "sprite data": {
+        "frame rate": 3
+      },
+      "hit effect": "plasma explosion",
+      "inaccuracy": 5,
+      "random lifetime": 2.5,
+      "hit force": 7.5,
+      "shield damage": 31.5,
+      "hull damage": 12.5,
+      "heat damage": 170
+    },
+    "governments": {
+      "Lost-in-Midnight": {
+        "Lost-in-Midnight": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "_deprecated/unused": true
       }
     },
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
@@ -32078,7 +32124,7 @@
       "icon": "icon/plasma missile",
       "fire effect": "meteor fire",
       "die effect": "missile death",
-      "hit effect": "plasma cluster explosion",
+      "hit effect": "plasma charge explosion",
       "inaccuracy": 5,
       "velocity": 11,
       "lifetime": 350,
@@ -32224,7 +32270,7 @@
       "icon": "icon/plasma missile",
       "fire effect": "meteor fire",
       "die effect": "missile death",
-      "hit effect": "plasma cluster explosion",
+      "hit effect": "plasma charge explosion",
       "inaccuracy": 5,
       "velocity": 11,
       "lifetime": 350,
@@ -32814,7 +32860,7 @@
         "random start frame": true
       },
       "icon": "icon/plunder catapult",
-      "hit effect": "large explosion",
+      "hit effect": "plunder mine explosion",
       "die effect": "flotsam death",
       "inaccuracy": 10,
       "velocity": 0,
@@ -32825,7 +32871,9 @@
       "acceleration": 0.16,
       "drag": 0.04,
       "missile strength": 17,
+      "shield damage": 1120,
       "blast radius": 40,
+      "piercing": -1,
       "submunitions": [
         {
           "type": "plunder mine submunition",
@@ -32839,7 +32887,7 @@
         }
       ]
     },
-    "description": "Favored by smugglers, this weapon jettisons crates loaded with explosives to lure unwary pursuers into approaching a deadly trap. \tThese mines can be dangerous to the ship deploying them if they detonate before they've had a chance to disperse.",
+    "description": "Favored by smugglers, this weapon jettisons crates loaded with explosives to lure unwary pursuers into a deadly trap. \tThese mines bypass shields by detonating as enemy ships try to load them into their cargo bays. They can be dangerous to the ship deploying them if they detonate before they've had a chance to disperse.",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Bounty (Disguised)": true,
@@ -33058,7 +33106,7 @@
         "frame rate": 18,
         "random start frame": true
       },
-      "hit effect": "medium explosion",
+      "hit effect": "plunder mine explosion",
       "die effect": "flotsam death",
       "inaccuracy": 360,
       "velocity": 0,
@@ -33067,10 +33115,10 @@
       "random lifetime": 60,
       "acceleration": 0.001,
       "drag": 0.01,
-      "shield damage": 175,
-      "hull damage": 140,
+      "hull damage": 175,
       "hit force": 150,
-      "missile strength": 11
+      "missile strength": 11,
+      "piercing": 1
     },
     "governments": {
       "Lost-in-Midnight": {
@@ -36038,7 +36086,7 @@
         "frame rate": 3
       },
       "sound": "plasma",
-      "hit effect": "plasma cluster explosion",
+      "hit effect": "plasma charge explosion",
       "inaccuracy": 1,
       "velocity": 12,
       "lifetime": 45,
@@ -40719,7 +40767,8 @@
       "firing heat": 1.4,
       "shield damage": 3.7,
       "hull damage": 2.9,
-      "hit force": 30
+      "hit force": 60,
+      "slowing damage": 0.05
     },
     "description": "The Pug Ghost Zapper fires an invisible beam that exerts force against whatever it hits.",
     "governments": {
@@ -40756,13 +40805,14 @@
       "velocity": 320,
       "lifetime": 1,
       "reload": 1,
-      "firing energy": 54,
-      "firing heat": 28,
-      "shield damage": 74,
-      "hull damage": 58,
-      "hit force": 60
+      "firing energy": 5.4,
+      "firing heat": 2.8,
+      "shield damage": 7.4,
+      "hull damage": 5.8,
+      "hit force": 120,
+      "slowing damage": 0.1
     },
-    "description": "The Pug Ghost Zapper Turret fires invisible beams that exert force against whatever they hit.",
+    "description": "The Pug Ghost Zapper Turret fires invisible beams that exert force against whatever it hits.",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Pug (Ghost)": true
@@ -41120,6 +41170,7 @@
     "ion resistance": 0.1,
     "scramble resistance": 0.1,
     "quantum bloodstone": 1,
+    "quantum keystone": 1,
     "description": "This component produces the secretions that allow the Savage Pug's bio-regenerative hulls to repair themselves while providing protection and resistance against various dangerous elements present in harsh environments.",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
@@ -41440,11 +41491,11 @@
     "category": "Hand to Hand",
     "series": "H2H",
     "index": 90015,
-    "cost": 54321,
+    "cost": 654321,
     "thumbnail": "outfit/dream crystal",
-    "capture attack": 2.3,
-    "capture defense": 0.3,
-    "illegal": 500000,
+    "capture attack": 3.2,
+    "capture defense": 0.2,
+    "illegal": 5000000,
     "scan brightness": 1,
     "unplunderable": 1,
     "description": "The Dream Crystal is a modified Pug Peacekeeping Staff that lacks the ability to emit a beam. When active, the Crystal incapacitates anyone near it by causing them to enter a euphoric and hallucinogenic state. Coming down from the state of euphoria is never pleasant. Pirates have found a variety of uses for these Crystals. Some use them to control slaves while others sell them as mind altering stimulators. Due to a brief delay in the time it takes to activate, it can be tossed like a grenade as well.",
@@ -42387,6 +42438,67 @@
         "Ships": [
           "Mammoth (Insurgent Subjugation Gear)",
           "Marauder Behemoth (Insurgent Subjugation Gear)"
+        ]
+      }
+    },
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "Intrusion Countermeasure",
+    "plural": "Intrusion Countermeasures",
+    "category": "Hand to Hand",
+    "thumbnail": "outfit/intrusion countermeasure",
+    "capture defense": 60,
+    "scan brightness": 1,
+    "unplunderable": 1,
+    "description": "Quarg ships are outfitted with special systems for repelling boarders. This is an older version of those systems which indiscriminately kills everything in the room it is installed in.",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Quarg (Cthogha)": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Carabao (Quash Abandoned)",
+          "Quarg Naga (Bloodstone)",
+          "Quarg Typhon (Bloodstone Drive)",
+          "Quarg Typhon (Bloodstone)",
+          "Quarg Zahhak (Bloodstone Drive)",
+          "Quarg Zahhak (Bloodstone)"
+        ],
+        "Systems": [
+          "Ardeat Ur",
+          "Clusum Ur",
+          "Flamma Ur",
+          "Quarto",
+          "SN-1984y",
+          "SN-2014y",
+          "SN-2492y"
+        ]
+      }
+    },
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "Phalanx Grenade",
+    "category": "Hand to Hand",
+    "thumbnail": "outfit/phalanx grenade",
+    "capture attack": 2.4,
+    "capture defense": 0.4,
+    "scan brightness": 1,
+    "unplunderable": 1,
+    "description": "This rechargeable device is designed to be tossed at the enemy like a grenade. Instead of exploding, it sprays the enemy with bursts of laser fire until its charge runs out. It can be set as a trap to defend against boarders, but its charge doesn't last long. Although it was not made by the Quarg, stolen Quarg technology was used in its construction.",
+    "governments": {
+      "Lost-in-Midnight": {
+        "Lost-in-Midnight": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Missions": [
+          "Midnight Gorgon Angry Squirrels - Phalanx Grenades",
+          "Midnight Phalanx Grenade Order"
         ]
       }
     },
@@ -43974,7 +44086,44 @@
         "ShipyardPlanets": [
           "  Sheragi",
           " Sheragi",
-          "Everything "
+          "Arytissi",
+          "Bekim",
+          "Daarnik",
+          "Everything ",
+          "Inhelk",
+          "Reskafar",
+          "Thaczil",
+          "Vehallar"
+        ],
+        "Systems": [
+          "Adun",
+          "Aegra",
+          "Andowinor",
+          "Bevnol",
+          "Boonagev",
+          "Cotuir",
+          "Crayiss",
+          "Douhvy",
+          "Drehlnik",
+          "Eavak",
+          "Elbakiw",
+          "Eligne",
+          "Gethrisja",
+          "Gomla",
+          "I'gra",
+          "Khazayob",
+          "Lyrik",
+          "Myink",
+          "Nelithral",
+          "Okraz",
+          "Pronlel",
+          "Sini",
+          "Ssifisv",
+          "Sulta",
+          "Tobor",
+          "Utih",
+          "Xiekivi",
+          "Xiilek"
         ]
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -44235,6 +44384,347 @@
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
   },
   {
+    "name": "\"Fajet\" Coilgun",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 11010,
+    "cost": 690000,
+    "thumbnail": "outfit/fajet coilgun",
+    "licenses": {
+      "Successor": true
+    },
+    "mass": 11,
+    "outfit space": -11,
+    "weapon capacity": -11,
+    "gun ports": -1,
+    "weapon": {
+      "sound": "bimodal",
+      "fire effect": "moonbeam fleck",
+      "inaccuracy": 1,
+      "lifetime": 1,
+      "velocity override": 60,
+      "range override": 450,
+      "reload": 30,
+      "firing energy": 80,
+      "firing heat": 120,
+      "cluster": true,
+      "submunitions": [
+        {
+          "type": "Fajet Switch",
+          "count": 3
+        }
+      ]
+    },
+    "description": "An improvised weapon assembled by the People's Houses, \"Fajet\" Coilguns fire an ionic spray which destabilizes shielding. The materials used to manufacture this appear to be higher in quality than what the People's Houses normally have access to. \tThese weapons are often paired with \"Nejet\" Coilguns to simulate the effect of the Bimodal Coilguns used by the High Houses.",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Shadow House": true,
+        "Phenomenon (dangerous)": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Kvelqde-Khora (Nefa Coilguns)",
+          "Stolsaqra (Fajet Coilguns)",
+          "Stolsaqra (Nejet Coilguns)",
+          "Stolsaqra-Sosrue (Plate)",
+          "Stolsaqra-Sosrue (Stealth)"
+        ],
+        "ShipyardPlanets": [
+          "Vade-Kella-Kaska"
+        ],
+        "Systems": [
+          "Maspa-Sado"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chyyra-Osolaa",
+          "Kella-Uoasa",
+          "Luue-Saqru",
+          "Maspa-Raaqa"
+        ]
+      }
+    },
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "\"Nejet\" Coilgun",
+    "category": "Guns",
+    "series": "Guns",
+    "index": 11010,
+    "cost": 690000,
+    "thumbnail": "outfit/nejet coilgun",
+    "licenses": {
+      "Successor": true
+    },
+    "mass": 11,
+    "outfit space": -11,
+    "weapon capacity": -11,
+    "gun ports": -1,
+    "weapon": {
+      "sprite": "projectile/bimodal",
+      "sprite data": {
+        "frame rate": 5,
+        "start frame": 0,
+        "no repeat": true
+      },
+      "sound": "bimodal",
+      "hit effect": "bimodal impact",
+      "fire effect": "moonbeam fleck",
+      "die effect": "moonbeam fleck",
+      "inaccuracy": 1,
+      "velocity": 30,
+      "lifetime": 15,
+      "range override": 450,
+      "reload": 30,
+      "firing energy": 80,
+      "firing heat": 120,
+      "firing force": 25,
+      "shield damage": 50,
+      "hull damage": 135,
+      "hit force": 120,
+      "cluster": true
+    },
+    "description": "An improvised weapon assembled by the People's Houses, \"Nejet\" Coilguns fire hyperdense packets of charged particles that pierce armor. The materials used to manufacture this appear to be higher in quality than what the People's Houses normally have access to. \tThese weapons are often paired with \"Fajet\" Coilguns to simulate the effect of the Bimodal Coilguns used by the High Houses",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Shadow House": true,
+        "Phenomenon (dangerous)": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Kvelqde-Khora (Nefa Coilguns)",
+          "Stolsaqra (Fajet Coilguns)",
+          "Stolsaqra (Nejet Coilguns)",
+          "Stolsaqra-Sosrue (Plate)",
+          "Stolsaqra-Sosrue (Stealth)"
+        ],
+        "ShipyardPlanets": [
+          "Vade-Kella-Kaska"
+        ],
+        "Systems": [
+          "Maspa-Sado"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chyyra-Osolaa",
+          "Kella-Uoasa",
+          "Luue-Saqru",
+          "Maspa-Raaqa"
+        ]
+      }
+    },
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "\"Nefa\" Coilgun Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 11010,
+    "cost": 1480000,
+    "thumbnail": "outfit/nefa coilgun turret",
+    "licenses": {
+      "Successor": true
+    },
+    "mass": 26,
+    "outfit space": -26,
+    "weapon capacity": -26,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/bimodal turret",
+      "hardpoint offset": 12,
+      "sprite": "projectile/bimodal",
+      "sprite data": {
+        "frame rate": 5,
+        "start frame": 0,
+        "no repeat": true
+      },
+      "sound": "bimodal",
+      "fire effect": "moonbeam fleck",
+      "inaccuracy": 1,
+      "lifetime": 1,
+      "velocity override": 45,
+      "range override": 450,
+      "turret turn": 0.5,
+      "reload": 30,
+      "firing energy": 160,
+      "firing heat": 240,
+      "firing force": 25,
+      "cluster": true,
+      "submunitions": [
+        {
+          "type": "Nejet Switch",
+          "count": 1
+        },
+        {
+          "type": "Fajet Switch",
+          "count": 3
+        }
+      ]
+    },
+    "description": "An improvised weapon assembled by the People's Houses, the \"Nefa\" pairs a \"Nejet\" Coigun and a \"Fajet\" Coilgun onto a rotating turret mount to simulate the effect of the Bimodal Coilgun Turrets used by the High Houses. The materials used to manufacture this appear to be higher in quality than what the People's Houses normally have access to.",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Phenomenon (dangerous)": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Kvelqde-Khora (Nefa Coilguns)",
+          "Myaede (Nefa Coilguns)"
+        ],
+        "ShipyardPlanets": [
+          "Vade-Kella-Kaska"
+        ],
+        "Systems": [
+          "Maspa-Sado"
+        ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chyyra-Osolaa",
+          "Kella-Uoasa",
+          "Luue-Saqru",
+          "Maspa-Raaqa"
+        ]
+      }
+    },
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "Nejet Switch",
+    "weapon": {
+      "sprite": "projectile/bimodal",
+      "sprite data": {
+        "frame rate": 5,
+        "start frame": 0,
+        "no repeat": true
+      },
+      "hit effect": "bimodal impact",
+      "inaccuracy": 1,
+      "velocity": 30,
+      "lifetime": 15,
+      "shield damage": 50,
+      "hull damage": 135,
+      "hit force": 120
+    },
+    "governments": {
+      "Lost-in-Midnight": {
+        "Lost-in-Midnight": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "Fajet Switch",
+    "weapon": {
+      "sprite": "projectile/bimodal switch",
+      "sprite data": {
+        "random start frame": true,
+        "frame rate": 20
+      },
+      "hit effect": "bimodal switch impact",
+      "inaccuracy": 10,
+      "velocity": 60,
+      "lifetime": 7,
+      "random lifetime": 1,
+      "shield damage": 48,
+      "hull damage": 14
+    },
+    "governments": {
+      "Lost-in-Midnight": {
+        "Lost-in-Midnight": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "_deprecated/unused": true
+      }
+    },
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "\"Ojet\" Coilgun Turret",
+    "category": "Turrets",
+    "series": "Turrets",
+    "index": 11010,
+    "cost": 1500000,
+    "thumbnail": "outfit/ojet coilgun turret",
+    "licenses": {
+      "Shadow House": true
+    },
+    "mass": 26,
+    "outfit space": -26,
+    "weapon capacity": -26,
+    "turret mounts": -1,
+    "required crew": 1,
+    "weapon": {
+      "hardpoint sprite": "hardpoint/ojet turret",
+      "hardpoint offset": 12,
+      "sprite": "projectile/bimodal",
+      "sprite data": {
+        "frame rate": 5,
+        "start frame": 0,
+        "no repeat": true
+      },
+      "sound": "bimodal",
+      "hit effect": "bimodal impact",
+      "fire effect": "moonbeam fleck",
+      "inaccuracy": 1,
+      "velocity": 30,
+      "lifetime": 15,
+      "range override": 900,
+      "turret turn": 2,
+      "burst count": 12,
+      "burst reload": 6,
+      "reload": 30,
+      "firing energy": 80,
+      "firing heat": 120,
+      "firing force": 25,
+      "shield damage": -94,
+      "hull damage": 75,
+      "hit force": 120,
+      "cluster": true,
+      "submunitions": [
+        {
+          "type": "Bimodal Switch",
+          "count": 3
+        }
+      ]
+    },
+    "description": "This antiquated version of the Bimodal Coilgun Turret was discarded by the High Houses long ago. Occasionally a salvaged turret finds its way into the tentacles of a rogue from the People's Houses.",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Shadow House": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Kvelqde-Kiitaa (Coilgun Turret)",
+          "Kvelqde-Sosrue (Ojet Turret)",
+          "Myaede-Sosrue (Pristine)"
+        ],
+        "ShipyardPlanets": [
+          "Vade-Kella-Kaska"
+        ]
+      }
+    },
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
     "name": "\"Myiara\" Fire Spout",
     "category": "Secondary Weapons",
     "series": "Secondary Weapons",
@@ -44286,16 +44776,18 @@
     "description": "Denounced as a \"knave's weapon\", this repurposed Inductive Reverser is designed to spew out superheated gouts of flaming hyperspace fuel. A \"Myiara\" Reverser Interlink can connect two \"Myiara\" Fire Spouts to synchronize their functionality as an engine.",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Shadow House": true,
-        "Shadow House Rogue": true
+        "Shadow House": true
       }
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Ships": [
+          "Kvelqde-Kiitaa (Coilgun Turret)",
+          "Kvelqde-Sosrue (Ojet Turret)",
           "Kvelqde-Sosrue (Stealth)",
           "Kvelqde-Sosrue (Tundra)",
           "Kvelqde-Sosrue (Veldt)",
+          "Myaede-Sosrue (Pristine)",
           "Stolsaqra-Sosrue (Plate)",
           "Stolsaqra-Sosrue (Stealth)"
         ],
@@ -44433,7 +44925,13 @@
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Ships": [
-          "Ojde-Sado"
+          "Kvelqde-Sosrue (Stealth)",
+          "Myaede-Sosrue (Pristine)",
+          "Stolsaqra-Sosrue (Plate)",
+          "Stolsaqra-Sosrue (Stealth)"
+        ],
+        "ShipyardPlanets": [
+          "Vade-Kella-Kaska"
         ]
       }
     },
@@ -44488,7 +44986,7 @@
     "quantum keystone": 1,
     "multimode armor": -1,
     "unplunderable": 1,
-    "description": "Implementing the Predecessor's multimode configurations onto modern Successor warships requires a few extra steps and materials that are unknown to most... \tThis material results in a configuration that allows a vessel to partially shrug off effects that would push or pull it off course. This a mere side effect of its true purpose, which allows a vessel equipped with it to safely pass through unstable wormholes.",
+    "description": "Implementing the Predecessor's multimode configurations onto modern Successor warships requires a few extra steps and materials that are unknown to most... \tThis material results in a configuration that allows a vessel to partially shrug off effects that would push or pull it off course. This a mere side effect of its true purpose, which allows a vessel equipped with it to safely pass through bloodstone gates.",
     "governments": {
       "Lost-in-Midnight": {
         "Lost-in-Midnight": true
@@ -44578,12 +45076,18 @@
     "unplunderable": 1,
     "description": "Implementing the Predecessor's multimode configurations onto modern Successor warships requires a few extra steps and materials that are unknown to most... \tThis material results in a configuration that strengthens the armor's structure against corrosion.",
     "governments": {
-      "Lost-in-Midnight": {
-        "Lost-in-Midnight": true
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Shadow House": true
       }
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
+        "Ships": [
+          "Myaede-Sosrue (Pristine)"
+        ],
+        "ShipyardPlanets": [
+          "Vade-Kella-Kaska"
+        ],
         "Missions": [
           "Midnight Dust Cloud (Ember Shroud)"
         ]
@@ -44640,8 +45144,7 @@
     "description": "Implementing the Predecessor's multimode configurations onto modern Successor warships requires a few extra steps and materials that are unknown to most... \tThis material results in a configuration that causes the armor to interfere with certain hostile scanning and tracking methods.",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Shadow House": true,
-        "Shadow House Rogue": true
+        "Shadow House": true
       }
     },
     "locations": {
@@ -44649,9 +45152,6 @@
         "Ships": [
           "Kvelqde-Sosrue (Stealth)",
           "Stolsaqra-Sosrue (Stealth)"
-        ],
-        "Systems": [
-          "Maspa-Sado"
         ],
         "ShipyardPlanets": [
           "Vade-Kella-Kaska"
@@ -44688,6 +45188,9 @@
         "Ships": [
           "Stolsaqra-Sosrue (Plate)"
         ],
+        "ShipyardPlanets": [
+          "Vade-Kella-Kaska"
+        ],
         "Missions": [
           "Midnight Dust Cloud (Ember Shroud)"
         ]
@@ -44716,17 +45219,13 @@
     "description": "The Predecessors strategic scanners were used to discern the unfamiliar technologies of other species. They could also track data that their Successors cannot.",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Shadow House": true,
-        "Shadow House Rogue": true
+        "Shadow House": true
       }
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Ships": [
           "Kvelqde-Sosrue (Tundra)"
-        ],
-        "Systems": [
-          "Maspa-Sado"
         ]
       }
     },
@@ -44751,17 +45250,13 @@
     "description": "This overcharged \"Veldt\" Combat Scanner is more efficent at scanning cargo than the ones utilized by the High Houses. To accomplish this without compromising the scanner range requires a significant increase in energy consumption.",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Shadow House": true,
-        "Shadow House Rogue": true
+        "Shadow House": true
       }
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Ships": [
           "Kvelqde-Sosrue (Veldt)"
-        ],
-        "Systems": [
-          "Maspa-Sado"
         ]
       }
     },
@@ -44824,16 +45319,17 @@
     "description": "This device is required to synchronize engine functionality to a pair of \"Myiara\" Fire Spouts.",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Shadow House": true,
-        "Shadow House Rogue": true
+        "Shadow House": true
       }
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Ships": [
+          "Kvelqde-Sosrue (Ojet Turret)",
           "Kvelqde-Sosrue (Stealth)",
           "Kvelqde-Sosrue (Tundra)",
           "Kvelqde-Sosrue (Veldt)",
+          "Myaede-Sosrue (Pristine)",
           "Stolsaqra-Sosrue (Plate)",
           "Stolsaqra-Sosrue (Stealth)"
         ],

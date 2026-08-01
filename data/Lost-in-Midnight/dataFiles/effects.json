@@ -978,7 +978,7 @@
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
   },
   {
-    "name": "plasma cluster explosion",
+    "name": "plasma charge explosion",
     "sprite": "effect/plasma explosion",
     "sprite data": {
       "scale": 2,
@@ -1104,6 +1104,21 @@
     "random spin": 5,
     "random velocity": 0.1,
     "velocity scale": 0.05,
+    "pluginId": "Lost In Midnight/Lost-in-Midnight"
+  },
+  {
+    "name": "plunder mine explosion",
+    "sprite": "effect/piercer explosion",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "explosion medium",
+    "lifetime": 28,
+    "random angle": 360,
+    "random spin": 60,
+    "random velocity": 0.1,
+    "velocity scale": 0.08,
     "pluginId": "Lost In Midnight/Lost-in-Midnight"
   },
   {

@@ -16,15 +16,15 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-07-13T12:08:25.026Z",
+    "generatedAt": "2026-08-01T02:31:09.518Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-07-13T12:08:24.906Z",
-      "totalCandidatesScanned": 458,
+      "scannedAt": "2026-08-01T02:31:09.392Z",
+      "totalCandidatesScanned": 462,
       "relevantFilesFound": 31,
       "relevantFilePaths": [
         "source/AI.cpp",
@@ -42,18 +42,18 @@
         "source/HiringPanel.cpp",
         "source/LocationFilter.cpp",
         "source/MainPanel.cpp",
-        "source/MapPanel.cpp",
         "source/MapOutfitterPanel.cpp",
+        "source/MapPanel.cpp",
         "source/MapShipyardPanel.cpp",
         "source/Minable.cpp",
         "source/OutfitterPanel.cpp",
         "source/Planet.cpp",
         "source/PlanetPanel.cpp",
-        "source/PlayerInfo.cpp",
         "source/PlayerInfoPanel.cpp",
+        "source/PlayerInfo.cpp",
         "source/Politics.cpp",
-        "source/Projectile.cpp",
         "source/PrintData.cpp",
+        "source/Projectile.cpp",
         "source/ShipInfoPanel.cpp",
         "source/ShopPanel.cpp",
         "source/TradingPanel.cpp",
@@ -9001,6 +9001,60 @@
         ]
       }
     },
+    "MapOutfitterPanel": {
+      "SystemValue": {
+        "returnType": "double",
+        "params": "const System *system",
+        "isConst": true,
+        "sourceFile": "source/MapOutfitterPanel.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "numeric_limits<double>::quiet_NaN()",
+            "formula": "numeric_limits<double>::quiet_NaN()"
+          },
+          {
+            "rawReturn": "1.",
+            "formula": "1."
+          },
+          {
+            "rawReturn": "numeric_limits<double>::quiet_NaN()",
+            "formula": "numeric_limits<double>::quiet_NaN()"
+          },
+          {
+            "rawReturn": ".5",
+            "formula": ".5"
+          },
+          {
+            "rawReturn": "1.",
+            "formula": "1."
+          },
+          {
+            "rawReturn": "value",
+            "formula": "-1."
+          }
+        ]
+      },
+      "FindItem": {
+        "returnType": "int",
+        "params": "const string &text",
+        "isConst": true,
+        "sourceFile": "source/MapOutfitterPanel.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "i",
+            "formula": "i"
+          },
+          {
+            "rawReturn": "bestItem",
+            "formula": "-1"
+          }
+        ]
+      }
+    },
     "PointerDrawCount": {
       "MaximumActive": {
         "returnType": "unsigned",
@@ -9212,60 +9266,6 @@
           {
             "rawReturn": "cmp.from == link.to && cmp.to == link.from",
             "formula": "cmp.from == link.to && cmp.to == link.from"
-          }
-        ]
-      }
-    },
-    "MapOutfitterPanel": {
-      "SystemValue": {
-        "returnType": "double",
-        "params": "const System *system",
-        "isConst": true,
-        "sourceFile": "source/MapOutfitterPanel.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "numeric_limits<double>::quiet_NaN()",
-            "formula": "numeric_limits<double>::quiet_NaN()"
-          },
-          {
-            "rawReturn": "1.",
-            "formula": "1."
-          },
-          {
-            "rawReturn": "numeric_limits<double>::quiet_NaN()",
-            "formula": "numeric_limits<double>::quiet_NaN()"
-          },
-          {
-            "rawReturn": ".5",
-            "formula": ".5"
-          },
-          {
-            "rawReturn": "1.",
-            "formula": "1."
-          },
-          {
-            "rawReturn": "value",
-            "formula": "-1."
-          }
-        ]
-      },
-      "FindItem": {
-        "returnType": "int",
-        "params": "const string &text",
-        "isConst": true,
-        "sourceFile": "source/MapOutfitterPanel.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "i",
-            "formula": "i"
-          },
-          {
-            "rawReturn": "bestItem",
-            "formula": "-1"
           }
         ]
       }
@@ -10179,6 +10179,47 @@
         ],
         "attributesSet": [],
         "formulas": []
+      }
+    },
+    "PlayerInfoPanel": {
+      "Drag": {
+        "returnType": "bool",
+        "params": "double dx, double dy",
+        "isConst": false,
+        "sourceFile": "source/PlayerInfoPanel.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "Hover(hoverPoint + Point(dx, dy))",
+            "formula": "Hover(hoverPoint + Point(dx, dy))"
+          }
+        ]
+      },
+      "DrawFleet": {
+        "returnType": "void",
+        "params": "const Rectangle &bounds",
+        "isConst": false,
+        "sourceFile": "source/PlayerInfoPanel.cpp",
+        "attributesRead": [
+          "fuel capacity"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "Scroll": {
+        "returnType": "bool",
+        "params": "int distance",
+        "isConst": false,
+        "sourceFile": "source/PlayerInfoPanel.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "ScrollAbsolute(panelState.Scroll() + distance)",
+            "formula": "ScrollAbsolute(panelState.Scroll() + distance)"
+          }
+        ]
       }
     },
     "PlayerInfo": {
@@ -11275,6 +11316,10 @@
             "formula": "0"
           },
           {
+            "rawReturn": "retVal",
+            "formula": "0"
+          },
+          {
             "rawReturn": "!ce.NameWithoutPrefix().compare(EntryToString(entry))",
             "formula": "!ce.NameWithoutPrefix().compare(EntryToString(entry))"
           },
@@ -11513,47 +11558,6 @@
           {
             "rawReturn": "any_of(missions.begin(), missions.end(), [this](const Mission &mission) -> bool { return mission.HasClearance(planet); })",
             "formula": "any_of(missions.begin(), missions.end(), [this](const Mission &mission) -> bool { return mission.HasClearance(planet); })"
-          }
-        ]
-      }
-    },
-    "PlayerInfoPanel": {
-      "Drag": {
-        "returnType": "bool",
-        "params": "double dx, double dy",
-        "isConst": false,
-        "sourceFile": "source/PlayerInfoPanel.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "Hover(hoverPoint + Point(dx, dy))",
-            "formula": "Hover(hoverPoint + Point(dx, dy))"
-          }
-        ]
-      },
-      "DrawFleet": {
-        "returnType": "void",
-        "params": "const Rectangle &bounds",
-        "isConst": false,
-        "sourceFile": "source/PlayerInfoPanel.cpp",
-        "attributesRead": [
-          "fuel capacity"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "Scroll": {
-        "returnType": "bool",
-        "params": "int distance",
-        "isConst": false,
-        "sourceFile": "source/PlayerInfoPanel.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "ScrollAbsolute(panelState.Scroll() + distance)",
-            "formula": "ScrollAbsolute(panelState.Scroll() + distance)"
           }
         ]
       }

@@ -43,6 +43,30 @@
     "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
   },
   {
+    "name": "reaction explosion explosion",
+    "sprite": "projectile/thorax cannon",
+    "sprite data": {
+      "frame rate": 30,
+      "random start frame": true
+    },
+    "sound": "explosion tiny",
+    "lifetime": 1,
+    "velocity scale": 0,
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "large reaction explosion explosion",
+    "sprite": "effect/explosion/nuke",
+    "sprite data": {
+      "frame rate": 30,
+      "random start frame": true
+    },
+    "sound": "explosion tiny",
+    "lifetime": 1,
+    "velocity scale": 0,
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
     "name": "improved shard impact",
     "sprite": "effect/particle impact",
     "sprite data": {
@@ -50,6 +74,18 @@
       "frame rate": 30
     },
     "sound": "explosion tiny",
+    "lifetime": 30,
+    "velocity scale": 0,
+    "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
+  },
+  {
+    "name": "super shard impact",
+    "sprite": "effect/particle impact",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "explosion large",
     "lifetime": 30,
     "velocity scale": 0,
     "pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"

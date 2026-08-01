@@ -46007,11 +46007,7 @@
       }
     },
     "outfits": {
-      "\"Bondir\" Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "\"Bufaer\" Atomic Steering": {
+      "Anti-Materiel Gun": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
@@ -46021,6 +46017,10 @@
       },
       "Chameleon Anti-Missile": {
         "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cloud Piercer": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "Dual Pulse Pistols": {
@@ -46047,6 +46047,14 @@
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
+      "Hai Displacer Pod": {
+        "count": 6,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Hai Displacer": {
+        "count": 336,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
       "Hai Mistral Cooling": {
         "count": 1,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
@@ -46058,14 +46066,6 @@
       "Hai Ravine Batteries": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
-      },
-      "Hai Displacer": {
-        "count": 336,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
-      },
-      "Hai Displacer Pod": {
-        "count": 6,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
       "Hai Williwaw Cooling": {
         "count": 2,
@@ -46083,12 +46083,28 @@
         "count": 2,
         "pluginId": "official-game/endless-sky"
       },
+      "Kinetic Rail Rifle": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
       "Laser Rifle": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
+      "Lasher Pistol": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Optical Laser Rifle": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plasma Grenades": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
       "Pulse Rifle": {
-        "count": 27,
+        "count": 21,
         "pluginId": "official-game/endless-sky"
       },
       "Quantum Keystone": {
@@ -46105,6 +46121,14 @@
       },
       "Value Detector": {
         "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bufaer\" Atomic Steering": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       }
     }
@@ -49154,10 +49178,6 @@
     "baseShip": "Marauder Arrow",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
     "sprite": "ship/marrowscupid",
-    "attributes": {
-      "engine capacity": 20,
-      "weapon capacity": 5
-    },
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Independent (Killable)": true,
@@ -57752,9 +57772,9 @@
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Phalanx System": {
+      "Intrusion Countermeasure": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
       "Jump Drive": {
         "count": 1,
@@ -57801,6 +57821,10 @@
         "pluginId": "official-game/endless-sky"
       },
       "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Phalanx System": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
@@ -67826,6 +67850,180 @@
       "Research Data": {
         "count": 1,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      }
+    }
+  },
+  {
+    "name": "Marauder Falcon (Atrocity)",
+    "engines": [
+      {
+        "x": -23.5,
+        "y": 140,
+        "zoom": 0.7
+      },
+      {
+        "x": 0,
+        "y": 151
+      },
+      {
+        "x": 23.5,
+        "y": 140,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -16,
+        "y": -86.5,
+        "gun": ""
+      },
+      {
+        "x": 16,
+        "y": -86.5,
+        "gun": ""
+      },
+      {
+        "x": -19,
+        "y": -76.5,
+        "gun": ""
+      },
+      {
+        "x": 19,
+        "y": -76.5,
+        "gun": ""
+      },
+      {
+        "x": -24.5,
+        "y": -66.5,
+        "gun": ""
+      },
+      {
+        "x": 24.5,
+        "y": -66.5,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -16,
+        "y": -29,
+        "turret": ""
+      },
+      {
+        "x": 16,
+        "y": -29,
+        "turret": ""
+      },
+      {
+        "x": -50,
+        "y": 39.5,
+        "turret": ""
+      },
+      {
+        "x": 50,
+        "y": 39.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Marauder Falcon",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "6fe458860f06",
+    "variant": "Marauder Falcon (Atrocity)",
+    "baseShip": "Marauder Falcon",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "sprite": "ship/vicious falcon",
+    "thumbnail": "thumbnail/vicious falcon-thumb",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Pirate": true,
+        "Bounty Hunter": true,
+        "Bounty (Disguised)": true,
+        "Merchant": true,
+        "Independent (Killable)": true,
+        "Oathbreaker": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Missions": [
+          "Midnight Smugglers False Hope 1",
+          "Midnight Smugglers False Hope 2",
+          "Midnight Smugglers False Hope 3"
+        ]
+      }
+    },
+    "outfits": {
+      "Plasma Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Gun": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Proton Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fusion Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Dwarf Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D94-YV Shielding": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 80,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nerve Gas": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Security Station": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A520 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A525 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
       }
     }
   },
@@ -80262,6 +80460,778 @@
         "pluginId": "official-game/endless-sky"
       },
       "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Modified Hogshead (Smuggler)",
+    "engines": [
+      {
+        "x": 34,
+        "y": 42
+      },
+      {
+        "x": -34,
+        "y": 42
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -17.5,
+        "y": -79.5,
+        "gun": "Twin Blaster"
+      },
+      {
+        "x": 17.5,
+        "y": -79.5,
+        "gun": "Twin Blaster"
+      },
+      {
+        "x": -17.5,
+        "y": -78.5,
+        "gun": "Meteor Missile Pod"
+      },
+      {
+        "x": 17.5,
+        "y": -78.5,
+        "gun": "Meteor Missile Pod"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -44,
+        "turret": "Quad Blaster Turret"
+      },
+      {
+        "x": 0,
+        "y": 63,
+        "turret": "Heavy Anti-Missile Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 40
+      },
+      {
+        "effect": "big leak",
+        "openChance": 70,
+        "spreadChance": 40
+      }
+    ],
+    "sprite": "ship/modified hogshead",
+    "thumbnail": "thumbnail/modified hogshead-thumb",
+    "attributes": {
+      "category": "Transport",
+      "cost": 3460000,
+      "shields": 3600,
+      "hull": 2100,
+      "required crew": 18,
+      "bunks": 42,
+      "mass": 490,
+      "drag": 6.8,
+      "heat dissipation": 0.41,
+      "fuel capacity": 600,
+      "cargo space": 45,
+      "outfit space": 340,
+      "weapon capacity": 100,
+      "engine capacity": 90,
+      "weapon": {
+        "blast radius": 57,
+        "shield damage": 570,
+        "hull damage": 290,
+        "hit force": 860
+      }
+    },
+    "tiny explosion": 15,
+    "small explosion": 30,
+    "medium explosion": 30,
+    "large explosion": 15,
+    "final explode": "final explosion medium",
+    "description": "Occasionally a pirate gets the idea in his head to adapt a ship not designed for warfare into a pirate vessel. Oftentimes the results weren't worth the effort. But some of these attempts manage to find a niche. A Modified Hogshead might appear under the command of bounty hunters or slavers who are likely to find a ship of this type useful in their line of work. \tOver half the passenger space on this Hogshead has been gutted to make room for more shield emitters and weapon systems to power the two additional gun ports. Thick armored plating has been welded over the passenger viewports and other vulnerable areas of the hull, making the ship heavier, but more durable.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Modified Hogshead",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "f74a4711df73",
+    "variant": "Modified Hogshead (Smuggler)",
+    "baseShip": "Modified Hogshead",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Bounty (Disguised)": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      }
+    },
+    "outfits": {
+      "Twin Blaster": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Meteor Missile": {
+        "count": 14,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "S3 Thermionic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified Jammer": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Smuggler's Hideaway": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Laser Rifle": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nerve Gas": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Steering": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Modified Shard (Afterburner)",
+    "engines": [
+      {
+        "x": -13.5,
+        "y": 55.5
+      },
+      {
+        "x": 13.5,
+        "y": 55.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 44,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/modified shard",
+    "thumbnail": "thumbnail/modified shard-thumb",
+    "attributes": {
+      "category": "Yacht",
+      "cost": 919000,
+      "shields": 2000,
+      "hull": 600,
+      "required crew": 3,
+      "bunks": 8,
+      "mass": 180,
+      "drag": 3.7,
+      "heat dissipation": 0.63,
+      "cargo space": 20,
+      "outfit space": 205,
+      "weapon capacity": 70,
+      "engine capacity": 70,
+      "weapon": {
+        "blast radius": 40,
+        "shield damage": 400,
+        "hull damage": 200,
+        "hit force": 600
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "A typical pirate modification for the Shard adds a gunport along with more shield emitters and reinforced hull plating. \tYachts do not come equipped with a hyperdrive. You cannot carry a yacht unless you have a ship in your fleet with a yacht bay.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Modified Shard",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "4e11bce921f8",
+    "variant": "Modified Shard (Afterburner)",
+    "baseShip": "Modified Shard",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost-in-Midnight": {
+        "Lost-in-Midnight": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      }
+    },
+    "outfits": {
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 45,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D23-QP Shielding": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Laser Rifle": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A250 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A255 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "AR120 Reverse Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Modified Shard (Shields)",
+    "engines": [
+      {
+        "x": -13.5,
+        "y": 55.5
+      },
+      {
+        "x": 13.5,
+        "y": 55.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 44,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/modified shard",
+    "thumbnail": "thumbnail/modified shard-thumb",
+    "attributes": {
+      "category": "Yacht",
+      "cost": 919000,
+      "shields": 2000,
+      "hull": 600,
+      "required crew": 3,
+      "bunks": 8,
+      "mass": 180,
+      "drag": 3.7,
+      "heat dissipation": 0.63,
+      "cargo space": 20,
+      "outfit space": 205,
+      "weapon capacity": 70,
+      "engine capacity": 70,
+      "weapon": {
+        "blast radius": 40,
+        "shield damage": 400,
+        "hull damage": 200,
+        "hit force": 600
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "A typical pirate modification for the Shard adds a gunport along with more shield emitters and reinforced hull plating. \tYachts do not come equipped with a hyperdrive. You cannot carry a yacht unless you have a ship in your fleet with a yacht bay.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Modified Shard",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "4e11bce921f8",
+    "variant": "Modified Shard (Shields)",
+    "baseShip": "Modified Shard",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost-in-Midnight": {
+        "Lost-in-Midnight": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ]
+      }
+    },
+    "outfits": {
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile Launcher": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Sidewinder Missile": {
+        "count": 45,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D23-QP Shielding": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Brig": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified Jammer": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Laser Rifle": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A250 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A255 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Modified Shard (Smuggler)",
+    "engines": [
+      {
+        "x": -13.5,
+        "y": 55.5
+      },
+      {
+        "x": 13.5,
+        "y": 55.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -43,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 44,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/modified shard",
+    "thumbnail": "thumbnail/modified shard-thumb",
+    "attributes": {
+      "category": "Yacht",
+      "cost": 919000,
+      "shields": 2000,
+      "hull": 600,
+      "required crew": 3,
+      "bunks": 8,
+      "mass": 180,
+      "drag": 3.7,
+      "heat dissipation": 0.63,
+      "cargo space": 20,
+      "outfit space": 205,
+      "weapon capacity": 70,
+      "engine capacity": 70,
+      "weapon": {
+        "blast radius": 40,
+        "shield damage": 400,
+        "hull damage": 200,
+        "hit force": 600
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "A typical pirate modification for the Shard adds a gunport along with more shield emitters and reinforced hull plating. \tYachts do not come equipped with a hyperdrive. You cannot carry a yacht unless you have a ship in your fleet with a yacht bay.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Modified Shard",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "4e11bce921f8",
+    "variant": "Modified Shard (Smuggler)",
+    "baseShip": "Modified Shard",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Bounty (Disguised)": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ],
+        "Missions": [
+          "Midnight Smugglers False Hope 3"
+        ]
+      }
+    },
+    "outfits": {
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plunder Catapult": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Plunder Depot": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Plunder Mine": {
+        "count": 18,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified D23-QP Shielding": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified Jammer": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Laser Rifle": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A250 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A255 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Modified Sliver (Smuggler)",
+    "engines": [
+      {
+        "x": -14,
+        "y": 112
+      },
+      {
+        "x": 14,
+        "y": 112
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -15,
+        "y": -82,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -82,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -17,
+        "y": -28,
+        "turret": "Blaster Turret"
+      },
+      {
+        "x": 0,
+        "y": -28,
+        "turret": "Heavy Anti-Missile Turret"
+      },
+      {
+        "x": 17,
+        "y": -28,
+        "turret": "Blaster Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Yacht",
+        "x": 0,
+        "y": 42,
+        "position": "over",
+        "launch effect": "human external"
+      },
+      {
+        "type": "Yacht",
+        "x": -10,
+        "y": 32,
+        "position": "under",
+        "launch effect": "human external"
+      },
+      {
+        "type": "Yacht",
+        "x": 10,
+        "y": 32,
+        "position": "under",
+        "launch effect": "human external"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 25,
+        "spreadChance": 25
+      }
+    ],
+    "sprite": "ship/modified sliver",
+    "thumbnail": "thumbnail/modified sliver-thumb",
+    "attributes": {
+      "category": "Space Liner",
+      "cost": 3400000,
+      "shields": 5500,
+      "hull": 1950,
+      "required crew": 8,
+      "bunks": 44,
+      "mass": 565,
+      "drag": 5.6,
+      "heat dissipation": 0.5,
+      "fuel capacity": 600,
+      "cargo space": 30,
+      "outfit space": 400,
+      "weapon capacity": 125,
+      "engine capacity": 100,
+      "self destruct": 0.25,
+      "weapon": {
+        "blast radius": 60,
+        "shield damage": 600,
+        "hull damage": 300,
+        "hit force": 900
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "With a few alterations, the Sliver can be a useful ship for anyone engaged in bounty hunting or human smuggling.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Modified Sliver",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "60013f0dbf23",
+    "variant": "Modified Sliver (Smuggler)",
+    "baseShip": "Modified Sliver",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Bounty (Disguised)": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ],
+        "Missions": [
+          "Midnight Smugglers False Hope 3"
+        ]
+      }
+    },
+    "outfits": {
+      "Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plunder Catapult": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Plunder Depot": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Plunder Mine": {
+        "count": 36,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "RT-I Radiothermal": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP144a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified Jammer": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Brig": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Smuggler's Hideaway": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Laser Rifle": {
+        "count": 22,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Nerve Gas": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A250 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A525 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "AR120 Reverse Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       }
@@ -142645,6 +143615,130 @@
     }
   },
   {
+    "name": "Shard (Smuggler)",
+    "engines": [
+      {
+        "x": -13.5,
+        "y": 55.5
+      },
+      {
+        "x": 13.5,
+        "y": 55.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 44,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/shard",
+    "thumbnail": "thumbnail/shard-thumb",
+    "attributes": {
+      "category": "Yacht",
+      "cost": 836000,
+      "shields": 1900,
+      "hull": 500,
+      "required crew": 1,
+      "bunks": 12,
+      "mass": 180,
+      "drag": 3.4,
+      "heat dissipation": 0.67,
+      "cargo space": 35,
+      "outfit space": 190,
+      "weapon capacity": 50,
+      "engine capacity": 70,
+      "weapon": {
+        "blast radius": 40,
+        "shield damage": 400,
+        "hull damage": 200,
+        "hit force": 600
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 20,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "Megaparsec's Shard is a detachable excursion vessel marketed as a luxury yacht. \tYachts do not come equipped with a hyperdrive. You cannot carry a yacht unless you have a ship in your fleet with a yacht bay.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Shard",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "84ef815e7d21",
+    "variant": "Shard (Smuggler)",
+    "baseShip": "Shard",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Bounty (Disguised)": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ],
+        "Missions": [
+          "Midnight Smugglers False Hope 3"
+        ]
+      }
+    },
+    "outfits": {
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "KP-6 Photovoltaic Array": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Brig": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified Jammer": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "X2700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X2200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X1100 Ion Reverse Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
     "name": "Shuttle (Derelict)",
     "engines": [
       {
@@ -142926,10 +144020,10 @@
     },
     "tiny explosion": 10,
     "small explosion": 5,
-    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. While it is no longer in production, a multitude were made. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Shuttle Pod",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "e135949d653f",
+    "_hash": "36bf687cd321",
     "variant": "Shuttle Pod (Beam Laser)",
     "baseShip": "Shuttle Pod",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -143035,10 +144129,10 @@
     },
     "tiny explosion": 10,
     "small explosion": 5,
-    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. While it is no longer in production, a multitude were made. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Shuttle Pod",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "e135949d653f",
+    "_hash": "36bf687cd321",
     "variant": "Shuttle Pod (Passenger)",
     "baseShip": "Shuttle Pod",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -143179,10 +144273,10 @@
     },
     "tiny explosion": 10,
     "small explosion": 5,
-    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. While it is no longer in production, a multitude were made. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Shuttle Pod",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "e135949d653f",
+    "_hash": "36bf687cd321",
     "variant": "Shuttle Pod (Fire Support)",
     "baseShip": "Shuttle Pod",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -143336,10 +144430,10 @@
     },
     "tiny explosion": 10,
     "small explosion": 5,
-    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. While it is no longer in production, a multitude were made. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Shuttle Pod",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "e135949d653f",
+    "_hash": "36bf687cd321",
     "variant": "Shuttle Pod (Pirate)",
     "baseShip": "Shuttle Pod",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -143460,10 +144554,10 @@
     },
     "tiny explosion": 10,
     "small explosion": 5,
-    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. While it is no longer in production, a multitude were made. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+    "description": "Shuttle Pods were multipurpose light spacecraft that early exploration ships could carry in their fighter bays. Many are still in use throughout the galaxy despite their antiquated design. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Shuttle Pod",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "e135949d653f",
+    "_hash": "36bf687cd321",
     "variant": "Shuttle Pod (Turbo Blaster)",
     "baseShip": "Shuttle Pod",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -144192,6 +145286,206 @@
       "Shield Suppressor": {
         "count": 1,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      }
+    }
+  },
+  {
+    "name": "Sliver (Smuggler)",
+    "engines": [
+      {
+        "x": -14,
+        "y": 112
+      },
+      {
+        "x": 14,
+        "y": 112
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -15,
+        "y": -82,
+        "gun": ""
+      },
+      {
+        "x": 15,
+        "y": -82,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -17,
+        "y": -28,
+        "turret": "Anti-Missile Turret"
+      },
+      {
+        "x": 17,
+        "y": -28,
+        "turret": "Anti-Missile Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Yacht",
+        "x": 0,
+        "y": 42,
+        "position": "over",
+        "launch effect": "human external"
+      },
+      {
+        "type": "Yacht",
+        "x": -10,
+        "y": 32,
+        "position": "under",
+        "launch effect": "human external"
+      },
+      {
+        "type": "Yacht",
+        "x": 10,
+        "y": 32,
+        "position": "under",
+        "launch effect": "human external"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 25,
+        "spreadChance": 25
+      }
+    ],
+    "sprite": "ship/sliver",
+    "thumbnail": "thumbnail/sliver-thumb",
+    "attributes": {
+      "category": "Space Liner",
+      "cost": 3100000,
+      "shields": 4900,
+      "hull": 1700,
+      "required crew": 12,
+      "bunks": 63,
+      "mass": 510,
+      "drag": 5.6,
+      "heat dissipation": 0.5,
+      "fuel capacity": 600,
+      "cargo space": 60,
+      "outfit space": 350,
+      "weapon capacity": 105,
+      "engine capacity": 90,
+      "weapon": {
+        "blast radius": 60,
+        "shield damage": 600,
+        "hull damage": 300,
+        "hit force": 900
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Sliver was Megaparsec's attempt to enter the luxury space liner market. While it is no longer sold at their main shipyards, some Paradise Worlds keep them in stock for their wealthy clientel. Despite a superficial resemblance to the Splinter, the Sliver is notable for its distinctive ability to have up to three yachts dock with it. \t(These yachts are sold separately.)",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Sliver",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "2899367fe906",
+    "variant": "Sliver (Smuggler)",
+    "baseShip": "Sliver",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Bounty (Disguised)": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Archipelago",
+          "Chasm",
+          "Diyu"
+        ],
+        "Missions": [
+          "Midnight Smugglers False Hope 3"
+        ]
+      }
+    },
+    "outfits": {
+      "Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plunder Catapult": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Plunder Depot": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Plunder Mine": {
+        "count": 36,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "KP-6 Photovoltaic Array": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-AA Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Brig": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Modified Jammer": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Interference Plating": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Luxury Accommodations": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Smuggler's Hideaway": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Laser Rifle": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X3200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X1100 Ion Reverse Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
       }
     }
   },
@@ -184699,7 +185993,7 @@
     "description": "Typhons are old freighters the Quarg use mostly to transport materials in bulk.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Quarg Typhon",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "c3d9e731ffbd",
+    "_hash": "06334947be61",
     "variant": "Quarg Typhon (Bloodstone)",
     "baseShip": "Quarg Typhon",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -184732,8 +186026,12 @@
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
+      "Intrusion Countermeasure": {
+        "count": 5,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
       "Phalanx System": {
-        "count": 21,
+        "count": 15,
         "pluginId": "official-game/endless-sky"
       },
       "Medium Graviton Steering": {
@@ -184826,7 +186124,7 @@
     "description": "Typhons are old freighters the Quarg use mostly to transport materials in bulk.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Quarg Typhon",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "c3d9e731ffbd",
+    "_hash": "06334947be61",
     "variant": "Quarg Typhon (Bloodstone Drive)",
     "baseShip": "Quarg Typhon",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -184859,8 +186157,12 @@
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
+      "Intrusion Countermeasure": {
+        "count": 5,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
       "Phalanx System": {
-        "count": 21,
+        "count": 15,
         "pluginId": "official-game/endless-sky"
       },
       "Medium Graviton Steering": {
@@ -184974,7 +186276,7 @@
     "description": "The Zahhak is a Quarg utility support ship for extended deep space operations.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Quarg Zahhak",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "b5e77b63d07f",
+    "_hash": "774fa60e5ba2",
     "variant": "Quarg Zahhak (Bloodstone Drive)",
     "baseShip": "Quarg Zahhak",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -185011,8 +186313,12 @@
         "count": 1,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
+      "Intrusion Countermeasure": {
+        "count": 10,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
       "Phalanx System": {
-        "count": 47,
+        "count": 35,
         "pluginId": "official-game/endless-sky"
       },
       "Medium Graviton Steering": {
@@ -185126,7 +186432,7 @@
     "description": "The Zahhak is a Quarg utility support ship for extended deep space operations.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Quarg Zahhak",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "b5e77b63d07f",
+    "_hash": "774fa60e5ba2",
     "variant": "Quarg Zahhak (Bloodstone)",
     "baseShip": "Quarg Zahhak",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -185167,8 +186473,12 @@
         "count": 1,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
+      "Intrusion Countermeasure": {
+        "count": 10,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
       "Phalanx System": {
-        "count": 47,
+        "count": 35,
         "pluginId": "official-game/endless-sky"
       },
       "Medium Graviton Steering": {
@@ -185254,7 +186564,7 @@
     "description": "The Naga was a mining vessel dating back to the pre-ringworld era.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Quarg Naga",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "7e83ff123c9d",
+    "_hash": "8a6f43d6a92c",
     "variant": "Quarg Naga (Bloodstone)",
     "baseShip": "Quarg Naga",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -185289,8 +186599,12 @@
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
+      "Intrusion Countermeasure": {
+        "count": 3,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
       "Phalanx System": {
-        "count": 12,
+        "count": 9,
         "pluginId": "official-game/endless-sky"
       },
       "Small Graviton Steering": {
@@ -194572,7 +195886,7 @@
         "spreadChance": 80
       }
     ],
-    "plural": "Kvelqden-Sosrue",
+    "plural": "Kvelqde-Sosruen",
     "sprite": "ship/kvelqde-sosrue",
     "thumbnail": "thumbnail/kvelqde-sosrue-thumb",
     "attributes": {
@@ -194593,7 +195907,7 @@
       "outfit space": 197,
       "weapon capacity": 63,
       "engine capacity": 45,
-      "multimode armor": 1,
+      "multimodal armor": 1,
       "weapon": {
         "blast radius": 100,
         "shield damage": 1000,
@@ -194606,28 +195920,21 @@
     "medium explosion": 24,
     "large explosion": 8,
     "final explode": "final explosion medium",
-    "description": "This Kvelqde variant is designed to optimize the use of \"Myiara\" Fire Spouts. There are whispers that those who pilot such vessels are patron servants of a secret House that manipulates events from the shadows. Within the respectable echelons of Successor society such tales are dismissed as mere superstition, no more real than the monster from a children's poem. \tThis ship can install Predecessor Multimode Armor materials.",
+    "description": "This Kvelqde variant is designed to optimize the use of \"Myiara\" Fire Spouts. There are whispers that those who pilot such vessels are patron servants of a secret House that manipulates events from the shadows. Within the respectable echelons of Successor society such tales are dismissed as mere superstition, no more real than the monster from a children's poem. \tThis ship can mount High House Multimodal Armor configurations. With an adaptor, it can also utilize Predecessor Multimode Armor materials.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Kvelqde-Sosrue",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "9b46f0b9d387",
+    "_hash": "32b1992f2ed6",
     "variant": "Kvelqde-Sosrue (Stealth)",
     "baseShip": "Kvelqde-Sosrue",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Shadow House": true,
-        "Shadow House Rogue": true
+        "Shadow House": true
       }
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Systems": [
-          "Maspa-Sado"
-        ],
-        "Missions": [
-          "Midnight Shadow House Rogue (New)",
-          "Midnight Shadow House Rogue (Old)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -194674,6 +195981,10 @@
       "Hyperdrive": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
+      },
+      "Multimode Armor: Adaptor": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
       "Multimode Armor: Stealth": {
         "count": 1,
@@ -194778,7 +196089,7 @@
         "spreadChance": 80
       }
     ],
-    "plural": "Kvelqden-Sosrue",
+    "plural": "Kvelqde-Sosruen",
     "sprite": "ship/kvelqde-sosrue",
     "thumbnail": "thumbnail/kvelqde-sosrue-thumb",
     "attributes": {
@@ -194799,7 +196110,7 @@
       "outfit space": 197,
       "weapon capacity": 63,
       "engine capacity": 45,
-      "multimode armor": 1,
+      "multimodal armor": 1,
       "weapon": {
         "blast radius": 100,
         "shield damage": 1000,
@@ -194812,28 +196123,21 @@
     "medium explosion": 24,
     "large explosion": 8,
     "final explode": "final explosion medium",
-    "description": "This Kvelqde variant is designed to optimize the use of \"Myiara\" Fire Spouts. There are whispers that those who pilot such vessels are patron servants of a secret House that manipulates events from the shadows. Within the respectable echelons of Successor society such tales are dismissed as mere superstition, no more real than the monster from a children's poem. \tThis ship can install Predecessor Multimode Armor materials.",
+    "description": "This Kvelqde variant is designed to optimize the use of \"Myiara\" Fire Spouts. There are whispers that those who pilot such vessels are patron servants of a secret House that manipulates events from the shadows. Within the respectable echelons of Successor society such tales are dismissed as mere superstition, no more real than the monster from a children's poem. \tThis ship can mount High House Multimodal Armor configurations. With an adaptor, it can also utilize Predecessor Multimode Armor materials.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Kvelqde-Sosrue",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "9b46f0b9d387",
+    "_hash": "32b1992f2ed6",
     "variant": "Kvelqde-Sosrue (Tundra)",
     "baseShip": "Kvelqde-Sosrue",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Shadow House": true,
-        "Shadow House Rogue": true
+        "Shadow House": true
       }
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Systems": [
-          "Maspa-Sado"
-        ],
-        "Missions": [
-          "Midnight Shadow House Rogue (New)",
-          "Midnight Shadow House Rogue (Old)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -194980,7 +196284,7 @@
         "spreadChance": 80
       }
     ],
-    "plural": "Kvelqden-Sosrue",
+    "plural": "Kvelqde-Sosruen",
     "sprite": "ship/kvelqde-sosrue",
     "thumbnail": "thumbnail/kvelqde-sosrue-thumb",
     "attributes": {
@@ -195001,7 +196305,7 @@
       "outfit space": 197,
       "weapon capacity": 63,
       "engine capacity": 45,
-      "multimode armor": 1,
+      "multimodal armor": 1,
       "weapon": {
         "blast radius": 100,
         "shield damage": 1000,
@@ -195014,28 +196318,21 @@
     "medium explosion": 24,
     "large explosion": 8,
     "final explode": "final explosion medium",
-    "description": "This Kvelqde variant is designed to optimize the use of \"Myiara\" Fire Spouts. There are whispers that those who pilot such vessels are patron servants of a secret House that manipulates events from the shadows. Within the respectable echelons of Successor society such tales are dismissed as mere superstition, no more real than the monster from a children's poem. \tThis ship can install Predecessor Multimode Armor materials.",
+    "description": "This Kvelqde variant is designed to optimize the use of \"Myiara\" Fire Spouts. There are whispers that those who pilot such vessels are patron servants of a secret House that manipulates events from the shadows. Within the respectable echelons of Successor society such tales are dismissed as mere superstition, no more real than the monster from a children's poem. \tThis ship can mount High House Multimodal Armor configurations. With an adaptor, it can also utilize Predecessor Multimode Armor materials.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Kvelqde-Sosrue",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "9b46f0b9d387",
+    "_hash": "32b1992f2ed6",
     "variant": "Kvelqde-Sosrue (Veldt)",
     "baseShip": "Kvelqde-Sosrue",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Shadow House": true,
-        "Shadow House Rogue": true
+        "Shadow House": true
       }
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Systems": [
-          "Maspa-Sado"
-        ],
-        "Missions": [
-          "Midnight Shadow House Rogue (New)",
-          "Midnight Shadow House Rogue (Old)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -195082,6 +196379,195 @@
       "Hyperdrive": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Kvelqde-Sosrue (Ojet Turret)",
+    "engines": [
+      {
+        "x": -8,
+        "y": 28
+      },
+      {
+        "x": 8,
+        "y": 28
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 12.5,
+        "y": -5,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -12.5,
+        "y": -5,
+        "zoom": 0.5,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 9,
+        "y": -20.5,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 270
+      },
+      {
+        "x": -9,
+        "y": -20.5,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 90
+      },
+      {
+        "x": 6.5,
+        "y": 29,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 270
+      },
+      {
+        "x": -6.5,
+        "y": 29,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 90
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -32,
+        "gun": "Overcharged Pulse Laser"
+      },
+      {
+        "x": 12.5,
+        "y": -5,
+        "gun": "\"Myiara\" Fire Spout"
+      },
+      {
+        "x": -12.5,
+        "y": -5,
+        "gun": "\"Myiara\" Fire Spout"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Kvelqde-Sosruen",
+    "sprite": "ship/kvelqde-sosrue",
+    "thumbnail": "thumbnail/kvelqde-sosrue-thumb",
+    "attributes": {
+      "licenses": {
+        "Shadow House": true
+      },
+      "category": "Interceptor",
+      "cost": 240000,
+      "shields": 785,
+      "hull": 4625,
+      "required crew": 1,
+      "bunks": 6,
+      "mass": 158,
+      "drag": 2.95,
+      "heat dissipation": 0.78,
+      "fuel capacity": 500,
+      "cargo space": 10,
+      "outfit space": 197,
+      "weapon capacity": 63,
+      "engine capacity": 45,
+      "multimodal armor": 1,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "This Kvelqde variant is designed to optimize the use of \"Myiara\" Fire Spouts. There are whispers that those who pilot such vessels are patron servants of a secret House that manipulates events from the shadows. Within the respectable echelons of Successor society such tales are dismissed as mere superstition, no more real than the monster from a children's poem. \tThis ship can mount High House Multimodal Armor configurations. With an adaptor, it can also utilize Predecessor Multimode Armor materials.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Kvelqde-Sosrue",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "32b1992f2ed6",
+    "variant": "Kvelqde-Sosrue (Ojet Turret)",
+    "baseShip": "Kvelqde-Sosrue",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Shadow House": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Missions": [
+          "Midnight Jorv-myiara Sentry"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Ojet\" Coilgun Turret": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "\"Myiara\" Fire Spout": {
+        "count": 3,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "3-\"Kaska\" Betavoltaic Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Ej\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Myiara\" Reverser Interlink": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
       }
     }
   },
@@ -195186,7 +196672,7 @@
         "spreadChance": 80
       }
     ],
-    "plural": "Stolsaqran-Sosrue",
+    "plural": "Stolsaqra-Sosruen",
     "sprite": "ship/stolsaqra-sosrue",
     "thumbnail": "thumbnail/stolsaqra-sosrue-thumb",
     "attributes": {
@@ -195211,7 +196697,6 @@
       "hull repair rate": 0.3,
       "hull energy": 0.33,
       "hull heat": 0.33,
-      "multimode armor": 1,
       "weapon": {
         "blast radius": 100,
         "shield damage": 1000,
@@ -195224,10 +196709,10 @@
     "medium explosion": 24,
     "large explosion": 8,
     "final explode": "final explosion medium",
-    "description": "This variant Stolsaqra is a test model developed by Shadow House. Like the Kvelqde-Sosrue, it is designed to accomodate a pair of \"Myiara\" Fire Spouts into its arsenal. \tThis ship can install Predecessor Multimode Armor materials.",
+    "description": "This variant Stolsaqra is a variant developed by Shadow House. Like the Kvelqde-Sosrue, it is designed to accomodate a pair of \"Myiara\" Fire Spouts into its arsenal. \tThis ship can mount High House Multimodal Armor configurations. With an adaptor, it can also utilize Predecessor Multimode Armor materials.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Stolsaqra-Sosrue",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "7edfead1ff3a",
+    "_hash": "284028b902dd",
     "variant": "Stolsaqra-Sosrue (Plate)",
     "baseShip": "Stolsaqra-Sosrue",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -195238,37 +196723,41 @@
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Vade-Kella-Kaska"
+        ],
         "Missions": [
+          "Midnight Airi-myiara Sentry",
           "Midnight Successor Stolsaqra-Sosrue"
         ]
       }
     },
     "outfits": {
-      "Successor Pulse Laser": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
+      "\"Fajet\" Coilgun": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "\"Nejet\" Coilgun": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
       "\"Myiara\" Fire Spout": {
         "count": 2,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
-      "3-\"Kaska\" Betavoltaic Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
       "1-\"Uurau\" Betavoltaic Cell": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Auxiliary Power Reserve": {
-        "count": 2,
+      "3-\"Kaska\" Betavoltaic Cell": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "\"Byiaa\" Shield Cortex": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Fuel Pod": {
+      "\"Aqra\" Inductive Steering": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
@@ -195276,17 +196765,17 @@
         "count": 2,
         "pluginId": "official-game/endless-sky"
       },
-      "\"Aqra\" Inductive Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
       "\"Myiara\" Reverser Interlink": {
         "count": 1,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
-      "Hyperdrive": {
+      "Successor Fuel Sail": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
+      },
+      "Multimode Armor: Adaptor": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
       "Multimode Armor: Plate": {
         "count": 1,
@@ -195395,7 +196884,7 @@
         "spreadChance": 80
       }
     ],
-    "plural": "Stolsaqran-Sosrue",
+    "plural": "Stolsaqra-Sosruen",
     "sprite": "ship/stolsaqra-sosrue",
     "thumbnail": "thumbnail/stolsaqra-sosrue-thumb",
     "attributes": {
@@ -195420,7 +196909,6 @@
       "hull repair rate": 0.3,
       "hull energy": 0.33,
       "hull heat": 0.33,
-      "multimode armor": 1,
       "weapon": {
         "blast radius": 100,
         "shield damage": 1000,
@@ -195433,10 +196921,10 @@
     "medium explosion": 24,
     "large explosion": 8,
     "final explode": "final explosion medium",
-    "description": "This variant Stolsaqra is a test model developed by Shadow House. Like the Kvelqde-Sosrue, it is designed to accomodate a pair of \"Myiara\" Fire Spouts into its arsenal. \tThis ship can install Predecessor Multimode Armor materials.",
+    "description": "This variant Stolsaqra is a variant developed by Shadow House. Like the Kvelqde-Sosrue, it is designed to accomodate a pair of \"Myiara\" Fire Spouts into its arsenal. \tThis ship can mount High House Multimodal Armor configurations. With an adaptor, it can also utilize Predecessor Multimode Armor materials.",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Stolsaqra-Sosrue",
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
-    "_hash": "7edfead1ff3a",
+    "_hash": "284028b902dd",
     "variant": "Stolsaqra-Sosrue (Stealth)",
     "baseShip": "Stolsaqra-Sosrue",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -195453,40 +196941,36 @@
       }
     },
     "outfits": {
-      "Successor Pulse Laser": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
+      "\"Fajet\" Coilgun": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "\"Nejet\" Coilgun": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
       "\"Myiara\" Fire Spout": {
         "count": 2,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
       },
-      "3-\"Kaska\" Betavoltaic Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
       "1-\"Uurau\" Betavoltaic Cell": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Auxiliary Power Reserve": {
-        "count": 2,
+      "3-\"Kaska\" Betavoltaic Cell": {
+        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "\"Byiaa\" Shield Cortex": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
-      "Fuel Pod": {
+      "\"Aqra\" Inductive Steering": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "\"Aqra\" Inductive Thruster": {
         "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "\"Aqra\" Inductive Steering": {
-        "count": 1,
         "pluginId": "official-game/endless-sky"
       },
       "\"Myiara\" Reverser Interlink": {
@@ -195497,7 +196981,206 @@
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },
+      "Multimode Armor: Adaptor": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
       "Multimode Armor: Stealth": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      }
+    }
+  },
+  {
+    "name": "Myaede-Sosrue (Pristine)",
+    "engines": [
+      {
+        "x": -40,
+        "y": 11
+      },
+      {
+        "x": 40,
+        "y": 11
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -40,
+        "y": -27,
+        "over": true
+      },
+      {
+        "x": 40,
+        "y": -27,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 20,
+        "y": -49,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 270
+      },
+      {
+        "x": -20,
+        "y": -49,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 90
+      },
+      {
+        "x": 13,
+        "y": 55,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 270
+      },
+      {
+        "x": -13,
+        "y": 55,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 90
+      }
+    ],
+    "guns": [
+      {
+        "x": -40,
+        "y": -27,
+        "gun": ""
+      },
+      {
+        "x": 40,
+        "y": -27,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -33,
+        "y": -10,
+        "turret": ""
+      },
+      {
+        "x": 33,
+        "y": -10,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Myaede-Sosruen",
+    "sprite": "ship/myaede-sosrue",
+    "thumbnail": "thumbnail/myaede-sosrue-thumb",
+    "attributes": {
+      "licenses": {
+        "Shadow House": true
+      },
+      "category": "Light Freighter",
+      "cost": 3250000,
+      "shields": 1500,
+      "hull": 15000,
+      "required crew": 6,
+      "bunks": 20,
+      "mass": 600,
+      "drag": 7.1,
+      "heat dissipation": 0.62,
+      "fuel capacity": 500,
+      "cargo space": 125,
+      "outfit space": 275,
+      "weapon capacity": 125,
+      "engine capacity": 130,
+      "multimodal armor": 1,
+      "waterlining": 1,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Myaede-Sosrue incorporates durable hull plating that allows it to dive deep beneath the surface of oceanic environments. It loses its regular gun ports, but like other Shadow House variants, it is designed to accomodate a pair of \"Myiara\" Fire Spouts into its arsenal. \tThis ship can mount High House Multimodal Armor configurations. With an adaptor, it can also utilize Predecessor Multimode Armor materials.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Myaede-Sosrue",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "a570ce9638ae",
+    "variant": "Myaede-Sosrue (Pristine)",
+    "baseShip": "Myaede-Sosrue",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Shadow House": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Vade-Kella-Kaska"
+        ],
+        "Missions": [
+          "Midnight Jorv-myiara Sentry"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Ojet\" Coilgun Turret": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "\"Myiara\" Fire Spout": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "6-\"Ruuv\" Betavoltaic Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Ej\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Successor Fuel Sail": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Chyyra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Chyyra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Myiara\" Reverser Interlink": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Multimode Armor: Adaptor": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Multimode Armor: Pristine": {
         "count": 1,
         "pluginId": "Lost In Midnight/Lost-in-Midnight"
       }
@@ -195630,15 +197313,13 @@
     "baseShip": "Kvelqde-Kiitaa",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
     "governments": {
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Shadow House": true
+      "Lost-in-Midnight": {
+        "Lost-in-Midnight": true
       }
     },
     "locations": {
       "Lost In Midnight/Lost-in-Midnight": {
-        "Missions": [
-          "Midnight Successor House in Shadow"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -195667,6 +197348,982 @@
         "pluginId": "official-game/endless-sky"
       },
       "\"Aqra\" Inductive Reverser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Kvelqde-Kiitaa (Coilgun Turret)",
+    "engines": [
+      {
+        "x": -8,
+        "y": 28
+      },
+      {
+        "x": 8,
+        "y": 28
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 12.5,
+        "y": -5,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -12.5,
+        "y": -5,
+        "zoom": 0.5,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 9,
+        "y": -20.5,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 270
+      },
+      {
+        "x": -9,
+        "y": -20.5,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 90
+      },
+      {
+        "x": 6.5,
+        "y": 29,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 270
+      },
+      {
+        "x": -6.5,
+        "y": 29,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 90
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -32,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Kvelqden",
+    "sprite": "ship/kvelqde-kiitaa",
+    "thumbnail": "thumbnail/kvelqde-kiitaa-thumb",
+    "attributes": {
+      "licenses": {
+        "Shadow House": true
+      },
+      "category": "Fighter",
+      "cost": 167000,
+      "shields": 350,
+      "hull": 2400,
+      "required crew": 1,
+      "bunks": 2,
+      "mass": 100,
+      "drag": 2.03,
+      "heat dissipation": 0.82,
+      "cargo space": 20,
+      "outfit space": 145,
+      "weapon capacity": 55,
+      "engine capacity": 45,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Many of the features of this Kvelqde have been scaled back, allowing it to be carried within a fighter bay without compromising its durability.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Kvelqde-Kiitaa",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "2b8f42eaf2f9",
+    "variant": "Kvelqde-Kiitaa (Coilgun Turret)",
+    "baseShip": "Kvelqde-Kiitaa",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Shadow House": true
+      }
+    },
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Missions": [
+          "Midnight Successor House in Shadow"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Myiara\" Fire Spout": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "\"Ojet\" Coilgun Turret": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "1-\"Uurau\" Betavoltaic Cell": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Ej\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Reverser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Kvelqde-Khora (Nefa Coilguns)",
+    "engines": [
+      {
+        "x": -8,
+        "y": 28
+      },
+      {
+        "x": 8,
+        "y": 28
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 12.5,
+        "y": -5,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -12.5,
+        "y": -5,
+        "zoom": 0.5,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 9,
+        "y": -20.5,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 270
+      },
+      {
+        "x": -9,
+        "y": -20.5,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 90
+      },
+      {
+        "x": 6.5,
+        "y": 29,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 270
+      },
+      {
+        "x": -6.5,
+        "y": 29,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 90
+      }
+    ],
+    "guns": [
+      {
+        "x": -4,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": 4,
+        "y": -30,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 0,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Kvelqden-Khora",
+    "sprite": "ship/kvelqde-khora",
+    "thumbnail": "thumbnail/kvelqde-khora",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Interceptor",
+      "cost": 240000,
+      "shields": 785,
+      "hull": 4625,
+      "required crew": 1,
+      "bunks": 6,
+      "mass": 158,
+      "drag": 2.95,
+      "heat dissipation": 0.78,
+      "fuel capacity": 500,
+      "cargo space": 10,
+      "outfit space": 197,
+      "weapon capacity": 63,
+      "engine capacity": 45,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "One of the more industrious members of the People's Houses has done their best to ruggedize this Kvelqde: additional armor plating has been laid over most of the exposed hull, a second gun port has been attached to the underside, and the shield grid has had its capacity substantially increased. While not quite capable of standing toe-to-toe with a production interceptor of the High Houses, it bares enough teeth for a bit of light piracy, and its greater durability is quite welcome for navigating the decaying stations and hostile worlds of southwestern Successor space.",
+    "_internalId": "official-game/endless-sky::Kvelqde-Khora",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "78007fdf5440",
+    "variant": "Kvelqde-Khora (Nefa Coilguns)",
+    "baseShip": "Kvelqde-Khora",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Phenomenon (dangerous)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chyyra-Osolaa",
+          "Kella-Uoasa",
+          "Luue-Saqru",
+          "Maspa-Raaqa"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Maspa-Sado"
+        ],
+        "Planets": [
+          "Vade-Kella-Kaska"
+        ]
+      }
+    },
+    "outfits": {
+      "Overcharged Pulse Laser": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Overcharged Laser Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "3-\"Kaska\" Betavoltaic Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Ej\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Reverser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Stolsaqra (Fajet Coilguns)",
+    "engines": [
+      {
+        "x": -8,
+        "y": 35
+      },
+      {
+        "x": 8,
+        "y": 35
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 15,
+        "y": -3,
+        "zoom": 0.8,
+        "over": true
+      },
+      {
+        "x": -15,
+        "y": -3,
+        "zoom": 0.8,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 4,
+        "y": -41,
+        "zoom": 0.4,
+        "over": true,
+        "left": true,
+        "angle": 270
+      },
+      {
+        "x": -4,
+        "y": -41,
+        "zoom": 0.4,
+        "over": true,
+        "right": true,
+        "angle": 90
+      },
+      {
+        "x": 12,
+        "y": 33,
+        "zoom": 0.4,
+        "over": true,
+        "right": true,
+        "angle": 270
+      },
+      {
+        "x": -12,
+        "y": 33,
+        "zoom": 0.4,
+        "over": true,
+        "left": true,
+        "angle": 90
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -40,
+        "gun": "Successor Pulse Laser"
+      },
+      {
+        "x": -10.5,
+        "y": -20,
+        "gun": "Successor Pulse Laser"
+      },
+      {
+        "x": 10.5,
+        "y": -20,
+        "gun": "Successor Pulse Laser"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Stolsaqran",
+    "sprite": "ship/stolsaqra",
+    "thumbnail": "thumbnail/stolsaqra",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Interceptor",
+      "cost": 450000,
+      "shields": 850,
+      "hull": 6100,
+      "required crew": 1,
+      "bunks": 2,
+      "mass": 120,
+      "drag": 2.75,
+      "heat dissipation": 0.79,
+      "fuel capacity": 300,
+      "cargo space": 5,
+      "outfit space": 212,
+      "weapon capacity": 90,
+      "engine capacity": 80,
+      "multimodal armor": 1,
+      "hull repair rate": 0.3,
+      "hull energy": 0.33,
+      "hull heat": 0.33,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Successors have limited experience in making warships this small, and while their attempt at an interceptor is durable and sports a surprising amount of firepower for a ship of its size, it is also plagued with power and propulsion issues, as most of their standard technology is either too large or not powerful enough to yield effective combat performance at this scale. The result is a ship that ambitious pilots call a challenge and prudent captains call a deathtrap, but that continues to see use as a patrol and escort vessel because of its speed and heavy armament. \tThe Stolsaqra also has the distinction of being the only purpose-built warship manufactured by the High Houses that is made available to the general public, albeit with significantly downgraded systems compared to the military-exclusive model.",
+    "_internalId": "official-game/endless-sky::Stolsaqra",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "fe53d305f004",
+    "variant": "Stolsaqra (Fajet Coilguns)",
+    "baseShip": "Stolsaqra",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "official-game/endless-sky": {
+        "Successor": true,
+        "People's Houses": true,
+        "People's Houses (Hostile)": true
+      },
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Syndicate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chyyra-Osolaa",
+          "Kella-Uoasa",
+          "Luue-Saqru",
+          "Maspa-Raaqa"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Maspa-Sado"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Aqra\" Inductive Reverser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Thruster": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Byiaa\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Fajet\" Coilgun": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "\"Nejet\" Coilgun": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "1-\"Uurau\" Betavoltaic Cell": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "3-\"Kaska\" Betavoltaic Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Stolsaqra (Nejet Coilguns)",
+    "engines": [
+      {
+        "x": -8,
+        "y": 35
+      },
+      {
+        "x": 8,
+        "y": 35
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 15,
+        "y": -3,
+        "zoom": 0.8,
+        "over": true
+      },
+      {
+        "x": -15,
+        "y": -3,
+        "zoom": 0.8,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 4,
+        "y": -41,
+        "zoom": 0.4,
+        "over": true,
+        "left": true,
+        "angle": 270
+      },
+      {
+        "x": -4,
+        "y": -41,
+        "zoom": 0.4,
+        "over": true,
+        "right": true,
+        "angle": 90
+      },
+      {
+        "x": 12,
+        "y": 33,
+        "zoom": 0.4,
+        "over": true,
+        "right": true,
+        "angle": 270
+      },
+      {
+        "x": -12,
+        "y": 33,
+        "zoom": 0.4,
+        "over": true,
+        "left": true,
+        "angle": 90
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -40,
+        "gun": "Successor Pulse Laser"
+      },
+      {
+        "x": -10.5,
+        "y": -20,
+        "gun": "Successor Pulse Laser"
+      },
+      {
+        "x": 10.5,
+        "y": -20,
+        "gun": "Successor Pulse Laser"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Stolsaqran",
+    "sprite": "ship/stolsaqra",
+    "thumbnail": "thumbnail/stolsaqra",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Interceptor",
+      "cost": 450000,
+      "shields": 850,
+      "hull": 6100,
+      "required crew": 1,
+      "bunks": 2,
+      "mass": 120,
+      "drag": 2.75,
+      "heat dissipation": 0.79,
+      "fuel capacity": 300,
+      "cargo space": 5,
+      "outfit space": 212,
+      "weapon capacity": 90,
+      "engine capacity": 80,
+      "multimodal armor": 1,
+      "hull repair rate": 0.3,
+      "hull energy": 0.33,
+      "hull heat": 0.33,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Successors have limited experience in making warships this small, and while their attempt at an interceptor is durable and sports a surprising amount of firepower for a ship of its size, it is also plagued with power and propulsion issues, as most of their standard technology is either too large or not powerful enough to yield effective combat performance at this scale. The result is a ship that ambitious pilots call a challenge and prudent captains call a deathtrap, but that continues to see use as a patrol and escort vessel because of its speed and heavy armament. \tThe Stolsaqra also has the distinction of being the only purpose-built warship manufactured by the High Houses that is made available to the general public, albeit with significantly downgraded systems compared to the military-exclusive model.",
+    "_internalId": "official-game/endless-sky::Stolsaqra",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "fe53d305f004",
+    "variant": "Stolsaqra (Nejet Coilguns)",
+    "baseShip": "Stolsaqra",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "official-game/endless-sky": {
+        "Successor": true,
+        "People's Houses": true,
+        "People's Houses (Hostile)": true
+      },
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Syndicate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chyyra-Osolaa",
+          "Kella-Uoasa",
+          "Luue-Saqru",
+          "Maspa-Raaqa"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Maspa-Sado"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Aqra\" Inductive Reverser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Thruster": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Byiaa\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Fajet\" Coilgun": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "\"Nejet\" Coilgun": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "1-\"Uurau\" Betavoltaic Cell": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "3-\"Kaska\" Betavoltaic Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Myaede (Nefa Coilguns)",
+    "engines": [
+      {
+        "x": -40,
+        "y": 10
+      },
+      {
+        "x": 40,
+        "y": 10
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -40,
+        "y": -28,
+        "over": true
+      },
+      {
+        "x": 40,
+        "y": -28,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 20,
+        "y": -50,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 270
+      },
+      {
+        "x": -20,
+        "y": -50,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 90
+      },
+      {
+        "x": 13,
+        "y": 54,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 270
+      },
+      {
+        "x": -13,
+        "y": 54,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 90
+      }
+    ],
+    "guns": [
+      {
+        "x": -3,
+        "y": -60,
+        "gun": ""
+      },
+      {
+        "x": 3,
+        "y": -60,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -33,
+        "y": -11,
+        "turret": "Pulse Laser Turret"
+      },
+      {
+        "x": 33,
+        "y": -11,
+        "turret": "Pulse Laser Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Myaeden",
+    "sprite": "ship/myaede",
+    "thumbnail": "thumbnail/myaede",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Light Freighter",
+      "cost": 3250000,
+      "shields": 1500,
+      "hull": 13000,
+      "required crew": 6,
+      "bunks": 20,
+      "mass": 500,
+      "drag": 7.1,
+      "heat dissipation": 0.62,
+      "fuel capacity": 500,
+      "cargo space": 125,
+      "outfit space": 275,
+      "weapon capacity": 125,
+      "engine capacity": 130,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Myaede is neither elegant nor fast, but it has remained the mainstay of Successor commerce since before the collapse of the old empire over a thousand years ago, boasting a spacious cargo hold, heavy armor, and a flexible enough weapons layout to let it fight back in a pinch. Much like the grand heirlooms of the High Houses, a familial Myaede is often passed down through the lineage of spacefaring low-born Successors, and many of the pilots flying these first took the helm as children under a grandparent's watchful gaze.",
+    "_internalId": "official-game/endless-sky::Myaede",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "b1ea3daa3f3f",
+    "variant": "Myaede (Nefa Coilguns)",
+    "baseShip": "Myaede",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "official-game/endless-sky": {
+        "Successor": true
+      },
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Syndicate": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Chyyra-Osolaa",
+          "Kella-Uoasa",
+          "Luue-Saqru",
+          "Maspa-Raaqa"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Maspa-Sado"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Aqra\" Inductive Reverser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Chyyra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Chyyra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Ej\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Nefa\" Coilgun Turret": {
+        "count": 2,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "3-\"Kaska\" Betavoltaic Cell": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "OC-\"Mavra\" Betavoltaic Cell": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       }
