@@ -11,6 +11,7 @@
 //  2. Load AFTER the existing scripts in shipBuilder.html:
 //         <script src="../JavaScript/weaponStats.js"></script>
 //         <script src="../JavaScript/computedStats.js"></script>
+//         <script src="../JavaScript/attributeSections.js"></script>
 //         <script src="../JavaScript/shipBuilderStats.js"></script>
 //
 //  3. Add ONE call at the very END of the DOMContentLoaded block:
@@ -18,14 +19,18 @@
 //
 //  DESIGN PHILOSOPHY
 //  ─────────────────────────────────────────────────────────────────────────────
-//  Zero hardcoded attribute names. All grouping is driven by substring matching
-//  against the keys in window.attrDefs.attributes. Each named tab section is
-//  defined only by a set of keyword tokens — any attribute key that contains
-//  one of those tokens lands in that section (case-insensitive).
+//  Section/tab grouping is delegated to the shared AttributeSections module
+//  (window.AttributeSections), so this panel groups attributes identically
+//  to CompareDisplay.js and AttributeDisplay.js. Each tab below names the
+//  canonical section(s) (from AttributeSections.SECTION_ORDER) it draws
+//  from — AttributeSections.classify() decides membership. Where a tab
+//  splits a canonical section into finer visual sub-cards (e.g. "Shields &
+//  Hull" → separate Shields and Hull cards), `subFilter` is a purely
+//  COSMETIC narrowing of an already-resolved set of keys — it never
+//  re-decides which section/tab an attribute belongs to.
 //
-//  Values are allowed to appear in multiple sections (by design).
-//
-//  "Other"    tab = attributes NOT matched by any keyword group.
+//  "Other"      tab = attributes whose canonical section isn't referenced
+//                      by any named tab below.
 //  "Everything" tab = ALL attributes (plus weapon DPS) with no filtering.
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -46,19 +51,6 @@ const SBS = (() => {
 
     // ─────────────────────────────────────────────────────────────────────────
     //  TAB DEFINITIONS
-    //
-    //  Each tab (except "other" and "everything") declares:
-    //    sections: [ { title, tokens: [string, ...] }, ... ]
-    //
-    //  A token is a lowercase substring. Any attribute key that contains ANY of
-    //  a section's tokens is shown under that section.  Tokens are matched
-    //  against the full lowercased key, so "shield" matches "shield generation",
-    //  "shield energy", "cloaking shields", etc.
-    //
-    //  A key can appear in multiple sections — that's intentional.
-    //
-    //  The set of ALL tokens across ALL named tabs forms _coveredTokens. Any key
-    //  NOT containing any covered token lands in "Other".
     // ─────────────────────────────────────────────────────────────────────────
 
     const TAB_DEFS = [
@@ -66,79 +58,79 @@ const SBS = (() => {
             id: 'combat',
             label: '🛡 Combat',
             sections: [
-                { title: '🛡 Shields',            tokens: ['shield'] },
-                { title: '🔧 Hull',               tokens: ['hull'] },
-                { title: '🔥 Heat & Cooling',     tokens: ['heat', 'cooling', 'temperature'] },
-                { title: '⚡ Damage Protections', tokens: ['protection'] },
-                { title: '🧪 Status Resistances', tokens: ['resistance'] },
-                { title: '⏱ Regen Delays',        tokens: ['delay'] },
-                { title: '🎯 Threshold',          tokens: ['threshold'] },
+                { title: '🛡 Shields',            canonical: ['Shields & Hull'], subFilter: /shield/i },
+                { title: '🔧 Hull',               canonical: ['Shields & Hull'], subFilter: /hull/i },
+                { title: '🔥 Heat & Cooling',     canonical: ['Energy'], subFilter: /heat|cool|temperature/i },
+                { title: '⚡ Damage Protections', canonical: ['Protection'] },
+                { title: '🧪 Status Resistances', canonical: ['Resistance'] },
+                { title: '⏱ Regen Delays',        canonical: ['Shields & Hull'], subFilter: /delay/i },
+                { title: '🎯 Threshold',          canonical: ['Shields & Hull'], subFilter: /threshold/i },
             ],
         },
         {
             id: 'movement',
             label: '🚀 Movement',
             sections: [
-                { title: '⚖ Mass & Inertia',   tokens: ['mass', 'inertia', 'drag'] },
-                { title: '🔹 Thrust',            tokens: ['thrust', 'thrusting'] },
-                { title: '🔁 Reverse Thrust',    tokens: ['reverse'] },
-                { title: '🔥 Afterburner',       tokens: ['afterburner'] },
-                { title: '↪ Turning',            tokens: ['turn', 'turning'] },
+                { title: '⚖ Mass & Inertia',   canonical: ['General', 'Engines'], subFilter: /mass|drag|inertia/i },
+                { title: '🔹 Thrust',            canonical: ['Engines'], subFilter: /thrust/i },
+                { title: '🔁 Reverse Thrust',    canonical: ['Engines'], subFilter: /reverse/i },
+                { title: '🔥 Afterburner',       canonical: ['Engines'], subFilter: /afterburner/i },
+                { title: '↪ Turning',            canonical: ['Engines'], subFilter: /turn/i },
             ],
         },
         {
             id: 'power',
             label: '⚡ Power',
             sections: [
-                { title: '⚡ Energy',   tokens: ['energy'] },
-                { title: '⛽ Fuel',     tokens: ['fuel'] },
-                { title: '☀ Solar',    tokens: ['solar'] },
-                { title: '🌀 Ramscoop', tokens: ['ramscoop'] },
-                { title: '🔥 Heat',    tokens: ['heat', 'cooling', 'temperature'] },
+                { title: '⚡ Energy',   canonical: ['Energy'], subFilter: /(^|\s)energy(\s|$)/i },
+                { title: '⛽ Fuel',     canonical: ['Energy'], subFilter: /fuel/i },
+                { title: '☀ Solar',    canonical: ['Energy'], subFilter: /solar/i },
+                { title: '🌀 Ramscoop', canonical: ['Energy'], subFilter: /ramscoop/i },
+                { title: '🔥 Heat',    canonical: ['Energy'], subFilter: /heat|cool|temperature/i },
             ],
         },
         {
             id: 'weapons',
             label: '🔫 Weapons',
-            // weapon tab uses custom renderer — sections here only for capacity
+            // weapon tab uses custom renderer (_tabWeapons) — sections here
+            // are only used for the Capacity card; see capSec below.
             sections: [
-                { title: '📦 Capacity',       tokens: ['weapon capacity', 'engine capacity', 'outfit space', 'gun port', 'turret'] },
-                { title: '💥 Damage & Firing', tokens: ['damage', 'firing'] },
-                { title: '🎯 Tracking',        tokens: ['tracking'] },
-                { title: '💥 Piercing',        tokens: ['piercing'] },
-                { title: '🔧 Anti-Missile',    tokens: ['anti-missile'] },
+                { title: '📦 Capacity',        canonical: ['Cargo', 'Engines', 'Hardpoints'], subFilter: /capacity|outfit space|gun port|turret/i },
+                { title: '💥 Damage & Firing', canonical: ['Weapon DPS'], subFilter: /damage|firing/i },
+                { title: '🎯 Tracking',        canonical: ['Weapon DPS'], subFilter: /tracking/i },
+                { title: '💥 Piercing',        canonical: ['Weapon DPS'], subFilter: /piercing/i },
+                { title: '🔧 Anti-Missile',    canonical: ['Weapon DPS'], subFilter: /anti-missile/i },
             ],
         },
         {
             id: 'crew',
             label: '👤 Misc',
             sections: [
-                { title: '👥 Crew',        tokens: ['crew'] },
-                { title: '📦 Cargo',       tokens: ['cargo'] },
-                { title: '📦 Capacity',    tokens: ['outfit space', 'engine capacity', 'weapon capacity', 'gun port', 'turret mount', 'bunks'] },
-                { title: '🛸 Cloaking',    tokens: ['cloak'] },
-                { title: '🧭 Navigation',  tokens: ['jump', 'hyperdrive', 'scram drive', 'jump drive', 'nav'] },
-                { title: '🔭 Scanning',    tokens: ['scan'] },
+                { title: '👥 Crew',        canonical: ['Crew'] },
+                { title: '📦 Cargo',       canonical: ['Cargo'], subFilter: /cargo/i },
+                { title: '📦 Capacity',    canonical: ['Cargo', 'Engines', 'Hardpoints', 'Crew'], subFilter: /capacity|outfit space|gun port|turret|bunks/i },
+                { title: '🛸 Cloaking',    canonical: ['Cloaking'] },
+                { title: '🧭 Navigation',  canonical: ['Jump'] },
+                { title: '🔭 Scanning',    canonical: ['Scanning'] },
             ],
         },
     ];
 
-    // Build a flat set of ALL tokens used by named tabs (for "Other" exclusion)
-    const _allNamedTokens = (() => {
+    // Every canonical section referenced by any tab above — used to decide
+    // what counts as "Other" (i.e. not shown under any named tab).
+    const _coveredCanonicalSections = (() => {
         const set = new Set();
         for (const tab of TAB_DEFS)
             for (const sec of tab.sections)
-                for (const tok of sec.tokens)
-                    set.add(tok.toLowerCase());
+                for (const c of sec.canonical)
+                    set.add(c);
         return set;
     })();
 
-    // Returns true if a key is "covered" by the named tabs
-    function _isCovered(key) {
-        const lk = key.toLowerCase();
-        for (const tok of _allNamedTokens)
-            if (lk.includes(tok)) return true;
-        return false;
+    // Returns true if a key's canonical section (per AttributeSections) is
+    // covered by a named tab.
+    function _isCovered(attrDefs, key) {
+        return _coveredCanonicalSections.has(window.AttributeSections.classify(attrDefs, key));
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -413,32 +405,23 @@ const SBS = (() => {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  GENERIC KEYWORD-GROUPED TAB RENDERER
+    //  GENERIC CANONICAL-SECTION TAB RENDERER
     //
-    //  For each section in the tabDef, collect every attr key from eff that
-    //  contains at least one of the section's tokens (case-insensitive match on
-    //  the full lowercased key).  Apply displayMultiplier from attrDefs if
-    //  present.  Show the sum of all matched values with their displayUnit.
+    //  For each visual sub-card in the tabDef, collect every attr key from
+    //  eff whose AttributeSections.classify() result is one of the card's
+    //  `canonical` sections, then (optionally) narrow that set with a purely
+    //  cosmetic `subFilter` regex — e.g. splitting "Shields & Hull" into a
+    //  Shields card and a Hull card. Membership itself is never re-decided
+    //  here; it's always AttributeSections.classify()'s call.
     // ─────────────────────────────────────────────────────────────────────────
-
-    // Tokens that identify a section as heat-related — derived heat cards are
-    // appended to any section whose tokens overlap with this set.
-    const _HEAT_SECTION_TOKENS = new Set(['heat', 'cooling', 'temperature']);
 
     function _tabKeyword(eff, ad, tabDef, heatDerived) {
         const attrMeta = ad?.attributes || {};
         let html = '';
 
         for (const sec of tabDef.sections) {
-            const lowerTokens = sec.tokens.map(t => t.toLowerCase());
-
-            // Collect keys that match any token
-            const matchedKeys = Object.keys(eff).filter(key => {
-                const lk = key.toLowerCase();
-                return lowerTokens.some(tok => lk.includes(tok));
-            });
-
-            // Sort matched keys alphabetically
+            let matchedKeys = window.AttributeSections.keysInSections(ad, eff, sec.canonical);
+            if (sec.subFilter) matchedKeys = matchedKeys.filter(k => sec.subFilter.test(k));
             matchedKeys.sort((a, b) => a.localeCompare(b));
 
             let cards = '';
@@ -452,8 +435,9 @@ const SBS = (() => {
                 cards += _card(_capWords(key), val, unit);
             }
 
-            // Inject derived heat values into any heat/cooling/temperature section
-            const isHeatSection = lowerTokens.some(tok => _HEAT_SECTION_TOKENS.has(tok));
+            // Inject derived heat values into any heat/cooling/temperature card
+            const isHeatSection = sec.canonical.includes('Energy') &&
+                sec.subFilter && /heat|cool/i.test(sec.subFilter.source);
             if (isHeatSection && heatDerived) {
                 if (heatDerived.totalHeatCapacity != null)
                     cards += _card('Total Heat Capacity (calc)', heatDerived.totalHeatCapacity, '', true);
@@ -472,7 +456,9 @@ const SBS = (() => {
     //
     //  Three tiers of data:
     //
-    //  1. Ship-level capacity cards (keyword-matched from eff, same as before).
+    //  1. Ship-level capacity cards — same canonical section + subFilter as
+    //     the "weapons" tab definition above (capSec below), so they stay in
+    //     sync automatically if that definition ever changes.
     //
     //  2. Fleet DPS summary from WeaponStats (computed totals).
     //
@@ -604,11 +590,13 @@ const SBS = (() => {
     function _tabWeapons(wData, eff, ad) {
         const attrMeta = ad?.attributes || {};
 
-        // ── Capacity section (keyword-matched from eff) ────────────────────
-        const capTokens = TAB_DEFS.find(t => t.id === 'weapons').sections[0].tokens;
-        const capKeys = Object.keys(eff)
-            .filter(key => capTokens.some(tok => key.toLowerCase().includes(tok)))
-            .sort();
+        // ── Capacity section — same canonical sections + subFilter used by
+        // the "weapons" tab definition above, so this stays in sync
+        // automatically if that definition changes.
+        const capSec = TAB_DEFS.find(t => t.id === 'weapons').sections[0];
+        let capKeys = window.AttributeSections.keysInSections(ad, eff, capSec.canonical);
+        if (capSec.subFilter) capKeys = capKeys.filter(k => capSec.subFilter.test(k));
+        capKeys.sort();
         let capCards = '';
         for (const key of capKeys) {
             const raw = eff[key];
@@ -657,16 +645,17 @@ const SBS = (() => {
     // ─────────────────────────────────────────────────────────────────────────
     //  TAB: OTHER
     //
-    //  Shows every key in eff that does NOT contain any of the named-tab tokens.
-    //  Applies displayMultiplier + displayUnit from attrDefs.
-    //  Also shows string attributes from the base ship that don't match any token.
+    //  Shows every key in eff whose canonical section (per AttributeSections)
+    //  isn't referenced by any named tab. Applies displayMultiplier +
+    //  displayUnit from attrDefs. Also shows string attributes from the base
+    //  ship that don't match any covered section.
     // ─────────────────────────────────────────────────────────────────────────
 
     function _tabOther(eff, ad, ship) {
         const attrMeta = ad?.attributes || {};
 
         const uncoveredKeys = Object.keys(eff)
-            .filter(key => !_isCovered(key) && !key.startsWith('_'))
+            .filter(key => !_isCovered(ad, key) && !key.startsWith('_'))
             .sort();
 
         let cards = '';
@@ -680,7 +669,7 @@ const SBS = (() => {
 
         // String attrs from base ship not covered
         const strEntries = Object.entries(ship.attributes || {})
-            .filter(([key, val]) => typeof val === 'string' && val && !_isCovered(key))
+            .filter(([key, val]) => typeof val === 'string' && val && !_isCovered(ad, key))
             .sort((a, b) => a[0].localeCompare(b[0]));
 
         for (const [key, val] of strEntries)
