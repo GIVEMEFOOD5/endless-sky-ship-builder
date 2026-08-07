@@ -21,6 +21,14 @@
 //   For ships, each section first shows base-only values (ship attrs alone).
 //   If any values differ once outfits are included, a "(with outfits)" sub-section
 //   appears immediately after showing only the changed/new rows.
+//
+// Section grouping (which attribute — raw OR computed — lands in which
+// named section, e.g. "Shields & Hull", "Energy", "Jump"...) is delegated
+// entirely to the shared AttributeSections.js module (window.AttributeSections),
+// so this panel groups attributes identically to AttributeDisplay.js and
+// shipBuilderStats.js, and a computed stat (e.g. "_fn_MaxShields") lands
+// next to the raw attributes it's related to instead of a generic "Derived
+// Stats" catch-all. Load attributeSections.js BEFORE this file.
 // ─────────────────────────────────────────────────────────────────────────────
 
 window.CompareDisplay = (() => {
@@ -61,32 +69,14 @@ window.CompareDisplay = (() => {
         return numerator < 0 ? -mag : mag;
     }
 
-    const SECTION_ORDER = [
-        'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
-        'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
-        'Hardpoints', 'Heat (derived)', 'Weapon DPS', 'Weapon Efficiency',
-        'Attribute Efficiency', 'Ammo Consumption', 'Derived Stats', 'Other',
-    ];
-
-    const SECTION_PATTERNS = [
-        [/^(shields?|hull|shield generation|hull repair|shield energy|hull energy|shield heat|hull heat|shield fuel|hull fuel|shield delay|depleted|repair delay|disabled repair|threshold|absolute threshold|hull multiplier|shield multiplier)/, 'Shields & Hull'],
-        [/^(energy|solar|fuel|cooling|ramscoop|heat generation|heat capacity|heat dissipation)/, 'Energy'],
-        [/^(thrust|turn|reverse|afterburner|engine)/, 'Engines'],
-        [/^(jump|hyperdrive|scram|warp)/, 'Jump'],
-        [/^(cargo|outfit space|weapon capacity|drone|fighter|mass reduction)/, 'Cargo'],
-        [/^(required crew|bunks|crew equivalent|extra mass)/, 'Crew'],
-        [/^(cargo scan|outfit scan|tactical scan|asteroid scan|scan interference)/, 'Scanning'],
-        [/^(cloak)/, 'Cloaking'],
-        [/resistance$/, 'Resistance'],
-        [/protection$|damage reduction/, 'Protection'],
-        [/^(drag|mass|cost|category|automaton|capture|nanobot|gaslining|atmosphere|spinal|remnant)/, 'General'],
-    ];
-
-    function _inferSection(key) {
-        const k = key.toLowerCase();
-        for (const [re, s] of SECTION_PATTERNS) if (re.test(k)) return s;
-        return 'Other';
-    }
+    // Canonical section order + classification are delegated to the shared
+    // AttributeSections module so every panel groups attributes identically.
+    // SECTION_ORDER is kept as a local *copy* (not a live reference) because
+    // this file pushes ad-hoc per-item section names onto it at render time
+    // (e.g. "Outfit: Some Name", "Weapon: Some Gun") — those must stay local
+    // to this render pass, not leak into the shared canonical order used by
+    // other files.
+    const SECTION_ORDER = window.AttributeSections.SECTION_ORDER.slice();
 
     // ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -107,21 +97,7 @@ window.CompareDisplay = (() => {
     }
 
     function _getSection(key) {
-        const rec = _getAttrRecord(key);
-        if (rec) {
-            const fns = rec.usedInShipFunctions || [];
-            if (fns.some(f => /MaxVelocity|Acceleration|TurnRate|Drag|InertialMass|Reverse/.test(f))) {
-                const k = key.toLowerCase();
-                if (/thrust|turn|reverse|afterburner|engine/.test(k)) return 'Engines';
-                if (/drag|inertia/.test(k)) return 'General';
-            }
-            if (fns.some(f => /MaxShields|MaxHull|MinimumHull/.test(f))) return 'Shields & Hull';
-            if (fns.some(f => /IdleHeat|CoolingEfficiency|HeatDissipation|MaximumHeat/.test(f))) return 'Energy';
-            if (fns.some(f => /CloakingSpeed/.test(f))) return 'Cloaking';
-            if (fns.some(f => /Jump|Nav/.test(f))) return 'Jump';
-            if (rec.isWeaponStat) return 'Weapon DPS';
-        }
-        return _inferSection(key);
+        return window.AttributeSections.classify(_attrDefs(), key);
     }
 
     function _getDisplayUnit(key)       { return _getAttrRecord(key)?.displayUnit       ?? ''; }
@@ -1190,9 +1166,11 @@ window.CompareDisplay = (() => {
 
                     seen.add(k);
 
-                    let section = 'Derived Stats';
-                    if (k.startsWith('_ws_'))                                 section = 'Weapon DPS';
-                    else if (k === '_outfitMass' || k === '_totalOutfitCost') section = 'General';
+                    // Computed stats route to the same canonical section as
+                    // the raw attributes that drive them (e.g. "_fn_MaxShields"
+                    // lands under "Shields & Hull") instead of a generic
+                    // "Derived Stats" pile — see AttributeSections.classifyComputedKey.
+                    const section = window.AttributeSections.classifyComputedKey(_attrDefs(), k);
 
                     let display = v;
                     let unit    = '';
