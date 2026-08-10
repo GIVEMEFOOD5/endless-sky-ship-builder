@@ -16,14 +16,14 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-01T02:31:09.518Z",
+    "generatedAt": "2026-08-10T13:06:45.331Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-01T02:31:09.392Z",
+      "scannedAt": "2026-08-10T13:06:45.210Z",
       "totalCandidatesScanned": 462,
       "relevantFilesFound": 31,
       "relevantFilePaths": [
@@ -37,20 +37,20 @@
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
         "source/Government.cpp",
-        "source/HailPanel.cpp",
         "source/Hardpoint.cpp",
+        "source/HailPanel.cpp",
         "source/HiringPanel.cpp",
         "source/LocationFilter.cpp",
-        "source/MainPanel.cpp",
         "source/MapOutfitterPanel.cpp",
+        "source/MainPanel.cpp",
         "source/MapPanel.cpp",
         "source/MapShipyardPanel.cpp",
         "source/Minable.cpp",
         "source/OutfitterPanel.cpp",
         "source/Planet.cpp",
         "source/PlanetPanel.cpp",
-        "source/PlayerInfoPanel.cpp",
         "source/PlayerInfo.cpp",
+        "source/PlayerInfoPanel.cpp",
         "source/Politics.cpp",
         "source/PrintData.cpp",
         "source/Projectile.cpp",
@@ -92,10 +92,21 @@
       ],
       "note": "discovery scans the ENTIRE source/ tree (not a hardcoded list) for attribute-access patterns, caches results, and re-scans automatically after 7 days or when --rescan is passed. Files already covered by a bespoke parser (see SEED_PATHS) are excluded from this generic pass."
     },
+    "movementSystem": {
+      "seedFunctions": [
+        "InertialMass",
+        "Drag",
+        "DragForce"
+      ],
+      "functionCount": 13,
+      "attributeCount": 35,
+      "note": "isMovementRelevant on each attribute (below) is derived structurally from the ship-function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem at the bottom of this file for the full function/attribute lists and rationale."
+    },
     "notes": [
       "Zero hardcoding of WHICH files matter: discovery scans every .cpp/.h under source/ and keeps whatever actually reads/writes attributes, not a maintained list.",
       "The dozen seed files still use bespoke, hand-tuned extraction (SCALE_LABELS, BOOLEAN_ATTRIBUTES, VALUE_NAMES, MINIMUM_OVERRIDES) because only targeted regexes can read those exact formats.",
       "Everything else is parsed generically via extractAllClassFunctionBodies — any class, any file.",
+      "isMovementRelevant is derived from the ship-function call graph, not a hardcoded attribute list — see movementSystem below and the header comment in this file.",
       "damageTypeDetails: shieldInteraction parsed from Ship.cpp TakeDamage().",
       "Descriptor lookup uses damageKey base, not label, fixing Ion/Ionization mismatch.",
       "Status decay: stat = max(0, 0.99*stat - min(R, 0.99*stat)) each frame.",
@@ -161,6 +172,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Shield damage dealt to the ship per second when firing this afterburner."
     },
     "afterburner hull": {
@@ -174,6 +186,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Hull damage dealt to the ship per second when firing this afterburner."
     },
     "afterburner energy": {
@@ -188,6 +201,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Energy consumed per second when firing this afterburner.",
       "usedInOtherSystems": [
         "AI::ShouldUseAfterburner"
@@ -204,6 +218,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Fuel consumed per second when firing this afterburner.",
       "usedInOtherSystems": [
         "AI::ShouldUseAfterburner"
@@ -221,6 +236,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Heat created per second when firing this afterburner.",
       "usedInOtherSystems": [
         "AI::ShouldUseAfterburner"
@@ -1211,6 +1227,7 @@
         "FlightCheck",
         "TurnRate"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Turning force produced by engines. The more mass a ship has, the more turning force is needed to achieve the same turn rate."
     },
     "turning shields": {
@@ -1224,6 +1241,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Shield damage dealt to the ship per second when turning."
     },
     "turning hull": {
@@ -1237,6 +1255,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Hull damage dealt to the ship per second when turning."
     },
     "turning energy": {
@@ -1253,6 +1272,7 @@
         "IsIonized",
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Energy consumed per second when turning."
     },
     "turning fuel": {
@@ -1266,6 +1286,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Fuel consumed per second when turning."
     },
     "turning heat": {
@@ -1281,6 +1302,7 @@
         "FlightCheck",
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Heat generated per second when turning."
     },
     "thrust": {
@@ -1295,6 +1317,7 @@
         "Acceleration",
         "MaxVelocity"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Thrust produced by engines. Higher thrust increases a ship's acceleration and top speed. The more mass a ship has, the more thrust is needed to achieve the same acceleration."
     },
     "reverse thrust": {
@@ -1309,6 +1332,7 @@
         "MaxReverseVelocity",
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Reverse thrust generated by engines. Reverse thrust allows a ship to slow down without needing to turn around.",
       "usedInOtherSystems": [
         "AI::Stop",
@@ -1331,6 +1355,7 @@
         "MaxVelocity",
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Thrust produced by this afterburner.",
       "usedInOtherSystems": [
         "AI::ShouldUseAfterburner"
@@ -1347,6 +1372,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated shield discharging per second when firing this afterburner."
     },
     "afterburner corrosion": {
@@ -1360,6 +1386,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated hull corrosion per second when firing this afterburner."
     },
     "afterburner ion": {
@@ -1373,6 +1400,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated ionization per second when firing this afterburner."
     },
     "afterburner scramble": {
@@ -1384,6 +1412,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated scrambling per second when firing this afterburner."
     },
     "afterburner leakage": {
@@ -1397,6 +1426,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated leaking fuel per second when firing this afterburner."
     },
     "afterburner burn": {
@@ -1410,6 +1440,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated exothermic interactions per second when firing this afterburner."
     },
     "afterburner slowing": {
@@ -1423,6 +1454,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated engine interference per second when firing this afterburner."
     },
     "afterburner disruption": {
@@ -1436,6 +1468,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated shield interference per second when firing this afterburner."
     },
     "reverse thrusting discharge": {
@@ -1605,6 +1638,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated shield discharging per second when turning."
     },
     "turning corrosion": {
@@ -1618,6 +1652,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated hull corrosion per second when turning."
     },
     "turning ion": {
@@ -1631,6 +1666,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated ionization per second when turning."
     },
     "turning scramble": {
@@ -1642,6 +1678,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated scrambling per second when turning."
     },
     "turning leakage": {
@@ -1655,6 +1692,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated leaking fuel per second when turning."
     },
     "turning burn": {
@@ -1668,6 +1706,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated exothermic interactions per second when turning."
     },
     "turning slowing": {
@@ -1681,6 +1720,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated engine interference per second when turning."
     },
     "turning disruption": {
@@ -1694,6 +1734,7 @@
       "usedInShipFunctions": [
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Accumulated shield interference per second when turning."
     },
     "ion resistance": {
@@ -2068,6 +2109,7 @@
         "ReverseAcceleration",
         "DoMovement"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Modifies the ship's acceleration by the given factor."
     },
     "turn multiplier": {
@@ -2083,6 +2125,7 @@
       "usedInShipFunctions": [
         "TurnRate"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Modifies the ship's rate of turn by the given factor."
     },
     "turret turn multiplier": {
@@ -2188,6 +2231,7 @@
         "Drag",
         "DragForce"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Reduces drag. Increases the top speed of a ship by the given factor."
     },
     "energy protection": {
@@ -2289,6 +2333,7 @@
       "usedInShipFunctions": [
         "InertialMass"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Reduces effective ship mass. Increases how quickly a ship accelerates by the given factor."
     },
     "ion protection": {
@@ -3224,6 +3269,7 @@
         "Drag",
         "DragForce"
       ],
+      "isMovementRelevant": true,
       "tooltip": "Limits the maximum speed of a ship."
     },
     "dropoff modifier": {
@@ -8961,46 +9007,6 @@
         ]
       }
     },
-    "MainPanel": {
-      "ShowScanDialog": {
-        "returnType": "void",
-        "params": "const ShipEvent &event",
-        "isConst": false,
-        "sourceFile": "source/MainPanel.cpp",
-        "attributesRead": [
-          "inscrutable"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "ShowHailPanel": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": false,
-        "sourceFile": "source/MainPanel.cpp",
-        "attributesRead": [
-          "cloaked communication"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "ShowHelp": {
-        "returnType": "bool",
-        "params": "bool force",
-        "isConst": false,
-        "sourceFile": "source/MainPanel.cpp",
-        "attributesRead": [
-          "asteroid scan power"
-        ],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "hasValidHelp",
-            "formula": "hasValidHelp"
-          }
-        ]
-      }
-    },
     "MapOutfitterPanel": {
       "SystemValue": {
         "returnType": "double",
@@ -9051,6 +9057,46 @@
           {
             "rawReturn": "bestItem",
             "formula": "-1"
+          }
+        ]
+      }
+    },
+    "MainPanel": {
+      "ShowScanDialog": {
+        "returnType": "void",
+        "params": "const ShipEvent &event",
+        "isConst": false,
+        "sourceFile": "source/MainPanel.cpp",
+        "attributesRead": [
+          "inscrutable"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "ShowHailPanel": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": false,
+        "sourceFile": "source/MainPanel.cpp",
+        "attributesRead": [
+          "cloaked communication"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "ShowHelp": {
+        "returnType": "bool",
+        "params": "bool force",
+        "isConst": false,
+        "sourceFile": "source/MainPanel.cpp",
+        "attributesRead": [
+          "asteroid scan power"
+        ],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "hasValidHelp",
+            "formula": "hasValidHelp"
           }
         ]
       }
@@ -10179,47 +10225,6 @@
         ],
         "attributesSet": [],
         "formulas": []
-      }
-    },
-    "PlayerInfoPanel": {
-      "Drag": {
-        "returnType": "bool",
-        "params": "double dx, double dy",
-        "isConst": false,
-        "sourceFile": "source/PlayerInfoPanel.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "Hover(hoverPoint + Point(dx, dy))",
-            "formula": "Hover(hoverPoint + Point(dx, dy))"
-          }
-        ]
-      },
-      "DrawFleet": {
-        "returnType": "void",
-        "params": "const Rectangle &bounds",
-        "isConst": false,
-        "sourceFile": "source/PlayerInfoPanel.cpp",
-        "attributesRead": [
-          "fuel capacity"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "Scroll": {
-        "returnType": "bool",
-        "params": "int distance",
-        "isConst": false,
-        "sourceFile": "source/PlayerInfoPanel.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "ScrollAbsolute(panelState.Scroll() + distance)",
-            "formula": "ScrollAbsolute(panelState.Scroll() + distance)"
-          }
-        ]
       }
     },
     "PlayerInfo": {
@@ -11562,6 +11567,47 @@
         ]
       }
     },
+    "PlayerInfoPanel": {
+      "Drag": {
+        "returnType": "bool",
+        "params": "double dx, double dy",
+        "isConst": false,
+        "sourceFile": "source/PlayerInfoPanel.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "Hover(hoverPoint + Point(dx, dy))",
+            "formula": "Hover(hoverPoint + Point(dx, dy))"
+          }
+        ]
+      },
+      "DrawFleet": {
+        "returnType": "void",
+        "params": "const Rectangle &bounds",
+        "isConst": false,
+        "sourceFile": "source/PlayerInfoPanel.cpp",
+        "attributesRead": [
+          "fuel capacity"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "Scroll": {
+        "returnType": "bool",
+        "params": "int distance",
+        "isConst": false,
+        "sourceFile": "source/PlayerInfoPanel.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "ScrollAbsolute(panelState.Scroll() + distance)",
+            "formula": "ScrollAbsolute(panelState.Scroll() + distance)"
+          }
+        ]
+      }
+    },
     "Politics": {
       "IsEnemy": {
         "returnType": "bool",
@@ -12117,6 +12163,70 @@
         ]
       }
     }
+  },
+  "movementSystem": {
+    "seedFunctions": [
+      "InertialMass",
+      "Drag",
+      "DragForce"
+    ],
+    "functions": [
+      "Acceleration",
+      "CrewAcceleration",
+      "CrewTurnRate",
+      "DoMovement",
+      "Drag",
+      "DragForce",
+      "InertialMass",
+      "MaxReverseVelocity",
+      "MaxVelocity",
+      "ReverseAcceleration",
+      "TrueAcceleration",
+      "TrueTurnRate",
+      "TurnRate"
+    ],
+    "attributes": [
+      "acceleration multiplier",
+      "afterburner burn",
+      "afterburner corrosion",
+      "afterburner discharge",
+      "afterburner disruption",
+      "afterburner energy",
+      "afterburner fuel",
+      "afterburner heat",
+      "afterburner hull",
+      "afterburner ion",
+      "afterburner leakage",
+      "afterburner scramble",
+      "afterburner shields",
+      "afterburner slowing",
+      "afterburner thrust",
+      "drag",
+      "drag reduction",
+      "inertia reduction",
+      "reverse thrust",
+      "thrust",
+      "turn",
+      "turn multiplier",
+      "turning burn",
+      "turning corrosion",
+      "turning discharge",
+      "turning disruption",
+      "turning energy",
+      "turning fuel",
+      "turning heat",
+      "turning hull",
+      "turning ion",
+      "turning leakage",
+      "turning scramble",
+      "turning shields",
+      "turning slowing"
+    ],
+    "notes": [
+      "Derived structurally, not from a hardcoded attribute-name list.",
+      "Seeded from InertialMass/Drag/DragForce — the only ship functions that exist purely for motion physics — then expanded to every ship function that calls one of them, directly or transitively, via the real call graph found in each function's own formula text.",
+      "An attribute can be BOTH movement-relevant here AND isWeaponDataKey elsewhere (e.g. \"turn\": ship engine turning-force here, missile/turret turn rate via a separate outfit.weapon.turn path) — both flags are correct simultaneously, for different contexts."
+    ]
   },
   "shipDisplay": {
     "energyHeatTable": [
