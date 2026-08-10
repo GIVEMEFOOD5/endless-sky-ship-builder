@@ -55,6 +55,36 @@
  *  Everything from the previous version (tooltip parsing, damage-type
  *  detail building, status-effect decay modelling, system-aware solar
  *  formulas) is unchanged and still runs exactly as before.
+ *
+ * ─────────────────────────────────────────────────────────────────────────
+ *  NEW: movement-system derivation (zero hardcoded keyword lists)
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ *  Attributes like "turn" are ambiguous by NAME ALONE — the same key is
+ *  used for a ship's engine turning-force AND (in a different struct path,
+ *  outfit.weapon.turn) a missile/turret's turn rate. Rather than maintain
+ *  a hand-picked list of "movement attribute names" (which "turn" would
+ *  break), this pass derives ship-physics relevance structurally:
+ *
+ *    1. Build a call graph between ship functions purely from formula text
+ *       already in shipFunctions (every "FnName()" reference found there
+ *       IS a real call, extracted with zero guessing).
+ *    2. Seed the traversal from InertialMass / Drag / DragForce — three
+ *       functions that exist for exactly one reason in this engine
+ *       (motion physics). Nothing else has any reason to call them.
+ *    3. Any ship function that calls a seed function, directly or
+ *       transitively, is a physics/movement function. Collect every
+ *       attribute referenced (via "[attr]" in its formula) across that
+ *       whole closure.
+ *    4. Tag each such attribute `isMovementRelevant: true` in the
+ *       dictionary — additively, alongside whatever other flags it
+ *       already has (e.g. "turn" keeps isWeaponDataKey: true from its
+ *       missile-turn-rate role AND gains isMovementRelevant: true from
+ *       its ship-engine role — both are correct, for different contexts).
+ *
+ *  The only "seed" is three function names that are structurally
+ *  unambiguous (mass/drag mean nothing except motion) — not a curated
+ *  glossary of movement-sounding words.
  * ─────────────────────────────────────────────────────────────────────────
  */
 
@@ -1113,7 +1143,106 @@ function annotateShipFunctionScales(shipFns, attrs) {
 }
 
 // ---------------------------------------------------------------------------
-// buildAttributeDictionary (unchanged)
+// NEW: deriveMovementSystem(shipFns)
+//
+// See the header comment at the top of this file for the full rationale.
+// Summary: build a call graph purely from formula text already present in
+// shipFns, seed it with the three functions that exist ONLY for motion
+// physics (InertialMass, Drag, DragForce), and take the reverse-reachable
+// closure — every function that calls one of those, directly or through a
+// chain of other ship-function calls. The attributes referenced anywhere
+// in that closure are the ship-movement-relevant attribute set.
+// ---------------------------------------------------------------------------
+
+const MOVEMENT_SEED_FUNCTIONS = ['InertialMass', 'Drag', 'DragForce'];
+
+function _extractFnCalls(text, knownFnNames) {
+  const calls = new Set();
+  if (!text) return calls;
+  const re = /\b([A-Z][A-Za-z0-9_]*)\s*\(\s*\)/g;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    if (knownFnNames.has(m[1])) calls.add(m[1]);
+  }
+  return calls;
+}
+
+function deriveMovementSystem(shipFns) {
+  const fnNames = new Set(Object.keys(shipFns));
+
+  // 1. Build the call graph: fnName -> Set(calleeNames), scanning every
+  //    formula string and every attributeVariable definition for
+  //    "OtherFunction()" references that are themselves known ship
+  //    functions. Nothing here is a hardcoded name — it's pattern-matched
+  //    against the actual set of parsed function names.
+  const callGraph = {};
+  for (const [fnName, fnData] of Object.entries(shipFns)) {
+    const callees = new Set();
+    for (const f of (fnData.formulas || []))
+      for (const c of _extractFnCalls(f.formula, fnNames)) callees.add(c);
+    for (const def of Object.values(fnData.attributeVariables || {}))
+      for (const c of _extractFnCalls(def, fnNames)) callees.add(c);
+    callGraph[fnName] = callees;
+  }
+
+  // 2. Reverse the graph: callee -> Set(callers), so we can walk from a
+  //    seed function to everything that (transitively) calls it.
+  const reverseGraph = {};
+  for (const fnName of fnNames) reverseGraph[fnName] = new Set();
+  for (const [caller, callees] of Object.entries(callGraph))
+    for (const callee of callees)
+      if (reverseGraph[callee]) reverseGraph[callee].add(caller);
+
+  // 3. BFS outward from the seed functions across the reverse graph.
+  const seeds = MOVEMENT_SEED_FUNCTIONS.filter(f => fnNames.has(f));
+  const movementFns = new Set(seeds);
+  const queue = [...seeds];
+  while (queue.length) {
+    const cur = queue.pop();
+    for (const caller of (reverseGraph[cur] || [])) {
+      if (!movementFns.has(caller)) {
+        movementFns.add(caller);
+        queue.push(caller);
+      }
+    }
+  }
+
+  // 4. Collect every attribute referenced anywhere in that closure —
+  //    both from attributesRead (already extracted by the seed-file
+  //    parsers) and by re-scanning formula text directly for "[attr]"
+  //    references, so nothing is missed even if attributesRead happened
+  //    to come back empty for a given function.
+  const movementAttrs = new Set();
+  for (const fnName of movementFns) {
+    const fnData = shipFns[fnName];
+    if (!fnData) continue;
+    for (const a of (fnData.attributesRead || [])) movementAttrs.add(a);
+    for (const f of (fnData.formulas || [])) {
+      const refs = [...(f.formula || '').matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
+      for (const a of refs) movementAttrs.add(a);
+    }
+  }
+
+  return {
+    seedFunctions: seeds,
+    functions: [...movementFns].sort(),
+    attributes: [...movementAttrs].sort(),
+    notes: [
+      'Derived structurally, not from a hardcoded attribute-name list.',
+      'Seeded from InertialMass/Drag/DragForce — the only ship functions ' +
+        'that exist purely for motion physics — then expanded to every ' +
+        'ship function that calls one of them, directly or transitively, ' +
+        'via the real call graph found in each function\'s own formula text.',
+      'An attribute can be BOTH movement-relevant here AND isWeaponDataKey ' +
+        'elsewhere (e.g. "turn": ship engine turning-force here, missile/' +
+        'turret turn rate via a separate outfit.weapon.turn path) — both ' +
+        'flags are correct simultaneously, for different contexts.',
+    ],
+  };
+}
+
+// ---------------------------------------------------------------------------
+// buildAttributeDictionary (unchanged aside from the new movement tagging)
 // ---------------------------------------------------------------------------
 
 function deriveDisplayUnit(multiplier) {
@@ -1191,6 +1320,14 @@ function buildAttributeDictionary(oidData, shipFns, shipDisplay, outfitStacking,
     }
   }
   annotateShipFunctionScales(shipFns, attrs);
+
+  // NEW: tag every attribute the movement-system derivation found, purely
+  // additively — this never removes or overrides any other flag.
+  const movementSystem = deriveMovementSystem(shipFns);
+  for (const key of movementSystem.attributes)
+    ensure(key).isMovementRelevant = true;
+  attrs.__movementSystem = movementSystem; // stashed; pulled out below into result.movementSystem
+
   return attrs;
 }
 
@@ -1355,6 +1492,16 @@ async function parseAttributes(outputDir, cliOpts = {}) {
     statusEffectDecay, damageTypeDetails
   );
 
+  // Pull the stashed movement-system summary out of the attrs object (it
+  // was stored there temporarily so buildAttributeDictionary could tag
+  // attributes without needing an extra return value threaded through
+  // buildAttributeDictionary_withDmgTypes too).
+  const movementSystem = attributes.__movementSystem;
+  delete attributes.__movementSystem;
+  console.log(`  Movement system    ${movementSystem.functions.length} ship functions, ` +
+    `${movementSystem.attributes.length} attributes tagged isMovementRelevant ` +
+    `(seeded from: ${movementSystem.seedFunctions.join(', ')})`);
+
   mergeTooltipsIntoAttributes(attributes, tooltipMap);
   const tipsMatched = Object.values(attributes).filter(a => a.tooltip).length;
   console.log(`  Tooltips merged    ${tipsMatched} / ${Object.keys(attributes).length} attributes matched`);
@@ -1438,12 +1585,22 @@ async function parseAttributes(outputDir, cliOpts = {}) {
           'patterns, caches results, and re-scans automatically after 7 days or when --rescan is passed. ' +
           'Files already covered by a bespoke parser (see SEED_PATHS) are excluded from this generic pass.',
       },
+      movementSystem: {
+        seedFunctions: movementSystem.seedFunctions,
+        functionCount: movementSystem.functions.length,
+        attributeCount: movementSystem.attributes.length,
+        note: 'isMovementRelevant on each attribute (below) is derived structurally from the ship-' +
+          'function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem ' +
+          'at the bottom of this file for the full function/attribute lists and rationale.',
+      },
       notes: [
         'Zero hardcoding of WHICH files matter: discovery scans every .cpp/.h under source/ and ' +
           'keeps whatever actually reads/writes attributes, not a maintained list.',
         'The dozen seed files still use bespoke, hand-tuned extraction (SCALE_LABELS, BOOLEAN_ATTRIBUTES, ' +
           'VALUE_NAMES, MINIMUM_OVERRIDES) because only targeted regexes can read those exact formats.',
         'Everything else is parsed generically via extractAllClassFunctionBodies — any class, any file.',
+        'isMovementRelevant is derived from the ship-function call graph, not a hardcoded attribute list ' +
+          '— see movementSystem below and the header comment in this file.',
         'damageTypeDetails: shieldInteraction parsed from Ship.cpp TakeDamage().',
         'Descriptor lookup uses damageKey base, not label, fixing Ion/Ionization mismatch.',
         'Status decay: stat = max(0, 0.99*stat - min(R, 0.99*stat)) each frame.',
@@ -1457,7 +1614,8 @@ async function parseAttributes(outputDir, cliOpts = {}) {
     attributes,
     tooltips: tooltipsObject,
     shipFunctions: shipFns,
-    otherSystems, // ← NEW: every class/function found by the discovery pass, keyed by class name
+    otherSystems, // ← every class/function found by the discovery pass, keyed by class name
+    movementSystem, // ← NEW: { seedFunctions, functions, attributes, notes }
     shipDisplay: {
       energyHeatTable:  shipDisplay.tableRows,
       labelValuePairs:  shipDisplay.attributeLabels,
@@ -1514,4 +1672,5 @@ if (require.main === module) {
 module.exports = {
   parseAttributes, parseTooltips, mergeTooltipsIntoAttributes,
   discoverRelevantSourceFiles, parseGenericSourceFile, extractAllClassFunctionBodies,
+  deriveMovementSystem,
 };
