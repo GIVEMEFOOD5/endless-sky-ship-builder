@@ -308,7 +308,7 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         for (const [statKey, val] of Object.entries(computed)) {
             const isComputedKey = statKey.startsWith('_derived_') || statKey.startsWith('_fn_')
                                || statKey.startsWith('_total') || statKey.startsWith('_sys_')
-                               || statKey === '_outfitMass';
+                               || statKey.startsWith('_ws_')    || statKey === '_outfitMass';
             if (!isComputedKey) continue;
             if (val == null || (typeof val === 'number' && (isNaN(val) || val === 0))) continue;
 
@@ -333,7 +333,8 @@ function calcDerivedStats(attrDefs, item, pluginId) {
                 continue;
             }
             seen.add(label);
-            results.push({ label, value: fmtNum(displayVal), unit: '', formula: '', isComputedOutfit: true, section });
+            const unit = (statKey.startsWith('_ws_') && statKey.toLowerCase().includes('dps')) ? 'dmg/s' : '';
+            results.push({ label, value: fmtNum(displayVal), unit, formula: '', isComputedOutfit: true, section });
         }
     }
 
@@ -926,6 +927,36 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
             (target[d.section] = target[d.section] || []).push(row);
         }
 
+        // Raw outfit contributions (mass, turn, thrust, jump speed, etc. that
+        // installed outfits add to the ship) are folded into the SAME
+        // per-section "(with outfits)" sub-lists above, instead of a separate
+        // flat "Outfit Contributions" block — each one lands in whichever
+        // canonical section its key classifies to, showing the effective
+        // (base + outfit) total, with the per-outfit breakdown still
+        // available on hover.
+        const contributions = computeOutfitContributions(item, pluginId);
+        for (const [key, info] of Object.entries(contributions).sort((a, b) => a[0].localeCompare(b[0]))) {
+            if (!info.sources.length) continue;
+            const rec     = getAttrRecord(attrDefs, key);
+            const mult    = rec?.displayMultiplier ?? 1;
+            const unit    = rec?.displayUnit ?? '';
+            const section = window.AttributeSections.classify(attrDefs, key);
+
+            const baseVal        = parseFloat(attrs[key]);
+            const effectiveTotal = (isNaN(baseVal) ? 0 : baseVal) + info.total;
+            const display         = fmtNum(effectiveTotal * mult);
+
+            const sourceStr = info.sources.map(s => {
+                const perDisplay = fmtNum(s.perUnit * mult * s.qty) + (unit ? ' ' + unit : '');
+                return s.qty > 1
+                    ? `${s.name} ×${s.qty} (${s.perUnit >= 0 ? '+' : ''}${perDisplay})`
+                    : `${s.name} (${s.perUnit >= 0 ? '+' : ''}${fmtNum(s.perUnit * mult)}${unit ? ' ' + unit : ''})`;
+            }).join(', ');
+            const row = attrRow(`⚡ ${getLabel(key)}`, display, unit,
+                tooltipContent(null, `Sources: ${sourceStr}`), 'derived');
+            (withOutfitsSections[section] = withOutfitsSections[section] || []).push(row);
+        }
+
         const allSectionNames = window.AttributeSections.orderSections(
             [...new Set([...Object.keys(sections), ...Object.keys(withOutfitsSections)])]
         );
@@ -944,7 +975,6 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
                     return attrRow(name, count > 0 ? `×${count}` : '✓', '', '');
                 });
             html += buildSection('Outfits', outfitRows);
-            html += renderOutfitContributions(attrDefs, item, pluginId);
         }
 
         // Show effect wear-off for the ship's resistances
