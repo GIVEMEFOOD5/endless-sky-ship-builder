@@ -47,23 +47,27 @@ window.AttributeSections = (() => {
     // Canonical section list, in display order. Every file should render
     // sections in this order, alphabetising anything not listed here.
     const SECTION_ORDER = [
-        'General', 'Shields & Hull', 'Energy', 'Engines', 'Jump',
+        'General', 'Shields & Hull', 'Energy', 'Heat', 'Engines', 'Jump',
         'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
-        'Hardpoints', 'Heat (derived)', 'Weapon DPS', 'Weapon DPS — Efficiency',
+        'Hardpoints', 'Weapon DPS', 'Weapon DPS — Efficiency',
         'Ammo Consumption', 'Derived Stats', 'Licenses', 'Other',
     ];
 
     // ── The one shared domain dictionary ──────────────────────────────────
     // Reused against: (a) usedInShipFunctions entries, (b) the attribute's
     // own key, (c) its tooltip text. Order = priority when multiple tokens
-    // could match (checked top to bottom, first hit wins).
+    // could match (checked top to bottom, first hit wins). Heat is checked
+    // BEFORE Energy so compound keys like "heat generation"/"heat
+    // dissipation" land in Heat rather than being grabbed by Energy's
+    // "generation" token.
     const DOMAIN_WORDS = [
         ['Cloaking',       /cloak/i],
         ['Shields & Hull', /shield|hull/i],
         ['Jump',           /jump|hyperdrive|hyperspace|scram|warp/i], // fallback only — usedInNavFunctions is checked first
         ['Scanning',       /scan/i],
         ['Crew',           /crew|bunk/i],
-        ['Energy',         /heat|energy|solar|fuel|cool|ramscoop|generation/i],
+        ['Heat',           /heat|cool/i],
+        ['Energy',         /energy|solar|fuel|ramscoop|generation/i],
         ['Engines',        /thrust|turn|veloc|drag|inertia|reverse|afterburner/i],
         ['Cargo',          /cargo/i],
     ];
