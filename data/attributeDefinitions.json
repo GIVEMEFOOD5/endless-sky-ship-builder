@@ -16,19 +16,19 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-10T13:06:45.331Z",
+    "generatedAt": "2026-08-12T12:13:59.658Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-10T13:06:45.210Z",
+      "scannedAt": "2026-08-12T12:13:59.537Z",
       "totalCandidatesScanned": 462,
       "relevantFilesFound": 31,
       "relevantFilePaths": [
-        "source/AI.cpp",
         "source/AmmoDisplay.cpp",
+        "source/AI.cpp",
         "source/Armament.cpp",
         "source/BoardingPanel.cpp",
         "source/DamageProfile.cpp",
@@ -37,12 +37,12 @@
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
         "source/Government.cpp",
-        "source/Hardpoint.cpp",
         "source/HailPanel.cpp",
+        "source/Hardpoint.cpp",
         "source/HiringPanel.cpp",
         "source/LocationFilter.cpp",
-        "source/MapOutfitterPanel.cpp",
         "source/MainPanel.cpp",
+        "source/MapOutfitterPanel.cpp",
         "source/MapPanel.cpp",
         "source/MapShipyardPanel.cpp",
         "source/Minable.cpp",
@@ -3208,6 +3208,7 @@
       ],
       "tooltip": "The amount of fuel this ship can hold. An ordinary hyperdrive jump consumes 100 fuel. Fuel is replenished for free when you land on an inhabited planet.",
       "usedInOtherSystems": [
+        "AmmoDisplay::Update",
         "AI::Step",
         "AI::MoveIndependent",
         "AI::MoveEscort",
@@ -3215,7 +3216,6 @@
         "AI::ShouldUseAfterburner",
         "AI::DoCloak",
         "AI::AutoFire",
-        "AmmoDisplay::Update",
         "DamageProfile::PopulateDamage",
         "Engine::Step",
         "MapPanel::DrawTravelPlan",
@@ -4079,7 +4079,7 @@
     "repairing hull": "Energy consumed and heat generated when this ship is repairing its hull. This is in addition to the \"idle\" amount.",
     "charging shields": "Energy consumed and heat generated when this ship is recharging its shields. This is in addition to the \"idle\" amount.",
     "net change": "The sum of the energy consumed and heat generated from the above energy and heat values. Represents the worst case scenario when all systems are active at once.",
-    "max": "Energy storage capacity and maximum safe level for heat generation. Energy capacity allows a ship to temporarily draw more energy than it produces. The heat maximum is the highest your heat generation can be without eventually causing your ship to overheat.",
+    "capacity": "Energy storage capacity and heat capacity. Energy capacity allows a ship to temporarily draw more energy than it produces, and can be increased by installing batteries. The heat capacity is the highest your heat generation can be without eventually causing your ship to overheat, and is influenced by the mass of the ship.",
     "guns": "Weapons that are fixed in place (firing in the direction your ship is pointed) and that require no ammunition.",
     "turrets": "Weapons that can fire in any direction and will track your currently selected target.",
     "secondary weapons": "Weapons that require ammunition (which must be purchased separately).",
@@ -7123,6 +7123,33 @@
     }
   },
   "otherSystems": {
+    "AmmoDisplay": {
+      "Update": {
+        "returnType": "void",
+        "params": "const Ship &flagship",
+        "isConst": false,
+        "sourceFile": "source/AmmoDisplay.cpp",
+        "attributesRead": [
+          "fuel capacity"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "Click": {
+        "returnType": "bool",
+        "params": "const Rectangle &clickBox",
+        "isConst": false,
+        "sourceFile": "source/AmmoDisplay.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "reselected",
+            "formula": "reselected"
+          }
+        ]
+      }
+    },
     "AI": {
       "Step": {
         "returnType": "void",
@@ -7708,33 +7735,6 @@
           {
             "rawReturn": "route",
             "formula": "route"
-          }
-        ]
-      }
-    },
-    "AmmoDisplay": {
-      "Update": {
-        "returnType": "void",
-        "params": "const Ship &flagship",
-        "isConst": false,
-        "sourceFile": "source/AmmoDisplay.cpp",
-        "attributesRead": [
-          "fuel capacity"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "Click": {
-        "returnType": "bool",
-        "params": "const Rectangle &clickBox",
-        "isConst": false,
-        "sourceFile": "source/AmmoDisplay.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "reselected",
-            "formula": "reselected"
           }
         ]
       }
@@ -9007,6 +9007,46 @@
         ]
       }
     },
+    "MainPanel": {
+      "ShowScanDialog": {
+        "returnType": "void",
+        "params": "const ShipEvent &event",
+        "isConst": false,
+        "sourceFile": "source/MainPanel.cpp",
+        "attributesRead": [
+          "inscrutable"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "ShowHailPanel": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": false,
+        "sourceFile": "source/MainPanel.cpp",
+        "attributesRead": [
+          "cloaked communication"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "ShowHelp": {
+        "returnType": "bool",
+        "params": "bool force",
+        "isConst": false,
+        "sourceFile": "source/MainPanel.cpp",
+        "attributesRead": [
+          "asteroid scan power"
+        ],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "hasValidHelp",
+            "formula": "hasValidHelp"
+          }
+        ]
+      }
+    },
     "MapOutfitterPanel": {
       "SystemValue": {
         "returnType": "double",
@@ -9057,46 +9097,6 @@
           {
             "rawReturn": "bestItem",
             "formula": "-1"
-          }
-        ]
-      }
-    },
-    "MainPanel": {
-      "ShowScanDialog": {
-        "returnType": "void",
-        "params": "const ShipEvent &event",
-        "isConst": false,
-        "sourceFile": "source/MainPanel.cpp",
-        "attributesRead": [
-          "inscrutable"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "ShowHailPanel": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": false,
-        "sourceFile": "source/MainPanel.cpp",
-        "attributesRead": [
-          "cloaked communication"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "ShowHelp": {
-        "returnType": "bool",
-        "params": "bool force",
-        "isConst": false,
-        "sourceFile": "source/MainPanel.cpp",
-        "attributesRead": [
-          "asteroid scan power"
-        ],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "hasValidHelp",
-            "formula": "hasValidHelp"
           }
         ]
       }
@@ -12271,8 +12271,8 @@
         "rawHeatExpr": "Format::Number(60. * overallHeat)"
       },
       {
-        "label": "max",
-        "rawLabelArg": "\"max:\"",
+        "label": "capacity",
+        "rawLabelArg": "\"capacity:\"",
         "energyFormula": "(([energy capacity]))",
         "heatFormula": "(maxHeat)",
         "rawEnergyExpr": "Format::Number(maxEnergy)",
