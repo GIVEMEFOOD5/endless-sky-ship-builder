@@ -1104,7 +1104,7 @@ class EndlessSkyParser {
       );
       const locName = variantShipName ?? speciesShipName;
       for (const outfitName of Object.keys(outfitMap)) {
-        this.locationResolver.collectShipOutfit(locName, outfitName, this._currentPluginId);
+        this.locationResolver.collectShipOutfit(locName, outfitName, outfitMap[outfitName].pluginId);
       }
     }
     return [outfitMap, i];
@@ -1824,7 +1824,7 @@ class EndlessSkyParser {
         if (!inlineOutfitsStarted) { v.outfitMap = {}; inlineOutfitsStarted = true; }
         v.outfitMap[outfitName] = { count, pluginId };
         this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName], this._currentPluginId, v.name);
-        this.locationResolver.collectShipOutfit(v.name, outfitName, this._currentPluginId);
+        this.locationResolver.collectShipOutfit(v.name, outfitName, pluginId);
         changed = true;
         i++; continue;
       }
