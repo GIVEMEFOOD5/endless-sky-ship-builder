@@ -16,14 +16,14 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-12T12:13:59.658Z",
+    "generatedAt": "2026-08-12T12:53:43.962Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-12T12:13:59.537Z",
+      "scannedAt": "2026-08-12T12:53:43.841Z",
       "totalCandidatesScanned": 462,
       "relevantFilesFound": 31,
       "relevantFilePaths": [
@@ -48,8 +48,8 @@
         "source/Minable.cpp",
         "source/OutfitterPanel.cpp",
         "source/Planet.cpp",
-        "source/PlanetPanel.cpp",
         "source/PlayerInfo.cpp",
+        "source/PlanetPanel.cpp",
         "source/PlayerInfoPanel.cpp",
         "source/Politics.cpp",
         "source/PrintData.cpp",
@@ -10214,19 +10214,6 @@
         ]
       }
     },
-    "PlanetPanel": {
-      "CheckWarningsAndTakeOff": {
-        "returnType": "void",
-        "params": "",
-        "isConst": false,
-        "sourceFile": "source/PlanetPanel.cpp",
-        "attributesRead": [
-          "unique"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      }
-    },
     "PlayerInfo": {
       "IsLoaded": {
         "returnType": "bool",
@@ -11565,6 +11552,19 @@
             "formula": "any_of(missions.begin(), missions.end(), [this](const Mission &mission) -> bool { return mission.HasClearance(planet); })"
           }
         ]
+      }
+    },
+    "PlanetPanel": {
+      "CheckWarningsAndTakeOff": {
+        "returnType": "void",
+        "params": "",
+        "isConst": false,
+        "sourceFile": "source/PlanetPanel.cpp",
+        "attributesRead": [
+          "unique"
+        ],
+        "attributesSet": [],
+        "formulas": []
       }
     },
     "PlayerInfoPanel": {
