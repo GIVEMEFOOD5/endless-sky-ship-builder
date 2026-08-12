@@ -2070,6 +2070,14 @@ class EndlessSkyParser {
     };
     for (const ship of this.ships)       resolveMap(ship.outfitMap, ship._pluginId);
     for (const variant of this.variants) resolveMap(variant.outfitMap, variant._variantPluginId);
+    let refsResolved = 0, refsStillMissing = 0;
+    for (const ref of this.locationResolver.shipOutfitRefs) {
+        if (ref.pluginId === null) {
+            const found = this._resolveOutfitPluginId(ref.outfitName, null);
+            if (found) { ref.pluginId = found; refsResolved++; }
+            else { refsStillMissing++; }
+        }
+    }
     console.log(`  Outfit pluginId resolution: ${resolved} resolved, ${stillMissing} still missing`);
   }
 
