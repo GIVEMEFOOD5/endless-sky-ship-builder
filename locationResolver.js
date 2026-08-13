@@ -67,13 +67,18 @@ class LocationResolver {
     // (events / missions can modify planets to add shipyards)
     this.eventPlanetShipyardAdds = [];
 
-    // Ships and their outfit lists: { shipName, outfitName, pluginId }
+    // Ships and their outfit lists: { shipName, outfitName, pluginId, shipPluginId }
     // NOTE: `pluginId` here is the plugin that OWNS the outfit being carried
     // (resolved via _resolveOutfitPluginId at collection time / backfilled by
     // resolveAllOutfitPluginIds afterwards) — NOT the plugin the ship itself
     // belongs to. This distinction is what lets outfit-location resolution
     // correctly scope "which ships carry MY outfit" vs. "which ships carry
     // a same-named outfit from some other plugin".
+    //
+    // `shipPluginId` is the plugin that OWNS the ship/variant itself. This is
+    // what must be used when filing a carrying-ship under a plugin key in the
+    // output — using `pluginId` (the outfit's plugin) there would mislabel
+    // ships that live in a different plugin than the outfit they carry.
     this.shipOutfitRefs = [];
   }
 
@@ -130,9 +135,16 @@ class LocationResolver {
     this.eventPlanetShipyardAdds.push({ planetName, yardName, pluginId: pluginId ?? null });
   }
 
-  collectShipOutfit(shipName, outfitName, pluginId) {
+  // `pluginId` = the plugin that owns the OUTFIT being carried.
+  // `shipPluginId` = the plugin that owns the SHIP/variant carrying it.
+  collectShipOutfit(shipName, outfitName, pluginId, shipPluginId) {
     if (!shipName || !outfitName) return;
-    this.shipOutfitRefs.push({ shipName, outfitName, pluginId: pluginId ?? null });
+    this.shipOutfitRefs.push({
+      shipName,
+      outfitName,
+      pluginId: pluginId ?? null,
+      shipPluginId: shipPluginId ?? null,
+    });
   }
 
   // ── Internal helpers ─────────────────────────────────────────────────────────
@@ -319,12 +331,15 @@ class LocationResolver {
     for (const shipName of shipsWithOutfit) {
       // Record the ships themselves — re-filtered by ownerPluginId as well,
       // so a ship carrying two same-named-but-different-plugin outfits only
-      // gets recorded under the outfit that actually matches.
+      // gets recorded under the outfit that actually matches. Filed under
+      // the SHIP's own plugin (shipPluginId), not the outfit's plugin —
+      // otherwise a ship from a different plugin than the outfit it
+      // carries would get mislabeled under the outfit's plugin.
       for (const ref of this.shipOutfitRefs) {
         if (ref.outfitName !== outfitName) continue;
         if (ref.shipName !== shipName) continue;
         if (ref.pluginId !== ownerPluginId) continue;
-        const key = ref.pluginId ?? '__unknown__';
+        const key = ref.shipPluginId ?? '__unknown__';
         if (!result[key]) result[key] = {};
         if (!result[key]['Ships']) result[key]['Ships'] = new Set();
         result[key]['Ships'].add(shipName);
