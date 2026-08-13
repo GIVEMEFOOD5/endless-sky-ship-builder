@@ -16,28 +16,28 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-13T07:56:13.892Z",
+    "generatedAt": "2026-08-13T12:42:09.681Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-13T07:56:13.622Z",
+      "scannedAt": "2026-08-13T12:42:09.388Z",
       "totalCandidatesScanned": 462,
       "relevantFilesFound": 31,
       "relevantFilePaths": [
         "source/AmmoDisplay.cpp",
-        "source/AI.cpp",
         "source/Armament.cpp",
+        "source/AI.cpp",
         "source/BoardingPanel.cpp",
-        "source/DamageProfile.cpp",
         "source/Depreciation.cpp",
+        "source/DamageProfile.cpp",
         "source/Engine.cpp",
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
-        "source/HailPanel.cpp",
         "source/Government.cpp",
+        "source/HailPanel.cpp",
         "source/Hardpoint.cpp",
         "source/HiringPanel.cpp",
         "source/LocationFilter.cpp",
@@ -50,10 +50,10 @@
         "source/Planet.cpp",
         "source/PlanetPanel.cpp",
         "source/PlayerInfoPanel.cpp",
+        "source/PlayerInfo.cpp",
         "source/Politics.cpp",
         "source/PrintData.cpp",
         "source/Projectile.cpp",
-        "source/PlayerInfo.cpp",
         "source/ShipInfoPanel.cpp",
         "source/ShopPanel.cpp",
         "source/TradingPanel.cpp",
@@ -3644,22 +3644,6 @@
         "Minable::MaximumHeat"
       ]
     },
-    "optical jamming": {
-      "key": "optical jamming",
-      "discoveredOnly": true,
-      "usedInOtherSystems": [
-        "Projectile::CheckLock",
-        "Projectile::CheckConfused"
-      ]
-    },
-    "radar jamming": {
-      "key": "radar jamming",
-      "discoveredOnly": true,
-      "usedInOtherSystems": [
-        "Projectile::CheckLock",
-        "Projectile::CheckConfused"
-      ]
-    },
     "income": {
       "key": "income",
       "discoveredOnly": true,
@@ -3777,6 +3761,22 @@
       "discoveredOnly": true,
       "usedInOtherSystems": [
         "PlayerInfo::CalculateScanners"
+      ]
+    },
+    "optical jamming": {
+      "key": "optical jamming",
+      "discoveredOnly": true,
+      "usedInOtherSystems": [
+        "Projectile::CheckLock",
+        "Projectile::CheckConfused"
+      ]
+    },
+    "radar jamming": {
+      "key": "radar jamming",
+      "discoveredOnly": true,
+      "usedInOtherSystems": [
+        "Projectile::CheckLock",
+        "Projectile::CheckConfused"
       ]
     }
   },
@@ -7150,6 +7150,92 @@
         ]
       }
     },
+    "Armament": {
+      "Add": {
+        "returnType": "int",
+        "params": "const Outfit *outfit, int count",
+        "isConst": false,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "added",
+            "formula": "0"
+          }
+        ]
+      },
+      "GunCount": {
+        "returnType": "int",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "hardpoints.size() - TurretCount()",
+            "formula": "hardpoints.size() - TurretCount()"
+          }
+        ]
+      },
+      "TurretCount": {
+        "returnType": "int",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "count",
+            "formula": "0"
+          }
+        ]
+      },
+      "RestockableAmmo": {
+        "returnType": "set<const Outfit *>",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "restockable",
+            "formula": "restockable"
+          }
+        ]
+      },
+      "FireAntiMissile": {
+        "returnType": "bool",
+        "params": "unsigned index, Ship &ship, const Projectile &projectile,\n\tvector<Visual> &visuals, bool jammed",
+        "isConst": false,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "hardpoints[index].FireAntiMissile(ship, projectile, visuals)",
+            "formula": "hardpoints[index].FireAntiMissile(ship, projectile, visuals)"
+          }
+        ]
+      },
+      "FireTractorBeam": {
+        "returnType": "bool",
+        "params": "unsigned index, Ship &ship, const Flotsam &flotsam,\n\tvector<Visual> &visuals, bool jammed",
+        "isConst": false,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "hardpoints[index].FireTractorBeam(ship, flotsam, visuals)",
+            "formula": "hardpoints[index].FireTractorBeam(ship, flotsam, visuals)"
+          }
+        ]
+      }
+    },
     "AI": {
       "Step": {
         "returnType": "void",
@@ -7739,92 +7825,6 @@
         ]
       }
     },
-    "Armament": {
-      "Add": {
-        "returnType": "int",
-        "params": "const Outfit *outfit, int count",
-        "isConst": false,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "added",
-            "formula": "0"
-          }
-        ]
-      },
-      "GunCount": {
-        "returnType": "int",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "hardpoints.size() - TurretCount()",
-            "formula": "hardpoints.size() - TurretCount()"
-          }
-        ]
-      },
-      "TurretCount": {
-        "returnType": "int",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "count",
-            "formula": "0"
-          }
-        ]
-      },
-      "RestockableAmmo": {
-        "returnType": "set<const Outfit *>",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "restockable",
-            "formula": "restockable"
-          }
-        ]
-      },
-      "FireAntiMissile": {
-        "returnType": "bool",
-        "params": "unsigned index, Ship &ship, const Projectile &projectile,\n\tvector<Visual> &visuals, bool jammed",
-        "isConst": false,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "hardpoints[index].FireAntiMissile(ship, projectile, visuals)",
-            "formula": "hardpoints[index].FireAntiMissile(ship, projectile, visuals)"
-          }
-        ]
-      },
-      "FireTractorBeam": {
-        "returnType": "bool",
-        "params": "unsigned index, Ship &ship, const Flotsam &flotsam,\n\tvector<Visual> &visuals, bool jammed",
-        "isConst": false,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "hardpoints[index].FireTractorBeam(ship, flotsam, visuals)",
-            "formula": "hardpoints[index].FireTractorBeam(ship, flotsam, visuals)"
-          }
-        ]
-      }
-    },
     "BoardingPanel": {
       "Draw": {
         "returnType": "void",
@@ -7940,74 +7940,6 @@
         ]
       }
     },
-    "DamageProfile": {
-      "CalculateDamage": {
-        "returnType": "MinableDamageDealt",
-        "params": "const Minable &minable",
-        "isConst": true,
-        "sourceFile": "source/DamageProfile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "{scale * (weapon.MinableDamage() + weapon.RelativeMinableDamage() * minable.MaxHull()), scale * weapon.Prospecting(), scale * weapon.CorrosionDamage()}",
-            "formula": "{(Scale(inputScaling, minable, isBlast)) * (weapon.MinableDamage() + weapon.RelativeMinableDamage() * minable.MaxHull()), (Scale(inputScaling, minable, isBlast)) * weapon.Prospecting(), (Scale(inputScaling, minable, isBlast)) * weapon.CorrosionDamage()}"
-          }
-        ]
-      },
-      "Scale": {
-        "returnType": "double",
-        "params": "double scale, const Body &body, bool blast",
-        "isConst": true,
-        "sourceFile": "source/DamageProfile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "scale",
-            "formula": "scale"
-          }
-        ]
-      },
-      "PopulateDamage": {
-        "returnType": "void",
-        "params": "DamageDealt &damage, const Ship &ship",
-        "isConst": true,
-        "sourceFile": "source/DamageProfile.cpp",
-        "attributesRead": [
-          "burn protection",
-          "cloak hull protection",
-          "cloak shield protection",
-          "cloaked shield permeability",
-          "corrosion protection",
-          "discharge protection",
-          "disruption protection",
-          "energy capacity",
-          "energy protection",
-          "force protection",
-          "fuel capacity",
-          "fuel protection",
-          "heat protection",
-          "high shield permeability",
-          "hull protection",
-          "ion protection",
-          "leak protection",
-          "low shield permeability",
-          "piercing protection",
-          "piercing resistance",
-          "scramble protection",
-          "shield protection",
-          "slowing protection"
-        ],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "damage.scaling * blocked / (1. + protection)",
-            "formula": "damage.scaling * blocked / (1. + protection)"
-          }
-        ]
-      }
-    },
     "Depreciation": {
       "Full": {
         "returnType": "double",
@@ -8112,6 +8044,74 @@
           {
             "rawReturn": "(isStock ? 1. : Min())",
             "formula": "(isStock ? 1. : Min())"
+          }
+        ]
+      }
+    },
+    "DamageProfile": {
+      "CalculateDamage": {
+        "returnType": "MinableDamageDealt",
+        "params": "const Minable &minable",
+        "isConst": true,
+        "sourceFile": "source/DamageProfile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "{scale * (weapon.MinableDamage() + weapon.RelativeMinableDamage() * minable.MaxHull()), scale * weapon.Prospecting(), scale * weapon.CorrosionDamage()}",
+            "formula": "{(Scale(inputScaling, minable, isBlast)) * (weapon.MinableDamage() + weapon.RelativeMinableDamage() * minable.MaxHull()), (Scale(inputScaling, minable, isBlast)) * weapon.Prospecting(), (Scale(inputScaling, minable, isBlast)) * weapon.CorrosionDamage()}"
+          }
+        ]
+      },
+      "Scale": {
+        "returnType": "double",
+        "params": "double scale, const Body &body, bool blast",
+        "isConst": true,
+        "sourceFile": "source/DamageProfile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "scale",
+            "formula": "scale"
+          }
+        ]
+      },
+      "PopulateDamage": {
+        "returnType": "void",
+        "params": "DamageDealt &damage, const Ship &ship",
+        "isConst": true,
+        "sourceFile": "source/DamageProfile.cpp",
+        "attributesRead": [
+          "burn protection",
+          "cloak hull protection",
+          "cloak shield protection",
+          "cloaked shield permeability",
+          "corrosion protection",
+          "discharge protection",
+          "disruption protection",
+          "energy capacity",
+          "energy protection",
+          "force protection",
+          "fuel capacity",
+          "fuel protection",
+          "heat protection",
+          "high shield permeability",
+          "hull protection",
+          "ion protection",
+          "leak protection",
+          "low shield permeability",
+          "piercing protection",
+          "piercing resistance",
+          "scramble protection",
+          "shield protection",
+          "slowing protection"
+        ],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "damage.scaling * blocked / (1. + protection)",
+            "formula": "damage.scaling * blocked / (1. + protection)"
           }
         ]
       }
@@ -10268,266 +10268,6 @@
         ]
       }
     },
-    "Politics": {
-      "IsEnemy": {
-        "returnType": "bool",
-        "params": "const Government *first, const Government *second",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "(it != reputationWith.end() && it->second < 0.)",
-            "formula": "(it != reputationWith.end() && it->second < 0.)"
-          },
-          {
-            "rawReturn": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)",
-            "formula": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)"
-          }
-        ]
-      },
-      "CanLand": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
-            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
-          }
-        ]
-      },
-      "HasClearance": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)",
-            "formula": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)"
-          }
-        ]
-      },
-      "CanUseServices": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "it->second",
-            "formula": "it->second"
-          },
-          {
-            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
-            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
-          }
-        ]
-      },
-      "HasDominated": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "dominatedPlanets.contains(planet)",
-            "formula": "dominatedPlanets.contains(planet)"
-          }
-        ]
-      },
-      "Reputation": {
-        "returnType": "double",
-        "params": "const Government *gov",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "(it == reputationWith.end() ? 0. : it->second)",
-            "formula": "(it == reputationWith.end() ? 0. : it->second)"
-          }
-        ]
-      }
-    },
-    "Projectile": {
-      "Clip": {
-        "returnType": "double",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "clip",
-            "formula": "clip"
-          }
-        ]
-      },
-      "IsDead": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "lifetime <= 0",
-            "formula": "lifetime <= 0"
-          }
-        ]
-      },
-      "MissileStrength": {
-        "returnType": "int",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "weapon->MissileStrength()",
-            "formula": "weapon->MissileStrength()"
-          }
-        ]
-      },
-      "GetInfo": {
-        "returnType": "Projectile::ImpactInfo",
-        "params": "double intersection",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "ImpactInfo(*weapon, position + velocity * intersection, distanceTraveled + dV.Length() * intersection)",
-            "formula": "ImpactInfo(*weapon, position + velocity * intersection, distanceTraveled + dV.Length() * intersection)"
-          }
-        ]
-      },
-      "TargetPtr": {
-        "returnType": "shared_ptr<Entity>",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "target.lock()",
-            "formula": "target.lock()"
-          }
-        ]
-      },
-      "IsTargetingShip": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "targetIsShip",
-            "formula": "targetIsShip"
-          }
-        ]
-      },
-      "CheckLock": {
-        "returnType": "void",
-        "params": "const Entity *target, bool targetIsShip",
-        "isConst": false,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [
-          "optical jamming",
-          "radar jamming"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "CheckConfused": {
-        "returnType": "void",
-        "params": "const Entity &target",
-        "isConst": false,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [
-          "optical jamming",
-          "radar jamming"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "DistanceTraveled": {
-        "returnType": "double",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "distanceTraveled",
-            "formula": "distanceTraveled"
-          }
-        ]
-      },
-      "Phases": {
-        "returnType": "bool",
-        "params": "const Ship &ship",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "phasedShip == &ship",
-            "formula": "phasedShip == &ship"
-          }
-        ]
-      },
-      "HitsRemaining": {
-        "returnType": "uint16_t",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "hitsRemaining",
-            "formula": "hitsRemaining"
-          }
-        ]
-      },
-      "ShouldExplode": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Projectile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "isShipExplosion || (weapon->IsFused() && lifetime == 1)",
-            "formula": "isShipExplosion || (weapon->IsFused() && lifetime == 1)"
-          }
-        ]
-      }
-    },
     "PlayerInfo": {
       "IsLoaded": {
         "returnType": "bool",
@@ -11864,6 +11604,266 @@
           {
             "rawReturn": "any_of(missions.begin(), missions.end(), [this](const Mission &mission) -> bool { return mission.HasClearance(planet); })",
             "formula": "any_of(missions.begin(), missions.end(), [this](const Mission &mission) -> bool { return mission.HasClearance(planet); })"
+          }
+        ]
+      }
+    },
+    "Politics": {
+      "IsEnemy": {
+        "returnType": "bool",
+        "params": "const Government *first, const Government *second",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "(it != reputationWith.end() && it->second < 0.)",
+            "formula": "(it != reputationWith.end() && it->second < 0.)"
+          },
+          {
+            "rawReturn": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)",
+            "formula": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)"
+          }
+        ]
+      },
+      "CanLand": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
+            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
+          }
+        ]
+      },
+      "HasClearance": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)",
+            "formula": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)"
+          }
+        ]
+      },
+      "CanUseServices": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "it->second",
+            "formula": "it->second"
+          },
+          {
+            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
+            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
+          }
+        ]
+      },
+      "HasDominated": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "dominatedPlanets.contains(planet)",
+            "formula": "dominatedPlanets.contains(planet)"
+          }
+        ]
+      },
+      "Reputation": {
+        "returnType": "double",
+        "params": "const Government *gov",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "(it == reputationWith.end() ? 0. : it->second)",
+            "formula": "(it == reputationWith.end() ? 0. : it->second)"
+          }
+        ]
+      }
+    },
+    "Projectile": {
+      "Clip": {
+        "returnType": "double",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "clip",
+            "formula": "clip"
+          }
+        ]
+      },
+      "IsDead": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "lifetime <= 0",
+            "formula": "lifetime <= 0"
+          }
+        ]
+      },
+      "MissileStrength": {
+        "returnType": "int",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "weapon->MissileStrength()",
+            "formula": "weapon->MissileStrength()"
+          }
+        ]
+      },
+      "GetInfo": {
+        "returnType": "Projectile::ImpactInfo",
+        "params": "double intersection",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "ImpactInfo(*weapon, position + velocity * intersection, distanceTraveled + dV.Length() * intersection)",
+            "formula": "ImpactInfo(*weapon, position + velocity * intersection, distanceTraveled + dV.Length() * intersection)"
+          }
+        ]
+      },
+      "TargetPtr": {
+        "returnType": "shared_ptr<Entity>",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "target.lock()",
+            "formula": "target.lock()"
+          }
+        ]
+      },
+      "IsTargetingShip": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "targetIsShip",
+            "formula": "targetIsShip"
+          }
+        ]
+      },
+      "CheckLock": {
+        "returnType": "void",
+        "params": "const Entity *target, bool targetIsShip",
+        "isConst": false,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [
+          "optical jamming",
+          "radar jamming"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "CheckConfused": {
+        "returnType": "void",
+        "params": "const Entity &target",
+        "isConst": false,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [
+          "optical jamming",
+          "radar jamming"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "DistanceTraveled": {
+        "returnType": "double",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "distanceTraveled",
+            "formula": "distanceTraveled"
+          }
+        ]
+      },
+      "Phases": {
+        "returnType": "bool",
+        "params": "const Ship &ship",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "phasedShip == &ship",
+            "formula": "phasedShip == &ship"
+          }
+        ]
+      },
+      "HitsRemaining": {
+        "returnType": "uint16_t",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "hitsRemaining",
+            "formula": "hitsRemaining"
+          }
+        ]
+      },
+      "ShouldExplode": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Projectile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "isShipExplosion || (weapon->IsFused() && lifetime == 1)",
+            "formula": "isShipExplosion || (weapon->IsFused() && lifetime == 1)"
           }
         ]
       }
