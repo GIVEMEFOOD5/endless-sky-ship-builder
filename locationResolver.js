@@ -222,29 +222,24 @@ class LocationResolver {
    * Resolve all location data for a ship or variant.
    * Matches only on the exact shipName — no base-name fallback whatsoever.
    */
-  _resolveShipLocations(shipName) {
+_resolveShipLocations(shipName, ownerPluginId) {
     const result = {};
     const fleetToSystems  = this._buildFleetToSystems();
     const yardToPlanets   = this._buildYardToPlanets();
     const planetToSystems = this._buildPlanetToSystems();
 
-    // ── 1. Named fleet membership → systems ─────────────────────────────────
     for (const fleet of this.fleets) {
       if (!fleet.shipNames.includes(shipName)) continue;
-
+      if (fleet.pluginId !== ownerPluginId) continue;
       const systemsByPlugin = fleetToSystems.get(fleet.name);
-      if (systemsByPlugin) {
-        this._mergeInto(result, systemsByPlugin, 'Systems', fleet.pluginId);
-      }
+      if (systemsByPlugin) this._mergeInto(result, systemsByPlugin, 'Systems', fleet.pluginId);
     }
 
-    // ── 2. Shipyard listings → planets and their systems ────────────────────
     for (const yard of this.shipyardEntries) {
       if (!yard.shipNames.includes(shipName)) continue;
-
+      if (yard.pluginId !== ownerPluginId) continue;
       const planetsByPlugin = yardToPlanets.get(yard.yardName);
       if (!planetsByPlugin) continue;
-
       for (const [pluginKey, planets] of planetsByPlugin) {
         const effectiveKey = pluginKey === '__unknown__' ? (yard.pluginId ?? '__unknown__') : pluginKey;
         if (!result[effectiveKey]) result[effectiveKey] = {};
@@ -257,18 +252,18 @@ class LocationResolver {
       }
     }
 
-    // ── 3. Mission NPC references — exact name match only ───────────────────
     for (const ref of this.missionNpcShips) {
       if (ref.shipName !== shipName) continue;
+      if (ref.pluginId !== ownerPluginId) continue;
       const key = ref.pluginId ?? '__unknown__';
       if (!result[key]) result[key] = {};
       if (!result[key]['Missions']) result[key]['Missions'] = new Set();
       result[key]['Missions'].add(ref.missionName);
     }
 
-    // ── 4. Mission "give ship" references ──────────────────────────────────
     for (const ref of this.missionGiveShips) {
       if (ref.shipName !== shipName) continue;
+      if (ref.pluginId !== ownerPluginId) continue;
       const key = ref.pluginId ?? '__unknown__';
       if (!result[key]) result[key] = {};
       if (!result[key]['Missions']) result[key]['Missions'] = new Set();
@@ -276,7 +271,7 @@ class LocationResolver {
     }
 
     return result;
-  }
+}
 
   // ── Outfit location resolution ───────────────────────────────────────────────
 
@@ -408,22 +403,20 @@ class LocationResolver {
 
   // ── Public API ───────────────────────────────────────────────────────────────
 
-  attachLocations(ships, variants, outfits, pluginName) {
+attachLocations(ships, variants, outfits, pluginName) {
     for (const ship of ships) {
-      const raw = this._resolveShipLocations(ship.name);
+      const raw = this._resolveShipLocations(ship.name, ship._pluginId);
       ship.locations = this._finalise(raw, pluginName);
     }
-
     for (const variant of variants) {
-      const raw = this._resolveShipLocations(variant.name);
+      const raw = this._resolveShipLocations(variant.name, variant._variantPluginId);
       variant.locations = this._finalise(raw, pluginName);
     }
-
     for (const outfit of outfits) {
       const raw = this._resolveOutfitLocations(outfit.name, outfit._pluginId);
       outfit.locations = this._finalise(raw, pluginName);
     }
-  }
+}
 }
 
 module.exports = LocationResolver;
