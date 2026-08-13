@@ -68,6 +68,12 @@ class LocationResolver {
     this.eventPlanetShipyardAdds = [];
 
     // Ships and their outfit lists: { shipName, outfitName, pluginId }
+    // NOTE: `pluginId` here is the plugin that OWNS the outfit being carried
+    // (resolved via _resolveOutfitPluginId at collection time / backfilled by
+    // resolveAllOutfitPluginIds afterwards) — NOT the plugin the ship itself
+    // belongs to. This distinction is what lets outfit-location resolution
+    // correctly scope "which ships carry MY outfit" vs. "which ships carry
+    // a same-named outfit from some other plugin".
     this.shipOutfitRefs = [];
   }
 
@@ -262,7 +268,18 @@ class LocationResolver {
 
   // ── Outfit location resolution ───────────────────────────────────────────────
 
-  _resolveOutfitLocations(outfitName) {
+  /**
+   * Resolve all location data for an outfit.
+   *
+   * `ownerPluginId` is the plugin that OWNS this specific outfit (i.e. the
+   * outfit object's own `_pluginId`). It is used to scope every ship-carrying
+   * match to refs whose resolved outfit-pluginId matches this outfit — not
+   * just any ref with a matching outfit NAME. Without this scoping, two
+   * different plugins defining a same-named outfit (e.g. both have a
+   * "Blaster") would leak each other's ships into the wrong outfit's
+   * location data.
+   */
+  _resolveOutfitLocations(outfitName, ownerPluginId) {
     const result = {};
     const outfitterToPlanets = this._buildOutfitterToPlanets();
     const yardToPlanets      = this._buildYardToPlanets();
@@ -270,6 +287,10 @@ class LocationResolver {
     const fleetToSystems     = this._buildFleetToSystems();
 
     // ── 1. Outfitter listings → planets ─────────────────────────────────────
+    // NOTE: intentionally NOT scoped to ownerPluginId — an outfitter block in
+    // one plugin can legitimately sell an outfit defined in another plugin
+    // (cross-plugin references by name are a normal pattern here). Scoping
+    // this to ownerPluginId would hide legitimate cross-plugin listings.
     for (const entry of this.outfitterEntries) {
       if (!entry.outfitNames.includes(outfitName)) continue;
 
@@ -286,17 +307,23 @@ class LocationResolver {
       }
     }
 
-    // ── 2. Ships that carry this outfit → shipyards → planets → systems ─────
+    // ── 2. Ships that carry THIS outfit → shipyards → planets → systems ─────
+    // Scoped to ownerPluginId so a same-named outfit from a different plugin
+    // never contributes ships here.
     const shipsWithOutfit = new Set(
       this.shipOutfitRefs
-        .filter(r => r.outfitName === outfitName)
+        .filter(r => r.outfitName === outfitName && r.pluginId === ownerPluginId)
         .map(r => r.shipName)
     );
 
     for (const shipName of shipsWithOutfit) {
-      // Record the ships themselves
+      // Record the ships themselves — re-filtered by ownerPluginId as well,
+      // so a ship carrying two same-named-but-different-plugin outfits only
+      // gets recorded under the outfit that actually matches.
       for (const ref of this.shipOutfitRefs) {
-        if (ref.outfitName !== outfitName || ref.shipName !== shipName) continue;
+        if (ref.outfitName !== outfitName) continue;
+        if (ref.shipName !== shipName) continue;
+        if (ref.pluginId !== ownerPluginId) continue;
         const key = ref.pluginId ?? '__unknown__';
         if (!result[key]) result[key] = {};
         if (!result[key]['Ships']) result[key]['Ships'] = new Set();
@@ -326,9 +353,10 @@ class LocationResolver {
       }
     }
 
-    // ── 3. Mission "give outfit" references ──────────────────────────────────
+    // ── 3. Mission "give outfit" references — scoped to ownerPluginId ───────
     for (const ref of this.missionGiveOutfits) {
       if (ref.outfitName !== outfitName) continue;
+      if (ref.pluginId !== ownerPluginId) continue;
       const key = ref.pluginId ?? '__unknown__';
       if (!result[key]) result[key] = {};
       if (!result[key]['Missions']) result[key]['Missions'] = new Set();
@@ -377,7 +405,7 @@ class LocationResolver {
     }
 
     for (const outfit of outfits) {
-      const raw = this._resolveOutfitLocations(outfit.name);
+      const raw = this._resolveOutfitLocations(outfit.name, outfit._pluginId);
       outfit.locations = this._finalise(raw, pluginName);
     }
   }
