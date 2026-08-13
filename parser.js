@@ -1079,7 +1079,7 @@ class EndlessSkyParser {
     return i;
   }
 
-  parseOutfitsBlock(lines, i, speciesShipName = null, variantShipName = null) {
+  parseOutfitsBlock(lines, i, speciesShipName = null, variantShipName = null, shipPluginId = null) {
     const outfitMap = {};
     i++;
     while (i < lines.length) {
@@ -1092,7 +1092,7 @@ class EndlessSkyParser {
         if (m) {
           const name     = m[1];
           const count    = m[2] ? Math.max(1, parseInt(m[2], 10)) : 1;
-          const pluginId = this._resolveOutfitPluginId(name, this._currentPluginId);
+          const pluginId = this._resolveOutfitPluginId(name, shipPluginId ?? this._currentPluginId);
           outfitMap[name] = { count, pluginId };
         }
       }
@@ -1104,7 +1104,8 @@ class EndlessSkyParser {
       );
       const locName = variantShipName ?? speciesShipName;
       for (const outfitName of Object.keys(outfitMap)) {
-        this.locationResolver.collectShipOutfit(locName, outfitName, outfitMap[outfitName].pluginId);
+        const effectiveShipPluginId = shipPluginId ?? this._currentPluginId;
+        this.locationResolver.collectShipOutfit(locName, outfitName, outfitMap[outfitName].pluginId, effectiveShipPluginId);
       }
     }
     return [outfitMap, i];
@@ -1723,7 +1724,7 @@ class EndlessSkyParser {
       const stripped = line2.trim();
 
       if (stripped === 'outfits') {
-        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName, null);
+        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, baseName, null, this._currentPluginId);
         shipData.outfitMap = outfitMap;
         i = ni; continue;
       }
@@ -1824,13 +1825,13 @@ class EndlessSkyParser {
         if (!inlineOutfitsStarted) { v.outfitMap = {}; inlineOutfitsStarted = true; }
         v.outfitMap[outfitName] = { count, pluginId };
         this.speciesResolver.collectShipOutfits(variantInfo.baseName, [outfitName], this._currentPluginId, v.name);
-        this.locationResolver.collectShipOutfit(v.name, outfitName, pluginId);
+        this.locationResolver.collectShipOutfit(v.name, outfitName, pluginId, variantInfo.variantPluginId);
         changed = true;
         i++; continue;
       }
 
       if (stripped === 'outfits') {
-        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, variantInfo.baseName, v.name);
+        const [outfitMap, ni] = this.parseOutfitsBlock(lines, i, variantInfo.baseName, v.name, variantInfo.variantPluginId);
         if (!this._outfitMapsEqual(outfitMap, baseShip.outfitMap || {})) {
           v.outfitMap = outfitMap; changed = true;
         }
@@ -2073,7 +2074,7 @@ class EndlessSkyParser {
     let refsResolved = 0, refsStillMissing = 0;
     for (const ref of this.locationResolver.shipOutfitRefs) {
         if (ref.pluginId === null) {
-            const found = this._resolveOutfitPluginId(ref.outfitName, null);
+            const found = this._resolveOutfitPluginId(ref.outfitName, ref.shipPluginId);
             if (found) { ref.pluginId = found; refsResolved++; }
             else { refsStillMissing++; }
         }
