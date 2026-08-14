@@ -3,27 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>An Endless Sky Data Center</title>
+    <title>An Endless Sky Data Center — About & Contributions</title>
     <link rel="stylesheet" href="../CSS/main.css">
+    <style>
+
+    </style>
 </head>
 <body>
-    
+
     <div id="navbar-mount" data-src="NavBar.html"></div>
     <script src="../JavaScript/navLoader.js"></script>
-    
+
     <div class="container">
-        <header class="panel">
-            <h1>🚀 About</h1>
-            <p class="subtitle">Here you cans see general infomation about this page</p>
-        </header>
 
         <header class="panel">
-            <h2>Credits</h2>
-            <p class="subtitle">Names of all users from discord and (if requested) github that contributed to this website.</p>
-            <div class="card-title" style="padding-top: 20px;">
-                <p>Kai, </p> <p>Ludmina, </p> <p>Kbean, </p> <p>fellow_starmadian, </p> <p>Squiddy</p>
-            </div>
+            <h1>🚀 About</h1>
+            <p class="subtitle">Contributions, page-by-page features, known bugs, and where this project is headed.</p>
         </header>
+
+        <!-- ── Quick anchor nav ─────────────────────────────────────── -->
+        <nav class="panel toc-panel" aria-label="Page sections">
+            <ul class="toc-list">
+                <li><a class="toc-link" href="#contributions">👥 Contributions</a></li>
+                <li><a class="toc-link" href="#page-features">🧩 Page Features</a></li>
+                <li><a class="toc-link" href="#known-bugs">🐞 Known Bugs</a></li>
+                <li><a class="toc-link" href="#future-plans">🛠️ Future Plans</a></li>
+            </ul>
+        </nav>
+
+        <!-- ══════════════════════════════════════════════════════════
+             CONTRIBUTIONS
+             ══════════════════════════════════════════════════════════ -->
+        <section id="contributions" class="panel about-section">
+            <h2>👥 Contributions</h2>
+            <p class="subtitle">Everyone who helped build this site — from Discord and (where requested) GitHub.</p>
+
+            <div class="contributor-grid">
+                <div class="contributor-card">
+                    <div class="contributor-name">Tau</div>
+                    <div class="contributor-role">Tester/Moral Support</div>
+                    <div class="contributor-desc">Basically the main tester for the data viewer suggesting things to add</div>
+                </div>
+                <div class="contributor-card">
+                    <div class="contributor-name">Kai</div>
+                    <div class="contributor-role">Tester/Moral Support</div>
+                    <div class="contributor-desc">Gave alot of contributtions for ideas in what to add.</div>
+                </div>
+                <div class="contributor-card">
+                    <div class="contributor-name">Ludmina</div>
+                    <div class="contributor-role">Moral Support</div>
+                    <div class="contributor-desc">Provided moral support</div>
+                </div>
+                <div class="contributor-card">
+                    <div class="contributor-name">Kbean</div>
+                    <div class="contributor-role">Stylist/Moral Support</div>
+                    <div class="contributor-desc">Helped with syling choices and gave moral support.</div>
+                </div>
+                <div class="contributor-card">
+                    <div class="contributor-name">fellow_starmadian</div>
+                    <div class="contributor-role">Stylist</div>
+                    <div class="contributor-desc">Suggested areas of styling where they think would look nicers.</div>
+                </div>
+                <div class="contributor-card">
+                    <div class="contributor-name">Squiddy</div>
+                    <div class="contributor-role">Tester</div>
+                    <div class="contributor-desc">Suggested features and provided some development suggestions</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════
+             PAGE-BY-PAGE FEATURES
+             ══════════════════════════════════════════════════════════ -->
+        <section id="page-features" class="panel about-section">
+            <h2>🧩 Page Features</h2>
+            <p class="subtitle">What each page on the site currently does (and is planned to do).</p>
+
+            <!-- Ship / Outfit Data Viewer -->
+            <div class="page-block">
+                <div class="page-block-header">
+                    <span class="page-block-title">🛰️ Ship & Outfit Data Viewer</span>
+                    <span class="page-block-status status-live">Live</span>
+                </div>
+                <div class="page-block-body">
+                    <ul class="feature-list">
+                        <li>Searchable, filterable card grid of ships and outfits</li>
+                        <li>Category, plugin, and attribute-based filters with clear-all option</li>
+                        <li>Multi-attribute sorter with drag-style reordering and per-sort averages</li>
+                        <li>Detailed modal view with tabbed attributes, description, and stacking notes</li>
+                        <li>Plugin picker for scoping results to specific installed/local plugins</li>
+                        <li>Tooltips on hover for derived / calculated attribute values</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Compare -->
+            <div class="page-block">
+                <div class="page-block-header">
+                    <span class="page-block-title">📊 Compare</span>
+                    <span class="page-block-status status-live">Live</span>
+                </div>
+                <div class="page-block-body">
+                    <ul class="feature-list">
+                        <li>Sticky bottom compare bar with per-item quantity controls</li>
+                        <li>Slide-up full-screen comparison panel</li>
+                        <li>Toggle between column view and full attribute table view</li>
+                        <li>Group comparisons — bundle multiple ships/outfits into one column</li>
+                        <li>Best/worst value highlighting per attribute row</li>
+                        <li>Fleet summary banner for aggregate stats across a selection</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Battle Simulator -->
+            <div class="page-block">
+                <div class="page-block-header">
+                    <span class="page-block-title">⚔️ Battle Simulator</span>
+                    <span class="page-block-status status-live">Live</span>
+                </div>
+                <div class="page-block-body">
+                    <ul class="feature-list">
+                        <li>Ship-vs-ship matchup builder with searchable ship slots</li>
+                        <li>Team mode supporting multiple teams with custom names and colors</li>
+                        <li>Simulated combat timeline with phase-by-phase breakdown</li>
+                        <li>HP-over-time chart and side-by-side stat comparison</li>
+                        <li>Weapon loadout breakdown per ship, including ammo stock summary</li>
+                        <li>Battle matrix and rankings view for multi-ship tournaments</li>
+                        <li>Responsive mobile layout with stacked comparison rows</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ship Builder -->
+            <div class="page-block">
+                <div class="page-block-header">
+                    <span class="page-block-title">🔧 Ship Builder</span>
+                    <span class="page-block-status status-live">Live</span>
+                </div>
+                <div class="page-block-body">
+                    <ul class="feature-list">
+                        <li>Full outfit picker grouped by category, with hardpoint index tracking</li>
+                        <li>Live outfit-space bar showing used vs. available capacity</li>
+                        <li>Editable attribute panel for on-the-fly stat tweaking</li>
+                        <li>Expandable outfit rows showing full stats, description, and image</li>
+                        <li>Save/load builds, with support for local (unpublished) plugin builds</li>
+                        <li>Raw output/code box for exporting the finished ship definition</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--<!-- Placeholder for any additional page -->
+            <div class="page-block">
+                <div class="page-block-header">
+                    <span class="page-block-title">➕ [Add another page here]</span>
+                    <span class="page-block-status status-planned">Planned</span>
+                </div>
+                <div class="page-block-body">
+                    <ul class="feature-list">
+                        <li>List planned or existing features for this page</li>
+                    </ul>
+                </div>
+            </div>-->
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════
+             KNOWN BUGS
+             ══════════════════════════════════════════════════════════ -->
+        <section id="known-bugs" class="panel about-section">
+            <h2>🐞 Known Bugs</h2>
+            <p class="subtitle">Issues we're aware of and working through.</p>
+
+            <div class="bug-item">
+                <span class="bug-icon">⚠️</span>
+                <span class="bug-text"><strong>None Yet :D</strong> Describe the bug here — what happens, and roughly when/where it occurs.</span>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════
+             FUTURE DEVELOPMENT PLANS
+             ══════════════════════════════════════════════════════════ -->
+        <section id="future-plans" class="panel about-section">
+            <h2>🛠️ Future Development Plans</h2>
+            <p class="subtitle">What's on the roadmap.</p>
+
+            <div class="plan-item">
+                <span class="plan-icon">🚧</span>
+                <span class="plan-text"><strong>Enhancing save file features</strong> Having the save files default selected governments within the Ship Builder, Data Viewer, and Battle Sim</span>
+            </div>
+        </section>
+
     </div>
+
+    <!-- ── Back to top button ──────────────────────────────────────── -->
+    <button id="backToTopBtn" aria-label="Back to top" title="Back to top">↑</button>
+
+    <script>
+        const backToTopBtn = document.getElementById('backToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
 </body>
 </html>
