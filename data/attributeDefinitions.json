@@ -16,29 +16,29 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-13T12:42:09.681Z",
+    "generatedAt": "2026-08-14T22:32:50.751Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-13T12:42:09.388Z",
+      "scannedAt": "2026-08-14T22:32:50.483Z",
       "totalCandidatesScanned": 462,
       "relevantFilesFound": 31,
       "relevantFilePaths": [
         "source/AmmoDisplay.cpp",
-        "source/Armament.cpp",
         "source/AI.cpp",
+        "source/Armament.cpp",
         "source/BoardingPanel.cpp",
-        "source/Depreciation.cpp",
         "source/DamageProfile.cpp",
+        "source/Depreciation.cpp",
         "source/Engine.cpp",
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
-        "source/Government.cpp",
         "source/HailPanel.cpp",
         "source/Hardpoint.cpp",
+        "source/Government.cpp",
         "source/HiringPanel.cpp",
         "source/LocationFilter.cpp",
         "source/MainPanel.cpp",
@@ -49,9 +49,9 @@
         "source/OutfitterPanel.cpp",
         "source/Planet.cpp",
         "source/PlanetPanel.cpp",
-        "source/PlayerInfoPanel.cpp",
         "source/PlayerInfo.cpp",
         "source/Politics.cpp",
+        "source/PlayerInfoPanel.cpp",
         "source/PrintData.cpp",
         "source/Projectile.cpp",
         "source/ShipInfoPanel.cpp",
@@ -7150,92 +7150,6 @@
         ]
       }
     },
-    "Armament": {
-      "Add": {
-        "returnType": "int",
-        "params": "const Outfit *outfit, int count",
-        "isConst": false,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "added",
-            "formula": "0"
-          }
-        ]
-      },
-      "GunCount": {
-        "returnType": "int",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "hardpoints.size() - TurretCount()",
-            "formula": "hardpoints.size() - TurretCount()"
-          }
-        ]
-      },
-      "TurretCount": {
-        "returnType": "int",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "count",
-            "formula": "0"
-          }
-        ]
-      },
-      "RestockableAmmo": {
-        "returnType": "set<const Outfit *>",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "restockable",
-            "formula": "restockable"
-          }
-        ]
-      },
-      "FireAntiMissile": {
-        "returnType": "bool",
-        "params": "unsigned index, Ship &ship, const Projectile &projectile,\n\tvector<Visual> &visuals, bool jammed",
-        "isConst": false,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "hardpoints[index].FireAntiMissile(ship, projectile, visuals)",
-            "formula": "hardpoints[index].FireAntiMissile(ship, projectile, visuals)"
-          }
-        ]
-      },
-      "FireTractorBeam": {
-        "returnType": "bool",
-        "params": "unsigned index, Ship &ship, const Flotsam &flotsam,\n\tvector<Visual> &visuals, bool jammed",
-        "isConst": false,
-        "sourceFile": "source/Armament.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "hardpoints[index].FireTractorBeam(ship, flotsam, visuals)",
-            "formula": "hardpoints[index].FireTractorBeam(ship, flotsam, visuals)"
-          }
-        ]
-      }
-    },
     "AI": {
       "Step": {
         "returnType": "void",
@@ -7825,6 +7739,92 @@
         ]
       }
     },
+    "Armament": {
+      "Add": {
+        "returnType": "int",
+        "params": "const Outfit *outfit, int count",
+        "isConst": false,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "added",
+            "formula": "0"
+          }
+        ]
+      },
+      "GunCount": {
+        "returnType": "int",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "hardpoints.size() - TurretCount()",
+            "formula": "hardpoints.size() - TurretCount()"
+          }
+        ]
+      },
+      "TurretCount": {
+        "returnType": "int",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "count",
+            "formula": "0"
+          }
+        ]
+      },
+      "RestockableAmmo": {
+        "returnType": "set<const Outfit *>",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "restockable",
+            "formula": "restockable"
+          }
+        ]
+      },
+      "FireAntiMissile": {
+        "returnType": "bool",
+        "params": "unsigned index, Ship &ship, const Projectile &projectile,\n\tvector<Visual> &visuals, bool jammed",
+        "isConst": false,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "hardpoints[index].FireAntiMissile(ship, projectile, visuals)",
+            "formula": "hardpoints[index].FireAntiMissile(ship, projectile, visuals)"
+          }
+        ]
+      },
+      "FireTractorBeam": {
+        "returnType": "bool",
+        "params": "unsigned index, Ship &ship, const Flotsam &flotsam,\n\tvector<Visual> &visuals, bool jammed",
+        "isConst": false,
+        "sourceFile": "source/Armament.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "hardpoints[index].FireTractorBeam(ship, flotsam, visuals)",
+            "formula": "hardpoints[index].FireTractorBeam(ship, flotsam, visuals)"
+          }
+        ]
+      }
+    },
     "BoardingPanel": {
       "Draw": {
         "returnType": "void",
@@ -7940,6 +7940,74 @@
         ]
       }
     },
+    "DamageProfile": {
+      "CalculateDamage": {
+        "returnType": "MinableDamageDealt",
+        "params": "const Minable &minable",
+        "isConst": true,
+        "sourceFile": "source/DamageProfile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "{scale * (weapon.MinableDamage() + weapon.RelativeMinableDamage() * minable.MaxHull()), scale * weapon.Prospecting(), scale * weapon.CorrosionDamage()}",
+            "formula": "{(Scale(inputScaling, minable, isBlast)) * (weapon.MinableDamage() + weapon.RelativeMinableDamage() * minable.MaxHull()), (Scale(inputScaling, minable, isBlast)) * weapon.Prospecting(), (Scale(inputScaling, minable, isBlast)) * weapon.CorrosionDamage()}"
+          }
+        ]
+      },
+      "Scale": {
+        "returnType": "double",
+        "params": "double scale, const Body &body, bool blast",
+        "isConst": true,
+        "sourceFile": "source/DamageProfile.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "scale",
+            "formula": "scale"
+          }
+        ]
+      },
+      "PopulateDamage": {
+        "returnType": "void",
+        "params": "DamageDealt &damage, const Ship &ship",
+        "isConst": true,
+        "sourceFile": "source/DamageProfile.cpp",
+        "attributesRead": [
+          "burn protection",
+          "cloak hull protection",
+          "cloak shield protection",
+          "cloaked shield permeability",
+          "corrosion protection",
+          "discharge protection",
+          "disruption protection",
+          "energy capacity",
+          "energy protection",
+          "force protection",
+          "fuel capacity",
+          "fuel protection",
+          "heat protection",
+          "high shield permeability",
+          "hull protection",
+          "ion protection",
+          "leak protection",
+          "low shield permeability",
+          "piercing protection",
+          "piercing resistance",
+          "scramble protection",
+          "shield protection",
+          "slowing protection"
+        ],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "damage.scaling * blocked / (1. + protection)",
+            "formula": "damage.scaling * blocked / (1. + protection)"
+          }
+        ]
+      }
+    },
     "Depreciation": {
       "Full": {
         "returnType": "double",
@@ -8044,74 +8112,6 @@
           {
             "rawReturn": "(isStock ? 1. : Min())",
             "formula": "(isStock ? 1. : Min())"
-          }
-        ]
-      }
-    },
-    "DamageProfile": {
-      "CalculateDamage": {
-        "returnType": "MinableDamageDealt",
-        "params": "const Minable &minable",
-        "isConst": true,
-        "sourceFile": "source/DamageProfile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "{scale * (weapon.MinableDamage() + weapon.RelativeMinableDamage() * minable.MaxHull()), scale * weapon.Prospecting(), scale * weapon.CorrosionDamage()}",
-            "formula": "{(Scale(inputScaling, minable, isBlast)) * (weapon.MinableDamage() + weapon.RelativeMinableDamage() * minable.MaxHull()), (Scale(inputScaling, minable, isBlast)) * weapon.Prospecting(), (Scale(inputScaling, minable, isBlast)) * weapon.CorrosionDamage()}"
-          }
-        ]
-      },
-      "Scale": {
-        "returnType": "double",
-        "params": "double scale, const Body &body, bool blast",
-        "isConst": true,
-        "sourceFile": "source/DamageProfile.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "scale",
-            "formula": "scale"
-          }
-        ]
-      },
-      "PopulateDamage": {
-        "returnType": "void",
-        "params": "DamageDealt &damage, const Ship &ship",
-        "isConst": true,
-        "sourceFile": "source/DamageProfile.cpp",
-        "attributesRead": [
-          "burn protection",
-          "cloak hull protection",
-          "cloak shield protection",
-          "cloaked shield permeability",
-          "corrosion protection",
-          "discharge protection",
-          "disruption protection",
-          "energy capacity",
-          "energy protection",
-          "force protection",
-          "fuel capacity",
-          "fuel protection",
-          "heat protection",
-          "high shield permeability",
-          "hull protection",
-          "ion protection",
-          "leak protection",
-          "low shield permeability",
-          "piercing protection",
-          "piercing resistance",
-          "scramble protection",
-          "shield protection",
-          "slowing protection"
-        ],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "damage.scaling * blocked / (1. + protection)",
-            "formula": "damage.scaling * blocked / (1. + protection)"
           }
         ]
       }
@@ -8298,6 +8298,214 @@
           {
             "rawReturn": "fine",
             "formula": "fine"
+          }
+        ]
+      }
+    },
+    "Hardpoint": {
+      "HarmonizedAngle": {
+        "returnType": "Angle",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "Angle()",
+            "formula": "Angle()"
+          },
+          {
+            "rawReturn": "Angle(d <= 0. ? 0. : -asin(refPoint.X() / d) * TO_DEG)",
+            "formula": "Angle(d <= 0. ? 0. : -asin(refPoint.X() / d) * TO_DEG)"
+          }
+        ]
+      },
+      "TurnRate": {
+        "returnType": "double",
+        "params": "const Ship &ship",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [
+          "turret turn multiplier"
+        ],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "0.",
+            "formula": "0."
+          },
+          {
+            "rawReturn": "outfit->GetWeapon()->TurretTurn() * (1. + ship.Attributes().Get(\"turret turn multiplier\") + baseAttributes.turnMultiplier)",
+            "formula": "outfit->GetWeapon()->TurretTurn() * (1. + [turret turn multiplier] + baseAttributes.turnMultiplier)"
+          }
+        ]
+      },
+      "IsTurret": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "isTurret",
+            "formula": "isTurret"
+          }
+        ]
+      },
+      "IsParallel": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "isParallel",
+            "formula": "isParallel"
+          }
+        ]
+      },
+      "IsOmnidirectional": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "isOmnidirectional",
+            "formula": "isOmnidirectional"
+          }
+        ]
+      },
+      "GetSide": {
+        "returnType": "Hardpoint::Side",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "baseAttributes.side",
+            "formula": "baseAttributes.side"
+          }
+        ]
+      },
+      "IsHoming": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "outfit && outfit->GetWeapon()->Homing()",
+            "formula": "outfit && outfit->GetWeapon()->Homing()"
+          }
+        ]
+      },
+      "IsSpecial": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "weapon->AntiMissile() || weapon->TractorBeam()",
+            "formula": "weapon->AntiMissile() || weapon->TractorBeam()"
+          }
+        ]
+      },
+      "CanAim": {
+        "returnType": "bool",
+        "params": "const Ship &ship",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "TurnRate(ship)",
+            "formula": "TurnRate(ship)"
+          }
+        ]
+      },
+      "IsReady": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "outfit && burstReload <= 0. && burstCount && (!IsBlind() || IsSpecial())",
+            "formula": "outfit && burstReload <= 0. && burstCount && (!IsBlind() || IsSpecial())"
+          }
+        ]
+      },
+      "IsBlind": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "any_of(baseAttributes.blindspots.begin(), baseAttributes.blindspots.end(), [this](pair<Angle, Angle> blindspot) { return angle.IsInRange(blindspot.first + baseAngle, blindspot.second + baseAngle); })",
+            "formula": "any_of(baseAttributes.blindspots.begin(), baseAttributes.blindspots.end(), [this](pair<Angle, Angle> blindspot) { return angle.IsInRange(blindspot.first + baseAngle, blindspot.second + baseAngle); })"
+          }
+        ]
+      },
+      "WasFiring": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "wasFiring",
+            "formula": "wasFiring"
+          }
+        ]
+      },
+      "BurstRemaining": {
+        "returnType": "int",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "burstCount",
+            "formula": "burstCount"
+          }
+        ]
+      },
+      "FireAntiMissile": {
+        "returnType": "bool",
+        "params": "Ship &ship, const Projectile &projectile, vector<Visual> &visuals",
+        "isConst": false,
+        "sourceFile": "source/Hardpoint.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "(Random::Int(strength) > Random::Int(projectile.MissileStrength()))",
+            "formula": "(Random::Int(strength) > Random::Int(projectile.MissileStrength()))"
           }
         ]
       }
@@ -8748,214 +8956,6 @@
           {
             "rawReturn": "!travelRestrictions.IsEmpty() && travelRestrictions.Matches(&system)",
             "formula": "!travelRestrictions.IsEmpty() && travelRestrictions.Matches(&system)"
-          }
-        ]
-      }
-    },
-    "Hardpoint": {
-      "HarmonizedAngle": {
-        "returnType": "Angle",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "Angle()",
-            "formula": "Angle()"
-          },
-          {
-            "rawReturn": "Angle(d <= 0. ? 0. : -asin(refPoint.X() / d) * TO_DEG)",
-            "formula": "Angle(d <= 0. ? 0. : -asin(refPoint.X() / d) * TO_DEG)"
-          }
-        ]
-      },
-      "TurnRate": {
-        "returnType": "double",
-        "params": "const Ship &ship",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [
-          "turret turn multiplier"
-        ],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "0.",
-            "formula": "0."
-          },
-          {
-            "rawReturn": "outfit->GetWeapon()->TurretTurn() * (1. + ship.Attributes().Get(\"turret turn multiplier\") + baseAttributes.turnMultiplier)",
-            "formula": "outfit->GetWeapon()->TurretTurn() * (1. + [turret turn multiplier] + baseAttributes.turnMultiplier)"
-          }
-        ]
-      },
-      "IsTurret": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "isTurret",
-            "formula": "isTurret"
-          }
-        ]
-      },
-      "IsParallel": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "isParallel",
-            "formula": "isParallel"
-          }
-        ]
-      },
-      "IsOmnidirectional": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "isOmnidirectional",
-            "formula": "isOmnidirectional"
-          }
-        ]
-      },
-      "GetSide": {
-        "returnType": "Hardpoint::Side",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "baseAttributes.side",
-            "formula": "baseAttributes.side"
-          }
-        ]
-      },
-      "IsHoming": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "outfit && outfit->GetWeapon()->Homing()",
-            "formula": "outfit && outfit->GetWeapon()->Homing()"
-          }
-        ]
-      },
-      "IsSpecial": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "weapon->AntiMissile() || weapon->TractorBeam()",
-            "formula": "weapon->AntiMissile() || weapon->TractorBeam()"
-          }
-        ]
-      },
-      "CanAim": {
-        "returnType": "bool",
-        "params": "const Ship &ship",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "TurnRate(ship)",
-            "formula": "TurnRate(ship)"
-          }
-        ]
-      },
-      "IsReady": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "outfit && burstReload <= 0. && burstCount && (!IsBlind() || IsSpecial())",
-            "formula": "outfit && burstReload <= 0. && burstCount && (!IsBlind() || IsSpecial())"
-          }
-        ]
-      },
-      "IsBlind": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "any_of(baseAttributes.blindspots.begin(), baseAttributes.blindspots.end(), [this](pair<Angle, Angle> blindspot) { return angle.IsInRange(blindspot.first + baseAngle, blindspot.second + baseAngle); })",
-            "formula": "any_of(baseAttributes.blindspots.begin(), baseAttributes.blindspots.end(), [this](pair<Angle, Angle> blindspot) { return angle.IsInRange(blindspot.first + baseAngle, blindspot.second + baseAngle); })"
-          }
-        ]
-      },
-      "WasFiring": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "wasFiring",
-            "formula": "wasFiring"
-          }
-        ]
-      },
-      "BurstRemaining": {
-        "returnType": "int",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "burstCount",
-            "formula": "burstCount"
-          }
-        ]
-      },
-      "FireAntiMissile": {
-        "returnType": "bool",
-        "params": "Ship &ship, const Projectile &projectile, vector<Visual> &visuals",
-        "isConst": false,
-        "sourceFile": "source/Hardpoint.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "(Random::Int(strength) > Random::Int(projectile.MissileStrength()))",
-            "formula": "(Random::Int(strength) > Random::Int(projectile.MissileStrength()))"
           }
         ]
       }
@@ -10225,47 +10225,6 @@
         ],
         "attributesSet": [],
         "formulas": []
-      }
-    },
-    "PlayerInfoPanel": {
-      "Drag": {
-        "returnType": "bool",
-        "params": "double dx, double dy",
-        "isConst": false,
-        "sourceFile": "source/PlayerInfoPanel.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "Hover(hoverPoint + Point(dx, dy))",
-            "formula": "Hover(hoverPoint + Point(dx, dy))"
-          }
-        ]
-      },
-      "DrawFleet": {
-        "returnType": "void",
-        "params": "const Rectangle &bounds",
-        "isConst": false,
-        "sourceFile": "source/PlayerInfoPanel.cpp",
-        "attributesRead": [
-          "fuel capacity"
-        ],
-        "attributesSet": [],
-        "formulas": []
-      },
-      "Scroll": {
-        "returnType": "bool",
-        "params": "int distance",
-        "isConst": false,
-        "sourceFile": "source/PlayerInfoPanel.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "ScrollAbsolute(panelState.Scroll() + distance)",
-            "formula": "ScrollAbsolute(panelState.Scroll() + distance)"
-          }
-        ]
       }
     },
     "PlayerInfo": {
@@ -11698,6 +11657,47 @@
           {
             "rawReturn": "(it == reputationWith.end() ? 0. : it->second)",
             "formula": "(it == reputationWith.end() ? 0. : it->second)"
+          }
+        ]
+      }
+    },
+    "PlayerInfoPanel": {
+      "Drag": {
+        "returnType": "bool",
+        "params": "double dx, double dy",
+        "isConst": false,
+        "sourceFile": "source/PlayerInfoPanel.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "Hover(hoverPoint + Point(dx, dy))",
+            "formula": "Hover(hoverPoint + Point(dx, dy))"
+          }
+        ]
+      },
+      "DrawFleet": {
+        "returnType": "void",
+        "params": "const Rectangle &bounds",
+        "isConst": false,
+        "sourceFile": "source/PlayerInfoPanel.cpp",
+        "attributesRead": [
+          "fuel capacity"
+        ],
+        "attributesSet": [],
+        "formulas": []
+      },
+      "Scroll": {
+        "returnType": "bool",
+        "params": "int distance",
+        "isConst": false,
+        "sourceFile": "source/PlayerInfoPanel.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "ScrollAbsolute(panelState.Scroll() + distance)",
+            "formula": "ScrollAbsolute(panelState.Scroll() + distance)"
           }
         ]
       }
