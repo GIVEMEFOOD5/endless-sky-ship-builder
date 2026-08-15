@@ -1095,6 +1095,187 @@
     }
   },
   {
+    "name": "Sea Scorpion (KGS Bipulse Ripper)",
+    "engines": [
+      {
+        "x": -23.5,
+        "y": 68.5
+      },
+      {
+        "x": 23.5,
+        "y": 68.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": 13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -56,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -56,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -35.5,
+        "y": 24.5,
+        "turret": ""
+      },
+      {
+        "x": 35.5,
+        "y": 24.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai sea scorpion",
+    "thumbnail": "thumbnail/hai sea scorpion",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5450000,
+      "shields": 15500,
+      "hull": 4900,
+      "required crew": 14,
+      "bunks": 36,
+      "mass": 735,
+      "drag": 7.8,
+      "heat dissipation": 0.47,
+      "fuel capacity": 500,
+      "cargo space": 45,
+      "outfit space": 510,
+      "weapon capacity": 188,
+      "engine capacity": 117,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "tiny explosion": 24,
+    "small explosion": 50,
+    "medium explosion": 30,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The Sea Scorpion was designed several decades ago to serve as a mobile platform to launch Trackers. However, it is only recently that the Unfettered have been able to mass-produce them. While individually vulnerable, the reduced cost of manufacturing compared to Shield Beetles allow the materially inferior Unfettered to gain a numerical advantage against their brethren.",
+    "_internalId": "official-game/endless-sky::Sea Scorpion",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "2c283bbc69d3",
+    "variant": "Sea Scorpion (KGS Bipulse Ripper)",
+    "baseShip": "Sea Scorpion",
+    "_variantPluginId": "Kai's list/KGS",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Hai (Unfettered)": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ehma Ti",
+          "Hi Yahr",
+          "Wah Ki",
+          "Wah Yoot"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Systems": [
+          "Mah Duum"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ]
+      }
+    },
+    "outfits": {
+      "KGS Bipulse Ripper": {
+        "count": 4,
+        "pluginId": "Kai's list/KGS"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Williwaw Cooling": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Value Detector": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Fissure Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Ravine Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
     "name": "Shield Beetle (Ionic)",
     "engines": [],
     "reverseEngines": [],
