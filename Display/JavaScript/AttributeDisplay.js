@@ -13,6 +13,13 @@
 //   • Outfit-to-ship attribute bonuses shown in a dedicated section
 //   • One-shot weapons (no reload / no refire) show damage-per-shot only,
 //     not an inflated "damage × 60" per-second figure
+//   • Every row pushed by calcDerivedStats now carries a `source` tag
+//     ('shipFn' | 'energyHeat' | 'labelPair' | 'timeToFull' | 'scanRange' |
+//     'scanEvasion' | 'systemAware' | 'computedStats') so other consumers
+//     (CompareDisplay.js) can tell which rows duplicate what
+//     window.ComputedStats already exposes as _fn_/_derived_/_sys_ keys,
+//     versus which rows (labelPair/timeToFull/scanRange/scanEvasion) are
+//     unique to this file and need to be pulled in explicitly.
 //
 // Section grouping (which attribute lands in which named section, e.g.
 // "Shields & Hull", "Energy", "Jump"...) is delegated entirely to the
@@ -207,16 +214,35 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     // Hull', same as the raw "shields"/"shield generation" attributes that
     // drive it), so the renderer can place derived stats alongside their
     // raw counterparts instead of a single undifferentiated pile.
-    function push(label, rawValue, displayScale, unit, formulaStr, isComputedOutfit, section) {
+    //
+    // `source` tags which branch below produced the row:
+    //   'shipFn'       — a real Ship:: function formula (also exposed by
+    //                     ComputedStats.js as `_fn_<Name>`)
+    //   'energyHeat'   — an energy/heat table row (also exposed as
+    //                     `_derived_energy_*` / `_derived_heat_*`)
+    //   'labelPair'    — a ShipInfoDisplay label/value pair. UNIQUE to this
+    //                     file — ComputedStats.js does not compute these.
+    //   'timeToFull'   — time-to-full-shields/hull. UNIQUE to this file.
+    //   'scanRange'    — scan range derived from scan power. UNIQUE.
+    //   'scanEvasion'  — scan evasion from scan interference. UNIQUE.
+    //   'systemAware'  — a systemAwareFormulas entry (also exposed as `_sys_*`)
+    //   'computedStats'— pulled straight from window.ComputedStats output
+    //                     (already exposed there under its own key)
+    // Consumers that already read ComputedStats directly (e.g.
+    // CompareDisplay.js) should only pull rows tagged 'labelPair',
+    // 'timeToFull', 'scanRange', or 'scanEvasion' from here, to avoid
+    // showing the same stat twice.
+    function push(label, rawValue, displayScale, unit, formulaStr, isComputedOutfit, section, source) {
         const scale = (typeof displayScale === 'number' && displayScale > 0) ? displayScale : 1;
         const value = rawValue * scale;
         if (isNaN(value) || value === 0) return;
         if (seen.has(label)) return;
         seen.add(label);
         results.push({
-            label, value: fmtNum(value), unit: unit || '', formula: formulaStr || '',
+            label, value: fmtNum(value), raw: value, unit: unit || '', formula: formulaStr || '',
             isComputedOutfit: !!isComputedOutfit,
             section: section || 'Derived Stats',
+            source: source || 'other',
         });
     }
 
@@ -238,13 +264,13 @@ function calcDerivedStats(attrDefs, item, pluginId) {
             const maxHeat = fnCache['MaximumHeat'] ?? 0;
             if (maxHeat > 0) {
                 const heatPct = rawVal / maxHeat * 100;
-                push('Idle Heat %', heatPct, 1, '%', formula, false, section);
+                push('Idle Heat %', heatPct, 1, '%', formula, false, section, 'shipFn');
             }
-            push(label, rawVal, scale, '', formula, false, section);
+            push(label, rawVal, scale, '', formula, false, section, 'shipFn');
             continue;
         }
 
-        push(label, rawVal, scale, '', formula, false, section);
+        push(label, rawVal, scale, '', formula, false, section, 'shipFn');
         renderedFnKeys.add(`_fn_${fnName}`);
     }
 
@@ -253,8 +279,8 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         if (!row.label) continue;
         const eVal = evalFormulaDisplay(row.energyFormula, attrs, fnResolver);
         const hVal = evalFormulaDisplay(row.heatFormula,   attrs, fnResolver);
-        if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy`, eVal, 1, '/s', row.energyFormula, false, 'Energy');
-        if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat`,   hVal, 1, '/s', row.heatFormula, false, 'Energy');
+        if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy`, eVal, 1, '/s', row.energyFormula, false, 'Energy', 'energyHeat');
+        if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat`,   hVal, 1, '/s', row.heatFormula, false, 'Energy', 'energyHeat');
     }
 
     // ── 3. Label/value pairs from ShipInfoDisplay ─────────────────────────────
@@ -265,7 +291,7 @@ function calcDerivedStats(attrDefs, item, pluginId) {
             const section = /licen[cs]e/i.test(pair.label)
                 ? 'Licenses'
                 : (window.AttributeSections.matchDomainWord(pair.label) || 'General');
-            push(pair.label, val, 1, '', pair.formula, false, section);
+            push(pair.label, val, 1, '', pair.formula, false, section, 'labelPair');
         }
     }
 
@@ -274,20 +300,20 @@ function calcDerivedStats(attrDefs, item, pluginId) {
     const hullRepair  = parseFloat(attrs['hull repair rate']  ?? 0) * 60;
     const maxShields  = fnCache['MaxShields'] ?? 0;
     const maxHull     = fnCache['MaxHull']    ?? 0;
-    if (maxShields && shieldRegen) push('Time to Full Shields', maxShields / shieldRegen, 1, 's', '', false, 'Shields & Hull');
-    if (maxHull    && hullRepair)  push('Time to Full Hull',    maxHull    / hullRepair,  1, 's', '', false, 'Shields & Hull');
+    if (maxShields && shieldRegen) push('Time to Full Shields', maxShields / shieldRegen, 1, 's', '', false, 'Shields & Hull', 'timeToFull');
+    if (maxHull    && hullRepair)  push('Time to Full Hull',    maxHull    / hullRepair,  1, 's', '', false, 'Shields & Hull', 'timeToFull');
 
     // ── 5. Scan ranges (derived from scan power) — Scanning ───────────────────
     for (const [key] of Object.entries(attrDefs?.attributes || {})) {
         if (!key.endsWith('scan power')) continue;
         const val = parseFloat(attrs[key] ?? 0);
         if (!val) continue;
-        push(getLabel(key).replace(' Power', ' Range'), 100 * Math.sqrt(val), 1, 'px', `100 * sqrt([${key}])`, false, 'Scanning');
+        push(getLabel(key).replace(' Power', ' Range'), 100 * Math.sqrt(val), 1, 'px', `100 * sqrt([${key}])`, false, 'Scanning', 'scanRange');
     }
 
     // ── 6. Scan evasion — Scanning ────────────────────────────────────────────
     const si = parseFloat(attrs['scan interference'] ?? 0);
-    if (si) push('Scan Evasion', si / (1 + si) * 100, 1, '%', '', false, 'Scanning');
+    if (si) push('Scan Evasion', si / (1 + si) * 100, 1, '%', '', false, 'Scanning', 'scanEvasion');
 
     // ── 7. System-aware stats (solar, ramscoop) — Energy ──────────────────────
     const sysFormulas = attrDefs?.systemAwareFormulas || {};
@@ -299,7 +325,7 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         if (isNaN(rawVal) || rawVal === 0) continue;
         const displayVal = rawVal * (info.displayScale ?? 1);
         const label = getLabel(attrKey) + ' (at solar ×' + solar + ')';
-        push(label, displayVal, 1, info.displayUnit ?? '/s', info.formula, false, 'Energy');
+        push(label, displayVal, 1, info.displayUnit ?? '/s', info.formula, false, 'Energy', 'systemAware');
     }
 
     // ── 8. Computed stats from ComputedStats.js ───────────────────────────────
@@ -329,12 +355,12 @@ function calcDerivedStats(attrDefs, item, pluginId) {
             const section = window.AttributeSections.classifyComputedKey(attrDefs, statKey);
             if (seen.has(label)) {
                 const existing = results.find(r => r.label === label);
-                if (existing) { existing.value = fmtNum(displayVal); existing.isComputedOutfit = true; existing.section = section; }
+                if (existing) { existing.value = fmtNum(displayVal); existing.raw = displayVal; existing.isComputedOutfit = true; existing.section = section; }
                 continue;
             }
             seen.add(label);
             const unit = (statKey.startsWith('_ws_') && statKey.toLowerCase().includes('dps')) ? 'dmg/s' : '';
-            results.push({ label, value: fmtNum(displayVal), unit, formula: '', isComputedOutfit: true, section });
+            results.push({ label, value: fmtNum(displayVal), raw: displayVal, unit, formula: '', isComputedOutfit: true, section, source: 'computedStats' });
         }
     }
 
