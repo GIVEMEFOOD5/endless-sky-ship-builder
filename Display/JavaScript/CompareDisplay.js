@@ -8,6 +8,9 @@
 //   1. Effective attrs  — base ship attrs + all outfit contributions
 //   2. Hardpoints       — gun/turret/bay/engine counts
 //   3. Heat derived      — totalHeatCawpacity, maxSustainableHeatProd
+//   3b. Unique AttributeDisplay rows — label/value pairs, time-to-full
+//       shields/hull, scan range, scan evasion (see step 3b below)
+//   3c. Status effect wear-off — same calc AttributeDisplay.js uses
 //   4. Weapon DPS        — fleet summary + per-weapon detail
 //   5. Per-outfit detail — Outfit: <name> sections for every installed outfit
 //   6. Computed stats    — _fn_*, _derived_*, _ws_* from ComputedStats
@@ -29,6 +32,20 @@
 // shipBuilderStats.js, and a computed stat (e.g. "_fn_MaxShields") lands
 // next to the raw attributes it's related to instead of a generic "Derived
 // Stats" catch-all. Load attributeSections.js BEFORE this file.
+//
+// Parity with AttributeDisplay.js:
+//   AttributeDisplay.js's calcDerivedStats() computes four kinds of rows
+//   that window.ComputedStats does NOT produce anywhere else — label/value
+//   pairs, time-to-full shields/hull, scan range, and scan evasion — plus
+//   the whole status-effect wear-off panel (calcEffectWearOffTimes). Every
+//   other derived stat (_fn_/_derived_/_sys_/_ws_) already flows through
+//   window.ComputedStats and is already picked up by this file's step 6.
+//   Step 3b/3c below reuse AttributeDisplay.calcDerivedStats and
+//   .calcEffectWearOffTimes directly (rather than reimplementing the math
+//   here) and filter to just the rows tagged with a `source` unique to
+//   AttributeDisplay.js, so the same stat is never shown twice. Load
+//   AttributeDisplay.js BEFORE this file for step 3b/3c to have any effect;
+//   if it isn't loaded, these two blocks are silently skipped.
 // ─────────────────────────────────────────────────────────────────────────────
 
 window.CompareDisplay = (() => {
@@ -870,6 +887,59 @@ window.CompareDisplay = (() => {
             if (hd.maxSustainableHeatProd != null)
                 pushRawScaled('Heat (derived)', '_hd_maxSustHeat',  'Max Sustainable Heat/s', hd.maxSustainableHeatProd, '/s');
 
+            // 3b. Unique derived stats from AttributeDisplay.calcDerivedStats —
+            // label/value pairs, time-to-full shields/hull, scan range, and scan
+            // evasion — none of which window.ComputedStats produces on its own
+            // (see calcDerivedStats' 'labelPair'/'timeToFull'/'scanRange'/
+            // 'scanEvasion' source tags). Ship-function, energy/heat-table,
+            // system-aware, and ComputedStats-sourced rows are skipped here —
+            // those are already emitted by the ComputedStats block below (step
+            // 6), so pulling them in again would show the same stat twice.
+            //
+            // Passing { attributes: eff } (not the real `item`) means this
+            // reads base ship attrs on the includeOutfits=false pass and
+            // outfit-merged attrs on the includeOutfits=true pass — matching
+            // every other stat in this file's base-vs-"(with outfits)" split.
+            // pluginId is deliberately omitted so calcDerivedStats' step 8
+            // (getComputedStats) never runs here — that step caches by
+            // `ship._internalId || ship.name`, which this synthetic object
+            // doesn't have, and calling it would pollute that shared cache.
+            if (window.AttributeDisplay?.calcDerivedStats) {
+                const UNIQUE_SOURCES = new Set(['labelPair', 'timeToFull', 'scanRange', 'scanEvasion']);
+                try {
+                    const cds = window.AttributeDisplay.calcDerivedStats(_attrDefs(), { attributes: eff });
+                    for (const row of cds) {
+                        if (!UNIQUE_SOURCES.has(row.source)) continue;
+                        const key = `_cds_${row.label}`;
+                        if (seen.has(key)) continue;
+                        seen.add(key);
+                        if (!sections[row.section]) sections[row.section] = [];
+                        sections[row.section].push({ key, label: row.label, value: row.value, unit: row.unit || '' });
+                    }
+                } catch (_) {}
+            }
+
+            // 3c. Status effect wear-off times — same calculation as
+            // AttributeDisplay's "Status Effect Wear-off" panel, routed into
+            // the canonical 'Resistance' section (per AttributeSections)
+            // instead of a bespoke section title, so it sits alongside any
+            // other resistance rows already shown here.
+            if (window.AttributeDisplay?.calcEffectWearOffTimes) {
+                try {
+                    const wearOffs = window.AttributeDisplay.calcEffectWearOffTimes(eff);
+                    for (const w of wearOffs) {
+                        const key = `_wo_${w.label}`;
+                        if (seen.has(key)) continue;
+                        seen.add(key);
+                        if (!sections['Resistance']) sections['Resistance'] = [];
+                        sections['Resistance'].push({
+                            key, label: `${w.label} wear-off`,
+                            value: _fmt(w.wearOffSecondsPerUnit), unit: 's/unit',
+                        });
+                    }
+                } catch (_) {}
+            }
+
             // 4. Weapon DPS + per-weapon sections
             if (includeOutfits) {
                 const wData = _buildWeaponData(item, outfitIdx);
@@ -1272,6 +1342,12 @@ window.CompareDisplay = (() => {
 
         // 2. Delay attributes (wait time in seconds = bad to have more of)
         if (rec?.displayUnit === 's')    return true;
+
+        // 2b. Durations from the calcDerivedStats/wear-off blocks in step 3b/3c
+        // above ("_cds_Time to Full Shields/Hull" and "_wo_<Effect> wear-off")
+        // — shorter is always better (faster shield/hull regen, faster status
+        // effect wear-off), same direction as the raw 's'-unit rule above.
+        if (key.startsWith('_cds_Time to Full') || key.startsWith('_wo_')) return true;
 
         // 3. Hard-coded always-lower set
         if (_ALWAYS_LOWER_BETTER.has(key)) return true;
