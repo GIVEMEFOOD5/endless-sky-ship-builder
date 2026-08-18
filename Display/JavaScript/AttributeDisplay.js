@@ -2,857 +2,16 @@
 
 // ─── AttributeDisplay.js ─────────────────────────────────────────────────────
 //
-// Renders attribute panels for ships, outfits, and effects.
-// Relies on ComputedStats.js for all numeric derivations.
-// Zero hardcoded attribute names or formulas.
+// PURE HTML RENDERER. Every number shown here — raw attributes, derived
+// stats, weapon DPS, wear-off times, outfit contributions — is computed and
+// classified by window.ItemStats (see ItemStats.js). This file's only job
+// is to turn ItemStats' row objects into the existing markup/CSS classes
+// (ad-row, ad-section-title, ad-grid, data-tooltip, ...). It contains no
+// formulas, no attribute-name lists, and no section-classification logic.
 //
-// Improvements over previous version:
-//   • Submunition damage chain fully displayed in weapon stats
-//   • Outfit attribute contributions shown on ship panels (which outfit adds what)
-//   • Effect wear-off times calculated from resistance values
-//   • Outfit-to-ship attribute bonuses shown in a dedicated section
-//   • One-shot weapons (no reload / no refire) show damage-per-shot only,
-//     not an inflated "damage × 60" per-second figure
-//   • Every row pushed by calcDerivedStats now carries a `source` tag
-//     ('shipFn' | 'energyHeat' | 'labelPair' | 'timeToFull' | 'scanRange' |
-//     'scanEvasion' | 'systemAware' | 'computedStats') so other consumers
-//     (CompareDisplay.js) can tell which rows duplicate what
-//     window.ComputedStats already exposes as _fn_/_derived_/_sys_ keys,
-//     versus which rows (labelPair/timeToFull/scanRange/scanEvasion) are
-//     unique to this file and need to be pulled in explicitly.
-//
-// Section grouping (which attribute lands in which named section, e.g.
-// "Shields & Hull", "Energy", "Jump"...) is delegated entirely to the
-// shared AttributeSections.js module (window.AttributeSections), so this
-// panel groups attributes identically to CompareDisplay.js and
-// shipBuilderStats.js. Load attributeSections.js BEFORE this file.
-
-function getAttrRecord(attrDefs, key) {
-    const attrs = attrDefs?.attributes || {};
-    return attrs[key] || attrs[key?.toLowerCase()] || null;
-}
-
-function getLabel(key) {
-    return key.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-}
-
-function getSection(attrDefs, key) {
-    return window.AttributeSections.classify(attrDefs, key);
-}
-
-function getStacking(attrDefs, key) {
-    const rec = getAttrRecord(attrDefs, key);
-    return rec ? { rule: rec.stacking, description: rec.stackingDescription } : null;
-}
-
-// ─── Ship function suppression (mirrors ComputedStats, kept in sync) ─────────
-
-function _buildKnownDisplayFns(attrDefs) {
-    const fns   = attrDefs?.shipFunctions || {};
-    const known = new Set();
-    for (const [name, fn] of Object.entries(fns)) {
-        if (
-            fn.attributesRead?.length &&
-            fn.formulas?.length &&
-            (fn.displayScale ?? 1) > 1 &&
-            !/^(bool|void|string|const string|shared_ptr|vector|map|set|pair|.*[*&])/.test(fn.returnType || '')
-        ) known.add(name);
-    }
-    return known;
-}
-
-function shouldSuppressFn(fnName, fnData, knownDisplayFns) {
-    const ret     = (fnData.returnType || '').trim();
-    const attrs   = fnData.attributesRead || [];
-    const formula = fnData.formulas?.[fnData.formulas.length - 1]?.formula ?? '';
-
-    if (/^(bool|void|string|const string|shared_ptr|vector|map|set|pair|.*[*&])/.test(ret)) return true;
-    if (!fnData.formulas?.length) return true;
-    if (!attrs.length) {
-        const callsDisplayFn = knownDisplayFns && [...knownDisplayFns].some(fn => formula.includes(`${fn}()`));
-        if (!callsDisplayFn) return true;
-    }
-    if (formula.includes('min(1.'))                                     return true;
-    if (formula.includes('/ maximum'))                                  return true;
-    if (formula && !formula.includes('[') && !formula.includes('(') &&
-        /^\w+$/.test(formula.trim()))                                   return true;
-    if (/^0[.\s]*$/.test(formula.trim()))                               return true;
-    if (formula.includes('>= mass') && formula.includes('/ mass'))     return true;
-    if (formula.includes('sqrt(') && attrs.length === 1 &&
-        attrs[0].includes('cargo'))                                     return true;
-    return false;
-}
-
-// ─── IntermediateVar suppression (mirrors ComputedStats) ─────────────────────
-
-function shouldSuppressIntermediateVar(varName, formula) {
-    if (/PerFrame$/i.test(varName)) return true;
-    const bracketCount = (formula.match(/\[/g) || []).length;
-    const hasDivision  = formula.includes('/');
-    const hasFnCall    = /[A-Z][a-zA-Z]+\s*\(/.test(formula);
-    const hasMaxMin    = /\bmax\s*\(|\bmin\s*\(/.test(formula);
-    if (!hasDivision && !hasFnCall && !hasMaxMin && bracketCount <= 1) return true;
-    if (!hasDivision && !hasFnCall && bracketCount === 2 && formula.includes('?')) return true;
-    if (/^\d+\.\s*\*/.test(formula.trim())) return true;
-    return false;
-}
-
-// ─── Formula evaluator (display-side, thin wrapper over ComputedStats) ───────
-
-function evalFormulaDisplay(formulaStr, attrs, fnResolver) {
-    if (!formulaStr) return NaN;
-    try {
-        let js = formulaStr.replace(/\[([^\]]+)\]/g, (_, k) => {
-            const v = parseFloat((attrs || {})[k] ?? 0);
-            return isNaN(v) ? '0' : String(v);
-        });
-        for (const [fn, impl] of Object.entries(fnResolver || {})) {
-            const escaped = fn.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            js = js.replace(new RegExp('\\b' + escaped + '\\s*\\(\\s*\\)', 'g'), `(${impl})`);
-        }
-        const massVal = String(parseFloat((attrs || {})['mass'] ?? 0));
-        const eCap    = String(parseFloat((attrs || {})['energy capacity'] ?? 0));
-        const fCap    = String(parseFloat((attrs || {})['fuel capacity'] ?? 0));
-        const solar   = '1';
-
-        js = js
-            .replace(/\bMAXIMUM_TEMPERATURE\b/g, '100')
-            .replace(/cargo\.Used\(\)/g, '0')
-            .replace(/attributes\.Mass\(\)/g, massVal)
-            .replace(/\bcarriedMass\b/g, '0')
-            .replace(/(?<![[\w])\bmass\b(?!["\]\w])/g, massVal)
-            .replace(/\bsolar_power\b/g, solar)
-            .replace(/\bwithAfterburner\b/g, '0')
-            .replace(/\bslowness\b/g, '0')
-            .replace(/\bdisruption\b/g, '0')
-            .replace(/\bionization\b/g, '0')
-            .replace(/\benergy\b(?!\s*capacity|\s*generation|\s*consumption|\s*protection|\s*damage|\s*multiplier|\s*\[)/g, eCap)
-            .replace(/\bfuel\b(?!\s*capacity|\s*generation|\s*consumption|\s*protection|\s*damage|\s*energy|\s*heat|\s*\[)/g, fCap)
-            .replace(/\bMax\s*\(/g, 'Math.max(')
-            .replace(/\bmin\s*\(/g, 'Math.min(')
-            .replace(/\bmax\s*\(/g, 'Math.max(')
-            .replace(/\bexp\s*\(/g, 'Math.exp(')
-            .replace(/\bfloor\s*\(/g, 'Math.floor(')
-            .replace(/\bsqrt\s*\(/g, 'Math.sqrt(')
-            .replace(/\babs\s*\(/g, 'Math.abs(')
-            .replace(/\bpow\s*\(/g, 'Math.pow(')
-            .replace(/\b(?!Math\b)[A-Z][a-zA-Z]+\(\)/g, '0')
-            .replace(/\b(?!Math\b|return\b|true\b|false\b)[a-z][a-zA-Z_]*\b(?!\s*[\[(])/g, '0')
-            .replace(/numeric_limits<[^>]+>::max\(\)/g, '1e308');
-
-        // eslint-disable-next-line no-new-func
-        const result = Function(`"use strict"; return (${js});`)();
-        return typeof result === 'number' && isFinite(result) ? result : NaN;
-    } catch (_) { return NaN; }
-}
-
-function buildFnResolver(attrDefs, attrs) {
-    const fns   = attrDefs?.shipFunctions || {};
-    const cache = {};
-
-    function resolve(fnName, depth) {
-        if (depth > 6) return 0;
-        if (cache[fnName] !== undefined) return cache[fnName];
-        const fn = fns[fnName];
-        if (!fn?.formulas?.length) return 0;
-        const formula    = fn.formulas[fn.formulas.length - 1].formula;
-        const localVars  = {};
-        for (const [varName, varFormula] of Object.entries(fn.attributeVariables || {})) {
-            const vv = evalFormulaDisplay(varFormula, attrs, cache);
-            if (!isNaN(vv)) localVars[varName] = vv;
-        }
-        const mergedResolver = { ...cache, ...Object.fromEntries(Object.entries(localVars).map(([k, v]) => [k, String(v)])) };
-        let val = evalFormulaDisplay(formula, attrs, mergedResolver);
-        if (fnName === 'CoolingEfficiency' && (isNaN(val) || val < 0 || val > 2.5)) {
-            const x = parseFloat((attrs || {})['cooling inefficiency'] ?? 0);
-            val = 2 + 2 / (1 + Math.exp(x / -2)) - 4 / (1 + Math.exp(x / -4));
-        }
-        cache[fnName] = isNaN(val) ? 0 : val;
-        return cache[fnName];
-    }
-
-    const coreOrder = ['Mass', 'Drag', 'DragForce', 'InertialMass', 'HeatDissipation',
-        'MaximumHeat', 'CoolingEfficiency', 'IdleHeat', 'MaxShields', 'MaxHull',
-        'MinimumHull', 'CloakingSpeed', 'TurnRate', 'Acceleration', 'MaxVelocity',
-        'ReverseAcceleration', 'MaxReverseVelocity', 'RequiredCrew'];
-    for (const fn of coreOrder) resolve(fn, 0);
-    for (const fnName of Object.keys(fns)) { if (cache[fnName] === undefined) resolve(fnName, 0); }
-    return cache;
-}
-
-function computedKeyToLabel(key) {
-    let s = key;
-    if (s.startsWith('_fn_'))                  s = s.slice(4);
-    else if (s.startsWith('_derived_energy_')) s = s.slice('_derived_energy_'.length) + ' Energy/s';
-    else if (s.startsWith('_derived_heat_'))   s = s.slice('_derived_heat_'.length)   + ' Heat/s';
-    else if (s.startsWith('_derived_'))        s = s.slice('_derived_'.length);
-    else if (s.startsWith('_sys_'))            s = s.slice('_sys_'.length).replace(/_/g, ' ') + ' (system)';
-    else if (s.startsWith('_total'))           s = s.slice(1);
-    else if (s.startsWith('_'))                s = s.slice(1);
-    return s.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\s+/g, ' ')
-            .replace(/^./, c => c.toUpperCase()).trim();
-}
-
-// ─── calcDerivedStats ─────────────────────────────────────────────────────────
-
-function calcDerivedStats(attrDefs, item, pluginId) {
-    const attrs          = item?.attributes || item || {};
-    const fns            = attrDefs?.shipFunctions       || {};
-    const tableRows      = attrDefs?.shipDisplay?.energyHeatTable   || [];
-    const labelPairs     = attrDefs?.shipDisplay?.labelValuePairs   || [];
-    const intVars        = attrDefs?.shipDisplay?.intermediateVars  || {};
-    const results        = [];
-    const seen           = new Set();
-    const renderedFnKeys = new Set();
-
-    const fnCache         = buildFnResolver(attrDefs, attrs);
-    const fnResolver      = Object.fromEntries(Object.entries(fnCache).map(([k, v]) => [k, String(v)]));
-    const knownDisplayFns = _buildKnownDisplayFns(attrDefs);
-
-    // `section` ties each derived value to the canonical AttributeSections
-    // bucket it's related to (e.g. a computed "Max Shields" gets 'Shields &
-    // Hull', same as the raw "shields"/"shield generation" attributes that
-    // drive it), so the renderer can place derived stats alongside their
-    // raw counterparts instead of a single undifferentiated pile.
-    //
-    // `source` tags which branch below produced the row:
-    //   'shipFn'       — a real Ship:: function formula (also exposed by
-    //                     ComputedStats.js as `_fn_<Name>`)
-    //   'energyHeat'   — an energy/heat table row (also exposed as
-    //                     `_derived_energy_*` / `_derived_heat_*`)
-    //   'labelPair'    — a ShipInfoDisplay label/value pair. UNIQUE to this
-    //                     file — ComputedStats.js does not compute these.
-    //   'timeToFull'   — time-to-full-shields/hull. UNIQUE to this file.
-    //   'scanRange'    — scan range derived from scan power. UNIQUE.
-    //   'scanEvasion'  — scan evasion from scan interference. UNIQUE.
-    //   'systemAware'  — a systemAwareFormulas entry (also exposed as `_sys_*`)
-    //   'computedStats'— pulled straight from window.ComputedStats output
-    //                     (already exposed there under its own key)
-    // Consumers that already read ComputedStats directly (e.g.
-    // CompareDisplay.js) should only pull rows tagged 'labelPair',
-    // 'timeToFull', 'scanRange', or 'scanEvasion' from here, to avoid
-    // showing the same stat twice.
-    function push(label, rawValue, displayScale, unit, formulaStr, isComputedOutfit, section, source) {
-        const scale = (typeof displayScale === 'number' && displayScale > 0) ? displayScale : 1;
-        const value = rawValue * scale;
-        if (isNaN(value) || value === 0) return;
-        if (seen.has(label)) return;
-        seen.add(label);
-        results.push({
-            label, value: fmtNum(value), raw: value, unit: unit || '', formula: formulaStr || '',
-            isComputedOutfit: !!isComputedOutfit,
-            section: section || 'Derived Stats',
-            source: source || 'other',
-        });
-    }
-
-    // ── 1. Ship function formulas ─────────────────────────────────────────────
-    for (const [fnName, fnData] of Object.entries(fns)) {
-        if (shouldSuppressFn(fnName, fnData, knownDisplayFns)) continue;
-
-        const formula = fnData.formulas[fnData.formulas.length - 1].formula;
-        const rawVal  = fnCache[fnName] ?? evalFormulaDisplay(formula, attrs, fnResolver);
-        if (isNaN(rawVal) || rawVal === 0) continue;
-
-        const scale   = fnData.displayScale  ?? 1;
-        const unit    = fnData.displayUnit   ?? '';
-        const prefix  = fnData.labelPrefix   ?? '';
-        const label   = prefix + fnName.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()).trim();
-        const section = window.AttributeSections.classifyComputedKey(attrDefs, `_fn_${fnName}`);
-
-        if (fnName === 'IdleHeat') {
-            const maxHeat = fnCache['MaximumHeat'] ?? 0;
-            if (maxHeat > 0) {
-                const heatPct = rawVal / maxHeat * 100;
-                push('Idle Heat %', heatPct, 1, '%', formula, false, section, 'shipFn');
-            }
-            push(label, rawVal, scale, '', formula, false, section, 'shipFn');
-            continue;
-        }
-
-        push(label, rawVal, scale, '', formula, false, section, 'shipFn');
-        renderedFnKeys.add(`_fn_${fnName}`);
-    }
-
-    // ── 2. Energy/heat table rows — always Energy-domain by definition ───────
-    for (const row of tableRows) {
-        if (!row.label) continue;
-        const eVal = evalFormulaDisplay(row.energyFormula, attrs, fnResolver);
-        const hVal = evalFormulaDisplay(row.heatFormula,   attrs, fnResolver);
-        if (!isNaN(eVal) && eVal !== 0) push(`${row.label} energy`, eVal, 1, '/s', row.energyFormula, false, 'Energy', 'energyHeat');
-        if (!isNaN(hVal) && hVal !== 0) push(`${row.label} heat`,   hVal, 1, '/s', row.heatFormula, false, 'Energy', 'energyHeat');
-    }
-
-    // ── 3. Label/value pairs from ShipInfoDisplay ─────────────────────────────
-    for (const pair of labelPairs) {
-        if (!pair.label || !pair.formula) continue;
-        const val = evalFormulaDisplay(pair.formula, attrs, fnResolver);
-        if (!isNaN(val) && val !== 0) {
-            const section = /licen[cs]e/i.test(pair.label)
-                ? 'Licenses'
-                : (window.AttributeSections.matchDomainWord(pair.label) || 'General');
-            push(pair.label, val, 1, '', pair.formula, false, section, 'labelPair');
-        }
-    }
-
-    // ── 4. Time-to-full — Shields & Hull ──────────────────────────────────────
-    const shieldRegen = parseFloat(attrs['shield generation'] ?? 0) * 60;
-    const hullRepair  = parseFloat(attrs['hull repair rate']  ?? 0) * 60;
-    const maxShields  = fnCache['MaxShields'] ?? 0;
-    const maxHull     = fnCache['MaxHull']    ?? 0;
-    if (maxShields && shieldRegen) push('Time to Full Shields', maxShields / shieldRegen, 1, 's', '', false, 'Shields & Hull', 'timeToFull');
-    if (maxHull    && hullRepair)  push('Time to Full Hull',    maxHull    / hullRepair,  1, 's', '', false, 'Shields & Hull', 'timeToFull');
-
-    // ── 5. Scan ranges (derived from scan power) — Scanning ───────────────────
-    for (const [key] of Object.entries(attrDefs?.attributes || {})) {
-        if (!key.endsWith('scan power')) continue;
-        const val = parseFloat(attrs[key] ?? 0);
-        if (!val) continue;
-        push(getLabel(key).replace(' Power', ' Range'), 100 * Math.sqrt(val), 1, 'px', `100 * sqrt([${key}])`, false, 'Scanning', 'scanRange');
-    }
-
-    // ── 6. Scan evasion — Scanning ────────────────────────────────────────────
-    const si = parseFloat(attrs['scan interference'] ?? 0);
-    if (si) push('Scan Evasion', si / (1 + si) * 100, 1, '%', '', false, 'Scanning', 'scanEvasion');
-
-    // ── 7. System-aware stats (solar, ramscoop) — Energy ──────────────────────
-    const sysFormulas = attrDefs?.systemAwareFormulas || {};
-    const solar = attrDefs?.systemContext?.referenceSolarPower ?? 1.0;
-    for (const [attrKey, info] of Object.entries(sysFormulas)) {
-        const attrVal = parseFloat(attrs[attrKey] ?? 0);
-        if (!attrVal) continue;
-        const rawVal = evalFormulaDisplay(info.formula, attrs, fnResolver);
-        if (isNaN(rawVal) || rawVal === 0) continue;
-        const displayVal = rawVal * (info.displayScale ?? 1);
-        const label = getLabel(attrKey) + ' (at solar ×' + solar + ')';
-        push(label, displayVal, 1, info.displayUnit ?? '/s', info.formula, false, 'Energy', 'systemAware');
-    }
-
-    // ── 8. Computed stats from ComputedStats.js ───────────────────────────────
-    if (pluginId && typeof getComputedStats === 'function') {
-        const computed = getComputedStats(item, pluginId);
-        for (const [statKey, val] of Object.entries(computed)) {
-            const isComputedKey = statKey.startsWith('_derived_') || statKey.startsWith('_fn_')
-                               || statKey.startsWith('_total') || statKey.startsWith('_sys_')
-                               || statKey.startsWith('_ws_')    || statKey === '_outfitMass';
-            if (!isComputedKey) continue;
-            if (val == null || (typeof val === 'number' && (isNaN(val) || val === 0))) continue;
-
-            let displayVal = val;
-            if (statKey.startsWith('_fn_') && renderedFnKeys.has(statKey)) {
-                const fnName = statKey.slice(4);
-                const fnData = fns[fnName];
-                if (fnData && shouldSuppressFn(fnName, fnData, knownDisplayFns)) continue;
-                displayVal = val * (fnData?.displayScale ?? 1);
-            }
-            if (statKey.startsWith('_derived_')) {
-                const varName = statKey.slice('_derived_'.length).replace(/^energy_|^heat_/, '');
-                const ivar    = intVars[varName];
-                if (ivar && shouldSuppressIntermediateVar(varName, ivar)) continue;
-            }
-
-            const label   = computedKeyToLabel(statKey);
-            const section = window.AttributeSections.classifyComputedKey(attrDefs, statKey);
-            if (seen.has(label)) {
-                const existing = results.find(r => r.label === label);
-                if (existing) { existing.value = fmtNum(displayVal); existing.raw = displayVal; existing.isComputedOutfit = true; existing.section = section; }
-                continue;
-            }
-            seen.add(label);
-            const unit = (statKey.startsWith('_ws_') && statKey.toLowerCase().includes('dps')) ? 'dmg/s' : '';
-            results.push({ label, value: fmtNum(displayVal), raw: displayVal, unit, formula: '', isComputedOutfit: true, section, source: 'computedStats' });
-        }
-    }
-
-    return results;
-}
-
-// ─── Effect wear-off time calculations ───────────────────────────────────────
-//
-// Endless Sky status effects accumulate and then decay per-frame based on
-// resistance values. Given a one-shot dose of a status effect and the ship's
-// resistance, we can compute:
-//   • Frames to decay = effectAmount / resistancePerFrame
-//   • Seconds to decay = frames / 60
-//
-// The resistance attributes that control decay rate (per frame) are:
-//   ion resistance, scramble resistance, disruption resistance,
-//   slowing resistance, burn resistance, discharge resistance,
-//   corrosion resistance, leak resistance
-
-const STATUS_EFFECT_DECAY = [
-    { damageKey: 'ion damage',         resistKey: 'ion resistance',         label: 'Ion' },
-    { damageKey: 'scrambling damage',  resistKey: 'scramble resistance',    label: 'Scrambling' },
-    { damageKey: 'disruption damage',  resistKey: 'disruption resistance',  label: 'Disruption' },
-    { damageKey: 'slowing damage',     resistKey: 'slowing resistance',     label: 'Slowing' },
-    { damageKey: 'burn damage',        resistKey: 'burn resistance',        label: 'Burn' },
-    { damageKey: 'discharge damage',   resistKey: 'discharge resistance',   label: 'Discharge' },
-    { damageKey: 'corrosion damage',   resistKey: 'corrosion resistance',   label: 'Corrosion' },
-    { damageKey: 'leak damage',        resistKey: 'leak resistance',        label: 'Leak' },
-];
-
-/**
- * Calculate wear-off times for all status effects for a given ship's attrs.
- * Returns array of { label, effectPerShot, resistPerFrame, wearOffFrames, wearOffSeconds }
- * for any effect where the ship has nonzero resistance.
- */
-function calcEffectWearOffTimes(attrs) {
-    const results = [];
-    for (const { resistKey, label } of STATUS_EFFECT_DECAY) {
-        const resist = parseFloat(attrs[resistKey] ?? 0);
-        if (!resist || resist <= 0) continue;
-        // Wear-off time for a one-unit dose (scales linearly for larger doses)
-        const wearOffFrames  = 1 / resist;
-        const wearOffSeconds = wearOffFrames / 60;
-        results.push({
-            label,
-            resistPerFrame: resist,
-            wearOffSecondsPerUnit: wearOffSeconds,
-        });
-    }
-    return results;
-}
-
-/**
- * Calculate how long a specific weapon's status effect will last on a target ship.
- * @param {object} weapon - the weapon object (one shot worth)
- * @param {object} targetAttrs - the target ship's combined attributes
- * @returns array of { label, dose, resistPerFrame, wearOffSeconds }
- */
-function calcWeaponEffectDuration(weapon, targetAttrs) {
-    const results = [];
-    for (const { damageKey, resistKey, label } of STATUS_EFFECT_DECAY) {
-        const dose   = parseFloat(weapon[damageKey] ?? 0);
-        const resist = parseFloat((targetAttrs || {})[resistKey] ?? 0);
-        if (!dose) continue;
-        if (!resist || resist <= 0) {
-            results.push({ label, dose, resistPerFrame: 0, wearOffSeconds: Infinity });
-        } else {
-            const wearOffFrames  = dose / resist;
-            results.push({ label, dose, resistPerFrame: resist, wearOffSeconds: wearOffFrames / 60 });
-        }
-    }
-    return results;
-}
-
-// ─── Outfit contributions to ship attributes ──────────────────────────────────
-//
-// Computes which outfits are installed on a ship and what each contributes
-// to specific attribute categories. Useful for understanding why a ship has
-// particular stats.
-
-function lookupOutfit(name, pluginId) {
-    const allData = window.allData || {};
-    const order = [pluginId, ...Object.keys(allData).filter(k => k !== pluginId)];
-    for (const pid of order) {
-        const outfit = (allData[pid]?.outfits || []).find(o => o.name === name);
-        if (outfit) return outfit;
-    }
-    return null;
-}
-
-/**
- * For a ship item, compute all outfit contributions to each attribute.
- * Returns: { [attrKey]: { total, sources: [{name, qty, perUnit}] } }
- */
-function computeOutfitContributions(item, pluginId) {
-    const outfitMap = item.outfitMap || item.outfits || {};
-    const contributions = {};
-
-    for (const [outfitName, qtyVal] of Object.entries(outfitMap)) {
-        // Support new map format { count, pluginId } and legacy plain number
-        const qty = typeof qtyVal === 'object' ? (parseInt(qtyVal.count) || 1) : (Number(qtyVal) || 1);
-
-        const outfit = lookupOutfit(outfitName, pluginId);
-        if (!outfit) continue;
-        const outfitAttrs = (outfit.attributes && Object.keys(outfit.attributes).length)
-            ? outfit.attributes : outfit;
-        for (const [key, rawVal] of Object.entries(outfitAttrs)) {
-            if (typeof rawVal !== 'number' || key.startsWith('_')) continue;
-            if (rawVal === 0) continue;
-            if (!contributions[key]) contributions[key] = { total: 0, sources: [] };
-            contributions[key].total += rawVal * qty;
-            contributions[key].sources.push({ name: outfitName, qty, perUnit: rawVal });
-        }
-    }
-    return contributions;
-}
-/**
- * Render outfit contributions section for a ship.
- * Groups contributions by section and lists which outfits provide each attribute.
- */
-function renderOutfitContributions(attrDefs, item, pluginId) {
-    const contributions = computeOutfitContributions(item, pluginId);
-    if (!Object.keys(contributions).length) return '';
-
-    const rows = [];
-    for (const [key, info] of Object.entries(contributions).sort((a, b) => a[0].localeCompare(b[0]))) {
-        if (!info.sources.length) continue;
-        const rec    = getAttrRecord(attrDefs, key);
-        const mult   = rec?.displayMultiplier ?? 1;
-        const unit   = rec?.displayUnit ?? '';
-        const label  = getLabel(key);
-        const total  = fmtNum(info.total * mult);
-        // Build a compact source list: "NameA ×2 (+val), NameB ×1 (+val)"
-        const sourceStr = info.sources.map(s => {
-            const perDisplay = fmtNum(s.perUnit * mult * s.qty) + (unit ? ' ' + unit : '');
-            return s.qty > 1
-                ? `${s.name} ×${s.qty} (${s.perUnit >= 0 ? '+' : ''}${perDisplay})`
-                : `${s.name} (${s.perUnit >= 0 ? '+' : ''}${fmtNum(s.perUnit * mult)}${unit ? ' ' + unit : ''})`;
-        }).join(', ');
-
-        const tipContent = `Sources: ${sourceStr}`;
-        rows.push(attrRow(label, total, unit, ` data-tooltip="${tipContent.replace(/"/g, '&quot;')}"`));
-    }
-    if (!rows.length) return '';
-    return buildSection('Outfit Contributions (hover for sources)', rows);
-}
-
-// ─── Weapon chain renderer ───────────────────────────────────────────────────
-
-function renderWeaponStats(attrDefs, weapon, sectionTitle, outfitContext, pluginId, rootReload) {
-    const excludeWeapon = new Set(['sprite','spriteData','sound','hit effect','fire effect','die effect','live effect','submunition','submunitions','ammunition','ammo','stream','cluster','hardpoint sprite','hardpoint offset','icon']);
-    const excludeOutfit = new Set(['name','weapon','sprite','spriteData','thumbnail','description','flare sprite','steering flare sprite','reverse flare sprite','afterburner effect']);
-    let html = '';
-    const wRows = [];
-
-    if (outfitContext) {
-        if (outfitContext.description) wRows.push(`<div class="ad-description">${outfitContext.description}</div>`);
-        for (const [key, value] of Object.entries(outfitContext)) {
-            if (excludeOutfit.has(key) || typeof value === 'object' || Array.isArray(value)) continue;
-            const rec = getAttrRecord(attrDefs, key);
-            const dispV = isNaN(parseFloat(value)) ? fmtNum(value) : fmtNum(parseFloat(value) * (rec?.displayMultiplier ?? 1));
-            wRows.push(attrRow(getLabel(key), dispV, rec?.displayUnit ?? '', tooltipContent(rec)));
-        }
-    }
-
-    for (const [key, value] of Object.entries(weapon)) {
-        if (excludeWeapon.has(key)) continue;
-        if (Array.isArray(value)) {
-            for (const v of value) { if (typeof v !== 'object') wRows.push(attrRow(getLabel(key), String(v), '', '')); }
-            continue;
-        }
-        if (typeof value === 'object') continue;
-        const rec   = getAttrRecord(attrDefs, key);
-        const rawV  = parseFloat(value);
-        const dispV = isNaN(rawV) ? fmtNum(value) : fmtNum(rawV * (rec?.displayMultiplier ?? 1));
-        wRows.push(attrRow(getLabel(key), dispV, rec?.displayUnit ?? '', tooltipContent(rec)));
-    }
-
-    for (const effectKey of ['hit effect','fire effect','die effect','live effect']) {
-        const val = weapon[effectKey];
-        if (!val) continue;
-        for (const e of (Array.isArray(val) ? val : [val])) {
-            if (typeof e === 'object') wRows.push(attrRow(`${getLabel(effectKey)}: ${e.name ?? e}`, (e.count ?? 1) > 1 ? String(e.count) : '✓', '', ''));
-            else if (typeof e === 'string') wRows.push(attrRow(`${getLabel(effectKey)}: ${e}`, '✓', '', ''));
-            else if (typeof e === 'number') wRows.push(attrRow(getLabel(effectKey), String(e), '', ''));
-        }
-    }
-
-    if (wRows.length) html += buildSection(sectionTitle, wRows);
-
-    // Pass rootReload so DPS uses the firing weapon's reload, not the submunition's.
-    // IMPORTANT: do NOT default a missing reload to 1 here — that would make a
-    // one-shot weapon (no reload key, never refires) look like it fires 60
-    // times a second. Pass the raw value through (possibly undefined) and let
-    // calcWeaponDerived decide whether a refire rate exists at all.
-    const effectiveReload = rootReload != null ? rootReload : weapon.reload;
-    const wDerived = calcWeaponDerived(attrDefs, weapon, pluginId, effectiveReload);
-    if (wDerived.length) html += buildSection(`${sectionTitle} — Derived`, wDerived.map(d => attrRow(d.label, d.value, d.unit, '', 'derived')));
-    return html;
-}
-
-function collectDamage(weapon, multiplier = 1, attrDefs = null) {
-    const dmg = {};
-    for (const [key, val] of Object.entries(weapon || {})) {
-        if (typeof val !== 'number') continue;
-        if (key.endsWith(' damage') || key === 'anti-missile' || key === 'blast radius') {
-            const rec  = attrDefs ? getAttrRecord(attrDefs, key) : null;
-            const mult = rec?.displayMultiplier ?? 1;
-            dmg[key] = (dmg[key] || 0) + val * mult * multiplier;
-        }
-    }
-    return dmg;
-}
-
-function mergeInto(target, source) {
-    for (const [k, v] of Object.entries(source)) target[k] = (target[k] || 0) + v;
-}
-
-/**
- * Render the full weapon chain: weapon → submunitions → ammo.
- * Now also shows per-submunition stats and combined totals.
- */
-function renderWeaponChain(attrDefs, weapon, pluginId) {
-    if (!weapon) return '';
-    let html = '';
-    const totalDamage = {}, visited = new Set();
-
-    // Root reload drives DPS for the entire chain. A weapon with no reload
-    // key (and no burst reload either) is a one-shot weapon — it is fired
-    // once and never refires, so there is no "shots per second" to speak of.
-    // rootReload stays undefined/0 in that case rather than silently
-    // defaulting to 1 frame (which would imply 60 shots/sec).
-    const hasRefireRate = weapon.reload != null || weapon['burst reload'] != null;
-    const rootReload = hasRefireRate ? (parseFloat(weapon.reload ?? weapon['burst reload']) || 0) : 0;
-    const rootSps = rootReload > 0 ? 60 / rootReload : 0;
-
-    const totalSubCount = Array.isArray(weapon.submunitions) && weapon.submunitions.length > 0
-    ? weapon.submunitions.reduce((s, e) => s + (e?.count ?? 1), 0)
-    : 1;
-
-    const effectiveSps = rootSps; //* totalSubCount;
-    
-    const queue = [{ weapon, outfit: null, title: 'Weapon Stats', multiplier: 1, depth: 0 }];
-    const sections = [];
-
-    while (queue.length > 0) {
-        const { weapon: w, outfit: o, title, multiplier, depth } = queue.shift();
-        sections.push({ weapon: w, outfit: o, title, multiplier });
-        mergeInto(totalDamage, collectDamage(w, multiplier, attrDefs));
-
-        if (depth >= 8) continue;
-
-        // ── Submunition refs — all three formats ──────────────────────────────
-        const refs = [];
-
-        // NEW FORMAT: submunitions: [{type, count}]
-        if (Array.isArray(w.submunitions)) {
-            for (const entry of w.submunitions) {
-                const name  = entry?.type  ?? null;
-                const count = entry?.count ?? 1;
-                if (name) refs.push({ name, count });
-            }
-        }
-
-        // LEGACY FORMAT A: submunition: "Name" | {name,count} | array
-        if (!refs.length && w.submunition != null) {
-            const entries = Array.isArray(w.submunition) ? w.submunition : [w.submunition];
-            for (const entry of entries) {
-                const name  = typeof entry === 'string' ? entry
-                            : typeof entry === 'object' ? (entry?.name ?? null) : null;
-                const count = typeof entry === 'object' && entry !== null ? (entry.count ?? 1) : 1;
-                if (name) refs.push({ name, count });
-            }
-        }
-
-        // LEGACY FORMAT A2: "submunition OutfitName" prefixed keys
-        if (!refs.length) {
-            for (const key of Object.keys(w)) {
-                if (!key.startsWith('submunition ')) continue;
-                const name  = key.slice('submunition '.length).trim();
-                const val   = w[key];
-                const count = Array.isArray(val) ? val.length
-                            : typeof val === 'number' ? Math.max(1, val) : 1;
-                if (name) refs.push({ name, count });
-            }
-        }
-
-        for (const { name, count } of refs) {
-            if (visited.has(name)) continue;
-            visited.add(name);
-            const subOutfit = lookupOutfit(name, pluginId);
-            if (!subOutfit?.weapon) continue;
-            queue.push({
-                weapon:     subOutfit.weapon,
-                outfit:     subOutfit,
-                title:      `Submunition: ${name}${count > 1 ? ` ×${count}` : ''}`,
-                multiplier: multiplier * count,
-                depth:      depth + 1,
-            });
-        }
-
-        // ── Ammo ─────────────────────────────────────────────────────────────
-        let ammoName = null;
-        if (Array.isArray(w.ammunition) && w.ammunition.length > 0)
-            ammoName = w.ammunition[0]?.type ?? null;
-        if (!ammoName && typeof w.ammo === 'string' && w.ammo.length > 0)
-            ammoName = w.ammo;
-        if (ammoName && !visited.has(ammoName)) {
-            visited.add(ammoName);
-            const ammo = lookupOutfit(ammoName, pluginId);
-            if (ammo?.weapon)
-                queue.push({ weapon: ammo.weapon, outfit: ammo, title: `Ammo: ${ammoName}`, multiplier, depth: depth + 1 });
-        }
-    }
-
-    // Render each section — pass rootReload so submunition DPS is correct.
-    // rootReload may be 0 here (one-shot weapon), which is intentional —
-    // renderWeaponStats/calcWeaponDerived treat 0/undefined as "no refire".
-    for (const { weapon: w, outfit: o, title } of sections)
-        html += renderWeaponStats(attrDefs, w, title, o, pluginId, rootReload || undefined);
-
-    // ── Per-shot total damage across full chain ───────────────────────────────
-    if (sections.length > 1 && Object.keys(totalDamage).length > 0) {
-        const perShotRows = Object.entries(totalDamage)
-            .filter(([, v]) => v !== 0)
-            .map(([k, v]) => attrRow(getLabel(k), fmtNum(v), 'per shot', ''));
-        if (perShotRows.length)
-            html += buildSection('Total Damage Per Shot (full chain)', perShotRows);
-
-        // ── Total DPS across full chain ───────────────────────────────────────
-        // Only meaningful if the root weapon actually refires. A one-shot
-        // chain (e.g. a single nuke detonation with no reload) has no
-        // sustained DPS — showing "Total Damage Per Shot" above is already
-        // the correct and complete picture for it.
-        if (effectiveSps > 0) {
-            const dpsRows = Object.entries(totalDamage)
-                .filter(([, v]) => v !== 0)
-                .map(([k, v]) => attrRow(
-                    getLabel(k).replace(/ Damage$/, '') + ' DPS',
-                    fmtNum(v * effectiveSps),
-                    'dmg/s',
-                    ''
-                ));
-            if (dpsRows.length)
-                html += buildSection(`Total DPS (${fmtNum(rootSps)} shots/s)`, dpsRows);
-        }
-    }
-
-    return html;
-}
-
-function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {   
-    if (!weapon) return [];
-    const results = [], seen = new Set();
-    
-    function push(label, value, unit, dedupKey) {
-        const key = dedupKey ?? label;
-        if (isNaN(value) || value === 0 || seen.has(key)) return;
-        seen.add(key); results.push({ label, value: fmtNum(value), unit: unit || '' });
-    }
-
-    // A weapon only has a meaningful "shots per second" if it (or its root
-    // firing weapon, via rootReload) actually has a reload/burst-reload
-    // value. Previously a missing reload silently defaulted to 1 frame,
-    // which made one-shot weapons (e.g. a single detonation with no refire,
-    // like a nuke submunition) look like they fire 60 times a second and
-    // inflated every "dmg/s" figure by 60×. Now: no refire rate → no DPS
-    // rows are pushed at all, only the correct per-shot damage.
-    const hasRefireRate = rootReload != null || weapon.reload != null || weapon['burst reload'] != null;
-    const reload = hasRefireRate ? (parseFloat(rootReload ?? weapon.reload ?? weapon['burst reload']) || 0) : 0;
-    const sps    = reload > 0 ? 60 / reload : 0;
-    const burstCount  = parseFloat(weapon['burst count']  ?? 1) || 1;
-    const burstReload = parseFloat(weapon['burst reload']  ?? reload) || reload;
-
-    // ── Range: walk submunition tree inheriting velocity ─────────────────────
-    function resolveRange(w, inheritedVel, visited, depth) {
-        if (depth > 8) return 0;
-        const vel      = (parseFloat(w.velocity ?? 0) || 0) > 0
-                       ? parseFloat(w.velocity) : (inheritedVel || 0);
-        const ownRange = vel * (parseFloat(w.lifetime ?? 0) || 0);
-        const refs = [];
-        if (Array.isArray(w.submunitions))
-            for (const e of w.submunitions) { if (e?.type) refs.push(e.type); }
-        if (!refs.length && w.submunition != null) {
-            const arr = Array.isArray(w.submunition) ? w.submunition : [w.submunition];
-            for (const e of arr) {
-                const n = typeof e === 'string' ? e : (typeof e === 'object' ? e?.name : null);
-                if (n) refs.push(n);
-            }
-        }
-        if (!refs.length)
-            for (const key of Object.keys(w))
-                if (key.startsWith('submunition ')) refs.push(key.slice('submunition '.length).trim());
-
-        let maxSubRange = 0;
-        for (const name of refs) {
-            if (!name || visited.has(name)) continue;
-            const subOutfit = pluginId ? lookupOutfit(name, pluginId) : null;
-            if (!subOutfit?.weapon) continue;
-            const nv = new Set(visited); nv.add(name);
-            const sr = resolveRange(subOutfit.weapon, vel, nv, depth + 1);
-            if (sr > maxSubRange) maxSubRange = sr;
-        }
-        return ownRange + maxSubRange;
-    }
-
-    const range = resolveRange(weapon, 0, new Set(), 0);
-    if (range > 0) push('Range', range, 'px');
-
-    // ── Fire rate (only meaningful on root weapon which has reload) ───────────
-    if (sps > 0) {
-        push('Fire Rate', sps, 'shots/s');
-        if (burstCount > 1) {
-            const framesPerCycle = (burstCount - 1) * burstReload + reload;
-            if (framesPerCycle > 0) push('Sustained Rate', (burstCount / framesPerCycle) * 60, 'shots/s');
-        }
-    }
-
-    // ── Per-shot damage on THIS node ──────────────────────────────────────────
-    // dmg/shot is always shown (it's well-defined even for a one-shot weapon).
-    // dmg/s is only pushed when sps > 0 — i.e. the weapon actually refires —
-    // so a single-detonation weapon like a nuke shows its real damage once,
-    // not damage × 60.
-    const damageTypes = attrDefs?.weapon?.damageTypes?.length
-        ? attrDefs.weapon.damageTypes
-        : Object.keys(weapon).filter(k => k.endsWith(' damage')).map(k => k.replace(/ damage$/, ''));
-
-    for (const dtype of damageTypes) {
-        const dmgKey    = dtype.endsWith(' damage') ? dtype : `${dtype} damage`;
-        const searchKey = [dmgKey, dmgKey.toLowerCase(), dtype.toLowerCase() + ' damage']
-                            .find(k => weapon[k] !== undefined);
-        const val = searchKey !== undefined ? parseFloat(weapon[searchKey] ?? 0) : 0;
-        if (!val) continue;
-        // Status effect damage types (ion, scrambling, disruption, slowing, discharge,
-        // corrosion, burn, leak) are stored as raw accumulation values but the game
-        // displays them scaled by ×100 — they represent percentage-based status
-        // accumulation. Look up the displayMultiplier from attrDefs to get the correct
-        // scale automatically, falling back to 1 for normal damage types.
-        const rec  = attrDefs ? getAttrRecord(attrDefs, dmgKey) : null;
-        const mult = rec?.displayMultiplier ?? 1;
-        push(getLabel(dmgKey), val * mult,        'dmg/shot', dmgKey + '__shot');
-        if (sps > 0) push(getLabel(dmgKey), val * mult * sps,  'dmg/s',    dmgKey + '__dps');
-    }
-
-    // ── Anti-missile ──────────────────────────────────────────────────────────
-    const am = parseFloat(weapon['anti-missile'] ?? 0);
-    if (am) {
-        const ms = parseFloat(weapon['missile strength'] ?? 1) || 1;
-        push('Intercept Chance', am / (am + ms) * 100, `% vs str ${ms}`);
-    }
-
-    // ── Firing costs per second (data-driven — any "firing *" key) ────────────
-    // Same logic: per-shot cost is always meaningful, per-second cost only if
-    // the weapon actually refires.
-    for (const [key, rawVal] of Object.entries(weapon)) {
-        if (typeof rawVal !== 'number') continue;
-        if (!key.startsWith('firing ') && !key.startsWith('relative firing ')) continue;
-        if (!rawVal) continue;
-        const label = getLabel(key);
-        push(label, rawVal,       '/shot', key + '__shot');
-        if (sps > 0) push(label, rawVal * sps, '/s',    key + '__ps');
-    }
-    
-    // ── Status effect doses ───────────────────────────────────────────────────
-    for (const { damageKey, label } of STATUS_EFFECT_DECAY) {
-        const dose = parseFloat(weapon[damageKey] ?? 0);
-        if (dose) push(`${label} dose/shot`, dose, 'units');
-    }
-
-    return results;
-}
-
-// ─── Number formatting ────────────────────────────────────────────────────────
-function fmtNum(v) {
-    if (v === undefined || v === null) return '—';
-    if (typeof v !== 'number') { const n = parseFloat(v); if (isNaN(n)) return String(v); v = n; }
-    if (Number.isInteger(v) && Math.abs(v) >= 10000) return v.toLocaleString();
-    return parseFloat(v.toPrecision(4)).toString();
-}
+// Load order: attributeSections.js, ItemStats.js, THEN this file.
 
 // ─── HTML helpers ─────────────────────────────────────────────────────────────
-
-function tooltipContent(rec, formulaOverride) {
-    if (!rec && !formulaOverride) return '';
-    const parts = [];
-    if (rec?.description) parts.push(rec.description);
-    if (rec?.stacking)    parts.push(`Stacking: ${rec.stacking}${rec.stackingDescription ? ' — ' + rec.stackingDescription : ''}`);
-    const formula = formulaOverride || rec?.formula;
-    if (formula)          parts.push(`Formula: ${formula}`);
-    if (rec?.displayUnit) parts.push(`Unit: ${rec.displayUnit}`);
-    return parts.length ? ` data-tooltip="${parts.join(' | ').replace(/"/g, '&quot;')}"` : '';
-}
 
 function buildSection(title, rows) {
     if (!rows.length) return '';
@@ -865,43 +24,95 @@ function attrRow(label, displayValue, unit, tipAttrs, extra) {
     return `<div class="ad-row${cls}"${tipAttrs || ''}><div class="ad-label">${label}</div><div class="ad-value">${displayValue}${badge}</div></div>`;
 }
 
-function groupBySection(attrDefs, entries) {
-    const sections = {};
-    for (const { key, value } of entries) {
-        const rawVal = parseFloat(value);
-        if (value === '' || value == null) continue;
+function tooltipAttr(text) {
+    if (!text) return '';
+    return ` data-tooltip="${String(text).replace(/"/g, '&quot;')}"`;
+}
 
-        const rec     = getAttrRecord(attrDefs, key);
-        const section = getSection(attrDefs, key);
-        const dispVal = isNaN(rawVal) ? fmtNum(value) : fmtNum(rawVal * (rec?.displayMultiplier ?? 1));
-        if (!sections[section]) sections[section] = [];
-        sections[section].push(attrRow(getLabel(key), dispVal, rec?.displayUnit ?? '', tooltipContent(rec)));
+// Render one ItemStats row as an .ad-row. `extra` picks the CSS variant
+// (e.g. 'derived' for computed/derived rows).
+function rowToHtml(row, extra) {
+    const label = row.isComputedOutfit ? `⚡ ${row.label}` : row.label;
+    return attrRow(label, row.value, row.unit, tooltipAttr(row.tooltip), extra);
+}
+
+// Group a flat ItemStats row list into { sectionName: [htmlRow, ...] },
+// using window.AttributeSections to order sections when rendered.
+function rowsToSections(rows, extra) {
+    const sections = {};
+    for (const row of rows) {
+        if (!sections[row.section]) sections[row.section] = [];
+        sections[row.section].push(rowToHtml(row, extra));
     }
     return sections;
 }
 
-function renderSections(sections) {
+function renderSectionMap(sections) {
     let out = '';
     const keys = window.AttributeSections.orderSections(Object.keys(sections));
-    for (const s of keys) { if (sections[s]?.length) out += buildSection(s, sections[s]); }
+    for (const s of keys) if (sections[s]?.length) out += buildSection(s, sections[s]);
     return out;
+}
+
+// ─── Weapon chain HTML (consumes ItemStats.getWeaponChainData) ──────────────
+
+function renderWeaponChainHtml(attrDefs, weapon, pluginId) {
+    const data = window.ItemStats.getWeaponChainData(attrDefs, weapon, pluginId);
+    if (!data) return '';
+    let html = '';
+
+    const excludeWeapon = new Set(['sprite','spriteData','sound','hit effect','fire effect','die effect','live effect','submunition','submunitions','ammunition','ammo','stream','cluster','hardpoint sprite','hardpoint offset','icon']);
+    const excludeOutfit = new Set(['name','weapon','sprite','spriteData','thumbnail','description','flare sprite','steering flare sprite','reverse flare sprite','afterburner effect']);
+
+    for (const { title, weapon: w, outfit: o, derivedRows } of data.sections) {
+        const wRows = [];
+        if (o) {
+            if (o.description) wRows.push(`<div class="ad-description">${o.description}</div>`);
+            for (const row of window.ItemStats.getRawAttributeRows(attrDefs, o, { skip: excludeOutfit }))
+                wRows.push(rowToHtml(row));
+        }
+        for (const row of window.ItemStats.getRawAttributeRows(attrDefs, w, { skip: excludeWeapon }))
+            wRows.push(rowToHtml(row));
+
+        for (const effectKey of ['hit effect', 'fire effect', 'die effect', 'live effect']) {
+            const val = w[effectKey];
+            if (!val) continue;
+            for (const e of (Array.isArray(val) ? val : [val])) {
+                if (typeof e === 'object') wRows.push(attrRow(`${window.ItemStats.labelForKey(effectKey)}: ${e.name ?? e}`, (e.count ?? 1) > 1 ? String(e.count) : '✓', '', ''));
+                else if (typeof e === 'string') wRows.push(attrRow(`${window.ItemStats.labelForKey(effectKey)}: ${e}`, '✓', '', ''));
+                else if (typeof e === 'number') wRows.push(attrRow(window.ItemStats.labelForKey(effectKey), String(e), '', ''));
+            }
+        }
+
+        if (wRows.length) html += buildSection(title, wRows);
+        if (derivedRows.length) html += buildSection(`${title} — Derived`,
+            derivedRows.map(d => attrRow(d.label, d.value, d.unit, '', 'derived')));
+    }
+
+    if (data.hasChain && Object.keys(data.totalDamagePerShot).length) {
+        const perShotRows = Object.entries(data.totalDamagePerShot)
+            .filter(([, v]) => v !== 0)
+            .map(([k, v]) => attrRow(window.ItemStats.labelForKey(k), window.ItemStats.fmtNum(v), 'per shot', ''));
+        if (perShotRows.length) html += buildSection('Total Damage Per Shot (full chain)', perShotRows);
+
+        if (data.totalDps) {
+            const dpsRows = Object.entries(data.totalDps)
+                .filter(([, v]) => v !== 0)
+                .map(([k, v]) => attrRow(window.ItemStats.labelForKey(k).replace(/ Damage$/, '') + ' DPS', window.ItemStats.fmtNum(v), 'dmg/s', ''));
+            if (dpsRows.length) html += buildSection(`Total DPS (${window.ItemStats.fmtNum(data.rootSps)} shots/s)`, dpsRows);
+        }
+    }
+
+    return html;
 }
 
 // ─── Effect wear-off section ──────────────────────────────────────────────────
 
 function renderEffectWearOff(attrs) {
-    const wearOffs = calcEffectWearOffTimes(attrs);
-    if (!wearOffs.length) return '';
-    const rows = wearOffs.map(w => {
-        const tip = ` data-tooltip="Resistance: ${fmtNum(w.resistPerFrame)}/frame | Wear-off: ${fmtNum(w.wearOffSecondsPerUnit)}s per unit of ${w.label} damage received"`;
-        return attrRow(
-            `${w.label} wear-off`,
-            fmtNum(w.wearOffSecondsPerUnit),
-            's/unit',
-            tip
-        );
-    });
-    return buildSection('Status Effect Wear-off (per unit of damage, no stacking)', rows);
+    const rows = window.ItemStats.getWearOffRows(attrs);
+    if (!rows.length) return '';
+    return buildSection('Status Effect Wear-off (per unit of damage, no stacking)',
+        rows.map(r => attrRow(r.label, r.value, r.unit, tooltipAttr(r.tooltip))));
 }
 
 // ─── Main renderer ────────────────────────────────────────────────────────────
@@ -914,82 +125,39 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
         if (currentTab === 'variants' && item.baseShip)
             html += `<p class="ad-base-ship">Base Ship: <strong>${item.baseShip}</strong></p>`;
 
-        const attrs   = item.attributes || {};
-        const entries = Object.entries(attrs)
-            .filter(([, v]) => typeof v !== 'object')
-            .map(([k, v]) => ({ key: k, value: v }));
+        const attrs = item.attributes || {};
         if (attrs.licenses && typeof attrs.licenses === 'object')
             html += buildSection('General', [attrRow('Licenses', Object.keys(attrs.licenses).join(', '), '', '')]);
 
-        // Raw attribute sections, keyed by canonical section name.
-        const sections = groupBySection(attrDefs, entries);
+        const stats = window.ItemStats.getShipStats(item, attrDefs, pluginId, { includeOutfits: false });
+        const withOutfitsStats = window.ItemStats.getShipStats(item, attrDefs, pluginId, { includeOutfits: true });
 
-        const hpRows = [];
-        for (const [field, label] of [['guns','Guns'],['turrets','Turrets'],['engines','Engines'],['reverseEngines','Reverse Engines'],['steeringEngines','Steering Engines']]) {
-            if (item[field]?.length) hpRows.push(attrRow(label, item[field].length, '', ''));
+        // Base sections: raw/hardpoint/heat rows render plainly; everything
+        // else (ship-fn, energy/heat, label-pair, time-to-full, scan, system-
+        // aware, ComputedStats-merged) is "derived" and gets the ⚡ styling.
+        const baseSections = {};
+        for (const row of stats.rows) {
+            const isDerived = row.source !== window.ItemStats.SOURCE.RAW && row.source !== window.ItemStats.SOURCE.HARDPOINT;
+            const html_ = rowToHtml(row, isDerived ? 'derived' : null);
+            (baseSections[row.section] = baseSections[row.section] || []).push(html_);
         }
-        if (item.bays?.length) {
-            const byType = {};
-            item.bays.forEach(b => { byType[b.type] = (byType[b.type] || 0) + 1; });
-            Object.entries(byType).forEach(([t, n]) => hpRows.push(attrRow(`${t} Bays`, n, '', '')));
-        }
-        if (hpRows.length) (sections['Hardpoints'] = sections['Hardpoints'] || []).push(...hpRows);
 
-        // Derived / computed stats are merged into the section they're
-        // related to (e.g. a computed "Max Shields" lands under "Shields &
-        // Hull" next to the raw attributes that drive it) rather than a
-        // single undifferentiated "Derived Stats" pile. Stats that change
-        // once outfits are factored in (isComputedOutfit) get their own
-        // "(with outfits)" sub-header within that same section — the same
-        // pattern CompareDisplay.js uses for base-vs-with-outfits rows.
-        const derived = calcDerivedStats(attrDefs, item, pluginId);
+        // "(with outfits)" sections: derived + outfit-contribution rows only
+        // present once outfits are included.
         const withOutfitsSections = {};
-        for (const d of derived) {
-            const tip = d.isComputedOutfit
-                ? (d.formula ? `Includes installed outfit contributions | Formula: ${d.formula}` : 'Includes installed outfit contributions')
-                : d.formula;
-            const row = attrRow(d.isComputedOutfit ? `⚡ ${d.label}` : d.label, d.value, d.unit, tooltipContent(null, tip), 'derived');
-            const target = d.isComputedOutfit ? withOutfitsSections : sections;
-            (target[d.section] = target[d.section] || []).push(row);
+        for (const row of withOutfitsStats.rows) {
+            if (!row.isComputedOutfit) continue; // only rows that change because of outfits
+            (withOutfitsSections[row.section] = withOutfitsSections[row.section] || []).push(rowToHtml(row, 'derived'));
         }
-
-        // Raw outfit contributions (mass, turn, thrust, jump speed, etc. that
-        // installed outfits add to the ship) are folded into the SAME
-        // per-section "(with outfits)" sub-lists above, instead of a separate
-        // flat "Outfit Contributions" block — each one lands in whichever
-        // canonical section its key classifies to, showing the effective
-        // (base + outfit) total, with the per-outfit breakdown still
-        // available on hover.
-        const contributions = computeOutfitContributions(item, pluginId);
-        for (const [key, info] of Object.entries(contributions).sort((a, b) => a[0].localeCompare(b[0]))) {
-            if (!info.sources.length) continue;
-            const rec     = getAttrRecord(attrDefs, key);
-            const mult    = rec?.displayMultiplier ?? 1;
-            const unit    = rec?.displayUnit ?? '';
-            const section = window.AttributeSections.classify(attrDefs, key);
-
-            const baseVal        = parseFloat(attrs[key]);
-            const effectiveTotal = (isNaN(baseVal) ? 0 : baseVal) + info.total;
-            const display         = fmtNum(effectiveTotal * mult);
-
-            const sourceStr = info.sources.map(s => {
-                const perDisplay = fmtNum(s.perUnit * mult * s.qty) + (unit ? ' ' + unit : '');
-                return s.qty > 1
-                    ? `${s.name} ×${s.qty} (${s.perUnit >= 0 ? '+' : ''}${perDisplay})`
-                    : `${s.name} (${s.perUnit >= 0 ? '+' : ''}${fmtNum(s.perUnit * mult)}${unit ? ' ' + unit : ''})`;
-            }).join(', ');
-            const row = attrRow(`⚡ ${getLabel(key)}`, display, unit,
-                tooltipContent(null, `Sources: ${sourceStr}`), 'derived');
-            (withOutfitsSections[section] = withOutfitsSections[section] || []).push(row);
-        }
+        for (const row of withOutfitsStats.outfitContribRows)
+            (withOutfitsSections[row.section] = withOutfitsSections[row.section] || []).push(rowToHtml(row, 'derived'));
 
         const allSectionNames = window.AttributeSections.orderSections(
-            [...new Set([...Object.keys(sections), ...Object.keys(withOutfitsSections)])]
+            [...new Set([...Object.keys(baseSections), ...Object.keys(withOutfitsSections)])]
         );
         for (const section of allSectionNames) {
-            if (sections[section]?.length) html += buildSection(section, sections[section]);
-            if (withOutfitsSections[section]?.length)
-                html += buildSection(`${section} (with outfits)`, withOutfitsSections[section]);
+            if (baseSections[section]?.length) html += buildSection(section, baseSections[section]);
+            if (withOutfitsSections[section]?.length) html += buildSection(`${section} (with outfits)`, withOutfitsSections[section]);
         }
 
         const outfitMap = item.outfitMap || item.outfits || {};
@@ -1003,57 +171,26 @@ function renderAttributesTabEnhanced(item, attrDefs, currentTab, pluginId) {
             html += buildSection('Outfits', outfitRows);
         }
 
-        // Show effect wear-off for the ship's resistances
         html += renderEffectWearOff(attrs);
 
     } else if (currentTab === 'effects') {
-        const excludeKeys = new Set(['name','description','sprite','spriteData']);
-        const entries = Object.entries(item)
-            .filter(([k, v]) => !excludeKeys.has(k) && typeof v !== 'object')
-            .map(([k, v]) => ({ key: k, value: v }));
-        html += renderSections(groupBySection(attrDefs, entries));
-
-        // Effects: show how long this effect lasts if the ship applies it once
-        // (for things like hit effects / status effects on projectile impacts)
-        const effectAttrs = {};
-        for (const { damageKey } of STATUS_EFFECT_DECAY) {
-            const val = parseFloat(item[damageKey] ?? 0);
-            if (val) effectAttrs[damageKey] = val;
-        }
-        if (Object.keys(effectAttrs).length) {
-            const doseRows = Object.entries(effectAttrs).map(([k, v]) => {
-                const label = STATUS_EFFECT_DECAY.find(e => e.damageKey === k)?.label ?? k;
-                return attrRow(`${label} dose`, fmtNum(v), 'units',
-                    ` data-tooltip="Wear-off time depends on target ship's ${k.replace('damage','resistance')}"`);
-            });
-            html += buildSection('Status Effect Doses', doseRows);
-        }
+        const effStats = window.ItemStats.getEffectStats(item, attrDefs);
+        html += renderSectionMap(rowsToSections(effStats.rows));
+        if (effStats.doseRows.length)
+            html += buildSection('Status Effect Doses', effStats.doseRows.map(r => attrRow(r.label, r.value, r.unit, tooltipAttr(r.tooltip))));
 
     } else {
         // Outfits and other items
-        const excludeKeys = new Set([
-            'name','description','thumbnail','sprite','hardpointSprite',
-            'hardpoint sprite','steering flare sprite','flare sprite',
-            'reverse flare sprite','afterburner effect','projectile','weapon',
-            'spriteData','_internalId','_pluginId','_hash','governments',
-            '_variantPluginId',
-        ]);
-        const entries = Object.entries(item)
-            .filter(([k, v]) => !excludeKeys.has(k) && typeof v !== 'object')
-            .map(([k, v]) => ({ key: k, value: v }));
-        if (item.licenses && typeof item.licenses === 'object')
-            html += buildSection('General', [attrRow('Licenses', Object.keys(item.licenses).join(', '), '', '')]);
-        html += renderSections(groupBySection(attrDefs, entries));
-        if (item.weapon) html += renderWeaponChain(attrDefs, item.weapon, pluginId);
+        const outStats = window.ItemStats.getOutfitStats(item, attrDefs, pluginId);
+        html += renderSectionMap(rowsToSections(outStats.rows));
+        if (item.weapon) html += renderWeaponChainHtml(attrDefs, item.weapon, pluginId);
 
-        // Stacking notes for non-additive attributes
-        const noteRows = [];
-        for (const [key] of Object.entries(item)) {
-            const stacking = getStacking(attrDefs, key);
-            if (!stacking?.rule || stacking.rule === 'additive') continue;
-            noteRows.push(`<div class="ad-stacking-note"><span class="ad-stacking-key">${getLabel(key)}</span><span class="ad-stacking-rule">${stacking.rule}${stacking.description ? ' — ' + stacking.description : ''}</span></div>`);
+        if (outStats.stackingNotes.length) {
+            const noteRows = outStats.stackingNotes.map(n =>
+                `<div class="ad-stacking-note"><span class="ad-stacking-key">${n.label}</span><span class="ad-stacking-rule">${n.rule}${n.description ? ' — ' + n.description : ''}</span></div>`
+            );
+            html += `<div class="ad-stacking-section"><h3 class="ad-section-title">Stacking Notes</h3>${noteRows.join('')}</div>`;
         }
-        if (noteRows.length) html += `<div class="ad-stacking-section"><h3 class="ad-section-title">Stacking Notes</h3>${noteRows.join('')}</div>`;
     }
 
     return html;
@@ -1104,15 +241,15 @@ function injectStyles() { /* Styles live in CSS file */ }
 
 window.AttributeDisplay = {
     renderAttributesTabEnhanced,
-    calcDerivedStats,
-    calcWeaponDerived,
-    calcEffectWearOffTimes,
-    calcWeaponEffectDuration,
-    computeOutfitContributions,
-    renderOutfitContributions,
-    renderEffectWearOff,
-    renderWeaponChain,
     initTooltips,
     injectStyles,
-    fmtNum,
+    // Thin pass-throughs kept for any external callers that used the old
+    // AttributeDisplay-hosted calculation API — all real work now lives in
+    // window.ItemStats; these just forward to it.
+    calcDerivedStats:        (...a) => window.ItemStats.calcDerivedStats(...a),
+    calcWeaponDerived:       (...a) => window.ItemStats.calcWeaponDerived(...a),
+    calcEffectWearOffTimes:  (...a) => window.ItemStats.calcEffectWearOffTimes(...a),
+    calcWeaponEffectDuration:(...a) => window.ItemStats.calcWeaponEffectDuration(...a),
+    computeOutfitContributions: (...a) => window.ItemStats.computeOutfitContributions(...a),
+    fmtNum: (...a) => window.ItemStats.fmtNum(...a),
 };
