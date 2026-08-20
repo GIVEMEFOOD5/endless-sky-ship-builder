@@ -33,7 +33,11 @@ function tooltipAttr(text) {
 // (e.g. 'derived' for computed/derived rows).
 function rowToHtml(row, extra) {
     const label = row.isComputedOutfit ? `⚡ ${row.label}` : row.label;
-    return attrRow(label, row.value, row.unit, tooltipAttr(row.tooltip), extra);
+    // Appends the raw pre-scale/pre-multiplier number after the normal
+    // value when the enhanced-details toggle is on and this row actually
+    // has one worth showing — see ItemStats.formatRowDisplay.
+    const displayValue = window.ItemStats.formatRowDisplay(row);
+    return attrRow(label, displayValue, row.unit, tooltipAttr(row.tooltip), extra);
 }
 
 // Group a flat ItemStats row list into { sectionName: [htmlRow, ...] },
