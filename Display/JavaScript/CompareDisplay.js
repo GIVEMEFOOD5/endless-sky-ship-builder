@@ -97,9 +97,14 @@ window.CompareDisplay = (() => {
     // shape the DOM renderers below expect, applying the fleet-quantity
     // multiplier when the row is flagged as a summable fleet total.
     function _toDisplayRow(row, qty) {
-        const display = (typeof row.raw === 'number' && row.scalesWithQty)
+        const scaled = (typeof row.raw === 'number' && row.scalesWithQty)
             ? _fmt(row.raw * qty)
             : row.value;
+        // Appends the raw pre-scale/pre-multiplier number after the
+        // qty-scaled value when the enhanced-details toggle is on — see
+        // ItemStats.formatRowDisplay. The raw figure itself is never
+        // multiplied by fleet quantity (it's the single-unit stored value).
+        const display = window.ItemStats.formatRowDisplay(row, { baseValue: scaled });
         return { key: row.key, label: row.label, value: display, unit: row.unit || '', lowerBetter: !!row.lowerBetter };
     }
 
@@ -374,6 +379,13 @@ window.CompareDisplay = (() => {
         _injectPanel();
         window.addEventListener('compareListChanged', () => {
             _refreshBar();
+            if (_panelOpen) _renderPanelContent();
+        });
+        // The enhanced-details toggle lives on a different page; if the
+        // compare panel happens to be open when it's flipped (e.g. changed
+        // in another tab), refresh so raw values appear/disappear without
+        // needing a reload.
+        window.addEventListener('enhancedDetailsChanged', () => {
             if (_panelOpen) _renderPanelContent();
         });
     }
