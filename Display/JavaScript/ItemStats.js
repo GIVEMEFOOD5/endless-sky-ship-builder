@@ -114,6 +114,26 @@ function labelForKey(key) {
             .replace(/\s+/g, ' ').replace(/^./, c => c.toUpperCase()).trim();
 }
 
+// Returns the value STRING to display for a row, honouring the enhanced-
+// details toggle. `opts.baseValue`, if given, overrides row.value as the
+// "actual" figure to show — CompareDisplay needs this since its displayed
+// value is row.raw scaled by fleet quantity, not the qty=1 row.value.
+//
+// When enhanced details is ON and the row carries a `rawUnscaled` that
+// actually differs from its scaled/multiplied `raw` (i.e. there's a real
+// displayScale/displayMultiplier step in between worth surfacing), the raw
+// stored number is appended after the normal value. Rows with no such
+// distinction (rawUnscaled missing, non-numeric, or equal to raw) are
+// returned unchanged — nothing to add.
+function formatRowDisplay(row, opts) {
+    const base = (opts && opts.baseValue !== undefined) ? opts.baseValue : row?.value;
+    if (!row || !isEnhancedDetailsEnabled()) return base;
+    const rawU = row.rawUnscaled;
+    if (typeof rawU !== 'number' || typeof row.raw !== 'number') return base;
+    if (Math.abs(rawU - row.raw) < 1e-9) return base;
+    return `${base} (raw: ${fmtNum(rawU)})`;
+}
+
 function tooltipParts(rec, formulaOverride) {
     if (!rec && !formulaOverride) return '';
     const parts = [];
@@ -135,6 +155,50 @@ function inferFnUnit(attrDefs, fnName) {
 
 function isShipItem(item) {
     return !!(item?.attributes && typeof item.attributes === 'object');
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+//  ENHANCED DETAILS TOGGLE
+//
+//  A single, site-wide, localStorage-backed on/off flag. When ON, rows that
+//  carry a distinct `rawUnscaled` value (the number as actually stored/
+//  computed, before the display multiplier/scale that turns it into the
+//  friendly on-screen figure) show that raw number alongside the normal
+//  display value — see formatRowDisplay() below, the single place this
+//  flag is actually consumed.
+//
+//  The toggle UI itself lives on whichever page wires it up; this module
+//  only owns the stored value and notifies listeners when it changes —
+//  including changes made on a DIFFERENT already-open tab/page, via the
+//  native 'storage' event (which only fires in tabs other than the one
+//  that made the change, so localStorage.setItem's caller also gets a
+//  same-tab 'enhancedDetailsChanged' dispatch directly).
+// ─────────────────────────────────────────────────────────────────────────
+
+const ENHANCED_DETAILS_KEY = 'es-enhanced-details';
+
+function isEnhancedDetailsEnabled() {
+    try {
+        return localStorage.getItem(ENHANCED_DETAILS_KEY) === 'true';
+    } catch (_) { return false; }
+}
+
+function setEnhancedDetailsEnabled(enabled) {
+    enabled = !!enabled;
+    try { localStorage.setItem(ENHANCED_DETAILS_KEY, enabled ? 'true' : 'false'); } catch (_) { /* storage unavailable — flag just won't persist */ }
+    window.dispatchEvent(new CustomEvent('enhancedDetailsChanged', { detail: { enabled } }));
+    return enabled;
+}
+
+function toggleEnhancedDetails() {
+    return setEnhancedDetailsEnabled(!isEnhancedDetailsEnabled());
+}
+
+if (typeof window !== 'undefined') {
+    window.addEventListener('storage', e => {
+        if (e.key !== ENHANCED_DETAILS_KEY) return;
+        window.dispatchEvent(new CustomEvent('enhancedDetailsChanged', { detail: { enabled: e.newValue === 'true' } }));
+    });
 }
 
 // ── Outfit index / lookup ───────────────────────────────────────────────
@@ -234,7 +298,7 @@ function getRawAttributeRows(attrDefs, attrsObj, opts) {
 
         rows.push({
             key, label: labelForKey(key),
-            raw, value: isNum ? fmtNum(raw) : String(raw),
+            raw, rawUnscaled: isNum ? rawNum : value, value: isNum ? fmtNum(raw) : String(raw),
             unit: rec?.displayUnit ?? '', section, source: SOURCE.RAW,
             scalesWithQty: isNum ? scalesWithQtyFor(attrDefs, key) : false,
             lowerBetter: isLowerBetter(attrDefs, key, labelForKey(key)),
@@ -324,7 +388,7 @@ function getOutfitContributionRows(attrDefs, item, pluginId) {
         }).join(', ');
         rows.push({
             key, label: labelForKey(key),
-            raw: effectiveTotal * mult, value: fmtNum(effectiveTotal * mult), unit,
+            raw: effectiveTotal * mult, rawUnscaled: effectiveTotal, value: fmtNum(effectiveTotal * mult), unit,
             section: getSection(attrDefs, key), source: SOURCE.OUTFIT_CONTRIB,
             scalesWithQty: true, isComputedOutfit: true,
             lowerBetter: isLowerBetter(attrDefs, key, labelForKey(key)),
@@ -572,7 +636,7 @@ function calcDerivedStats(attrDefs, item, pluginId) {
         if (seen.has(label)) return;
         seen.add(label);
         results.push({
-            key: `_cds_${label}`, label, value: fmtNum(value), raw: value, unit: unit || '',
+            key: `_cds_${label}`, label, value: fmtNum(value), raw: value, rawUnscaled: rawValue, unit: unit || '',
             formula: formulaStr || '', tooltip: formulaStr ? `Formula: ${formulaStr}` : '',
             isComputedOutfit: !!isComputedOutfit,
             section: section || 'Derived Stats',
@@ -692,13 +756,13 @@ function calcDerivedStats(attrDefs, item, pluginId) {
             const section = window.AttributeSections.classifyComputedKey(attrDefs, statKey);
             if (seen.has(label)) {
                 const existing = results.find(r => r.label === label);
-                if (existing) { existing.value = fmtNum(displayVal); existing.raw = displayVal; existing.isComputedOutfit = true; existing.section = section; }
+                if (existing) { existing.value = fmtNum(displayVal); existing.raw = displayVal; existing.rawUnscaled = val; existing.isComputedOutfit = true; existing.section = section; }
                 continue;
             }
             seen.add(label);
             const unit = (statKey.startsWith('_ws_') && statKey.toLowerCase().includes('dps')) ? 'dmg/s' : '';
             results.push({
-                key: `_cds_${label}`, label, value: fmtNum(displayVal), raw: displayVal, unit, formula: '',
+                key: `_cds_${label}`, label, value: fmtNum(displayVal), raw: displayVal, rawUnscaled: val, unit, formula: '',
                 isComputedOutfit: true, section, source: SOURCE.COMPUTED_STATS,
                 scalesWithQty: true, lowerBetter: isLowerBetter(attrDefs, statKey, label),
             });
@@ -1052,16 +1116,16 @@ function getWeaponDetailRows(attrDefs, outfitName, outfit, profile, count, qty) 
         const lk = key.toLowerCase();
         if (weapSkip.has(lk) || lk.startsWith('firing ') || lk.endsWith(' damage')) continue;
         if (val === null || val === undefined) continue;
-        let display = null, raw = null;
-        if (typeof val === 'boolean') { display = val ? '✓' : '✗'; raw = val ? 1 : 0; }
+        let display = null, raw = null, rawUnscaled = null;
+        if (typeof val === 'boolean') { display = val ? '✓' : '✗'; raw = val ? 1 : 0; rawUnscaled = raw; }
         else if (typeof val === 'number' && val !== 0) {
             const rec = getAttrRecord(attrDefs, key);
-            raw = val * (rec?.displayMultiplier ?? 1); display = fmtNum(raw);
+            raw = val * (rec?.displayMultiplier ?? 1); rawUnscaled = val; display = fmtNum(raw);
         } else if (typeof val === 'string' && val.trim()) display = val.trim();
         else if (Array.isArray(val) && val.length) display = val.map(el => typeof el === 'object' ? (el.type ?? el.name ?? JSON.stringify(el)) : String(el)).join(', ');
         else if (typeof val === 'object' && val) display = val.type ?? val.name ?? JSON.stringify(val);
         if (display === null) continue;
-        rows.push({ key: `_wd_w_${key}`, label: labelForKey(key), raw, value: display,
+        rows.push({ key: `_wd_w_${key}`, label: labelForKey(key), raw, rawUnscaled, value: display,
             unit: getAttrRecord(attrDefs, key)?.displayUnit ?? '', section, source: SOURCE.WEAPON_DETAIL, scalesWithQty: false, lowerBetter: false });
     }
 
@@ -1075,7 +1139,10 @@ function getWeaponDetailRows(attrDefs, outfitName, outfit, profile, count, qty) 
         if (costVal) {
             const rec = getAttrRecord(attrDefs, costKey);
             const raw = costVal * profile.shotsPerSecond * (rec?.displayMultiplier ?? 1);
-            rows.push({ key: `_wd_cost_${costKey}`, label: labelForKey(costKey.replace(/^firing /, '')) + '/s', raw, value: fmtNum(raw),
+            // rawUnscaled here is the per-shot cost as stored on the weapon
+            // (before the ×shots/s×displayMultiplier that turns it into the
+            // "/s" figure shown) — the most useful "raw" reading for this row.
+            rows.push({ key: `_wd_cost_${costKey}`, label: labelForKey(costKey.replace(/^firing /, '')) + '/s', raw, rawUnscaled: costVal, value: fmtNum(raw),
                 unit: rec?.displayUnit ?? '', section, source: SOURCE.WEAPON_DETAIL, scalesWithQty: true, lowerBetter: true });
         }
 
@@ -1169,7 +1236,7 @@ function getComputedStatRows(attrDefs, computed, sectionOverride) {
 
         const label = labelForKey(k);
         rows.push({
-            key: k, label, raw: display, value: typeof display === 'number' ? fmtNum(display) : String(display),
+            key: k, label, raw: display, rawUnscaled: v, value: typeof display === 'number' ? fmtNum(display) : String(display),
             unit, section, source: SOURCE.COMPUTED_STATS, scalesWithQty: true,
             lowerBetter: isLowerBetter(attrDefs, k, label),
         });
@@ -1351,7 +1418,18 @@ function getOutfitStats(item, attrDefs, pluginId) {
         'spriteData','_internalId','_pluginId','_hash','governments',
         '_variantPluginId','licenses',
     ]);
-    const rows = getRawAttributeRows(attrDefs, item, { skip });
+    // Outfits may store their gameplay attributes nested under
+    // item.attributes (same shape as ships) OR flat on the object itself,
+    // same ambiguity handled everywhere else in this file (see
+    // buildEffectiveAttrs, computeOutfitContributions, getOutfitDetailRows).
+    // Reading `item` directly here — the previous behaviour — silently
+    // dropped every attribute whenever the nested shape was used, since
+    // `typeof item.attributes === 'object'` caused getRawAttributeRows to
+    // skip it entirely, leaving only whatever weapon/computed data could
+    // be derived from item's own top-level fields.
+    const src = (item.attributes && Object.keys(item.attributes).length)
+        ? { ...item, ...item.attributes } : item;
+    const rows = getRawAttributeRows(attrDefs, src, { skip });
 
     if (item.licenses && typeof item.licenses === 'object')
         rows.push({ key: '_licenses', label: 'Licenses', raw: null,
@@ -1388,20 +1466,23 @@ function getOutfitStats(item, attrDefs, pluginId) {
         }
     }
 
-    const efficiencyRows = getEfficiencyRatioRows(attrDefs, item, weaponProfile);
+    // Same nested-vs-flat ambiguity as above — use `src` (the flattened
+    // view) so ratios and computed stats see the real gameplay attributes
+    // (mass, outfit space, etc.) regardless of which shape this outfit uses.
+    const efficiencyRows = getEfficiencyRatioRows(attrDefs, src, weaponProfile);
 
     if (window.ComputedStats?.isReady()) {
         const OUTFIT_META_SKIP = new Set(['name','category','series','index','cost','thumbnail','sprite',
             'description','pluginId','governments','locations','_internalId','_pluginId','_hash']);
         const flat = {};
-        for (const [k, v] of Object.entries(item)) { if (!OUTFIT_META_SKIP.has(k) && typeof v === 'number') flat[k] = v; }
+        for (const [k, v] of Object.entries(src)) { if (!OUTFIT_META_SKIP.has(k) && typeof v === 'number') flat[k] = v; }
         const effectiveAttrKeys = new Set(Object.keys(flat));
         const computed = window.ComputedStats.getComputedStatsForAttrs(flat);
         filterComputedStats(computed, effectiveAttrKeys, false, attrDefs);
         rows.push(...getComputedStatRows(attrDefs, computed));
     }
 
-    const stackingNotes = getStackingNotes(attrDefs, item);
+    const stackingNotes = getStackingNotes(attrDefs, src);
 
     return { isShip: false, rows, weaponChain, weaponProfile, efficiencyRows, stackingNotes };
 }
@@ -1436,6 +1517,7 @@ window.ItemStats = {
     SOURCE,
     fmtNum, labelForKey, getAttrRecord, getSection, getStacking, tooltipParts,
     isShipItem, isLowerBetter, scalesWithQtyFor,
+    isEnhancedDetailsEnabled, setEnhancedDetailsEnabled, toggleEnhancedDetails, formatRowDisplay,
     buildOutfitIndex, outfitEntries, lookupOutfit,
     buildEffectiveAttrs, computeOutfitContributions, getOutfitContributionRows,
     getRawAttributeRows, getHardpointRows, getHeatDerivedRows,
