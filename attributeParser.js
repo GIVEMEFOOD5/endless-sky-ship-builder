@@ -86,11 +86,41 @@
  *  unambiguous (mass/drag mean nothing except motion) — not a curated
  *  glossary of movement-sounding words.
  * ─────────────────────────────────────────────────────────────────────────
+ *
+ * ─────────────────────────────────────────────────────────────────────────
+ *  NEW: front-end "area" derivation (see attribute-area-classification.md)
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ *  Everything above produces a rich set of per-attribute BOOLEAN flags
+ *  (isStatusEffect, isWeaponDataKey, isMovementRelevant, isProtection,
+ *  isBoolean, discoveredOnly, usedInOtherSystems, shownInOutfitPanel,
+ *  shownInShipPanel, ...) but leaves it to every downstream consumer to
+ *  re-derive a single "which UI bucket does this go in" answer from that
+ *  flag soup, independently, over and over.
+ *
+ *  deriveFrontendArea() does that derivation exactly ONCE, here, following
+ *  the priority list documented in attribute-area-classification.md §3 —
+ *  itself written to describe exactly the flags this file already
+ *  produces, so there is nothing new being guessed. Each attribute gets:
+ *
+ *    - `area`        — the single primary bucket, chosen by walking the
+ *                       priority list top to bottom and taking the first
+ *                       rule that matches.
+ *    - `areaBadges`   — every OTHER rule that also matched (dual-role
+ *                       attributes like "turn" — Weapons AND Movement).
+ *
+ *  This is intentionally a COARSE ~10-bucket taxonomy, useful for a
+ *  front end that wants "which broad category" without re-deriving it.
+ *  Front ends wanting finer buckets (e.g. splitting "Power, Heat & Life
+ *  Support" into separate Shields/Energy/Heat sections) should keep using
+ *  the underlying flags directly — `area` is a floor, not a ceiling.
+ * ─────────────────────────────────────────────────────────────────────────
  */
 
 const https = require('https');
 const fs    = require('fs').promises;
 const path  = require('path');
+const createDataFolderScanner = require('./dataFolderScanner');
 
 const ES_RAW  = 'https://raw.githubusercontent.com/endless-sky/endless-sky/master/source';
 const ES_DATA = 'https://raw.githubusercontent.com/endless-sky/endless-sky/master/data';
@@ -173,6 +203,11 @@ async function withPool(items, worker, concurrency = 8, onProgress) {
   await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, runOne));
   return results;
 }
+
+// Instantiated here (not inside dataFolderScanner.js) so the data/ scan
+// shares this file's own fetchText/withPool instead of duplicating HTTP
+// plumbing in a second file.
+const { scanDataFolderUsage, deriveCategoryAreaHints } = createDataFolderScanner({ fetchText, withPool });
 
 // ---------------------------------------------------------------------------
 // NEW: discoverRelevantSourceFiles(cacheFile, opts)
@@ -1408,7 +1443,165 @@ function mergeDiscoveredSystemsIntoAttributes(attrs, otherSystems) {
 }
 
 // ---------------------------------------------------------------------------
-// Main
+// NEW: mergeDataUsageIntoAttributes(attrs, perKey)
+//
+// The data/-side counterpart to mergeDiscoveredSystemsIntoAttributes above.
+// Same additive philosophy: existing entries just gain new fields; keys
+// found ONLY here (never touched by any source-code layer) get a bare
+// entry created on the spot, tagged `dataOnly: true`. A key ending up with
+// dataOnly still set at classification time means it has real usage in
+// shipped content but zero corresponding C++ logic anywhere — the
+// "Custom / Modder-Defined" case from attribute-area-classification.md §5.3.
+// ---------------------------------------------------------------------------
+
+function mergeDataUsageIntoAttributes(attrs, perKey) {
+  const newlyDiscovered = new Set();
+  for (const [key, usage] of Object.entries(perKey || {})) {
+    const isNew = !attrs[key];
+    const a = attrs[key] || (attrs[key] = { key, dataOnly: true });
+    if (isNew) newlyDiscovered.add(key);
+    a.usedInDataCategories = usage.categories;
+    a.dataUsageCount       = usage.count;
+    a.dataValueRange       = { min: usage.min, max: usage.max };
+    a.dataSampleValues     = usage.samples;
+    a.dataOnShip           = usage.onShip;
+    a.dataOnOutfit         = usage.onOutfit;
+  }
+  return [...newlyDiscovered].sort();
+}
+
+// ---------------------------------------------------------------------------
+// NEW: deriveFrontendArea(attrs, categoryAreaHints)
+//
+// Implements attribute-area-classification.md §3's priority list verbatim,
+// PLUS the category-co-occurrence signal from §5/§6 slotted in as priority
+// 0 (per the doc's own note that it "could sit above Layers 1-3" — it's
+// evidence of what an attribute is actually FOR in shipped content, the
+// strongest signal available). Rule 9 ("Uncategorized / Needs Review") is
+// intentionally OMITTED per project decision — unmatched attributes simply
+// end up with area: null, and the front end's own final fallback (see
+// AttributeSections.js) owns them from there.
+//
+// Every attribute gets:
+//   - area        — the single primary bucket: the first rule (in order)
+//                    that matched, or null if nothing did.
+//   - areaBadges  — every OTHER rule that also matched but didn't win
+//                    primary (dual-role attributes, e.g. "turn": Movement
+//                    primary, Weapons badge).
+//
+// This is a coarse ~10-bucket taxonomy for front ends that want "which
+// broad category" without re-deriving it from the flag soup themselves.
+// It does NOT replace the finer-grained classification AttributeSections.js
+// already does from the same underlying flags — see that file's own notes
+// on how the two are combined.
+// ---------------------------------------------------------------------------
+
+const AREA = {
+  STATUS:         'Status Effects',
+  WEAPONS:        'Weapons',
+  MOVEMENT:       'Movement & Engines',
+  SCANNERS:       'Scanners & Detection',
+  PROTECTION:     'Defense / Protection',
+  POWER:          'Power, Heat & Life Support',
+  ECONOMY:        'Economy',
+  SPECIAL:        'Special / Flags',
+  GENERAL_OUTFIT: 'General Outfit Stats',
+  GENERAL_SHIP:   'General Ship Stats',
+  CUSTOM:         'Custom / Modder-Defined',
+};
+
+// §3 rule 6's "shield/hull/energy/fuel/heat generation-consumption
+// pattern" — a substring test against the key itself, same style as every
+// other name-pattern check in this codebase (e.g. AttributeSections.js's
+// DOMAIN_WORDS).
+const POWER_LIFE_SUPPORT_PATTERN = /shield|hull|energy|fuel|heat/i;
+
+function deriveFrontendArea(attrs, categoryAreaHints) {
+  categoryAreaHints = categoryAreaHints || {};
+  const areaCounts = {};
+  let uncategorizedCount = 0;
+
+  for (const [key, a] of Object.entries(attrs)) {
+    if (key.startsWith('__')) continue; // internal stash entries (movementSystem), not real attributes
+
+    const badges = new Set();
+    let area = null;
+
+    const usedInOther   = a.usedInOtherSystems || [];
+    const inScanners     = usedInOther.some(t => t.includes('CalculateScanners'));
+    const inMaintenance  = usedInOther.some(t => t.includes('MaintenanceAndReturns'));
+
+    // Priority 0 — real shipped-content evidence (data/ category
+    // co-occurrence), when it unambiguously points to one area.
+    const catHint = categoryAreaHints[key];
+    if (catHint) area = catHint.area;
+
+    // 1. Status Effects
+    const isStatusish = !!(a.isStatusEffect || a.isStatusResistance || a.isStatusProtection || a.isStatusResistanceCost);
+    if (!area && isStatusish) area = AREA.STATUS;
+    else if (isStatusish) badges.add(AREA.STATUS);
+
+    // 2. Weapons — wins primary only when NOT also movement-relevant
+    // (a pure weapon-data key like "shield damage" has no movement role
+    // and takes this directly; "turn" is both, and Movement — rule 3 —
+    // takes primary instead, with Weapons demoted to a badge).
+    const isWeaponish = !!(a.isWeaponDataKey || a.isWeaponStat);
+    if (!area && isWeaponish && !a.isMovementRelevant) area = AREA.WEAPONS;
+    else if (isWeaponish) badges.add(AREA.WEAPONS);
+
+    // 3. Movement & Engines
+    if (!area && a.isMovementRelevant) area = AREA.MOVEMENT;
+    else if (a.isMovementRelevant) badges.add(AREA.MOVEMENT);
+
+    // 4. Scanners & Detection
+    const isScannerish = key.toLowerCase().includes('scan') || inScanners;
+    if (!area && isScannerish) area = AREA.SCANNERS;
+    else if (isScannerish) badges.add(AREA.SCANNERS);
+
+    // 5. Defense / Protection — excludes status protection (already
+    // covered, more specifically, by rule 1).
+    const isDefenseProtection = !!(a.isProtection && !a.isStatusProtection);
+    if (!area && isDefenseProtection) area = AREA.PROTECTION;
+    else if (isDefenseProtection) badges.add(AREA.PROTECTION);
+
+    // 6. Power, Heat & Life Support
+    const isPowerLike = !!(a.shownInShipPanel && POWER_LIFE_SUPPORT_PATTERN.test(key));
+    if (!area && isPowerLike) area = AREA.POWER;
+    else if (isPowerLike) badges.add(AREA.POWER);
+
+    // 7. Economy
+    if (!area && inMaintenance) area = AREA.ECONOMY;
+    else if (inMaintenance) badges.add(AREA.ECONOMY);
+
+    // 8. Special / Flags
+    if (!area && a.isBoolean) area = AREA.SPECIAL;
+    else if (a.isBoolean) badges.add(AREA.SPECIAL);
+
+    // (Rule 9, "Uncategorized / Needs Review", intentionally skipped.)
+
+    // 10. General fallback — whichever display panel actually shows it.
+    if (!area) {
+      if (a.shownInOutfitPanel)     area = AREA.GENERAL_OUTFIT;
+      else if (a.shownInShipPanel)  area = AREA.GENERAL_SHIP;
+    }
+
+    // Custom / Modder-Defined (§5.3) — real data/ usage, zero source-code
+    // signal of any kind. `dataOnly` already means exactly that: it's only
+    // ever set at creation time, when a key from the data/ scan didn't
+    // already have a dictionary entry from any prior (source-derived) pass.
+    if (!area && a.dataOnly) area = AREA.CUSTOM;
+
+    if (!area) uncategorizedCount++;
+    else areaCounts[area] = (areaCounts[area] || 0) + 1;
+
+    badges.delete(area);
+    a.area       = area;
+    a.areaBadges = [...badges];
+  }
+
+  return { areaCounts, uncategorizedCount };
+}
+
 // ---------------------------------------------------------------------------
 
 async function parseAttributes(outputDir, cliOpts = {}) {
@@ -1554,6 +1747,32 @@ async function parseAttributes(outputDir, cliOpts = {}) {
 
   console.log(`\n  Unified dictionary (seed + discovered): ${Object.keys(attributes).length} unique attribute keys`);
 
+  // ── NEW: data/ usage scan — evidence from shipped CONTENT, not source ────
+  console.log('\n  Scanning data/ for actual attribute usage in outfit/ship blocks...');
+  const dataUsageCacheFile = path.join(outDir, 'dataFolderUsage.json');
+  const dataScan = await scanDataFolderUsage(dataUsageCacheFile, { forceRescan: !!cliOpts.rescan });
+
+  const dataOnlyKeys = mergeDataUsageIntoAttributes(attributes, dataScan.perKey);
+  console.log(`  ${Object.keys(dataScan.perKey || {}).length} attribute keys observed in real outfit/ship blocks` +
+    (dataScan.failed ? ' (scan failed — dictionary unaffected)' : ''));
+  if (dataOnlyKeys.length) {
+    console.log(`  ⚠  ${dataOnlyKeys.length} attribute key(s) exist ONLY in shipped data, ` +
+      `never referenced by any source-code layer (custom/modder-only attributes):`);
+    console.log('     ' + dataOnlyKeys.slice(0, 20).join(', ') + (dataOnlyKeys.length > 20 ? ', …' : ''));
+  }
+
+  const categoryAreaHints = deriveCategoryAreaHints(dataScan.perKey || {});
+  console.log(`  ${Object.keys(categoryAreaHints).length} attribute keys have an unambiguous category → area hint`);
+
+  // ── NEW: front-end area classification (attribute-area-classification.md §3) ──
+  const { areaCounts, uncategorizedCount } = deriveFrontendArea(attributes, categoryAreaHints);
+  console.log('\n  Front-end area classification:');
+  for (const [area, count] of Object.entries(areaCounts).sort((a, b) => b[1] - a[1]))
+    console.log(`    ${String(count).padStart(4)}  ${area}`);
+  if (uncategorizedCount) console.log(`    ${String(uncategorizedCount).padStart(4)}  (no area — left for AttributeSections.js's own fallback)`);
+
+  console.log(`\n  Unified dictionary (seed + discovered + data-scanned): ${Object.keys(attributes).length} unique attribute keys`);
+
   const systemAwareFormulas = {
     'solar collection': { formula: '[solar collection] * solar_power', displayScale: 60, displayUnit: '/s',
       description: 'Actual energy collected per second.', referencePower: systemContext.referenceSolarPower },
@@ -1593,6 +1812,26 @@ async function parseAttributes(outputDir, cliOpts = {}) {
           'function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem ' +
           'at the bottom of this file for the full function/attribute lists and rationale.',
       },
+      dataUsage: {
+        scannedAt: dataScan.scannedAt ? new Date(dataScan.scannedAt).toISOString() : null,
+        filesScanned: dataScan.fileCount ?? 0,
+        attributeKeysObserved: Object.keys(dataScan.perKey || {}).length,
+        dataOnlyAttributeKeys: dataOnlyKeys,
+        categoryAreaHintCount: Object.keys(categoryAreaHints).length,
+        note: 'Independent sweep of the ENTIRE data/ tree (tab-indentation tree, not brace-counting — ' +
+          'see dataFolderScanner.js) for real attribute usage inside outfit/ship blocks. Merged into ' +
+          'the dictionary by key name against the source-derived entries above; a key with dataOnly:true ' +
+          'has real shipped usage but is never referenced by attributes.Get()/Set() anywhere in source.',
+      },
+      areaClassification: {
+        counts: areaCounts,
+        uncategorizedCount,
+        note: 'area/areaBadges on each attribute (below) implement attribute-area-classification.md §3 ' +
+          '— priority-ordered rules over the flags already in this dictionary, plus data/ category ' +
+          'co-occurrence (categoryAreaHintCount above) as the highest-priority signal. Rule 9 ' +
+          '("Uncategorized / Needs Review") is intentionally not implemented; unmatched attributes have ' +
+          'area: null and are left to AttributeSections.js\'s own final fallback.',
+      },
       notes: [
         'Zero hardcoding of WHICH files matter: discovery scans every .cpp/.h under source/ and ' +
           'keeps whatever actually reads/writes attributes, not a maintained list.',
@@ -1601,6 +1840,11 @@ async function parseAttributes(outputDir, cliOpts = {}) {
         'Everything else is parsed generically via extractAllClassFunctionBodies — any class, any file.',
         'isMovementRelevant is derived from the ship-function call graph, not a hardcoded attribute list ' +
           '— see movementSystem below and the header comment in this file.',
+        'data/ usage (dataUsage above) is scanned independently of source, via a tab-indentation tree ' +
+          'parser (dataFolderScanner.js) — the data format has no braces, so the source-side brace-' +
+          'counting extractors would silently misparse it.',
+        'area/areaBadges on each attribute implement attribute-area-classification.md §3 — see ' +
+          'areaClassification above.',
         'damageTypeDetails: shieldInteraction parsed from Ship.cpp TakeDamage().',
         'Descriptor lookup uses damageKey base, not label, fixing Ion/Ionization mismatch.',
         'Status decay: stat = max(0, 0.99*stat - min(R, 0.99*stat)) each frame.',
@@ -1672,5 +1916,6 @@ if (require.main === module) {
 module.exports = {
   parseAttributes, parseTooltips, mergeTooltipsIntoAttributes,
   discoverRelevantSourceFiles, parseGenericSourceFile, extractAllClassFunctionBodies,
-  deriveMovementSystem,
+  deriveMovementSystem, deriveFrontendArea, mergeDataUsageIntoAttributes,
+  scanDataFolderUsage, deriveCategoryAreaHints,
 };
