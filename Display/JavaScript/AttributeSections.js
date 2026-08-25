@@ -1,6 +1,6 @@
 'use strict';
 
-// ─── AttributeSections.js (v2) ─────────────────────────────────────────────
+// ─── AttributeSections.js ─────────────────────────────────────────────
 //
 // SINGLE SOURCE OF TRUTH for grouping attribute keys into display sections.
 // Used by CompareDisplay.js, AttributeDisplay.js, and shipBuilderStats.js so
@@ -35,11 +35,24 @@
 //                                 and it's one dictionary shared with steps
 //                                 below instead of three separate lists.
 //
-// Only once ALL of the above are exhausted do we fall back to matching the
-// SAME small domain dictionary against the attribute's own key name, then
-// its tooltip/description (its stated purpose) as a last resort. That
-// dictionary is 8 entries, declared once, reused in three places — versus
-// ~40 keyword strings hand-copied across three separate files previously.
+// NEW IN v3 — rec.area (attribute-area-classification.md):
+//   attributeParser.js now also computes a coarser, independent ~10-bucket
+//   classification (rec.area / rec.areaBadges) via deriveFrontendArea(),
+//   folding in evidence this file doesn't have access to on its own —
+//   notably data/ category co-occurrence (the strongest signal available:
+//   what an attribute is actually FOR in shipped content) and an Economy
+//   bucket (income/maintenance/operating-cost keys, via
+//   usedInOtherSystems containing "PlayerInfo::MaintenanceAndReturns").
+//
+//   classify() below keeps ALL of its existing fine-grained logic exactly
+//   as before — it already produces a BETTER-differentiated answer than
+//   rec.area's coarse buckets for anything it already recognises (e.g. it
+//   splits "Power, Heat & Life Support" into separate Shields & Hull /
+//   Energy / Heat sections, which rec.area deliberately does not). rec.area
+//   is consulted ONLY as a last-resort fallback, immediately before the
+//   final 'Other' catch-all, and ONLY for the two buckets this file had
+//   literally zero coverage for previously — Economy and Special/Flags —
+//   both of which used to silently land in 'Other'. See AREA_FALLBACK below.
 // ─────────────────────────────────────────────────────────────────────────
 
 window.AttributeSections = (() => {
@@ -50,7 +63,8 @@ window.AttributeSections = (() => {
         'General', 'Shields & Hull', 'Energy', 'Heat', 'Engines', 'Jump',
         'Cargo', 'Crew', 'Scanning', 'Cloaking', 'Resistance', 'Protection',
         'Hardpoints', 'Weapon DPS', 'Weapon DPS — Efficiency',
-        'Ammo Consumption', 'Derived Stats', 'Licenses', 'Other',
+        'Ammo Consumption', 'Economy', 'Special', 'Derived Stats',
+        'Licenses', 'Other',
     ];
 
     // ── The one shared domain dictionary ──────────────────────────────────
@@ -97,6 +111,21 @@ window.AttributeSections = (() => {
     // subsystem of their own — everything else that doesn't match falls
     // through to 'Other' rather than being force-fit here.
     const GENERAL_RE = /^(mass|cost|category|series|index)\b/i;
+
+    // rec.area → this file's canonical section, for the last-resort
+    // fallback (see v3 note above). Only areas this file has NO existing
+    // equivalent-or-better bucket for are mapped — every other area value
+    // (Weapons, Movement & Engines, Scanners & Detection, Defense /
+    // Protection, Status Effects, Power/Heat/Life Support, General Outfit/
+    // Ship Stats, Custom / Modder-Defined) is deliberately left unmapped
+    // here: classify()'s own logic above already produces an equal-or-finer
+    // answer for those before this fallback is ever reached, so mapping
+    // them too would just risk silently overriding a more precise result
+    // in some edge case rather than only filling real gaps.
+    const AREA_FALLBACK = {
+        'Economy':          'Economy',
+        'Special / Flags':  'Special',
+    };
 
     function _getAttrRecord(attrDefs, key) {
         const attrs = attrDefs?.attributes || {};
@@ -146,6 +175,16 @@ window.AttributeSections = (() => {
 
         if (GENERAL_RE.test(key)) return 'General';
 
+        // 6. Last resort: the parser's own coarse area classification
+        // (attribute-area-classification.md §3), for the two real
+        // categories nothing above has any coverage for at all —
+        // Economy (income/maintenance/operating costs) and Special/Flags
+        // (boolean ship-behaviour permissions) — without guessing from
+        // the key's name. See AREA_FALLBACK above for why only these two
+        // are mapped.
+        const areaHit = AREA_FALLBACK[rec.area];
+        if (areaHit) return areaHit;
+
         return 'Other';
     }
 
@@ -188,6 +227,19 @@ window.AttributeSections = (() => {
      * null if nothing matched. */
     function matchDomainWord(text) {
         return _matchDomain(text);
+    }
+
+    /**
+     * Public access to the raw parser-derived area/badges for a key, for
+     * callers that want the coarser attribute-area-classification.md
+     * taxonomy directly (e.g. a simpler alternate view) rather than this
+     * file's finer-grained sections. Returns { area, areaBadges } — area
+     * may be null if the parser left it unclassified (see attributeParser.js
+     * deriveFrontendArea's notes on rule 9 being intentionally skipped).
+     */
+    function getFrontendArea(attrDefs, key) {
+        const rec = _getAttrRecord(attrDefs, key);
+        return { area: rec?.area ?? null, areaBadges: rec?.areaBadges ?? [] };
     }
 
     /**
@@ -250,6 +302,6 @@ window.AttributeSections = (() => {
 
     return {
         SECTION_ORDER, classify, groupKeys, orderSections, keysInSections,
-        matchDomainWord, classifyComputedKey,
+        matchDomainWord, classifyComputedKey, getFrontendArea,
     };
 })();
