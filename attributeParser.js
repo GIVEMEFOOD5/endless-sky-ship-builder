@@ -115,6 +115,50 @@
  *  Support" into separate Shields/Energy/Heat sections) should keep using
  *  the underlying flags directly — `area` is a floor, not a ceiling.
  * ─────────────────────────────────────────────────────────────────────────
+ *
+ * ─────────────────────────────────────────────────────────────────────────
+ *  NEW: structural (zero-hardcoded-type-list) damage-type discovery
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ *  parseDamageDealt() used to find "damage types" by regex-matching every
+ *  zero-arg `double`-returning (or, via the inline-definition regex, ANY
+ *  zero-arg const-noexcept) method declared on the DamageDealt class. That
+ *  worked when DamageDealt exposed one accessor per damage type directly.
+ *  It no longer does — current DamageDealt.h exposes exactly four
+ *  accessors (GetWeapon, Scaling, Levels, HitForce), none of which are
+ *  damage types; the real per-resource values live one level deeper, as
+ *  fields on the struct Levels() returns (currently ResourceLevels).
+ *
+ *  deriveDamageTypesStructurally() (added below, alongside — not
+ *  replacing — parseDamageDealt()/parseShipTakeDamage()) finds this
+ *  correctly regardless of naming, by:
+ *
+ *    A. Structurally locating DamageDealt's "aggregate resource accessor"
+ *       — not by name, but by finding the public zero-arg const method
+ *       whose declared return type matches a PRIVATE member's declared
+ *       type (the ordinary C++ getter pattern).
+ *    B. Following DamageDealt.h's own #include lines to the header that
+ *       defines that return type, fetching it, and parsing its
+ *       double-typed member fields — the raw, current per-resource names.
+ *    C. Cross-referencing against Weapon::Load's own literal
+ *       `key == "..."` data-file keys (already parsed elsewhere in this
+ *       file, zero hardcoding) that end in " damage" — this supplies the
+ *       correctly-cased canonical type names ("Shield", "Ion", ...) the
+ *       rest of the app expects, since raw struct field names don't match
+ *       1:1 (shields/ionization/leakage/burning vs. the attribute-key
+ *       convention shield/ion/leak/burn).
+ *    D. Reconciling B onto C via a generic shared-prefix similarity check
+ *       — not a synonym table — to carry shieldInteraction/category info
+ *       across. Union, not intersection: anything Step C finds that Step
+ *       B can't confirm is still kept, since an extra type is harmless
+ *       downstream while a missing real one silently breaks combat math.
+ *
+ *  parseDamageDealt() and parseShipTakeDamage() are left completely
+ *  unmodified (anything else that imports them directly keeps working
+ *  unchanged) and are used as the fallback if structural discovery fails
+ *  for any reason (network hiccup, a future upstream refactor that breaks
+ *  the getter-pattern assumption, etc.) — see parseAttributes() below.
+ * ─────────────────────────────────────────────────────────────────────────
  */
 
 const https = require('https');
@@ -1039,6 +1083,205 @@ function parseShipTakeDamage(shipCppSrc) {
 }
 
 // ---------------------------------------------------------------------------
+// NEW: deriveDamageTypesStructurally(opts)
+//
+// Zero-hardcoded-type-list discovery of DamageDealt's real per-resource
+// damage types, ADDED alongside (not replacing) parseDamageDealt() and
+// parseShipTakeDamage() above — both of those stay completely untouched,
+// still exported, still usable by anything that already depends on them.
+// This function returns the SAME two pieces of information those two
+// functions together used to produce — { damageTypes, shipCppDetails } —
+// in the same shapes buildDamageTypeDetails() already expects, so it's a
+// drop-in substitute at the one call site in parseAttributes() below, with
+// no changes needed anywhere further downstream.
+//
+// Method (see the header comment block at the top of this file for the
+// full rationale):
+//   A. Structurally locate DamageDealt's "aggregate resource accessor" —
+//      not by name, but by finding the public zero-arg const method whose
+//      declared return type matches a PRIVATE member's declared type (the
+//      ordinary C++ getter pattern). Whatever that accessor is called
+//      this year, this finds it without hardcoding "Levels".
+//   B. Follow DamageDealt.h's own #include lines to the header that
+//      defines that return type, fetch it, and parse its double-typed
+//      member fields — the raw, current per-resource field names.
+//   C. Cross-reference against Weapon::Load's own literal `key == "..."`
+//      data-file keys (already parsed by parseWeaponCpp above with zero
+//      hardcoding) that end in " damage" — this supplies the correctly
+//      cased canonical type names ("Shield", "Ion", "Scrambling", ...)
+//      the rest of the app expects, since raw struct field names don't
+//      match 1:1 (shields/ionization/leakage/burning vs. the attribute-
+//      key convention shield/ion/leak/burn).
+//   D. Reconcile B onto C via a generic shared-prefix similarity check —
+//      not a synonym table — to carry shieldInteraction/category info
+//      across. Union, not intersection: any canonical type Step C finds
+//      that Step B can't confirm (e.g. "Minable", "Disabled", which
+//      aren't ResourceLevels fields at all) is still kept, since an extra
+//      entry is harmless downstream (the battle simulator's damage-apply
+//      switch just no-ops on types it doesn't recognize) while a missing
+//      real type silently breaks combat math — which is exactly the bug
+//      this function exists to fix.
+//
+// Never throws. On any failure (network, unexpected header shape, pattern
+// not found) it returns { ok: false, warnings: [...] } and the caller
+// falls back to the existing parseDamageDealt()/parseShipTakeDamage() pair.
+// ---------------------------------------------------------------------------
+
+async function deriveDamageTypesStructurally(opts) {
+  const { damageDealtHSrc, shipCppSrc, weaponDataFileKeys, fetchTextFn, esRawBase } = opts;
+  const warnings = [];
+
+  if (!damageDealtHSrc) return { ok: false, warnings: ['DamageDealt.h source not available'] };
+
+  // ---- Step C: canonical type names from Weapon::Load's own data keys ----
+  const canonicalTypes = [];
+  for (const key of (weaponDataFileKeys || [])) {
+    if (!/ damage$/i.test(key)) continue;
+    const base = key.replace(/^%\s*/, '').replace(/^relative\s+/i, '').replace(/\s*damage\s*$/i, '').trim();
+    if (!base) continue;
+    const titled = base.split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    if (!canonicalTypes.includes(titled)) canonicalTypes.push(titled);
+  }
+  if (canonicalTypes.length === 0) {
+    return { ok: false, warnings: ['No " damage"-suffixed keys found in Weapon::Load data keys — cannot derive a canonical type list'] };
+  }
+
+  // ---- Step A: structurally find the aggregate resource accessor ----
+  const PRIMITIVE_TYPES = new Set(['double', 'int', 'bool', 'float', 'size_t', 'int64_t', 'string', 'Point', 'Weapon']);
+  const accessorRe = /\b((?:const\s+)?[\w:]+(?:\s*[&*])?)\s*(\w+)\s*\(\s*\)\s*const\s*(?:noexcept\s*)?;/g;
+  const accessors = [];
+  let m;
+  while ((m = accessorRe.exec(damageDealtHSrc)) !== null) {
+    const rawType = m[1].replace(/\bconst\b/g, '').replace(/[&*]/g, '').trim();
+    accessors.push({ name: m[2], type: rawType });
+  }
+
+  const privateIdx = damageDealtHSrc.indexOf('private:');
+  const privateSection = privateIdx >= 0 ? damageDealtHSrc.slice(privateIdx) : '';
+  const memberRe = /(?:^|\n)[ \t]*(?:const\s+)?([A-Za-z_]\w*)\s+(\w+)\s*(?:=\s*[^;]+)?;/g;
+  const members = [];
+  while ((m = memberRe.exec(privateSection)) !== null) members.push({ type: m[1].trim(), name: m[2] });
+
+  let discovered = null;
+  for (const acc of accessors) {
+    if (PRIMITIVE_TYPES.has(acc.type)) continue;
+    const owner = members.find(mem => mem.type === acc.type);
+    if (owner) { discovered = { accessorName: acc.name, structTypeName: acc.type }; break; }
+  }
+
+  if (!discovered) {
+    warnings.push('Could not structurally locate the DamageDealt aggregate-resource accessor ' +
+      '(no public zero-arg const method whose return type matches a private member type). ' +
+      'Falling back to the Weapon::Load-derived type list with no shieldInteraction/category enrichment.');
+    return { ok: true, damageTypes: canonicalTypes, shipCppDetails: new Map(), warnings };
+  }
+
+  // ---- Step B: fetch & parse the discovered struct's own header ----
+  const includeRe = /#include\s+"([^"]+\.h)"/g;
+  let headerPath = null;
+  const targetLower = discovered.structTypeName.toLowerCase();
+  while ((m = includeRe.exec(damageDealtHSrc)) !== null) {
+    const base = m[1].split('/').pop().replace(/\.h$/i, '').toLowerCase();
+    if (base === targetLower) { headerPath = m[1]; break; }
+  }
+
+  let structFields = [];
+  if (headerPath && fetchTextFn && esRawBase) {
+    try {
+      const structSrc = await fetchTextFn(`${esRawBase}/${headerPath}`);
+      const classRe = new RegExp(`\\b(?:class|struct)\\s+${discovered.structTypeName}\\b[^{;]*\\{`);
+      const cm = classRe.exec(structSrc);
+      if (cm) {
+        let depth = 1, i = cm.index + cm[0].length;
+        while (i < structSrc.length && depth > 0) {
+          if (structSrc[i] === '{') depth++;
+          else if (structSrc[i] === '}') depth--;
+          i++;
+        }
+        const body = structSrc.slice(cm.index + cm[0].length, i - 1);
+        const fieldRe = /\b(?:double|float)\s+(\w+)\s*(?:=\s*[^;,{]+)?\s*[;,]/g;
+        let fm;
+        while ((fm = fieldRe.exec(body)) !== null) structFields.push(fm[1]);
+      } else {
+        warnings.push(`Fetched ${headerPath} but could not find a class/struct body named ${discovered.structTypeName}.`);
+      }
+    } catch (err) {
+      warnings.push(`Failed to fetch ${headerPath}: ${err.message}`);
+    }
+  } else {
+    warnings.push(`Could not find an #include for struct type "${discovered.structTypeName}" in DamageDealt.h.`);
+  }
+
+  // ---- shieldInteraction/category detection, re-pointed at the discovered accessor ----
+  const shipCppDetails = new Map();
+  if (shipCppSrc && structFields.length) {
+    const takeDmgMatch = shipCppSrc.match(/\bTakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
+    if (takeDmgMatch) {
+      const bodyStart = takeDmgMatch.index + takeDmgMatch[0].length;
+      let depth = 1, i = bodyStart;
+      while (i < shipCppSrc.length && depth > 0) {
+        if (shipCppSrc[i] === '{') depth++;
+        else if (shipCppSrc[i] === '}') depth--;
+        i++;
+      }
+      const body = shipCppSrc.slice(bodyStart, i - 1);
+
+      const accessorEsc = discovered.accessorName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const fieldPattern = structFields.map(f => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+      const fieldRe = new RegExp(`damage\\.${accessorEsc}\\s*\\(\\s*\\)\\s*\\.\\s*(${fieldPattern})\\b`, 'g');
+
+      const seenFields = new Set();
+      let fm;
+      while ((fm = fieldRe.exec(body)) !== null) seenFields.add(fm[1]);
+
+      const blockedFields = new Set();
+      const blockedBlockRe = /if\s*\(\s*!shields?\b[^)]*\)\s*\{([^}]*)\}/g;
+      let bm;
+      while ((bm = blockedBlockRe.exec(body)) !== null) {
+        const innerRe = new RegExp(`damage\\.${accessorEsc}\\s*\\(\\s*\\)\\s*\\.\\s*(${fieldPattern})\\b`, 'g');
+        let im;
+        while ((im = innerRe.exec(bm[1])) !== null) blockedFields.add(im[1]);
+      }
+
+      const halfFields = new Set();
+      const shieldFracRe = new RegExp(`damage\\.${accessorEsc}\\s*\\(\\s*\\)\\s*\\.\\s*(${fieldPattern})\\s*\\*\\s*shieldFraction`, 'g');
+      let sm;
+      while ((sm = shieldFracRe.exec(body)) !== null) halfFields.add(sm[1]);
+
+      const hpFields = new Set(structFields.filter(f => /^(shields?|hull)$/i.test(f)));
+
+      // Generic shared-prefix fuzzy match — NOT a hardcoded synonym table.
+      // Correctly lines up e.g. "ionization"<->"Ion", "leakage"<->"Leak",
+      // "burning"<->"Burn", "shields"<->"Shield", "slowness"<->"Slowing".
+      const fuzzyMatch = (canonical, raw) => {
+        const a = canonical.toLowerCase().replace(/\s+/g, '');
+        const b = raw.toLowerCase();
+        if (a === b) return true;
+        const shorter = a.length < b.length ? a : b;
+        const longer  = a.length < b.length ? b : a;
+        return shorter.length >= 3 && longer.startsWith(shorter.slice(0, Math.min(shorter.length, 4)));
+      };
+
+      for (const field of seenFields) {
+        const canonical = canonicalTypes.find(t => fuzzyMatch(t, field));
+        if (!canonical) continue;
+        let shieldInteraction, category;
+        if (hpFields.has(field))                       { shieldInteraction = 'direct';  category = 'hp'; }
+        else if (blockedFields.has(field))              { shieldInteraction = 'blocked'; category = 'status'; }
+        else if (halfFields.has(field))                 { shieldInteraction = 'half';    category = 'status'; }
+        else if (/^(energy|heat|fuel)$/i.test(field))   { shieldInteraction = 'half';    category = 'resource'; }
+        else                                             { shieldInteraction = 'full';    category = 'status'; }
+        shipCppDetails.set(canonical, { shieldInteraction, category });
+      }
+    } else {
+      warnings.push('Could not find Ship::TakeDamage() body for shieldInteraction/category enrichment.');
+    }
+  }
+
+  return { ok: true, damageTypes: canonicalTypes, shipCppDetails, discovered, warnings };
+}
+
+// ---------------------------------------------------------------------------
 // buildDamageTypeDetails (unchanged)
 // ---------------------------------------------------------------------------
 
@@ -1666,14 +1909,40 @@ async function parseAttributes(outputDir, cliOpts = {}) {
   console.log(`  Outfit.cpp         ${Object.keys(outfitStacking).length} stacking rules`);
 
   const weaponData  = sources.weaponCpp ? parseWeaponCpp(sources.weaponCpp) : { functions: {}, dataFileKeys: [], submunitionKeys: [] };
-  const damageTypes = parseDamageDealt(sources.damageDealtH, sources.damageDealtCpp);
   const jumpNavFns  = parseJumpNav(sources.jumpNavCpp);
 
   const statusEffectDecay     = parseStatusEffectDecay(sources.shipCpp || '');
   console.log(`  Status effects     ${statusEffectDecay.descriptors.length} effects`);
 
-  const shipCppTakeDmgDetails = parseShipTakeDamage(sources.shipCpp || '');
-  console.log(`  TakeDamage parse   ${shipCppTakeDmgDetails.size} type entries from Ship.cpp`);
+  // ── Damage types: legacy parse kept as fallback, structural discovery preferred ──
+  const legacyDamageTypes           = parseDamageDealt(sources.damageDealtH, sources.damageDealtCpp);
+  const legacyShipCppTakeDmgDetails = parseShipTakeDamage(sources.shipCpp || '');
+
+  console.log('\n  Deriving damage types structurally...');
+  const structuralDamageResult = await deriveDamageTypesStructurally({
+    damageDealtHSrc:    sources.damageDealtH,
+    shipCppSrc:         sources.shipCpp,
+    weaponDataFileKeys: weaponData.dataFileKeys,
+    fetchTextFn:        fetchText,
+    esRawBase:          ES_RAW,
+  });
+
+  let damageTypes, shipCppTakeDmgDetails;
+  if (structuralDamageResult.ok) {
+    damageTypes           = structuralDamageResult.damageTypes;
+    shipCppTakeDmgDetails = structuralDamageResult.shipCppDetails;
+    console.log(`  DamageDealt (structural) ${damageTypes.length} types` +
+      (structuralDamageResult.discovered
+        ? ` — accessor "${structuralDamageResult.discovered.accessorName}()" -> struct "${structuralDamageResult.discovered.structTypeName}"`
+        : ''));
+    for (const w of structuralDamageResult.warnings) console.log(`    ⚠  ${w}`);
+  } else {
+    damageTypes           = legacyDamageTypes;
+    shipCppTakeDmgDetails = legacyShipCppTakeDmgDetails;
+    console.log(`  ⚠  Structural damage-type discovery failed, using legacy parser instead:`);
+    for (const w of structuralDamageResult.warnings) console.log(`     ${w}`);
+  }
+  console.log(`  TakeDamage parse   ${shipCppTakeDmgDetails.size} type entries`);
 
   const damageTypeDetails = buildDamageTypeDetails(
     damageTypes, statusEffectDecay.descriptors, shipCppTakeDmgDetails
@@ -1804,6 +2073,18 @@ async function parseAttributes(outputDir, cliOpts = {}) {
           'patterns, caches results, and re-scans automatically after 7 days or when --rescan is passed. ' +
           'Files already covered by a bespoke parser (see SEED_PATHS) are excluded from this generic pass.',
       },
+      damageTypeDiscovery: {
+        method: structuralDamageResult.ok ? 'structural' : 'legacy-fallback',
+        accessor: structuralDamageResult.discovered?.accessorName ?? null,
+        structTypeName: structuralDamageResult.discovered?.structTypeName ?? null,
+        warnings: structuralDamageResult.warnings || [],
+        note: 'damageTypes/damageTypeDetails are derived by deriveDamageTypesStructurally(), which ' +
+          'discovers DamageDealt\'s aggregate resource accessor structurally (public accessor whose ' +
+          'return type matches a private member type), fetches and parses that struct\'s own header ' +
+          'for field names, and cross-references Weapon::Load\'s own "X damage" data keys for correct ' +
+          'canonical naming. Falls back to the legacy accessor-name-matching parser (parseDamageDealt/ ' +
+          'parseShipTakeDamage, both still present and unmodified above) if structural discovery fails.',
+      },
       movementSystem: {
         seedFunctions: movementSystem.seedFunctions,
         functionCount: movementSystem.functions.length,
@@ -1840,6 +2121,8 @@ async function parseAttributes(outputDir, cliOpts = {}) {
         'Everything else is parsed generically via extractAllClassFunctionBodies — any class, any file.',
         'isMovementRelevant is derived from the ship-function call graph, not a hardcoded attribute list ' +
           '— see movementSystem below and the header comment in this file.',
+        'damageTypes/damageTypeDetails are derived structurally (see damageTypeDiscovery above), with a ' +
+          'legacy accessor-name-matching parser kept as an automatic fallback.',
         'data/ usage (dataUsage above) is scanned independently of source, via a tab-indentation tree ' +
           'parser (dataFolderScanner.js) — the data format has no braces, so the source-side brace-' +
           'counting extractors would silently misparse it.',
@@ -1918,4 +2201,5 @@ module.exports = {
   discoverRelevantSourceFiles, parseGenericSourceFile, extractAllClassFunctionBodies,
   deriveMovementSystem, deriveFrontendArea, mergeDataUsageIntoAttributes,
   scanDataFolderUsage, deriveCategoryAreaHints,
+  deriveDamageTypesStructurally,
 };
