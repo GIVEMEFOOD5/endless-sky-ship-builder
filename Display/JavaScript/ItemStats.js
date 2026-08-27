@@ -68,9 +68,20 @@ const SOURCE = {
 //  BASIC HELPERS
 // ─────────────────────────────────────────────────────────────────────────
 
+// Anything smaller than this in magnitude is floating-point noise, not a
+// real value — e.g. two outfits contributing +1 and -1 "shield energy"
+// should net to exactly 0, but IEEE754 summation can land on something
+// like -6.66e-12 instead. fmtNum clamps that to a clean "0" for display.
+// This does NOT suppress or hide anything — a row that legitimately
+// computes to 0 (or a genuine negative value) still shows; this only
+// stops floating-point residue from being displayed as garbage scientific
+// notation in its place.
+const ZERO_EPSILON = 1e-9;
+
 function fmtNum(v) {
     if (v === undefined || v === null) return '—';
     if (typeof v !== 'number') { const n = parseFloat(v); if (isNaN(n)) return String(v); v = n; }
+    if (Math.abs(v) < ZERO_EPSILON) v = 0;
     if (Number.isInteger(v) && Math.abs(v) >= 10000) return v.toLocaleString();
     return parseFloat(v.toPrecision(4)).toString();
 }
@@ -1170,37 +1181,68 @@ const COMPUTED_SKIP = new Set(['_ws_hasAmmoWeapons', '_totalOutfits']);
 // Filters a computed-stats map in place down to keys whose driving raw
 // attributes are actually present on THIS item (window.ComputedStats
 // evaluates every formula generically, defaulting missing attrs to 0).
-function filterComputedStats(computed, effectiveAttrKeys, isShip, attrDefs) {
-    if (!computed || !effectiveAttrKeys || !attrDefs) return computed;
+// Resolves any computed-stat key to the list of raw attribute keys its
+// formula actually references, regardless of which of the (currently 4)
+// underlying sources produced it. This is the ONE place that knowledge
+// lives — filterComputedStats below just asks "does the ship/outfit have
+// any of these?" using effectiveAttrKeys (already the full ship+outfits
+// union, built by buildEffectiveAttrs before this ever runs). Returns []
+// if the key's shape can't be resolved to a formula at all.
+function _resolveComputedKeyDependencies(key, attrDefs) {
     const fns     = attrDefs.shipFunctions              || {};
     const intVars = attrDefs.shipDisplay?.intermediateVars || {};
+    const table   = attrDefs.shipDisplay?.energyHeatTable  || [];
     const sysF    = attrDefs.systemAwareFormulas           || {};
 
+    if (key.startsWith('_fn_'))
+        return fns[key.slice(4)]?.attributesRead || [];
+
+    if (key.startsWith('_derived_energy_') || key.startsWith('_derived_heat_')) {
+        const isEnergy  = key.startsWith('_derived_energy_');
+        const safeLabel = key.slice(isEnergy ? '_derived_energy_'.length : '_derived_heat_'.length);
+        // Same transform ComputedStats.js uses to BUILD this key from the
+        // row's label — matching it here, rather than trying to reverse
+        // it, is what makes this lookup correct instead of guessing.
+        const row = table.find(r => r.label && r.label.replace(/[^a-zA-Z0-9]/g, '_') === safeLabel);
+        if (!row) return [];
+        const formula = isEnergy ? row.energyFormula : row.heatFormula;
+        return formula ? [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]) : [];
+    }
+
+    if (key.startsWith('_derived_')) {
+        const formula = intVars[key.slice('_derived_'.length)];
+        return formula ? [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]) : [];
+    }
+
+    if (key.startsWith('_sys_')) {
+        const formula = sysF[key.slice(5).replace(/_/g, ' ')]?.formula;
+        return formula ? [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]) : [];
+    }
+
+    return []; // not a formula-backed key (_ws_/_total*/_outfitMass) — caller doesn't filter these
+}
+
+function filterComputedStats(computed, effectiveAttrKeys, isShip, attrDefs) {
+    if (!computed || !effectiveAttrKeys || !attrDefs) return computed;
+
     for (const k of Object.keys(computed)) {
-        if (k.startsWith('_fn_')) {
-            const fnDef = fns[k.slice(4)];
-            if (!fnDef) { delete computed[k]; continue; }
-            const reads = fnDef.attributesRead || [];
-            if (reads.length === 0) { delete computed[k]; continue; }
-            const matchingReads = reads.filter(a => effectiveAttrKeys.has(a));
-            if (matchingReads.length === 0) { delete computed[k]; continue; }
-            if (!isShip && matchingReads.length < 2 && reads.length > 1) { delete computed[k]; continue; }
-            continue;
-        }
-        if (k.startsWith('_derived_')) {
-            const stripped = k.replace(/^_derived_energy_/, '').replace(/^_derived_heat_/, '').replace(/^_derived_/, '');
-            const formula = intVars[stripped];
-            if (!formula) { delete computed[k]; continue; }
-            const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-            if (refs.length === 0 || !refs.some(a => effectiveAttrKeys.has(a))) { delete computed[k]; continue; }
-            continue;
-        }
-        if (k.startsWith('_sys_')) {
-            const formula = sysF[k.slice(5).replace(/_/g, ' ')]?.formula;
-            if (!formula) { delete computed[k]; continue; }
-            const refs = [...formula.matchAll(/\[([^\]]+)\]/g)].map(m => m[1]);
-            if (refs.length === 0 || !refs.some(a => effectiveAttrKeys.has(a))) { delete computed[k]; continue; }
-            continue;
+        const isFormulaBacked = k.startsWith('_fn_') || k.startsWith('_derived_') || k.startsWith('_sys_');
+        if (!isFormulaBacked) continue; // _ws_/_total*/_outfitMass: already correctly ungated, leave as-is
+
+        const refs = _resolveComputedKeyDependencies(k, attrDefs);
+        if (refs.length === 0) { delete computed[k]; continue; }
+
+        const matchingRefs = refs.filter(a => effectiveAttrKeys.has(a));
+        if (matchingRefs.length === 0) { delete computed[k]; continue; }
+
+        // Ship-function keys only, and only for outfits (isShip === false):
+        // a pure outfit incidentally sharing ONE attribute name with a
+        // ship-aggregate function (Drag, RequiredCrew, InertialMass, ...)
+        // shouldn't make that function "relevant" to the outfit — require
+        // at least 2 matching reads when the function reads more than 1
+        // attribute, same threshold as before.
+        if (!isShip && k.startsWith('_fn_') && matchingRefs.length < 2 && refs.length > 1) {
+            delete computed[k]; continue;
         }
     }
     return computed;
@@ -1216,7 +1258,14 @@ function getComputedStatRows(attrDefs, computed, sectionOverride) {
     for (const [k, v] of Object.entries(computed)) {
         if (COMPUTED_SKIP.has(k)) continue;
         if (v === null || v === undefined) continue;
-        if (typeof v === 'number' && (isNaN(v) || v === 0)) continue;
+        // Only NaN is excluded here — that means "couldn't be computed at
+        // all". A value that computes to exactly 0 (or negative) is kept:
+        // relevance (does this ship/outfit even reference this stat at
+        // all?) is already decided upstream by filterComputedStats(), on
+        // attribute PRESENCE, not on the resulting value — so a stat this
+        // item genuinely has, that happens to net to zero or below from
+        // combined effects, still shows.
+        if (typeof v === 'number' && isNaN(v)) continue;
         if (typeof v === 'object') continue;
         const isComputedKey = k.startsWith('_fn_') || k.startsWith('_derived_') || k.startsWith('_sys_') ||
                                k.startsWith('_ws_') || k.startsWith('_total') || k === '_outfitMass';
@@ -1526,7 +1575,7 @@ window.ItemStats = {
     calcWeaponDerived, getWeaponChainData,
     getShipWeaponData, getOutfitWeaponProfile, getWeaponSummaryRows,
     getOutfitDetailRows, getWeaponDetailRows,
-    filterComputedStats, getComputedStatRows,
+    filterComputedStats, getComputedStatRows, _resolveComputedKeyDependencies,
     getEfficiencyRatioRows, getStackingNotes,
     getShipStats, getOutfitStats, getEffectStats,
 };
