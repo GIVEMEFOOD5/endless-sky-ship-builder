@@ -1913,8 +1913,8 @@
     "turrets": [],
     "bays": [],
     "leaks": [],
-    "sprite": "ship/flivverdrone",
-    "thumbnail": "ship/flivverdrone",
+    "sprite": "ship/flivverdronesmall",
+    "thumbnail": "ship/flivverdronesmall",
     "never disabled": true,
     "attributes": {
       "category": "Microdrone",
@@ -1938,7 +1938,7 @@
     "description": "Combat Microdrones are disposable units meant to be deployed and forgotten. They do not have reactors or shields and only the minimum viable hull plating. This model is equipped with a Gatling Snubnose to deliver high amounts of hull damage in its short lifespan. \tDrones do not come equipped with a hyperdrive. You cannot carry a microdrone unless you have a ship in your fleet with a microdrone bay.",
     "_internalId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips::Combat Microdrone",
     "_pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips",
-    "_hash": "d288b995482e",
+    "_hash": "ee13ed7862fc",
     "governments": {
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Sayari Plushie": true,
@@ -5020,6 +5020,671 @@
         "pluginId": "official-game/endless-sky"
       },
       "A525 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Finchdock",
+    "engines": [
+      {
+        "x": -11.5,
+        "y": 54
+      },
+      {
+        "x": 11.5,
+        "y": 54
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -29.9,
+        "y": -7.8,
+        "gun": ""
+      },
+      {
+        "x": 29.9,
+        "y": -7.8,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "over": true,
+        "launch effect": "human external"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/finchdock",
+    "thumbnail": "ship/finchdock",
+    "attributes": {
+      "category": "Utility",
+      "cost": 65000,
+      "shields": 200,
+      "hull": 600,
+      "required crew": 1,
+      "bunks": 2,
+      "mass": 150,
+      "drag": 8.7,
+      "heat dissipation": 0.56,
+      "fuel capacity": 300,
+      "cargo space": 10,
+      "outfit space": 99,
+      "weapon capacity": 10,
+      "engine capacity": 37,
+      "weapon": {
+        "blast radius": 28,
+        "shield damage": 280,
+        "hull damage": 140,
+        "hit force": 420
+      }
+    },
+    "tiny explosion": 20,
+    "small explosion": 15,
+    "medium explosion": 15,
+    "final explode": "final explosion small",
+    "description": "When even an interceptor is too sluggish, the Finchdock is here provide the bare minimum needed for interstellar transport of a pilot's beloved fighter.",
+    "_internalId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips::Finchdock",
+    "_pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips",
+    "_hash": "61b4fb628f7b",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Vesta"
+        ]
+      }
+    },
+    "outfits": {
+      "nGVF-AA Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D14-RN Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X1700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X1200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Stolsaqra II",
+    "engines": [
+      {
+        "x": -8,
+        "y": 35
+      },
+      {
+        "x": 8,
+        "y": 35
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 15,
+        "y": -3,
+        "zoom": 0.8,
+        "over": true
+      },
+      {
+        "x": -15,
+        "y": -3,
+        "zoom": 0.8,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 4,
+        "y": -41,
+        "zoom": 0.4,
+        "over": true,
+        "left": true,
+        "angle": 270
+      },
+      {
+        "x": -4,
+        "y": -41,
+        "zoom": 0.4,
+        "over": true,
+        "right": true,
+        "angle": 90
+      },
+      {
+        "x": 12,
+        "y": 33,
+        "zoom": 0.4,
+        "over": true,
+        "right": true,
+        "angle": 270
+      },
+      {
+        "x": -12,
+        "y": 33,
+        "zoom": 0.4,
+        "over": true,
+        "left": true,
+        "angle": 90
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -40,
+        "gun": ""
+      },
+      {
+        "x": -10.5,
+        "y": -20,
+        "gun": ""
+      },
+      {
+        "x": 10.5,
+        "y": -20,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Stolsaqran",
+    "sprite": "ship/stolsaqra",
+    "thumbnail": "thumbnail/stolsaqra",
+    "attributes": {
+      "category": "Partitioned Interceptor",
+      "cost": 450000,
+      "shields": 1850,
+      "hull": 4990,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 105,
+      "drag": 2,
+      "heat dissipation": 0.79,
+      "cargo space": 5,
+      "outfit space": 172,
+      "weapon capacity": 90,
+      "engine capacity": 70,
+      "multimodal armor": 1,
+      "hull repair rate": 0.3,
+      "hull energy": 0.33,
+      "hull heat": 0.33,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "This experimental design attempts to address the shortcomings of the Stolsaqra by offloading several key systems to a paired vessel. The Stolsaqra II has no hyperdrive, energy generation, or shield generation. It relies on docking with the Aclo-Seiitej for interstellar travel and rapid resupply. This allows for only a short effective runtime, but greatly increased performance during that period relative the earlier Stolsaqra.",
+    "_internalId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips::Stolsaqra II",
+    "_pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips",
+    "_hash": "aa4531f62736",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Vesta"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Ojet\" Bimodal Coilgun": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Primary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Multimodal Armor: Light": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Chyyra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Reverser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Aclo-Seiitej",
+    "engines": [
+      {
+        "x": -25,
+        "y": 44
+      },
+      {
+        "x": 25,
+        "y": 44
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -25,
+        "y": -35,
+        "zoom": 0.7
+      },
+      {
+        "x": 25,
+        "y": -35,
+        "zoom": 0.7
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -44,
+        "y": 34,
+        "left": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 44,
+        "y": 34,
+        "right": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -26.3,
+        "y": -59.4,
+        "right": true,
+        "angle": 90,
+        "zoom": 0.4
+      },
+      {
+        "x": 26.3,
+        "y": -59.4,
+        "left": true,
+        "angle": 270,
+        "zoom": 0.4
+      }
+    ],
+    "guns": [
+      {
+        "x": -10,
+        "y": -78,
+        "gun": ""
+      },
+      {
+        "x": 10,
+        "y": -78,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Seiitejen",
+    "sprite": "ship/aclo-seiitej",
+    "thumbnail": "ship/aclo-seiitej",
+    "attributes": true,
+    "category": "Utility",
+    "cost": 2250000,
+    "shields": 8000,
+    "hull": 19000,
+    "required crew": 1,
+    "bunks": 2,
+    "mass": 320,
+    "drag": 7.2,
+    "heat dissipation": 0.6,
+    "fuel capacity": 600,
+    "cargo space": 20,
+    "outfit space": 234,
+    "weapon capacity": 45,
+    "engine capacity": 58,
+    "multimodal armor": 1,
+    "hull repair rate": 0.95,
+    "hull energy": 1.045,
+    "hull heat": 1.045,
+    "cloak": 0.03,
+    "cloaked shield permeability": 1,
+    "cloaking energy": 5,
+    "cloaking fuel": 0.08,
+    "cloaked communication": 1,
+    "weapon": {
+      "blast radius": 100,
+      "shield damage": 1000,
+      "hull damage": 500,
+      "hit force": 1500
+    },
+    "bay \"Partitioned Interceptor\" 0 -52": {
+      "over": true
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "This is the other half of the Stolsaqra II Partitioned Interceptor. Its purpose is to transport both vessels between star systems, and provide rapid repair and resupply to the Stolsaqra II. Being an advanced experimental vessel, it has been outfitted with rare Predecessor cloaking technology upon which it must rely as it has no offensive capability on its own.",
+    "_internalId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips::Aclo-Seiitej",
+    "_pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips",
+    "_hash": "2a404666e7c3",
+    "governments": {
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Republic": true,
+        "MGF: NGK Security": true,
+        "Syndicate": true
+      },
+      "sensor/sensor": {
+        "sensor": true
+      }
+    },
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Ada",
+          "Chiron",
+          "Clark",
+          "Delve",
+          "Foundry",
+          "Freedom",
+          "Geminus",
+          "Glaze",
+          "Greenwater",
+          "Hephaestus",
+          "Luna",
+          "Mainsail",
+          "Midgard",
+          "New Boston",
+          "New Britain",
+          "New Tortuga",
+          "Reunion",
+          "Rust",
+          "Sunracer",
+          "Tinker",
+          "Valhalla",
+          "Wayfarer",
+          "Zug"
+        ]
+      },
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ]
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Planets": [
+          "Ekarai",
+          "Kestrix II",
+          "Khoramelia",
+          "Laateli",
+          "Markaai",
+          "Parton"
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "Planets": [
+          "Ankulah Ship Breaking Station",
+          "Canaveral Naval Yard",
+          "GS1 Galaxy Station",
+          "Nordlin Navy Yard",
+          "Ourea Naval Arsenal",
+          "SBO1 Zagreus Station",
+          "Yokosuka Naval Arsenal"
+        ]
+      },
+      "sensor/sensor": {
+        "Planets": [
+          "lidar"
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Planets": [
+          "Vesta"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Ryuit\" Fusion Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Jaase\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Successor Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Successor Fuel Sail": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Multimodal Armor: Regen": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Chyyra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Aqra\" Inductive Steering": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       },

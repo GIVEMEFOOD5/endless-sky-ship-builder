@@ -16,14 +16,14 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-25T07:44:44.477Z",
+    "generatedAt": "2026-08-27T07:37:15.792Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-25T07:44:39.953Z",
+      "scannedAt": "2026-08-27T07:37:11.085Z",
       "totalCandidatesScanned": 468,
       "relevantFilesFound": 26,
       "relevantFilePaths": [
@@ -32,8 +32,8 @@
         "source/BoardingPanel.cpp",
         "source/DamageProfile.cpp",
         "source/Depreciation.cpp",
-        "source/Engine.cpp",
         "source/Entity.cpp",
+        "source/Engine.cpp",
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
         "source/Government.cpp",
@@ -111,6 +111,13 @@
       ],
       "note": "discovery scans the ENTIRE source/ tree (not a hardcoded list) for attribute-access patterns, caches results, and re-scans automatically after 7 days or when --rescan is passed. Files already covered by a bespoke parser (see SEED_PATHS) are excluded from this generic pass."
     },
+    "damageTypeDiscovery": {
+      "method": "structural",
+      "accessor": "Levels",
+      "structTypeName": "ResourceLevels",
+      "warnings": [],
+      "note": "damageTypes/damageTypeDetails are derived by deriveDamageTypesStructurally(), which discovers DamageDealt's aggregate resource accessor structurally (public accessor whose return type matches a private member type), fetches and parses that struct's own header for field names, and cross-references Weapon::Load's own \"X damage\" data keys for correct canonical naming. Falls back to the legacy accessor-name-matching parser (parseDamageDealt/ parseShipTakeDamage, both still present and unmodified above) if structural discovery fails."
+    },
     "movementSystem": {
       "seedFunctions": [
         "InertialMass",
@@ -122,7 +129,7 @@
       "note": "isMovementRelevant on each attribute (below) is derived structurally from the ship-function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem at the bottom of this file for the full function/attribute lists and rationale."
     },
     "dataUsage": {
-      "scannedAt": "2026-08-25T07:44:44.471Z",
+      "scannedAt": "2026-08-27T07:37:15.787Z",
       "filesScanned": 199,
       "attributeKeysObserved": 274,
       "dataOnlyAttributeKeys": [
@@ -220,14 +227,14 @@
     },
     "areaClassification": {
       "counts": {
-        "General Outfit Stats": 100,
+        "General Outfit Stats": 95,
         "Power, Heat & Life Support": 34,
         "Status Effects": 48,
         "Weapons": 113,
+        "Defense / Protection": 8,
         "Special / Flags": 14,
         "Scanners & Detection": 24,
         "General Ship Stats": 7,
-        "Defense / Protection": 4,
         "Economy": 4,
         "Custom / Modder-Defined": 85
       },
@@ -239,6 +246,7 @@
       "The dozen seed files still use bespoke, hand-tuned extraction (SCALE_LABELS, BOOLEAN_ATTRIBUTES, VALUE_NAMES, MINIMUM_OVERRIDES) because only targeted regexes can read those exact formats.",
       "Everything else is parsed generically via extractAllClassFunctionBodies — any class, any file.",
       "isMovementRelevant is derived from the ship-function call graph, not a hardcoded attribute list — see movementSystem below and the header comment in this file.",
+      "damageTypes/damageTypeDetails are derived structurally (see damageTypeDiscovery above), with a legacy accessor-name-matching parser kept as an automatic fallback.",
       "data/ usage (dataUsage above) is scanned independently of source, via a tab-indentation tree parser (dataFolderScanner.js) — the data format has no braces, so the source-side brace-counting extractors would silently misparse it.",
       "area/areaBadges on each attribute implement attribute-area-classification.md §3 — see areaClassification above.",
       "damageTypeDetails: shieldInteraction parsed from Ship.cpp TakeDamage().",
@@ -3406,6 +3414,11 @@
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
       "isStatusProtection": true,
+      "isProtection": true,
+      "protectionAppliesTo": "burn damage dose on hit",
+      "protectionFormula": "effectiveDose = [burn damage] * (1 - [burn protection])",
+      "protectionNote": "Reduces incoming burn dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against burn damage. Increases by the given factor how much burn damage a ship can withstand before its heat rises as much as an unprotected ship.",
       "usedInOtherSystems": [
         "DamageProfile::CalculateDamage",
@@ -3436,6 +3449,11 @@
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
       "isStatusProtection": true,
+      "isProtection": true,
+      "protectionAppliesTo": "corrosion damage dose on hit",
+      "protectionFormula": "effectiveDose = [corrosion damage] * (1 - [corrosion protection])",
+      "protectionNote": "Reduces incoming corrosion dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against corrosion damage. Increases by the given factor how much corrosion damage a ship can withstand before it loses as much hull as an unprotected ship.",
       "usedInOtherSystems": [
         "DamageProfile::CalculateDamage",
@@ -3464,6 +3482,11 @@
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
       "isStatusProtection": true,
+      "isProtection": true,
+      "protectionAppliesTo": "discharge damage dose on hit",
+      "protectionFormula": "effectiveDose = [discharge damage] * (1 - [discharge protection])",
+      "protectionNote": "Reduces incoming discharge dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against shield discharge damage. Increases by the given factor how much discharge damage a ship can withstand before it loses as much shielding as an unprotected ship.",
       "usedInOtherSystems": [
         "ShipAttributeCache::Damage"
@@ -3493,6 +3516,11 @@
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
       "isStatusProtection": true,
+      "isProtection": true,
+      "protectionAppliesTo": "disruption damage dose on hit",
+      "protectionFormula": "effectiveDose = [disruption damage] * (1 - [disruption protection])",
+      "protectionNote": "Reduces incoming disruption dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against shield disruption damage. Increases by the given factor how much disruption damage a ship can withstand before its shields are as disrupted as those of an unprotected ship.",
       "usedInOtherSystems": [
         "ShipAttributeCache::Damage"
@@ -3553,6 +3581,11 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "isProtection": true,
+      "protectionAppliesTo": "incoming energy damage",
+      "protectionFormula": "effectiveDmg = rawDmg * (1 - [energy protection])",
+      "protectionNote": "Reduces incoming energy damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against energy damage. Increases by the given factor how much energy damage a ship can withstand before it loses as much energy as an unprotected ship.",
       "usedInOtherSystems": [
         "ShipAttributeCache::Damage"
@@ -3575,7 +3608,7 @@
       ],
       "dataOnShip": true,
       "dataOnOutfit": false,
-      "area": "General Outfit Stats",
+      "area": "Defense / Protection",
       "areaBadges": []
     },
     "force protection": {
@@ -3616,6 +3649,11 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "isProtection": true,
+      "protectionAppliesTo": "incoming fuel damage",
+      "protectionFormula": "effectiveDmg = rawDmg * (1 - [fuel protection])",
+      "protectionNote": "Reduces incoming fuel damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against fuel damage. Increases by the given factor how much fuel damage a ship can withstand before it loses as much fuel as an unprotected ship.",
       "usedInOtherSystems": [
         "ShipAttributeCache::Damage"
@@ -3633,7 +3671,7 @@
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
-      "area": "General Outfit Stats",
+      "area": "Defense / Protection",
       "areaBadges": []
     },
     "heat protection": {
@@ -3642,6 +3680,11 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "isProtection": true,
+      "protectionAppliesTo": "incoming heat damage",
+      "protectionFormula": "effectiveDmg = rawDmg * (1 - [heat protection])",
+      "protectionNote": "Reduces incoming heat damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against heat damage. Increases by the given factor how much heat damage a ship can withstand before its heat rises as much as an unprotected ship.",
       "usedInOtherSystems": [
         "DamageProfile::CalculateDamage",
@@ -3667,7 +3710,7 @@
       ],
       "dataOnShip": true,
       "dataOnOutfit": false,
-      "area": "General Outfit Stats",
+      "area": "Defense / Protection",
       "areaBadges": []
     },
     "hull protection": {
@@ -3676,6 +3719,11 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "isProtection": true,
+      "protectionAppliesTo": "incoming hull damage",
+      "protectionFormula": "effectiveDmg = rawDmg * (1 - [hull protection])",
+      "protectionNote": "Reduces incoming hull damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against direct hull damage. Increases by the given factor how much hull damage a ship can withstand before it loses as much hull as an unprotected ship.",
       "usedInOtherSystems": [
         "DamageProfile::CalculateDamage",
@@ -3701,7 +3749,7 @@
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
-      "area": "General Outfit Stats",
+      "area": "Defense / Protection",
       "areaBadges": []
     },
     "inertia reduction": {
@@ -3745,6 +3793,11 @@
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
       "isStatusProtection": true,
+      "isProtection": true,
+      "protectionAppliesTo": "ionization damage dose on hit",
+      "protectionFormula": "effectiveDose = [ion damage] * (1 - [ion protection])",
+      "protectionNote": "Reduces incoming ion dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against ion damage. Modifies by the given factor how much ion damage a ship can withstand before it loses as much energy as an unprotected ship.",
       "usedInOtherSystems": [
         "ShipAttributeCache::Damage"
@@ -3782,6 +3835,11 @@
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
       "isStatusProtection": true,
+      "isProtection": true,
+      "protectionAppliesTo": "scrambling damage dose on hit",
+      "protectionFormula": "effectiveDose = [scrambling damage] * (1 - [scramble protection])",
+      "protectionNote": "Reduces incoming scrambling dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against weapon scrambling damage. Increases by the given factor how much scramble damage a ship can withstand before its weapons are as scrambled as those of an unprotected ship.",
       "usedInOtherSystems": [
         "ShipAttributeCache::Damage"
@@ -3818,6 +3876,11 @@
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
       "isStatusProtection": true,
+      "isProtection": true,
+      "protectionAppliesTo": "leak damage dose on hit",
+      "protectionFormula": "effectiveDose = [leak damage] * (1 - [leak protection])",
+      "protectionNote": "Reduces incoming leak dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against leak damage. Increases by the given factor how much leak damage a ship can withstand before it loses as much fuel as an unprotected ship.",
       "usedInOtherSystems": [
         "ShipAttributeCache::Damage"
@@ -3859,6 +3922,11 @@
       "displayUnit": "%",
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
+      "isProtection": true,
+      "protectionAppliesTo": "incoming shield damage",
+      "protectionFormula": "effectiveDmg = rawDmg * (1 - [shield protection])",
+      "protectionNote": "Reduces incoming shield damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against shield damage. Increases by the given factor how much shield damage a ship can withstand before it loses as much shields as an unprotected ship.",
       "usedInOtherSystems": [
         "ShipAttributeCache::Damage"
@@ -3880,7 +3948,7 @@
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
-      "area": "General Outfit Stats",
+      "area": "Defense / Protection",
       "areaBadges": []
     },
     "slowing protection": {
@@ -3890,6 +3958,11 @@
       "scaleIndex": 3,
       "shownInOutfitPanel": true,
       "isStatusProtection": true,
+      "isProtection": true,
+      "protectionAppliesTo": "slowing damage dose on hit",
+      "protectionFormula": "effectiveDose = [slowing damage] * (1 - [slowing protection])",
+      "protectionNote": "Reduces incoming slowing dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "clampRange": "[0, 1]",
       "tooltip": "Protection provided against slowing damage. Increases by the given factor how much slowing damage a ship can withstand before it as slowed as an unprotected ship.",
       "usedInOtherSystems": [
         "ShipAttributeCache::Damage"
@@ -4592,8 +4665,8 @@
         0.1,
         0.3,
         0.2,
-        2,
-        0.5
+        0.5,
+        1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -6928,42 +7001,32 @@
       "area": null,
       "areaBadges": []
     },
-    "getweapon protection": {
-      "key": "getweapon protection",
+    "disabled protection": {
+      "key": "disabled protection",
       "isProtection": true,
-      "protectionAppliesTo": "getweapon damage dose on hit",
-      "protectionFormula": "effectiveDose = [getweapon damage] * (1 - [getweapon protection])",
-      "protectionNote": "Reduces incoming getweapon dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "protectionAppliesTo": "incoming disabled damage",
+      "protectionFormula": "effectiveDmg = rawDmg * (1 - [disabled protection])",
+      "protectionNote": "Reduces incoming disabled damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
       "clampRange": "[0, 1]",
       "area": "Defense / Protection",
       "areaBadges": []
     },
-    "hitforce protection": {
-      "key": "hitforce protection",
+    "exclude submunition protection": {
+      "key": "exclude submunition protection",
       "isProtection": true,
-      "protectionAppliesTo": "hitforce damage dose on hit",
-      "protectionFormula": "effectiveDose = [hitforce damage] * (1 - [hitforce protection])",
-      "protectionNote": "Reduces incoming hitforce dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "protectionAppliesTo": "incoming exclude submunition damage",
+      "protectionFormula": "effectiveDmg = rawDmg * (1 - [exclude submunition protection])",
+      "protectionNote": "Reduces incoming exclude submunition damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
       "clampRange": "[0, 1]",
       "area": "Defense / Protection",
       "areaBadges": []
     },
-    "levels protection": {
-      "key": "levels protection",
+    "minable protection": {
+      "key": "minable protection",
       "isProtection": true,
-      "protectionAppliesTo": "levels damage dose on hit",
-      "protectionFormula": "effectiveDose = [levels damage] * (1 - [levels protection])",
-      "protectionNote": "Reduces incoming levels dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
-      "clampRange": "[0, 1]",
-      "area": "Defense / Protection",
-      "areaBadges": []
-    },
-    "scaling protection": {
-      "key": "scaling protection",
-      "isProtection": true,
-      "protectionAppliesTo": "scaling damage dose on hit",
-      "protectionFormula": "effectiveDose = [scaling damage] * (1 - [scaling protection])",
-      "protectionNote": "Reduces incoming scaling dose per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
+      "protectionAppliesTo": "incoming minable damage",
+      "protectionFormula": "effectiveDmg = rawDmg * (1 - [minable protection])",
+      "protectionNote": "Reduces incoming minable damage per hit. Stacks additively; clamped to [0, 1] by Outfit.cpp MINIMUM_OVERRIDES.",
       "clampRange": "[0, 1]",
       "area": "Defense / Protection",
       "areaBadges": []
@@ -7598,8 +7661,8 @@
         10,
         6,
         90,
-        5,
-        0.05
+        100,
+        5
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8560,8 +8623,8 @@
         -1,
         1,
         1,
-        1,
-        -1
+        -1,
+        1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -9442,31 +9505,6 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "ka'sei": {
-      "key": "ka'sei",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Interceptor",
-        "Light Warship",
-        "Medium Warship"
-      ],
-      "dataUsageCount": 15,
-      "dataValueRange": {
-        "min": 1,
-        "max": 1
-      },
-      "dataSampleValues": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
     "asteroid mount jd": {
       "key": "asteroid mount jd",
       "dataOnly": true,
@@ -9645,6 +9683,31 @@
       "dataSampleValues": [],
       "dataOnShip": false,
       "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "ka'sei": {
+      "key": "ka'sei",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Interceptor",
+        "Light Warship",
+        "Medium Warship"
+      ],
+      "dataUsageCount": 15,
+      "dataValueRange": {
+        "min": 1,
+        "max": 1
+      },
+      "dataSampleValues": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -13583,58 +13646,6 @@
         ]
       }
     },
-    "Engine": {
-      "Step": {
-        "returnType": "void",
-        "params": "bool isActive",
-        "isConst": false,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "player.HasSeen(*system)",
-            "formula": "player.HasSeen(*system)"
-          },
-          {
-            "rawReturn": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()",
-            "formula": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()"
-          }
-        ]
-      },
-      "IsPaused": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "timePaused",
-            "formula": "timePaused"
-          }
-        ]
-      },
-      "Draw": {
-        "returnType": "void",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))",
-            "formula": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))"
-          },
-          {
-            "rawReturn": "(1000 + animationDuration - age) * .001f",
-            "formula": "(1000 + animationDuration - age) * .001f"
-          }
-        ]
-      }
-    },
     "Entity": {
       "EntityType": {
         "returnType": "Entity::Type",
@@ -14002,6 +14013,58 @@
         ],
         "attributesSet": [],
         "formulas": []
+      }
+    },
+    "Engine": {
+      "Step": {
+        "returnType": "void",
+        "params": "bool isActive",
+        "isConst": false,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "player.HasSeen(*system)",
+            "formula": "player.HasSeen(*system)"
+          },
+          {
+            "rawReturn": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()",
+            "formula": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()"
+          }
+        ]
+      },
+      "IsPaused": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "timePaused",
+            "formula": "timePaused"
+          }
+        ]
+      },
+      "Draw": {
+        "returnType": "void",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))",
+            "formula": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))"
+          },
+          {
+            "rawReturn": "(1000 + animationDuration - age) * .001f",
+            "formula": "(1000 + animationDuration - age) * .001f"
+          }
+        ]
       }
     },
     "FleetCargo": {
@@ -18522,62 +18585,230 @@
       "stream"
     ],
     "damageTypes": [
-      "GetWeapon",
-      "HitForce",
-      "Levels",
-      "Scaling"
+      "Burn",
+      "Corrosion",
+      "Disabled",
+      "Discharge",
+      "Disruption",
+      "Energy",
+      "Exclude Submunition",
+      "Fuel",
+      "Heat",
+      "Hull",
+      "Ion",
+      "Leak",
+      "Minable",
+      "Shield",
+      "Scrambling",
+      "Slowing"
     ],
     "damageTypeDetails": [
       {
-        "typeName": "GetWeapon",
+        "typeName": "Burn",
         "category": "status",
-        "resourceKey": "getweapon damage",
+        "resourceKey": "burn damage",
         "relativeKey": null,
         "shieldInteraction": "full",
-        "statusEffect": null,
-        "resistanceKey": null,
-        "protectionKey": "getweapon protection",
-        "description": "Instantly drains getweapon. Protected by [getweapon protection].",
-        "applyFormula": "rawDmg = [getweapon damage] * (1 - [getweapon protection])\ngetweapon -= rawDmg",
+        "statusEffect": "burn",
+        "resistanceKey": "burn resistance",
+        "protectionKey": "burn protection",
+        "description": "Adds [burn] heat per frame (DoT). Cut to 50% when shields are up. Decays 1%/frame plus up to [burn resistance] per frame.",
+        "applyFormula": "dose = [burn damage] * (1 - [burn protection])\nstatusEffects.burn += dose\n// Per-frame decay (Ship.cpp DoStatusEffect):\nstatusEffects.burn = max(0, 0.99 * statusEffects.burn - min([burn resistance], 0.99 * statusEffects.burn))",
         "notes": []
       },
       {
-        "typeName": "HitForce",
+        "typeName": "Corrosion",
         "category": "status",
-        "resourceKey": "hitforce damage",
+        "resourceKey": "corrosion damage",
         "relativeKey": null,
         "shieldInteraction": "full",
-        "statusEffect": null,
-        "resistanceKey": null,
-        "protectionKey": "hitforce protection",
-        "description": "Instantly drains hitforce. Protected by [hitforce protection].",
-        "applyFormula": "rawDmg = [hitforce damage] * (1 - [hitforce protection])\nhitforce -= rawDmg",
+        "statusEffect": "corrosion",
+        "resistanceKey": "corrosion resistance",
+        "protectionKey": "corrosion protection",
+        "description": "Drains hull by [corrosion] per frame (DoT). Ignored entirely when shields are up. Decays 1%/frame plus up to [corrosion resistance] per frame.",
+        "applyFormula": "dose = [corrosion damage] * (1 - [corrosion protection])\nstatusEffects.corrosion += dose\n// Per-frame decay (Ship.cpp DoStatusEffect):\nstatusEffects.corrosion = max(0, 0.99 * statusEffects.corrosion - min([corrosion resistance], 0.99 * statusEffects.corrosion))",
         "notes": []
       },
       {
-        "typeName": "Levels",
-        "category": "status",
-        "resourceKey": "levels damage",
+        "typeName": "Disabled",
+        "category": "resource",
+        "resourceKey": "disabled damage",
         "relativeKey": null,
-        "shieldInteraction": "full",
+        "shieldInteraction": "half",
         "statusEffect": null,
         "resistanceKey": null,
-        "protectionKey": "levels protection",
-        "description": "Instantly drains levels. Protected by [levels protection].",
-        "applyFormula": "rawDmg = [levels damage] * (1 - [levels protection])\nlevels -= rawDmg",
+        "protectionKey": "disabled protection",
+        "description": "Instantly drains disabled. Cut to 50% when shields are up. Protected by [disabled protection].",
+        "applyFormula": "rawDmg = [disabled damage] * (1 - [disabled protection])\ndisabled -= rawDmg * (shieldsUp ? 0.5 : 1.0)",
         "notes": []
       },
       {
-        "typeName": "Scaling",
+        "typeName": "Discharge",
         "category": "status",
-        "resourceKey": "scaling damage",
+        "resourceKey": "discharge damage",
         "relativeKey": null,
         "shieldInteraction": "full",
+        "statusEffect": "discharge",
+        "resistanceKey": "discharge resistance",
+        "protectionKey": "discharge protection",
+        "description": "Drains shields by [discharge] per frame (DoT). Always full effect regardless of shields. Decays 1%/frame plus up to [discharge resistance] per frame.",
+        "applyFormula": "dose = [discharge damage] * (1 - [discharge protection])\nstatusEffects.discharge += dose\n// Per-frame decay (Ship.cpp DoStatusEffect):\nstatusEffects.discharge = max(0, 0.99 * statusEffects.discharge - min([discharge resistance], 0.99 * statusEffects.discharge))",
+        "notes": []
+      },
+      {
+        "typeName": "Disruption",
+        "category": "status",
+        "resourceKey": "disruption damage",
+        "relativeKey": null,
+        "shieldInteraction": "full",
+        "statusEffect": "disruption",
+        "resistanceKey": "disruption resistance",
+        "protectionKey": "disruption protection",
+        "description": "NOT HP damage. Multiplies shield damage received: shieldDmg *= (1 + disruption * 0.01). Decays 1%/frame plus up to [disruption resistance] per frame.",
+        "applyFormula": "dose = [disruption damage] * (1 - [disruption protection])\nstatusEffects.disruption += dose\n// Per-frame decay (Ship.cpp DoStatusEffect):\nstatusEffects.disruption = max(0, 0.99 * statusEffects.disruption - min([disruption resistance], 0.99 * statusEffects.disruption))",
+        "notes": []
+      },
+      {
+        "typeName": "Energy",
+        "category": "resource",
+        "resourceKey": "energy damage",
+        "relativeKey": null,
+        "shieldInteraction": "half",
         "statusEffect": null,
         "resistanceKey": null,
-        "protectionKey": "scaling protection",
-        "description": "Instantly drains scaling. Protected by [scaling protection].",
-        "applyFormula": "rawDmg = [scaling damage] * (1 - [scaling protection])\nscaling -= rawDmg",
+        "protectionKey": "energy protection",
+        "description": "Instantly drains energy. Cut to 50% when shields are up. Protected by [energy protection].",
+        "applyFormula": "rawDmg = [energy damage] * (1 - [energy protection])\nenergy -= rawDmg * (shieldsUp ? 0.5 : 1.0)",
+        "notes": []
+      },
+      {
+        "typeName": "Exclude Submunition",
+        "category": "resource",
+        "resourceKey": "exclude submunition damage",
+        "relativeKey": null,
+        "shieldInteraction": "half",
+        "statusEffect": null,
+        "resistanceKey": null,
+        "protectionKey": "exclude submunition protection",
+        "description": "Instantly drains exclude submunition. Cut to 50% when shields are up. Protected by [exclude submunition protection].",
+        "applyFormula": "rawDmg = [exclude submunition damage] * (1 - [exclude submunition protection])\nexclude submunition -= rawDmg * (shieldsUp ? 0.5 : 1.0)",
+        "notes": []
+      },
+      {
+        "typeName": "Fuel",
+        "category": "resource",
+        "resourceKey": "fuel damage",
+        "relativeKey": null,
+        "shieldInteraction": "half",
+        "statusEffect": null,
+        "resistanceKey": null,
+        "protectionKey": "fuel protection",
+        "description": "Instantly drains fuel. Cut to 50% when shields are up. Protected by [fuel protection].",
+        "applyFormula": "rawDmg = [fuel damage] * (1 - [fuel protection])\nfuel -= rawDmg * (shieldsUp ? 0.5 : 1.0)",
+        "notes": []
+      },
+      {
+        "typeName": "Heat",
+        "category": "resource",
+        "resourceKey": "heat damage",
+        "relativeKey": null,
+        "shieldInteraction": "half",
+        "statusEffect": null,
+        "resistanceKey": null,
+        "protectionKey": "heat protection",
+        "description": "Instantly drains heat. Cut to 50% when shields are up. Protected by [heat protection].",
+        "applyFormula": "rawDmg = [heat damage] * (1 - [heat protection])\nheat -= rawDmg * (shieldsUp ? 0.5 : 1.0)",
+        "notes": []
+      },
+      {
+        "typeName": "Hull",
+        "category": "hp",
+        "resourceKey": "hull damage",
+        "relativeKey": "% hull damage",
+        "shieldInteraction": "direct",
+        "statusEffect": null,
+        "resistanceKey": null,
+        "protectionKey": "hull protection",
+        "description": "Directly reduces hull HP. Protected by [hull protection].",
+        "applyFormula": "effectivePiercing = clamp(piercing, 0, 1) * (1 - [piercing resistance])\nrawDmg = ([hull damage] + [% hull damage] * currentHull) * (1 - [hull protection])\nif shields > 0: hull -= rawDmg * effectivePiercing\nelse:           hull -= rawDmg",
+        "notes": []
+      },
+      {
+        "typeName": "Ion",
+        "category": "status",
+        "resourceKey": "ion damage",
+        "relativeKey": null,
+        "shieldInteraction": "full",
+        "statusEffect": "ionization",
+        "resistanceKey": "ion resistance",
+        "protectionKey": "ion protection",
+        "description": "Accumulates when hit by ion weapons. Ionization > energy prevents movement-energy weapons from firing (IsIonized). Decays 1%/frame plus up to [ion resistance] per frame.",
+        "applyFormula": "dose = [ion damage] * (1 - [ion protection])\nstatusEffects.ionization += dose\n// Per-frame decay (Ship.cpp DoStatusEffect):\nstatusEffects.ionization = max(0, 0.99 * statusEffects.ionization - min([ion resistance], 0.99 * statusEffects.ionization))",
+        "notes": []
+      },
+      {
+        "typeName": "Leak",
+        "category": "status",
+        "resourceKey": "leak damage",
+        "relativeKey": null,
+        "shieldInteraction": "full",
+        "statusEffect": "leak",
+        "resistanceKey": "leak resistance",
+        "protectionKey": "leak protection",
+        "description": "Drains fuel by [leak] per frame (DoT). Ignored entirely when shields are up. Decays 1%/frame plus up to [leak resistance] per frame.",
+        "applyFormula": "dose = [leak damage] * (1 - [leak protection])\nstatusEffects.leak += dose\n// Per-frame decay (Ship.cpp DoStatusEffect):\nstatusEffects.leak = max(0, 0.99 * statusEffects.leak - min([leak resistance], 0.99 * statusEffects.leak))",
+        "notes": []
+      },
+      {
+        "typeName": "Minable",
+        "category": "resource",
+        "resourceKey": "minable damage",
+        "relativeKey": null,
+        "shieldInteraction": "half",
+        "statusEffect": null,
+        "resistanceKey": null,
+        "protectionKey": "minable protection",
+        "description": "Instantly drains minable. Cut to 50% when shields are up. Protected by [minable protection].",
+        "applyFormula": "rawDmg = [minable damage] * (1 - [minable protection])\nminable -= rawDmg * (shieldsUp ? 0.5 : 1.0)",
+        "notes": []
+      },
+      {
+        "typeName": "Shield",
+        "category": "hp",
+        "resourceKey": "shield damage",
+        "relativeKey": "% shield damage",
+        "shieldInteraction": "direct",
+        "statusEffect": null,
+        "resistanceKey": null,
+        "protectionKey": "shield protection",
+        "description": "Directly reduces shield HP. Protected by [shield protection].",
+        "applyFormula": "effectivePiercing = clamp(piercing, 0, 1) * (1 - [piercing resistance])\ndisruptMult = 1 + statusEffects.disruption * 0.01\nrawDmg = ([shield damage] + [% shield damage] * currentShields) * (1 - [shield protection]) * disruptMult\nif shields > 0:\n    shields -= rawDmg * (1 - effectivePiercing)\n    hull    -= rawDmg * effectivePiercing\n    if shields < 0: hull += shields * bleedFraction * (1 - [hull protection]); shields = 0\nelse:\n    hull -= [shield damage] + [% shield damage] * maxShields * (1 - [shield protection])",
+        "notes": []
+      },
+      {
+        "typeName": "Scrambling",
+        "category": "status",
+        "resourceKey": "scrambling damage",
+        "relativeKey": null,
+        "shieldInteraction": "full",
+        "statusEffect": "scrambling",
+        "resistanceKey": "scramble resistance",
+        "protectionKey": "scramble protection",
+        "description": "Accumulates when hit by scrambling weapons. Causes weapons to jam: scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0. Decays 1%/frame plus up to [scramble resistance] per frame.",
+        "applyFormula": "dose = [scrambling damage] * (1 - [scramble protection])\nstatusEffects.scrambling += dose\n// Per-frame decay (Ship.cpp DoStatusEffect):\nstatusEffects.scrambling = max(0, 0.99 * statusEffects.scrambling - min([scramble resistance], 0.99 * statusEffects.scrambling))\n// Per-fire jam check:\njamChance = scrambling > 0.1 ? 1 - pow(2, -scrambling/70) : 0",
+        "notes": []
+      },
+      {
+        "typeName": "Slowing",
+        "category": "status",
+        "resourceKey": "slowing damage",
+        "relativeKey": null,
+        "shieldInteraction": "full",
+        "statusEffect": "slowing",
+        "resistanceKey": "slowing resistance",
+        "protectionKey": "slowing protection",
+        "description": "NOT HP damage. Reduces thrust and turn rate: speed *= 1/(1 + slowing*0.05). Decays 1%/frame plus up to [slowing resistance] per frame.",
+        "applyFormula": "dose = [slowing damage] * (1 - [slowing protection])\nstatusEffects.slowing += dose\n// Per-frame decay (Ship.cpp DoStatusEffect):\nstatusEffects.slowing = max(0, 0.99 * statusEffects.slowing - min([slowing resistance], 0.99 * statusEffects.slowing))",
         "notes": []
       }
     ],

@@ -1,5 +1,5 @@
 {
-  "scannedAt": 1787643884471,
+  "scannedAt": 1787816235787,
   "fileCount": 199,
   "perKey": {
     "cost": {
@@ -672,8 +672,8 @@
         10,
         6,
         90,
-        5,
-        0.05
+        100,
+        5
       ],
       "onShip": true,
       "onOutfit": true
@@ -1755,8 +1755,8 @@
         0.1,
         0.3,
         0.2,
-        2,
-        0.5
+        0.5,
+        1
       ],
       "onShip": true,
       "onOutfit": true
@@ -2174,8 +2174,8 @@
         -1,
         1,
         1,
-        1,
-        -1
+        -1,
+        1
       ],
       "onShip": true,
       "onOutfit": true
@@ -3377,6 +3377,78 @@
       "onShip": false,
       "onOutfit": true
     },
+    "finisher capacity": {
+      "count": 4,
+      "categories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "min": -1,
+      "max": 60,
+      "samples": [
+        40,
+        60,
+        20,
+        -1
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "slowing damage": {
+      "count": 55,
+      "categories": [
+        "Guns",
+        "Secondary Weapons",
+        "Turrets"
+      ],
+      "min": -28,
+      "max": 40,
+      "samples": [
+        0.1,
+        0.1,
+        -28,
+        4,
+        -9
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "minable damage": {
+      "count": 13,
+      "categories": [
+        "Guns",
+        "Turrets"
+      ],
+      "min": 1.9,
+      "max": 200,
+      "samples": [
+        8.2,
+        104,
+        3,
+        6,
+        1.9
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "prospecting": {
+      "count": 7,
+      "categories": [
+        "Guns",
+        "Turrets"
+      ],
+      "min": 1,
+      "max": 145,
+      "samples": [
+        9,
+        145,
+        10.5,
+        1,
+        1
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
     "shield heat": {
       "count": 27,
       "categories": [
@@ -3518,78 +3590,6 @@
       "onShip": false,
       "onOutfit": true
     },
-    "finisher capacity": {
-      "count": 4,
-      "categories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "min": -1,
-      "max": 60,
-      "samples": [
-        40,
-        60,
-        20,
-        -1
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "slowing damage": {
-      "count": 55,
-      "categories": [
-        "Guns",
-        "Secondary Weapons",
-        "Turrets"
-      ],
-      "min": -28,
-      "max": 40,
-      "samples": [
-        0.1,
-        0.1,
-        -28,
-        4,
-        -9
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "minable damage": {
-      "count": 13,
-      "categories": [
-        "Guns",
-        "Turrets"
-      ],
-      "min": 1.9,
-      "max": 200,
-      "samples": [
-        8.2,
-        104,
-        3,
-        6,
-        1.9
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "prospecting": {
-      "count": 7,
-      "categories": [
-        "Guns",
-        "Turrets"
-      ],
-      "min": 1,
-      "max": 145,
-      "samples": [
-        9,
-        145,
-        10.5,
-        1,
-        1
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
     "scramble protection": {
       "count": 16,
       "categories": [
@@ -3658,6 +3658,20 @@
         1
       ],
       "onShip": true,
+      "onOutfit": true
+    },
+    "safe": {
+      "count": 20,
+      "categories": [
+        "Guns",
+        "Secondary Weapons",
+        "Turret",
+        "Turrets"
+      ],
+      "min": null,
+      "max": null,
+      "samples": [],
+      "onShip": false,
       "onOutfit": true
     },
     "gaslining": {
@@ -3856,20 +3870,6 @@
         100,
         50
       ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "safe": {
-      "count": 20,
-      "categories": [
-        "Guns",
-        "Secondary Weapons",
-        "Turret",
-        "Turrets"
-      ],
-      "min": null,
-      "max": null,
-      "samples": [],
       "onShip": false,
       "onOutfit": true
     },
@@ -4424,25 +4424,6 @@
       "onShip": false,
       "onOutfit": true
     },
-    "ka'sei": {
-      "count": 15,
-      "categories": [
-        "Interceptor",
-        "Light Warship",
-        "Medium Warship"
-      ],
-      "min": 1,
-      "max": 1,
-      "samples": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
     "asteroid mount jd": {
       "count": 13,
       "categories": [
@@ -4585,6 +4566,25 @@
       "onShip": false,
       "onOutfit": true
     },
+    "ka'sei": {
+      "count": 15,
+      "categories": [
+        "Interceptor",
+        "Light Warship",
+        "Medium Warship"
+      ],
+      "min": 1,
+      "max": 1,
+      "samples": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
     "emp torpedo capacity": {
       "count": 6,
       "categories": [
@@ -4654,51 +4654,6 @@
       "onShip": false,
       "onOutfit": true
     },
-    "disruption resistance": {
-      "count": 2,
-      "categories": [
-        "Heavy Freighter",
-        "Utility"
-      ],
-      "min": 0.2,
-      "max": 0.24,
-      "samples": [
-        0.24,
-        0.2
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "disruption resistance energy": {
-      "count": 2,
-      "categories": [
-        "Heavy Freighter",
-        "Utility"
-      ],
-      "min": 2,
-      "max": 2.4,
-      "samples": [
-        2.4,
-        2
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "disruption resistance heat": {
-      "count": 2,
-      "categories": [
-        "Heavy Freighter",
-        "Utility"
-      ],
-      "min": 2,
-      "max": 2.4,
-      "samples": [
-        2.4,
-        2
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
     "relative firing shields": {
       "count": 1,
       "categories": [
@@ -4762,6 +4717,51 @@
       ],
       "onShip": false,
       "onOutfit": true
+    },
+    "disruption resistance": {
+      "count": 2,
+      "categories": [
+        "Heavy Freighter",
+        "Utility"
+      ],
+      "min": 0.2,
+      "max": 0.24,
+      "samples": [
+        0.24,
+        0.2
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
+    "disruption resistance energy": {
+      "count": 2,
+      "categories": [
+        "Heavy Freighter",
+        "Utility"
+      ],
+      "min": 2,
+      "max": 2.4,
+      "samples": [
+        2.4,
+        2
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
+    "disruption resistance heat": {
+      "count": 2,
+      "categories": [
+        "Heavy Freighter",
+        "Utility"
+      ],
+      "min": 2,
+      "max": 2.4,
+      "samples": [
+        2.4,
+        2
+      ],
+      "onShip": true,
+      "onOutfit": false
     },
     "phasing": {
       "count": 2,
@@ -5004,6 +5004,19 @@
       "onShip": false,
       "onOutfit": true
     },
+    "operating costs": {
+      "count": 1,
+      "categories": [
+        "Secondary Weapons"
+      ],
+      "min": 150,
+      "max": 150,
+      "samples": [
+        150
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
     "delayed hull repair rate": {
       "count": 1,
       "categories": [
@@ -5029,19 +5042,6 @@
       ],
       "onShip": true,
       "onOutfit": false
-    },
-    "operating costs": {
-      "count": 1,
-      "categories": [
-        "Secondary Weapons"
-      ],
-      "min": 150,
-      "max": 150,
-      "samples": [
-        150
-      ],
-      "onShip": false,
-      "onOutfit": true
     },
     "shield protection": {
       "count": 5,
