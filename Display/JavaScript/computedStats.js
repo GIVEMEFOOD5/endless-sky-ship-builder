@@ -445,13 +445,26 @@ function _resolveDerivedValues(attrs, fnCache, solarPower) {
         }
     }
 
+    // Energy/heat table rows. Previously gated on `eVal !== 0`/`hVal !== 0`,
+    // which meant a value that computed to EXACTLY zero (e.g. two outfits'
+    // contributions cancelling out) was dropped from `derived` entirely —
+    // no key at all, so nothing downstream could ever show it, not even as
+    // "0". Relevance filtering already happens elsewhere, on a completely
+    // different (and correct) basis: ItemStats.js's filterComputedStats
+    // only keeps a `_derived_*` key when the ship/outfit's own attributes
+    // actually reference one of the formula's driving keys AT ALL (i.e. the
+    // attribute is genuinely present, regardless of its value) — so a ship
+    // with no capability in this area at all is still filtered out
+    // downstream, exactly as before. Only the VALUE-based zero-suppression
+    // here — which had no way to distinguish "never relevant" from
+    // "relevant but happens to net to zero" — needed to go.
     for (const row of table) {
         if (!row.label) continue;
         const eVal = _evalFormula(row.energyFormula, attrs, varCache, {}, solar);
         const hVal = _evalFormula(row.heatFormula,   attrs, varCache, {}, solar);
         const safeLabel = row.label.replace(/[^a-zA-Z0-9]/g, '_');
-        if (!isNaN(eVal) && eVal !== 0) derived[`_derived_energy_${safeLabel}`] = eVal;
-        if (!isNaN(hVal) && hVal !== 0) derived[`_derived_heat_${safeLabel}`]   = hVal;
+        if (!isNaN(eVal)) derived[`_derived_energy_${safeLabel}`] = eVal;
+        if (!isNaN(hVal)) derived[`_derived_heat_${safeLabel}`]   = hVal;
     }
 
     const fns = _attrDefs?.shipFunctions || {};
@@ -461,10 +474,14 @@ function _resolveDerivedValues(attrs, fnCache, solarPower) {
         derived[`_fn_${fnName}`] = fnCache[fnName];
     }
 
+    // Same reasoning as the energy/heat table above — system-aware formulas
+    // (solar collection, ramscoop) are relevance-filtered downstream by
+    // attribute presence, not by their computed value, so a zero result
+    // should still be included here rather than silently dropped.
     const sysFormulas = _attrDefs?.systemAwareFormulas || {};
     for (const [attrKey, info] of Object.entries(sysFormulas)) {
         const val = _evalFormula(info.formula, attrs, varCache, {}, solar);
-        if (!isNaN(val) && val !== 0)
+        if (!isNaN(val))
             derived[`_sys_${attrKey.replace(/\s+/g, '_')}`] = val * (info.displayScale ?? 1);
     }
 
