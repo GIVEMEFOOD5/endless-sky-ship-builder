@@ -549,6 +549,7 @@
       "variant": "Amidala Miner",
       "baseShip": "Amidala",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
       "governments": {
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
           "Sayari Plushie": true
@@ -744,6 +745,7 @@
       "variant": "Skylance Amidala",
       "baseShip": "Amidala",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
       "governments": {
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
           "Sayari Plushie": true
@@ -922,6 +924,7 @@
       "variant": "CSSF Falcon (Electron)",
       "baseShip": "Falcon",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Free Worlds": true,
@@ -961,9 +964,6 @@
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -1038,6 +1038,106 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Falcon (CSSF Falcon (Electron))",
+      "engines": [
+        {
+          "x": -16.5,
+          "y": 143
+        },
+        {
+          "x": 16.5,
+          "y": 143
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [
+        {
+          "x": -16,
+          "y": -29,
+          "turret": "Heavy Anti-Missile Turret"
+        },
+        {
+          "x": 16,
+          "y": -29,
+          "turret": "Electron Beam"
+        },
+        {
+          "x": -50,
+          "y": 39.5,
+          "turret": "Electron Beam"
+        },
+        {
+          "x": 50,
+          "y": 39.5,
+          "turret": "Electron Beam"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Falcon",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "CSSF Falcon (Electron)",
+      "baseShip": "Falcon",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/falcon",
+      "thumbnail": "thumbnail/falcon",
+      "governments": {
+        "official-game/endless-sky": {
+          "Free Worlds": true,
+          "Militia": true,
+          "Pirate": true,
+          "Independent": true,
+          "Merchant": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true,
+          "Hidalgo Shrine": true,
+          "Yuyuko Saigyouji (Hostile)": true,
+          "Republic": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "MGF: NBSL": true,
+          "MGF: Crossguard Patrol": true,
+          "MGF: NGK Security": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate (Rivals)": true,
+          "Merchant": true,
+          "Oathbreaker": true,
+          "Escort": true,
+          "Bounty (Disguised)": true,
+          "Pirate": true,
+          "Pirate (Rival)": true,
+          "Republic": true,
+          "Scar's Legion": true,
+          "Free Worlds": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Heliarch Punisher (SPA Heliarch Punisher)",
@@ -1158,9 +1258,16 @@
       "variant": "SPA Heliarch Punisher",
       "baseShip": "Heliarch Punisher",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Heliarch": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -1242,6 +1349,113 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Heliarch Punisher (SPA Heliarch Punisher)",
+      "engines": [
+        {
+          "x": -24,
+          "y": 184,
+          "zoom": 0.6
+        },
+        {
+          "x": 0,
+          "y": 187,
+          "zoom": 1.1
+        },
+        {
+          "x": 24,
+          "y": 184,
+          "zoom": 0.6
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -21,
+          "y": -121,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": 21,
+          "y": -121,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": -27,
+          "y": -118,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": 27,
+          "y": -118,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": -43,
+          "y": -43,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": 43,
+          "y": -43,
+          "gun": "Ion Rain Gun"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -13,
+          "y": -42,
+          "turret": "Ion Hail Turret"
+        },
+        {
+          "x": 13,
+          "y": -42,
+          "turret": "Ion Hail Turret"
+        },
+        {
+          "x": 0,
+          "y": -35,
+          "turret": "Ion Hail Turret"
+        },
+        {
+          "x": 0,
+          "y": 164,
+          "turret": "Ion Hail Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Heliarch Punisher",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Heliarch Punisher",
+      "baseShip": "Heliarch Punisher",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/heliarch punisher",
+      "thumbnail": "thumbnail/heliarch punisher",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Heliarch Breacher (SPA Heliarch Breacher)",
@@ -1331,9 +1545,16 @@
       "variant": "SPA Heliarch Breacher",
       "baseShip": "Heliarch Breacher",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Heliarch": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -1407,6 +1628,83 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Heliarch Breacher (SPA Heliarch Breacher)",
+      "engines": [
+        {
+          "x": 0,
+          "y": 85,
+          "zoom": 0.9
+        },
+        {
+          "x": -19,
+          "y": 78,
+          "zoom": 0.7
+        },
+        {
+          "x": 19,
+          "y": 79,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 0,
+          "y": -87,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": -20,
+          "y": -33,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": 20,
+          "y": -33,
+          "gun": "Ion Rain Gun"
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -23.5,
+          "turret": "Bombardment Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Heliarch Breacher",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Heliarch Breacher",
+      "baseShip": "Heliarch Breacher",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/heliarch breacher",
+      "thumbnail": "thumbnail/heliarch breacher",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Heliarch Hunter (SPA Heliarch Hunter)",
@@ -1507,9 +1805,16 @@
       "variant": "SPA Heliarch Hunter",
       "baseShip": "Heliarch Hunter",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Heliarch": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -1591,6 +1896,93 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Heliarch Hunter (SPA Heliarch Hunter)",
+      "engines": [
+        {
+          "x": -5.5,
+          "y": 103,
+          "zoom": 0.1
+        },
+        {
+          "x": 5.5,
+          "y": 103,
+          "zoom": 0.1
+        },
+        {
+          "x": -25,
+          "y": 113,
+          "zoom": 0.8
+        },
+        {
+          "x": 25,
+          "y": 113,
+          "zoom": 0.8
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 0,
+          "y": -117,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -17.5,
+          "y": -72.5,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 17.5,
+          "y": -72.5,
+          "gun": "Proton Gun"
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -39.5,
+          "turret": "Ion Hail Turret"
+        },
+        {
+          "x": 0,
+          "y": 33,
+          "turret": "Ion Hail Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Heliarch Hunter",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Heliarch Hunter",
+      "baseShip": "Heliarch Hunter",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/heliarch hunter",
+      "thumbnail": "thumbnail/heliarch hunter",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Heliarch Interdictor (SPA Heliarch Interdictor)",
@@ -1686,12 +2078,19 @@
       "variant": "SPA Heliarch Interdictor",
       "baseShip": "Heliarch Interdictor",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Heliarch": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Storm Seekers": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -1773,6 +2172,91 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Heliarch Interdictor (SPA Heliarch Interdictor)",
+      "engines": [
+        {
+          "x": -30,
+          "y": 163,
+          "zoom": 0.5
+        },
+        {
+          "x": -20,
+          "y": 163,
+          "zoom": 0.85
+        },
+        {
+          "x": 20,
+          "y": 163,
+          "zoom": 0.85
+        },
+        {
+          "x": 30,
+          "y": 163,
+          "zoom": 0.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -20,
+          "y": -98,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": 20,
+          "y": -98,
+          "gun": "Ion Rain Gun"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -8,
+          "y": -63,
+          "turret": "Ion Hail Turret"
+        },
+        {
+          "x": 8,
+          "y": -63,
+          "turret": "Ion Hail Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Heliarch Interdictor",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Heliarch Interdictor",
+      "baseShip": "Heliarch Interdictor",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/heliarch interdictor",
+      "thumbnail": "thumbnail/heliarch interdictor",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Storm Seekers": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Heliarch Judicator (SPA Heliarch Judicator)",
@@ -1894,6 +2378,7 @@
       "variant": "SPA Heliarch Judicator",
       "baseShip": "Heliarch Judicator",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Heliarch": true
@@ -1901,6 +2386,12 @@
         "Lost In Midnight/Lost-in-Midnight": {
           "Heliarch": true,
           "Storm Seekers": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -1982,6 +2473,118 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Heliarch Judicator (SPA Heliarch Judicator)",
+      "engines": [
+        {
+          "x": -33,
+          "y": 108,
+          "zoom": 0.5
+        },
+        {
+          "x": -17,
+          "y": 163,
+          "zoom": 0.7
+        },
+        {
+          "x": 17,
+          "y": 163,
+          "zoom": 0.7
+        },
+        {
+          "x": 33,
+          "y": 108,
+          "zoom": 0.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -13,
+          "y": -124.5,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": 13,
+          "y": -124.5,
+          "gun": "Ion Rain Gun"
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": 45,
+          "turret": "Ion Hail Turret"
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -34.5,
+          "y": -82
+        },
+        {
+          "type": "Fighter",
+          "x": 34.5,
+          "y": -82
+        },
+        {
+          "type": "Fighter",
+          "x": -67.5,
+          "y": 35
+        },
+        {
+          "type": "Fighter",
+          "x": -67.5,
+          "y": 35
+        },
+        {
+          "type": "Fighter",
+          "x": 67.5,
+          "y": 35
+        },
+        {
+          "type": "Fighter",
+          "x": 67.5,
+          "y": 35
+        }
+      ],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Heliarch Judicator",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Heliarch Judicator",
+      "baseShip": "Heliarch Judicator",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/heliarch judicator",
+      "thumbnail": "thumbnail/heliarch judicator",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Heliarch": true,
+          "Storm Seekers": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Heliarch Neutralizer (SPA Heliarch Neutralizer)",
@@ -2070,9 +2673,16 @@
       "variant": "SPA Heliarch Neutralizer",
       "baseShip": "Heliarch Neutralizer",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Heliarch": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -2142,6 +2752,82 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Heliarch Neutralizer (SPA Heliarch Neutralizer)",
+      "engines": [
+        {
+          "x": -17,
+          "y": 82,
+          "zoom": 0.7
+        },
+        {
+          "x": 0,
+          "y": 74,
+          "zoom": 1
+        },
+        {
+          "x": 17,
+          "y": 82,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -16,
+          "y": -59,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": 16,
+          "y": -59,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": -22,
+          "y": -57,
+          "gun": "Ion Rain Gun"
+        },
+        {
+          "x": 22,
+          "y": -57,
+          "gun": "Ion Rain Gun"
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Heliarch Neutralizer",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Heliarch Neutralizer",
+      "baseShip": "Heliarch Neutralizer",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/heliarch neutralizer",
+      "thumbnail": "thumbnail/heliarch neutralizer",
+      "governments": {
+        "official-game/endless-sky": {
+          "Heliarch": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Hauler III (SPA Hauler III)",
@@ -2246,15 +2932,30 @@
       "variant": "SPA Hauler III",
       "baseShip": "Hauler III",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Merchant": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Hidalgo Shrine": true,
+          "Anime Organization": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "SpaceCrate": true
         },
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Merchant": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -2320,6 +3021,100 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Hauler III (SPA Hauler III)",
+      "engines": [
+        {
+          "x": -45,
+          "y": 196.5
+        },
+        {
+          "x": 45,
+          "y": 196.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -14.5,
+          "y": -166.5,
+          "gun": "Electron Beam"
+        },
+        {
+          "x": 14.5,
+          "y": -166.5,
+          "gun": "Electron Beam"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -21.5,
+          "y": -122,
+          "turret": "Electron Turret"
+        },
+        {
+          "x": 21.5,
+          "y": -122,
+          "turret": "Electron Turret"
+        },
+        {
+          "x": -18.5,
+          "y": 152.5,
+          "turret": "Electron Turret"
+        },
+        {
+          "x": 18.5,
+          "y": 152.5,
+          "turret": "Electron Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Hauler III",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Hauler III",
+      "baseShip": "Hauler III",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/hauler iii",
+      "thumbnail": "thumbnail/hauler iii",
+      "governments": {
+        "official-game/endless-sky": {
+          "Merchant": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true,
+          "Hidalgo Shrine": true,
+          "Anime Organization": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "SpaceCrate": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Aerie Miner",
@@ -2445,6 +3240,7 @@
       "variant": "Aerie Miner",
       "baseShip": "Aerie",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
           "Merchant": true
@@ -2509,6 +3305,76 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Aerie Miner",
+      "engines": [
+        {
+          "x": 0,
+          "y": 91
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -13,
+          "y": -79,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 13,
+          "y": -79,
+          "gun": "Heavy Laser"
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": 0,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": 0,
+          "y": 14,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": -17,
+          "y": 14,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": 17,
+          "y": 14,
+          "turret": "Heavy Laser Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Aerie",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Aerie Miner",
+      "baseShip": "Aerie",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/aerie",
+      "thumbnail": "thumbnail/aerie",
+      "governments": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Merchant": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Gunboat (SPA Gunboat)",
@@ -2597,10 +3463,25 @@
       "variant": "SPA Gunboat",
       "baseShip": "Gunboat",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
           "Navy (Oathkeeper)": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Better Vanilla Pirates/BetterVanillaPirates": {
+          "Republic": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
         },
         "Blended Ships/blended-ships": {
           "Republic": true
@@ -2608,10 +3489,11 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Republic": true,
-          "Oathbreaker": true,
-          "Pirate": true
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -2673,6 +3555,94 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Gunboat (SPA Gunboat)",
+      "engines": [
+        {
+          "x": -12,
+          "y": 57.5,
+          "zoom": 0.7
+        },
+        {
+          "x": 12,
+          "y": 57.5,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -28.5,
+          "y": -27.5,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 28.5,
+          "y": -27.5,
+          "gun": "Heavy Laser"
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -1,
+          "turret": "Heavy Laser Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Gunboat",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Gunboat",
+      "baseShip": "Gunboat",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/gunboat",
+      "thumbnail": "thumbnail/gunboat",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Better Vanilla Pirates/BetterVanillaPirates": {
+          "Republic": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Blended Ships/blended-ships": {
+          "Republic": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Gunboat (SPA Gunboat (Proton Gun))",
@@ -2761,6 +3731,7 @@
       "variant": "SPA Gunboat (Proton Gun)",
       "baseShip": "Gunboat",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
@@ -2786,17 +3757,10 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Republic": true
-        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -2957,6 +3921,7 @@
       "variant": "SPA Gunboat (Blaze-Pike)",
       "baseShip": "Gunboat",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
@@ -2982,17 +3947,10 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Republic": true
-        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -3055,6 +4013,93 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Gunboat (SPA Gunboat (Blaze-Pike))",
+      "engines": [
+        {
+          "x": -12,
+          "y": 57.5,
+          "zoom": 0.7
+        },
+        {
+          "x": 12,
+          "y": 57.5,
+          "zoom": 0.7
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [
+        {
+          "x": -28.5,
+          "y": -27.5,
+          "turret": "Blaze-Pike Turret"
+        },
+        {
+          "x": 28.5,
+          "y": -27.5,
+          "turret": "Blaze-Pike Turret"
+        },
+        {
+          "x": 0,
+          "y": -1,
+          "turret": "Blaze-Pike Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Gunboat",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Gunboat (Blaze-Pike)",
+      "baseShip": "Gunboat",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/gunboat",
+      "thumbnail": "thumbnail/gunboat",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Better Vanilla Pirates/BetterVanillaPirates": {
+          "Republic": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "Blended Ships/blended-ships": {
+          "Republic": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Cruiser (SPA Cruiser)",
@@ -3231,15 +4276,436 @@
       "variant": "SPA Cruiser",
       "baseShip": "Cruiser",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
-          "Pirate": true,
-          "Navy (Oathkeeper)": true
+          "Navy (Oathkeeper)": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
           "Republic": true,
           "Pirate": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile Launcher": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Sidewinder Missile": {
+          "count": 90,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Anti-Missile Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP288a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Radar Jammer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fragmentation Grenades": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Security Station": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X4200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Cruiser (SPA Cruiser)",
+      "engines": [
+        {
+          "x": -52,
+          "y": 151,
+          "zoom": 0.75
+        },
+        {
+          "x": -28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 0,
+          "y": 154,
+          "zoom": 0.5
+        },
+        {
+          "x": 28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 52,
+          "y": 151,
+          "zoom": 0.75
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -30,
+          "y": -55,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 30,
+          "y": -55,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": -40.5,
+          "y": -52,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 40.5,
+          "y": -52,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": -30,
+          "y": -30,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 30,
+          "y": -30,
+          "gun": "Heavy Laser"
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -39.5,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": -32,
+          "y": -23,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": 32,
+          "y": -23,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": -10,
+          "y": 0,
+          "turret": "Heavy Laser Turret"
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 49.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 49.5
+        }
+      ],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Cruiser",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Cruiser",
+      "baseShip": "Cruiser",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
+    },
+    {
+      "name": "Cruiser (SPA Cruiser (PFC))",
+      "engines": [
+        {
+          "x": -52,
+          "y": 151,
+          "zoom": 0.75
+        },
+        {
+          "x": -28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 0,
+          "y": 154,
+          "zoom": 0.5
+        },
+        {
+          "x": 28,
+          "y": 154,
+          "zoom": 0.95
+        },
+        {
+          "x": 52,
+          "y": 151,
+          "zoom": 0.75
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -30,
+          "y": -55,
+          "gun": "Prototype Fusion Cannon"
+        },
+        {
+          "x": 30,
+          "y": -55,
+          "gun": "Prototype Fusion Cannon"
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -55,
+          "turret": "Electron Turret"
+        },
+        {
+          "x": 10,
+          "y": -40,
+          "turret": "Electron Turret"
+        },
+        {
+          "x": -10,
+          "y": -40,
+          "turret": "Electron Turret"
+        },
+        {
+          "x": 0,
+          "y": -25,
+          "turret": "Electron Turret"
+        }
+      ],
+      "bays": [
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 19.5
+        },
+        {
+          "type": "Drone",
+          "x": -25,
+          "y": 49.5
+        },
+        {
+          "type": "Drone",
+          "x": 25,
+          "y": 49.5
+        }
+      ],
+      "leaks": [
+        {
+          "effect": "leak",
+          "openChance": 30,
+          "spreadChance": 50
+        },
+        {
+          "effect": "flame",
+          "openChance": 50,
+          "spreadChance": 80
+        },
+        {
+          "effect": "big leak",
+          "openChance": 40,
+          "spreadChance": 30
+        }
+      ],
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
+      "administrative cost": 6,
+      "attributes": {
+        "category": "Heavy Warship",
+        "licenses": {
+          "Navy Cruiser": true
+        },
+        "cost": 11200000,
+        "shields": 19600,
+        "hull": 6400,
+        "required crew": 81,
+        "bunks": 136,
+        "mass": 1910,
+        "drag": 18.7,
+        "heat dissipation": 0.25,
+        "fuel capacity": 600,
+        "cargo space": 60,
+        "outfit space": 760,
+        "weapon capacity": 320,
+        "engine capacity": 170,
+        "weapon": {
+          "blast radius": 260,
+          "shield damage": 2600,
+          "hull damage": 1300,
+          "hit force": 3900
+        }
+      },
+      "tiny explosion": 20,
+      "small explosion": 45,
+      "medium explosion": 50,
+      "large explosion": 40,
+      "huge explosion": 10,
+      "final explode": "final explosion large",
+      "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
+      "_internalId": "official-game/endless-sky::Cruiser",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "0a6105913eb7",
+      "variant": "SPA Cruiser (PFC)",
+      "baseShip": "Cruiser",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -3405,64 +4871,19 @@
           "y": 49.5
         }
       ],
-      "leaks": [
-        {
-          "effect": "leak",
-          "openChance": 30,
-          "spreadChance": 50
-        },
-        {
-          "effect": "flame",
-          "openChance": 50,
-          "spreadChance": 80
-        },
-        {
-          "effect": "big leak",
-          "openChance": 40,
-          "spreadChance": 30
-        }
-      ],
-      "sprite": "ship/cruiser",
-      "thumbnail": "thumbnail/cruiser",
-      "administrative cost": 6,
+      "leaks": [],
       "attributes": {
-        "category": "Heavy Warship",
-        "licenses": {
-          "Navy Cruiser": true
-        },
-        "cost": 11200000,
-        "shields": 19600,
-        "hull": 6400,
-        "required crew": 81,
-        "bunks": 136,
-        "mass": 1910,
-        "drag": 18.7,
-        "heat dissipation": 0.25,
-        "fuel capacity": 600,
-        "cargo space": 60,
-        "outfit space": 760,
-        "weapon capacity": 320,
-        "engine capacity": 170,
-        "weapon": {
-          "blast radius": 260,
-          "shield damage": 2600,
-          "hull damage": 1300,
-          "hit force": 3900
-        }
+        "required crew": 1
       },
-      "tiny explosion": 20,
-      "small explosion": 45,
-      "medium explosion": 50,
-      "large explosion": 40,
-      "huge explosion": 10,
-      "final explode": "final explosion large",
-      "description": "The Republic Cruiser is a relatively recent design, a much larger version of the Frigate designed to be able to take on an entire pirate fleet if necessary. In addition to a wide variety of weaponry, Cruisers have space to carry four attack drones: fast, pilotless fighters that can be controlled remotely.",
-      "_internalId": "official-game/endless-sky::Cruiser",
-      "_pluginId": "official-game/endless-sky",
-      "_hash": "0a6105913eb7",
+      "_internalId": "Nova1422s list/1requiredcrew::Cruiser",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
       "variant": "SPA Cruiser (PFC)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/cruiser",
+      "thumbnail": "thumbnail/cruiser",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
@@ -3480,17 +4901,10 @@
           "Republic": true,
           "Pirate": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Republic": true
-        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -3499,76 +4913,7 @@
           "_deprecated/unused": true
         }
       },
-      "outfits": {
-        "Particle Cannon": {
-          "count": 4,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Sidewinder Missile Launcher": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Sidewinder Missile": {
-          "count": 90,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Heavy Laser Turret": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Heavy Anti-Missile Turret": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fusion Reactor": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP288a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D67-TM Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Large Radar Jammer": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Liquid Nitrogen Cooler": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Laser Rifle": {
-          "count": 20,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fragmentation Grenades": {
-          "count": 20,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Security Station": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Tactical Scanner": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X4700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X4200 Ion Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Hyperdrive": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
+      "outfits": {}
     },
     {
       "name": "Cruiser (SPA Cruiser (Blaze-Pike))",
@@ -3745,6 +5090,7 @@
       "variant": "SPA Cruiser (Blaze-Pike)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
@@ -3762,17 +5108,10 @@
           "Republic": true,
           "Pirate": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Republic": true
-        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -4027,6 +5366,7 @@
       "variant": "SPA Cruiser (Electron)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
@@ -4044,17 +5384,10 @@
           "Republic": true,
           "Pirate": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Republic": true
-        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -4309,6 +5642,7 @@
       "variant": "SPA Cruiser (Ion)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
@@ -4326,17 +5660,10 @@
           "Republic": true,
           "Pirate": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Republic": true
-        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -4591,6 +5918,7 @@
       "variant": "SPA Cruiser (Korath Slicer)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
@@ -4608,17 +5936,10 @@
           "Republic": true,
           "Pirate": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Republic": true
-        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -4873,6 +6194,7 @@
       "variant": "SPA Cruiser (Particle Cannon)",
       "baseShip": "Cruiser",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
@@ -4890,17 +6212,10 @@
           "Republic": true,
           "Pirate": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Republic": true
-        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -5204,6 +6519,7 @@
       "variant": "SPA Carrier (Combat)",
       "baseShip": "Carrier",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Republic": true,
@@ -5220,17 +6536,10 @@
           "Republic": true,
           "Pirate": true
         },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true,
-          "Republic": true
-        },
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -5325,6 +6634,130 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Carrier (SPA Carrier (Combat))",
+      "engines": [
+        {
+          "x": -36.5,
+          "y": 200,
+          "zoom": 0.65
+        },
+        {
+          "x": 36.5,
+          "y": 200,
+          "zoom": 0.65
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -17.5,
+          "y": -176.5,
+          "gun": "Electron Beam"
+        },
+        {
+          "x": 17.5,
+          "y": -176.5,
+          "gun": "Electron Beam"
+        },
+        {
+          "x": -17.5,
+          "y": -176.5,
+          "gun": "Electron Beam"
+        },
+        {
+          "x": 17.5,
+          "y": -176.5,
+          "gun": "Electron Beam"
+        },
+        {
+          "x": -26,
+          "y": -167.5,
+          "gun": "Electron Beam"
+        },
+        {
+          "x": 26,
+          "y": -167.5,
+          "gun": "Electron Beam"
+        },
+        {
+          "x": -26,
+          "y": -167.5,
+          "gun": "Electron Beam"
+        },
+        {
+          "x": 26,
+          "y": -167.5,
+          "gun": "Electron Beam"
+        }
+      ],
+      "turrets": [
+        {
+          "x": 0,
+          "y": -49,
+          "turret": "Electron Turret"
+        },
+        {
+          "x": 0,
+          "y": 14,
+          "turret": "Electron Turret"
+        },
+        {
+          "x": -22,
+          "y": 22,
+          "turret": "Electron Turret"
+        },
+        {
+          "x": 22,
+          "y": 22,
+          "turret": "Electron Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Carrier",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Carrier (Combat)",
+      "baseShip": "Carrier",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/carrier",
+      "thumbnail": "thumbnail/carrier",
+      "governments": {
+        "official-game/endless-sky": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Nova1422s list/navypirates": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Republic": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Oathbreaker": true,
+          "Republic": true,
+          "Pirate": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Shield Beetle (SPA Shield Beetle (Proton))",
@@ -5460,6 +6893,7 @@
       "variant": "SPA Shield Beetle (Proton)",
       "baseShip": "Shield Beetle",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Hai": true,
@@ -5484,9 +6918,6 @@
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -5561,6 +6992,320 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Shield Beetle (SPA Shield Beetle (Proton))",
+      "engines": [
+        {
+          "x": -44,
+          "y": 133
+        },
+        {
+          "x": 44,
+          "y": 133
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -22,
+          "y": -102,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 22,
+          "y": -102,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -34,
+          "y": -68,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 34,
+          "y": -68,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -49,
+          "y": -38,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 49,
+          "y": -38,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -61,
+          "y": -14,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 61,
+          "y": -14,
+          "gun": "Proton Gun"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -39,
+          "y": 48,
+          "turret": "Proton Turret"
+        },
+        {
+          "x": 39,
+          "y": 48,
+          "turret": "Proton Turret"
+        },
+        {
+          "x": -57,
+          "y": 75,
+          "turret": "Chameleon Anti-Missile"
+        },
+        {
+          "x": 57,
+          "y": 75,
+          "turret": "Chameleon Anti-Missile"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Shield Beetle",
+      "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
+      "_hash": "72c6dbf7fb49",
+      "variant": "SPA Shield Beetle (Proton)",
+      "baseShip": "Shield Beetle",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
+      "sprite": "ship/hai shield beetle",
+      "thumbnail": "thumbnail/hai shield beetle",
+      "governments": {
+        "official-game/endless-sky": {
+          "Hai": true,
+          "Hai Merchant": true,
+          "Hai Merchant (Sympathizers)": true,
+          "Hai Merchant (Human)": true,
+          "Hai (Unfettered)": true,
+          "Merchant": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Independent": true,
+          "Pirate": true,
+          "Storm Seekers": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Bounty Hunter": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Ion Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Tracker Pod": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Tracker": {
+          "count": 280,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tracker Storage Pod": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chameleon Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Boulder Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Geode Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Gorge Batteries": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Ravine Batteries": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Diamond Regenerator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Williwaw Cooling": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quantum Keystone": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Protection Station": {
+          "count": 7,
+          "pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
+        },
+        "\"Bondir\" Atomic Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "\"Bufaer\" Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Shield Beetle (SPA Shield Beetle (Proton))",
+      "engines": [
+        {
+          "x": -44,
+          "y": 133
+        },
+        {
+          "x": 44,
+          "y": 133
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -22,
+          "y": -102,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 22,
+          "y": -102,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -34,
+          "y": -68,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 34,
+          "y": -68,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -49,
+          "y": -38,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 49,
+          "y": -38,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -61,
+          "y": -14,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 61,
+          "y": -14,
+          "gun": "Proton Gun"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -39,
+          "y": 48,
+          "turret": "Proton Turret"
+        },
+        {
+          "x": 39,
+          "y": 48,
+          "turret": "Proton Turret"
+        },
+        {
+          "x": -57,
+          "y": 75,
+          "turret": "Chameleon Anti-Missile"
+        },
+        {
+          "x": 57,
+          "y": 75,
+          "turret": "Chameleon Anti-Missile"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Shield Beetle",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Shield Beetle (Proton)",
+      "baseShip": "Shield Beetle",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/hai shield beetle",
+      "thumbnail": "thumbnail/hai shield beetle",
+      "governments": {
+        "official-game/endless-sky": {
+          "Hai": true,
+          "Hai Merchant": true,
+          "Hai Merchant (Sympathizers)": true,
+          "Hai Merchant (Human)": true,
+          "Hai (Unfettered)": true,
+          "Merchant": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Independent": true,
+          "Pirate": true,
+          "Storm Seekers": true
+        },
+        "Capitalis Major/Capitalis-Major": {
+          "Bounty Hunter": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Skein (SPA Skein)",
@@ -5705,6 +7450,7 @@
       "variant": "SPA Skein",
       "baseShip": "Skein",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Free Worlds": true
@@ -5714,6 +7460,12 @@
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Free Worlds": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -5783,6 +7535,129 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Skein (SPA Skein)",
+      "engines": [
+        {
+          "x": -45,
+          "y": 196.5
+        },
+        {
+          "x": 45,
+          "y": 196.5
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -14.5,
+          "y": -166.5,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 14.5,
+          "y": -166.5,
+          "gun": "Heavy Laser"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -21.5,
+          "y": -122,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": 21.5,
+          "y": -122,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": -18.5,
+          "y": 152.5,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": 18.5,
+          "y": 152.5,
+          "turret": "Heavy Laser Turret"
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -47,
+          "y": -61,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": 47,
+          "y": -61,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": -47,
+          "y": 14,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": 47,
+          "y": 14,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": -47,
+          "y": 88,
+          "position": "under"
+        },
+        {
+          "type": "Fighter",
+          "x": 47,
+          "y": 88,
+          "position": "under"
+        }
+      ],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Skein",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Skein",
+      "baseShip": "Skein",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/skein",
+      "thumbnail": "thumbnail/skein",
+      "governments": {
+        "official-game/endless-sky": {
+          "Free Worlds": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Free Worlds": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Bactrian (Old Bactrian)",
@@ -5929,15 +7804,28 @@
       "variant": "Old Bactrian",
       "baseShip": "Bactrian",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
+          "Merchant": true,
+          "Pirate": true,
           "Deep Security": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
           "Merchant": true,
           "Pirate": true,
           "Bounty (Disguised)": true,
           "Bounty Hunter": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -6007,6 +7895,57 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Bactrian (Old Bactrian)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Bactrian",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Old Bactrian",
+      "baseShip": "Bactrian",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/old_bactrian",
+      "thumbnail": "thumbnail/old_bactrian",
+      "governments": {
+        "official-game/endless-sky": {
+          "Merchant": true,
+          "Pirate": true,
+          "Deep Security": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Pirate": true,
+          "Bounty (Disguised)": true,
+          "Bounty Hunter": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Kestrel (SPA Kestrel)",
@@ -6160,14 +8099,12 @@
       "variant": "SPA Kestrel",
       "baseShip": "Kestrel",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -6226,6 +8163,133 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Kestrel (SPA Kestrel)",
+      "engines": [
+        {
+          "x": 13,
+          "y": 170
+        },
+        {
+          "x": -13,
+          "y": 170
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -73.5,
+          "y": 46,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": -76.5,
+          "y": 49,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 73.5,
+          "y": 46,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 76.5,
+          "y": 49,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": -51,
+          "y": 49.5,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": -55.5,
+          "y": 52.5,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 51,
+          "y": 49.5,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 55.5,
+          "y": 52.5,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": -29.5,
+          "y": 52,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": -33,
+          "y": 55,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 29.5,
+          "y": 52,
+          "gun": "Heavy Laser"
+        },
+        {
+          "x": 33,
+          "y": 55,
+          "gun": "Heavy Laser"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -7,
+          "y": -4,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": 7,
+          "y": -4,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": -23,
+          "y": 14,
+          "turret": "Heavy Laser Turret"
+        },
+        {
+          "x": 23,
+          "y": 14,
+          "turret": "Heavy Laser Turret"
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Kestrel",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Kestrel",
+      "baseShip": "Kestrel",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/kestrelw",
+      "thumbnail": "thumbnail/kestrelw",
+      "governments": {
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Kestrel (SPA Kestrel (Proton))",
@@ -6379,14 +8443,12 @@
       "variant": "SPA Kestrel (Proton)",
       "baseShip": "Kestrel",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -6445,6 +8507,103 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Kestrel (SPA Kestrel (Proton))",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -73.5,
+          "y": 46,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -76.5,
+          "y": 49,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 73.5,
+          "y": 46,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 76.5,
+          "y": 49,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -51,
+          "y": 49.5,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -55.5,
+          "y": 52.5,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 51,
+          "y": 49.5,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 55.5,
+          "y": 52.5,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -29.5,
+          "y": 52,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": -33,
+          "y": 55,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 29.5,
+          "y": 52,
+          "gun": "Proton Gun"
+        },
+        {
+          "x": 33,
+          "y": 55,
+          "gun": "Proton Gun"
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Kestrel",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Kestrel (Proton)",
+      "baseShip": "Kestrel",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/kestrelw",
+      "thumbnail": "thumbnail/kestrelw",
+      "governments": {
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Falcon (SPA Falcon (Korath Slicer))",
@@ -6559,6 +8718,7 @@
       "variant": "SPA Falcon (Korath Slicer)",
       "baseShip": "Falcon",
       "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Free Worlds": true,
@@ -6599,8 +8759,114 @@
         },
         "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
+        }
+      },
+      "locations": {
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Korath Slicer Turret": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
         },
-        "POOT/poot-senza-solaria_senza_solaria": {
+        "Heavy Anti-Missile Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fusion Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Laser Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Orca Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "A375 Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Supercapacitor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Falcon (SPA Falcon (Korath Slicer))",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Falcon",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "SPA Falcon (Korath Slicer)",
+      "baseShip": "Falcon",
+      "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "official-game/endless-sky": {
+          "Free Worlds": true,
+          "Militia": true,
+          "Pirate": true,
+          "Independent": true,
+          "Merchant": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true,
+          "Hidalgo Shrine": true,
+          "Yuyuko Saigyouji (Hostile)": true,
+          "Republic": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "MGF: NBSL": true,
+          "MGF: Crossguard Patrol": true,
+          "MGF: NGK Security": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate (Rivals)": true,
+          "Merchant": true,
+          "Oathbreaker": true,
+          "Escort": true,
+          "Bounty (Disguised)": true,
+          "Pirate": true,
+          "Pirate (Rival)": true,
+          "Republic": true,
+          "Scar's Legion": true,
+          "Free Worlds": true
+        },
+        "Blended Ships/blended-ships": {
+          "Free Worlds": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -6820,5 +9086,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-08-27T07:37:00.033Z"
+  "parsedAt": "2026-08-29T15:58:02.279Z"
 }
