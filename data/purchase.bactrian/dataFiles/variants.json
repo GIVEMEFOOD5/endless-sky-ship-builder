@@ -144,15 +144,28 @@
     "variant": "Bactrian (Pirated)",
     "baseShip": "Bactrian",
     "_variantPluginId": "Nova1422s list/purchase.bactrian",
+    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "official-game/endless-sky": {
+        "Merchant": true,
+        "Pirate": true,
         "Deep Security": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Yuyuko Saigyouji": true,
+        "Sayari Plushie": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Merchant": true,
         "Pirate": true,
         "Bounty (Disguised)": true,
         "Bounty Hunter": true
+      },
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
       }
     },
     "locations": {
@@ -224,5 +237,58 @@
         "pluginId": "official-game/endless-sky"
       }
     }
+  },
+  {
+    "name": "Bactrian (Pirated)",
+    "engines": [],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "attributes": {
+      "required crew": 1
+    },
+    "_internalId": "Nova1422s list/1requiredcrew::Bactrian",
+    "_pluginId": "Nova1422s list/1requiredcrew",
+    "_hash": "5267fa0abcbe",
+    "variant": "Bactrian (Pirated)",
+    "baseShip": "Bactrian",
+    "_variantPluginId": "Nova1422s list/purchase.bactrian",
+    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+    "sprite": "ship/bactrian",
+    "thumbnail": "thumbnail/bactrian",
+    "governments": {
+      "official-game/endless-sky": {
+        "Merchant": true,
+        "Pirate": true,
+        "Deep Security": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Yuyuko Saigyouji": true,
+        "Sayari Plushie": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant": true,
+        "Pirate": true,
+        "Bounty (Disguised)": true,
+        "Bounty Hunter": true
+      },
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      }
+    },
+    "locations": {
+      "Nova1422s list/purchase.bactrian": {
+        "Planets": [
+          "Haven"
+        ]
+      }
+    },
+    "outfits": {}
   }
 ]

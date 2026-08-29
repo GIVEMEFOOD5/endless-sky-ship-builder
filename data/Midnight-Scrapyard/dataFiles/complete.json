@@ -1386,21 +1386,8 @@
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chimitarp",
-            "Eshkoshtar",
-            "Farbutero",
-            "Faronektu",
-            "Feroteri",
-            "Fornarep",
-            "Kaliptari",
-            "Korsmanath",
-            "Mekislepti",
-            "Salipastart",
-            "Sepetrosk",
-            "Similisti"
-          ]
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
         }
       },
       "outfits": {
@@ -1617,9 +1604,6 @@
       "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "_hash": "3f3f31b925d1",
       "governments": {
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Sestor": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Sestor": true
         }
@@ -1756,9 +1740,6 @@
       "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "_hash": "a3fa0cb3f107",
       "governments": {
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Sestor": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Sestor": true
         }
@@ -2064,22 +2045,11 @@
       "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "_hash": "080a8056e1d7",
       "governments": {
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Efret": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
-          ]
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -2198,14 +2168,6 @@
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
-          ]
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -2351,14 +2313,6 @@
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
-          ]
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -2515,14 +2469,6 @@
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
-          ]
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -2835,16 +2781,6 @@
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chikatip",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
-          ]
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -3249,9 +3185,6 @@
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers": true
         }
       },
       "locations": {
@@ -3700,6 +3633,7 @@
       "variant": "Grakerat 572 (Infested)",
       "baseShip": "Grakerat 572",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true,
@@ -3986,10 +3920,8 @@
       "variant": "Korath Devourer (Infested)",
       "baseShip": "Korath Devourer",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true
         }
@@ -4166,6 +4098,7 @@
       "variant": "Korath Raider (Infested)",
       "baseShip": "Palavret",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Korath": true,
@@ -4183,8 +4116,112 @@
         },
         "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "never disabled": {
+          "count": 1,
+          "pluginId": null
+        }
+      }
+    },
+    {
+      "name": "Palavret (Korath Raider (Infested))",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [
+        {
+          "x": 10.5,
+          "y": -133,
+          "turret": "Blight Leak"
         },
-        "POOT/poot-senza-solaria_senza_solaria": {
+        {
+          "x": -36.5,
+          "y": -131,
+          "turret": "Festering Boil"
+        },
+        {
+          "x": 0,
+          "y": 50.5,
+          "turret": "Blight Leak"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "turret": "Blight Leak"
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -19.5,
+          "y": 136
+        },
+        {
+          "type": "Fighter",
+          "x": 20,
+          "y": 135
+        },
+        {
+          "type": "Fighter",
+          "x": -9,
+          "y": -174
+        },
+        {
+          "type": "Fighter",
+          "x": 8,
+          "y": -174
+        },
+        {
+          "type": "Fighter",
+          "x": -10.5,
+          "y": -133
+        },
+        {
+          "type": "Fighter",
+          "x": 35.5,
+          "y": -131
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": 104
+        }
+      ],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Palavret",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Korath Raider (Infested)",
+      "baseShip": "Palavret",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "official-game/endless-sky": {
+          "Korath": true,
+          "Korath (Civilian)": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Independent": true,
+          "Korath": true
+        },
+        "Midnight Expansion/Midnight-Expansion": {
+          "Korath": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -4362,6 +4399,7 @@
       "variant": "Korath Dredger (Infested)",
       "baseShip": "Rano'erek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Korath": true
@@ -4378,8 +4416,131 @@
         },
         "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "never disabled": {
+          "count": 1,
+          "pluginId": null
+        }
+      }
+    },
+    {
+      "name": "Rano'erek (Korath Dredger (Infested))",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [
+        {
+          "x": -37.5,
+          "y": -152.5,
+          "turret": ""
         },
-        "POOT/poot-senza-solaria_senza_solaria": {
+        {
+          "x": 37.5,
+          "y": -152.5,
+          "turret": ""
+        },
+        {
+          "x": 0,
+          "y": -153,
+          "turret": "Festering Boil"
+        },
+        {
+          "x": -42,
+          "y": -28,
+          "turret": "Blight Leak"
+        },
+        {
+          "x": 42,
+          "y": -28,
+          "turret": "Blight Leak"
+        },
+        {
+          "x": -86,
+          "y": 128.5,
+          "turret": "Blight Leak"
+        },
+        {
+          "x": 86,
+          "y": 128.5,
+          "turret": "Blight Leak"
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -93.5,
+          "y": -20.5
+        },
+        {
+          "type": "Fighter",
+          "x": -93.5,
+          "y": -20.5
+        },
+        {
+          "type": "Fighter",
+          "x": 93.5,
+          "y": -20.5
+        },
+        {
+          "type": "Fighter",
+          "x": 93.5,
+          "y": -20.5
+        },
+        {
+          "type": "Fighter",
+          "x": -87,
+          "y": 128.5
+        },
+        {
+          "type": "Fighter",
+          "x": -87,
+          "y": 128.5
+        },
+        {
+          "type": "Fighter",
+          "x": 87,
+          "y": 128.5
+        },
+        {
+          "type": "Fighter",
+          "x": 87,
+          "y": 128.5
+        }
+      ],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Rano'erek",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Korath Dredger (Infested)",
+      "baseShip": "Rano'erek",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "official-game/endless-sky": {
+          "Korath": true
+        },
+        "Midnight Expansion/Midnight-Expansion": {
+          "Korath": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Korath": true,
+          "Storm Seekers": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -4520,21 +4681,12 @@
       "variant": "Model 512 (Infested)",
       "baseShip": "Model 512",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true,
           "Kor Mereti (Hostile)": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
@@ -4674,20 +4826,11 @@
       "variant": "Model 256 (Infested)",
       "baseShip": "Model 256",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true,
           "Kor Mereti (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
@@ -4858,18 +5001,10 @@
       "variant": "Kar Ik Vot 349 (Infested)",
       "baseShip": "Kar Ik Vot 349",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers (Hostile)": true
         }
       },
       "locations": {
@@ -5010,18 +5145,10 @@
       "variant": "Tek Far 71 - Lek (Infested)",
       "baseShip": "Tek Far 71 - Lek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers (Hostile)": true
         }
       },
       "locations": {
@@ -5177,19 +5304,10 @@
       "variant": "Tek Far 78 - Osk (Infested)",
       "baseShip": "Tek Far 78 - Osk",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true,
-          "Korath": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers (Hostile)": true
         }
       },
       "locations": {
@@ -5316,12 +5434,10 @@
       "variant": "Aberrant Latte (Infested)",
       "baseShip": "Aberrant Latte",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -5526,12 +5642,10 @@
       "variant": "Aberrant Chomper (Infested)",
       "baseShip": "Aberrant Chomper",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -5694,12 +5808,10 @@
       "variant": "Aberrant Pileup (Infested)",
       "baseShip": "Aberrant Pileup",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -5878,12 +5990,10 @@
       "variant": "Aberrant Hugger (Infested)",
       "baseShip": "Aberrant Hugger",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -6064,6 +6174,7 @@
       "variant": "Aberrant Longfellow (Infested)",
       "baseShip": "Aberrant Longfellow",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
@@ -6250,6 +6361,7 @@
       "variant": "Aberrant Dancer (Infested)",
       "baseShip": "Aberrant Dancer",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
@@ -6439,12 +6551,10 @@
       "variant": "Aberrant Junior (Infested)",
       "baseShip": "Aberrant Junior",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -6627,12 +6737,10 @@
       "variant": "Aberrant Icebreaker (Infested)",
       "baseShip": "Aberrant Icebreaker",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -6819,6 +6927,7 @@
       "variant": "Aberrant Pike (Infested)",
       "baseShip": "Aberrant Pike",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
@@ -7024,12 +7133,10 @@
       "variant": "Aberrant Mole (Infested)",
       "baseShip": "Aberrant Mole",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -7188,12 +7295,10 @@
       "variant": "Aberrant Whiskers (Infested)",
       "baseShip": "Aberrant Whiskers",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -7400,12 +7505,10 @@
       "variant": "Aberrant Trip (Infested)",
       "baseShip": "Aberrant Trip",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -7659,12 +7762,10 @@
       "variant": "Aberrant Triplet (Infested)",
       "baseShip": "Aberrant Triplet",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Invasive Predator": true
-        },
-        "official-game/endless-sky": {
-          "Aberrant": true
         }
       },
       "locations": {
@@ -7829,10 +7930,97 @@
       "variant": "Gull (Scrapyard Rescue)",
       "baseShip": "Gull",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
           "Remnant": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Missions": [
+            "Scrapyard Remnant Rescue 1"
+          ]
+        }
+      },
+      "outfits": {
+        "Inhibitor Cannon": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
         },
+        "Point Defense Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Epoch Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Millennium Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Crystal Capacitor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quantum Key Stone": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Salvage Scanner": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermoelectric Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tuning Rifle": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Forge-Class Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Forge-Class Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Jump Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Gull (Scrapyard Rescue)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1,
+        "cloak": -0.02,
+        "cloaking energy": -5,
+        "cloaking fuel": -0.1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Gull",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Gull (Scrapyard Rescue)",
+      "baseShip": "Gull",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Remnant": true
         }
@@ -8019,15 +8207,98 @@
       "variant": "Starling (Scrapyard Rescue)",
       "baseShip": "Starling",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Remnant": true,
-          "Remnant (Research)": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Remnant": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Missions": [
+            "Scrapyard Remnant Rescue 2"
+          ]
+        }
+      },
+      "outfits": {
+        "EMP Torpedo Bay": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
         },
-        "Lost In Midnight/Lost-in-Midnight": {
+        "Inhibitor Cannon": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "EMP Torpedo Storage Bay": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Epoch Cell": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Crystal Capacitor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Emergency Ramscoop": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quantum Key Stone": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermoelectric Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tuning Rifle": {
+          "count": 9,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Forge-Class Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Smelter-Class Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Jump Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Starling (Scrapyard Rescue)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1,
+        "cloak": -0.02,
+        "cloaking energy": -5,
+        "cloaking fuel": -0.1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Starling",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Starling (Scrapyard Rescue)",
+      "baseShip": "Starling",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
           "Remnant": true
         }
       },
@@ -8232,6 +8503,7 @@
       "variant": "Peregrine (Scrapyard Derelict)",
       "baseShip": "Peregrine",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Derelict (Killable)": true
@@ -8387,17 +8659,35 @@
       "variant": "Blue Wardragon",
       "baseShip": "Quarg Wardragon",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Quarg": true,
+          "Quarg (Hai)": true,
+          "Quarg (Kor Efret)": true,
+          "Quarg (Gegno)": true
+        },
+        "A Coalition at War/A-Coalition-At-War": {
+          "Quarg": true
+        },
+        "Nova1422s list/tributequarg": {
+          "Quarg": true,
+          "Quarg (Hai)": true,
+          "Quarg (Kor Efret)": true,
           "Quarg (Gegno)": true,
-          "Quarg (Kor Efret)": true
+          "Quarg (Incipias)": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Quarg": true
         },
         "Midnight Expansion/Midnight-Expansion": {
           "Quarg": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Quarg": true
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -8447,6 +8737,64 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Quarg Wardragon (Blue Wardragon)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Quarg Wardragon",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Blue Wardragon",
+      "baseShip": "Quarg Wardragon",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/quarg wardragonblue",
+      "thumbnail": "thumbnail/quarg wardragonblue-thumb",
+      "governments": {
+        "official-game/endless-sky": {
+          "Quarg": true,
+          "Quarg (Hai)": true,
+          "Quarg (Kor Efret)": true,
+          "Quarg (Gegno)": true
+        },
+        "A Coalition at War/A-Coalition-At-War": {
+          "Quarg": true
+        },
+        "Nova1422s list/tributequarg": {
+          "Quarg": true,
+          "Quarg (Hai)": true,
+          "Quarg (Kor Efret)": true,
+          "Quarg (Gegno)": true,
+          "Quarg (Incipias)": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Quarg": true
+        },
+        "Midnight Expansion/Midnight-Expansion": {
+          "Quarg": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Korath World-Ship (Scrapyard World-Ship (Crippled))",
@@ -8585,14 +8933,176 @@
       "variant": "Scrapyard World-Ship (Crippled)",
       "baseShip": "Korath World-Ship",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Korath Fireswarm Nest": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
         },
-        "POOT/poot-senza-solaria_senza_solaria": {
+        "Triple Plasma Core (Damaged)": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Systems Core (Damaged)": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        },
+        "Large Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Heat Shunt": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thruster (Planetary Class)(Damaged)": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Steering (Planetary Class)(Damaged)": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Hyperdrive (Damaged)": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Scrap Metal": {
+          "count": 100,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        }
+      }
+    },
+    {
+      "name": "Korath World-Ship (Scrapyard World-Ship (Crippled))",
+      "engines": [
+        {
+          "x": -37,
+          "y": 343,
+          "zoom": 0.8
+        },
+        {
+          "x": 0,
+          "y": 343,
+          "zoom": 0.9
+        },
+        {
+          "x": 37,
+          "y": 343,
+          "zoom": 0.8
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -22,
+          "y": -275,
+          "gun": ""
+        },
+        {
+          "x": 22,
+          "y": -275,
+          "gun": ""
+        }
+      ],
+      "turrets": [
+        {
+          "x": -74,
+          "y": -156,
+          "turret": ""
+        },
+        {
+          "x": 74,
+          "y": -155.5,
+          "turret": ""
+        },
+        {
+          "x": -42,
+          "y": -50.5,
+          "turret": ""
+        },
+        {
+          "x": 44,
+          "y": -50.5,
+          "turret": ""
+        },
+        {
+          "x": -27.5,
+          "y": 134.5,
+          "turret": ""
+        },
+        {
+          "x": 27,
+          "y": 134.5,
+          "turret": ""
+        },
+        {
+          "x": -89,
+          "y": 293,
+          "turret": ""
+        },
+        {
+          "x": 87.5,
+          "y": 292.5,
+          "turret": ""
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -34,
+          "y": -70,
+          "over": true,
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Fighter",
+          "x": 34,
+          "y": -70,
+          "over": true,
+          "launch effect": "korath external"
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": -70,
+          "under": true,
+          "launch effect": "korath external"
+        }
+      ],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1,
+        "fused circuits": -5
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Korath World-Ship",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Scrapyard World-Ship (Crippled)",
+      "baseShip": "Korath World-Ship",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/world-ship scrapyard",
+      "thumbnail": "thumbnail/world-ship scrapyard-thumb",
+      "governments": {
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -8717,19 +9227,101 @@
       "variant": "Quarg Drake (Scrapyard Surveillance)",
       "baseShip": "Quarg Drake",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Quarg (Gegno)": true,
           "Quarg (Incipias)": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Skydagger": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
         },
-        "official-game/endless-sky": {
-          "Quarg": true
+        "Skylance": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
         },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Quarg": true
+        "Stratospear": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Quarg": true
+        "Antimatter Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Quantum Vacuum Battery": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Ancile Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Peripheral Repair Hub": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Phalanx System": {
+          "count": 30,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cargo Scanner": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfit Scanner": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Tactical Scanner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Graviton Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Graviton Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Jump Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Quarg Drake (Scrapyard Surveillance)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1,
+        "atmosphere scan": 100
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Quarg Drake",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Quarg Drake (Scrapyard Surveillance)",
+      "baseShip": "Quarg Drake",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Quarg (Gegno)": true,
+          "Quarg (Incipias)": true
         }
       },
       "locations": {
@@ -8881,9 +9473,19 @@
       "variant": "Quarg Skylark (Surveillance)",
       "baseShip": "Quarg Skylark",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
+        "A Coalition at War/A-Coalition-At-War": {
+          "Quarg": true
+        },
         "Midnight Expansion/Midnight-Expansion": {
           "Quarg": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -8929,6 +9531,54 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Quarg Skylark (Surveillance)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1,
+        "mass": 10,
+        "outfit space": -10,
+        "outfit scan power": 50,
+        "outfit scan efficiency": 30,
+        "cargo scan power": 50,
+        "cargo scan efficiency": 30,
+        "tactical scan power": 40,
+        "atmosphere scan": 100
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Quarg Skylark",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Quarg Skylark (Surveillance)",
+      "baseShip": "Quarg Skylark",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "A Coalition at War/A-Coalition-At-War": {
+          "Quarg": true
+        },
+        "Midnight Expansion/Midnight-Expansion": {
+          "Quarg": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Quarg Drake (Quarg Wardragon (Surveillance))",
@@ -9012,6 +9662,7 @@
       "variant": "Quarg Wardragon (Surveillance)",
       "baseShip": "Quarg Drake",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Quarg": true,
@@ -9036,9 +9687,6 @@
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -9093,6 +9741,67 @@
           "pluginId": "official-game/endless-sky"
         }
       }
+    },
+    {
+      "name": "Quarg Drake (Quarg Wardragon (Surveillance))",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1,
+        "mass": 10,
+        "outfit space": -10,
+        "outfit scan power": 50,
+        "outfit scan efficiency": 30,
+        "cargo scan power": 50,
+        "cargo scan efficiency": 30,
+        "tactical scan power": 40,
+        "atmosphere scan": 100
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Quarg Drake",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Quarg Wardragon (Surveillance)",
+      "baseShip": "Quarg Drake",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "official-game/endless-sky": {
+          "Quarg": true,
+          "Quarg (Hai)": true,
+          "Quarg (Kor Efret)": true,
+          "Quarg (Gegno)": true
+        },
+        "Nova1422s list/tributequarg": {
+          "Quarg": true,
+          "Quarg (Hai)": true,
+          "Quarg (Kor Efret)": true,
+          "Quarg (Gegno)": true,
+          "Quarg (Incipias)": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Quarg": true
+        },
+        "Midnight Expansion/Midnight-Expansion": {
+          "Quarg": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {}
     },
     {
       "name": "Grakerat 572 (Scar)",
@@ -9154,6 +9863,7 @@
       "variant": "Grakerat 572 (Scar)",
       "baseShip": "Grakerat 572",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Sestor": true
@@ -9324,25 +10034,170 @@
       "variant": "Leviathan (Hai Limit Breaker)",
       "baseShip": "Leviathan",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
+          "Merchant": true,
           "Pirate": true,
+          "Syndicate (Extremist)": true,
           "Alpha": true,
           "Merchant (Hostile)": true,
-          "Merchant": true,
           "Republic": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true,
+          "Hidalgo Shrine": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Bounty (Disguised)": true,
+          "MGF: NGK Security": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "SpaceCrate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate (Rivals)": true,
+          "Merchant": true,
+          "Merchant (Hostile)": true,
+          "Pirate (Rival)": true
         },
         "Blended Ships/blended-ships": {
           "Pirate": true
         },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Hai Tracker Pod": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Tracker": {
+          "count": 224,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Heavy Laser Turret": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Boulder Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Ravine Batteries": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Diamond Regenerator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Pulse Rifle": {
+          "count": 20,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Impala Plasma Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "A375 Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Volcano Afterburner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Ramscoop": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Limit Breaker": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        }
+      }
+    },
+    {
+      "name": "Leviathan (Hai Limit Breaker)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Leviathan",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Leviathan (Hai Limit Breaker)",
+      "baseShip": "Leviathan",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "official-game/endless-sky": {
+          "Merchant": true,
+          "Pirate": true,
+          "Syndicate (Extremist)": true,
+          "Alpha": true,
+          "Merchant (Hostile)": true,
+          "Republic": true
+        },
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true,
+          "Hidalgo Shrine": true,
           "Yuyuko Saigyouji (Hostile)": true
         },
+        "Mega Freight/Mega-Freight": {
+          "Bounty (Disguised)": true,
+          "MGF: NGK Security": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "SpaceCrate": true
+        },
         "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant (Hostile)": true,
+          "Pirate (Rivals)": true,
           "Merchant": true,
-          "Pirate (Rival)": true,
-          "Pirate (Rivals)": true
+          "Merchant (Hostile)": true,
+          "Pirate (Rival)": true
+        },
+        "Blended Ships/blended-ships": {
+          "Pirate": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -9518,22 +10373,162 @@
       "variant": "Mule (Hai Limit Breaker)",
       "baseShip": "Mule",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
-          "Pirate": true,
           "Merchant": true,
+          "Pirate": true,
           "Deep Security": true,
           "Republic": true
         },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "SpaceCrate": true
+        },
         "Tugderic's Addons/Tugderics-Addons": {
+          "Smuggler": true,
           "Bounty": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
-          "Bounty (Disguised)": true,
+          "Creature Hunter": true,
           "Merchant": true,
+          "Bounty (Disguised)": true,
           "Bounty Hunter": true,
           "Pirate (Rivals)": true,
           "Bounty": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Ion Cannon": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Pulse Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chameleon Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Geode Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Ravine Batteries": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Fissure Batteries": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D67-TM Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Water Coolant System": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Ramscoop": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Pulse Rifle": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "A370 Atomic Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "A375 Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Limit Breaker": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        }
+      }
+    },
+    {
+      "name": "Mule (Hai Limit Breaker)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Mule",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Mule (Hai Limit Breaker)",
+      "baseShip": "Mule",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "official-game/endless-sky": {
+          "Merchant": true,
+          "Pirate": true,
+          "Deep Security": true,
+          "Republic": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "SpaceCrate": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Smuggler": true,
+          "Bounty": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Creature Hunter": true,
+          "Merchant": true,
+          "Bounty (Disguised)": true,
+          "Bounty Hunter": true,
+          "Pirate (Rivals)": true,
+          "Bounty": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -9702,30 +10697,174 @@
       "variant": "Firebird (Hai Limit Breaker)",
       "baseShip": "Firebird",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
-          "Pirate": true,
           "Merchant": true,
+          "Pirate": true,
+          "Syndicate (Extremist)": true,
+          "Bounty Hunter": true,
           "Alpha": true,
           "Republic": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true,
+          "Merchant": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Bounty (Disguised)": true,
+          "Scar's Legion": true,
+          "MGF: NGK Security": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "SpaceCrate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate (Rivals)": true,
+          "Merchant": true,
+          "Pirate": true,
+          "Oathbreaker": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true
         },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Ancient Travelers": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Ion Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Pulse Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chameleon Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Bullfrog Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Geode Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Gorge Batteries": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "D41-HY Shield Generator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Williwaw Cooling": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Pulse Rifle": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X3700 Ion Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "X3200 Ion Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Limit Breaker": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        }
+      }
+    },
+    {
+      "name": "Firebird (Hai Limit Breaker)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Firebird",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Firebird (Hai Limit Breaker)",
+      "baseShip": "Firebird",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "official-game/endless-sky": {
+          "Merchant": true,
+          "Pirate": true,
+          "Syndicate (Extremist)": true,
+          "Bounty Hunter": true,
+          "Alpha": true,
+          "Republic": true
+        },
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Yuyuko Saigyouji": true,
+          "Sayari Plushie": true,
+          "Merchant": true,
           "Yuyuko Saigyouji (Hostile)": true
         },
         "Mega Freight/Mega-Freight": {
-          "Scar's Legion": true
+          "Bounty (Disguised)": true,
+          "Scar's Legion": true,
+          "MGF: NGK Security": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "SpaceCrate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate (Rivals)": true,
+          "Merchant": true,
+          "Pirate": true,
+          "Oathbreaker": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Militia (Rogue)": true
         },
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Pirate": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -9891,10 +11030,22 @@
       "variant": "Corvette (Hai Limit Breaker)",
       "baseShip": "Corvette",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Merchant": true,
+          "Deep Security": true,
+          "Pirate": true,
+          "Bounty Hunter": true,
           "Republic": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate (Rivals)": true,
+          "Merchant": true,
+          "Bounty (Disguised)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true
@@ -9902,9 +11053,125 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "Pirate": true
         },
+        "Mega Freight/Mega-Freight": {
+          "MGF: NGK Security": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Hai Tracker Pod": {
+          "count": 4,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Tracker": {
+          "count": 224,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Chameleon Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fission Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "LP036a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Diamond Regenerator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Williwaw Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Cargo Expansion": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Pulse Rifle": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "\"Biroo\" Atomic Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "\"Bondir\" Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Limit Breaker": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        }
+      }
+    },
+    {
+      "name": "Corvette (Hai Limit Breaker)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Corvette",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Corvette (Hai Limit Breaker)",
+      "baseShip": "Corvette",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "official-game/endless-sky": {
+          "Merchant": true,
+          "Deep Security": true,
+          "Pirate": true,
+          "Bounty Hunter": true,
+          "Republic": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Sayari Plushie": true
+        },
         "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate (Rivals)": true,
           "Merchant": true,
           "Bounty (Disguised)": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Militia (Rogue)": true
+        },
+        "Tugderic's Addons/Tugderics-Addons": {
+          "Pirate": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "MGF: NGK Security": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -10059,23 +11326,146 @@
       "variant": "Headhunter (Hai Limit Breaker)",
       "baseShip": "Headhunter",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
+          "Merchant": true,
+          "Deep Security": true,
           "Pirate": true,
           "Republic": true
+        },
+        "Blended Ships/blended-ships": {
+          "Merchant": true
+        },
+        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Anime Organization": true,
+          "Yuyuko Saigyouji (Hostile)": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "MGF: Luna Winery": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Independent": true,
+          "Bounty Hunter": true,
+          "Republic": true,
+          "Bounty": true,
+          "Pirate (Rivals)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true,
           "Merchant": true
         },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Particle Cannon": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Geode Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Chasm Batteries": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Corundum Regenerator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hai Williwaw Cooling": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "A250 Atomic Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "A375 Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Hyperdrive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Limit Breaker": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        }
+      }
+    },
+    {
+      "name": "Headhunter (Hai Limit Breaker)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Headhunter",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Headhunter (Hai Limit Breaker)",
+      "baseShip": "Headhunter",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "official-game/endless-sky": {
+          "Merchant": true,
+          "Deep Security": true,
+          "Pirate": true,
+          "Republic": true
+        },
+        "Blended Ships/blended-ships": {
+          "Merchant": true
+        },
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+          "Anime Organization": true,
           "Yuyuko Saigyouji (Hostile)": true
         },
+        "Mega Freight/Mega-Freight": {
+          "MGF: Luna Winery": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
         "Lost In Midnight/Lost-in-Midnight": {
+          "Merchant": true,
+          "Independent": true,
           "Bounty Hunter": true,
           "Republic": true,
           "Bounty": true,
           "Pirate (Rivals)": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Militia (Rogue)": true,
+          "Merchant": true
+        },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true
         }
       },
       "locations": {
@@ -10246,6 +11636,7 @@
       "variant": "Korath Raider (Scrapyard)",
       "baseShip": "Palavret Tek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true
@@ -10459,6 +11850,7 @@
       "variant": "Palavret Tek (shields)",
       "baseShip": "Palavret Tek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
@@ -10686,6 +12078,7 @@
       "variant": "Palavret Tek (weapons)",
       "baseShip": "Palavret Tek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
@@ -10903,6 +12296,7 @@
       "variant": "Palavret Tek (engines)",
       "baseShip": "Palavret Tek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
@@ -11130,6 +12524,7 @@
       "variant": "Palavret Tek (carrier)",
       "baseShip": "Palavret Tek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
@@ -11353,6 +12748,7 @@
       "variant": "Korath Dredger (Scrapper)",
       "baseShip": "Rano'erek Tek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
@@ -11572,6 +12968,7 @@
       "variant": "Korath Dredger (Scrapyard)",
       "baseShip": "Rano'erek Ik",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true
@@ -11707,27 +13104,15 @@
       "variant": "Mechanized Mine (SD)",
       "baseShip": "Mechanized Mine",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Mereti": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chimitarp",
-            "Eshkoshtar",
-            "Farbutero",
-            "Faronektu",
-            "Feroteri",
-            "Fornarep",
-            "Kaliptari",
-            "Korsmanath",
-            "Mekislepti",
-            "Salipastart",
-            "Sepetrosk",
-            "Similisti"
-          ]
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
         }
       },
       "outfits": {
@@ -11868,38 +13253,16 @@
       "variant": "Model 512 (Carrier)",
       "baseShip": "Model 512",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Mereti (Hostile)": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chimitarp",
-            "Eshkoshtar",
-            "Farbutero",
-            "Faronektu",
-            "Feroteri",
-            "Fornarep",
-            "Kaliptari",
-            "Korsmanath",
-            "Mekislepti",
-            "Salipastart",
-            "Sepetrosk",
-            "Similisti"
-          ]
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
         }
       },
       "outfits": {
@@ -12063,37 +13426,15 @@
       "variant": "Model 256 (Carrier)",
       "baseShip": "Model 256",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Mereti (Hostile)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chimitarp",
-            "Eshkoshtar",
-            "Farbutero",
-            "Faronektu",
-            "Feroteri",
-            "Fornarep",
-            "Kaliptari",
-            "Korsmanath",
-            "Mekislepti",
-            "Salipastart",
-            "Sepetrosk",
-            "Similisti"
-          ]
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
         }
       },
       "outfits": {
@@ -12244,38 +13585,16 @@
       "variant": "Model 128 (Carrier)",
       "baseShip": "Model 128",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Mereti (Hostile)": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chimitarp",
-            "Eshkoshtar",
-            "Farbutero",
-            "Faronektu",
-            "Feroteri",
-            "Fornarep",
-            "Kaliptari",
-            "Korsmanath",
-            "Mekislepti",
-            "Salipastart",
-            "Sepetrosk",
-            "Similisti"
-          ]
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
         }
       },
       "outfits": {
@@ -12382,27 +13701,12 @@
       "variant": "Far Lek 14 (scrap)",
       "baseShip": "Far Lek 14",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true,
           "Kor Scrappers": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true,
-          "Alpha": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Korath": true,
-          "Kor Scrappers (Hostile)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Sestor": true,
-          "Pirate": true,
-          "Korath": true
         }
       },
       "locations": {
@@ -12479,27 +13783,12 @@
       "variant": "Far Osk 27 (scrap)",
       "baseShip": "Far Osk 27",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true,
           "Kor Scrappers": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true,
-          "Alpha": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Korath": true,
-          "Kor Scrappers (Hostile)": true,
-          "Kor Scrappers": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Sestor": true,
-          "Korath": true
         }
       },
       "locations": {
@@ -12619,20 +13908,11 @@
       "variant": "Met Par Tek 53 (scrapper)",
       "baseShip": "Met Par Tek 53",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers (Hostile)": true,
-          "Kor Scrappers": true
         }
       },
       "locations": {
@@ -12790,6 +14070,7 @@
       "variant": "Met Par Tek 53 (scrap) A",
       "baseShip": "Met Par Tek 53",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -12912,6 +14193,7 @@
       "variant": "Met Par Tek 53 (scrap) B",
       "baseShip": "Met Par Tek 53",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -13062,6 +14344,7 @@
       "variant": "Met Par Tek 53 (scrap) C",
       "baseShip": "Met Par Tek 53",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -13305,17 +14588,9 @@
       "variant": "Tek Far 109 (scrapper)",
       "baseShip": "Tek Far 109",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
-          "Kor Scrappers (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
           "Kor Scrappers (Hostile)": true
         }
       },
@@ -13557,6 +14832,7 @@
       "variant": "Tek Far 109 (scrap) A",
       "baseShip": "Tek Far 109",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -13772,6 +15048,7 @@
       "variant": "Tek Far 109 (scrap) B",
       "baseShip": "Tek Far 109",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -14015,6 +15292,7 @@
       "variant": "Tek Far 109 (scrap) C",
       "baseShip": "Tek Far 109",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -14225,18 +15503,9 @@
       "variant": "Tek Far 78 - Osk (scrapper)",
       "baseShip": "Tek Far 78 - Osk",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
-          "Kor Scrappers (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true,
-          "Korath": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
           "Kor Scrappers (Hostile)": true
         }
       },
@@ -14453,6 +15722,7 @@
       "variant": "Tek Far 78 - Osk (scrap) A",
       "baseShip": "Tek Far 78 - Osk",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -14639,6 +15909,7 @@
       "variant": "Tek Far 78 - Osk (scrap) B",
       "baseShip": "Tek Far 78 - Osk",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -14861,6 +16132,7 @@
       "variant": "Tek Far 78 - Osk (scrap) C",
       "baseShip": "Tek Far 78 - Osk",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -15068,17 +16340,9 @@
       "variant": "Tek Far 71 - Lek (scrapper)",
       "baseShip": "Tek Far 71 - Lek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
-          "Kor Scrappers (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
           "Kor Scrappers (Hostile)": true
         }
       },
@@ -15296,6 +16560,7 @@
       "variant": "Tek Far 71 - Lek (scrap) A",
       "baseShip": "Tek Far 71 - Lek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -15479,6 +16744,7 @@
       "variant": "Tek Far 71 - Lek (scrap) B",
       "baseShip": "Tek Far 71 - Lek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -15698,6 +16964,7 @@
       "variant": "Tek Far 71 - Lek (scrap) C",
       "baseShip": "Tek Far 71 - Lek",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -15863,19 +17130,11 @@
       "variant": "Kar Ik Vot 349 (scrapper)",
       "baseShip": "Kar Ik Vot 349",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
           "Kor Scrappers": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers (Hostile)": true
         }
       },
       "locations": {
@@ -16048,6 +17307,7 @@
       "variant": "Kar Ik Vot 349 (scrap) A",
       "baseShip": "Kar Ik Vot 349",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -16185,6 +17445,7 @@
       "variant": "Kar Ik Vot 349 (scrap) B",
       "baseShip": "Kar Ik Vot 349",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -16358,6 +17619,7 @@
       "variant": "Kar Ik Vot 349 (scrap) C",
       "baseShip": "Kar Ik Vot 349",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -16465,18 +17727,12 @@
       "variant": "Model 8 (scrapper)",
       "baseShip": "Model 8",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true,
           "Kor Scrappers (Hostile)": true,
           "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers": true,
-          "Kor Mereti": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Korath": true
         }
       },
       "locations": {
@@ -16589,6 +17845,7 @@
       "variant": "Model 8 (scrap) A",
       "baseShip": "Model 8",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -16672,6 +17929,7 @@
       "variant": "Model 8 (scrap) B",
       "baseShip": "Model 8",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -16775,6 +18033,7 @@
       "variant": "Model 8 (scrap) C",
       "baseShip": "Model 8",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -16882,23 +18141,12 @@
       "variant": "Model 16 (scrapper)",
       "baseShip": "Model 16",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true,
           "Kor Scrappers (Hostile)": true,
           "Kor Mereti (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true,
-          "Korath": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Korath": true,
-          "Kor Mereti": true
         }
       },
       "locations": {
@@ -17021,6 +18269,7 @@
       "variant": "Model 16 (scrap) A",
       "baseShip": "Model 16",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -17120,6 +18369,7 @@
       "variant": "Model 16 (scrap) B",
       "baseShip": "Model 16",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -17243,6 +18493,7 @@
       "variant": "Model 16 (scrap) C",
       "baseShip": "Model 16",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -17363,21 +18614,11 @@
       "variant": "Model 32 (scrapper)",
       "baseShip": "Model 32",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
           "Kor Mereti (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true,
-          "Korath": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
@@ -17505,6 +18746,7 @@
       "variant": "Model 32 (scrap) A",
       "baseShip": "Model 32",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -17601,6 +18843,7 @@
       "variant": "Model 32 (scrap) B",
       "baseShip": "Model 32",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -17729,6 +18972,7 @@
       "variant": "Model 32 (scrap) C",
       "baseShip": "Model 32",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -17854,20 +19098,11 @@
       "variant": "Model 64 (scrapper)",
       "baseShip": "Model 64",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
           "Kor Mereti (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
@@ -17998,6 +19233,7 @@
       "variant": "Model 64 (scrap) A",
       "baseShip": "Model 64",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -18099,6 +19335,7 @@
       "variant": "Model 64 (scrap) B",
       "baseShip": "Model 64",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -18232,6 +19469,7 @@
       "variant": "Model 64 (scrap) C",
       "baseShip": "Model 64",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -18367,20 +19605,11 @@
       "variant": "Model 128 (scrapper)",
       "baseShip": "Model 128",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
           "Kor Mereti (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
@@ -18529,6 +19758,7 @@
       "variant": "Model 128 (scrap) A",
       "baseShip": "Model 128",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -18640,6 +19870,7 @@
       "variant": "Model 128 (scrap) B",
       "baseShip": "Model 128",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -18783,6 +20014,7 @@
       "variant": "Model 128 (scrap) C",
       "baseShip": "Model 128",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -18923,20 +20155,11 @@
       "variant": "Model 256 (scrapper)",
       "baseShip": "Model 256",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
           "Kor Mereti (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
@@ -19090,6 +20313,7 @@
       "variant": "Model 256 (scrap) A",
       "baseShip": "Model 256",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -19206,6 +20430,7 @@
       "variant": "Model 256 (scrap) B",
       "baseShip": "Model 256",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -19362,6 +20587,7 @@
       "variant": "Model 256 (scrap) C",
       "baseShip": "Model 256",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -19515,21 +20741,12 @@
       "variant": "Model 512 (scrapper)",
       "baseShip": "Model 512",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers (Hostile)": true,
           "Kor Scrappers": true,
           "Kor Mereti (Hostile)": true
-        },
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
@@ -19690,6 +20907,7 @@
       "variant": "Model 512 (scrap) A",
       "baseShip": "Model 512",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -19811,6 +21029,7 @@
       "variant": "Model 512 (scrap) B",
       "baseShip": "Model 512",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -19968,6 +21187,7 @@
       "variant": "Model 512 (scrap) C",
       "baseShip": "Model 512",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Scrapyard Derelict": true
@@ -20100,10 +21320,8 @@
       "variant": "Tercheldar 150 (Tormentor)",
       "baseShip": "Tercheldar 150",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Sestor": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Sestor": true
         }
@@ -20278,6 +21496,7 @@
       "variant": "Stakoshtar 187(SD)",
       "baseShip": "Stakoshtar 187",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Sestor": true
@@ -20465,20 +21684,190 @@
       "variant": "Korath World-Ship (Fireswarm)",
       "baseShip": "Korath World-Ship",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Planets": [
+            "Laki Nemparu"
+          ],
+          "Missions": [
+            "Scrapyard: Escort to Wanderer Colony (Big)"
           ]
+        }
+      },
+      "outfits": {
+        "Grab-Strike Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
         },
+        "Banisher Grav-Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Warder Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Fireswarm": {
+          "count": 100,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Launcher": {
+          "count": 2,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Depot": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Triple Plasma Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Large)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Heat Shunt": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Processor": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermal Repeater Rifle": {
+          "count": 150,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Arkrof GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nelmeb GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nelmeb GP Hybrid Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Korath World-Ship (Fireswarm)",
+      "engines": [
+        {
+          "x": -37,
+          "y": 343,
+          "zoom": 0.8
+        },
+        {
+          "x": 0,
+          "y": 343,
+          "zoom": 0.9
+        },
+        {
+          "x": 37,
+          "y": 343,
+          "zoom": 0.8
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -22,
+          "y": -275,
+          "gun": "Korath Fireswarm Launcher"
+        },
+        {
+          "x": 22,
+          "y": -275,
+          "gun": "Korath Fireswarm Launcher"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -59,
+          "y": -135,
+          "turret": "Warder Anti-Missile"
+        },
+        {
+          "x": 59,
+          "y": -135,
+          "turret": "Grab-Strike Turret"
+        },
+        {
+          "x": -61,
+          "y": -6,
+          "turret": "Grab-Strike Turret"
+        },
+        {
+          "x": 61,
+          "y": -6,
+          "turret": "Banisher Grav-Turret"
+        },
+        {
+          "x": -66,
+          "y": 210,
+          "turret": "Banisher Grav-Turret"
+        },
+        {
+          "x": 66,
+          "y": 210,
+          "turret": "Warder Anti-Missile"
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -48,
+          "y": 111
+        },
+        {
+          "type": "Fighter",
+          "x": 48,
+          "y": 111
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": 111
+        }
+      ],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Korath World-Ship",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Korath World-Ship (Fireswarm)",
+      "baseShip": "Korath World-Ship",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/oldworld-ship a",
+      "thumbnail": "thumbnail/oldworld-ship a",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Efret": true
+        }
+      },
+      "locations": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -20675,20 +22064,190 @@
       "variant": "Korath World-Ship B (Fireswarm)",
       "baseShip": "Korath World-Ship",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Planets": [
+            "Laki Nemparu"
+          ],
+          "Missions": [
+            "Scrapyard: Escort to Wanderer Colony (Big)"
           ]
+        }
+      },
+      "outfits": {
+        "Grab-Strike Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
         },
+        "Banisher Grav-Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Warder Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Fireswarm": {
+          "count": 100,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Launcher": {
+          "count": 2,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Depot": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Triple Plasma Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Large)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Heat Shunt": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Processor": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermal Repeater Rifle": {
+          "count": 150,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Arkrof GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nelmeb GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nelmeb GP Hybrid Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Korath World-Ship B (Fireswarm)",
+      "engines": [
+        {
+          "x": -37,
+          "y": 343,
+          "zoom": 0.8
+        },
+        {
+          "x": 0,
+          "y": 343,
+          "zoom": 0.9
+        },
+        {
+          "x": 37,
+          "y": 343,
+          "zoom": 0.8
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -22,
+          "y": -275,
+          "gun": "Korath Fireswarm Launcher"
+        },
+        {
+          "x": 22,
+          "y": -275,
+          "gun": "Korath Fireswarm Launcher"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -76,
+          "y": -219,
+          "turret": "Grab-Strike Turret"
+        },
+        {
+          "x": 76,
+          "y": -219,
+          "turret": "Grab-Strike Turret"
+        },
+        {
+          "x": -75,
+          "y": -112,
+          "turret": "Banisher Grav-Turret"
+        },
+        {
+          "x": 75,
+          "y": -112,
+          "turret": "Banisher Grav-Turret"
+        },
+        {
+          "x": 0,
+          "y": -92,
+          "turret": "Warder Anti-Missile"
+        },
+        {
+          "x": 0,
+          "y": 277,
+          "turret": "Warder Anti-Missile"
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -36,
+          "y": -68
+        },
+        {
+          "type": "Fighter",
+          "x": 36,
+          "y": -68
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": -68
+        }
+      ],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Korath World-Ship",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Korath World-Ship B (Fireswarm)",
+      "baseShip": "Korath World-Ship",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/oldworld-ship b",
+      "thumbnail": "thumbnail/oldworld-ship b",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Efret": true
+        }
+      },
+      "locations": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -20885,20 +22444,190 @@
       "variant": "Korath World-Ship C (Fireswarm)",
       "baseShip": "Korath World-Ship",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Planets": [
+            "Laki Nemparu"
+          ],
+          "Missions": [
+            "Scrapyard: Escort to Wanderer Colony (Big)"
           ]
+        }
+      },
+      "outfits": {
+        "Grab-Strike Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
         },
+        "Banisher Grav-Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Warder Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Fireswarm": {
+          "count": 100,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Launcher": {
+          "count": 2,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Depot": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Triple Plasma Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Large)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Heat Shunt": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Processor": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermal Repeater Rifle": {
+          "count": 150,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Arkrof GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nelmeb GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nelmeb GP Hybrid Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Korath World-Ship C (Fireswarm)",
+      "engines": [
+        {
+          "x": -37,
+          "y": 343,
+          "zoom": 0.8
+        },
+        {
+          "x": 0,
+          "y": 343,
+          "zoom": 0.9
+        },
+        {
+          "x": 37,
+          "y": 343,
+          "zoom": 0.8
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": -22,
+          "y": -275,
+          "gun": "Korath Fireswarm Launcher"
+        },
+        {
+          "x": 22,
+          "y": -275,
+          "gun": "Korath Fireswarm Launcher"
+        }
+      ],
+      "turrets": [
+        {
+          "x": -45,
+          "y": -243,
+          "turret": "Warder Anti-Missile"
+        },
+        {
+          "x": 45,
+          "y": -243,
+          "turret": "Grab-Strike Turret"
+        },
+        {
+          "x": -47,
+          "y": -136,
+          "turret": "Grab-Strike Turret"
+        },
+        {
+          "x": 47,
+          "y": -136,
+          "turret": "Banisher Grav-Turret"
+        },
+        {
+          "x": -91,
+          "y": 290,
+          "turret": "Banisher Grav-Turret"
+        },
+        {
+          "x": 91,
+          "y": 290,
+          "turret": "Warder Anti-Missile"
+        }
+      ],
+      "bays": [
+        {
+          "type": "Fighter",
+          "x": -45,
+          "y": -100
+        },
+        {
+          "type": "Fighter",
+          "x": 45,
+          "y": -100
+        },
+        {
+          "type": "Fighter",
+          "x": 0,
+          "y": -100
+        }
+      ],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Korath World-Ship",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Korath World-Ship C (Fireswarm)",
+      "baseShip": "Korath World-Ship",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/oldworld-ship c",
+      "thumbnail": "thumbnail/oldworld-ship c",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Efret": true
+        }
+      },
+      "locations": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -21087,23 +22816,122 @@
       "variant": "Echo-Galleon (Fireswarm)",
       "baseShip": "Echo-Galleon",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Kor Efret": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Planets": [
+            "Laki Nemparu"
+          ],
+          "Missions": [
+            "Scrapyard: Escort to Wanderer Colony (Big)"
           ]
+        }
+      },
+      "outfits": {
+        "Banisher Grav-Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
         },
+        "Digger Mining Beam": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Double Plasma Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Processor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Generator (Inferno Class)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Grab-Strike Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Fireswarm": {
+          "count": 120,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Launcher": {
+          "count": 2,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Nest": {
+          "count": 2,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Depot": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Large Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nelmeb GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Nelmeb GP Hybrid Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Large)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermal Repeater Rifle": {
+          "count": 246,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Warder Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Echo-Galleon (Fireswarm)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Echo-Galleon",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Echo-Galleon (Fireswarm)",
+      "baseShip": "Echo-Galleon",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Efret": true
+        }
+      },
+      "locations": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -21293,23 +23121,110 @@
       "variant": "Arch-Carrack (Fireswarm)",
       "baseShip": "Arch-Carrack",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Kor Efret": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Planets": [
+            "Laki Nemparu"
+          ],
+          "Missions": [
+            "Scrapyard: Escort to Wanderer Colony (Big)"
           ]
+        }
+      },
+      "outfits": {
+        "Banisher Grav-Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
         },
+        "Double Plasma Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Farves GP Hybrid Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Processor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gaktem GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gaktem GP Hybrid Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Generator (Furnace Class)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Fireswarm": {
+          "count": 50,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Launcher": {
+          "count": 2,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Nest": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Large Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Large)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermal Repeater Rifle": {
+          "count": 55,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Warder Anti-Missile": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Arch-Carrack (Fireswarm)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Arch-Carrack",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Arch-Carrack (Fireswarm)",
+      "baseShip": "Arch-Carrack",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Efret": true
+        }
+      },
+      "locations": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -21468,25 +23383,111 @@
       "variant": "Charm-Shallop (Fireswarm)",
       "baseShip": "Charm-Shallop",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Kor Efret": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chikatip",
-            "Dokdobaru",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
-          ]
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Banisher Grav-Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Digger Mining Beam": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Double Plasma Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Processor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gaktem GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gaktem GP Hybrid Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Generator (Candle Class)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Fireswarm": {
+          "count": 60,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Launcher": {
+          "count": 2,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Nest": {
+          "count": 2,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Large Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Outfits Expansion": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Medium)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermal Repeater Rifle": {
+          "count": 66,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Warder Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Charm-Shallop (Fireswarm)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Charm-Shallop",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Charm-Shallop (Fireswarm)",
+      "baseShip": "Charm-Shallop",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Efret": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
         }
       },
       "outfits": {
@@ -21642,26 +23643,108 @@
       "variant": "Charm-Shallop (Scanner)",
       "baseShip": "Charm-Shallop",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Kor Efret": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chikatip",
-            "Dokdobaru",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Planets": [
+            "Laki Nemparu"
+          ],
+          "Missions": [
+            "Scrapyard: Escort to Wanderer Worlds A",
+            "Scrapyard: Escort to Wanderer Worlds B",
+            "Scrapyard: Kor Efret Salvage"
           ]
+        }
+      },
+      "outfits": {
+        "Digger Mining Beam": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
         },
+        "Warder Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Banisher Grav-Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Double Plasma Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Generator (Candle Class)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Medium)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Processor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermal Repeater Rifle": {
+          "count": 66,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Scanner": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        },
+        "Arkrof GP Hybrid Reverser": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Gaktem GP Hybrid Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gaktem GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Charm-Shallop (Scanner)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Charm-Shallop",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Charm-Shallop (Scanner)",
+      "baseShip": "Charm-Shallop",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Efret": true
+        }
+      },
+      "locations": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -21818,26 +23901,114 @@
       "variant": "Charm-Shallop (Fireswarm Scanner)",
       "baseShip": "Charm-Shallop",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Kor Efret": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chikatip",
-            "Dokdobaru",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Planets": [
+            "Laki Nemparu"
+          ],
+          "Missions": [
+            "Scrapyard: Kor Efret Salvage"
           ]
+        }
+      },
+      "outfits": {
+        "Banisher Grav-Turret": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
         },
+        "Digger Mining Beam": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Double Plasma Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Processor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gaktem GP Hybrid Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Gaktem GP Hybrid Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Generator (Candle Class)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Korath Fireswarm": {
+          "count": 30,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Launcher": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Fireswarm Nest": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Korath Scanner": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        },
+        "Large Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Medium)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermal Repeater Rifle": {
+          "count": 66,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Warder Anti-Missile": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Charm-Shallop (Fireswarm Scanner)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Charm-Shallop",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Charm-Shallop (Fireswarm Scanner)",
+      "baseShip": "Charm-Shallop",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Efret": true
+        }
+      },
+      "locations": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -21993,6 +24164,7 @@
       "variant": "Korath Transport",
       "baseShip": "Vault-Barge",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
@@ -22136,6 +24308,7 @@
       "variant": "Korath Transport B",
       "baseShip": "Bravo-Monitor",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
@@ -22293,6 +24466,7 @@
       "variant": "Korath Transport C",
       "baseShip": "Delta-Ferry",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Efret": true
@@ -22462,20 +24636,13 @@
       "variant": "Korath Ranger (Fireswarm)",
       "baseShip": "Korath Ranger",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
-          ]
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Planets": [
             "Laki Nemparu"
@@ -22661,19 +24828,15 @@
       "variant": "Korath Ranger (Grappler)",
       "baseShip": "Korath Ranger",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Efret": true
+        "Midnight-Scrapyard": {
+          "Midnight-Scrapyard": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
-          ]
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
         }
       },
       "outfits": {
@@ -22800,19 +24963,15 @@
       "variant": "Shelf-Sloop (Thermal Scorcher)",
       "baseShip": "Shelf-Sloop",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
-          ]
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
         }
       },
       "outfits": {
@@ -23063,13 +25222,11 @@
       "variant": "Korath Devourer (alternate)",
       "baseShip": "Korath Devourer",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers": true
         }
       },
       "locations": {
@@ -23272,6 +25429,7 @@
       "variant": "Kasichara A'awoj (Jump)",
       "baseShip": "Kasichara A'awoj",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Korath": true
@@ -23350,6 +25508,108 @@
           "pluginId": "official-game/endless-sky"
         },
         "Scram Drive": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        }
+      }
+    },
+    {
+      "name": "Kasichara A'awoj (Jump)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Kasichara A'awoj",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Kasichara A'awoj (Jump)",
+      "baseShip": "Kasichara A'awoj",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Korath": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Missions": [
+            "Laki Nemparu Bullies 2"
+          ]
+        }
+      },
+      "outfits": {
+        "Banisher Grav-Turret": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Warder Anti-Missile": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Grab-Strike Turret": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Triple Plasma Core": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Large)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Systems Core (Small)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Large Heat Shunt": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Heat Shunt": {
+          "count": 3,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Fuel Processor": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Luxury Accommodations": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Microbot Defense Station": {
+          "count": 23,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thermal Repeater Rifle": {
+          "count": 548,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Afterburner (Comet Class)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Reverser (Lunar Class)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thruster (Stellar Class)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Steering (Planetary Class)": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Jump Drive": {
           "count": 1,
           "pluginId": "official-game/endless-sky"
         }
@@ -23459,25 +25719,13 @@
       "variant": "Model 512 (Jump)",
       "baseShip": "Model 512",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "Better Vanilla Pirates/BetterVanillaPirates": {
-          "Korath": true
-        },
-        "official-game/endless-sky": {
-          "Kor Mereti": true,
-          "Kor Mereti (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Mereti": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Korath (Civilian)": true,
           "Korath": true,
           "Kor Mereti (Hostile)": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Mereti": true
         }
       },
       "locations": {
@@ -23667,19 +25915,8 @@
       "variant": "Kar Ik Vot 349 (Jump)",
       "baseShip": "Kar Ik Vot 349",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "Better Vanilla Pirates/BetterVanillaPirates": {
-          "Korath": true
-        },
-        "official-game/endless-sky": {
-          "Kor Sestor": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers (Hostile)": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Korath": true
         }
@@ -23816,26 +26053,11 @@
       "variant": "Far Osk 27 (Flamethrower)",
       "baseShip": "Far Osk 27",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Kor Sestor": true,
-          "Alpha": true
-        },
-        "Capitalis Major/Capitalis-Major": {
-          "Kor Sestor": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Korath": true,
-          "Kor Scrappers (Hostile)": true,
-          "Kor Scrappers": true
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Kor Sestor": true,
-          "Korath": true
         }
       },
       "locations": {
@@ -23968,6 +26190,7 @@
       "variant": "Korath Explorer (Exile)",
       "baseShip": "Korath Explorer",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
@@ -24127,6 +26350,7 @@
       "variant": "Korath Explorer (Sestor)",
       "baseShip": "Korath Explorer",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
@@ -24286,6 +26510,7 @@
       "variant": "Korath Explorer (Banisher)",
       "baseShip": "Korath Explorer",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
@@ -24441,6 +26666,7 @@
       "variant": "Korath Explorer (Grab-Strike)",
       "baseShip": "Korath Explorer",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
@@ -24558,6 +26784,7 @@
       "variant": "Korath Chaser (Miner)",
       "baseShip": "'olofez",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Korath": true,
@@ -24586,9 +26813,6 @@
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
-        "POOT/poot-senza-solaria_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -24728,14 +26952,119 @@
       "variant": "Korath World-Ship D (Crippled)",
       "baseShip": "Korath World-Ship",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "POOT/poot-senza-solaria": {
           "Syndicate": true
         },
         "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
+        }
+      },
+      "locations": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "_deprecated/unused": true
+        }
+      },
+      "outfits": {
+        "Triple Plasma Core (Damaged)": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
         },
-        "POOT/poot-senza-solaria_senza_solaria": {
+        "Systems Core (Damaged)": {
+          "count": 1,
+          "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        },
+        "Large Heat Shunt": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Small Heat Shunt": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky"
+        },
+        "Thruster (Planetary Class)(Damaged)": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Steering (Planetary Class)(Damaged)": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        },
+        "Hyperdrive (Damaged)": {
+          "count": 1,
+          "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+        }
+      }
+    },
+    {
+      "name": "Korath World-Ship D (Crippled)",
+      "engines": [],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [],
+      "turrets": [
+        {
+          "x": -74,
+          "y": -156,
+          "turret": ""
+        },
+        {
+          "x": 74,
+          "y": -155.5,
+          "turret": ""
+        },
+        {
+          "x": -42,
+          "y": -50.5,
+          "turret": ""
+        },
+        {
+          "x": 44,
+          "y": -50.5,
+          "turret": ""
+        },
+        {
+          "x": -27.5,
+          "y": 134.5,
+          "turret": ""
+        },
+        {
+          "x": 27,
+          "y": 134.5,
+          "turret": ""
+        },
+        {
+          "x": -89,
+          "y": 293,
+          "turret": ""
+        },
+        {
+          "x": 87.5,
+          "y": 292.5,
+          "turret": ""
+        }
+      ],
+      "bays": [],
+      "leaks": [],
+      "attributes": {
+        "required crew": 1,
+        "fused circuits": -5
+      },
+      "_internalId": "Nova1422s list/1requiredcrew::Korath World-Ship",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
+      "variant": "Korath World-Ship D (Crippled)",
+      "baseShip": "Korath World-Ship",
+      "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
+      "sprite": "ship/world-ship scrapyard",
+      "thumbnail": "thumbnail/world-ship scrapyard-thumb",
+      "governments": {
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true
+        },
+        "POOT/endless_sky_senza_solaria": {
           "Syndicate": true
         }
       },
@@ -24887,6 +27216,7 @@
       "variant": "Korath Warmonger",
       "baseShip": "Korath Ranger",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
@@ -25076,6 +27406,7 @@
       "variant": "Korath Warmonger (Fireswarm)",
       "baseShip": "Korath Ranger",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
@@ -25261,6 +27592,7 @@
       "variant": "Korath Warmonger (Grappler)",
       "baseShip": "Korath Ranger",
       "_variantPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+      "_baseShipPluginId": "Midnight Scrapyard/Midnight-Scrapyard",
       "governments": {
         "Midnight-Scrapyard": {
           "Midnight-Scrapyard": true
@@ -25789,22 +28121,6 @@
           "Ships": [
             "Mechanized Mine"
           ]
-        },
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chimitarp",
-            "Eshkoshtar",
-            "Farbutero",
-            "Faronektu",
-            "Feroteri",
-            "Fornarep",
-            "Kaliptari",
-            "Korsmanath",
-            "Mekislepti",
-            "Salipastart",
-            "Sepetrosk",
-            "Similisti"
-          ]
         }
       },
       "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
@@ -25846,31 +28162,6 @@
         }
       },
       "locations": {
-        "official-game/endless-sky": {
-          "Planets": [
-            "Laki Nemparu",
-            "Setar Fort"
-          ],
-          "Outfitters": [
-            "Korath Basics"
-          ],
-          "Systems": [
-            "Chikatip",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
-          ]
-        },
-        "Kai's list/KGS": {
-          "Planets": [
-            "KGS"
-          ],
-          "Outfitters": [
-            "Korath Basics"
-          ]
-        },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Ships": [
             "Shelf-Sloop"
@@ -25977,17 +28268,6 @@
           "ShipyardPlanets": [
             "Laki Nemparu"
           ]
-        },
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chikatip",
-            "Dokdobaru",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
-          ]
         }
       },
       "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
@@ -26026,14 +28306,6 @@
           ],
           "ShipyardPlanets": [
             "Laki Nemparu"
-          ]
-        },
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
           ]
         }
       },
@@ -26083,17 +28355,6 @@
           ],
           "ShipyardPlanets": [
             "Laki Nemparu"
-          ]
-        },
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chikatip",
-            "Dokdobaru",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
           ]
         }
       },
@@ -26225,17 +28486,6 @@
           "ShipyardPlanets": [
             "Laki Nemparu"
           ]
-        },
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chikatip",
-            "Dokdobaru",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
-          ]
         }
       },
       "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
@@ -26323,12 +28573,12 @@
       },
       "description": "Grappler Gun projectiles are designed to pull a target closer to the Korath ship, to keep it from escaping.",
       "governments": {
+        "Midnight Scrapyard/Midnight-Scrapyard": {
+          "Kor Sestor": true
+        },
         "Midnight Expansion/Midnight-Expansion": {
           "Kor Sestor": true,
           "Kor Efret": true
-        },
-        "Midnight Scrapyard/Midnight-Scrapyard": {
-          "Kor Sestor": true
         }
       },
       "locations": {
@@ -26339,14 +28589,6 @@
             "Skoretak 13",
             "Tercheldar 150",
             "Tercheldar 150 (Tormentor)"
-          ]
-        },
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
           ]
         }
       },
@@ -26393,9 +28635,6 @@
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true,
           "Kor Scrappers (Hostile)": true
-        },
-        "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers": true
         }
       },
       "locations": {
@@ -26557,16 +28796,6 @@
           "Ships": [
             "Ekfar Tek 23",
             "Korath Forager (Tormentor)"
-          ]
-        },
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chikatip",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
           ]
         },
         "Midnight Scrapyard/Midnight-Scrapyard": {
@@ -26789,7 +29018,6 @@
           "Kor Scrappers": true
         },
         "Midnight Expansion/Midnight-Expansion": {
-          "Kor Scrappers": true,
           "Kor Efret": true
         }
       },
@@ -26806,14 +29034,6 @@
           ],
           "ShipyardPlanets": [
             "Laki Nemparu"
-          ]
-        },
-        "official-game/endless-sky": {
-          "Systems": [
-            "Dokdobaru",
-            "Kashikt",
-            "Sevrelect",
-            "Sumprast"
           ]
         }
       },
@@ -26854,17 +29074,6 @@
             "Korath World-Ship (Shocker)",
             "Korath World-Ship B (Shocker)",
             "Korath World-Ship C (Shocker)"
-          ]
-        },
-        "official-game/endless-sky": {
-          "Systems": [
-            "Chikatip",
-            "Dokdobaru",
-            "Hesselpost",
-            "Kashikt",
-            "Meftarkata",
-            "Sevrelect",
-            "Sumprast"
           ]
         },
         "Midnight Scrapyard/Midnight-Scrapyard": {
@@ -27452,5 +29661,5 @@
       "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
     }
   ],
-  "parsedAt": "2026-08-27T07:37:00.044Z"
+  "parsedAt": "2026-08-29T15:58:02.292Z"
 }
