@@ -398,41 +398,67 @@ class EndlessSkyParser {
     return sorted[0].pluginId;
   }
 
-  _resolveBaseShip(baseName, variantPluginId) {
+  /**
+   * Resolve the candidate base ship(s) for a variant declaration.
+   *
+   * Returns { baseShips: Ship[], error }. `baseShips` may contain MORE THAN
+   * ONE entry when the variant's own plugin doesn't define the base ship
+   * itself and multiple OTHER plugins define a structurally different ship
+   * under the same name — a genuine, unresolvable ambiguity (there's no
+   * signal for which one the variant plugin actually intended).
+   *
+   * This used to pick a single "winner" by source-priority order and
+   * silently discard the other candidates (the old log message literally
+   * called this "overridden") — meaning a variant could end up built from
+   * the WRONG plugin's base ship with no trace of that in the output. Now
+   * every distinct candidate is kept and the caller builds one variant per
+   * candidate, each tagged with `_baseShipPluginId`, so nothing is silently
+   * dropped — consumers can disambiguate using the plugin ID instead of
+   * relying on name-based guesswork.
+   *
+   * An explicit "overrides" declaration in plugins.json is still honored,
+   * and narrows the field down when it resolves the ambiguity outright.
+   */
+  _resolveBaseShipCandidates(baseName, variantPluginId) {
     const localId   = `${variantPluginId}::${baseName}`;
     const localShip = this.shipById.get(localId);
-    if (localShip) return { baseShip: localShip, error: null };
+    if (localShip) return { baseShips: [localShip], error: null };
 
     const candidates = this.shipsByName.get(baseName) ?? [];
-    if (candidates.length === 0) return { baseShip: null, error: `no base ship found for "${baseName}"` };
-    if (candidates.length === 1) return { baseShip: candidates[0], error: null };
+    if (candidates.length === 0) return { baseShips: [], error: `no base ship found for "${baseName}"` };
+    if (candidates.length === 1) return { baseShips: [candidates[0]], error: null };
 
-    const hashes = new Set(candidates.map(s => s._hash));
-    if (hashes.size === 1) return { baseShip: candidates[0], error: null };
+    // Group by structural hash — multiple plugins defining byte-for-byte
+    // the same ship under this name isn't an ambiguity, it's a duplicate;
+    // any one representative is equally valid to build the variant from.
+    const byHash = new Map();
+    for (const c of candidates) {
+      if (!byHash.has(c._hash)) byHash.set(c._hash, c);
+    }
+    if (byHash.size === 1) return { baseShips: [candidates[0]], error: null };
+
+    const distinctCandidates = [...byHash.values()];
 
     const variantOverrides = this._overrides.get(variantPluginId);
     if (variantOverrides?.size) {
-      const overriddenCandidates = candidates.filter(s => variantOverrides.has(s._pluginId));
-      if (overriddenCandidates.length === 1) {
-        console.log(`    ↳ Collision on "${baseName}" resolved via override: using ${overriddenCandidates[0]._pluginId}`);
-        return { baseShip: overriddenCandidates[0], error: null };
+      const overriddenCandidates = distinctCandidates.filter(s => variantOverrides.has(s._pluginId));
+      if (overriddenCandidates.length > 0) {
+        console.log(
+          `    ↳ Collision on "${baseName}" narrowed via override to: ` +
+          `${overriddenCandidates.map(s => s._pluginId).join(', ')}`
+        );
+        return { baseShips: overriddenCandidates, error: null };
       }
     }
 
-    const ranked = [...candidates].sort((a, b) => {
-      const pa = this._sourcePriority.get(a._pluginId) ?? Infinity;
-      const pb = this._sourcePriority.get(b._pluginId) ?? Infinity;
-      return pa - pb;
-    });
-    const winner = ranked[0];
-    const losers = ranked.slice(1).map(s => s._pluginId).join(', ');
-    console.warn(
-      `    ⚠ Collision on base ship "${baseName}" for variant in "${variantPluginId}". ` +
-      `Plugins with this ship: ${candidates.map(s => s._pluginId).join(', ')}. ` +
-      `Resolved by source order — using "${winner._pluginId}" (overridden: ${losers}). ` +
-      `Add an "overrides" declaration to plugins.json to silence this warning.`
+    console.log(
+      `    ↳ "${baseName}" is structurally different across plugins ` +
+      `[${distinctCandidates.map(s => s._pluginId).join(', ')}] for a variant in "${variantPluginId}". ` +
+      `No single base ship can be determined, so a separate variant will be built ` +
+      `against each one (tagged with _baseShipPluginId) instead of guessing. ` +
+      `Add an "overrides" declaration to plugins.json to resolve this explicitly.`
     );
-    return { baseShip: winner, error: null };
+    return { baseShips: distinctCandidates, error: null };
   }
 
   fetchUrl(url) {
@@ -676,9 +702,16 @@ class EndlessSkyParser {
       const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
       const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
 
-      const pluginShipNames = new Set(pluginShips.map(s => s.name));
-      const pluginVariants  = this.variants.filter(v =>
-        pluginShipNames.has(v.baseShip) || (v._variantPluginId === meta.pluginId)
+      // A variant belongs to a plugin's output either because that plugin
+      // authored the variant declaration itself (_variantPluginId), or
+      // because that plugin owns the specific base-ship copy the variant
+      // was built from (_baseShipPluginId) — e.g. surfacing a mod's variant
+      // of a vanilla ship under vanilla's own list too. This is scoped by
+      // plugin ID rather than by ship-name membership so that a same-named
+      // (but unrelated) ship in another plugin can't pull in variants that
+      // have nothing to do with it.
+      const pluginVariants = this.variants.filter(v =>
+        v._baseShipPluginId === meta.pluginId || v._variantPluginId === meta.pluginId
       );
 
       const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
@@ -1696,7 +1729,7 @@ class EndlessSkyParser {
     const [, baseName, variantName] = match;
     if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
     const nextLine = lines[startIdx + 1];
-    if (nextLine.trim() && (nextLine.length - nextLine.replace(/^\t+/, '').length) === 0) {
+    if (nextLine.trim() && (nextLine.length - nextLine.replace(/^\t+/, '')).length === 0) {
       return [null, startIdx + 1];
     }
     if (variantName) {
@@ -1783,13 +1816,22 @@ class EndlessSkyParser {
   }
 
   parseShipVariant(variantInfo) {
-    const { baseShip, error } = this._resolveBaseShip(
+    const { baseShips, error } = this._resolveBaseShipCandidates(
       variantInfo.baseName, variantInfo.variantPluginId
     );
     if (error) {
       console.warn(`  Skipping variant "${variantInfo.baseName} (${variantInfo.variantName})": ${error}`);
-      return null;
+      return [];
     }
+    const results = [];
+    for (const baseShip of baseShips) {
+      const v = this._buildVariantFromBase(variantInfo, baseShip);
+      if (v) results.push(v);
+    }
+    return results;
+  }
+
+  _buildVariantFromBase(variantInfo, baseShip) {
     const { startIdx, lines } = variantInfo;
     if (startIdx + 1 >= lines.length) return null;
     const nl = lines[startIdx + 1];
@@ -1802,6 +1844,14 @@ class EndlessSkyParser {
     v.variant          = variantInfo.variantName;
     v.baseShip         = variantInfo.baseName;
     v._variantPluginId = variantInfo.variantPluginId;
+    // Which plugin's copy of the base ship this specific variant object was
+    // actually built from. This only ever differs from _variantPluginId
+    // when the base-ship name was structurally ambiguous across plugins
+    // (see _resolveBaseShipCandidates) — in that case the SAME variant
+    // name can legitimately produce more than one output entry here, one
+    // per candidate. Consumers should key/display by plugin ID rather than
+    // by name to tell them apart.
+    v._baseShipPluginId = baseShip._pluginId;
 
     let changed = false;
     let inlineOutfitsStarted = false;
@@ -1915,14 +1965,27 @@ class EndlessSkyParser {
     console.log(`  Processing ${toProcess.length} variants...`);
     let kept = 0, skippedNoChange = 0, skippedDuplicate = 0;
     for (const vi of toProcess) {
-      const v = this.parseShipVariant(vi);
-      if (!v) { skippedNoChange++; continue; }
-      const isDuplicate = this.variants.some(existing => this.shipsAreIdentical(existing, v));
-      if (isDuplicate) {
-        skippedDuplicate++; continue;
+      const built = this.parseShipVariant(vi);
+      if (built.length === 0) { skippedNoChange++; continue; }
+      for (const v of built) {
+        // Duplicate detection is scoped to variants that came from BOTH the
+        // same declaring plugin AND the same base-ship plugin. Two
+        // different plugins independently producing an identical-looking
+        // variant is not the same variant — collapsing them (as this used
+        // to do globally, across all plugins) silently dropped one
+        // plugin's entry from its own output. Since the front end now
+        // keys variants by plugin ID rather than by name, each plugin's
+        // variant list should be complete and self-contained; this only
+        // catches genuine accidental re-declarations within one plugin.
+        const isDuplicate = this.variants.some(existing =>
+          existing._variantPluginId === v._variantPluginId &&
+          existing._baseShipPluginId === v._baseShipPluginId &&
+          this.shipsAreIdentical(existing, v)
+        );
+        if (isDuplicate) { skippedDuplicate++; continue; }
+        this.variants.push(v);
+        kept++;
       }
-      this.variants.push(v);
-      kept++;
     }
     console.log(`  Variants: ${kept} kept, ${skippedNoChange} skipped, ${skippedDuplicate} duplicates removed`);
   }
