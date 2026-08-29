@@ -378,6 +378,7 @@ class EndlessSkyParser {
 
   _registerOutfit(outfit, pluginId) {
     outfit._pluginId = pluginId;
+    outfit._internalId = `${pluginId}::${outfit.name}`;
     const name = outfit.name;
     if (!this.outfitsByName.has(name)) this.outfitsByName.set(name, []);
     this.outfitsByName.get(name).push({ pluginId, outfit });
