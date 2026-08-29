@@ -216,6 +216,31 @@ class LocationResolver {
     }
   }
 
+  /**
+   * Merge only the slice of a `name → Map<pluginId, Set<value>>` lookup
+   * that belongs to one specific plugin, instead of every plugin that
+   * happens to share that name.
+   *
+   * Fleet/shipyard/outfitter names are a single global namespace here
+   * (`this.fleets`, `this.shipyards`, `this.outfitters` are all keyed by
+   * name only), so two unrelated plugins that both declare, say, a
+   * `fleet "Merchant Fleet"` or `shipyard "Independent Shipyard"` end up
+   * sharing one bucket in the by-name maps built above. Iterating every
+   * plugin in that bucket (as the code used to) meant Plugin B's spawn
+   * systems / sale planets would silently attach to Plugin A's fleet/yard
+   * match, and vice versa. Restricting to `pluginId` keeps each plugin's
+   * same-named declaration isolated from every other plugin's.
+   */
+  _mergeOwnPluginOnly(result, byPluginMap, category, pluginId) {
+    if (!byPluginMap) return;
+    const key = pluginId ?? '__unknown__';
+    const values = byPluginMap.get(key);
+    if (!values || !values.size) return;
+    if (!result[key]) result[key] = {};
+    if (!result[key][category]) result[key][category] = new Set();
+    for (const v of values) result[key][category].add(v);
+  }
+
   // ── Ship / variant location resolution ──────────────────────────────────────
 
   /**
@@ -231,8 +256,9 @@ _resolveShipLocations(shipName, ownerPluginId) {
     for (const fleet of this.fleets) {
       if (!fleet.shipNames.includes(shipName)) continue;
       if (fleet.pluginId !== ownerPluginId) continue;
-      const systemsByPlugin = fleetToSystems.get(fleet.name);
-      if (systemsByPlugin) this._mergeInto(result, systemsByPlugin, 'Systems', fleet.pluginId);
+      // Only take the Systems this SAME fleet (fleet.pluginId) spawns in —
+      // not every plugin's same-named fleet. See _mergeOwnPluginOnly.
+      this._mergeOwnPluginOnly(result, fleetToSystems.get(fleet.name), 'Systems', fleet.pluginId);
     }
 
     for (const yard of this.shipyardEntries) {
@@ -240,15 +266,22 @@ _resolveShipLocations(shipName, ownerPluginId) {
       if (yard.pluginId !== ownerPluginId) continue;
       const planetsByPlugin = yardToPlanets.get(yard.yardName);
       if (!planetsByPlugin) continue;
-      for (const [pluginKey, planets] of planetsByPlugin) {
-        const effectiveKey = pluginKey === '__unknown__' ? (yard.pluginId ?? '__unknown__') : pluginKey;
-        if (!result[effectiveKey]) result[effectiveKey] = {};
-        if (!result[effectiveKey]['Planets']) result[effectiveKey]['Planets'] = new Set();
-        for (const planet of planets) {
-          result[effectiveKey]['Planets'].add(planet);
-          const sysMap = planetToSystems.get(planet);
-          if (sysMap) this._mergeInto(result, sysMap, 'Systems', effectiveKey);
-        }
+      // Only take planets that reference THIS shipyard entry's own plugin —
+      // not every plugin's same-named shipyard. See _mergeOwnPluginOnly.
+      const key = yard.pluginId ?? '__unknown__';
+      const planets = planetsByPlugin.get(key);
+      if (!planets || !planets.size) continue;
+      if (!result[key]) result[key] = {};
+      if (!result[key]['Planets']) result[key]['Planets'] = new Set();
+      for (const planet of planets) {
+        result[key]['Planets'].add(planet);
+        // Which system a planet sits in is a physical fact that may
+        // legitimately be declared by a different plugin than the one
+        // selling this ship (e.g. a mod adds a planet/shipyard to the
+        // vanilla system "Sol") — so this lookup is intentionally left
+        // unscoped, unlike the name-keyed fleet/yard/outfitter lookups.
+        const sysMap = planetToSystems.get(planet);
+        if (sysMap) this._mergeInto(result, sysMap, 'Systems', key);
       }
     }
 
@@ -298,20 +331,27 @@ _resolveShipLocations(shipName, ownerPluginId) {
     // one plugin can legitimately sell an outfit defined in another plugin
     // (cross-plugin references by name are a normal pattern here). Scoping
     // this to ownerPluginId would hide legitimate cross-plugin listings.
+    //
+    // It IS however scoped to `entry.pluginId` (the specific outfitter block
+    // that lists this outfit) rather than every plugin sharing that
+    // outfitter's name — outfitter names ("Free Market", "General Store")
+    // collide across plugins constantly, and two unrelated outfitters with
+    // the same name are not the same shop.
     for (const entry of this.outfitterEntries) {
       if (!entry.outfitNames.includes(outfitName)) continue;
 
       const planetsByPlugin = outfitterToPlanets.get(entry.outfitterName);
       if (!planetsByPlugin) continue;
 
-      for (const [pluginKey, planets] of planetsByPlugin) {
-        const effectiveKey = pluginKey === '__unknown__' ? (entry.pluginId ?? '__unknown__') : pluginKey;
-        if (!result[effectiveKey]) result[effectiveKey] = {};
-        if (!result[effectiveKey]['Planets']) result[effectiveKey]['Planets'] = new Set();
-        if (!result[effectiveKey]['Outfitters']) result[effectiveKey]['Outfitters'] = new Set();
-        result[effectiveKey]['Outfitters'].add(entry.outfitterName);
-        for (const planet of planets) result[effectiveKey]['Planets'].add(planet);
-      }
+      const key = entry.pluginId ?? '__unknown__';
+      const planets = planetsByPlugin.get(key);
+      if (!planets || !planets.size) continue;
+
+      if (!result[key]) result[key] = {};
+      if (!result[key]['Planets']) result[key]['Planets'] = new Set();
+      if (!result[key]['Outfitters']) result[key]['Outfitters'] = new Set();
+      result[key]['Outfitters'].add(entry.outfitterName);
+      for (const planet of planets) result[key]['Planets'].add(planet);
     }
 
     // ── 2. Ships that carry THIS outfit → shipyards → planets → systems ─────
@@ -340,26 +380,26 @@ _resolveShipLocations(shipName, ownerPluginId) {
         result[key]['Ships'].add(shipName);
       }
 
-      // Shipyard path for that ship → planets
+      // Shipyard path for that ship → planets. Scoped to each shipyard
+      // entry's own plugin — see the note on section 1 above; shipyard
+      // names collide across plugins just as readily as outfitter names.
       for (const yard of this.shipyardEntries) {
         if (!yard.shipNames.includes(shipName)) continue;
         const planetsByPlugin = yardToPlanets.get(yard.yardName);
         if (!planetsByPlugin) continue;
-
-        for (const [pluginKey, planets] of planetsByPlugin) {
-          const effectiveKey = pluginKey === '__unknown__' ? (yard.pluginId ?? '__unknown__') : pluginKey;
-          if (!result[effectiveKey]) result[effectiveKey] = {};
-          if (!result[effectiveKey]['ShipyardPlanets']) result[effectiveKey]['ShipyardPlanets'] = new Set();
-          for (const planet of planets) result[effectiveKey]['ShipyardPlanets'].add(planet);
-        }
+        const key = yard.pluginId ?? '__unknown__';
+        const planets = planetsByPlugin.get(key);
+        if (!planets || !planets.size) continue;
+        if (!result[key]) result[key] = {};
+        if (!result[key]['ShipyardPlanets']) result[key]['ShipyardPlanets'] = new Set();
+        for (const planet of planets) result[key]['ShipyardPlanets'].add(planet);
       }
 
-      // Fleet path for that ship → systems
+      // Fleet path for that ship → systems. Scoped to each fleet entry's
+      // own plugin, for the same reason (fleet names collide too).
       for (const fleet of this.fleets) {
         if (!fleet.shipNames.includes(shipName)) continue;
-        const systemsByPlugin = fleetToSystems.get(fleet.name);
-        if (!systemsByPlugin) continue;
-        this._mergeInto(result, systemsByPlugin, 'Systems', fleet.pluginId);
+        this._mergeOwnPluginOnly(result, fleetToSystems.get(fleet.name), 'Systems', fleet.pluginId);
       }
     }
 
