@@ -1,5 +1,5 @@
 {
-  "scannedAt": 1788103286615,
+  "scannedAt": 1788121862829,
   "fileCount": 199,
   "perKey": {
     "cost": {
@@ -35,11 +35,137 @@
       "min": -49500000,
       "max": 1861000000,
       "samples": [
-        1200000,
-        14000000,
-        1700000,
-        450000,
-        40000
+        29370000,
+        16570000,
+        671000,
+        27690000,
+        5900000
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "shields": {
+      "count": 304,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": 0,
+      "max": 4000000,
+      "samples": [
+        32500,
+        27000,
+        2300,
+        47000,
+        120000
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
+    "hull": {
+      "count": 350,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Game Mechanics",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": 1,
+      "max": 86135672193,
+      "samples": [
+        16500,
+        9000,
+        900,
+        34000,
+        70000
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
+    "required crew": {
+      "count": 365,
+      "categories": [
+        "Ammunition",
+        "Fighter",
+        "Guns",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Turrets",
+        "Unclassified",
+        "Unclassified Minor",
+        "Unique",
+        "Utility"
+      ],
+      "min": -1,
+      "max": 1940,
+      "samples": [
+        137,
+        145,
+        1,
+        794,
+        120
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "bunks": {
+      "count": 308,
+      "categories": [
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": 0,
+      "max": 31920,
+      "samples": [
+        357,
+        250,
+        1,
+        1492,
+        210
       ],
       "onShip": true,
       "onOutfit": true
@@ -77,11 +203,145 @@
       "min": 0.002,
       "max": 67400,
       "samples": [
-        25,
-        140,
-        52,
-        34,
-        17
+        2636,
+        1468,
+        106,
+        3022,
+        990
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "drag": {
+      "count": 512,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Game Mechanics",
+        "Guns",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Special",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Turret",
+        "Turrets",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": 0.0003,
+      "max": 3040,
+      "samples": [
+        25.6,
+        18,
+        1.35,
+        31.5,
+        18.5
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "heat dissipation": {
+      "count": 352,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Game Mechanics",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": -0.0065,
+      "max": 27,
+      "samples": [
+        0.3,
+        0.33,
+        0.6,
+        0.27,
+        0.47
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "fuel capacity": {
+      "count": 320,
+      "categories": [
+        "Drone",
+        "Engines",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": -100,
+      "max": 100000,
+      "samples": [
+        900,
+        600,
+        1000,
+        1000,
+        300
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "cargo space": {
+      "count": 318,
+      "categories": [
+        "Ammunition",
+        "Drone",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": -30,
+      "max": 1864,
+      "samples": [
+        675,
+        175,
+        264,
+        200,
+        -20
       ],
       "onShip": true,
       "onOutfit": true
@@ -117,11 +377,303 @@
       "min": -480,
       "max": 3180,
       "samples": [
-        -25,
-        -140,
-        -52,
-        -34,
-        -17
+        763,
+        777,
+        92,
+        839,
+        600
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "weapon capacity": {
+      "count": 547,
+      "categories": [
+        "Drone",
+        "Engines",
+        "Fighter",
+        "Guns",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Turrets",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": -200,
+      "max": 1148,
+      "samples": [
+        276,
+        339,
+        25,
+        314,
+        200
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "engine capacity": {
+      "count": 496,
+      "categories": [
+        "Drone",
+        "Engines",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Turrets",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": -360,
+      "max": 1000,
+      "samples": [
+        206,
+        159,
+        30,
+        165,
+        120
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "blast radius": {
+      "count": 365,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Guns",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Turret",
+        "Turrets",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": 3,
+      "max": 200000,
+      "samples": [
+        300,
+        250,
+        48,
+        400,
+        250
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "shield damage": {
+      "count": 512,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Guns",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Turrets",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": -3200,
+      "max": 56100,
+      "samples": [
+        4600,
+        3600,
+        320,
+        8000,
+        1000
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "hull damage": {
+      "count": 576,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Guns",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Turrets",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": -2400,
+      "max": 79999,
+      "samples": [
+        2300,
+        1800,
+        160,
+        4000,
+        500
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "hit force": {
+      "count": 437,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Guns",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Turrets",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": -10000,
+      "max": 30000,
+      "samples": [
+        5900,
+        5400,
+        480,
+        12000,
+        1500
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "hull repair rate": {
+      "count": 90,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Game Mechanics",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "min": -0.25,
+      "max": 60000,
+      "samples": [
+        5,
+        3,
+        3,
+        0.3,
+        0.25
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "hull energy": {
+      "count": 42,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Power",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Unclassified",
+        "Utility"
+      ],
+      "min": -0.8,
+      "max": 100,
+      "samples": [
+        5,
+        0.75,
+        -0.2,
+        1.08,
+        3.18
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "ramscoop": {
+      "count": 67,
+      "categories": [
+        "Drone",
+        "Engines",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Unclassified",
+        "Utility"
+      ],
+      "min": 0.05,
+      "max": 100,
+      "samples": [
+        10,
+        6,
+        90,
+        100,
+        5
       ],
       "onShip": true,
       "onOutfit": true
@@ -266,38 +818,6 @@
         30,
         6,
         6
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "engine capacity": {
-      "count": 496,
-      "categories": [
-        "Drone",
-        "Engines",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Turrets",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": -360,
-      "max": 1000,
-      "samples": [
-        -17,
-        -12,
-        -89,
-        -67,
-        -10
       ],
       "onShip": true,
       "onOutfit": true
@@ -458,72 +978,6 @@
         54,
         0.6,
         54
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "cargo space": {
-      "count": 318,
-      "categories": [
-        "Ammunition",
-        "Drone",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": -30,
-      "max": 1864,
-      "samples": [
-        -20,
-        675,
-        175,
-        264,
-        200
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "weapon capacity": {
-      "count": 547,
-      "categories": [
-        "Drone",
-        "Engines",
-        "Fighter",
-        "Guns",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Turrets",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": -200,
-      "max": 1148,
-      "samples": [
-        -22,
-        -10,
-        -22,
-        -52,
-        -41
       ],
       "onShip": true,
       "onOutfit": true
@@ -857,41 +1311,6 @@
       "onShip": true,
       "onOutfit": true
     },
-    "required crew": {
-      "count": 365,
-      "categories": [
-        "Ammunition",
-        "Fighter",
-        "Guns",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Turrets",
-        "Unclassified",
-        "Unclassified Minor",
-        "Unique",
-        "Utility"
-      ],
-      "min": -1,
-      "max": 1940,
-      "samples": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
     "hardpoint sprite": {
       "count": 89,
       "categories": [
@@ -997,43 +1416,6 @@
       "onShip": false,
       "onOutfit": true
     },
-    "drag": {
-      "count": 512,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Game Mechanics",
-        "Guns",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Special",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Turret",
-        "Turrets",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": 0.0003,
-      "max": 3040,
-      "samples": [
-        0.1,
-        0.03,
-        0.04,
-        25.6,
-        18
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
     "homing": {
       "count": 68,
       "categories": [
@@ -1065,107 +1447,6 @@
         1
       ],
       "onShip": false,
-      "onOutfit": true
-    },
-    "shield damage": {
-      "count": 512,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Guns",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Turrets",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": -3200,
-      "max": 56100,
-      "samples": [
-        108,
-        2.8,
-        3.5,
-        26,
-        26
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "hull damage": {
-      "count": 576,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Guns",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Turrets",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": -2400,
-      "max": 79999,
-      "samples": [
-        32,
-        0.9,
-        1.5,
-        22,
-        22
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "hit force": {
-      "count": 437,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Guns",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Turrets",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": -10000,
-      "max": 30000,
-      "samples": [
-        -240,
-        60,
-        450,
-        -225,
-        5900
-      ],
-      "onShip": true,
       "onOutfit": true
     },
     "gun ports": {
@@ -1726,287 +2007,6 @@
       "onShip": false,
       "onOutfit": true
     },
-    "shields": {
-      "count": 304,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": 0,
-      "max": 4000000,
-      "samples": [
-        32500,
-        27000,
-        2300,
-        47000,
-        120000
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "hull": {
-      "count": 350,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Game Mechanics",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": 1,
-      "max": 86135672193,
-      "samples": [
-        16500,
-        9000,
-        900,
-        34000,
-        70000
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "bunks": {
-      "count": 308,
-      "categories": [
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": 0,
-      "max": 31920,
-      "samples": [
-        357,
-        250,
-        1,
-        1492,
-        210
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "heat dissipation": {
-      "count": 352,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Game Mechanics",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": -0.0065,
-      "max": 27,
-      "samples": [
-        0.3,
-        0.33,
-        0.6,
-        0.27,
-        0.47
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "fuel capacity": {
-      "count": 320,
-      "categories": [
-        "Drone",
-        "Engines",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": -100,
-      "max": 100000,
-      "samples": [
-        900,
-        600,
-        1000,
-        1000,
-        300
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "blast radius": {
-      "count": 365,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Guns",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Turret",
-        "Turrets",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": 3,
-      "max": 200000,
-      "samples": [
-        300,
-        250,
-        48,
-        400,
-        250
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "hull repair rate": {
-      "count": 90,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Game Mechanics",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "min": -0.25,
-      "max": 60000,
-      "samples": [
-        5,
-        0.3,
-        3,
-        3,
-        0.25
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "hull energy": {
-      "count": 42,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Power",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Unclassified",
-        "Utility"
-      ],
-      "min": -0.8,
-      "max": 100,
-      "samples": [
-        5,
-        0.75,
-        -0.2,
-        1.08,
-        3.18
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "ramscoop": {
-      "count": 67,
-      "categories": [
-        "Drone",
-        "Engines",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Unclassified",
-        "Utility"
-      ],
-      "min": 0.05,
-      "max": 100,
-      "samples": [
-        10,
-        6,
-        90,
-        5,
-        0.05
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
     "anchor point": {
       "count": 19,
       "categories": [
@@ -2132,7 +2132,7 @@
         0.6,
         0.05,
         0.3,
-        -1
+        0.3
       ],
       "onShip": true,
       "onOutfit": true
@@ -2175,7 +2175,7 @@
         1,
         1,
         1,
-        1
+        -1
       ],
       "onShip": true,
       "onOutfit": true
@@ -2346,8 +2346,8 @@
         90,
         72,
         36,
-        36,
-        18
+        18,
+        36
       ],
       "onShip": true,
       "onOutfit": true
@@ -2371,7 +2371,7 @@
       "max": 1000,
       "samples": [
         90,
-        36,
+        1,
         1,
         1,
         1
@@ -2455,8 +2455,8 @@
         0.3,
         2.4,
         6,
-        6,
-        15
+        24,
+        24
       ],
       "onShip": true,
       "onOutfit": true
@@ -2588,112 +2588,6 @@
       ],
       "onShip": false,
       "onOutfit": true
-    },
-    "automaton": {
-      "count": 43,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Game Mechanics",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Systems",
-        "Unclassified"
-      ],
-      "min": -1,
-      "max": 200,
-      "samples": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "hull repair energy": {
-      "count": 1,
-      "categories": [
-        "Utility"
-      ],
-      "min": 3,
-      "max": 3,
-      "samples": [
-        3
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "self destruct": {
-      "count": 25,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Warship",
-        "Medium Warship",
-        "Utility"
-      ],
-      "min": 0.15,
-      "max": 1,
-      "samples": [
-        0.9,
-        0.25,
-        0.25,
-        0.15,
-        0.25
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "crew equivalent": {
-      "count": 23,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Warship",
-        "Medium Warship"
-      ],
-      "min": 1,
-      "max": 150,
-      "samples": [
-        1,
-        3,
-        1,
-        1,
-        1
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "threshold percentage": {
-      "count": 6,
-      "categories": [
-        "Drone",
-        "Fighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Medium Warship",
-        "Unclassified Minor"
-      ],
-      "min": 0.05,
-      "max": 1,
-      "samples": [
-        0.15,
-        0.15,
-        0.12,
-        1,
-        0.08
-      ],
-      "onShip": true,
-      "onOutfit": false
     },
     "speck capacity": {
       "count": 4,
@@ -2848,10 +2742,10 @@
       "min": 0.0005,
       "max": 135,
       "samples": [
-        0.0005,
-        1.1,
         50,
-        135
+        135,
+        0.0005,
+        1.1
       ],
       "onShip": true,
       "onOutfit": true
@@ -2868,8 +2762,8 @@
         0.24,
         0.15,
         10,
-        100,
-        12.5
+        12.5,
+        100
       ],
       "onShip": false,
       "onOutfit": true
@@ -3006,7 +2900,7 @@
         300,
         1200,
         600,
-        300
+        400
       ],
       "onShip": false,
       "onOutfit": true
@@ -3184,68 +3078,111 @@
       "onShip": true,
       "onOutfit": true
     },
-    "relay upgrades": {
-      "count": 4,
+    "threshold percentage": {
+      "count": 6,
       "categories": [
-        "Systems"
+        "Drone",
+        "Fighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Medium Warship",
+        "Unclassified Minor"
+      ],
+      "min": 0.05,
+      "max": 1,
+      "samples": [
+        1,
+        0.15,
+        0.15,
+        0.12,
+        0.08
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
+    "automaton": {
+      "count": 43,
+      "categories": [
+        "Drone",
+        "Fighter",
+        "Game Mechanics",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Systems",
+        "Unclassified"
       ],
       "min": -1,
-      "max": 16,
+      "max": 200,
       "samples": [
-        -1,
-        -1,
-        6,
-        16
+        1,
+        1,
+        1,
+        1,
+        1
       ],
-      "onShip": false,
+      "onShip": true,
       "onOutfit": true
     },
-    "nanite upgrades": {
-      "count": 4,
+    "hull repair energy": {
+      "count": 1,
       "categories": [
-        "Systems"
+        "Utility"
       ],
-      "min": -2,
-      "max": 10,
+      "min": 3,
+      "max": 3,
       "samples": [
-        -2,
-        -1,
-        4,
-        10
+        3
       ],
-      "onShip": false,
-      "onOutfit": true
+      "onShip": true,
+      "onOutfit": false
     },
-    "solar cell": {
-      "count": 2,
+    "self destruct": {
+      "count": 25,
       "categories": [
-        "Power"
+        "Drone",
+        "Fighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Warship",
+        "Medium Warship",
+        "Utility"
       ],
-      "min": -1,
-      "max": 36,
+      "min": 0.15,
+      "max": 1,
       "samples": [
-        36,
-        -1
+        0.9,
+        0.25,
+        0.25,
+        0.15,
+        0.25
       ],
-      "onShip": false,
-      "onOutfit": true
+      "onShip": true,
+      "onOutfit": false
     },
-    "reactor upgrades": {
-      "count": 5,
+    "crew equivalent": {
+      "count": 23,
       "categories": [
-        "Power"
+        "Drone",
+        "Fighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Warship",
+        "Medium Warship"
       ],
-      "min": -3,
-      "max": 30,
+      "min": 1,
+      "max": 150,
       "samples": [
-        -3,
-        -2,
-        6,
-        18,
-        30
+        1,
+        3,
+        1,
+        1,
+        1
       ],
-      "onShip": false,
-      "onOutfit": true
+      "onShip": true,
+      "onOutfit": false
     },
     "cloak": {
       "count": 11,
@@ -3348,6 +3285,69 @@
       "onShip": true,
       "onOutfit": true
     },
+    "relay upgrades": {
+      "count": 4,
+      "categories": [
+        "Systems"
+      ],
+      "min": -1,
+      "max": 16,
+      "samples": [
+        -1,
+        -1,
+        6,
+        16
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "nanite upgrades": {
+      "count": 4,
+      "categories": [
+        "Systems"
+      ],
+      "min": -2,
+      "max": 10,
+      "samples": [
+        -2,
+        -1,
+        4,
+        10
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "solar cell": {
+      "count": 2,
+      "categories": [
+        "Power"
+      ],
+      "min": -1,
+      "max": 36,
+      "samples": [
+        36,
+        -1
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "reactor upgrades": {
+      "count": 5,
+      "categories": [
+        "Power"
+      ],
+      "min": -3,
+      "max": 30,
+      "samples": [
+        -3,
+        -2,
+        6,
+        18,
+        30
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
     "live effect": {
       "count": 38,
       "categories": [
@@ -3377,27 +3377,77 @@
       "onShip": false,
       "onOutfit": true
     },
-    "scramble protection": {
-      "count": 16,
+    "finisher capacity": {
+      "count": 4,
       "categories": [
-        "Heavy Warship",
-        "Light Warship",
-        "Medium Warship",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor"
+        "Ammunition",
+        "Secondary Weapons"
       ],
-      "min": 0.1,
-      "max": 3,
+      "min": -1,
+      "max": 60,
+      "samples": [
+        40,
+        60,
+        20,
+        -1
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "slowing damage": {
+      "count": 55,
+      "categories": [
+        "Guns",
+        "Secondary Weapons",
+        "Turrets"
+      ],
+      "min": -28,
+      "max": 40,
       "samples": [
         0.1,
-        0.2,
-        0.2,
-        0.2,
-        0.1
+        0.1,
+        -28,
+        4,
+        -9
       ],
-      "onShip": true,
-      "onOutfit": false
+      "onShip": false,
+      "onOutfit": true
+    },
+    "minable damage": {
+      "count": 13,
+      "categories": [
+        "Guns",
+        "Turrets"
+      ],
+      "min": 1.9,
+      "max": 200,
+      "samples": [
+        8.2,
+        104,
+        3,
+        6,
+        1.9
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "prospecting": {
+      "count": 7,
+      "categories": [
+        "Guns",
+        "Turrets"
+      ],
+      "min": 1,
+      "max": 145,
+      "samples": [
+        9,
+        145,
+        10.5,
+        1,
+        1
+      ],
+      "onShip": false,
+      "onOutfit": true
     },
     "shield heat": {
       "count": 27,
@@ -3540,77 +3590,27 @@
       "onShip": false,
       "onOutfit": true
     },
-    "finisher capacity": {
-      "count": 4,
+    "scramble protection": {
+      "count": 16,
       "categories": [
-        "Ammunition",
-        "Secondary Weapons"
+        "Heavy Warship",
+        "Light Warship",
+        "Medium Warship",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor"
       ],
-      "min": -1,
-      "max": 60,
-      "samples": [
-        40,
-        60,
-        20,
-        -1
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "slowing damage": {
-      "count": 55,
-      "categories": [
-        "Guns",
-        "Secondary Weapons",
-        "Turrets"
-      ],
-      "min": -28,
-      "max": 40,
+      "min": 0.1,
+      "max": 3,
       "samples": [
         0.1,
-        0.1,
-        -28,
-        4,
-        -9
+        0.2,
+        0.2,
+        0.2,
+        0.1
       ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "minable damage": {
-      "count": 13,
-      "categories": [
-        "Guns",
-        "Turrets"
-      ],
-      "min": 1.9,
-      "max": 200,
-      "samples": [
-        8.2,
-        104,
-        3,
-        6,
-        1.9
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "prospecting": {
-      "count": 7,
-      "categories": [
-        "Guns",
-        "Turrets"
-      ],
-      "min": 1,
-      "max": 145,
-      "samples": [
-        9,
-        145,
-        10.5,
-        1,
-        1
-      ],
-      "onShip": false,
-      "onOutfit": true
+      "onShip": true,
+      "onOutfit": false
     },
     "safe": {
       "count": 20,
@@ -4443,31 +4443,6 @@
       "onShip": true,
       "onOutfit": false
     },
-    "no damage scaling": {
-      "count": 4,
-      "categories": [
-        "Turret",
-        "Turrets"
-      ],
-      "min": null,
-      "max": null,
-      "samples": [],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "uncapturable": {
-      "count": 1,
-      "categories": [
-        "Heavy Warship"
-      ],
-      "min": 1,
-      "max": 1,
-      "samples": [
-        1
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
     "asteroid mount jd": {
       "count": 13,
       "categories": [
@@ -4479,7 +4454,7 @@
       "max": 1,
       "samples": [
         1,
-        -1,
+        1,
         1,
         1,
         1
@@ -4518,34 +4493,10 @@
       "samples": [
         1,
         1,
-        1,
-        -1
+        -1,
+        1
       ],
       "onShip": true,
-      "onOutfit": true
-    },
-    "jump range": {
-      "count": 1,
-      "categories": [
-        "Systems"
-      ],
-      "min": 48,
-      "max": 48,
-      "samples": [
-        48
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "jump effect": {
-      "count": 50,
-      "categories": [
-        "Systems"
-      ],
-      "min": null,
-      "max": null,
-      "samples": [],
-      "onShip": false,
       "onOutfit": true
     },
     "asteroid mount 4": {
@@ -4623,6 +4574,17 @@
       "onShip": false,
       "onOutfit": true
     },
+    "jump effect": {
+      "count": 50,
+      "categories": [
+        "Systems"
+      ],
+      "min": null,
+      "max": null,
+      "samples": [],
+      "onShip": false,
+      "onOutfit": true
+    },
     "emp torpedo capacity": {
       "count": 6,
       "categories": [
@@ -4650,6 +4612,44 @@
       "max": 350,
       "samples": [
         350
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "no damage scaling": {
+      "count": 4,
+      "categories": [
+        "Turret",
+        "Turrets"
+      ],
+      "min": null,
+      "max": null,
+      "samples": [],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "uncapturable": {
+      "count": 1,
+      "categories": [
+        "Heavy Warship"
+      ],
+      "min": 1,
+      "max": 1,
+      "samples": [
+        1
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
+    "jump range": {
+      "count": 1,
+      "categories": [
+        "Systems"
+      ],
+      "min": 48,
+      "max": 48,
+      "samples": [
+        48
       ],
       "onShip": false,
       "onOutfit": true
@@ -4698,6 +4698,70 @@
       ],
       "onShip": true,
       "onOutfit": false
+    },
+    "relative firing shields": {
+      "count": 1,
+      "categories": [
+        "Turrets"
+      ],
+      "min": 0.001,
+      "max": 0.001,
+      "samples": [
+        0.001
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "burn damage": {
+      "count": 5,
+      "categories": [
+        "Guns",
+        "Secondary Weapons",
+        "Turrets"
+      ],
+      "min": 0.15,
+      "max": 40,
+      "samples": [
+        0.15,
+        0.4,
+        0.75,
+        10,
+        40
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "firelight missile capacity": {
+      "count": 3,
+      "categories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "min": -1,
+      "max": 18,
+      "samples": [
+        6,
+        -1,
+        18
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "firestorm torpedo capacity": {
+      "count": 3,
+      "categories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "min": -1,
+      "max": 13,
+      "samples": [
+        -1,
+        6,
+        13
+      ],
+      "onShip": false,
+      "onOutfit": true
     },
     "phasing": {
       "count": 2,
@@ -4768,70 +4832,6 @@
         1
       ],
       "onShip": true,
-      "onOutfit": true
-    },
-    "relative firing shields": {
-      "count": 1,
-      "categories": [
-        "Turrets"
-      ],
-      "min": 0.001,
-      "max": 0.001,
-      "samples": [
-        0.001
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "burn damage": {
-      "count": 5,
-      "categories": [
-        "Guns",
-        "Secondary Weapons",
-        "Turrets"
-      ],
-      "min": 0.15,
-      "max": 40,
-      "samples": [
-        0.15,
-        0.4,
-        0.75,
-        10,
-        40
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "firelight missile capacity": {
-      "count": 3,
-      "categories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "min": -1,
-      "max": 18,
-      "samples": [
-        6,
-        -1,
-        18
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "firestorm torpedo capacity": {
-      "count": 3,
-      "categories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "min": -1,
-      "max": 13,
-      "samples": [
-        -1,
-        6,
-        13
-      ],
-      "onShip": false,
       "onOutfit": true
     },
     "force protection": {
@@ -5004,6 +5004,19 @@
       "onShip": false,
       "onOutfit": true
     },
+    "operating costs": {
+      "count": 1,
+      "categories": [
+        "Secondary Weapons"
+      ],
+      "min": 150,
+      "max": 150,
+      "samples": [
+        150
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
     "delayed hull repair rate": {
       "count": 1,
       "categories": [
@@ -5029,19 +5042,6 @@
       ],
       "onShip": true,
       "onOutfit": false
-    },
-    "operating costs": {
-      "count": 1,
-      "categories": [
-        "Secondary Weapons"
-      ],
-      "min": 150,
-      "max": 150,
-      "samples": [
-        150
-      ],
-      "onShip": false,
-      "onOutfit": true
     },
     "shield protection": {
       "count": 5,
@@ -5108,6 +5108,35 @@
       "onShip": false,
       "onOutfit": true
     },
+    "spike capacity": {
+      "count": 3,
+      "categories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "min": -1,
+      "max": 20,
+      "samples": [
+        20,
+        -1,
+        16
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "firing ion": {
+      "count": 1,
+      "categories": [
+        "Secondary Weapons"
+      ],
+      "min": 3,
+      "max": 3,
+      "samples": [
+        3
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
     "waterlining": {
       "count": 1,
       "categories": [
@@ -5146,35 +5175,6 @@
       ],
       "onShip": true,
       "onOutfit": false
-    },
-    "spike capacity": {
-      "count": 3,
-      "categories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "min": -1,
-      "max": 20,
-      "samples": [
-        20,
-        -1,
-        16
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "firing ion": {
-      "count": 1,
-      "categories": [
-        "Secondary Weapons"
-      ],
-      "min": 3,
-      "max": 3,
-      "samples": [
-        3
-      ],
-      "onShip": false,
-      "onOutfit": true
     },
     "thunderhead capacity": {
       "count": 3,
