@@ -205,6 +205,49 @@ class SpeciesResolver {
     console.log(`  Fleet government-gap resolution: ${resolved} resolved, ${stillUnresolved} unresolved`);
   }
 
+  /**
+   * NEW. The planet-side counterpart to resolveFleetGovernmentGaps() above,
+   * for the exact same reason: a planet reopened from inside an event
+   * (e.g. `event "X" > planet "Y" > add shipyard "Z"`) creates its OWN
+   * planet record — each call to parsePlanetBlock starts a fresh, empty
+   * `shipyards`/`government` — and that reopening almost never restates
+   * the planet's `government` line, since all it's doing is adding a
+   * shipyard/outfitter.
+   *
+   * `_governmentsForShip`'s shipyard → planet → government chain requires
+   * the matching shipyard name AND a non-null government to be present on
+   * the SAME planet record. Without this backfill, a ship added to a
+   * shipyard purely via an event's `add shipyard` line would never
+   * resolve to a government at all — the record with the shipyard has
+   * `government: null`, and the record with the government doesn't list
+   * the newly-added shipyard.
+   *
+   * This backfills `government: null` planet records by copying the
+   * government from another record sharing the same planet name (+ same
+   * plugin, preferred; falling back to any plugin) that DOES have one —
+   * same plugin-priority pattern as resolveFleetGovernmentGaps and
+   * resolveAllNpcFleetRefs. Must run AFTER every file/plugin has been
+   * parsed, for the same reason: a planet's original, government-bearing
+   * definition may be parsed before OR after an event that reopens it.
+   */
+  resolvePlanetGovernmentGaps() {
+    let resolved = 0, stillUnresolved = 0;
+    for (const entry of this.planets) {
+      if (entry.government) continue;
+      let source = this.planets.find(p => p.name === entry.name && p.pluginId === entry.pluginId && p.government);
+      if (!source) source = this.planets.find(p => p.name === entry.name && p.government);
+      if (source) {
+        entry.government = source.government;
+        this.knownGovernments.add(source.government);
+        resolved++;
+      } else {
+        stillUnresolved++;
+        console.warn(`    ⚠ Planet "${entry.name}" (plugin ${entry.pluginId}) has shipyards/outfitters listed but no government could be found in any of its definitions.`);
+      }
+    }
+    console.log(`  Planet government-gap resolution: ${resolved} resolved, ${stillUnresolved} unresolved`);
+  }
+
   // ── Internal lookups ─────────────────────────────────────────────────────────
   // Each returns a Map<pluginId, Set<government>>.
 

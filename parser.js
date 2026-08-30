@@ -2798,6 +2798,11 @@ async function main() {
     sharedParser.speciesResolver.resolveFleetGovernmentGaps();
 
     console.log(`\n${'='.repeat(60)}`);
+    console.log(`Resolving planet government gaps (government-less planet reopenings, e.g. event "add shipyard")...`);
+    console.log('='.repeat(60));
+    sharedParser.speciesResolver.resolvePlanetGovernmentGaps();
+
+    console.log(`\n${'='.repeat(60)}`);
     console.log(`Resolving NPC fleet references across all plugins...`);
     console.log('='.repeat(60));
     sharedParser.resolveAllNpcFleetRefs();
