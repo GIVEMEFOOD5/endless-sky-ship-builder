@@ -123,15 +123,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -140,7 +158,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -346,15 +380,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -363,7 +415,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -557,15 +625,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -574,7 +660,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -776,15 +878,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -793,7 +913,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -999,15 +1135,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -1016,7 +1170,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -1210,15 +1380,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -1227,7 +1415,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -1429,15 +1633,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -1446,7 +1668,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -2049,15 +2287,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -2066,7 +2322,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -2260,15 +2532,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -2277,7 +2567,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -2467,15 +2773,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -2484,7 +2808,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -2678,15 +3018,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -2695,7 +3053,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -2877,15 +3251,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -2894,7 +3286,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
@@ -3080,15 +3488,33 @@
         "Heliarch": true
       },
       "POOT/poot-senza-solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       },
       "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -3097,7 +3523,23 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
     ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {

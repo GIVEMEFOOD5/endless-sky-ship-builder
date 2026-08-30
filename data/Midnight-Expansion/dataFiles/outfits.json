@@ -796,6 +796,8 @@
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
       "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -1520,6 +1522,7 @@
       }
     },
     "governmentEvents": [
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
       "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
@@ -1719,11 +1722,14 @@
     },
     "governmentEvents": [
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
       "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
       "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -1779,8 +1785,8 @@
         "Hai (Friendly Unfettered)": true
       },
       "official-game/endless-sky": {
-        "Hai (Unfettered)": true,
         "Hai": true,
+        "Hai (Unfettered)": true,
         "Merchant": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -1799,11 +1805,14 @@
     },
     "governmentEvents": [
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
       "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
       "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -1959,11 +1968,14 @@
     },
     "governmentEvents": [
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
       "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
       "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -2253,8 +2265,8 @@
         "Hai (Unfettered)": true
       },
       "official-game/endless-sky": {
-        "Hai (Unfettered)": true,
         "Hai": true,
+        "Hai (Unfettered)": true,
         "Merchant": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -2276,11 +2288,14 @@
     },
     "governmentEvents": [
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
       "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
       "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -2460,8 +2475,8 @@
         "Hai (Unfettered)": true
       },
       "official-game/endless-sky": {
-        "Hai (Unfettered)": true,
         "Hai": true,
+        "Hai (Unfettered)": true,
         "Merchant": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -2480,11 +2495,14 @@
     },
     "governmentEvents": [
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
       "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
       "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",

@@ -3878,10 +3878,15 @@
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Scrappers": true,
-        "Kor Scrappers (Hostile)": true
+        "Kor Scrappers (Hostile)": true,
+        "Alpha": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0"
+    ],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Missions": [

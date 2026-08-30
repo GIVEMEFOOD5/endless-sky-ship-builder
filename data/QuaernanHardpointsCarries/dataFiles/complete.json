@@ -9839,13 +9839,8 @@
       },
       "description": "If there's one thing you probably don't want to do, it's get closer to the Quaernan. That's why, despite its lack of direct damage, the Tractor Beam is so terrifying; able to reach out over extreme distances, the beam can leverage the Quaernan's sheer mass to draw its target closer to itself, pulling the target in range of more of the Quaernan's weapons. Thanks to the fact that the weapon does damage by exerting structural stresses on its target rather than more direct means, the target ship will take damage even through shields.",
       "governments": {
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
         "official-game/endless-sky": {
+          "Independent": true,
           "Merchant": true,
           "Deep Security": true,
           "Republic": true,
@@ -9853,14 +9848,31 @@
           "Pirate": true,
           "Free Worlds": true,
           "Militia": true,
-          "Syndicate (Extremist)": true,
           "Syndicate": true,
+          "Syndicate (Extremist)": true,
           "Author": true,
           "Lunarium (Hidden)": true,
           "Escort": true
         },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true,
+          "Republic": true,
+          "Uninhabited": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true,
+          "Republic": true,
+          "Uninhabited": true
+        },
         "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
           "Merchant": true
+        },
+        "Crisis In Management/endless-sky-syndicate": {
+          "Merchant": true,
+          "Militia (Rogue)": true,
+          "Syndicate": true,
+          "Syndicate (Extremist)": true,
+          "Alpha": true
         },
         "Rumskib/rumskib": {
           "Merchant": true,
@@ -9900,24 +9912,16 @@
           "Merchant": true,
           "MGF: Espion Mining Co.": true,
           "MGF: Shadow Rakin": true,
-          "MGF: NGK Security": true
+          "Republic": true,
+          "MGF: NGK Security": true,
+          "Syndicate": true
+        },
+        "Fire Corporation/Fire-Corporation": {
+          "Pirate": true
         },
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
           "Yuyuko Saigyouji": true,
           "Yuyuko Saigyouji (Hostile)": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true,
-          "Merchant": true,
-          "Syndicate": true,
-          "Syndicate (Extremist)": true,
-          "Alpha": true
-        },
-        "SpaceCrate/SpaceCrate": {
-          "SpaceCrate": true
-        },
-        "LixiChronikouOrious list/Louise.Conglomerate.Shipyards": {
-          "Merchant": true
         },
         "Midnight Expansion/Midnight-Expansion": {
           "Merchant": true,
@@ -9926,6 +9930,12 @@
           "Pirate (Rivals)": true,
           "Independent": true,
           "Bounty": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "SpaceCrate": true
+        },
+        "LixiChronikouOrious list/Louise.Conglomerate.Shipyards": {
+          "Merchant": true
         }
       },
       "governmentEvents": [
@@ -9936,6 +9946,12 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+        "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+        "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
         "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Syndicate (Extremist) → -0.01",
@@ -9945,9 +9961,13 @@
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+        "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
         "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
         "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -10452,5 +10472,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-08-30T14:41:59.895Z"
+  "parsedAt": "2026-08-30T15:21:14.783Z"
 }

@@ -98,6 +98,7 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
@@ -281,7 +282,9 @@
       "governmentEvents": [
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
         "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
         "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
         "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
@@ -501,6 +504,7 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
@@ -699,7 +703,9 @@
       "governmentEvents": [
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
         "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
         "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
         "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
@@ -871,6 +877,7 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
@@ -1052,7 +1059,9 @@
       "governmentEvents": [
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
         "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
         "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
         "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
@@ -1261,6 +1270,7 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
@@ -1531,13 +1541,8 @@
         "firing fuel": 0.15
       },
       "governments": {
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        },
         "official-game/endless-sky": {
+          "Independent": true,
           "Free Worlds": true,
           "Pirate": true,
           "Bounty Hunter": true,
@@ -1548,6 +1553,16 @@
           "Republic": true,
           "Navy (Oathkeeper)": true
         },
+        "POOT/poot-senza-solaria": {
+          "Syndicate": true,
+          "Republic": true,
+          "Uninhabited": true
+        },
+        "POOT/endless_sky_senza_solaria": {
+          "Syndicate": true,
+          "Republic": true,
+          "Uninhabited": true
+        },
         "Blended Ships/blended-ships": {
           "Pirate": true,
           "Free Worlds": true,
@@ -1555,17 +1570,22 @@
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true,
-          "Pirate": true
+          "Pirate": true,
+          "Merchant": true,
+          "Republic": true
         },
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
           "Yuyuko Saigyouji": true,
           "Yuyuko Saigyouji (Hostile)": true
         },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
         "Lost In Midnight/Lost-in-Midnight": {
+          "Pirate": true,
           "Bounty": true,
           "Republic": true,
           "Independent (Killable)": true,
-          "Pirate": true,
           "Free Worlds": true,
           "Merchant": true,
           "Escort": true,
@@ -1583,16 +1603,11 @@
           "Storm Seekers": true,
           "Navy (Oathkeeper)": true
         },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
         "LixiChronikouOrious list/Bunsen.Burner": {
           "Free Worlds": true
         },
-        "Mega Freight/Mega-Freight": {
-          "Escort": true,
-          "Pirate": true,
-          "MGF: Espion Mining Co.": true
+        "Fire Corporation/Fire-Corporation": {
+          "Pirate": true
         },
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true
@@ -1607,8 +1622,16 @@
         },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true,
+          "Alpha": true,
           "Kor Scrappers (Hostile)": true,
           "Scrapyard Derelict": true
+        },
+        "Mega Freight/Mega-Freight": {
+          "Pirate": true,
+          "MGF: Espion Mining Co.": true
+        },
+        "SpaceCrate/SpaceCrate": {
+          "Republic": true
         }
       },
       "governmentEvents": [
@@ -1619,6 +1642,12 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+        "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+        "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
         "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
@@ -1627,9 +1656,13 @@
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+        "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
         "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
         "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -1761,5 +1794,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-08-30T14:41:59.677Z"
+  "parsedAt": "2026-08-30T15:21:14.589Z"
 }

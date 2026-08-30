@@ -34,6 +34,7 @@
     "governments": {
       "official-game/endless-sky": {
         "Merchant": true,
+        "Pirate": true,
         "Syndicate": true
       },
       "Crisis In Management/endless-sky-syndicate": {
@@ -50,10 +51,22 @@
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
       "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -64,10 +77,14 @@
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
       "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
       "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
     ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {

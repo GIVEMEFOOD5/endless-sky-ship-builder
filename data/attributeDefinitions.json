@@ -16,14 +16,14 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-30T14:42:08.155Z",
+    "generatedAt": "2026-08-30T15:21:26.626Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-30T14:42:05.741Z",
+      "scannedAt": "2026-08-30T15:21:23.201Z",
       "totalCandidatesScanned": 468,
       "relevantFilesFound": 26,
       "relevantFilePaths": [
@@ -32,13 +32,13 @@
         "source/BoardingPanel.cpp",
         "source/DamageProfile.cpp",
         "source/Depreciation.cpp",
-        "source/Engine.cpp",
         "source/Entity.cpp",
+        "source/Engine.cpp",
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
-        "source/HailPanel.cpp",
         "source/Government.cpp",
         "source/Hardpoint.cpp",
+        "source/HailPanel.cpp",
         "source/HiringPanel.cpp",
         "source/LocationFilter.cpp",
         "source/MainPanel.cpp",
@@ -129,7 +129,7 @@
       "note": "isMovementRelevant on each attribute (below) is derived structurally from the ship-function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem at the bottom of this file for the full function/attribute lists and rationale."
     },
     "dataUsage": {
-      "scannedAt": "2026-08-30T14:42:08.150Z",
+      "scannedAt": "2026-08-30T15:21:26.615Z",
       "filesScanned": 199,
       "attributeKeysObserved": 274,
       "dataOnlyAttributeKeys": [
@@ -986,7 +986,7 @@
         0.6,
         0.05,
         0.3,
-        0.3
+        -1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -1926,11 +1926,11 @@
         "max": 200
       },
       "dataSampleValues": [
+        0.3,
+        2.4,
         6,
-        15,
         6,
-        15,
-        18
+        15
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -1967,11 +1967,11 @@
         "max": 60
       },
       "dataSampleValues": [
+        3,
+        6,
         2.4,
-        6.9,
-        2.4,
-        6.9,
-        2.7
+        9,
+        0.12
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -4484,11 +4484,11 @@
         "max": 56100
       },
       "dataSampleValues": [
-        4600,
-        3600,
-        320,
-        8000,
-        1000
+        108,
+        2.8,
+        3.5,
+        26,
+        26
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -4526,11 +4526,11 @@
         "max": 79999
       },
       "dataSampleValues": [
-        2300,
-        1800,
-        160,
-        4000,
-        500
+        32,
+        0.9,
+        1.5,
+        22,
+        22
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -4969,8 +4969,8 @@
         0.24,
         0.15,
         10,
-        12.5,
-        100
+        100,
+        12.5
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
@@ -5511,11 +5511,11 @@
         "max": 3180
       },
       "dataSampleValues": [
-        763,
-        777,
-        92,
-        839,
-        600
+        -25,
+        -140,
+        -52,
+        -34,
+        -17
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -5559,11 +5559,11 @@
         "max": 1148
       },
       "dataSampleValues": [
-        276,
-        339,
-        25,
-        314,
-        200
+        -22,
+        -10,
+        -22,
+        -52,
+        -41
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -5605,11 +5605,11 @@
         "max": 1000
       },
       "dataSampleValues": [
-        206,
-        159,
-        30,
-        165,
-        120
+        -17,
+        -12,
+        -89,
+        -67,
+        -10
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -5825,11 +5825,11 @@
         "max": 1864
       },
       "dataSampleValues": [
+        -20,
         675,
         175,
         264,
-        200,
-        -20
+        200
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -6087,11 +6087,11 @@
         "max": 3040
       },
       "dataSampleValues": [
+        0.1,
+        0.03,
+        0.04,
         25.6,
-        18,
-        1.35,
-        31.5,
-        18.5
+        18
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -6306,11 +6306,11 @@
         "max": 30000
       },
       "dataSampleValues": [
-        5900,
-        5400,
-        480,
-        12000,
-        1500
+        -240,
+        60,
+        450,
+        -225,
+        5900
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -6742,7 +6742,7 @@
         300,
         1200,
         600,
-        400
+        300
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
@@ -7111,10 +7111,10 @@
         "max": 30
       },
       "dataSampleValues": [
+        12,
         6,
         6,
         3,
-        12,
         5
       ],
       "dataOnShip": true,
@@ -7230,9 +7230,9 @@
         "max": 100
       },
       "dataSampleValues": [
+        90,
         72,
         36,
-        90,
         36,
         18
       ],
@@ -7262,8 +7262,8 @@
         "max": 18
       },
       "dataSampleValues": [
-        12,
         18,
+        12,
         18,
         2,
         2
@@ -7294,8 +7294,8 @@
         "max": 75
       },
       "dataSampleValues": [
-        42,
         72,
+        42,
         25,
         6,
         6
@@ -7369,8 +7369,8 @@
         "max": 120
       },
       "dataSampleValues": [
-        12,
         18,
+        12,
         18,
         25,
         8
@@ -7408,8 +7408,8 @@
         "max": 186
       },
       "dataSampleValues": [
-        42,
         72,
+        42,
         25,
         12,
         18
@@ -7464,8 +7464,8 @@
         "max": 350
       },
       "dataSampleValues": [
-        72,
         144,
+        72,
         144,
         25,
         169
@@ -7610,11 +7610,11 @@
         "max": 1940
       },
       "dataSampleValues": [
-        137,
-        145,
         1,
-        794,
-        120
+        1,
+        1,
+        1,
+        1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7661,8 +7661,8 @@
         10,
         6,
         90,
-        100,
-        5
+        5,
+        0.05
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7851,8 +7851,8 @@
         "max": 1000
       },
       "dataSampleValues": [
-        36,
         90,
+        36,
         1,
         1,
         1
@@ -8006,87 +8006,14 @@
         "max": 1861000000
       },
       "dataSampleValues": [
-        29370000,
-        16570000,
-        671000,
-        27690000,
-        5900000
+        1200000,
+        14000000,
+        1700000,
+        450000,
+        40000
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "shields": {
-      "key": "shields",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Drone",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "dataUsageCount": 304,
-      "dataValueRange": {
-        "min": 0,
-        "max": 4000000
-      },
-      "dataSampleValues": [
-        32500,
-        27000,
-        2300,
-        47000,
-        120000
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "hull": {
-      "key": "hull",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Drone",
-        "Fighter",
-        "Game Mechanics",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "dataUsageCount": 350,
-      "dataValueRange": {
-        "min": 1,
-        "max": 86135672193
-      },
-      "dataSampleValues": [
-        16500,
-        9000,
-        900,
-        34000,
-        70000
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -8127,50 +8054,11 @@
         "max": 67400
       },
       "dataSampleValues": [
-        2636,
-        1468,
-        106,
-        3022,
-        990
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "fuel capacity": {
-      "key": "fuel capacity",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Drone",
-        "Engines",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "dataUsageCount": 320,
-      "dataValueRange": {
-        "min": -100,
-        "max": 100000
-      },
-      "dataSampleValues": [
-        900,
-        600,
-        1000,
-        1000,
-        900
+        25,
+        140,
+        52,
+        34,
+        17
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8546,6 +8434,118 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
+    "shields": {
+      "key": "shields",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Drone",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "dataUsageCount": 304,
+      "dataValueRange": {
+        "min": 0,
+        "max": 4000000
+      },
+      "dataSampleValues": [
+        32500,
+        27000,
+        2300,
+        47000,
+        120000
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "hull": {
+      "key": "hull",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Drone",
+        "Fighter",
+        "Game Mechanics",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "dataUsageCount": 350,
+      "dataValueRange": {
+        "min": 1,
+        "max": 86135672193
+      },
+      "dataSampleValues": [
+        16500,
+        9000,
+        900,
+        34000,
+        70000
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "fuel capacity": {
+      "key": "fuel capacity",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Drone",
+        "Engines",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "dataUsageCount": 320,
+      "dataValueRange": {
+        "min": -100,
+        "max": 100000
+      },
+      "dataSampleValues": [
+        900,
+        600,
+        1000,
+        1000,
+        300
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
     "anchor point": {
       "key": "anchor point",
       "dataOnly": true,
@@ -8568,61 +8568,14 @@
         "max": 3
       },
       "dataSampleValues": [
-        1,
-        1,
-        1,
+        -1,
+        -1,
+        -1,
         1,
         1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "spinal mount": {
-      "key": "spinal mount",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Guns",
-        "Heavy Warship",
-        "Secondary Weapons",
-        "Superheavy",
-        "Systems",
-        "Utility"
-      ],
-      "dataUsageCount": 13,
-      "dataValueRange": {
-        "min": -1,
-        "max": 1
-      },
-      "dataSampleValues": [
-        1,
-        1,
-        -1,
-        -1,
-        1
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "hull repair energy": {
-      "key": "hull repair energy",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Utility"
-      ],
-      "dataUsageCount": 1,
-      "dataValueRange": {
-        "min": 3,
-        "max": 3
-      },
-      "dataSampleValues": [
-        3
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -8648,6 +8601,34 @@
       "dataOnShip": true,
       "dataOnOutfit": true,
       "area": "Scanners & Detection",
+      "areaBadges": []
+    },
+    "spinal mount": {
+      "key": "spinal mount",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Guns",
+        "Heavy Warship",
+        "Secondary Weapons",
+        "Superheavy",
+        "Systems",
+        "Utility"
+      ],
+      "dataUsageCount": 13,
+      "dataValueRange": {
+        "min": -1,
+        "max": 1
+      },
+      "dataSampleValues": [
+        -1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
     "reverse flare sprite": {
@@ -8705,6 +8686,25 @@
       "dataSampleValues": [],
       "dataOnShip": false,
       "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "hull repair energy": {
+      "key": "hull repair energy",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Utility"
+      ],
+      "dataUsageCount": 1,
+      "dataValueRange": {
+        "min": 3,
+        "max": 3
+      },
+      "dataSampleValues": [
+        3
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -9530,6 +9530,25 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
+    "uncapturable": {
+      "key": "uncapturable",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Heavy Warship"
+      ],
+      "dataUsageCount": 1,
+      "dataValueRange": {
+        "min": 1,
+        "max": 1
+      },
+      "dataSampleValues": [
+        1
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
     "asteroid mount jd": {
       "key": "asteroid mount jd",
       "dataOnly": true,
@@ -9545,7 +9564,7 @@
       },
       "dataSampleValues": [
         1,
-        1,
+        -1,
         1,
         1,
         1
@@ -9596,10 +9615,27 @@
       "dataSampleValues": [
         1,
         1,
-        -1,
-        1
+        1,
+        -1
       ],
       "dataOnShip": true,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "jump effect": {
+      "key": "jump effect",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Systems"
+      ],
+      "dataUsageCount": 50,
+      "dataValueRange": {
+        "min": null,
+        "max": null
+      },
+      "dataSampleValues": [],
+      "dataOnShip": false,
       "dataOnOutfit": true,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
@@ -9694,23 +9730,6 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "jump effect": {
-      "key": "jump effect",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Systems"
-      ],
-      "dataUsageCount": 50,
-      "dataValueRange": {
-        "min": null,
-        "max": null
-      },
-      "dataSampleValues": [],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
     "emp torpedo capacity": {
       "key": "emp torpedo capacity",
       "dataOnly": true,
@@ -9729,69 +9748,6 @@
         12,
         15,
         20
-      ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "uncapturable": {
-      "key": "uncapturable",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Heavy Warship"
-      ],
-      "dataUsageCount": 1,
-      "dataValueRange": {
-        "min": 1,
-        "max": 1
-      },
-      "dataSampleValues": [
-        1
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "firelight missile capacity": {
-      "key": "firelight missile capacity",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "dataUsageCount": 3,
-      "dataValueRange": {
-        "min": -1,
-        "max": 18
-      },
-      "dataSampleValues": [
-        6,
-        -1,
-        18
-      ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "firestorm torpedo capacity": {
-      "key": "firestorm torpedo capacity",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "dataUsageCount": 3,
-      "dataValueRange": {
-        "min": -1,
-        "max": 13
-      },
-      "dataSampleValues": [
-        -1,
-        6,
-        13
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
@@ -9878,6 +9834,50 @@
         1
       ],
       "dataOnShip": true,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "firelight missile capacity": {
+      "key": "firelight missile capacity",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "dataUsageCount": 3,
+      "dataValueRange": {
+        "min": -1,
+        "max": 18
+      },
+      "dataSampleValues": [
+        6,
+        -1,
+        18
+      ],
+      "dataOnShip": false,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "firestorm torpedo capacity": {
+      "key": "firestorm torpedo capacity",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "dataUsageCount": 3,
+      "dataValueRange": {
+        "min": -1,
+        "max": 13
+      },
+      "dataSampleValues": [
+        -1,
+        6,
+        13
+      ],
+      "dataOnShip": false,
       "dataOnOutfit": true,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
@@ -13647,58 +13647,6 @@
         ]
       }
     },
-    "Engine": {
-      "Step": {
-        "returnType": "void",
-        "params": "bool isActive",
-        "isConst": false,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "player.HasSeen(*system)",
-            "formula": "player.HasSeen(*system)"
-          },
-          {
-            "rawReturn": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()",
-            "formula": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()"
-          }
-        ]
-      },
-      "IsPaused": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "timePaused",
-            "formula": "timePaused"
-          }
-        ]
-      },
-      "Draw": {
-        "returnType": "void",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))",
-            "formula": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))"
-          },
-          {
-            "rawReturn": "(1000 + animationDuration - age) * .001f",
-            "formula": "(1000 + animationDuration - age) * .001f"
-          }
-        ]
-      }
-    },
     "Entity": {
       "EntityType": {
         "returnType": "Entity::Type",
@@ -14066,6 +14014,58 @@
         ],
         "attributesSet": [],
         "formulas": []
+      }
+    },
+    "Engine": {
+      "Step": {
+        "returnType": "void",
+        "params": "bool isActive",
+        "isConst": false,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "player.HasSeen(*system)",
+            "formula": "player.HasSeen(*system)"
+          },
+          {
+            "rawReturn": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()",
+            "formula": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()"
+          }
+        ]
+      },
+      "IsPaused": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "timePaused",
+            "formula": "timePaused"
+          }
+        ]
+      },
+      "Draw": {
+        "returnType": "void",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))",
+            "formula": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))"
+          },
+          {
+            "rawReturn": "(1000 + animationDuration - age) * .001f",
+            "formula": "(1000 + animationDuration - age) * .001f"
+          }
+        ]
       }
     },
     "FleetCargo": {

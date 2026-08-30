@@ -147,22 +147,27 @@
         "Republic": true,
         "Hai": true,
         "Hai (Wormhole Access)": true,
-        "Merchant": true
+        "Merchant": true,
+        "Pirate": true
       },
       "Mega Freight/Mega-Freight": {
         "Bounty": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant": true,
         "Republic": true,
-        "Scar's Legion": true,
-        "Merchant": true
+        "Scar's Legion": true
       },
       "Crisis In Management/endless-sky-syndicate": {
         "Merchant": true,
+        "Syndicate": true,
         "Independent": true,
         "Independent (Killable)": true
       },
       "LixiChronikouOrious list/Solar.Sails": {
+        "Merchant": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
         "Merchant": true
       },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
@@ -178,14 +183,33 @@
     "governmentEvents": [
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
       "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
       "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
       "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
       "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
       "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
       "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
@@ -267,21 +291,50 @@
       "official-game/endless-sky": {
         "Hai": true,
         "Hai (Wormhole Access)": true,
-        "Merchant": true
+        "Merchant": true,
+        "Pirate": true
       },
       "Crisis In Management/endless-sky-syndicate": {
-        "Merchant": true
+        "Merchant": true,
+        "Syndicate": true
       },
       "Mega Freight/Mega-Freight": {
         "Bounty": true
       }
     },
     "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
       "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
       "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
     ],
     "locations": {
       "LixiChronikouOrious list/Solar.Sails": {
@@ -328,10 +381,14 @@
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Merchant": true
       },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Merchant": true
+      },
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Merchant": true,
         "Republic": true,
         "Scar's Legion": true
       },
@@ -342,14 +399,18 @@
     "governmentEvents": [
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
       "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
       "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
       "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
       "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
       "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
       "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
       "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",

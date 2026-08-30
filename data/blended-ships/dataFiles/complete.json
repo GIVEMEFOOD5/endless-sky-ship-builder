@@ -4305,6 +4305,8 @@
         }
       },
       "governmentEvents": [
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -4516,6 +4518,8 @@
         }
       },
       "governmentEvents": [
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -4726,8 +4730,11 @@
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+        "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
@@ -4946,13 +4953,18 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+        "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
         "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
@@ -5184,6 +5196,8 @@
         }
       },
       "governmentEvents": [
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -5348,9 +5362,12 @@
       },
       "governmentEvents": [
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -5783,6 +5800,7 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+        "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
@@ -6304,10 +6322,15 @@
       "_hash": "f5917b425686",
       "governments": {
         "Blended Ships/blended-ships": {
-          "Arena": true
+          "Arena": true,
+          "Gegno": true
         }
       },
-      "governmentEvents": [],
+      "governmentEvents": [
+        "Event \"gegno: unified defense\": Gegno attitude toward Gegno Scin → 1",
+        "Event \"gegno: unified defense\": Gegno attitude toward Gegno Vi → 1",
+        "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno → 1"
+      ],
       "locations": {
         "Blended Ships/blended-ships": {
           "EventFleetChanges": [
@@ -6808,11 +6831,14 @@
       },
       "governmentEvents": [
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -7016,6 +7042,8 @@
         }
       },
       "governmentEvents": [
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -7185,6 +7213,7 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+        "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
@@ -7404,6 +7433,7 @@
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
         "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
@@ -7547,6 +7577,8 @@
       },
       "governmentEvents": [
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -7729,9 +7761,12 @@
       },
       "governmentEvents": [
         "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -7904,6 +7939,8 @@
         }
       },
       "governmentEvents": [
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -8010,6 +8047,8 @@
         }
       },
       "governmentEvents": [
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -8103,6 +8142,8 @@
         }
       },
       "governmentEvents": [
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -8780,6 +8821,8 @@
         }
       },
       "governmentEvents": [
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -8940,6 +8983,8 @@
         }
       },
       "governmentEvents": [
+        "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+        "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
@@ -9175,5 +9220,5 @@
   ],
   "outfits": [],
   "effects": [],
-  "parsedAt": "2026-08-30T14:41:59.674Z"
+  "parsedAt": "2026-08-30T15:21:14.586Z"
 }
