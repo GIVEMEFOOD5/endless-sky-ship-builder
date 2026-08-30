@@ -265,6 +265,30 @@ function outfitMapToOutputFormat(outfitMap) {
  *   OutfitName            → { name: "OutfitName", count: 1 }
  *   OutfitName 2          → { name: "OutfitName", count: 2 }
  */
+/**
+ * FIXED (bare-government pass). Every `government "X"` / `` government `X` ``
+ * matcher in this file previously required quotes around the government
+ * name. That's correct for multi-word governments (`government "Gegno Vi"`
+ * — the quotes are only there because of the space) but WRONG for the very
+ * common single-word case, e.g. `government Gegno`, `government Republic`,
+ * `government Hai` — all valid, unquoted Endless Sky syntax. Those lines
+ * silently failed to match, leaving `government` as `null` for every fleet/
+ * npc/planet/event/person that used a bare government name — which, for
+ * plugins that mostly use single-word government names, meant most or all
+ * of their fleets/ships never got a government at all, no warning given.
+ *
+ * `matchGovernmentLine(stripped)` is the single shared matcher now used by
+ * every call site in this file (fleet/npc/planet/event/person), mirroring
+ * the same bare-or-quoted acceptance already used for `give ship`/`give
+ * outfit`/person `ship` lines. Returns the government name, or null if the
+ * line isn't a government line at all.
+ */
+function matchGovernmentLine(stripped) {
+  const m = stripped.match(/^government\s+(?:"([^"]+)"|`([^`]+)`|(\S+))\s*$/);
+  if (!m) return null;
+  return m[1] ?? m[2] ?? m[3] ?? null;
+}
+
 function parseNameCount(raw) {
     if (typeof raw !== 'string') return null;
     raw = raw.trim();
@@ -1024,8 +1048,8 @@ class EndlessSkyParser {
       const stripped = line.trim();
 
       if (indent === personIndent + 1) {
-        const govMatch = stripped.match(/^government\s+"([^"]+)"/) || stripped.match(/^government\s+`([^`]+)`/);
-        if (govMatch) { government = govMatch[1]; i++; continue; }
+        const govName = matchGovernmentLine(stripped);
+        if (govName !== null) { government = govName; i++; continue; }
 
         const sysMatch = stripped.match(/^system\s+"([^"]+)"/) ||
                           stripped.match(/^system\s+`([^`]+)`/) ||
@@ -1105,8 +1129,8 @@ class EndlessSkyParser {
       const stripped = line.trim();
 
       if (indent === fleetIndent + 1) {
-        const govMatch = stripped.match(/^government\s+"([^"]+)"/) || stripped.match(/^government\s+`([^`]+)`/);
-        if (govMatch) { government = govMatch[1]; i++; continue; }
+        const govName = matchGovernmentLine(stripped);
+        if (govName !== null) { government = govName; i++; continue; }
 
         // NEW: `variant [<weight>]` / `add variant [<weight>]` — a group
         // of one or more quoted ship names representing one weighted
@@ -1253,10 +1277,9 @@ class EndlessSkyParser {
       if (indent <= npcIndent && line.trim()) break;
       const stripped = line.trim();
       if (indent === npcIndent + 1) {
-        const govMatch = stripped.match(/^government\s+"([^"]+)"/) ||
-                         stripped.match(/^government\s+`([^`]+)`/);
-        if (govMatch) {
-          government = govMatch[1];
+        const npcGovName = matchGovernmentLine(stripped);
+        if (npcGovName !== null) {
+          government = npcGovName;
           this.speciesResolver.knownGovernments.add(government);
           i++; continue;
         }
@@ -1291,6 +1314,7 @@ class EndlessSkyParser {
           // npc-level government for the ships gathered here.
           const fleetIndent = indent;
           let inlineGovernment = null;
+          const inlineShipNames = [];
           i++;
           while (i < lines.length) {
             const fl = lines[i];
@@ -1298,31 +1322,26 @@ class EndlessSkyParser {
             if (fi <= fleetIndent && fl.trim()) break;
             const fs2 = fl.trim();
             if (fi === fleetIndent + 1) {
-              const fgm = fs2.match(/^government\s+"([^"]+)"/) || fs2.match(/^government\s+`([^`]+)`/);
-              if (fgm) {
-                inlineGovernment = fgm[1];
+              const fgn = matchGovernmentLine(fs2);
+              if (fgn !== null) {
+                inlineGovernment = fgn;
                 this.speciesResolver.knownGovernments.add(inlineGovernment);
                 i++; continue;
               }
             }
             if (fi > fleetIndent + 1) {
               const fm = fs2.match(/^"([^"]+)"(?:\s+\d+)?$/) || fs2.match(/^`([^`]+)`(?:\s+\d+)?$/);
-              if (fm) shipNames.push(fm[1]);
+              if (fm) inlineShipNames.push(fm[1]);
             }
             i++;
           }
           // Ships gathered from THIS inline fleet use its own government
           // if it declared one; otherwise they fall back to whatever
           // government (if any) is already set at the npc level.
-          if (inlineGovernment) {
-            for (const shipName of shipNames.splice(0).length ? [] : []) {} // no-op guard, see below
-          }
-          if (inlineGovernment && inlineGovernment !== government) {
-            // Record these ships immediately under their own government so
-            // they don't get silently folded into the npc-level one below.
-            // (shipNames collected in this inline block are still added to
-            // the shared shipNames array above; we additionally record
-            // them here under inlineGovernment so both are captured.)
+          const effectiveGovernment = inlineGovernment ?? government;
+          for (const shipName of inlineShipNames) {
+            this.speciesResolver.collectNpcRef(effectiveGovernment, shipName, this._currentPluginId);
+            if (missionName) this.locationResolver.collectMissionNpcShip(missionName, shipName, this._currentPluginId);
           }
           continue;
         }
@@ -1354,10 +1373,9 @@ class EndlessSkyParser {
       if (indent <= npcIndent && line.trim()) break;
       const stripped = line.trim();
       if (indent === npcIndent + 1) {
-        const govMatch = stripped.match(/^government\s+"([^"]+)"/) ||
-                         stripped.match(/^government\s+`([^`]+)`/);
-        if (govMatch) {
-          government = govMatch[1];
+        const npcGovName = matchGovernmentLine(stripped);
+        if (npcGovName !== null) {
+          government = npcGovName;
           this.speciesResolver.knownGovernments.add(government);
           i++; continue;
         }
@@ -1380,9 +1398,12 @@ class EndlessSkyParser {
             i++; continue;
           }
           // Anonymous inline fleet — same local-government fix as
-          // _parseMissionNpcBlock above.
+          // _parseMissionNpcBlock above: ships found inside this specific
+          // inline fleet sub-block use ITS OWN government line if it has
+          // one, falling back to the npc-level government otherwise.
           const fleetIndent = indent;
           let inlineGovernment = null;
+          const inlineShipNames = [];
           i++;
           while (i < lines.length) {
             const fl = lines[i];
@@ -1390,20 +1411,23 @@ class EndlessSkyParser {
             if (fi <= fleetIndent && fl.trim()) break;
             const fs2 = fl.trim();
             if (fi === fleetIndent + 1) {
-              const fgm = fs2.match(/^government\s+"([^"]+)"/) || fs2.match(/^government\s+`([^`]+)`/);
-              if (fgm) {
-                inlineGovernment = fgm[1];
+              const fgn = matchGovernmentLine(fs2);
+              if (fgn !== null) {
+                inlineGovernment = fgn;
                 this.speciesResolver.knownGovernments.add(inlineGovernment);
                 i++; continue;
               }
             }
             if (fi > fleetIndent + 1) {
               const fm = fs2.match(/^"([^"]+)"(?:\s+\d+)?$/) || fs2.match(/^`([^`]+)`(?:\s+\d+)?$/);
-              if (fm) shipNames.push(fm[1]);
+              if (fm) inlineShipNames.push(fm[1]);
             }
             i++;
           }
-          if (inlineGovernment) government = government ?? inlineGovernment;
+          const effectiveGovernment = inlineGovernment ?? government;
+          for (const shipName of inlineShipNames) {
+            this.speciesResolver.collectNpcRef(effectiveGovernment, shipName, this._currentPluginId);
+          }
           continue;
         }
       }
@@ -1530,7 +1554,7 @@ class EndlessSkyParser {
       const indent = line.length - line.replace(/^\t+/, '').length;
       if (indent === 0 && line.trim()) break;
       const stripped = line.trim();
-      const govMatch   = stripped.match(/^government\s+"([^"]+)"/);
+      const planetGovName = matchGovernmentLine(stripped);
       const syMatch =
         stripped.match(/^shipyard\s+"([^"]+)"/) ||
         stripped.match(/^shipyard\s+`([^`]+)`/) ||
@@ -1558,7 +1582,7 @@ class EndlessSkyParser {
         stripped.match(/^outfitter\s+`([^`]+)`/) ||
         stripped.match(/^outfitter\s+(\S+)/);
 
-      if (govMatch)   government = govMatch[1];
+      if (planetGovName !== null) government = planetGovName;
       if (syMatch)    shipyards.push(syMatch[1]);
       if (ofMatch)    outfitters.push(ofMatch[1]);
       if (addSyMatch) {
@@ -1673,9 +1697,9 @@ class EndlessSkyParser {
         }
 
         // ── NEW: government "X" sub-block — "attitude toward" changes.
-        const govBlockM = stripped.match(/^government\s+"([^"]+)"/) || stripped.match(/^government\s+`([^`]+)`/);
-        if (govBlockM) {
-          const govName   = govBlockM[1];
+        const eventGovName = matchGovernmentLine(stripped);
+        if (eventGovName !== null) {
+          const govName   = eventGovName;
           const govIndent = indent;
           this.speciesResolver.knownGovernments.add(govName);
           i++;
@@ -1689,11 +1713,15 @@ class EndlessSkyParser {
               inAttitude = true; i++; continue;
             }
             if (inAttitude && gi > govIndent + 1) {
-              const atM = gs.match(/^"([^"]+)"\s+(-?[\d.]+)/) || gs.match(/^`([^`]+)`\s+(-?[\d.]+)/);
+              // FIXED: previously required quotes around the target
+              // government name too — same bare-name bug as everywhere
+              // else. Now accepts bare or quoted.
+              const atM = gs.match(/^(?:"([^"]+)"|`([^`]+)`|(\S+))\s+(-?[\d.]+)/);
               if (atM) {
-                this.speciesResolver.knownGovernments.add(atM[1]);
+                const targetGov = atM[1] ?? atM[2] ?? atM[3];
+                this.speciesResolver.knownGovernments.add(targetGov);
                 this.speciesResolver.collectEventGovernmentAttitudeChange(
-                  eventName, govName, atM[1], parseFloat(atM[2]), this._currentPluginId
+                  eventName, govName, targetGov, parseFloat(atM[4]), this._currentPluginId
                 );
               }
             }
